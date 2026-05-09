@@ -99,6 +99,16 @@ See [ROADMAP.md](ROADMAP.md)
 
 ## Contributing
 
+## Community
+
+ALFRED is progressively being developed in public through experimentation, UX/UI exploration and open discussion.
+
+Join the community Discord server:
+
+👉 https://discord.gg/NcQj7W84
+
+https://discord.gg/NcQj7W84
+
 Contributions, feedback and design explorations are welcome.
 
 Please read [CONTRIBUTING.md](CONTRIBUTING.md) before contributing.
