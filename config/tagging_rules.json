@@ -1,0 +1,259 @@
+{
+  "schema_version": "1.0",
+  "type": "tagging_rules",
+  "id": "config.tagging_rules",
+  "status": "validated_v1",
+
+  "description": "Règles de tagging permettant à ALFRED de classer, retrouver et prioriser les fiches de connaissances.",
+
+  "global_rules": {
+    "tags_lowercase": true,
+    "use_snake_case": true,
+    "max_tags_per_unit": 12,
+    "min_tags_per_unit": 4,
+    "deduplicate_tags": true,
+    "avoid_generic_only_tags": true
+  },
+
+  "required_tags_by_domain": {
+    "core": [
+      "alfred",
+      "core_identity"
+    ],
+    "culture": [
+      "culture",
+      "universe"
+    ],
+    "human": [
+      "human",
+      "behavior"
+    ],
+    "professional": [
+      "professional",
+      "methodology"
+    ],
+    "lifestyle": [
+      "daily_life",
+      "support"
+    ]
+  },
+
+  "semantic_tag_groups": {
+    "emotion_stability": [
+      "emotion",
+      "stabilite",
+      "support",
+      "empathy",
+      "recentrage",
+      "fatigue",
+      "stress"
+    ],
+    "logic_performance": [
+      "logic",
+      "performance",
+      "analysis",
+      "automation",
+      "optimization",
+      "execution"
+    ],
+    "ethics_risk": [
+      "ethics",
+      "risk",
+      "privacy",
+      "consent",
+      "manipulation",
+      "dependance",
+      "safety"
+    ],
+    "culture_archetypes": [
+      "dc",
+      "marvel",
+      "batman",
+      "joker",
+      "jarvis",
+      "iron_man",
+      "alfred_pennyworth",
+      "archetype"
+    ],
+    "project_alfred": [
+      "alfred_project",
+      "assistant",
+      "hybrid_ai",
+      "local_first",
+      "privacy_by_design"
+    ]
+  },
+
+  "auto_tagging_keywords": [
+    {
+      "keywords": [
+        "fatigue",
+        "épuisement",
+        "stress",
+        "surcharge",
+        "angoisse"
+      ],
+      "add_tags": [
+        "emotion",
+        "support",
+        "stabilite"
+      ]
+    },
+    {
+      "keywords": [
+        "organisation",
+        "planning",
+        "priorité",
+        "tâche",
+        "plan"
+      ],
+      "add_tags": [
+        "organization",
+        "execution",
+        "planning"
+      ]
+    },
+    {
+      "keywords": [
+        "risque",
+        "éthique",
+        "manipulation",
+        "confidentialité",
+        "dépendance"
+      ],
+      "add_tags": [
+        "ethics",
+        "risk",
+        "safety"
+      ]
+    },
+    {
+      "keywords": [
+        "batman",
+        "joker",
+        "gotham",
+        "alfred pennyworth"
+      ],
+      "add_tags": [
+        "culture",
+        "dc",
+        "archetype"
+      ]
+    },
+    {
+      "keywords": [
+        "jarvis",
+        "iron man",
+        "tony stark",
+        "marvel"
+      ],
+      "add_tags": [
+        "culture",
+        "marvel",
+        "technology"
+      ]
+    },
+    {
+      "keywords": [
+        "rag",
+        "llm",
+        "embedding",
+        "vector",
+        "chunking"
+      ],
+      "add_tags": [
+        "ai",
+        "rag",
+        "knowledge"
+      ]
+    }
+  ],
+
+  "priority_tags": {
+    "critical": [
+      "core_identity",
+      "privacy",
+      "security",
+      "ethics"
+    ],
+    "high": [
+      "emotion",
+      "support",
+      "logic",
+      "performance",
+      "organization",
+      "alfred_project"
+    ],
+    "medium": [
+      "culture",
+      "archetype",
+      "learning",
+      "methodology"
+    ],
+    "low": [
+      "example",
+      "draft",
+      "reference"
+    ]
+  },
+
+  "tag_quality_rules": {
+    "forbidden_tags": [
+      "divers",
+      "misc",
+      "truc",
+      "test"
+    ],
+    "avoid_duplicate_meanings": [
+      [
+        "ai",
+        "ia"
+      ],
+      [
+        "stability",
+        "stabilite"
+      ],
+      [
+        "organization",
+        "organisation"
+      ]
+    ],
+    "preferred_language": "mixed_fr_en_controlled",
+    "preferred_forms": {
+      "ia": "ai",
+      "organisation": "organization",
+      "stability": "stabilite",
+      "privacy": "privacy",
+      "ethique": "ethics"
+    }
+  },
+
+  "integration": {
+    "used_by": [
+      "knowledge_loader.py",
+      "knowledge_registry.json",
+      "rag_settings.json"
+    ],
+    "purpose": [
+      "améliorer la recherche",
+      "renforcer le scoring",
+      "standardiser les fiches",
+      "préparer l’indexation vectorielle future"
+    ]
+  },
+
+  "related_features": [
+    "18.01.002",
+    "18.01.003",
+    "18.01.004",
+    "18.03.004"
+  ],
+
+  "tags": [
+    "tagging",
+    "knowledge",
+    "classification",
+    "rag",
+    "alfred"
+  ]
+}

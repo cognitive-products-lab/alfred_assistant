@@ -1,0 +1,228 @@
+{
+  "manifest_id": "alfred_knowledge_manifest_v2_0",
+  "version": "2.0.0",
+  "last_update": "2026-05-10",
+  "status": "active",
+  "description": "Manifest global du socle de connaissances ALFRED. Il décrit les domaines, sous-domaines, usages et règles générales de chargement du dossier knowledges.",
+  "scope": {
+    "bloc": "B18",
+    "name": "Knowledge & Culture",
+    "root_path": "knowledges/",
+    "mode": "local_first",
+    "usage": [
+      "knowledge_retrieval",
+      "contextual_response",
+      "memory_linking",
+      "reasoning_support",
+      "alfred_private",
+      "alfred_cpl"
+    ]
+  },
+  "governance": {
+    "source_of_truth": "knowledge_registry.json",
+    "taxonomy_file": "taxonomy.json",
+    "domain_links_file": "domain_links.json",
+    "retrieval_rules_file": "retrieval_rules.json",
+    "manifest_role": "Décrire la structure générale du socle knowledge sans remplacer le registry.",
+    "update_rule": "Mettre à jour ce manifest lors de l'ajout d'un nouveau domaine ou sous-domaine majeur.",
+    "encoding": "UTF-8 sans BOM recommandé"
+  },
+  "domains": {
+    "core": {
+      "label": "Core ALFRED",
+      "description": "Identité, règles centrales, modes comportementaux, personnalisation et conscience contextuelle.",
+      "priority": "critical",
+      "path": "knowledges/core/"
+    },
+    "system": {
+      "label": "Système & mémoire",
+      "description": "Mémoire, éthique système, règles d’apprentissage, priorisation et gouvernance interne.",
+      "priority": "critical",
+      "path": "knowledges/system/"
+    },
+    "human": {
+      "label": "Humain & comportements",
+      "description": "Cognition, psychologie, intelligence émotionnelle, soft skills, habitudes et comportements sociaux.",
+      "priority": "high",
+      "path": "knowledges/human/",
+      "subdomains": [
+        "cognition",
+        "emotional_intelligence",
+        "psychology",
+        "relationships",
+        "self_alignment",
+        "skills/softskills",
+        "social_behavior"
+      ]
+    },
+    "lifestyle": {
+      "label": "Vie quotidienne & bien-être non médical",
+      "description": "Organisation quotidienne, gestion du temps, fatigue, récupération, stress et routines.",
+      "priority": "medium",
+      "path": "knowledges/lifestyle/",
+      "safety_note": "Ce domaine ne doit jamais produire de diagnostic médical."
+    },
+    "culture": {
+      "label": "Culture générale & univers narratifs",
+      "description": "Culture générale, histoire, géographie, économie, société, art, contexte géopolitique et univers symboliques.",
+      "priority": "medium",
+      "path": "knowledges/culture/",
+      "subdomains": [
+        "general",
+        "universes/dc",
+        "universes/marvel"
+      ]
+    },
+    "professional": {
+      "label": "Compétences professionnelles",
+      "description": "Produit, business, décision, architecture, IA, cybersécurité, frameworks, normes ISO et stratégie.",
+      "priority": "high",
+      "path": "knowledges/professional/",
+      "subdomains": [
+        "business",
+        "communication",
+        "decision",
+        "engineering/ai",
+        "engineering/cybersecurite",
+        "engineering/systeme_design",
+        "frameworks",
+        "leadership",
+        "product_management",
+        "standards_iso",
+        "strategy/product_strategy"
+      ]
+    },
+    "cpl": {
+      "label": "Cognitive Products Lab",
+      "description": "Connaissances stratégiques, produit, gouvernance, business piloting, exécution et communication liées à ALFRED CPL.",
+      "priority": "critical",
+      "path": "knowledges/cpl/"
+    },
+    "index": {
+      "label": "Index techniques",
+      "description": "Registres secondaires et fichiers d’indexation technique.",
+      "priority": "technical",
+      "path": "knowledges/index/"
+    }
+  },
+  "recently_added_lots": {
+    "culture_general": {
+      "path": "knowledges/culture/general/",
+      "files": [
+        "history_basics.json",
+        "geography_basics.json",
+        "science_basics.json",
+        "economy_basics.json",
+        "society_basics.json",
+        "art_culture_basics.json",
+        "current_geopolitical_economic_context_2026.json"
+      ]
+    },
+    "human_social_behavior": {
+      "path": "knowledges/human/social_behavior/",
+      "files": [
+        "emotions_basics.json",
+        "communication_styles.json",
+        "motivation_needs.json",
+        "social_isolation.json",
+        "humor_and_laughter.json",
+        "self_deprecation_and_autoderision.json",
+        "social_bonding.json",
+        "conversational_warmth.json"
+      ]
+    },
+    "professional_product_management": {
+      "path": "knowledges/professional/product_management/",
+      "files": [
+        "business_model_basics.json",
+        "lean_startup.json",
+        "ux_research_basics.json",
+        "kpi_product_advanced.json",
+        "innovation_strategy.json",
+        "product_market_fit.json",
+        "user_feedback_loops.json",
+        "roadmap_management.json",
+        "agile_product_delivery.json",
+        "product_risk_management.json"
+      ]
+    },
+    "professional_frameworks": {
+      "path": "knowledges/professional/frameworks/",
+      "files": [
+        "agile_scrum_basics.json",
+        "kanban_basics.json",
+        "lean_six_sigma_basics.json",
+        "itil4_basics.json",
+        "rgpd_gdpr_basics.json",
+        "iso_27001_basics.json",
+        "nist_cybersecurity_framework.json",
+        "prince2_basics.json",
+        "safe_framework_basics.json",
+        "product_operating_model.json"
+      ]
+    },
+    "professional_standards_iso": {
+      "path": "knowledges/professional/standards_iso/",
+      "files": [
+        "iso_9001_quality_management.json",
+        "iso_14001_environmental_management.json",
+        "iso_26000_social_responsibility.json",
+        "iso_27001_information_security.json",
+        "iso_27002_security_controls.json",
+        "iso_27005_risk_management.json",
+        "iso_27701_privacy_management.json",
+        "iso_22301_business_continuity.json",
+        "iso_31000_risk_management.json",
+        "iso_42001_ai_management_system.json"
+      ]
+    },
+    "professional_engineering_systeme_design": {
+      "path": "knowledges/professional/engineering/systeme_design/",
+      "files": [
+        "software_architecture.json",
+        "local_first_architecture.json",
+        "api_basics.json",
+        "microservices_architecture.json",
+        "event_driven_architecture.json"
+      ]
+    },
+    "professional_engineering_ai": {
+      "path": "knowledges/professional/engineering/ai/",
+      "files": [
+        "rag_architecture.json",
+        "llm_orchestration.json",
+        "prompt_engineering.json"
+      ]
+    }
+  },
+  "loading_policy": {
+    "default_domains": [
+      "core",
+      "system",
+      "human",
+      "professional",
+      "cpl"
+    ],
+    "optional_domains": [
+      "culture",
+      "lifestyle"
+    ],
+    "technical_files_not_loaded_as_knowledge": [
+      "manifest.json",
+      "taxonomy.json",
+      "domain_links.json",
+      "retrieval_rules.json",
+      "governance_rules.json",
+      "knowledge_template.json",
+      "knowledge_registry.json"
+    ]
+  },
+  "future_planning": {
+    "next_updates": [
+      "Mettre à jour knowledge_registry.json avec les nouveaux fichiers.",
+      "Mettre à jour taxonomy.json avec culture.general, human.social_behavior, professional.frameworks, professional.standards_iso et engineering.systeme_design.",
+      "Mettre à jour domain_links.json pour créer les liens cognitifs transverses.",
+      "Tester retrieval_engine.py sur des requêtes multi-domaines."
+    ]
+  }
+}

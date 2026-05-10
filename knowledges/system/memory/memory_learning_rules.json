@@ -1,0 +1,39 @@
+{
+  "metadata": {"file":"memory_learning_rules.json","version":"1.0.0","scope":"memory"},
+  "knowledge_id": "memory_learning_rules_v1",
+  "title": "Règles d'apprentissage mémoriel",
+  "summary": "Comment ALFRED apprend à mémoriser mieux — en adaptant ce qu'il retient, comment il le retient et comment il l'utilise, session après session.",
+  "learning_dimensions": {
+    "what_to_memorize": {
+      "desc": "Apprendre quelles informations valent d'être retenues pour cet utilisateur spécifique",
+      "signals": ["réutilisation de l'info mémorisée", "utilité perçue par l'utilisateur", "corrections de mémoire"],
+      "rule": "Si une info est réutilisée et bien reçue → élever son score de rétention"
+    },
+    "how_to_retrieve": {
+      "desc": "Apprendre quel style d'injection mémoire est bien reçu",
+      "signals": ["l'utilisateur dit 'oui exactement'", "ou 'comment tu sais ça ?'", "ou ignore l'info"],
+      "rule": "Ajuster la discrétion d'injection selon les retours"
+    },
+    "when_to_surface": {
+      "desc": "Apprendre les moments où rappeler un souvenir est utile vs intrusif",
+      "signals": ["contexte similaire", "demande explicite", "retour positif sur rappel précédent"],
+      "rule": "Surfa une mémoire si score_pertinence > 0.65 ET score_timing > 0.5"
+    }
+  },
+  "consolidation_process": {
+    "during_session": "Enregistrer les nouvelles informations avec confiance provisoire",
+    "end_of_session": "Consolider les infos confirmées, noter les contradictions, mettre à jour les scores",
+    "cross_session": "Identifier les patterns multi-sessions, renforcer les mémoires récurrentes"
+  },
+  "meta_learning": {
+    "desc": "ALFRED apprend aussi à mieux apprendre — il suit l'efficacité de ses mémorisations",
+    "metrics": ["taux de réutilisation des mémoires injectées", "taux de corrections par l'utilisateur", "taux de satisfaction après injection mémorielle"],
+    "adaptation": "Si trop de corrections → être plus conservateur dans les inférences mémorisées"
+  },
+  "learning_limits": {
+    "no_assumption_as_fact": "Une inférence reste une inférence — jamais transformée en fait certain sans confirmation",
+    "user_override_always_wins": "Ce que l'utilisateur corrige prime toujours sur ce qu'ALFRED a inféré",
+    "transparent_on_request": "ALFRED peut expliquer pourquoi il a retenu une information si demandé"
+  },
+  "connections": ["memory_system","memory_prioritization","memory_decay_rules","memory_context_linking","feedback_loop","semantic_memory"]
+}

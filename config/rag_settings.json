@@ -1,0 +1,153 @@
+{
+  "schema_version": "1.0",
+  "type": "rag_settings",
+  "id": "config.rag_settings",
+  "status": "validated_v1",
+
+  "description": "Configuration du système RAG (Retrieval-Augmented Generation) d’ALFRED : recherche, scoring, injection et sécurité des connaissances.",
+
+  "rag_mode": "local_keyword_v1",
+  "future_modes": [
+    "hybrid_keyword_semantic",
+    "vector_database",
+    "embedding_search"
+  ],
+
+  "retrieval": {
+    "enabled": true,
+    "strategy": "keyword_first",
+    "fallback_strategy": "core_identity_only",
+    "top_k": 3,
+    "max_k": 5,
+    "min_score_threshold": 0.6,
+    "allow_partial_match": true,
+    "boost_exact_match": true,
+    "boost_title_match": true,
+    "boost_tag_match": true
+  },
+
+  "scoring": {
+    "title_weight": 10,
+    "tag_weight": 8,
+    "key_concept_weight": 6,
+    "summary_weight": 4,
+    "core_definition_weight": 4,
+    "full_text_weight": 1,
+    "context_bonus_weight": 5,
+    "mode_bonus": {
+      "support_mode": [ "emotion", "support", "stabilite" ],
+      "execution_mode": [ "logic", "performance", "organization" ],
+      "learning_mode": [ "explain", "definition", "example" ],
+      "ethics_mode": [ "risk", "ethics", "limite" ]
+    }
+  },
+
+  "chunking": {
+    "enabled": false,
+    "strategy": "future_semantic_chunking",
+    "max_chunk_size": 800,
+    "overlap": 100,
+    "split_fields": [
+      "summary",
+      "core_definition",
+      "cultural_knowledge",
+      "conversation_uses"
+    ]
+  },
+
+  "context_injection": {
+    "max_units": 5,
+    "max_total_chars": 5000,
+    "max_chars_per_unit": 1500,
+    "include_fields": [
+      "title",
+      "summary",
+      "core_definition",
+      "conversation_uses",
+      "limits"
+    ],
+    "optional_fields": [
+      "example_answers",
+      "cultural_knowledge",
+      "alfred_project_links"
+    ],
+    "priority_order": [
+      "core_definition",
+      "summary",
+      "conversation_uses"
+    ]
+  },
+
+  "deduplication": {
+    "enabled": true,
+    "strategy": "by_id",
+    "merge_similar_units": false
+  },
+
+  "safety": {
+    "avoid_hallucination": true,
+    "require_minimum_context": false,
+    "if_low_confidence": "fallback_or_ask",
+    "max_assertiveness": "moderate",
+    "disclaimer_mode": "implicit",
+    "respect_limits_field": true
+  },
+
+  "fallback": {
+    "no_result": {
+      "action": "use_core_identity",
+      "message_policy": "answer_without_specific_knowledge"
+    },
+    "low_score": {
+      "action": "limit_claims",
+      "message_policy": "be_cautious"
+    },
+    "conflict_between_units": {
+      "action": "prioritize_highest_score",
+      "message_policy": "avoid_confusion"
+    }
+  },
+
+  "performance": {
+    "cache_enabled": true,
+    "cache_size": 100,
+    "cache_ttl_seconds": 300,
+    "lazy_loading": true
+  },
+
+  "future_vector_config": {
+    "enabled": false,
+    "embedding_model": "to_define",
+    "vector_store": "to_define",
+    "distance_metric": "cosine",
+    "top_k_vector": 5
+  },
+
+  "integration": {
+    "used_by": [
+      "knowledge_loader.py",
+      "response_generator.py",
+      "decision_router.py"
+    ],
+    "depends_on": [
+      "knowledge_settings.json",
+      "routing_rules.json"
+    ]
+  },
+
+  "related_features": [
+    "18.01.003",
+    "18.01.004",
+    "18.03.004",
+    "18.05.004"
+  ],
+
+  "tags": [
+    "rag",
+    "retrieval",
+    "knowledge",
+    "scoring",
+    "injection",
+    "alfred"
+  ]
+}

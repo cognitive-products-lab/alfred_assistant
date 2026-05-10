@@ -1,0 +1,71 @@
+# ============================================================
+# ALFRED — requirements.txt consolidé
+# Version : Foundation (V1 → V4 ready)
+# Principe : local-first, security by design, zero trust
+# ============================================================
+# Installer avec :
+#   pip install -r requirements.txt
+# ============================================================
+
+# --- CORE ---
+python-dotenv>=1.0.0        # Gestion des secrets (.env)
+pydantic>=2.0.0             # Validation et structuration des données
+
+# --- SÉCURITÉ (Bloc 20) ---
+cryptography>=42.0.0        # Chiffrement Fernet (AES-128)
+bcrypt>=4.0.0               # Hachage sécurisé (PIN, mot de passe)
+PyJWT>=2.8.0                # Tokens JWT pour sessions
+
+# --- NLP / IA LOCALE ---
+# Choisir selon le modèle local utilisé :
+# llama-cpp-python>=0.2.0   # LLM local (Llama, Mistral, etc.)
+# transformers>=4.40.0      # HuggingFace (modèles locaux)
+# torch>=2.0.0              # PyTorch (requis par transformers)
+# sentence-transformers>=2.7.0  # Embeddings pour RAG
+
+# --- SPEECH (STT / TTS) ---
+# whisper>=1.1.4            # STT offline (OpenAI Whisper local)
+# pyttsx3>=2.90             # TTS offline basique (V1)
+# TTS>=0.22.0               # Coqui TTS / Piper (V2+, qualité)
+
+# --- MÉMOIRE / BASE DE DONNÉES ---
+# sqlite3 est inclus dans Python — pas d'installation nécessaire
+# Pour V3+ (mémoire sémantique / RAG) :
+# chromadb>=0.4.0           # Vector DB locale
+# faiss-cpu>=1.8.0          # Recherche vectorielle locale
+
+# --- INTERFACE (GUI) ---
+# kivy>=2.3.0               # Interface desktop (Windows)
+# kivymd>=1.2.0             # Material Design pour Kivy
+
+# --- DOMOTIQUE (V4) ---
+# paho-mqtt>=2.0.0          # MQTT pour objets connectés
+# requests>=2.31.0          # API REST (météo, Google Home, etc.)
+
+# --- AUDIT / SÉCURITÉ DEV ---
+bandit>=1.7.0               # Scan sécurité du code Python
+pip-audit>=2.7.0            # Audit des dépendances
+
+# --- TESTS ---
+pytest>=8.0.0               # Framework de tests
+pytest-cov>=5.0.0           # Coverage des tests
+
+# --- UTILITAIRES ---
+pathlib2>=2.3.7             # Gestion des chemins (compat)
+python-dateutil>=2.9.0      # Manipulation des dates
+
+# ============================================================
+# NOTES D'INSTALLATION
+# ============================================================
+# 1. Toujours travailler dans le venv :
+#    python -m venv .venv
+#    .venv\Scripts\Activate.ps1  (Windows)
+#
+# 2. Décommenter les lignes selon la phase active :
+#    V1 : sections CORE + SÉCURITÉ + TESTS
+#    V2 : + NLP local (modèle léger)
+#    V3 : + STT/TTS + mémoire sémantique
+#    V4 : + domotique
+#
+# 3. Ne jamais installer en global (hors venv)
+# ============================================================

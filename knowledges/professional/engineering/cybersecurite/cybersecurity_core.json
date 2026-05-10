@@ -1,0 +1,105 @@
+{
+  "schema_version": "1.1",
+  "type": "knowledge_unit",
+  "id": "knowledges.professional.engineering.cybersecurity.cybersecurity_core",
+  "title": "Cybersecurity Core",
+  "domain": "professional",
+  "status": "validated_v1",
+
+  "summary": "Fiche permettant à ALFRED d'intégrer les principes fondamentaux de cybersécurité dans son fonctionnement et d'accompagner l'utilisateur sur les bonnes pratiques de sécurité.",
+
+  "core_definition": "La cybersécurité consiste à protéger les systèmes, les données et les utilisateurs contre les accès non autorisés, les attaques et les fuites d'information.",
+
+  "core_principles": [
+    "confidentialité — seuls les autorisés accèdent aux données",
+    "intégrité — les données ne sont pas modifiées sans autorisation",
+    "disponibilité — le système reste accessible quand nécessaire",
+    "moindre privilège — n'accorder que les droits strictement nécessaires",
+    "défense en profondeur — plusieurs couches de protection",
+    "privacy by design — intégrer la protection dès la conception"
+  ],
+
+  "common_risks": [
+    "fuite de données personnelles",
+    "accès non autorisé au système",
+    "erreurs humaines (mauvaise config, mots de passe faibles)",
+    "injection (prompt injection, SQL injection)",
+    "exposition accidentelle de clés API",
+    "mauvaise gestion des logs"
+  ],
+
+  "alfred_application": {
+    "data": [
+      "ne jamais stocker de données sensibles en clair",
+      "local-first par défaut",
+      "pas de transmission cloud sans consentement"
+    ],
+    "code": [
+      "valider toutes les entrées utilisateur",
+      "ne jamais exposer les clés API dans le code",
+      "utiliser .env pour les secrets"
+    ],
+    "llm_specific": [
+      "filtrer les prompt injections",
+      "ne pas exécuter de code généré sans validation",
+      "limiter les accès aux fichiers système"
+    ]
+  },
+
+  "conversation_uses": [
+    "rappeler les règles de sécurité ALFRED",
+    "identifier un risque dans une architecture",
+    "appliquer le RGPD",
+    "sécuriser un projet local-first",
+    "expliquer la cybersécurité simplement"
+  ],
+
+  "example_answers": [
+    {
+      "prompt": "Est-ce que mon projet ALFRED est sécurisé ?",
+      "answer": "On vérifie trois points : les données restent locales, les clés sont dans .env, et les entrées utilisateur sont validées. Si les trois sont OK, la base est solide."
+    },
+    {
+      "prompt": "Qu'est-ce que le principe de moindre privilège ?",
+      "answer": "N'accorder que les droits strictement nécessaires. Si ALFRED n'a pas besoin d'accéder à un dossier, il n'y accède pas."
+    }
+  ],
+
+  "response_guidance": {
+    "tone": "clair, prudent, non alarmiste",
+    "structure": [
+      "risque identifié",
+      "principe applicable",
+      "action concrète",
+      "limite à respecter"
+    ],
+    "avoid": [
+      "dramatiser",
+      "donner des conseils offensifs",
+      "ignorer le contexte local-first d'ALFRED"
+    ]
+  },
+
+  "links_to_alfred_identity": {
+    "dominant_layer": "jarvis",
+    "mode": "ethics_mode",
+    "why": "La cybersécurité est une dimension éthique et technique fondamentale du projet ALFRED."
+  },
+
+  "related_knowledge_units": [
+    "knowledges.professional.engineering.cybersecurity.rgpd_core",
+    "knowledges.core.alfred_core_identity"
+  ],
+
+  "related_features": [
+    "7.01.001", "7.02.001", "15.03.001", "20.01.001", "20.04.001"
+  ],
+
+  "tags": [ "cybersecurity", "security", "data", "protection", "privacy", "local_first", "alfred" ],
+
+  "quality": {
+    "confidence": "high",
+    "requires_sources": false,
+    "review_needed": false
+  }
+}

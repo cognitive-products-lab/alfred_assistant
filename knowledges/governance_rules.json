@@ -1,0 +1,153 @@
+{
+  "governance_rules_id": "alfred_knowledge_governance_rules_v1_0",
+  "version": "1.0.0",
+  "last_update": "10/05/2026",
+  "description": "Règles de gouvernance des fichiers knowledge du Bloc 18. Ce fichier définit les règles de création, validation, versioning, mise à jour, sécurité et archivage des connaissances utilisées par ALFRED.",
+  "scope": {
+    "bloc": "B18",
+    "name": "Knowledge & Culture",
+    "mode": "local_first",
+    "root_path": "knowledges/"
+  },
+  "principles": {
+    "local_first": "Les fichiers knowledge sont stockés localement et doivent pouvoir être exploités sans dépendance cloud critique.",
+    "security_by_design": "Toute connaissance sensible doit être structurée avec prudence, sans exposer de données personnelles inutiles.",
+    "traceability": "Chaque fichier knowledge doit être identifiable, versionné et rattaché à un domaine clair.",
+    "quality_over_quantity": "Un fichier court, fiable et exploitable vaut mieux qu'un fichier long, flou et inutilisable.",
+    "retrieval_ready": "Chaque knowledge doit être pensé pour être retrouvé, compris et utilisé par le moteur de retrieval.",
+    "non_medical_boundary": "Les contenus santé et bien-être doivent rester non médicaux, sans diagnostic ni prescription."
+  },
+  "required_fields_for_knowledge_files": [
+    "knowledge_id",
+    "title",
+    "version",
+    "status",
+    "domain",
+    "category",
+    "summary",
+    "content",
+    "tags",
+    "usage_context",
+    "safety_notes",
+    "last_update"
+  ],
+  "status_lifecycle": {
+    "draft": "Fichier en cours de rédaction. Non chargé automatiquement.",
+    "review": "Fichier prêt à être relu et testé.",
+    "active": "Fichier validé et exploitable par ALFRED.",
+    "deprecated": "Fichier encore présent mais remplacé par une version plus récente.",
+    "archived": "Fichier conservé pour historique, non utilisé par défaut."
+  },
+  "creation_rules": {
+    "file_naming": {
+      "rule": "Utiliser uniquement des noms en snake_case, sans accent, sans espace.",
+      "valid_example": "memory_context_linking.json",
+      "invalid_examples": [
+        "Mémoire contexte.json",
+        "Memory Context Linking.json",
+        "memory-context-linking.json"
+      ]
+    },
+    "id_naming": {
+      "rule": "L'identifiant knowledge_id doit reprendre le chemin logique du fichier avec des points.",
+      "example": "system.memory.memory_context_linking"
+    },
+    "folder_rule": "Tout fichier doit être placé dans un domaine existant ou dans un sous-domaine explicitement prévu.",
+    "language_rule": "Le contenu principal peut être rédigé en français, mais les IDs, intents et clés techniques doivent rester en anglais snake_case.",
+    "minimum_content_rule": "Un fichier knowledge doit contenir au minimum un résumé, des règles d'usage et un contenu structuré."
+  },
+  "validation_rules": {
+    "json_validity": "Le fichier doit passer un test ConvertFrom-Json ou json.load en Python.",
+    "registry_presence": "Le fichier actif doit être référencé dans knowledge_registry.json.",
+    "taxonomy_alignment": "Le domaine et la catégorie doivent être cohérents avec taxonomy.json.",
+    "domain_links_alignment": "Les connaissances prioritaires doivent être reliées dans domain_links.json si elles servent au routing.",
+    "no_empty_active_file": "Un fichier vide ne peut jamais avoir le statut active.",
+    "safety_review": "Tout fichier lié à santé, émotion, mémoire, sécurité, données personnelles ou éthique doit être relu avec prudence."
+  },
+  "versioning_rules": {
+    "format": "MAJOR.MINOR.PATCH",
+    "major": "Changement de structure ou de logique incompatible.",
+    "minor": "Ajout de contenu ou enrichissement sans rupture.",
+    "patch": "Correction mineure, orthographe, clarification ou ajustement léger.",
+    "example": {
+      "initial": "1.0.0",
+      "minor_update": "1.1.0",
+      "patch_update": "1.1.1",
+      "major_update": "2.0.0"
+    }
+  },
+  "update_rules": {
+    "trigger_conditions": [
+      "Ajout d'un nouveau fichier knowledge",
+      "Suppression ou déplacement d'un fichier",
+      "Modification majeure d'un domaine",
+      "Ajout d'un nouveau sous-domaine",
+      "Correction d'une règle de sécurité",
+      "Évolution du moteur de retrieval"
+    ],
+    "files_to_update_after_new_knowledge": [
+      "knowledge_registry.json",
+      "taxonomy.json",
+      "domain_links.json"
+    ],
+    "recommended_update_order": [
+      "Créer ou modifier le fichier knowledge",
+      "Valider le JSON",
+      "Mettre à jour le registry",
+      "Mettre à jour la taxonomie si nécessaire",
+      "Mettre à jour domain_links si le fichier sert au routing",
+      "Tester le retrieval"
+    ]
+  },
+  "security_rules": {
+    "sensitive_content": {
+      "personal_data": "Éviter les données personnelles directes sauf nécessité explicite et contrôlée.",
+      "health": "Ne jamais formuler de diagnostic, prescription ou conseil médical personnalisé.",
+      "credentials": "Ne jamais stocker de mot de passe, clé API, token ou secret dans un fichier knowledge.",
+      "private_life": "Ne pas documenter d'informations intimes inutiles à la fonction d'ALFRED."
+    },
+    "safe_response_policy": {
+      "medical_or_health": "Réponse de soutien non médical, avec orientation vers un professionnel si nécessaire.",
+      "legal_or_financial": "Réponse informative générale, sans décision à la place de l'utilisateur.",
+      "security": "Réponse défensive, pédagogique et conforme à une logique Security by Design."
+    }
+  },
+  "quality_rules": {
+    "clarity": "Chaque fichier doit être compréhensible sans contexte externe excessif.",
+    "granularity": "Un fichier doit couvrir un sujet cohérent, ni trop large ni trop fragmenté.",
+    "actionability": "La connaissance doit pouvoir aider ALFRED à répondre, décider, guider ou contextualiser.",
+    "consistency": "Les noms de domaines, IDs et tags doivent rester cohérents avec le registry et la taxonomie.",
+    "maintainability": "Le fichier doit pouvoir être enrichi sans devoir tout réécrire."
+  },
+  "archiving_rules": {
+    "archive_trigger": [
+      "Contenu obsolète",
+      "Fichier remplacé",
+      "Domaine restructuré",
+      "Connaissance non utilisée",
+      "Risque de confusion avec une version plus récente"
+    ],
+    "archive_behavior": "Un fichier archivé ne doit pas être chargé automatiquement par ALFRED.",
+    "recommended_archive_path": "knowledges/_archive/",
+    "deprecated_behavior": "Un fichier deprecated peut rester référencé temporairement, mais doit indiquer son remplaçant."
+  },
+  "testing_rules": {
+    "powershell_json_test": "Get-Content chemin_du_fichier.json -Raw | ConvertFrom-Json",
+    "encoding_test": "Select-String -Path chemin_du_fichier.json -Pattern \"Ã\"",
+    "python_json_test": "python -m json.tool chemin_du_fichier.json",
+    "minimum_acceptance_criteria": [
+      "JSON valide",
+      "Aucun caractère corrompu",
+      "Présence des champs obligatoires",
+      "Cohérence avec registry",
+      "Cohérence avec taxonomy",
+      "Statut correct"
+    ]
+  },
+  "future_evolution": {
+    "v1": "Fichiers JSON locaux structurés et registry manuel ou semi-automatique.",
+    "v2": "Ajout d'un moteur de recherche sémantique local et scoring de pertinence.",
+    "v3": "Vectorisation locale, RAG avancé, pondération par contexte utilisateur et mémoire.",
+    "v4": "Gouvernance multi-produits ALFRED, ALFRED CPL et ARTHUR avec règles spécifiques par usage."
+  }
+}

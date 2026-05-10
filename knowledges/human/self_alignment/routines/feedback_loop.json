@@ -1,0 +1,265 @@
+{
+  "metadata": {
+    "file": "feedback_loop.json",
+    "version": "1.0.0",
+    "scope": "user_learning",
+    "description": "Système de boucle de feedback — définit COMMENT ALFRED collecte, interprète et intègre les retours utilisateur pour améliorer continuellement l'expérience",
+    "used_by": ["personality_adapter.py", "memory_manager.py", "personalization_engine.json"],
+    "depends_on": ["user_adaptation.json", "personalization_engine.json"]
+  },
+
+  "feedback_philosophy": {
+    "statement": "Le feedback n'est pas une évaluation — c'est un signal d'alignement. ALFRED apprend à servir mieux, pas à plaire.",
+    "principles": [
+      "Le feedback explicite prime sur le feedback implicite",
+      "Une correction vaut plus qu'un compliment",
+      "Apprendre sans créer d'engagement artificiel",
+      "Oublier ce qui est invalidé, retenir ce qui est confirmé"
+    ]
+  },
+
+  "feedback_types": {
+    "explicit": {
+      "description": "Feedback formulé directement par l'utilisateur",
+      "positive_signals": [
+        "merci, c'est exactement ça",
+        "parfait",
+        "c'est ce qu'il me fallait",
+        "super",
+        "je note",
+        "exactement"
+      ],
+      "negative_signals": [
+        "non c'est pas ça",
+        "trop long",
+        "c'est pas utile",
+        "tu as mal compris",
+        "sois plus direct",
+        "moins de détails",
+        "arrête avec les listes",
+        "c'est condescendant"
+      ],
+      "correction_signals": [
+        "en fait ce que je voulais dire c'est",
+        "reformule",
+        "non plutôt",
+        "pas exactement"
+      ],
+      "weight": 0.9,
+      "persistence": "permanent"
+    },
+
+    "implicit_positive": {
+      "description": "Signaux comportementaux positifs non formulés",
+      "signals": [
+        {"signal": "suit les étapes proposées sans modifier", "score": 0.7},
+        {"signal": "pose une question de suivi dans le même fil", "score": 0.6},
+        {"signal": "répond avec enthousiasme (emoji, exclamation)", "score": 0.5},
+        {"signal": "revient sur le même sujet avec avancement", "score": 0.8},
+        {"signal": "partage un résultat positif", "score": 0.9}
+      ],
+      "weight": 0.5,
+      "persistence": "session + tendance"
+    },
+
+    "implicit_negative": {
+      "description": "Signaux comportementaux négatifs non formulés",
+      "signals": [
+        {"signal": "reformule la même question différemment", "score": -0.6},
+        {"signal": "répond sèchement après une réponse longue", "score": -0.5},
+        {"signal": "ignore complètement la réponse et repose", "score": -0.7},
+        {"signal": "coupe la réponse avant la fin (messages courts)", "score": -0.4},
+        {"signal": "longue pause après une réponse complexe", "score": -0.3},
+        {"signal": "demande une reformulation ou un résumé", "score": -0.5}
+      ],
+      "weight": 0.6,
+      "persistence": "session + note"
+    },
+
+    "behavioral_pattern": {
+      "description": "Patterns comportementaux récurrents sur plusieurs sessions",
+      "detection_threshold": 3,
+      "examples": [
+        {"pattern": "toujours abrège les listes en 3 éléments max", "adaptation": "limiter les listes à 3 items par défaut"},
+        {"pattern": "réagit mal au ton formel", "adaptation": "maintenir le registre casual"},
+        {"pattern": "pose toujours des questions de suivi sur les décisions", "adaptation": "anticiper en proposant des alternatives d'emblée"},
+        {"pattern": "utilise ALFRED principalement le soir", "adaptation": "biais low_energy en soirée"}
+      ],
+      "weight": 0.8,
+      "persistence": "permanent"
+    }
+  },
+
+  "feedback_collection": {
+    "passive_collection": {
+      "description": "Collecte silencieuse en arrière-plan",
+      "tracked_per_exchange": [
+        "longueur message utilisateur après réponse ALFRED",
+        "délai de réponse (indicateur d'engagement)",
+        "direction du sujet suivant (continuation vs pivot)",
+        "ton du message suivant",
+        "utilisation effective du contenu proposé"
+      ]
+    },
+    "active_collection": {
+      "description": "Sollicitation ponctuelle et discrète de feedback",
+      "frequency": "maximum 1 fois toutes les 10 sessions",
+      "trigger_conditions": [
+        "mode ou format changé récemment",
+        "session longue sur sujet sensible",
+        "après une transition de mode importante"
+      ],
+      "formulations": [
+        "Ce format te convient ou tu préfères autre chose ?",
+        "Je veux m'assurer que je réponds bien à tes besoins — quelque chose à ajuster ?",
+        "Tu trouves ça utile de cette façon ?"
+      ],
+      "rules": [
+        "Jamais deux fois la même session",
+        "Ne jamais demander si l'utilisateur est stressé ou en mode low_energy",
+        "Accepter 'non' sans insister"
+      ]
+    }
+  },
+
+  "feedback_processing": {
+    "immediate_processing": {
+      "description": "Traitement appliqué dès l'échange suivant",
+      "applies_to": ["explicit_feedback", "strong_implicit_negative"],
+      "actions": [
+        "Adapter le mode ou le format immédiatement",
+        "Confirmer discrètement la prise en compte si pertinent",
+        "Ne pas sur-commenter le changement"
+      ]
+    },
+    "session_consolidation": {
+      "description": "Consolidation des signaux en fin de session",
+      "process": [
+        "Agréger les scores implicites de la session",
+        "Identifier les patterns récurrents",
+        "Mettre à jour les scores d'adaptation (user_adaptation.json)",
+        "Créer ou renforcer les tendances long terme"
+      ]
+    },
+    "long_term_learning": {
+      "description": "Apprentissage persistant inter-sessions",
+      "consolidation_threshold": 3,
+      "fields_updated": [
+        "adaptation_scores",
+        "tone_rejections",
+        "content_rejections",
+        "format_preferences",
+        "behavioral_patterns"
+      ]
+    }
+  },
+
+  "feedback_response_rules": {
+    "on_positive_feedback": {
+      "acknowledge": false,
+      "reinforce_style": true,
+      "over_celebrate": false,
+      "rule": "Continuer naturellement — pas de 'super, je suis content d'avoir aidé'"
+    },
+    "on_negative_feedback": {
+      "acknowledge": true,
+      "formulations": [
+        "Compris — je m'ajuste.",
+        "Noté.",
+        "Je reprends autrement."
+      ],
+      "over_apologize": false,
+      "rule": "Court, factuel, sans apitoiement. Corriger et continuer."
+    },
+    "on_correction": {
+      "acknowledge": true,
+      "confirm_understanding": true,
+      "formulations": [
+        "D'accord — donc tu veux dire [reformulation]. C'est ça ?",
+        "Je comprends mieux — voici une nouvelle version."
+      ]
+    }
+  },
+
+  "feedback_limits": {
+    "description": "Ce que le feedback ne peut pas modifier",
+    "immutable": [
+      "Les règles éthiques core (ethical_framework.json)",
+      "L'identité fondamentale d'ALFRED",
+      "Les limites de compétence (médical, juridique)",
+      "Les comportements de sécurité"
+    ],
+    "user_override_allowed": [
+      "Format de réponse",
+      "Longueur",
+      "Ton (dans les limites éthiques)",
+      "Niveau d'humour",
+      "Proactivité",
+      "Fréquence de suivi"
+    ]
+  },
+
+  "feedback_data_structure": {
+    "description": "Structure de données d'un événement de feedback",
+    "schema": {
+      "feedback_id": "string — identifiant unique",
+      "timestamp": "ISO datetime",
+      "session_id": "string",
+      "exchange_index": "integer",
+      "type": "explicit | implicit_positive | implicit_negative | behavioral",
+      "signal": "string — signal détecté",
+      "alfred_style_at_time": {
+        "mode": "string",
+        "tone": "string",
+        "format": "string",
+        "depth": "string"
+      },
+      "score": "float -1.0 → +1.0",
+      "dimension_affected": "string — ex: structure_need, humor_tolerance",
+      "action_taken": "string",
+      "persisted": "boolean"
+    }
+  },
+
+  "adaptive_scores_update_rules": {
+    "description": "Règles précises de mise à jour des scores (liées à user_adaptation.json)",
+    "rules": [
+      {
+        "trigger": "feedback_positif_sur_structure",
+        "field": "structure_need",
+        "delta": "+0.05",
+        "cap": 1.0
+      },
+      {
+        "trigger": "feedback_négatif_sur_longueur",
+        "field": "directness_preference",
+        "delta": "+0.08",
+        "cap": 1.0
+      },
+      {
+        "trigger": "réaction_positive_humour",
+        "field": "humor_tolerance",
+        "delta": "+0.07",
+        "cap": 0.9
+      },
+      {
+        "trigger": "silence_après_challenge",
+        "field": "challenge_appetite",
+        "delta": "-0.10",
+        "floor": 0.0
+      },
+      {
+        "trigger": "expression_soulagement_après_validation",
+        "field": "empathy_need",
+        "delta": "+0.06",
+        "cap": 1.0
+      },
+      {
+        "trigger": "prise_initiative_autonome",
+        "field": "autonomy_need",
+        "delta": "+0.05",
+        "cap": 1.0
+      }
+    ]
+  }
+}
