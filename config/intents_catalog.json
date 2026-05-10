@@ -1,0 +1,267 @@
+{
+  "schema_version": "1.0",
+  "type": "intents_catalog",
+  "id": "config.intents_catalog",
+  "status": "validated_v1",
+  "description": "Catalogue des intentions utilisateur reconnaissables par ALFRED. Chaque intent définit les mots-clés déclencheurs, le mode comportemental associé et les connaissances à charger.",
+
+  "intents": [
+
+    {
+      "id": "intent_discuss",
+      "label": "Discussion libre",
+      "keywords": [
+        "j'ai envie de parler", "tu es là", "on discute", "tu as une minute",
+        "j'ai besoin de parler", "écoute-moi", "je voulais te dire"
+      ],
+      "examples": [
+        "j'ai envie de parler",
+        "tu es là ?",
+        "on discute ?"
+      ],
+      "response_mode": "support_mode",
+      "knowledge_load": [
+        "knowledges.core.alfred_core_identity",
+        "knowledges.culture.universes.dc.alfred_pennyworth"
+      ]
+    },
+
+    {
+      "id": "intent_emotional_support",
+      "label": "Soutien émotionnel",
+      "keywords": [
+        "je suis fatiguée", "je suis épuisée", "je suis découragée",
+        "j'en peux plus", "j'en ai marre", "je suis à bout",
+        "je n'y arrive pas", "je suis perdue", "je suis bloquée",
+        "je suis stressée", "je panique", "je suis submergée",
+        "je me sens mal", "j'ai besoin d'aide", "je suis vidée",
+        "tout me semble lourd", "je n'ai plus d'énergie"
+      ],
+      "examples": [
+        "je suis fatiguée",
+        "je suis découragée",
+        "j'en peux plus"
+      ],
+      "response_mode": "support_mode",
+      "knowledge_load": [
+        "knowledges.core.alfred_core_identity",
+        "knowledges.lifestyle.health.fatigue_management",
+        "knowledges.lifestyle.health.stress_management"
+      ]
+    },
+
+    {
+      "id": "intent_organize",
+      "label": "Organisation et priorisation",
+      "keywords": [
+        "aide-moi à organiser", "je ne sais pas par où commencer",
+        "fais-moi un plan", "j'ai trop de tâches", "je suis débordée",
+        "priorise pour moi", "comment je gère ça", "organise ma journée",
+        "organise ma semaine", "je suis surchargée"
+      ],
+      "examples": [
+        "aide-moi à organiser",
+        "je ne sais pas par quoi commencer",
+        "fais-moi un plan"
+      ],
+      "response_mode": "execution_mode",
+      "knowledge_load": [
+        "knowledges.lifestyle.daily_life.organization_basics",
+        "knowledges.lifestyle.daily_life.time_management"
+      ]
+    },
+
+    {
+      "id": "intent_planning",
+      "label": "Planification et gestion du temps",
+      "keywords": [
+        "planifie", "planning", "agenda", "programme ma journée",
+        "prépare ma semaine", "blocs de temps", "comment je répartis",
+        "organise mon temps", "aide-moi avec le temps"
+      ],
+      "examples": [
+        "aide-moi à planifier ma semaine",
+        "comment je répartis mon temps",
+        "organise mon agenda"
+      ],
+      "response_mode": "execution_mode",
+      "knowledge_load": [
+        "knowledges.lifestyle.daily_life.time_management",
+        "knowledges.lifestyle.daily_life.organization_basics"
+      ]
+    },
+
+    {
+      "id": "intent_recovery",
+      "label": "Récupération et repos",
+      "keywords": [
+        "j'ai besoin de récupérer", "je dois me reposer",
+        "je culpabilise de me reposer", "pause", "reprendre des forces",
+        "cycle de récupération", "burnout", "récupération"
+      ],
+      "examples": [
+        "j'ai besoin de récupérer",
+        "je culpabilise de me reposer",
+        "comment je reprends des forces"
+      ],
+      "response_mode": "support_mode",
+      "knowledge_load": [
+        "knowledges.lifestyle.health.recovery_cycles",
+        "knowledges.lifestyle.health.fatigue_management"
+      ]
+    },
+
+    {
+      "id": "intent_learning",
+      "label": "Apprentissage et explication",
+      "keywords": [
+        "explique-moi", "je veux comprendre", "détaille étape par étape",
+        "c'est quoi", "donne-moi un exemple", "comment ça marche",
+        "apprends-moi", "définition", "cours", "qu'est-ce que"
+      ],
+      "examples": [
+        "explique-moi",
+        "je veux comprendre",
+        "détaille étape par étape"
+      ],
+      "response_mode": "learning_mode",
+      "knowledge_load": [
+        "knowledges.core.alfred_core_identity"
+      ]
+    },
+
+    {
+      "id": "intent_project_alfred",
+      "label": "Projet ALFRED",
+      "keywords": [
+        "on reprend Alfred", "où en est le projet", "quelle est la prochaine étape",
+        "on code quoi", "avance sur Alfred", "architecture Alfred",
+        "on travaille sur le projet", "sprint Alfred"
+      ],
+      "examples": [
+        "on reprend Alfred",
+        "où en est le projet",
+        "quelle est la prochaine étape"
+      ],
+      "response_mode": "project_mode",
+      "knowledge_load": [
+        "knowledges.core.alfred_core_identity"
+      ]
+    },
+
+    {
+      "id": "intent_coding",
+      "label": "Développement et code",
+      "keywords": [
+        "code", "développe", "écris le fichier", "corrige le bug",
+        "debug", "Python", "JSON", "fonction", "classe", "module",
+        "intègre", "optimise le code", "crée le script"
+      ],
+      "examples": [
+        "écris le fichier Python",
+        "corrige ce bug",
+        "développe le module"
+      ],
+      "response_mode": "execution_mode",
+      "knowledge_load": [
+        "knowledges.core.alfred_core_identity"
+      ]
+    },
+
+    {
+      "id": "intent_identity",
+      "label": "Identité et comportement d'ALFRED",
+      "keywords": [
+        "pourquoi alfred", "c'est quoi alfred", "comment tu fonctionnes",
+        "ta personnalité", "alfred pennyworth", "jarvis", "origine du nom",
+        "qui tu es", "comment tu te comportes"
+      ],
+      "examples": [
+        "pourquoi tu t'appelles Alfred",
+        "comment tu fonctionnes",
+        "c'est quoi ta personnalité"
+      ],
+      "response_mode": "hybrid_mode",
+      "knowledge_load": [
+        "knowledges.core.alfred_core_identity",
+        "knowledges.culture.universes.dc.alfred_pennyworth",
+        "knowledges.culture.universes.marvel.jarvis"
+      ]
+    },
+
+    {
+      "id": "intent_culture",
+      "label": "Culture — DC, Marvel, références",
+      "keywords": [
+        "batman", "joker", "iron man", "tony stark", "dc", "marvel",
+        "gotham", "avengers", "super-héros", "univers dc", "univers marvel"
+      ],
+      "examples": [
+        "explique-moi Batman",
+        "c'est quoi l'univers DC",
+        "différence entre DC et Marvel"
+      ],
+      "response_mode": "learning_mode",
+      "knowledge_load": [
+        "knowledges.culture.universes.dc.dc_universe_core",
+        "knowledges.culture.universes.marvel.marvel_universe_core"
+      ]
+    },
+
+    {
+      "id": "intent_ethics",
+      "label": "Éthique, limites et risques",
+      "keywords": [
+        "est-ce dangereux", "est-ce risqué", "est-ce éthique",
+        "manipulation", "dépendance", "limites", "vie privée",
+        "confidentialité", "sécurité", "est-ce légal"
+      ],
+      "examples": [
+        "est-ce dangereux ?",
+        "quelles sont les limites ?",
+        "est-ce éthique ?"
+      ],
+      "response_mode": "ethics_mode",
+      "knowledge_load": [
+        "knowledges.core.alfred_core_identity",
+        "knowledges.culture.universes.dc.joker"
+      ]
+    }
+
+  ],
+
+  "fallback": {
+    "no_match": {
+      "mode": "hybrid_mode",
+      "instruction": "répondre avec logique + empathie, sans connaissance spécifique"
+    },
+    "low_confidence": {
+      "mode": "learning_mode",
+      "instruction": "demander clarification avant d'agir"
+    }
+  },
+
+  "integration": {
+    "used_by": [
+      "alfred_behavior_engine.py",
+      "knowledge_loader.py",
+      "routing_rules.json"
+    ],
+    "purpose": [
+      "détecter l'intention utilisateur",
+      "sélectionner le mode comportemental",
+      "charger les bonnes connaissances",
+      "améliorer le scoring RAG"
+    ]
+  },
+
+  "related_features": [
+    "2.03.001", "2.03.002", "2.03.004",
+    "4.02.001", "4.02.002",
+    "18.01.003", "18.03.004"
+  ],
+
+  "tags": [
+    "intents", "routing", "behavior", "mode_selection", "rag", "alfred"
+  ]
+}
