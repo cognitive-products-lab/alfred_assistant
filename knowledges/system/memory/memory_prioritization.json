@@ -1,0 +1,47 @@
+{
+  "metadata": {"file":"memory_prioritization.json","version":"1.0.0","scope":"memory"},
+  "knowledge_id": "memory_prioritization_v1",
+  "title": "Priorisation mémorielle",
+  "summary": "Règles qui déterminent quelles informations mémoriser, combien de temps les conserver et avec quel poids dans les réponses futures.",
+  "priority_dimensions": {
+    "importance": {
+      "desc": "Valeur intrinsèque de l'information pour l'utilisateur",
+      "factors": ["décision majeure mentionnée","émotion forte associée","répétition","déclaré explicitement comme important"],
+      "score_range": [0.0, 1.0]
+    },
+    "recency": {
+      "desc": "Fraîcheur de l'information",
+      "decay_model": "Exponentiel — l'info récente compte plus",
+      "half_life_days": 30,
+      "multiplier": "score * (1 + recency_bonus)"
+    },
+    "relevance": {
+      "desc": "Pertinence au contexte courant",
+      "computed_at": "Retrieval time — varie selon la demande",
+      "method": "Matching intent courant avec tags mémoire"
+    },
+    "confidence": {
+      "desc": "Fiabilité de l'information mémorisée",
+      "high": "Déclaré explicitement (0.9)",
+      "medium": "Inféré avec confirmation implicite (0.6)",
+      "low": "Inféré sans confirmation (0.3)"
+    }
+  },
+  "composite_score": {
+    "formula": "final_score = (importance * 0.4) + (recency * 0.3) + (relevance * 0.2) + (confidence * 0.1)",
+    "threshold_inject": 0.55,
+    "threshold_persist": 0.40,
+    "threshold_forget": 0.15
+  },
+  "memory_budget": {
+    "context_window_max_memories": 8,
+    "selection_method": "Top N par composite_score",
+    "fallback": "Si aucune mémoire > 0.55 — ne pas injecter"
+  },
+  "special_rules": {
+    "safety_priority": "Informations de sécurité (allergies, crises) = toujours score maximal",
+    "user_preferences": "Préférences exprimées explicitement = toujours injectées si pertinentes",
+    "emotional_context": "Épisodes émotionnels forts = score boosté si état émotionnel similaire détecté"
+  },
+  "connections": ["memory_system","episodic_memory","semantic_memory","memory_decay_rules","memory_context_linking"]
+}
