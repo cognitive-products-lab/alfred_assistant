@@ -1,0 +1,156 @@
+{
+  "schema_version": "1.0",
+  "type": "knowledge_settings",
+  "id": "config.knowledge_settings",
+  "status": "validated_v1",
+
+  "description": "Paramètres globaux du système de connaissances ALFRED : chargement, recherche, priorisation, sécurité et comportement en cas d'erreur.",
+
+  "knowledge_root": "ALFRED_PC/knowledges",
+
+  "loading": {
+    "load_on_startup": true,
+    "recursive_scan": true,
+    "allowed_extensions": [
+      ".json"
+    ],
+    "skip_files": [
+      "manifest.json",
+      "taxonomy.json",
+      "domain_links.json",
+      "knowledge_template.json"
+    ],
+    "required_core_files": [
+      "knowledges/core/alfred_core_identity.json",
+      "knowledges/index/knowledge_registry.json"
+    ],
+    "on_missing_required_file": "raise_error",
+    "on_invalid_json": "skip_and_log"
+  },
+
+  "selection": {
+    "default_top_k": 3,
+    "max_top_k": 5,
+    "min_score": 0.65,
+    "always_loaded_units": [
+      "knowledges.core.alfred_core_identity"
+    ],
+    "priority_domains": [
+      "core",
+      "human",
+      "professional",
+      "culture",
+      "lifestyle"
+    ],
+    "merge_strategy": "deduplicate_by_id"
+  },
+
+  "search": {
+    "mode": "hybrid_keyword_semantic_ready",
+    "keyword_weight": 0.6,
+    "semantic_weight": 0.4,
+    "enable_keyword_search": true,
+    "enable_semantic_search": false,
+    "semantic_engine": "future_vector_store",
+    "case_sensitive": false,
+    "accent_sensitive": false,
+    "search_fields": [
+      "title",
+      "summary",
+      "core_definition",
+      "tags",
+      "key_concepts",
+      "conversation_uses",
+      "cultural_knowledge",
+      "alfred_project_links"
+    ]
+  },
+
+  "routing_integration": {
+    "use_routing_rules": true,
+    "routing_rules_path": "ALFRED_PC/config/routing_rules.json",
+    "use_registry": true,
+    "registry_path": "ALFRED_PC/knowledges/index/knowledge_registry.json",
+    "fallback_to_keyword_search": true
+  },
+
+  "quality_control": {
+    "allow_draft_units": true,
+    "prefer_validated_units": true,
+    "exclude_review_needed": false,
+    "minimum_confidence_levels": [
+      "starter",
+      "general_cultural_reference",
+      "high",
+      "core_definition"
+    ],
+    "copyright_safe_mode": true,
+    "avoid_long_quotes": true
+  },
+
+  "context_injection": {
+    "max_units_in_prompt": 5,
+    "max_chars_per_unit": 1800,
+    "include_summary": true,
+    "include_core_definition": true,
+    "include_conversation_uses": true,
+    "include_limits": true,
+    "include_example_answers": false,
+    "include_full_cultural_knowledge": true
+  },
+
+  "fallback": {
+    "no_match": {
+      "strategy": "load_core_identity_only",
+      "message_policy": "respond_without_specific_knowledge"
+    },
+    "low_score": {
+      "strategy": "ask_or_answer_carefully",
+      "message_policy": "avoid_overclaiming"
+    },
+    "invalid_file": {
+      "strategy": "skip_and_log",
+      "message_policy": "do_not_block_conversation"
+    }
+  },
+
+  "logging": {
+    "enabled": true,
+    "log_loaded_units": true,
+    "log_invalid_files": true,
+    "log_search_results": false,
+    "log_path": "ALFRED_PC/logs/knowledge_loader.log"
+  },
+
+  "integration": {
+    "used_by": [
+      "knowledge_loader.py",
+      "response_generator.py",
+      "decision_router.py",
+      "alfred_behavior_engine.py"
+    ],
+    "related_config_files": [
+      "routing_rules.json",
+      "rag_settings.json",
+      "tagging_rules.json",
+      "quality_thresholds.json"
+    ]
+  },
+
+  "related_features": [
+    "18.01.001",
+    "18.01.002",
+    "18.01.003",
+    "18.01.004",
+    "18.03.004",
+    "18.05.004"
+  ],
+
+  "tags": [
+    "knowledge_settings",
+    "configuration",
+    "knowledge_loader",
+    "rag_ready",
+    "alfred"
+  ]
+}

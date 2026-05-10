@@ -1,0 +1,304 @@
+{
+  "knowledge_template_id": "alfred_knowledge_template_v1_0",
+  "version": "1.0.0",
+  "last_update": "10/05/2026",
+  "description": "Template officiel des fichiers knowledge du Bloc 18. Tous les nouveaux fichiers knowledge doivent respecter cette structure afin d'assurer cohérence, retrieval efficace, maintenance et compatibilité future avec les systèmes RAG et mémoire sémantique.",
+  "scope": {
+    "bloc": "B18",
+    "name": "Knowledge & Culture",
+    "mode": "local_first",
+    "compatible_with": [
+      "knowledge_registry.json",
+      "taxonomy.json",
+      "domain_links.json",
+      "retrieval_rules.json",
+      "future_local_rag"
+    ]
+  },
+  "template_structure": {
+    "knowledge_id": "domain.subdomain.knowledge_name",
+    "title": "Titre humain lisible",
+    "version": "1.0.0",
+    "status": "draft",
+    "domain": "core",
+    "subdomain": "identity",
+    "category": "behavior",
+    "summary": "Résumé court et clair du contenu du fichier knowledge.",
+    "purpose": "Pourquoi cette connaissance existe et dans quel contexte elle doit être utilisée.",
+    "tags": [
+      "mot_cle_1",
+      "mot_cle_2",
+      "mot_cle_3"
+    ],
+    "intents": [
+      "intent_example_1",
+      "intent_example_2"
+    ],
+    "usage_context": [
+      "Situation ou contexte où cette connaissance doit être utilisée."
+    ],
+    "priority": "medium",
+    "safety_level": "normal",
+    "content": {
+      "definition": "Définition ou principe principal.",
+      "core_principles": [
+        "Principe clé 1",
+        "Principe clé 2"
+      ],
+      "rules": [
+        "Règle importante 1",
+        "Règle importante 2"
+      ],
+      "examples": [
+        {
+          "situation": "Exemple de situation",
+          "recommended_behavior": "Comportement recommandé",
+          "avoid": "Comportement à éviter"
+        }
+      ],
+      "best_practices": [
+        "Bonne pratique 1",
+        "Bonne pratique 2"
+      ],
+      "anti_patterns": [
+        "Erreur fréquente 1",
+        "Erreur fréquente 2"
+      ]
+    },
+    "retrieval_hints": {
+      "priority_keywords": [
+        "mot important 1",
+        "mot important 2"
+      ],
+      "related_domains": [
+        "human",
+        "system"
+      ],
+      "related_knowledge": [
+        "human.emotional_intelligence.empathy",
+        "system.memory.memory_context_linking"
+      ],
+      "retrieval_priority": 5
+    },
+    "behavior_rules": {
+      "tone": "professional_supportive",
+      "response_style": "structured_clear",
+      "max_complexity": "medium",
+      "allow_humor": false
+    },
+    "safety_notes": {
+      "allowed_usage": [
+        "Utilisation autorisée"
+      ],
+      "restricted_usage": [
+        "Utilisation à limiter"
+      ],
+      "forbidden_usage": [
+        "Utilisation interdite"
+      ],
+      "fallback_behavior": "Comportement de secours si ambiguïté ou risque."
+    },
+    "metadata": {
+      "author": "ALFRED_SYSTEM",
+      "creation_date": "10/05/2026",
+      "last_update": "10/05/2026",
+      "review_status": "draft",
+      "reviewed_by": "",
+      "source_type": "manual_structured_knowledge",
+      "language": "fr",
+      "retrieval_ready": true,
+      "rag_compatible": true
+    }
+  },
+  "field_explanations": {
+    "knowledge_id": "Identifiant unique logique du fichier knowledge.",
+    "summary": "Résumé court utilisé pour compréhension rapide et retrieval.",
+    "purpose": "Explique l'objectif du fichier et sa valeur pour ALFRED.",
+    "tags": "Mots-clés utilisés pour le retrieval et le matching.",
+    "intents": "Intentions utilisateur reliées à cette connaissance.",
+    "usage_context": "Contextes typiques d'utilisation.",
+    "priority": "Niveau de priorité retrieval.",
+    "safety_level": "Niveau de sensibilité ou de prudence.",
+    "retrieval_hints": "Informations spécifiques pour aider le moteur de retrieval.",
+    "behavior_rules": "Comportement recommandé pour générer la réponse.",
+    "safety_notes": "Limites et précautions d'utilisation."
+  },
+  "allowed_values": {
+    "status": [
+      "draft",
+      "review",
+      "active",
+      "deprecated",
+      "archived"
+    ],
+    "priority": [
+      "low",
+      "medium",
+      "high",
+      "critical"
+    ],
+    "safety_level": [
+      "normal",
+      "sensitive",
+      "high_risk"
+    ],
+    "tone": [
+      "neutral",
+      "professional",
+      "professional_supportive",
+      "empathetic",
+      "educational",
+      "motivational"
+    ],
+    "response_style": [
+      "short",
+      "structured_clear",
+      "detailed",
+      "step_by_step"
+    ],
+    "max_complexity": [
+      "low",
+      "medium",
+      "high"
+    ]
+  },
+  "creation_rules": {
+    "mandatory_fields": [
+      "knowledge_id",
+      "title",
+      "version",
+      "status",
+      "domain",
+      "summary",
+      "content",
+      "tags",
+      "metadata"
+    ],
+    "minimum_tags": 3,
+    "minimum_examples": 1,
+    "minimum_best_practices": 1,
+    "snake_case_required": true,
+    "utf8_required": true,
+    "json_validation_required": true
+  },
+  "retrieval_optimization_rules": {
+    "prefer_short_summary": true,
+    "prefer_explicit_keywords": true,
+    "avoid_ambiguous_tags": true,
+    "link_related_knowledge": true,
+    "define_usage_contexts": true,
+    "limit_excessive_content": true,
+    "prefer_modular_knowledge": true
+  },
+  "safety_rules": {
+    "never_store_credentials": true,
+    "never_store_private_secrets": true,
+    "never_generate_medical_diagnosis": true,
+    "never_generate_illegal_guidance": true,
+    "always_define_fallback_behavior": true
+  },
+  "future_compatibility": {
+    "vectorization_ready": true,
+    "embedding_ready": true,
+    "semantic_search_ready": true,
+    "local_rag_ready": true,
+    "memory_linking_ready": true,
+    "multi_agent_ready": true
+  },
+  "example_minimal_knowledge": {
+    "knowledge_id": "human.emotional_intelligence.active_listening",
+    "title": "Écoute active",
+    "version": "1.0.0",
+    "status": "active",
+    "domain": "human",
+    "subdomain": "emotional_intelligence",
+    "category": "communication",
+    "summary": "Principes d'écoute active pour améliorer la compréhension et la relation utilisateur.",
+    "purpose": "Permettre à ALFRED de répondre avec plus d'attention et de contextualisation émotionnelle.",
+    "tags": [
+      "écoute",
+      "empathie",
+      "communication"
+    ],
+    "intents": [
+      "provide_emotional_support",
+      "practice_active_listening"
+    ],
+    "usage_context": [
+      "Utilisateur en détresse",
+      "Conversation émotionnelle",
+      "Besoin de clarification empathique"
+    ],
+    "priority": "high",
+    "safety_level": "normal",
+    "content": {
+      "definition": "L'écoute active consiste à comprendre avant de répondre.",
+      "core_principles": [
+        "Écouter sans interrompre",
+        "Reformuler si nécessaire",
+        "Valider l'émotion sans exagérer"
+      ],
+      "rules": [
+        "Ne pas infantiliser",
+        "Rester clair et calme"
+      ],
+      "examples": [
+        {
+          "situation": "Utilisateur stressé",
+          "recommended_behavior": "Réponse claire et rassurante",
+          "avoid": "Réponse froide ou mécanique"
+        }
+      ],
+      "best_practices": [
+        "Utiliser des formulations simples"
+      ],
+      "anti_patterns": [
+        "Minimiser les émotions"
+      ]
+    },
+    "retrieval_hints": {
+      "priority_keywords": [
+        "stress",
+        "émotion",
+        "écoute"
+      ],
+      "related_domains": [
+        "human",
+        "lifestyle"
+      ],
+      "related_knowledge": [
+        "human.emotional_intelligence.empathy"
+      ],
+      "retrieval_priority": 8
+    },
+    "behavior_rules": {
+      "tone": "empathetic",
+      "response_style": "structured_clear",
+      "max_complexity": "low",
+      "allow_humor": false
+    },
+    "safety_notes": {
+      "allowed_usage": [
+        "Soutien émotionnel léger"
+      ],
+      "restricted_usage": [
+        "Sujet médical complexe"
+      ],
+      "forbidden_usage": [
+        "Diagnostic psychologique"
+      ],
+      "fallback_behavior": "Encourager à consulter un professionnel si nécessaire."
+    },
+    "metadata": {
+      "author": "ALFRED_SYSTEM",
+      "creation_date": "10/05/2026",
+      "last_update": "10/05/2026",
+      "review_status": "validated",
+      "reviewed_by": "ALFRED_CORE",
+      "source_type": "manual_structured_knowledge",
+      "language": "fr",
+      "retrieval_ready": true,
+      "rag_compatible": true
+    }
+  }
+}

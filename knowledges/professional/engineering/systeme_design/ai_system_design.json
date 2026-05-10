@@ -1,0 +1,119 @@
+{
+  "schema_version": "1.1",
+  "type": "knowledge_unit",
+  "id": "knowledges.professional.engineering.system_design.ai_system_design",
+  "title": "AI System Design",
+  "domain": "professional",
+  "status": "validated_v1",
+
+  "summary": "Fiche permettant à ALFRED de structurer un système IA complet (LLM + RAG + mémoire + orchestration) en séparant clairement les responsabilités de chaque composant.",
+
+  "core_definition": "Le design d'un système IA consiste à organiser les composants (données, modèles, logique, interface) pour produire un comportement fiable, cohérent et maintenable.",
+
+  "core_components": [
+    "input (user message)",
+    "behavior engine (décision comportementale)",
+    "knowledge retrieval (RAG)",
+    "LLM (génération de réponse)",
+    "memory (contexte persistant)",
+    "post-processing (nettoyage et sécurisation)"
+  ],
+
+  "core_principles": [
+    "séparer les responsabilités",
+    "contrôler les entrées et sorties",
+    "gérer les erreurs à chaque étape",
+    "prévoir des fallback si un composant échoue",
+    "assurer la cohérence globale entre les modules",
+    "documenter les interfaces entre composants"
+  ],
+
+  "design_layers": {
+    "input_layer": "capture et validation du message utilisateur",
+    "decision_layer": "choix du mode, du ton et des soft skills",
+    "retrieval_layer": "sélection des connaissances pertinentes via RAG",
+    "generation_layer": "production de la réponse par le LLM",
+    "memory_layer": "stockage et rappel du contexte conversationnel",
+    "output_layer": "post-processing, sécurisation et livraison"
+  },
+
+  "alfred_mapping": {
+    "input_layer": "main.py",
+    "decision_layer": "alfred_behavior_engine.py",
+    "retrieval_layer": "knowledge_loader.py",
+    "generation_layer": "response_generator.py + llm_client",
+    "memory_layer": "memory_engine.py",
+    "output_layer": "response_generator._post_process()"
+  },
+
+  "common_errors": [
+    "mélanger décision et génération dans le même module",
+    "pas de fallback si le LLM échoue",
+    "pas de contrôle de la taille du prompt",
+    "mémoire et RAG confondus",
+    "absence de post-processing"
+  ],
+
+  "conversation_uses": [
+    "structurer ALFRED",
+    "expliquer l'architecture d'un système IA",
+    "diagnostiquer un problème dans le pipeline",
+    "améliorer un composant existant",
+    "préparer une évolution technique"
+  ],
+
+  "example_answers": [
+    {
+      "prompt": "Comment ALFRED est-il structuré ?",
+      "answer": "ALFRED suit un pipeline en 6 couches : input → décision comportementale → RAG → génération LLM → mémoire → post-processing. Chaque couche a une responsabilité unique."
+    },
+    {
+      "prompt": "Pourquoi séparer behavior engine et response generator ?",
+      "answer": "Parce que la décision (quoi répondre, avec quel ton) est distincte de la génération (comment le formuler). Séparer les deux permet d'améliorer chacun indépendamment."
+    }
+  ],
+
+  "response_guidance": {
+    "tone": "technique, structuré, pédagogique",
+    "structure": [
+      "composants du système",
+      "rôle de chaque couche",
+      "mapping avec ALFRED",
+      "erreurs courantes",
+      "prochaine action"
+    ],
+    "avoid": [
+      "mélanger architecture et implémentation",
+      "jargon sans explication",
+      "présenter l'architecture comme figée"
+    ]
+  },
+
+  "links_to_alfred_identity": {
+    "dominant_layer": "jarvis",
+    "mode": "technical_mode",
+    "why": "Le design système mobilise la logique, la structuration et la séparation des responsabilités."
+  },
+
+  "related_knowledge_units": [
+    "knowledges.professional.engineering.ai.rag",
+    "knowledges.professional.engineering.ai.llm_basics",
+    "knowledges.core.alfred_core_identity"
+  ],
+
+  "related_features": [
+    "4.01.001",
+    "5.01.001",
+    "5.01.004",
+    "18.01.001",
+    "18.01.002"
+  ],
+
+  "tags": [ "system_design", "ai", "architecture", "llm", "pipeline", "alfred" ],
+
+  "quality": {
+    "confidence": "high",
+    "requires_sources": false,
+    "review_needed": false
+  }
+}

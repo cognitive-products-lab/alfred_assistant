@@ -1,0 +1,421 @@
+{
+  "retrieval_rules_id": "alfred_retrieval_rules_v2_0",
+  "version": "2.0.0",
+  "last_update": "2026-05-10",
+  "status": "active",
+  "description": "Règles de retrieval du Bloc 18 Knowledge & Culture. Ce fichier définit les priorités, seuils, pondérations, règles de sécurité et stratégies de sélection des connaissances pour ALFRED.",
+  "scope": {
+    "bloc": "B18",
+    "name": "Knowledge Retrieval Engine",
+    "mode": "local_first",
+    "applies_to": [
+      "domain_matcher",
+      "taxonomy_router",
+      "knowledge_ranker",
+      "context_merger",
+      "retrieval_engine"
+    ]
+  },
+  "global_policy": {
+    "max_knowledge_loaded_per_query": 6,
+    "minimum_score_to_use": 3.0,
+    "max_domains_per_query": 4,
+    "max_items_per_domain": 3,
+    "prefer_active_status": true,
+    "exclude_statuses": [
+      "deprecated",
+      "archived",
+      "disabled"
+    ],
+    "include_planned_domains": false,
+    "deduplicate_by_knowledge_id": true,
+    "fallback_enabled": true
+  },
+  "scoring": {
+    "domain_matcher_weight": 1.0,
+    "taxonomy_router_weight": 1.0,
+    "content_keyword_weight": 1.5,
+    "exact_keyword_match_bonus": 2.0,
+    "intent_match_bonus": 3.0,
+    "title_match_bonus": 2.5,
+    "tag_match_bonus": 1.5,
+    "linked_domain_bonus": 1.0,
+    "critical_priority_bonus": 3.0,
+    "high_priority_bonus": 2.0,
+    "medium_priority_bonus": 1.0,
+    "sensitive_safety_penalty": 0.0,
+    "planned_status_penalty": -99.0,
+    "deprecated_status_penalty": -999.0
+  },
+  "priority_domains": {
+    "identity_or_behavior_request": [
+      "core",
+      "system",
+      "human"
+    ],
+    "emotional_or_human_request": [
+      "human.social_behavior",
+      "human.emotional_intelligence",
+      "human.psychology",
+      "lifestyle.health"
+    ],
+    "daily_life_request": [
+      "lifestyle.daily_life",
+      "lifestyle.health",
+      "human.self_alignment",
+      "human.social_behavior"
+    ],
+    "technical_ai_request": [
+      "professional.engineering.ai",
+      "professional.engineering.systeme_design",
+      "system.memory"
+    ],
+    "architecture_request": [
+      "professional.engineering.systeme_design",
+      "professional.engineering.ai",
+      "professional.standards_iso",
+      "professional.frameworks"
+    ],
+    "security_or_privacy_request": [
+      "professional.standards_iso",
+      "professional.frameworks",
+      "professional.engineering.cybersecurite",
+      "system.ethics"
+    ],
+    "governance_or_compliance_request": [
+      "professional.standards_iso",
+      "professional.frameworks",
+      "cpl.ethics_governance",
+      "system.ethics"
+    ],
+    "product_request": [
+      "professional.product_management",
+      "professional.strategy.product_strategy",
+      "cpl.product_ia",
+      "cpl.strategy"
+    ],
+    "project_or_business_request": [
+      "cpl.strategy",
+      "cpl.execution",
+      "cpl.business_piloting",
+      "professional.product_management",
+      "professional.frameworks"
+    ],
+    "culture_context_request": [
+      "culture.general",
+      "professional.product_management",
+      "cpl.strategy"
+    ],
+    "culture_reference_request": [
+      "culture.universes.dc",
+      "culture.universes.marvel",
+      "core"
+    ]
+  },
+  "fallback_strategy": {
+    "default_fallback_knowledge": [
+      "core.context_awareness",
+      "system.memory.memory_context_linking",
+      "human.cognition.uncertainty_management"
+    ],
+    "no_match_behavior": "Utiliser les connaissances de contexte général et répondre avec prudence en indiquant les limites.",
+    "low_confidence_behavior": "Répondre avec formulation prudente, demander clarification uniquement si nécessaire, et ne pas inventer de connaissance.",
+    "max_fallback_items": 3
+  },
+  "safety_policy": {
+    "medical_or_health_related": {
+      "must_include_domains": [
+        "lifestyle.health",
+        "human.social_behavior"
+      ],
+      "recommended_knowledge": [
+        "lifestyle.health.fatigue_management",
+        "lifestyle.health.recovery_cycles",
+        "lifestyle.health.stress_management",
+        "human.social_behavior.social_isolation",
+        "human.social_behavior.conversational_warmth"
+      ],
+      "response_rule": "Ne jamais produire de diagnostic médical. Répondre en soutien non médical, prudent, et recommander un professionnel si nécessaire."
+    },
+    "emotional_dependency_risk": {
+      "must_include_knowledge": [
+        "human.social_behavior.social_isolation",
+        "human.social_behavior.social_bonding",
+        "professional.standards_iso.iso_42001_ai_management_system",
+        "professional.standards_iso.iso_26000_social_responsibility"
+      ],
+      "response_rule": "Maintenir chaleur et soutien sans encourager dépendance affective, exclusivité relationnelle ou isolement social."
+    },
+    "privacy_or_memory_related": {
+      "must_include_knowledge": [
+        "professional.frameworks.rgpd_gdpr_basics",
+        "professional.standards_iso.iso_27701_privacy_management",
+        "professional.standards_iso.iso_27001_information_security",
+        "system.memory.memory_system"
+      ],
+      "response_rule": "Prioriser minimisation, consentement, transparence, sécurité et contrôle utilisateur."
+    },
+    "cybersecurity_related": {
+      "must_include_knowledge": [
+        "professional.standards_iso.iso_27001_information_security",
+        "professional.standards_iso.iso_27002_security_controls",
+        "professional.standards_iso.iso_27005_risk_management",
+        "professional.frameworks.nist_cybersecurity_framework"
+      ],
+      "response_rule": "Rester défensif, préventif et conforme. Ne pas fournir d’aide offensive ou intrusive."
+    },
+    "ai_governance_related": {
+      "must_include_knowledge": [
+        "professional.standards_iso.iso_42001_ai_management_system",
+        "cpl.ethics_governance.ethical_ai_framework",
+        "professional.frameworks.rgpd_gdpr_basics"
+      ],
+      "response_rule": "Privilégier supervision humaine, transparence, limitation des risques, gouvernance et traçabilité."
+    },
+    "financial_or_business_related": {
+      "recommended_knowledge": [
+        "professional.product_management.business_model_basics",
+        "cpl.business_piloting.profitability_analysis",
+        "cpl.business_piloting.pricing_strategy",
+        "culture.general.economy_basics"
+      ],
+      "response_rule": "Rester analytique et prudent. Ne pas produire de conseil financier personnalisé."
+    }
+  },
+  "domain_diversity_rules": {
+    "enabled": true,
+    "max_items_from_same_exact_subdomain": 3,
+    "min_domain_diversity_if_available": 2,
+    "preferred_mix_examples": {
+      "fatigue_and_organization": [
+        "lifestyle.health",
+        "lifestyle.daily_life",
+        "human.self_alignment",
+        "human.social_behavior"
+      ],
+      "alfred_emotional_design": [
+        "human.social_behavior",
+        "professional.standards_iso",
+        "cpl.ethics_governance",
+        "core"
+      ],
+      "alfred_architecture": [
+        "professional.engineering.systeme_design",
+        "professional.engineering.ai",
+        "professional.standards_iso",
+        "system.memory"
+      ],
+      "alfred_product_strategy": [
+        "professional.product_management",
+        "cpl.strategy",
+        "culture.general",
+        "professional.frameworks"
+      ]
+    }
+  },
+  "query_patterns": {
+    "fatigue": {
+      "keywords": [
+        "fatigué",
+        "fatiguée",
+        "épuisé",
+        "épuisée",
+        "crevé",
+        "crevée",
+        "manque d'énergie",
+        "charge mentale"
+      ],
+      "boost_domains": [
+        "lifestyle.health",
+        "human.social_behavior",
+        "human.self_alignment"
+      ]
+    },
+    "organization": {
+      "keywords": [
+        "organiser",
+        "organisation",
+        "prioriser",
+        "planning",
+        "routine",
+        "tâche",
+        "charge mentale"
+      ],
+      "boost_domains": [
+        "lifestyle.daily_life",
+        "human.self_alignment",
+        "professional.frameworks"
+      ]
+    },
+    "humor": {
+      "keywords": [
+        "humour",
+        "rire",
+        "blague",
+        "autodérision",
+        "détendre",
+        "léger"
+      ],
+      "boost_knowledge": [
+        "human.social_behavior.humor_and_laughter",
+        "human.social_behavior.self_deprecation_and_autoderision",
+        "human.social_behavior.conversational_warmth"
+      ]
+    },
+    "architecture": {
+      "keywords": [
+        "architecture",
+        "scalable",
+        "modulaire",
+        "microservices",
+        "api",
+        "event-driven",
+        "local-first",
+        "offline"
+      ],
+      "boost_domains": [
+        "professional.engineering.systeme_design",
+        "professional.engineering.ai"
+      ]
+    },
+    "rag": {
+      "keywords": [
+        "rag",
+        "retrieval",
+        "base vectorielle",
+        "embedding",
+        "chunking",
+        "contexte",
+        "hallucination"
+      ],
+      "boost_knowledge": [
+        "professional.engineering.ai.rag",
+        "professional.engineering.ai.rag_architecture",
+        "professional.engineering.ai.vector_database",
+        "professional.engineering.ai.chunking_strategies",
+        "professional.engineering.ai.semantic_memory"
+      ]
+    },
+    "iso": {
+      "keywords": [
+        "iso",
+        "norme",
+        "certification",
+        "audit",
+        "conformité",
+        "qualité",
+        "sécurité",
+        "privacy",
+        "rse"
+      ],
+      "boost_domains": [
+        "professional.standards_iso",
+        "professional.frameworks"
+      ]
+    },
+    "product": {
+      "keywords": [
+        "produit",
+        "product",
+        "roadmap",
+        "mvp",
+        "kpi",
+        "ux",
+        "feedback",
+        "adoption",
+        "market fit"
+      ],
+      "boost_domains": [
+        "professional.product_management",
+        "cpl.product_ia",
+        "cpl.strategy"
+      ]
+    },
+    "security": {
+      "keywords": [
+        "sécurité",
+        "cybersécurité",
+        "rgpd",
+        "privacy",
+        "données",
+        "chiffrement",
+        "accès",
+        "zero trust"
+      ],
+      "boost_domains": [
+        "professional.standards_iso",
+        "professional.frameworks",
+        "professional.engineering.cybersecurite",
+        "system.ethics"
+      ]
+    }
+  },
+  "context_merging_rules": {
+    "max_chars_per_knowledge": 900,
+    "include_title": true,
+    "include_summary": true,
+    "include_purpose": true,
+    "include_tags": true,
+    "include_safety_notes": true,
+    "include_file_path": true,
+    "prompt_sections_order": [
+      "user_query",
+      "conversation_context",
+      "selected_knowledge",
+      "safety_notes",
+      "response_instruction"
+    ],
+    "response_instruction": "Utilise uniquement les connaissances sélectionnées comme contexte prioritaire. Si le sujet est sensible, réponds avec prudence. Ne transforme pas une synthèse knowledge en diagnostic, conseil juridique, financier ou médical personnalisé."
+  },
+  "response_behavior": {
+    "prefer_clear_structure": true,
+    "prefer_short_actionable_answer_when_user_is_tired": true,
+    "use_humor_only_when_safe": true,
+    "avoid_overexplaining_when_low_energy": true,
+    "explicitly_state_uncertainty_when_needed": true,
+    "do_not_invent_missing_knowledge": true
+  },
+  "testing_queries": [
+    {
+      "query": "Je suis fatiguée et j'ai du mal à m'organiser.",
+      "expected_domains": [
+        "lifestyle.health",
+        "lifestyle.daily_life",
+        "human.self_alignment",
+        "human.social_behavior"
+      ]
+    },
+    {
+      "query": "Comment éviter une dépendance émotionnelle à ALFRED ?",
+      "expected_domains": [
+        "human.social_behavior",
+        "professional.standards_iso",
+        "cpl.ethics_governance"
+      ]
+    },
+    {
+      "query": "Comment rendre ALFRED scalable sans perdre le local-first ?",
+      "expected_domains": [
+        "professional.engineering.systeme_design",
+        "professional.engineering.ai",
+        "professional.standards_iso"
+      ]
+    },
+    {
+      "query": "Comment améliorer l'adoption utilisateur d'ALFRED ?",
+      "expected_domains": [
+        "professional.product_management",
+        "human.social_behavior",
+        "cpl.strategy"
+      ]
+    },
+    {
+      "query": "Quelles règles RGPD appliquer à la mémoire d'ALFRED ?",
+      "expected_domains": [
+        "professional.frameworks",
+        "professional.standards_iso",
+        "system.memory"
+      ]
+    }
+  ]
+}

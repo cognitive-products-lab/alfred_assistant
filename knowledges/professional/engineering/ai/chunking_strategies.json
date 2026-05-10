@@ -1,0 +1,117 @@
+{
+  "schema_version": "1.1",
+  "type": "knowledge_unit",
+  "id": "knowledges.professional.engineering.ai.chunking_strategies",
+  "title": "Chunking Strategies",
+  "domain": "professional",
+  "status": "validated_v1",
+
+  "summary": "Fiche permettant à ALFRED d'optimiser le découpage des documents pour améliorer la qualité du RAG et la pertinence des réponses générées.",
+
+  "core_definition": "Le chunking consiste à découper des documents en fragments cohérents afin de faciliter leur indexation, leur recherche et leur injection dans le prompt LLM.",
+
+  "core_principles": [
+    "un chunk doit être sémantiquement cohérent",
+    "trop grand = dilution du signal pertinent",
+    "trop petit = perte de contexte",
+    "le découpage influence directement la qualité du RAG",
+    "adapter la stratégie au type de document"
+  ],
+
+  "chunk_types": {
+    "fixed_size": {
+      "description": "Découpage par nombre fixe de caractères ou tokens.",
+      "usage": "simple à implémenter, bon point de départ",
+      "risk": "peut couper au milieu d'une idée"
+    },
+    "paragraph_based": {
+      "description": "Découpage selon les paragraphes ou blocs logiques.",
+      "usage": "préserve la cohérence sémantique",
+      "risk": "taille variable, peut être trop long"
+    },
+    "sliding_window": {
+      "description": "Chunks avec chevauchement pour préserver le contexte aux frontières.",
+      "usage": "améliore la continuité entre chunks",
+      "risk": "duplication partielle des données"
+    },
+    "semantic_chunking": {
+      "description": "Découpage selon les changements de sens détectés par embedding.",
+      "usage": "meilleure qualité sémantique",
+      "risk": "nécessite un modèle d'embedding"
+    }
+  },
+
+  "alfred_current_approach": {
+    "method": "fiches JSON structurées = chunks naturels",
+    "fields_used": [ "summary", "core_definition", "conversation_uses" ],
+    "max_chars_per_unit": 800,
+    "note": "Chaque fiche knowledge est son propre chunk — pas de découpage nécessaire en V1."
+  },
+
+  "common_errors": [
+    "chunks trop longs qui diluent l'information",
+    "chunks incohérents coupant une idée en deux",
+    "absence de structure dans les chunks",
+    "ne pas tester la qualité des chunks récupérés"
+  ],
+
+  "conversation_uses": [
+    "expliquer le chunking simplement",
+    "améliorer la base de connaissances ALFRED",
+    "préparer l'évolution vers un RAG vectoriel",
+    "diagnostiquer une mauvaise récupération de contexte"
+  ],
+
+  "example_answers": [
+    {
+      "prompt": "Pourquoi mes réponses RAG sont mauvaises ?",
+      "answer": "Vérifie d'abord les chunks : sont-ils cohérents ? Trop longs ? Mal structurés ? Un mauvais découpage produit de mauvaises récupérations."
+    },
+    {
+      "prompt": "Quelle stratégie de chunking pour ALFRED ?",
+      "answer": "En V1, les fiches JSON sont des chunks naturels. Pour la V2, on passera au chunking sémantique avec embeddings."
+    }
+  ],
+
+  "response_guidance": {
+    "tone": "technique, pragmatique, clair",
+    "structure": [
+      "type de chunking",
+      "avantages et risques",
+      "application à ALFRED",
+      "prochaine évolution"
+    ],
+    "avoid": [
+      "jargon sans explication",
+      "présenter le chunking comme une solution magique",
+      "ignorer le type de document concerné"
+    ]
+  },
+
+  "links_to_alfred_identity": {
+    "dominant_layer": "jarvis",
+    "mode": "technical_mode",
+    "why": "Le chunking est une décision d'architecture qui impacte directement la qualité du RAG."
+  },
+
+  "related_knowledge_units": [
+    "knowledges.professional.engineering.ai.rag",
+    "knowledges.professional.engineering.ai.vector_database",
+    "knowledges.professional.engineering.ai.llm_basics"
+  ],
+
+  "related_features": [
+    "18.01.002",
+    "18.01.003",
+    "18.01.004",
+    "18.03.004"
+  ],
+
+  "tags": [ "chunking", "rag", "ai", "text_processing", "knowledge", "alfred" ],
+
+  "quality": {
+    "confidence": "high",
+    "requires_sources": false,
+    "review_needed": false
+  }
+}
