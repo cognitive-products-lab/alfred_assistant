@@ -1,0 +1,194 @@
+{
+  "schema_version": "1.0",
+  "type": "knowledge_unit",
+  "id": "knowledges.professional.engineering.ai.rag",
+  "title": "RAG",
+  "domain": "professional",
+  "status": "validated_v1",
+
+  "summary": "Fiche permettant à ALFRED de comprendre et utiliser le RAG, c’est-à-dire la génération augmentée par récupération de connaissances, pour produire des réponses plus contextualisées et fiables.",
+
+  "core_definition": "Le RAG (Retrieval-Augmented Generation) est une approche qui combine un modèle de langage avec une recherche dans une base de connaissances afin de générer des réponses fondées sur des informations récupérées au moment de la demande.",
+
+  "core_principles": [
+    "le LLM génère la réponse",
+    "le système de retrieval cherche les connaissances utiles",
+    "les connaissances récupérées sont injectées dans le prompt",
+    "le RAG réduit les hallucinations mais ne les supprime pas totalement",
+    "la qualité dépend des documents, du découpage, du scoring et du prompt",
+    "une mauvaise base de connaissances produit de mauvaises réponses"
+  ],
+
+  "how_it_works": {
+    "step_1_query": "L’utilisateur pose une question ou formule une demande.",
+    "step_2_retrieval": "Le système recherche les fiches ou fragments les plus pertinents.",
+    "step_3_context_injection": "Les connaissances sélectionnées sont ajoutées au prompt.",
+    "step_4_generation": "Le LLM génère une réponse en s’appuyant sur le contexte fourni.",
+    "step_5_post_processing": "La réponse peut être nettoyée, limitée, reformulée ou sécurisée."
+  },
+
+  "key_concepts": [
+    "retrieval",
+    "knowledge base",
+    "chunking",
+    "embedding",
+    "vector database",
+    "similarity search",
+    "top_k",
+    "context injection",
+    "grounding",
+    "hallucination control"
+  ],
+
+  "rag_components": {
+    "knowledge_base": {
+      "description": "Ensemble des fichiers ou documents qui servent de source de connaissances.",
+      "alfred_example": "ALFRED_PC/knowledges/"
+    },
+    "retriever": {
+      "description": "Module qui recherche les contenus pertinents.",
+      "alfred_example": "knowledge_loader.py"
+    },
+    "scoring": {
+      "description": "Méthode permettant de classer les résultats selon leur pertinence.",
+      "alfred_example": "score par mots-clés, tags, domaine, mode comportemental"
+    },
+    "generator": {
+      "description": "LLM qui rédige la réponse finale.",
+      "alfred_example": "response_generator_v4.py + llm_client"
+    }
+  },
+
+  "strengths": [
+    "réponses plus contextualisées",
+    "meilleure cohérence avec le projet",
+    "réduction des hallucinations",
+    "possibilité de mettre à jour les connaissances sans réentraîner le modèle",
+    "meilleure traçabilité des sources internes"
+  ],
+
+  "limitations": [
+    "si la bonne fiche n’est pas récupérée, la réponse peut être incomplète",
+    "si les connaissances sont pauvres, la réponse sera pauvre",
+    "le RAG ne garantit pas la vérité",
+    "trop de contexte peut diluer la réponse",
+    "les conflits entre fiches doivent être arbitrés"
+  ],
+
+  "common_errors": [
+    "injecter trop de documents",
+    "ne pas limiter la taille du contexte",
+    "ne pas prioriser les fiches",
+    "mal taguer les connaissances",
+    "confondre RAG et mémoire",
+    "croire que le RAG supprime toutes les hallucinations"
+  ],
+
+  "best_practices": [
+    "structurer les fiches avec summary, core_definition, tags et limits",
+    "limiter le nombre de fiches injectées",
+    "utiliser des tags cohérents",
+    "prévoir un fallback si aucune connaissance pertinente n’est trouvée",
+    "contrôler la longueur du prompt",
+    "séparer connaissances, mémoire et règles comportementales"
+  ],
+
+  "conversation_uses": [
+    "expliquer le RAG simplement",
+    "diagnostiquer une réponse incorrecte d’ALFRED",
+    "améliorer la base de connaissances",
+    "structurer les fichiers knowledges",
+    "préparer une future base vectorielle"
+  ],
+
+  "example_answers": [
+    {
+      "prompt": "Pourquoi Alfred a besoin de RAG ?",
+      "answer": "Parce que le LLM seul génère du texte, mais le RAG lui donne des connaissances spécifiques à ton projet. C’est ce qui permet à ALFRED de répondre avec son contexte, pas avec une réponse générique."
+    },
+    {
+      "prompt": "Le RAG évite-t-il les hallucinations ?",
+      "answer": "Il les réduit, mais ne les élimine pas. Si la fiche récupérée est mauvaise, absente ou mal priorisée, la réponse peut rester fragile."
+    },
+    {
+      "prompt": "Quelle différence entre mémoire et RAG ?",
+      "answer": "La mémoire conserve l’historique et les préférences. Le RAG va chercher des connaissances structurées. Les deux se complètent, mais ne jouent pas le même rôle."
+    }
+  ],
+
+  "response_guidance": {
+    "tone": "clair, technique mais accessible, pragmatique",
+    "structure": [
+      "définition",
+      "fonctionnement",
+      "avantages",
+      "limites",
+      "application à ALFRED"
+    ],
+    "avoid": [
+      "faire croire que le RAG rend le système infaillible",
+      "confondre RAG, mémoire et fine-tuning",
+      "utiliser du jargon sans explication",
+      "sur-complexifier si l’utilisateur veut juste comprendre"
+    ]
+  },
+
+  "links_to_alfred_identity": {
+    "dominant_layer": "jarvis",
+    "mode": "technical_mode",
+    "why": "Le RAG est la couche qui permet à ALFRED de connecter logique, mémoire projet et connaissances utiles."
+  },
+
+  "alfred_implementation": {
+    "current_version": "RAG local keyword-first",
+    "current_files": [
+      "knowledge_loader.py",
+      "response_generator_v4.py",
+      "knowledge_registry.json",
+      "rag_settings.json",
+      "knowledge_settings.json"
+    ],
+    "future_evolution": [
+      "ajout d’embeddings",
+      "base vectorielle locale",
+      "chunking sémantique",
+      "scoring hybride keyword + semantic",
+      "traçabilité des fiches utilisées"
+    ]
+  },
+
+  "related_knowledge_units": [
+    "knowledges.professional.engineering.ai.llm_basics",
+    "knowledges.professional.engineering.ai.vector_database",
+    "knowledges.professional.engineering.ai.chunking_strategies",
+    "knowledges.core.alfred_core_identity"
+  ],
+
+  "related_features": [
+    "18.01.001",
+    "18.01.002",
+    "18.01.003",
+    "18.01.004",
+    "18.03.004",
+    "18.05.004",
+    "5.01.003",
+    "5.01.004"
+  ],
+
+  "tags": [
+    "rag",
+    "retrieval",
+    "knowledge",
+    "llm",
+    "context",
+    "grounding",
+    "hallucination_control",
+    "alfred"
+  ],
+
+  "quality": {
+    "confidence": "high",
+    "requires_sources": false,
+    "review_needed": false
+  }
+}

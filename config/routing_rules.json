@@ -1,0 +1,257 @@
+{
+  "schema_version": "1.0",
+  "type": "routing_rules",
+  "id": "config.routing_rules",
+  "status": "validated_v1",
+
+  "description": "Règles de routage permettant à ALFRED de déterminer le mode comportemental, les connaissances à charger et les priorités de réponse.",
+
+  "global_defaults": {
+    "default_mode": "hybrid_mode",
+    "fallback_mode": "hybrid_mode",
+    "max_knowledge_units": 5,
+    "always_include_core_identity": true
+  },
+
+  "intent_detection": {
+
+    "support_intents": [
+      "fatigue",
+      "stress",
+      "épuisement",
+      "burnout",
+      "triste",
+      "angoisse",
+      "je n’y arrive pas",
+      "j’en peux plus",
+      "je suis perdu",
+      "je suis bloqué"
+    ],
+
+    "execution_intents": [
+      "plan",
+      "organiser",
+      "structurer",
+      "code",
+      "développer",
+      "corriger",
+      "optimiser",
+      "faire",
+      "mettre en place",
+      "créer"
+    ],
+
+    "learning_intents": [
+      "explique",
+      "comprendre",
+      "cours",
+      "apprendre",
+      "définition",
+      "exemple",
+      "pourquoi",
+      "comment ça marche"
+    ],
+
+    "ethics_intents": [
+      "manipulation",
+      "danger",
+      "risque",
+      "légal",
+      "éthique",
+      "est-ce dangereux",
+      "est-ce risqué"
+    ],
+
+    "identity_intents": [
+      "alfred",
+      "personnalité",
+      "identité",
+      "comportement",
+      "fonctionnement"
+    ]
+  },
+
+  "mode_routing": [
+
+    {
+      "rule_id": "support_mode_trigger",
+      "priority": 100,
+      "conditions": {
+        "intent": "support_intents",
+        "emotional_intensity_min": 0.6
+      },
+      "action": {
+        "mode": "support_mode",
+        "load": [
+          "knowledges.core.alfred_core_identity",
+          "knowledges.culture.universes.dc.alfred_pennyworth"
+        ]
+      }
+    },
+
+    {
+      "rule_id": "execution_mode_trigger",
+      "priority": 90,
+      "conditions": {
+        "intent": "execution_intents"
+      },
+      "action": {
+        "mode": "execution_mode",
+        "load": [
+          "knowledges.core.alfred_core_identity",
+          "knowledges.culture.universes.marvel.jarvis"
+        ]
+      }
+    },
+
+    {
+      "rule_id": "learning_mode_trigger",
+      "priority": 80,
+      "conditions": {
+        "intent": "learning_intents"
+      },
+      "action": {
+        "mode": "learning_mode",
+        "load": [
+          "knowledges.core.alfred_core_identity"
+        ]
+      }
+    },
+
+    {
+      "rule_id": "ethics_mode_trigger",
+      "priority": 95,
+      "conditions": {
+        "intent": "ethics_intents"
+      },
+      "action": {
+        "mode": "ethics_mode",
+        "load": [
+          "knowledges.core.alfred_core_identity",
+          "knowledges.culture.universes.dc.joker"
+        ]
+      }
+    },
+
+    {
+      "rule_id": "identity_mode_trigger",
+      "priority": 85,
+      "conditions": {
+        "intent": "identity_intents"
+      },
+      "action": {
+        "mode": "hybrid_mode",
+        "load": [
+          "knowledges.core.alfred_core_identity",
+          "knowledges.culture.universes.dc.alfred_pennyworth",
+          "knowledges.culture.universes.marvel.jarvis"
+        ]
+      }
+    }
+  ],
+
+  "knowledge_routing": [
+
+    {
+      "rule_id": "route_batman",
+      "keywords": [ "batman", "bruce wayne", "gotham" ],
+      "load": [
+        "knowledges.culture.universes.dc.batman",
+        "knowledges.culture.universes.dc.dc_universe_core"
+      ]
+    },
+
+    {
+      "rule_id": "route_joker",
+      "keywords": [ "joker", "chaos", "manipulation" ],
+      "load": [
+        "knowledges.culture.universes.dc.joker"
+      ]
+    },
+
+    {
+      "rule_id": "route_alfred_pennyworth",
+      "keywords": [ "alfred pennyworth", "majordome batman" ],
+      "load": [
+        "knowledges.culture.universes.dc.alfred_pennyworth"
+      ]
+    },
+
+    {
+      "rule_id": "route_iron_man",
+      "keywords": [ "iron man", "tony stark" ],
+      "load": [
+        "knowledges.culture.universes.marvel.iron_man"
+      ]
+    },
+
+    {
+      "rule_id": "route_jarvis",
+      "keywords": [ "jarvis", "assistant iron man" ],
+      "load": [
+        "knowledges.culture.universes.marvel.jarvis"
+      ]
+    },
+
+    {
+      "rule_id": "route_dc_vs_marvel",
+      "keywords": [ "dc vs marvel", "différence dc marvel" ],
+      "load": [
+        "knowledges.culture.universes.dc.dc_universe_core",
+        "knowledges.culture.universes.marvel.marvel_universe_core"
+      ]
+    }
+  ],
+
+  "priority_rules": [
+    "mode_routing avant knowledge_routing",
+    "plus haute priorité gagne",
+    "fusion des connaissances si plusieurs règles match",
+    "limiter à max_knowledge_units"
+  ],
+
+  "fallback_rules": {
+    "no_match": {
+      "mode": "hybrid_mode",
+      "load": [
+        "knowledges.core.alfred_core_identity"
+      ],
+      "instruction": "répondre avec logique + empathie sans connaissance spécifique"
+    },
+    "low_confidence": {
+      "mode": "learning_mode",
+      "instruction": "demander clarification"
+    }
+  },
+
+  "integration": {
+    "used_by": [
+      "alfred_behavior_engine.py",
+      "response_generator.py",
+      "knowledge_loader.py"
+    ],
+    "execution_order": [
+      "intent_detection",
+      "mode_routing",
+      "knowledge_routing",
+      "fallback"
+    ]
+  },
+
+  "related_features": [
+    "18.01.003",
+    "18.01.004",
+    "18.03.004",
+    "18.05.004",
+    "5.03.005",
+    "5.05.001"
+  ],
+
+  "tags": [
+    "routing",
+    "decision_engine",
+    "rag",
+    "mode_selection",
+    "behavior"
+  ]
+}

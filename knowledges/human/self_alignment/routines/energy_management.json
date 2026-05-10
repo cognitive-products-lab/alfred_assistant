@@ -1,0 +1,190 @@
+{
+  "schema_version": "1.0",
+  "type": "knowledge_unit",
+  "id": "knowledges.human.self_alignment.routines.energy_management",
+  "title": "Energy Management",
+  "domain": "human",
+  "status": "validated_v1",
+
+  "summary": "Fiche permettant à ALFRED d’aider l’utilisateur à gérer son énergie personnelle en adaptant les actions, les priorités et le rythme au niveau de ressources disponible.",
+
+  "core_definition": "La gestion de l’énergie consiste à organiser les actions non seulement selon le temps disponible, mais surtout selon la capacité réelle d’attention, de concentration, de motivation et de récupération de l’utilisateur.",
+
+  "core_principles": [
+    "l’énergie est une ressource limitée",
+    "le temps disponible ne garantit pas la capacité d’action",
+    "les tâches doivent être adaptées au niveau d’énergie",
+    "la récupération fait partie de la performance durable",
+    "réduire vaut parfois mieux qu’insister",
+    "l’énergie doit guider la priorisation"
+  ],
+
+  "energy_levels": {
+    "very_low": {
+      "description": "Énergie très basse, aucune tâche complexe recommandée.",
+      "recommended_mode": "support_mode",
+      "recommended_actions": [
+        "repos",
+        "hydratation",
+        "noter une seule information",
+        "reporter les tâches non urgentes",
+        "préparer l’environnement sans agir"
+      ],
+      "avoid": [
+        "décision importante",
+        "tâche longue",
+        "apprentissage complexe",
+        "multitâche"
+      ]
+    },
+    "low": {
+      "description": "Énergie basse, micro-actions possibles.",
+      "recommended_mode": "support_mode",
+      "recommended_actions": [
+        "micro-tâche de 2 à 5 minutes",
+        "tri léger",
+        "lecture courte",
+        "préparation d’une prochaine étape"
+      ],
+      "avoid": [
+        "planning lourd",
+        "engagement nouveau",
+        "tâche émotionnellement coûteuse"
+      ]
+    },
+    "medium": {
+      "description": "Énergie suffisante pour une action cadrée.",
+      "recommended_mode": "hybrid_mode",
+      "recommended_actions": [
+        "tâche prioritaire courte",
+        "bloc de travail limité",
+        "organisation",
+        "révision",
+        "décision simple"
+      ],
+      "avoid": [
+        "enchaînement sans pause",
+        "sur-optimisation"
+      ]
+    },
+    "high": {
+      "description": "Énergie haute, possible travail complexe ou créatif.",
+      "recommended_mode": "execution_mode",
+      "recommended_actions": [
+        "création",
+        "développement",
+        "analyse complexe",
+        "prise de décision",
+        "résolution de problème"
+      ],
+      "avoid": [
+        "consommer toute l’énergie sans récupération",
+        "surcharger la journée suivante"
+      ]
+    }
+  },
+
+  "energy_signals": [
+    "fatigue",
+    "difficulté à se concentrer",
+    "irritabilité",
+    "lenteur",
+    "envie d’éviter les tâches",
+    "motivation basse",
+    "sensation de saturation",
+    "baisse de clarté mentale"
+  ],
+
+  "decision_rules": [
+    "si énergie très basse, réduire à une action minimale ou repos",
+    "si énergie basse, choisir une micro-action",
+    "si énergie moyenne, traiter une priorité cadrée",
+    "si énergie haute, placer les tâches complexes",
+    "ne jamais confondre motivation basse et incapacité",
+    "toujours prévoir une récupération après une tâche coûteuse"
+  ],
+
+  "conversation_uses": [
+    "adapter une tâche au niveau d’énergie",
+    "choisir quoi faire selon la fatigue",
+    "préparer une journée réaliste",
+    "éviter la surcharge",
+    "aider à reprendre progressivement"
+  ],
+
+  "example_answers": [
+    {
+      "prompt": "Je suis fatiguée mais je veux avancer.",
+      "answer": "On avance, mais petit. Une micro-action de 5 minutes, puis pause. Là, l’objectif n’est pas la performance, c’est la continuité."
+    },
+    {
+      "prompt": "J’ai un peu d’énergie aujourd’hui.",
+      "answer": "Parfait. On choisit une seule priorité utile et on la cadre dans un bloc court. Pas de marathon déguisé."
+    },
+    {
+      "prompt": "Je suis en forme.",
+      "answer": "Alors on place une tâche à forte valeur maintenant, mais on garde une marge de récupération. Le but est d’avancer sans cramer le moteur."
+    }
+  ],
+
+  "response_guidance": {
+    "tone": "réaliste, protecteur, motivant sans pression",
+    "structure": [
+      "identifier le niveau d’énergie",
+      "choisir le mode adapté",
+      "proposer une action proportionnée",
+      "prévoir la récupération"
+    ],
+    "avoid": [
+      "pousser à faire plus malgré la fatigue",
+      "culpabiliser le repos",
+      "proposer un plan trop ambitieux",
+      "ignorer les signaux corporels"
+    ]
+  },
+
+  "links_to_alfred_identity": {
+    "dominant_layer": "alfred_pennyworth",
+    "secondary_layer": "jarvis",
+    "mode": "hybrid_mode",
+    "why": "La gestion de l’énergie combine soutien humain, protection des limites et planification efficace."
+  },
+
+  "related_knowledge_units": [
+    "knowledges.core.alfred_core_identity",
+    "knowledges.lifestyle.health.fatigue_management",
+    "knowledges.lifestyle.health.recovery_cycles",
+    "knowledges.lifestyle.daily_life.time_management",
+    "knowledges.lifestyle.daily_life.organization_basics"
+  ],
+
+  "related_features": [
+    "3.03.001",
+    "3.03.002",
+    "3.03.005",
+    "4.03.001",
+    "4.03.002",
+    "5.03.002",
+    "5.05.001",
+    "14.02.003",
+    "18.05.004"
+  ],
+
+  "tags": [
+    "energy_management",
+    "fatigue",
+    "recovery",
+    "planning",
+    "self_alignment",
+    "support",
+    "stabilite",
+    "alfred"
+  ],
+
+  "quality": {
+    "confidence": "high",
+    "requires_sources": false,
+    "review_needed": false,
+    "medical_safety": "non_medical_support_only"
+  }
+}

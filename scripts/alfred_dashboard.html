@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ALFRED — Dashboard Fonctionnel</title>
+<style>
+  :root {
+    --bg: #0d1117;
+    --surface: #161b22;
+    --surface2: #1c2128;
+    --border: #30363d;
+    --text: #e6edf3;
+    --text2: #8b949e;
+    --accent: #2563eb;
+    --accent2: #3b82f6;
+    --green: #238636;
+    --green2: #2ea043;
+    --green3: #56d364;
+    --orange: #d97706;
+    --orange2: #f59e0b;
+    --red: #da3633;
+    --purple: #8b5cf6;
+    --cyan: #06b6d4;
+    --yellow: #eab308;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 13px; min-height: 100vh; }
+
+  /* ─── HEADER ─── */
+  #header {
+    background: linear-gradient(135deg, #0d1117 0%, #161b22 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 14px 20px;
+    display: flex; align-items: center; justify-content: space-between;
+    position: sticky; top: 0; z-index: 100;
+  }
+  #header h1 { font-size: 18px; font-weight: 700; letter-spacing: 0.5px; }
+  #header h1 span { color: var(--accent2); }
+  .hdr-right { display: flex; gap: 10px; align-items: center; }
+  .date-tag { color: var(--text2); font-size: 11px; background: var(--surface2); padding: 4px 10px; border-radius: 20px; border: 1px solid var(--border); }
+
+  /* ─── GLOBAL STATS ─── */
+  #global-stats {
+    display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px;
+    padding: 14px 20px; border-bottom: 1px solid var(--border);
+    background: var(--surface);
+  }
+  .stat-card {
+    background: var(--surface2); border: 1px solid var(--border); border-radius: 8px;
+    padding: 10px 12px; text-align: center;
+  }
+  .stat-val { font-size: 22px; font-weight: 700; }
+  .stat-lbl { font-size: 10px; color: var(--text2); margin-top: 2px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .sv-total { color: var(--accent2); }
+  .sv-done { color: var(--green3); }
+  .sv-wip { color: var(--orange2); }
+  .sv-todo { color: var(--text2); }
+  .sv-pct { color: var(--purple); font-size: 20px; }
+
+  /* ─── GLOBAL PROGRESS ─── */
+  #global-progress {
+    padding: 10px 20px; background: var(--surface); border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 14px;
+  }
+  .gp-label { font-size: 11px; color: var(--text2); white-space: nowrap; min-width: 120px; }
+  .progress-outer { flex: 1; height: 10px; background: var(--surface2); border-radius: 10px; overflow: hidden; border: 1px solid var(--border); }
+  .progress-inner { height: 100%; border-radius: 10px; transition: width 0.4s ease; }
+  .pg-done { background: linear-gradient(90deg, var(--green), var(--green3)); }
+  .pg-wip  { background: var(--orange2); }
+
+  /* ─── TOOLBAR ─── */
+  #toolbar {
+    padding: 10px 20px; display: flex; gap: 10px; align-items: center;
+    background: var(--bg); border-bottom: 1px solid var(--border); flex-wrap: wrap;
+  }
+  .filter-btn {
+    padding: 5px 12px; border-radius: 20px; border: 1px solid var(--border);
+    background: var(--surface2); color: var(--text2); cursor: pointer; font-size: 12px;
+    transition: all 0.15s;
+  }
+  .filter-btn:hover { border-color: var(--accent2); color: var(--accent2); }
+  .filter-btn.active { background: var(--accent); border-color: var(--accent); color: white; }
+  #search-input {
+    padding: 5px 12px; border-radius: 6px; border: 1px solid var(--border);
+    background: var(--surface2); color: var(--text); font-size: 12px; width: 220px;
+    outline: none;
+  }
+  #search-input:focus { border-color: var(--accent2); }
+  .sep { width: 1px; height: 20px; background: var(--border); }
+  #expand-all, #collapse-all {
+    padding: 5px 12px; border-radius: 6px; border: 1px solid var(--border);
+    background: var(--surface2); color: var(--text2); cursor: pointer; font-size: 11px;
+  }
+  #expand-all:hover, #collapse-all:hover { color: var(--text); border-color: var(--text2); }
+  #reset-btn {
+    padding: 5px 12px; border-radius: 6px; border: 1px solid #5a1a1a;
+    background: #2a0a0a; color: #f87171; cursor: pointer; font-size: 11px;
+    margin-left: auto;
+  }
+  #reset-btn:hover { background: #3a1010; }
+
+  /* ─── MAIN LAYOUT ─── */
+  #main { display: flex; height: calc(100vh - 220px); overflow: hidden; }
+
+  /* ─── SIDEBAR BLOCS ─── */
+  #sidebar {
+    width: 260px; min-width: 260px; overflow-y: auto; border-right: 1px solid var(--border);
+    background: var(--surface);
+  }
+  .bloc-item {
+    padding: 10px 14px; cursor: pointer; border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 8px; transition: background 0.12s;
+    position: relative;
+  }
+  .bloc-item:hover { background: var(--surface2); }
+  .bloc-item.selected { background: var(--surface2); border-left: 3px solid var(--accent2); }
+  .bloc-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+  .bloc-info { flex: 1; min-width: 0; }
+  .bloc-name { font-size: 12px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .bloc-sub { font-size: 10px; color: var(--text2); }
+  .bloc-pct-badge {
+    font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 10px;
+    background: var(--surface); border: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+  .mini-prog { height: 3px; background: var(--border); border-radius: 2px; margin-top: 4px; overflow: hidden; }
+  .mini-prog-inner { height: 100%; border-radius: 2px; }
+
+  /* ─── DETAIL PANEL ─── */
+  #detail { flex: 1; overflow-y: auto; padding: 16px 20px; }
+  #detail-header {
+    display: flex; align-items: center; gap: 14px; margin-bottom: 16px;
+    padding-bottom: 12px; border-bottom: 1px solid var(--border);
+  }
+  #detail-icon { font-size: 28px; }
+  #detail-title { font-size: 18px; font-weight: 700; }
+  #detail-sub { font-size: 12px; color: var(--text2); margin-top: 2px; }
+  .detail-stats { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 16px; }
+  .ds-chip {
+    padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 600;
+    border: 1px solid; display: flex; align-items: center; gap: 5px;
+  }
+  .ds-chip.done { color: var(--green3); border-color: var(--green); background: #0d2818; }
+  .ds-chip.wip  { color: var(--orange2); border-color: var(--orange); background: #1f1509; }
+  .ds-chip.todo { color: var(--text2); border-color: var(--border); background: var(--surface2); }
+
+  /* Fonction group */
+  .fn-group {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
+    margin-bottom: 10px; overflow: hidden;
+  }
+  .fn-header {
+    padding: 10px 14px; display: flex; align-items: center; gap: 10px;
+    cursor: pointer; transition: background 0.12s; user-select: none;
+  }
+  .fn-header:hover { background: var(--surface2); }
+  .fn-code { font-size: 11px; font-family: monospace; color: var(--accent2); background: rgba(37,99,235,0.12); padding: 2px 7px; border-radius: 4px; }
+  .fn-label { font-size: 13px; font-weight: 600; flex: 1; }
+  .fn-progress { display: flex; align-items: center; gap: 8px; }
+  .fn-prog-bar { width: 80px; height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; }
+  .fn-prog-fill { height: 100%; border-radius: 3px; transition: width 0.3s; }
+  .fn-pct { font-size: 10px; color: var(--text2); width: 28px; text-align: right; }
+  .fn-chevron { color: var(--text2); font-size: 10px; transition: transform 0.2s; }
+  .fn-header.open .fn-chevron { transform: rotate(90deg); }
+
+  /* Sous-fonctions */
+  .subfn-list { border-top: 1px solid var(--border); display: none; }
+  .subfn-list.open { display: block; }
+  .subfn-row {
+    padding: 8px 14px 8px 42px; display: flex; align-items: center; gap: 10px;
+    border-bottom: 1px solid var(--border); transition: background 0.1s;
+  }
+  .subfn-row:last-child { border-bottom: none; }
+  .subfn-row:hover { background: rgba(255,255,255,0.02); }
+  .subfn-code { font-family: monospace; font-size: 10px; color: var(--text2); min-width: 56px; }
+  .subfn-name { flex: 1; font-size: 12px; }
+  .subfn-name.done-txt { text-decoration: line-through; color: var(--text2); }
+
+  /* Status toggle */
+  .status-btn {
+    padding: 3px 9px; border-radius: 20px; border: 1px solid; font-size: 10px;
+    font-weight: 600; cursor: pointer; transition: all 0.15s; white-space: nowrap;
+    background: transparent;
+  }
+  .status-btn.todo  { color: var(--text2); border-color: var(--border); }
+  .status-btn.todo:hover  { border-color: var(--orange); color: var(--orange2); }
+  .status-btn.wip   { color: var(--orange2); border-color: var(--orange); background: #1f1509; }
+  .status-btn.wip:hover   { border-color: var(--green); color: var(--green3); }
+  .status-btn.done  { color: var(--green3); border-color: var(--green); background: #0d2818; }
+  .status-btn.done:hover  { border-color: var(--border); color: var(--text2); background: transparent; }
+
+  .note-input {
+    background: transparent; border: none; border-bottom: 1px dashed var(--border);
+    color: var(--text2); font-size: 10px; width: 130px; outline: none; padding: 1px 3px;
+  }
+  .note-input:focus { border-color: var(--accent2); color: var(--text); }
+  .note-input::placeholder { color: #4a5568; }
+
+  /* Scrollbars */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--text2); }
+
+  /* Empty state */
+  #empty-state { text-align: center; padding: 60px 20px; color: var(--text2); }
+  #empty-state .es-icon { font-size: 40px; margin-bottom: 12px; }
+
+  /* Toast */
+  #toast {
+    position: fixed; bottom: 20px; right: 20px; background: var(--surface2);
+    border: 1px solid var(--green); color: var(--green3); padding: 8px 16px;
+    border-radius: 8px; font-size: 12px; opacity: 0; transition: opacity 0.3s;
+    pointer-events: none; z-index: 999;
+  }
+  #toast.show { opacity: 1; }
+
+  /* Search highlight */
+  .hl { background: rgba(234,179,8,0.25); border-radius: 2px; color: var(--yellow); }
+</style>
+</head>
+<body>
+
+<div id="header">
+  <h1>⚡ <span>ALFRED</span> — Dashboard Fonctionnel</h1>
+  <div class="hdr-right">
+    <div class="date-tag" id="last-save">Chargement…</div>
+    <div class="date-tag">02/05/2026</div>
+  </div>
+</div>
+
+<div id="global-stats">
+  <div class="stat-card"><div class="stat-val sv-total" id="gs-total">500</div><div class="stat-lbl">Fonctions totales</div></div>
+  <div class="stat-card"><div class="stat-val sv-done" id="gs-done">0</div><div class="stat-lbl">✅ Terminées</div></div>
+  <div class="stat-card"><div class="stat-val sv-wip" id="gs-wip">0</div><div class="stat-lbl">🔄 En cours</div></div>
+  <div class="stat-card"><div class="stat-val sv-todo" id="gs-todo">500</div><div class="stat-lbl">⬜ À faire</div></div>
+  <div class="stat-card"><div class="stat-val sv-pct" id="gs-pct">0%</div><div class="stat-lbl">Avancement global</div></div>
+  <div class="stat-card"><div class="stat-val" style="color:var(--cyan)" id="gs-blocs">0/20</div><div class="stat-lbl">Blocs actifs</div></div>
+</div>
+
+<div id="global-progress">
+  <div class="gp-label">Progression globale</div>
+  <div class="progress-outer">
+    <div class="progress-inner pg-done" id="gp-done" style="width:0%;float:left;"></div>
+    <div class="progress-inner pg-wip"  id="gp-wip"  style="width:0%;float:left;"></div>
+  </div>
+  <div style="font-size:11px;color:var(--text2);min-width:100px;text-align:right">
+    <span id="gp-text-done" style="color:var(--green3)">0 done</span> · <span id="gp-text-wip" style="color:var(--orange2)">0 wip</span> / 500
+  </div>
+</div>
+
+<div id="toolbar">
+  <input id="search-input" type="text" placeholder="🔍 Rechercher une fonction…" oninput="applySearch()">
+  <div class="sep"></div>
+  <button class="filter-btn active" data-filter="all" onclick="setFilter('all',this)">Tous</button>
+  <button class="filter-btn" data-filter="done" onclick="setFilter('done',this)">✅ Terminés</button>
+  <button class="filter-btn" data-filter="wip"  onclick="setFilter('wip',this)">🔄 En cours</button>
+  <button class="filter-btn" data-filter="todo" onclick="setFilter('todo',this)">⬜ À faire</button>
+  <div class="sep"></div>
+  <button id="expand-all" onclick="toggleAllFn(true)">▼ Tout ouvrir</button>
+  <button id="collapse-all" onclick="toggleAllFn(false)">▶ Tout fermer</button>
+  <button id="reset-btn" onclick="confirmReset()">🗑 Réinitialiser</button>
+</div>
+
+<div id="main">
+  <div id="sidebar"></div>
+  <div id="detail">
+    <div id="empty-state">
+      <div class="es-icon">🗂️</div>
+      <div>Sélectionnez un bloc dans le panneau gauche</div>
+    </div>
+  </div>
+</div>
+
+<div id="toast">Sauvegardé ✓</div>
+
+<script>
+// ══════════════════════════════════════════════════════════════════
+// DATA — 20 blocs × 5 fonctions × 5 sous-fonctions = 500 items
+// ══════════════════════════════════════════════════════════════════
+const BLOCS = [
+  { id:1, emoji:"🔵", color:"#3b82f6", name:"Interaction Utilisateur", fns:[
+    {id:"1.01",name:"Capture audio", subs:["Activation micro","Détection wake word","Filtrage bruit","Normalisation audio","Buffer temps réel"]},
+    {id:"1.02",name:"Capture texte", subs:["Saisie utilisateur","Validation input","Nettoyage texte","Détection langue","Historisation input"]},
+    {id:"1.03",name:"Capture visuelle", subs:["Activation caméra","Capture image","Analyse frame","Détection visage","Détection objets"]},
+    {id:"1.04",name:"Contexte utilisateur", subs:["Détection localisation","Détection device","Détection temporelle","Détection activité","Fusion contexte"]},
+    {id:"1.05",name:"Restitution", subs:["Affichage texte","Lecture vocale","Affichage visuel","Animation avatar","Multicanal"]},
+  ]},
+  { id:2, emoji:"🟣", color:"#8b5cf6", name:"NLP & Compréhension", fns:[
+    {id:"2.01",name:"STT", subs:["Transcription audio","Correction transcription","Gestion accents","Ponctuation automatique","Mode offline fallback"]},
+    {id:"2.02",name:"Analyse sémantique", subs:["Tokenisation","Parsing syntaxique","Analyse grammaticale","Analyse contextuelle","Désambiguïsation"]},
+    {id:"2.03",name:"Intention", subs:["Classification intent","Score confiance","Multi-intent","Gestion fallback","Enrichissement contexte"]},
+    {id:"2.04",name:"Contexte conversationnel", subs:["Historique dialogue","Mémoire session","Détection sujet","Continuité conversation","Reset contexte"]},
+    {id:"2.05",name:"Entités", subs:["Extraction noms","Extraction dates","Extraction lieux","Extraction objets","Normalisation entités"]},
+  ]},
+  { id:3, emoji:"🟢", color:"#22c55e", name:"Mémoire", fns:[
+    {id:"3.01",name:"Court terme", subs:["Stockage session","Mise à jour dynamique","Suppression session","Priorisation info","Accès rapide"]},
+    {id:"3.02",name:"Long terme", subs:["Stockage persistant","Indexation","Recherche sémantique","Compression","Archivage"]},
+    {id:"3.03",name:"Profil utilisateur", subs:["Préférences","Habitudes","Historique","Score comportement","Mise à jour profil"]},
+    {id:"3.04",name:"Mémoire contextuelle", subs:["Corrélation événements","Liens contextuels","Timeline","Clustering","Résumé mémoire"]},
+    {id:"3.05",name:"Apprentissage", subs:["Feedback utilisateur","Auto-amélioration","Ajustement modèle","Détection patterns","Optimisation"]},
+  ]},
+  { id:4, emoji:"🔴", color:"#ef4444", name:"Moteur de Décision", fns:[
+    {id:"4.01",name:"Analyse", subs:["Analyse contexte global","Analyse émotion","Analyse priorité","Analyse risque","Analyse opportunité"]},
+    {id:"4.02",name:"Choix", subs:["Sélection réponse","Pondération options","Choix multi-stratégie","Fallback","Validation"]},
+    {id:"4.03",name:"Priorisation", subs:["Score urgence","Score importance","Arbitrage tâches","Gestion conflits","Planification"]},
+    {id:"4.04",name:"Scénarios", subs:["Détection scénario","Exécution scénario","Adaptation dynamique","Simulation","Optimisation"]},
+    {id:"4.05",name:"Arbitrage", subs:["Multi-objectifs","Contraintes","Décision finale","Log décision","Feedback"]},
+  ]},
+  { id:5, emoji:"🟠", color:"#f97316", name:"Génération de Réponse", fns:[
+    {id:"5.01",name:"Texte", subs:["Génération brute","Structuration","Simplification","Reformulation","Vérification"]},
+    {id:"5.02",name:"Voix", subs:["Synthèse vocale","Ajustement débit","Ajustement ton","Synchronisation","Sortie audio"]},
+    {id:"5.03",name:"Ton", subs:["Détection émotion","Adaptation ton","Personnalisation","Style Alfred","Variation dynamique"]},
+    {id:"5.04",name:"Structuration", subs:["Découpage","Hiérarchisation","Formatage","Ajout exemples","Clarté"]},
+    {id:"5.05",name:"Personnalisation", subs:["Adaptation utilisateur","Historique","Préférences","Style","Optimisation"]},
+  ]},
+  { id:6, emoji:"⚫", color:"#6b7280", name:"Actions & Automatisation", fns:[
+    {id:"6.01",name:"Exécution", subs:["Déclenchement action","Validation action","Exécution","Suivi état","Confirmation"]},
+    {id:"6.02",name:"Rappels", subs:["Création rappel","Modification","Suppression","Notification","Historisation"]},
+    {id:"6.03",name:"Automatisation", subs:["Création règle","Détection trigger","Exécution automatique","Monitoring","Optimisation"]},
+    {id:"6.04",name:"Intégrations", subs:["API externe","Connexion apps","Synchronisation","Gestion erreurs","Logs"]},
+    {id:"6.05",name:"Orchestration", subs:["Multi-actions","Séquencement","Parallélisation","Gestion dépendances","Optimisation flux"]},
+  ]},
+  { id:7, emoji:"⚪", color:"#94a3b8", name:"Sécurité", fns:[
+    {id:"7.01",name:"Authentification", subs:["Login","Token","Session","Expiration","Refresh"]},
+    {id:"7.02",name:"Accès", subs:["Rôles","Permissions","Vérification","Restrictions","Audit"]},
+    {id:"7.03",name:"Chiffrement", subs:["Données au repos","Données en transit","Clés","Rotation","Sécurisation"]},
+    {id:"7.04",name:"Privacy", subs:["Consentement","Anonymisation","Minimisation","Droit utilisateur","RGPD"]},
+    {id:"7.05",name:"Logs", subs:["Journalisation","Sécurisation logs","Détection anomalies","Archivage","Audit sécurité"]},
+  ]},
+  { id:8, emoji:"⚪", color:"#64748b", name:"Interface", fns:[
+    {id:"8.01",name:"UI", subs:["Affichage écran","Navigation","Responsive","Thème","UX"]},
+    {id:"8.02",name:"Voix", subs:["Interface vocale","Feedback audio","Activation","Désactivation","Paramétrage"]},
+    {id:"8.03",name:"Notifications", subs:["Push","Email","SMS","Priorisation","Historique"]},
+    {id:"8.04",name:"Paramètres", subs:["Configuration","Préférences","Sauvegarde","Reset","Export"]},
+    {id:"8.05",name:"Accessibilité", subs:["Mode PMR","Contraste","Lecture vocale","Taille texte","Simplification UI"]},
+  ]},
+  { id:9, emoji:"🟦", color:"#0ea5e9", name:"ALFRED CPL (Pro/B2B)", fns:[
+    {id:"9.01",name:"Gestion de projet", subs:["Création projet","Structuration phases tâches","Affectation ressources","Suivi avancement","Clôture projet"]},
+    {id:"9.02",name:"Analyse de données", subs:["Collecte données","Nettoyage","Analyse exploratoire","Visualisation","Interprétation"]},
+    {id:"9.03",name:"Aide à la décision", subs:["Analyse options","Scoring scénarios","Simulation impact","Recommandation","Justification décision"]},
+    {id:"9.04",name:"Génération livrables", subs:["Documents Word/PDF","Tableaux Excel","Présentations","Synthèses exécutives","Templates personnalisés"]},
+    {id:"9.05",name:"Pilotage performance", subs:["Définition KPI","Suivi KPI","Alertes dérives","Reporting","Optimisation performance"]},
+  ]},
+  { id:10, emoji:"🟪", color:"#a855f7", name:"Collaboration", fns:[
+    {id:"10.01",name:"Multi-utilisateurs", subs:["Création comptes","Gestion profils","Attribution rôles","Gestion équipes","Désactivation comptes"]},
+    {id:"10.02",name:"Partage information", subs:["Partage documents","Partage données","Gestion versions","Accès sécurisé","Historique partage"]},
+    {id:"10.03",name:"Coordination équipe", subs:["Assignation tâches","Suivi collectif","Synchronisation","Gestion dépendances","Résolution blocages"]},
+    {id:"10.04",name:"Communication", subs:["Messagerie interne","Notifications","Commentaires","Réunions visio","Historique échanges"]},
+    {id:"10.05",name:"Historique collaboratif", subs:["Journal actions","Versionning","Audit activité","Traçabilité","Archivage"]},
+  ]},
+  { id:11, emoji:"🟩", color:"#10b981", name:"Intégrations & API", fns:[
+    {id:"11.01",name:"API externes", subs:["Connexion API","Authentification API","Requêtes","Gestion réponses","Gestion erreurs"]},
+    {id:"11.02",name:"Outils métiers", subs:["CRM","ERP","Outils projet","Outils data","Outils communication"]},
+    {id:"11.03",name:"Synchronisation", subs:["Sync temps réel","Sync différée","Résolution conflits","Intégrité données","Logs sync"]},
+    {id:"11.04",name:"Webhooks", subs:["Création webhook","Déclenchement","Réception","Sécurisation","Monitoring"]},
+    {id:"11.05",name:"Flux de données", subs:["Collecte","Transformation","Routage","Stockage","Analyse flux"]},
+  ]},
+  { id:12, emoji:"🟨", color:"#eab308", name:"Infrastructure & Perf.", fns:[
+    {id:"12.01",name:"Ressources", subs:["CPU","GPU","RAM","Stockage","Allocation dynamique"]},
+    {id:"12.02",name:"Performance", subs:["Optimisation temps réponse","Mise en cache","Load balancing","Compression","Profiling"]},
+    {id:"12.03",name:"Monitoring", subs:["Surveillance système","Logs techniques","Alertes","Dashboard","Analyse incidents"]},
+    {id:"12.04",name:"Scalabilité", subs:["Scalabilité verticale","Scalabilité horizontale","Auto-scaling","Gestion charge","Optimisation coûts"]},
+    {id:"12.05",name:"Résilience", subs:["Redondance","Backup","Reprise incident","Tolérance panne","Tests robustesse"]},
+  ]},
+  { id:13, emoji:"🟧", color:"#fb923c", name:"Arthur (Enfant/Santé)", fns:[
+    {id:"13.01",name:"Interaction enfant", subs:["Dialogue simplifié","Ton adapté","Jeux interactifs","Storytelling","Engagement"]},
+    {id:"13.02",name:"Émotion", subs:["Détection émotion","Réassurance","Accompagnement","Adaptation discours","Suivi émotionnel"]},
+    {id:"13.03",name:"Pédagogie", subs:["Contenus éducatifs","Explications simples","Exercices","Progression","Feedback"]},
+    {id:"13.04",name:"Communication famille", subs:["Partage info","Alertes","Suivi activité","Historique","Coordination"]},
+    {id:"13.05",name:"Bien-être", subs:["Suivi état","Recommandations","Activités","Relaxation","Alertes santé"]},
+  ]},
+  { id:14, emoji:"🟫", color:"#a78bfa", name:"Expérience Utilisateur+", fns:[
+    {id:"14.01",name:"Personnalisation", subs:["Paramètres avancés","Profil dynamique","Adaptation interface","Préférences","Optimisation"]},
+    {id:"14.02",name:"Adaptation comportementale", subs:["Analyse usage","Détection habitudes","Ajustement réponses","Anticipation","Amélioration continue"]},
+    {id:"14.03",name:"Analyse usage", subs:["Tracking usage","Analyse patterns","Segmentation","Insights","Reporting"]},
+    {id:"14.04",name:"Optimisation UX", subs:["Tests UX","Amélioration parcours","Réduction friction","A/B testing","KPI UX"]},
+    {id:"14.05",name:"Feedback utilisateur", subs:["Collecte feedback","Analyse","Priorisation","Intégration","Boucle amélioration"]},
+  ]},
+  { id:15, emoji:"🟩", color:"#34d399", name:"Éthique & Gouvernance", fns:[
+    {id:"15.01",name:"Consentement", subs:["Collecte consentement","Gestion préférences","Révocation","Traçabilité","Conformité"]},
+    {id:"15.02",name:"Transparence", subs:["Explication décisions","Audit IA","Logs traçables","Rapport éthique","Accessibilité info"]},
+    {id:"15.03",name:"Équité", subs:["Détection biais","Correction biais","Équité genre","Équité culturelle","Validation"]},
+    {id:"15.04",name:"Gouvernance IA", subs:["Politiques IA","Supervision humaine","Contrôles","Révision modèles","Certification"]},
+    {id:"15.05",name:"Protection données", subs:["Classification données","Contrôle accès","Minimisation","Anonymisation","Audit RGPD"]},
+  ]},
+  { id:16, emoji:"🔵", color:"#60a5fa", name:"Apprentissage Continu", fns:[
+    {id:"16.01",name:"Collecte données", subs:["Interactions utilisateur","Feedback explicite","Signaux implicites","Sources externes","Labellisation"]},
+    {id:"16.02",name:"Entraînement", subs:["Fine-tuning","Mise à jour modèles","Validation","Déploiement","Rollback"]},
+    {id:"16.03",name:"Évaluation", subs:["Métriques performance","Comparaison versions","Tests A/B","Régression","Rapport"]},
+    {id:"16.04",name:"Adaptation", subs:["Personnalisation modèle","Adaptation contexte","Ajustement temps réel","Mémorisation","Oubli contrôlé"]},
+    {id:"16.05",name:"Gouvernance apprentissage", subs:["Politique mise à jour","Contrôle qualité","Validation humaine","Traçabilité","Rollback auto"]},
+  ]},
+  { id:17, emoji:"⬛", color:"#374151", name:"DevOps & Déploiement", fns:[
+    {id:"17.01",name:"CI/CD", subs:["Pipeline build","Tests automatisés","Déploiement continu","Rollback","Notifications"]},
+    {id:"17.02",name:"Environnements", subs:["Dev","Staging","Production","Isolation","Configuration"]},
+    {id:"17.03",name:"Containerisation", subs:["Docker","Orchestration","Registry","Sécurité images","Optimisation"]},
+    {id:"17.04",name:"Monitoring déploiement", subs:["Health checks","Alertes déploiement","Logs déploiement","Métriques","Dashboards"]},
+    {id:"17.05",name:"Documentation", subs:["README","API docs","Guides utilisateur","Changelog","Gestion versions"]},
+  ]},
+  { id:18, emoji:"🟢", color:"#4ade80", name:"Connaissance", fns:[
+    {id:"18.01",name:"Base", subs:["Stockage","Structuration","Indexation","Recherche","Mise à jour"]},
+    {id:"18.02",name:"Apprentissage", subs:["Import données","Nettoyage","Enrichissement","Validation","Mise en production"]},
+    {id:"18.03",name:"Sources", subs:["Connexion","Fiabilité","Mise à jour","Vérification","Historisation"]},
+    {id:"18.04",name:"Culture", subs:["Connaissances générales","Domaines métier","Soft skills","Raisonnement","Contextualisation"]},
+    {id:"18.05",name:"Raisonnement", subs:["Logique","Déduction","Inférence","Explication","Optimisation"]},
+  ]},
+  { id:19, emoji:"🟡", color:"#fbbf24", name:"Domotique++", fns:[
+    {id:"19.01",name:"Contrôle", subs:["Allumer","Éteindre","Réglage","État","Retour info"]},
+    {id:"19.02",name:"Automatisation", subs:["Règles","Triggers","Scénarios","Adaptation","Optimisation"]},
+    {id:"19.03",name:"Surveillance", subs:["Capteurs","Caméras","Alertes","Analyse","Historique"]},
+    {id:"19.04",name:"Scénarios", subs:["Création","Déclenchement","Exécution","Ajustement","Logs"]},
+    {id:"19.05",name:"Énergie", subs:["Consommation","Analyse","Optimisation","Prévision","Réduction"]},
+  ]},
+  { id:20, emoji:"🔴", color:"#f87171", name:"Cybersécurité Avancée", fns:[
+    {id:"20.01",name:"Zero Trust", subs:["Vérification identité","Authentification continue","Contrôle accès","Segmentation","Validation requêtes"]},
+    {id:"20.02",name:"Intrusion", subs:["Détection anomalies","Analyse trafic","Détection attaques","Blocage","Alertes"]},
+    {id:"20.03",name:"Comportement", subs:["Profil utilisateur","Analyse comportement","Détection anomalie","Scoring risque","Réaction"]},
+    {id:"20.04",name:"Protection IA", subs:["Filtrage prompt","Anti injection","Sandbox","Limitation accès","Monitoring IA"]},
+    {id:"20.05",name:"Incident", subs:["Détection","Réponse automatique","Isolation","Journalisation","Analyse post"]},
+  ]},
+];
+
+// ══════════════════════════════════════════════════════════════════
+// STATE
+// ══════════════════════════════════════════════════════════════════
+// state[x_yy_zzz] = { status: 'todo'|'wip'|'done', note: '' }
+let state = {};
+let selectedBloc = null;
+let currentFilter = 'all';
+let searchQuery = '';
+const STORAGE_KEY = 'alfred_dashboard_v2';
+
+// ── Storage helpers ──────────────────────────────────────────────
+async function saveState() {
+  try {
+    await window.storage.set(STORAGE_KEY, JSON.stringify({ state, ts: new Date().toISOString() }));
+    showToast('Sauvegardé ✓');
+    updateLastSave(new Date());
+  } catch(e) {
+    console.warn('Storage save failed', e);
+  }
+}
+async function loadState() {
+  try {
+    const r = await window.storage.get(STORAGE_KEY);
+    if (r && r.value) {
+      const d = JSON.parse(r.value);
+      state = d.state || {};
+      if (d.ts) updateLastSave(new Date(d.ts));
+    }
+  } catch(e) { state = {}; }
+}
+function updateLastSave(dt) {
+  const el = document.getElementById('last-save');
+  if (!dt) return;
+  const h = dt.getHours().toString().padStart(2,'0');
+  const m = dt.getMinutes().toString().padStart(2,'0');
+  el.textContent = `Dernière sauvegarde : ${h}:${m}`;
+}
+
+// ── Key builder ──────────────────────────────────────────────────
+function subKey(fnId, idx) { return `${fnId.replace('.','_')}_${String(idx+1).padStart(3,'0')}`; }
+
+function getStatus(key) { return (state[key] && state[key].status) || 'todo'; }
+function getNote(key)   { return (state[key] && state[key].note)   || ''; }
+
+function cycleStatus(key) {
+  const s = getStatus(key);
+  const next = s === 'todo' ? 'wip' : s === 'wip' ? 'done' : 'todo';
+  if (!state[key]) state[key] = {};
+  state[key].status = next;
+  saveState();
+  return next;
+}
+function setNote(key, val) {
+  if (!state[key]) state[key] = {};
+  state[key].note = val;
+  saveState();
+}
+
+// ══════════════════════════════════════════════════════════════════
+// STATS
+// ══════════════════════════════════════════════════════════════════
+function computeStats() {
+  let done=0, wip=0, todo=0, activeBlocs=0;
+  for (const bloc of BLOCS) {
+    let blocHasActivity = false;
+    for (const fn of bloc.fns) {
+      for (let i=0;i<fn.subs.length;i++) {
+        const k = subKey(fn.id, i);
+        const s = getStatus(k);
+        if (s==='done') { done++; blocHasActivity=true; }
+        else if (s==='wip') { wip++; blocHasActivity=true; }
+        else todo++;
+      }
+    }
+    if (blocHasActivity) activeBlocs++;
+  }
+  return { done, wip, todo, total:500, activeBlocs };
+}
+
+function computeBlocStats(bloc) {
+  let done=0, wip=0, todo=0;
+  for (const fn of bloc.fns) {
+    for (let i=0;i<fn.subs.length;i++) {
+      const s = getStatus(subKey(fn.id,i));
+      if (s==='done') done++;
+      else if (s==='wip') wip++;
+      else todo++;
+    }
+  }
+  return { done, wip, todo, total:25 };
+}
+
+function computeFnStats(fn) {
+  let done=0, wip=0;
+  for (let i=0;i<5;i++) {
+    const s = getStatus(subKey(fn.id,i));
+    if (s==='done') done++;
+    else if (s==='wip') wip++;
+  }
+  return { done, wip };
+}
+
+function updateGlobalStats() {
+  const s = computeStats();
+  document.getElementById('gs-done').textContent = s.done;
+  document.getElementById('gs-wip').textContent  = s.wip;
+  document.getElementById('gs-todo').textContent = s.todo;
+  document.getElementById('gs-pct').textContent  = Math.round((s.done/500)*100) + '%';
+  document.getElementById('gs-blocs').textContent = s.activeBlocs + '/20';
+
+  const donePct = (s.done/500)*100;
+  const wipPct  = (s.wip/500)*100;
+  document.getElementById('gp-done').style.width = donePct + '%';
+  document.getElementById('gp-wip').style.width  = wipPct  + '%';
+  document.getElementById('gp-text-done').textContent = s.done + ' done';
+  document.getElementById('gp-text-wip').textContent  = s.wip  + ' wip';
+}
+
+// ══════════════════════════════════════════════════════════════════
+// SIDEBAR
+// ══════════════════════════════════════════════════════════════════
+function renderSidebar() {
+  const sb = document.getElementById('sidebar');
+  sb.innerHTML = '';
+  for (const bloc of BLOCS) {
+    const s = computeBlocStats(bloc);
+    const pct = Math.round((s.done/25)*100);
+    const col = pct===100 ? '#22c55e' : s.wip+s.done>0 ? '#f59e0b' : '#4a5568';
+    const div = document.createElement('div');
+    div.className = 'bloc-item' + (selectedBloc===bloc.id?' selected':'');
+    div.dataset.id = bloc.id;
+    div.innerHTML = `
+      <div class="bloc-dot" style="background:${bloc.color}"></div>
+      <div class="bloc-info">
+        <div class="bloc-name">${bloc.emoji} ${bloc.id}. ${bloc.name}</div>
+        <div class="bloc-sub">${s.done} done · ${s.wip} wip · ${s.todo} todo</div>
+        <div class="mini-prog"><div class="mini-prog-inner" style="width:${pct}%;background:${col}"></div></div>
+      </div>
+      <div class="bloc-pct-badge" style="color:${col}">${pct}%</div>
+    `;
+    div.onclick = () => selectBloc(bloc.id);
+    sb.appendChild(div);
+  }
+}
+
+// ══════════════════════════════════════════════════════════════════
+// DETAIL
+// ══════════════════════════════════════════════════════════════════
+function selectBloc(id) {
+  selectedBloc = id;
+  renderSidebar();
+  renderDetail();
+}
+
+function renderDetail() {
+  const panel = document.getElementById('detail');
+  if (!selectedBloc) { panel.innerHTML = '<div id="empty-state"><div class="es-icon">🗂️</div><div>Sélectionnez un bloc</div></div>'; return; }
+  const bloc = BLOCS.find(b=>b.id===selectedBloc);
+  if (!bloc) return;
+  const s = computeBlocStats(bloc);
+  const pct = Math.round((s.done/25)*100);
+  const q = searchQuery.toLowerCase();
+
+  let html = `
+    <div id="detail-header">
+      <div id="detail-icon">${bloc.emoji}</div>
+      <div>
+        <div id="detail-title">BLOC ${bloc.id} — ${bloc.name}</div>
+        <div id="detail-sub">25 sous-fonctions · ${s.done} terminées · ${s.wip} en cours · avancement ${pct}%</div>
+      </div>
+    </div>
+    <div class="detail-stats">
+      <div class="ds-chip done">✅ ${s.done} terminées</div>
+      <div class="ds-chip wip">🔄 ${s.wip} en cours</div>
+      <div class="ds-chip todo">⬜ ${s.todo} à faire</div>
+    </div>
+  `;
+
+  for (const fn of bloc.fns) {
+    const fs = computeFnStats(fn);
+    const fpct = Math.round(((fs.done)/5)*100);
+    const fcol = fpct===100?'#22c55e':fs.wip+fs.done>0?'#f59e0b':'#4a5568';
+
+    // Filtre : est-ce que cette fn a des sous-items correspondant au filtre/search ?
+    let visibleSubs = fn.subs.map((name,i) => {
+      const k = subKey(fn.id, i);
+      const st = getStatus(k);
+      const matchFilter = currentFilter==='all' || st===currentFilter;
+      const matchSearch = !q || name.toLowerCase().includes(q) || fn.name.toLowerCase().includes(q) || fn.id.includes(q);
+      return { name, i, k, st, visible: matchFilter && matchSearch };
+    });
+    const hasVisible = visibleSubs.some(s=>s.visible);
+    if (!hasVisible) continue;
+
+    const zzz = `${fn.id.replace('.','_')}`;
+    html += `
+      <div class="fn-group">
+        <div class="fn-header" id="fnhdr-${zzz}" onclick="toggleFn('${zzz}')">
+          <div class="fn-code">${fn.id}</div>
+          <div class="fn-label">${fn.name}</div>
+          <div class="fn-progress">
+            <div class="fn-prog-bar"><div class="fn-prog-fill" style="width:${fpct}%;background:${fcol}"></div></div>
+            <div class="fn-pct" style="color:${fcol}">${fpct}%</div>
+          </div>
+          <div class="fn-chevron">▶</div>
+        </div>
+        <div class="subfn-list" id="fnlist-${zzz}">
+    `;
+    for (const sub of visibleSubs) {
+      if (!sub.visible) continue;
+      const zzzCode = `${fn.id}.${String(sub.i+1).padStart(3,'0')}`;
+      let nameHtml = sub.name;
+      if (q && sub.name.toLowerCase().includes(q)) {
+        const idx = sub.name.toLowerCase().indexOf(q);
+        nameHtml = sub.name.slice(0,idx)+'<span class="hl">'+sub.name.slice(idx,idx+q.length)+'</span>'+sub.name.slice(idx+q.length);
+      }
+      const noteVal = getNote(sub.k).replace(/"/g,'&quot;');
+      html += `
+        <div class="subfn-row" id="row-${sub.k}">
+          <div class="subfn-code">${zzzCode}</div>
+          <div class="subfn-name ${sub.st==='done'?'done-txt':''}" id="sname-${sub.k}">${nameHtml}</div>
+          <input class="note-input" placeholder="note…" value="${noteVal}"
+            onchange="setNote('${sub.k}', this.value)"
+            onblur="setNote('${sub.k}', this.value)">
+          <button class="status-btn ${sub.st}" id="sbtn-${sub.k}" onclick="handleStatusClick('${sub.k}','${fn.id}')">${statusLabel(sub.st)}</button>
+        </div>
+      `;
+    }
+    html += `</div></div>`;
+  }
+  panel.innerHTML = html;
+}
+
+function statusLabel(s) {
+  return s==='done'?'✅ Terminé':s==='wip'?'🔄 En cours':'⬜ À faire';
+}
+
+function handleStatusClick(key, fnId) {
+  const next = cycleStatus(key);
+  // MAJ bouton
+  const btn = document.getElementById('sbtn-'+key);
+  if (btn) { btn.className='status-btn '+next; btn.textContent=statusLabel(next); }
+  // MAJ nom (strikethrough)
+  const nm = document.getElementById('sname-'+key);
+  if (nm) { nm.className='subfn-name '+(next==='done'?'done-txt':''); }
+  // MAJ stats globales + sidebar
+  updateGlobalStats();
+  renderSidebar();
+  // MAJ barre de la fonction
+  const fn = BLOCS.flatMap(b=>b.fns).find(f=>f.id===fnId);
+  if (fn) {
+    const fs = computeFnStats(fn);
+    const fpct = Math.round((fs.done/5)*100);
+    const fcol = fpct===100?'#22c55e':fs.wip+fs.done>0?'#f59e0b':'#4a5568';
+    const zzz = fnId.replace('.','_');
+    const fill = document.querySelector(`#fnlist-${zzz}`)?.previousElementSibling?.querySelector('.fn-prog-fill');
+    const pctEl = document.querySelector(`#fnlist-${zzz}`)?.previousElementSibling?.querySelector('.fn-pct');
+    if (fill) { fill.style.width=fpct+'%'; fill.style.background=fcol; }
+    if (pctEl) { pctEl.textContent=fpct+'%'; pctEl.style.color=fcol; }
+  }
+}
+
+function toggleFn(id) {
+  const hdr = document.getElementById('fnhdr-'+id);
+  const lst = document.getElementById('fnlist-'+id);
+  if (!lst) return;
+  const open = lst.classList.contains('open');
+  lst.classList.toggle('open', !open);
+  if (hdr) hdr.classList.toggle('open', !open);
+}
+
+function toggleAllFn(open) {
+  document.querySelectorAll('.subfn-list').forEach(el=>{
+    el.classList.toggle('open',open);
+    const hdr = el.previousElementSibling;
+    if (hdr) hdr.classList.toggle('open',open);
+  });
+}
+
+// ══════════════════════════════════════════════════════════════════
+// FILTERS & SEARCH
+// ══════════════════════════════════════════════════════════════════
+function setFilter(f, btn) {
+  currentFilter = f;
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  if (selectedBloc) renderDetail();
+}
+
+function applySearch() {
+  searchQuery = document.getElementById('search-input').value.trim();
+  // Si recherche active, chercher dans tous les blocs
+  if (searchQuery) {
+    // Trouver le premier bloc avec un résultat
+    const q = searchQuery.toLowerCase();
+    for (const bloc of BLOCS) {
+      for (const fn of bloc.fns) {
+        for (const sub of fn.subs) {
+          if (sub.toLowerCase().includes(q) || fn.name.toLowerCase().includes(q)) {
+            selectBloc(bloc.id);
+            return;
+          }
+        }
+      }
+    }
+  }
+  if (selectedBloc) renderDetail();
+}
+
+// ══════════════════════════════════════════════════════════════════
+// RESET
+// ══════════════════════════════════════════════════════════════════
+function confirmReset() {
+  if (!confirm('Réinitialiser TOUT l\'avancement ? Cette action est irréversible.')) return;
+  state = {};
+  saveState();
+  updateGlobalStats();
+  renderSidebar();
+  if (selectedBloc) renderDetail();
+}
+
+// ══════════════════════════════════════════════════════════════════
+// TOAST
+// ══════════════════════════════════════════════════════════════════
+let toastTimer;
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>t.classList.remove('show'), 1600);
+}
+
+// ══════════════════════════════════════════════════════════════════
+// INIT
+// ══════════════════════════════════════════════════════════════════
+async function init() {
+  await loadState();
+  updateGlobalStats();
+  renderSidebar();
+  // Sélectionner le premier bloc par défaut
+  selectBloc(1);
+}
+init();
+</script>
+</body>
+</html>

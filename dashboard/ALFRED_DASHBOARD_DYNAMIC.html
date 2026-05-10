@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="fr">
+<script>
+async function refreshData() {
+  setLiveStatus("loading");
+
+  try {
+    const res = await fetch("./dashboard_data.json?ts=" + Date.now(), {
+      cache: "no-store"
+    });
+
+    if (!res.ok) throw new Error("JSON indisponible");
+
+    const data = await res.json();
+    renderDashboard(data);
+    setLiveStatus(true);
+
+  } catch (error) {
+    console.error(error);
+    setLiveStatus(false);
+  }
+}
+
+function setLiveStatus(state) {
+  const el = document.getElementById("liveStatus");
+  if (!el) return;
+
+  if (state === "loading") {
+    el.textContent = "🟡 synchronisation...";
+    el.className = "c c-p";
+  } else if (state === true) {
+    el.textContent = "🟢 connecté";
+    el.className = "c c-ok";
+  } else {
+    el.textContent = "🔴 déconnecté";
+    el.className = "c c-t";
+  }
+}
+
+// Refresh toutes les 5 secondes
+refreshData();
+setInterval(refreshData, 5000);
+
+</script>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ALFRED — Dashboard dynamique</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Syne:wght@700;800&display=swap');
+
+    :root {
+      --bg: #07090f;
+      --surf: #0e1118;
+      --surf2: #13161f;
+      --bdr: #1c2030;
+      --acc: #00d4ff;
+      --ok: #00e096;
+      --par: #ffaa00;
+      --gui: #a78bfa;
+      --todo: #ff4d6d;
+      --txt: #b8c4d8;
+      --dim: #647086;
+      --wh: #f0f4ff;
+      --f: 'JetBrains Mono', monospace;
+      --fh: 'Syne', sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: radial-gradient(circle at top left, rgba(0,212,255,.08), transparent 30%),
+                  radial-gradient(circle at top right, rgba(167,139,250,.08), transparent 30%),
+                  var(--bg);
+      color: var(--txt);
+      font-family: var(--f);
+      font-size: 12.5px;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(7, 9, 15, .97);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--bdr);
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      font-family: var(--fh);
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--wh);
+    }
+
+    .logo span { color: var(--acc); }
+
+    .meta {
+      margin-top: 3px;
+      font-size: .6rem;
+      color: var(--dim);
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .counters {
+      display: flex;
+      gap: 7px;
+      flex-wrap: wrap;
+    }
+
+    .c {
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: .62rem;
+      font-weight: 700;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .c-ok { background: rgba(0,224,150,.12); color: var(--ok); border: 1px solid rgba(0,224,150,.25); }
+    .c-p { background: rgba(255,170,0,.12); color: var(--par); border: 1px solid rgba(255,170,0,.25); }
+    .c-g { background: rgba(167,139,250,.12); color: var(--gui); border: 1px solid rgba(167,139,250,.25); }
+    .c-t { background: rgba(255,77,109,.1); color: var(--todo); border: 1px solid rgba(255,77,109,.2); }
+    .c-n { background: rgba(0,212,255,.08); color: var(--acc); border: 1px solid rgba(0,212,255,.2); }
+
+    .nav {
+      display: flex;
+      gap: 5px;
+      flex-wrap: wrap;
+      padding: 10px 24px;
+      border-bottom: 1px solid var(--bdr);
+      background: rgba(14,17,24,.92);
+    }
+
+    .nav a {
+      font-size: .58rem;
+      padding: 4px 9px;
+      border-radius: 999px;
+      text-decoration: none;
+      color: var(--dim);
+      border: 1px solid var(--bdr);
+      letter-spacing: .04em;
+      transition: all .15s;
+    }
+
+    .nav a:hover {
+      color: var(--wh);
+      border-color: var(--acc);
+      background: rgba(0,212,255,.06);
+    }
+
+    .alert {
+      padding: 8px 24px;
+      font-size: .64rem;
+      color: #ffcc44;
+      background: rgba(255,170,0,.07);
+      border-bottom: 1px solid rgba(255,170,0,.2);
+      line-height: 1.5;
+    }
+
+    .leg-bar {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      padding: 8px 24px;
+      background: rgba(14,17,24,.92);
+      border-bottom: 1px solid var(--bdr);
+      font-size: .6rem;
+      color: var(--dim);
+      letter-spacing: .07em;
+      text-transform: uppercase;
+    }
+
+    .leg { display: flex; align-items: center; gap: 6px; }
+    .dot { width: 7px; height: 7px; border-radius: 50%; }
+    .ok { background: var(--ok); }
+    .par { background: var(--par); }
+    .gui { background: var(--gui); }
+    .tod { background: var(--todo); }
+
+    .gbar {
+      padding: 12px 24px;
+      background: rgba(14,17,24,.92);
+      border-bottom: 1px solid var(--bdr);
+    }
+
+    .gbar-lbl {
+      font-size: .62rem;
+      color: var(--dim);
+      letter-spacing: .09em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .gbar-track {
+      height: 7px;
+      background: var(--bdr);
+      border-radius: 999px;
+      overflow: hidden;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.02);
+    }
+
+    .gbar-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--acc), var(--gui), var(--ok));
+      border-radius: 999px;
+      transition: width .45s ease;
+    }
+
+    .main {
+      padding: 18px 24px 32px;
+      max-width: 1600px;
+      margin: 0 auto;
+    }
+    
+    .st-validated{
+      background:#00ffbf22;
+      border:1px solid #00ffbf88;
+      color:#00ffbf;
+      font-weight:700;
+    }
+
+    .sec {
+      font-family: var(--fh);
+      font-size: .62rem;
+      font-weight: 800;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--dim);
+      margin: 24px 0 11px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .sec::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--bdr);
+    }
+
+    .bloc {
+      background: rgba(14,17,24,.96);
+      border: 1px solid var(--bdr);
+      border-radius: 10px;
+      margin-bottom: 11px;
+      overflow: hidden;
+      box-shadow: 0 12px 35px rgba(0,0,0,.15);
+    }
+
+    .bloc:hover { border-color: #293148; }
+
+    .prog { height: 3px; background: var(--bdr); }
+    .pfill { height: 100%; width: 0%; transition: width .35s ease; }
+    .f-ok { background: var(--ok); }
+    .f-p { background: var(--par); }
+    .f-g { background: var(--gui); }
+    .f-t { background: var(--todo); }
+    .f-a { background: var(--acc); }
+
+    .bhead {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 11px 14px;
+      border-bottom: 1px solid var(--bdr);
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .bnum {
+      font-family: var(--fh);
+      font-size: .62rem;
+      font-weight: 800;
+      color: var(--dim);
+      letter-spacing: .14em;
+      min-width: 44px;
+    }
+
+    .btitle {
+      font-family: var(--fh);
+      font-size: .86rem;
+      font-weight: 800;
+      color: var(--wh);
+      flex: 1;
+    }
+
+    .bsprint {
+      font-size: .54rem;
+      color: var(--dim);
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      border: 1px solid var(--bdr);
+      padding: 2px 7px;
+      border-radius: 4px;
+      white-space: nowrap;
+    }
+
+    .bpct {
+      font-size: .62rem;
+      font-weight: 800;
+      padding: 3px 9px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+
+    .p-ok { background: rgba(0,224,150,.12); color: var(--ok); border: 1px solid rgba(0,224,150,.25); }
+    .p-p { background: rgba(255,170,0,.12); color: var(--par); border: 1px solid rgba(255,170,0,.25); }
+    .p-g { background: rgba(167,139,250,.12); color: var(--gui); border: 1px solid rgba(167,139,250,.25); }
+    .p-t { background: rgba(255,77,109,.08); color: var(--todo); border: 1px solid rgba(255,77,109,.18); }
+    .p-a { background: rgba(0,212,255,.08); color: var(--acc); border: 1px solid rgba(0,212,255,.20); }
+
+    .btog {
+      color: var(--dim);
+      font-size: .8rem;
+      transition: transform .2s;
+    }
+
+    .bloc.open .btog { transform: rotate(180deg); }
+
+    .bbody { display: none; padding: 10px 14px 12px; }
+    .bloc.open .bbody { display: block; }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(90px, 1fr));
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .mini {
+      background: var(--surf2);
+      border: 1px solid var(--bdr);
+      border-radius: 7px;
+      padding: 8px;
+    }
+
+    .mini .k {
+      font-size: .54rem;
+      color: var(--dim);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .mini .v {
+      color: var(--wh);
+      font-weight: 800;
+      font-size: .78rem;
+    }
+
+    .files-wrap {
+      margin-top: 8px;
+      border: 1px solid var(--bdr);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .files-title {
+      background: var(--surf2);
+      padding: 8px 10px;
+      font-size: .62rem;
+      color: var(--dim);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--bdr);
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .files-list {
+      display: none;
+      max-height: 300px;
+      overflow: auto;
+    }
+
+    .files-wrap.open .files-list { display: block; }
+
+    .file-row {
+      display: grid;
+      grid-template-columns: minmax(280px, 1fr) 90px 70px;
+      gap: 8px;
+      padding: 7px 10px;
+      border-bottom: 1px solid rgba(28,32,48,.7);
+      align-items: center;
+    }
+
+    .file-row:last-child { border-bottom: none; }
+
+    .file-path {
+      color: var(--txt);
+      font-size: .62rem;
+      word-break: break-word;
+    }
+
+    .status {
+      font-size: .54rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      padding: 2px 6px;
+      border-radius: 999px;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .st-validated { background: rgba(0,224,150,.12); color: var(--ok); }
+    .st-tested { background: rgba(167,139,250,.14); color: var(--gui); }
+    .st-coded { background: rgba(0,212,255,.10); color: var(--acc); }
+    .st-partial, .st-created, .st-empty { background: rgba(255,170,0,.12); color: var(--par); }
+    .st-absent { background: rgba(255,77,109,.10); color: var(--todo); }
+
+    .score {
+      color: var(--dim);
+      font-size: .6rem;
+      text-align: right;
+    }
+
+    .missing-list .file-row {
+      grid-template-columns: minmax(280px, 1fr) 90px;
+    }
+
+    .footer {
+      text-align: center;
+      font-size: .56rem;
+      color: var(--dim);
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: 24px;
+      border-top: 1px solid var(--bdr);
+      margin-top: 30px;
+    }
+
+    .error {
+      margin: 24px;
+      padding: 14px;
+      border: 1px solid rgba(255,77,109,.25);
+      background: rgba(255,77,109,.08);
+      color: var(--todo);
+      border-radius: 10px;
+      line-height: 1.7;
+    }
+
+    @media (max-width: 900px) {
+      .summary-grid { grid-template-columns: repeat(2, 1fr); }
+      .file-row { grid-template-columns: 1fr; }
+      .score { text-align: left; }
+      .topbar, .nav, .alert, .leg-bar, .gbar, .main { padding-left: 14px; padding-right: 14px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="topbar">
+  <div>
+    <div class="logo">ALFRED <span>·</span> Dashboard Dynamique</div>
+    <div class="meta" id="meta">
+      Chargement de dashboard_data.json...
+    </div>
+  </div>
+
+  <div class="counters" id="counters">
+    <span class="c c-ok" id="liveStatus">🟢 connecté</span>
+    <span class="c c-n">Lecture JSON...</span>
+  </div>
+</div>
+
+  <div class="nav" id="nav"></div>
+
+  <div class="alert" id="alert">
+    ⚠️ Dashboard dynamique compatible avec le format actuel de <strong>./dashboard_data.json</strong>. Ouvrir via <strong>http://localhost:8000/dashboard/ALFRED_DASHBOARD_DYNAMIC.html</strong>. Le JSON est lu depuis <strong>./dashboard_data.json</strong>.
+  </div>
+
+  <div class="leg-bar">
+    <div class="leg"><div class="dot ok"></div>Validé / testé</div>
+    <div class="leg"><div class="dot par"></div>Partiel / créé / vide</div>
+    <div class="leg"><div class="dot tod"></div>Absent</div>
+    <div class="leg"><div class="dot" style="background:var(--acc)"></div>Codé</div>
+  </div>
+
+  <div class="gbar">
+    <div class="gbar-lbl">
+      <span>Avancement global</span>
+      <span id="globalLabel">—</span>
+    </div>
+    <div class="gbar-track"><div class="gbar-fill" id="globalFill"></div></div>
+  </div>
+  <div class="stat-card">
+    <span>Validations manuelles</span>
+    <strong>${data.validation_registry_count}</strong>
+    <small>registre qualité</small>
+  </div>
+
+  <div class="main" id="main"></div>
+
+  <div class="footer" id="footer">
+    ALFRED · Dashboard dynamique x.yy.zzz · Généré pour dashboard_data.json manifest_expected_vs_existing
+  </div>
+
+<script>
+const STATUS_LABELS = {
+  absent: "absent",
+  empty: "vide",
+  partial: "partiel",
+  created: "créé",
+  coded: "codé",
+  tested: "testé",
+  validated: "validé",
+  structural: "structurel"
+};
+
+function pctClass(progress) {
+  if (progress >= 80) return {badge: "p-ok", fill: "f-ok"};
+  if (progress >= 60) return {badge: "p-a", fill: "f-a"};
+  if (progress >= 40) return {badge: "p-p", fill: "f-p"};
+  if (progress > 0) return {badge: "p-g", fill: "f-g"};
+  return {badge: "p-t", fill: "f-t"};
+}
+
+function statusClass(status) {
+  if (status === "validated") return "st-validated";
+  return "st-" + (status || "absent");
+}
+
+function safeText(value) {
+  return String(value ?? "").replace(/[&<>"']/g, c => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#039;"
+  }[c]));
+}
+
+function groupTitle(index) {
+  if (index === 0) return "B01 → B06 — Socle personnel";
+  if (index === 6) return "B07 → B12 — Contexte, productivité, stratégie";
+  if (index === 12) return "B13 → B17 — Arthur, IoT, avatar, visuel";
+  if (index === 17) return "B18 → B20 — Knowledge, domotique, cybersécurité";
+  return null;
+}
+
+function createSummaryMini(label, value) {
+  return `
+    <div class="mini">
+      <div class="k">${safeText(label)}</div>
+      <div class="v">${safeText(value)}</div>
+    </div>`;
+}
+
+function createFileRows(files) {
+  if (!files || files.length === 0) {
+    return `<div class="file-row"><div class="file-path">Aucun fichier dans ce bloc.</div><span class="status st-absent">0 fichier</span><div class="score">—</div></div>`;
+  }
+
+  return files.map(file => {
+    const st = file.status || (file.exists ? "coded" : "absent");
+    return `
+      <div class="file-row">
+        <div class="file-path">${safeText(file.path)}</div>
+        <span class="status ${statusClass(st)}">${safeText(STATUS_LABELS[st] || st)}</span>
+        <div class="score">${safeText(file.score ?? 0)}%</div>
+      </div>`;
+  }).join("");
+}
+
+function createMissingRows(paths) {
+  if (!paths || paths.length === 0) {
+    return `<div class="file-row"><div class="file-path">Aucun fichier manquant. Propre.</div><span class="status st-valid">OK</span></div>`;
+  }
+
+  return paths.map(path => `
+    <div class="file-row">
+      <div class="file-path">${safeText(path)}</div>
+      <span class="status st-absent">absent</span>
+    </div>`).join("");
+}
+
+function setLiveStatus(ok) {
+  const el = document.getElementById("liveStatus");
+  if (!el) return;
+
+  if (ok) {
+    el.textContent = "🟢 connecté";
+    el.className = "c c-ok";
+  } else {
+    el.textContent = "🔴 déconnecté";
+    el.className = "c c-t";
+  }
+}
+
+function renderDashboard(data) {
+  const blocks = data.blocks || [];
+  const main = document.getElementById("main");
+  const nav = document.getElementById("nav");
+  const countersEl = document.getElementById("counters");
+  const globalCounts = data.global_status_counts || {};
+  console.log(globalCounts);
+  const meta = document.getElementById("meta");
+  const globalLabel = document.getElementById("globalLabel");
+  const globalFill = document.getElementById("globalFill");
+  const footer = document.getElementById("footer");
+
+
+  meta.textContent =
+    `🟢 connecté · Mis à jour ${formatTimeAgo(data.last_update)} · ${data.last_update || "—"}`;
+
+  globalLabel.textContent =
+    `${data.global_full_project_progress ?? 0}% full projet · `
+    + `${data.total_files_detected ?? 0}/${data.total_target_full_files ?? 0} cible · `
+    + `${safeText(globalCounts.validated ?? 0)} validés · `
+    + `🧪 registre qualité : ${data.validation_registry_count ?? 0}`;
+
+  globalFill.style.width =
+    `${data.global_full_project_progress ?? 0}%`;
+
+  countersEl.innerHTML = `
+    <span class="c c-ok" id="liveStatus">🟢 connecté</span>
+    <span class="c c-n">${safeText(data.total_expected_files ?? 0)} attendus</span>
+    <span class="c c-ok">${safeText(data.total_files_detected ?? 0)} détectés</span>
+    <span class="c c-t">${safeText(data.total_files_missing ?? 0)} manquants</span>
+    <span class="c c-g">${safeText(globalCounts.validated ?? 0)} validés</span>
+    <span class="c c-p">${safeText((globalCounts.partial ?? 0) + (globalCounts.empty ?? 0) + (globalCounts.created ?? 0))} partiels</span>
+` ;
+
+  nav.innerHTML = blocks.map(block => {
+    const id = safeText(block.id || "");
+    const num = id.toUpperCase();
+    return `<a href="#${id}">${num}</a>`;
+  }).join("");
+
+  let html = "";
+
+  blocks.forEach((block, index) => {
+    const title = groupTitle(index);
+    if (title) html += `<div class="sec">${safeText(title)}</div>`;
+
+    const progress = Number(block.progress || 0);
+    const c = pctClass(progress);
+    const id = safeText(block.id || `b${index + 1}`);
+    const label = safeText(block.label || id.toUpperCase());
+    const statusCounts = block.status_counts || {};
+    const files = block.files || [];
+
+
+html += `
+  <div class="bloc" id="${id}">
+    <div class="prog">
+      <div class="pfill ${c.fill}" style="width:${progress}%"></div>
+    </div>
+
+    <div class="bhead" onclick="this.parentElement.classList.toggle('open')">
+      <div class="bnum">${id.toUpperCase()}</div>
+
+      <div class="btitle">
+        ${label}
+      </div>
+
+      <div class="bsprint">
+        ${block.files_count}/${block.target_full_files_count}
+      </div>
+
+      <div class="bpct ${c.badge}">
+        tech ${block.progress}%
+      </div>
+
+      <div class="bpct ${c.badge}">
+        full ${block.full_project_progress}%
+      </div>
+
+      <div class="btog">⌄</div>
+    </div>
+
+    <div class="bbody">
+
+      <div class="summary-grid">
+        ${createSummaryMini("attendus", block.expected_count ?? 0)}
+        ${createSummaryMini("détectés", block.files_count ?? 0)}
+        ${createSummaryMini("cible", block.target_full_files_count ?? 0)}
+        ${createSummaryMini("validés", statusCounts.validated ?? 0)}
+        ${createSummaryMini("testés", statusCounts.tested ?? 0)}
+        ${createSummaryMini("codés", statusCounts.coded ?? 0)}
+        ${createSummaryMini("partiels",
+          (statusCounts.partial ?? 0)
+          + (statusCounts.empty ?? 0)
+          + (statusCounts.created ?? 0)
+        )}
+      </div>
+
+      ${
+        block.sub_targets && Object.keys(block.sub_targets).length
+        ? `
+        <div class="files-wrap">
+          <div class="files-title">
+            <span>Sous-objectifs</span>
+          </div>
+
+          <div class="files-list" style="display:block">
+            ${
+              Object.entries(block.sub_targets)
+                .map(([key, value]) => `
+                  <div class="file-row">
+                    <div class="file-path">${safeText(key)}</div>
+                    <span class="status st-coded">${safeText(value)}</span>
+                    <div class="score">cible</div>
+                  </div>
+                `).join("")
+            }
+          </div>
+        </div>
+        `
+        : ""
+      }
+
+      <div class="files-wrap">
+        <div class="files-title" onclick="this.parentElement.classList.toggle('open')">
+          <span>Fichiers du bloc</span>
+          <span>${safeText(files.length)} lignes</span>
+        </div>
+
+        <div class="files-list">
+          ${createFileRows(files)}
+        </div>
+      </div>
+
+      <div class="files-wrap missing-list">
+        <div class="files-title" onclick="this.parentElement.classList.toggle('open')">
+          <span>Fichiers manquants</span>
+          <span>${safeText((block.files_missing || []).length)} lignes</span>
+        </div>
+
+        <div class="files-list">
+          ${createMissingRows(block.files_missing || [])}
+        </div>
+      </div>
+
+    </div>
+  </div>`;
+  });
+
+  main.innerHTML = html;
+  footer.textContent = `ALFRED · Dashboard dynamique · ${data.last_update || "mise à jour inconnue"} · Source : ${data.source || "./dashboard_data.json"}`;
+}
+function formatTimeAgo(dateString) {
+  if (!dateString) return "date inconnue";
+
+  const parts = dateString.match(/(\d{2})\/(\d{2})\/(\d{4}) (\d{2}):(\d{2}):(\d{2})/);
+  if (!parts) return dateString;
+
+  const date = new Date(
+    Number(parts[3]),
+    Number(parts[2]) - 1,
+    Number(parts[1]),
+    Number(parts[4]),
+    Number(parts[5]),
+    Number(parts[6])
+  );
+
+  const seconds = Math.max(0, Math.floor((Date.now() - date.getTime()) / 1000));
+
+  if (seconds < 60) return `il y a ${seconds}s`;
+  const minutes = Math.floor(seconds / 60);
+  if (minutes < 60) return `il y a ${minutes}min`;
+  const hours = Math.floor(minutes / 60);
+  return `il y a ${hours}h`;
+}
+async function fetchDashboardJson() {
+  const candidates = [
+    "./dashboard_data.json"
+  ];
+
+  const errors = [];
+
+  for (const path of candidates) {
+    try {
+      const response = await fetch(path + "?ts=" + Date.now(), { cache: "no-store" });
+
+      if (response.ok) {
+        return await response.json();
+      }
+
+      errors.push(`${path} → HTTP ${response.status}`);
+    } catch (error) {
+      errors.push(`${path} → ${error.message}`);
+    }
+  }
+
+  throw new Error("./dashboard_data.json introuvable. Essais : " + errors.join(" | "));
+}
+
+async function loadDashboardData() {
+  try {
+    const data = await fetchDashboardJson();
+
+    if (!Array.isArray(data.blocks)) {
+      throw new Error("Format JSON invalide : data.blocks doit être un tableau.");
+    }
+
+renderDashboard(data);
+} catch (error) {
+  document.getElementById("main").innerHTML = `
+    <div class="error">
+      <strong>Erreur de chargement du dashboard.</strong><br>
+      ${safeText(error.message)}<br><br>
+      Lance depuis PowerShell :<br>
+      <code>cd D:\\PROJET_ALFRED\\ALFRED_PC</code><br>
+      <code>python tools\\dashboard_tools\\update_dashboard_data.py</code><br>
+      <code>python -m http.server 8000</code><br><br>
+      Puis ouvre : <code>http://localhost:8000/dashboard/ALFRED_DASHBOARD_DYNAMIC.html</code><br>
+      Vérifie aussi : <code>http://localhost:8000/dashboard/dashboard_data.json</code>
+    </div>`;
+  }
+}
+
+loadDashboardData();
+
+</script>
+</body>
+</html>
