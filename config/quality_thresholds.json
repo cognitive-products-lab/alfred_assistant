@@ -1,0 +1,190 @@
+{
+  "schema_version": "1.0",
+  "type": "quality_thresholds",
+  "id": "config.quality_thresholds",
+  "status": "validated_v1",
+
+  "description": "Seuils qualité permettant à ALFRED d’évaluer si une fiche de connaissance est exploitable, fiable, complète et sûre pour la génération de réponse.",
+
+  "global_quality_policy": {
+    "allow_draft_units": true,
+    "prefer_validated_units": true,
+    "block_invalid_json": true,
+    "block_empty_required_fields": true,
+    "warn_on_review_needed": true,
+    "copyright_safe_mode": true
+  },
+
+  "required_fields": [
+    "schema_version",
+    "type",
+    "id",
+    "title",
+    "domain",
+    "status",
+    "summary",
+    "core_definition",
+    "tags",
+    "quality"
+  ],
+
+  "recommended_fields": [
+    "conversation_uses",
+    "response_guidance",
+    "related_knowledge_units",
+    "related_features",
+    "limits",
+    "example_answers"
+  ],
+
+  "minimum_content_rules": {
+    "summary_min_chars": 80,
+    "core_definition_min_chars": 120,
+    "min_tags": 4,
+    "min_conversation_uses": 2,
+    "min_related_features": 1
+  },
+
+  "confidence_levels": {
+    "starter": {
+      "allowed": true,
+      "usage": "utilisable en brouillon, avec prudence",
+      "max_assertiveness": "low"
+    },
+    "general_cultural_reference": {
+      "allowed": true,
+      "usage": "utilisable pour conversation générale",
+      "max_assertiveness": "moderate"
+    },
+    "high": {
+      "allowed": true,
+      "usage": "utilisable prioritairement",
+      "max_assertiveness": "normal"
+    },
+    "core_definition": {
+      "allowed": true,
+      "usage": "référence centrale du système",
+      "max_assertiveness": "normal"
+    },
+    "unknown": {
+      "allowed": false,
+      "usage": "ne pas utiliser sans validation",
+      "max_assertiveness": "none"
+    }
+  },
+
+  "status_policy": {
+    "draft_v1": {
+      "allowed": true,
+      "priority_modifier": -2,
+      "requires_review_notice": true
+    },
+    "draft_v2": {
+      "allowed": true,
+      "priority_modifier": -1,
+      "requires_review_notice": true
+    },
+    "draft_v3": {
+      "allowed": true,
+      "priority_modifier": 0,
+      "requires_review_notice": false
+    },
+    "validated_v1": {
+      "allowed": true,
+      "priority_modifier": 3,
+      "requires_review_notice": false
+    },
+    "validated_v2": {
+      "allowed": true,
+      "priority_modifier": 4,
+      "requires_review_notice": false
+    },
+    "deprecated": {
+      "allowed": false,
+      "priority_modifier": -99,
+      "requires_review_notice": true
+    }
+  },
+
+  "risk_controls": {
+    "health": {
+      "requires_limits_field": true,
+      "must_not_diagnose": true,
+      "require_professional_redirect_when_needed": true
+    },
+    "legal": {
+      "requires_limits_field": true,
+      "must_not_present_as_legal_advice": true
+    },
+    "financial": {
+      "requires_limits_field": true,
+      "must_not_present_as_financial_advice": true
+    },
+    "cybersecurity": {
+      "requires_limits_field": true,
+      "block_offensive_guidance": true
+    },
+    "culture": {
+      "copyright_safe_mode": true,
+      "avoid_long_quotes": true,
+      "prefer_summary": true
+    }
+  },
+
+  "hallucination_controls": {
+    "avoid_unsourced_claims": true,
+    "if_missing_context": "state_limits_or_answer_generally",
+    "if_conflicting_units": "prioritize_validated_and_high_score",
+    "if_recent_information_needed": "request_update_or_external_search",
+    "do_not_invent_sources": true
+  },
+
+  "scoring_adjustments": {
+    "validated_bonus": 5,
+    "draft_penalty": -1,
+    "review_needed_penalty": -3,
+    "missing_recommended_field_penalty": -1,
+    "strong_tag_match_bonus": 4,
+    "core_identity_bonus": 10
+  },
+
+  "logging": {
+    "enabled": true,
+    "log_quality_warnings": true,
+    "log_blocked_units": true,
+    "log_path": "ALFRED_PC/logs/knowledge_quality.log"
+  },
+
+  "integration": {
+    "used_by": [
+      "knowledge_loader.py",
+      "knowledge_registry.json",
+      "rag_settings.json",
+      "response_generator.py"
+    ],
+    "purpose": [
+      "filtrer les fiches invalides",
+      "ajuster la priorité des fiches",
+      "réduire les hallucinations",
+      "renforcer la sécurité conversationnelle"
+    ]
+  },
+
+  "related_features": [
+    "18.01.002",
+    "18.01.003",
+    "18.01.004",
+    "18.03.004",
+    "18.05.004",
+    "15.02.001"
+  ],
+
+  "tags": [
+    "quality",
+    "thresholds",
+    "knowledge",
+    "rag",
+    "safety",
+    "alfred"
+  ]
+}
