@@ -1,0 +1,55 @@
+{
+  "metadata": {"file":"semantic_memory.json","version":"1.0.0","scope":"memory"},
+  "knowledge_id": "semantic_memory_v1",
+  "title": "Mémoire sémantique",
+  "summary": "Base de faits persistante sur l'utilisateur — ce qu'ALFRED sait de manière durable : préférences, projets, contexte de vie, habitudes.",
+  "content_categories": {
+    "identity": {
+      "fields": ["prénom","âge","situation familiale","localisation"],
+      "source": "déclaré explicitement",
+      "sensitivity": "low"
+    },
+    "projects": {
+      "fields": ["projets actifs","projets passés","jalons importants","objectifs"],
+      "source": "mentions récurrentes + déclaré",
+      "sensitivity": "medium"
+    },
+    "preferences": {
+      "fields": ["ton préféré","format préféré","sujets appréciés","sujets à éviter"],
+      "source": "inféré + déclaré",
+      "sensitivity": "low"
+    },
+    "health_and_energy": {
+      "fields": ["conditions chroniques connues","patterns d'énergie","sensibilités physiques"],
+      "source": "déclaré explicitement uniquement",
+      "sensitivity": "high — chiffré obligatoire"
+    },
+    "values_and_goals": {
+      "fields": ["valeurs core exprimées","objectifs de vie","motivations profondes"],
+      "source": "inféré + validé",
+      "sensitivity": "medium"
+    },
+    "relational": {
+      "fields": ["personnes clés mentionnées","dynamiques relationnelles connues"],
+      "source": "mentions récurrentes",
+      "sensitivity": "high"
+    }
+  },
+  "update_rules": {
+    "explicit_statement": "Mise à jour immédiate avec haute confiance (0.95)",
+    "repeated_mention": "Mise à jour après 3 mentions concordantes",
+    "contradiction": "Garder les 2 versions avec timestamp — demander clarification si utile",
+    "obsolescence": "Marquer comme outdated si contradiction récente sans clarification"
+  },
+  "retrieval_in_context": {
+    "inject_when": "L'info sémantique est directement pertinente à la demande courante",
+    "inject_how": "Discrètement intégré dans la réponse — jamais 'comme tu m'as dit que tu...'",
+    "privacy_rule": "Utiliser sans exposer — l'utilisateur ne doit pas sentir qu'on le surveille"
+  },
+  "forgetting_rules": {
+    "user_request": "Effacement immédiat sur demande explicite",
+    "auto_decay": "Informations non confirmées depuis 90 jours → réduire poids",
+    "contradiction": "Ancienne version marquée obsolète — nouvelle version prioritaire"
+  },
+  "connections": ["memory_system","episodic_memory","memory_decay_rules","memory_learning_rules","memory_prioritization"]
+}
