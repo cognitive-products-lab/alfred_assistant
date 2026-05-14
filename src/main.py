@@ -229,6 +229,11 @@ def print_status(components: dict[str, Any]) -> None:
     print(f"  TTS Piper          : {'OK' if components.get('tts') else 'NON'}")
     print(f"  Mode vocal         : {'ACTIF' if components.get('voice_enabled') else 'INACTIF'}")
     print("  LTM SQLite         : branchée si src.memory.long_term_memory est disponible")
+
+    sec_ok = components.get("security_ok", False)
+    sec_sid = components.get("security_session_id", "")
+    sec_label = f"OK — session {sec_sid[:8]}..." if sec_ok and sec_sid else "NON"
+    print(f"  Zero Trust B20     : {sec_label}")
     print("")
 
 
@@ -311,6 +316,8 @@ def init_components() -> dict[str, Any]:
         "tts": None,
         "voice_enabled": True,
         "retrieval_engine": None,
+        "security_ok": False,
+        "security_session_id": "",
     }
 
     # Mémoire JSON existante
@@ -435,6 +442,23 @@ def init_components() -> dict[str, Any]:
     except Exception as exc:
         print(f"  [AVERT] TTS Piper indisponible : {exc}")
         components["tts"] = None
+
+    # =========================================================================
+    # Bloc 20 — Zero Trust Security
+    # =========================================================================
+    try:
+        from src.security.device_registry import register_device
+        from src.security.session_manager import create_session
+
+        register_device("local_pc", "ALFRED PC Céline", "OWNER")
+        sec_session_id = create_session("celine", "local_pc", "OWNER")
+        components["security_ok"] = True
+        components["security_session_id"] = sec_session_id
+        print(f"  [SÉCURITÉ] Zero Trust actif — session {sec_session_id[:8]}...")
+    except Exception as exc:
+        print(f"  [AVERT] Bloc 20 sécurité indisponible : {exc}")
+        components["security_ok"] = False
+        components["security_session_id"] = ""
 
     return components
 
@@ -894,6 +918,15 @@ Priorités :
 def main() -> None:
     from src.conversation.input.context_builder import get_time_context
 
+    # Imports sécurité — une seule fois au démarrage, utilisés dans la boucle
+    _zt_check = None
+    _filter_output = None
+    try:
+        from src.security.zero_trust_orchestrator import quick_authorize_owner_local as _zt_check
+        from src.security.output_filter import filter_output as _filter_output
+    except Exception as exc:
+        print(f"  [AVERT] Imports Bloc 20 échoués : {exc}")
+
     components = init_components()
     memory = components["memory"]
     user_name = components.get("user_name", USER_FALLBACK_NAME)
@@ -922,6 +955,12 @@ def main() -> None:
             raw_input = input("  Toi ⌨️ : ").strip()
 
         except (KeyboardInterrupt, EOFError):
+            if components.get("security_ok"):
+                try:
+                    from src.security.session_manager import close_session
+                    close_session("celine")
+                except Exception:
+                    pass
             print(f"\n\n  {ALFRED_NAME} : À bientôt, {user_name}.\n")
             break
 
@@ -937,9 +976,17 @@ def main() -> None:
         if handle_command(cmd, components):
             continue
 
-        user_input = sanitize_input(raw_input)
-        if not user_input:
-            continue
+        # ── Gate Zero Trust (Bloc 20) ──────────────────────────────────────
+        if components.get("security_ok") and _zt_check:
+            zt_result = _zt_check(raw_input)
+            if not zt_result["authorized"]:
+                print(f"  [SÉCURITÉ] {zt_result.get('reason', 'Requête bloquée')}\n")
+                continue
+            user_input = zt_result["cleaned_input"]
+        else:
+            user_input = sanitize_input(raw_input)
+            if not user_input:
+                continue
 
         try:
             time_ctx = get_time_context()
@@ -949,6 +996,10 @@ def main() -> None:
                 components=components,
                 time_ctx=time_ctx,
             )
+
+            # ── Filtre sécurité sortie IA (Bloc 20) ───────────────────────
+            if components.get("security_ok") and _filter_output:
+                response = _filter_output(response)
 
             print(
                 f"  [mode: {mode} | émotion: {emotion_label} | "
@@ -995,6 +1046,14 @@ def main() -> None:
         except (KeyboardInterrupt, EOFError):
             print(f"\n\n  {ALFRED_NAME} : À bientôt, {user_name}.\n")
             break
+
+    # ── Fermeture session sécurité ─────────────────────────────────────────
+    if components.get("security_ok"):
+        try:
+            from src.security.session_manager import close_session
+            close_session("celine")
+        except Exception:
+            pass
 
 
 # =============================================================================
