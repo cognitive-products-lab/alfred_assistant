@@ -8,7 +8,6 @@
 #   pytest tests/test_b02_b03.py -v
 # ============================================================
 
-import pytest
 import sys
 from pathlib import Path
 
@@ -200,7 +199,7 @@ class TestRAGStub:
     """Tests B02.04 — RAG stub."""
 
     def test_rag_status(self):
-        from src.memory.rag_stub import get_rag_status, is_rag_available
+        from src.memory.rag_stub import get_rag_status
         status = get_rag_status()
         assert "available" in status
         assert "planned" in status

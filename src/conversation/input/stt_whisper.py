@@ -18,7 +18,6 @@
 
 import os
 import time
-from pathlib import Path
 
 # ── Import conditionnel Whisper ────────────────────────────
 try:
@@ -65,7 +64,7 @@ def _load_model():
             )
         print(f"  [STT] Chargement modèle Whisper '{WHISPER_MODEL_SIZE}'...")
         _model = whisper.load_model(WHISPER_MODEL_SIZE)
-        print(f"  [STT] Modèle Whisper prêt ✅")
+        print("  [STT] Modèle Whisper prêt ✅")
     return _model
 
 

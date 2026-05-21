@@ -8,7 +8,6 @@
 #   pytest tests/test_b01_speech.py -v
 # ============================================================
 
-import pytest
 import sys
 from pathlib import Path
 

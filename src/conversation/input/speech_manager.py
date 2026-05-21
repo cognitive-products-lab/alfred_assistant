@@ -12,7 +12,6 @@
 # main.py instancie SpeechManager et l'utilise comme interface unique.
 # ============================================================
 
-from src.input.audio_capture  import is_audio_available
 from src.output.tts_output    import display_response, display_system
 
 

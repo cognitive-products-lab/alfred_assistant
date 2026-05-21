@@ -7,7 +7,6 @@ intents et knowledge_ids liés à une requête.
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Any
 
 from src.knowledge.knowledge_loader import KnowledgeLoader
 

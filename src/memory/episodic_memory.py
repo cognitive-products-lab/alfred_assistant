@@ -16,7 +16,6 @@
 import json
 from datetime import datetime
 from pathlib import Path
-from typing import Any
 
 from src.security.security_logger import log_event
 

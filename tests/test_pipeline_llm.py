@@ -74,7 +74,7 @@ generator = ResponseGenerator(
     debug=False
 )
 
-print(f"✅ BehaviorEngine  — chargé")
+print("✅ BehaviorEngine  — chargé")
 print(f"✅ KnowledgeLoader — {loader.index_size} fiches")
 print(f"✅ LLM             — {'branché' if llm_client else 'fallback local'}")
 

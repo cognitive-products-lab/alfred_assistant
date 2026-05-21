@@ -45,9 +45,9 @@ generator = ResponseGenerator(
     debug=False
 )
 
-print(f"\n✅ BehaviorEngine    — chargé")
+print("\n✅ BehaviorEngine    — chargé")
 print(f"✅ KnowledgeLoader   — {loader.index_size} fiches indexées")
-print(f"✅ ResponseGenerator — prêt (mode fallback local)")
+print("✅ ResponseGenerator — prêt (mode fallback local)")
 
 
 # ─────────────────────────────────────────────────────────
@@ -170,7 +170,7 @@ for scenario in scenarios:
         response_context=response_context
     )
 
-    print(f"\n  RÉPONSE ALFRED :")
+    print("\n  RÉPONSE ALFRED :")
     print(f"  → {response}")
 
 

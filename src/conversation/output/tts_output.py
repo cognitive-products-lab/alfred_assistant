@@ -59,7 +59,7 @@ def display_welcome(user_name: str, greeting: str, period: str) -> None:
         period    : Période de la journée
     """
     print(f"\n{'═' * 50}")
-    print(f"  🤖 ALFRED — Assistant personnel")
+    print("  🤖 ALFRED — Assistant personnel")
     print(f"{'═' * 50}")
     print(f"\n  {greeting} {user_name}.")
     print(f"  Je suis là. Qu'est-ce qui t'amène ce {period} ?\n")

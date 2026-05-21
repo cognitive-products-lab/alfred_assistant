@@ -222,7 +222,7 @@ def print_status(components: dict[str, Any]) -> None:
     if llm and hasattr(llm, "provider_status"):
         print(f"  LLM Router         : {llm.provider_status()}")
     else:
-        print(f"  LLM Router         : NON / fallback offline")
+        print("  LLM Router         : NON / fallback offline")
 
     print(f"  Modèle             : {MODEL}")
     print(f"  Date session       : {datetime.now().strftime('%Y-%m-%d %H:%M')}")
@@ -293,8 +293,7 @@ def init_components() -> dict[str, Any]:
     from src.llm.llm_client_ollama import OllamaLLMClient
     from src.llm.llm_client_openai import OpenAILLMClient
     from src.llm.llm_router import LLMRouter
-    from src.conversation.input.input_manager import HybridInputManager
-    
+
 
     components: dict[str, Any] = {
         "adapter": None,
@@ -369,7 +368,7 @@ def init_components() -> dict[str, Any]:
         print(f"  [AVERT] KnowledgeLoader indisponible : {exc}")
         components["loader"] = None
 
-    
+
     # =========================================================================
     # Knowledge Retrieval Engine
     # =========================================================================
@@ -388,7 +387,7 @@ def init_components() -> dict[str, Any]:
 
         try:
             openai = OpenAILLMClient(model="gpt-4o")
-         
+
         except Exception as exc:
             openai = None
             print(f"  [AVERT] OpenAI indisponible : {exc}")
@@ -423,7 +422,7 @@ def init_components() -> dict[str, Any]:
     except Exception as exc:
         print(f"  [AVERT] ModeManager indisponible : {exc}")
         components["mode_manager"] = None
-    
+
     # TTS Piper CLI
     try:
         from src.conversation.output.tts_engine import TTSEngine
@@ -506,7 +505,7 @@ def handle_command(command: str, components: dict[str, Any]) -> bool:
         components["voice_enabled"] = True
         print("\n  Mode vocal activé.\n")
         return True
-    
+
     if (
         "desactiver" in cmd
         or "désactiver" in cmd
@@ -621,7 +620,7 @@ def handle_command(command: str, components: dict[str, Any]) -> bool:
     if cmd == "vocal":
         components["voice_enabled"] = not components.get("voice_enabled", False)
         state = "activé" if components["voice_enabled"] else "désactivé"
-        
+
         print(f"\n  Mode vocal {state}.\n")
 
         # 🔊 Feedback vocal
@@ -907,8 +906,7 @@ def main() -> None:
     banner(user_name, memory_summary, llm_available)
     print_help()
 
-    from src.conversation.input.input_manager import HybridInputManager
-    
+
     # Accueil vocal automatique
     try:
         tts = components.get("tts")
