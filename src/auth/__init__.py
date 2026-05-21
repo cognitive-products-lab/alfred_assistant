@@ -1,1 +1,1 @@
-﻿# ALFRED module
+# Authentification et gestion des identités utilisateurs.

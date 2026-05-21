@@ -1,1 +1,1 @@
-﻿# ALFRED module
+# V2++ — Connaissances professionnelles enrichies (CPL).

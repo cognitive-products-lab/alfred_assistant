@@ -1,1 +1,1 @@
-﻿# ALFRED module
+# Moteur NLP : classification d'intentions, analyse linguistique.

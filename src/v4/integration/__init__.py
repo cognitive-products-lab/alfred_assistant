@@ -1,1 +1,1 @@
-﻿# ALFRED module
+# V4 — Intégrations tierces : APIs, objets connectés, services.
