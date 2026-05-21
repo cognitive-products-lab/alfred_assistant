@@ -1,11 +1,11 @@
 # ============================================================
-# ALFRED — DEMO CYBERSECURITE
-# Lancement rapide entretien / démonstration
-# Bloc 20 — Security by Design | Local-First Zero Trust
+# ALFRED - DEMO CYBERSECURITE
+# Lancement rapide entretien / demonstration
+# Bloc 20 - Security by Design | Local-First Zero Trust
 # ============================================================
 
 $ErrorActionPreference = "Continue"
-$Host.UI.RawUI.WindowTitle = "ALFRED — CyberSecurity Demo"
+$Host.UI.RawUI.WindowTitle = "ALFRED - CyberSecurity Demo"
 
 Clear-Host
 
@@ -31,17 +31,16 @@ function Write-INFO { param([string]$Msg) Write-Host "  [--]  $Msg" -ForegroundC
 # 0. Positionnement projet
 # ============================================================
 
-Write-Banner "ALFRED — CYBERSECURITY DEMO"
+Write-Banner "ALFRED - CYBERSECURITY DEMO"
 
-# Détection automatique du chemin projet
+# Detection automatique du chemin projet
 $SCRIPT_DIR  = Split-Path -Parent $MyInvocation.MyCommand.Definition
 $PROJECT_DIR = Split-Path -Parent $SCRIPT_DIR
 
 if (Test-Path "$PROJECT_DIR\src\main.py") {
     Set-Location $PROJECT_DIR
-    Write-OK "Projet ALFRED détecté : $PROJECT_DIR"
+    Write-OK "Projet ALFRED detecte : $PROJECT_DIR"
 } else {
-    # Fallback : chemins courants connus
     $CANDIDATES = @(
         "D:\PROJET_ALFRED\ALFRED_PC",
         "C:\PROJET_ALFRED\ALFRED_PC",
@@ -51,13 +50,13 @@ if (Test-Path "$PROJECT_DIR\src\main.py") {
     foreach ($path in $CANDIDATES) {
         if (Test-Path "$path\src\main.py") {
             Set-Location $path
-            Write-OK "Projet trouvé : $path"
+            Write-OK "Projet trouve : $path"
             $found = $true
             break
         }
     }
     if (-not $found) {
-        Write-WARN "Projet non trouvé automatiquement — positionnez-vous manuellement"
+        Write-WARN "Projet non trouve automatiquement - positionnez-vous manuellement"
         Write-Host "  Chemin actuel : $(Get-Location)" -ForegroundColor Gray
     }
 }
@@ -84,12 +83,12 @@ foreach ($venv in $VENV_PATHS) {
 }
 
 if (-not $venv_found) {
-    Write-WARN "Aucun environnement virtuel détecté — utilisation Python système"
+    Write-WARN "Aucun environnement virtuel detecte - utilisation Python systeme"
     $python = Get-Command python -ErrorAction SilentlyContinue
     if ($python) {
         Write-INFO "Python : $($python.Source)"
     } else {
-        Write-WARN "Python introuvable — vérifiez votre installation"
+        Write-WARN "Python introuvable - verifiez votre installation"
     }
 }
 
@@ -97,12 +96,12 @@ Write-Host ""
 Pause
 
 # ============================================================
-# 2. Dashboard de sécurité (terminal)
+# 2. Dashboard de securite (terminal)
 # ============================================================
 
 Clear-Host
-Write-Banner "ÉTAPE 1/4 — DASHBOARD SÉCURITÉ (terminal)"
-Write-Step "2/6" "Génération du rapport de sécurité..."
+Write-Banner "ETAPE 1/4 - DASHBOARD SECURITE (terminal)"
+Write-Step "2/6" "Generation du rapport de securite..."
 Write-Host ""
 
 python "$PROJECT_DIR\src\security\security_dashboard.py"
@@ -111,45 +110,49 @@ Write-Host ""
 Pause
 
 # ============================================================
-# 3. Dashboard HTML — ouverture navigateur
+# 3. Dashboard HTML - ouverture navigateur
 # ============================================================
 
 Clear-Host
-Write-Banner "ÉTAPE 2/4 — DASHBOARD SÉCURITÉ (HTML interactif)"
-Write-Step "3/6" "Génération du rapport HTML..."
+Write-Banner "ETAPE 2/4 - DASHBOARD SECURITE (HTML interactif)"
+Write-Step "3/6" "Generation du rapport HTML..."
 Write-Host ""
 
-python -c "
-import sys; sys.path.insert(0, r'$PROJECT_DIR')
-from dotenv import load_dotenv; load_dotenv(r'$PROJECT_DIR\.env')
+$pythonCode = @"
+import sys
+sys.path.insert(0, r'$PROJECT_DIR')
+from dotenv import load_dotenv
+load_dotenv(r'$PROJECT_DIR\.env')
 from src.security.html_report import generate_html_report
 from pathlib import Path
 p = generate_html_report(Path(r'$PROJECT_DIR\demo\alfred_security_report.html'))
-print(f'  Rapport généré : {p}')
-"
+print('  Rapport genere :', p)
+"@
+
+python -c $pythonCode
 
 $HTML_REPORT = "$PROJECT_DIR\demo\alfred_security_report.html"
 
 if (Test-Path $HTML_REPORT) {
-    Write-OK "Rapport HTML généré"
+    Write-OK "Rapport HTML genere"
     Write-Step ">" "Ouverture dans le navigateur..."
     Start-Process $HTML_REPORT
     Write-Host ""
-    Write-INFO "Le rapport s'ouvre dans votre navigateur par défaut"
+    Write-INFO "Le rapport s'ouvre dans votre navigateur par defaut"
 } else {
-    Write-WARN "Rapport HTML non trouvé — vérifiez les imports"
+    Write-WARN "Rapport HTML non trouve - verifiez les imports"
 }
 
 Write-Host ""
 Pause
 
 # ============================================================
-# 4. Gouvernance sécurité
+# 4. Gouvernance securite
 # ============================================================
 
 Clear-Host
-Write-Banner "ÉTAPE 3/4 — GOUVERNANCE SÉCURITÉ"
-Write-Step "4/6" "Contrôles de durcissement (13 checks CRITICAL→LOW)..."
+Write-Banner "ETAPE 3/4 - GOUVERNANCE SECURITE"
+Write-Step "4/6" "Controles de durcissement (13 checks CRITICAL->LOW)..."
 Write-Host ""
 
 python "$PROJECT_DIR\src\security\security_governance.py"
@@ -158,11 +161,11 @@ Write-Host ""
 Pause
 
 # ============================================================
-# 5. Tests d'intrusion automatisés
+# 5. Tests d'intrusion automatises
 # ============================================================
 
 Clear-Host
-Write-Banner "ÉTAPE 4/4 — TESTS D'INTRUSION AUTOMATISÉS (136 tests)"
+Write-Banner "ETAPE 4/4 - TESTS D'INTRUSION AUTOMATISES (136 tests)"
 Write-Step "5/6" "Lancement de la suite pytest tests/security/..."
 Write-Host ""
 
@@ -177,12 +180,12 @@ Write-Host ""
 Pause
 
 # ============================================================
-# 6. Démonstration d'attaques en direct
+# 6. Demonstration d'attaques en direct
 # ============================================================
 
 Clear-Host
-Write-Banner "BONUS — DÉMONSTRATION D'ATTAQUES EN DIRECT"
-Write-Step "6/6" "Simulation de vecteurs d'attaque réels..."
+Write-Banner "BONUS - DEMONSTRATION D'ATTAQUES EN DIRECT"
+Write-Step "6/6" "Simulation de vecteurs d'attaque reels..."
 Write-Host ""
 
 python "$PROJECT_DIR\demo\demo_attack.py"
@@ -191,27 +194,27 @@ Write-Host ""
 Pause
 
 # ============================================================
-# Fin de démonstration
+# Fin de demonstration
 # ============================================================
 
 Clear-Host
-Write-Banner "DÉMONSTRATION TERMINÉE" "Green"
+Write-Banner "DEMONSTRATION TERMINEE" "Green"
 
-Write-Host "  Pipeline Zero Trust actif sur chaque échange :" -ForegroundColor White
+Write-Host "  Pipeline Zero Trust actif sur chaque echange :" -ForegroundColor White
 Write-Host ""
 Write-Host "   1  input_validator     Normalisation unicode + 25 patterns" -ForegroundColor Cyan
 Write-Host "   2  threat_detector     Score menace (keywords + anomalies)" -ForegroundColor Cyan
-Write-Host "   3  device_registry     Vérification appareil de confiance" -ForegroundColor Cyan
-Write-Host "   4  access_control      RBAC — 7 rôles, permissions granulaires" -ForegroundColor Cyan
-Write-Host "   5  policy_engine       8 règles Zero Trust" -ForegroundColor Cyan
-Write-Host "   6  audit_trail         Traçabilité JSONL horodatée UTC" -ForegroundColor Cyan
-Write-Host "   7  output_filter       Masquage données sensibles en sortie" -ForegroundColor Cyan
+Write-Host "   3  device_registry     Verification appareil de confiance" -ForegroundColor Cyan
+Write-Host "   4  access_control      RBAC - 7 roles, permissions granulaires" -ForegroundColor Cyan
+Write-Host "   5  policy_engine       8 regles Zero Trust" -ForegroundColor Cyan
+Write-Host "   6  audit_trail         Tracabilite JSONL horodatee UTC" -ForegroundColor Cyan
+Write-Host "   7  output_filter       Masquage donnees sensibles en sortie" -ForegroundColor Cyan
 Write-Host ""
-Write-Host "  136/136 tests d'intrusion passés (100%)" -ForegroundColor Green
-Write-Host "   13/13  contrôles gouvernance (100%)" -ForegroundColor Green
-Write-Host "   Score sécurité : 100/100 — Grade A" -ForegroundColor Green
+Write-Host "  136/136 tests d'intrusion passes (100%)" -ForegroundColor Green
+Write-Host "   13/13  controles gouvernance (100%)" -ForegroundColor Green
+Write-Host "   Score securite : 100/100 - Grade A" -ForegroundColor Green
 Write-Host ""
-Write-Host "  ALFRED — Local-First | Zero Trust | Security by Design" -ForegroundColor Magenta
+Write-Host "  ALFRED - Local-First | Zero Trust | Security by Design" -ForegroundColor Magenta
 Write-Host ""
 
 Pause
