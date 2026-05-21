@@ -245,11 +245,11 @@ class PersonalityAdapter:
     # ─────────────────────────────────────────────────────
 
     def determine_tone(
-        self, 
-        mode: str, 
+        self,
+        mode: str,
         emotional_level: int = 0
         ) -> str:
-        
+
         """Détermine le ton adapté au mode et à l'état émotionnel."""
         prefs = self.user_profile.get("preferences", {})
 

@@ -11,10 +11,8 @@
 # main.py choisit la version selon APP_VERSION dans .env.
 # ============================================================
 
-import re
 from datetime import datetime
 from src.input.nlp_engine import (
-    _INTENT_CATALOG,
     extract_entities,
     get_intent_label,
 )

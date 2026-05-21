@@ -10,8 +10,6 @@
 #   01.02.005 Contexte conversationnel      → context_builder.py
 # ============================================================
 
-import html
-import re
 from datetime import datetime
 
 from src.security.input_validator import sanitize_input

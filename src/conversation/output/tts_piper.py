@@ -18,14 +18,12 @@
 #            assets/voices/fr_FR-upmc-medium.onnx.json
 # ============================================================
 
-import io
 import os
 import time
 import wave
 import subprocess
 import tempfile
 import sounddevice as sd
-import soundfile as sf
 
 from pathlib import Path
 
@@ -89,7 +87,7 @@ def _load_voice() -> "PiperVoice | None":
                 config_path=str(_CONFIG_PATH),
                 use_cuda=False,       # True quand RTX 5080 active en V3+
             )
-            print(f"  [TTS] Voix Pierre (upmc-medium) prête ✅")
+            print("  [TTS] Voix Pierre (upmc-medium) prête ✅")
             log_event("Voix Piper chargée : fr_FR-upmc-medium speaker=1")
         except Exception as e:
             log_event(f"Erreur chargement Piper : {e}", "ERROR")
@@ -271,7 +269,7 @@ def save_to_file(
     if voice is None:
         return False
 
-    params = get_voice_params(mode)
+    get_voice_params(mode)
     output_path = Path(output_path)
     output_path.parent.mkdir(parents=True, exist_ok=True)
 
@@ -347,11 +345,7 @@ class PiperTTS:
         self.blocking = blocking
 
     def speak(self, text: str) -> bool:
-        import os
-        import subprocess
-        import tempfile
         import sounddevice as sd
-        import soundfile as sf
 
         if not text or not text.strip():
             return False

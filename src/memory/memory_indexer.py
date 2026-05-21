@@ -15,9 +15,8 @@
 
 from datetime import datetime
 from src.memory.memory_manager    import get_session_summary, get_history, get_dominant_emotion
-from src.memory.long_term_memory  import search_memories, get_top_patterns, get_fact, get_all_facts
+from src.memory.long_term_memory  import search_memories, get_top_patterns, get_all_facts
 from src.memory.episodic_memory   import search_episodes, get_important_episodes, get_episode_stats
-from src.security.security_logger import log_event
 
 
 def search_all_memory(keyword: str, limit: int = 10) -> dict:

@@ -8,8 +8,8 @@ from pathlib import Path
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(PROJECT_ROOT))
 
-from src.conversation.output.tts_engine import TTSEngine
-from src.conversation.output.tts_piper import PiperTTS
+from src.conversation.output.tts_engine import TTSEngine  # noqa: E402
+from src.conversation.output.tts_piper import PiperTTS  # noqa: E402
 
 
 def run_test():

@@ -103,7 +103,6 @@ def analyze_wellbeing(
 
     # ── Pénalité heure tardive ──────────────────────────
     if time_context:
-        hour = time_context.get("hour", 12)
         energy_from_time = time_context.get("energy_level", "medium")
         if energy_from_time == "low":
             fatigue_score = min(1.0, fatigue_score + 0.15)

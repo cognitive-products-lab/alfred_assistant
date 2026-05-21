@@ -194,7 +194,7 @@ def format_context_for_prompt(context: dict) -> str:
     c = context["conversation"]
 
     lines = [
-        f"[Contexte session]",
+        "[Contexte session]",
         f"Utilisatrice : {context['user_name']}",
         f"Heure        : {t['time']} ({t['period']}, {t['date']})",
         f"Énergie      : {t['energy_level']}",

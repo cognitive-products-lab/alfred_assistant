@@ -23,7 +23,7 @@ from dataclasses import dataclass, field
 from datetime import datetime
 from typing import Callable
 
-from src.regulation.emotion_detector import EmotionalState, requires_support_mode
+from src.regulation.emotion_detector import EmotionalState
 from src.security.security_logger import log_event
 
 
