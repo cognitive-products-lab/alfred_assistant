@@ -1,1 +1,77 @@
-﻿{"roles": {}}
+{
+  "roles": {
+    "OWNER": {
+      "permissions": [
+        "READ_MEMORY",
+        "WRITE_MEMORY",
+        "DELETE_DATA",
+        "EXPORT_DATA",
+        "ACCESS_SECURITY_LOGS",
+        "CONTROL_DEVICE",
+        "RUN_AI_MODULE",
+        "MANAGE_ROLES",
+        "VIEW_AUDIT_TRAIL",
+        "MANAGE_SETTINGS"
+      ],
+      "description": "Propriétaire de l'appareil — accès total",
+      "mfa_required": true,
+      "session_timeout": 3600
+    },
+    "ADMIN": {
+      "permissions": [
+        "READ_MEMORY",
+        "WRITE_MEMORY",
+        "ACCESS_SECURITY_LOGS",
+        "CONTROL_DEVICE",
+        "RUN_AI_MODULE",
+        "VIEW_AUDIT_TRAIL"
+      ],
+      "description": "Administrateur — accès étendu",
+      "mfa_required": true,
+      "session_timeout": 1800
+    },
+    "USER": {
+      "permissions": [
+        "READ_MEMORY",
+        "WRITE_MEMORY",
+        "RUN_AI_MODULE"
+      ],
+      "description": "Utilisateur standard",
+      "mfa_required": false,
+      "session_timeout": 900
+    },
+    "GUEST": {
+      "permissions": [
+        "RUN_AI_MODULE"
+      ],
+      "description": "Invité — accès minimal",
+      "mfa_required": false,
+      "session_timeout": 300
+    },
+    "SERVICE": {
+      "permissions": [
+        "RUN_AI_MODULE"
+      ],
+      "description": "Service interne automatisé",
+      "mfa_required": false,
+      "session_timeout": 600
+    },
+    "AI_MODULE": {
+      "permissions": [
+        "RUN_AI_MODULE"
+      ],
+      "description": "Module IA interne",
+      "mfa_required": false,
+      "session_timeout": 600
+    },
+    "EMERGENCY": {
+      "permissions": [
+        "SEND_ALERT",
+        "READ_EMERGENCY_CONTEXT"
+      ],
+      "description": "Accès d'urgence limité",
+      "mfa_required": false,
+      "session_timeout": 120
+    }
+  }
+}

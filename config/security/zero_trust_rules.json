@@ -1,1 +1,81 @@
-﻿{"rules": []}
+{
+  "rules": [
+    {
+      "id": "ZT-001",
+      "name": "Blocage ressources critiques hors OWNER/ADMIN",
+      "condition": {
+        "resource_sensitivity": "CRITICAL",
+        "role_not_in": ["OWNER", "ADMIN"]
+      },
+      "decision": "DENY",
+      "priority": 1
+    },
+    {
+      "id": "ZT-002",
+      "name": "Suppression et export réservés à OWNER",
+      "condition": {
+        "action_in": ["DELETE_DATA", "EXPORT_DATA"],
+        "role_not_in": ["OWNER"]
+      },
+      "decision": "DENY",
+      "priority": 2
+    },
+    {
+      "id": "ZT-003",
+      "name": "Journaux sécurité — ADMIN et OWNER uniquement",
+      "condition": {
+        "action_in": ["ACCESS_SECURITY_LOGS", "VIEW_AUDIT_TRAIL"],
+        "role_not_in": ["OWNER", "ADMIN"]
+      },
+      "decision": "DENY",
+      "priority": 3
+    },
+    {
+      "id": "ZT-004",
+      "name": "Gestion rôles et paramètres — OWNER uniquement",
+      "condition": {
+        "action_in": ["MANAGE_ROLES", "MANAGE_SETTINGS"],
+        "role_not_in": ["OWNER"]
+      },
+      "decision": "DENY",
+      "priority": 4
+    },
+    {
+      "id": "ZT-005",
+      "name": "GUEST — lecture et écriture mémoire interdites",
+      "condition": {
+        "action_in": ["READ_MEMORY", "WRITE_MEMORY", "DELETE_DATA"],
+        "role_in": ["GUEST"]
+      },
+      "decision": "DENY",
+      "priority": 5
+    },
+    {
+      "id": "ZT-006",
+      "name": "SERVICE/AI_MODULE — accès mémoire et données interdit",
+      "condition": {
+        "action_in": ["READ_MEMORY", "WRITE_MEMORY", "DELETE_DATA", "EXPORT_DATA"],
+        "role_in": ["SERVICE", "AI_MODULE"]
+      },
+      "decision": "DENY",
+      "priority": 6
+    },
+    {
+      "id": "ZT-007",
+      "name": "EMERGENCY — uniquement alertes et contexte d'urgence",
+      "condition": {
+        "action_not_in": ["SEND_ALERT", "READ_EMERGENCY_CONTEXT"],
+        "role_in": ["EMERGENCY"]
+      },
+      "decision": "DENY",
+      "priority": 7
+    },
+    {
+      "id": "ZT-DEFAULT",
+      "name": "Règle par défaut — autoriser si non bloqué",
+      "condition": {},
+      "decision": "ALLOW",
+      "priority": 999
+    }
+  ]
+}
