@@ -271,3 +271,8 @@ class SecurityGovernance:
 
         lines += ["", "=" * 62]
         return "\n".join(lines)
+
+
+if __name__ == "__main__":
+    gov = SecurityGovernance()
+    print(gov.generate_governance_report())
