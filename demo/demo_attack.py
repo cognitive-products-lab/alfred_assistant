@@ -270,7 +270,14 @@ def open_security_dashboard() -> None:
         html_path = generate_html_report(html_path)
         print(f"  {GREEN}[OK]{RESET}     Rapport généré : {html_path}\n")
     except Exception as e:
-        print(f"  {YELLOW}[WARN]{RESET}   Génération HTML impossible : {e}\n")
+        import traceback
+        print(f"  {YELLOW}[WARN]{RESET}   Régénération impossible ({e})")
+        print(f"         Cause : {traceback.format_exc().strip().splitlines()[-1]}")
+        if html_path.exists():
+            print(f"  {CYAN}[INFO]{RESET}   Ouverture du rapport existant...\n")
+        else:
+            print(f"  {RED}[ERREUR]{RESET} Aucun rapport HTML disponible.\n")
+            return
 
     if html_path.exists():
         print(f"  {CYAN}Ouverture du dashboard dans le navigateur...{RESET}\n")
