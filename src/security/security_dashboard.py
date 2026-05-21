@@ -14,6 +14,12 @@ from datetime import datetime, timezone, timedelta
 from pathlib import Path
 from typing import Any
 
+try:
+    from dotenv import load_dotenv
+    load_dotenv(Path(__file__).resolve().parents[2] / ".env")
+except ImportError:
+    pass
+
 from src.security.security_logger import log_event
 
 _AUDIT_FILE = Path("logs/security/audit_trail.jsonl")
