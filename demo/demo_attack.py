@@ -259,6 +259,26 @@ def demo_summary() -> None:
 # Entrée principale
 # ─────────────────────────────────────────────────────────────────────────────
 
+def open_security_dashboard() -> None:
+    import webbrowser
+    banner("DASHBOARD SÉCURITÉ — Rapport HTML interactif", CYAN)
+
+    html_path = ROOT / "demo" / "alfred_security_report.html"
+
+    try:
+        from src.security.html_report import generate_html_report
+        html_path = generate_html_report(html_path)
+        print(f"  {GREEN}[OK]{RESET}     Rapport généré : {html_path}\n")
+    except Exception as e:
+        print(f"  {YELLOW}[WARN]{RESET}   Génération HTML impossible : {e}\n")
+
+    if html_path.exists():
+        print(f"  {CYAN}Ouverture du dashboard dans le navigateur...{RESET}\n")
+        webbrowser.open(html_path.as_uri())
+    else:
+        print(f"  {RED}[ERREUR]{RESET} Fichier HTML introuvable : {html_path}\n")
+
+
 if __name__ == "__main__":
     banner("ALFRED — DÉMONSTRATION SÉCURITÉ LIVE")
     print(f"  Ce script simule des attaques réelles et montre")
@@ -279,3 +299,5 @@ if __name__ == "__main__":
     pause()
 
     demo_summary()
+
+    open_security_dashboard()
