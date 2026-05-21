@@ -124,6 +124,11 @@ def get_history(n: int = 0) -> list[dict]:
     return _session["history"].copy()
 
 
+def history_count() -> int:
+    """Retourne le nombre d'échanges en session."""
+    return len(_session["history"])
+
+
 def get_last_user_message() -> str | None:
     """Retourne le dernier message utilisateur."""
     if _session["history"]:
