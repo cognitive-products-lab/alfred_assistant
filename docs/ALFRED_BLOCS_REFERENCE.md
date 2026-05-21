@@ -7,6 +7,8 @@
 
 ## Format des entêtes fichier
 
+### Fichiers Python (`.py`)
+
 ```python
 # ============================================================
 # ALFRED — src/<module>/<fichier>.py
@@ -22,6 +24,23 @@
 #   <Concept couvert>
 # ============================================================
 ```
+
+### Fichiers JSON (`.json`) — templates, configs, knowledges
+
+```json
+{
+  "_alfred_header": {
+    "file": "<chemin/relatif/depuis/racine.json>",
+    "bloc": "Bloc XX.YY — <Intitulé du sous-code>",
+    "notion_exam": "DXX-Y — Capsule Z : <Intitulé exact du cours FEDE>",
+    "utilite_alfred": "<Ce que ce fichier fait concrètement dans le système>",
+    "domaine": "<Domaine fonctionnel couvert>"
+  }
+}
+```
+
+> Le champ `_alfred_header` doit toujours être le **premier champ** du JSON.
+> Les parsers JSON ignorent les clés inconnues — aucun impact fonctionnel.
 
 ---
 
