@@ -65,9 +65,11 @@ class SecurityDashboard:
             return []
         try:
             data = json.loads(_INCIDENT_FILE.read_text(encoding="utf-8"))
+            items = data.get("incidents", []) if isinstance(data, dict) else data
             return [
-                inc for inc in data
-                if datetime.fromisoformat(inc.get("timestamp", "1970-01-01T00:00:00+00:00")) >= self._cutoff
+                inc for inc in items
+                if isinstance(inc, dict)
+                and datetime.fromisoformat(inc.get("timestamp", "1970-01-01T00:00:00+00:00")) >= self._cutoff
             ]
         except (json.JSONDecodeError, ValueError):
             return []
