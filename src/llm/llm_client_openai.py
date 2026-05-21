@@ -20,9 +20,9 @@ class OpenAILLMClient:
 
     def __init__(
         self,
-        model: str = "gpt-4o",
-        temperature: float = 0.4,
-        max_output_tokens: int = 1200
+        model: str = os.getenv("OPENAI_MODEL", "gpt-4o-mini"),
+        temperature: float = float(os.getenv("OPENAI_TEMPERATURE", "0.4")),
+        max_output_tokens: int = int(os.getenv("OPENAI_MAX_TOKENS", "1200"))
     ):
         load_dotenv()
         api_key = os.getenv("OPENAI_API_KEY")

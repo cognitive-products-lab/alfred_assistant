@@ -6,23 +6,34 @@ Pré-requis :
     Ollama installé et lancé : https://ollama.com
     Modèle téléchargé : ollama pull llama3.2
 
+Variables d'environnement (.env) :
+    OLLAMA_BASE_URL=http://localhost:11434
+    OLLAMA_MODEL=llama3.2
+    OLLAMA_TEMPERATURE=0.4
+    OLLAMA_MAX_TOKENS=1200
+
 Pas de clé API nécessaire — 100% local.
 """
 
 import json
+import os
 import urllib.request
 import urllib.error
 from typing import Optional
+
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 class OllamaLLMClient:
 
     def __init__(
         self,
-        model: str = "llama3.2",
-        temperature: float = 0.4,
-        max_tokens: int = 1200,
-        base_url: str = "http://localhost:11434"
+        model: str = os.getenv("OLLAMA_MODEL", "llama3.2"),
+        temperature: float = float(os.getenv("OLLAMA_TEMPERATURE", "0.4")),
+        max_tokens: int = int(os.getenv("OLLAMA_MAX_TOKENS", "1200")),
+        base_url: str = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
     ):
         self.model = model
         self.temperature = temperature
