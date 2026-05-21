@@ -18,7 +18,7 @@ SENSITIVE_TERMS = [
 _TOKEN_PATTERNS = [
     re.compile(r"(?:sk|pk|rk|ak)-[A-Za-z0-9_\-]{20,}", re.I),   # API keys style OpenAI
     re.compile(r"eyJ[A-Za-z0-9_\-]{10,}\.[A-Za-z0-9_\-]{10,}", re.I),  # JWT
-    re.compile(r"(?:ghp|gho|ghu|ghs|ghr)_[A-Za-z0-9]{36}", re.I),  # GitHub tokens
+    re.compile(r"(?:ghp|gho|ghu|ghs|ghr)_[A-Za-z0-9]{30,}", re.I),  # GitHub tokens
     re.compile(r"[A-Za-z0-9+/]{40,}={0,2}"),  # Base64 potentiellement sensible (>40 chars)
 ]
 

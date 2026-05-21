@@ -110,9 +110,9 @@ ATTACKS = {
 
 OUTPUT_LEAKS = [
     ("FERNET_KEY=3hDzbdet5YhJGfyk2ooYnZRKQXkWd4nU",   "clé Fernet en clair"),
-    ("eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiJ9.x",   "JWT token"),
+    ("eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiJ9.SflKxw", "JWT token"),
     ("sk-proj-ABCDEFghijklmnopqrstuvwxyz1234567890",    "clé API OpenAI"),
-    ("ghp_ABCDEFGHIJKLMNOPQRSTUVWXYZ123456",            "token GitHub"),
+    ("ghp_ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890abcdef",   "token GitHub"),
     ("password=super_secret_password_123",              "mot de passe en clair"),
 ]
 
