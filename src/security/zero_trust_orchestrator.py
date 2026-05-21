@@ -3,7 +3,7 @@ from src.security.threat_detector import detect_threat
 from src.security.access_control import has_access
 from src.security.device_registry import is_trusted_device
 from src.security.policy_decision_point import decide_access
-from src.security.policy_enforcement_point import enforce_decision
+from src.security.policy_enforcement_point import enforce_decision, explain_decision
 from src.security.audit_trail import write_audit_event
 from src.security.security_logger import log_event
 
@@ -66,7 +66,7 @@ def authorize_request(
         write_audit_event(user_id, action, resource, decision)
         return {
             "authorized": False,
-            "reason": decision,
+            "reason": explain_decision(decision),
         }
 
     write_audit_event(user_id, action, resource, "ALLOW")
