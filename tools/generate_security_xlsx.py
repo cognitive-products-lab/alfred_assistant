@@ -528,6 +528,6 @@ ws5.freeze_panes = "A3"
 # Sauvegarde
 # ─────────────────────────────────────────────────────────────────────────────
 
-OUTPUT = "docs/documentation_data_securite.xlsx"
+OUTPUT = "docs/security/documentation_data_securite.xlsx"
 wb.save(OUTPUT)
 print(f"Fichier généré : {OUTPUT}")
