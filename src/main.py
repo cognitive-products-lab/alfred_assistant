@@ -54,6 +54,33 @@ ROOT = Path(__file__).resolve().parent.parent
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
+# Chargement .env avant tout import de module sécurité
+try:
+    from dotenv import load_dotenv
+    load_dotenv(ROOT / ".env")
+except ImportError:
+    pass
+
+# =============================================================================
+# 0.1 MODULES DE SÉCURITÉ — import groupé avec fallback dégradé
+# =============================================================================
+_SECURITY_AVAILABLE = False
+try:
+    from src.security.input_validator import sanitize_input as _sec_sanitize
+    from src.security.threat_detector import detect_threat
+    from src.security.output_filter import filter_output
+    from src.security.audit_trail import write_audit_event
+    from src.security.device_registry import init_default_device
+    from src.security.rate_limiter import is_rate_limited, record_attempt
+    from src.security.security_logger import log_event as _sec_log
+    _SECURITY_AVAILABLE = True
+except Exception as _sec_err:
+    print(f"  [SÉCURITÉ] Modules indisponibles — mode dégradé : {_sec_err}")
+
+_DEFAULT_DEVICE_ID = "local_pc"
+_SESSION_USER_ID = "owner"
+_SESSION_ROLE = "OWNER"
+
 
 # =============================================================================
 # 1. CHEMINS PROJET
@@ -105,31 +132,60 @@ EMOTION_BRIDGE = {
 
 
 # =============================================================================
-# 4. UTILITAIRES TEXTE / SECURITE BASIQUE
+# 4. UTILITAIRES TEXTE / SECURITE
 # =============================================================================
 
 def sanitize_input(text: str) -> str:
     """
-    Nettoie l'entrée utilisateur.
+    Valide et nettoie l'entrée utilisateur.
 
-    - Supprime les caractères non imprimables
-    - Garde les retours ligne et tabulations
-    - Tronque les messages trop longs
-    - Retourne une chaîne vide si l'entrée est inutilisable
+    Si les modules de sécurité sont disponibles, utilise le pipeline complet
+    (normalisation unicode, 25 patterns, détection null bytes).
+    Sinon, fallback sur nettoyage basique.
     """
     if not text or not text.strip():
         return ""
 
+    if _SECURITY_AVAILABLE:
+        result = _sec_sanitize(text, max_length=MAX_INPUT_LENGTH)
+        if not result and text.strip():
+            _sec_log("Input rejeté par le pipeline de sécurité", "WARNING")
+        return result
+
+    # Fallback basique si modules indisponibles
     cleaned = "".join(
         char for char in text
         if char.isprintable() or char in ("\n", "\t")
     ).strip()
-
     if len(cleaned) > MAX_INPUT_LENGTH:
         cleaned = cleaned[:MAX_INPUT_LENGTH]
         print(f"  [INFO] Message tronqué à {MAX_INPUT_LENGTH} caractères.")
-
     return cleaned
+
+
+def _check_threat(user_input: str) -> bool:
+    """Détecte les menaces dans l'input. Retourne True si menace détectée."""
+    if not _SECURITY_AVAILABLE:
+        return False
+    threat = detect_threat(user_input)
+    if threat["is_threat"]:
+        write_audit_event(_SESSION_USER_ID, "INPUT", "conversation", "DENY_THREAT")
+        _sec_log(f"Menace bloquée en boucle principale : {threat['reasons']}", "WARNING")
+        return True
+    return False
+
+
+def _safe_response(response: str) -> str:
+    """Applique le filtre de sortie sur la réponse avant affichage."""
+    if not _SECURITY_AVAILABLE or not response:
+        return response
+    return filter_output(response)
+
+
+def _audit(action: str, resource: str, decision: str) -> None:
+    """Écrit un événement d'audit. Silencieux si modules indisponibles."""
+    if _SECURITY_AVAILABLE:
+        write_audit_event(_SESSION_USER_ID, action, resource, decision)
 
 def clean_for_tts(text: str) -> str:
     replacements = {
@@ -281,8 +337,21 @@ def detect_context(user_input: str, time_context: dict[str, Any]) -> dict[str, A
 # 7. INITIALISATION COMPOSANTS
 # =============================================================================
 
+def _security_startup() -> None:
+    """Initialisation sécurité au démarrage d'ALFRED."""
+    if not _SECURITY_AVAILABLE:
+        return
+    try:
+        init_default_device(_DEFAULT_DEVICE_ID)
+        _sec_log("Démarrage ALFRED — appareil local initialisé", "INFO")
+        _audit("STARTUP", "system", "ALLOW")
+    except Exception as exc:
+        print(f"  [SÉCURITÉ] Init appareil ignorée : {exc}")
+
+
 def init_components() -> dict[str, Any]:
     """Initialise les composants principaux d'ALFRED."""
+    _security_startup()
     from src.core.personality_adapter import PersonalityAdapter
     from src.core.response_generator import ResponseGenerator
     from src.core.alfred_behavior_engine import AlfredBehaviorEngine
@@ -605,6 +674,7 @@ def handle_command(command: str, components: dict[str, Any]) -> bool:
         return True
 
     if cmd == "reset":
+        _audit("DELETE_DATA", "session_memory", "ALLOW")
         try:
             if memory and hasattr(memory, "clear_session"):
                 memory.clear_session()
@@ -937,9 +1007,17 @@ def main() -> None:
         if handle_command(cmd, components):
             continue
 
+        # ── Pipeline de sécurité ──────────────────────────────────────────────
         user_input = sanitize_input(raw_input)
         if not user_input:
+            if raw_input.strip():
+                print("  [SÉCURITÉ] Message rejeté — contenu non autorisé.\n")
             continue
+
+        if _check_threat(user_input):
+            print("  [SÉCURITÉ] Message bloqué — menace détectée.\n")
+            continue
+        # ─────────────────────────────────────────────────────────────────────
 
         try:
             time_ctx = get_time_context()
@@ -950,17 +1028,23 @@ def main() -> None:
                 time_ctx=time_ctx,
             )
 
+            # Filtre de sortie avant affichage
+            safe_resp = _safe_response(response)
+
             print(
                 f"  [mode: {mode} | émotion: {emotion_label} | "
                 f"énergie: {time_ctx.get('energy_level', energy_level)}]"
             )
-            print(f"\n  {ALFRED_NAME} : {response}\n")
+            print(f"\n  {ALFRED_NAME} : {safe_resp}\n")
+
+            # Audit de la conversation
+            _audit("CONVERSATION", "memory", "ALLOW")
 
             # 🔊 TTS
             try:
                 tts = components.get("tts")
                 if tts and components.get("voice_enabled"):
-                    tts.speak(clean_for_tts(response))
+                    tts.speak(clean_for_tts(safe_resp))
             except Exception as exc:
                 print(f"  [AVERT TTS] {exc}")
 
@@ -968,7 +1052,7 @@ def main() -> None:
             try:
                 memory.save_exchange(
                     user_message=user_input,
-                    alfred_response=response,
+                    alfred_response=safe_resp,
                     mode=mode,
                     emotion=emotion_label,
                     energy=energy_level,
@@ -983,7 +1067,7 @@ def main() -> None:
                     ltm.save_exchange(
                         session_id=components.get("session_id", "unknown"),
                         user_input=user_input,
-                        alfred_response=response,
+                        alfred_response=safe_resp,
                         intent="general",
                         emotion=emotion_label,
                         topic=mode,
