@@ -40,15 +40,20 @@
 
 ---
 
-## Langages a maitriser
+## Langages a maitriser (programme MSc FEDE)
 
-- **Python** : scripts, automatisation, logs
-- **SQL** : MySQL, Oracle/PL-SQL, requetes CRUD
-- **Java** : POO, classes, heritage
-- **PHP** : API REST, endpoints, CRUD web
-- **HTML/CSS** : Frontend, interface ALFRED
-- **Bash** : Scripts Linux, permissions
-- **PowerShell** : Automatisation Windows
+| Langage | MSc | Utilisation |
+|---|---|---|
+| **Python** | MSc1 + MSc2 | Scripts, IA, datamining, logs |
+| **SQL / Oracle / PL-SQL** | MSc1 + MSc2 | Base de donnees relationnelle, triggers |
+| **Java** | MSc1 + MSc2 | POO, JEE, Android, Big Data |
+| **PHP** | MSc1 | API REST, endpoints, CRUD web |
+| **HTML/CSS/JavaScript** | MSc1 + MSc2 | Frontend, interface ALFRED |
+| **MongoDB / NoSQL** | MSc1 + MSc2 | Base de donnees documents |
+| **Bash / Linux** | MSc1 | Scripts systeme, permissions |
+| **PowerShell** | MSc1 | Automatisation Windows |
+| **Node.js / React** | MSc2 | Full Stack JavaScript |
+| **Hadoop / Big Data** | MSc2 | Traitement de donnees massives |
 
 ---
 
