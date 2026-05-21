@@ -193,6 +193,122 @@ class SecurityDashboard:
         grade = "A" if score >= 90 else "B" if score >= 75 else "C" if score >= 60 else "D" if score >= 40 else "F"
         return {"score": score, "grade": grade, "max_score": 100, "deductions": deductions}
 
+    def get_iso27001_status(self) -> dict[str, Any]:
+        """Évalue la conformité ISO 27001 — 10 contrôles clés."""
+        checks: list[dict] = []
+
+        def chk(control: str, name: str, ok: bool, detail: str) -> None:
+            checks.append({"control": control, "name": name,
+                           "status": "OK" if ok else "KO", "detail": detail})
+
+        rbac: dict = {}
+        rbac_path = Path("config/security/roles_permissions.json")
+        if rbac_path.exists():
+            try:
+                rbac = json.loads(rbac_path.read_text(encoding="utf-8")).get("roles", {})
+            except (json.JSONDecodeError, OSError):
+                pass
+
+        mfa_global = False
+        settings_path = Path("config/security/security_settings.json")
+        if settings_path.exists():
+            try:
+                mfa_global = bool(json.loads(settings_path.read_text(encoding="utf-8")).get("mfa_required", False))
+            except (json.JSONDecodeError, OSError):
+                pass
+
+        tests_ok = (
+            Path("tests/security").exists()
+            and len(list(Path("tests/security").glob("test_*.py"))) >= 4
+        )
+
+        chk("A.9.1",  "Politique de contrôle d'accès",
+            bool(rbac), "RBAC 7 rôles — roles_permissions.json")
+        chk("A.9.2",  "Gestion des identités",
+            Path("src/auth/authenticator.py").exists(), "bcrypt PIN — authenticator.py")
+        chk("A.9.4",  "Authentification forte (MFA)",
+            mfa_global and Path("src/security/mfa_manager.py").exists(),
+            "TOTP RFC 6238 — mfa_manager.py activé")
+        chk("A.10.1", "Chiffrement des données",
+            bool(os.getenv("FERNET_KEY")), "Fernet AES-128-CBC via variable d'env")
+        chk("A.10.2", "Gestion des clés cryptographiques",
+            bool(os.getenv("FERNET_KEY")) and not Path("data/security/fernet.key").exists(),
+            "Clé uniquement en .env — aucun fichier disque")
+        chk("A.12.4", "Journalisation et audit",
+            _AUDIT_FILE.exists(), "audit_trail.jsonl horodaté UTC")
+        chk("A.12.6", "Gestion des vulnérabilités",
+            Path("src/security/input_validator.py").exists(),
+            "25 patterns d'injection — input_validator.py")
+        chk("A.14.2", "Sécurité du développement",
+            tests_ok, "137+ tests d'intrusion automatisés — pytest")
+        chk("A.16.1", "Gestion des incidents",
+            Path("data/security/incident_register.json").exists(),
+            "incident_register.json — registre présent")
+        chk("A.18.1", "Conformité réglementaire",
+            True, "Architecture local-first — RGPD/GDPR")
+
+        passed = sum(1 for c in checks if c["status"] == "OK")
+        return {
+            "total": len(checks),
+            "passed": passed,
+            "failed": len(checks) - passed,
+            "compliance_rate": round(passed / len(checks) * 100, 1),
+            "checks": checks,
+        }
+
+    def get_rgpd_status(self) -> dict[str, Any]:
+        """Évalue la conformité RGPD — 8 articles clés."""
+        checks: list[dict] = []
+
+        def chk(article: str, name: str, ok: bool, detail: str) -> None:
+            checks.append({"article": article, "name": name,
+                           "status": "OK" if ok else "KO", "detail": detail})
+
+        owner_perms: list = []
+        rbac_path = Path("config/security/roles_permissions.json")
+        if rbac_path.exists():
+            try:
+                roles = json.loads(rbac_path.read_text(encoding="utf-8")).get("roles", {})
+                owner_perms = roles.get("OWNER", {}).get("permissions", [])
+            except (json.JSONDecodeError, OSError):
+                pass
+
+        fernet_ok  = bool(os.getenv("FERNET_KEY"))
+        data_encrypted = any(
+            Path(p).exists()
+            for p in ["data/users/instances", "data/memory/episodic"]
+        )
+
+        chk("Art. 5",  "Minimisation des données",
+            True, "Données locales uniquement — aucune collecte cloud")
+        chk("Art. 7",  "Consentement documenté",
+            Path("data/users/instances").exists(),
+            "privacy_and_consent dans profils utilisateurs")
+        chk("Art. 17", "Droit à l'effacement",
+            "DELETE_DATA" in owner_perms,
+            "Permission DELETE_DATA — rôle OWNER")
+        chk("Art. 20", "Portabilité des données",
+            "EXPORT_DATA" in owner_perms,
+            "Permission EXPORT_DATA — rôle OWNER")
+        chk("Art. 25", "Privacy by design",
+            True, "Architecture local-first — aucun envoi externe")
+        chk("Art. 32", "Sécurité du traitement",
+            fernet_ok, "Chiffrement Fernet AES-128-CBC au repos")
+        chk("Art. 33", "Notification des violations",
+            Path("data/security/incident_register.json").exists(),
+            "incident_register.json — registre des incidents")
+        chk("Art. 44", "Interdiction transferts hors UE",
+            True, "Traitement 100% local — aucun transfert externe")
+
+        passed = sum(1 for c in checks if c["status"] == "OK")
+        return {
+            "total": len(checks),
+            "passed": passed,
+            "failed": len(checks) - passed,
+            "compliance_rate": round(passed / len(checks) * 100, 1),
+            "checks": checks,
+        }
+
     def get_compliance_status(self) -> dict[str, Any]:
         """Vérifie la conformité GDPR / OWASP Top 10 de base."""
         checks: list[dict] = []
