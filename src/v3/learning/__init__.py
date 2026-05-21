@@ -1,1 +1,1 @@
-﻿# ALFRED module
+# V3 — Apprentissage continu et personnalisation profonde.

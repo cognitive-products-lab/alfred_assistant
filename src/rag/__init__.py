@@ -1,1 +1,1 @@
-﻿# ALFRED module
+# Moteur RAG (Retrieval-Augmented Generation).
