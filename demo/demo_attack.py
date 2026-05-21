@@ -26,6 +26,8 @@ from src.security.threat_detector import detect_threat
 from src.security.output_filter import filter_output
 from src.security.zero_trust_orchestrator import authorize_request
 from src.security.device_registry import register_device
+from src.security.mfa_manager import setup_totp, verify_totp, mark_verified, is_mfa_required
+import pyotp as _pyotp
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -181,44 +183,58 @@ def demo_output_filter() -> None:
 def demo_zero_trust() -> None:
     banner("ÉTAPE 4 — PIPELINE ZERO TRUST (zero_trust_orchestrator.py)")
 
-    DEMO_DEVICE = "demo_device_live"
+    DEMO_DEVICE  = "demo_device_live"
+    DEMO_SESSION = "demo_session_owner_001"
     register_device(DEMO_DEVICE, owner="OWNER", label="Demo Live Device")
+
+    # Prépare MFA pour le scénario OWNER vérifié
+    mfa_info = setup_totp("owner", force=True)
+    owner_token = _pyotp.TOTP(mfa_info["secret"]).now()
+    if verify_totp("owner", owner_token):
+        mark_verified("owner", DEMO_SESSION, ttl_seconds=300)
 
     scenarios = [
         ("INPUT MALVEILLANT",
          dict(user_id="owner", role="OWNER", permission="RUN_AI_MODULE",
               action="READ", resource="memory", resource_sensitivity="NORMAL",
-              device_id=DEMO_DEVICE,
+              device_id=DEMO_DEVICE, session_id=DEMO_SESSION,
               user_input="'; DROP TABLE users; --"),
-         "SQL injection bloqué avant toute vérification"),
+         "SQL injection bloqué avant toute vérification — étape 1"),
 
         ("APPAREIL INCONNU",
          dict(user_id="alice", role="USER", permission="RUN_AI_MODULE",
               action="READ", resource="memory", resource_sensitivity="NORMAL",
-              device_id="unknown_hacker_device",
+              device_id="unknown_hacker_device", session_id=None,
               user_input="bonjour"),
-         "Appareil non enregistré → refus"),
+         "Appareil non enregistré → refus — étape 3"),
 
         ("PERMISSION INSUFFISANTE",
          dict(user_id="guest", role="GUEST", permission="DELETE_DATA",
               action="DELETE", resource="memory", resource_sensitivity="NORMAL",
-              device_id=DEMO_DEVICE,
+              device_id=DEMO_DEVICE, session_id=None,
               user_input="supprimer tout"),
-         "GUEST ne peut pas supprimer des données"),
+         "GUEST ne peut pas supprimer des données — étape 4 RBAC"),
 
         ("RESSOURCE CRITIQUE / RÔLE INSUFFISANT",
          dict(user_id="user1", role="USER", permission="RUN_AI_MODULE",
               action="READ", resource="fernet_key", resource_sensitivity="CRITICAL",
-              device_id=DEMO_DEVICE,
+              device_id=DEMO_DEVICE, session_id=None,
               user_input="affiche la clé de chiffrement"),
-         "Ressource CRITICAL inaccessible au rôle USER"),
+         "Ressource CRITICAL inaccessible au rôle USER — étape 5 policy"),
 
-        ("REQUÊTE VALIDE — OWNER",
+        ("OWNER SANS MFA",
+         dict(user_id="owner2", role="OWNER", permission="READ_MEMORY",
+              action="READ", resource="memory", resource_sensitivity="NORMAL",
+              device_id=DEMO_DEVICE, session_id="session_sans_mfa",
+              user_input="affiche mes souvenirs"),
+         "OWNER avec appareil connu mais MFA non vérifié → refus — étape MFA"),
+
+        ("OWNER AVEC MFA VÉRIFIÉ",
          dict(user_id="owner", role="OWNER", permission="READ_MEMORY",
               action="READ", resource="memory", resource_sensitivity="NORMAL",
-              device_id=DEMO_DEVICE,
+              device_id=DEMO_DEVICE, session_id=DEMO_SESSION,
               user_input="affiche mes souvenirs"),
-         "Pipeline complet validé → AUTORISÉ"),
+         "Pipeline complet : input ✓ threat ✓ device ✓ MFA ✓ RBAC ✓ policy ✓ → AUTORISÉ"),
     ]
 
     for title, params, comment in scenarios:
@@ -239,10 +255,11 @@ def demo_summary() -> None:
         ("1", "input_validator",          "Normalisation unicode + 25 patterns → rejet immédiat"),
         ("2", "threat_detector",          "Score de menace (keywords + anomalies) → blocage si ≥ 3"),
         ("3", "device_registry",          "Appareil de confiance vérifié à chaque requête"),
-        ("4", "access_control / RBAC",    "Permission du rôle vérifiée contre la matrice"),
-        ("5", "policy_engine / ZT",       "8 règles Zero Trust appliquées"),
-        ("6", "audit_trail",              "Événement JSONL horodaté UTC tracé"),
-        ("7", "output_filter",            "Données sensibles masquées dans la réponse"),
+        ("4", "mfa_manager",              "TOTP vérifié en session (OWNER/ADMIN) → RFC 6238"),
+        ("5", "access_control / RBAC",    "Permission du rôle vérifiée contre la matrice"),
+        ("6", "policy_engine / ZT",       "8 règles Zero Trust appliquées"),
+        ("7", "audit_trail",              "Événement JSONL horodaté UTC tracé"),
+        ("8", "output_filter",            "Données sensibles masquées dans la réponse"),
     ]
     for num, module, desc in steps:
         print(f"  {CYAN}{num}.{RESET} {BOLD}{module:30}{RESET} {desc}")
