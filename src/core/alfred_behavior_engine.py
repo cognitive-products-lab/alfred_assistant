@@ -1,24 +1,18 @@
-﻿"""
-alfred_behavior_engine.py
-
-Moteur comportemental ALFRED.
-
-Rôle :
-- lire alfred_core_identity.json
-- lire behavior_rules_softskills.json
-- analyser l'état utilisateur
-- choisir le mode comportemental
-- détecter les soft skills à appliquer
-- enrichir la décision comportementale
-- fournir un contexte prêt à injecter dans response_generator.py
-
-Évolution V3 :
-- support des soft skills runtime
-- scoring par priorité
-- combinaison de règles
-- override automatique du mode si nécessaire
-- prompt context enrichi
-"""
+# ============================================================
+# ALFRED — src/core/alfred_behavior_engine.py
+# Bloc 03.02 — Adaptation comportementale
+#
+# 📚 NOTION EXAM :
+#   D31-1 — Capsule 3 : Moteur comportemental et adaptation dynamique
+#
+# 🎯 UTILITÉ ALFRED :
+#   Lit alfred_core_identity.json et behavior_rules_softskills.json,
+#   analyse l'état utilisateur, choisit le mode comportemental
+#   et fournit un contexte enrichi à response_generator.py.
+#
+# 🏗️ DOMAINE :
+#   Émotions & adaptation comportementale — cœur décisionnel des modes
+# ============================================================
 
 from __future__ import annotations
 

@@ -1,16 +1,16 @@
-﻿# ============================================================
+# ============================================================
 # ALFRED — src/memory/memory_manager.py
-# Bloc 02.01 — Mémoire court terme
+# Bloc 02.01 — Mémoire courte
 #
-# Fonctions couvertes :
-#   02.01.001 Stockage session en mémoire vive   ✅ V1
-#   02.01.002 Historique dialogue courant        ✅ V1
-#   02.01.003 Contexte actif (états, intentions) ✅ V1
-#   02.01.004 Mise à jour dynamique              ✅ V1
-#   02.01.005 Flush / reset session              ✅ V1
+# 📚 NOTION EXAM :
+#   D21-1 — Capsule 2 : Mémoire de travail et historique de session
 #
-# Local-first : tout en RAM pendant la session.
-# Persistence JSON déclenchée en fin de session → long_term_memory.py
+# 🎯 UTILITÉ ALFRED :
+#   Stocke l'historique de dialogue courant et le contexte actif
+#   en RAM pendant la session ; persiste en JSON via long_term_memory.py.
+#
+# 🏗️ DOMAINE :
+#   Mémoire & contexte — mémoire courte locale, flush fin de session
 # ============================================================
 
 import json
