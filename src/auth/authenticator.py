@@ -22,6 +22,7 @@ except ImportError:
 from src.security.security_logger import log_event, log_auth
 from src.security.rate_limiter import is_rate_limited, record_attempt
 from src.security.session_manager import create_session, is_blocked, register_failed_attempt
+from src.security.data_protection import read_protected_json, write_protected_json, PINS_FIELDS
 
 _PIN_STORE = Path("data/security/pins.json")
 _PIN_STORE.parent.mkdir(parents=True, exist_ok=True)
@@ -48,17 +49,14 @@ def _verify_pin(pin: str, hashed: str, salt: str) -> bool:
 
 
 def _load_pins() -> dict:
-    if not _PIN_STORE.exists():
-        return {}
-    try:
-        return json.loads(_PIN_STORE.read_text(encoding="utf-8"))
-    except json.JSONDecodeError:
-        log_event("PIN store corrompu — réinitialisé", "ERROR")
-        return {}
+    """Lit pins.json en déchiffrant automatiquement hash et salt."""
+    data = read_protected_json(_PIN_STORE, PINS_FIELDS)
+    return data if isinstance(data, dict) else {}
 
 
 def _save_pins(pins: dict) -> None:
-    _PIN_STORE.write_text(json.dumps(pins, indent=2, ensure_ascii=False), encoding="utf-8")
+    """Écrit pins.json en chiffrant automatiquement hash et salt."""
+    write_protected_json(_PIN_STORE, pins, PINS_FIELDS)
 
 
 def register_pin(user_id: str, pin: str) -> bool:
