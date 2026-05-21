@@ -1,3 +1,18 @@
+# ============================================================
+# ALFRED — src/security/incident_manager.py
+# Bloc 20.11 — Réponse à incident
+#
+# 📚 NOTION EXAM :
+#   D42-3 — Capsule 10 : Gestion des incidents de sécurité (IRP / CSIRT)
+#
+# 🎯 UTILITÉ ALFRED :
+#   Enregistre et trace les incidents dans un registre JSON persistant
+#   et horodaté pour investigation et escalade.
+#
+# 🔐 BLOC SÉCURITÉ :
+#   Réponse aux incidents — registre structuré OPEN/CLOSED pour le CSIRT
+# ============================================================
+
 import json
 from datetime import datetime, timezone
 from pathlib import Path
