@@ -293,3 +293,8 @@ class SecurityDashboard:
 def get_dashboard(lookback_hours: int = 24) -> SecurityDashboard:
     """Factory : retourne un dashboard initialisé."""
     return SecurityDashboard(lookback_hours)
+
+
+if __name__ == "__main__":
+    dashboard = get_dashboard()
+    print(dashboard.generate_report())
