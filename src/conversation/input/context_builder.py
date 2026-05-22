@@ -1,13 +1,16 @@
-﻿# ============================================================
-# ALFRED — src/input/context_builder.py
-# Bloc 01.05 — Contexte utilisateur & session
+# ============================================================
+# ALFRED — src/conversation/input/context_builder.py
+# Bloc 01.03 — Gestion du contexte
 #
-# Fonctions couvertes :
-#   01.05.001 Contexte temporel       ✅ V1
-#   01.05.002 Contexte device         ✅ V1 (PC par défaut)
-#   01.05.003 Contexte conversation   ✅ V1
-#   01.05.004 Fusion contexte global  ✅ V1
-#   01.05.005 Contexte localisation   🔲 V2 (GPS/réseau)
+# 📚 NOTION EXAM :
+#   D11-3 — Capsule 1 : Construction du contexte session et fusion
+#
+# 🎯 UTILITÉ ALFRED :
+#   Construit et fusionne le contexte global de session : temporel,
+#   device, conversation et localisation (V2+).
+#
+# 🏗️ DOMAINE :
+#   Noyau conversationnel — contexte temps réel, device-aware
 # ============================================================
 
 import platform

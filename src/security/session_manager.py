@@ -1,3 +1,18 @@
+# ============================================================
+# ALFRED — src/security/session_manager.py
+# Bloc 20.03 — Authentification & MFA
+#
+# 📚 NOTION EXAM :
+#   D41-3 — Capsule 3 : Gestion des sessions et verrouillage sur échecs
+#
+# 🎯 UTILITÉ ALFRED :
+#   Gère le cycle de vie des sessions : création, expiration automatique
+#   et blocage après N tentatives d'authentification échouées.
+#
+# 🔐 BLOC SÉCURITÉ :
+#   Session management Zero Trust — expiration et lockout anti-brute-force
+# ============================================================
+
 import time
 from src.security.security_config import SESSION_TIMEOUT, MAX_LOGIN_ATTEMPTS
 from src.security.security_logger import log_event

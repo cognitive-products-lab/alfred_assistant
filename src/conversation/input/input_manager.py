@@ -1,7 +1,17 @@
-﻿# -*- coding: utf-8 -*-
-"""
-input_manager.py — version stable (clavier prioritaire)
-"""
+# ============================================================
+# ALFRED — src/conversation/input/input_manager.py
+# Bloc 01.01 — Gestion des conversations
+#
+# 📚 NOTION EXAM :
+#   D12-1 — Capsule 1 : Gestion hybride des entrées clavier/voix
+#
+# 🎯 UTILITÉ ALFRED :
+#   HybridInputManager — arbitre les entrées clavier et vocales
+#   via un système de queue thread-safe (clavier prioritaire V1).
+#
+# 🏗️ DOMAINE :
+#   Noyau conversationnel — entrées hybrides texte/voix, thread-safe
+# ============================================================
 
 from __future__ import annotations
 import queue

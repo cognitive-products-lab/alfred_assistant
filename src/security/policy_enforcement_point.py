@@ -1,14 +1,17 @@
-"""
-policy_enforcement_point.py
-PEP — Policy Enforcement Point pour ALFRED.
-
-Applique la décision du PDP (Policy Decision Point).
-Dans l'architecture Zero Trust :
-    PDP (decide_access) → décide
-    PEP (enforce_decision) → applique
-
-Le PEP est le dernier verrou avant l'exécution d'une action.
-"""
+# ============================================================
+# ALFRED — src/security/policy_enforcement_point.py
+# Bloc 20.13 — Zero Trust
+#
+# 📚 NOTION EXAM :
+#   D51-2 — Capsule 4 : PEP — Policy Enforcement Point (dernier verrou)
+#
+# 🎯 UTILITÉ ALFRED :
+#   Applique la décision du PDP avant toute exécution d'action ;
+#   bloque ou autorise selon ALLOW / DENY / REVIEW.
+#
+# 🔐 BLOC SÉCURITÉ :
+#   Zero Trust enforcement — le PEP est le point de contrôle physique de la décision
+# ============================================================
 
 from src.security.security_logger import log_event
 

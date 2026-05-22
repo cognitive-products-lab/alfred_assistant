@@ -1,3 +1,18 @@
+# ============================================================
+# ALFRED — src/security/input_validator.py
+# Bloc 20.10 — Gestion des vulnérabilités
+#
+# 📚 NOTION EXAM :
+#   D42-2 — Capsule 6 : Validation des entrées — boundary validation (OWASP)
+#
+# 🎯 UTILITÉ ALFRED :
+#   Nettoie et filtre toutes les entrées utilisateur ; bloque XSS,
+#   injection SQL, injections shell et traversées de répertoire.
+#
+# 🔐 BLOC SÉCURITÉ :
+#   Security by Design — validation à la frontière du système (input sanitization)
+# ============================================================
+
 import re
 import html
 from src.security.security_logger import log_event

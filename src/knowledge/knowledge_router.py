@@ -1,7 +1,18 @@
-﻿# ============================================================
-# ALFRED — knowledge_router.py
-# Routage des knowledges vers les bons fichiers JSON
 # ============================================================
+# ALFRED — src/knowledge/knowledge_router.py
+# Bloc 18.10 — Base métier & expertise
+#
+# 📚 NOTION EXAM :
+#   D22-2 — Capsule 5 : Routage des knowledges — architecture legacy
+#
+# 🎯 UTILITÉ ALFRED :
+#   DÉPRÉCIÉ — routeur legacy conservé pour historique.
+#   Remplacé par domain_matcher, taxonomy_router, retrieval_engine.
+#
+# 🏗️ DOMAINE :
+#   Base de connaissances — routage Bloc 18, pipeline B18 V3+
+# ============================================================
+
 """
 DEPRECATED — Legacy knowledge router.
 

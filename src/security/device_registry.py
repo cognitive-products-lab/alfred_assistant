@@ -1,10 +1,17 @@
-"""
-device_registry.py
-Registre des appareils de confiance pour ALFRED.
-
-Gère la liste des device_id autorisés à se connecter.
-Local-first : stockage JSON dans data/security/trusted_devices.json.
-"""
+# ============================================================
+# ALFRED — src/security/device_registry.py
+# Bloc 20.02 — Gestion des identités & accès
+#
+# 📚 NOTION EXAM :
+#   D51-1 — Capsule 4 : Zero Trust — vérification de l'appareil (device trust)
+#
+# 🎯 UTILITÉ ALFRED :
+#   Maintient la liste des device_id autorisés à se connecter à ALFRED ;
+#   local-first avec persistance JSON dans data/security/.
+#
+# 🔐 BLOC SÉCURITÉ :
+#   Zero Trust — l'appareil comme facteur d'authentification contextuel
+# ============================================================
 
 import json
 from datetime import datetime, timezone
