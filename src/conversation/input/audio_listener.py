@@ -1,21 +1,17 @@
-﻿"""
-audio_listener.py
------------------
-
-Module d'écoute audio haut niveau pour ALFRED.
-
-Ce fichier sert de façade entre l'orchestrateur principal d'ALFRED
-et les modules techniques de capture audio.
-
-Objectif :
-- fournir une interface stable : AudioListener.listen()
-- permettre un mode simulation pour les tests
-- éviter que le reste de l'application dépende directement
-  d'une implémentation technique précise
-
-Note :
-La capture audio réelle doit rester gérée par audio_capture.py.
-"""
+# ============================================================
+# ALFRED — src/conversation/input/audio_listener.py
+# Bloc 04.03 — Détection sonore
+#
+# 📚 NOTION EXAM :
+#   D13-1 — Capsule 4 : Façade d'écoute audio haut niveau
+#
+# 🎯 UTILITÉ ALFRED :
+#   Interface stable AudioListener.listen() entre l'orchestrateur
+#   et les modules techniques de capture audio bas niveau.
+#
+# 🏗️ DOMAINE :
+#   Interaction vocale — façade d'écoute, mode simulation pour tests
+# ============================================================
 
 from typing import Optional
 

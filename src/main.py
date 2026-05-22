@@ -1,43 +1,17 @@
-# -*- coding: utf-8 -*-
-"""
-main.py — ALFRED V1.2 consolidée avec mémoire long terme
-
-Objectif :
-  Conserver la V1 actuelle fonctionnelle, tout en préparant proprement la V2.
-
-Ce fichier garde :
-  - Pipeline conversation texte
-  - PersonalityAdapter
-  - ResponseGenerator
-  - AlfredBehaviorEngine
-  - KnowledgeLoader
-  - MemoryEngine JSON existant
-  - Ollama optionnel
-  - Détection émotion + wellbeing + mode B03
-
-Ce fichier ajoute :
-  - sanitize_input()
-  - commandes : exit / memoire / memoire_ltm / mode / stats / ltm_stats / reset / statut
-  - affichage plus propre
-  - mode dégradé contrôlé si Ollama indisponible
-  - architecture d'import unique en src.*
-  - branchement optionnel de src.memory.long_term_memory
-
-Ce fichier NE branche PAS encore :
-  - SpeechManager
-  - micro
-  - haut-parleur
-
-Ce fichier branche maintenant :
-  - mémoire long terme SQLite existante via src.memory.long_term_memory
-
-Pourquoi ?
-  Parce qu'une V1 stable vaut mieux qu'une V3 qui fait du trampoline dans les imports.
-
-Usage :
-  cd D:/PROJET_ALFRED/ALFRED_PC
-  python src/main.py
-"""
+# ============================================================
+# ALFRED — src/main.py
+# Bloc 01.04 — Orchestration des modules
+#
+# 📚 NOTION EXAM :
+#   D11-1 — Capsule 1 : Pipeline conversationnel et orchestration V1
+#
+# 🎯 UTILITÉ ALFRED :
+#   Point d'entrée principal V1.2 — orchestre conversation texte,
+#   personnalité, mémoire, émotion, wellbeing et mode dégradé Ollama.
+#
+# 🏗️ DOMAINE :
+#   Noyau conversationnel & orchestration — pipeline complet V1 → V2
+# ============================================================
 
 from __future__ import annotations
 

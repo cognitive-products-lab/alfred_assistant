@@ -1,16 +1,16 @@
-﻿# ============================================================
+# ============================================================
 # ALFRED — src/memory/episodic_memory.py
-# Bloc 02.03 — Mémoire épisodique
+# Bloc 02.03 — Historique utilisateur
 #
-# Fonctions couvertes :
-#   02.03.001 Enregistrement événements vécus  ✅ V2
-#   02.03.002 Timeline chronologique           ✅ V2
-#   02.03.003 Liens contextuels (cause/effet)  ✅ V2
-#   02.03.004 Rappel épisodes pertinents       ✅ V2
-#   02.03.005 Clustering par thème/émotion     ✅ V2
+# 📚 NOTION EXAM :
+#   D21-3 — Capsule 2 : Mémoire épisodique et événements marquants
 #
-# Un "épisode" = moment notable (session intense, percée, blocage, émotion forte)
-# Différent de la mémoire ordinaire : c'est ce qui COMPTE pour l'utilisateur.
+# 🎯 UTILITÉ ALFRED :
+#   Enregistre les épisodes notables (percées, blocages, émotions fortes)
+#   avec timeline chronologique et liens contextuels cause/effet.
+#
+# 🏗️ DOMAINE :
+#   Mémoire & contexte — épisodique, différent de la mémoire ordinaire
 # ============================================================
 
 import json
