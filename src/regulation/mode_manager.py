@@ -1,22 +1,16 @@
-﻿# ============================================================
+# ============================================================
 # ALFRED — src/regulation/mode_manager.py
-# Bloc 03.02 / 03.03 — Machine à états des 4 modes dynamiques
+# Bloc 03.02 — Adaptation comportementale
 #
-# Fonctions couvertes :
-#   03.02.001 Adaptation ton & registre ALFRED   ✅ V2
-#   03.02.002 Réassurance & soutien émotionnel   ✅ V2
-#   03.02.003 Suggestion actions bien-être       ✅ V1/V2
-#   03.03.001 Transition douce entre états       ✅ V2
-#   03.03.002 Déclencheur changement mode        ✅ V2
-#   03.03.003 Log transitions                    ✅ V2
-#   03.03.004 Notification avatar (émotion)      ✅ V2 (hook)
-#   03.03.005 Cohérence ton / état global        ✅ V2
+# 📚 NOTION EXAM :
+#   D31-2 — Capsule 3 : Machine à états des modes comportementaux ALFRED
 #
-# Les 4 modes ALFRED (définis dans personality_core.json) :
-#   support     → présence rassurante, écoute, douceur
-#   focus       → clarté, efficacité, structuré
-#   challenge   → dynamique, assertif, motivant
-#   complicite  → détendu, naturel, complice
+# 🎯 UTILITÉ ALFRED :
+#   Gère les 4 modes d'ALFRED (support, focus, challenge, complicité) —
+#   transitions douces, déclencheurs, logs et hooks avatar.
+#
+# 🏗️ DOMAINE :
+#   Émotions & adaptation — FSM des modes, cohérence ton / état global
 # ============================================================
 
 from dataclasses import dataclass, field

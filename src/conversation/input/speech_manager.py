@@ -1,15 +1,16 @@
-﻿# ============================================================
-# ALFRED — src/input/speech_manager.py
-# Bloc 01 V3 — Orchestrateur vocal complet
+# ============================================================
+# ALFRED — src/conversation/input/speech_manager.py
+# Bloc 04.04 — Hotword & écoute
 #
-# Coordonne :
-#   STT → stt_whisper.py   (écoute + transcription)
-#   TTS → tts_piper.py     (synthèse + lecture)
-#   NLP → nlp_engine_v2.py (intent + émotion)
-#   CTX → context_builder  (contexte temps / énergie)
+# 📚 NOTION EXAM :
+#   D13-3 — Capsule 4 : Orchestrateur vocal STT/TTS/NLP
 #
-# C'est la pièce centrale du moteur vocal V3.
-# main.py instancie SpeechManager et l'utilise comme interface unique.
+# 🎯 UTILITÉ ALFRED :
+#   Pièce centrale du moteur vocal V3 — coordonne STT (Whisper),
+#   TTS (Piper), NLP (nlp_engine_v2) et contexte (context_builder).
+#
+# 🏗️ DOMAINE :
+#   Interaction vocale — orchestrateur vocal complet V3
 # ============================================================
 
 from src.input.audio_capture  import is_audio_available

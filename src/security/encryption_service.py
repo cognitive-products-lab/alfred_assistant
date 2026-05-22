@@ -1,13 +1,17 @@
-"""
-encryption_service.py
-Service de chiffrement local pour ALFRED.
-
-Utilise Fernet (cryptography) — chiffrement symétrique AES-128-CBC.
-La clé est stockée dans .env (FERNET_KEY) ou générée automatiquement.
-
-Pré-requis :
-    pip install cryptography
-"""
+# ============================================================
+# ALFRED — src/security/encryption_service.py
+# Bloc 20.05 — Chiffrement & protection des données
+#
+# 📚 NOTION EXAM :
+#   D52-1 — Capsule 9 : Chiffrement symétrique — Fernet / AES-128-CBC
+#
+# 🎯 UTILITÉ ALFRED :
+#   Chiffre et déchiffre les données sensibles localement via Fernet ;
+#   lit la clé depuis .env (FERNET_KEY) ou la génère automatiquement.
+#
+# 🔐 BLOC SÉCURITÉ :
+#   Chiffrement au repos (data at rest) — confidentialité des données persistées
+# ============================================================
 
 import os
 from pathlib import Path

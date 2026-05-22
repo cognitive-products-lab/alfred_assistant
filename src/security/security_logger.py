@@ -1,7 +1,16 @@
 # ============================================================
-# ALFRED â€” src/security/security_logger.py
-# Bloc 20.07 â€” Logs securite
-# Logger dedie a tous les evenements de securite
+# ALFRED — src/security/security_logger.py
+# Bloc 20.09 — Journalisation & audit
+#
+# 📚 NOTION EXAM :
+#   D43-1 — Capsule 7 : Journalisation centralisée des événements de sécurité
+#
+# 🎯 UTILITÉ ALFRED :
+#   Logger dédié qui trace tous les événements de sécurité dans
+#   logs/security/security.log avec horodatage ISO 8601.
+#
+# 🔐 BLOC SÉCURITÉ :
+#   Observabilité sécurité — traçabilité SIEM-ready des événements critiques
 # ============================================================
 
 import logging
