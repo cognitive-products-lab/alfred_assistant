@@ -1,3 +1,18 @@
+# ============================================================
+# ALFRED — src/security/zero_trust_orchestrator.py
+# Bloc 20.13 — Zero Trust
+#
+# 📚 NOTION EXAM :
+#   D51-2 / D41-2 — Capsule 4 : Orchestration Zero Trust unifiée
+#
+# 🎯 UTILITÉ ALFRED :
+#   Point d'entrée unique pour toutes les décisions d'autorisation :
+#   orchestre validation, détection, accès, politique et audit.
+#
+# 🔐 BLOC SÉCURITÉ :
+#   Zero Trust Architecture — pipeline complet never trust, always verify, always trace
+# ============================================================
+
 from src.security.input_validator import sanitize_input
 from src.security.threat_detector import detect_threat
 from src.security.access_control import has_access

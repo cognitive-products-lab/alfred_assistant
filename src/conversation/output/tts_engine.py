@@ -1,18 +1,17 @@
-﻿"""
-tts_engine.py
--------------
-
-Façade haut niveau de synthèse vocale pour ALFRED.
-
-Ce module ne contient pas directement la logique Piper.
-Il délègue la génération vocale au moteur technique dédié :
-src/output/tts_piper.py
-
-Objectif :
-- fournir une interface stable : TTSEngine.speak(text)
-- isoler le reste d'ALFRED du moteur TTS utilisé
-- permettre un futur changement de moteur vocal sans casser l'orchestrateur
-"""
+# ============================================================
+# ALFRED — src/conversation/output/tts_engine.py
+# Bloc 04.02 — Synthèse vocale (TTS)
+#
+# 📚 NOTION EXAM :
+#   D13-2 — Capsule 4 : Façade haut niveau de synthèse vocale
+#
+# 🎯 UTILITÉ ALFRED :
+#   Interface stable TTSEngine.speak(text) — délègue la génération
+#   vocale à tts_piper.py sans exposer les détails techniques.
+#
+# 🏗️ DOMAINE :
+#   Interaction vocale — façade TTS découplée du moteur Piper
+# ============================================================
 
 from typing import Optional
 

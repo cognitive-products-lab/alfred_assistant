@@ -1,16 +1,17 @@
-# -*- coding: utf-8 -*-
-"""
-response_generator.py — ALFRED V2.2
-
-Moteur de génération de réponse LLM-ready.
-
-Objectifs :
-  - Construire un prompt système propre et stable
-  - Injecter personnalité, adaptation, mémoire, historique et session
-  - Réduire les hallucinations techniques
-  - Empêcher les faux diagnostics / fausses actions
-  - Gérer un fallback offline simple
-"""
+# ============================================================
+# ALFRED — src/core/response_generator.py
+# Bloc 01.05 — Gestion des réponses
+#
+# 📚 NOTION EXAM :
+#   D11-2 — Capsule 1 : Génération de réponses LLM-ready et prompt engineering
+#
+# 🎯 UTILITÉ ALFRED :
+#   Construit le prompt système (personnalité, mémoire, historique, session),
+#   réduit les hallucinations et gère le fallback offline.
+#
+# 🏗️ DOMAINE :
+#   Noyau conversationnel — générateur de réponses LLM-ready V2.2
+# ============================================================
 
 import json
 import re

@@ -1,17 +1,17 @@
-﻿# -*- coding: utf-8 -*-
-"""
-llm_router.py — Routeur LLM ALFRED
-
-Ordre de priorité :
-1. Ollama local
-2. OpenAI cloud si autorisé et disponible
-3. Erreur explicite si aucun moteur disponible
-
-Objectif :
-- Garder ALFRED local-first
-- Éviter le fallback silencieux
-- Tracer clairement quel moteur répond
-"""
+# ============================================================
+# ALFRED — src/llm/llm_router.py
+# Bloc 01.04 — Orchestration des modules
+#
+# 📚 NOTION EXAM :
+#   D52-1 — Capsule 5 : Routage LLM — local-first, fallback cloud
+#
+# 🎯 UTILITÉ ALFRED :
+#   Orchestre les moteurs LLM : Ollama local (priorité 1),
+#   OpenAI cloud si autorisé (priorité 2), erreur explicite sinon.
+#
+# 🏗️ DOMAINE :
+#   Noyau conversationnel — local-first LLM, pas de fallback silencieux
+# ============================================================
 
 from __future__ import annotations
 

@@ -1,3 +1,18 @@
+# ============================================================
+# ALFRED — src/security/security_config.py
+# Bloc 20.01 — Gouvernance cybersécurité
+#
+# 📚 NOTION EXAM :
+#   D53-2 — Capsule 8 : Séparation config/code et variables d'environnement
+#
+# 🎯 UTILITÉ ALFRED :
+#   Centralise la lecture des paramètres de sécurité depuis .env :
+#   SESSION_TIMEOUT, MAX_LOGIN_ATTEMPTS, API_HOST, APP_ENV.
+#
+# 🔐 BLOC SÉCURITÉ :
+#   Security by Design — aucun secret en dur ; séparation stricte config/code
+# ============================================================
+
 import os
 from pathlib import Path
 

@@ -1,21 +1,16 @@
-﻿# ============================================================
+# ============================================================
 # ALFRED — src/conversation/output/tts_piper.py
-# Bloc 01.03 V3 — Text-to-Speech avec Piper local
+# Bloc 04.02 — Synthèse vocale (TTS)
 #
-# Voix    : fr_FR-upmc-medium — Speaker ID 1 "Pierre"
-# Qualité : 22 050 Hz — medium — CC BY-SA 4.0
+# 📚 NOTION EXAM :
+#   D13-2 — Capsule 4 : Synthèse vocale locale avec Piper ONNX
 #
-# Fonctions couvertes :
-#   01.03.001 Synthèse vocale locale (Piper)  ✅ V3
-#   01.03.002 Ajustement débit & intonation   ✅ V3 (length_scale)
-#   01.03.003 Adaptation voix / émotion       ✅ V3 (VOICE_PROFILES)
-#   01.03.004 Sortie audio (sounddevice)      ✅ V3
-#   01.03.005 Sync TTS / avatar               🔲 V3+ (lipSync)
+# 🎯 UTILITÉ ALFRED :
+#   Génère la voix d'ALFRED via Piper local (fr_FR-upmc-medium,
+#   speaker Pierre) avec adaptation dynamique selon l'émotion détectée.
 #
-# Dépendances V3 :
-#   pip install piper-tts sounddevice numpy
-#   Modèle : assets/voices/fr_FR-upmc-medium.onnx
-#            assets/voices/fr_FR-upmc-medium.onnx.json
+# 🏗️ DOMAINE :
+#   Interaction vocale — TTS local V3, adaptation émotion, sync avatar
 # ============================================================
 
 import io
