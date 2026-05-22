@@ -44,7 +44,7 @@
 
 ---
 
-## Structure officielle — Blocs 01 à 20
+## Structure officielle — Blocs 01 à 22
 
 ### Bloc 01 — Noyau conversationnel & orchestration
 | Code  | Fonction principale         |
@@ -307,7 +307,7 @@
 ---
 
 ### Bloc 21 — ALFRED WEB PLATFORM
-| Code  | Fonction principale                     |
+| Code  | Fonction principale                      |
 |-------|------------------------------------------|
 | 21.01 | Architecture Flask & structure projet    |
 | 21.02 | Templates HTML & Jinja2                  |
@@ -335,6 +335,38 @@
 
 ---
 
+### Bloc 22 — Accessibility & Cognitive Assistance
+| Code  | Fonction principale                            |
+|-------|------------------------------------------------|
+| 22.01 | Politique d'accessibilité                      |
+| 22.02 | Lecture vocale & restitution audio             |
+| 22.03 | Traduction multilingue                         |
+| 22.04 | Reformulation simplifiée                       |
+| 22.05 | Assistance cognitive                           |
+| 22.06 | Accessibilité visuelle & typographie dyslexie  |
+| 22.07 | Réduction de la fatigue cognitive              |
+| 22.08 | Adaptation utilisateur                         |
+| 22.09 | Résumés intelligents                           |
+| 22.10 | Explication des termes techniques              |
+| 22.11 | Gestion du ton, rythme & voix                  |
+| 22.12 | Modes neurodiversité & assistance adaptative   |
+| 22.13 | Accessibilité Android                          |
+| 22.14 | Accessibilité Web & Dashboard                  |
+| 22.15 | Conformité accessibilité & WCAG                |
+
+**Dossiers** :
+`src/accessibility/`,
+`src/accessibility/translation/`,
+`src/accessibility/audio/`,
+`src/accessibility/cognitive/`,
+`src/accessibility/ui/`
+
+**Fichiers principaux** :
+`text_reader.py`, `translator.py`, `summarizer.py`, `explain_terms.py`,
+`voice_output_manager.py`, `accessibility_manager.py`, `accessibility_settings.json`
+
+---
+
 ## Correspondance dashboard B-system → Blocs officiels
 
 | Dashboard (ancien) | Label dashboard               | Bloc officiel | Label officiel                        |
@@ -357,16 +389,20 @@
 | B16                | Démonstration & Scénarisation | *(réservé)*   | Bloc 16 non assigné                   |
 | B17                | Visual Generation contextuelle| **Bloc 17**   | Génération multimédia                 |
 | B18                | Knowledge & Intelligence System | **Bloc 18** | Base de connaissances & culture       |
-| B19                | Domotique Intelligente        | **Bloc 19**   | Infrastructure & extensions           |
-| B20                | Cybersécurité Zero Trust      | **Bloc 20**   | Cybersécurité, Zero Trust & conformité|
-| B21                | Plateforme web & vitrine ALFRED | **Bloc 21**   | ALFRED WEB PLATFORM                  |
+| B19                | Domotique Intelligente              | **Bloc 19**   | Infrastructure & extensions                |
+| B20                | Cybersécurité Zero Trust            | **Bloc 20**   | Cybersécurité, Zero Trust & conformité     |
+| B21                | Plateforme web & vitrine ALFRED     | **Bloc 21**   | ALFRED WEB PLATFORM                        |
+| B22                | Accessibility & Assistance cognitive| **Bloc 22**   | Accessibility & Cognitive Assistance       |
+
 ---
 
 ## Règles d'usage
 
-1. **Entêtes fichiers** : utiliser `Bloc XX.YY` (ex. `Bloc 20.04 — Contrôle RBAC & permissions`)
-2. **Dashboard** : utiliser l'identifiant court `Bloc 01` à `Bloc 20` + label officiel
+1. **Entêtes fichiers** : utiliser `Bloc XX.YY` (ex. `Bloc 21.01 — Architecture Flask & structure projet`)
+2. **Dashboard** : utiliser l'identifiant court `Bloc 01` à `Bloc 22` + label officiel
 3. **Jamais** : inventer un numéro, utiliser "B04" seul sans vérification dans ce document
 4. **secret_manager.py** : anciennement étiqueté `20.06`, à reclasser `20.05` lors de la prochaine mise à jour des entêtes
 5. **Bloc 16** : réservé — ne pas assigner de fichiers
 6. **Bloc 20.06 et 20.07** : sous-codes à implémenter (sécurité réseau, sécurité API)
+7. **Bloc 21** : ALFRED WEB PLATFORM — racine `ALFRED_WEB/`, indépendant de `src/`
+8. **Bloc 22** : Accessibility — racine `src/accessibility/`, transversal à tous les produits
