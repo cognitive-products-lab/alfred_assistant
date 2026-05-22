@@ -1,15 +1,16 @@
-﻿# ============================================================
+# ============================================================
 # ALFRED — src/memory/long_term_memory.py
-# Bloc 02.02 — Mémoire long terme
+# Bloc 02.02 — Mémoire longue
 #
-# Fonctions couvertes :
-#   02.02.001 Stockage persistant SQLite    ✅ V1
-#   02.02.002 Indexation par date/sujet     ✅ V1
-#   02.02.003 Recherche sémantique          🔲 stub → V3 ChromaDB
-#   02.02.004 Compression / résumé          ✅ V2
-#   02.02.005 Archivage / oubli RGPD        ✅ V2
+# 📚 NOTION EXAM :
+#   D21-2 — Capsule 2 : Mémoire persistante SQLite et compression
 #
-# Local-first : SQLite sur disque externe HDD 4To ALFRED
+# 🎯 UTILITÉ ALFRED :
+#   Stocke les souvenirs à long terme via SQLite local (HDD 4To) ;
+#   indexe par date/sujet, compresse/résume et implémente l'oubli RGPD.
+#
+# 🏗️ DOMAINE :
+#   Mémoire & contexte — SQLite local-first, recherche sémantique V3
 # ============================================================
 
 import json
