@@ -1,3 +1,18 @@
+# ============================================================
+# ALFRED — src/security/role_manager.py
+# Bloc 20.02 — Gestion des identités & accès
+#
+# 📚 NOTION EXAM :
+#   D41-2 — Capsule 2 : Gestion des identités et des rôles (IAM)
+#
+# 🎯 UTILITÉ ALFRED :
+#   Définit le référentiel des rôles ALFRED : OWNER, ADMIN, USER,
+#   GUEST, SERVICE, AI_MODULE, EMERGENCY — source de vérité unique.
+#
+# 🔐 BLOC SÉCURITÉ :
+#   Principe du moindre privilège — chaque rôle n'accède qu'au strict nécessaire
+# ============================================================
+
 ROLES = {
     "OWNER": "Utilisatrice principale",
     "ADMIN": "Administrateur technique",

@@ -1,3 +1,18 @@
+# ============================================================
+# ALFRED — src/security/backup_security.py
+# Bloc 20.12 — Sauvegarde & reprise
+#
+# 📚 NOTION EXAM :
+#   D53-1 — Capsule 8 : Sauvegarde et continuité des données sensibles
+#
+# 🎯 UTILITÉ ALFRED :
+#   Crée des sauvegardes horodatées des fichiers critiques dans
+#   un répertoire dédié backup/security/.
+#
+# 🔐 BLOC SÉCURITÉ :
+#   Résilience et disponibilité (RTO/RPO) — protection contre la perte de données
+# ============================================================
+
 import shutil
 from datetime import datetime
 from pathlib import Path

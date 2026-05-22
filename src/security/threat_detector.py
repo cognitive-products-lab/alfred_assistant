@@ -1,3 +1,18 @@
+# ============================================================
+# ALFRED — src/security/threat_detector.py
+# Bloc 20.08 — Détection d'intrusion
+#
+# 📚 NOTION EXAM :
+#   D42-1 — Capsule 5 : Détection de menaces et scoring d'entrées suspectes
+#
+# 🎯 UTILITÉ ALFRED :
+#   Analyse un texte d'entrée et calcule un score de menace
+#   basé sur des mots-clés suspects (injections, XSS, prompt attacks).
+#
+# 🔐 BLOC SÉCURITÉ :
+#   Détection d'intrusion (IDS) — barrière préventive avant le pipeline IA
+# ============================================================
+
 SUSPICIOUS_KEYWORDS = [
     "DROP TABLE",
     "UNION SELECT",

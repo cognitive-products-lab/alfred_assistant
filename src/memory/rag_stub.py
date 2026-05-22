@@ -1,18 +1,17 @@
-﻿# ============================================================
-# ALFRED — src/memory/rag_stub.py
-# Bloc 02.04 — Mémoire sémantique & RAG
-#
-# STATUT V2 : STUB — Interface stable, implémentation V3+
-#
-# V3+ : ChromaDB local + sentence-transformers
-#       embeddings sur disque externe HDD 4To
-#       RTX 5080 pour vitesse d'indexation
-#
-# Dépendances V3+ (décommenter requirements.txt) :
-#   chromadb>=0.4.0
-#   sentence-transformers>=2.7.0
 # ============================================================
-
+# ALFRED — src/memory/rag_stub.py
+# Bloc 02.04 — Contextualisation intelligente
+#
+# 📚 NOTION EXAM :
+#   D22-3 — Capsule 3 : Architecture RAG — interface stable, moteur V3
+#
+# 🎯 UTILITÉ ALFRED :
+#   Stub RAG V2 — interface stable pour ChromaDB local V3+ ;
+#   embeddings sur HDD 4To, accéléré RTX 5080.
+#
+# 🏗️ DOMAINE :
+#   Mémoire & contexte — RAG local-first, ChromaDB V3+, zéro cloud
+# ============================================================
 
 class RAGNotAvailable(Exception):
     """Levée quand le système RAG sémantique n'est pas disponible."""

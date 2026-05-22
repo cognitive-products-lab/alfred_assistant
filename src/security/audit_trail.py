@@ -1,3 +1,18 @@
+# ============================================================
+# ALFRED — src/security/audit_trail.py
+# Bloc 20.09 — Journalisation & audit
+#
+# 📚 NOTION EXAM :
+#   D43-1 — Capsule 7 : Traçabilité et non-répudiation des événements
+#
+# 🎯 UTILITÉ ALFRED :
+#   Écrit une piste d'audit immuable au format JSONL pour chaque
+#   décision d'accès (who, what, where, when, decision).
+#
+# 🔐 BLOC SÉCURITÉ :
+#   Non-répudiation et traçabilité — preuve horodatée de toute action sensible
+# ============================================================
+
 import json
 from datetime import datetime, timezone
 from pathlib import Path
