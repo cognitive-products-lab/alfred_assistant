@@ -1,3 +1,18 @@
+# ============================================================
+# ALFRED — src/security/quarantine_service.py
+# Bloc 20.11 — Réponse à incident
+#
+# 📚 NOTION EXAM :
+#   D42-3 — Capsule 10 : Containment et isolation des composants suspects
+#
+# 🎯 UTILITÉ ALFRED :
+#   Met en quarantaine les modules IA ou composants suspects,
+#   trace l'isolation et permet la réhabilitation contrôlée.
+#
+# 🔐 BLOC SÉCURITÉ :
+#   Containment Zero Trust — isolation des composants pour stopper la propagation
+# ============================================================
+
 from src.security.security_logger import log_event
 
 QUARANTINED_MODULES: set[str] = set()

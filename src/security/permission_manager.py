@@ -1,3 +1,18 @@
+# ============================================================
+# ALFRED — src/security/permission_manager.py
+# Bloc 20.04 — Contrôle RBAC & permissions
+#
+# 📚 NOTION EXAM :
+#   D41-2 — Capsule 2 : Matrice d'autorisations et contrôle d'accès RBAC
+#
+# 🎯 UTILITÉ ALFRED :
+#   Mappe chaque rôle sur la liste de ses permissions autorisées
+#   (READ_MEMORY, WRITE_MEMORY, DELETE_DATA, EXPORT_DATA, etc.).
+#
+# 🔐 BLOC SÉCURITÉ :
+#   RBAC (Role-Based Access Control) — autorisation explicite par rôle
+# ============================================================
+
 PERMISSIONS = {
     "OWNER": [
         "READ_MEMORY",

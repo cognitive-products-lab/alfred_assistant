@@ -1,13 +1,16 @@
-﻿# ============================================================
-# ALFRED — src/input/voice_profile.py
-# Bloc 01 V2 — Profils vocaux
+# ============================================================
+# ALFRED — src/conversation/input/voice_profile.py
+# Bloc 04.02 — Synthèse vocale (TTS)
 #
-# Centralise tous les paramètres de voix d'ALFRED.
-# Utilisé par tts_piper.py (V3) et tts_output.py (V1 terminal).
+# 📚 NOTION EXAM :
+#   D13-2 — Capsule 4 : Profils vocaux et paramètres de synthèse
 #
-# Voix validée : fr_FR-upmc-medium — Speaker ID 1 "Pierre"
-# Modèle       : ONNX Piper — 22 050 Hz — medium quality
-# Licence      : CC BY-SA 4.0
+# 🎯 UTILITÉ ALFRED :
+#   Centralise tous les paramètres de voix d'ALFRED
+#   (fr_FR-upmc-medium, Speaker Pierre) pour tts_piper.py et tts_output.py.
+#
+# 🏗️ DOMAINE :
+#   Interaction vocale — référentiel profils voix, CC BY-SA 4.0
 # ============================================================
 
 from dataclasses import dataclass

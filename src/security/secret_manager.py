@@ -1,7 +1,16 @@
 # ============================================================
-# ALFRED â€” src/security/secret_manager.py
-# Bloc 20.06 â€” Chiffrement / Gestion secrets
-# Lecture sÃ©curisÃ©e des secrets depuis .env
+# ALFRED — src/security/secret_manager.py
+# Bloc 20.05 — Chiffrement & protection des données
+#
+# 📚 NOTION EXAM :
+#   D53-1 — Capsule 5 : Chiffrement, gestion des secrets et protection des données
+#
+# 🎯 UTILITÉ ALFRED :
+#   Lecture sécurisée des secrets critiques (.env) — clés Fernet, PIN salt,
+#   clé applicative. Garantit qu'aucune valeur par défaut n'est acceptée.
+#
+# 🔐 BLOC SÉCURITÉ / DOMAINE :
+#   Chiffrement & protection des données (20.05)
 # ============================================================
 
 import os
