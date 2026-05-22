@@ -306,6 +306,35 @@
 
 ---
 
+### Bloc 21 — ALFRED WEB PLATFORM
+| Code  | Fonction principale                     |
+|-------|------------------------------------------|
+| 21.01 | Architecture Flask & structure projet    |
+| 21.02 | Templates HTML & Jinja2                  |
+| 21.03 | UI / UX / CSS / Responsive               |
+| 21.04 | Navigation & expérience utilisateur      |
+| 21.05 | Formulaires & communication              |
+| 21.06 | Dashboard progression & roadmap          |
+| 21.07 | Contenus éditoriaux & pages projet       |
+| 21.08 | SEO, accessibilité & performance web     |
+| 21.09 | Sécurité web & protection formulaire     |
+| 21.10 | Déploiement, hébergement & CI/CD         |
+
+**Dossiers** :
+`ALFRED_WEB/`,
+`templates/`,
+`static/css/`,
+`static/js/`,
+`static/img/`
+
+**Fichiers principaux** :
+`app.py`,
+`base.html`,
+`style.css`,
+`contact.html`
+
+---
+
 ## Correspondance dashboard B-system → Blocs officiels
 
 | Dashboard (ancien) | Label dashboard               | Bloc officiel | Label officiel                        |
@@ -330,7 +359,7 @@
 | B18                | Knowledge & Intelligence System | **Bloc 18** | Base de connaissances & culture       |
 | B19                | Domotique Intelligente        | **Bloc 19**   | Infrastructure & extensions           |
 | B20                | Cybersécurité Zero Trust      | **Bloc 20**   | Cybersécurité, Zero Trust & conformité|
-
+| B21                | Plateforme web & vitrine ALFRED | **Bloc 21**   | ALFRED WEB PLATFORM                  |
 ---
 
 ## Règles d'usage
