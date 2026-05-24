@@ -69,8 +69,7 @@ Ces fichiers ne bougeront plus sauf correction. Ils constituent la colonne vert�
 
 | Fichier | Contenu actuel | Statut | Évolue vers |
 |---------|---------------|--------|-------------|
-| `src/main.py` | Pipeline texte V1.2 complet — 978 lignes | 🔄 | Reste base V1, remplacé par `main_v3.py` en V3 |
-| `src/main_v3.py` | Orchestrateur V3 vocal — 910 lignes (STT/TTS Piper intégré) | 🔄 | Activer quand Whisper+Piper opérationnels |
+| `src/main.py` | Pipeline texte V1.2 complet — 978 lignes | 🔄 | Évolue à chaque sprint — seul point d'entrée officiel |
 | `src/core/alfred_behavior_engine.py` | Moteur comportemental — 549 lignes | 🔄 | Enrichissement V2 (fusion décision) |
 | `src/core/response_generator.py` | Générateur de réponses — 499 lignes | 🔄 | V2 (confidence scoring), V3 (LLM local) |
 | `src/core/personality_adapter.py` | Adaptation personnalité — 427 lignes | 🔄 | V2 (modes dynamiques), V3 (deep relational) |
@@ -81,7 +80,7 @@ Ces fichiers ne bougeront plus sauf correction. Ils constituent la colonne vert�
 **Backlog :**
 - [ ] **[V2]** Brancher `src/v2/fusion/` dans `alfred_behavior_engine.py`
 - [ ] **[V2]** Brancher `src/v2/confidence/` dans `response_generator.py`
-- [ ] **[V3]** Activer `main_v3.py` comme point d'entrée principal
+- [ ] **[V3]** Intégrer pipeline vocal dans `main.py` (STT/TTS) via `src/v3/orchestrator/`
 - [ ] **[V3]** Brancher `llm_client_local.py` (llama-cpp) dans `nlp_engine_v2.py`
 
 ---
@@ -476,7 +475,7 @@ Ces fichiers ne bougeront plus sauf correction. Ils constituent la colonne vert�
 
 | À implémenter | Module | Dépendance hardware |
 |---------------|--------|---------------------|
-| Pipeline vocal complet | `main_v3.py` activer | sounddevice + micro |
+| Pipeline vocal complet | `main.py` + `src/v3/orchestrator/` | sounddevice + micro |
 | STT Whisper actif | `audio_capture.py` | Whisper installé |
 | TTS Piper actif | `tts_output.py` → `tts_piper.py` | Piper + fr_FR voice |
 | LLM local | `nlp_engine_v2.py` hook V3 | llama-cpp + modèle |
