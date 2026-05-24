@@ -420,11 +420,11 @@ Ces fichiers ne bougeront plus sauf correction. Ils constituent la colonne vert�
 | `tests/test_pipeline.py` | Pipeline intégration | 🔄 |
 | `tests/test_pipeline_llm.py` | Pipeline LLM | 🔄 |
 | `tests/test_tts_piper.py` | Piper TTS | 🔄 |
-| Tests Bloc 20 (sécurité) | ❌ Absent | **Priorité V1** |
+| `tests/test_security.py` | Sécurité Zero Trust | ✅ Créé — 24 classes, ~120 tests |
 | Tests avatar/UI | ❌ Absent | V2 |
 
 **Backlog :**
-- [ ] **[V1]** Créer tests unitaires Bloc 20 (sécurité — 25 modules critiques)
+- [x] **[V1]** ~~Créer tests unitaires Bloc 20 (sécurité — 25 modules critiques)~~ → `tests/test_security.py` ✅
 - [ ] **[V2]** Tests d'intégration pipeline complet
 - [ ] **[V3]** Tests end-to-end vocal
 
@@ -443,7 +443,7 @@ Ces fichiers ne bougeront plus sauf correction. Ils constituent la colonne vert�
 | Sécurité Zero Trust | ✅ Complet (25 modules) |
 | TTS Piper | 🔄 Codé, dépend hardware |
 | Interface Kivy / Avatar | ❌ Non codé |
-| Tests sécurité | ❌ Absents |
+| Tests sécurité | ✅ Créés (test_security.py) |
 
 **Ce qui manque pour finir V1 proprement :**
 1. Moteur avatar Kivy (6 calques + blink + halo)
