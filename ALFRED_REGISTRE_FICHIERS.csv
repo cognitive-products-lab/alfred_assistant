@@ -1,0 +1,474 @@
+ALFRED — Registre complet des fichiers du projet;;;;;;;;;;
+Généré Mai 2026 | Séparateur : point-virgule (;) | Ouvrir avec LibreOffice Calc ou Excel;;;;;;;;;;
+;;;;;;;;;;
+=== LÉGENDE ===;;;;;;;;;;
+STABLE;Figé — maintenance bug uniquement;;;;;;;;;
+CRÉÉ;Créé et fonctionnel dans cette version;;;;;;;;;
+ÉVOLUE;Évolue significativement dans cette version;;;;;;;;;
+STUB;Interface définie — implémentation différée;;;;;;;;;
+À CRÉER;À créer dans cette version;;;;;;;;;
+BRANCHER;Code existant à connecter / activer;;;;;;;;;
+IMPLÉMENTER;Stub existant à coder réellement;;;;;;;;;
+NETTOYER;Dette technique — à nettoyer;;;;;;;;;
+[V4];Hors périmètre V1-V3 — version domotique;;;;;;;;;
+[RUNTIME];Fichier de données d'exécution;;;;;;;;;
+[GÉNÉRÉ];Fichier généré automatiquement;;;;;;;;;
+[À ENRICHIR];Contenu à enrichir progressivement;;;;;;;;;
+;;;;;;;;;;
+Dossier;Fichier;Extension;Bloc;Produit;Description;V1;V1+;V2;V2+;V3
+;;;;;;;;;;
+=== RACINE DU PROJET ===;;;;;;;;;;
+(racine);ALFRED_CONTEXT.md;md;-;COMMUN;Contexte collaborateur — fichier de démarrage session;CRÉÉ;ÉVOLUE;ÉVOLUE;ÉVOLUE;ÉVOLUE
+(racine);BACKLOG.md;md;-;COMMUN;Backlog officiel — suivi avancement par bloc;CRÉÉ;ÉVOLUE;ÉVOLUE;ÉVOLUE;ÉVOLUE
+(racine);README.md;md;-;COMMUN;Présentation projet EN;CRÉÉ;ÉVOLUE;;;
+(racine);README_FR.md;md;-;COMMUN;Présentation projet FR;CRÉÉ;ÉVOLUE;;;
+(racine);ROADMAP.md;md;-;COMMUN;Feuille de route publique;CRÉÉ;ÉVOLUE;ÉVOLUE;;
+(racine);CODE_OF_CONDUCT.md;md;-;COMMUN;Code de conduite communauté;STABLE;;;;
+(racine);CONTRIBUTING.md;md;-;COMMUN;Guide de contribution EN;STABLE;;;;
+(racine);CONTRIBUTING_FR.md;md;-;COMMUN;Guide de contribution FR;STABLE;;;;
+(racine);LICENSE;-;-;COMMUN;Licence projet;STABLE;;;;
+(racine);.env.example;env;Bloc 20;COMMUN;Template variables d'environnement;STABLE;;;;
+(racine);.gitignore;-;-;COMMUN;Exclusions Git;STABLE;;;;
+(racine);paths.py;py;Bloc 08;COMMUN;Centralisation chemins — résout bugs relatifs;STABLE;;;;
+(racine);requirements.txt;txt;-;COMMUN;Dépendances consolidées V1→V4;STABLE;ÉVOLUE;ÉVOLUE;ÉVOLUE;ÉVOLUE
+(racine);pyproject.toml;toml;-;COMMUN;Métadonnées projet Python 3.13;STABLE;;;;
+(racine);bootstrap_project.ps1;ps1;-;COMMUN;Crée arborescence complète en une commande;STABLE;;;;
+(racine);check_tools.ps1;ps1;-;COMMUN;Vérifie outils installés;STABLE;;;;
+(racine);patch_manifest.py;py;Bloc 08;COMMUN;Gestion manifest de patch;STABLE;;;;
+;;;;;;;;;;
+=== SRC — ENTRÉE PROGRAMME ===;;;;;;;;;;
+src;main.py;py;Bloc 01.04;ALFRED;Point d'entrée principal — pipeline conversationnel;CRÉÉ;ÉVOLUE;ÉVOLUE;;ÉVOLUE
+src;start_alfred.bat;bat;Bloc 01.04;ALFRED;Lanceur Windows ALFRED;STABLE;;;;
+src;README.md;md;-;ALFRED;Documentation architecture src/;CRÉÉ;ÉVOLUE;;;
+;;;;;;;;;;
+=== SRC — CORE (Bloc 01) ===;;;;;;;;;;
+src/core;__init__.py;py;Bloc 01;ALFRED;Init module core;STABLE;;;;
+src/core;alfred_behavior_engine.py;py;Bloc 01.04;ALFRED;Moteur comportemental — orchestration pipeline;CRÉÉ;;ÉVOLUE;;ÉVOLUE
+src/core;response_generator.py;py;Bloc 01.05;ALFRED;Générateur de réponses contextuelles;CRÉÉ;;ÉVOLUE;;ÉVOLUE
+src/core;personality_adapter.py;py;Bloc 03.04;ALFRED;Adaptation dynamique personnalité + modes;CRÉÉ;;ÉVOLUE;;ÉVOLUE
+;;;;;;;;;;
+=== SRC — LLM (Bloc 01.02) ===;;;;;;;;;;
+src/llm;__init__.py;py;Bloc 01;ALFRED;Init module LLM;STABLE;;;;
+src/llm;llm_router.py;py;Bloc 01.02;ALFRED;Routage entre LLM disponibles;CRÉÉ;;ÉVOLUE;;ÉVOLUE
+src/llm;llm_client_ollama.py;py;Bloc 01.02;ALFRED;Client Ollama local;STABLE;;;;
+src/llm;llm_client_openai.py;py;Bloc 01.02;ALFRED;Client OpenAI (fallback cloud);STABLE;;;;
+src/llm;llm_client_local.py;py;Bloc 01.02;ALFRED;[À CRÉER] Client llama-cpp — LLM 100% local;;;;;À CRÉER
+;;;;;;;;;;
+=== SRC — CONVERSATION / INPUT (Bloc 04) ===;;;;;;;;;;
+src/conversation;__init__.py;py;Bloc 04;ALFRED;Init module conversation;STABLE;;;;
+src/conversation/input;__init__.py;py;Bloc 04;ALFRED;Init module input;STABLE;;;;
+src/conversation/input;text_input.py;py;Bloc 01.01;ALFRED;Entrée texte terminal — mode fallback permanent;STABLE;;;;
+src/conversation/input;voice_profile.py;py;Bloc 04.05;ALFRED;Profils voix ALFRED / CPL / ARTHUR;STABLE;;;;
+src/conversation/input;context_builder.py;py;Bloc 01.03;ALFRED;Construction contexte conversationnel;CRÉÉ;;ÉVOLUE;;ÉVOLUE
+src/conversation/input;input_manager.py;py;Bloc 01.01;ALFRED;Gestionnaire entrées (texte / voix);CRÉÉ;;ÉVOLUE;;
+src/conversation/input;nlp_engine_v2.py;py;Bloc 01.02;ALFRED;NLP V2 — analyse sémantique — hook LLM V3 TODO;CRÉÉ;;ÉVOLUE;;BRANCHER
+src/conversation/input;speech_manager.py;py;Bloc 04.04;ALFRED;Orchestrateur STT — pipeline vocal;STUB;;;;BRANCHER
+src/conversation/input;stt_whisper.py;py;Bloc 04.01;ALFRED;STT Whisper local — zéro cloud — dépend GPU;STUB;;;;BRANCHER
+src/conversation/input;audio_capture.py;py;Bloc 04.03;ALFRED;Capture flux microphone — stub V1 toujours False;STUB;;;;IMPLÉMENTER
+src/conversation/input;audio_listener.py;py;Bloc 04.04;ALFRED;Écoute continue + détection activité vocale;STUB;;;;IMPLÉMENTER
+;;;;;;;;;;
+=== SRC — CONVERSATION / OUTPUT (Bloc 04) ===;;;;;;;;;;
+src/conversation/output;__init__.py;py;Bloc 04;ALFRED;Init module output;STABLE;;;;
+src/conversation/output;tts_output.py;py;Bloc 04.02;ALFRED;Façade TTS V1 — terminal — à brancher Piper V3;STUB;;;;BRANCHER
+src/conversation/output;tts_piper.py;py;Bloc 04.02;ALFRED;Piper TTS fr_FR-upmc-medium — codé — à activer V3;CRÉÉ;;;;BRANCHER
+src/conversation/output;tts_engine.py;py;Bloc 04.02;ALFRED;Moteur TTS abstrait — interface multi-moteurs;CRÉÉ;;;;ÉVOLUE
+;;;;;;;;;;
+=== SRC — CONVERSATION / NLP (Bloc 01.02) ===;;;;;;;;;;
+src/conversation/nlp;__init__.py;py;Bloc 01;ALFRED;Init module NLP;STABLE;;;;
+src/conversation/nlp;nlp_engine.py;py;Bloc 01.02;ALFRED;NLP V1 base — remplacé par nlp_engine_v2;STABLE;;;;
+src/conversation/nlp;nlp_engine_v2.py;py;Bloc 01.02;ALFRED;[TECH DEBT] Doublon — fusionner avec input/nlp_engine_v2;CRÉÉ;NETTOYER;;;
+src/conversation/nlp;intent_classifier.py;py;Bloc 01.02;ALFRED;Classification intentions utilisateur;CRÉÉ;;ÉVOLUE;;
+;;;;;;;;;;
+=== SRC — MÉMOIRE (Bloc 02) ===;;;;;;;;;;
+src/memory;__init__.py;py;Bloc 02;ALFRED;Init module memory;STABLE;;;;
+src/memory;memory_manager.py;py;Bloc 02.04;ALFRED;Chef d'orchestre mémoire — routing épisodique/LTM;CRÉÉ;;ÉVOLUE;;ÉVOLUE
+src/memory;episodic_memory.py;py;Bloc 02.01;ALFRED;Mémoire épisodique — dialogues récents;CRÉÉ;;ÉVOLUE;;ÉVOLUE
+src/memory;long_term_memory.py;py;Bloc 02.02;ALFRED;Mémoire long terme SQLite — stable;STABLE;;;;
+src/memory;memory_engine.py;py;Bloc 02.04;ALFRED;Moteur mémoire — logique de stockage;CRÉÉ;;ÉVOLUE;;
+src/memory;memory_indexer.py;py;Bloc 02.04;ALFRED;Indexation mémoire — préparation embeddings V3;CRÉÉ;;;;ÉVOLUE
+src/memory;memory_answer_engine.py;py;Bloc 02.03;ALFRED;Récupération réponses depuis mémoire;CRÉÉ;;ÉVOLUE;;
+src/memory;rag_stub.py;py;Bloc 02.04;ALFRED;Interface ChromaDB stable — implémentation V3;STUB;;;;REMPLACER
+;;;;;;;;;;
+=== SRC — RAG (Bloc 02.04) ===;;;;;;;;;;
+src/rag;__init__.py;py;Bloc 02;ALFRED;Init module RAG;STABLE;;;;
+src/rag;rag_engine.py;py;Bloc 02.04;ALFRED;Moteur RAG ChromaDB — base posée — à implémenter V3;STUB;;;;IMPLÉMENTER
+;;;;;;;;;;
+=== SRC — KNOWLEDGE (Bloc 18) ===;;;;;;;;;;
+src/knowledge;__init__.py;py;Bloc 18;ALFRED;Init module knowledge;STABLE;;;;
+src/knowledge;knowledge_router.py;py;Bloc 18;ALFRED;Routeur base connaissances VERSION 2.0 — pipeline B18;CRÉÉ;;ÉVOLUE;;ÉVOLUE
+src/knowledge;domain_matcher.py;py;Bloc 18;ALFRED;Matcher domaines sémantiques;CRÉÉ;;ÉVOLUE;;
+src/knowledge;knowledge_ranker.py;py;Bloc 18;ALFRED;Classement pertinence réponses;CRÉÉ;;ÉVOLUE;;
+src/knowledge;retrieval_engine.py;py;Bloc 18;ALFRED;Moteur récupération connaissance;CRÉÉ;;ÉVOLUE;;ÉVOLUE
+src/knowledge;knowledge_loader.py;py;Bloc 18;ALFRED;Chargeur fichiers JSON knowledges;STABLE;;;;
+src/knowledge;taxonomy_router.py;py;Bloc 18;ALFRED;Routage par taxonomie;CRÉÉ;;ÉVOLUE;;
+src/knowledge;context_merger.py;py;Bloc 18;ALFRED;Fusion contexte + connaissance;CRÉÉ;;ÉVOLUE;;ÉVOLUE
+;;;;;;;;;;
+=== SRC — RÉGULATION (Bloc 03) ===;;;;;;;;;;
+src/regulation;__init__.py;py;Bloc 03;ALFRED;Init module regulation;STABLE;;;;
+src/regulation;emotion_detector.py;py;Bloc 03.01;ALFRED;Détection émotions texte V2 — stub prosodie audio V3;CRÉÉ;;ÉVOLUE;;ÉVOLUE
+src/regulation;mode_manager.py;py;Bloc 03.02;ALFRED;Gestion 4 modes (support/focus/challenge/complicité);CRÉÉ;;ÉVOLUE;;ÉVOLUE
+src/regulation;wellbeing_tracker.py;py;Bloc 03.05;ALFRED;Suivi bien-être longitudinal utilisateur;CRÉÉ;;ÉVOLUE;;ÉVOLUE
+src/regulation;protection_guard.py;py;Bloc 03.03;ALFRED;Protection éthique — garde-fous comportementaux;CRÉÉ;;ÉVOLUE;;ÉVOLUE
+;;;;;;;;;;
+=== SRC — SÉCURITÉ BLOC 20 — Zero Trust (25 modules stables) ===;;;;;;;;;;
+src/security;__init__.py;py;Bloc 20;COMMUN;Init module sécurité;STABLE;;;;
+src/security;security_config.py;py;Bloc 20.01;COMMUN;Configuration gouvernance sécurité;STABLE;;;;
+src/security;role_manager.py;py;Bloc 20.02;COMMUN;Gestion rôles et identités;STABLE;;;;
+src/security;device_registry.py;py;Bloc 20.02;COMMUN;Registre appareils de confiance;STABLE;;;;
+src/security;mfa_manager.py;py;Bloc 20.03;COMMUN;Gestion MFA;STABLE;;;;
+src/security;session_manager.py;py;Bloc 20.03;COMMUN;Gestion sessions sécurisées;STABLE;;;;
+src/security;permission_manager.py;py;Bloc 20.04;COMMUN;Gestionnaire permissions;STABLE;;;;
+src/security;access_control.py;py;Bloc 20.04;COMMUN;Contrôle d'accès RBAC;STABLE;;;;
+src/security;encryption_service.py;py;Bloc 20.05;COMMUN;Chiffrement Fernet/AES-128;STABLE;;;;
+src/security;output_filter.py;py;Bloc 20.05;COMMUN;Filtrage sorties sensibles;STABLE;;;;
+src/security;secret_manager.py;py;Bloc 20.05;COMMUN;Gestion secrets et clés;STABLE;;;;
+src/security;network_security.py;py;Bloc 20.06;COMMUN;[À CRÉER] Sécurité réseau;;;;;À CRÉER
+src/security;api_security.py;py;Bloc 20.07;COMMUN;[À CRÉER] Sécurité API et microservices;;;;;À CRÉER
+src/security;threat_detector.py;py;Bloc 20.08;COMMUN;Détection menaces actives;STABLE;;;;
+src/security;behavioral_detector.py;py;Bloc 20.08;COMMUN;Détection comportements anormaux;STABLE;;;;
+src/security;prompt_guard.py;py;Bloc 20.08;COMMUN;Protection injection prompt;STABLE;;;;
+src/security;security_logger.py;py;Bloc 20.09;COMMUN;Journalisation sécurité;STABLE;;;;
+src/security;audit_trail.py;py;Bloc 20.09;COMMUN;Piste d'audit complète;STABLE;;;;
+src/security;input_validator.py;py;Bloc 20.10;COMMUN;Validation et sanitisation entrées;STABLE;;;;
+src/security;incident_manager.py;py;Bloc 20.11;COMMUN;Gestion incidents de sécurité;STABLE;;;;
+src/security;quarantine_service.py;py;Bloc 20.11;COMMUN;Quarantaine éléments suspects;STABLE;;;;
+src/security;backup_security.py;py;Bloc 20.12;COMMUN;Sauvegarde sécurisée;STABLE;;;;
+src/security;policy_engine.py;py;Bloc 20.13;COMMUN;Moteur de politiques Zero Trust;STABLE;;;;
+src/security;policy_decision_point.py;py;Bloc 20.13;COMMUN;Point de décision politique;STABLE;;;;
+src/security;policy_enforcement_point.py;py;Bloc 20.13;COMMUN;Point d'application politique;STABLE;;;;
+src/security;zero_trust_orchestrator.py;py;Bloc 20.13;COMMUN;Orchestrateur Zero Trust;STABLE;;;;
+src/security;compliance_manager.py;py;Bloc 20.14;COMMUN;Conformité réglementaire RGPD;STABLE;;;;
+src/security;soc_monitor.py;py;Bloc 20.15;COMMUN;[À CRÉER] Supervision SOC cybersurveillance;;;;;À CRÉER
+;;;;;;;;;;
+=== SRC — AUTHENTIFICATION (Bloc 05) ===;;;;;;;;;;
+src/auth;__init__.py;py;Bloc 05;ALFRED;Init module auth — placeholder structure;STABLE;;;;
+src/auth;auth_manager.py;py;Bloc 05.04;ALFRED;[À CRÉER] Gestionnaire authentification utilisateur;;À CRÉER;;;
+src/auth;user_session.py;py;Bloc 05.04;ALFRED;[À CRÉER] Gestion sessions utilisateur;;À CRÉER;;;
+src/auth;login_handler.py;py;Bloc 05.04;ALFRED;[À CRÉER] Handler connexion / déconnexion;;À CRÉER;;;
+;;;;;;;;;;
+=== SRC — ACTIONS ASSISTANT (Bloc 06) ===;;;;;;;;;;
+src/assistant_actions;__init__.py;py;Bloc 06;ALFRED;Init module actions — placeholder structure;STABLE;;;;
+src/assistant_actions;agenda.py;py;Bloc 06.01;ALFRED;[À CRÉER] Gestion agenda;;;À CRÉER;;
+src/assistant_actions;reminders.py;py;Bloc 06.02;ALFRED;[À CRÉER] Rappels intelligents;;;À CRÉER;;
+src/assistant_actions;task_manager.py;py;Bloc 06.03;ALFRED;[À CRÉER] Gestion tâches;;;À CRÉER;;
+src/assistant_actions;notifications.py;py;Bloc 06.05;ALFRED;[À CRÉER] Système notifications;;;À CRÉER;;
+;;;;;;;;;;
+=== SRC — DIALOGUE (Bloc 01.01) ===;;;;;;;;;;
+src/dialogue;__init__.py;py;Bloc 01;ALFRED;Init module dialogue — placeholder structure;STABLE;;;;
+src/dialogue;dialogue_manager.py;py;Bloc 01.01;ALFRED;[À CRÉER] Gestionnaire état dialogue;;;À CRÉER;;
+;;;;;;;;;;
+=== SRC — INTERFACE / AVATAR (Bloc 15) ===;;;;;;;;;;
+src/ui;__init__.py;py;Bloc 15;ALFRED;Init module UI — placeholder structure;STABLE;;;;
+src/ui;main_window.py;py;Bloc 15.05;ALFRED;[À CRÉER] Fenêtre principale Kivy;;À CRÉER;;ÉVOLUE;ÉVOLUE
+src/ui;avatar_engine.py;py;Bloc 15.01;ALFRED;[À CRÉER] Moteur avatar 6 calques Kivy;;À CRÉER;;ÉVOLUE;ÉVOLUE
+src/ui;blink_animator.py;py;Bloc 15.03;ALFRED;[À CRÉER] Animation blink auto (3-6s 150ms);;À CRÉER;;ÉVOLUE;ÉVOLUE
+src/ui;halo_controller.py;py;Bloc 15.03;ALFRED;[À CRÉER] Halo pulsation dynamique selon état émotionnel;;À CRÉER;;ÉVOLUE;ÉVOLUE
+src/ui;tts_sync.py;py;Bloc 15.04;ALFRED;[À CRÉER] Sync labiale TTS (mouth_1 vers mouth_5);;À CRÉER;;ÉVOLUE;ÉVOLUE
+src/ui;state_manager.py;py;Bloc 15.01;ALFRED;[À CRÉER] Gestionnaire états avatar (neutral/happy/calm/surprised);;À CRÉER;;ÉVOLUE;ÉVOLUE
+src/ui;background_manager.py;py;Bloc 15.05;ALFRED;[À CRÉER] Gestion backgrounds contextuels;;;À CRÉER;;ÉVOLUE
+src/ui;chibi_overlay.py;py;Bloc 15.01;ALFRED;[À CRÉER] Overlay avatar chibi (notifs / interactions rapides);;;;À CRÉER;ÉVOLUE
+;;;;;;;;;;
+=== SRC — ACCESSIBILITÉ (Bloc 22) ===;;;;;;;;;;
+src/accessibility;__init__.py;py;Bloc 22;COMMUN;Init module accessibilité;STABLE;;;;
+src/accessibility;accessibility_manager.py;py;Bloc 22.08;COMMUN;Gestionnaire central accessibilité;CRÉÉ;ÉVOLUE;ÉVOLUE;;ÉVOLUE
+src/accessibility;accessibility_settings.json;json;Bloc 22.01;COMMUN;Paramètres accessibilité (polices contrastes modes);STABLE;;ÉVOLUE;;
+src/accessibility/audio;__init__.py;py;Bloc 22;COMMUN;Init audio accessibility;STABLE;;;;
+src/accessibility/audio;text_reader.py;py;Bloc 22.02;COMMUN;Lecture vocale texte;CRÉÉ;;ÉVOLUE;;
+src/accessibility/audio;voice_output_manager.py;py;Bloc 22.11;COMMUN;Gestion ton rythme voix ALFRED;CRÉÉ;;;;ÉVOLUE
+src/accessibility/translation;__init__.py;py;Bloc 22;COMMUN;Init translation;STABLE;;;;
+src/accessibility/translation;translator.py;py;Bloc 22.03;COMMUN;Traduction multilingue;CRÉÉ;;ÉVOLUE;;
+src/accessibility/cognitive;__init__.py;py;Bloc 22;COMMUN;Init cognitive;STABLE;;;;
+src/accessibility/cognitive;summarizer.py;py;Bloc 22.09;COMMUN;Résumés intelligents contextuels;CRÉÉ;;;;ÉVOLUE
+src/accessibility/cognitive;explain_terms.py;py;Bloc 22.10;COMMUN;Explication termes techniques;CRÉÉ;;;;ÉVOLUE
+src/accessibility/ui;__init__.py;py;Bloc 22;COMMUN;Init UI accessibility — placeholder;STABLE;;;;
+src/accessibility/ui;ui_accessibility.py;py;Bloc 22.06;COMMUN;[À CRÉER] Accessibilité visuelle typographie dyslexie;;;À CRÉER;;
+src/accessibility/ui;neurodiversity_modes.py;py;Bloc 22.12;COMMUN;[À CRÉER] Modes neurodiversité;;;;;À CRÉER
+src/accessibility;android_accessibility.py;py;Bloc 22.13;COMMUN;[À CRÉER] Accessibilité Android Kivy;;;;;À CRÉER
+;;;;;;;;;;
+=== SRC — V2 (Intelligence & Décision) ===;;;;;;;;;;
+src/v2;__init__.py;py;-;ALFRED;Init V2 — placeholder structure;STABLE;;;;
+src/v2/confidence;__init__.py;py;Bloc 01.05;ALFRED;Init confidence — placeholder;STABLE;;;;
+src/v2/confidence;confidence_scorer.py;py;Bloc 01.05;ALFRED;[À CRÉER] Score de confiance réponse;;;À CRÉER;;ÉVOLUE
+src/v2/decision;__init__.py;py;Bloc 01.04;ALFRED;Init decision — placeholder;STABLE;;;;
+src/v2/decision;decision_engine.py;py;Bloc 01.04;ALFRED;[À CRÉER] Moteur de décision contextuelle;;;À CRÉER;;ÉVOLUE
+src/v2/experience;__init__.py;py;Bloc 05.05;ALFRED;Init experience — placeholder;STABLE;;;;
+src/v2/experience;experience_tracker.py;py;Bloc 05.05;ALFRED;[À CRÉER] Suivi profil expérience utilisateur;;;À CRÉER;;ÉVOLUE
+src/v2/fallback;__init__.py;py;Bloc 01.04;ALFRED;Init fallback — placeholder;STABLE;;;;
+src/v2/fallback;fallback_manager.py;py;Bloc 01.04;ALFRED;[À CRÉER] Stratégie de repli (LLM absent / dégradé);;;À CRÉER;;
+src/v2/fusion;__init__.py;py;Bloc 01.04;ALFRED;Init fusion — placeholder;STABLE;;;;
+src/v2/fusion;fusion_engine.py;py;Bloc 01.04;ALFRED;[À CRÉER] Fusion multi-sources (mémoire + knowledge + LLM);;;À CRÉER;;ÉVOLUE
+src/v2/governance;__init__.py;py;Bloc 08;ALFRED;Init governance — placeholder;STABLE;;;;
+src/v2/governance;governance_engine.py;py;Bloc 08;ALFRED;[À CRÉER] Règles gouvernance IA;;;;À CRÉER;
+src/v2/knowledge;__init__.py;py;Bloc 18;ALFRED;Init knowledge V2 — placeholder;STABLE;;;;
+src/v2/knowledge;knowledge_enricher.py;py;Bloc 18;ALFRED;[À CRÉER] Enrichissement sémantique base connaissances;;;À CRÉER;;ÉVOLUE
+src/v2/learning;__init__.py;py;Bloc 07;ALFRED;Init learning — placeholder;STABLE;;;;
+src/v2/learning;learning_engine.py;py;Bloc 07.04;ALFRED;[À CRÉER] Apprentissage préférences utilisateur;;;À CRÉER;;ÉVOLUE
+src/v2/product;__init__.py;py;Bloc 11;ALFRED;Init product — placeholder;STABLE;;;;
+src/v2/product;product_state.py;py;Bloc 11;ALFRED;[À CRÉER] Gestion état produit KPI;;;;À CRÉER;
+src/v2/scenarios;__init__.py;py;Bloc 06;ALFRED;Init scenarios — placeholder;STABLE;;;;
+src/v2/scenarios;scenario_engine.py;py;Bloc 06;ALFRED;[À CRÉER] Scénarios d'usage typiques;;;À CRÉER;;
+src/v2pp;__init__.py;py;Bloc 18;ALFRED;Init V2++ knowledge métier — placeholder;STABLE;;;;
+src/v2pp;knowledge_business.py;py;Bloc 18;ALFRED;[À CRÉER] Connaissance métier enrichie CPL-ready;;;;À CRÉER;
+;;;;;;;;;;
+=== SRC — V3 (Compagnon Cognitif Adaptatif) ===;;;;;;;;;;
+src/v3;__init__.py;py;-;ALFRED;Init V3 — placeholder structure;STABLE;;;;
+src/v3/conversation;__init__.py;py;Bloc 04;ALFRED;Init conversation V3 — placeholder;STABLE;;;;
+src/v3/conversation;vocal_pipeline.py;py;Bloc 04;ALFRED;[À CRÉER] Pipeline vocal STT vers NLP vers LLM vers TTS complet;;;;;À CRÉER
+src/v3/emotion;__init__.py;py;Bloc 03.01;ALFRED;Init emotion V3 — placeholder;STABLE;;;;
+src/v3/emotion;audio_emotion.py;py;Bloc 03.01;ALFRED;[À CRÉER] Détection émotion audio (librosa pitch+débit+énergie);;;;;À CRÉER
+src/v3/fusion;__init__.py;py;Bloc 01.04;ALFRED;Init fusion V3 — placeholder;STABLE;;;;
+src/v3/fusion;v3_fusion.py;py;Bloc 01.04;ALFRED;[À CRÉER] Fusion complète V3 — tous modules intégrés;;;;;À CRÉER
+src/v3/learning;__init__.py;py;Bloc 07;ALFRED;Init learning V3 — placeholder;STABLE;;;;
+src/v3/learning;adaptive_learning.py;py;Bloc 07.04;ALFRED;[À CRÉER] Apprentissage comportemental adaptatif;;;;;À CRÉER
+src/v3/memory;__init__.py;py;Bloc 02.04;ALFRED;Init memory V3 — placeholder;STABLE;;;;
+src/v3/memory;semantic_memory.py;py;Bloc 02.04;ALFRED;[À CRÉER] Mémoire sémantique long terme + RAG;;;;;À CRÉER
+src/v3/orchestrator;__init__.py;py;Bloc 01.04;ALFRED;Init orchestrateur V3 — placeholder;STABLE;;;;
+src/v3/orchestrator;v3_orchestrator.py;py;Bloc 01.04;ALFRED;[À CRÉER] Orchestrateur vocal complet V3;;;;;À CRÉER
+src/v3/proactive;__init__.py;py;Bloc 07.02;ALFRED;Init proactive — placeholder;STABLE;;;;
+src/v3/proactive;proactive_engine.py;py;Bloc 07.02;ALFRED;[À CRÉER] Comportement proactif (suggestions contextuelles);;;;;À CRÉER
+src/v3/reasoning;__init__.py;py;Bloc 10;ALFRED;Init reasoning — placeholder;STABLE;;;;
+src/v3/reasoning;reasoning_engine.py;py;Bloc 10.02;ALFRED;[À CRÉER] Raisonnement IA avancé (chain-of-thought);;;;;À CRÉER
+src/v3/safety;__init__.py;py;Bloc 20;ALFRED;Init safety V3 — placeholder;STABLE;;;;
+src/v3/safety;safety_guard.py;py;Bloc 20;ALFRED;[À CRÉER] Garde-fous éthiques renforcés V3;;;;;À CRÉER
+;;;;;;;;;;
+=== SRC — V4 (Domotique IoT — hors périmètre V1-V3) ===;;;;;;;;;;
+src/v4;__init__.py;py;Bloc 14;COMMUN;Init V4 — placeholder;STABLE;;;;
+src/v4/actions;__init__.py;py;Bloc 14.03;COMMUN;Init actions V4 — placeholder;STABLE;;;;
+src/v4/actions;action_executor.py;py;Bloc 14.03;COMMUN;[V4] Exécuteur actions domotiques;;;;;[V4]
+src/v4/home_state;__init__.py;py;Bloc 14.02;COMMUN;Init home_state — placeholder;STABLE;;;;
+src/v4/home_state;home_state_manager.py;py;Bloc 14.02;COMMUN;[V4] Gestionnaire état maison (capteurs équipements);;;;;[V4]
+src/v4/integration;__init__.py;py;Bloc 14.01;COMMUN;Init integration — placeholder;STABLE;;;;
+src/v4/integration;mqtt_client.py;py;Bloc 14.01;COMMUN;[V4] Client paho-mqtt IoT;;;;;[V4]
+src/v4/orchestrator;__init__.py;py;Bloc 14;COMMUN;Init orchestrateur V4 — placeholder;STABLE;;;;
+src/v4/orchestrator;v4_orchestrator.py;py;Bloc 14;COMMUN;[V4] Orchestrateur domotique principal;;;;;[V4]
+src/v4/scenarios;__init__.py;py;Bloc 14;COMMUN;Init scenarios V4 — placeholder;STABLE;;;;
+src/v4/scenarios;scenario_runner.py;py;Bloc 14;COMMUN;[V4] Scénarios domotiques;;;;;[V4]
+src/v4/security;__init__.py;py;Bloc 20;COMMUN;Init security V4 — placeholder;STABLE;;;;
+src/v4/security;iot_security.py;py;Bloc 20;COMMUN;[V4] Sécurité IoT;;;;;[V4]
+src/v4/triggers;__init__.py;py;Bloc 14;COMMUN;Init triggers — placeholder;STABLE;;;;
+src/v4/triggers;trigger_manager.py;py;Bloc 14;COMMUN;[V4] Déclencheurs contextuels IoT;;;;;[V4]
+;;;;;;;;;;
+=== CONFIG — RACINE ===;;;;;;;;;;
+config;alfred_project.json;json;-;COMMUN;Métadonnées projet ALFRED;STABLE;;;;
+config;personality_core.json;json;Bloc 03.04;ALFRED;Noyau personnalité — traits scores interdits;STABLE;;;;
+config;behavior_rules_softskills.json;json;Bloc 03.02;ALFRED;Règles comportementales softskills;STABLE;;ÉVOLUE;;
+config;intents_catalog.json;json;Bloc 01.02;ALFRED;Catalogue intentions utilisateur;STABLE;;ÉVOLUE;;
+config;knowledge_settings.json;json;Bloc 18;ALFRED;Paramètres système knowledge;STABLE;;ÉVOLUE;;
+config;response_patterns.json;json;Bloc 01.05;ALFRED;Patterns de réponse;STABLE;;ÉVOLUE;;
+config;routing_rules.json;json;Bloc 01.04;ALFRED;Règles de routage pipeline;STABLE;;ÉVOLUE;;
+config;router_rules.json;json;Bloc 01.04;ALFRED;Règles routeur complémentaires;STABLE;;ÉVOLUE;;
+config;self_alignment_rules.json;json;Bloc 03.05;ALFRED;Règles auto-alignement ALFRED;STABLE;;ÉVOLUE;;
+config;tagging_rules.json;json;Bloc 18;ALFRED;Règles classification / tagging;STABLE;;ÉVOLUE;;
+config;user_adaptation_profile.json;json;Bloc 05.05;ALFRED;Profil adaptation utilisateur;STABLE;;ÉVOLUE;;
+config;quality_thresholds.json;json;Bloc 08;ALFRED;Seuils qualité réponses;STABLE;;ÉVOLUE;;
+config;rag_settings.json;json;Bloc 02.04;ALFRED;Paramètres RAG ChromaDB;STABLE;;;;ÉVOLUE
+config;conversation_rules.json;json;Bloc 01.01;ALFRED;Règles conversationnelles;STABLE;;ÉVOLUE;;
+config;ethics_rules.json;json;Bloc 08;COMMUN;Règles éthiques;STABLE;;ÉVOLUE;;
+config;safety_rules.json;json;Bloc 20;COMMUN;Règles sécurité comportementale;STABLE;;ÉVOLUE;;
+config;settings.json;json;-;COMMUN;Paramètres généraux projet;STABLE;;ÉVOLUE;;
+;;;;;;;;;;
+=== CONFIG — SÉCURITÉ ===;;;;;;;;;;
+config/security;security_settings.json;json;Bloc 20.01;COMMUN;Configuration globale sécurité;STABLE;;;;
+config/security;roles_permissions.json;json;Bloc 20.04;COMMUN;Matrice rôles/permissions RBAC;STABLE;;ÉVOLUE;;
+config/security;access_policies.json;json;Bloc 20.04;COMMUN;Politiques d'accès;STABLE;;ÉVOLUE;;
+config/security;zero_trust_rules.json;json;Bloc 20.13;COMMUN;Règles Zero Trust;STABLE;;ÉVOLUE;;
+config/security;trusted_devices.json;json;Bloc 20.02;COMMUN;Appareils de confiance whitelist;STABLE;;ÉVOLUE;;
+config/security;audit_retention_policy.json;json;Bloc 20.09;COMMUN;Politique rétention logs audit;STABLE;;;;
+;;;;;;;;;;
+=== CONFIG — V1 ===;;;;;;;;;;
+config/v1;basic_pipeline_rules.json;json;Bloc 01;ALFRED;Règles pipeline V1;STABLE;;;;
+;;;;;;;;;;
+=== CONFIG — V2 ===;;;;;;;;;;
+config/v2;confidence_rules.json;json;Bloc 01.05;ALFRED;Règles score confiance V2;CRÉÉ;;ÉVOLUE;;
+config/v2;decision_rules.json;json;Bloc 01.04;ALFRED;Règles décision V2;CRÉÉ;;ÉVOLUE;;
+config/v2;edge_cases.json;json;Bloc 01.04;ALFRED;Cas limites connus V2;CRÉÉ;;ÉVOLUE;;
+config/v2;emotion_profiles.json;json;Bloc 03;ALFRED;Profils émotionnels V2;CRÉÉ;;ÉVOLUE;;
+config/v2;fallback_rules.json;json;Bloc 01.04;ALFRED;Règles fallback V2;CRÉÉ;;ÉVOLUE;;
+config/v2;feature_matrix.json;json;-;ALFRED;Matrice features V2;CRÉÉ;;ÉVOLUE;;
+config/v2;kpi_config.json;json;Bloc 11;ALFRED;Config KPI V2;CRÉÉ;;;ÉVOLUE;
+config/v2;learning_rules.json;json;Bloc 07;ALFRED;Règles apprentissage V2;CRÉÉ;;ÉVOLUE;;
+config/v2;module_mapping.json;json;-;ALFRED;Mapping modules V2;CRÉÉ;;ÉVOLUE;;
+config/v2;naming_conventions.json;json;-;ALFRED;Conventions nommage V2;CRÉÉ;;ÉVOLUE;;
+config/v2;proactivity_rules.json;json;Bloc 07;ALFRED;Règles proactivité V2;CRÉÉ;;ÉVOLUE;;ÉVOLUE
+config/v2;product_roadmap.json;json;Bloc 11;ALFRED;Roadmap produit V2;CRÉÉ;;;ÉVOLUE;
+config/v2;scenario_catalog.json;json;Bloc 06;ALFRED;Catalogue scénarios V2;CRÉÉ;;ÉVOLUE;;
+config/v2;signal_weights.json;json;Bloc 01.04;ALFRED;Poids signaux fusion V2;CRÉÉ;;ÉVOLUE;;
+;;;;;;;;;;
+=== CONFIG — V3 ===;;;;;;;;;;
+config/v3;confidence_rules.json;json;Bloc 01.05;ALFRED;Règles confiance V3;CRÉÉ;;;;ÉVOLUE
+config/v3;conversation_rules.json;json;Bloc 04;ALFRED;Règles conversation vocale V3;CRÉÉ;;;;ÉVOLUE
+config/v3;emotion_rules.json;json;Bloc 03;ALFRED;Règles émotion audio V3;CRÉÉ;;;;ÉVOLUE
+config/v3;fusion_rules.json;json;Bloc 01.04;ALFRED;Règles fusion complète V3;CRÉÉ;;;;ÉVOLUE
+config/v3;learning_rules.json;json;Bloc 07;ALFRED;Règles apprentissage V3;CRÉÉ;;;;ÉVOLUE
+config/v3;memory_rules.json;json;Bloc 02;ALFRED;Règles mémoire V3;CRÉÉ;;;;ÉVOLUE
+config/v3;orchestrator_rules.json;json;Bloc 01.04;ALFRED;Règles orchestrateur V3;CRÉÉ;;;;ÉVOLUE
+config/v3;pattern_rules.json;json;Bloc 07;ALFRED;Règles patterns comportementaux V3;CRÉÉ;;;;ÉVOLUE
+config/v3;priority_rules.json;json;Bloc 01.04;ALFRED;Règles priorité V3;CRÉÉ;;;;ÉVOLUE
+config/v3;proactive_rules.json;json;Bloc 07.02;ALFRED;Règles comportement proactif V3;CRÉÉ;;;;ÉVOLUE
+config/v3;relational_rules.json;json;Bloc 03.05;ALFRED;Règles mode relationnel profond V3;CRÉÉ;;;;ÉVOLUE
+config/v3;safety_rules.json;json;Bloc 20;ALFRED;Règles sécurité comportementale V3;CRÉÉ;;;;ÉVOLUE
+config/v3;tone_profiles.json;json;Bloc 03.04;ALFRED;Profils ton vocal V3;CRÉÉ;;;;ÉVOLUE
+config/v3;trigger_rules.json;json;Bloc 07;ALFRED;Règles déclencheurs V3;CRÉÉ;;;;ÉVOLUE
+config/v3;workflow_rules.json;json;Bloc 01.04;ALFRED;Règles workflow V3;CRÉÉ;;;;ÉVOLUE
+;;;;;;;;;;
+=== CONFIG — V4 ===;;;;;;;;;;
+config/v4;action_rules.json;json;Bloc 14;COMMUN;Règles actions domotiques V4;CRÉÉ;;;;[V4]
+config/v4;home_devices.json;json;Bloc 14.03;COMMUN;Catalogue appareils domotiques V4;CRÉÉ;;;;[V4]
+config/v4;orchestration_rules.json;json;Bloc 14;COMMUN;Règles orchestration domotique V4;CRÉÉ;;;;[V4]
+config/v4;scenario_rules.json;json;Bloc 14;COMMUN;Règles scénarios domotiques V4;CRÉÉ;;;;[V4]
+config/v4;trigger_rules.json;json;Bloc 14;COMMUN;Règles déclencheurs IoT V4;CRÉÉ;;;;[V4]
+;;;;;;;;;;
+=== DATA — FICHIERS CLÉS ===;;;;;;;;;;
+data/memory/episodic;dialogue_history.json;json;Bloc 02.01;ALFRED;[RUNTIME] Historique épisodique structuré;STABLE;;ÉVOLUE;;ÉVOLUE
+data/personality/instances;personality_core_instance.json;json;Bloc 03.04;ALFRED;Instance personnalité active;STABLE;;ÉVOLUE;;ÉVOLUE
+data/personality/templates;personality_core.json;json;Bloc 03.04;ALFRED;Template personnalité — référence;STABLE;;;;
+data/personality/templates;personality_core_template_public.json;json;Bloc 03.04;ALFRED;Template public (sans données privées expérimentales);STABLE;;;;
+data/users/instances;user_celine_instance.json;json;Bloc 05.01;ALFRED;Instance profil utilisateur actif;STABLE;;ÉVOLUE;;ÉVOLUE
+data/users/templates;user_profile_template_public.json;json;Bloc 05.01;ALFRED;Template profil utilisateur public;STABLE;;;;
+data/users/templates;user_adaptation_profile.json;json;Bloc 05.05;ALFRED;Template adaptation utilisateur;STABLE;;ÉVOLUE;;ÉVOLUE
+data/security;access_decisions_history.json;json;Bloc 20.09;COMMUN;[RUNTIME] Historique décisions accès;STABLE;;ÉVOLUE;;
+data/security;incident_register.json;json;Bloc 20.11;COMMUN;[RUNTIME] Registre incidents sécurité;STABLE;;ÉVOLUE;;
+data/security;trusted_devices_runtime.json;json;Bloc 20.02;COMMUN;[RUNTIME] Appareils connus à l'exécution;STABLE;;ÉVOLUE;;
+data/context;user_context.json;json;Bloc 01.03;ALFRED;[RUNTIME] Contexte utilisateur actif;STABLE;;ÉVOLUE;;ÉVOLUE
+data/actions;tasks.json;json;Bloc 06.03;ALFRED;[RUNTIME] Tâches en cours;STABLE;;ÉVOLUE;;
+data/profile;user_profile.json;json;Bloc 05.01;ALFRED;[RUNTIME] Profil utilisateur actif;STABLE;;ÉVOLUE;;ÉVOLUE
+;;;;;;;;;;
+=== KNOWLEDGES — REGISTRE & TAXONOMIE ===;;;;;;;;;;
+knowledges;knowledge_registry.json;json;Bloc 18;COMMUN;[GÉNÉRÉ] Registre central knowledges;STABLE;;ÉVOLUE;;ÉVOLUE
+knowledges;taxonomy.json;json;Bloc 18;COMMUN;Taxonomie classification domaines;STABLE;;ÉVOLUE;;ÉVOLUE
+knowledges;domain_links.json;json;Bloc 18;COMMUN;Liens inter-domaines;STABLE;;ÉVOLUE;;ÉVOLUE
+knowledges;retrieval_rules.json;json;Bloc 18;COMMUN;Règles de récupération knowledge;STABLE;;ÉVOLUE;;ÉVOLUE
+knowledges;governance_rules.json;json;Bloc 18;COMMUN;Règles gouvernance base de connaissance;STABLE;;ÉVOLUE;;
+knowledges;knowledge_template.json;json;Bloc 18;COMMUN;Template standard fichier knowledge;STABLE;;;;
+knowledges;manifest.json;json;Bloc 18;COMMUN;Manifest base de connaissances;STABLE;;ÉVOLUE;;ÉVOLUE
+;;;;;;;;;;
+=== KNOWLEDGES — CORE (identité & règles système) ===;;;;;;;;;;
+knowledges/core;alfred_core_identity.json;json;Bloc 01;ALFRED;Identité fondamentale ALFRED;STABLE;;;;
+knowledges/core;system_rules.json;json;Bloc 08;COMMUN;Règles système fondamentales;STABLE;;;;
+knowledges/core;behavioral_modes.json;json;Bloc 03.02;ALFRED;Définition 4 modes comportementaux;STABLE;;ÉVOLUE;;
+knowledges/core;context_awareness.json;json;Bloc 01.03;ALFRED;Conscience contextuelle;STABLE;;ÉVOLUE;;
+knowledges/core;personalization_engine.json;json;Bloc 05.05;ALFRED;Moteur personnalisation;STABLE;;ÉVOLUE;;ÉVOLUE
+knowledges/core;user_adaptation.json;json;Bloc 05.05;ALFRED;Règles adaptation utilisateur;STABLE;;ÉVOLUE;;ÉVOLUE
+;;;;;;;;;;
+=== KNOWLEDGES — HUMAN (groupé par domaine) ===;;;;;;;;;;
+knowledges/human/emotional_intelligence;[7 fichiers json];json;Bloc 03;ALFRED;Intelligence émotionnelle (empathie support gestion);STABLE;;ÉVOLUE;;ÉVOLUE
+knowledges/human/psychology;[5 fichiers json];json;Bloc 03;ALFRED;Psychologie (biais cognitifs résilience motivation);STABLE;;ÉVOLUE;;
+knowledges/human/cognition;[6 fichiers json];json;Bloc 10;ALFRED;Cognition (charge focus décision incertitude);STABLE;;ÉVOLUE;;ÉVOLUE
+knowledges/human/social_behavior;[8 fichiers json];json;Bloc 03;ALFRED;Comportements sociaux (humour isolation liens);STABLE;;ÉVOLUE;;
+knowledges/human/skills/softskills;[13 fichiers json];json;Bloc 18.07;ALFRED;Compétences douces (communication leadership adaptabilité);STABLE;;;ÉVOLUE;
+knowledges/human/self_alignment;[5 fichiers json];json;Bloc 07;ALFRED;Auto-alignement (habitudes routines discipline);STABLE;;ÉVOLUE;;
+knowledges/human/relationships;[à enrichir];json;Bloc 03.05;ALFRED;[À ENRICHIR] Relations interpersonnelles;;ÉVOLUE;ÉVOLUE;;ÉVOLUE
+;;;;;;;;;;
+=== KNOWLEDGES — PROFESSIONAL (groupé par domaine) ===;;;;;;;;;;
+knowledges/professional/decision;[7 fichiers json];json;Bloc 18.10;ALFRED;Décision (modèles prioritisation analyse causes);STABLE;;;ÉVOLUE;
+knowledges/professional/engineering/ai;[10 fichiers json];json;Bloc 18;COMMUN;IA (LLM RAG raisonnement embeddings mémoire);STABLE;;;ÉVOLUE;ÉVOLUE
+knowledges/professional/engineering/cybersecurite;[2 fichiers json];json;Bloc 20;COMMUN;Cybersécurité (core RGPD);STABLE;;;ÉVOLUE;
+knowledges/professional/engineering/systeme_design;[6 fichiers json];json;Bloc 18;COMMUN;Architecture systèmes (microservices local-first event);STABLE;;;ÉVOLUE;
+knowledges/professional/frameworks;[10 fichiers json];json;Bloc 18.10;ALFRED;Frameworks (Lean Agile PRINCE2 RGPD ISO27001);STABLE;;;ÉVOLUE;
+knowledges/professional/product_management;[14 fichiers json];json;Bloc 18.10;ALFRED;Product management (OKR roadmap discovery lifecycle);STABLE;;;ÉVOLUE;
+knowledges/professional/standards_iso;[11 fichiers json];json;Bloc 18.10;ALFRED;Standards ISO (27001 27701 42001 RGPD conformité);STABLE;;;ÉVOLUE;
+;;;;;;;;;;
+=== KNOWLEDGES — LIFESTYLE (groupé par domaine) ===;;;;;;;;;;
+knowledges/lifestyle/daily_life;[2 fichiers json];json;Bloc 06;ALFRED;Vie quotidienne (organisation gestion temps);STABLE;;ÉVOLUE;;
+knowledges/lifestyle/health;[3 fichiers json];json;Bloc 13;ALFRED;Santé (fatigue stress récupération);STABLE;;ÉVOLUE;;
+knowledges/lifestyle/life_path;[à enrichir];json;Bloc 06;ALFRED;[À ENRICHIR] Parcours de vie;;ÉVOLUE;ÉVOLUE;;
+knowledges/lifestyle/productivity;[à enrichir];json;Bloc 18.07;ALFRED;[À ENRICHIR] Productivité;;ÉVOLUE;ÉVOLUE;;
+;;;;;;;;;;
+=== KNOWLEDGES — CULTURE (groupé par domaine) ===;;;;;;;;;;
+knowledges/culture/culture_generale;[7 fichiers json];json;Bloc 18;ALFRED;Culture générale (histoire géo sciences société éco);STABLE;;;ÉVOLUE;
+knowledges/culture/universes;[7 fichiers json];json;Bloc 18.02;ALFRED;Univers fictionnels (DC Marvel Batman JARVIS Alfred);STABLE;;;;ÉVOLUE
+;;;;;;;;;;
+=== KNOWLEDGES — CPL (ALFRED CPL — groupé par domaine) ===;;;;;;;;;;
+knowledges/cpl/strategy;[3 fichiers json];json;Bloc 09;CPL;Stratégie business (modèles valeur proposition);STABLE;;;ÉVOLUE;ÉVOLUE
+knowledges/cpl/execution;[4 fichiers json];json;Bloc 12;CPL;Exécution (PM décision risques priorisation);STABLE;;;ÉVOLUE;ÉVOLUE
+knowledges/cpl/business_piloting;[3 fichiers json];json;Bloc 11;CPL;Pilotage (rentabilité mix prix stratégie);STABLE;;;ÉVOLUE;ÉVOLUE
+knowledges/cpl/human_communication;[3 fichiers json];json;Bloc 12;CPL;Communication (principes clients intelligence émotionnelle);STABLE;;;ÉVOLUE;ÉVOLUE
+knowledges/cpl/product_ia;[3 fichiers json];json;Bloc 10;CPL;Produit IA (design méthodologie tradeoffs);STABLE;;;ÉVOLUE;ÉVOLUE
+knowledges/cpl/ethics_governance;[3 fichiers json];json;Bloc 12;CPL;Éthique gouvernance (IA accessibilité modèle);STABLE;;;ÉVOLUE;ÉVOLUE
+knowledges/cpl/human_organization;[1 fichier json];json;Bloc 05;CPL;Organisation humaine (énergie);STABLE;;;ÉVOLUE;
+;;;;;;;;;;
+=== KNOWLEDGES — SYSTEM (groupé par domaine) ===;;;;;;;;;;
+knowledges/system/memory;[6 fichiers json];json;Bloc 02;COMMUN;Système mémoire (règles decay priorité contextualisation);STABLE;;ÉVOLUE;;ÉVOLUE
+knowledges/system/ethics;[1 fichier json];json;Bloc 08;COMMUN;Cadre éthique système;STABLE;;ÉVOLUE;;
+knowledges/system/accessibility;[1 fichier json];json;Bloc 22;COMMUN;Politique accessibilité système;STABLE;;ÉVOLUE;;
+;;;;;;;;;;
+=== TESTS ===;;;;;;;;;;
+tests;__init__.py;py;-;COMMUN;Init module tests;STABLE;;;;
+tests;README.md;md;-;COMMUN;Guide tests;CRÉÉ;ÉVOLUE;;;
+tests;test_b01_speech.py;py;Bloc 04;ALFRED;Tests speech STT pipeline vocal;CRÉÉ;;;;ÉVOLUE
+tests;test_b02_b03.py;py;Bloc 02-03;ALFRED;Tests mémoire + émotions;CRÉÉ;;ÉVOLUE;;ÉVOLUE
+tests;test_pipeline.py;py;Bloc 01;ALFRED;Tests intégration pipeline complet;CRÉÉ;;ÉVOLUE;;ÉVOLUE
+tests;test_pipeline_llm.py;py;Bloc 01;ALFRED;Tests pipeline LLM;CRÉÉ;;ÉVOLUE;;ÉVOLUE
+tests;test_tts_engine.py;py;Bloc 04.02;ALFRED;Tests moteur TTS abstrait;CRÉÉ;;;;ÉVOLUE
+tests;test_tts_piper.py;py;Bloc 04.02;ALFRED;Tests Piper TTS;CRÉÉ;;;;ÉVOLUE
+tests;test_tts_piper_status.py;py;Bloc 04.02;ALFRED;Tests statut disponibilité Piper;CRÉÉ;;;;ÉVOLUE
+tests;test_micro.py;py;Bloc 04;ALFRED;Tests micro-composants audio;CRÉÉ;;;;
+tests;test_stt.py;py;Bloc 04.01;ALFRED;Tests STT Whisper;CRÉÉ;;;;ÉVOLUE
+tests;test_voice_loop.py;py;Bloc 04;ALFRED;Tests boucle vocale complète;CRÉÉ;;;;ÉVOLUE
+tests;test_security.py;py;Bloc 20;COMMUN;[À CRÉER] Tests Bloc 20 — 25 modules critiques;;À CRÉER;;;
+tests;test_avatar.py;py;Bloc 15;ALFRED;[À CRÉER] Tests moteur avatar Kivy;;À CRÉER;;ÉVOLUE;ÉVOLUE
+tests;test_accessibility.py;py;Bloc 22;COMMUN;[À CRÉER] Tests accessibilité;;;À CRÉER;;
+tests;test_knowledge_router.py;py;Bloc 18;ALFRED;[À CRÉER] Tests routage knowledge;;;À CRÉER;;ÉVOLUE
+tests;test_v2_fusion.py;py;Bloc 01.04;ALFRED;[À CRÉER] Tests fusion V2;;;À CRÉER;;ÉVOLUE
+tests;test_v2_decision.py;py;Bloc 01.04;ALFRED;[À CRÉER] Tests décision V2;;;À CRÉER;;ÉVOLUE
+tests;test_rag.py;py;Bloc 02.04;ALFRED;[À CRÉER] Tests RAG ChromaDB;;;;;À CRÉER
+tests;test_vocal_pipeline.py;py;Bloc 04;ALFRED;[À CRÉER] Tests pipeline vocal E2E;;;;;À CRÉER
+;;;;;;;;;;
+=== DASHBOARD ===;;;;;;;;;;
+dashboard;ALFRED_DASHBOARD_DYNAMIC.html;html;Bloc 08;COMMUN;Dashboard HTML dynamique — suivi projet;STABLE;;ÉVOLUE;;ÉVOLUE
+dashboard;dashboard_manifest.json;json;Bloc 08;COMMUN;Manifest état dashboard;STABLE;;ÉVOLUE;;ÉVOLUE
+dashboard;dashboard_data.json;json;Bloc 08;COMMUN;[GÉNÉRÉ] Données dashboard;STABLE;;ÉVOLUE;;ÉVOLUE
+dashboard;dashboard_target_report.json;json;Bloc 08;COMMUN;[GÉNÉRÉ] Rapport cible dashboard;STABLE;;ÉVOLUE;;
+dashboard;validation_registry.json;json;Bloc 08;COMMUN;Registre validations blocs;STABLE;;ÉVOLUE;;
+;;;;;;;;;;
+=== TOOLS ===;;;;;;;;;;
+tools/dashboard_tools;update_dashboard_data.py;py;Bloc 08;COMMUN;Mise à jour données dashboard (578 lignes);STABLE;;ÉVOLUE;;ÉVOLUE
+tools/dashboard_tools;compare_manifest_target.py;py;Bloc 08;COMMUN;Comparaison manifest vs cible;STABLE;;ÉVOLUE;;
+tools/dashboard_tools;compare_manifest_target_complet.py;py;Bloc 08;COMMUN;Comparaison complète manifest vs cible;STABLE;;ÉVOLUE;;
+tools/dashboard_tools;run_dashboard.py;py;Bloc 08;COMMUN;Lanceur serveur dashboard;STABLE;;;;
+tools/dashboard_tools;dashboard_server.bat;bat;Bloc 08;COMMUN;Lanceur Windows dashboard;STABLE;;;;
+tools/knowledge_tools;generate_knowledge_registry.py;py;Bloc 18;COMMUN;Générateur registre knowledges;STABLE;;ÉVOLUE;;ÉVOLUE
+;;;;;;;;;;
+=== ALFRED WEB — BLOC 21 (À créer) ===;;;;;;;;;;
+ALFRED_WEB;app.py;py;Bloc 21.01;COMMUN;[À CRÉER] Application Flask principale;;;;À CRÉER;ÉVOLUE
+ALFRED_WEB;requirements_web.txt;txt;Bloc 21;COMMUN;[À CRÉER] Dépendances web (Flask Jinja2);;;;À CRÉER;
+ALFRED_WEB/templates;base.html;html;Bloc 21.02;COMMUN;[À CRÉER] Template HTML base Jinja2;;;;À CRÉER;ÉVOLUE
+ALFRED_WEB/templates;index.html;html;Bloc 21.07;COMMUN;[À CRÉER] Page d'accueil projet;;;;À CRÉER;ÉVOLUE
+ALFRED_WEB/templates;about.html;html;Bloc 21.07;COMMUN;[À CRÉER] Page À propos / thèse;;;;À CRÉER;
+ALFRED_WEB/templates;roadmap.html;html;Bloc 21.06;COMMUN;[À CRÉER] Page roadmap progression;;;;À CRÉER;ÉVOLUE
+ALFRED_WEB/templates;contact.html;html;Bloc 21.05;COMMUN;[À CRÉER] Page contact formulaire;;;;À CRÉER;
+ALFRED_WEB/static/css;style.css;css;Bloc 21.03;COMMUN;[À CRÉER] CSS principal responsive;;;;À CRÉER;ÉVOLUE
+ALFRED_WEB/static/js;main.js;js;Bloc 21.03;COMMUN;[À CRÉER] JavaScript interactivité;;;;À CRÉER;ÉVOLUE
+;;;;;;;;;;
+=== ASSETS — AVATAR (groupé par catégorie sprite) ===;;;;;;;;;;
+assets/avatar/base;[sprites head_base ALFRED / CPL / ARTHUR];png;Bloc 15.01;COMMUN;Base tête avatars (3 personnages + variantes expressions);STABLE;ÉVOLUE;ÉVOLUE;;
+assets/avatar/eyes;[eyes_open eyes_closed];png;Bloc 15.02;COMMUN;Sprites yeux ouvert / fermé (blink);STABLE;ÉVOLUE;;;
+assets/avatar/mouth;[mouth_1 vers mouth_5];png;Bloc 15.04;COMMUN;Sprites bouche TTS 5 positions sync labiale;STABLE;ÉVOLUE;;;ÉVOLUE
+assets/avatar/eyebrows;[sprites sourcils];png;Bloc 15.02;COMMUN;Sprites sourcils (expressions émotionnelles);STABLE;ÉVOLUE;ÉVOLUE;;
+assets/avatar/hair;[sprites cheveux];png;Bloc 15.01;COMMUN;Sprites cheveux (variantes couleur longueur);STABLE;;;;
+assets/avatar/effects;[halo_idle halo_active halo_speak];png;Bloc 15.03;COMMUN;Halo pulsation (bleu / violet / turquoise selon produit);STABLE;ÉVOLUE;ÉVOLUE;;ÉVOLUE
+assets/avatar/animations;[blink talking emotions sequences];png;Bloc 15.03;COMMUN;[À COMPLÉTER] Séquences animation blink + TTS + émotions;;À CRÉER;ÉVOLUE;;ÉVOLUE
+assets/avatars;[chibi ALFRED chibi CPL chibi ARTHUR];png;Bloc 15.01;COMMUN;[À CRÉER] Avatars chibi (notifs overlay interactions rapides);;;À CRÉER;;
+assets/backgrounds;[landscapes interiors seasons];png;Bloc 15.05;COMMUN;Backgrounds contextuels (saisons intérieur extérieur);STABLE;;ÉVOLUE;;
+assets/audio;[sons UI notifications];wav;Bloc 04.05;COMMUN;Sons d'interface et notifications;STABLE;;ÉVOLUE;;ÉVOLUE
+assets/voices;fr_FR-upmc-medium.onnx.json;json;Bloc 04.02;ALFRED;Config voix Piper TTS — medium speaker Pierre;STABLE;;ÉVOLUE;;
+assets/voices;fr_FR-mls_1840-low.onnx.json;json;Bloc 04.02;ALFRED;Config voix Piper TTS alternative low;STABLE;;;;
+;;;;;;;;;;
+=== DOCS ===;;;;;;;;;;
+docs;ALFRED_BLOCS_REFERENCE.md;md;-;COMMUN;Référentiel canonique blocs 01 vers 22;STABLE;;ÉVOLUE;;
+docs;README.md;md;-;COMMUN;Index documentation;STABLE;;ÉVOLUE;;
+docs/architecture;README.md;md;-;COMMUN;Guide architecture technique;CRÉÉ;;ÉVOLUE;;ÉVOLUE
+docs/roadmap;README.md;md;-;COMMUN;Roadmap projet;CRÉÉ;;ÉVOLUE;;ÉVOLUE
+docs/ux;README.md;md;-;COMMUN;Guide UX/UI charte graphique;STABLE;;ÉVOLUE;;
+docs/gouvernance;blueprint_gouvernance_complet.md;md;-;COMMUN;Blueprint gouvernance complet;STABLE;;ÉVOLUE;;
+docs/gouvernance;accessibility_policy.md;md;Bloc 22;COMMUN;Politique accessibilité;STABLE;;ÉVOLUE;;
+;;;;;;;;;;
+=== SCRIPTS POWERSHELL ===;;;;;;;;;;
+scripts;clean_project.ps1;ps1;-;COMMUN;Nettoyage fichiers temporaires;STABLE;;;;
+scripts;deploy_knowledges.ps1;ps1;Bloc 18;COMMUN;Déploiement base de connaissances;STABLE;;ÉVOLUE;;
+scripts;setup_knowledges.ps1;ps1;Bloc 18;COMMUN;Installation structure knowledges;STABLE;;ÉVOLUE;;
+scripts;update_knowledge_registry.ps1;ps1;Bloc 18;COMMUN;MAJ registre knowledges PowerShell;STABLE;;ÉVOLUE;;
+scripts;ranger_projet.ps1;ps1;-;COMMUN;Script rangement / organisation projet;STABLE;;ÉVOLUE;;
+scripts;ranger_fichiers_blocs.ps1;ps1;-;COMMUN;Rangement fichiers par blocs;STABLE;;ÉVOLUE;;
+scripts;fix_response_generator_rename.ps1;ps1;-;COMMUN;Correctif renommage response_generator;STABLE;;;;
+scripts;alfred_dashboard.html;html;Bloc 08;COMMUN;Dashboard HTML version scripts/;STABLE;;ÉVOLUE;;
