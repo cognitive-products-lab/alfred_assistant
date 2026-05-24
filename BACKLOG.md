@@ -293,18 +293,25 @@ Ces fichiers ne bougeront plus sauf correction. Ils constituent la colonne vert�
 ---
 
 ### BLOC 21 — ALFRED WEB PLATFORM
-> **Non encore initié — produit distinct**
+> **🔄 Débuté — dépôt séparé : `cognitive-products-lab/alfred_web`**
+> Chemin local : `D:\PROJET_ALFRED\ALFRED_WEB`
 
 | Composant | Statut | Version cible |
 |-----------|--------|---------------|
-| `ALFRED_WEB/` | ❌ Absent | V2+ (vitrine) |
-| Flask app | ❌ | V2+ |
-| Dashboard web progression | ❌ | V2+ |
+| Repo `alfred_web` | 🔄 Débuté | V2+ |
+| Flask app (`app.py`) | 🔄 En cours | V2+ |
+| Templates HTML/Jinja2 | 🔄 En cours | V2+ |
+| Dashboard web progression | ⬜ À coder | V2+ |
+| SEO + accessibilité web | ⬜ À coder | V2+ |
+| Sécurité formulaires (Bloc 21.09) | ⬜ À coder | V2+ |
+| Déploiement / CI-CD (Bloc 21.10) | ⬜ À coder | V3 |
 
 **Backlog :**
-- [ ] **[V2+]** Créer `ALFRED_WEB/` avec Flask + templates
-- [ ] **[V2+]** Page vitrine projet + roadmap publique
-- [ ] **[V3]** Dashboard progression en ligne
+- [x] **[V2+]** ~~Créer `ALFRED_WEB/`~~ → repo `alfred_web` débuté ✅
+- [ ] **[V2+]** Compléter pages vitrine (projet, roadmap publique, contact)
+- [ ] **[V2+]** Dashboard progression en ligne (Bloc 21.06)
+- [ ] **[V2+]** SEO + accessibilité WCAG (Bloc 21.08)
+- [ ] **[V3]** Déploiement + CI/CD (Bloc 21.10)
 
 ---
 
@@ -465,7 +472,7 @@ Ces fichiers ne bougeront plus sauf correction. Ils constituent la colonne vert�
 | Stratégie fallback | `src/v2/fallback/` |
 | Auth module | `src/auth/` |
 | Accessibilité V2 | `src/accessibility/` |
-| Web platform (vitrine) | `ALFRED_WEB/` |
+| Web platform (vitrine) | `alfred_web` (repo séparé) 🔄 débuté |
 
 ---
 
