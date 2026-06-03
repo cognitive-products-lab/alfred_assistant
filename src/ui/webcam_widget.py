@@ -6,7 +6,7 @@ ROLE         : Widget Kivy flux webcam — miniature overlay temps réel
 
 AUTHOR       : Cognitive Products Lab
 CREATED      : 2026-06-01
-UPDATED      : 2026-06-01 (fix pos_hint renderer dans WebcamOverlay)
+UPDATED      : 2026-06-03 (fix pos_hint renderer dans WebcamOverlay)
 VERSION      : V1.1
 STATUS       : STABLE
 
