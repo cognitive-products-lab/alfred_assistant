@@ -7,7 +7,7 @@ ROLE         : Application Kivy ALFRED V1.4 — fenetre complete avec controles 
 
 AUTHOR       : Cognitive Products Lab
 CREATED      : 2026-05-14
-UPDATED      : 2026-06-01 (V1.4 — get_avatar_engine, WebcamOverlay, background via engine)
+UPDATED      : 2026-06-03 (V1.4 — get_avatar_engine, WebcamOverlay, background via engine)
 VERSION      : V1.4
 STATUS       : STABLE
 

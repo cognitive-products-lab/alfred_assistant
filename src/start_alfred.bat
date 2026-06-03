@@ -5,7 +5,7 @@
 :: BLOCK   : GLOBAL
 :: FILE    : start_alfred.bat
 :: VERSION : V1.0
-:: STATUS  : DRAFT
+:: STATUS  : ACTIVE
 
 @echo off
 title ALFRED Assistant

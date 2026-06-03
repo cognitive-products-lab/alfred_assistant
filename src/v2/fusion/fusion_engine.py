@@ -8,7 +8,7 @@ ROLE         : Moteur de fusion multi-sources V2 — mémoire + knowledge + LLM
 
 AUTHOR       : Cognitive Products Lab
 CREATED      : 2026-06-01
-UPDATED      : 2026-06-01
+UPDATED      : 2026-06-03
 VERSION      : V1.0
 STATUS       : ACTIVE
 
