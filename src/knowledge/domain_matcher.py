@@ -1,4 +1,21 @@
 """
+PROJECT      : ALFRED
+BLOCK        : GLOBAL
+FUNCTION     : XX.XX
+FILE         : src/knowledge/domain_matcher.py
+ROLE         : TO_DEFINE
+
+AUTHOR       : Cognitive Products Lab
+CREATED      : 2026-06-03
+UPDATED      : 2026-06-03
+VERSION      : V1.0
+STATUS       : DRAFT
+
+DESCRIPTION :
+Module ALFRED — description a completer.
+"""
+
+"""
 ALFRED — domain_matcher.py
 Associe une requête utilisateur aux routes définies dans domain_links.json.
 """

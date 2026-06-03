@@ -1,3 +1,20 @@
+"""
+PROJECT      : ALFRED
+BLOCK        : B20
+FUNCTION     : XX.XX
+FILE         : tools/dashboard_tools/compare_manifest_target_complet.py
+ROLE         : TO_DEFINE
+
+AUTHOR       : Cognitive Products Lab
+CREATED      : 2026-06-03
+UPDATED      : 2026-06-03
+VERSION      : V1.0
+STATUS       : DRAFT
+
+DESCRIPTION :
+Dashboard outils — description a completer.
+"""
+
 ﻿import sys
 from pathlib import Path
 import json
