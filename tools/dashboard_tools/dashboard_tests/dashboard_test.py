@@ -25,11 +25,15 @@ Usage:
 from __future__ import annotations
 
 import argparse
+import http.server
 import io
 import json
+import os
 import subprocess
 import sys
+import threading
 import time
+import webbrowser
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from pathlib import Path
@@ -40,10 +44,14 @@ if hasattr(sys.stdout, "reconfigure"):
 if hasattr(sys.stderr, "reconfigure"):
     sys.stderr.reconfigure(encoding="utf-8", errors="replace")
 
-# ─── Chemin racine ────────────────────────────────────────────────────────────
+# ─── Chemins ─────────────────────────────────────────────────────────────────
 
-_ROOT = Path(__file__).resolve().parents[3]   # ALFRED_PC/
-_TESTS_DIR = _ROOT / "tests" / "security_tests"
+_ROOT       = Path(__file__).resolve().parents[3]   # ALFRED_PC/
+_TESTS_DIR  = _ROOT / "tests" / "security_tests"
+_DASH_DIR   = _ROOT / "dashboard" / "dashboard_tests"
+_JSON_OUT   = _DASH_DIR / "dashboard_tests.json"
+_HTML_FILE  = _DASH_DIR / "dashboard_tests.html"
+_HTTP_PORT  = 8030    # port dédié dashboard tests
 
 # ─── Couleurs ANSI (désactivées si pas de TTY) ────────────────────────────────
 
@@ -335,6 +343,65 @@ def print_json(dash: DashboardResult) -> None:
 
 # ─── CLI ──────────────────────────────────────────────────────────────────────
 
+def save_json(dash: "Dashboard") -> Path:
+    """Sauvegarde le résultat en JSON dans dashboard/dashboard_tests/dashboard_tests.json."""
+    _DASH_DIR.mkdir(parents=True, exist_ok=True)
+    data = _build_json(dash)
+    _JSON_OUT.write_text(
+        json.dumps(data, indent=2, ensure_ascii=False),
+        encoding="utf-8",
+    )
+    return _JSON_OUT
+
+
+def _build_json(dash: "Dashboard") -> dict:
+    """Construit le dict JSON (réutilise la logique de print_json)."""
+    import io as _io
+    buf = _io.StringIO()
+    old_stdout = sys.stdout
+    sys.stdout = buf
+    try:
+        print_json(dash)
+    finally:
+        sys.stdout = old_stdout
+    try:
+        return json.loads(buf.getvalue())
+    except json.JSONDecodeError:
+        return {}
+
+
+def serve_and_open(port: int = _HTTP_PORT) -> None:
+    """Démarre un serveur HTTP sur _ROOT et ouvre dashboard_tests.html."""
+    url = f"http://localhost:{port}/dashboard/dashboard_tests/dashboard_tests.html"
+
+    # Vérifier si un serveur tourne déjà sur ce port
+    import socket
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        already_running = (s.connect_ex(("localhost", port)) == 0)
+
+    if not already_running:
+        handler = http.server.SimpleHTTPRequestHandler
+        handler.log_message = lambda *a: None   # silencieux
+
+        server = http.server.HTTPServer(("", port), handler)
+        t = threading.Thread(target=server.serve_forever, daemon=True)
+        t.start()
+        print(f"\n  Serveur HTTP démarré : http://localhost:{port}")
+    else:
+        print(f"\n  Serveur HTTP déjà actif sur le port {port}")
+
+    time.sleep(0.4)
+    webbrowser.open(url)
+    print(f"  Dashboard ouvert    : {url}")
+    print("\n  [Ctrl+C pour quitter le serveur]\n")
+
+    try:
+        while True:
+            time.sleep(1)
+    except KeyboardInterrupt:
+        print("\n  Serveur arrêté.")
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(
         description="Tableau de bord des tests de sécurité ALFRED (B20).",
@@ -347,7 +414,12 @@ def main() -> None:
     parser.add_argument(
         "--json",
         action="store_true",
-        help="Sortie JSON brute (pour intégration CI/monitoring).",
+        help="Sortie JSON brute sur stdout (pour intégration CI/monitoring).",
+    )
+    parser.add_argument(
+        "--serve",
+        action="store_true",
+        help="Lance les tests, sauvegarde le JSON, démarre un serveur HTTP et ouvre le navigateur.",
     )
     args = parser.parse_args()
 
@@ -355,11 +427,17 @@ def main() -> None:
 
     if args.json:
         print_json(dash)
+    elif args.serve:
+        # Affichage console + sauvegarde JSON + serveur
+        print_dashboard(dash)
+        out = save_json(dash)
+        print(f"\n  JSON sauvegardé : {out}")
+        serve_and_open()
     else:
         print_dashboard(dash)
 
-    # Code de sortie non-zéro si des tests échouent
-    if dash.total_failed > 0 or dash.total_error > 0:
+    # Code de sortie non-zéro si des tests échouent (sauf --serve qui boucle)
+    if not args.serve and (dash.total_failed > 0 or dash.total_error > 0):
         sys.exit(1)
 
 
