@@ -3,11 +3,15 @@
         "project": "ALFRED",
         "block": "B20",
         "file": "dashboard_security.json",
-        "generated_at": "2026-06-03T12:22:38.522965+00:00",
+        "generated_at": "2026-06-03T13:11:24.650183+00:00",
         "version": "V1.0"
     },
     "sessions": {
-        "error": "cannot import name 'summarize_sessions' from 'src.security.session_manager' (D:\\PROJET_ALFRED\\ALFRED_PC\\src\\security\\session_manager.py)"
+        "active_sessions": 0,
+        "expired_sessions": 0,
+        "total_tracked": 0,
+        "blocked_users": 0,
+        "session_timeout_s": 900
     },
     "devices": {
         "trusted_count": 3,
@@ -56,10 +60,17 @@
         ]
     },
     "incidents": {
-        "error": "cannot import name 'summarize_incidents' from 'src.security.incident_manager' (D:\\PROJET_ALFRED\\ALFRED_PC\\src\\security\\incident_manager.py)"
+        "total": 0,
+        "open": 0,
+        "closed": 0,
+        "open_critical": 0,
+        "by_level": {},
+        "recent_open": []
     },
     "quarantine": {
-        "error": "cannot import name 'summarize_quarantine' from 'src.security.quarantine_service' (D:\\PROJET_ALFRED\\ALFRED_PC\\src\\security\\quarantine_service.py)"
+        "active_total": 0,
+        "modules_list": [],
+        "status": "CLEAN"
     },
     "secrets": {
         "required_count": 3,
@@ -108,7 +119,154 @@
         }
     },
     "policy_matrix": {
-        "error": "cannot import name 'get_policy_matrix' from 'src.security.policy_engine' (D:\\PROJET_ALFRED\\ALFRED_PC\\src\\security\\policy_engine.py)"
+        "roles": [
+            "OWNER",
+            "ADMIN",
+            "USER",
+            "GUEST"
+        ],
+        "sensitivities": [
+            "PUBLIC",
+            "INTERNAL",
+            "CONFIDENTIAL",
+            "CRITICAL"
+        ],
+        "actions": [
+            "READ",
+            "WRITE",
+            "DELETE_DATA",
+            "EXPORT_DATA",
+            "ADMIN_ACTION"
+        ],
+        "matrix": {
+            "OWNER": {
+                "PUBLIC": {
+                    "READ": "ALLOW",
+                    "WRITE": "ALLOW",
+                    "DELETE_DATA": "ALLOW",
+                    "EXPORT_DATA": "ALLOW",
+                    "ADMIN_ACTION": "ALLOW"
+                },
+                "INTERNAL": {
+                    "READ": "ALLOW",
+                    "WRITE": "ALLOW",
+                    "DELETE_DATA": "ALLOW",
+                    "EXPORT_DATA": "ALLOW",
+                    "ADMIN_ACTION": "ALLOW"
+                },
+                "CONFIDENTIAL": {
+                    "READ": "ALLOW",
+                    "WRITE": "ALLOW",
+                    "DELETE_DATA": "ALLOW",
+                    "EXPORT_DATA": "ALLOW",
+                    "ADMIN_ACTION": "ALLOW"
+                },
+                "CRITICAL": {
+                    "READ": "ALLOW",
+                    "WRITE": "ALLOW",
+                    "DELETE_DATA": "ALLOW",
+                    "EXPORT_DATA": "ALLOW",
+                    "ADMIN_ACTION": "ALLOW"
+                }
+            },
+            "ADMIN": {
+                "PUBLIC": {
+                    "READ": "ALLOW",
+                    "WRITE": "ALLOW",
+                    "DELETE_DATA": "DENY",
+                    "EXPORT_DATA": "DENY",
+                    "ADMIN_ACTION": "ALLOW"
+                },
+                "INTERNAL": {
+                    "READ": "ALLOW",
+                    "WRITE": "ALLOW",
+                    "DELETE_DATA": "DENY",
+                    "EXPORT_DATA": "DENY",
+                    "ADMIN_ACTION": "ALLOW"
+                },
+                "CONFIDENTIAL": {
+                    "READ": "ALLOW",
+                    "WRITE": "ALLOW",
+                    "DELETE_DATA": "DENY",
+                    "EXPORT_DATA": "DENY",
+                    "ADMIN_ACTION": "ALLOW"
+                },
+                "CRITICAL": {
+                    "READ": "ALLOW",
+                    "WRITE": "ALLOW",
+                    "DELETE_DATA": "DENY",
+                    "EXPORT_DATA": "DENY",
+                    "ADMIN_ACTION": "ALLOW"
+                }
+            },
+            "USER": {
+                "PUBLIC": {
+                    "READ": "ALLOW",
+                    "WRITE": "ALLOW",
+                    "DELETE_DATA": "DENY",
+                    "EXPORT_DATA": "DENY",
+                    "ADMIN_ACTION": "DENY"
+                },
+                "INTERNAL": {
+                    "READ": "ALLOW",
+                    "WRITE": "ALLOW",
+                    "DELETE_DATA": "DENY",
+                    "EXPORT_DATA": "DENY",
+                    "ADMIN_ACTION": "DENY"
+                },
+                "CONFIDENTIAL": {
+                    "READ": "ALLOW",
+                    "WRITE": "ALLOW",
+                    "DELETE_DATA": "DENY",
+                    "EXPORT_DATA": "DENY",
+                    "ADMIN_ACTION": "DENY"
+                },
+                "CRITICAL": {
+                    "READ": "DENY",
+                    "WRITE": "DENY",
+                    "DELETE_DATA": "DENY",
+                    "EXPORT_DATA": "DENY",
+                    "ADMIN_ACTION": "DENY"
+                }
+            },
+            "GUEST": {
+                "PUBLIC": {
+                    "READ": "ALLOW",
+                    "WRITE": "DENY",
+                    "DELETE_DATA": "DENY",
+                    "EXPORT_DATA": "DENY",
+                    "ADMIN_ACTION": "DENY"
+                },
+                "INTERNAL": {
+                    "READ": "ALLOW",
+                    "WRITE": "DENY",
+                    "DELETE_DATA": "DENY",
+                    "EXPORT_DATA": "DENY",
+                    "ADMIN_ACTION": "DENY"
+                },
+                "CONFIDENTIAL": {
+                    "READ": "DENY",
+                    "WRITE": "DENY",
+                    "DELETE_DATA": "DENY",
+                    "EXPORT_DATA": "DENY",
+                    "ADMIN_ACTION": "DENY"
+                },
+                "CRITICAL": {
+                    "READ": "DENY",
+                    "WRITE": "DENY",
+                    "DELETE_DATA": "DENY",
+                    "EXPORT_DATA": "DENY",
+                    "ADMIN_ACTION": "DENY"
+                }
+            }
+        },
+        "rules_summary": [
+            "CRITICAL → OWNER/ADMIN uniquement",
+            "DELETE_DATA / EXPORT_DATA → OWNER uniquement",
+            "ADMIN_ACTION → OWNER/ADMIN uniquement",
+            "CONFIDENTIAL → interdit aux GUEST",
+            "WRITE → interdit aux GUEST"
+        ]
     },
     "security_score": 100
 }
