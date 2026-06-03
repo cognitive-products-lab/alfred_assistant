@@ -43,6 +43,45 @@ def secret_exists(key: str) -> bool:
     return bool(os.getenv(key))
 
 
+def summarize_secrets() -> dict:
+    """
+    Retourne un résumé public des secrets requis (présence uniquement, jamais les valeurs).
+    Utilisé par le dashboard de sécurité.
+
+    Returns:
+        dict : {
+            "required_count": int,
+            "present_count": int,
+            "missing_count": int,
+            "all_ok": bool,
+            "validation": { "Clé principale": "OK"|"MANQUANT", ... }
+        }
+    """
+    required = ["SECRET_KEY", "FERNET_KEY", "PIN_SALT"]
+    labels = {
+        "SECRET_KEY":  "Clé principale",
+        "FERNET_KEY":  "Clé chiffrement",
+        "PIN_SALT":    "Sel authentification",
+    }
+    validation = {}
+    present_count = 0
+
+    for key in required:
+        present = bool(os.getenv(key))
+        validation[labels[key]] = "OK" if present else "MANQUANT"
+        if present:
+            present_count += 1
+
+    missing = len(required) - present_count
+    return {
+        "required_count": len(required),
+        "present_count":  present_count,
+        "missing_count":  missing,
+        "all_ok":         missing == 0,
+        "validation":     validation,
+    }
+
+
 def validate_env_secrets() -> dict:
     """
     VÃ©rifie que tous les secrets critiques sont prÃ©sents.
