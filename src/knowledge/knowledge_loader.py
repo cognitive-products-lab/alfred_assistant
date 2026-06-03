@@ -1,4 +1,21 @@
 """
+PROJECT      : ALFRED
+BLOCK        : GLOBAL
+FUNCTION     : XX.XX
+FILE         : src/knowledge/knowledge_loader.py
+ROLE         : TO_DEFINE
+
+AUTHOR       : Cognitive Products Lab
+CREATED      : 2026-06-03
+UPDATED      : 2026-06-03
+VERSION      : V1.0
+STATUS       : DRAFT
+
+DESCRIPTION :
+Module ALFRED — description a completer.
+"""
+
+"""
 ALFRED — knowledge_loader.py
 Charge les fichiers knowledge depuis le registry officiel du Bloc 18.
 """

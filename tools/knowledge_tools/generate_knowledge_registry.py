@@ -1,3 +1,20 @@
+"""
+PROJECT      : ALFRED
+BLOCK        : TOOLS
+FUNCTION     : XX.XX
+FILE         : tools/knowledge_tools/generate_knowledge_registry.py
+ROLE         : TO_DEFINE
+
+AUTHOR       : Cognitive Products Lab
+CREATED      : 2026-06-03
+UPDATED      : 2026-06-03
+VERSION      : V1.0
+STATUS       : DRAFT
+
+DESCRIPTION :
+Outils projet — description a completer.
+"""
+
 from pathlib import Path
 import json
 from datetime import datetime

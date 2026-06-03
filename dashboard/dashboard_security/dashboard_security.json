@@ -1,0 +1,226 @@
+{
+    "_meta": {
+        "project": "ALFRED",
+        "block": "B20",
+        "file": "dashboard_security.json",
+        "generated_at": "2026-06-01T07:47:08.029224+00:00",
+        "version": "V1.0"
+    },
+    "sessions": {
+        "active_sessions": 0,
+        "expired_sessions": 0,
+        "blocked_users": 0,
+        "known_sessions": 0,
+        "total_sessions": 0,
+        "failed_attempts": {},
+        "sessions": []
+    },
+    "devices": {
+        "trusted_count": 3,
+        "total_count": 3,
+        "devices": [
+            {
+                "device_id": "local_pc",
+                "label": "PC Test",
+                "owner": "OWNER",
+                "trusted": true,
+                "risk_level": "UNKNOWN",
+                "trust_score": 0,
+                "failed_attempts": 0,
+                "last_seen": "2026-06-01T07:46:32.409581+00:00"
+            },
+            {
+                "device_id": "demo_device_live",
+                "label": "Demo Live Device",
+                "owner": "OWNER",
+                "trusted": true,
+                "risk_level": "UNKNOWN",
+                "trust_score": 0,
+                "failed_attempts": 0,
+                "last_seen": "2026-05-31T18:47:59.034418+00:00"
+            },
+            {
+                "device_id": "zt_test_device_001",
+                "label": "ZT Test Device",
+                "owner": "OWNER",
+                "trusted": true,
+                "risk_level": "UNKNOWN",
+                "trust_score": 0,
+                "failed_attempts": 0,
+                "last_seen": "2026-06-01T07:46:33.094402+00:00"
+            }
+        ]
+    },
+    "incidents": {
+        "total": 105,
+        "by_level": {
+            "HIGH": 105
+        },
+        "open_critical": 0,
+        "recent_open": [
+            {
+                "timestamp": "2026-06-01T07:46:30.345436+00:00",
+                "level": "HIGH",
+                "description": "Tentative SSRF détectée : http://172.16.0.1/internal",
+                "source": "network_security",
+                "status": "OPEN"
+            },
+            {
+                "timestamp": "2026-06-01T07:46:30.378924+00:00",
+                "level": "HIGH",
+                "description": "Tentative SSRF détectée : http://169.254.169.254/metadata",
+                "source": "network_security",
+                "status": "OPEN"
+            },
+            {
+                "timestamp": "2026-06-01T07:46:30.406942+00:00",
+                "level": "HIGH",
+                "description": "Tentative SSRF (hostname local) : http://localhost/admin",
+                "source": "network_security",
+                "status": "OPEN"
+            },
+            {
+                "timestamp": "2026-06-01T07:46:30.438805+00:00",
+                "level": "HIGH",
+                "description": "Tentative SSRF (hostname local) : http://local/config",
+                "source": "network_security",
+                "status": "OPEN"
+            },
+            {
+                "timestamp": "2026-06-01T07:46:30.495752+00:00",
+                "level": "HIGH",
+                "description": "Tentative SSRF (hostname local) : http://metadata/latest",
+                "source": "network_security",
+                "status": "OPEN"
+            }
+        ]
+    },
+    "quarantine": {
+        "active_total": 0,
+        "history_total": 0,
+        "by_type": {},
+        "by_severity": {},
+        "active_items": [],
+        "modules": [],
+        "items": []
+    },
+    "secrets": {
+        "required_count": 3,
+        "present_count": 3,
+        "missing_count": 0,
+        "all_ok": true,
+        "validation": {
+            "SECRET_KEY": "OK",
+            "FERNET_KEY": "OK",
+            "PIN_SALT": "OK"
+        }
+    },
+    "encryption": {
+        "available": true
+    },
+    "audit": {
+        "total_events": 23,
+        "by_decision": {
+            "DENY_PERMISSION": 2,
+            "DENY_INPUT": 6,
+            "DENY_THREAT": 3,
+            "DENY_DEVICE": 1,
+            "ALLOW": 7,
+            "DENY_MFA": 3,
+            "DENY_POLICY": 1
+        },
+        "last_event": {
+            "timestamp": "2026-06-01T07:46:33.096183+00:00",
+            "user_id": "admin1",
+            "action": "READ",
+            "resource": "memory",
+            "decision": "ALLOW",
+            "request_id": "",
+            "device_id": "",
+            "role": "",
+            "risk_score": 0
+        }
+    },
+    "permissions": {
+        "roles_count": 7,
+        "permissions_total": 19,
+        "unique_permissions_count": 9,
+        "matrix": {
+            "OWNER": [
+                "READ_MEMORY",
+                "WRITE_MEMORY",
+                "DELETE_DATA",
+                "EXPORT_DATA",
+                "ACCESS_SECURITY_LOGS",
+                "CONTROL_DEVICE",
+                "RUN_AI_MODULE"
+            ],
+            "ADMIN": [
+                "READ_MEMORY",
+                "WRITE_MEMORY",
+                "ACCESS_SECURITY_LOGS",
+                "CONTROL_DEVICE"
+            ],
+            "USER": [
+                "READ_MEMORY",
+                "WRITE_MEMORY",
+                "RUN_AI_MODULE"
+            ],
+            "GUEST": [
+                "RUN_AI_MODULE"
+            ],
+            "SERVICE": [
+                "RUN_AI_MODULE"
+            ],
+            "AI_MODULE": [
+                "RUN_AI_MODULE"
+            ],
+            "EMERGENCY": [
+                "SEND_ALERT",
+                "READ_EMERGENCY_CONTEXT"
+            ]
+        }
+    },
+    "roles": {
+        "roles": {
+            "OWNER": "Propriétaire — contrôle complet du système",
+            "ADMIN": "Administrateur technique — accès privilégié",
+            "USER": "Utilisateur standard — accès limité",
+            "GUEST": "Invité restreint — accès minimal",
+            "SERVICE": "Service interne — accès fonctionnel",
+            "AI_MODULE": "Module IA contrôlé — accès restreint",
+            "EMERGENCY": "Accès urgence encadré — alertes uniquement"
+        }
+    },
+    "policy_matrix": {
+        "role_levels": {
+            "OWNER": 3,
+            "ADMIN": 3,
+            "USER": 1,
+            "SERVICE": 1,
+            "AI_MODULE": 1,
+            "EMERGENCY": 0,
+            "GUEST": 0
+        },
+        "resource_sensitivity_levels": {
+            "LOW": 0,
+            "MEDIUM": 1,
+            "HIGH": 2,
+            "CRITICAL": 3
+        },
+        "action_requirements": {
+            "DELETE_DATA": [
+                "OWNER"
+            ],
+            "EXPORT_DATA": [
+                "OWNER"
+            ],
+            "SEND_ALERT": [
+                "OWNER",
+                "ADMIN",
+                "EMERGENCY"
+            ]
+        }
+    },
+    "security_score": 100
+}

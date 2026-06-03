@@ -1,3 +1,22 @@
+"""
+PROJECT      : ALFRED
+BLOCK        : DASHBOARD
+FUNCTION     : XX.XX
+FILE         : tools/dashboard_tools/run_dashboard.py
+ROLE         : Script de lancement unifie du dashboard ALFRED data
+
+AUTHOR       : Cognitive Products Lab
+CREATED      : 2026-05-10
+UPDATED      : 2026-05-23
+VERSION      : V1.1
+STATUS       : STABLE
+
+DESCRIPTION :
+Execute update_dashboard_data.py pour regenerer dashboard_data.json,
+demarre un serveur HTTP local sur le port 8000 et ouvre
+ALFRED_DASHBOARD_DYNAMIC.html dans le navigateur par defaut.
+"""
+
 from pathlib import Path
 import subprocess
 import webbrowser
@@ -6,7 +25,7 @@ import socket
 import sys
 
 ROOT = Path(__file__).resolve().parents[2]
-DASHBOARD_URL = "http://localhost:8000/dashboard/ALFRED_DASHBOARD_DYNAMIC.html"
+DASHBOARD_URL = "http://localhost:8000/dashboard/dashboard_data/ALFRED_DASHBOARD_DYNAMIC.html"
 PORT = 8000
 
 from datetime import datetime
@@ -52,7 +71,7 @@ def start_server() -> subprocess.Popen | None:
 def main() -> None:
     log(f"ROOT = {ROOT}")
 
-    run_script("update_dashboard_data.py")
+    run_script("dashboard_data/update_dashboard_data.py")
 
     server = start_server()
 
