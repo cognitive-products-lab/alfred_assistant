@@ -30,3 +30,13 @@ def release_module(module_name: str) -> None:
     """Sort un module de quarantaine."""
     QUARANTINED_MODULES.discard(module_name)
     log_event(f"Module sorti de quarantaine : {module_name}")
+
+
+def summarize_quarantine() -> dict:
+    """Retourne un résumé anonymisé de la quarantaine — pour le dashboard public."""
+    active_total = len(QUARANTINED_MODULES)
+    return {
+        "active_total":    active_total,
+        "modules_list":    sorted(QUARANTINED_MODULES),   # noms techniques OK (pas de user_id)
+        "status":          "CLEAN" if active_total == 0 else "ACTIVE",
+    }
