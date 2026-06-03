@@ -46,3 +46,18 @@ def close_session(user_id: str) -> None:
     """Ferme une session utilisateur."""
     SESSIONS.pop(user_id, None)
     log_event(f"Session fermée pour {user_id}")
+
+
+def summarize_sessions() -> dict:
+    """Retourne un résumé anonymisé des sessions — pour le dashboard public."""
+    now = time.time()
+    active = sum(1 for ts in SESSIONS.values() if now - ts <= SESSION_TIMEOUT)
+    expired = len(SESSIONS) - active
+    blocked = sum(1 for uid in FAILED_ATTEMPTS if FAILED_ATTEMPTS.get(uid, 0) >= MAX_LOGIN_ATTEMPTS)
+    return {
+        "active_sessions": active,
+        "expired_sessions": expired,
+        "total_tracked": len(SESSIONS),
+        "blocked_users": blocked,
+        "session_timeout_s": SESSION_TIMEOUT,
+    }
