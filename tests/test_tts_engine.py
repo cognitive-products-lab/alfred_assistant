@@ -1,4 +1,4 @@
-﻿"""
+"""
 Test TTSEngine avec backend Piper
 """
 
