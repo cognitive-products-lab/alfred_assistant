@@ -8,7 +8,7 @@ ROLE         : Score de confiance de réponse multi-sources V2
 
 AUTHOR       : Cognitive Products Lab
 CREATED      : 2026-06-01
-UPDATED      : 2026-06-01
+UPDATED      : 2026-06-03
 VERSION      : V1.0
 STATUS       : ACTIVE
 
