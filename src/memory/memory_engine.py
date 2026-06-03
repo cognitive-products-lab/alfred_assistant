@@ -1,4 +1,21 @@
 """
+PROJECT      : ALFRED
+BLOCK        : B02
+FUNCTION     : XX.XX
+FILE         : src/memory/memory_engine.py
+ROLE         : TO_DEFINE
+
+AUTHOR       : Cognitive Products Lab
+CREATED      : 2026-06-03
+UPDATED      : 2026-06-03
+VERSION      : V1.0
+STATUS       : DRAFT
+
+DESCRIPTION :
+Memoire & RAG — description a completer.
+"""
+
+"""
 memory_engine.py
 Moteur mémoire local pour ALFRED.
 

@@ -1,4 +1,21 @@
 """
+PROJECT      : ALFRED
+BLOCK        : B19
+FUNCTION     : XX.XX
+FILE         : src/core/personality_adapter.py
+ROLE         : TO_DEFINE
+
+AUTHOR       : Cognitive Products Lab
+CREATED      : 2026-06-03
+UPDATED      : 2026-06-03
+VERSION      : V1.0
+STATUS       : DRAFT
+
+DESCRIPTION :
+Integration main.py — description a completer.
+"""
+
+"""
 personality_adapter.py
 Moteur d'adaptation de personnalité pour ALFRED.
 
