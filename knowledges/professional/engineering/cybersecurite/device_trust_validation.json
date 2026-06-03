@@ -1,81 +1,145 @@
 {
-  "_meta": {
-    "project": "ALFRED",
-    "block": "B18",
-    "file": "device_trust_validation.json",
-    "version": "V1.0",
-    "status": "VALIDATED",
-    "updated": "2026-05-13",
-    "standardized_by": "generate_knowledges.py",
-    "validated_by": "Cognitive Products Lab",
-    "validated_date": "2026-05-13"
-  },
-  "id": "knowledges.professional.engineering.cybersecurity.device_trust_validation",
-  "domain": "professional_engineering",
-  "category": "cybersecurity",
-  "title": "Device Trust Validation",
-  "description": "Validation de la fiabilité des appareils connectés.",
-  "version": "1.0",
-  "status": "active",
-  "tags": [
-    "cybersecurity",
-    "device trust validation",
-    "engineering",
-    "professional",
-    "professional engineering"
+  "_meta": { "project": "ALFRED", "block": "B18", "file": "device_trust_validation.json", "version": "V2.0", "status": "VALIDATED", "updated": "2026-06-03", "validated_by": "Cognitive Products Lab" },
+  "knowledge_id": "professional.engineering.cybersecurite.device_trust_validation",
+  "id": "professional.engineering.cybersecurite.device_trust_validation",
+  "title": "Validation de la confiance des appareils (Device Trust)",
+  "version": "2.0.0", "status": "active", "domain": "professional", "subdomain": "engineering", "category": "cybersecurite",
+  "summary": "MDM, EDR compliance, posture check, NAC, MAM et gestion BYOD/COPE pour valider qu'un appareil est sain avant de lui accorder l'accès aux ressources.",
+  "purpose": "Permettre à ALFRED de vérifier, conseiller et configurer la validation de la posture des appareils (posture check) comme condition d'accès aux ressources — pilier Device du Zero Trust.",
+  "tags": ["device trust", "MDM", "EDR", "posture check", "NAC", "MAM", "BYOD", "COPE", "Intune", "Jamf", "CrowdStrike", "compliance", "certificate device", "conformité appareil"],
+  "intents": [
+    "valider la posture d'un appareil",
+    "configurer un MDM",
+    "mettre en place un NAC",
+    "gérer une politique BYOD",
+    "exiger la conformité device avant l'accès"
   ],
+  "usage_context": [
+    "implémentation du pilier Device du Zero Trust",
+    "gestion des appareils mobiles et postes de travail",
+    "politique BYOD en entreprise",
+    "conformité CIS Benchmarks / NIST 800-124",
+    "accès conditionnel basé sur la posture device"
+  ],
+  "priority": "high", "safety_level": "sensitive",
   "content": {
-    "summary": "Validation de la fiabilité des appareils connectés.",
-    "details": [
-      "Trusted devices",
-      "Device fingerprinting",
-      "Behavior monitoring",
-      "Connection validation",
-      "Validation tablettes Android",
-      "Contrôle micros Wi-Fi",
-      "Détection appareil inconnu"
+    "definition": "La validation de confiance des appareils (Device Trust) est le processus par lequel on vérifie qu'un appareil qui cherche à accéder à une ressource respecte un ensemble de critères de sécurité (patch level, chiffrement actif, EDR fonctionnel, etc.) avant de lui accorder l'accès. C'est un pilier fondamental du Zero Trust : l'identité seule ne suffit pas — l'appareil doit également être sain.",
+    "core_principles": [
+      "Aucun appareil n'est fiable par défaut (Zero Trust)",
+      "La posture doit être vérifiée en temps réel, pas seulement à l'enrollment",
+      "Un appareil non-conforme doit être automatiquement placé en quarantaine ou bloqué",
+      "Séparation stricte entre données personnelles et données d'entreprise (MAM)",
+      "Inventaire exhaustif et à jour de tous les appareils"
     ],
-    "references": []
+    "MDM": {
+      "description": "Mobile Device Management — plateforme de gestion centralisée des appareils mobiles et postes de travail",
+      "fonctions": [
+        "Enrollment et enregistrement des appareils",
+        "Déploiement de configuration et politiques (profils)",
+        "Distribution d'applications",
+        "Chiffrement obligatoire (BitLocker/FileVault/Android Encryption)",
+        "Wipe à distance en cas de perte ou vol",
+        "Patch management et mise à jour OS",
+        "Compliance reporting en temps réel"
+      ],
+      "outils": {
+        "Microsoft_Intune": "Solution Microsoft, intégrée à Entra ID, Conditional Access et Defender for Endpoint",
+        "Jamf_Pro": "Référence pour macOS et iOS en entreprise",
+        "VMware_Workspace_ONE": "UEM (Unified Endpoint Management) multi-OS, cloud ou on-prem",
+        "Google_Workspace_MDM": "Pour les appareils Android et ChromeOS managés par Google"
+      },
+      "enrollment_modes": {
+        "COPE": "Corporate Owned, Personally Enabled — appareil de l'entreprise, usage personnel limité autorisé",
+        "BYOD": "Bring Your Own Device — appareil personnel avec profil d'entreprise conteneurisé",
+        "COBO": "Corporate Owned, Business Only — usage strictement professionnel (kiosques, tablettes terrain)",
+        "CYOD": "Choose Your Own Device — l'employé choisit dans un catalogue validé"
+      }
+    },
+    "posture_check": {
+      "description": "Évaluation de la conformité d'un appareil selon des critères de sécurité définis",
+      "criteres_obligatoires": [
+        "OS à jour (patch level minimum défini, ex: Windows 11 23H2+)",
+        "Antivirus/EDR actif et à jour (signatures < 24h)",
+        "Chiffrement du disque actif (BitLocker/FileVault activé)",
+        "Pare-feu host activé",
+        "Jailbreak/Root détecté → accès refusé immédiatement",
+        "Certificat device valide émis par la PKI interne"
+      ],
+      "criteres_recommandes": [
+        "Screen lock activé (timeout < 5 min)",
+        "SentinelOne/CrowdStrike score de risque < seuil défini",
+        "Pas d'applications non-approuvées avec accès caméra/micro",
+        "TPM 2.0 actif et Secure Boot activé"
+      ],
+      "integration_avec_acces_conditionnel": "Intune Compliance Policy → signal envoyé à Entra ID Conditional Access → accès refusé ou limité si non-conforme"
+    },
+    "EDR": {
+      "description": "Endpoint Detection and Response — surveillance et réponse sur les endpoints",
+      "fonctions": ["Détection de menaces comportementale (pas seulement signatures)", "Investigation forensique des incidents", "Réponse automatisée (isolation réseau, kill process)", "Threat hunting proactif"],
+      "outils": ["CrowdStrike Falcon", "SentinelOne Singularity", "Microsoft Defender for Endpoint", "Carbon Black", "Sophos Intercept X"],
+      "role_device_trust": "Le score de risque EDR est un signal clé pour le Conditional Access : un device avec une alerte active est automatiquement mis en quarantaine réseau"
+    },
+    "NAC": {
+      "description": "Network Access Control — contrôle d'admission réseau basé sur la conformité de l'appareil",
+      "fonctionnement": "L'appareil se connecte → le NAC vérifie sa conformité (certificat, posture) → accès accordé au VLAN approprié ou refusé",
+      "technologies": ["802.1X (authentification par certificat au niveau de la prise réseau)", "RADIUS (serveur d'authentification réseau)", "Cisco ISE", "Aruba ClearPass", "Forescout"],
+      "cas_usage": "Sécuriser les connexions filaires en open space, salles de réunion, contrôler les appareils BYOD sur le Wi-Fi"
+    },
+    "MAM": {
+      "description": "Mobile Application Management — gestion au niveau applicatif sans contrôler tout l'appareil",
+      "usage": "Ideal pour le BYOD : conteneurisation des apps d'entreprise, sans accès aux données personnelles",
+      "fonctions": ["Wipe sélectif des données d'entreprise uniquement", "Chiffrement du conteneur applicatif", "Copier-coller bloqué entre apps d'entreprise et personnelles", "Accès conditionnel par application"],
+      "exemple": "Microsoft Intune MAM + Outlook : l'IT peut effacer les emails d'entreprise sur un iPhone personnel sans toucher aux photos personnelles"
+    },
+    "certificate_device": {
+      "description": "Certificat cryptographique attribué à chaque appareil pour prouver son identité",
+      "emission": "PKI interne (Microsoft ADCS, EJBCA) ou cloud (SCEP/EST via Intune)",
+      "usage": ["Authentification 802.1X (NAC)", "mTLS pour les connexions services", "Signal d'identité dans le Conditional Access"],
+      "avantages": ["Non-phishable (contrairement aux mots de passe)", "Lié à l'appareil physique (stocké dans TPM si possible)", "Révocable instantanément via CRL/OCSP"]
+    },
+    "BYOD_policy": {
+      "elements_cles": [
+        "Charte BYOD signée par l'employé (autorisation d'accès et conditions)",
+        "Enrollment MDM/MAM obligatoire pour accéder aux ressources d'entreprise",
+        "Séparation données personnelles/professionnelles (conteneurisation)",
+        "Droit de wipe limité aux données d'entreprise uniquement",
+        "Politique de sortie : procédure de désenrollment lors du départ"
+      ]
+    },
+    "application_alfred": {
+      "appareils_alfred": [
+        "Tablettes ALFRED (COPE) : enrollées dans Intune, chiffrement obligatoire, EDR actif, posture check avant accès à l'API",
+        "Micro Wi-Fi ALFRED : authentification par certificat device sur le réseau IoT dédié",
+        "Appareil inconnu tentant d'accéder à l'API ALFRED : blocage automatique, alerte SOC"
+      ]
+    },
+    "best_practices": [
+      "Inventaire exhaustif de tous les appareils avant tout (vous ne pouvez pas protéger ce que vous ne connaissez pas)",
+      "Intégrer la posture device dans le Conditional Access (Intune + Entra ID)",
+      "Isoler automatiquement tout appareil non-conforme sans intervention humaine",
+      "Stocker les certificats device dans le TPM (non-exportable)",
+      "Former les utilisateurs BYOD : ils comprennent mieux s'ils savent exactement ce que l'IT peut et ne peut pas voir",
+      "Auditer l'inventaire MDM mensuellement (appareils perdus, volés, non-utilisés)"
+    ],
+    "anti_patterns": [
+      "Autoriser l'accès depuis n'importe quel appareil avec un simple identifiant/mot de passe",
+      "MDM enrollment optionnel — seuls les utilisateurs sensibilisés enrollent leur appareil",
+      "Politique BYOD sans MAM : l'IT a accès à toutes les données personnelles, friction maximale",
+      "Certificats device stockés dans le système de fichiers (exportables et volables)",
+      "Posture check effectué une seule fois à l'enrollment mais jamais réévalué",
+      "Ignorer les appareils IoT dans la politique de device trust"
+    ]
   },
-  "metadata": {
-    "created": "2026-05-12",
-    "updated": "2026-05-12",
-    "author": "Cognitive Products Lab"
+  "retrieval_hints": {
+    "priority_keywords": ["MDM", "device trust", "posture check", "EDR", "NAC", "BYOD", "Intune", "Jamf", "CrowdStrike", "conformité appareil", "802.1X"],
+    "related_knowledge": ["identity_access_management", "zero_trust_architecture", "behavioral_anomaly_detection", "network_segmentation"],
+    "retrieval_priority": 8
   },
-  "core_concepts": [
-    "Trusted devices",
-    "Device fingerprinting",
-    "Behavior monitoring",
-    "Connection validation"
-  ],
-  "validation_criteria": [
-    "Adresse connue",
-    "Empreinte appareil",
-    "Historique comportemental",
-    "Version logicielle"
-  ],
-  "alfred_application": [
-    "Validation tablettes Android",
-    "Contrôle micros Wi-Fi",
-    "Détection appareil inconnu"
-  ],
-  "risks": [
-    "Appareil compromis",
-    "Usurpation identité",
-    "Intrusion réseau"
-  ],
-  "related_knowledges": [
-    "identity_access_management",
-    "behavioral_anomaly_detection"
-  ],
-  "aliases": [],
-  "relationships": {
-    "merged_from": [],
-    "see_also": [],
-    "depends_on": []
+  "behavior_rules": { "tone": "professional", "response_style": "structured_clear", "max_complexity": "high", "allow_humor": false },
+  "safety_notes": {
+    "allowed_usage": ["Configuration MDM", "Politique BYOD", "Posture check et Conditional Access", "NAC et 802.1X"],
+    "forbidden_usage": ["Contourner un MDM ou posture check", "Accéder à des données d'entreprise depuis un appareil non-managé sans autorisation"],
+    "fallback_behavior": "Pour les déploiements MDM complexes, recommander l'assistance d'un partenaire Microsoft/Jamf certifié."
   },
-  "retrieval": {
-    "priority": "medium",
-    "trigger_queries": []
-  }
+  "metadata": { "author": "Cognitive Products Lab", "creation_date": "03/06/2026", "last_update": "03/06/2026", "review_status": "validated", "source_type": "manual_structured_knowledge", "language": "fr", "retrieval_ready": true, "rag_compatible": true }
 }
