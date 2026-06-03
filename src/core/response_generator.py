@@ -1,21 +1,37 @@
-# ============================================================
-# ALFRED — src/core/response_generator.py
-# Bloc 01.05 — Gestion des réponses
-#
-# 📚 NOTION EXAM :
-#   D11-2 — Capsule 1 : Génération de réponses LLM-ready et prompt engineering
-#
-# 🎯 UTILITÉ ALFRED :
-#   Construit le prompt système (personnalité, mémoire, historique, session),
-#   réduit les hallucinations et gère le fallback offline.
-#
-# 🏗️ DOMAINE :
-#   Noyau conversationnel — générateur de réponses LLM-ready V2.2
-# ============================================================
+"""
+PROJECT      : ALFRED
+BLOCK        : GLOBAL
+FUNCTION     : XX.XX
+FILE         : response_generator.py
+ROLE         : TO_DEFINE
+
+AUTHOR       : Cognitive Products Lab
+CREATED      : 2026-05-10
+UPDATED      : 2026-05-13
+VERSION      : V1.0
+STATUS       : STABLE
+
+DESCRIPTION :
+TO_COMPLETE
+"""
+
+# -*- coding: utf-8 -*-
+"""
+response_generator.py — ALFRED V2.2
+
+Moteur de génération de réponse LLM-ready.
+
+Objectifs :
+  - Construire un prompt système propre et stable
+  - Injecter personnalité, adaptation, mémoire, historique et session
+  - Réduire les hallucinations techniques
+  - Empêcher les faux diagnostics / fausses actions
+  - Gérer un fallback offline simple
+"""
 
 import json
 import re
-from typing import Any, Dict, Optional
+from typing import Any, Callable, Dict, Optional
 
 
 class ResponseGenerator:
@@ -31,9 +47,19 @@ class ResponseGenerator:
         self,
         llm_client: Optional[Any] = None,
         debug: bool = False,
+        tts_available: bool = False,
+        behavior_engine: Optional[Any] = None,
+        knowledge_loader: Optional[Any] = None,
+        confidence_scorer: Optional[Any] = None,  # V2 ConfidenceScorer
+        **kwargs,
     ):
+        self.behavior_engine = behavior_engine
+        self.knowledge_loader = knowledge_loader
+        self.extra_config = kwargs
         self.llm_client = llm_client
         self.debug = debug
+        self.tts_available = tts_available
+        self.confidence_scorer = confidence_scorer   # V2 — peut être None
 
     # =========================================================
     # ENTRÉE PRINCIPALE
@@ -46,8 +72,9 @@ class ResponseGenerator:
         history_text: str = "",
         session_summary: Optional[Dict[str, Any]] = None,
         mode_guidelines: str = "",
+        on_sentence: Optional[Callable[[str], None]] = None,
     ) -> str:
-        """Génère une réponse complète."""
+        """Génère une réponse complète. Si on_sentence fourni, appelé phrase par phrase pendant le stream."""
         forced = self._forced_response(user_message)
         if forced:
             return forced
@@ -72,11 +99,63 @@ class ResponseGenerator:
             print(user_prompt)
 
         if self.llm_client:
-            response = self._call_llm(system_prompt, user_prompt)
+            response = self._call_llm(system_prompt, user_prompt, on_sentence=on_sentence)
+            if response.startswith("[ERREUR LLM]"):
+                response = self._fallback_response(user_message, response_context)
         else:
             response = self._fallback_response(user_message, response_context)
 
-        return self._post_process(response, response_context)
+        response = self._post_process(response, response_context)
+
+        # ── V2 — ConfidenceScorer : hedge sur la réponse finale ──────────────
+        response = self._apply_confidence_scoring(response, response_context)
+
+        return response
+
+    def _apply_confidence_scoring(
+        self,
+        response: str,
+        context: Dict[str, Any],
+    ) -> str:
+        """
+        V2 — Applique le ConfidenceScorer sur la réponse générée.
+
+        Si le score de confiance est faible ET qu'aucun hedge n'a déjà été
+        injecté par le pipeline V2 (via v2.should_hedge), préfixe la réponse.
+        Ne fait rien si confidence_scorer n'est pas branché.
+        """
+        if not self.confidence_scorer:
+            return response
+
+        # Récupère les données V2 déjà calculées dans le pipeline (main.py)
+        v2 = context.get("v2", {})
+
+        # Si le pipeline V2 a déjà géré le hedge, on ne double pas
+        if v2.get("should_hedge") and v2.get("hedge_prefix"):
+            return response
+
+        # Sinon, on score avec le texte de réponse réel (plus précis qu'avant)
+        try:
+            adaptation = context.get("adaptation", {})
+            emotion = context.get("detected_emotion", "neutral")
+            mode    = adaptation.get("mode", "complicite")
+
+            result = self.confidence_scorer.score(
+                fusion_score=float(v2.get("fusion_score", 0.5)),
+                memory_coverage=1.0 if context.get("memory_context", "").strip() else 0.0,
+                knowledge_coverage=1.0 if context.get("knowledge_context", "").strip() else 0.0,
+                emotion=emotion,
+                mode=mode,
+                response_text=response,
+            )
+
+            if self.debug:
+                print(f"\n[V2 ConfidenceScorer] score={result.score} | level={result.level} | hedge={result.should_hedge}")
+
+            return self.confidence_scorer.adjust_response(response, result)
+
+        except Exception:
+            return response
 
     # =========================================================
     # PROMPT SYSTÈME
@@ -91,10 +170,11 @@ class ResponseGenerator:
         # On isole uniquement la vraie question utilisateur
         # pour éviter que le contexte injecté déclenche
         # les heuristiques système.
-        if "question utilisateur :" in real_user_message:
+        # Marqueur émis par build_response() : "=== QUESTION UTILISATEUR ==="
+        if "=== question utilisateur ===" in real_user_message:
             real_user_message = real_user_message.split(
-             "question utilisateur :", 1
-         )[1].strip()
+                "=== question utilisateur ===", 1
+            )[1].strip()
 
         audio_keywords = [
             "haut-parleur",
@@ -134,18 +214,18 @@ class ResponseGenerator:
         )
 
         if asks_audio and asks_code_check:
-            return (
-                "Je n’ai pas accès aux lignes de code dans ce contexte.\n\n"
-                "Le haut-parleur n’est pas encore accessible parce que le module "
-                "vocal/SpeechManager n’est pas encore branché au main. "
-                "Pour cette version, je réponds uniquement en texte."
-            )
+            if not self.tts_available:
+                return (
+                    "Je n’ai pas accès aux lignes de code dans ce contexte.\n\n"
+                    "Le module vocal (Piper TTS) n’est pas disponible sur cette session. "
+                    "Je réponds uniquement en texte."
+                )
+            return ""
 
-        if asks_audio:
+        if asks_audio and not self.tts_available:
             return (
-                "Le haut-parleur n’est pas encore accessible parce que le module "
-                "vocal/SpeechManager n’est pas encore branché au main. "
-                "Pour cette version, je réponds uniquement en texte."
+                "Le module vocal (Piper TTS) n’est pas disponible sur cette session. "
+                "Je réponds uniquement en texte."
             )
 
         return ""
@@ -183,16 +263,41 @@ INTERDICTIONS TECHNIQUES :
 - Interdit d’inventer une fonction, une variable, un fichier, un module, une configuration ou une bibliothèque.
 - Interdit de générer du code fictif présenté comme existant.
 - Si le code réel n’est pas fourni, tu dis clairement : "Je n’ai pas accès aux lignes de code dans ce contexte."
+
+CAPACITÉS MÉMOIRE RÉELLES D’ALFRED :
+- Tu AS une mémoire long terme SQLite active — elle est alimentée à chaque échange.
+- Tu AS une mémoire de session JSON pour la conversation en cours.
+- Tu AS des préférences utilisateur persistantes (fichier local).
+- Tu n’écris JAMAIS "je n’ai pas de mémoire long terme" — c’est faux.
+- Si le contexte mémoire est vide, tu dis simplement "je n’ai pas encore d’échange enregistré sur ce sujet", pas "je n’ai pas de mémoire".
 """
 
-        audio_block = """
+        if self.tts_available:
+            audio_block = """
 RÈGLE AUDIO :
-- Dans la version actuelle, le module vocal/SpeechManager, le micro et le haut-parleur ne sont pas branchés au main.
-- Si l’utilisateur demande pourquoi le haut-parleur ne fonctionne pas, tu réponds uniquement :
-"Le haut-parleur n’est pas encore accessible parce que le module vocal/SpeechManager n’est pas encore branché au main. Pour cette version, je réponds uniquement en texte."
-- Aucune question de relance.
-- Aucune promesse de vérification.
-- Aucun faux diagnostic.
+- Le module vocal Piper TTS est actif et fonctionnel. ALFRED parle vocalement en plus du texte.
+- Si l’utilisateur mentionne le haut-parleur ou la voix, confirme que c’est opérationnel.
+- Ne prétends pas que le module vocal est absent ou non branché.
+"""
+        else:
+            audio_block = """
+RÈGLE AUDIO :
+- Le module vocal Piper TTS n’est pas disponible sur cette session. ALFRED répond uniquement en texte.
+- Si l’utilisateur demande pourquoi le haut-parleur ne fonctionne pas, explique simplement que le module vocal est indisponible pour cette session.
+- Aucune promesse de vérification. Aucun faux diagnostic.
+"""
+
+        knowledge_context = context.get("knowledge_context", "")
+        knowledge_block = ""
+        if knowledge_context and knowledge_context.strip():
+            knowledge_block = f"""
+KNOWLEDGE RETRIEVAL B18 :
+{knowledge_context}
+
+RÈGLE KNOWLEDGE :
+- Ces données sont extraites de la base de connaissance locale d'ALFRED.
+- Utilise ces informations en priorité pour répondre aux questions pertinentes.
+- Ne prétends pas avoir accès à d'autres sources ou fichiers non fournis ici.
 """
 
         memory_block = ""
@@ -207,6 +312,33 @@ RÈGLE MÉMOIRE PRIORITAIRE :
 - Si une phrase récente commence par "Je travaille actuellement sur...", tu l’utilises comme réponse principale.
 - Tu ne poses aucune question de clarification si la réponse est présente dans la mémoire.
 - Tu n’écris jamais "je ne vois pas d’informations spécifiques" si une information pertinente existe dans la mémoire.
+"""
+
+        user_profile_ctx = context.get("user_profile_context", "")
+        profile_block = ""
+        if user_profile_ctx and user_profile_ctx.strip():
+            profile_block = f"""
+PROFIL UTILISATEUR :
+{user_profile_ctx}
+
+RÈGLE PROFIL :
+- Tu connais les informations ci-dessus sur l'utilisateur principal et son foyer.
+- Tu les utilises naturellement pour personnaliser tes réponses.
+- Tu ne les récites pas systématiquement — tu les intègres quand c'est pertinent.
+"""
+
+        user_preferences = context.get("user_preferences", "")
+        pref_block = ""
+        if user_preferences and user_preferences.strip():
+            pref_block = f"""
+PRÉFÉRENCES ET INSTRUCTIONS PERMANENTES DE L’UTILISATEUR :
+{user_preferences}
+
+RÈGLE PRÉFÉRENCES ABSOLUE :
+- Ces préférences ont été explicitement enregistrées par l’utilisateur et sont IMPÉRATIVES.
+- Tu les respectes sans exception, même si elles contredisent tes règles par défaut.
+- Tu ne redemandes jamais de confirmation sur ces sujets.
+- Tu n’ignores JAMAIS une préférence enregistrée.
 """
 
         history_block = ""
@@ -286,6 +418,9 @@ SÉCURITÉ :
 
 {history_block}
 {session_block}
+{profile_block}
+{pref_block}
+{knowledge_block}
 {memory_block}
 
 INSTRUCTIONS IMPÉRATIVES :
@@ -298,6 +433,12 @@ INSTRUCTIONS IMPÉRATIVES :
 - Si une information pertinente existe dans le contexte mémoire, tu l’utilises avant de poser une question.
 - Pour une question technique, la vérité prime toujours sur l’envie d’aider.
 - Si tu n’as pas accès au code réel, tu le dis clairement.
+- Tu n’utilises JAMAIS de Markdown (pas de **, pas de *, pas de #). Tu réponds en texte brut uniquement.
+- Tu ne dis JAMAIS que tu es en "mode dégradé" ou que ton "moteur de réflexion est indisponible" — si tu génères cette réponse, c’est que tu fonctionnes normalement.
+- Tu es CONCIS : 3 à 5 phrases maximum pour une réponse conversationnelle. Tu ne remplis pas avec des encouragements vides.
+- Tu n’utilises JAMAIS de formule d’introduction comme "Bonjour !" si la conversation est déjà engagée.
+- Tu ne demandes qu’UNE seule question si tu en poses une — jamais deux.
+- Tu vas droit au but. Tu n’expliques pas ce que tu vas faire — tu le fais.
 """.strip()
 
     # =========================================================
@@ -329,12 +470,18 @@ Réponds maintenant.""".strip()
     # APPEL LLM
     # =========================================================
 
-    def _call_llm(self, system_prompt: str, user_prompt: str) -> str:
+    def _call_llm(
+        self,
+        system_prompt: str,
+        user_prompt: str,
+        on_sentence: Optional[Callable[[str], None]] = None,
+    ) -> str:
         """Appelle le LLM externe via le client abstrait."""
         try:
             response = self.llm_client.generate(
                 system_prompt=system_prompt,
                 user_prompt=user_prompt,
+                on_sentence=on_sentence,
             )
             return response.strip()
         except Exception as exc:
@@ -355,9 +502,17 @@ Réponds maintenant.""".strip()
             "⚠️ Le cerveau d'Alfred n'est pas encore connecté.",
         ]
 
+        # Extrait uniquement la vraie question (pas le prompt enrichi complet)
+        display_msg = user_message
+        marker = "=== QUESTION UTILISATEUR ==="
+        if marker in display_msg:
+            display_msg = display_msg.split(marker, 1)[1].strip()
+        if len(display_msg) > 150:
+            display_msg = display_msg[:150].rstrip() + "…"
+
         base_msg = (
             f"{random.choice(variants)}\n"
-            f"Message reçu : « {user_message} »"
+            f"Message reçu : « {display_msg} »"
         )
 
         mode = context.get("adaptation", {}).get("mode", "")
@@ -378,27 +533,61 @@ Réponds maintenant.""".strip()
     # =========================================================
 
     _FORBIDDEN_PHRASES = [
+        # Faux statut LLM
+        "mode dégradé",
+        "mode degrade",
+        "moteur de réflexion n'est pas disponible",
+        "moteur de reflexion n'est pas disponible",
+        "mon moteur de réflexion",
+        "mon moteur de reflexion",
+        "je suis ravi de pouvoir te répondre enfin",
+        "je suis ravi de pouvoir te repondre enfin",
+        # Révélation IA
         "en tant qu'ia",
         "je suis un modèle",
         "je ne peux pas ressentir",
-        "bien sûr !",
-        "absolument !",
-        "certainement !",
-        "je suis là pour vous aider",
-        "n'hésitez pas à",
-        "je serais ravi de",
         "en tant qu'assistant",
+        # Faux diagnostics techniques
         "je vais vérifier",
+        "je vais verifier",
         "après une analyse approfondie",
+        "apres une analyse approfondie",
         "j'ai identifié le problème",
+        "j'ai identifie le probleme",
         "je vais consulter",
         "je vais corriger",
         "je vais exécuter",
+        "je vais executer",
         "ça marche",
+        "ca marche",
         "je viens de tester",
         "je vais essayer",
         "je vais modifier",
+        # Clichés chatbot
+        "bien sûr !",
+        "bien sur !",
+        "absolument !",
+        "certainement !",
+        "je suis là pour vous aider",
+        "je suis la pour vous aider",
+        "n'hésitez pas à",
+        "n'hesitez pas a",
+        "n'hésite pas à",
+        "n'hesite pas a",
+        "je serais ravi de",
+        "je suis là pour t'accompagner",
+        "je suis la pour t'accompagner",
+        "je suis là pour vous accompagner",
+        "je te remercie pour avoir partagé",
+        "je te remercie pour avoir partage",
+        "je veux te remercier",
+        "merci de partager",
+        "nous allons travailler ensemble",
+        "nous allons commencer par",
         "qu'est-ce que je peux faire pour toi maintenant",
+        "ne t'inquiète pas",
+        "ne t'inquiete pas",
+        "ne vous inquiétez pas",
     ]
 
     def _post_process(self, response: str, context: Dict[str, Any]) -> str:
@@ -415,6 +604,14 @@ Réponds maintenant.""".strip()
                 response_clean,
                 flags=re.IGNORECASE,
             )
+
+        # Supprime le Markdown (bullets *, **, titres #, etc.) — terminal uniquement
+        # * item   → - item
+        response_clean = re.sub(r"^\s*\*{1,2}\s+", "- ", response_clean, flags=re.MULTILINE)
+        # **gras** → gras
+        response_clean = re.sub(r"\*{1,2}(.+?)\*{1,2}", r"\1", response_clean)
+        # # Titre → Titre
+        response_clean = re.sub(r"^#{1,3}\s+", "", response_clean, flags=re.MULTILINE)
 
         # Supprime les lignes vides excessives
         response_clean = re.sub(r"\n{3,}", "\n\n", response_clean)
