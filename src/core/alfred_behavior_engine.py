@@ -1,25 +1,54 @@
-# ============================================================
-# ALFRED — src/core/alfred_behavior_engine.py
-# Bloc 03.02 — Adaptation comportementale
-#
-# 📚 NOTION EXAM :
-#   D31-1 — Capsule 3 : Moteur comportemental et adaptation dynamique
-#
-# 🎯 UTILITÉ ALFRED :
-#   Lit alfred_core_identity.json et behavior_rules_softskills.json,
-#   analyse l'état utilisateur, choisit le mode comportemental
-#   et fournit un contexte enrichi à response_generator.py.
-#
-# 🏗️ DOMAINE :
-#   Émotions & adaptation comportementale — cœur décisionnel des modes
-# ============================================================
+"""
+PROJECT      : ALFRED
+BLOCK        : GLOBAL
+FUNCTION     : XX.XX
+FILE         : alfred_behavior_engine.py
+ROLE         : TO_DEFINE
 
+AUTHOR       : Cognitive Products Lab
+CREATED      : 2026-05-10
+UPDATED      : 2026-05-13
+VERSION      : V1.0
+STATUS       : TESTED
+
+DESCRIPTION :
+Moteur comportemental central ALFRED.
+Applique identite, modes comportementaux, soft skills et regles de securite.
+Fournit un contexte pret a injecter dans response_generator.
+"""
 from __future__ import annotations
+
+"""
+alfred_behavior_engine.py
+
+Moteur comportemental ALFRED.
+
+Rôle :
+- lire alfred_core_identity.json
+- lire behavior_rules_softskills.json
+- analyser l'état utilisateur
+- choisir le mode comportemental
+- détecter les soft skills à appliquer
+- enrichir la décision comportementale
+- fournir un contexte prêt à injecter dans response_generator.py
+
+Évolution V3 :
+- support des soft skills runtime
+- scoring par priorité
+- combinaison de règles
+- override automatique du mode si nécessaire
+- prompt context enrichi
+"""
+
 
 import json
 from pathlib import Path
 from dataclasses import dataclass, field
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from src.v2.fusion.fusion_engine import FusionResult
+    from src.v2.decision.decision_engine import DecisionResult
 
 
 # ─────────────────────────────────────────────────────────
@@ -516,6 +545,104 @@ Limites de sécurité :
         if not items:
             return "- non spécifié"
         return "\n".join(f"- {item}" for item in items)
+
+    # ─────────────────────────────────────────────────────
+    # V2 INTEGRATION — FusionEngine + DecisionEngine
+    # ─────────────────────────────────────────────────────
+
+    def apply_v2_decision(
+        self,
+        decision: BehaviorDecision,
+        fusion_result: Optional[Any] = None,    # FusionResult
+        decision_result: Optional[Any] = None,  # DecisionResult
+    ) -> BehaviorDecision:
+        """
+        Enrichit une BehaviorDecision V1 avec les résultats V2.
+
+        - fusion_result  : ajuste dominant_layer selon la source principale
+        - decision_result: override tone, response_structure, metadata
+
+        Retourne la même BehaviorDecision modifiée (in-place).
+        """
+        if fusion_result is not None:
+            primary = getattr(fusion_result, "primary_source", None)
+            if primary == "memory":
+                decision.dominant_layer = "memory"
+            elif primary == "knowledge":
+                decision.dominant_layer = "knowledge"
+            decision.metadata["v2_fusion_score"] = getattr(fusion_result, "fusion_score", None)
+            decision.metadata["v2_primary_source"] = primary
+
+        if decision_result is not None:
+            strategy = getattr(decision_result, "strategy", None)
+            strategy_value = strategy.value if hasattr(strategy, "value") else str(strategy)
+
+            # Override tone si décision V2 plus précise que V1
+            v2_tone = getattr(decision_result, "tone", None)
+            if v2_tone and v2_tone != "neutral":
+                _tone_map = {
+                    "warm":    "calme, rassurant, chaleureux",
+                    "playful": "léger, complice, enjoué",
+                    "precise": "direct, structuré, précis",
+                    "neutral": decision.tone,
+                }
+                decision.tone = _tone_map.get(v2_tone, decision.tone)
+
+            # Override structure si stratégie V2 spécifique
+            _structure_overrides: Dict[str, List[str]] = {
+                "empathetic": [
+                    "reconnaître l'état émotionnel",
+                    "valider sans minimiser",
+                    "proposer une seule action concrète",
+                ],
+                "exploratory": [
+                    "identifier l'ambiguïté",
+                    "poser une question de clarification ciblée",
+                ],
+                "hedged": [
+                    "exprimer l'incertitude clairement",
+                    "fournir la meilleure réponse disponible",
+                    "indiquer comment obtenir plus de précision",
+                ],
+                "knowledge": [
+                    "rappeler le contexte pertinent",
+                    "présenter les informations clés",
+                    "proposer un approfondissement si nécessaire",
+                ],
+                "memory": [
+                    "s'appuyer sur l'historique personnel",
+                    "contextualiser selon le parcours utilisateur",
+                    "proposer une continuité cohérente",
+                ],
+            }
+            if strategy_value in _structure_overrides:
+                decision.response_structure = _structure_overrides[strategy_value]
+
+            # Enrichir les métadonnées
+            decision.metadata["v2_strategy"]       = strategy_value
+            decision.metadata["v2_tone"]            = v2_tone
+            decision.metadata["v2_should_hedge"]    = getattr(decision_result, "should_hedge", False)
+            decision.metadata["v2_hedge_prefix"]    = getattr(decision_result, "hedge_prefix", "")
+            decision.metadata["v2_max_length"]      = getattr(decision_result, "max_length", None)
+            decision.metadata["v2_post_actions"]    = getattr(decision_result, "post_actions", [])
+
+        return decision
+
+    def decide_behavior_v2(
+        self,
+        user_state: "UserState",
+        user_message: str = "",
+        fusion_result: Optional[Any] = None,    # FusionResult
+        decision_result: Optional[Any] = None,  # DecisionResult
+    ) -> BehaviorDecision:
+        """
+        Version enrichie de decide_behavior() qui intègre les moteurs V2.
+
+        Appelle decide_behavior() puis enrichit avec apply_v2_decision().
+        Utilisation recommandée dès que FusionEngine et DecisionEngine sont actifs.
+        """
+        decision = self.decide_behavior(user_state=user_state, user_message=user_message)
+        return self.apply_v2_decision(decision, fusion_result, decision_result)
 
 
 # ─────────────────────────────────────────────────────────

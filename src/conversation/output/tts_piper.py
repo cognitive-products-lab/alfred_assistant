@@ -1,16 +1,38 @@
+"""
+PROJECT      : ALFRED
+BLOCK        : B01
+FUNCTION     : XX.XX
+FILE         : tts_piper.py
+ROLE         : TO_DEFINE
+
+AUTHOR       : Cognitive Products Lab
+CREATED      : 2026-05-10
+P26-05-12
+VERSION      : V1.0
+STATUS       : STABLE
+
+DESCRIPTION :
+TO_COMPLETE
+"""
+
 # ============================================================
 # ALFRED — src/conversation/output/tts_piper.py
-# Bloc 04.02 — Synthèse vocale (TTS)
+# Bloc 01.03 V3 — Text-to-Speech avec Piper local
 #
-# 📚 NOTION EXAM :
-#   D13-2 — Capsule 4 : Synthèse vocale locale avec Piper ONNX
+# Voix    : fr_FR-upmc-medium — Speaker ID 1 "Pierre"
+# Qualité : 22 050 Hz — medium — CC BY-SA 4.0
 #
-# 🎯 UTILITÉ ALFRED :
-#   Génère la voix d'ALFRED via Piper local (fr_FR-upmc-medium,
-#   speaker Pierre) avec adaptation dynamique selon l'émotion détectée.
+# Fonctions couvertes :
+#   01.03.001 Synthèse vocale locale (Piper)  ✅ V3
+#   01.03.002 Ajustement débit & intonation   ✅ V3 (length_scale)
+#   01.03.003 Adaptation voix / émotion       ✅ V3 (VOICE_PROFILES)
+#   01.03.004 Sortie audio (sounddevice)      ✅ V3
+#   01.03.005 Sync TTS / avatar               🔲 V3+ (lipSync)
 #
-# 🏗️ DOMAINE :
-#   Interaction vocale — TTS local V3, adaptation émotion, sync avatar
+# Dépendances V3 :
+#   pip install piper-tts sounddevice numpy
+#   Modèle : assets/voices/fr_FR-upmc-medium.onnx
+#            assets/voices/fr_FR-upmc-medium.onnx.json
 # ============================================================
 
 import io
@@ -19,10 +41,27 @@ import time
 import wave
 import subprocess
 import tempfile
-import sounddevice as sd
-import soundfile as sf
 
 from pathlib import Path
+
+# sounddevice et soundfile charges en lazy pour eviter les echecs d'init audio
+# (pilote audio verrouille par une session precedente sur Windows)
+sd = None
+sf = None
+
+def _ensure_audio_libs() -> bool:
+    """Charge sounddevice et soundfile a la premiere utilisation."""
+    global sd, sf
+    if sd is not None:
+        return True
+    try:
+        import sounddevice as _sd
+        import soundfile as _sf
+        sd = _sd
+        sf = _sf
+        return True
+    except Exception:
+        return False
 
 from src.conversation.input.voice_profile import (
     ALFRED_VOICE,
@@ -46,7 +85,7 @@ except ImportError:
 # Chemins modèle
 # ─────────────────────────────────────────────────────────
 
-_BASE_DIR    = Path(__file__).resolve().parents[2]
+_BASE_DIR    = Path(__file__).resolve().parents[3]   # ALFRED_PC/ (src/conversation/output/ → +3)
 _MODEL_PATH  = _BASE_DIR / ALFRED_VOICE["model_file"]
 _CONFIG_PATH = _BASE_DIR / ALFRED_VOICE["config_file"]
 
@@ -197,9 +236,6 @@ def speak(
         import numpy as np
         audio = audio.astype(np.float32)
 
-        # Sortie audio stable
-        sd.default.device = (None, 3)
-
         sd.play(audio, samplerate=sample_rate)
 
         if blocking:
@@ -340,6 +376,9 @@ class PiperTTS:
     def __init__(self, mode: str = "default", blocking: bool = True) -> None:
         self.mode = mode
         self.blocking = blocking
+        # Callbacks déclenchés en synchronisation avec la lecture audio réelle
+        self.on_play_start: "callable | None" = None  # juste après sd.play()
+        self.on_play_stop:  "callable | None" = None  # juste après sd.wait()
 
     def speak(self, text: str) -> bool:
         import os
@@ -377,17 +416,37 @@ class PiperTTS:
 
             audio, samplerate = sf.read(tmp_wav_path, dtype="float32")
 
-            sd.default.device = (None, 3)
+            # Sortie sur le device par défaut système (ne pas forcer un index)
+            # PaErrorCode -9998 = device 3 est input-only sur cette machine
             sd.play(audio, samplerate)
-            sd.wait()
+
+            # Callback début lecture — synchronisé avec le démarrage audio réel
+            if self.on_play_start:
+                try:
+                    self.on_play_start()
+                except Exception:
+                    pass
 
             if self.blocking:
                 sd.wait()
+
+            # Callback fin lecture — synchronisé avec la fin audio réelle
+            if self.on_play_stop:
+                try:
+                    self.on_play_stop()
+                except Exception:
+                    pass
 
             return True
 
         except Exception as e:
             print(f"❌ Erreur Piper CLI : {type(e).__name__} — {e}")
+            # Garantit que on_play_stop est appelé même en cas d'erreur
+            if self.on_play_stop:
+                try:
+                    self.on_play_stop()
+                except Exception:
+                    pass
             return False
 
 

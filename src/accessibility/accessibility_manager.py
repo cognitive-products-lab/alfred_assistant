@@ -1,60 +1,228 @@
+"""
+════════════════════════════════════════════════════════════
+PROJECT      : ALFRED
+BLOCK        : B22
+FUNCTION     : 22.01 / 22.05 / 22.08 / 22.15
+FILE         : accessibility_manager.py
+ROLE         : Coordinateur central accessibilité — politique, adaptation utilisateur, conformité WCAG
+
+AUTHOR       : Cognitive Products Lab
+CREATED      : 2026-05-22
+UPDATED      : 2026-05-22
+VERSION      : V1.0
+STATUS       : SKELETON
+
+DEPENDENCIES :
+- pathlib
+- json
+- dataclasses
+- logging
+- typing
+
+SECURITY :
+- Local-first
+- Security by Design
+
+DESCRIPTION :
+Gestionnaire central du Bloc 22. Coordonne la politique d'accessibilité ALFRED,
+les profils utilisateur adaptatifs (AccessibilityProfile) et la conformité WCAG 2.1 AA.
+Point d'entrée unique pour tous les modules B22.
+════════════════════════════════════════════════════════════
+"""
+
 # ============================================================
-# ALFRED — src/accessibility/accessibility_manager.py
-# Bloc 22.01 — Politique d'accessibilité
-#
-# 📚 NOTION EXAM :
-#   D41-3 — Capsule 3 : Accessibilité, inclusion et adaptation cognitive
-#
-# 🎯 UTILITÉ ALFRED :
-#   Point d'entrée central du Bloc 22 — orchestre les fonctions
-#   d'accessibilité (lecture vocale, traduction, assistance cognitive)
-#   selon le profil et les préférences de l'utilisateur.
-#
-# 🔐 BLOC SÉCURITÉ / DOMAINE :
-#   Accessibilité & assistance cognitive (22.01)
+# ALFRED — AccessibilityManager
+# Gère la politique d'accessibilité, les profils utilisateur
+# et la conformité WCAG 2.1 niveau AA
 # ============================================================
+
+from __future__ import annotations
 
 import json
-import os
+import logging
+from dataclasses import dataclass, field
+from pathlib import Path
+from typing import Optional
 
-_SETTINGS_PATH = os.path.join(os.path.dirname(__file__), "accessibility_settings.json")
+from paths import PATHS
+
+logger = logging.getLogger(__name__)
+
+# ── Config ───────────────────────────────────────────────
+_SETTINGS_PATH = PATHS.config / "accessibility" / "accessibility_settings.json"
 
 
-def load_settings() -> dict:
-    if os.path.exists(_SETTINGS_PATH):
-        with open(_SETTINGS_PATH, "r", encoding="utf-8") as f:
+# ── Profil d'accessibilité utilisateur ───────────────────
+
+@dataclass
+class AccessibilityProfile:
+    """Préférences d'accessibilité d'un utilisateur."""
+    language: str = "fr"
+    tts_enabled: bool = False
+    tts_rate: float = 1.0          # 0.5 → 2.0
+    tts_volume: float = 1.0
+    simplify_text: bool = False
+    dyslexia_font: bool = False
+    high_contrast: bool = False
+    reduce_motion: bool = False
+    neurodiversity_mode: Optional[str] = None   # "adhd" | "autism" | "dyslexia" | None
+    cognitive_load_level: str = "normal"        # "low" | "normal" | "high"
+    auto_summarize: bool = False
+    explain_terms: bool = False
+    extra: dict = field(default_factory=dict)
+
+
+# ── Manager principal ─────────────────────────────────────
+
+class AccessibilityManager:
+    """
+    22.01 Politique d'accessibilité
+    22.05 Assistance cognitive
+    22.08 Adaptation utilisateur
+    22.15 Conformité WCAG 2.1 AA
+    """
+
+    WCAG_LEVEL = "AA"
+    SUPPORTED_LANGUAGES = ["fr", "en", "es", "de", "it", "pt", "nl"]
+
+    def __init__(self, settings_path: Path = _SETTINGS_PATH) -> None:
+        self._settings = self._load_settings(settings_path)
+        self._profiles: dict[str, AccessibilityProfile] = {}
+        self._active_user: Optional[str] = None
+        logger.info("AccessibilityManager initialisé.")
+
+    # ── Paramètres ────────────────────────────────────────
+
+    def _load_settings(self, path: Path) -> dict:
+        if not path.exists():
+            logger.warning("accessibility_settings.json introuvable — valeurs par défaut.")
+            return {}
+        with open(path, encoding="utf-8") as f:
             return json.load(f)
-    return _default_settings()
+
+    # ── Profils utilisateur (22.08) ───────────────────────
+
+    def set_user(self, user_id: str, profile: Optional[AccessibilityProfile] = None) -> None:
+        """Active un profil utilisateur. Crée un profil vide si non existant."""
+        self._active_user = user_id
+        if user_id not in self._profiles:
+            self._profiles[user_id] = profile or AccessibilityProfile()
+        logger.debug("Profil accessibilité activé : %s", user_id)
+
+    def get_profile(self, user_id: Optional[str] = None) -> AccessibilityProfile:
+        """Retourne le profil actif ou celui du user_id donné."""
+        uid = user_id or self._active_user
+        if uid and uid in self._profiles:
+            return self._profiles[uid]
+        return AccessibilityProfile()
+
+    def update_profile(self, user_id: str, **kwargs) -> AccessibilityProfile:
+        """Met à jour les préférences d'un profil existant."""
+        profile = self.get_profile(user_id)
+        for key, value in kwargs.items():
+            if hasattr(profile, key):
+                setattr(profile, key, value)
+        self._profiles[user_id] = profile
+        return profile
+
+    # ── Politique d'accessibilité (22.01) ─────────────────
+
+    def get_policy_summary(self) -> dict:
+        """Retourne les points clés de la politique d'accessibilité."""
+        return {
+            "wcag_level": self.WCAG_LEVEL,
+            "supported_languages": self.SUPPORTED_LANGUAGES,
+            "neurodiversity_modes": ["adhd", "autism", "dyslexia"],
+            "features": [
+                "tts", "simplification", "translation", "summarization",
+                "dyslexia_font", "high_contrast", "reduce_motion",
+                "term_explanation", "cognitive_load_adaptation",
+            ],
+        }
+
+    # ── Assistance cognitive (22.05) ──────────────────────
+
+    def should_simplify(self, user_id: Optional[str] = None) -> bool:
+        return self.get_profile(user_id).simplify_text
+
+    def should_explain_terms(self, user_id: Optional[str] = None) -> bool:
+        return self.get_profile(user_id).explain_terms
+
+    def get_cognitive_load(self, user_id: Optional[str] = None) -> str:
+        return self.get_profile(user_id).cognitive_load_level
+
+    # ── Conformité WCAG (22.15) ───────────────────────────
+
+    def audit_wcag(self, component: str) -> dict:
+        """
+        Vérifie la conformité WCAG 2.1 AA d'un composant UI.
+        Retourne un rapport {passed, failed, warnings, component, level}.
+
+        V1 : audit statique basé sur la checklist connue.
+        V2+ : checks dynamiques (contraste mesuré, ARIA, focus order, etc.)
+        """
+        checklist = self.get_wcag_checklist()
+
+        passed   = [c for c in checklist if c["status"] == "PASS"]
+        failed   = [c for c in checklist if c["status"] == "FAIL"]
+        warnings = [c for c in checklist if c["status"] == "WARN"]
+        todo     = [c for c in checklist if c["status"] == "TODO"]
+
+        score = len(passed) / max(len(checklist), 1)
+        compliant = len(failed) == 0 and score >= 0.5
+
+        logger.info(
+            "audit_wcag(%s) : %d/%d critères passés, %d échoués",
+            component, len(passed), len(checklist), len(failed),
+        )
+
+        return {
+            "component":  component,
+            "level":      self.WCAG_LEVEL,
+            "compliant":  compliant,
+            "score":      round(score, 2),
+            "passed":     passed,
+            "failed":     failed,
+            "warnings":   warnings,
+            "todo":       todo,
+            "summary": (
+                f"{len(passed)} critères OK, {len(failed)} échoués, "
+                f"{len(todo)} à vérifier"
+            ),
+        }
+
+    def get_wcag_checklist(self) -> list[dict]:
+        """Retourne la checklist WCAG 2.1 AA applicable au projet."""
+        return [
+            {"criterion": "1.1.1", "name": "Non-text Content", "level": "A", "status": "TODO"},
+            {"criterion": "1.3.1", "name": "Info and Relationships", "level": "A", "status": "TODO"},
+            {"criterion": "1.4.3", "name": "Contrast (Minimum)", "level": "AA", "status": "TODO"},
+            {"criterion": "1.4.4", "name": "Resize text", "level": "AA", "status": "TODO"},
+            {"criterion": "2.1.1", "name": "Keyboard", "level": "A", "status": "TODO"},
+            {"criterion": "2.4.3", "name": "Focus Order", "level": "A", "status": "TODO"},
+            {"criterion": "3.1.1", "name": "Language of Page", "level": "A", "status": "TODO"},
+            {"criterion": "3.3.1", "name": "Error Identification", "level": "A", "status": "TODO"},
+            {"criterion": "4.1.2", "name": "Name, Role, Value", "level": "A", "status": "TODO"},
+        ]
+
+    # ── Diagnostic ────────────────────────────────────────
+
+    def status(self) -> dict:
+        return {
+            "active_user": self._active_user,
+            "profiles_loaded": len(self._profiles),
+            "wcag_level": self.WCAG_LEVEL,
+            "settings_loaded": bool(self._settings),
+        }
 
 
-def _default_settings() -> dict:
-    return {
-        "voice_reading_enabled": False,
-        "translation_enabled": False,
-        "cognitive_assistance_enabled": False,
-        "simplification_mode": False,
-        "voice_speed": 1.0,
-        "voice_tone": "neutral",
-        "preferred_language": "fr",
-        "dyslexia_font": False,
-        "high_contrast": False,
-    }
-
-
-def get_active_features(settings: dict) -> list:
-    active = []
-    if settings.get("voice_reading_enabled"):
-        active.append("voice_reading")
-    if settings.get("translation_enabled"):
-        active.append("translation")
-    if settings.get("cognitive_assistance_enabled"):
-        active.append("cognitive_assistance")
-    if settings.get("simplification_mode"):
-        active.append("simplification")
-    return active
-
-
-def is_feature_enabled(feature: str, settings: dict | None = None) -> bool:
-    if settings is None:
-        settings = load_settings()
-    return bool(settings.get(f"{feature}_enabled", False))
+# ─────────────────────────────────────────────────────────
+# Test standalone
+# ─────────────────────────────────────────────────────────
+if __name__ == "__main__":
+    mgr = AccessibilityManager()
+    mgr.set_user("celine", AccessibilityProfile(language="fr", tts_enabled=True, simplify_text=True))
+    profile = mgr.get_profile("celine")
+    print(f"Profil : {profile}")
+    print(f"Politique : {mgr.get_policy_summary()}")
+    print(f"Status : {mgr.status()}")
