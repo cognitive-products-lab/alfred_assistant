@@ -787,12 +787,41 @@ function renderDashboard(data) {
     <span class="c c-g">${safeText(globalCounts.validated ?? 0)} validés</span>
     <span class="c c-p">${safeText((globalCounts.partial ?? 0) + (globalCounts.empty ?? 0) + (globalCounts.created ?? 0))} partiels</span>`;
 
-  setText("totalFilesTracked", data.validation_registry_count ?? 0);
-  setText("codedFilesCount", data.coded_files_count ?? 0);
-  setText("testedFilesCount", data.tested_files_count ?? 0);
-  setText("validatedFilesCount", data.validated_files_count ?? 0);
-  setText("partialFilesCount", data.partial_files_count ?? 0);
-  setText("structuralFilesCount", data.structural_files_count ?? 0);
+  // ── Qualité & Standardisation — lire depuis global_status_counts ──────
+  const validated   = globalCounts.validated   ?? 0;
+  const tested      = globalCounts.tested      ?? 0;
+  const coded       = globalCounts.coded       ?? 0;
+  const partial     = (globalCounts.partial ?? 0) + (globalCounts.empty ?? 0) + (globalCounts.created ?? 0);
+  const structural  = globalCounts.structural  ?? 0;
+  const absent      = (globalCounts.absent ?? 0) + (globalCounts.to_start ?? 0) + (globalCounts.empty ?? 0);
+  const totalDet    = Math.max(data.total_files_detected ?? 1, 1);
+  const fullProg    = data.global_full_project_progress ?? 0;
+
+  setText("totalFilesTracked",    totalDet);
+  setText("codedFilesCount",      coded);
+  setText("testedFilesCount",     tested);
+  setText("validatedFilesCount",  validated);
+  setText("partialFilesCount",    partial);
+  setText("structuralFilesCount", structural);
+
+  // ── Gouvernance & Release ───────────────────────────────────────────────
+  const integrityPct = Math.round((coded + tested + validated) / totalDet * 100);
+  setText("globalIntegrityScore", integrityPct + "%");
+
+  const readiness = fullProg >= 80 ? "READY" : fullProg >= 60 ? "IN PROGRESS" : "NOT READY";
+  const readinessEl = document.getElementById("releaseReadiness");
+  if (readinessEl) {
+    readinessEl.textContent = readiness;
+    readinessEl.style.color = fullProg >= 80 ? "#3fb950" : fullProg >= 60 ? "#d29922" : "#f85149";
+  }
+
+  setText("releaseBlockers", absent);
+
+  const b18 = blocks.find(b => b.id === "b18");
+  setText("knowledgeQualityScore", (b18 ? Math.round(b18.progress ?? 0) : 0) + "%");
+
+  const headersPct = Math.round(validated / totalDet * 100);
+  setText("headersQualityScore", headersPct + "%");
 
   nav.innerHTML = blocks.map(block => {
     const id = safeText(block.id || "");
