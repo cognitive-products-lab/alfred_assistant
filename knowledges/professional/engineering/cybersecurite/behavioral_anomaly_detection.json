@@ -1,76 +1,156 @@
 {
-  "_meta": {
-    "project": "ALFRED",
-    "block": "B18",
-    "file": "behavioral_anomaly_detection.json",
-    "version": "V1.0",
-    "status": "VALIDATED",
-    "updated": "2026-05-13",
-    "standardized_by": "generate_knowledges.py",
-    "validated_by": "Cognitive Products Lab",
-    "validated_date": "2026-05-13"
-  },
-  "id": "knowledges.professional.engineering.cybersecurity.behavioral_anomaly_detection",
-  "domain": "professional_engineering",
-  "category": "cybersecurity",
-  "title": "Behavioral Anomaly Detection",
-  "description": "Détection des comportements anormaux dans les systèmes.",
-  "version": "1.0",
-  "status": "active",
-  "tags": [
-    "behavioral anomaly detection",
-    "cybersecurity",
-    "engineering",
-    "professional",
-    "professional engineering"
+  "_meta": { "project": "ALFRED", "block": "B18", "file": "behavioral_anomaly_detection.json", "version": "V2.0", "status": "VALIDATED", "updated": "2026-06-03", "validated_by": "Cognitive Products Lab" },
+  "knowledge_id": "professional.engineering.cybersecurite.behavioral_anomaly_detection",
+  "id": "professional.engineering.cybersecurite.behavioral_anomaly_detection",
+  "title": "Détection d'anomalies comportementales (UEBA)",
+  "version": "2.0.0", "status": "active", "domain": "professional", "subdomain": "engineering", "category": "cybersecurite",
+  "summary": "UEBA (User and Entity Behavior Analytics) : baseline comportementale, algorithmes de détection (Z-score, isolation forest), insider threat, critères d'alerte et outils (Splunk UEBA, Exabeam, Varonis).",
+  "purpose": "Permettre à ALFRED de comprendre, configurer et interpréter des systèmes de détection d'anomalies comportementales pour identifier les menaces internes et les comptes compromis.",
+  "tags": ["UEBA", "anomalie comportementale", "insider threat", "baseline", "Z-score", "isolation forest", "Splunk UEBA", "Exabeam", "Varonis", "détection", "comportement utilisateur", "machine learning sécurité"],
+  "intents": [
+    "détecter les comportements anormaux d'un utilisateur",
+    "mettre en place un système UEBA",
+    "identifier une menace interne",
+    "expliquer comment fonctionne la détection comportementale",
+    "réduire les faux positifs d'un système UEBA"
   ],
+  "usage_context": [
+    "SOC Tier 2/3 investigation",
+    "détection d'insider threat",
+    "investigation de compte compromis",
+    "conformité DLP et gouvernance des données",
+    "réponse à incident avec comportement suspect"
+  ],
+  "priority": "high", "safety_level": "sensitive",
   "content": {
-    "summary": "Détection des comportements anormaux dans les systèmes.",
-    "details": [
-      "Behavior baseline",
-      "Anomaly scoring",
-      "Suspicious patterns",
-      "Adaptive monitoring",
-      "Surveillance modules",
-      "Détection comportements IA anormaux",
-      "Analyse appareils connectés"
+    "definition": "L'UEBA (User and Entity Behavior Analytics) est une approche de cybersécurité qui consiste à établir une baseline du comportement normal de chaque utilisateur et entité (serveur, application), puis à détecter les déviations statistiques significatives pouvant indiquer une menace (compte compromis, insider malveillant, exfiltration de données).",
+    "core_principles": [
+      "Baseline individuelle : chaque utilisateur a un profil comportemental unique (heure de connexion, volumes de données, applications utilisées)",
+      "Détection par déviation : une anomalie est définie par rapport au comportement normal de l'entité, pas par rapport à une règle fixe",
+      "Scoring de risque : les anomalies sont pondérées pour produire un score de risque cumulatif",
+      "Contexte multi-source : corrélation entre logs IAM, réseau, endpoint, applications",
+      "Réduction des faux positifs par apprentissage continu"
     ],
-    "references": []
+    "algorithmes": {
+      "Z_score": {
+        "description": "Mesure la distance d'une observation par rapport à la moyenne de la distribution, en unités d'écart-type",
+        "formule": "Z = (X - moyenne) / écart-type",
+        "usage": "Volume de données téléchargées, nombre de connexions par heure, nombre d'authentifications échouées",
+        "seuil_alerte": "Z > 3 (99.7% des valeurs normales sont dans [-3, +3])",
+        "limite": "Suppose une distribution normale — mal adapté aux comportements très variables"
+      },
+      "isolation_forest": {
+        "description": "Algorithme ML non-supervisé : les points anormaux sont plus faciles à isoler dans l'espace de features",
+        "usage": "Détection d'anomalies multidimensionnelles (combinaison heure + volume + localisation + device)",
+        "avantages": ["Pas besoin de labelliser les données", "Efficace sur des données de haute dimension", "Robuste aux faux positifs si bien tuné"],
+        "implementation": "scikit-learn IsolationForest, Splunk MLTK, Azure ML"
+      },
+      "clustering": {
+        "description": "K-Means, DBSCAN : regrouper les comportements similaires, identifier les outliers",
+        "usage": "Identifier des groupes d'utilisateurs avec comportements anormaux, comparer un utilisateur à ses pairs"
+      },
+      "sequence_modeling": {
+        "description": "LSTM, HMM : modéliser les séquences d'actions pour détecter des séquences inhabituelles",
+        "usage": "Détecter une séquence d'actions suspecte (login → accès données sensibles → exfiltration FTP) jamais vue auparavant"
+      }
+    },
+    "insider_threat": {
+      "definition": "Menace provenant d'une personne ayant un accès légitime : employé mécontent, compte compromis, sous-traitant malveillant",
+      "indicateurs_comportementaux": [
+        "Accès à un volume inhabituellement élevé de fichiers sensibles en peu de temps",
+        "Connexion à des heures inhabituelles (nuit, week-end) sans précédent",
+        "Accès à des ressources hors de son scope habituel",
+        "Utilisation d'outils de compression/chiffrement non habituels",
+        "Transfert de données vers un cloud personnel (Dropbox, Google Drive personnel)",
+        "Nombreuses tentatives d'accès refusées sur des ressources non autorisées",
+        "Comportement anormal en période de préavis de départ"
+      ],
+      "challenges": ["Faux positifs élevés si baseline mal établie", "Vie privée vs surveillance", "Latence de détection (plusieurs jours pour établir une baseline fiable)"]
+    },
+    "session_anomalies": {
+      "types": [
+        "Impossible travel : connexion depuis Paris à 10h00 et depuis Tokyo à 10h30 (impossible physiquement)",
+        "Nouvelle géolocalisation : première connexion depuis un pays jamais vu",
+        "Nouveau device : connexion depuis un appareil inconnu (user-agent, fingerprint)",
+        "Heure inhabituelles : connexion à 3h du matin pour un utilisateur qui se connecte toujours entre 8h et 18h",
+        "Volume d'accès : 10 000 fichiers accédés en 1 heure alors que la moyenne est de 50/jour"
+      ]
+    },
+    "criteres_alerte": {
+      "haut_risque": [
+        "Impossible travel détecté",
+        "Connexion depuis un pays en liste noire (OFAC, géofencing)",
+        "Score de risque > 90 (seuil critique)",
+        "Accès massif à des données classifiées suivi d'un transfert externe"
+      ],
+      "moyen_risque": [
+        "Premier accès à une application sensible",
+        "Connexion depuis un nouvel appareil non-enrollé",
+        "Volume de téléchargement > 3 sigma de la baseline"
+      ],
+      "actions_recommandees": {
+        "haut_risque": "Blocage automatique + alerte immédiate SOC Tier 2 + investigation forensique",
+        "moyen_risque": "Step-up authentication (re-authentification MFA) + alerte SOC Tier 1",
+        "bas_risque": "Log et analyse différée, pas d'interruption utilisateur"
+      }
+    },
+    "outils": {
+      "Splunk_UEBA": {
+        "description": "Module UEBA intégré à Splunk Enterprise Security",
+        "fonctionnalites": ["Peer group analysis", "Risk scoring", "Anomaly detection ML", "Intégration SOAR"]
+      },
+      "Exabeam": {
+        "description": "Plateforme SIEM/UEBA dédiée à la détection comportementale",
+        "differentiateur": "Timeline des activités utilisateur très visuelle, aide à la reconstruction des incidents"
+      },
+      "Varonis": {
+        "description": "Spécialisé dans la protection des données et la détection d'anomalies d'accès aux fichiers",
+        "cas_usage": "Détection d'exfiltration de données, ransomware (accès massif en écriture/chiffrement)"
+      },
+      "Microsoft_Sentinel": {
+        "description": "SIEM/SOAR cloud Microsoft avec UEBA intégré",
+        "fonctionnalites": ["Entity behavior analytics", "Anomaly detection built-in", "UEBA for users and hosts"]
+      },
+      "Darktrace": {
+        "description": "IA de cybersécurité avec approche 'unsupervised ML' pour détecter les menaces inconnues",
+        "differentiateur": "Autonomous Response (Antigena) : réponse automatique sans règle prédéfinie"
+      }
+    },
+    "application_alfred": {
+      "surveillance_alfred": [
+        "Baseline comportementale des requêtes adressées à ALFRED (heure, fréquence, types de demandes)",
+        "Alerte si un utilisateur interroge ALFRED sur des sujets très différents de son comportement habituel",
+        "Détection d'accès anormal aux modules mémoire d'ALFRED (volume de données lues hors norme)",
+        "Monitoring des appels API ALFRED : Z-score sur le volume par token/session",
+        "Détection de comportements répétitifs caractéristiques d'une attaque automatisée (scraping)"
+      ]
+    },
+    "best_practices": [
+      "Consacrer au moins 30 jours à l'établissement de la baseline avant d'activer les alertes",
+      "Commencer avec un périmètre limité (comptes VIP, accès données sensibles) pour calibrer les seuils",
+      "Intégrer le contexte RH (congés, déplacement) pour éviter les faux positifs",
+      "Ne pas alerter sur chaque anomalie individuelle — alerter sur des scores cumulatifs",
+      "Mesurer le taux de faux positifs mensuellement et ajuster les seuils",
+      "Impliquer les équipes DRH et juridique pour les cas d'insider threat (RGPD, droit du travail)"
+    ],
+    "anti_patterns": [
+      "Déployer UEBA sans établir de baseline (alertes permanentes dès le premier jour)",
+      "Alerter sur chaque déviation Z > 2 : noyade des analystes dans les faux positifs",
+      "Surveiller uniquement les utilisateurs 'suspects' a priori — biais de confirmation",
+      "Ne pas tenir compte des comportements saisonniers (fin de trimestre = volume d'accès aux données financières élevé)",
+      "Ignorer les entités non-humaines (comptes de service, bots) qui représentent une cible clé"
+    ]
   },
-  "metadata": {
-    "created": "2026-05-12",
-    "updated": "2026-05-12",
-    "author": "Cognitive Products Lab"
+  "retrieval_hints": {
+    "priority_keywords": ["UEBA", "anomalie comportementale", "insider threat", "baseline comportementale", "Z-score", "isolation forest", "Exabeam", "Varonis", "Splunk UEBA"],
+    "related_knowledge": ["security_monitoring_basics", "identity_access_management", "security_logging_strategy", "intrusion_detection_basics"],
+    "retrieval_priority": 8
   },
-  "core_concepts": [
-    "Behavior baseline",
-    "Anomaly scoring",
-    "Suspicious patterns",
-    "Adaptive monitoring"
-  ],
-  "detection_examples": [
-    "Connexion inhabituelle",
-    "Accès massif mémoire",
-    "Usage anormal API"
-  ],
-  "alfred_application": [
-    "Surveillance modules",
-    "Détection comportements IA anormaux",
-    "Analyse appareils connectés"
-  ],
-  "response_actions": [
-    "Alerte",
-    "Isolation",
-    "Restriction temporaire"
-  ],
-  "aliases": [],
-  "relationships": {
-    "merged_from": [],
-    "see_also": [],
-    "depends_on": []
+  "behavior_rules": { "tone": "professional", "response_style": "structured_clear", "max_complexity": "high", "allow_humor": false },
+  "safety_notes": {
+    "allowed_usage": ["Configuration UEBA", "Détection d'insider threat", "Investigation comportementale", "Tuning des règles de détection"],
+    "forbidden_usage": ["Surveillance illégale de salariés sans base légale (RGPD)", "Profiling discriminatoire basé sur les comportements"],
+    "fallback_behavior": "Tout déploiement UEBA doit faire l'objet d'une analyse RGPD (AIPD si nécessaire) et d'une consultation des représentants du personnel."
   },
-  "retrieval": {
-    "priority": "medium",
-    "trigger_queries": []
-  }
+  "metadata": { "author": "Cognitive Products Lab", "creation_date": "03/06/2026", "last_update": "03/06/2026", "review_status": "validated", "source_type": "manual_structured_knowledge", "language": "fr", "retrieval_ready": true, "rag_compatible": true }
 }
