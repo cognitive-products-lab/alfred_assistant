@@ -1,26 +1,155 @@
-﻿{
-    "id":  "llm.security.risks",
-    "created_at":  "2026-06-03",
-    "title":  "llm security risks",
-    "tags":  [
-
-             ],
-    "source":  "recreated_from_dashboard_manifest",
-    "description":  "Fiche connaissance recréée automatiquement à partir du manifest dashboard.",
-    "status":  "draft",
-    "content":  {
-                    "summary":  "",
-                    "links":  [
-
-                              ],
-                    "use_cases":  [
-
-                                  ],
-                    "risks":  [
-
-                              ],
-                    "key_points":  [
-
-                                   ]
-                }
+{
+  "_meta": { "project": "ALFRED", "block": "B18", "file": "llm_security_risks.json", "version": "V2.0", "status": "VALIDATED", "updated": "2026-06-03", "validated_by": "Cognitive Products Lab" },
+  "knowledge_id": "professional.engineering.cybersecurite.llm_security_risks",
+  "id": "professional.engineering.cybersecurite.llm_security_risks",
+  "title": "Risques de sécurité des LLMs (OWASP Top 10 for LLM)",
+  "version": "2.0.0", "status": "active", "domain": "professional", "subdomain": "engineering", "category": "cybersecurite",
+  "summary": "Risques sécurité des LLMs : prompt injection, data poisoning, model extraction, inversion attacks, hallucinations, excessive agency, supply chain LLM, OWASP Top 10 for LLM avec défenses par risque.",
+  "purpose": "Permettre à ALFRED de comprendre et évaluer les risques de sécurité propres aux systèmes IA/LLM, et de recommander des défenses adaptées à chaque type de risque.",
+  "tags": ["LLM security", "OWASP LLM", "risques IA", "prompt injection", "data poisoning", "model extraction", "model inversion", "hallucination", "excessive agency", "supply chain LLM", "sécurité modèles IA"],
+  "intents": [
+    "évaluer les risques de sécurité d'un LLM",
+    "appliquer l'OWASP Top 10 for LLM",
+    "défendre un LLM contre l'extraction de modèle",
+    "prévenir l'empoisonnement des données d'entraînement",
+    "limiter l'agentivité excessive d'un LLM"
+  ],
+  "usage_context": [
+    "développement d'une application LLM",
+    "audit de sécurité d'un système IA",
+    "évaluation des risques d'un assistant IA",
+    "conformité OWASP LLM / NIST AI RMF",
+    "formation des équipes de développement IA"
+  ],
+  "priority": "critical", "safety_level": "sensitive",
+  "content": {
+    "definition": "Les LLMs (Large Language Models) introduisent des vecteurs d'attaque spécifiques qui n'existent pas dans les logiciels traditionnels. L'OWASP Top 10 for LLM Applications (2025) référence les 10 risques les plus critiques, allant du prompt injection à la supply chain des modèles.",
+    "core_principles": [
+      "Les LLMs sont des composants logiciels comme les autres — ils ont une surface d'attaque",
+      "La frontière entre données et instructions est fondamentalement floue dans les LLMs",
+      "Les risques LLM se combinent souvent avec des risques classiques (injection, supply chain)",
+      "Defense in depth : plusieurs couches de protection car aucune défense n'est suffisante seule",
+      "Tester les risques IA spécifiquement — les scanners de vulnérabilités classiques ne les détectent pas"
+    ],
+    "OWASP_Top10_LLM": {
+      "LLM01_prompt_injection": {
+        "rang": 1,
+        "nom": "Prompt Injection",
+        "description": "Un attaquant manipule les entrées du LLM pour modifier son comportement ou exfiltrer des données",
+        "variantes": ["Direct injection (dans la requête utilisateur)", "Indirect injection (via RAG, outils, documents)"],
+        "impact": "Contournement des garde-fous, exfiltration de données, actions non autorisées",
+        "defenses": ["Input validation et sanitisation", "Séparation instructions système/données utilisateur", "Output filtering", "Confirmation humaine pour les actions à fort impact"],
+        "voir_aussi": "prompt_injection_defense.json"
+      },
+      "LLM02_insecure_output_handling": {
+        "rang": 2,
+        "nom": "Gestion non sécurisée des sorties",
+        "description": "Les sorties du LLM sont utilisées sans validation — ex: HTML injecté dans une page web (XSS via LLM), code exécuté sans vérification",
+        "exemples": ["LLM générant du JavaScript malveillant injecté dans une page web", "Réponse LLM utilisée comme requête SQL sans échappement", "Code généré par LLM exécuté directement"],
+        "defenses": ["Traiter les sorties LLM comme des entrées non-fiables", "Encoder/échapper les sorties avant injection dans HTML/SQL/shell", "Ne jamais exécuter le code généré par LLM sans revue"]
+      },
+      "LLM03_training_data_poisoning": {
+        "rang": 3,
+        "nom": "Empoisonnement des données d'entraînement",
+        "description": "Injection de données malveillantes dans le dataset d'entraînement pour créer des backdoors ou biais dans le modèle",
+        "exemples": ["Backdoor trigger : le modèle se comporte normalement sauf si la phrase 'ACTIVATE' apparaît", "Biais intentionnel dans les données pour favoriser certaines réponses", "Empoisonnement de modèles open source sur HuggingFace"],
+        "defenses": ["Vérification rigoureuse des sources de données d'entraînement", "Détection d'empoisonnement (Activation Clustering, spectral signatures)", "Fine-tuning uniquement sur des données auditées"]
+      },
+      "LLM04_model_dos": {
+        "rang": 4,
+        "nom": "Déni de Service sur le modèle",
+        "description": "Surcharge du modèle par des requêtes complexes ou répétées pour dégrader les performances ou exploser les coûts",
+        "exemples": ["Prompts extrêmement longs forçant un contexte maximal", "Requêtes répétées en boucle automatisée", "Requêtes conçues pour déclencher des chaînes de raisonnement longues"],
+        "defenses": ["Rate limiting par utilisateur/token", "Limite de longueur des inputs", "Budget de tokens par session", "Monitoring des coûts d'inférence en temps réel"]
+      },
+      "LLM05_supply_chain": {
+        "rang": 5,
+        "nom": "Vulnérabilités de la chaîne d'approvisionnement",
+        "description": "Dépendances compromises : modèles pré-entraînés avec backdoors, librairies ML malveillantes",
+        "exemples": ["Modèle HuggingFace trojanisé", "Dépendance PyPI compromise (transformers, torch-nightly)", "Dataset compromis sur une source publique"],
+        "defenses": ["Vérification des hashs des modèles téléchargés", "Audit des dépendances (pip-audit, Safety)", "Utiliser des modèles depuis des sources officielles vérifiées uniquement"]
+      },
+      "LLM06_sensitive_information_disclosure": {
+        "rang": 6,
+        "nom": "Divulgation d'informations sensibles",
+        "description": "Le LLM révèle des informations confidentielles présentes dans ses données d'entraînement, son contexte ou son system prompt",
+        "exemples": ["Mémorisation et restitution de données personnelles vues à l'entraînement (mémorisation)", "Extraction du system prompt par prompt engineering", "Fuite de données d'un autre utilisateur via le cache de contexte"],
+        "defenses": ["Ne jamais inclure de données sensibles non-nécessaires dans le contexte LLM", "Protéger le system prompt contre l'extraction", "Isolation des contextes entre utilisateurs"]
+      },
+      "LLM07_insecure_plugin_design": {
+        "rang": 7,
+        "nom": "Conception non sécurisée des plugins/outils",
+        "description": "Les outils (function calling, plugins) accessibles au LLM ont des droits excessifs ou pas de validation",
+        "exemples": ["Un plugin d'envoi d'email sans limite → LLM manipulé pour envoyer des spams", "Outil de lecture de fichiers accessible sans restriction → lecture de /etc/passwd"],
+        "defenses": ["Moindre privilège pour chaque outil", "Validation stricte des paramètres passés aux outils", "Confirmation humaine pour les outils à risque élevé"]
+      },
+      "LLM08_excessive_agency": {
+        "rang": 8,
+        "nom": "Agentivité excessive",
+        "description": "Le LLM dispose de trop de permissions ou d'autonomie pour agir dans le monde réel",
+        "exemples": ["Agent LLM avec accès root à un serveur", "LLM pouvant effacer des données sans confirmation", "Agent web pouvant effectuer des achats ou transactions"],
+        "defenses": ["Moindre privilège : chaque agent n'a que les outils nécessaires", "Human-in-the-loop pour les actions irréversibles", "Audit log de toutes les actions de l'agent"]
+      },
+      "LLM09_overreliance": {
+        "rang": 9,
+        "nom": "Surconfiance dans les outputs LLM",
+        "description": "Décisions critiques prises basées sur des outputs LLM sans validation — hallucinations non détectées",
+        "exemples": ["Code généré par LLM déployé en production sans revue de sécurité", "Diagnostic médical basé uniquement sur l'IA", "Hallucination de faux liens ou bibliographies"],
+        "defenses": ["Revue humaine obligatoire pour les décisions critiques", "RAG avec sources vérifiables", "Indicateurs de confiance sur les outputs", "Tests automatisés des outputs générés"]
+      },
+      "LLM10_model_theft": {
+        "rang": 10,
+        "nom": "Vol de modèle (Model Extraction)",
+        "description": "Un attaquant extrait les fonctionnalités d'un modèle propriétaire par des requêtes systématiques pour créer un modèle clone",
+        "exemples": ["Interrogation massive d'un modèle API pour en dériver un modèle local", "Extraction des connaissances spécifiques d'un modèle fine-tuné"],
+        "defenses": ["Rate limiting strict par utilisateur et IP", "Watermarking des outputs du modèle (détection d'extraction)", "Monitoring des patterns de requêtes suspects (haute volumétrie, requêtes systématiques)"]
+      }
+    },
+    "risques_supplementaires": {
+      "model_inversion": {
+        "description": "Reconstituer des données d'entraînement sensibles à partir des outputs du modèle",
+        "exemple": "Requêtes ciblées pour extraire des exemples personnels vus à l'entraînement (mémorisation de PII)",
+        "defenses": ["Differential privacy à l'entraînement", "Limitation des outputs (ne pas retourner exactement les données d'entraînement)"]
+      },
+      "hallucination_dangereuse": {
+        "description": "Le modèle génère des informations fausses mais plausibles dans un contexte critique",
+        "exemples": ["Faux diagnostic médical", "Faux texte de loi", "Bibliographie inventée avec DOIs qui existent"],
+        "defenses": ["RAG avec sources vérifiées", "Grounding (ancrage dans des faits vérifiables)", "Avertissements explicites sur les limitations du modèle"]
+      }
+    },
+    "application_alfred": {
+      "risques_prioritaires": [
+        "LLM01 Prompt injection : risque principal — ALFRED traite des données utilisateur et RAG",
+        "LLM08 Excessive agency : ALFRED peut déclencher des actions domotique et agenda — validation humaine obligatoire",
+        "LLM05 Supply chain : modèles locaux ALFRED vérifiés par hash SHA-256 à chaque démarrage",
+        "LLM06 Information disclosure : isolation stricte des contextes entre utilisateurs ALFRED"
+      ]
+    },
+    "best_practices": [
+      "Cartographier les risques OWASP LLM applicables à son système avant le déploiement",
+      "Implémenter des contrôles pour les 3 premiers risques (prompt injection, output handling, supply chain) en priorité",
+      "Ne jamais déployer un agent LLM avec des droits d'administration sans validation humaine",
+      "Mettre en place un bug bounty ou des red team exercises spécifiques aux risques LLM",
+      "Documenter le modèle de menace spécifique à son application LLM"
+    ],
+    "anti_patterns": [
+      "Faire confiance aux outputs LLM sans validation pour des décisions critiques",
+      "Donner à un agent LLM des droits root ou admin system",
+      "Télécharger des modèles open source sans vérifier leur intégrité",
+      "Ne pas rate-limiter l'accès à l'API LLM (coûts et DoS)",
+      "Partager le même contexte LLM entre plusieurs utilisateurs (fuite de données)"
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["OWASP LLM", "risques LLM", "prompt injection", "model extraction", "data poisoning", "excessive agency", "hallucination LLM", "sécurité IA"],
+    "related_knowledge": ["prompt_injection_defense", "secure_ai_pipeline", "model_supply_chain_security", "supply_chain_security"],
+    "retrieval_priority": 9
+  },
+  "behavior_rules": { "tone": "professional", "response_style": "structured_clear", "max_complexity": "high", "allow_humor": false },
+  "safety_notes": {
+    "allowed_usage": ["Évaluation des risques LLM", "Audit de sécurité IA", "Formation développeurs IA", "Red teaming autorisé"],
+    "forbidden_usage": ["Exploiter ces connaissances pour attaquer des systèmes LLM en production sans autorisation"],
+    "fallback_behavior": "Pour les applications LLM à usage critique (médical, légal, financier), un audit de sécurité IA formalisé est obligatoire avant déploiement."
+  },
+  "metadata": { "author": "Cognitive Products Lab", "creation_date": "03/06/2026", "last_update": "03/06/2026", "review_status": "validated", "source_type": "manual_structured_knowledge", "language": "fr", "retrieval_ready": true, "rag_compatible": true }
 }
