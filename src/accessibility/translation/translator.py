@@ -8,9 +8,9 @@ ROLE         : Traduction multilingue via LLMRouter (Ollama local → OpenAI fal
 
 AUTHOR       : Cognitive Products Lab
 CREATED      : 2026-05-22
-UPDATED      : 2026-05-22
+UPDATED      : 2026-06-03
 VERSION      : V1.0
-UPDATED      : 2026-06-01
+UPDATED      : 2026-06-03
 VERSION      : V1.1
 STATUS       : ACTIVE
 
