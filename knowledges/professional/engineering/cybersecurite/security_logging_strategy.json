@@ -1,26 +1,200 @@
-﻿{
-    "id":  "security.logging.strategy",
-    "created_at":  "2026-06-03",
-    "title":  "security logging strategy",
-    "tags":  [
-
-             ],
-    "source":  "recreated_from_dashboard_manifest",
-    "description":  "Fiche connaissance recréée automatiquement à partir du manifest dashboard.",
-    "status":  "draft",
-    "content":  {
-                    "summary":  "",
-                    "links":  [
-
-                              ],
-                    "use_cases":  [
-
-                                  ],
-                    "risks":  [
-
-                              ],
-                    "key_points":  [
-
-                                   ]
-                }
+{
+  "_meta": { "project": "ALFRED", "block": "B18", "file": "security_logging_strategy.json", "version": "V2.0", "status": "VALIDATED", "updated": "2026-06-03", "validated_by": "Cognitive Products Lab" },
+  "knowledge_id": "professional.engineering.cybersecurite.security_logging_strategy",
+  "id": "professional.engineering.cybersecurite.security_logging_strategy",
+  "title": "Stratégie de journalisation sécurité",
+  "version": "2.0.0", "status": "active", "domain": "professional", "subdomain": "engineering", "category": "cybersecurite",
+  "summary": "Quoi logger, comment (CEF/JSON), où centraliser (Elastic/Splunk), combien de temps conserver (12-24 mois), comment protéger les logs (intégrité, chiffrement), Sysmon et niveaux de log.",
+  "purpose": "Permettre à ALFRED de définir et auditer une stratégie de journalisation sécurité complète, depuis les sources de logs jusqu'à la rétention et la protection des données de logs.",
+  "tags": ["logs sécurité", "logging", "SIEM", "CEF", "JSON", "Sysmon", "auditd", "rétention logs", "Elastic", "Splunk", "intégrité des logs", "centralisation logs", "log level", "forensique"],
+  "intents": [
+    "définir une stratégie de logs sécurité",
+    "configurer Sysmon sous Windows",
+    "centraliser les logs dans un SIEM",
+    "définir la rétention des logs",
+    "protéger l'intégrité des logs"
+  ],
+  "usage_context": [
+    "audit de conformité (PCI-DSS, ISO 27001, SOC2)",
+    "investigation forensique post-incident",
+    "configuration d'un SIEM",
+    "déploiement d'un agent de collecte de logs",
+    "hardening des serveurs"
+  ],
+  "priority": "high", "safety_level": "sensitive",
+  "content": {
+    "definition": "La stratégie de journalisation sécurité définit quelles sources de données doivent être collectées, dans quel format, vers quelle destination, avec quelle rétention et quelles protections. Des logs complets, intègres et correctement centralisés sont la base de toute investigation forensique et de toute détection d'incident.",
+    "core_principles": [
+      "Logger tout ce qui est nécessaire à la sécurité, rien de plus (coût et vie privée)",
+      "Centraliser les logs hors des systèmes qu'ils surveillent (un attaquant ne doit pas pouvoir effacer ses traces)",
+      "Protéger l'intégrité des logs (signature, immuabilité)",
+      "Définir une rétention adaptée aux obligations légales et forensiques",
+      "Structurer les logs pour l'ingestion automatique (format JSON ou CEF)"
+    ],
+    "sources_a_logger": {
+      "authentification": {
+        "importance": "Critique",
+        "evenements": [
+          "Connexions réussies et échouées (Windows Event 4624/4625, Linux PAM, /var/log/auth.log)",
+          "Élévation de privilèges (sudo, Event 4672 Windows)",
+          "Changements de mot de passe (Event 4723/4724)",
+          "Lockout de compte (Event 4740)",
+          "Connexions VPN / ZTNA",
+          "Authentifications MFA (réussies et refusées)"
+        ]
+      },
+      "administration": {
+        "importance": "Critique",
+        "evenements": [
+          "Création, modification, suppression de comptes (Event 4720/4726)",
+          "Modifications de GPO ou de politiques de sécurité",
+          "Accès via PAM (CyberArk sessions enregistrées)",
+          "Changements de configuration des équipements réseau",
+          "Déploiements en production (CI/CD logs)"
+        ]
+      },
+      "reseau": {
+        "importance": "Très haute",
+        "evenements": [
+          "Connexions acceptées et refusées par le firewall (source, destination, port, protocole)",
+          "Logs DNS (requêtes vers des domaines inconnus = IoC potentiel)",
+          "Flux NetFlow/IPFIX (qui parle à qui et en quel volume)",
+          "Alertes IDS/IPS (Suricata, Snort)",
+          "Connexions proxy web (URL visitées, catégories, volumes)"
+        ]
+      },
+      "systeme_endpoint": {
+        "importance": "Haute",
+        "evenements": [
+          "Création et arrêt de processus (Sysmon Event ID 1, auditd execve)",
+          "Modifications de fichiers critiques (Sysmon 11, AIDE, Tripwire)",
+          "Connexions réseau initiées par des processus (Sysmon 3)",
+          "Chargement de drivers et DLLs (Sysmon 6, 7)",
+          "Création de tâches planifiées (Event 4698)"
+        ]
+      },
+      "applications": {
+        "importance": "Haute",
+        "evenements": [
+          "Erreurs d'authentification applicative",
+          "Accès aux données sensibles (bases de données, fichiers confidentiels)",
+          "Erreurs 4xx/5xx HTTP (potentielles tentatives d'exploitation)",
+          "API calls avec tokens expirés ou invalides",
+          "Modifications de configuration d'application"
+        ]
+      }
+    },
+    "formats": {
+      "JSON": {
+        "description": "Format structuré, natif dans la plupart des outils modernes",
+        "avantages": ["Facile à parser automatiquement", "Champs typés (string, int, boolean)", "Compatible avec Elastic, Splunk, Sentinel"],
+        "exemple": "{\"timestamp\":\"2026-06-03T10:00:00Z\",\"event\":\"auth.login.failed\",\"user\":\"john.doe\",\"ip\":\"192.168.1.100\",\"reason\":\"bad_password\"}"
+      },
+      "CEF": {
+        "description": "Common Event Format — standard ArcSight/Micro Focus",
+        "avantages": ["Standard d'interopérabilité SIEM", "Champs normalisés"],
+        "exemple": "CEF:0|Vendor|Product|1.0|AUTH_FAIL|Failed login|High|src=192.168.1.100 duser=john.doe"
+      },
+      "Syslog": {
+        "description": "Format standard Unix/réseau (RFC 5424)",
+        "usage": "Équipements réseau (firewall, routeurs, switches), serveurs Unix",
+        "amelioration": "Toujours activer Syslog over TLS (TCP 6514) plutôt que UDP 514 (pas de garantie de livraison)"
+      }
+    },
+    "centralisation": {
+      "architecture": {
+        "agents": ["Filebeat (Elastic)", "Fluentd / Fluent Bit", "Splunk Universal Forwarder", "NXLog", "Windows Event Forwarding (WEF) natif"],
+        "aggregateur": "Logstash, syslog-ng, ou directement vers le SIEM",
+        "SIEM": ["Elasticsearch + Kibana (ELK Stack)", "Splunk Enterprise", "Microsoft Sentinel", "IBM QRadar"]
+      },
+      "flux_recommande": "Source (serveur) → Agent (Filebeat/NXLog) → Aggregateur (Logstash) → SIEM (Elastic/Splunk) → Archivage long terme (S3/Azure Blob)"
+    },
+    "retention": {
+      "chaud": {
+        "duree": "3 à 6 mois",
+        "stockage": "SIEM haute performance (SSD), accès rapide pour les investigations en cours"
+      },
+      "tiede": {
+        "duree": "6 à 12 mois",
+        "stockage": "Stockage moins coûteux (HDD, stockage froid SIEM), accessible en quelques minutes"
+      },
+      "froid": {
+        "duree": "12 à 24 mois (PCI-DSS exige 12 mois, ISO 27001 recommande 24 mois)",
+        "stockage": "Archivage compressé et chiffré (S3 Glacier, Azure Archive, bandes)"
+      },
+      "obligations_legales": {
+        "PCI_DSS": "12 mois minimum, 3 mois accessibles immédiatement",
+        "ISO_27001": "Selon politique interne, souvent 12-24 mois",
+        "RGPD": "Minimisation des données — ne pas conserver de logs contenant des données personnelles plus longtemps que nécessaire"
+      }
+    },
+    "protection_integrite": {
+      "objectif": "Un attaquant ayant accès à un système ne doit pas pouvoir effacer ou modifier les logs pour couvrir ses traces",
+      "mecanismes": [
+        "Envoi des logs vers un serveur SIEM dédié en temps réel (logs en mémoire tampon minimale sur l'hôte)",
+        "Signature cryptographique des logs (HMAC, ED25519) — tout log modifié est détectable",
+        "Stockage immuable (WORM — Write Once Read Many) pour l'archivage long terme",
+        "Accès en écriture aux logs refusé à tous sauf au daemon de journalisation (AppArmor/SELinux)",
+        "Audit d'accès aux logs eux-mêmes (qui accède aux logs de sécurité)"
+      ]
+    },
+    "Sysmon": {
+      "description": "System Monitor — outil Microsoft Sysinternals, agent HIDS léger pour Windows",
+      "event_ids_cles": [
+        "Event 1 : Création de processus (cmdline complet, hash du binaire, parent process)",
+        "Event 3 : Connexion réseau (processus source, IP destination, port)",
+        "Event 6 : Chargement de driver (hash, signature)",
+        "Event 7 : Chargement de DLL",
+        "Event 10 : ProcessAccess (injection de processus)",
+        "Event 11 : FileCreate",
+        "Event 12/13 : Accès et modification au registre",
+        "Event 22 : Requête DNS"
+      ],
+      "configuration_recommandee": "SwiftOnSecurity Sysmon config (github.com/SwiftOnSecurity/sysmon-config) — baseline communautaire très complète",
+      "integration": "Logs envoyés vers Windows Event Log → collectés par Winlogbeat ou WEF → SIEM"
+    },
+    "log_levels": {
+      "en_production": "WARN et ERROR pour les applications (INFO uniquement si nécessaire pour la sécurité)",
+      "sécurité": "INFO minimum pour les logs d'authentification et d'accès — chaque événement doit être loggé",
+      "debug": "Jamais en production (contient souvent des données sensibles : tokens, mots de passe dans les paramètres)",
+      "recommendation": "Utiliser des structured logs (JSON) avec severity field plutôt que des messages texte libres"
+    },
+    "application_alfred": {
+      "logs_alfred": [
+        "Chaque appel API ALFRED loggé en JSON (timestamp, user_id, endpoint, response_code, latency)",
+        "Toute erreur d'authentification logguée avec IP source et user-agent",
+        "Accès aux modules mémoire loggés (quel module accède à quelle donnée utilisateur)",
+        "Logs d'inférence : durée, modèle utilisé, tokens consommés (sans le contenu pour RGPD)",
+        "Alertes de sécurité loggées en priorité et envoyées en temps réel vers le SIEM"
+      ]
+    },
+    "best_practices": [
+      "Synchroniser les horloges de tous les systèmes avec NTP (logs sans horodatage cohérent = forensique impossible)",
+      "Utiliser UTC pour tous les timestamps (pas d'ambiguïté fuseau horaire)",
+      "Tester régulièrement que les logs arrivent bien au SIEM (monitoring du pipeline de logs lui-même)",
+      "Chiffrer les logs en transit (TLS) et au repos (AES-256)",
+      "Documenter ce qui est loggé et pourquoi (registre de traitement RGPD)",
+      "Former les développeurs à logger les bons événements dès le développement (security logging by design)"
+    ],
+    "anti_patterns": [
+      "Logger les mots de passe ou tokens dans les logs (même en DEBUG)",
+      "Stocker les logs uniquement en local sur le système surveillé",
+      "Logs sans timestamp ou avec timestamp local (pas UTC)",
+      "Rétention illimitée sans politique : coûts explosifs et problèmes RGPD",
+      "Format de log texte libre non-structuré : impossible à parser automatiquement par le SIEM",
+      "Oublier de logger les absences d'événements attendus (pas de backup = alerte)"
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["logs sécurité", "Sysmon", "CEF", "JSON logs", "centralisation logs", "rétention logs", "intégrité logs", "Filebeat", "Elastic", "Splunk", "auditd"],
+    "related_knowledge": ["security_monitoring_basics", "intrusion_detection_basics", "incident_classification", "nist_incident_response"],
+    "retrieval_priority": 8
+  },
+  "behavior_rules": { "tone": "professional", "response_style": "structured_clear", "max_complexity": "high", "allow_humor": false },
+  "safety_notes": {
+    "allowed_usage": ["Définition de stratégie de logging", "Configuration Sysmon et auditd", "Intégration SIEM", "Audit de conformité des logs"],
+    "forbidden_usage": ["Effacer ou modifier des logs d'audit", "Identifier des lacunes de logging pour contourner la détection"],
+    "fallback_behavior": "Pour les logs contenant des données personnelles, vérifier la conformité RGPD avec le DPO avant déploiement."
+  },
+  "metadata": { "author": "Cognitive Products Lab", "creation_date": "03/06/2026", "last_update": "03/06/2026", "review_status": "validated", "source_type": "manual_structured_knowledge", "language": "fr", "retrieval_ready": true, "rag_compatible": true }
 }
