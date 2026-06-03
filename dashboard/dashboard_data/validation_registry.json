@@ -1,0 +1,3901 @@
+{
+  "_meta": {
+    "project": "ALFRED",
+    "block": "GLOBAL",
+    "file": "validation_registry.json",
+    "version": "V1.1",
+    "status": "ACTIVE",
+    "updated": "2026-05-13",
+    "standardized_by": "json_metadata_standardizer.py"
+  },
+  "validated_files": [
+    {
+      "path": "src/main.py",
+      "module": "B18",
+      "status": "validated",
+      "last_test": "2026-05-06",
+      "test_level": "manual",
+      "tests": [
+        "lancement main.py",
+        "statut",
+        "memoire",
+        "question mémoire",
+        "LLM Router Ollama"
+      ],
+      "notes": "Promu comme fichier principal après tests fonctionnels."
+    },
+    {
+      "path": "src/security/input_validator.py",
+      "module": "B20",
+      "function": "20.03.001",
+      "status": "validated",
+      "last_test": "2026-05-13",
+      "test_level": "manual",
+      "tests": [
+        "compileall src/security",
+        "sanitize_input",
+        "injection SQL/XSS"
+      ],
+      "notes": "Validation entree utilisateur testee."
+    },
+    {
+      "path": "src/memory/memory_engine.py",
+      "module": "B02",
+      "status": "validated",
+      "last_test": "2026-05-06",
+      "test_level": "manual",
+      "tests": [
+        "commande memoire",
+        "sauvegarde échange JSON",
+        "lecture historique récent"
+      ],
+      "notes": "Accès mémoire JSON testé depuis main.py."
+    },
+    {
+      "path": "src/memory/long_term_memory.py",
+      "module": "B02",
+      "status": "validated",
+      "last_test": "2026-05-06",
+      "test_level": "manual",
+      "tests": [
+        "commande memoire_ltm",
+        "sauvegarde échange SQLite",
+        "lecture échanges récents"
+      ],
+      "notes": "Mémoire long terme SQLite testée dans le pipeline principal."
+    },
+    {
+      "path": "src/conversation/input/stt_whisper.py",
+      "module": "B01",
+      "status": "validated",
+      "last_test": "2026-05-06",
+      "test_level": "manual",
+      "tests": [
+        "commande ecoute",
+        "transcription faster-whisper",
+        "retour texte dans la boucle principale"
+      ],
+      "notes": "Entrée vocale ponctuelle validée. Le vocal continu reste exclu de la V1 terminal."
+    },
+    {
+      "path": "assets/avatars/avatar_normal/base_normal/avatar_mouth_idle_eyes_open.png.png",
+      "module": "B15",
+      "type": "asset",
+      "category": "avatar_sprite",
+      "status": "validated",
+      "notes": "Sprite avatar ALFRED — bouche idle, yeux ouverts."
+    },
+    {
+      "path": "assets/avatars/avatar_normal/base_normal/",
+      "module": "B15",
+      "type": "asset_collection",
+      "status": "validated",
+      "last_test": "2026-05-15",
+      "notes": "Tous les sprites avatar ALFRED validés (12 combinaisons bouche×yeux + alfred_thinking.png)."
+    },
+    {
+      "path": "assets/avatars/avatar_normal/base_normal/alfred_thinking.png",
+      "module": "B15",
+      "type": "asset",
+      "category": "avatar_sprite",
+      "status": "validated",
+      "last_test": "2026-05-15",
+      "notes": "Sprite dédié états thinking/error/offline."
+    },
+    {
+      "path": "assets/backgrounds/interior/",
+      "module": "B15",
+      "type": "background_collection",
+      "status": "validated",
+      "last_test": "2026-05-06",
+      "notes": "Backgrounds intérieurs validés pour les scènes ALFRED."
+    },
+    {
+      "path": "assets/backgrounds/exterior/",
+      "module": "B15",
+      "type": "background_collection",
+      "status": "validated",
+      "last_test": "2026-05-06",
+      "notes": "Backgrounds extérieurs validés pour les scènes ALFRED."
+    },
+    {
+      "path": "assets/backgrounds/",
+      "module": "B15",
+      "type": "environment_system",
+      "status": "validated",
+      "last_test": "2026-05-06",
+      "notes": "Système de backgrounds validé : intérieur, extérieur, variations jour/nuit et ambiances visuelles."
+    },
+    {
+      "path": "knowledges/knowledge_registry.json",
+      "module": "B18",
+      "status": "validated",
+      "last_test": "2026-05-13",
+      "test_level": "manual",
+      "tests": [
+        "491 entrees indexees",
+        "KnowledgeLoader V2.0 charge sans erreur"
+      ],
+      "notes": "Registry principal B18 — 491 knowledges actifs."
+    },
+    {
+      "path": "knowledges/knowledge_aliases.json",
+      "module": "B18",
+      "status": "validated",
+      "last_test": "2026-05-13",
+      "test_level": "manual",
+      "tests": [
+        "112 aliases charges",
+        "0 alias brise apres correction V1.2",
+        "10/10 alias resolus"
+      ],
+      "notes": "V1.2 — 76 targets corriges vers chemins registry reels."
+    },
+    {
+      "path": "knowledges/knowledge_merges.json",
+      "module": "B18",
+      "status": "validated",
+      "last_test": "2026-05-13",
+      "test_level": "manual",
+      "tests": [
+        "10 merges charges",
+        "0 merge brise apres correction V1.2"
+      ],
+      "notes": "V1.2 — 13 targets de merge corriges."
+    },
+    {
+      "path": "src/knowledge/knowledge_loader.py",
+      "module": "B18",
+      "status": "validated",
+      "last_test": "2026-05-13",
+      "test_level": "manual",
+      "tests": [
+        "491 knowledges indexes",
+        "aliases et merges charges",
+        "resolution alias runtime OK"
+      ],
+      "notes": "V2.0 — aliases + merges + index inverse _path_to_id."
+    },
+    {
+      "path": "src/knowledge/retrieval_engine.py",
+      "module": "B18",
+      "status": "validated",
+      "last_test": "2026-05-13",
+      "test_level": "manual",
+      "tests": [
+        "retrieve() retourne 6 knowledges sur queries FR",
+        "debug() fonctionnel"
+      ],
+      "notes": "Orchestrateur B18 — partage loader avec components."
+    },
+    {
+      "path": "src/knowledge/domain_matcher.py",
+      "module": "B18",
+      "status": "validated",
+      "last_test": "2026-05-13",
+      "test_level": "manual",
+      "tests": [
+        "8 routes chargees depuis query_patterns",
+        "strip_accents OK",
+        "boost_domains resolus en priority_knowledge"
+      ],
+      "notes": "Fallback routing_links -> query_patterns. Normalisation accents FR."
+    },
+    {
+      "path": "src/knowledge/taxonomy_router.py",
+      "module": "B18",
+      "status": "validated",
+      "last_test": "2026-05-13",
+      "test_level": "manual",
+      "tests": [
+        "route() retourne des resultats sur queries FR",
+        "prefix-matching 5 chars OK"
+      ],
+      "notes": "strip_accents + prefix-matching pour conjugaisons francaises."
+    },
+    {
+      "path": "src/knowledge/knowledge_ranker.py",
+      "module": "B18",
+      "status": "validated",
+      "last_test": "2026-05-13",
+      "test_level": "manual",
+      "tests": [
+        "rank() > 0 sur queries FR",
+        "score >= 3.0 atteint",
+        "normalisation accents OK"
+      ],
+      "notes": "strip_accents + prefix-matching sur index complet."
+    },
+    {
+      "path": "src/core/response_generator.py",
+      "module": "GLOBAL",
+      "status": "validated",
+      "last_test": "2026-05-13",
+      "test_level": "manual",
+      "tests": [
+        "knowledge_block injecte dans system prompt",
+        "marqueur forced_response corrige"
+      ],
+      "notes": "V2.2 — knowledge_context dans system prompt + fix marqueur question utilisateur."
+    },
+    {
+      "path": "src/llm/llm_client_ollama.py",
+      "module": "B01",
+      "status": "validated",
+      "last_test": "2026-05-13",
+      "test_level": "manual",
+      "tests": [
+        "profils mistral:7b et phi3:mini charges",
+        "num_ctx transmis",
+        "surcharge manuelle OK"
+      ],
+      "notes": "MODEL_PROFILES — mistral:7b recommande pour ALFRED FR."
+    },
+    {
+      "path": "knowledges/professional/iot/rtsp_stream_management.json",
+      "module": "B18",
+      "status": "validated",
+      "last_test": "2026-05-13",
+      "test_level": "manual",
+      "tests": [
+        "fichier cree et indexable",
+        "registry entry ajoutee",
+        "retire de rejected_aliases"
+      ],
+      "notes": "Fichier IoT cree — RTSP streaming local cameras IP."
+    },
+    {
+      "path": "src/security/zero_trust_orchestrator.py",
+      "module": "B20",
+      "function": "20.00.001",
+      "status": "validated",
+      "last_test": "2026-05-13",
+      "test_level": "manual",
+      "tests": [
+        "quick_authorize_owner_local",
+        "integration main.py",
+        "bloc 20 pipeline"
+      ],
+      "notes": "Orchestrateur Zero Trust teste et integre dans main.py."
+    },
+    {
+      "path": "src/security/output_filter.py",
+      "module": "B20",
+      "function": "20.03.002",
+      "status": "validated",
+      "last_test": "2026-05-13",
+      "test_level": "manual",
+      "tests": [
+        "compileall src/security",
+        "filter reponses LLM"
+      ],
+      "notes": "Filtre sortie LLM compile OK."
+    },
+    {
+      "path": "src/security/prompt_guard.py",
+      "module": "B20",
+      "function": "20.03.003",
+      "status": "validated",
+      "last_test": "2026-05-13",
+      "test_level": "manual",
+      "tests": [
+        "compileall",
+        "detection injection prompt"
+      ],
+      "notes": "Protection prompt injection compilee OK."
+    },
+    {
+      "path": "src/security/encryption_service.py",
+      "module": "B20",
+      "function": "20.04.001",
+      "status": "validated",
+      "last_test": "2026-05-13",
+      "test_level": "manual",
+      "tests": [
+        "compileall src/security"
+      ],
+      "notes": "Service chiffrement Fernet compile OK."
+    },
+    {
+      "path": "src/security/secret_manager.py",
+      "module": "B20",
+      "function": "20.04.002",
+      "status": "validated",
+      "last_test": "2026-05-13",
+      "test_level": "manual",
+      "tests": [
+        "compileall src/security"
+      ],
+      "notes": "Gestionnaire secrets compile OK."
+    },
+    {
+      "path": "src/security/device_registry.py",
+      "module": "B20",
+      "function": "20.05.001",
+      "status": "validated",
+      "last_test": "2026-05-13",
+      "test_level": "manual",
+      "tests": [
+        "init_default_device local_pc",
+        "integration main.py"
+      ],
+      "notes": "Registre appareils initialise au lancement main.py."
+    },
+    {
+      "path": "src/security/session_manager.py",
+      "module": "B20",
+      "function": "20.05.002",
+      "status": "validated",
+      "last_test": "2026-05-13",
+      "test_level": "manual",
+      "tests": [
+        "compileall src/security"
+      ],
+      "notes": "Gestionnaire sessions compile OK."
+    },
+    {
+      "path": "src/security/access_control.py",
+      "module": "B20",
+      "function": "20.06.001",
+      "status": "validated",
+      "last_test": "2026-05-13",
+      "test_level": "manual",
+      "tests": [
+        "compileall src/security"
+      ],
+      "notes": "Controle acces compile OK."
+    },
+    {
+      "path": "src/security/role_manager.py",
+      "module": "B20",
+      "function": "20.06.002",
+      "status": "validated",
+      "last_test": "2026-05-13",
+      "test_level": "manual",
+      "tests": [
+        "compileall src/security"
+      ],
+      "notes": "Gestionnaire roles compile OK."
+    },
+    {
+      "path": "src/security/permission_manager.py",
+      "module": "B20",
+      "function": "20.06.003",
+      "status": "validated",
+      "last_test": "2026-05-13",
+      "test_level": "manual",
+      "tests": [
+        "compileall src/security"
+      ],
+      "notes": "Gestionnaire permissions compile OK."
+    },
+    {
+      "path": "src/security/audit_trail.py",
+      "module": "B20",
+      "function": "20.07.001",
+      "status": "validated",
+      "last_test": "2026-05-13",
+      "test_level": "manual",
+      "tests": [
+        "compileall src/security"
+      ],
+      "notes": "Journalisation audit compile OK."
+    },
+    {
+      "path": "src/security/security_logger.py",
+      "module": "B20",
+      "function": "20.07.002",
+      "status": "validated",
+      "last_test": "2026-05-13",
+      "test_level": "manual",
+      "tests": [
+        "compileall src/security"
+      ],
+      "notes": "Logger securite compile OK."
+    },
+    {
+      "path": "src/security/incident_manager.py",
+      "module": "B20",
+      "function": "20.08.001",
+      "status": "validated",
+      "last_test": "2026-05-13",
+      "test_level": "manual",
+      "tests": [
+        "compileall src/security"
+      ],
+      "notes": "Gestionnaire incidents compile OK."
+    },
+    {
+      "path": "src/security/incident_correlation.py",
+      "module": "B20",
+      "function": "20.08.002",
+      "status": "validated",
+      "last_test": "2026-05-13",
+      "test_level": "manual",
+      "tests": [
+        "compileall src/security"
+      ],
+      "notes": "Correlation incidents compile OK."
+    },
+    {
+      "path": "src/security/threat_detector.py",
+      "module": "B20",
+      "function": "20.08.003",
+      "status": "validated",
+      "last_test": "2026-05-13",
+      "test_level": "manual",
+      "tests": [
+        "compileall src/security"
+      ],
+      "notes": "Detecteur menaces compile OK."
+    },
+    {
+      "path": "src/security/behavioral_detector.py",
+      "module": "B20",
+      "function": "20.08.004",
+      "status": "validated",
+      "last_test": "2026-05-13",
+      "test_level": "manual",
+      "tests": [
+        "compileall src/security"
+      ],
+      "notes": "Detecteur comportemental compile OK."
+    },
+    {
+      "path": "src/security/mfa_manager.py",
+      "module": "B20",
+      "function": "20.09.001",
+      "status": "validated",
+      "last_test": "2026-05-13",
+      "test_level": "manual",
+      "tests": [
+        "compileall src/security"
+      ],
+      "notes": "Gestionnaire MFA compile OK."
+    },
+    {
+      "path": "src/security/policy_engine.py",
+      "module": "B20",
+      "function": "20.10.001",
+      "status": "validated",
+      "last_test": "2026-05-13",
+      "test_level": "manual",
+      "tests": [
+        "compileall src/security"
+      ],
+      "notes": "Moteur politique securite compile OK."
+    },
+    {
+      "path": "src/security/policy_decision_point.py",
+      "module": "B20",
+      "function": "20.10.002",
+      "status": "validated",
+      "last_test": "2026-05-13",
+      "test_level": "manual",
+      "tests": [
+        "compileall src/security"
+      ],
+      "notes": "Point decision politique compile OK."
+    },
+    {
+      "path": "src/security/policy_enforcement_point.py",
+      "module": "B20",
+      "function": "20.10.003",
+      "status": "validated",
+      "last_test": "2026-05-13",
+      "test_level": "manual",
+      "tests": [
+        "compileall src/security"
+      ],
+      "notes": "Point application politique compile OK."
+    },
+    {
+      "path": "src/security/compliance_manager.py",
+      "module": "B20",
+      "function": "20.11.001",
+      "status": "validated",
+      "last_test": "2026-05-13",
+      "test_level": "manual",
+      "tests": [
+        "compileall src/security"
+      ],
+      "notes": "Gestionnaire conformite compile OK."
+    },
+    {
+      "path": "src/security/quarantine_service.py",
+      "module": "B20",
+      "function": "20.11.002",
+      "status": "validated",
+      "last_test": "2026-05-13",
+      "test_level": "manual",
+      "tests": [
+        "compileall src/security"
+      ],
+      "notes": "Service quarantaine compile OK."
+    },
+    {
+      "path": "src/security/backup_security.py",
+      "module": "B20",
+      "function": "20.12.001",
+      "status": "validated",
+      "last_test": "2026-05-13",
+      "test_level": "manual",
+      "tests": [
+        "compileall src/security"
+      ],
+      "notes": "Securite sauvegardes compile OK."
+    },
+    {
+      "path": "src/security/security_config.py",
+      "module": "B20",
+      "function": "20.00.002",
+      "status": "validated",
+      "last_test": "2026-05-13",
+      "test_level": "manual",
+      "tests": [
+        "compileall src/security"
+      ],
+      "notes": "Configuration securite compile OK."
+    },
+    {
+      "path": "config/security/security_settings.json",
+      "module": "B20",
+      "function": "20.00.003",
+      "status": "validated",
+      "last_test": "2026-05-13",
+      "test_level": "manual",
+      "tests": [
+        "json valide",
+        "chargement zero_trust_orchestrator"
+      ],
+      "notes": "Configuration JSON B20 validee."
+    },
+    {
+      "path": "config/security/zero_trust_rules.json",
+      "module": "B20",
+      "status": "validated",
+      "last_test": "2026-05-13",
+      "test_level": "manual",
+      "tests": [
+        "json valide"
+      ],
+      "notes": "Regles Zero Trust JSON valide."
+    },
+    {
+      "path": "config/security/access_policies.json",
+      "module": "B20",
+      "status": "validated",
+      "last_test": "2026-05-13",
+      "test_level": "manual",
+      "tests": [
+        "json valide"
+      ],
+      "notes": "Politiques acces JSON valide."
+    },
+    {
+      "path": "config/security/roles_permissions.json",
+      "module": "B20",
+      "status": "validated",
+      "last_test": "2026-05-13",
+      "test_level": "manual",
+      "tests": [
+        "json valide"
+      ],
+      "notes": "Roles et permissions JSON valide."
+    }
+  ],
+  "ALFRED_CONTEXT.md": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "bootstrap_project.ps1": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "check_tools.ps1": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "CODE_OF_CONDUCT.md": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "CONTRIBUTING.md": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "CONTRIBUTING_FR.md": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "patch_manifest.py": {
+    "status": "partial",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "paths.py": {
+    "status": "partial",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "README.md": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "README_FR.md": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "ROADMAP.md": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "config/alfred_project.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "config/behavior_rules_softskills.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "config/conversation_rules.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "config/ethics_rules.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "config/intents_catalog.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "config/knowledge_settings.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "config/personality_core.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "config/quality_thresholds.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "config/rag_settings.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "config/response_patterns.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "config/router_rules.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "config/routing_rules.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "config/safety_rules.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "config/self_alignment_rules.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "config/settings.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "config/tagging_rules.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "config/user_adaptation_profile.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "dashboard/ALFRED_DASHBOARD_DYNAMIC.html": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "dashboard/dashboard_data.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "dashboard/dashboard_manifest.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "dashboard/dashboard_target_report.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "dashboard/dashboard_target_report.md": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "dashboard/dashboard_target_report_complet.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "dashboard/dashboard_target_report_v1.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "dashboard/validation_registry.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "data/dialogue_history.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "data/personality.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "data/preferences_profile.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "data/user_memory.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "docs/dashboard_manifest_adapte_tree_02_05_fin_session.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "docs/dashboard_target_report.md": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "docs/dashboard_target_report_complet.md": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "docs/dashboard_target_report_v1.md": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "docs/knowledge_registry_v1_0_archive.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "docs/README.md": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "examples/README.md": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/domain_links.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/governance_rules.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/knowledge_registry.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/knowledge_registry_backup_20260510_101948.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/knowledge_registry_backup_20260510_102048.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/knowledge_template.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/manifest.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/retrieval_rules.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/taxonomy.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "scripts/alfred_dashboard.html": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "scripts/check_tools.ps1": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "scripts/tree_report.ps1": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "src/main.py": {
+    "status": "tested",
+    "last_update": "2026-05-10",
+    "test_level": "manual",
+    "notes": "Main launch validated manually",
+    "exists": true
+  },
+  "src/README.md": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "src/start_alfred.bat": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "src/__init__.py": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "templates/batch_script_template.bat": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "templates/css_template.css": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "templates/html_dashboard_template.html": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "templates/json_config_template.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "templates/json_knowledge_template.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "templates/js_template.js": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "templates/markdown_doc_template.md": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "templates/powershell_script_template.ps1": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "templates/python_module_template.py": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "templates/python_script_template.py": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "templates/python_test_template.py": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "templates/README_template.md": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "tests/README.md": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "tests/test_b01_speech.py": {
+    "status": "partial",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "tests/test_b02_b03.py": {
+    "status": "partial",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "tests/test_micro.py": {
+    "status": "partial",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "tests/test_pipeline.py": {
+    "status": "partial",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "tests/test_pipeline_llm.py": {
+    "status": "partial",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "tests/test_stt.py": {
+    "status": "partial",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "tests/test_tts_engine.py": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "tests/test_tts_piper.py": {
+    "status": "partial",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "tests/test_tts_piper_status.py": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "tests/test_voice_loop.py": {
+    "status": "partial",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "tests/__init__.py": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "tools/README_AUTO_HEADERS.md": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "tools/README_STANDARDIZATION_TOOLS.md": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "tools/backup/backup_alfred_stable.ps1": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "tools/dashboard_tools/compare_manifest_target.py": {
+    "status": "partial",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "tools/dashboard_tools/compare_manifest_target_complet.py": {
+    "status": "partial",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "tools/dashboard_tools/dashboard_server.bat": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "tools/dashboard_tools/run_dashboard.py": {
+    "status": "partial",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "tools/dashboard_tools/update_dashboard_data.py": {
+    "status": "partial",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "tools/knowledge_tools/generate_knowledge_registry.py": {
+    "status": "partial",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "tools/standardisation_tools/apply_headers.py": {
+    "status": "partial",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "tools/standardisation_tools/check_headers.py": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "tools/standardisation_tools/encoding_validator.py": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "tools/standardisation_tools/rename_validator.py": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "tools/standardisation_tools/status_manager.py": {
+    "status": "partial",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "tools/standardisation_tools/template_compliance_checker.py": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "tools/piper/models/fr_FR-upmc-medium.onnx.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "tests/security_tests/test_access_control.py": {
+    "status": "partial",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "tests/security_tests/test_audit_trail.py": {
+    "status": "partial",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "tests/security_tests/test_backup_security.py": {
+    "status": "partial",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "tests/security_tests/test_behavioral_detector.py": {
+    "status": "partial",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "tests/security_tests/test_compliance_manager.py": {
+    "status": "partial",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "tests/security_tests/test_incident_correlation.py": {
+    "status": "partial",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "tests/security_tests/test_input_validator.py": {
+    "status": "partial",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "tests/security_tests/test_mfa_manager.py": {
+    "status": "partial",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "tests/security_tests/test_output_filter.py": {
+    "status": "partial",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "tests/security_tests/test_permission_manager.py": {
+    "status": "partial",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "tests/security_tests/test_policy_decision_point.py": {
+    "status": "partial",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "tests/security_tests/test_policy_engine.py": {
+    "status": "partial",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "tests/security_tests/test_prompt_guard.py": {
+    "status": "partial",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "tests/security_tests/test_quarantine_service.py": {
+    "status": "partial",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "tests/security_tests/test_role_manager.py": {
+    "status": "partial",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "tests/security_tests/test_secret_manager.py": {
+    "status": "partial",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "tests/security_tests/test_security_config.py": {
+    "status": "partial",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "tests/security_tests/test_security_logger.py": {
+    "status": "partial",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "tests/security_tests/test_session_manager.py": {
+    "status": "partial",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "tests/security_tests/test_threat_detector.py": {
+    "status": "partial",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "tests/security_tests/test_zero_trust_orchestrator.py": {
+    "status": "partial",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "tests/security_tests/__init__.py": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "src/assistant_actions/__init__.py": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "src/auth/__init__.py": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "src/conversation/__init__.py": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "src/core/alfred_behavior_engine.py": {
+    "status": "partial",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "src/core/personality_adapter.py": {
+    "status": "partial",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "src/core/response_generator.py": {
+    "status": "tested",
+    "last_update": "2026-05-10",
+    "test_level": "manual",
+    "notes": "Response generation tested in main pipeline",
+    "exists": true
+  },
+  "src/core/__init__.py": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "src/dialogue/__init__.py": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "src/knowledge/context_merger.py": {
+    "status": "partial",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "src/knowledge/domain_matcher.py": {
+    "status": "partial",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "src/knowledge/knowledge_loader.py": {
+    "status": "partial",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "src/knowledge/knowledge_ranker.py": {
+    "status": "partial",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "src/knowledge/knowledge_router.py": {
+    "status": "partial",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "src/knowledge/retrieval_engine.py": {
+    "status": "tested",
+    "last_update": "2026-05-10",
+    "test_level": "manual",
+    "notes": "Knowledge retrieval operational",
+    "exists": true
+  },
+  "src/knowledge/taxonomy_router.py": {
+    "status": "partial",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "src/knowledge/__init__.py": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "src/llm/llm_client_ollama.py": {
+    "status": "partial",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "src/llm/llm_client_openai.py": {
+    "status": "partial",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "src/llm/llm_router.py": {
+    "status": "partial",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "src/llm/__init__.py": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "src/memory/episodic_memory.py": {
+    "status": "validated",
+    "last_update": "2026-05-12",
+    "test_level": "none",
+    "notes": "Tests 100% passants — validé session B02/B03 2026-05-12"
+  },
+  "src/memory/long_term_memory.py": {
+    "status": "validated",
+    "last_update": "2026-05-12",
+    "test_level": "manual",
+    "notes": "B02: LTM SQLite — get_recent_memories() actif dans build_response(). Validé session B02.",
+    "exists": true
+  },
+  "src/memory/memory_answer_engine.py": {
+    "status": "validated",
+    "last_update": "2026-05-12",
+    "test_level": "manual",
+    "notes": "B02: answer_from_memory() intégré dans build_response() — réponse directe depuis mémoire.",
+    "exists": true
+  },
+  "src/memory/memory_engine.py": {
+    "status": "validated",
+    "last_update": "2026-05-12",
+    "test_level": "manual",
+    "notes": "B02: format_context_for_prompt() branché pipeline LLM. history_text injecté. Validé session B02.",
+    "exists": true
+  },
+  "src/memory/memory_indexer.py": {
+    "status": "validated",
+    "last_update": "2026-05-12",
+    "test_level": "none",
+    "notes": "Tests 100% passants — validé session B02/B03 2026-05-12"
+  },
+  "src/memory/memory_manager.py": {
+    "status": "validated",
+    "last_update": "2026-05-12",
+    "test_level": "manual",
+    "notes": "B02: session history manager — utilisé conjointement avec MemoryEngine. Headers STABLE.",
+    "exists": true
+  },
+  "src/memory/rag_stub.py": {
+    "status": "validated",
+    "last_update": "2026-05-12",
+    "test_level": "none",
+    "notes": "Tests 100% passants — validé session B02/B03 2026-05-12"
+  },
+  "src/memory/__init__.py": {
+    "status": "validated",
+    "last_update": "2026-05-12",
+    "test_level": "none",
+    "notes": "Tests 100% passants — validé session B02/B03 2026-05-12"
+  },
+  "src/rag/rag_engine.py": {
+    "status": "partial",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "src/rag/__init__.py": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "src/regulation/emotion_detector.py": {
+    "status": "validated",
+    "last_update": "2026-05-12",
+    "test_level": "none",
+    "notes": "Tests 100% passants — validé session B02/B03 2026-05-12"
+  },
+  "src/regulation/mode_manager.py": {
+    "status": "validated",
+    "last_update": "2026-05-12",
+    "test_level": "none",
+    "notes": "Tests 100% passants — validé session B02/B03 2026-05-12"
+  },
+  "src/regulation/protection_guard.py": {
+    "status": "validated",
+    "last_update": "2026-05-12",
+    "test_level": "none",
+    "notes": "Tests 100% passants — validé session B02/B03 2026-05-12"
+  },
+  "src/regulation/wellbeing_tracker.py": {
+    "status": "validated",
+    "last_update": "2026-05-12",
+    "test_level": "none",
+    "notes": "Tests 100% passants — validé session B02/B03 2026-05-12"
+  },
+  "src/regulation/__init__.py": {
+    "status": "validated",
+    "last_update": "2026-05-12",
+    "test_level": "none",
+    "notes": "Tests 100% passants — validé session B02/B03 2026-05-12"
+  },
+  "src/security/access_control.py": {
+    "status": "validated",
+    "last_update": "2026-05-12",
+    "test_level": "unit",
+    "notes": "Access control unit tests completed | Validé B20 session 2026-05-12",
+    "exists": true
+  },
+  "src/security/audit_trail.py": {
+    "status": "validated",
+    "last_update": "2026-05-12",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py | Validé B20 session 2026-05-12"
+  },
+  "src/security/backup_security.py": {
+    "status": "validated",
+    "last_update": "2026-05-12",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py | Validé B20 session 2026-05-12"
+  },
+  "src/security/behavioral_detector.py": {
+    "status": "validated",
+    "last_update": "2026-05-12",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py | Validé B20 session 2026-05-12"
+  },
+  "src/security/compliance_manager.py": {
+    "status": "validated",
+    "last_update": "2026-05-12",
+    "test_level": "manual",
+    "notes": "P2 fix: _secure_delete() RGPD — écrasement zéros + fsync avant unlink. Validé session B20.",
+    "exists": true
+  },
+  "src/security/device_registry.py": {
+    "status": "validated",
+    "last_update": "2026-05-12",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py | Validé B20 session 2026-05-12"
+  },
+  "src/security/encryption_service.py": {
+    "status": "validated",
+    "last_update": "2026-05-12",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py | Validé B20 session 2026-05-12"
+  },
+  "src/security/incident_correlation.py": {
+    "status": "validated",
+    "last_update": "2026-05-12",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py | Validé B20 session 2026-05-12"
+  },
+  "src/security/incident_manager.py": {
+    "status": "validated",
+    "last_update": "2026-05-12",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py | Validé B20 session 2026-05-12"
+  },
+  "src/security/input_validator.py": {
+    "status": "validated",
+    "last_update": "2026-05-12",
+    "test_level": "unit",
+    "notes": "Security validation tested | Validé B20 session 2026-05-12",
+    "exists": true
+  },
+  "src/security/mfa_manager.py": {
+    "status": "validated",
+    "last_update": "2026-05-12",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py | Validé B20 session 2026-05-12"
+  },
+  "src/security/output_filter.py": {
+    "status": "validated",
+    "last_update": "2026-05-12",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py | Validé B20 session 2026-05-12"
+  },
+  "src/security/permission_manager.py": {
+    "status": "validated",
+    "last_update": "2026-05-12",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py | Validé B20 session 2026-05-12"
+  },
+  "src/security/policy_decision_point.py": {
+    "status": "validated",
+    "last_update": "2026-05-12",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py | Validé B20 session 2026-05-12"
+  },
+  "src/security/policy_enforcement_point.py": {
+    "status": "validated",
+    "last_update": "2026-05-12",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py | Validé B20 session 2026-05-12"
+  },
+  "src/security/policy_engine.py": {
+    "status": "validated",
+    "last_update": "2026-05-12",
+    "test_level": "integration",
+    "notes": "Policy engine integrated successfully | Validé B20 session 2026-05-12",
+    "exists": true
+  },
+  "src/security/prompt_guard.py": {
+    "status": "validated",
+    "last_update": "2026-05-12",
+    "test_level": "manual",
+    "notes": "Prompt injection protection tested | Validé B20 session 2026-05-12",
+    "exists": true
+  },
+  "src/security/quarantine_service.py": {
+    "status": "validated",
+    "last_update": "2026-05-12",
+    "test_level": "manual",
+    "notes": "P2 fix: chemin absolu + _rebuild_quarantined_modules() au démarrage. Validé session B20.",
+    "exists": true
+  },
+  "src/security/role_manager.py": {
+    "status": "validated",
+    "last_update": "2026-05-12",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py | Validé B20 session 2026-05-12"
+  },
+  "src/security/secret_manager.py": {
+    "status": "validated",
+    "last_update": "2026-05-12",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py | Validé B20 session 2026-05-12"
+  },
+  "src/security/security_config.py": {
+    "status": "validated",
+    "last_update": "2026-05-12",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py | Validé B20 session 2026-05-12"
+  },
+  "src/security/security_logger.py": {
+    "status": "validated",
+    "last_update": "2026-05-12",
+    "test_level": "manual",
+    "notes": "Security logging tested manually | Validé B20 session 2026-05-12",
+    "exists": true
+  },
+  "src/security/session_manager.py": {
+    "status": "validated",
+    "last_update": "2026-05-12",
+    "test_level": "manual",
+    "notes": "P1 fix: FAILED_ATTEMPTS persisté JSON — résistance brute-force au redémarrage. Validé session B20.",
+    "exists": true
+  },
+  "src/security/threat_detector.py": {
+    "status": "validated",
+    "last_update": "2026-05-12",
+    "test_level": "manual",
+    "notes": "Threat detection pipeline tested | Validé B20 session 2026-05-12",
+    "exists": true
+  },
+  "src/security/zero_trust_orchestrator.py": {
+    "status": "validated",
+    "last_update": "2026-05-12",
+    "test_level": "integration",
+    "notes": "MFA integration complète — seuils par rôle, évaluation MFA dans chaîne ZeroTrust. Validé session B20.",
+    "exists": true
+  },
+  "src/security/__init__.py": {
+    "status": "validated",
+    "last_update": "2026-05-12",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py | Validé B20 session 2026-05-12"
+  },
+  "src/ui/__init__.py": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "src/v1/__init__.py": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "src/v2/__init__.py": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "src/v2pp/__init__.py": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "src/v3/__init__.py": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "src/v4/__init__.py": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "src/v4/actions/__init__.py": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "src/v4/home_state/__init__.py": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "src/v4/integration/__init__.py": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "src/v4/orchestrator/__init__.py": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "src/v4/scenarios/__init__.py": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "src/v4/security/__init__.py": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "src/v4/triggers/__init__.py": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "src/v3/conversation/__init__.py": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "src/v3/emotion/__init__.py": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "src/v3/fusion/__init__.py": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "src/v3/learning/__init__.py": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "src/v3/memory/__init__.py": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "src/v3/orchestrator/__init__.py": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "src/v3/proactive/__init__.py": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "src/v3/reasoning/__init__.py": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "src/v3/safety/__init__.py": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "src/v2/confidence/__init__.py": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "src/v2/decision/__init__.py": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "src/v2/experience/__init__.py": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "src/v2/fallback/__init__.py": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "src/v2/fusion/__init__.py": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "src/v2/governance/__init__.py": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "src/v2/knowledge/__init__.py": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "src/v2/learning/__init__.py": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "src/v2/product/__init__.py": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "src/v2/scenarios/__init__.py": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "src/conversation/input/audio_capture.py": {
+    "status": "partial",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "src/conversation/input/audio_listener.py": {
+    "status": "partial",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "src/conversation/input/context_builder.py": {
+    "status": "partial",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "src/conversation/input/input_manager.py": {
+    "status": "partial",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "src/conversation/input/nlp_engine_v2.py": {
+    "status": "partial",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "src/conversation/input/speech_manager.py": {
+    "status": "partial",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "src/conversation/input/stt_whisper.py": {
+    "status": "partial",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "src/conversation/input/text_input.py": {
+    "status": "partial",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "src/conversation/input/voice_profile.py": {
+    "status": "partial",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "src/conversation/input/__init__.py": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "src/conversation/nlp/intent_classifier.py": {
+    "status": "partial",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "src/conversation/nlp/nlp_engine.py": {
+    "status": "partial",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "src/conversation/nlp/nlp_engine_v2.py": {
+    "status": "partial",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "src/conversation/nlp/__init__.py": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "src/conversation/output/tts_engine.py": {
+    "status": "partial",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "src/conversation/output/tts_output.py": {
+    "status": "partial",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "src/conversation/output/tts_piper.py": {
+    "status": "tested",
+    "last_update": "2026-05-10",
+    "test_level": "manual",
+    "notes": "Piper TTS output tested manually",
+    "exists": true
+  },
+  "src/conversation/output/__init__.py": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "speech/tts/models/fr_FR/fr_FR-mls_1840-low.onnx.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "speech/tts/models/fr_FR/fr_FR-upmc-medium.onnx.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "reports/standardization/apply_headers_report.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "reports/standardization/encoding_report.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "reports/standardization/headers_report.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "reports/standardization/rename_report.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "reports/standardization/template_compliance_report.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/core/alfred_core_identity.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/core/behavioral_modes.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/core/context_awareness.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/core/personalization_engine.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/core/system_rules.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/core/user_adaptation.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/core/__init__.py": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/cpl/__init__.py": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/culture/__init__.py": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/human/__init__.py": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/index/knowledge_registry.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/lifestyle/__init__.py": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/professional/__init__.py": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/system/__init__.py": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/system/ethics/ethical_framework.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/system/ethics/__init__.py": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/system/memory/episodic_memory.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/system/memory/memory_context_linking.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/system/memory/memory_decay_rules.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/system/memory/memory_learning_rules.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/system/memory/memory_prioritization.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/system/memory/memory_system.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/system/memory/__init__.py": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/professional/business/__init__.py": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/professional/communication/__init__.py": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/professional/decision/decision_making.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/professional/decision/decision_models.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/professional/decision/decision_support.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/professional/decision/prioritization.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/professional/decision/problem_solving.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/professional/decision/root_cause_analysis.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/professional/decision/tradeoff_analysis.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/professional/decision/__init__.py": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/professional/engineering/__init__.py": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/professional/frameworks/agile_scrum_basics.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/professional/frameworks/iso_27001_basics.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/professional/frameworks/itil4_basics.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/professional/frameworks/kanban_basics.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/professional/frameworks/lean_six_sigma_basics.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/professional/frameworks/nist_cybersecurity_framework.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/professional/frameworks/prince2_basics.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/professional/frameworks/product_operating_model.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/professional/frameworks/rgpd_gdpr_basics.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/professional/frameworks/safe_framework_basics.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/professional/frameworks/__init__.py": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/professional/leadership/decision_making_business.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/professional/leadership/__init__.py": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/professional/product_management/agile_product_delivery.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/professional/product_management/business_model_basics.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/professional/product_management/innovation_strategy.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/professional/product_management/kpi_product_advanced.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/professional/product_management/product_core.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/professional/product_management/product_discovery.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/professional/product_management/product_lifecycle.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/professional/product_management/product_market_fit.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/professional/product_management/product_metrics.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/professional/product_management/product_risk_management.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/professional/product_management/roadmap_management.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/professional/product_management/user_feedback_loops.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/professional/product_management/ux_research_basics.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/professional/product_management/__init__.py": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/professional/standards_iso/iso_14001_environmental_management.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/professional/standards_iso/iso_22301_business_continuity.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/professional/standards_iso/iso_26000_social_responsibility.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/professional/standards_iso/iso_27001_basics.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/professional/standards_iso/iso_27001_information_security.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/professional/standards_iso/iso_27002_security_controls.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/professional/standards_iso/iso_27005_risk_management.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/professional/standards_iso/iso_27701_privacy_management.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/professional/standards_iso/iso_31000_risk_management.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/professional/standards_iso/iso_42001_ai_management_system.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/professional/standards_iso/iso_9001_quality_management.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/professional/standards_iso/__init__.py": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/professional/strategy/__init__.py": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/professional/strategy/product_strategy/problem_framing.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/professional/strategy/product_strategy/roadmap_prioritization.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/professional/strategy/product_strategy/value_proposition.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/professional/strategy/product_strategy/__init__.py": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/professional/engineering/ai/chunking_strategies.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/professional/engineering/ai/llm_basics.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/professional/engineering/ai/llm_orchestration.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/professional/engineering/ai/prompt_engineering.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/professional/engineering/ai/rag.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/professional/engineering/ai/rag_architecture.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/professional/engineering/ai/reasoning_advanced.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/professional/engineering/ai/reasoning_engine.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/professional/engineering/ai/semantic_memory.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/professional/engineering/ai/vector_database.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/professional/engineering/ai/__init__.py": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/professional/engineering/cybersecurite/cybersecurity_core.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/professional/engineering/cybersecurite/rgpd_core.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/professional/engineering/cybersecurite/__init__.py": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/professional/engineering/systeme_design/ai_system_design.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/professional/engineering/systeme_design/api_basics.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/professional/engineering/systeme_design/event_driven_architecture.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/professional/engineering/systeme_design/local_first_architecture.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/professional/engineering/systeme_design/microservices_architecture.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/professional/engineering/systeme_design/software_architecture.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/professional/engineering/systeme_design/__init__.py": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/lifestyle/daily_life/organization_basics.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/lifestyle/daily_life/time_management.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/lifestyle/daily_life/__init__.py": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/lifestyle/health/fatigue_management.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/lifestyle/health/recovery_cycles.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/lifestyle/health/stress_management.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/lifestyle/health/__init__.py": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/lifestyle/life_path/__init__.py": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/lifestyle/productivity/__init__.py": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/human/cognition/cognitive_load.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/human/cognition/critical_thinking.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/human/cognition/decision_fatigue.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/human/cognition/focus_management.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/human/cognition/multi_step_reasoning.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/human/cognition/uncertainty_management.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/human/cognition/__init__.py": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/human/emotional_intelligence/active_listening.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/human/emotional_intelligence/emotional_management.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/human/emotional_intelligence/emotional_patterns.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/human/emotional_intelligence/emotional_support.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/human/emotional_intelligence/empathy.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/human/emotional_intelligence/self_awareness.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/human/emotional_intelligence/self_regulation.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/human/emotional_intelligence/__init__.py": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/human/psychology/behavioral_patterns.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/human/psychology/burnout_prevention.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/human/psychology/cognitive_biases.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/human/psychology/motivation.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/human/psychology/resilience.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/human/psychology/__init__.py": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/human/relationships/__init__.py": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/human/self_alignment/__init__.py": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/human/skills/__init__.py": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/human/social_behavior/communication_styles.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/human/social_behavior/conversational_warmth.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/human/social_behavior/emotions_basics.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/human/social_behavior/humor_and_laughter.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/human/social_behavior/motivation_needs.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/human/social_behavior/self_deprecation_and_autoderision.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/human/social_behavior/social_bonding.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/human/social_behavior/social_isolation.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/human/social_behavior/__init__.py": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/human/skills/softskills/adaptability.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/human/skills/softskills/argumentation_frameworks.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/human/skills/softskills/assertiveness.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/human/skills/softskills/communication.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/human/skills/softskills/communication_clarity.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/human/skills/softskills/conflict_management.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/human/skills/softskills/creativity.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/human/skills/softskills/emotional_management.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/human/skills/softskills/leadership_personal.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/human/skills/softskills/negotiation.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/human/skills/softskills/organization.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/human/skills/softskills/problem_solving.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/human/skills/softskills/problem_solving_advanced.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/human/skills/softskills/__init__.py": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/human/self_alignment/habits/discipline.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/human/self_alignment/habits/habit_building.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/human/self_alignment/habits/__init__.py": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/human/self_alignment/routines/daily_balance.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/human/self_alignment/routines/energy_management.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/human/self_alignment/routines/feedback_loop.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/human/self_alignment/routines/__init__.py": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/culture/culture_generale/art_culture_basics.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/culture/culture_generale/current_geopolitical_economic_context_2026.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/culture/culture_generale/economy_basics.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/culture/culture_generale/geography_basics.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/culture/culture_generale/history_basics.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/culture/culture_generale/science_basics.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/culture/culture_generale/society_basics.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/culture/culture_generale/__init__.py": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/culture/universes/__init__.py": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/culture/universes/dc/alfred_pennyworth.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/culture/universes/dc/batman.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/culture/universes/dc/dc_universe_core.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/culture/universes/dc/joker.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/culture/universes/marvel/iron_man.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/culture/universes/marvel/jarvis.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/culture/universes/marvel/marvel_universe_core.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/cpl/business_piloting/pricing_strategy.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/cpl/business_piloting/profitability_analysis.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/cpl/business_piloting/revenue_mix_strategy.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/cpl/business_piloting/__init__.py": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/cpl/ethics_governance/accessibility_principles.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/cpl/ethics_governance/ethical_ai_framework.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/cpl/ethics_governance/governance_model.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/cpl/ethics_governance/__init__.py": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/cpl/execution/decision_making_framework.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/cpl/execution/project_management_core.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/cpl/execution/risk_management.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/cpl/execution/task_prioritization.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/cpl/execution/__init__.py": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/cpl/human_communication/client_interaction.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/cpl/human_communication/communication_principles.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/cpl/human_communication/emotional_intelligence.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/cpl/human_communication/__init__.py": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/cpl/human_organization/energy_management.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/cpl/human_organization/__init__.py": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/cpl/product_ia/product_design_methodology.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/cpl/product_ia/tech_tradeoff_framework.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/cpl/product_ia/user_needs_analysis.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/cpl/product_ia/__init__.py": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/cpl/strategy/business_model_design.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/cpl/strategy/strategy_fundamentals.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/cpl/strategy/value_proposition_framework.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "knowledges/cpl/strategy/__init__.py": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "docs/architecture/README.md": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "docs/avatars/README.md": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "docs/roadmap/README.md": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "docs/screenshots/README.md": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "docs/ux/README.md": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "data/actions/tasks.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "data/context/user_context.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "data/personality/personality.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "data/profile/user_profile.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "data/security/access_decisions_history.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "data/security/incident_register.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "data/security/trusted_devices_runtime.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "data/v2/experience_state.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "data/v2/feedback_log.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "data/v2/learning_state.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "data/v2/memory_samples.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "data/v2/product_state.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "data/v2/robustness_results.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "data/v2/scenario_results.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "data/v3/behavior_state.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "data/v3/context_memories.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "data/v3/conversation_state.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "data/v3/emotion_state.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "data/v3/feedback_log_v3.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "data/v3/fusion_results.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "data/v3/fusion_state.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "data/v3/learning_state_v3.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "data/v3/memory_patterns.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "data/v3/orchestrator_state.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "data/v3/proactive_results.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "data/v3/proactive_state.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "data/v3/relational_state.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "data/v3/safety_state.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "data/v3/workflow_log.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "data/v4/action_log.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "data/v4/device_registry.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "data/v4/home_state.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "data/v4/sensor_state.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "data/v4/trigger_log.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "data/v2/scenarios/career_transition.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "data/v2/scenarios/daily_organization.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "data/v2/scenarios/isolation_support.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "data/v2/scenarios/mental_overload.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "data/users/instances/user_celine_instance.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "data/users/templates/user_adaptation_profile.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "data/users/templates/user_profile_template_public.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "data/personality/instances/personality_core_instance.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "data/personality/templates/personality_core.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "data/personality/templates/personality_core_template_public.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "data/memory/episodic/dialogue_history.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "config/security/access_policies.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "config/security/audit_retention_policy.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "config/security/roles_permissions.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "config/security/security_settings.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "config/security/trusted_devices.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "config/security/zero_trust_rules.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "config/v1/basic_pipeline_rules.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "config/v2/confidence_rules.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "config/v2/decision_rules.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "config/v2/edge_cases.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "config/v2/emotion_profiles.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "config/v2/fallback_rules.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "config/v2/feature_matrix.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "config/v2/kpi_config.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "config/v2/learning_rules.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "config/v2/module_mapping.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "config/v2/naming_conventions.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "config/v2/proactivity_rules.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "config/v2/product_roadmap.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "config/v2/scenario_catalog.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "config/v2/signal_weights.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "config/v3/confidence_rules.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "config/v3/conversation_rules.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "config/v3/emotion_rules.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "config/v3/fusion_rules.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "config/v3/learning_rules.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "config/v3/memory_rules.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "config/v3/orchestrator_rules.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "config/v3/pattern_rules.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "config/v3/priority_rules.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "config/v3/proactive_rules.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "config/v3/relational_rules.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "config/v3/safety_rules.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "config/v3/tone_profiles.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "config/v3/trigger_rules.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "config/v3/workflow_rules.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "config/v4/action_rules.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "config/v4/home_devices.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "config/v4/orchestration_rules.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "config/v4/scenario_rules.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "config/v4/trigger_rules.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "assets/avatars/README.md": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "assets/banners/README.md": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "assets/logos/README.md": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "assets/ui/README.md": {
+    "status": "structural",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "assets/voices/fr_FR-mls_1840-low.onnx.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "assets/voices/fr_FR-upmc-medium.onnx.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  },
+  "reports/standardization/status_report.json": {
+    "status": "coded",
+    "last_update": "2026-05-10",
+    "test_level": "none",
+    "notes": "Auto-detected by status_manager.py"
+  }
+}

@@ -1,4 +1,21 @@
 """
+PROJECT      : ALFRED
+BLOCK        : GLOBAL
+FUNCTION     : XX.XX
+FILE         : src/knowledge/retrieval_engine.py
+ROLE         : TO_DEFINE
+
+AUTHOR       : Cognitive Products Lab
+CREATED      : 2026-06-03
+UPDATED      : 2026-06-03
+VERSION      : V1.0
+STATUS       : DRAFT
+
+DESCRIPTION :
+Module ALFRED — description a completer.
+"""
+
+"""
 ALFRED — retrieval_engine.py
 Orchestrateur principal du Knowledge Retrieval Engine B18.
 """
