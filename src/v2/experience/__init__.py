@@ -1,1 +1,1 @@
-﻿# ALFRED module
+# ALFRED module
