@@ -1,88 +1,160 @@
 {
-  "_meta": {
-    "project": "ALFRED",
-    "block": "B18",
-    "file": "least_privilege_access.json",
-    "version": "V1.0",
-    "status": "VALIDATED",
-    "updated": "2026-05-13",
-    "standardized_by": "generate_knowledges.py",
-    "validated_by": "Cognitive Products Lab",
-    "validated_date": "2026-05-13"
-  },
-  "id": "knowledges.professional.engineering.cybersecurity.least_privilege_access",
-  "domain": "professional_engineering",
-  "category": "cybersecurity",
-  "title": "Least Privilege Access",
-  "description": "Approche limitant les permissions au strict nécessaire.",
-  "version": "1.0",
-  "status": "active",
-  "tags": [
-    "cybersecurity",
-    "engineering",
-    "least privilege access",
-    "professional",
-    "professional engineering"
+  "_meta": { "project": "ALFRED", "block": "B18", "file": "least_privilege_access.json", "version": "V2.0", "status": "VALIDATED", "updated": "2026-06-03", "validated_by": "Cognitive Products Lab" },
+  "knowledge_id": "professional.engineering.cybersecurite.least_privilege_access",
+  "id": "professional.engineering.cybersecurite.least_privilege_access",
+  "title": "Principe du moindre privilège",
+  "version": "2.0.0", "status": "active", "domain": "professional", "subdomain": "engineering", "category": "cybersecurite",
+  "summary": "Chaque utilisateur, service ou processus ne doit disposer que des permissions strictement nécessaires à sa fonction, ni plus, ni moins.",
+  "purpose": "Permettre à ALFRED de conseiller sur la gestion des accès privilégiés, le PAM, les mécanismes JIT, RBAC/ABAC, et les configurations Linux/Windows pour appliquer le moindre privilège.",
+  "tags": ["moindre privilège", "least privilege", "PAM", "JIT", "RBAC", "ABAC", "CyberArk", "BeyondTrust", "sudoers", "GPO", "revue des droits", "privilege escalation", "comptes de service"],
+  "intents": [
+    "appliquer le principe du moindre privilège",
+    "configurer le PAM",
+    "mettre en place du JIT access",
+    "comparer RBAC et ABAC",
+    "configurer sudoers Linux",
+    "gérer les comptes de service"
   ],
+  "usage_context": [
+    "audit des droits d'accès",
+    "mise en place d'un PAM",
+    "conformité ISO 27001 / SOC2 / PCI-DSS",
+    "réduction de la surface d'attaque après compromission",
+    "gouvernance des identités"
+  ],
+  "priority": "critical", "safety_level": "sensitive",
   "content": {
-    "summary": "Approche limitant les permissions au strict nécessaire.",
-    "details": [
-      "Minimal permissions",
-      "Access limitation",
-      "Privilege separation",
-      "Controlled escalation",
-      "Réduire la surface d’attaque",
-      "Limiter les dégâts en cas de compromission",
-      "Empêcher les abus de privilèges",
-      "Modules isolés",
-      "Permissions spécifiques par composant",
-      "Accès mémoire contrôlés"
+    "definition": "Le principe du moindre privilège (Least Privilege Principle) stipule que tout sujet (utilisateur, processus, service, application) ne doit disposer que des droits d'accès minimaux nécessaires à l'exécution de sa fonction légitime, pour la durée minimale nécessaire. Toute permission supplémentaire constitue une surface d'attaque inutile.",
+    "core_principles": [
+      "Need-to-know : accès aux données uniquement si nécessaire à la mission",
+      "Need-to-use : droits d'exécution uniquement si nécessaires à la tâche",
+      "Time-bound : les accès privilégiés sont temporaires (JIT)",
+      "Séparation des duties : aucun individu ne doit avoir assez de droits pour commettre et dissimuler une fraude seul",
+      "Revue périodique : les droits accordés doivent être réexaminés régulièrement"
     ],
-    "references": []
-  },
-  "metadata": {
-    "created": "2026-05-12",
-    "updated": "2026-05-12",
-    "author": "Cognitive Products Lab"
-  },
-  "core_concepts": [
-    "Minimal permissions",
-    "Access limitation",
-    "Privilege separation",
-    "Controlled escalation"
-  ],
-  "objectives": [
-    "Réduire la surface d’attaque",
-    "Limiter les dégâts en cas de compromission",
-    "Empêcher les abus de privilèges"
-  ],
-  "alfred_application": [
-    "Modules isolés",
-    "Permissions spécifiques par composant",
-    "Accès mémoire contrôlés"
-  ],
-  "examples": [
-    {
-      "case": "Microphone",
-      "rule": "Accessible uniquement au module audio"
+    "modeles_controle_acces": {
+      "RBAC": {
+        "description": "Role-Based Access Control — accès basé sur le rôle métier",
+        "fonctionnement": "On assigne des permissions à des rôles, puis des rôles aux utilisateurs",
+        "avantages": ["Simple à gérer", "Adapté aux organisations avec des rôles clairs", "Facile à auditer"],
+        "limites": ["Role explosion si trop granulaire", "Pas adapté aux contextes dynamiques", "Difficile pour des accès temporaires ou contextuels"],
+        "exemple": "Rôle 'Analyste SOC' : lecture des logs SIEM, pas d'accès aux consoles serveurs"
+      },
+      "ABAC": {
+        "description": "Attribute-Based Access Control — accès basé sur des attributs contextuels",
+        "fonctionnement": "Décision d'accès basée sur attributs du sujet + de la ressource + de l'environnement",
+        "attributs": ["Département", "Niveau de sensibilité des données", "Localisation", "Heure de la journée", "Posture du device"],
+        "avantages": ["Très granulaire et contextuel", "Adapté au Zero Trust", "Politique unifiée multi-ressources"],
+        "exemple": "Accès au fichier RH autorisé SI (département=RH ET device=conforme ET heure=9h-18h)"
+      }
     },
-    {
-      "case": "Mémoire utilisateur",
-      "rule": "Lecture limitée au moteur de contexte"
-    }
-  ],
-  "related_knowledges": [
-    "identity_access_management",
-    "zero_trust_architecture"
-  ],
-  "aliases": [],
-  "relationships": {
-    "merged_from": [],
-    "see_also": [],
-    "depends_on": []
+    "PAM": {
+      "description": "Privileged Access Management — gestion des comptes à privilèges élevés",
+      "perimetre": ["Comptes administrateurs locaux et de domaine", "Comptes root Linux", "Comptes de service avec droits élevés", "Comptes d'accès aux systèmes critiques (BDD, firewall, PKI)"],
+      "fonctionnalites_cles": [
+        "Coffre-fort de mots de passe (vault) : stockage chiffré, rotation automatique",
+        "Session recording : enregistrement vidéo/texte de toutes les sessions privilégiées",
+        "Just-In-Time access : accès accordé à la demande, révoqué après usage",
+        "Dual control : certaines actions requièrent l'approbation d'un second admin",
+        "Threat analytics : détection d'anomalies dans les sessions privilégiées"
+      ],
+      "outils": [
+        "CyberArk Privileged Access Manager (leader du marché)",
+        "BeyondTrust Password Safe + Remote Support",
+        "Delinea Secret Server (ex-Thycotic)",
+        "HashiCorp Vault (open source, cloud-native)",
+        "Azure PIM (Privileged Identity Management — pour les ressources Azure)"
+      ]
+    },
+    "JIT_access": {
+      "description": "Just-In-Time Access — les comptes privilégiés n'existent ou ne sont activés que pendant la durée nécessaire",
+      "modeles": [
+        "Élévation temporaire : compte standard élevé pour une durée définie (ex: 1h pour intervenir sur un serveur)",
+        "Compte ephémère : compte créé à la demande et supprimé après usage",
+        "Approbation workflow : demande → approbation manager ou lead tech → accès accordé avec TTL"
+      ],
+      "benefices": ["Supprime les comptes admin permanents", "Réduit drastiquement la fenêtre d'exposition", "Audit trail complet avec justification de chaque accès"]
+    },
+    "configurations_techniques": {
+      "linux_sudoers": {
+        "description": "Configuration /etc/sudoers pour restreindre l'élévation de privilèges",
+        "bonnes_pratiques": [
+          "Utiliser visudo pour éditer (validation syntaxique)",
+          "Spécifier les commandes exactes autorisées, jamais ALL",
+          "Utiliser NOPASSWD avec parcimonie et uniquement pour des scripts non-interactifs",
+          "Définir des alias de commandes clairs (Cmnd_Alias)",
+          "Logger toutes les exécutions sudo (syslog)"
+        ],
+        "exemple_bon": "appuser ALL=(root) /usr/bin/systemctl restart myapp",
+        "exemple_mauvais": "appuser ALL=(ALL) NOPASSWD:ALL"
+      },
+      "windows_GPO": {
+        "description": "Group Policy Objects pour appliquer le moindre privilège sur Windows",
+        "politiques_cles": [
+          "Restricted Groups : contrôler la composition des groupes locaux Administrators",
+          "User Rights Assignment : limiter 'Log on locally', 'Access this computer from network'",
+          "AppLocker / WDAC : whitelisting des exécutables autorisés",
+          "LAPS (Local Administrator Password Solution) : mot de passe admin local unique par machine, rotation automatique",
+          "Protected Users group : protection renforcée pour comptes sensibles (désactive NTLM, Kerberos delegation)"
+        ]
+      },
+      "comptes_service": {
+        "description": "Les comptes de service sont souvent sur-privilégiés et rarement audités",
+        "bonnes_pratiques": [
+          "Utiliser des Managed Service Accounts (MSA/gMSA sous Windows) pour rotation automatique",
+          "Dédier un compte par application (jamais partager)",
+          "Droits minimum nécessaires uniquement",
+          "Interdire l'authentification interactive (pas de logon session)",
+          "Inventaire et revue semestrielle de tous les comptes de service"
+        ]
+      }
+    },
+    "revue_des_droits": {
+      "frequence": "Trimestrielle minimum, immédiate lors d'un changement de poste ou de départ",
+      "processus": [
+        "Export de tous les accès par utilisateur et par système",
+        "Revue par le responsable hiérarchique (attestation d'accès)",
+        "Révocation immédiate des accès non justifiés",
+        "Rapport d'audit pour conformité"
+      ],
+      "outils": ["SailPoint IdentityNow", "Saviynt", "One Identity Manager", "Microsoft Entra ID Access Reviews"]
+    },
+    "application_alfred": {
+      "exemples": [
+        "Module audio ALFRED : accès au microphone uniquement, pas aux fichiers système",
+        "Module mémoire : lecture/écriture sur la base de données utilisateur, pas accès réseau externe",
+        "Module sécurité : accès en lecture seule aux logs des autres modules, pas de droits d'exécution",
+        "Service d'inférence LLM : accès aux modèles et au contexte de session uniquement",
+        "Compte de déploiement CI/CD : droits limités aux namespaces Kubernetes concernés, jamais cluster-admin"
+      ]
+    },
+    "best_practices": [
+      "Partir de zéro et accorder les droits à la demande, pas réduire des droits existants",
+      "Interdire les comptes admin génériques partagés (admin/root utilisés par plusieurs personnes)",
+      "Implémenter LAPS ou équivalent pour les comptes locaux Windows",
+      "Activer le logging de toutes les élévations de privilèges (sudo, PIM, PAM)",
+      "Intégrer les revues d'accès dans les processus RH (départ, mutation)",
+      "Tester les accès refusés : vérifier qu'un analyste ne peut pas accéder à la prod sans PAM"
+    ],
+    "anti_patterns": [
+      "Donner les droits admin 'pour gagner du temps' et ne jamais les retirer",
+      "Comptes de service avec droits Domain Admin",
+      "Mot de passe admin local identique sur tous les postes",
+      "Pas de logging des actions admin (impossible d'investiguer une compromission)",
+      "Revue des droits sur feuille Excel mise à jour une fois par an",
+      "NOPASSWD:ALL dans sudoers pour des utilisateurs applicatifs"
+    ]
   },
-  "retrieval": {
-    "priority": "medium",
-    "trigger_queries": []
-  }
+  "retrieval_hints": {
+    "priority_keywords": ["moindre privilège", "least privilege", "PAM", "JIT", "RBAC", "ABAC", "CyberArk", "sudoers", "comptes privilégiés", "revue des droits"],
+    "related_knowledge": ["identity_access_management", "zero_trust_architecture", "secrets_management", "behavioral_anomaly_detection"],
+    "retrieval_priority": 9
+  },
+  "behavior_rules": { "tone": "professional", "response_style": "structured_clear", "max_complexity": "high", "allow_humor": false },
+  "safety_notes": {
+    "allowed_usage": ["Conseil sur la gestion des accès privilégiés", "Configuration sudoers et GPO", "Mise en place de PAM", "Audit des droits"],
+    "forbidden_usage": ["Aider à escalader des privilèges de manière non autorisée", "Contourner un PAM ou une politique d'accès"],
+    "fallback_behavior": "Pour toute configuration PAM en production, recommander un audit par un expert IAM certifié."
+  },
+  "metadata": { "author": "Cognitive Products Lab", "creation_date": "03/06/2026", "last_update": "03/06/2026", "review_status": "validated", "source_type": "manual_structured_knowledge", "language": "fr", "retrieval_ready": true, "rag_compatible": true }
 }
