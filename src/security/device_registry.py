@@ -138,6 +138,33 @@ def get_device_info(device_id: str) -> dict:
     return registry.get(device_id, {})
 
 
+def list_devices(include_revoked: bool = False) -> dict:
+    """
+    Retourne les appareils du registre.
+
+    Args:
+        include_revoked : si True, inclut les appareils révoqués.
+                          si False (défaut), retourne uniquement les appareils de confiance.
+    """
+    registry = _load_registry()
+    if include_revoked:
+        return dict(registry)
+    return {k: v for k, v in registry.items() if v.get("trusted", False)}
+
+
+def record_failed_attempt(device_id: str) -> None:
+    """
+    Incrémente le compteur d'échecs d'authentification pour un appareil.
+    Silencieux si l'appareil n'existe pas.
+    """
+    registry = _load_registry()
+    if device_id not in registry:
+        return
+    registry[device_id]["failed_attempts"] = registry[device_id].get("failed_attempts", 0) + 1
+    _save_registry(registry)
+    log_event(f"Échec authentification enregistré : {device_id}", "WARNING")
+
+
 # ─────────────────────────────────────────────────────────
 # Initialisation : appareil local par défaut
 # ─────────────────────────────────────────────────────────
