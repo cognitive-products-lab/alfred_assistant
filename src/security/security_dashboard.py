@@ -366,9 +366,17 @@ class SecurityDashboard:
         chk("A04 – Rate limiting",
             Path("src/security/rate_limiter.py").exists(),
             "rate_limiter.py présent", "OWASP-A04")
+        def _rbac_non_vide() -> bool:
+            p = Path("config/security/roles_permissions.json")
+            if not p.exists():
+                return False
+            try:
+                return bool(json.loads(p.read_text(encoding="utf-8")).get("roles"))
+            except (json.JSONDecodeError, OSError):
+                return False
+
         chk("A05 – Mauvaise configuration",
-            bool(json.loads(Path("config/security/roles_permissions.json").read_text()).get("roles"))
-            if Path("config/security/roles_permissions.json").exists() else False,
+            _rbac_non_vide(),
             "RBAC non vide", "OWASP-A05")
         chk("A07 – Identification/Authentification",
             Path("src/auth/authenticator.py").exists(),
