@@ -53,6 +53,40 @@ def get_permissions(role: str) -> list[str]:
     """Retourne les permissions associées à un rôle."""
     return PERMISSIONS.get(role, [])
 
+
 def list_permissions() -> dict:
     """Retourne toutes les permissions par rôle."""
     return PERMISSIONS.copy()
+
+
+def summarize_permissions() -> dict:
+    """
+    Retourne un résumé public de la matrice RBAC.
+    Utilisé par le dashboard de sécurité.
+
+    Returns:
+        dict : {
+            "roles_count": int,
+            "permissions_total": int,
+            "unique_permissions_count": int,
+            "owner_permissions_count": int,
+            "admin_permissions_count": int,
+            "guest_permissions_count": int,
+            "matrix": { role: [permissions] }
+        }
+    """
+    all_perms = set()
+    total = 0
+    for perms in PERMISSIONS.values():
+        all_perms.update(perms)
+        total += len(perms)
+
+    return {
+        "roles_count":              len(PERMISSIONS),
+        "permissions_total":        total,
+        "unique_permissions_count": len(all_perms),
+        "owner_permissions_count":  len(PERMISSIONS.get("OWNER", [])),
+        "admin_permissions_count":  len(PERMISSIONS.get("ADMIN", [])),
+        "guest_permissions_count":  len(PERMISSIONS.get("GUEST", [])),
+        "matrix":                   PERMISSIONS.copy(),
+    }
