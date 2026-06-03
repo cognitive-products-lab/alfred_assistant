@@ -1,105 +1,121 @@
 {
-  "schema_version": "1.1",
-  "type": "knowledge_unit",
-  "id": "knowledges.professional.engineering.cybersecurity.cybersecurity_core",
-  "title": "Cybersecurity Core",
-  "domain": "professional",
-  "status": "validated_v1",
-
-  "summary": "Fiche permettant à ALFRED d'intégrer les principes fondamentaux de cybersécurité dans son fonctionnement et d'accompagner l'utilisateur sur les bonnes pratiques de sécurité.",
-
-  "core_definition": "La cybersécurité consiste à protéger les systèmes, les données et les utilisateurs contre les accès non autorisés, les attaques et les fuites d'information.",
-
-  "core_principles": [
-    "confidentialité — seuls les autorisés accèdent aux données",
-    "intégrité — les données ne sont pas modifiées sans autorisation",
-    "disponibilité — le système reste accessible quand nécessaire",
-    "moindre privilège — n'accorder que les droits strictement nécessaires",
-    "défense en profondeur — plusieurs couches de protection",
-    "privacy by design — intégrer la protection dès la conception"
-  ],
-
-  "common_risks": [
-    "fuite de données personnelles",
-    "accès non autorisé au système",
-    "erreurs humaines (mauvaise config, mots de passe faibles)",
-    "injection (prompt injection, SQL injection)",
-    "exposition accidentelle de clés API",
-    "mauvaise gestion des logs"
-  ],
-
-  "alfred_application": {
-    "data": [
-      "ne jamais stocker de données sensibles en clair",
-      "local-first par défaut",
-      "pas de transmission cloud sans consentement"
+  "_meta": { "project": "ALFRED", "block": "B18", "file": "cybersecurity_core.json", "version": "V2.0", "status": "VALIDATED", "updated": "2026-06-03", "validated_by": "Cognitive Products Lab" },
+  "knowledge_id": "professional.engineering.cybersecurite.cybersecurity_core",
+  "id": "professional.engineering.cybersecurite.cybersecurity_core",
+  "title": "Cybersécurité — Principes Fondamentaux CIA, Défense en Profondeur",
+  "version": "2.0.0", "status": "active", "domain": "professional", "subdomain": "engineering", "category": "cybersecurite",
+  "summary": "Les principes fondamentaux de la cybersécurité : triade CIA (Confidentialité, Intégrité, Disponibilité), défense en profondeur, Privacy by Design et application au projet ALFRED.",
+  "purpose": "Fournir à ALFRED le socle conceptuel de la cybersécurité pour accompagner l'utilisateur sur les bonnes pratiques, évaluer des architectures et expliquer les risques simplement.",
+  "tags": ["cybersécurité", "cia triad", "confidentialité", "intégrité", "disponibilité", "défense en profondeur", "privacy by design", "moindre privilège", "sécurité", "security by design"],
+  "intents": ["explain_cybersecurity_fundamentals", "apply_cia_triad", "evaluate_security_posture", "implement_defense_in_depth", "secure_ai_project"],
+  "usage_context": ["Introduction à la cybersécurité", "Évaluation d'une architecture", "Formation équipes", "Conseils sécurité projet ALFRED", "Audit de base"],
+  "priority": "critical", "safety_level": "normal",
+  "content": {
+    "definition": "La cybersécurité protège les systèmes informatiques, les réseaux et les données contre les accès non autorisés, les attaques, les fuites et les destructions. Elle repose sur trois piliers fondamentaux — la triade CIA — et un ensemble de principes architecturaux.",
+    "core_principles": [
+      "Confidentialité : seuls les utilisateurs autorisés accèdent aux données",
+      "Intégrité : les données ne sont pas modifiées sans autorisation et toute modification est traçable",
+      "Disponibilité : le système reste accessible aux utilisateurs légitimes quand ils en ont besoin",
+      "Moindre privilège : n'accorder que les droits strictement nécessaires à chaque acteur",
+      "Défense en profondeur : plusieurs couches de protection indépendantes — si l'une cède, les autres tiennent",
+      "Privacy by Design : la protection des données est intégrée dès la conception, pas ajoutée après",
+      "Security by Design : la sécurité est une exigence de conception, pas un patch"
     ],
-    "code": [
-      "valider toutes les entrées utilisateur",
-      "ne jamais exposer les clés API dans le code",
-      "utiliser .env pour les secrets"
-    ],
-    "llm_specific": [
-      "filtrer les prompt injections",
-      "ne pas exécuter de code généré sans validation",
-      "limiter les accès aux fichiers système"
-    ]
-  },
-
-  "conversation_uses": [
-    "rappeler les règles de sécurité ALFRED",
-    "identifier un risque dans une architecture",
-    "appliquer le RGPD",
-    "sécuriser un projet local-first",
-    "expliquer la cybersécurité simplement"
-  ],
-
-  "example_answers": [
-    {
-      "prompt": "Est-ce que mon projet ALFRED est sécurisé ?",
-      "answer": "On vérifie trois points : les données restent locales, les clés sont dans .env, et les entrées utilisateur sont validées. Si les trois sont OK, la base est solide."
+    "cia_triad": {
+      "confidentiality": {
+        "definition": "Garantir que l'information n'est accessible qu'aux personnes, processus et systèmes autorisés.",
+        "mechanisms": ["Chiffrement des données (AES-256, RSA)", "Contrôle d'accès (RBAC, ABAC)", "MFA", "Classification des données (Public/Interne/Confidentiel/Secret)"],
+        "threats": ["Interception réseau (sniffing)", "Accès non autorisé", "Fuite par email/cloud", "Ingénierie sociale"]
+      },
+      "integrity": {
+        "definition": "Garantir que les données sont exactes, complètes et n'ont pas été modifiées par des acteurs non autorisés.",
+        "mechanisms": ["Hachage cryptographique (SHA-256)", "Signatures numériques", "Contrôle de version", "Audit trail immuable"],
+        "threats": ["Man-in-the-middle", "Injection SQL", "Corruption de données", "Malware modifiant des fichiers"]
+      },
+      "availability": {
+        "definition": "Garantir que les systèmes et données sont accessibles aux utilisateurs légitimes quand ils en ont besoin.",
+        "mechanisms": ["Redondance et haute disponibilité (HA)", "Sauvegardes testées", "Protection DDoS", "Plan de continuité (PCA/PRA)"],
+        "threats": ["DDoS", "Ransomware", "Panne matérielle", "Erreur humaine"]
+      }
     },
-    {
-      "prompt": "Qu'est-ce que le principe de moindre privilège ?",
-      "answer": "N'accorder que les droits strictement nécessaires. Si ALFRED n'a pas besoin d'accéder à un dossier, il n'y accède pas."
-    }
-  ],
-
-  "response_guidance": {
-    "tone": "clair, prudent, non alarmiste",
-    "structure": [
-      "risque identifié",
-      "principe applicable",
-      "action concrète",
-      "limite à respecter"
+    "defense_in_depth": {
+      "description": "Multiplier les couches de protection pour qu'un attaquant doit franchir plusieurs obstacles indépendants.",
+      "layers": [
+        "Périmètre réseau : firewall, IDS/IPS, WAF",
+        "Authentification : MFA, gestion des identités",
+        "Autorisation : RBAC, moindre privilège",
+        "Chiffrement : données en transit et au repos",
+        "Endpoint : EDR, antivirus, chiffrement du disque",
+        "Application : SAST, DAST, revues de code sécurité",
+        "Données : DLP, classification, masquage",
+        "Surveillance : SIEM, audit logs, alerting"
+      ],
+      "principle": "La compromission d'une couche ne doit pas entraîner la compromission de l'ensemble du système."
+    },
+    "common_risks": [
+      {"risk": "Fuite de données personnelles", "vector": "Mauvais contrôle d'accès, erreur de configuration cloud"},
+      {"risk": "Accès non autorisé", "vector": "Mots de passe faibles, absence de MFA, phishing"},
+      {"risk": "Injection", "vector": "SQL injection, prompt injection, command injection — entrées non validées"},
+      {"risk": "Exposition de secrets", "vector": "API keys dans le code, .env commité, logs verbeux"},
+      {"risk": "Ransomware", "vector": "Phishing + exécution de malware + backups insuffisants"},
+      {"risk": "Erreur humaine", "vector": "Mauvaise configuration, déploiement sans test, suppression accidentelle"}
     ],
-    "avoid": [
-      "dramatiser",
-      "donner des conseils offensifs",
-      "ignorer le contexte local-first d'ALFRED"
+    "application_alfred": {
+      "confidentiality": [
+        "Données utilisateur stockées localement chiffrées (Fernet)",
+        "Aucune transmission cloud sans consentement explicite",
+        "API keys dans .env, jamais dans le code source"
+      ],
+      "integrity": [
+        "Audit trail B20 signé et horodaté (audit_trail.py V1.2)",
+        "Validation de toutes les entrées utilisateur avant traitement",
+        "Hash de contrôle sur les fichiers de mémoire critiques"
+      ],
+      "availability": [
+        "Sauvegarde automatique de la mémoire de session",
+        "Fallback LLM : Ollama local → OpenAI si indisponible",
+        "Mode dégradé documenté si composants absents"
+      ],
+      "least_privilege": [
+        "Chaque module n'accède qu'aux données dont il a besoin",
+        "MFA obligatoire pour les rôles OWNER et ADMIN (B20)",
+        "Sessions courtes avec expiration automatique"
+      ]
+    },
+    "example_guidance": [
+      {
+        "question": "Est-ce que mon projet est sécurisé ?",
+        "approach": "Vérifier les 3 piliers CIA : données chiffrées (C), audit trail (I), sauvegardes testées (A) + MFA activé + secrets dans vault."
+      },
+      {
+        "question": "Qu'est-ce que le moindre privilège ?",
+        "answer": "N'accorder que les droits strictement nécessaires. Un service de lecture n'a pas besoin de droits en écriture. Un script de backup n'a pas besoin d'accès aux clés de chiffrement."
+      }
+    ],
+    "best_practices": [
+      "Classer les données dès le début — impossible de les protéger si on ne sait pas ce qu'on protège",
+      "Appliquer le moindre privilège par défaut — ajouter des droits si besoin, jamais l'inverse",
+      "Valider toutes les entrées utilisateur côté serveur, jamais côté client uniquement",
+      "Journaliser toutes les actions d'administration et les accès aux données sensibles",
+      "Former les équipes — 80% des incidents cyber sont liés au facteur humain"
+    ],
+    "anti_patterns": [
+      "Sécurité par l'obscurité : compter sur le fait qu'un attaquant ne connaît pas l'architecture",
+      "Tout mettre dans une seule couche de protection (ex: firewall seul)",
+      "Ignorer la disponibilité : un système ultra-sécurisé mais inaccessible est inutile",
+      "Reporter la sécurité à 'plus tard' — la dette de sécurité s'accumule exponentiellement"
     ]
   },
-
-  "links_to_alfred_identity": {
-    "dominant_layer": "jarvis",
-    "mode": "ethics_mode",
-    "why": "La cybersécurité est une dimension éthique et technique fondamentale du projet ALFRED."
+  "retrieval_hints": {
+    "priority_keywords": ["cybersécurité", "cia triad", "confidentialité intégrité disponibilité", "défense en profondeur", "moindre privilège", "security by design", "privacy by design"],
+    "related_knowledge": ["professional.engineering.cybersecurite.zero_trust_architecture", "professional.engineering.cybersecurite.threat_modeling_stride"],
+    "retrieval_priority": 9
   },
-
-  "related_knowledge_units": [
-    "knowledges.professional.engineering.cybersecurity.rgpd_core",
-    "knowledges.core.alfred_core_identity"
-  ],
-
-  "related_features": [
-    "7.01.001", "7.02.001", "15.03.001", "20.01.001", "20.04.001"
-  ],
-
-  "tags": [ "cybersecurity", "security", "data", "protection", "privacy", "local_first", "alfred" ],
-
-  "quality": {
-    "confidence": "high",
-    "requires_sources": false,
-    "review_needed": false
-  }
+  "behavior_rules": {"tone": "professional", "response_style": "structured_clear", "max_complexity": "medium", "allow_humor": false},
+  "safety_notes": {
+    "allowed_usage": ["Expliquer les fondamentaux", "Évaluer une posture sécurité", "Former des équipes"],
+    "forbidden_usage": ["Donner des conseils offensifs"],
+    "fallback_behavior": "En cas de doute, recommander une évaluation par un expert certifié CISSP/CISM."
+  },
+  "metadata": {"author": "Cognitive Products Lab", "creation_date": "03/06/2026", "last_update": "03/06/2026", "review_status": "validated", "source_type": "manual_structured_knowledge", "language": "fr", "retrieval_ready": true, "rag_compatible": true}
 }

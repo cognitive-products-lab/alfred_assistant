@@ -1,26 +1,87 @@
-﻿{
-    "id":  "backup.recovery.strategy",
-    "created_at":  "2026-06-03",
-    "title":  "backup recovery strategy",
-    "tags":  [
-
-             ],
-    "source":  "recreated_from_dashboard_manifest",
-    "description":  "Fiche connaissance recréée automatiquement à partir du manifest dashboard.",
-    "status":  "draft",
-    "content":  {
-                    "summary":  "",
-                    "links":  [
-
-                              ],
-                    "use_cases":  [
-
-                                  ],
-                    "risks":  [
-
-                              ],
-                    "key_points":  [
-
-                                   ]
-                }
+{
+  "_meta": { "project": "ALFRED", "block": "B18", "file": "backup_recovery_strategy.json", "version": "V2.0", "status": "VALIDATED", "updated": "2026-06-03", "validated_by": "Cognitive Products Lab" },
+  "knowledge_id": "professional.engineering.cybersecurite.backup_recovery_strategy",
+  "id": "professional.engineering.cybersecurite.backup_recovery_strategy",
+  "title": "Stratégie de Sauvegarde & Reprise — Règle 3-2-1-1-0",
+  "version": "2.0.0", "status": "active", "domain": "professional", "subdomain": "engineering", "category": "cybersecurite",
+  "summary": "La stratégie 3-2-1-1-0 garantit la récupération des données après sinistre (ransomware, panne, erreur humaine) : 3 copies, 2 médias, 1 hors site, 1 hors ligne, 0 erreur de restauration vérifiée.",
+  "purpose": "Permettre à ALFRED de guider la conception d'une stratégie de sauvegarde robuste, résistante au ransomware, et vérifiable par des tests de restauration réguliers.",
+  "tags": ["backup", "sauvegarde", "3-2-1", "restauration", "ransomware protection", "rto", "rpo", "disaster recovery", "immuabilité", "veeam", "restic", "borg", "hors ligne"],
+  "intents": ["design_backup_strategy", "protect_against_ransomware", "implement_disaster_recovery", "test_restoration", "define_rto_rpo"],
+  "usage_context": ["Mise en place d'une stratégie de sauvegarde", "Protection anti-ransomware", "Plan de reprise après sinistre", "Audit des sauvegardes existantes"],
+  "priority": "critical", "safety_level": "normal",
+  "content": {
+    "definition": "Une stratégie de sauvegarde efficace garantit que les données peuvent être restaurées rapidement et intégralement après tout sinistre : ransomware, panne matérielle, erreur humaine, catastrophe naturelle. La règle 3-2-1-1-0 est le standard actuel.",
+    "core_principles": [
+      "3 copies des données (production + 2 sauvegardes)",
+      "2 médias différents (disque local + cloud ou bande)",
+      "1 copie hors site (protection contre sinistre physique du site)",
+      "1 copie hors ligne ou air-gappée (protection contre ransomware)",
+      "0 erreur de restauration non vérifiée — tester régulièrement"
+    ],
+    "rto_rpo": {
+      "rpo": "Recovery Point Objective — combien de données peut-on se permettre de perdre ? (ex: RPO = 1h → backup toutes les heures)",
+      "rto": "Recovery Time Objective — combien de temps pour remettre le service en ligne ? (ex: RTO = 4h → système restauré en 4h max)",
+      "business_alignment": "Définir RPO et RTO pour chaque service critique selon son impact business — base de données client vs site web vitrine"
+    },
+    "backup_types": [
+      {"type": "Complète (Full)", "description": "Copie intégrale de toutes les données. Lente à créer, rapide à restaurer.", "frequency": "Hebdomadaire ou mensuelle"},
+      {"type": "Incrémentale", "description": "Uniquement les données modifiées depuis la dernière sauvegarde (full ou incrémentale).", "frequency": "Quotidienne — rapide, espace réduit, restauration plus complexe"},
+      {"type": "Différentielle", "description": "Données modifiées depuis la dernière sauvegarde COMPLÈTE.", "frequency": "Quotidienne — compromis entre incrémentale et complète"},
+      {"type": "Snapshot", "description": "Capture instantanée de l'état d'un volume/VM à un instant T.", "frequency": "Toutes les heures pour les systèmes critiques"}
+    ],
+    "anti_ransomware_protection": {
+      "key_measures": [
+        "Sauvegardes immuables (Object Lock S3, Veeam Hardened Repository) — non modifiables pendant X jours même par un admin compromis",
+        "Air gap complet : backup sur support déconnecté (bande, disque offline) — un ransomware ne peut pas chiffrer ce qu'il ne voit pas",
+        "Règle 3-2-1-1-0 : au moins une copie non connectée au réseau",
+        "Séparation des credentials : le compte de sauvegarde n'a PAS de droits sur la production"
+      ],
+      "critical_mistake": "Brancher le backup sur le même réseau que la production = le ransomware chiffre aussi les sauvegardes"
+    },
+    "restoration_testing": {
+      "why": "Un backup non testé n'est pas un backup — il donne une fausse sécurité.",
+      "frequency": ["Test de restauration partielle : mensuel", "Test de restauration complète : trimestriel", "Test de DR complet (disaster recovery drill) : annuel"],
+      "what_to_test": ["Intégrité des fichiers restaurés (hashes)", "Temps de restauration vs RTO défini", "Fonctionnement applicatif post-restauration", "Restauration sur environnement isolé (ne pas écraser la prod)"]
+    },
+    "tools": [
+      {"tool": "Veeam Backup & Replication", "type": "Commercial", "use": "Leader enterprise — VMs, clouds hybrides, immuabilité"},
+      {"tool": "Restic", "type": "Open source", "use": "Sauvegardes chiffrées, déduplication, multi-destinations (S3, B2, local)"},
+      {"tool": "Borg Backup", "type": "Open source", "use": "Linux/Mac — déduplication excellente, chiffrement natif"},
+      {"tool": "Bacula", "type": "Open source", "use": "Enterprise, réseau — pour infrastructure complexe"},
+      {"tool": "AWS Backup / Azure Backup", "type": "Cloud natif", "use": "Sauvegarde automatisée des ressources cloud avec politique centralisée"}
+    ],
+    "application_alfred": [
+      "Les données de mémoire ALFRED (dialogue_history.json, user_memory.json) sauvegardées quotidiennement",
+      "Chiffrement des sauvegardes (Fernet) avant stockage hors site",
+      "Backup des clés de chiffrement dans un gestionnaire de secrets séparé",
+      "Test de restauration inclus dans le pipeline CI lors de chaque release majeure"
+    ],
+    "best_practices": [
+      "Définir RPO et RTO avant de choisir la solution technique",
+      "Séparer les credentials backup/production — jamais le même compte",
+      "Chiffrer toutes les sauvegardes hors site",
+      "Documenter la procédure de restauration et la tenir à jour",
+      "Alerter si une sauvegarde échoue (ne pas découvrir l'échec au moment du sinistre)"
+    ],
+    "anti_patterns": [
+      "Sauvegarder sur le même serveur que la production",
+      "Ne jamais tester la restauration jusqu'au sinistre réel",
+      "Backup connecté en permanence au réseau (ransomware = backup chiffré aussi)",
+      "Backup sans chiffrement sur un cloud public",
+      "Oublier de sauvegarder les configurations systèmes (pas seulement les données)"
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["backup", "sauvegarde", "3-2-1", "restauration", "ransomware sauvegarde", "rto", "rpo", "immuabilité", "disaster recovery"],
+    "related_knowledge": ["professional.engineering.cybersecurite.business_continuity_basics", "professional.cybersecurity.antihacking.malware_ransomware_defense"],
+    "retrieval_priority": 9
+  },
+  "behavior_rules": {"tone": "professional", "response_style": "structured_clear", "max_complexity": "medium", "allow_humor": false},
+  "safety_notes": {
+    "allowed_usage": ["Concevoir une stratégie de sauvegarde", "Guider la protection anti-ransomware", "Tester la restauration"],
+    "forbidden_usage": ["Aider à chiffrer ou détruire des données"],
+    "fallback_behavior": "Si ransomware actif, prioriser l'isolation avant toute tentative de restauration."
+  },
+  "metadata": {"author": "Cognitive Products Lab", "creation_date": "03/06/2026", "last_update": "03/06/2026", "review_status": "validated", "source_type": "manual_structured_knowledge", "language": "fr", "retrieval_ready": true, "rag_compatible": true}
 }
