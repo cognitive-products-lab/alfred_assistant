@@ -6,7 +6,7 @@ ROLE         : Point d'entree ALFRED avec interface graphique Kivy
 
 AUTHOR       : Cognitive Products Lab
 CREATED      : 2026-05-14
-UPDATED      : 2026-06-01
+UPDATED      : 2026-06-03
 VERSION      : V1.2
 STATUS       : STABLE
 
