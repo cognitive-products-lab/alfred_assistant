@@ -1,4 +1,21 @@
 """
+PROJECT      : ALFRED
+BLOCK        : GLOBAL
+FUNCTION     : XX.XX
+FILE         : src/knowledge/knowledge_ranker.py
+ROLE         : TO_DEFINE
+
+AUTHOR       : Cognitive Products Lab
+CREATED      : 2026-06-03
+UPDATED      : 2026-06-03
+VERSION      : V1.0
+STATUS       : DRAFT
+
+DESCRIPTION :
+Module ALFRED — description a completer.
+"""
+
+"""
 ALFRED — knowledge_ranker.py
 Fusionne et classe les knowledge_ids issus du domain_matcher et du taxonomy_router.
 """
