@@ -33,11 +33,11 @@ start "ALFRED HTTP Server" python -m http.server 8000
 timeout /t 2 /nobreak >nul
 
 echo [ALFRED] Ouverture du dashboard ...
-start "" "http://localhost:8000/dashboard/dashboard_security/dashboard_security.html"
+start "" "http://localhost:8000/dashboard/dashboard_security/dashboard_security_dynamique.html"
 
 echo.
 echo [ALFRED] Dashboard pret :
-echo [ALFRED] http://localhost:8000/dashboard/dashboard_security/dashboard_security.html
+echo [ALFRED] http://localhost:8000/dashboard/dashboard_security/dashboard_security_dynamique.html
 echo.
 echo [ALFRED] Ferme la fenetre serveur pour arreter.
 pause

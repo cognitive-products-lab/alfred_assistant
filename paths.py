@@ -157,6 +157,19 @@ class _Paths:
     knowledge_human         = KNOWLEDGE_HUMAN
     knowledge_professional  = KNOWLEDGE_PROFESSIONAL
     knowledge_lifestyle     = KNOWLEDGE_LIFESTYLE
+    # Sous-dossiers human
+    knowledge_psychology    = KNOWLEDGE_HUMAN / "psychology"
+    knowledge_softskills    = KNOWLEDGE_LIFESTYLE / "softskills"
+    knowledge_memory        = KNOWLEDGE_HUMAN / "cognition"
+    knowledge_reasoning     = KNOWLEDGE_HUMAN / "cognition"
+    # Sous-dossiers cpl
+    knowledge_cpl_human_com  = KNOWLEDGE_DIR / "cpl" / "human_communication"
+    knowledge_cpl_human_org  = KNOWLEDGE_DIR / "cpl" / "human_organization"
+    knowledge_cpl_business   = KNOWLEDGE_DIR / "cpl" / "business_piloting"
+    knowledge_cpl_strategy   = KNOWLEDGE_DIR / "cpl" / "strategy"
+    knowledge_cpl_execution  = KNOWLEDGE_DIR / "cpl" / "execution"
+    knowledge_cpl_product    = KNOWLEDGE_DIR / "cpl" / "product_ia"
+    knowledge_cpl_ethics     = KNOWLEDGE_DIR / "cpl" / "ethics_governance"
 
     # Dashboard
     dashboard           = DASHBOARD_DIR
