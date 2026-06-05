@@ -1,3 +1,19 @@
+﻿"""
+PROJECT      : ALFRED
+BLOCK        : B02
+FUNCTION     : 02.01
+FILE         : src/memory/memory_manager.py
+ROLE         : Gestionnaire mémoire session JSON — historique dialogue et contexte actif
+
+AUTHOR       : Cognitive Products Lab
+CREATED      : 2026-06-03
+UPDATED      : 2026-06-05
+VERSION      : V1.1
+STATUS       : TESTED
+
+DESCRIPTION :
+Gestionnaire mémoire session JSON — historique dialogue et contexte actif
+"""
 # ============================================================
 # ALFRED — src/memory/memory_manager.py
 # Bloc 02.01 — Mémoire courte
@@ -122,6 +138,11 @@ def get_history(n: int = 0) -> list[dict]:
     if n > 0:
         return _session["history"][-n:]
     return _session["history"].copy()
+
+
+def history_count() -> int:
+    """Retourne le nombre d'échanges en mémoire de session."""
+    return len(_session["history"])
 
 
 def get_last_user_message() -> str | None:

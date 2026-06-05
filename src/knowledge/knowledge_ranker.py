@@ -1,26 +1,26 @@
+from __future__ import annotations
+
 """
 PROJECT      : ALFRED
-BLOCK        : GLOBAL
-FUNCTION     : XX.XX
+BLOCK        : B18
+FUNCTION     : 18.04
 FILE         : src/knowledge/knowledge_ranker.py
-ROLE         : TO_DEFINE
+ROLE         : Fusionne et classe les knowledge_ids issus du domain_matcher et du taxonomy_router
 
 AUTHOR       : Cognitive Products Lab
 CREATED      : 2026-06-03
-UPDATED      : 2026-06-03
-VERSION      : V1.0
-STATUS       : DRAFT
+UPDATED      : 2026-06-05
+VERSION      : V1.1
+STATUS       : TESTED
 
 DESCRIPTION :
-Module ALFRED — description a completer.
+Classement knowledge — scoring et déduplication des IDs pour le contexte LLM.
 """
 
 """
 ALFRED — knowledge_ranker.py
 Fusionne et classe les knowledge_ids issus du domain_matcher et du taxonomy_router.
 """
-
-from __future__ import annotations
 
 from dataclasses import dataclass, field
 from typing import Any
@@ -43,8 +43,8 @@ class KnowledgeRanker:
     def __init__(
         self,
         loader: KnowledgeLoader,
-        matcher: DomainMatcher,
-        router: TaxonomyRouter
+        matcher: DomainMatcher | None = None,
+        router: TaxonomyRouter | None = None,
     ):
         self.loader = loader
         self.matcher = matcher
@@ -55,7 +55,7 @@ class KnowledgeRanker:
         self.max_loaded = scoring.get("max_knowledge_loaded_per_query", 6)
         self.minimum_score = scoring.get("minimum_score_to_use", 3.0)
 
-    def rank(self, query: str) -> list[RankedKnowledge]:
+    def rank(self, query: str, knowledge_ids: list[str] | None = None) -> list[RankedKnowledge]:
         scores: dict[str, RankedKnowledge] = {}
 
         self._add_domain_matcher_scores(query, scores)
@@ -107,6 +107,8 @@ class KnowledgeRanker:
         query: str,
         scores: dict[str, RankedKnowledge]
     ) -> None:
+        if not self.matcher:
+            return
         matches = self.matcher.match(query, top_k=5)
 
         for match in matches:
@@ -129,6 +131,8 @@ class KnowledgeRanker:
         query: str,
         scores: dict[str, RankedKnowledge]
     ) -> None:
+        if not self.router:
+            return
         routes = self.router.route(query, top_k=5)
 
         for route in routes:

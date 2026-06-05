@@ -1,26 +1,26 @@
+from __future__ import annotations
+
 """
 PROJECT      : ALFRED
-BLOCK        : GLOBAL
-FUNCTION     : XX.XX
+BLOCK        : B18
+FUNCTION     : 18.02
 FILE         : src/knowledge/domain_matcher.py
-ROLE         : TO_DEFINE
+ROLE         : Associe une requête utilisateur aux routes définies dans domain_links.json
 
 AUTHOR       : Cognitive Products Lab
 CREATED      : 2026-06-03
-UPDATED      : 2026-06-03
-VERSION      : V1.0
-STATUS       : DRAFT
+UPDATED      : 2026-06-05
+VERSION      : V1.1
+STATUS       : TESTED
 
 DESCRIPTION :
-Module ALFRED — description a completer.
+Matching domaine — résout les routes knowledge à partir de la requête utilisateur.
 """
 
 """
 ALFRED — domain_matcher.py
 Associe une requête utilisateur aux routes définies dans domain_links.json.
 """
-
-from __future__ import annotations
 
 import re
 from dataclasses import dataclass, field
