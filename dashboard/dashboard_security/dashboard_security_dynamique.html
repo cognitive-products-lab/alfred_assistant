@@ -1,0 +1,310 @@
+<!--
+PROJECT  : ALFRED
+BLOCK    : B20 - Cybersecurite Zero Trust
+FILE     : dashboard/dashboard_security/dashboard_security_dynamique.html
+ROLE     : Dashboard securite dynamique — lit dashboard_security.json, auto-refresh 30s
+
+AUTHOR   : Cognitive Products Lab
+CREATED  : 2026-06-05
+UPDATED  : 2026-06-05
+VERSION  : V1.0
+STATUS   : TESTED
+-->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ALFRED — Dashboard Sécurité B20</title>
+<style>
+  :root {
+    --bg: #0d1117; --bg2: #161b22; --bg3: #1c2128;
+    --border: #30363d; --text: #e6edf3; --text2: #8b949e;
+    --blue: #388bfd; --green: #3fb950; --yellow: #d29922;
+    --red: #f85149; --purple: #8957e5; --teal: #39d353;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", monospace; font-size: 14px; min-height: 100vh; }
+
+  header { background: var(--bg2); border-bottom: 1px solid var(--border); padding: 16px 24px; display: flex; align-items: center; gap: 16px; }
+  header .logo { font-size: 20px; font-weight: 700; color: var(--blue); letter-spacing: 2px; }
+  header .subtitle { color: var(--text2); font-size: 12px; }
+  header .meta { margin-left: auto; display: flex; align-items: center; gap: 16px; }
+  header .generated { color: var(--text2); font-size: 11px; }
+  .refresh-btn { background: var(--bg3); border: 1px solid var(--border); border-radius: 6px; color: var(--text2); font-size: 11px; padding: 4px 10px; cursor: pointer; }
+  .refresh-btn:hover { border-color: var(--blue); color: var(--blue); }
+  .pulse { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--green); margin-right: 6px; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+
+  .main { padding: 24px; max-width: 1400px; margin: 0 auto; }
+
+  .error-banner { background: #3a1a1a; border: 1px solid var(--red); border-radius: 8px; padding: 16px; color: var(--red); margin-bottom: 16px; }
+
+  .score-banner { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; padding: 24px 32px; display: flex; align-items: center; gap: 32px; margin-bottom: 24px; }
+  .score-circle { width: 100px; height: 100px; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; border: 6px solid var(--green); flex-shrink: 0; }
+  .score-circle .score-val { font-size: 32px; font-weight: 700; }
+  .score-circle .score-lbl { font-size: 10px; color: var(--text2); }
+  .score-info h2 { font-size: 20px; margin-bottom: 6px; }
+  .score-info p  { color: var(--text2); font-size: 13px; }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; margin-bottom: 24px; }
+  .card { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 20px; }
+  .card h3 { font-size: 13px; color: var(--text2); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; }
+
+  .stat-row { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
+  .stat-row:last-child { border-bottom: none; }
+  .stat-row .label { color: var(--text2); }
+  .stat-row .value { font-weight: 600; }
+
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: 11px; font-weight: 600; }
+  .badge-green  { background: #1a3a1a; color: var(--green);  border: 1px solid var(--green); }
+  .badge-red    { background: #3a1a1a; color: var(--red);    border: 1px solid var(--red); }
+  .badge-yellow { background: #3a2a00; color: var(--yellow); border: 1px solid var(--yellow); }
+  .badge-blue   { background: #0d1f3a; color: var(--blue);   border: 1px solid var(--blue); }
+  .badge-purple { background: #1a0d3a; color: var(--purple); border: 1px solid var(--purple); }
+  .badge-grey   { background: var(--bg3); color: var(--text2); border: 1px solid var(--border); }
+
+  .progress-bar { background: var(--bg3); border-radius: 4px; height: 6px; overflow: hidden; margin-top: 4px; }
+  .progress-fill { height: 100%; border-radius: 4px; transition: width 0.4s ease; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  th { text-align: left; color: var(--text2); font-weight: 600; padding: 6px 8px; border-bottom: 1px solid var(--border); font-size: 11px; text-transform: uppercase; }
+  td { padding: 8px; border-bottom: 1px solid var(--border); color: var(--text); }
+  tr:last-child td { border-bottom: none; }
+  .empty { color: var(--text2); font-style: italic; font-size: 12px; padding: 8px 0; }
+  .error-box { background: #3a1a1a; border: 1px solid var(--red); border-radius: 6px; padding: 10px; color: var(--red); font-size: 12px; }
+  .section-title { font-size: 16px; font-weight: 700; color: var(--text); margin-bottom: 16px; margin-top: 8px; border-left: 3px solid var(--blue); padding-left: 12px; }
+  .roles-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 8px; }
+  .role-chip { background: var(--bg3); border: 1px solid var(--border); border-radius: 6px; padding: 8px 12px; font-size: 12px; }
+  .role-chip .role-name { font-weight: 600; color: var(--blue); }
+  .role-chip .role-desc { color: var(--text2); font-size: 11px; margin-top: 2px; }
+  .decision-bar { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 8px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <div class="logo">ALFRED</div>
+    <div class="subtitle">Dashboard Sécurité — Bloc 20 Zero Trust</div>
+  </div>
+  <div class="meta">
+    <span><span class="pulse"></span><span id="refresh-status" style="font-size:11px;color:var(--text2);">Auto-refresh 30s</span></span>
+    <span class="generated" id="generated-at">Chargement...</span>
+    <button class="refresh-btn" onclick="load()">Actualiser</button>
+  </div>
+</header>
+
+<div class="main">
+
+  <div id="error-banner" style="display:none;" class="error-banner"></div>
+
+  <!-- Score Banner -->
+  <div class="score-banner">
+    <div class="score-circle" id="score-circle">
+      <span class="score-val" id="score-val">—</span>
+      <span class="score-lbl">/100</span>
+    </div>
+    <div class="score-info">
+      <h2 id="score-label">Score de Sécurité Global</h2>
+      <p id="score-desc">Chargement des données...</p>
+    </div>
+  </div>
+
+  <!-- Surveillance -->
+  <div class="section-title">Surveillance temps réel</div>
+  <div class="grid">
+    <div class="card"><h3>Sessions</h3><div id="sessions-content"><div class="empty">Chargement...</div></div></div>
+    <div class="card"><h3>Appareils de confiance</h3><div id="devices-content"><div class="empty">Chargement...</div></div></div>
+    <div class="card"><h3>Incidents</h3><div id="incidents-content"><div class="empty">Chargement...</div></div></div>
+    <div class="card"><h3>Quarantaine</h3><div id="quarantine-content"><div class="empty">Chargement...</div></div></div>
+  </div>
+
+  <!-- Cryptographie -->
+  <div class="section-title">Cryptographie & Audit</div>
+  <div class="grid">
+    <div class="card"><h3>Secrets (.env)</h3><div id="secrets-content"><div class="empty">Chargement...</div></div></div>
+    <div class="card"><h3>Chiffrement Fernet</h3><div id="encryption-content"><div class="empty">Chargement...</div></div></div>
+    <div class="card"><h3>Audit Trail</h3><div id="audit-content"><div class="empty">Chargement...</div></div></div>
+  </div>
+
+  <!-- IAM -->
+  <div class="section-title">IAM — Identités & Politiques</div>
+  <div class="grid">
+    <div class="card"><h3>Roles</h3><div id="roles-content"><div class="empty">Chargement...</div></div></div>
+    <div class="card"><h3>Permissions</h3><div id="permissions-content"><div class="empty">Chargement...</div></div></div>
+    <div class="card"><h3>Matrice de politique</h3><div id="policy-content"><div class="empty">Chargement...</div></div></div>
+  </div>
+
+</div>
+
+<script>
+function badge(t, cls) { return `<span class="badge badge-${cls}">${t}</span>`; }
+function scoreColor(s) { return s >= 80 ? 'var(--green)' : s >= 50 ? 'var(--yellow)' : 'var(--red)'; }
+function scoreLabel(s) { return s >= 80 ? 'Securite satisfaisante' : s >= 50 ? 'Securite moyenne — points a corriger' : 'Securite degradee — action requise'; }
+function statRow(l, v) { return `<div class="stat-row"><span class="label">${l}</span><span class="value">${v}</span></div>`; }
+
+function renderSessions(d) {
+  if (d.error) return `<div class="error-box">${d.error}</div>`;
+  let h = statRow('Sessions actives', badge(d.active_sessions??0,'blue'));
+  h += statRow('Sessions connues', d.known_sessions??0);
+  const bl = (d.blocked_users??[]).length;
+  h += statRow('Utilisateurs bloques', badge(bl, bl>0?'red':'green'));
+  if (bl>0) h += `<div style="margin-top:8px;font-size:11px;color:var(--red);">Bloques : ${(d.blocked_users||[]).join(', ')}</div>`;
+  return h;
+}
+
+function renderDevices(d) {
+  if (d.error) return `<div class="error-box">${d.error}</div>`;
+  let h = statRow('De confiance', badge(d.trusted_count??0,'green'));
+  h += statRow('Total connus', d.total_count??0);
+  const devs = d.devices??[];
+  if (!devs.length) return h + `<div class="empty" style="margin-top:8px;">Aucun appareil enregistre</div>`;
+  h += `<table style="margin-top:12px;"><thead><tr><th>ID</th><th>Risque</th><th>Score</th><th>Statut</th></tr></thead><tbody>`;
+  devs.forEach(dev => {
+    const rc = dev.risk_level==='LOW'?'green':dev.risk_level==='REVOKED'?'red':'yellow';
+    h += `<tr><td style="font-family:monospace;font-size:11px;">${dev.label||dev.device_id}</td><td>${badge(dev.risk_level||'?',rc)}</td><td>${dev.trust_score??0}</td><td>${dev.trusted?badge('Actif','green'):badge('Revoque','red')}</td></tr>`;
+  });
+  return h + '</tbody></table>';
+}
+
+function renderIncidents(d) {
+  if (d.error) return `<div class="error-box">${d.error}</div>`;
+  let h = statRow('Total incidents', d.total??0);
+  h += statRow('Critiques ouverts', badge(d.open_critical??0,(d.open_critical??0)>0?'red':'green'));
+  Object.entries(d.by_level??{}).forEach(([l,c]) => {
+    h += statRow(l, badge(c, l==='CRITICAL'?'red':l==='HIGH'?'yellow':l==='MEDIUM'?'purple':'grey'));
+  });
+  const rec = d.recent_open??[];
+  if (rec.length) {
+    h += `<div style="margin-top:12px;font-size:11px;color:var(--text2);">Incidents ouverts recents :</div>`;
+    rec.slice(-3).reverse().forEach(i => {
+      h += `<div style="margin-top:6px;padding:6px;background:var(--bg3);border-radius:4px;font-size:11px;">${badge(i.level,'red')} ${(i.description||'').substring(0,60)}</div>`;
+    });
+  }
+  return h;
+}
+
+function renderQuarantine(d) {
+  if (d.error) return `<div class="error-box">${d.error}</div>`;
+  let h = statRow('En quarantaine', badge(d.active_total??0,(d.active_total??0)>0?'red':'green'));
+  h += statRow('Historique total', d.history_total??0);
+  Object.entries(d.by_type??{}).forEach(([t,c]) => { h += statRow(t, badge(c,'yellow')); });
+  Object.entries(d.by_severity??{}).forEach(([s,c]) => {
+    h += statRow(s, badge(c, s==='CRITICAL'?'red':s==='HIGH'?'yellow':'grey'));
+  });
+  return h;
+}
+
+function renderSecrets(d) {
+  if (d.error) return `<div class="error-box">${d.error}</div>`;
+  let h = statRow('Statut global', badge(d.all_ok?'OK':'INCOMPLET', d.all_ok?'green':'red'));
+  h += statRow('Secrets presents', `${d.present_count??0} / ${d.required_count??0}`);
+  if ((d.missing??[]).length) h += `<div style="margin-top:8px;color:var(--red);font-size:12px;">Manquants : ${d.missing.join(', ')}</div>`;
+  return h;
+}
+
+function renderEncryption(d) {
+  if (d.error) return `<div class="error-box">${d.error}</div>`;
+  let h = statRow('Fernet (AES-128)', badge(d.available?'Operationnel':'Indisponible', d.available?'green':'red'));
+  h += statRow('Algorithme', 'AES-128-CBC');
+  h += statRow('Cle source', '.env → fichier → auto');
+  return h;
+}
+
+function renderAudit(d) {
+  if (d.error) return `<div class="error-box">${d.error}</div>`;
+  let h = statRow('Evenements totaux', d.total_events??0);
+  const dec = d.by_decision??{};
+  const allow = dec['ALLOW']??0;
+  const denies = Object.entries(dec).filter(([k])=>k.startsWith('DENY')).reduce((s,[,v])=>s+v,0);
+  h += statRow('Autorises', badge(allow,'green'));
+  h += statRow('Refuses', badge(denies, denies>0?'red':'grey'));
+  h += `<div class="decision-bar">`;
+  Object.entries(dec).forEach(([k,v]) => { h += badge(`${k}: ${v}`, k==='ALLOW'?'green':k.startsWith('DENY')?'red':'yellow'); });
+  h += `</div>`;
+  const last = d.last_event;
+  if (last) h += `<div style="margin-top:12px;font-size:11px;color:var(--text2);">Dernier : ${last.action??'—'} | ${last.decision??'—'} | ${(last.timestamp??'').substring(0,16).replace('T',' ')}</div>`;
+  return h;
+}
+
+function renderRoles(d) {
+  if (d.error) return `<div class="error-box">${d.error}</div>`;
+  let h = `<div class="roles-grid">`;
+  Object.entries(d.roles??{}).forEach(([n,desc]) => {
+    h += `<div class="role-chip"><div class="role-name">${n}</div><div class="role-desc">${desc}</div></div>`;
+  });
+  return h + `</div>`;
+}
+
+function renderPermissions(d) {
+  if (d.error) return `<div class="error-box">${d.error}</div>`;
+  let h = statRow('Roles definis', d.roles_count??0);
+  h += statRow('Permissions uniques', d.unique_permissions_count??0);
+  h += statRow('Permissions OWNER', d.owner_permissions_count??0);
+  h += statRow('Permissions ADMIN', d.admin_permissions_count??0);
+  h += statRow('Permissions GUEST', d.guest_permissions_count??0);
+  return h;
+}
+
+function renderPolicy(d) {
+  if (d.error) return `<div class="error-box">${d.error}</div>`;
+  const roles = d.role_levels??{};
+  const sens  = d.resource_sensitivity_levels??{};
+  let h = `<div style="font-size:11px;color:var(--text2);margin-bottom:6px;">Niveaux de role :</div>`;
+  Object.entries(roles).sort(([,a],[,b])=>a-b).forEach(([r,l]) => {
+    h += `<div style="display:flex;justify-content:space-between;padding:3px 0;font-size:12px;"><span>${r}</span><span style="color:var(--blue);">Niveau ${l}</span></div>`;
+  });
+  h += `<div style="font-size:11px;color:var(--text2);margin-top:10px;margin-bottom:6px;">Sensibilite ressource :</div>`;
+  Object.entries(sens).sort(([,a],[,b])=>a-b).forEach(([s,l]) => {
+    h += `<div style="display:flex;justify-content:space-between;padding:3px 0;font-size:12px;"><span>${s}</span>${badge(l, l>=3?'red':l>=2?'yellow':l>=1?'purple':'green')}</div>`;
+  });
+  return h;
+}
+
+async function load() {
+  document.getElementById('refresh-status').textContent = 'Actualisation...';
+  let data;
+  try {
+    const resp = await fetch('dashboard_security.json?t=' + Date.now());
+    if (!resp.ok) throw new Error('dashboard_security.json introuvable. Lancez dashboard_security_server.bat');
+    data = await resp.json();
+    document.getElementById('error-banner').style.display = 'none';
+  } catch (e) {
+    document.getElementById('error-banner').textContent = e.message;
+    document.getElementById('error-banner').style.display = 'block';
+    document.getElementById('refresh-status').textContent = 'Erreur';
+    return;
+  }
+
+  const meta = data._meta??{};
+  const _dt = new Date((meta.generated_at??'').replace(' ','T').replace(' UTC','Z'));
+  const _paris = _dt.toLocaleString('fr-FR', { timeZone:'Europe/Paris', year:'numeric', month:'2-digit', day:'2-digit', hour:'2-digit', minute:'2-digit' });
+  document.getElementById('generated-at').textContent = 'Genere le ' + _paris + ' (Paris)';
+  document.getElementById('refresh-status').textContent = 'Auto-refresh 30s';
+
+  const score = data.security_score??0;
+  const el = document.getElementById('score-val');
+  el.textContent = score;
+  el.style.color = scoreColor(score);
+  document.getElementById('score-circle').style.borderColor = scoreColor(score);
+  document.getElementById('score-label').textContent = `Score de Securite Global : ${score}/100`;
+  document.getElementById('score-desc').textContent = scoreLabel(score);
+
+  document.getElementById('sessions-content').innerHTML    = renderSessions(data.sessions??{});
+  document.getElementById('devices-content').innerHTML     = renderDevices(data.devices??{});
+  document.getElementById('incidents-content').innerHTML   = renderIncidents(data.incidents??{});
+  document.getElementById('quarantine-content').innerHTML  = renderQuarantine(data.quarantine??{});
+  document.getElementById('secrets-content').innerHTML     = renderSecrets(data.secrets??{});
+  document.getElementById('encryption-content').innerHTML  = renderEncryption(data.encryption??{});
+  document.getElementById('audit-content').innerHTML       = renderAudit(data.audit??{});
+  document.getElementById('roles-content').innerHTML       = renderRoles(data.roles??{});
+  document.getElementById('permissions-content').innerHTML = renderPermissions(data.permissions??{});
+  document.getElementById('policy-content').innerHTML      = renderPolicy(data.policy_matrix??{});
+}
+
+load();
+setInterval(load, 30000);
+</script>
+</body>
+</html>

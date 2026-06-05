@@ -1,31 +1,29 @@
 # ALFRED — BACKLOG & RÉFÉRENTIEL FICHIERS
 
-> Généré le 03/06/2026 12:31 depuis `dashboard_data.json` (mis à jour le 03/06/2026 07:00:21)
-> Progression technique : **75.4%** · Full projet : **52.4%**
+> Généré le 05/06/2026 14:11 depuis `dashboard_data.json` (mis à jour le 03/06/2026 14:12:40)
+> Progression technique : **62.9%** · Full projet : **43.4%**
 > 665 fichiers détectés / 1065 cible full
 
 ## Synthèse globale
 
 | Statut | Nb | % | Priorité |
 |--------|---:|--:|----------|
-| 🟡 Partiel | 1 | 0.2% | 🟡 Sprint |
+| 🟡 Partiel | 200 | 30.1% | 🟡 Sprint |
 | 🟦 Codé — à tester | 207 | 31.1% | 🟡 Sprint |
-| 🧪 Testé — à valider | 8 | 1.2% | 🧪 Tests |
-| ✅ Validé ✅ | 279 | 42.0% | ✅ Done |
+| 🧪 Testé — à valider | 3 | 0.5% | 🧪 Tests |
+| ✅ Validé ✅ | 203 | 30.5% | ✅ Done |
 | ⚙️ Structurel | 52 | 7.8% | ✅ Done |
-| 🔗 Alias | 112 | 16.8% | ✅ Done |
-| 🔀 Fusionné | 6 | 0.9% | ✅ Done |
 
 ## Backlog par bloc
 
-### 🟢 B01 — Interaction conversationnelle intelligente `87.2%`
+### 🟡 B01 — Interaction conversationnelle intelligente `73.6%`
 
 | KPI | Valeur |
 |-----|--------|
-| Validés | 13 |
-| Testés | 2 |
-| Codés (à tester) | 7 |
-| Partiels | 0 |
+| Validés | 6 |
+| Testés | 1 |
+| Codés (à tester) | 13 |
+| Partiels | 2 |
 | Structurels | 3 |
 | Manquants | 0 |
 
@@ -33,22 +31,30 @@
 
 | Fichier | Statut | Action |
 |---------|--------|--------|
+| `data/dialogue_history.json` | 🟡 Partiel | Compléter |
+| `tests/test_b01_speech.py` | 🟡 Partiel | Compléter |
 | `config/conversation_rules.json` | 🟦 Codé — à tester | Tester |
-| `config/intents_catalog.json` | 🟦 Codé — à tester | Tester |
-| `config/response_patterns.json` | 🟦 Codé — à tester | Tester |
-| `data/dialogue_history.json` | 🟦 Codé — à tester | Tester |
 | `data/memory/episodic/dialogue_history.json` | 🟦 Codé — à tester | Tester |
-| `tests/test_b01_speech.py` | 🟦 Codé — à tester | Tester |
+| `src/conversation/input/audio_capture.py` | 🟦 Codé — à tester | Tester |
+| `src/conversation/input/context_builder.py` | 🟦 Codé — à tester | Tester |
+| `src/conversation/nlp/nlp_engine_v2.py` | 🟦 Codé — à tester | Tester |
+| `src/conversation/input/speech_manager.py` | 🟦 Codé — à tester | Tester |
+| `src/conversation/input/text_input.py` | 🟦 Codé — à tester | Tester |
+| `src/conversation/input/voice_profile.py` | 🟦 Codé — à tester | Tester |
+| `src/llm/llm_client_openai.py` | 🟦 Codé — à tester | Tester |
+| `src/conversation/output/tts_output.py` | 🟦 Codé — à tester | Tester |
 | `tests/test_pipeline_llm.py` | 🟦 Codé — à tester | Tester |
+| `src/conversation/input/audio_listener.py` | 🟦 Codé — à tester | Tester |
+| `src/conversation/nlp/intent_classifier.py` | 🟦 Codé — à tester | Tester |
 
-### 🟢 B02 — Mémoire & RAG `90.4%`
+### 🟡 B02 — Mémoire & RAG `71.2%`
 
 | KPI | Valeur |
 |-----|--------|
-| Validés | 17 |
+| Validés | 7 |
 | Testés | 0 |
-| Codés (à tester) | 6 |
-| Partiels | 0 |
+| Codés (à tester) | 12 |
+| Partiels | 4 |
 | Structurels | 2 |
 | Manquants | 0 |
 
@@ -56,21 +62,31 @@
 
 | Fichier | Statut | Action |
 |---------|--------|--------|
-| `config/knowledge_settings.json` | 🟦 Codé — à tester | Tester |
-| `config/rag_settings.json` | 🟦 Codé — à tester | Tester |
-| `config/v3/memory_rules.json` | 🟦 Codé — à tester | Tester |
-| `data/user_memory.json` | 🟦 Codé — à tester | Tester |
-| `data/v2/memory_samples.json` | 🟦 Codé — à tester | Tester |
-| `data/v3/memory_patterns.json` | 🟦 Codé — à tester | Tester |
+| `config/v3/memory_rules.json` | 🟡 Partiel | Compléter |
+| `data/user_memory.json` | 🟡 Partiel | Compléter |
+| `data/v2/memory_samples.json` | 🟡 Partiel | Compléter |
+| `data/v3/memory_patterns.json` | 🟡 Partiel | Compléter |
+| `knowledges/professional/engineering/ai/semantic_memory.json` | 🟦 Codé — à tester | Tester |
+| `knowledges/system/memory/episodic_memory.json` | 🟦 Codé — à tester | Tester |
+| `knowledges/system/memory/memory_context_linking.json` | 🟦 Codé — à tester | Tester |
+| `knowledges/system/memory/memory_decay_rules.json` | 🟦 Codé — à tester | Tester |
+| `knowledges/system/memory/memory_learning_rules.json` | 🟦 Codé — à tester | Tester |
+| `knowledges/system/memory/memory_prioritization.json` | 🟦 Codé — à tester | Tester |
+| `knowledges/system/memory/memory_system.json` | 🟦 Codé — à tester | Tester |
+| `src/memory/episodic_memory.py` | 🟦 Codé — à tester | Tester |
+| `src/memory/memory_indexer.py` | 🟦 Codé — à tester | Tester |
+| `src/memory/memory_manager.py` | 🟦 Codé — à tester | Tester |
+| `src/memory/rag_stub.py` | 🟦 Codé — à tester | Tester |
+| `src/rag/rag_engine.py` | 🟦 Codé — à tester | Tester |
 
-### 🟢 B03 — Émotions & Régulation `87.7%`
+### 🟡 B03 — Émotions & Régulation `69.2%`
 
 | KPI | Valeur |
 |-----|--------|
-| Validés | 14 |
-| Testés | 4 |
-| Codés (à tester) | 6 |
-| Partiels | 0 |
+| Validés | 7 |
+| Testés | 0 |
+| Codés (à tester) | 11 |
+| Partiels | 6 |
 | Structurels | 2 |
 | Manquants | 0 |
 
@@ -78,20 +94,31 @@
 
 | Fichier | Statut | Action |
 |---------|--------|--------|
-| `config/v2/emotion_profiles.json` | 🟦 Codé — à tester | Tester |
-| `config/v3/emotion_rules.json` | 🟦 Codé — à tester | Tester |
-| `config/v3/tone_profiles.json` | 🟦 Codé — à tester | Tester |
-| `data/v3/emotion_state.json` | 🟦 Codé — à tester | Tester |
-| `data/v3/relational_state.json` | 🟦 Codé — à tester | Tester |
-| `tests/test_b02_b03.py` | 🟦 Codé — à tester | Tester |
+| `config/v2/emotion_profiles.json` | 🟡 Partiel | Compléter |
+| `config/v3/emotion_rules.json` | 🟡 Partiel | Compléter |
+| `config/v3/tone_profiles.json` | 🟡 Partiel | Compléter |
+| `data/v3/emotion_state.json` | 🟡 Partiel | Compléter |
+| `data/v3/relational_state.json` | 🟡 Partiel | Compléter |
+| `tests/test_b02_b03.py` | 🟡 Partiel | Compléter |
+| `knowledges/cpl/human_communication/emotional_intelligence.json` | 🟦 Codé — à tester | Tester |
+| `knowledges/human/cognition/decision_fatigue.json` | 🟦 Codé — à tester | Tester |
+| `knowledges/human/emotional_intelligence/active_listening.json` | 🟦 Codé — à tester | Tester |
+| `knowledges/human/emotional_intelligence/emotional_management.json` | 🟦 Codé — à tester | Tester |
+| `knowledges/human/emotional_intelligence/emotional_patterns.json` | 🟦 Codé — à tester | Tester |
+| `knowledges/human/psychology/burnout_prevention.json` | 🟦 Codé — à tester | Tester |
+| `knowledges/human/psychology/resilience.json` | 🟦 Codé — à tester | Tester |
+| `src/regulation/emotion_detector.py` | 🟦 Codé — à tester | Tester |
+| `src/regulation/mode_manager.py` | 🟦 Codé — à tester | Tester |
+| `src/regulation/protection_guard.py` | 🟦 Codé — à tester | Tester |
+| `src/regulation/wellbeing_tracker.py` | 🟦 Codé — à tester | Tester |
 
-### 🟡 B04 — Sécurité & Protection `76.0%`
+### 🟡 B04 — Sécurité & Protection `64.0%`
 
 | KPI | Valeur |
 |-----|--------|
-| Validés | 4 |
+| Validés | 1 |
 | Testés | 0 |
-| Codés (à tester) | 6 |
+| Codés (à tester) | 9 |
 | Partiels | 0 |
 | Structurels | 0 |
 | Manquants | 0 |
@@ -103,18 +130,21 @@
 | `.env.example` | 🟦 Codé — à tester | Tester |
 | `.gitignore` | 🟦 Codé — à tester | Tester |
 | `config/ethics_rules.json` | 🟦 Codé — à tester | Tester |
-| `config/quality_thresholds.json` | 🟦 Codé — à tester | Tester |
 | `config/settings.json` | 🟦 Codé — à tester | Tester |
+| `knowledges/cpl/ethics_governance/accessibility_principles.json` | 🟦 Codé — à tester | Tester |
+| `knowledges/cpl/ethics_governance/ethical_ai_framework.json` | 🟦 Codé — à tester | Tester |
+| `knowledges/cpl/ethics_governance/governance_model.json` | 🟦 Codé — à tester | Tester |
+| `knowledges/system/ethics/ethical_framework.json` | 🟦 Codé — à tester | Tester |
 | `pyproject.toml` | 🟦 Codé — à tester | Tester |
 
-### 🟢 B05 — Organisation & Assistance `92.7%`
+### 🟡 B05 — Organisation & Assistance `67.3%`
 
 | KPI | Valeur |
 |-----|--------|
-| Validés | 8 |
+| Validés | 2 |
 | Testés | 0 |
-| Codés (à tester) | 2 |
-| Partiels | 0 |
+| Codés (à tester) | 6 |
+| Partiels | 2 |
 | Structurels | 1 |
 | Manquants | 0 |
 
@@ -122,28 +152,47 @@
 
 | Fichier | Statut | Action |
 |---------|--------|--------|
-| `data/actions/tasks.json` | 🟦 Codé — à tester | Tester |
-| `data/v2/scenarios/daily_organization.json` | 🟦 Codé — à tester | Tester |
+| `data/actions/tasks.json` | 🟡 Partiel | Compléter |
+| `data/v2/scenarios/daily_organization.json` | 🟡 Partiel | Compléter |
+| `knowledges/cpl/execution/decision_making_framework.json` | 🟦 Codé — à tester | Tester |
+| `knowledges/cpl/execution/project_management_core.json` | 🟦 Codé — à tester | Tester |
+| `knowledges/cpl/execution/risk_management.json` | 🟦 Codé — à tester | Tester |
+| `knowledges/cpl/execution/task_prioritization.json` | 🟦 Codé — à tester | Tester |
+| `knowledges/cpl/human_organization/energy_management.json` | 🟦 Codé — à tester | Tester |
+| `knowledges/human/skills/softskills/organization.json` | 🟦 Codé — à tester | Tester |
 
-### ✅ B06 — Communication & Lien social `100.0%`
+### 🟡 B06 — Communication & Lien social `64.4%`
 
 | KPI | Valeur |
 |-----|--------|
-| Validés | 9 |
+| Validés | 1 |
 | Testés | 0 |
-| Codés (à tester) | 0 |
+| Codés (à tester) | 8 |
 | Partiels | 0 |
 | Structurels | 0 |
 | Manquants | 0 |
 
-### 🟡 B07 — Mobilité & Contexte externe `60.0%`
+**Fichiers à traiter :**
+
+| Fichier | Statut | Action |
+|---------|--------|--------|
+| `knowledges/cpl/human_communication/client_interaction.json` | 🟦 Codé — à tester | Tester |
+| `knowledges/cpl/human_communication/communication_principles.json` | 🟦 Codé — à tester | Tester |
+| `knowledges/human/skills/softskills/argumentation_frameworks.json` | 🟦 Codé — à tester | Tester |
+| `knowledges/human/skills/softskills/assertiveness.json` | 🟦 Codé — à tester | Tester |
+| `knowledges/human/skills/softskills/communication_clarity.json` | 🟦 Codé — à tester | Tester |
+| `knowledges/human/skills/softskills/conflict_management.json` | 🟦 Codé — à tester | Tester |
+| `knowledges/human/skills/softskills/leadership_personal.json` | 🟦 Codé — à tester | Tester |
+| `knowledges/human/skills/softskills/negotiation.json` | 🟦 Codé — à tester | Tester |
+
+### 🟠 B07 — Mobilité & Contexte externe `40.0%`
 
 | KPI | Valeur |
 |-----|--------|
 | Validés | 0 |
 | Testés | 0 |
-| Codés (à tester) | 1 |
-| Partiels | 0 |
+| Codés (à tester) | 0 |
+| Partiels | 1 |
 | Structurels | 0 |
 | Manquants | 0 |
 
@@ -151,16 +200,16 @@
 
 | Fichier | Statut | Action |
 |---------|--------|--------|
-| `data/context/user_context.json` | 🟦 Codé — à tester | Tester |
+| `data/context/user_context.json` | 🟡 Partiel | Compléter |
 
-### 🟡 B08 — Personnalisation utilisateur `79.3%`
+### 🟡 B08 — Personnalisation utilisateur `69.6%`
 
 | KPI | Valeur |
 |-----|--------|
-| Validés | 11 |
+| Validés | 6 |
 | Testés | 2 |
-| Codés (à tester) | 13 |
-| Partiels | 0 |
+| Codés (à tester) | 15 |
+| Partiels | 3 |
 | Structurels | 1 |
 | Manquants | 0 |
 
@@ -168,30 +217,48 @@
 
 | Fichier | Statut | Action |
 |---------|--------|--------|
-| `config/behavior_rules_softskills.json` | 🟦 Codé — à tester | Tester |
+| `data/personality.json` | 🟡 Partiel | Compléter |
+| `data/preferences_profile.json` | 🟡 Partiel | Compléter |
+| `data/profile/user_profile.json` | 🟡 Partiel | Compléter |
 | `config/personality_core.json` | 🟦 Codé — à tester | Tester |
-| `config/self_alignment_rules.json` | 🟦 Codé — à tester | Tester |
 | `config/user_adaptation_profile.json` | 🟦 Codé — à tester | Tester |
-| `data/personality.json` | 🟦 Codé — à tester | Tester |
 | `data/personality/instances/personality_core_instance.json` | 🟦 Codé — à tester | Tester |
 | `data/personality/templates/personality_core.json` | 🟦 Codé — à tester | Tester |
 | `data/personality/templates/personality_core_template_public.json` | 🟦 Codé — à tester | Tester |
-| `data/preferences_profile.json` | 🟦 Codé — à tester | Tester |
-| `data/profile/user_profile.json` | 🟦 Codé — à tester | Tester |
 | `data/users/instances/user_celine_instance.json` | 🟦 Codé — à tester | Tester |
 | `data/users/templates/user_adaptation_profile.json` | 🟦 Codé — à tester | Tester |
 | `data/users/templates/user_profile_template_public.json` | 🟦 Codé — à tester | Tester |
+| `knowledges/core/behavioral_modes.json` | 🟦 Codé — à tester | Tester |
+| `knowledges/core/context_awareness.json` | 🟦 Codé — à tester | Tester |
+| `knowledges/core/personalization_engine.json` | 🟦 Codé — à tester | Tester |
+| `knowledges/core/system_rules.json` | 🟦 Codé — à tester | Tester |
+| `knowledges/core/user_adaptation.json` | 🟦 Codé — à tester | Tester |
+| `knowledges/human/self_alignment/habits/discipline.json` | 🟦 Codé — à tester | Tester |
+| `knowledges/human/self_alignment/routines/feedback_loop.json` | 🟦 Codé — à tester | Tester |
 
-### ✅ B09 — Productivité & Copilote pro `100.0%`
+### 🟡 B09 — Productivité & Copilote pro `75.4%`
 
 | KPI | Valeur |
 |-----|--------|
-| Validés | 13 |
+| Validés | 5 |
 | Testés | 0 |
-| Codés (à tester) | 0 |
+| Codés (à tester) | 8 |
 | Partiels | 0 |
 | Structurels | 0 |
 | Manquants | 0 |
+
+**Fichiers à traiter :**
+
+| Fichier | Statut | Action |
+|---------|--------|--------|
+| `knowledges/cpl/product_ia/product_design_methodology.json` | 🟦 Codé — à tester | Tester |
+| `knowledges/cpl/product_ia/tech_tradeoff_framework.json` | 🟦 Codé — à tester | Tester |
+| `knowledges/cpl/product_ia/user_needs_analysis.json` | 🟦 Codé — à tester | Tester |
+| `knowledges/human/skills/softskills/problem_solving.json` | 🟦 Codé — à tester | Tester |
+| `knowledges/professional/decision/decision_models.json` | 🟦 Codé — à tester | Tester |
+| `knowledges/professional/decision/decision_support.json` | 🟦 Codé — à tester | Tester |
+| `knowledges/professional/decision/root_cause_analysis.json` | 🟦 Codé — à tester | Tester |
+| `knowledges/professional/decision/tradeoff_analysis.json` | 🟦 Codé — à tester | Tester |
 
 ### ❌ B10 — Collaboration & Coordination `0.0%`
 
@@ -204,25 +271,38 @@
 | Structurels | 0 |
 | Manquants | 0 |
 
-### ✅ B11 — Intelligence cognitive avancée `100.0%`
+### 🟡 B11 — Intelligence cognitive avancée `73.3%`
 
 | KPI | Valeur |
 |-----|--------|
-| Validés | 10 |
+| Validés | 2 |
 | Testés | 0 |
-| Codés (à tester) | 0 |
+| Codés (à tester) | 8 |
 | Partiels | 0 |
 | Structurels | 2 |
 | Manquants | 0 |
 
-### 🟢 B12 — Pilotage business & Stratégie `92.5%`
+**Fichiers à traiter :**
+
+| Fichier | Statut | Action |
+|---------|--------|--------|
+| `knowledges/human/cognition/cognitive_load.json` | 🟦 Codé — à tester | Tester |
+| `knowledges/human/cognition/critical_thinking.json` | 🟦 Codé — à tester | Tester |
+| `knowledges/human/cognition/focus_management.json` | 🟦 Codé — à tester | Tester |
+| `knowledges/human/cognition/multi_step_reasoning.json` | 🟦 Codé — à tester | Tester |
+| `knowledges/human/cognition/uncertainty_management.json` | 🟦 Codé — à tester | Tester |
+| `knowledges/professional/engineering/ai/reasoning_advanced.json` | 🟦 Codé — à tester | Tester |
+| `knowledges/professional/engineering/ai/reasoning_engine.json` | 🟦 Codé — à tester | Tester |
+| `src/knowledge/knowledge_router.py` | 🟦 Codé — à tester | Tester |
+
+### 🟡 B12 — Pilotage business & Stratégie `73.8%`
 
 | KPI | Valeur |
 |-----|--------|
-| Validés | 13 |
+| Validés | 7 |
 | Testés | 0 |
-| Codés (à tester) | 3 |
-| Partiels | 0 |
+| Codés (à tester) | 6 |
+| Partiels | 3 |
 | Structurels | 0 |
 | Manquants | 0 |
 
@@ -230,9 +310,15 @@
 
 | Fichier | Statut | Action |
 |---------|--------|--------|
-| `config/v2/kpi_config.json` | 🟦 Codé — à tester | Tester |
-| `config/v2/product_roadmap.json` | 🟦 Codé — à tester | Tester |
-| `data/v2/product_state.json` | 🟦 Codé — à tester | Tester |
+| `config/v2/kpi_config.json` | 🟡 Partiel | Compléter |
+| `config/v2/product_roadmap.json` | 🟡 Partiel | Compléter |
+| `data/v2/product_state.json` | 🟡 Partiel | Compléter |
+| `knowledges/cpl/business_piloting/pricing_strategy.json` | 🟦 Codé — à tester | Tester |
+| `knowledges/cpl/business_piloting/profitability_analysis.json` | 🟦 Codé — à tester | Tester |
+| `knowledges/cpl/business_piloting/revenue_mix_strategy.json` | 🟦 Codé — à tester | Tester |
+| `knowledges/cpl/strategy/business_model_design.json` | 🟦 Codé — à tester | Tester |
+| `knowledges/cpl/strategy/strategy_fundamentals.json` | 🟦 Codé — à tester | Tester |
+| `knowledges/cpl/strategy/value_proposition_framework.json` | 🟦 Codé — à tester | Tester |
 
 ### ❌ B13 — Compagnon pédiatrique / ARTHUR `0.0%`
 
@@ -303,14 +389,14 @@
 | `assets/avatars/avatar_medium/base_medium/alfred_medium_very_excited.png` | 🟦 Codé — à tester | Tester |
 | *... 14 autres* | | |
 
-### 🟠 B16 — Démonstration & Scénarisation `56.7%`
+### 🟠 B16 — Démonstration & Scénarisation `40.0%`
 
 | KPI | Valeur |
 |-----|--------|
 | Validés | 0 |
 | Testés | 0 |
-| Codés (à tester) | 6 |
-| Partiels | 0 |
+| Codés (à tester) | 0 |
+| Partiels | 6 |
 | Structurels | 0 |
 | Manquants | 0 |
 
@@ -318,12 +404,12 @@
 
 | Fichier | Statut | Action |
 |---------|--------|--------|
-| `config/v2/scenario_catalog.json` | 🟦 Codé — à tester | Tester |
-| `data/v2/scenario_results.json` | 🟦 Codé — à tester | Tester |
-| `data/v2/scenarios/career_transition.json` | 🟦 Codé — à tester | Tester |
-| `data/v2/scenarios/isolation_support.json` | 🟦 Codé — à tester | Tester |
-| `data/v2/scenarios/mental_overload.json` | 🟦 Codé — à tester | Tester |
-| `tests/test_pipeline.py` | 🟦 Codé — à tester | Tester |
+| `config/v2/scenario_catalog.json` | 🟡 Partiel | Compléter |
+| `data/v2/scenario_results.json` | 🟡 Partiel | Compléter |
+| `data/v2/scenarios/career_transition.json` | 🟡 Partiel | Compléter |
+| `data/v2/scenarios/isolation_support.json` | 🟡 Partiel | Compléter |
+| `data/v2/scenarios/mental_overload.json` | 🟡 Partiel | Compléter |
+| `tests/test_pipeline.py` | 🟡 Partiel | Compléter |
 
 ### 🟢 B17 — Visual Generation contextuelle `94.3%`
 
@@ -353,14 +439,14 @@
 | `assets/backgrounds/mode_portrait/interieur/specifique/sport/background_portrait_interieur_sport.png` | 🟦 Codé — à tester | Tester |
 | `assets/backgrounds/mode_portrait/orientation portrait/specifique/Transport/background_portrait_exterieur_transport_debut fin journee.jpg` | 🟦 Codé — à tester | Tester |
 
-### 🟢 B18 — Knowledge & Intelligence System `82.6%`
+### 🟡 B18 — Knowledge & Intelligence System `60.2%`
 
 | KPI | Valeur |
 |-----|--------|
-| Validés | 61 |
+| Validés | 52 |
 | Testés | 0 |
-| Codés (à tester) | 54 |
-| Partiels | 0 |
+| Codés (à tester) | 25 |
+| Partiels | 156 |
 | Structurels | 27 |
 | Manquants | 0 |
 
@@ -368,46 +454,46 @@
 
 | Fichier | Statut | Action |
 |---------|--------|--------|
-| `.env` | 🟦 Codé — à tester | Tester |
-| `ALFRED_CONTEXT.md` | 🟦 Codé — à tester | Tester |
-| `README.md` | 🟦 Codé — à tester | Tester |
-| `bootstrap_project.ps1` | 🟦 Codé — à tester | Tester |
-| `check_tools.ps1` | 🟦 Codé — à tester | Tester |
-| `config/alfred_project.json` | 🟦 Codé — à tester | Tester |
-| `config/router_rules.json` | 🟦 Codé — à tester | Tester |
-| `config/routing_rules.json` | 🟦 Codé — à tester | Tester |
-| `config/tagging_rules.json` | 🟦 Codé — à tester | Tester |
-| `config/v1/basic_pipeline_rules.json` | 🟦 Codé — à tester | Tester |
-| `config/v2/confidence_rules.json` | 🟦 Codé — à tester | Tester |
-| `config/v2/decision_rules.json` | 🟦 Codé — à tester | Tester |
-| `config/v2/edge_cases.json` | 🟦 Codé — à tester | Tester |
-| `config/v2/fallback_rules.json` | 🟦 Codé — à tester | Tester |
-| `config/v2/feature_matrix.json` | 🟦 Codé — à tester | Tester |
-| `config/v2/learning_rules.json` | 🟦 Codé — à tester | Tester |
-| `config/v2/module_mapping.json` | 🟦 Codé — à tester | Tester |
-| `config/v2/naming_conventions.json` | 🟦 Codé — à tester | Tester |
-| `config/v2/proactivity_rules.json` | 🟦 Codé — à tester | Tester |
-| `config/v2/signal_weights.json` | 🟦 Codé — à tester | Tester |
-| `config/v3/confidence_rules.json` | 🟦 Codé — à tester | Tester |
-| `config/v3/conversation_rules.json` | 🟦 Codé — à tester | Tester |
-| `config/v3/fusion_rules.json` | 🟦 Codé — à tester | Tester |
-| `config/v3/learning_rules.json` | 🟦 Codé — à tester | Tester |
-| `config/v3/orchestrator_rules.json` | 🟦 Codé — à tester | Tester |
-| `config/v3/pattern_rules.json` | 🟦 Codé — à tester | Tester |
-| `config/v3/priority_rules.json` | 🟦 Codé — à tester | Tester |
-| `config/v3/proactive_rules.json` | 🟦 Codé — à tester | Tester |
-| `config/v3/relational_rules.json` | 🟦 Codé — à tester | Tester |
-| `config/v3/trigger_rules.json` | 🟦 Codé — à tester | Tester |
-| *... 24 autres* | | |
+| `check_tools.ps1` | 🟡 Partiel | Compléter |
+| `config/v1/basic_pipeline_rules.json` | 🟡 Partiel | Compléter |
+| `config/v2/confidence_rules.json` | 🟡 Partiel | Compléter |
+| `config/v2/decision_rules.json` | 🟡 Partiel | Compléter |
+| `config/v2/edge_cases.json` | 🟡 Partiel | Compléter |
+| `config/v2/fallback_rules.json` | 🟡 Partiel | Compléter |
+| `config/v2/feature_matrix.json` | 🟡 Partiel | Compléter |
+| `config/v2/learning_rules.json` | 🟡 Partiel | Compléter |
+| `config/v2/naming_conventions.json` | 🟡 Partiel | Compléter |
+| `config/v2/proactivity_rules.json` | 🟡 Partiel | Compléter |
+| `config/v2/signal_weights.json` | 🟡 Partiel | Compléter |
+| `config/v3/confidence_rules.json` | 🟡 Partiel | Compléter |
+| `config/v3/conversation_rules.json` | 🟡 Partiel | Compléter |
+| `config/v3/fusion_rules.json` | 🟡 Partiel | Compléter |
+| `config/v3/learning_rules.json` | 🟡 Partiel | Compléter |
+| `config/v3/orchestrator_rules.json` | 🟡 Partiel | Compléter |
+| `config/v3/pattern_rules.json` | 🟡 Partiel | Compléter |
+| `config/v3/priority_rules.json` | 🟡 Partiel | Compléter |
+| `config/v3/proactive_rules.json` | 🟡 Partiel | Compléter |
+| `config/v3/relational_rules.json` | 🟡 Partiel | Compléter |
+| `config/v3/trigger_rules.json` | 🟡 Partiel | Compléter |
+| `config/v3/workflow_rules.json` | 🟡 Partiel | Compléter |
+| `data/v2/experience_state.json` | 🟡 Partiel | Compléter |
+| `data/v2/feedback_log.json` | 🟡 Partiel | Compléter |
+| `data/v2/learning_state.json` | 🟡 Partiel | Compléter |
+| `data/v2/robustness_results.json` | 🟡 Partiel | Compléter |
+| `data/v3/behavior_state.json` | 🟡 Partiel | Compléter |
+| `data/v3/context_memories.json` | 🟡 Partiel | Compléter |
+| `data/v3/conversation_state.json` | 🟡 Partiel | Compléter |
+| `data/v3/feedback_log_v3.json` | 🟡 Partiel | Compléter |
+| *... 151 autres* | | |
 
-### 🟡 B19 — Domotique Intelligente `73.3%`
+### 🟡 B19 — Domotique Intelligente `60.0%`
 
 | KPI | Valeur |
 |-----|--------|
 | Validés | 0 |
 | Testés | 0 |
-| Codés (à tester) | 10 |
-| Partiels | 0 |
+| Codés (à tester) | 0 |
+| Partiels | 10 |
 | Structurels | 5 |
 | Manquants | 0 |
 
@@ -415,25 +501,25 @@
 
 | Fichier | Statut | Action |
 |---------|--------|--------|
-| `config/v4/action_rules.json` | 🟦 Codé — à tester | Tester |
-| `config/v4/home_devices.json` | 🟦 Codé — à tester | Tester |
-| `config/v4/orchestration_rules.json` | 🟦 Codé — à tester | Tester |
-| `config/v4/scenario_rules.json` | 🟦 Codé — à tester | Tester |
-| `config/v4/trigger_rules.json` | 🟦 Codé — à tester | Tester |
-| `data/v4/action_log.json` | 🟦 Codé — à tester | Tester |
-| `data/v4/device_registry.json` | 🟦 Codé — à tester | Tester |
-| `data/v4/home_state.json` | 🟦 Codé — à tester | Tester |
-| `data/v4/sensor_state.json` | 🟦 Codé — à tester | Tester |
-| `data/v4/trigger_log.json` | 🟦 Codé — à tester | Tester |
+| `config/v4/action_rules.json` | 🟡 Partiel | Compléter |
+| `config/v4/home_devices.json` | 🟡 Partiel | Compléter |
+| `config/v4/orchestration_rules.json` | 🟡 Partiel | Compléter |
+| `config/v4/scenario_rules.json` | 🟡 Partiel | Compléter |
+| `config/v4/trigger_rules.json` | 🟡 Partiel | Compléter |
+| `data/v4/action_log.json` | 🟡 Partiel | Compléter |
+| `data/v4/device_registry.json` | 🟡 Partiel | Compléter |
+| `data/v4/home_state.json` | 🟡 Partiel | Compléter |
+| `data/v4/sensor_state.json` | 🟡 Partiel | Compléter |
+| `data/v4/trigger_log.json` | 🟡 Partiel | Compléter |
 
-### 🟢 B20 — Cybersécurité Zero Trust `91.0%`
+### 🟢 B20 — Cybersécurité Zero Trust `85.7%`
 
 | KPI | Valeur |
 |-----|--------|
-| Validés | 32 |
+| Validés | 31 |
 | Testés | 0 |
-| Codés (à tester) | 15 |
-| Partiels | 0 |
+| Codés (à tester) | 10 |
+| Partiels | 6 |
 | Structurels | 2 |
 | Manquants | 0 |
 
@@ -441,12 +527,13 @@
 
 | Fichier | Statut | Action |
 |---------|--------|--------|
+| `config/security/audit_retention_policy.json` | 🟡 Partiel | Compléter |
+| `config/security/trusted_devices.json` | 🟡 Partiel | Compléter |
+| `config/v3/safety_rules.json` | 🟡 Partiel | Compléter |
+| `data/security/access_decisions_history.json` | 🟡 Partiel | Compléter |
+| `data/security/incident_register.json` | 🟡 Partiel | Compléter |
+| `data/security/trusted_devices_runtime.json` | 🟡 Partiel | Compléter |
 | `config/safety_rules.json` | 🟦 Codé — à tester | Tester |
-| `config/security/trusted_devices.json` | 🟦 Codé — à tester | Tester |
-| `config/v3/safety_rules.json` | 🟦 Codé — à tester | Tester |
-| `data/security/access_decisions_history.json` | 🟦 Codé — à tester | Tester |
-| `data/security/incident_register.json` | 🟦 Codé — à tester | Tester |
-| `data/security/trusted_devices_runtime.json` | 🟦 Codé — à tester | Tester |
 | `logs/security/security.log` | 🟦 Codé — à tester | Tester |
 | `src/security/api_security.py` | 🟦 Codé — à tester | Tester |
 | `src/security/network_security.py` | 🟦 Codé — à tester | Tester |
@@ -457,13 +544,13 @@
 | `src/security/security_dashboard.py` | 🟦 Codé — à tester | Tester |
 | `src/security/security_governance.py` | 🟦 Codé — à tester | Tester |
 
-### 🟡 B21 — ALFRED Web Platform `60.0%`
+### 🟡 B21 — ALFRED Web Platform `68.0%`
 
 | KPI | Valeur |
 |-----|--------|
-| Validés | 0 |
+| Validés | 2 |
 | Testés | 0 |
-| Codés (à tester) | 10 |
+| Codés (à tester) | 8 |
 | Partiels | 0 |
 | Structurels | 0 |
 | Manquants | 0 |
@@ -472,18 +559,16 @@
 
 | Fichier | Statut | Action |
 |---------|--------|--------|
-| `ALFRED_WEB/app.py` | 🟦 Codé — à tester | Tester |
 | `ALFRED_WEB/requirements.txt` | 🟦 Codé — à tester | Tester |
 | `ALFRED_WEB/README.md` | 🟦 Codé — à tester | Tester |
 | `ALFRED_WEB/templates/base.html` | 🟦 Codé — à tester | Tester |
 | `ALFRED_WEB/templates/index.html` | 🟦 Codé — à tester | Tester |
 | `ALFRED_WEB/templates/contact.html` | 🟦 Codé — à tester | Tester |
 | `ALFRED_WEB/templates/apprentissages.html` | 🟦 Codé — à tester | Tester |
-| `ALFRED_WEB/templates/progression.html` | 🟦 Codé — à tester | Tester |
 | `ALFRED_WEB/templates/projet.html` | 🟦 Codé — à tester | Tester |
 | `ALFRED_WEB/static/css/style.css` | 🟦 Codé — à tester | Tester |
 
-### 🟡 B22 — Accessibility & Cognitive Assistance `72.2%`
+### 🟡 B22 — Accessibility & Cognitive Assistance `71.1%`
 
 | KPI | Valeur |
 |-----|--------|
@@ -518,56 +603,110 @@ Ces fichiers sont implémentés mais n'ont pas encore de tests.
 
 **B01**
 - `config/conversation_rules.json`
-- `config/intents_catalog.json`
-- `config/response_patterns.json`
-- `data/dialogue_history.json`
 - `data/memory/episodic/dialogue_history.json`
-- `tests/test_b01_speech.py`
+- `src/conversation/input/audio_capture.py`
+- `src/conversation/input/audio_listener.py`
+- `src/conversation/input/context_builder.py`
+- `src/conversation/input/speech_manager.py`
+- `src/conversation/input/text_input.py`
+- `src/conversation/input/voice_profile.py`
+- `src/conversation/nlp/intent_classifier.py`
+- `src/conversation/nlp/nlp_engine_v2.py`
+- `src/conversation/output/tts_output.py`
+- `src/llm/llm_client_openai.py`
 - `tests/test_pipeline_llm.py`
 **B02**
-- `config/knowledge_settings.json`
-- `config/rag_settings.json`
-- `config/v3/memory_rules.json`
-- `data/user_memory.json`
-- `data/v2/memory_samples.json`
-- `data/v3/memory_patterns.json`
+- `knowledges/professional/engineering/ai/semantic_memory.json`
+- `knowledges/system/memory/episodic_memory.json`
+- `knowledges/system/memory/memory_context_linking.json`
+- `knowledges/system/memory/memory_decay_rules.json`
+- `knowledges/system/memory/memory_learning_rules.json`
+- `knowledges/system/memory/memory_prioritization.json`
+- `knowledges/system/memory/memory_system.json`
+- `src/memory/episodic_memory.py`
+- `src/memory/memory_indexer.py`
+- `src/memory/memory_manager.py`
+- `src/memory/rag_stub.py`
+- `src/rag/rag_engine.py`
 **B03**
-- `config/v2/emotion_profiles.json`
-- `config/v3/emotion_rules.json`
-- `config/v3/tone_profiles.json`
-- `data/v3/emotion_state.json`
-- `data/v3/relational_state.json`
-- `tests/test_b02_b03.py`
+- `knowledges/cpl/human_communication/emotional_intelligence.json`
+- `knowledges/human/cognition/decision_fatigue.json`
+- `knowledges/human/emotional_intelligence/active_listening.json`
+- `knowledges/human/emotional_intelligence/emotional_management.json`
+- `knowledges/human/emotional_intelligence/emotional_patterns.json`
+- `knowledges/human/psychology/burnout_prevention.json`
+- `knowledges/human/psychology/resilience.json`
+- `src/regulation/emotion_detector.py`
+- `src/regulation/mode_manager.py`
+- `src/regulation/protection_guard.py`
+- `src/regulation/wellbeing_tracker.py`
 **B04**
 - `.env.example`
 - `.gitignore`
 - `config/ethics_rules.json`
-- `config/quality_thresholds.json`
 - `config/settings.json`
+- `knowledges/cpl/ethics_governance/accessibility_principles.json`
+- `knowledges/cpl/ethics_governance/ethical_ai_framework.json`
+- `knowledges/cpl/ethics_governance/governance_model.json`
+- `knowledges/system/ethics/ethical_framework.json`
 - `pyproject.toml`
 **B05**
-- `data/actions/tasks.json`
-- `data/v2/scenarios/daily_organization.json`
-**B07**
-- `data/context/user_context.json`
+- `knowledges/cpl/execution/decision_making_framework.json`
+- `knowledges/cpl/execution/project_management_core.json`
+- `knowledges/cpl/execution/risk_management.json`
+- `knowledges/cpl/execution/task_prioritization.json`
+- `knowledges/cpl/human_organization/energy_management.json`
+- `knowledges/human/skills/softskills/organization.json`
+**B06**
+- `knowledges/cpl/human_communication/client_interaction.json`
+- `knowledges/cpl/human_communication/communication_principles.json`
+- `knowledges/human/skills/softskills/argumentation_frameworks.json`
+- `knowledges/human/skills/softskills/assertiveness.json`
+- `knowledges/human/skills/softskills/communication_clarity.json`
+- `knowledges/human/skills/softskills/conflict_management.json`
+- `knowledges/human/skills/softskills/leadership_personal.json`
+- `knowledges/human/skills/softskills/negotiation.json`
 **B08**
-- `config/behavior_rules_softskills.json`
 - `config/personality_core.json`
-- `config/self_alignment_rules.json`
 - `config/user_adaptation_profile.json`
-- `data/personality.json`
 - `data/personality/instances/personality_core_instance.json`
 - `data/personality/templates/personality_core.json`
 - `data/personality/templates/personality_core_template_public.json`
-- `data/preferences_profile.json`
-- `data/profile/user_profile.json`
 - `data/users/instances/user_celine_instance.json`
 - `data/users/templates/user_adaptation_profile.json`
 - `data/users/templates/user_profile_template_public.json`
+- `knowledges/core/behavioral_modes.json`
+- `knowledges/core/context_awareness.json`
+- `knowledges/core/personalization_engine.json`
+- `knowledges/core/system_rules.json`
+- `knowledges/core/user_adaptation.json`
+- `knowledges/human/self_alignment/habits/discipline.json`
+- `knowledges/human/self_alignment/routines/feedback_loop.json`
+**B09**
+- `knowledges/cpl/product_ia/product_design_methodology.json`
+- `knowledges/cpl/product_ia/tech_tradeoff_framework.json`
+- `knowledges/cpl/product_ia/user_needs_analysis.json`
+- `knowledges/human/skills/softskills/problem_solving.json`
+- `knowledges/professional/decision/decision_models.json`
+- `knowledges/professional/decision/decision_support.json`
+- `knowledges/professional/decision/root_cause_analysis.json`
+- `knowledges/professional/decision/tradeoff_analysis.json`
+**B11**
+- `knowledges/human/cognition/cognitive_load.json`
+- `knowledges/human/cognition/critical_thinking.json`
+- `knowledges/human/cognition/focus_management.json`
+- `knowledges/human/cognition/multi_step_reasoning.json`
+- `knowledges/human/cognition/uncertainty_management.json`
+- `knowledges/professional/engineering/ai/reasoning_advanced.json`
+- `knowledges/professional/engineering/ai/reasoning_engine.json`
+- `src/knowledge/knowledge_router.py`
 **B12**
-- `config/v2/kpi_config.json`
-- `config/v2/product_roadmap.json`
-- `data/v2/product_state.json`
+- `knowledges/cpl/business_piloting/pricing_strategy.json`
+- `knowledges/cpl/business_piloting/profitability_analysis.json`
+- `knowledges/cpl/business_piloting/revenue_mix_strategy.json`
+- `knowledges/cpl/strategy/business_model_design.json`
+- `knowledges/cpl/strategy/strategy_fundamentals.json`
+- `knowledges/cpl/strategy/value_proposition_framework.json`
 **B15**
 - `assets/avatars/avatar_medium/base_medium/alfred_medium_confused.png`
 - `assets/avatars/avatar_medium/base_medium/alfred_medium_cybersecurity.png`
@@ -612,13 +751,6 @@ Ces fichiers sont implémentés mais n'ont pas encore de tests.
 - `assets/models/tts/fr_FR/fr_FR-upmc-medium.onnx.json`
 - `assets/voices/fr_FR-upmc-medium.onnx`
 - `assets/voices/fr_FR-upmc-medium.onnx.json`
-**B16**
-- `config/v2/scenario_catalog.json`
-- `data/v2/scenario_results.json`
-- `data/v2/scenarios/career_transition.json`
-- `data/v2/scenarios/isolation_support.json`
-- `data/v2/scenarios/mental_overload.json`
-- `tests/test_pipeline.py`
 **B17**
 - `assets/backgrounds/mode_paysage/interieur/chambre/background_paysage_interieur_chambre_debut_journee.png`
 - `assets/backgrounds/mode_paysage/interieur/chambre/background_paysage_interieur_chambre_fin_journee.png`
@@ -637,49 +769,20 @@ Ces fichiers sont implémentés mais n'ont pas encore de tests.
 - `ALFRED_CONTEXT.md`
 - `README.md`
 - `bootstrap_project.ps1`
-- `check_tools.ps1`
 - `config/alfred_project.json`
 - `config/router_rules.json`
-- `config/routing_rules.json`
-- `config/tagging_rules.json`
-- `config/v1/basic_pipeline_rules.json`
-- `config/v2/confidence_rules.json`
-- `config/v2/decision_rules.json`
-- `config/v2/edge_cases.json`
-- `config/v2/fallback_rules.json`
-- `config/v2/feature_matrix.json`
-- `config/v2/learning_rules.json`
 - `config/v2/module_mapping.json`
-- `config/v2/naming_conventions.json`
-- `config/v2/proactivity_rules.json`
-- `config/v2/signal_weights.json`
-- `config/v3/confidence_rules.json`
-- `config/v3/conversation_rules.json`
-- `config/v3/fusion_rules.json`
-- `config/v3/learning_rules.json`
-- `config/v3/orchestrator_rules.json`
-- `config/v3/pattern_rules.json`
-- `config/v3/priority_rules.json`
-- `config/v3/proactive_rules.json`
-- `config/v3/relational_rules.json`
-- `config/v3/trigger_rules.json`
-- `config/v3/workflow_rules.json`
-- `data/v2/experience_state.json`
-- `data/v2/feedback_log.json`
-- `data/v2/learning_state.json`
-- `data/v2/robustness_results.json`
-- `data/v3/behavior_state.json`
-- `data/v3/context_memories.json`
-- `data/v3/conversation_state.json`
-- `data/v3/feedback_log_v3.json`
-- `data/v3/fusion_results.json`
-- `data/v3/fusion_state.json`
-- `data/v3/learning_state_v3.json`
-- `data/v3/orchestrator_state.json`
-- `data/v3/proactive_results.json`
-- `data/v3/proactive_state.json`
-- `data/v3/safety_state.json`
-- `data/v3/workflow_log.json`
+- `knowledges/culture/universes/dc/alfred_pennyworth.json`
+- `knowledges/culture/universes/dc/batman.json`
+- `knowledges/culture/universes/dc/joker.json`
+- `knowledges/culture/universes/marvel/jarvis.json`
+- `knowledges/human/psychology/behavioral_patterns.json`
+- `knowledges/human/psychology/motivation.json`
+- `knowledges/human/skills/softskills/adaptability.json`
+- `knowledges/human/skills/softskills/creativity.json`
+- `knowledges/index/knowledge_registry.json`
+- `knowledges/manifest.json`
+- `knowledges/taxonomy.json`
 - `paths.py`
 - `requirements.txt`
 - `scripts/clean_project.ps1`
@@ -687,24 +790,8 @@ Ces fichiers sont implémentés mais n'ont pas encore de tests.
 - `scripts/fix_response_generator_rename.ps1`
 - `scripts/ranger_fichiers_blocs.ps1`
 - `scripts/update_knowledge_registry.ps1`
-**B19**
-- `config/v4/action_rules.json`
-- `config/v4/home_devices.json`
-- `config/v4/orchestration_rules.json`
-- `config/v4/scenario_rules.json`
-- `config/v4/trigger_rules.json`
-- `data/v4/action_log.json`
-- `data/v4/device_registry.json`
-- `data/v4/home_state.json`
-- `data/v4/sensor_state.json`
-- `data/v4/trigger_log.json`
 **B20**
 - `config/safety_rules.json`
-- `config/security/trusted_devices.json`
-- `config/v3/safety_rules.json`
-- `data/security/access_decisions_history.json`
-- `data/security/incident_register.json`
-- `data/security/trusted_devices_runtime.json`
 - `logs/security/security.log`
 - `src/security/api_security.py`
 - `src/security/data_protection.py`
@@ -716,14 +803,12 @@ Ces fichiers sont implémentés mais n'ont pas encore de tests.
 - `src/security/soc_monitor.py`
 **B21**
 - `ALFRED_WEB/README.md`
-- `ALFRED_WEB/app.py`
 - `ALFRED_WEB/requirements.txt`
 - `ALFRED_WEB/static/css/style.css`
 - `ALFRED_WEB/templates/apprentissages.html`
 - `ALFRED_WEB/templates/base.html`
 - `ALFRED_WEB/templates/contact.html`
 - `ALFRED_WEB/templates/index.html`
-- `ALFRED_WEB/templates/progression.html`
 - `ALFRED_WEB/templates/projet.html`
 **B22**
 - `docs/accessibility/ALFRED_Accessibility_Policy.pdf`
