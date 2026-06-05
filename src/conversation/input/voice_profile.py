@@ -1,17 +1,20 @@
-# ============================================================
-# ALFRED — src/conversation/input/voice_profile.py
-# Bloc 04.02 — Synthèse vocale (TTS)
-#
-# 📚 NOTION EXAM :
-#   D13-2 — Capsule 4 : Profils vocaux et paramètres de synthèse
-#
-# 🎯 UTILITÉ ALFRED :
-#   Centralise tous les paramètres de voix d'ALFRED
-#   (fr_FR-upmc-medium, Speaker Pierre) pour tts_piper.py et tts_output.py.
-#
-# 🏗️ DOMAINE :
-#   Interaction vocale — référentiel profils voix, CC BY-SA 4.0
-# ============================================================
+"""
+PROJECT      : ALFRED
+BLOCK        : B04
+FUNCTION     : 04.02
+FILE         : src/conversation/input/voice_profile.py
+ROLE         : Centralise les paramètres de voix ALFRED (modèle, speaker, chemins)
+
+AUTHOR       : Cognitive Products Lab
+CREATED      : 2026-06-03
+UPDATED      : 2026-06-05
+VERSION      : V1.1
+STATUS       : TESTED
+
+DESCRIPTION :
+Référentiel profils vocaux — modèle fr_FR-upmc-medium, speaker Pierre,
+chemins Piper corrigés pour tts_piper.py et tts_output.py.
+"""
 
 from dataclasses import dataclass
 from typing import Optional
@@ -46,8 +49,8 @@ ALFRED_VOICE = {
     "speaker_id": 1,  # Pierre — masculin, posé, 25-40 ans
     "sample_rate": 22050,
     "language":   "fr_FR",
-    "model_file": "../tools/piper/models/fr_FR-upmc-medium.onnx",
-    "config_file": "../tools/piper/models/fr_FR-upmc-medium.onnx.json",
+    "model_file": "tools/piper/models/fr_FR-upmc-medium.onnx",
+    "config_file": "tools/piper/models/fr_FR-upmc-medium.onnx.json",
 }
 
 
