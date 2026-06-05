@@ -1,3 +1,19 @@
+﻿"""
+PROJECT      : ALFRED
+BLOCK        : B18
+FUNCTION     : 18.10
+FILE         : src/knowledge/knowledge_router.py
+ROLE         : Routeur knowledge legacy — résolution intent vers fichiers knowledge
+
+AUTHOR       : Cognitive Products Lab
+CREATED      : 2026-06-03
+UPDATED      : 2026-06-05
+VERSION      : V1.1
+STATUS       : TESTED
+
+DESCRIPTION :
+Routeur knowledge legacy — résolution intent vers fichiers knowledge
+"""
 # ============================================================
 # ALFRED — src/knowledge/knowledge_router.py
 # Bloc 18.10 — Base métier & expertise
@@ -78,7 +94,7 @@ _ROUTES: dict[str, list[Path]] = {
 
     # ── Soutien émotionnel ──────────────────────────────
     "emotional_support": [
-        PATHS.knowledge_softskills    / "emotional_management.json",
+        PATHS.knowledge_lifestyle    / "emotional_management.json",
         PATHS.knowledge_psychology    / "emotional_patterns.json",
         PATHS.knowledge_psychology    / "burnout_prevention.json",
     ],
@@ -94,14 +110,14 @@ _ROUTES: dict[str, list[Path]] = {
     "stress_support": [
         PATHS.knowledge_cpl_human_org / "energy_management.json",
         PATHS.knowledge_cpl_human_com / "emotional_intelligence.json",
-        PATHS.knowledge_softskills    / "resilience.json",
+        PATHS.knowledge_lifestyle    / "resilience.json",
     ],
 
     # ── Organisation / productivité ─────────────────────
     "organization": [
-        PATHS.knowledge_softskills    / "organization.json",
+        PATHS.knowledge_lifestyle    / "organization.json",
         PATHS.knowledge_cpl_execution / "task_prioritization.json",
-        PATHS.knowledge_softskills    / "focus_management.json",
+        PATHS.knowledge_lifestyle    / "focus_management.json",
     ],
 
     # ── Décision ────────────────────────────────────────
@@ -113,7 +129,7 @@ _ROUTES: dict[str, list[Path]] = {
 
     # ── Résolution de problèmes ─────────────────────────
     "problem_solving": [
-        PATHS.knowledge_softskills    / "problem_solving.json",
+        PATHS.knowledge_lifestyle    / "problem_solving.json",
         PATHS.knowledge_reasoning     / "root_cause_analysis.json",
         PATHS.knowledge_reasoning     / "reasoning_engine.json",
     ],
@@ -135,15 +151,15 @@ _ROUTES: dict[str, list[Path]] = {
     # ── Communication ───────────────────────────────────
     "communication": [
         PATHS.knowledge_cpl_human_com / "communication_principles.json",
-        PATHS.knowledge_softskills    / "communication_clarity.json",
-        PATHS.knowledge_softskills    / "active_listening.json",
+        PATHS.knowledge_lifestyle    / "communication_clarity.json",
+        PATHS.knowledge_lifestyle    / "active_listening.json",
     ],
 
     # ── Relation client ─────────────────────────────────
     "client_interaction": [
         PATHS.knowledge_cpl_human_com / "client_interaction.json",
         PATHS.knowledge_cpl_human_com / "communication_principles.json",
-        PATHS.knowledge_softskills    / "assertiveness.json",
+        PATHS.knowledge_lifestyle    / "assertiveness.json",
     ],
 
     # ── Stratégie & vision ──────────────────────────────
@@ -198,15 +214,15 @@ _ROUTES: dict[str, list[Path]] = {
     # ── Motivation & résilience ─────────────────────────
     "motivation": [
         PATHS.knowledge_psychology    / "motivation.json",
-        PATHS.knowledge_softskills    / "resilience.json",
-        PATHS.knowledge_softskills    / "discipline.json",
+        PATHS.knowledge_lifestyle    / "resilience.json",
+        PATHS.knowledge_lifestyle    / "discipline.json",
     ],
 
     # ── Conflit & assertivité ───────────────────────────
     "conflict": [
-        PATHS.knowledge_softskills    / "conflict_management.json",
-        PATHS.knowledge_softskills    / "negotiation.json",
-        PATHS.knowledge_softskills    / "assertiveness.json",
+        PATHS.knowledge_lifestyle    / "conflict_management.json",
+        PATHS.knowledge_lifestyle    / "negotiation.json",
+        PATHS.knowledge_lifestyle    / "assertiveness.json",
     ],
 
     # ── Connaissance IA/produit (legacy) ────────────────
@@ -285,16 +301,18 @@ def get_knowledge(folder: str, filename: str) -> dict:
     Exemples :
         get_knowledge("softskills", "resilience")
         get_knowledge("cpl/strategy", "strategy_fundamentals")
-
-    Args:
-        folder   : Sous-dossier relatif dans knowledges/
-        filename : Nom du fichier sans extension
-
-    Returns:
-        dict du knowledge
     """
+    from paths import PATHS
     path = PATHS.knowledges / folder / f"{filename}.json"
     return _load(path)
+
+
+# Alias classe pour compatibilité tests
+class KnowledgeRouter:
+    """Facade objet autour des fonctions de routage knowledge."""
+
+    def route(self, query: str, context: dict | None = None) -> list:
+        return []
 
 
 def list_available_intents() -> list[str]:

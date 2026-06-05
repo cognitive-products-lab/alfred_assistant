@@ -1,4 +1,4 @@
-"""
+﻿"""
 ════════════════════════════════════════════════════════════
 PROJECT      : ALFRED
 BLOCK        : B20
@@ -8,8 +8,9 @@ ROLE         : Tableau de bord des tests de securite (CLI)
 
 AUTHOR       : Cognitive Products Lab
 CREATED      : 2026-06-01
-VERSION      : V1.0
-STATUS       : ACTIVE
+UPDATED      : 2026-06-05
+VERSION      : V1.1
+STATUS       : TESTED
 
 DESCRIPTION :
 Lance les tests de la suite security_tests/ via pytest,
@@ -372,7 +373,7 @@ def _build_json(dash: "Dashboard") -> dict:
 
 def serve_and_open(port: int = _HTTP_PORT) -> None:
     """Démarre un serveur HTTP sur _ROOT et ouvre dashboard_tests.html."""
-    url = f"http://localhost:{port}/dashboard/dashboard_tests/dashboard_tests.html"
+    url = f"http://localhost:{port}/dashboard/dashboard_tests/dashboard_tests_dynamique.html"
 
     # Vérifier si un serveur tourne déjà sur ce port
     import socket
@@ -421,7 +422,16 @@ def main() -> None:
         action="store_true",
         help="Lance les tests, sauvegarde le JSON, démarre un serveur HTTP et ouvre le navigateur.",
     )
+    parser.add_argument(
+        "--serve-only",
+        action="store_true",
+        help="Démarre uniquement le serveur HTTP sans relancer les tests (utilise le JSON existant).",
+    )
     args = parser.parse_args()
+
+    if args.serve_only:
+        serve_and_open()
+        return
 
     dash = run_dashboard(filter_name=args.module)
 

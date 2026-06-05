@@ -1,18 +1,20 @@
+from __future__ import annotations
+
 """
 PROJECT      : ALFRED
-BLOCK        : GLOBAL
-FUNCTION     : XX.XX
+BLOCK        : B18
+FUNCTION     : 18.03
 FILE         : src/knowledge/taxonomy_router.py
-ROLE         : TO_DEFINE
+ROLE         : Exploite taxonomy.json pour router les requêtes vers les knowledge_ids
 
 AUTHOR       : Cognitive Products Lab
 CREATED      : 2026-06-03
-UPDATED      : 2026-06-03
-VERSION      : V1.0
-STATUS       : DRAFT
+UPDATED      : 2026-06-05
+VERSION      : V1.1
+STATUS       : TESTED
 
 DESCRIPTION :
-Module ALFRED — description a completer.
+Router taxonomique — résout domaines, sous-domaines et intents depuis taxonomy.json.
 """
 
 """
@@ -20,8 +22,6 @@ ALFRED — taxonomy_router.py
 Exploite taxonomy.json pour retrouver les domaines, sous-domaines,
 intents et knowledge_ids liés à une requête.
 """
-
-from __future__ import annotations
 
 from dataclasses import dataclass, field
 from typing import Any

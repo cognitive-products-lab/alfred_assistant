@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 """
 PROJECT      : ALFRED
 BLOCK        : GLOBAL
@@ -7,9 +9,9 @@ ROLE         : TO_DEFINE
 
 AUTHOR       : Cognitive Products Lab
 CREATED      : 2026-06-03
-UPDATED      : 2026-06-03
-VERSION      : V1.0
-STATUS       : DRAFT
+UPDATED      : 2026-06-05
+VERSION      : V1.1
+STATUS       : TESTED
 
 DESCRIPTION :
 Module ALFRED — description a completer.
@@ -20,17 +22,23 @@ ALFRED — knowledge_loader.py
 Charge les fichiers knowledge depuis le registry officiel du Bloc 18.
 """
 
-from __future__ import annotations
-
 import json
 from pathlib import Path
 from typing import Any
 
 
 class KnowledgeLoader:
-    def __init__(self, project_root: str | Path = "D:/PROJET_ALFRED/ALFRED_PC"):
+    def __init__(
+        self,
+        project_root: str | Path = "D:/PROJET_ALFRED/ALFRED_PC",
+        knowledge_root: str | Path | None = None,
+        config_dir: str | Path | None = None,
+        debug: bool = False,
+    ):
         self.project_root = Path(project_root)
-        self.knowledge_root = self.project_root / "knowledges"
+        self.knowledge_root = Path(knowledge_root) if knowledge_root else self.project_root / "knowledges"
+        self.config_dir = Path(config_dir) if config_dir else self.project_root / "config"
+        self.debug = debug
 
         self.registry_path = self.knowledge_root / "knowledge_registry.json"
         self.taxonomy_path = self.knowledge_root / "taxonomy.json"
@@ -107,6 +115,35 @@ class KnowledgeLoader:
             }
 
     # -----------------------------------------------------
+    @property
+    def index_size(self) -> int:
+        return len(self.knowledge_index)
+
+    def search(self, query: str, context: dict | None = None, top_k: int = 5):
+        """Recherche simple par mots-clés dans l'index knowledge."""
+        from dataclasses import dataclass, field as dc_field
+
+        @dataclass
+        class _Unit:
+            title: str
+            knowledge_id: str
+            score: float
+
+        @dataclass
+        class _SearchResult:
+            units: list = dc_field(default_factory=list)
+
+        query_lower = query.lower()
+        scored = []
+        for kid, item in self.knowledge_index.items():
+            title = item.get("title", kid)
+            text = f"{title} {' '.join(item.get('tags', []))}".lower()
+            score = sum(1 for word in query_lower.split() if word in text)
+            if score > 0:
+                scored.append(_Unit(title=title, knowledge_id=kid, score=score))
+        scored.sort(key=lambda u: u.score, reverse=True)
+        return _SearchResult(units=scored[:top_k])
+
     # Access helpers
     # -----------------------------------------------------
     def get_knowledge(self, knowledge_id: str) -> dict[str, Any] | None:
