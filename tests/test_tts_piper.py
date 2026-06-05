@@ -1,86 +1,54 @@
-"""
-PROJECT      : ALFRED
-BLOCK        : TESTS
-FUNCTION     : XX.XX
-FILE         : tests/test_tts_piper.py
-ROLE         : TO_DEFINE
-
-AUTHOR       : Cognitive Products Lab
-CREATED      : 2026-06-03
-UPDATED      : 2026-06-03
-VERSION      : V1.0
-STATUS       : DRAFT
-
-DESCRIPTION :
-Suite de tests — description a completer.
-"""
-
-"""
-test_tts_piper.py
------------------
-
-Test isolé de Piper depuis Python.
-
-Objectif :
-- vérifier que Python peut appeler piper.exe
-- générer un fichier output_python.wav
-- ouvrir automatiquement le fichier audio
-"""
-
-from pathlib import Path
-import subprocess
-import os
-
-
-PIPER_PATH = Path("D:/PROJET_ALFRED/ALFRED_PC/tools/piper/piper.exe")
-MODEL_PATH = Path("D:/PROJET_ALFRED/ALFRED_PC/tools/piper/models/fr_FR-upmc-medium.onnx")
-OUTPUT_FILE = Path("D:/PROJET_ALFRED/ALFRED_PC/tools/piper/output_python.wav")
-
-
-def test_piper_voice(text: str) -> bool:
-    if not PIPER_PATH.exists():
-        print(f"❌ Piper introuvable : {PIPER_PATH}")
-        return False
-
-    if not MODEL_PATH.exists():
-        print(f"❌ Modèle vocal introuvable : {MODEL_PATH}")
-        return False
-
-    if not text.strip():
-        print("❌ Texte vide.")
-        return False
-
-    try:
-        command = [
-            str(PIPER_PATH),
-            "-m",
-            str(MODEL_PATH),
-            "-f",
-            str(OUTPUT_FILE),
-        ]
-
-        process = subprocess.run(
-            command,
-            input=text,
-            text=True,
-            capture_output=True,
-            check=False,
-        )
-
-        if process.returncode != 0:
-            print("❌ Erreur Piper")
-            print(process.stderr)
-            return False
-
-        print(f"✅ Fichier audio généré : {OUTPUT_FILE}")
-
-        os.startfile(OUTPUT_FILE)
-        return True
-
-    except Exception as error:
-        print(f"❌ Erreur test_piper_voice : {error}")
-        return False
-
-
-if __name__ == "__main__":
-    test_piper_voice("Bonjour Céline. Test Python réussi. Alfred peut parler depuis le code.")
+"""
+PROJECT      : ALFRED
+BLOCK        : TESTS
+FUNCTION     : B04
+FILE         : tests/test_tts_piper.py
+ROLE         : Tests unitaires Piper TTS CLI
+
+AUTHOR       : Cognitive Products Lab
+CREATED      : 2026-06-03
+UPDATED      : 2026-06-05
+VERSION      : V1.1
+STATUS       : TESTED
+
+DESCRIPTION :
+Vérifie que piper.exe est accessible, que le modèle vocal existe
+et qu'une synthèse simple génère un fichier audio.
+"""
+
+import subprocess
+from pathlib import Path
+import pytest
+
+PIPER_PATH  = Path("D:/PROJET_ALFRED/ALFRED_PC/tools/piper/piper.exe")
+MODEL_PATH  = Path("D:/PROJET_ALFRED/ALFRED_PC/tools/piper/models/fr_FR-upmc-medium.onnx")
+OUTPUT_FILE = Path("D:/PROJET_ALFRED/ALFRED_PC/tools/piper/output_python.wav")
+
+
+def test_piper_executable_exists():
+    assert PIPER_PATH.exists(), f"Piper introuvable : {PIPER_PATH}"
+
+
+def test_piper_model_exists():
+    assert MODEL_PATH.exists(), f"Modèle vocal introuvable : {MODEL_PATH}"
+
+
+def test_piper_voice():
+    if not PIPER_PATH.exists() or not MODEL_PATH.exists():
+        pytest.skip("Piper ou modèle absent — test ignoré")
+
+    text = "Bonjour, je suis ALFRED."
+    command = [
+        str(PIPER_PATH),
+        "-m", str(MODEL_PATH),
+        "-f", str(OUTPUT_FILE),
+    ]
+    process = subprocess.run(
+        command,
+        input=text,
+        text=True,
+        capture_output=True,
+        check=False,
+    )
+    assert process.returncode == 0, f"Piper erreur : {process.stderr}"
+    assert OUTPUT_FILE.exists(), "Fichier audio non généré"
