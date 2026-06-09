@@ -1,6 +1,6 @@
 ---
-title: "Zero Trust et IA générative : construire un cadre de confiance zéro pour les assistants intelligents"
-slug: zero-trust-ia-generative-cadre-confiance
+title: "Cybersécurité et IA générative : Zero Trust by Design"
+slug: cybersecurite-ia-generative-zero-trust-by-design
 date: 2026-06-18
 date_redaction: 2026-06-14/2026-06-15
 author: Cognitive Products Lab
@@ -25,16 +25,15 @@ serie: Zero Trust IA
 serie_numero: 1
 article_precedent: ./2026-06-09_ia-accessibilite-zero-trust.md
 description: >
-  Le principe Zero Trust, né en cybersécurité réseau, s'applique avec une pertinence
-  croissante aux assistants IA. Cet article construit un cadre opérationnel complet :
-  threat model, vecteurs d'attaque propres à l'IA générative, et règles pratiques
-  pour une utilisation professionnelle sécurisée.
+  Appliquer le principe Zero Trust à l'IA générative dès la conception : threat model,
+  vecteurs d'attaque (prompt injection, hallucination, data leakage), cadre opérationnel
+  et gouvernance. Zero Trust by Design, pas en réaction.
 ---
 
-# Zero Trust et IA générative : construire un cadre de confiance zéro pour les assistants intelligents
+# Cybersécurité et IA générative : Zero Trust by Design
 
 > **Catégories** : Cybersécurité · Gouvernance IA
-> **Date** : 16 juin 2026
+> **Date** : 18 juin 2026
 > **Auteur** : Cognitive Products Lab
 > **Série** : Zero Trust IA — Article 1
 

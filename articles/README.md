@@ -40,7 +40,7 @@ Publications relatives au projet ALFRED : cybersécurité, RSE, accessibilité, 
 
 | Week-end rédaction | Date publication | Titre prévu | Catégories | Statut |
 |-------------------|-----------------|------------|------------|--------|
-| 14–15 juin 2026 | Mer. 18 juin 2026 | Zero Trust et IA générative : construire un cadre de confiance zéro pour les assistants intelligents | Cybersécurité · Gouvernance IA | Brouillon |
+| 14–15 juin 2026 | Mer. 18 juin 2026 | [Cybersécurité et IA générative : Zero Trust by Design](./2026-06-18_cybersecurite-ia-zero-trust-by-design.md) | Cybersécurité · Gouvernance IA | Brouillon |
 | 21–22 juin 2026 | Mer. 25 juin 2026 | *À définir* | — | — |
 | 28–29 juin 2026 | Mer. 2 juil. 2026 | *À définir* | — | — |
 | 5–6 juil. 2026 | Mer. 9 juil. 2026 | *À définir* | — | — |
