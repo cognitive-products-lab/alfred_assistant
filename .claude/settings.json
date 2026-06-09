@@ -1,0 +1,16 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "if": "Bash(git push*)",
+            "command": "jq -r '.tool_input.command' | grep -q 'git push' && echo '{\"systemMessage\": \"Push git effectué avec succès.\"}' || true"
+          }
+        ]
+      }
+    ]
+  }
+}
