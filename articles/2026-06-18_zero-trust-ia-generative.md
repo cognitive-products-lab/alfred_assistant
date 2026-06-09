@@ -1,7 +1,8 @@
 ---
 title: "Zero Trust et IA générative : construire un cadre de confiance zéro pour les assistants intelligents"
 slug: zero-trust-ia-generative-cadre-confiance
-date: 2026-06-16
+date: 2026-06-18
+date_redaction: 2026-06-14/2026-06-15
 author: Cognitive Products Lab
 categories:
   - Cybersécurité
