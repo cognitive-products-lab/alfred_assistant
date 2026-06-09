@@ -8,6 +8,8 @@ categories:
   - RSE
   - Avancement du projet
 section_site: "RSE & Éthique IA"
+featured: true
+une: true
 tags:
   - intelligence-artificielle
   - accessibilite
