@@ -7,6 +7,7 @@ author: Cognitive Products Lab
 categories:
   - Cybersécurité
   - Gouvernance IA
+section_site: "Technique"
 tags:
   - zero-trust
   - intelligence-artificielle

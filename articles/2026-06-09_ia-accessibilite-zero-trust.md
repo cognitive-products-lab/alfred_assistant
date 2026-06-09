@@ -7,6 +7,7 @@ categories:
   - Cybersécurité
   - RSE
   - Avancement du projet
+section_site: "RSE & Éthique IA"
 tags:
   - intelligence-artificielle
   - accessibilite
