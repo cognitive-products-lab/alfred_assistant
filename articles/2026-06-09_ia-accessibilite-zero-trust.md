@@ -18,10 +18,11 @@ tags:
   - alfred
 lang: fr
 status: published
-version: "1.0"
+version: "1.1"
 project: ALFRED
 illustration: ../assets/articles/ia-accessibilite-zero-trust-illustration.png
 infographie: ../assets/articles/ia-accessibilite-zero-trust-infographie.png
+synthese: ../assets/articles/ia-accessibilite-zero-trust-synthese.png
 description: >
   L'IA générative est souvent présentée comme levier de productivité. Cet article explore
   son rôle comme outil d'accessibilité, de compensation du handicap et de prévention des
@@ -109,6 +110,8 @@ L'objectif n'est pas de supprimer l'intervention humaine mais de réduire la cha
 
 Les troubles musculosquelettiques représentent aujourd'hui la première cause de maladie professionnelle en France.
 
+Selon l'INRS, les TMS représentent plus de **87 % des maladies professionnelles reconnues** et ont engendré plus de **10 millions de journées de travail perdues** en 2022. Leur coût humain et économique est considérable, tant pour les salariés que pour les entreprises.
+
 Les métiers du numérique ne sont pas épargnés.
 
 Saisie intensive, manipulation de souris, gestes répétitifs, utilisation prolongée des terminaux mobiles et maintien de postures statiques peuvent favoriser l'apparition de pathologies invalidantes.
@@ -128,56 +131,103 @@ ils permettent de réduire certaines contraintes physiques tout en maintenant un
 
 ---
 
-## Le principe fondamental : l'IA n'est pas digne de confiance par défaut
+## Zero Trust appliqué à l'IA : ne jamais faire confiance, toujours vérifier
 
-L'un des risques majeurs associés aux outils génératifs est la confiance excessive accordée aux résultats produits.
+### Origine du principe
 
-Chez Cognitive Products Lab, nous défendons une approche inspirée des principes Zero Trust :
+Le concept Zero Trust a été formalisé en 2010 par John Kindervag (Forrester Research) dans le domaine de la cybersécurité réseau. Face à l'inefficacité du modèle périmétrique classique — qui supposait que tout ce qui se trouvait à l'intérieur du réseau était fiable — il a posé un principe radicalement différent :
 
-> **Never Trust. Always Verify.**
+> **Never Trust. Always Verify. Assume Breach.**
 
-Autrement dit :
+Traduction : ne jamais faire confiance par défaut, vérifier en permanence, et partir du principe que la compromission est possible à tout moment.
 
-- ne jamais considérer un résultat comme fiable par défaut ;
-- vérifier systématiquement les informations produites ;
-- tester tout code généré ;
-- contrôler les sources ;
-- analyser les impacts de sécurité ;
-- valider les résultats avant diffusion.
+Ce paradigme, initialement conçu pour les réseaux et les systèmes d'information, s'applique avec une pertinence remarquable aux outils d'intelligence artificielle générative.
 
-Cette approche est particulièrement importante lorsqu'il s'agit :
+---
 
-- de développement logiciel ;
-- de cybersécurité ;
-- de données personnelles ;
-- de conformité réglementaire ;
-- de prise de décision.
+### Pourquoi l'IA n'est pas fiable par défaut
+
+Un système génératif n'est pas un expert. C'est un modèle statistique entraîné sur de grandes quantités de données textuelles. Il produit des réponses *vraisemblables*, pas nécessairement *vraies*.
+
+Ses angles morts sont structurels :
+
+- il ne connaît pas votre contexte métier précis ;
+- il ne connaît pas vos contraintes réglementaires ou contractuelles ;
+- il peut produire des informations factuellement incorrectes avec un niveau de confiance apparent élevé ;
+- il peut générer du code fonctionnel mais vulnérable ;
+- il n'a pas accès aux événements récents au-delà de sa date de coupure.
+
+L'un des risques majeurs associés aux outils génératifs est précisément la **confiance excessive** accordée à leurs sorties. La fluidité du style et la cohérence apparente du contenu créent une illusion de fiabilité.
+
+---
+
+### Les quatre niveaux de vérification Zero Trust IA
+
+Chez Cognitive Products Lab, nous appliquons un cadre de vérification à quatre niveaux pour toute utilisation d'un outil génératif :
+
+**1. Vérifier le prompt**
+
+La qualité de la sortie dépend directement de la qualité de l'entrée. Un prompt imprécis, ambigu ou mal contextualisé produira une réponse inadaptée. La vérification commence avant même d'envoyer la requête.
+
+**2. Vérifier la sortie**
+
+Chaque résultat doit être lu, compris et recoupé avec des sources indépendantes. Un contenu non relu est un contenu non validé. Un code non testé est un code non sécurisé.
+
+**3. Vérifier le contexte d'usage**
+
+Une réponse correcte dans un contexte donné peut être incorrecte ou dangereuse dans un autre. La validité d'une sortie est toujours relative à l'usage qui en est fait.
+
+**4. Vérifier l'impact**
+
+Avant diffusion ou déploiement : quelles sont les conséquences si cette information est fausse ? Si ce code contient une faille ? Si cette décision est mal fondée ? L'évaluation du risque résiduel est une étape non négociable.
+
+---
+
+### L'humain comme mécanisme d'authentification
+
+Dans l'architecture Zero Trust réseau, chaque accès doit être authentifié, même depuis l'intérieur du périmètre. Dans l'architecture Zero Trust IA, **l'humain est le mécanisme d'authentification final**.
+
+Aucune sortie ne doit être considérée comme validée tant qu'elle n'a pas été lue, comprise et approuvée par un professionnel responsable.
+
+Ce principe n'est pas une limitation de l'IA — c'est une garantie de qualité et de responsabilité.
+
+---
+
+### Ce que cela change en pratique
+
+| Sans Zero Trust IA | Avec Zero Trust IA |
+|---|---|
+| Copier-coller direct du contenu généré | Relecture, vérification, reformulation si nécessaire |
+| Déployer du code généré sans test | Tests fonctionnels et de sécurité systématiques |
+| Faire confiance à une réponse "convaincante" | Recouper avec des sources indépendantes |
+| Diffuser sans valider les sources | Contrôle des sources avant toute publication |
+| Déléguer une décision à l'IA | L'IA propose, l'humain décide |
 
 ---
 
 ## Une gouvernance de l'IA inspirée de la cybersécurité
 
-L'utilisation responsable de l'IA repose sur plusieurs principes simples :
+L'utilisation responsable de l'IA repose sur plusieurs principes complémentaires au Zero Trust :
 
 ### Isolation
 
-Les expérimentations doivent être réalisées dans des environnements séparés lorsque cela est possible.
+Les expérimentations doivent être réalisées dans des environnements séparés lorsque cela est possible. Aucune donnée sensible ne doit transiter par des outils non maîtrisés.
 
 ### Contrôle humain
 
-Aucune décision critique ne doit être déléguée à un système génératif.
+Aucune décision critique ne doit être déléguée à un système génératif. L'IA formule une proposition — l'humain porte la responsabilité du choix final.
 
 ### Validation systématique
 
-Chaque contenu doit être relu, compris et validé.
+Chaque contenu doit être relu, compris et validé. La validation n'est pas optionnelle : elle est constitutive de l'usage responsable.
 
 ### Protection des données
 
-Les données sensibles, personnelles ou stratégiques doivent faire l'objet d'une vigilance particulière.
+Les données sensibles, personnelles ou stratégiques doivent faire l'objet d'une vigilance particulière. La règle par défaut : ne pas transmettre ce qu'on ne voudrait pas voir exposé.
 
 ### Traçabilité
 
-L'utilisateur doit conserver la capacité d'expliquer les choix réalisés et les résultats obtenus.
+L'utilisateur doit conserver la capacité d'expliquer les choix réalisés et les résultats obtenus. Une décision non traçable est une décision non défendable.
 
 ---
 
@@ -207,6 +257,32 @@ Chez Cognitive Products Lab, nous sommes convaincus que l'avenir des assistants 
 
 ---
 
+## Pour aller plus loin
+
+### Références réglementaires et normatives
+
+| Référentiel | Description |
+|---|---|
+| [**EU AI Act**](https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32024R1689) | Règlement européen sur l'intelligence artificielle (entré en vigueur août 2024). Encadre les systèmes d'IA selon leur niveau de risque. |
+| [**RGAA 4.1**](https://accessibilite.numerique.gouv.fr/) | Référentiel Général d'Amélioration de l'Accessibilité — standard français pour l'accessibilité numérique. |
+| [**WCAG 2.2**](https://www.w3.org/TR/WCAG22/) | Web Content Accessibility Guidelines — référentiel international d'accessibilité du W3C. |
+| [**INRS — TMS**](https://www.inrs.fr/risques/tms.html) | Ressources de l'Institut National de Recherche et de Sécurité sur les troubles musculosquelettiques. |
+| [**ISO 27001**](https://www.iso.org/fr/standard/27001) | Standard de management de la sécurité de l'information. |
+
+### Ressources du projet ALFRED
+
+- [Politique d'accessibilité ALFRED](../docs/gouvernance/accessibility_policy.md)
+- [Blueprint gouvernance complet](../docs/gouvernance/blueprint_gouvernance_complet.md)
+- [Roadmap du projet](../ROADMAP.md)
+- [Règles Zero Trust ALFRED](../config/security/zero_trust_rules.json)
+
+### Prochain article
+
+**Zero Trust et IA générative : construire un cadre de confiance zéro pour les assistants intelligents**
+*Publication prévue : semaine du 16 juin 2026*
+
+---
+
 ## Illustration
 
 ![IA Générative : outil d'accessibilité, de prévention et d'innovation responsable](../assets/articles/ia-accessibilite-zero-trust-infographie.png)
@@ -215,5 +291,28 @@ Chez Cognitive Products Lab, nous sommes convaincus que l'avenir des assistants 
 
 ---
 
+## Synthèse visuelle
+
+![Intelligence artificielle, accessibilité et Zero Trust — synthèse complète](../assets/articles/ia-accessibilite-zero-trust-synthese.png)
+
+*Synthèse : accessibilité, gouvernance Zero Trust, prévention TMS et ALFRED comme laboratoire d'IA responsable. L'IA propose, l'humain comprend, vérifie et décide.*
+
+---
+
+## Rejoindre la conversation
+
+Cet article vous a intéressé ? Vous souhaitez réagir, partager votre expérience ou poser une question ?
+
+**Plusieurs façons de nous rejoindre :**
+
+- **Laisser un commentaire** : rejoignez la discussion sur [GitHub Discussions](https://github.com/cognitive-products-lab/alfred_assistant/discussions) — un espace ouvert pour échanger sur le projet, les articles et les thématiques abordées.
+- **Contribuer au projet** : le projet ALFRED est open source. Consultez le [guide de contribution](../CONTRIBUTING_FR.md) pour proposer des améliorations, signaler des problèmes ou partager vos idées.
+- **Suivre les avancées** : [suivre le dépôt GitHub](https://github.com/cognitive-products-lab/alfred_assistant) pour être notifié des nouveaux articles, mises à jour et publications.
+- **Contacter Cognitive Products Lab** : pour toute demande professionnelle, partenariat ou question spécifique, ouvrez une [issue GitHub](https://github.com/cognitive-products-lab/alfred_assistant/issues) ou contactez-nous directement via le profil de l'organisation.
+
+> Chaque retour d'expérience enrichit le projet. Votre regard, qu'il soit technique, humain ou professionnel, a de la valeur.
+
+---
+
 *Article publié par Cognitive Products Lab — Projet ALFRED*
-*Document évolutif — mis à jour selon les avancées du projet*
+*Version 1.1 — Document évolutif, mis à jour selon les avancées du projet*
