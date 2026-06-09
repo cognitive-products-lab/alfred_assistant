@@ -1,3 +1,33 @@
+---
+title: "Intelligence artificielle, accessibilité et Zero Trust : vers une utilisation responsable des assistants génératifs"
+slug: ia-accessibilite-zero-trust-utilisation-responsable
+date: 2026-06-09
+author: Cognitive Products Lab
+categories:
+  - Cybersécurité
+  - RSE
+  - Avancement du projet
+tags:
+  - intelligence-artificielle
+  - accessibilite
+  - zero-trust
+  - tms
+  - handicap
+  - gouvernance-ia
+  - maintien-emploi
+  - alfred
+lang: fr
+status: published
+version: "1.0"
+project: ALFRED
+illustration: ../assets/articles/ia-accessibilite-zero-trust-illustration.png
+infographie: ../assets/articles/ia-accessibilite-zero-trust-infographie.png
+description: >
+  L'IA générative est souvent présentée comme levier de productivité. Cet article explore
+  son rôle comme outil d'accessibilité, de compensation du handicap et de prévention des
+  risques professionnels, dans un cadre de gouvernance Zero Trust.
+---
+
 # Intelligence artificielle, accessibilité et Zero Trust : vers une utilisation responsable des assistants génératifs
 
 > **Catégories** : Cybersécurité · RSE · Avancement du projet
