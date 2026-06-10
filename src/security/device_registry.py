@@ -29,12 +29,13 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 from src.security.security_logger import log_event
+from paths import PATHS
 
 # ─────────────────────────────────────────────────────────
 # Stockage
 # ─────────────────────────────────────────────────────────
 
-_REGISTRY_FILE = Path("data/security/trusted_devices.json")
+_REGISTRY_FILE = PATHS.data_security / "trusted_devices.json"
 
 
 def _load_registry() -> dict:
