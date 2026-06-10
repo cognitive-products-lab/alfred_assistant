@@ -41,8 +41,9 @@ from src.security.security_logger import log_event, log_auth
 from src.security.rate_limiter import is_rate_limited, record_attempt
 from src.security.session_manager import create_session, is_blocked, register_failed_attempt
 from src.security.data_protection import read_protected_json, write_protected_json, PINS_FIELDS
+from paths import PATHS
 
-_PIN_STORE = Path("data/security/pins.json")
+_PIN_STORE = PATHS.data_security / "pins.json"
 _PIN_STORE.parent.mkdir(parents=True, exist_ok=True)
 
 _MIN_PIN_LENGTH = 4
