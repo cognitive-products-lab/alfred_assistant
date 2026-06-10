@@ -11,3 +11,6 @@ requires-python = ">=3.11"
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 python_files = ["test_*.py"]
+# Le dossier temp Windows par défaut (AppData/Local/Temp/pytest-of-*) provoque
+# un PermissionError lors du nettoyage des anciens runs sur cette machine.
+addopts = "--basetemp=.pytest_tmp"
