@@ -1,16 +1,38 @@
+"""
+PROJECT      : ALFRED
+BLOCK        : B03
+FUNCTION     : XX.XX
+FILE         : protection_guard.py
+ROLE         : Émotions & Régulation — Bloc 03
+
+AUTHOR       : Cognitive Products Lab
+CREATED      : 2026-05-10
+P26-05-12
+VERSION      : V1.0
+STATUS       : TESTED
+
+DESCRIPTION :
+Détection émotions, machine à états modes, protection, bien-être — ALFRED B03.
+"""
+
+
 # ============================================================
 # ALFRED — src/regulation/protection_guard.py
-# Bloc 03.04 — Personnalité dynamique
+# Bloc 03.04 — Mode protection & garde-fous éthiques
 #
-# 📚 NOTION EXAM :
-#   D32-1 — Capsule 3 : Mode protection et garde-fous éthiques IA
+# Fonctions couvertes :
+#   03.04.001 Détection détresse / crise        ✅ V2
+#   03.04.002 Activation mode protection        ✅ V2
+#   03.04.003 Blocage contenus inadaptés        ✅ V2
+#   03.04.004 Garde-fous éthiques (thèse H3)   ✅ V2
+#   03.04.005 Log mode protection activé        ✅ V2
 #
-# 🎯 UTILITÉ ALFRED :
-#   Détecte les situations de détresse, active le mode protection,
-#   bloque les contenus inadaptés et applique les garde-fous éthiques H3.
+# Lié directement à la thèse DMAIC de Céline :
+# H3 — "Un cadre éthique structuré permet de concilier
+#       performance, utilité et protection de l'autonomie humaine"
 #
-# 🔐 BLOC ÉTHIQUE :
-#   H3 — cadre éthique conciliant performance, utilité et autonomie humaine
+# ALFRED ne diagnostique JAMAIS — il détecte des signaux
+# et redirige vers des ressources humaines si nécessaire.
 # ============================================================
 
 from src.regulation.emotion_detector import EmotionalState

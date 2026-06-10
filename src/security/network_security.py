@@ -16,9 +16,14 @@ UPDATED      : 2026-06-01
 VERSION      : V1.1
 STATUS       : ACTIVE
 
+UPDATED      : 2026-06-01
+VERSION      : V1.2
+STATUS       : ACTIVE
+
 DESCRIPTION :
-Allowlist/blocklist IP (chargeable depuis config JSON), prévention SSRF,
-détection anomalies réseau. Local-first.
+V1.2 : TLS certificate validation, DNS domain reputation filtering,
+rate-limiting par IP source, load_network_policy depuis JSON.
+Rétrocompatible V1.1.
 ════════════════════════════════════════════════════════════
 """
 from __future__ import annotations
@@ -257,8 +262,153 @@ def get_network_status() -> dict:
             if len([t for t in times if now - t < WINDOW_SECONDS]) >= MAX_CONNECTIONS_PER_WINDOW
         ]
     return {
-        "blocklist_size": len(_IP_BLOCKLIST),
-        "allowlist_size": len(_IP_ALLOWLIST),
-        "active_sources": len(_connection_log),
+        "blocklist_size":   len(_IP_BLOCKLIST),
+        "allowlist_size":   len(_IP_ALLOWLIST),
+        "active_sources":   len(_connection_log),
         "anomalous_sources": anomalies,
+        "domain_blocklist": len(_DOMAIN_BLOCKLIST),
+        "ip_rate_limited":  len(_IP_RATE_LOCK),
     }
+
+
+# ─── V1.2 : Rate-limiting par IP source ───────────────────────────────────────
+
+_IP_ATTEMPTS:   dict[str, list[float]] = {}
+_IP_RATE_LOCK:  dict[str, float]       = {}
+MAX_IP_REQUESTS   = 100    # requêtes max par IP par fenêtre
+IP_WINDOW_SECONDS = 60
+IP_LOCKOUT_SECONDS = 300   # 5 min de blocage
+
+
+def check_ip_rate_limit(source_ip: str) -> dict:
+    """
+    Vérifie le rate limit pour une IP source (protection DDoS/scan).
+
+    Returns:
+        dict avec allowed (bool), retry_after (float), reason (str).
+    """
+    with _lock:
+        now = time.time()
+        if source_ip in _IP_RATE_LOCK and now < _IP_RATE_LOCK[source_ip]:
+            retry = round(_IP_RATE_LOCK[source_ip] - now, 1)
+            return {"allowed": False, "retry_after": retry,
+                    "reason": f"IP rate-limitée — réessayer dans {retry:.0f}s"}
+
+        _IP_ATTEMPTS.setdefault(source_ip, [])
+        _IP_ATTEMPTS[source_ip] = [
+            t for t in _IP_ATTEMPTS[source_ip] if now - t < IP_WINDOW_SECONDS
+        ]
+        _IP_ATTEMPTS[source_ip].append(now)
+
+        count = len(_IP_ATTEMPTS[source_ip])
+        if count >= MAX_IP_REQUESTS:
+            _IP_RATE_LOCK[source_ip] = now + IP_LOCKOUT_SECONDS
+            log_event(
+                f"network_security: rate-limit IP {source_ip} "
+                f"({count}/{MAX_IP_REQUESTS} en {IP_WINDOW_SECONDS}s) — blocage {IP_LOCKOUT_SECONDS}s",
+                "WARNING",
+            )
+            return {"allowed": False, "retry_after": float(IP_LOCKOUT_SECONDS),
+                    "reason": f"Rate limit IP dépassé — blocage {IP_LOCKOUT_SECONDS}s"}
+
+    return {"allowed": True, "retry_after": 0.0, "reason": "OK", "requests_in_window": count}
+
+
+# ─── V1.2 : Réputation DNS / domaines malveillants ───────────────────────────
+
+# Domaines connus malveillants (liste locale — peut être étendue depuis config)
+_DOMAIN_BLOCKLIST: set[str] = {
+    # C&C / malware connus
+    "evil.com", "malware.example", "phishing.example",
+    # Metadata cloud (SSRF)
+    "169.254.169.254", "metadata.google.internal",
+    "metadata.aws.internal", "169.254.170.2",
+    # DNS rebinding courants
+    "localtest.me", "lvh.me",
+}
+
+
+def is_domain_blocked(domain: str) -> bool:
+    """Vérifie si un domaine est dans la liste de réputation."""
+    domain_lower = domain.lower().strip(".")
+    # Vérifie le domaine exact et les parents (ex: sub.evil.com → evil.com)
+    parts = domain_lower.split(".")
+    for i in range(len(parts) - 1):
+        candidate = ".".join(parts[i:])
+        if candidate in _DOMAIN_BLOCKLIST:
+            return True
+    return domain_lower in _DOMAIN_BLOCKLIST
+
+
+def add_to_domain_blocklist(domain: str) -> None:
+    """Ajoute un domaine à la liste noire de réputation."""
+    _DOMAIN_BLOCKLIST.add(domain.lower())
+    log_event(f"network_security: domaine ajouté à la blocklist : {domain}", "WARNING")
+
+
+def check_domain(domain: str) -> dict:
+    """
+    Vérifie la réputation d'un domaine.
+
+    Returns:
+        dict avec allowed (bool), reason (str).
+    """
+    if is_domain_blocked(domain):
+        log_event(f"network_security: domaine bloqué (réputation) : {domain}", "WARNING")
+        return {"allowed": False, "reason": f"Domaine bloqué (réputation) : {domain}"}
+    return {"allowed": True, "reason": "OK"}
+
+
+# ─── V1.2 : Validation TLS basique ───────────────────────────────────────────
+
+def validate_tls(url: str, timeout: float = 5.0) -> dict:
+    """
+    Vérifie la validité du certificat TLS d'une URL HTTPS.
+    Utilise ssl.create_default_context() — valide chain + date d'expiration.
+
+    Returns:
+        dict avec valid (bool), reason (str), expiry (str|None).
+    """
+    import ssl
+    import socket
+    from urllib.parse import urlparse
+
+    parsed = urlparse(url)
+    if parsed.scheme != "https":
+        return {"valid": False, "reason": f"TLS uniquement pour HTTPS — schéma : {parsed.scheme}"}
+
+    hostname = parsed.hostname or ""
+    port     = parsed.port or 443
+
+    try:
+        ctx = ssl.create_default_context()
+        with socket.create_connection((hostname, port), timeout=timeout) as sock:
+            with ctx.wrap_socket(sock, server_hostname=hostname) as ssock:
+                cert    = ssock.getpeercert()
+                not_after = cert.get("notAfter", "")
+                # Parse la date d'expiration
+                try:
+                    from datetime import datetime as _dt
+                    expiry    = _dt.strptime(not_after, "%b %d %H:%M:%S %Y %Z")
+                    days_left = (expiry - _dt.now()).days
+                    if days_left < 30:
+                        log_event(
+                            f"network_security: certificat TLS expire dans {days_left}j : {hostname}",
+                            "WARNING",
+                        )
+                        return {
+                            "valid": True, "expiry": not_after,
+                            "days_left": days_left,
+                            "reason": f"Certificat valide mais expire dans {days_left}j",
+                        }
+                    return {"valid": True, "expiry": not_after, "days_left": days_left, "reason": "OK"}
+                except Exception:
+                    return {"valid": True, "expiry": not_after, "reason": "OK"}
+    except ssl.SSLCertVerificationError as exc:
+        log_event(f"network_security: certificat TLS invalide — {hostname} : {exc}", "ERROR")
+        return {"valid": False, "reason": f"Certificat invalide : {exc}"}
+    except (socket.timeout, OSError) as exc:
+        # Pas de connexion — on ne bloque pas si l'hôte est inaccessible
+        return {"valid": None, "reason": f"Hôte inaccessible (timeout/erreur réseau) : {exc}"}
+    except Exception as exc:
+        return {"valid": None, "reason": f"Erreur TLS : {exc}"}
