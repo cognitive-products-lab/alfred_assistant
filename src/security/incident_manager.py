@@ -21,8 +21,9 @@ from collections import Counter
 from datetime import datetime, timezone
 from pathlib import Path
 from src.security.security_logger import log_event
+from paths import PATHS
 
-INCIDENT_FILE = Path("data/security/incident_register.json")
+INCIDENT_FILE = PATHS.data_security / "incident_register.json"
 INCIDENT_FILE.parent.mkdir(parents=True, exist_ok=True)
 
 
