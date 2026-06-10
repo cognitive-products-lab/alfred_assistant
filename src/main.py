@@ -7,8 +7,13 @@ BLOCK        : GLOBAL
 FILE         : main.py
 ROLE         : Point d'entrée principal ALFRED — pipeline conversation V1.2
 AUTHOR       : Cognitive Products Lab
-VERSION      : V1.2
-STATUS       : ACTIVE
+UPDATED      : 2026-06-10
+VERSION      : V1.2.1
+STATUS       : TO_TEST
+
+NOTE 2026-06-10 : fix clean_for_tts (apostrophes typographiques cassées
+par une restauration précédente). À revalider en conditions réelles
+avant repassage en ACTIVE.
 
 Objectif :
   Conserver la V1 actuelle fonctionnelle, tout en préparant proprement la V2.
