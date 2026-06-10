@@ -1,6 +1,6 @@
 # ALFRED — Fichier de contexte collaborateur
 # À coller en début de chaque nouvelle conversation avec Claude
-# Dernière mise à jour : Avril 2026 — Session 2
+# Dernière mise à jour : 10 Juin 2026 — Session 4
 # ============================================================
 
 ## 🎯 QUI JE SUIS
@@ -114,8 +114,84 @@ head_base → eyes → eyebrows → mouth → hair → effects(halo)
 ### Principes fondamentaux (NON NÉGOCIABLES)
 Local-first | Security by Design | Zero Trust | Scalabilité progressive
 
-### Hardware actuel (V1)
-HP EliteBook — Intel i7 — 32 Go RAM | Disque externe HDD 4 To | Galaxy Tab A9 512 Go
+### Hardware actuel (V1 — PC développement)
+HP EliteBook — Intel i7 — 32 Go RAM
+
+### ✅ Hardware cible validé — Serveur local CPL (Juin 2026)
+
+**Minisforum MS-S1 MAX** — Décision d'achat validée ✅
+- CPU : AMD Ryzen AI Max+ 395 (16C/32T, 5.1 GHz)
+- GPU : AMD Radeon 8060S intégrée
+- NPU : 50 TOPS | Total : 126 TOPS
+- RAM : 64 Go LPDDR5x 8000 MT/s — **upgradeable 128 Go** ✅
+- SSD : **2 To NVMe PCIe 4.0 x4 inclus** ✅
+- Slots SSD : M.2 x4 + M.2 x1 (jusqu'à 16 To total)
+- PCIe : **slot x16 pleine longueur** (extensibilité future)
+- Réseau : 2 × 10 GbE filaire + WiFi 7
+- OS : **Windows 11 natif inclus** ✅
+- TDP : 130W continu / 160W crête
+- Prix : **2 719 €** (64 Go / 2 To)
+- Prix upgrade 128 Go : 3 839 €
+
+**Périphériques :**
+| Accessoire | Détail | Prix |
+|---|---|---|
+| Câble USB-C → DisplayPort 1.4 | 2m, 8K@60Hz, 4K@144Hz, HDR, DP Alt Mode | 10 € |
+
+**Budget total infrastructure CPL :**
+| Poste | Prix |
+|---|---|
+| MS-S1 MAX 64 Go / 2 To | 2 719 € |
+| Câble USB-C → DP 1.4 | 10 € |
+| **Total** | **2 729 €** |
+
+**Comparaison finale validée :**
+| Config | Prix total |
+|--------|-----------|
+| UM890 Pro + eGPU + GPU + PSU | 3 027 € |
+| N5 MAX + SSD 1 To ajouté | 2 879 € |
+| **MS-S1 MAX + câble DP** | **2 729 €** ✅ |
+
+**Disques externes :**
+| Disque | Modèle | Rôle |
+|--------|--------|------|
+| LaCie Rugged Mini 4 To | LAC9000633 | ✅ ALFRED Core actif — source de vérité — disque de travail quotidien |
+| WD My Passport 5 To | Noir | 🔒 Backup + Archives CPL — automatisé PowerShell — protégé par mot de passe |
+
+**Backup automatisé PowerShell (hebdomadaire) :**
+```powershell
+# backup_cpl.ps1 — robocopy /MIR tous les dimanches à 2h
+$source = "D:\PROJET_ALFRED\"
+$destination = "E:\BACKUP_CPL\"
+$date = Get-Date -Format "yyyy-MM-dd"
+robocopy $source $destination /MIR /R:3 /W:10 /LOG+:"$destination\backup_log.txt"
+```
+Tâche planifiée créée via `Register-ScheduledTask` — aucune intervention manuelle requise.
+
+### LLM local — Capacité MS-S1 MAX 64 Go
+- Moteur : Ollama
+- Benchmarks réels mesurés sur MS-S1 MAX :
+
+| Modèle | Params | VRAM | Vitesse | Usage ALFRED |
+|--------|--------|------|---------|--------------|
+| gpt-oss-120B Q4 | 120B | 60.5 Go | **32 tok/s** ✅ | ALFRED + CPL Phase 0/1 |
+| cogito-109B MoE Q4 | 190B | 64.8 Go | 14 tok/s | ⚠️ Limite extrême |
+| DeepSeek-R1 70B Q4 | 70B | 42 Go | 4.75 tok/s | ✅ Confortable RAM |
+| Qwen3-235B Q2 | 235B | 69.74 Go | 10 tok/s | ❌ Dépasse 64 Go |
+
+- Modèle cible Phase 0/1 : **gpt-oss-120B Q4 (32 tok/s)** ✅
+- Isolation environnements : Docker par produit CPL
+
+### Roadmap hardware CPL
+| Phase | Machine | RAM | Rôle |
+|-------|---------|-----|------|
+| 0 | MS-S1 MAX | 64 Go | Développement ALFRED — LLM local |
+| 1 | MS-S1 MAX | 64 Go | ALFRED + ALFRED CPL — isolation Docker |
+| 2/3 | MS-S1 MAX | 64 Go | ALFRED + ARTHUR — serveur centralisé équipe |
+| 4 | Serveur dédié | 128 Go+ | Production — GPU dédié neuf — MS-S1 MAX devient nœud secondaire |
+
+✅ RAM 64 Go suffisante Phase 0→3 (120B Q4 à 32 tok/s validé).
+✅ Upgrade 128 Go non prioritaire — investissement repoussé au serveur Phase 4 (GPU neuf intégré dès le départ, pas de réutilisation GPU).
 
 ### Stack technique
 - **Langage** : Python 3.13
@@ -125,7 +201,7 @@ HP EliteBook — Intel i7 — 32 Go RAM | Disque externe HDD 4 To | Galaxy Tab A
 - **Sécurité** : Fernet + JWT + bcrypt + Zero Trust (Bloc 20)
 - **STT** : Whisper local — plus tard
 - **TTS** : Piper/Coqui local — plus tard
-- **LLM** : llama-cpp local — plus tard
+- **LLM** : Ollama (remplace llama-cpp) — N5 MAX
 - **RAG** : ChromaDB local — V3+
 
 ---
@@ -205,14 +281,81 @@ Tous à placer dans : D:\PROJET_ALFRED\
 - Schémas architecture (Phase 1→5, système global, cybersécurité, API)
 - Fichiers de fondation créés (paths, bootstrap, requirements, check_tools)
 - Outils installés : Python 3.13, PS7, VS2022, Git, Windows Terminal, Claude Desktop
+- ✅ Décision hardware finale : **Minisforum MS-S1 MAX 2 719 €** (commande passée, en attente réception)
+- ✅ Stratégie stockage définie (LaCie actif / WD backup automatisé PowerShell)
+- ✅ Backup incrémental quotidien + hebdomadaire complet (rétention glissante 15 jours)
+- ✅ V1.4 ALFRED PC opérationnel : pipeline conversationnel, mémoire LT, B18 knowledges,
+  B20 Zero Trust, B22 accessibilité, dashboards dynamiques (avancement global 63.6%)
+- ✅ **Session 10 juin 2026** — Restauration massive de scripts perdus (perte de données du
+  ~3 juin, retrouvés via la branche orpheline `backup_b0adae0_lost_work`) :
+  - B20 sécurité (40 fichiers src + 44 tests, 651/651 OK)
+  - B03/B13 régulation + santé (`regulation_engine`, `src/health/*`, questionnaires onboarding)
+  - B05 Auth (`auth_manager`, `authenticator`, `login_handler`, `user_session`)
+  - B11 fusion multi-signaux + moteur proactif/rappels (`multi_signal_fusion_engine`,
+    `proactive_engine`, `reminder_engine`)
+  - B15 Avatar — renderer Kivy complet (6 calques sprites, halo, animations) + avatar_engine +
+    background_manager + sound_wave + ui_bridge (322/322 tests OK, vs 83 avant restauration)
+  - Suite complète : 933/933 tests + 322 b15 + 70 fusion/auth = GRADE A maintenu
+  - Reste à investiguer : grésillement audio TTS pendant le streaming LLM (probablement
+    contention CPU/audio entre génération Ollama et lecture sounddevice)
+- ✅ **Session 10 juin 2026 (suite)** — Lancement réel via `main.py`, corrections sur retours live :
+  - `src/core/pipeline_bridge.py` (240 lignes) restauré + tests pipeline associés
+    (`test_pipeline.py`, `test_pipeline_llm.py`, `test_dashboard_pipeline.py`,
+    `test_main_pipeline.py`) → 92 passed (+ 1 fix apostrophe typographique `clean_for_tts`)
+  - `src/ui/webcam_widget.py` : suppression de `self._texture.flip_vertical = False`
+    (propriété en lecture seule sous Kivy 2.3.1) → corrige le crash "fermeture sans
+    interaction" au démarrage de l'overlay caméra
+  - `src/llm/llm_client_ollama.py` restauré depuis le backup : streaming réel
+    (`"stream": True`, `_generate_stream`) avec callback `on_sentence` phrase par phrase
+    pendant la génération Ollama, profils modèles (llama3.2/mistral/phi3),
+    `last_was_streamed` → corrige "ALFRED lit tout d'un coup avec pauses entre
+    paragraphes" (le client envoyait `"stream": False` et ignorait `on_sentence`)
+  - `src/main.py::clean_for_tts` : correction des apostrophes typographiques
+    (`’`/`‘` → `'`), mapping cassé (ascii→ascii) depuis une restauration précédente
+  - `knowledges/core/system_rules.json` : nouvelle règle INT-007 (tutoiement obligatoire,
+    jamais de "vous"/"votre"/"vos"), ajout de "obséder/obsède/obsédant" aux
+    `forbidden_phrases` (retours utilisateur sur le ton d'ALFRED)
+
+- ✅ `src/conversation/output/tts_piper.py` : ajout `_apply_fade()` — fondu d'entrée/
+  sortie linéaire (~5 ms) appliqué à chaque buffer audio avant `sd.play()`. Cible le
+  "clic"/grésillement entendu entre phrases quand `sd.play()` est appelé en rafale
+  pendant le streaming (3/3 tests `test_tts_piper.py` OK).
+- ✅ **BUG CRITIQUE mémoire/cwd** : `src/memory/long_term_memory.py`,
+  `episodic_memory.py`, `memory_manager.py` utilisaient `Path("data/memory")`
+  (relatif au cwd du shell, ex. `C:\Users\celin`) au lieu de `paths.PATHS.data_memory`
+  (ancré sur la racine projet via `__file__`). Conséquence en conditions réelles
+  (`python D:\...\main.py` lancé depuis `C:\Users\celin`) : DB SQLite/JSON créées
+  hors du projet → mémoire vide d'une session à l'autre → ALFRED **invente de faux
+  souvenirs** (ex : a inventé un entretien IAM/cybersécurité au lieu de se souvenir
+  de l'entretien SANOFI). Corrigé : les 3 fichiers utilisent maintenant
+  `PATHS.data_memory`, vérifié indépendant du cwd. (151 tests b02_b03+integration OK)
+- ✅ `_build_system_prompt()` (response_generator.py) : ajout règle
+  "INTERDICTION DE FAUX SOUVENIRS" — interdit d'inventer un souvenir/sujet/entreprise
+  absent du CONTEXTE MÉMOIRE, et de confondre KNOWLEDGE B18 (connaissance générale)
+  avec des souvenirs personnels.
+- ✅ Renforcement prompt système (response_generator.py) : règles explicites
+  TUTOIEMENT OBLIGATOIRE (jamais "vous/votre/vos") et QUALITÉ DU FRANÇAIS OBLIGATOIRE
+  (orthographe/grammaire/conjugaison) ajoutées dans INSTRUCTIONS IMPÉRATIVES — ces
+  problèmes restaient présents dans une session capturée AVANT ces correctifs.
+- ⚠️ **Suivi créé** : tâche en arrière-plan pour corriger les mêmes bugs de chemins
+  relatifs au cwd dans les modules sécurité (`src/auth/authenticator.py`,
+  `src/security/device_registry.py`, `src/security/incident_manager.py`,
+  `src/security/security_dashboard.py`) — même classe de bug, hors scope immédiat.
+
+### En attente 🕐
+- Réception MS-S1 MAX (upgrade hardware)
+- Vérifier en live si le grésillement TTS a disparu avec le fondu + le streaming réel
+  (sinon : envisager un `sd.OutputStream` persistant au lieu de `sd.play()` par phrase)
+- Vérifier en live que le tutoiement (INT-007) est bien respecté par le LLM
 
 ### Prochaines étapes 🎯
-1. Installer **VS Code** + extensions (Python, Pylance, Python Debugger)
-2. Lancer `bootstrap_project.ps1`
-3. Configurer `.env`
-4. Coder `personality_adapter.py`
-5. Coder moteur avatar Kivy (6 calques + blink + halo + TTS sync)
-6. Coder `main.py` V1 propre avec Bloc 20
+1. Relancer `start_alfred.bat` / `main.py` pour vérifier : lecture phrase par phrase,
+   tutoiement cohérent, absence de crash webcam, plus d'AVERT pipeline B03/B13
+2. Investiguer le grésillement audio TTS si toujours présent avec le streaming réel
+3. Décider du périmètre du Bloc 23 "Gouvernance & pilotage du projet" pour les dashboards
+4. Committer la restauration (B20 + B03/13 + B05 + B11 + B15 avatar + pipeline_bridge +
+   llm_client_ollama streaming + fixes ton/apostrophe)
+5. À réception du MS-S1 MAX : migration + bench LLM local
 
 ### Ordre de développement
 ```
@@ -220,6 +363,7 @@ Bloc 20 → V1 pipeline → personality_adapter.py
 → Moteur avatar Kivy → V2 fusion → V2++ knowledge
 → V3 orchestration → STT/TTS → V4 domotique → Android
 ```
+*(toutes ces briques sont désormais codées et testées — V1.4 stable, 63.6% avancement global)*
 
 ---
 
@@ -242,7 +386,8 @@ Bloc 20 → V1 pipeline → personality_adapter.py
 Reprends immédiatement le rôle de **collaborateur technique proactif**.
 
 Tu connais tout : architecture V1→V4, charte UX/UI, guides et leurs problèmes,
-fichiers créés, état d'avancement, principes non négociables, thèse, profil utilisateur.
+fichiers créés, état d'avancement, principes non négociables, thèse, profil utilisateur,
+décision hardware N5 MAX, stratégie stockage CPL.
 
 **Ne réexplique pas ce qui est su. Propose, anticipe, code.**
 Signale les incohérences sans attendre.
@@ -251,5 +396,5 @@ Respecte séparation public / privé expérimental.
 Intègre toujours : max 6 calques, PNG optimisés, Kivy, local-first.
 
 ---
-*Session 2 — Avril 2026*
-*Prochaine mise à jour : après installation VS Code + premier bootstrap*
+*Session 4 — 10 Juin 2026*
+*Prochaine mise à jour : après réception MS-S1 MAX + correctif TTS streaming*
