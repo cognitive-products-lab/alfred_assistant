@@ -20,9 +20,12 @@ from pathlib import Path
 from typing import Any
 
 from src.security.security_logger import log_event
+from paths import PATHS
 
 # ── Chemins ───────────────────────────────────────────────
-_DB_DIR  = Path("data/memory")
+# Ancré sur la racine du projet (paths.py, basé sur __file__) — ne dépend pas
+# du répertoire de travail courant au lancement de main.py.
+_DB_DIR  = PATHS.data_memory
 _DB_PATH = _DB_DIR / "alfred_memory.db"
 _DB_DIR.mkdir(parents=True, exist_ok=True)
 
