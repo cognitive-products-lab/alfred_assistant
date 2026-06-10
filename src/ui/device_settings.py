@@ -24,6 +24,7 @@ from __future__ import annotations
 
 import json
 import logging
+import threading
 from pathlib import Path
 from typing import Optional
 
@@ -120,6 +121,56 @@ def list_audio_outputs() -> list[dict]:
 
 
 # =============================================================================
+# Cache / pré-chargement asynchrone
+# =============================================================================
+# Le scan OpenCV des index caméra (cv2.VideoCapture(0..5)) bloque ~1-2s par
+# index sur certains systèmes. Si on l'exécute dans le thread principal Kivy
+# au clic sur "Réglages", l'UI freeze. On le pré-calcule donc dans un thread
+# daemon au démarrage, et le popup utilise ce cache (avec fallback live si
+# le scan n'est pas encore terminé).
+
+_device_cache: dict[str, list[dict]] = {}
+_device_cache_lock = threading.Lock()
+
+
+def prefetch_devices_async() -> None:
+    """Lance le scan caméra/audio dans un thread daemon et remplit le cache."""
+
+    def _scan() -> None:
+        cams = list_cameras()
+        inputs = list_audio_inputs()
+        outputs = list_audio_outputs()
+        with _device_cache_lock:
+            _device_cache["cameras"] = cams
+            _device_cache["audio_inputs"] = inputs
+            _device_cache["audio_outputs"] = outputs
+        logger.info("prefetch_devices_async : cache rempli")
+
+    threading.Thread(target=_scan, name="device-scan", daemon=True).start()
+
+
+def get_cached_cameras() -> list[dict]:
+    """Retourne les caméras du cache si dispo, sinon scan synchrone (fallback)."""
+    with _device_cache_lock:
+        cached = _device_cache.get("cameras")
+    return cached if cached is not None else list_cameras()
+
+
+def get_cached_audio_inputs() -> list[dict]:
+    """Retourne les micros du cache si dispo, sinon scan synchrone (fallback)."""
+    with _device_cache_lock:
+        cached = _device_cache.get("audio_inputs")
+    return cached if cached is not None else list_audio_inputs()
+
+
+def get_cached_audio_outputs() -> list[dict]:
+    """Retourne les sorties audio du cache si dispo, sinon scan synchrone (fallback)."""
+    with _device_cache_lock:
+        cached = _device_cache.get("audio_outputs")
+    return cached if cached is not None else list_audio_outputs()
+
+
+# =============================================================================
 # Persistance
 # =============================================================================
 
@@ -128,6 +179,11 @@ _DEFAULTS = {
     "audio_input_index": -1,   # -1 = défaut système
     "audio_output_index": -1,  # -1 = défaut système
 }
+
+
+def settings_file_exists() -> bool:
+    """True si le fichier device_settings.json existe déjà (réglages déjà faits)."""
+    return _SETTINGS_FILE.exists()
 
 
 def load_device_settings() -> dict:
@@ -187,10 +243,10 @@ def _build_popup(on_apply) -> "Popup":  # type: ignore[name-defined]
     from kivy.uix.widget import Widget
     from kivy.graphics import Color, RoundedRectangle
 
-    # Charger les périphériques et les réglages courants
-    cams    = list_cameras()
-    inputs  = list_audio_inputs()
-    outputs = list_audio_outputs()
+    # Charger les périphériques (cache pré-calculé si dispo) et les réglages courants
+    cams    = get_cached_cameras()
+    inputs  = get_cached_audio_inputs()
+    outputs = get_cached_audio_outputs()
     current = load_device_settings()
 
     # Couleurs palette ALFRED
