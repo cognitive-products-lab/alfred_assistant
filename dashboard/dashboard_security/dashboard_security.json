@@ -3,15 +3,17 @@
         "project": "ALFRED",
         "block": "B20",
         "file": "dashboard_security.json",
-        "generated_at": "2026-06-05T11:45:25.852672+00:00",
+        "generated_at": "2026-06-10T08:27:31.407408+00:00",
         "version": "V1.0"
     },
     "sessions": {
         "active_sessions": 0,
         "expired_sessions": 0,
-        "total_tracked": 0,
         "blocked_users": 0,
-        "session_timeout_s": 900
+        "known_sessions": 0,
+        "total_sessions": 0,
+        "failed_attempts": {},
+        "sessions": []
     },
     "devices": {
         "trusted_count": 3,
@@ -35,7 +37,7 @@
                 "risk_level": "UNKNOWN",
                 "trust_score": 0,
                 "failed_attempts": 0,
-                "last_seen": "2026-06-03T10:34:15.584877+00:00"
+                "last_seen": "2026-06-10T08:26:15.039890+00:00"
             },
             {
                 "device_id": "demo_device_live",
@@ -55,45 +57,89 @@
                 "risk_level": "UNKNOWN",
                 "trust_score": 0,
                 "failed_attempts": 0,
-                "last_seen": "2026-06-02T13:00:12.456316+00:00"
+                "last_seen": "2026-06-10T08:16:45.654240+00:00"
             }
         ]
     },
     "incidents": {
-        "total": 0,
-        "open": 0,
-        "closed": 0,
+        "total": 91,
+        "by_level": {
+            "HIGH": 91
+        },
         "open_critical": 0,
-        "by_level": {},
-        "recent_open": []
+        "recent_open": [
+            {
+                "timestamp": "2026-06-10T08:19:50.039764+00:00",
+                "level": "HIGH",
+                "description": "Tentative SSRF détectée : http://127.0.0.1:8080/admin",
+                "source": "network_security",
+                "status": "OPEN"
+            },
+            {
+                "timestamp": "2026-06-10T08:19:50.127079+00:00",
+                "level": "HIGH",
+                "description": "Tentative SSRF détectée : http://10.0.0.1/secret",
+                "source": "network_security",
+                "status": "OPEN"
+            },
+            {
+                "timestamp": "2026-06-10T08:19:50.255856+00:00",
+                "level": "HIGH",
+                "description": "Tentative SSRF détectée : http://192.168.1.1/config",
+                "source": "network_security",
+                "status": "OPEN"
+            },
+            {
+                "timestamp": "2026-06-10T08:19:50.349138+00:00",
+                "level": "HIGH",
+                "description": "Tentative SSRF détectée : http://172.16.0.1/internal",
+                "source": "network_security",
+                "status": "OPEN"
+            },
+            {
+                "timestamp": "2026-06-10T08:19:50.465657+00:00",
+                "level": "HIGH",
+                "description": "Tentative SSRF (hostname local) : http://localhost/admin",
+                "source": "network_security",
+                "status": "OPEN"
+            }
+        ]
     },
     "quarantine": {
         "active_total": 0,
-        "modules_list": [],
-        "status": "CLEAN"
+        "history_total": 0,
+        "by_type": {},
+        "by_severity": {},
+        "active_items": [],
+        "modules": [],
+        "items": []
     },
     "secrets": {
         "required_count": 3,
         "present_count": 3,
         "missing_count": 0,
         "all_ok": true,
+        "env_file_age_days": 6.9,
+        "stale_secrets": [],
+        "rotation_recommended": false,
+        "access_stats": {},
         "validation": {
-            "Clé principale": "OK",
-            "Clé chiffrement": "OK",
-            "Sel authentification": "OK"
+            "SECRET_KEY": "OK",
+            "FERNET_KEY": "OK",
+            "PIN_SALT": "OK"
         }
     },
     "encryption": {
         "available": true
     },
     "audit": {
-        "total_events": 3,
+        "total_events": 2,
         "by_decision": {
             "DENY_PERMISSION": 1,
-            "ALLOW": 2
+            "ALLOW": 1
         },
         "last_event": {
-            "timestamp": "2026-06-03T10:34:15.591573+00:00",
+            "timestamp": "2026-06-10T08:26:15.041716+00:00",
             "user_id": "celine",
             "action": "chat",
             "resource": "alfred_assistant",
@@ -108,9 +154,6 @@
         "roles_count": 7,
         "permissions_total": 19,
         "unique_permissions_count": 9,
-        "owner_permissions_count": 7,
-        "admin_permissions_count": 4,
-        "guest_permissions_count": 1,
         "matrix": {
             "OWNER": [
                 "READ_MEMORY",
@@ -149,164 +192,44 @@
     },
     "roles": {
         "roles": {
-            "OWNER": "Utilisatrice principale",
-            "ADMIN": "Administrateur technique",
-            "USER": "Utilisateur standard",
-            "GUEST": "Invité limité",
-            "SERVICE": "Service interne",
-            "AI_MODULE": "Module IA contrôlé",
-            "EMERGENCY": "Accès urgence encadré"
+            "OWNER": "Propriétaire — contrôle complet du système",
+            "ADMIN": "Administrateur technique — accès privilégié",
+            "USER": "Utilisateur standard — accès limité",
+            "GUEST": "Invité restreint — accès minimal",
+            "SERVICE": "Service interne — accès fonctionnel",
+            "AI_MODULE": "Module IA contrôlé — accès restreint",
+            "EMERGENCY": "Accès urgence encadré — alertes uniquement"
         }
     },
     "policy_matrix": {
-        "roles": [
-            "OWNER",
-            "ADMIN",
-            "USER",
-            "GUEST"
-        ],
-        "sensitivities": [
-            "PUBLIC",
-            "INTERNAL",
-            "CONFIDENTIAL",
-            "CRITICAL"
-        ],
-        "actions": [
-            "READ",
-            "WRITE",
-            "DELETE_DATA",
-            "EXPORT_DATA",
-            "ADMIN_ACTION"
-        ],
-        "matrix": {
-            "OWNER": {
-                "PUBLIC": {
-                    "READ": "ALLOW",
-                    "WRITE": "ALLOW",
-                    "DELETE_DATA": "ALLOW",
-                    "EXPORT_DATA": "ALLOW",
-                    "ADMIN_ACTION": "ALLOW"
-                },
-                "INTERNAL": {
-                    "READ": "ALLOW",
-                    "WRITE": "ALLOW",
-                    "DELETE_DATA": "ALLOW",
-                    "EXPORT_DATA": "ALLOW",
-                    "ADMIN_ACTION": "ALLOW"
-                },
-                "CONFIDENTIAL": {
-                    "READ": "ALLOW",
-                    "WRITE": "ALLOW",
-                    "DELETE_DATA": "ALLOW",
-                    "EXPORT_DATA": "ALLOW",
-                    "ADMIN_ACTION": "ALLOW"
-                },
-                "CRITICAL": {
-                    "READ": "ALLOW",
-                    "WRITE": "ALLOW",
-                    "DELETE_DATA": "ALLOW",
-                    "EXPORT_DATA": "ALLOW",
-                    "ADMIN_ACTION": "ALLOW"
-                }
-            },
-            "ADMIN": {
-                "PUBLIC": {
-                    "READ": "ALLOW",
-                    "WRITE": "ALLOW",
-                    "DELETE_DATA": "DENY",
-                    "EXPORT_DATA": "DENY",
-                    "ADMIN_ACTION": "ALLOW"
-                },
-                "INTERNAL": {
-                    "READ": "ALLOW",
-                    "WRITE": "ALLOW",
-                    "DELETE_DATA": "DENY",
-                    "EXPORT_DATA": "DENY",
-                    "ADMIN_ACTION": "ALLOW"
-                },
-                "CONFIDENTIAL": {
-                    "READ": "ALLOW",
-                    "WRITE": "ALLOW",
-                    "DELETE_DATA": "DENY",
-                    "EXPORT_DATA": "DENY",
-                    "ADMIN_ACTION": "ALLOW"
-                },
-                "CRITICAL": {
-                    "READ": "ALLOW",
-                    "WRITE": "ALLOW",
-                    "DELETE_DATA": "DENY",
-                    "EXPORT_DATA": "DENY",
-                    "ADMIN_ACTION": "ALLOW"
-                }
-            },
-            "USER": {
-                "PUBLIC": {
-                    "READ": "ALLOW",
-                    "WRITE": "ALLOW",
-                    "DELETE_DATA": "DENY",
-                    "EXPORT_DATA": "DENY",
-                    "ADMIN_ACTION": "DENY"
-                },
-                "INTERNAL": {
-                    "READ": "ALLOW",
-                    "WRITE": "ALLOW",
-                    "DELETE_DATA": "DENY",
-                    "EXPORT_DATA": "DENY",
-                    "ADMIN_ACTION": "DENY"
-                },
-                "CONFIDENTIAL": {
-                    "READ": "ALLOW",
-                    "WRITE": "ALLOW",
-                    "DELETE_DATA": "DENY",
-                    "EXPORT_DATA": "DENY",
-                    "ADMIN_ACTION": "DENY"
-                },
-                "CRITICAL": {
-                    "READ": "DENY",
-                    "WRITE": "DENY",
-                    "DELETE_DATA": "DENY",
-                    "EXPORT_DATA": "DENY",
-                    "ADMIN_ACTION": "DENY"
-                }
-            },
-            "GUEST": {
-                "PUBLIC": {
-                    "READ": "ALLOW",
-                    "WRITE": "DENY",
-                    "DELETE_DATA": "DENY",
-                    "EXPORT_DATA": "DENY",
-                    "ADMIN_ACTION": "DENY"
-                },
-                "INTERNAL": {
-                    "READ": "ALLOW",
-                    "WRITE": "DENY",
-                    "DELETE_DATA": "DENY",
-                    "EXPORT_DATA": "DENY",
-                    "ADMIN_ACTION": "DENY"
-                },
-                "CONFIDENTIAL": {
-                    "READ": "DENY",
-                    "WRITE": "DENY",
-                    "DELETE_DATA": "DENY",
-                    "EXPORT_DATA": "DENY",
-                    "ADMIN_ACTION": "DENY"
-                },
-                "CRITICAL": {
-                    "READ": "DENY",
-                    "WRITE": "DENY",
-                    "DELETE_DATA": "DENY",
-                    "EXPORT_DATA": "DENY",
-                    "ADMIN_ACTION": "DENY"
-                }
-            }
+        "role_levels": {
+            "OWNER": 3,
+            "ADMIN": 3,
+            "USER": 1,
+            "SERVICE": 1,
+            "AI_MODULE": 1,
+            "EMERGENCY": 0,
+            "GUEST": 0
         },
-        "rules_summary": [
-            "CRITICAL → OWNER/ADMIN uniquement",
-            "DELETE_DATA / EXPORT_DATA → OWNER uniquement",
-            "ADMIN_ACTION → OWNER/ADMIN uniquement",
-            "CONFIDENTIAL → interdit aux GUEST",
-            "WRITE → interdit aux GUEST"
-        ]
+        "resource_sensitivity_levels": {
+            "LOW": 0,
+            "MEDIUM": 1,
+            "HIGH": 2,
+            "CRITICAL": 3
+        },
+        "action_requirements": {
+            "DELETE_DATA": [
+                "OWNER"
+            ],
+            "EXPORT_DATA": [
+                "OWNER"
+            ],
+            "SEND_ALERT": [
+                "OWNER",
+                "ADMIN",
+                "EMERGENCY"
+            ]
+        }
     },
     "security_score": 100
 }
