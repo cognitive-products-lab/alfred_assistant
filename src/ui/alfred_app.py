@@ -80,6 +80,8 @@ from src.ui.device_settings import (              # noqa: E402
     open_settings_popup,
     load_device_settings,
     apply_audio_settings,
+    prefetch_devices_async,
+    settings_file_exists,
 )
 
 
@@ -664,6 +666,11 @@ class AlfredApp(App):
         _app_instance     = self
 
     def build(self) -> AlfredLayout:
+        # Pré-charge la liste des caméras/audio en arrière-plan pour que le
+        # popup ⚙️ Réglages s'ouvre instantanément (évite le freeze du scan
+        # OpenCV dans le thread principal Kivy)
+        prefetch_devices_async()
+
         self._layout = AlfredLayout(
             on_user_input=self._handle_user_input,
             on_command=self._handle_command,
@@ -707,7 +714,9 @@ class AlfredApp(App):
         )
 
         # Appliquer les réglages audio sauvegardés (micro + sortie son)
+        _first_launch = False
         try:
+            _first_launch = not settings_file_exists()
             _saved = load_device_settings()
             apply_audio_settings(_saved)
             # Pré-charger l'index caméra sauvegardé dans le widget
@@ -716,6 +725,10 @@ class AlfredApp(App):
                 self._layout.avatar_area._cam_widget._cam_index = cam_idx
         except Exception:
             pass
+
+        # Première utilisation : ouvrir le popup Réglages devices automatiquement
+        if _first_launch and not self._demo and self._layout:
+            Clock.schedule_once(lambda dt: self._layout.ctrl_bar._toggle_cfg(), 1.0)
 
         if self._demo:
             Clock.schedule_interval(self._demo_tick, 2.5)
