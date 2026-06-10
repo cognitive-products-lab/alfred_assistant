@@ -1,17 +1,32 @@
-# ============================================================
-# ALFRED — src/security/policy_enforcement_point.py
-# Bloc 20.13 — Zero Trust
-#
-# 📚 NOTION EXAM :
-#   D51-2 — Capsule 4 : PEP — Policy Enforcement Point (dernier verrou)
-#
-# 🎯 UTILITÉ ALFRED :
-#   Applique la décision du PDP avant toute exécution d'action ;
-#   bloque ou autorise selon ALLOW / DENY / REVIEW.
-#
-# 🔐 BLOC SÉCURITÉ :
-#   Zero Trust enforcement — le PEP est le point de contrôle physique de la décision
-# ============================================================
+"""
+════════════════════════════════════════════════════════════
+PROJECT      : ALFRED
+BLOCK        : B20
+FUNCTION     : 20.13
+FILE         : policy_enforcement_point.py
+ROLE         : PEP — Point d'application des politiques (Zero Trust)
+
+AUTHOR       : Cognitive Products Lab
+CREATED      : 2026-05-23
+UPDATED      : 2026-05-23
+VERSION      : V1.0
+STATUS       : ACTIVE
+
+DESCRIPTION :
+Applique la décision du PDP. Dernier verrou avant exécution d'une action.
+════════════════════════════════════════════════════════════
+"""
+"""
+policy_enforcement_point.py
+PEP — Policy Enforcement Point pour ALFRED.
+
+Applique la décision du PDP (Policy Decision Point).
+Dans l'architecture Zero Trust :
+    PDP (decide_access) → décide
+    PEP (enforce_decision) → applique
+
+Le PEP est le dernier verrou avant l'exécution d'une action.
+"""
 
 from src.security.security_logger import log_event
 
@@ -19,8 +34,11 @@ from src.security.security_logger import log_event
 # Décisions reconnues
 # ─────────────────────────────────────────────────────────
 
-_ALLOW_DECISIONS = {"ALLOW"}
-_DENY_DECISIONS  = {"DENY", "DENY_INPUT", "DENY_THREAT", "DENY_DEVICE", "DENY_PERMISSION"}
+_ALLOW_DECISIONS  = {"ALLOW"}
+_DENY_DECISIONS   = {
+    "DENY", "DENY_INPUT", "DENY_THREAT", "DENY_DEVICE",
+    "DENY_PERMISSION", "DENY_POLICY", "DENY_RISK", "DENY_MFA",
+}
 _REVIEW_DECISIONS = {"REVIEW", "PENDING"}
 
 
@@ -81,6 +99,9 @@ def explain_decision(decision: str) -> str:
         "DENY_THREAT":      "Menace détectée dans la requête.",
         "DENY_DEVICE":      "Appareil non reconnu ou non approuvé.",
         "DENY_PERMISSION":  "Permission insuffisante pour ce rôle.",
+        "DENY_POLICY":      "Accès refusé — sensibilité de la ressource trop élevée pour ce rôle.",
+        "DENY_RISK":        "Accès refusé — score de risque trop élevé.",
+        "DENY_MFA":         "Authentification multi-facteurs requise et non vérifiée.",
         "REVIEW":           "Décision en attente de revue manuelle.",
         "PENDING":          "Décision non encore rendue.",
     }

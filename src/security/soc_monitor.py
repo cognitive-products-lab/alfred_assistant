@@ -156,6 +156,22 @@ def run_soc_cycle() -> dict[str, Any]:
         log_event(f"SOC — erreur API security : {exc}", "ERROR")
         api_status = {}
 
+    # --- Analyse de risques EBIOS RM ---
+    try:
+        from src.security.risk_engine import build_risk_matrix
+        risk_matrix = build_risk_matrix(adjust_for_posture=True)
+        critical_risks = risk_matrix["by_level"].get("CRITICAL", 0) + risk_matrix["by_level"].get("CRITIQUE", 0)
+        if critical_risks > 0:
+            soc_score += critical_risks * 20
+            alerts.append({
+                "source":  "risk_engine",
+                "level":   "HIGH",
+                "message": f"{critical_risks} risque(s) résiduel(s) CRITIQUE — voir matrice EBIOS",
+            })
+    except Exception as exc:
+        log_event(f"SOC — erreur risk_engine : {exc}", "ERROR")
+        risk_matrix = {}
+
     overall_level = _classify_risk(soc_score)
 
     snapshot = {
@@ -173,8 +189,13 @@ def run_soc_cycle() -> dict[str, Any]:
             "total": len(incidents),
             "open_critical": len([i for i in incidents if i.get("level") == "CRITICAL" and i.get("status") in {"OPEN", "INVESTIGATING"}]),
         },
-        "network": net_status,
-        "api": api_status,
+        "network":     net_status,
+        "api":         api_status,
+        "risk_matrix": {
+            "global_level":    risk_matrix.get("global_level", "UNKNOWN"),
+            "critical_count":  risk_matrix.get("by_level", {}).get("CRITIQUE", 0),
+            "eleve_count":     risk_matrix.get("by_level", {}).get("ELEVE", 0),
+        } if risk_matrix else {},
     }
 
     with _snapshot_lock:
