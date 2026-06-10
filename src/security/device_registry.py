@@ -1,17 +1,28 @@
-# ============================================================
-# ALFRED — src/security/device_registry.py
-# Bloc 20.02 — Gestion des identités & accès
-#
-# 📚 NOTION EXAM :
-#   D51-1 — Capsule 4 : Zero Trust — vérification de l'appareil (device trust)
-#
-# 🎯 UTILITÉ ALFRED :
-#   Maintient la liste des device_id autorisés à se connecter à ALFRED ;
-#   local-first avec persistance JSON dans data/security/.
-#
-# 🔐 BLOC SÉCURITÉ :
-#   Zero Trust — l'appareil comme facteur d'authentification contextuel
-# ============================================================
+"""
+════════════════════════════════════════════════════════════
+PROJECT      : ALFRED
+BLOCK        : B20
+FUNCTION     : 20.08
+FILE         : device_registry.py
+ROLE         : Registre des appareils de confiance (local-first)
+
+AUTHOR       : Cognitive Products Lab
+CREATED      : 2026-05-23
+UPDATED      : 2026-05-23
+VERSION      : V1.0
+STATUS       : ACTIVE
+
+DESCRIPTION :
+Gère la liste des device_id autorisés. Stockage JSON dans data/security/trusted_devices.json.
+════════════════════════════════════════════════════════════
+"""
+"""
+device_registry.py
+Registre des appareils de confiance pour ALFRED.
+
+Gère la liste des device_id autorisés à se connecter.
+Local-first : stockage JSON dans data/security/trusted_devices.json.
+"""
 
 import json
 from datetime import datetime, timezone
@@ -44,6 +55,21 @@ def _save_registry(registry: dict) -> None:
         json.dumps(registry, indent=4, ensure_ascii=False),
         encoding="utf-8"
     )
+def list_devices(include_revoked: bool = False) -> dict:
+    """Retourne la liste des appareils pour le dashboard sécurité.
+
+    Args:
+        include_revoked: si True, retourne tous les appareils (y compris révoqués).
+                         si False (défaut), retourne uniquement les appareils de confiance.
+    """
+    if include_revoked:
+        return _load_registry()  # registre complet, révoqués inclus
+
+    return {
+        device_id: data
+        for device_id, data in _load_registry().items()
+        if data.get("trusted", False) is True
+    }
 
 
 # ─────────────────────────────────────────────────────────
@@ -138,33 +164,6 @@ def get_device_info(device_id: str) -> dict:
     return registry.get(device_id, {})
 
 
-def list_devices(include_revoked: bool = False) -> dict:
-    """
-    Retourne les appareils du registre.
-
-    Args:
-        include_revoked : si True, inclut les appareils révoqués.
-                          si False (défaut), retourne uniquement les appareils de confiance.
-    """
-    registry = _load_registry()
-    if include_revoked:
-        return dict(registry)
-    return {k: v for k, v in registry.items() if v.get("trusted", False)}
-
-
-def record_failed_attempt(device_id: str) -> None:
-    """
-    Incrémente le compteur d'échecs d'authentification pour un appareil.
-    Silencieux si l'appareil n'existe pas.
-    """
-    registry = _load_registry()
-    if device_id not in registry:
-        return
-    registry[device_id]["failed_attempts"] = registry[device_id].get("failed_attempts", 0) + 1
-    _save_registry(registry)
-    log_event(f"Échec authentification enregistré : {device_id}", "WARNING")
-
-
 # ─────────────────────────────────────────────────────────
 # Initialisation : appareil local par défaut
 # ─────────────────────────────────────────────────────────
@@ -197,3 +196,11 @@ if __name__ == "__main__":
 
     revoke_device("local_pc")
     print(f"local_pc après révocation : {is_trusted_device('local_pc')}")
+
+
+def record_failed_attempt(device_id: str) -> None:
+    """Enregistre une tentative échouée pour un appareil."""
+    registry = _load_registry()
+    if device_id in registry:
+        registry[device_id]["failed_attempts"] = registry[device_id].get("failed_attempts", 0) + 1
+        _save_registry(registry)

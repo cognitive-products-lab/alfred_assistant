@@ -1,53 +1,152 @@
 """
 PROJECT      : ALFRED
-BLOCK        : B15
-FUNCTION     : 15.06
+BLOCK        : B15 -- Avatar & Interface
 FILE         : src/ui/ui_bridge.py
-ROLE         : Bridge thread-safe UI Kivy <-> pipeline ALFRED
+ROLE         : Bridge thread-safe entre l'interface Kivy et le pipeline conversationnel
 
 AUTHOR       : Cognitive Products Lab
-CREATED      : 2026-06-05
-UPDATED      : 2026-06-05
+CREATED      : 2026-05-15
 VERSION      : V1.0
-STATUS       : TESTED
+STATUS       : STABLE
 
 DESCRIPTION :
-Queue thread-safe pour la communication bidirectionnelle UI/pipeline.
+Module de communication bidirectionnel entre le thread Kivy (UI) et
+le thread daemon pipeline (main.py).
+
+  UI -> Pipeline : queue _input_queue  (TextInput -> wait_for_ui_input())
+  Pipeline -> UI : deja gere par set_ui_response() dans alfred_app.py
+
+Usage :
+  # Dans alfred_with_ui.py, avant de lancer le pipeline :
+  from src.ui.ui_bridge import activate
+  activate()
+
+  # Dans le pipeline (main.py) :
+  from src.ui.ui_bridge import is_active, wait_for_ui_input
+  if is_active():
+      text = wait_for_ui_input()   # bloquant jusqu'a saisie UI
+  else:
+      text = input("Toi : ").strip()
+
+  # Dans alfred_app.py (thread Kivy) :
+  from src.ui.ui_bridge import send_user_input, set_response_callback
+  send_user_input("Bonjour ALFRED")
 """
 
-"""Bridge thread-safe entre l'UI Kivy et le pipeline ALFRED.
-
-API publique :
-  activate()           — initialise la file (appelé avant le démarrage Kivy)
-  is_active() -> bool  — True si le bridge est actif
-  send_user_input(text) — UI -> pipeline : envoie un message utilisateur
-  wait_for_ui_input() -> str — pipeline : bloque jusqu'au prochain message
-"""
+from __future__ import annotations
 
 import queue
 import threading
+from typing import Callable, Optional
 
-_queue: queue.Queue[str] = queue.Queue()
-_active = False
-_lock = threading.Lock()
+# ============================================================
+# Etat global du bridge
+# ============================================================
 
+_input_queue:      queue.Queue[str]               = queue.Queue()
+_ui_active:        bool                           = False
+_response_cb:      Optional[Callable[[str], None]] = None
+_user_msg_cb:      Optional[Callable[[str], None]] = None
+_lock:             threading.Lock                 = threading.Lock()
+
+
+# ============================================================
+# Activation / desactivation
+# ============================================================
 
 def activate() -> None:
-    global _active
+    """Signale que l'interface Kivy est active. Appeler avant le pipeline."""
+    global _ui_active
     with _lock:
-        _active = True
+        _ui_active = True
+
+
+def deactivate() -> None:
+    """Desactive le bridge (utile pour les tests)."""
+    global _ui_active
+    with _lock:
+        _ui_active = False
+    # Debloquer le pipeline si en attente
+    _input_queue.put("")
 
 
 def is_active() -> bool:
+    """Retourne True si l'interface Kivy est active."""
     with _lock:
-        return _active
+        return _ui_active
 
+
+# ============================================================
+# UI -> Pipeline  (saisie utilisateur)
+# ============================================================
 
 def send_user_input(text: str) -> None:
-    """Appelé depuis le thread UI pour transmettre l'input au pipeline."""
-    _queue.put(text)
+    """
+    Envoie le texte saisi dans l'interface Kivy vers le pipeline.
+    Appele depuis le thread Kivy.
+    """
+    stripped = text.strip()
+    if stripped:
+        # Notifie l'UI que le message est en route (affichage immediat)
+        if _user_msg_cb:
+            _user_msg_cb(stripped)
+        _input_queue.put(stripped)
 
 
-def wait_for_ui_input(timeout: float | None = None) -> str:
-    """Bloque le thread pipeline jusqu'à réception d'un message UI."""
-    return _queue.get(timeout=timeout)
+def wait_for_ui_input() -> str:
+    """
+    Attend et retourne le prochain message saisi dans l'UI.
+    Bloquant. Appele depuis le thread pipeline (daemon).
+    Retourne "" si le bridge est desactive.
+    """
+    return _input_queue.get()
+
+
+def drain_input_queue() -> None:
+    """Vide la file d'entree (utile au reset ou en fin de session)."""
+    while not _input_queue.empty():
+        try:
+            _input_queue.get_nowait()
+        except queue.Empty:
+            break
+
+
+# ============================================================
+# Pipeline -> UI  (callbacks optionnels)
+# ============================================================
+
+def set_response_callback(cb: Callable[[str], None]) -> None:
+    """
+    Enregistre un callback appele quand une reponse ALFRED est disponible.
+    (Alternative / complement a set_ui_response() dans alfred_app.py)
+    """
+    global _response_cb
+    _response_cb = cb
+
+
+def set_user_message_callback(cb: Callable[[str], None]) -> None:
+    """
+    Enregistre un callback appele quand l'utilisateur envoie un message.
+    Permet d'afficher le message cote UI avant la reponse.
+    """
+    global _user_msg_cb
+    _user_msg_cb = cb
+
+
+def notify_response(text: str) -> None:
+    """Notifie l'UI qu'une reponse est disponible (via callback si enregistre)."""
+    if _response_cb:
+        _response_cb(text)
+
+
+# ============================================================
+# Statut debug
+# ============================================================
+
+def status() -> dict:
+    return {
+        "ui_active":    is_active(),
+        "queue_size":   _input_queue.qsize(),
+        "has_resp_cb":  _response_cb is not None,
+        "has_msg_cb":   _user_msg_cb is not None,
+    }

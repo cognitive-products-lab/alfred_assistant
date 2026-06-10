@@ -1,16 +1,30 @@
+"""
+PROJECT      : ALFRED
+BLOCK        : B03
+FUNCTION     : XX.XX
+FILE         : wellbeing_tracker.py
+ROLE         : Émotions & Régulation — Bloc 03
+
+AUTHOR       : Cognitive Products Lab
+CREATED      : 2026-05-10
+P26-05-12
+VERSION      : V1.0
+STATUS       : TESTED
+
+DESCRIPTION :
+Détection émotions, machine à états modes, protection, bien-être — ALFRED B03.
+"""
+
 # ============================================================
 # ALFRED — src/regulation/wellbeing_tracker.py
-# Bloc 03.05 — Gestion relationnelle
+# Bloc 03.05 — Suivi bien-être, énergie & fatigue
 #
-# 📚 NOTION EXAM :
-#   D31-3 — Capsule 3 : Suivi bien-être, énergie et état de flux
-#
-# 🎯 UTILITÉ ALFRED :
-#   Détecte la fatigue et le mode low-energy, identifie l'état de flux,
-#   adapte la proactivité et suit la courbe d'énergie journalière.
-#
-# 🏗️ DOMAINE :
-#   Émotions & adaptation — wellbeing, fatigue, energy tracking V2
+# Fonctions couvertes :
+#   03.05.001 Détection fatigue (texte)         ✅ V1/V2
+#   03.05.002 Mode low-energy                   ✅ V1/V2
+#   03.05.003 Détection état flow               ✅ V2
+#   03.05.004 Adaptation proactivité            ✅ V2
+#   03.05.005 Suivi courbe énergie journée      ✅ V2
 # ============================================================
 
 import json
@@ -19,9 +33,10 @@ from pathlib import Path
 from dataclasses import dataclass, field
 
 from src.security.security_logger import log_event
+from paths import DATA_MEMORY
 
 # ── Stockage ──────────────────────────────────────────────
-_WELLBEING_FILE = Path("data/memory/wellbeing_log.json")
+_WELLBEING_FILE = DATA_MEMORY / "wellbeing_log.json"
 _WELLBEING_FILE.parent.mkdir(parents=True, exist_ok=True)
 
 

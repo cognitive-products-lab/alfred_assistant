@@ -1,18 +1,21 @@
-# ============================================================
-# ALFRED — src/security/permission_manager.py
-# Bloc 20.04 — Contrôle RBAC & permissions
-#
-# 📚 NOTION EXAM :
-#   D41-2 — Capsule 2 : Matrice d'autorisations et contrôle d'accès RBAC
-#
-# 🎯 UTILITÉ ALFRED :
-#   Mappe chaque rôle sur la liste de ses permissions autorisées
-#   (READ_MEMORY, WRITE_MEMORY, DELETE_DATA, EXPORT_DATA, etc.).
-#
-# 🔐 BLOC SÉCURITÉ :
-#   RBAC (Role-Based Access Control) — autorisation explicite par rôle
-# ============================================================
+"""
+════════════════════════════════════════════════════════════
+PROJECT      : ALFRED
+BLOCK        : B20
+FUNCTION     : 20.01
+FILE         : permission_manager.py
+ROLE         : Table des permissions par rôle (RBAC)
 
+AUTHOR       : Cognitive Products Lab
+CREATED      : 2026-05-23
+UPDATED      : 2026-05-23
+VERSION      : V1.0
+STATUS       : ACTIVE
+
+DESCRIPTION :
+Définit la matrice de permissions OWNER/ADMIN/USER/GUEST/SERVICE/AI_MODULE/EMERGENCY.
+════════════════════════════════════════════════════════════
+"""
 PERMISSIONS = {
     "OWNER": [
         "READ_MEMORY",
@@ -53,40 +56,59 @@ def get_permissions(role: str) -> list[str]:
     """Retourne les permissions associées à un rôle."""
     return PERMISSIONS.get(role, [])
 
-
 def list_permissions() -> dict:
     """Retourne toutes les permissions par rôle."""
     return PERMISSIONS.copy()
 
 
-def summarize_permissions() -> dict:
-    """
-    Retourne un résumé public de la matrice RBAC.
-    Utilisé par le dashboard de sécurité.
-
-    Returns:
-        dict : {
-            "roles_count": int,
-            "permissions_total": int,
-            "unique_permissions_count": int,
-            "owner_permissions_count": int,
-            "admin_permissions_count": int,
-            "guest_permissions_count": int,
-            "matrix": { role: [permissions] }
-        }
-    """
-    all_perms = set()
-    total = 0
+def all_permissions() -> list[str]:
+    """Retourne la liste dédupliquée de toutes les permissions définies."""
+    seen: set[str] = set()
+    result: list[str] = []
     for perms in PERMISSIONS.values():
-        all_perms.update(perms)
-        total += len(perms)
+        for p in perms:
+            if p not in seen:
+                seen.add(p)
+                result.append(p)
+    return result
 
+def summarize_permissions() -> dict:
+    """Synthèse des permissions pour le dashboard sécurité."""
+    permissions = list_permissions()
+    unique = all_permissions()
     return {
-        "roles_count":              len(PERMISSIONS),
-        "permissions_total":        total,
-        "unique_permissions_count": len(all_perms),
-        "owner_permissions_count":  len(PERMISSIONS.get("OWNER", [])),
-        "admin_permissions_count":  len(PERMISSIONS.get("ADMIN", [])),
-        "guest_permissions_count":  len(PERMISSIONS.get("GUEST", [])),
-        "matrix":                   PERMISSIONS.copy(),
+        "roles_count": len(permissions),
+        "permissions_total": sum(len(v) for v in permissions.values()),
+        "unique_permissions_count": len(unique),
+        "matrix": permissions,
     }
+
+
+def permission_exists(permission: str) -> bool:
+    """Retourne True si la permission est définie dans au moins un rôle."""
+    return permission in all_permissions()
+
+
+def role_has_permission(role: str, permission: str) -> bool:
+    """Alias de has_access sans dépendance circulaire (insensible à la casse)."""
+    return normalize_permission(permission) in get_permissions(normalize_role(role))
+
+
+def add_permission_to_role(role: str, permission: str) -> bool:
+    """Ajoute une permission à un rôle existant en mémoire. Retourne True si ajouté."""
+    if role not in PERMISSIONS:
+        return False
+    if permission not in PERMISSIONS[role]:
+        PERMISSIONS[role].append(permission)
+    return True
+
+
+def normalize_permission(permission: str) -> str:
+    """Normalise une permission en majuscules."""
+    return permission.strip().upper()
+
+
+def normalize_role(role: str) -> str:
+    """Normalise un rôle en majuscules. Retourne GUEST si vide ou inconnu."""
+    normalized = role.strip().upper()
+    return normalized if normalized in PERMISSIONS else "GUEST"
