@@ -203,7 +203,6 @@ class WebcamWidget(Widget):
         w, h = fsize
         if self._texture is None or self._texture.size != (w, h):
             self._texture = Texture.create(size=(w, h), colorfmt="rgb")
-            self._texture.flip_vertical = False
 
         self._texture.blit_buffer(data, colorfmt="rgb", bufferfmt="ubyte")
         self._vid_rect.texture = self._texture
