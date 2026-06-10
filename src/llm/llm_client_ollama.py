@@ -3,16 +3,18 @@ PROJECT      : ALFRED
 BLOCK        : B01
 FUNCTION     : XX.XX
 FILE         : llm_client_ollama.py
-ROLE         : TO_DEFINE
+ROLE         : Client LLM Ollama (streaming NDJSON + profils modeles)
 
 AUTHOR       : Cognitive Products Lab
 CREATED      : 2026-05-10
-P26-05-12
-VERSION      : V1.0
-STATUS       : STABLE
+UPDATED      : 2026-06-10
+VERSION      : V1.1
+STATUS       : TO_TEST
 
 DESCRIPTION :
-TO_COMPLETE
+Restauration du streaming reel (on_sentence par phrase) apres incident de
+perte de donnees. A re-valider en conditions reelles (test_reel) avant de
+repasser en STABLE.
 """
 
 """

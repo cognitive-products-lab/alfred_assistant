@@ -3,16 +3,18 @@ PROJECT      : ALFRED
 BLOCK        : B01
 FUNCTION     : XX.XX
 FILE         : tts_piper.py
-ROLE         : TO_DEFINE
+ROLE         : Synthese vocale Piper (lecture WAV + lissage audio)
 
 AUTHOR       : Cognitive Products Lab
 CREATED      : 2026-05-10
-P26-05-12
-VERSION      : V1.0
-STATUS       : STABLE
+UPDATED      : 2026-06-10
+VERSION      : V1.1
+STATUS       : TO_TEST
 
 DESCRIPTION :
-TO_COMPLETE
+Ajout d'un fondu d'entree/sortie (~5ms) sur chaque buffer audio pour
+supprimer le grésillement entre phrases en streaming. A re-valider en
+conditions reelles avant de repasser en STABLE.
 """
 
 # ============================================================
