@@ -35,9 +35,12 @@ from pathlib import Path
 from typing import Any
 
 from src.security.security_logger import log_event
+from paths import PATHS
 
 # ── Chemins données ───────────────────────────────────────
-_DATA_DIR      = Path("data/memory")
+# Ancré sur la racine du projet (paths.py, basé sur __file__) — ne dépend pas
+# du répertoire de travail courant au lancement de main.py.
+_DATA_DIR      = PATHS.data_memory
 _SESSION_FILE  = _DATA_DIR / "current_session.json"
 _DATA_DIR.mkdir(parents=True, exist_ok=True)
 
