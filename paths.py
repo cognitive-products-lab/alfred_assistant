@@ -30,16 +30,21 @@ SRC_V2          = SRC_DIR / "v2"
 SRC_V2PP        = SRC_DIR / "v2pp"
 SRC_V3          = SRC_DIR / "v3"
 SRC_V4          = SRC_DIR / "v4"
+SRC_REGULATION  = SRC_DIR / "regulation"
+SRC_HEALTH      = SRC_DIR / "health"
 
 
 # ── Configuration ─────────────────────────────────────────
-CONFIG_DIR      = BASE_DIR / "config"
-CONFIG_SECURITY = CONFIG_DIR / "security"
-CONFIG_V1       = CONFIG_DIR / "v1"
-CONFIG_V2       = CONFIG_DIR / "v2"
-CONFIG_V2PP     = CONFIG_DIR / "v2pp"
-CONFIG_V3       = CONFIG_DIR / "v3"
-CONFIG_V4       = CONFIG_DIR / "v4"
+CONFIG_DIR           = BASE_DIR / "config"
+CONFIG_SECURITY      = CONFIG_DIR / "security"
+CONFIG_V1            = CONFIG_DIR / "v1"
+CONFIG_V2            = CONFIG_DIR / "v2"
+CONFIG_V2PP          = CONFIG_DIR / "v2pp"
+CONFIG_V3            = CONFIG_DIR / "v3"
+CONFIG_V4            = CONFIG_DIR / "v4"
+CONFIG_REGULATION    = CONFIG_DIR / "regulation"
+CONFIG_HEALTH        = CONFIG_DIR / "health"
+CONFIG_QUESTIONNAIRE = CONFIG_DIR / "questionnaire"
 
 
 # ── Données ───────────────────────────────────────────────
@@ -54,6 +59,7 @@ DATA_V2         = DATA_DIR / "v2"
 DATA_V2PP       = DATA_DIR / "v2pp"
 DATA_V3         = DATA_DIR / "v3"
 DATA_V4         = DATA_DIR / "v4"
+DATA_HEALTH     = DATA_DIR / "health"
 
 
 # ── Knowledges ────────────────────────────────────────────
@@ -132,13 +138,18 @@ class _Paths:
     src_v2pp        = SRC_V2PP
     src_v3          = SRC_V3
     src_v4          = SRC_V4
+    src_regulation  = SRC_REGULATION
+    src_health      = SRC_HEALTH
 
     # Versions config
-    config_v1       = CONFIG_V1
-    config_v2       = CONFIG_V2
-    config_v2pp     = CONFIG_V2PP
-    config_v3       = CONFIG_V3
-    config_v4       = CONFIG_V4
+    config_v1            = CONFIG_V1
+    config_v2            = CONFIG_V2
+    config_v2pp          = CONFIG_V2PP
+    config_v3            = CONFIG_V3
+    config_v4            = CONFIG_V4
+    config_regulation    = CONFIG_REGULATION
+    config_health        = CONFIG_HEALTH
+    config_questionnaire = CONFIG_QUESTIONNAIRE
 
     # Versions data
     data_v1         = DATA_V1
@@ -146,6 +157,7 @@ class _Paths:
     data_v2pp       = DATA_V2PP
     data_v3         = DATA_V3
     data_v4         = DATA_V4
+    data_health     = DATA_HEALTH
 
     # Mémoire
     data_memory     = DATA_MEMORY
@@ -208,8 +220,9 @@ def ensure_dirs():
     dirs = [
         SRC_SECURITY,
         CONFIG_SECURITY, CONFIG_V1, CONFIG_V2, CONFIG_V2PP, CONFIG_V3, CONFIG_V4,
+        CONFIG_REGULATION, CONFIG_HEALTH, CONFIG_QUESTIONNAIRE,
         DATA_SECURITY, DATA_MEMORY, DATA_PROFILE, DATA_ACTIONS, DATA_CONTEXT,
-        DATA_V1, DATA_V2, DATA_V2PP, DATA_V3, DATA_V4,
+        DATA_V1, DATA_V2, DATA_V2PP, DATA_V3, DATA_V4, DATA_HEALTH,
         KNOWLEDGE_HUMAN, KNOWLEDGE_PROFESSIONAL, KNOWLEDGE_LIFESTYLE,
         LOGS_DIR, ASSETS_AVATAR, ASSETS_AUDIO,
         AUTH_DIR, SPEECH_DIR, TESTS_DIR,

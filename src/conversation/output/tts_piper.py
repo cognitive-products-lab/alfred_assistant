@@ -49,6 +49,32 @@ from pathlib import Path
 sd = None
 sf = None
 
+def _apply_fade(audio, samplerate: int, fade_ms: float = 5.0):
+    """Applique un fondu d'entrée/sortie linéaire de quelques ms.
+
+    Évite le "clic"/grésillement audible quand sd.play() est appelé en rafale
+    (une fois par phrase pendant le streaming) : sans fondu, chaque buffer
+    démarre/termine sur une discontinuité d'amplitude brutale.
+    """
+    try:
+        import numpy as _np
+        n_fade = int(samplerate * fade_ms / 1000.0)
+        if n_fade <= 0 or len(audio) <= 2 * n_fade:
+            return audio
+        fade_in  = _np.linspace(0.0, 1.0, n_fade, dtype=audio.dtype)
+        fade_out = _np.linspace(1.0, 0.0, n_fade, dtype=audio.dtype)
+        audio = audio.copy()
+        if audio.ndim == 1:
+            audio[:n_fade]  *= fade_in
+            audio[-n_fade:] *= fade_out
+        else:
+            audio[:n_fade, :]  *= fade_in[:, None]
+            audio[-n_fade:, :] *= fade_out[:, None]
+        return audio
+    except Exception:
+        return audio
+
+
 def _ensure_audio_libs() -> bool:
     """Charge sounddevice et soundfile a la premiere utilisation."""
     global sd, sf
@@ -415,6 +441,10 @@ class PiperTTS:
             import soundfile as sf
 
             audio, samplerate = sf.read(tmp_wav_path, dtype="float32")
+
+            # Fondu d'entrée/sortie (~5 ms) — évite le "clic"/grésillement entendu
+            # entre chaque phrase quand sd.play() est appelé en rafale (streaming).
+            audio = _apply_fade(audio, samplerate)
 
             # Sortie sur le device par défaut système (ne pas forcer un index)
             # PaErrorCode -9998 = device 3 est input-only sur cette machine
