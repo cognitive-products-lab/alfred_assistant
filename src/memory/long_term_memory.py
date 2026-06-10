@@ -11,6 +11,9 @@
 #
 # 🏗️ DOMAINE :
 #   Mémoire & contexte — SQLite local-first, recherche sémantique V3
+#
+# UPDATED : 2026-06-10 — chemins _DB_DIR/_DB_PATH ancrés sur paths.PATHS
+# STATUS  : TO_TEST (fix bug cwd-relatif, à revalider en conditions réelles)
 # ============================================================
 
 import json

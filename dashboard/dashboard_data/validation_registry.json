@@ -12,8 +12,8 @@
     {
       "path": "src/main.py",
       "module": "B18",
-      "status": "validated",
-      "last_test": "2026-05-06",
+      "status": "tested",
+      "last_test": "2026-06-10",
       "test_level": "manual",
       "tests": [
         "lancement main.py",
@@ -22,7 +22,7 @@
         "question mémoire",
         "LLM Router Ollama"
       ],
-      "notes": "Promu comme fichier principal après tests fonctionnels."
+      "notes": "Promu comme fichier principal après tests fonctionnels. | Fix clean_for_tts (apostrophes typographiques) + header v1.2.1. À retester (session 2026-06-10) : streaming LLM, ton FR, mémoire (fix chemins paths.PATHS), TTS fade — non re-validé en conditions réelles."
     },
     {
       "path": "src/security/input_validator.py",
@@ -54,15 +54,15 @@
     {
       "path": "src/memory/long_term_memory.py",
       "module": "B02",
-      "status": "validated",
-      "last_test": "2026-05-06",
+      "status": "coded",
+      "last_test": "2026-06-10",
       "test_level": "manual",
       "tests": [
         "commande memoire_ltm",
         "sauvegarde échange SQLite",
         "lecture échanges récents"
       ],
-      "notes": "Mémoire long terme SQLite testée dans le pipeline principal."
+      "notes": "Mémoire long terme SQLite testée dans le pipeline principal. | Chemins ancrés sur paths.PATHS (fix bug cwd-relatif). À retester (session 2026-06-10) : streaming LLM, ton FR, mémoire (fix chemins paths.PATHS), TTS fade — non re-validé en conditions réelles."
     },
     {
       "path": "src/conversation/input/stt_whisper.py",
@@ -229,27 +229,27 @@
     {
       "path": "src/core/response_generator.py",
       "module": "GLOBAL",
-      "status": "validated",
-      "last_test": "2026-05-13",
+      "status": "coded",
+      "last_test": "2026-06-10",
       "test_level": "manual",
       "tests": [
         "knowledge_block injecte dans system prompt",
         "marqueur forced_response corrige"
       ],
-      "notes": "V2.2 — knowledge_context dans system prompt + fix marqueur question utilisateur."
+      "notes": "V2.2 — knowledge_context dans system prompt + fix marqueur question utilisateur. | Tutoiement renforcé, qualité FR, anti-faux-souvenirs. À retester (session 2026-06-10) : streaming LLM, ton FR, mémoire (fix chemins paths.PATHS), TTS fade — non re-validé en conditions réelles."
     },
     {
       "path": "src/llm/llm_client_ollama.py",
       "module": "B01",
-      "status": "validated",
-      "last_test": "2026-05-13",
+      "status": "coded",
+      "last_test": "2026-06-10",
       "test_level": "manual",
       "tests": [
         "profils mistral:7b et phi3:mini charges",
         "num_ctx transmis",
         "surcharge manuelle OK"
       ],
-      "notes": "MODEL_PROFILES — mistral:7b recommande pour ALFRED FR."
+      "notes": "MODEL_PROFILES — mistral:7b recommande pour ALFRED FR. | Restauration streaming réel (on_sentence par phrase). À retester (session 2026-06-10) : streaming LLM, ton FR, mémoire (fix chemins paths.PATHS), TTS fade — non re-validé en conditions réelles."
     },
     {
       "path": "knowledges/professional/iot/rtsp_stream_management.json",
@@ -960,9 +960,9 @@
   },
   "src/main.py": {
     "status": "tested",
-    "last_update": "2026-05-10",
+    "last_update": "2026-06-10",
     "test_level": "manual",
-    "notes": "Main launch validated manually",
+    "notes": "Fix clean_for_tts (apostrophes typographiques) + header v1.2.1. À retester (session 2026-06-10) : streaming LLM, ton FR, mémoire (fix chemins paths.PATHS), TTS fade — non re-validé en conditions réelles.",
     "exists": true
   },
   "src/README.md": {
@@ -1386,10 +1386,10 @@
     "notes": "Auto-detected by status_manager.py"
   },
   "src/core/response_generator.py": {
-    "status": "tested",
-    "last_update": "2026-05-10",
+    "status": "coded",
+    "last_update": "2026-06-10",
     "test_level": "manual",
-    "notes": "Response generation tested in main pipeline",
+    "notes": "Tutoiement renforcé, qualité FR, anti-faux-souvenirs. À retester (session 2026-06-10) : streaming LLM, ton FR, mémoire (fix chemins paths.PATHS), TTS fade — non re-validé en conditions réelles.",
     "exists": true
   },
   "src/core/__init__.py": {
@@ -1454,10 +1454,10 @@
     "notes": "Auto-detected by status_manager.py"
   },
   "src/llm/llm_client_ollama.py": {
-    "status": "partial",
-    "last_update": "2026-05-10",
+    "status": "coded",
+    "last_update": "2026-06-10",
     "test_level": "none",
-    "notes": "Auto-detected by status_manager.py"
+    "notes": "Restauration streaming réel (on_sentence par phrase). À retester (session 2026-06-10) : streaming LLM, ton FR, mémoire (fix chemins paths.PATHS), TTS fade — non re-validé en conditions réelles."
   },
   "src/llm/llm_client_openai.py": {
     "status": "partial",
@@ -1478,16 +1478,16 @@
     "notes": "Auto-detected by status_manager.py"
   },
   "src/memory/episodic_memory.py": {
-    "status": "validated",
-    "last_update": "2026-05-12",
+    "status": "coded",
+    "last_update": "2026-06-10",
     "test_level": "none",
-    "notes": "Tests 100% passants — validé session B02/B03 2026-05-12"
+    "notes": "Chemins ancrés sur paths.PATHS (fix bug cwd-relatif). À retester (session 2026-06-10) : streaming LLM, ton FR, mémoire (fix chemins paths.PATHS), TTS fade — non re-validé en conditions réelles."
   },
   "src/memory/long_term_memory.py": {
-    "status": "validated",
-    "last_update": "2026-05-12",
+    "status": "coded",
+    "last_update": "2026-06-10",
     "test_level": "manual",
-    "notes": "B02: LTM SQLite — get_recent_memories() actif dans build_response(). Validé session B02.",
+    "notes": "Chemins ancrés sur paths.PATHS (fix bug cwd-relatif). À retester (session 2026-06-10) : streaming LLM, ton FR, mémoire (fix chemins paths.PATHS), TTS fade — non re-validé en conditions réelles.",
     "exists": true
   },
   "src/memory/memory_answer_engine.py": {
@@ -1511,10 +1511,10 @@
     "notes": "Tests 100% passants — validé session B02/B03 2026-05-12"
   },
   "src/memory/memory_manager.py": {
-    "status": "validated",
-    "last_update": "2026-05-12",
+    "status": "coded",
+    "last_update": "2026-06-10",
     "test_level": "manual",
-    "notes": "B02: session history manager — utilisé conjointement avec MemoryEngine. Headers STABLE.",
+    "notes": "Chemins ancrés sur paths.PATHS (fix bug cwd-relatif). À retester (session 2026-06-10) : streaming LLM, ton FR, mémoire (fix chemins paths.PATHS), TTS fade — non re-validé en conditions réelles.",
     "exists": true
   },
   "src/memory/rag_stub.py": {
@@ -2026,10 +2026,10 @@
     "notes": "Auto-detected by status_manager.py"
   },
   "src/conversation/output/tts_piper.py": {
-    "status": "tested",
-    "last_update": "2026-05-10",
+    "status": "coded",
+    "last_update": "2026-06-10",
     "test_level": "manual",
-    "notes": "Piper TTS output tested manually",
+    "notes": "Ajout fondu audio anti-grésillement (_apply_fade). À retester (session 2026-06-10) : streaming LLM, ton FR, mémoire (fix chemins paths.PATHS), TTS fade — non re-validé en conditions réelles.",
     "exists": true
   },
   "src/conversation/output/__init__.py": {
@@ -2106,9 +2106,9 @@
   },
   "knowledges/core/system_rules.json": {
     "status": "coded",
-    "last_update": "2026-05-10",
+    "last_update": "2026-06-10",
     "test_level": "none",
-    "notes": "Auto-detected by status_manager.py"
+    "notes": "Ajout INT-007 + bannissement vous/votre/obséder. À retester (session 2026-06-10) : streaming LLM, ton FR, mémoire (fix chemins paths.PATHS), TTS fade — non re-validé en conditions réelles."
   },
   "knowledges/core/user_adaptation.json": {
     "status": "coded",
