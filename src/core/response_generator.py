@@ -3,16 +3,18 @@ PROJECT      : ALFRED
 BLOCK        : GLOBAL
 FUNCTION     : XX.XX
 FILE         : response_generator.py
-ROLE         : TO_DEFINE
+ROLE         : Construction du prompt systeme + post-traitement reponse LLM
 
 AUTHOR       : Cognitive Products Lab
 CREATED      : 2026-05-10
-UPDATED      : 2026-06-03
-VERSION      : V1.0
-STATUS       : STABLE
+UPDATED      : 2026-06-10
+VERSION      : V1.1
+STATUS       : TO_TEST
 
 DESCRIPTION :
-TO_COMPLETE
+Renforcement tutoiement obligatoire, qualite francais (orthographe/
+grammaire/conjugaison) et regle anti-faux souvenirs (memory_block).
+A re-valider en conditions reelles avant de repasser en STABLE.
 """
 
 # -*- coding: utf-8 -*-

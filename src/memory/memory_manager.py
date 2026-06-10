@@ -7,12 +7,14 @@ ROLE         : Gestionnaire mémoire session JSON — historique dialogue et con
 
 AUTHOR       : Cognitive Products Lab
 CREATED      : 2026-06-03
-UPDATED      : 2026-06-05
-VERSION      : V1.1
-STATUS       : TESTED
+UPDATED      : 2026-06-10
+VERSION      : V1.2
+STATUS       : TO_TEST
 
 DESCRIPTION :
-Gestionnaire mémoire session JSON — historique dialogue et contexte actif
+Gestionnaire mémoire session JSON — historique dialogue et contexte actif.
+Chemins ancrés sur paths.PATHS (fix bug cwd-relatif). A re-valider en
+conditions réelles avant de repasser en TESTED.
 """
 # ============================================================
 # ALFRED — src/memory/memory_manager.py
