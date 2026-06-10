@@ -1,25 +1,40 @@
-# ============================================================
-# ALFRED — src/security/incident_manager.py
-# Bloc 20.11 — Réponse à incident
-#
-# 📚 NOTION EXAM :
-#   D42-3 — Capsule 10 : Gestion des incidents de sécurité (IRP / CSIRT)
-#
-# 🎯 UTILITÉ ALFRED :
-#   Enregistre et trace les incidents dans un registre JSON persistant
-#   et horodaté pour investigation et escalade.
-#
-# 🔐 BLOC SÉCURITÉ :
-#   Réponse aux incidents — registre structuré OPEN/CLOSED pour le CSIRT
-# ============================================================
+"""
+════════════════════════════════════════════════════════════
+PROJECT      : ALFRED
+BLOCK        : B20
+FUNCTION     : 20.09
+FILE         : incident_manager.py
+ROLE         : Registre et gestion des incidents de sécurité
 
+AUTHOR       : Cognitive Products Lab
+CREATED      : 2026-05-23
+UPDATED      : 2026-05-23
+VERSION      : V1.0
+STATUS       : ACTIVE
+
+DESCRIPTION :
+Enregistre, liste et résume les incidents dans data/security/incident_register.json.
+════════════════════════════════════════════════════════════
+"""
 import json
+from collections import Counter
 from datetime import datetime, timezone
 from pathlib import Path
 from src.security.security_logger import log_event
 
 INCIDENT_FILE = Path("data/security/incident_register.json")
 INCIDENT_FILE.parent.mkdir(parents=True, exist_ok=True)
+
+
+def _load_incidents() -> list:
+    if not INCIDENT_FILE.exists():
+        return []
+    try:
+        data = json.loads(INCIDENT_FILE.read_text(encoding="utf-8"))
+        return data if isinstance(data, list) else []
+    except json.JSONDecodeError:
+        return []
+
 
 def register_incident(level: str, description: str, source: str = "unknown") -> None:
     """Enregistre un incident de sécurité."""
@@ -31,66 +46,36 @@ def register_incident(level: str, description: str, source: str = "unknown") -> 
         "status": "OPEN",
     }
 
-    incidents = []
-
-    if INCIDENT_FILE.exists():
-        try:
-            incidents = json.loads(INCIDENT_FILE.read_text(encoding="utf-8"))
-        except json.JSONDecodeError:
-            incidents = []
-
+    incidents = _load_incidents()
     incidents.append(incident)
     INCIDENT_FILE.write_text(json.dumps(incidents, indent=4, ensure_ascii=False), encoding="utf-8")
 
     log_event(f"Incident enregistré : {description}", level)
 
 
-def _load_incidents() -> list:
-    """Charge les incidents depuis le fichier JSON."""
-    if not INCIDENT_FILE.exists():
-        return []
-    try:
-        return json.loads(INCIDENT_FILE.read_text(encoding="utf-8"))
-    except (json.JSONDecodeError, OSError):
-        return []
-
-
 def list_incidents(status: str | None = None) -> list:
-    """Retourne la liste des incidents (anonymisée — sans source ni user_id).
-    status : 'OPEN' | 'CLOSED' | None (tous)
-    """
+    """Retourne les incidents enregistrés, avec filtre optionnel par statut."""
     incidents = _load_incidents()
-    if status:
-        incidents = [i for i in incidents if i.get("status") == status]
-    # Anonymisation : on supprime 'source' pour le dashboard public
+
+    if status is None:
+        return incidents
+
     return [
-        {
-            "timestamp": i.get("timestamp", ""),
-            "level":     i.get("level", "UNKNOWN"),
-            "status":    i.get("status", "OPEN"),
-            "description": i.get("description", "")[:120],  # tronqué
-        }
-        for i in incidents
+        incident for incident in incidents
+        if str(incident.get("status", "")).upper() == status.upper()
     ]
 
 
 def summarize_incidents() -> dict:
-    """Retourne un résumé anonymisé des incidents — pour le dashboard public."""
+    """Résumé statistique des incidents pour le dashboard."""
     incidents = _load_incidents()
-    total       = len(incidents)
-    open_count  = sum(1 for i in incidents if i.get("status") == "OPEN")
-    closed      = total - open_count
-    by_level: dict[str, int] = {}
-    open_critical = 0
-    for i in incidents:
-        lvl = i.get("level", "UNKNOWN")
-        by_level[lvl] = by_level.get(lvl, 0) + 1
-        if i.get("status") == "OPEN" and lvl in ("CRITICAL", "ERROR"):
-            open_critical += 1
+    levels = Counter(i.get("level", "UNKNOWN") for i in incidents)
+    open_critical = sum(
+        1 for i in incidents
+        if i.get("level") == "CRITICAL" and i.get("status") in {"OPEN", "INVESTIGATING"}
+    )
     return {
-        "total":          total,
-        "open":           open_count,
-        "closed":         closed,
-        "open_critical":  open_critical,
-        "by_level":       by_level,
+        "total": len(incidents),
+        "by_level": dict(levels),
+        "open_critical": open_critical,
     }
