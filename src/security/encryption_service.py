@@ -1,17 +1,31 @@
-# ============================================================
-# ALFRED — src/security/encryption_service.py
-# Bloc 20.05 — Chiffrement & protection des données
-#
-# 📚 NOTION EXAM :
-#   D52-1 — Capsule 9 : Chiffrement symétrique — Fernet / AES-128-CBC
-#
-# 🎯 UTILITÉ ALFRED :
-#   Chiffre et déchiffre les données sensibles localement via Fernet ;
-#   lit la clé depuis .env (FERNET_KEY) ou la génère automatiquement.
-#
-# 🔐 BLOC SÉCURITÉ :
-#   Chiffrement au repos (data at rest) — confidentialité des données persistées
-# ============================================================
+"""
+════════════════════════════════════════════════════════════
+PROJECT      : ALFRED
+BLOCK        : B20
+FUNCTION     : 20.06
+FILE         : encryption_service.py
+ROLE         : Service de chiffrement symétrique AES/Fernet
+
+AUTHOR       : Cognitive Products Lab
+CREATED      : 2026-05-23
+UPDATED      : 2026-05-23
+VERSION      : V1.0
+STATUS       : ACTIVE
+
+DESCRIPTION :
+Chiffrement et déchiffrement local via Fernet. Clé lue depuis .env (FERNET_KEY).
+════════════════════════════════════════════════════════════
+"""
+"""
+encryption_service.py
+Service de chiffrement local pour ALFRED.
+
+Utilise Fernet (cryptography) — chiffrement symétrique AES-128-CBC.
+La clé est stockée dans .env (FERNET_KEY) ou générée automatiquement.
+
+Pré-requis :
+    pip install cryptography
+"""
 
 import os
 from pathlib import Path
@@ -40,20 +54,20 @@ _KEY_FILE = Path(__file__).resolve().parents[2] / "data" / "security" / "fernet.
 
 def _load_or_generate_key() -> bytes:
     """
-    Charge la clé depuis .env (FERNET_KEY),
-    sinon depuis data/security/fernet.key,
-    sinon en génère une nouvelle et la persiste.
+    Priorité 1 : FERNET_KEY dans l'env — aucun fichier disque écrit ou lu (ISO 27001 A.10.2).
+    Priorité 2 : fichier local (fallback legacy / dev sans .env).
+    Priorité 3 : génération + persistance sur disque uniquement si pas d'env var.
     """
-    # Priorité 1 : variable d'environnement
+    # Priorité 1 : variable d'environnement (pas de fichier disque)
     env_key = os.getenv("FERNET_KEY")
     if env_key:
         return env_key.encode()
 
-    # Priorité 2 : fichier local
+    # Priorité 2 : fichier local (mode sans .env)
     if _KEY_FILE.exists():
         return _KEY_FILE.read_bytes().strip()
 
-    # Priorité 3 : génération + persistance
+    # Priorité 3 : génération + persistance uniquement si pas d'env var
     if Fernet is None:
         log_event("Impossible de générer une clé : cryptography absent", "ERROR")
         return b""
@@ -61,7 +75,10 @@ def _load_or_generate_key() -> bytes:
     new_key = Fernet.generate_key()
     _KEY_FILE.parent.mkdir(parents=True, exist_ok=True)
     _KEY_FILE.write_bytes(new_key)
-    log_event("Nouvelle clé Fernet générée et sauvegardée", "WARNING")
+    log_event(
+        "Clé Fernet générée sur disque. Déplacer vers FERNET_KEY=... dans .env puis supprimer ce fichier.",
+        "WARNING",
+    )
     return new_key
 
 

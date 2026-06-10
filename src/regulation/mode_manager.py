@@ -1,16 +1,39 @@
+"""
+PROJECT      : ALFRED
+BLOCK        : B03
+FUNCTION     : XX.XX
+FILE         : mode_manager.py
+ROLE         : Émotions & Régulation — Bloc 03
+
+AUTHOR       : Cognitive Products Lab
+CREATED      : 2026-05-10
+P26-05-12
+VERSION      : V1.0
+STATUS       : TESTED
+
+DESCRIPTION :
+Détection émotions, machine à états modes, protection, bien-être — ALFRED B03.
+"""
+
 # ============================================================
 # ALFRED — src/regulation/mode_manager.py
-# Bloc 03.02 — Adaptation comportementale
+# Bloc 03.02 / 03.03 — Machine à états des 4 modes dynamiques
 #
-# 📚 NOTION EXAM :
-#   D31-2 — Capsule 3 : Machine à états des modes comportementaux ALFRED
+# Fonctions couvertes :
+#   03.02.001 Adaptation ton & registre ALFRED   ✅ V2
+#   03.02.002 Réassurance & soutien émotionnel   ✅ V2
+#   03.02.003 Suggestion actions bien-être       ✅ V1/V2
+#   03.03.001 Transition douce entre états       ✅ V2
+#   03.03.002 Déclencheur changement mode        ✅ V2
+#   03.03.003 Log transitions                    ✅ V2
+#   03.03.004 Notification avatar (émotion)      ✅ V2 (hook)
+#   03.03.005 Cohérence ton / état global        ✅ V2
 #
-# 🎯 UTILITÉ ALFRED :
-#   Gère les 4 modes d'ALFRED (support, focus, challenge, complicité) —
-#   transitions douces, déclencheurs, logs et hooks avatar.
-#
-# 🏗️ DOMAINE :
-#   Émotions & adaptation — FSM des modes, cohérence ton / état global
+# Les 4 modes ALFRED (définis dans personality_core.json) :
+#   support     → présence rassurante, écoute, douceur
+#   focus       → clarté, efficacité, structuré
+#   challenge   → dynamique, assertif, motivant
+#   complicite  → détendu, naturel, complice
 # ============================================================
 
 from dataclasses import dataclass, field

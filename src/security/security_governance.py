@@ -195,6 +195,55 @@ class SecurityGovernance:
             "DONNÉES",
         )
 
+        # ── Urbanisation SSI (Phase 2) ───────────────────────────────────────
+        self._chk(
+            "Cartographie des actifs informationnels (asset_classifier)",
+            (_BASE / "src/security/asset_classifier.py").exists(),
+            "MEDIUM", "Créer src/security/asset_classifier.py — classification C1→C4",
+            "URBANISATION",
+        )
+        self._chk(
+            "Registre RGPD Art. 30 documenté (data_flow_mapper)",
+            (_BASE / "src/security/data_flow_mapper.py").exists(),
+            "HIGH", "Créer src/security/data_flow_mapper.py — registre activités traitement",
+            "URBANISATION",
+        )
+        self._chk(
+            "PSSI documentée (docs/security/PSSI.md)",
+            (_BASE / "docs/security/PSSI.md").exists(),
+            "MEDIUM", "Rédiger la Politique de Sécurité des SI",
+            "URBANISATION",
+        )
+
+        # ── Gestion des risques (Phase 3) ────────────────────────────────────
+        self._chk(
+            "Matrice de risques EBIOS RM (risk_engine)",
+            (_BASE / "src/security/risk_engine.py").exists(),
+            "HIGH", "Créer src/security/risk_engine.py — analyse EBIOS RM",
+            "RISQUES",
+        )
+
+        # ── PCA / Rotation clés (Phase 4) ────────────────────────────────────
+        self._chk(
+            "Planificateur rotation des clés (key_rotation_scheduler)",
+            (_BASE / "src/security/key_rotation_scheduler.py").exists(),
+            "HIGH", "Créer src/security/key_rotation_scheduler.py — rotation Fernet 90j",
+            "CRYPTOGRAPHIE",
+        )
+        self._chk(
+            "Plan de Continuité d'Activité (disaster_recovery)",
+            (_BASE / "src/security/disaster_recovery.py").exists(),
+            "HIGH", "Créer src/security/disaster_recovery.py — PCA/PRA + snapshots",
+            "RESILIENCE",
+        )
+        backup_dir = _BASE / "backup/security"
+        self._chk(
+            "Backups sécurisés présents",
+            backup_dir.exists() and any(backup_dir.iterdir()) if backup_dir.exists() else False,
+            "MEDIUM", "Créer des backups via backup_security.secure_backup()",
+            "RESILIENCE",
+        )
+
         return self._findings
 
     # ── Matrice de risques ────────────────────────────────────────────────────

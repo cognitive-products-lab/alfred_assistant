@@ -1,16 +1,38 @@
+"""
+PROJECT      : ALFRED
+BLOCK        : B03
+FUNCTION     : XX.XX
+FILE         : emotion_detector.py
+ROLE         : Émotions & Régulation — Bloc 03
+
+AUTHOR       : Cognitive Products Lab
+CREATED      : 2026-05-10
+P26-05-12
+VERSION      : V1.0
+STATUS       : TESTED
+
+DESCRIPTION :
+Détection émotions, machine à états modes, protection, bien-être — ALFRED B03.
+"""
+
+# -*- coding: utf-8 -*-
 # ============================================================
 # ALFRED — src/regulation/emotion_detector.py
-# Bloc 03.01 — Détection émotionnelle
+# Bloc 03.01 — Détection émotion
 #
-# 📚 NOTION EXAM :
-#   D31-1 — Capsule 3 : Détection d'états émotionnels par signaux textuels
+# Fonctions couvertes :
+#   03.01.001 Détection signaux textuels       ✅ V1/V2
+#   03.01.002 Classification état émotionnel   ✅ V2
+#   03.01.003 Score intensité émotionnelle     ✅ V2
+#   03.01.004 Détection via prosodie vocale    🔲 stub → V3
+#   03.01.005 Historique état émotionnel       ✅ V2
 #
-# 🎯 UTILITÉ ALFRED :
-#   Détecte l'état émotionnel de l'utilisateur via signaux textuels,
-#   classe l'émotion dominante et calcule un score d'intensité.
-#
-# 🏗️ DOMAINE :
-#   Émotions & adaptation — détection V2, prosodie vocale V3
+# CORRECTIONS V2.1 :
+#   - Fix bug sélection : le SCORE prime toujours sur la priorité.
+#     La priorité ne départage que les égalités à score > 0.
+#     → Supprime le biais systématique vers les émotions négatives.
+#   - Fix : score == 0 → toujours "neutral", jamais un résidu de priorité.
+#   - Encodage UTF-8 explicite.
 # ============================================================
 
 import re
