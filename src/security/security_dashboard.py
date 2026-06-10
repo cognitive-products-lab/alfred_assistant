@@ -45,11 +45,24 @@ except ImportError:
     pass
 
 from src.security.security_logger import log_event
+from paths import PATHS
 
-_AUDIT_FILE = Path("logs/security/audit_trail.jsonl")
-_INCIDENT_FILE = Path("data/security/incident_register.json")
-_SECURITY_LOG = Path("logs/security/security.log")
-_TRUSTED_DEVICES = Path("data/security/trusted_devices.json")
+_AUDIT_FILE = PATHS.logs / "security" / "audit_trail.jsonl"
+_INCIDENT_FILE = PATHS.data_security / "incident_register.json"
+_SECURITY_LOG = PATHS.logs / "security" / "security.log"
+_TRUSTED_DEVICES = PATHS.data_security / "trusted_devices.json"
+_FERNET_KEY = PATHS.data_security / "fernet.key"
+_RBAC_FILE = PATHS.config_security / "roles_permissions.json"
+_ZERO_TRUST_FILE = PATHS.config_security / "zero_trust_rules.json"
+_SECURITY_SETTINGS_FILE = PATHS.config_security / "security_settings.json"
+_AUDIT_RETENTION_FILE = PATHS.config_security / "audit_retention_policy.json"
+_AUTHENTICATOR_FILE = PATHS.src / "auth" / "authenticator.py"
+_RATE_LIMITER_FILE = PATHS.src_security / "rate_limiter.py"
+_MFA_MANAGER_FILE = PATHS.src_security / "mfa_manager.py"
+_INPUT_VALIDATOR_FILE = PATHS.src_security / "input_validator.py"
+_TESTS_SECURITY_DIR = PATHS.tests / "security"
+_USERS_INSTANCES_DIR = PATHS.data / "users" / "instances"
+_MEMORY_EPISODIC_DIR = PATHS.data_memory / "episodic"
 
 
 class SecurityDashboard:
@@ -169,11 +182,11 @@ class SecurityDashboard:
             deductions.append({"category": category, "reason": reason, "points": -points})
 
         # Chiffrement
-        if not Path("data/security/fernet.key").exists() and not os.getenv("FERNET_KEY"):
+        if not _FERNET_KEY.exists() and not os.getenv("FERNET_KEY"):
             deduct(20, "Clé Fernet manquante", "CHIFFREMENT")
 
         # RBAC
-        rbac = Path("config/security/roles_permissions.json")
+        rbac = _RBAC_FILE
         if rbac.exists():
             try:
                 if not json.loads(rbac.read_text()).get("roles"):
@@ -184,7 +197,7 @@ class SecurityDashboard:
             deduct(15, "Fichier RBAC absent", "AUTORISATION")
 
         # Zero Trust rules
-        zt = Path("config/security/zero_trust_rules.json")
+        zt = _ZERO_TRUST_FILE
         if zt.exists():
             try:
                 if not json.loads(zt.read_text()).get("rules"):
@@ -195,11 +208,11 @@ class SecurityDashboard:
             deduct(10, "Fichier Zero Trust absent", "POLITIQUE")
 
         # Authentification
-        if not Path("src/auth/authenticator.py").exists():
+        if not _AUTHENTICATOR_FILE.exists():
             deduct(20, "Module authentification absent", "AUTHENTIFICATION")
 
         # Rate limiter
-        if not Path("src/security/rate_limiter.py").exists():
+        if not _RATE_LIMITER_FILE.exists():
             deduct(10, "Rate limiter absent", "RÉSILIENCE")
 
         # Audit trail
@@ -228,7 +241,7 @@ class SecurityDashboard:
                            "status": "OK" if ok else "KO", "detail": detail})
 
         rbac: dict = {}
-        rbac_path = Path("config/security/roles_permissions.json")
+        rbac_path = _RBAC_FILE
         if rbac_path.exists():
             try:
                 rbac = json.loads(rbac_path.read_text(encoding="utf-8")).get("roles", {})
@@ -236,7 +249,7 @@ class SecurityDashboard:
                 pass
 
         mfa_global = False
-        settings_path = Path("config/security/security_settings.json")
+        settings_path = _SECURITY_SETTINGS_FILE
         if settings_path.exists():
             try:
                 cfg = json.loads(settings_path.read_text(encoding="utf-8"))
@@ -248,31 +261,31 @@ class SecurityDashboard:
                 pass
 
         tests_ok = (
-            Path("tests/security").exists()
-            and len(list(Path("tests/security").glob("test_*.py"))) >= 4
+            _TESTS_SECURITY_DIR.exists()
+            and len(list(_TESTS_SECURITY_DIR.glob("test_*.py"))) >= 4
         )
 
         chk("A.9.1",  "Politique de contrôle d'accès",
             bool(rbac), "RBAC 7 rôles — roles_permissions.json")
         chk("A.9.2",  "Gestion des identités",
-            Path("src/auth/authenticator.py").exists(), "bcrypt PIN — authenticator.py")
+            _AUTHENTICATOR_FILE.exists(), "bcrypt PIN — authenticator.py")
         chk("A.9.4",  "Authentification forte (MFA)",
-            mfa_global and Path("src/security/mfa_manager.py").exists(),
+            mfa_global and _MFA_MANAGER_FILE.exists(),
             "TOTP RFC 6238 — mfa_manager.py activé")
         chk("A.10.1", "Chiffrement des données",
             bool(os.getenv("FERNET_KEY")), "Fernet AES-128-CBC via variable d'env")
         chk("A.10.2", "Gestion des clés cryptographiques",
-            bool(os.getenv("FERNET_KEY")) and not Path("data/security/fernet.key").exists(),
+            bool(os.getenv("FERNET_KEY")) and not _FERNET_KEY.exists(),
             "Clé uniquement en .env — aucun fichier disque")
         chk("A.12.4", "Journalisation et audit",
             _AUDIT_FILE.exists(), "audit_trail.jsonl horodaté UTC")
         chk("A.12.6", "Gestion des vulnérabilités",
-            Path("src/security/input_validator.py").exists(),
+            _INPUT_VALIDATOR_FILE.exists(),
             "25 patterns d'injection — input_validator.py")
         chk("A.14.2", "Sécurité du développement",
             tests_ok, "137+ tests d'intrusion automatisés — pytest")
         chk("A.16.1", "Gestion des incidents",
-            Path("data/security/incident_register.json").exists(),
+            _INCIDENT_FILE.exists(),
             "incident_register.json — registre présent")
         chk("A.18.1", "Conformité réglementaire",
             True, "Architecture local-first — RGPD/GDPR")
@@ -295,7 +308,7 @@ class SecurityDashboard:
                            "status": "OK" if ok else "KO", "detail": detail})
 
         owner_perms: list = []
-        rbac_path = Path("config/security/roles_permissions.json")
+        rbac_path = _RBAC_FILE
         if rbac_path.exists():
             try:
                 roles = json.loads(rbac_path.read_text(encoding="utf-8")).get("roles", {})
@@ -305,14 +318,14 @@ class SecurityDashboard:
 
         fernet_ok  = bool(os.getenv("FERNET_KEY"))
         data_encrypted = any(
-            Path(p).exists()
-            for p in ["data/users/instances", "data/memory/episodic"]
+            p.exists()
+            for p in [_USERS_INSTANCES_DIR, _MEMORY_EPISODIC_DIR]
         )
 
         chk("Art. 5",  "Minimisation des données",
             True, "Données locales uniquement — aucune collecte cloud")
         chk("Art. 7",  "Consentement documenté",
-            Path("data/users/instances").exists(),
+            _USERS_INSTANCES_DIR.exists(),
             "privacy_and_consent dans profils utilisateurs")
         chk("Art. 17", "Droit à l'effacement",
             "DELETE_DATA" in owner_perms,
@@ -325,7 +338,7 @@ class SecurityDashboard:
         chk("Art. 32", "Sécurité du traitement",
             fernet_ok, "Chiffrement Fernet AES-128-CBC au repos")
         chk("Art. 33", "Notification des violations",
-            Path("data/security/incident_register.json").exists(),
+            _INCIDENT_FILE.exists(),
             "incident_register.json — registre des incidents")
         chk("Art. 44", "Interdiction transferts hors UE",
             True, "Traitement 100% local — aucun transfert externe")
@@ -349,29 +362,29 @@ class SecurityDashboard:
         # GDPR
         chk("Local-first (pas de cloud)", True, "Données stockées localement", "GDPR")
         chk("Chiffrement au repos",
-            Path("data/security/fernet.key").exists() or bool(os.getenv("FERNET_KEY")),
+            _FERNET_KEY.exists() or bool(os.getenv("FERNET_KEY")),
             "Clé Fernet disponible", "GDPR")
         chk("Audit trail", _AUDIT_FILE.exists(), "Journal d'audit présent", "GDPR")
         chk("Politique de rétention",
-            Path("config/security/audit_retention_policy.json").exists(),
+            _AUDIT_RETENTION_FILE.exists(),
             "Fichier de politique présent", "GDPR")
 
         # OWASP Top 10
         chk("A01 – Contrôle d'accès",
-            Path("config/security/roles_permissions.json").exists(),
+            _RBAC_FILE.exists(),
             "RBAC configuré", "OWASP-A01")
         chk("A03 – Injection (validation entrée)",
-            Path("src/security/input_validator.py").exists(),
+            _INPUT_VALIDATOR_FILE.exists(),
             "input_validator.py présent", "OWASP-A03")
         chk("A04 – Rate limiting",
-            Path("src/security/rate_limiter.py").exists(),
+            _RATE_LIMITER_FILE.exists(),
             "rate_limiter.py présent", "OWASP-A04")
         chk("A05 – Mauvaise configuration",
-            bool(json.loads(Path("config/security/roles_permissions.json").read_text()).get("roles"))
-            if Path("config/security/roles_permissions.json").exists() else False,
+            bool(json.loads(_RBAC_FILE.read_text()).get("roles"))
+            if _RBAC_FILE.exists() else False,
             "RBAC non vide", "OWASP-A05")
         chk("A07 – Identification/Authentification",
-            Path("src/auth/authenticator.py").exists(),
+            _AUTHENTICATOR_FILE.exists(),
             "authenticator.py présent", "OWASP-A07")
         chk("A09 – Logging et monitoring",
             _SECURITY_LOG.exists(),
