@@ -19,9 +19,12 @@ from pathlib import Path
 from typing import Any
 
 from src.security.security_logger import log_event
+from paths import PATHS
 
 # ── Stockage JSON (local-first) ───────────────────────────
-_EPISODE_FILE = Path("data/memory/episodes.json")
+# Ancré sur la racine du projet (paths.py, basé sur __file__) — ne dépend pas
+# du répertoire de travail courant au lancement de main.py.
+_EPISODE_FILE = PATHS.data_memory / "episodes.json"
 _EPISODE_FILE.parent.mkdir(parents=True, exist_ok=True)
 
 

@@ -324,7 +324,7 @@ def _load_user_profile_context() -> str:
 def clean_for_tts(text: str) -> str:
     replacements = {
         "**": "", "*": "",
-        "'": "'", "'": "'",
+        "’": "'", "‘": "'",
         """: '"', """: '"',
         "—": "-", "–": "-",
         "«": "", "»": "",
@@ -682,10 +682,19 @@ def init_components() -> dict[str, Any]:
     try:
         from paths import DATA_PROFILE
         pers_file = DATA_PROFILE / f"personality_{USER_ID}.json"
-        if not pers_file.exists():
+        components["_onboarding_pending"] = not pers_file.exists()
+        if components["_onboarding_pending"]:
             print("\n  [ALFRED] Premiere utilisation detectee.")
             print("  Pour personnaliser ALFRED, tapez 'onboarding' dans la conversation.")
-        components["_onboarding_pending"] = not pers_file.exists()
+            try:
+                from src.ui.alfred_app import set_ui_response
+                set_ui_response(
+                    "👋 Première utilisation détectée !\n"
+                    "Tape 'onboarding' pour me personnaliser "
+                    "(prénom, préférences, profil)."
+                )
+            except Exception:
+                pass
     except Exception:
         components["_onboarding_pending"] = False
 
