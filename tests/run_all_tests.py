@@ -47,7 +47,6 @@ TEST_GROUPS = {
         "tests/test_b18_knowledge.py",
         "tests/test_micro.py",
         "tests/test_pipeline.py",
-        "tests/test_pipeline_llm.py",
     ],
     "speech":      [
         "tests/test_tts_engine.py",
@@ -56,9 +55,12 @@ TEST_GROUPS = {
         "tests/test_stt.py",
         "tests/test_voice_loop.py",
     ],
+    "slow":        [
+        "tests/test_pipeline_llm.py",
+    ],
 }
 
-SLOW_GROUPS = {"speech"}
+SLOW_GROUPS = {"speech", "slow"}
 
 
 def _run_pytest(target: str) -> dict:
