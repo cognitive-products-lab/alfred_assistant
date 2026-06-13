@@ -1,40 +1,47 @@
 """
 PROJECT      : ALFRED
-BLOCK        : TESTS
-FUNCTION     : XX.XX
+BLOCK        : GLOBAL
+FUNCTION     : TESTS
 FILE         : tests/test_micro.py
-ROLE         : TO_DEFINE
+ROLE         : Tests de la chaine d'acquisition micro (volume / device)
 
 AUTHOR       : Cognitive Products Lab
 CREATED      : 2026-06-03
-UPDATED      : 2026-06-03
-VERSION      : V1.0
-STATUS       : DRAFT
+UPDATED      : 2026-06-13
+VERSION      : V2.0
+STATUS       : ACTIVE
 
 DESCRIPTION :
-Suite de tests — description a completer.
+Verifie que sounddevice expose des peripheriques audio et que le calcul
+de volume moyen fonctionne, sans enregistrement micro reel (signal
+synthetique pour rester compatible CI / environnements non interactifs).
 """
 
-import sounddevice as sd
+from __future__ import annotations
+
 import numpy as np
+import sounddevice as sd
 
-duration = 5
-samplerate = 16000
+SAMPLERATE = 16000
+DURATION = 1
 
-print("🎤 Test micro : parle pendant 5 secondes...")
-audio = sd.rec(
-    int(duration * samplerate),
-    samplerate=samplerate,
-    channels=1,
-    dtype="float32"
-)
-sd.wait()
 
-volume = float(np.abs(audio).mean())
+def _mean_volume(audio: np.ndarray) -> float:
+    return float(np.abs(audio).mean())
 
-print(f"Volume moyen détecté : {volume:.6f}")
 
-if volume > 0.001:
-    print("✅ Micro détecté et signal audio reçu.")
-else:
-    print("⚠️ Signal très faible ou aucun son détecté.")
+def test_sounddevice_lists_devices():
+    devices = sd.query_devices()
+    assert devices is not None
+    assert len(devices) > 0
+
+
+def test_volume_detection_on_silence():
+    audio = np.zeros(int(DURATION * SAMPLERATE), dtype="float32")
+    assert _mean_volume(audio) == 0.0
+
+
+def test_volume_detection_on_signal():
+    t = np.linspace(0, DURATION, int(DURATION * SAMPLERATE), endpoint=False)
+    audio = (0.5 * np.sin(2 * np.pi * 440 * t)).astype("float32")
+    assert _mean_volume(audio) > 0.001
