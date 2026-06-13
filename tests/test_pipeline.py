@@ -1,202 +1,138 @@
 """
 PROJECT      : ALFRED
 BLOCK        : GLOBAL
-FUNCTION     : XX.XX
-FILE         : test_pipeline.py
-ROLE         : TO_DEFINE
+FUNCTION     : TESTS
+FILE         : tests/test_pipeline.py
+ROLE         : Tests d'integration du pipeline complet ALFRED (sans LLM)
 
 AUTHOR       : Cognitive Products Lab
 CREATED      : 2026-05-10
-UPDATED      : 2026-05-10
-VERSION      : V1.0
-STATUS       : DRAFT
+UPDATED      : 2026-06-13
+VERSION      : V2.0
+STATUS       : ACTIVE
 
 DESCRIPTION :
-TO_COMPLETE
+Verifie la chaine AlfredBehaviorEngine -> KnowledgeLoader -> ResponseGenerator
+sur plusieurs scenarios utilisateur, en mode fallback local (sans LLM).
 """
 
-"""
-test_pipeline.py
-Test intégré du pipeline complet ALFRED sans LLM.
-
-Branche :
-    AlfredBehaviorEngine → KnowledgeLoader → ResponseGenerator
-
-Usage :
-cd D:/PROJET_ALFRED/ALFRED_PC
-python tests\test_pipeline.py
-"""
+from __future__ import annotations
 
 import sys
-import os
+from pathlib import Path
 
-# Ajoute la racine du projet au path Python
-sys.path.insert(0, os.path.abspath("."))
+import pytest
+
+ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 
 from src.core.alfred_behavior_engine import AlfredBehaviorEngine, UserState
-from src.knowledge.knowledge_loader import KnowledgeLoader
 from src.core.response_generator import ResponseGenerator
+from src.knowledge.knowledge_loader import KnowledgeLoader
 
 
-# ─────────────────────────────────────────────────────────
-# Initialisation des moteurs
-# ─────────────────────────────────────────────────────────
-print("\n" + "="*55)
-print("  ALFRED — Test Pipeline Intégré")
-print("="*55)
-
-engine = AlfredBehaviorEngine(
-    "knowledges/core/alfred_core_identity.json"
-)
-
-loader = KnowledgeLoader(
-    knowledge_root="knowledges",
-    config_dir="config",
-    debug=False
-)
-
-generator = ResponseGenerator(
-    llm_client=None,
-    behavior_engine=engine,
-    knowledge_loader=loader,
-    debug=False
-)
-
-print(f"\n✅ BehaviorEngine    — chargé")
-print(f"✅ KnowledgeLoader   — {loader.index_size} fiches indexées")
-print(f"✅ ResponseGenerator — prêt (mode fallback local)")
-
-
-# ─────────────────────────────────────────────────────────
-# Scénarios de test
-# ─────────────────────────────────────────────────────────
-scenarios = [
-    {
-        "label": "SCÉNARIO 1 — Fatigue + stress",
-        "message": "Je suis épuisée, j'ai trop de choses à gérer et je ne sais pas par où commencer.",
-        "user_state": UserState(
-            emotion="fatigue",
-            intensity=0.8,
-            intent="organization",
-            fatigue_level=0.8,
-            stress_level=0.7
-        ),
-        "mode": "support_mode"
-    },
-    {
-        "label": "SCÉNARIO 2 — Organisation",
-        "message": "Aide-moi à organiser ma journée, j'ai 5 tâches importantes.",
-        "user_state": UserState(
-            emotion="neutral",
-            intensity=0.3,
-            intent="planning",
-            fatigue_level=0.2,
-            stress_level=0.2
-        ),
-        "mode": "execution_mode"
-    },
-    {
-        "label": "SCÉNARIO 3 — Apprentissage",
-        "message": "Explique-moi comment fonctionne le RAG simplement.",
-        "user_state": UserState(
-            emotion="neutral",
-            intensity=0.1,
-            intent="explain",
-            fatigue_level=0.1,
-            stress_level=0.1
-        ),
-        "mode": "learning_mode"
-    },
-    {
-        "label": "SCÉNARIO 4 — Éthique",
-        "message": "Est-ce dangereux de laisser une IA prendre des décisions à ma place ?",
-        "user_state": UserState(
-            emotion="neutral",
-            intensity=0.4,
-            intent="risk",
-            fatigue_level=0.1,
-            stress_level=0.2
-        ),
-        "mode": "ethics_mode"
-    },
-    {
-        "label": "SCÉNARIO 5 — Projet ALFRED",
-        "message": "On reprend le projet ALFRED. Quelle est la prochaine étape ?",
-        "user_state": UserState(
-            emotion="neutral",
-            intensity=0.3,
-            intent="project",
-            fatigue_level=0.2,
-            stress_level=0.1
-        ),
-        "mode": "hybrid_mode"
-    }
+SCENARIOS = [
+    pytest.param(
+        "Je suis épuisée, j'ai trop de choses à gérer et je ne sais pas par où commencer.",
+        UserState(emotion="fatigue", intensity=0.8, intent="organization",
+                   fatigue_level=0.8, stress_level=0.7),
+        id="fatigue_stress",
+    ),
+    pytest.param(
+        "Aide-moi à organiser ma journée, j'ai 5 tâches importantes.",
+        UserState(emotion="neutral", intensity=0.3, intent="planning",
+                   fatigue_level=0.2, stress_level=0.2),
+        id="organisation",
+    ),
+    pytest.param(
+        "Explique-moi comment fonctionne le RAG simplement.",
+        UserState(emotion="neutral", intensity=0.1, intent="explain",
+                   fatigue_level=0.1, stress_level=0.1),
+        id="apprentissage",
+    ),
+    pytest.param(
+        "Est-ce dangereux de laisser une IA prendre des décisions à ma place ?",
+        UserState(emotion="neutral", intensity=0.4, intent="risk",
+                   fatigue_level=0.1, stress_level=0.2),
+        id="ethique",
+    ),
+    pytest.param(
+        "On reprend le projet ALFRED. Quelle est la prochaine étape ?",
+        UserState(emotion="neutral", intensity=0.3, intent="project",
+                   fatigue_level=0.2, stress_level=0.1),
+        id="projet_alfred",
+    ),
 ]
 
 
-# ─────────────────────────────────────────────────────────
-# Exécution des scénarios
-# ─────────────────────────────────────────────────────────
-for scenario in scenarios:
-    print("\n" + "-"*55)
-    print(f"  {scenario['label']}")
-    print("-"*55)
-    print(f"  Message    : {scenario['message'][:60]}...")
+@pytest.fixture(scope="module")
+def engine() -> AlfredBehaviorEngine:
+    return AlfredBehaviorEngine("knowledges/core/alfred_core_identity.json")
 
-    # Behavior decision
-    decision = engine.decide_behavior(scenario["user_state"])
-    print(f"  Mode       : {decision.mode}")
-    print(f"  Ton        : {decision.tone}")
-    print(f"  Couche     : {decision.dominant_layer}")
 
-    # Knowledge search
-    context_result = loader.search(
-        query=scenario["message"],
-        context={"adaptation": {"mode": decision.mode}},
-        top_k=3
+@pytest.fixture(scope="module")
+def loader() -> KnowledgeLoader:
+    return KnowledgeLoader(knowledge_root="knowledges", config_dir="config", debug=False)
+
+
+@pytest.fixture(scope="module")
+def generator(engine, loader) -> ResponseGenerator:
+    return ResponseGenerator(
+        llm_client=None,
+        behavior_engine=engine,
+        knowledge_loader=loader,
+        debug=False,
     )
-    fiches = [u.title for u in context_result.units]
-    print(f"  Fiches RAG : {fiches}")
 
-    # Response generation (fallback local)
+
+def test_engine_loaded(engine):
+    assert engine is not None
+
+
+def test_loader_indexed(loader):
+    assert loader.index_size > 0
+
+
+@pytest.mark.parametrize("message, user_state", SCENARIOS)
+def test_pipeline_scenario(engine, loader, generator, message, user_state):
+    decision = engine.decide_behavior(user_state)
+    assert decision.mode
+
+    context_result = loader.search(
+        query=message,
+        context={"adaptation": {"mode": decision.mode}},
+        top_k=3,
+    )
+    assert context_result is not None
+
     response_context = {
         "assistant": {
             "name": "ALFRED",
             "role": "assistant virtuel adaptatif",
-            "mission": "accompagner, réduire la charge mentale, structurer."
+            "mission": "accompagner, réduire la charge mentale, structurer.",
         },
         "personality": {
             "archetype": "complice_protecteur",
             "dominant_traits": ["calme", "structurant", "protecteur", "fiable"],
-            "forbidden_traits": ["culpabilisant", "infantilisant", "froid"]
+            "forbidden_traits": ["culpabilisant", "infantilisant", "froid"],
         },
         "adaptation": {
             "mode": decision.mode,
             "tone": decision.tone,
-            "response_depth": "medium"
+            "response_depth": "medium",
         },
         "boundaries": {
             "medical": "pas de diagnostic",
-            "privacy": "confidentialité stricte"
+            "privacy": "confidentialité stricte",
         },
-        "user_state": scenario["user_state"]
+        "user_state": user_state,
     }
 
     response = generator.generate_response(
-        user_message=scenario["message"],
-        response_context=response_context
+        user_message=message,
+        response_context=response_context,
     )
 
-    print(f"\n  RÉPONSE ALFRED :")
-    print(f"  → {response}")
-
-
-# ─────────────────────────────────────────────────────────
-# Résumé
-# ─────────────────────────────────────────────────────────
-print("\n" + "="*55)
-print("  Pipeline complet — tous les scénarios exécutés")
-print(f"  KnowledgeLoader : {loader.index_size} fiches actives")
-print("  LLM             : non branché (fallback local)")
-print("  Statut          : OPÉRATIONNEL")
-print("="*55 + "\n")
+    assert isinstance(response, str)
+    assert response.strip()
