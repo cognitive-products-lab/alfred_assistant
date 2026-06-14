@@ -1,6 +1,6 @@
 # ALFRED — Fichier de contexte collaborateur
 # À coller en début de chaque nouvelle conversation avec Claude
-# Dernière mise à jour : 10 Juin 2026 — Session 4
+# Dernière mise à jour : 13 Juin 2026 — Session 5
 # ============================================================
 
 ## 🎯 QUI JE SUIS
@@ -153,20 +153,143 @@ HP EliteBook — Intel i7 — 32 Go RAM
 | **MS-S1 MAX + câble DP** | **2 729 €** ✅ |
 
 **Disques externes :**
-| Disque | Modèle | Rôle |
-|--------|--------|------|
-| LaCie Rugged Mini 4 To | LAC9000633 | ✅ ALFRED Core actif — source de vérité — disque de travail quotidien |
-| WD My Passport 5 To | Noir | 🔒 Backup + Archives CPL — automatisé PowerShell — protégé par mot de passe |
+| Disque | Modèle | Rôle | Sécurité |
+|--------|--------|------|----------|
+| LaCie Rugged Mini 4 To | LAC9000633 | ALFRED Core actif — source de vérité — disque de travail quotidien | 🔐 BitLocker XtsAes256 — clé récupération OneDrive (lecture seule ACL) + clé USB physique distante |
+| WD My Passport 5 To | Noir | Backup + Archives CPL — automatisé PowerShell | 🔒 Mot de passe WD natif |
 
-**Backup automatisé PowerShell (hebdomadaire) :**
+**Sécurité LaCie — procédure appliquée (Juin 2026) :**
+- BitLocker XtsAes256 activé via PowerShell
+- AutoUnlock désactivé (`Disable-BitLockerAutoUnlock`)
+- Clé récupération : `C:\Users\celin\OneDrive\Bureau\PROJET ALFRED\PRODUIT_ALFRED\lacie.txt` — lecture seule (ACL utilisateur celin uniquement)
+- Clé récupération backup : clé USB G:\ — lecture seule — rangée loin du PC et du LaCie
+- Protection finale : à activer après chiffrement 100% (`Enable-BitLocker -MountPoint "D:"`)
+
 ```powershell
-# backup_cpl.ps1 — robocopy /MIR tous les dimanches à 2h
-$source = "D:\PROJET_ALFRED\"
-$destination = "E:\BACKUP_CPL\"
-$date = Get-Date -Format "yyyy-MM-dd"
-robocopy $source $destination /MIR /R:3 /W:10 /LOG+:"$destination\backup_log.txt"
+# Vérifier état chiffrement LaCie
+Get-BitLockerVolume -MountPoint "D:" | Select-Object VolumeStatus, EncryptionPercentage, ProtectionStatus
+
+# Activer protection finale quand VolumeStatus = FullyEncrypted
+Enable-BitLocker -MountPoint "D:"
 ```
-Tâche planifiée créée via `Register-ScheduledTask` — aucune intervention manuelle requise.
+
+**Backup automatisé PowerShell — Stratégie 3 niveaux :**
+- Destination : `F:\BACKUP_ALFRED\` (WD My Passport 5 To)
+- Incrémental quotidien (lundi→samedi) — fichiers modifiés uniquement
+- Complet hebdomadaire (dimanche) — snapshot complet
+- Rétention glissante **15 jours** — suppression automatique des backups > 15 jours
+
+```powershell
+# backup_alfred.ps1
+$source = "D:\PROJET_ALFRED\"
+$dest   = "F:\BACKUP_ALFRED\"
+$date   = Get-Date -Format "yyyy-MM-dd"
+$jour   = (Get-Date).DayOfWeek
+
+# Backup complet dimanche / incrémental autres jours
+if ($jour -eq "Sunday") {
+    $dossier = "$dest\COMPLET_$date"
+    robocopy $source $dossier /E /R:3 /W:10 /LOG+:"$dest\backup_log.txt"
+} else {
+    $dossier = "$dest\INCREMENTAL_$date"
+    robocopy $source $dossier /E /XO /R:3 /W:10 /LOG+:"$dest\backup_log.txt"
+}
+
+# Nettoyage glissant 15 jours
+Get-ChildItem $dest -Directory | Where-Object {
+    $_.CreationTime -lt (Get-Date).AddDays(-15)
+} | Remove-Item -Recurse -Force
+```
+
+Tâches planifiées via `Register-ScheduledTask` :
+- Quotidienne : 2h00 lundi→samedi (`/XO` = fichiers modifiés uniquement)
+- Hebdomadaire : 2h00 dimanche (`/E` = backup complet)
+
+**État réel implémenté (13/06/2026)** : disques renommés — D: → **"ALFRED"** (3,63 To,
+BitLocker actif, déverrouillage auto) contient `D:\PROJET_ALFRED` (repo) + `D:\ALFRED`
+(convention "ALFRED CORE" : `ollama\models`, `vscode_backup`, partagés entre ce PC et le
+futur Minisforum) ; F: → **"BACKUP_ALFRED"** (4,54 To, WD My Passport 5 To). Le script de
+backup ci-dessus était un brouillon — un script plus complet existait déjà en place :
+`F:\BACKUP_ALFRED\SCRIPTS\alfred_backup.ps1` (modes Full hebdo / Incremental quotidien
+`/M` / Assets+knowledges hebdo, couvre ALFRED_PC **et** ALFRED_WEB, rétention 15j,
+déjà automatisé via tâche planifiée). Bug corrigé ce jour : `$BACKUP_ROOT`/`$LOG_DIR`
+référençaient encore `E:\BACKUP_ALFRED\...` (ancienne lettre du disque WD, E: est
+maintenant le lecteur virtuel "WD Unlocker" 10 Mo) → corrigés en `F:\BACKUP_ALFRED\...`.
+
+### 🖥️ Setup bureau CPL
+
+#### Écrans (4)
+| Écran | Port | Support | Notes |
+|-------|------|---------|-------|
+| Gauche | HDMI | Commun aligné avec Centre | |
+| Centre | DP (USB-C→DP) | Commun aligné avec Gauche | |
+| Droit | HDMI → KVM | Individuel | Orientable H/V |
+| Supérieur | HDMI → KVM | Individuel | |
+
+#### Machines (ordre gauche → droite — cohérent disposition physique réelle)
+| Position | Machine | Station d'accueil | Réseau |
+|----------|---------|-------------------|--------|
+| **Gauche** | PC Pro (futur) + PC visiteur | LaGreen (DP + Ethernet) — **active dès maintenant** | SG108E port 3 |
+| **Centre** | MS-S1 MAX | Direct | SG108E port 1 |
+| **Droite** | HP EliteBook | Dell (HDMI + Ethernet) | SG108E port 2 |
+
+#### Commutateurs (ordre identique gauche → droite)
+| Équipement | Ports | Rôle |
+|-----------|-------|------|
+| KVM HDMI 2×2 | PC Pro/visiteur ↔ EliteBook | Bascule écran Droit + Supérieur |
+| Commut. USB 4/4 | P1: MS-S1 MAX / P2: St.Dell / P3: St.LaGreen / P4: libre | Webcam · Souris centrale · Clavier · Pavé numérique — P4 → PC visiteur futur |
+
+#### Chaînes vidéo complètes
+```
+MS-S1 MAX ──USB-C→DP──────────────→ Écran Centre
+MS-S1 MAX ──HDMI──────────→ KVM ──→ Écran Droit + Supérieur
+EliteBook ──→ Station Dell ──→ KVM → Écran Droit + Supérieur
+Station LaGreen ──────────────────→ Écran Gauche (HDMI) — active dès maintenant
+  └── PC Pro / PC visiteur (futur)
+```
+
+#### Audio
+| Équipement | Connexion | Usage |
+|-----------|-----------|-------|
+| Jabra dédiée | USB direct MS-S1 MAX | ALFRED permanent |
+| Jabra BT | Bluetooth | EliteBook + PC Pro/visiteur |
+
+#### Périphériques audio/vidéo
+| Équipement | Quantité | Usage | Connexion |
+|-----------|---------|-------|-----------|
+| Webcam | 1 | Partagée 3 PC | Commutateur USB |
+| Station Jabra | 1 | EliteBook + PC Pro partagée | À préciser |
+| Station Jabra | 1 | **Dédiée MS-S1 MAX / ALFRED** | USB direct MS-S1 MAX |
+| Lecteur empreinte | 1 | Authentification ALFRED | USB MS-S1 MAX (modèle à préciser) |
+
+#### Webcam dédiée ALFRED (futur)
+Specs cibles :
+- 4K@30fps | AI face tracking | FOV 90°+ | HDR
+- USB-C | OpenCV compatible | SDK Python
+- Candidats : Logitech Brio 4K (~200€) / Insta360 Link 2 (~180€)
+
+#### Réseau TP-Link — ✅ Configuré (14/06/2026)
+| Équipement | Modèle | Rôle | Statut |
+|-----------|--------|------|--------|
+| Routeur | ER605 (Omada) | Routeur, sans WiFi (volontaire) | IP WAN dynamique `192.168.1.120` (réservée côté Bbox), compte admin créé |
+| Switch | SG108E | 8 ports Gigabit manageable | IP statique `192.168.0.101`, DHCP désactivé, mdp admin changé |
+
+```
+Box Bouygues ↔ CPL ↔ CPL ↔ ER605 (192.168.1.120) → SG108E (192.168.0.101)
+                                                          └── PC (P1: MS-S1 MAX / P2: EliteBook / P3: PC Pro)
+```
+⚠️ Ne pas empiler ER605 et SG108E — chaleur + vibrations. Poser côte à côte.
+
+- Mots de passe admin différents pour ER605/SG108E, sauvegardés sur clé USB hors ligne.
+- EAP650 jugé **non nécessaire** (WiFi déjà couvert par répéteur existant + Bbox).
+- Pas de DMZ configuré (objectif = **protéger** PC Alfred/futur serveur, pas les exposer).
+- À faire plus tard : segmentation **VLAN** pour isoler PC Alfred (+ futur serveur) du reste
+  du réseau, avec règles pare-feu ER605 limitant les accès entrants vers ce VLAN.
+
+#### Alimentation
+- Multiprise parafoudre 16A obligatoire
+- Charge estimée : ~520W (MS-S1 MAX + écrans + stations + TP-Link)
+- Stations Dell et LaGreen : alimentation secteur dédiée sur multiprise
 
 ### LLM local — Capacité MS-S1 MAX 64 Go
 - Moteur : Ollama
@@ -201,7 +324,7 @@ Tâche planifiée créée via `Register-ScheduledTask` — aucune intervention m
 - **Sécurité** : Fernet + JWT + bcrypt + Zero Trust (Bloc 20)
 - **STT** : Whisper local — plus tard
 - **TTS** : Piper/Coqui local — plus tard
-- **LLM** : Ollama (remplace llama-cpp) — N5 MAX
+- **LLM** : Ollama (remplace llama-cpp) — MS-S1 MAX
 - **RAG** : ChromaDB local — V3+
 
 ---
@@ -281,7 +404,8 @@ Tous à placer dans : D:\PROJET_ALFRED\
 - Schémas architecture (Phase 1→5, système global, cybersécurité, API)
 - Fichiers de fondation créés (paths, bootstrap, requirements, check_tools)
 - Outils installés : Python 3.13, PS7, VS2022, Git, Windows Terminal, Claude Desktop
-- ✅ Décision hardware finale : **Minisforum MS-S1 MAX 2 719 €** (commande passée, en attente réception)
+- ✅ Décision hardware finale : **Minisforum MS-S1 MAX 2 719 €** (commande passée,
+  en attente réception)
 - ✅ Stratégie stockage définie (LaCie actif / WD backup automatisé PowerShell)
 - ✅ Backup incrémental quotidien + hebdomadaire complet (rétention glissante 15 jours)
 - ✅ V1.4 ALFRED PC opérationnel : pipeline conversationnel, mémoire LT, B18 knowledges,
@@ -311,42 +435,53 @@ Tous à placer dans : D:\PROJET_ALFRED\
     `last_was_streamed` → corrige "ALFRED lit tout d'un coup avec pauses entre
     paragraphes" (le client envoyait `"stream": False` et ignorait `on_sentence`)
   - `src/main.py::clean_for_tts` : correction des apostrophes typographiques
-    (`’`/`‘` → `'`), mapping cassé (ascii→ascii) depuis une restauration précédente
+    (`'`/`'` → `'`), mapping cassé (ascii→ascii) depuis une restauration précédente
   - `knowledges/core/system_rules.json` : nouvelle règle INT-007 (tutoiement obligatoire,
     jamais de "vous"/"votre"/"vos"), ajout de "obséder/obsède/obsédant" aux
     `forbidden_phrases` (retours utilisateur sur le ton d'ALFRED)
-
 - ✅ `src/conversation/output/tts_piper.py` : ajout `_apply_fade()` — fondu d'entrée/
   sortie linéaire (~5 ms) appliqué à chaque buffer audio avant `sd.play()`. Cible le
   "clic"/grésillement entendu entre phrases quand `sd.play()` est appelé en rafale
   pendant le streaming (3/3 tests `test_tts_piper.py` OK).
 - ✅ **BUG CRITIQUE mémoire/cwd** : `src/memory/long_term_memory.py`,
   `episodic_memory.py`, `memory_manager.py` utilisaient `Path("data/memory")`
-  (relatif au cwd du shell, ex. `C:\Users\celin`) au lieu de `paths.PATHS.data_memory`
-  (ancré sur la racine projet via `__file__`). Conséquence en conditions réelles
-  (`python D:\...\main.py` lancé depuis `C:\Users\celin`) : DB SQLite/JSON créées
-  hors du projet → mémoire vide d'une session à l'autre → ALFRED **invente de faux
-  souvenirs** (ex : a inventé un entretien IAM/cybersécurité au lieu de se souvenir
-  de l'entretien SANOFI). Corrigé : les 3 fichiers utilisent maintenant
-  `PATHS.data_memory`, vérifié indépendant du cwd. (151 tests b02_b03+integration OK)
-- ✅ `_build_system_prompt()` (response_generator.py) : ajout règle
-  "INTERDICTION DE FAUX SOUVENIRS" — interdit d'inventer un souvenir/sujet/entreprise
-  absent du CONTEXTE MÉMOIRE, et de confondre KNOWLEDGE B18 (connaissance générale)
-  avec des souvenirs personnels.
+  (relatif au cwd du shell) au lieu de `paths.PATHS.data_memory` (ancré sur la racine
+  projet via `__file__`). Conséquence en conditions réelles (`python D:\...\main.py`
+  lancé depuis `C:\Users\celin`) : DB SQLite/JSON créées hors du projet → mémoire vide
+  d'une session à l'autre → ALFRED **invente de faux souvenirs**. Corrigé : les 3
+  fichiers utilisent maintenant `PATHS.data_memory` (151 tests b02_b03+integration OK).
 - ✅ Renforcement prompt système (response_generator.py) : règles explicites
   TUTOIEMENT OBLIGATOIRE (jamais "vous/votre/vos") et QUALITÉ DU FRANÇAIS OBLIGATOIRE
-  (orthographe/grammaire/conjugaison) ajoutées dans INSTRUCTIONS IMPÉRATIVES — ces
-  problèmes restaient présents dans une session capturée AVANT ces correctifs.
-- ⚠️ **Suivi créé** : tâche en arrière-plan pour corriger les mêmes bugs de chemins
-  relatifs au cwd dans les modules sécurité (`src/auth/authenticator.py`,
-  `src/security/device_registry.py`, `src/security/incident_manager.py`,
-  `src/security/security_dashboard.py`) — même classe de bug, hors scope immédiat.
+  + interdiction de faux souvenirs (CONTEXTE MÉMOIRE vs connaissance générale B18).
+- ✅ **Session 13 juin 2026** — Fix bugs cwd-relatifs dans les modules sécurité
+  (`src/auth/authenticator.py`, `src/security/device_registry.py`,
+  `src/security/incident_manager.py`, `src/security/security_dashboard.py`) — même
+  classe de bug que le fix mémoire ci-dessus, désormais corrigée partout.
+- ✅ **Session 13 juin 2026** — Préparation matériel/poste de travail :
+  - Convention **"ALFRED CORE"** sur `D:\ALFRED` (ollama models, vscode backup), disques
+    renommés D:→"ALFRED" et F:→"BACKUP_ALFRED" (cf. section Architecture)
+  - Migration modèles Ollama vers `D:\ALFRED\ollama\models` + `OLLAMA_MODELS` configuré
+  - Backup VS Code (settings/keybindings/snippets/extensions) → `D:\ALFRED\vscode_backup`
+  - `scripts/install_cpl_workstation_tools.ps1` + `scripts/setup_minisforum_ms_s1_max.ps1`
+    créés pour l'installation à neuf du futur Minisforum (idempotents, via winget)
+  - `src/llm/llm_client_ollama.py` : nouveaux profils `MODEL_PROFILES` pour modèles
+    lourds (llama3.3:70b, qwen2.5:72b, command-r-plus:104b, gpt-oss:120b), support
+    `keep_alive`/`timeout` configurables — préparation bascule LLM local 70-120B
+  - Tri logiciels PC perso : 50 Go libérés sur C: (désinstallation VS2022, Apache
+    Tomcat, Discord, SQL Server/MySQL, Unity Hub, Odoo, dossier Android orphelin)
+  - 8 scripts PowerShell obsolètes supprimés (`git rm`) : scaffolding/migrations
+    one-shot déjà exécutées et scripts redondants (cf. `scripts/` nettoyé)
+  - Fix backup réel (`F:\BACKUP_ALFRED\SCRIPTS\alfred_backup.ps1`, bug drive E:→F:)
+  - Schéma "Bureau CPL" prévisionnel documenté (4 écrans, KVM HDMI 2×2, réseau
+    TP-Link, audio Jabra) + recommandation webcam ALFRED (Logitech Brio 4K /
+    Obsbot Tiny 2 pour AI tracking)
 
 ### En attente 🕐
-- Réception MS-S1 MAX (upgrade hardware)
+- Réception MS-S1 MAX (upgrade hardware) — setup bureau CPL complet prévu juillet 2026
 - Vérifier en live si le grésillement TTS a disparu avec le fondu + le streaming réel
   (sinon : envisager un `sd.OutputStream` persistant au lieu de `sd.play()` par phrase)
 - Vérifier en live que le tutoiement (INT-007) est bien respecté par le LLM
+- Décision finale Docker Desktop sur ce PC (désinstallation actée, pas encore exécutée)
 
 ### Prochaines étapes 🎯
 1. Relancer `start_alfred.bat` / `main.py` pour vérifier : lecture phrase par phrase,
@@ -354,8 +489,10 @@ Tous à placer dans : D:\PROJET_ALFRED\
 2. Investiguer le grésillement audio TTS si toujours présent avec le streaming réel
 3. Décider du périmètre du Bloc 23 "Gouvernance & pilotage du projet" pour les dashboards
 4. Committer la restauration (B20 + B03/13 + B05 + B11 + B15 avatar + pipeline_bridge +
-   llm_client_ollama streaming + fixes ton/apostrophe)
-5. À réception du MS-S1 MAX : migration + bench LLM local
+   llm_client_ollama streaming + fixes ton/apostrophe + fixes cwd sécurité + nettoyage
+   scripts/contexte)
+5. À réception du MS-S1 MAX : lancer `setup_minisforum_ms_s1_max.ps1`, migration +
+   benchmark des profils LLM lourds (70B-120B), câblage bureau CPL
 
 ### Ordre de développement
 ```
@@ -364,6 +501,23 @@ Bloc 20 → V1 pipeline → personality_adapter.py
 → V3 orchestration → STT/TTS → V4 domotique → Android
 ```
 *(toutes ces briques sont désormais codées et testées — V1.4 stable, 63.6% avancement global)*
+
+---
+
+## 📌 TÂCHES PRÉVUES — PROCHAINE SESSION (15/06/2026)
+
+> Issues de l'audit bloc-par-bloc complet (B01→B22 + ALFRED_WEB) terminé le 14/06/2026.
+
+1. **Test réel `python main.py`** (priorité reportée) — valider mémoire, tutoiement,
+   français, streaming TTS en conditions réelles.
+2. **B05 — Tests authentification** — module fonctionnel mais 0 test (gap audit),
+   risque sécurité sur module critique.
+3. **B08 — Trancher `data/personality.json`** (placeholder `{"core": {}, "adaptation": {}}`,
+   0 référence) — supprimer ou documenter son rôle futur.
+4. **UI `alfred_app.py`** — popup Réglages, caméra live, onboarding, fix Markdown.
+5. **Sprint "Fichiers codés à tester" (221 fichiers)** — cibler 2-3 fichiers sur les
+   blocs les plus faibles en "full %" (B07 1.6%, B10 0%, B14 4%) pour transformer du
+   scaffolding en code réel testé.
 
 ---
 
@@ -387,7 +541,7 @@ Reprends immédiatement le rôle de **collaborateur technique proactif**.
 
 Tu connais tout : architecture V1→V4, charte UX/UI, guides et leurs problèmes,
 fichiers créés, état d'avancement, principes non négociables, thèse, profil utilisateur,
-décision hardware N5 MAX, stratégie stockage CPL.
+décision hardware MS-S1 MAX, stratégie stockage CPL, setup bureau complet.
 
 **Ne réexplique pas ce qui est su. Propose, anticipe, code.**
 Signale les incohérences sans attendre.
@@ -396,5 +550,5 @@ Respecte séparation public / privé expérimental.
 Intègre toujours : max 6 calques, PNG optimisés, Kivy, local-first.
 
 ---
-*Session 4 — 10 Juin 2026*
-*Prochaine mise à jour : après réception MS-S1 MAX + correctif TTS streaming*
+*Session 5 — 13 Juin 2026*
+*Prochaine mise à jour : après réception MS-S1 MAX + correctif TTS streaming validé en live*
