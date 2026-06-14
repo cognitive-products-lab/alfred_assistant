@@ -8,15 +8,15 @@
         "updated": "2026-06-14",
         "generated_by": "update_dashboard_data.py"
     },
-    "last_update": "14/06/2026 20:30:09",
+    "last_update": "14/06/2026 22:34:15",
     "source": "dashboard_data_manifest.json + validation_registry.json",
     "mode": "manifest_expected_vs_existing_with_validation_registry",
-    "validated_files_count": 214,
+    "validated_files_count": 217,
     "global_progress": 66.3,
     "total_target_full_files": 1059,
-    "global_full_project_progress": 45.9,
-    "total_expected_files": 687,
-    "total_files_detected": 685,
+    "global_full_project_progress": 46.5,
+    "total_expected_files": 695,
+    "total_files_detected": 693,
     "total_files_missing": 2,
     "global_status_counts": {
         "structural": 54,
@@ -25,12 +25,12 @@
         "alias_existing": 0,
         "merged_in_other_file": 0,
         "empty": 0,
-        "partial": 188,
+        "partial": 189,
         "created": 0,
-        "coded": 213,
+        "coded": 216,
         "archive": 0,
-        "tested": 16,
-        "validated": 214
+        "tested": 17,
+        "validated": 217
     },
     "validation_registry_count": 50,
     "blocks": [
@@ -4891,14 +4891,14 @@
             "id": "b18",
             "label": "Knowledge & Intelligence System",
             "target_full_files_count": 254,
-            "full_project_progress": 62.3,
+            "full_project_progress": 64.2,
             "sub_targets": {
                 "runtime_code_config": 44,
                 "knowledge_files": 200
             },
-            "progress": 62.3,
-            "expected_count": 254,
-            "files_count": 254,
+            "progress": 62.7,
+            "expected_count": 260,
+            "files_count": 260,
             "missing_count": 0,
             "status_counts": {
                 "structural": 27,
@@ -4907,12 +4907,12 @@
                 "alias_existing": 0,
                 "merged_in_other_file": 0,
                 "empty": 0,
-                "partial": 146,
+                "partial": 147,
                 "created": 0,
-                "coded": 20,
+                "coded": 21,
                 "archive": 0,
-                "tested": 1,
-                "validated": 60
+                "tested": 2,
+                "validated": 63
             },
             "files_detected": [
                 ".env",
@@ -5168,7 +5168,13 @@
                 "knowledges/cpl/business_strategy/consulting_governance.json",
                 "knowledges/cpl/business_strategy/delivery_quality_framework.json",
                 "knowledges/cpl/business_strategy/client_relationship_governance.json",
-                "knowledges/cpl/business_strategy/strategic_decision_framework.json"
+                "knowledges/cpl/business_strategy/strategic_decision_framework.json",
+                "src/knowledge/context_merger.py",
+                "src/knowledge/domain_matcher.py",
+                "src/knowledge/knowledge_ranker.py",
+                "src/knowledge/knowledge_router.py",
+                "src/knowledge/taxonomy_router.py",
+                "tests/test_b18_knowledge.py"
             ],
             "files_missing": [],
             "files": [
@@ -7873,6 +7879,176 @@
                     "details": {
                         "json_error": "Unexpected UTF-8 BOM (decode using utf-8-sig) ligne 1"
                     }
+                },
+                {
+                    "path": "src/knowledge/context_merger.py",
+                    "exists": true,
+                    "status": "tested",
+                    "score": 80,
+                    "size_bytes": 7863,
+                    "tests": [],
+                    "details": {
+                        "python": {
+                            "has_code": true,
+                            "has_class": true,
+                            "has_function": true,
+                            "has_docstring": false,
+                            "imports_count": 8,
+                            "classes_count": 2,
+                            "functions_count": 6,
+                            "syntax_ok": true,
+                            "syntax_error": null
+                        }
+                    }
+                },
+                {
+                    "path": "src/knowledge/domain_matcher.py",
+                    "exists": true,
+                    "status": "validated",
+                    "score": 100,
+                    "size_bytes": 7071,
+                    "tests": [],
+                    "details": {
+                        "python": {
+                            "has_code": true,
+                            "has_class": true,
+                            "has_function": true,
+                            "has_docstring": false,
+                            "imports_count": 5,
+                            "classes_count": 2,
+                            "functions_count": 7,
+                            "syntax_ok": true,
+                            "syntax_error": null
+                        }
+                    },
+                    "validation": {
+                        "path": "src/knowledge/domain_matcher.py",
+                        "module": "B18",
+                        "status": "validated",
+                        "last_test": "2026-05-13",
+                        "test_level": "manual",
+                        "tests": [
+                            "8 routes chargees depuis query_patterns",
+                            "strip_accents OK",
+                            "boost_domains resolus en priority_knowledge"
+                        ],
+                        "notes": "Fallback routing_links -> query_patterns. Normalisation accents FR."
+                    },
+                    "validated": true,
+                    "tested": true
+                },
+                {
+                    "path": "src/knowledge/knowledge_ranker.py",
+                    "exists": true,
+                    "status": "validated",
+                    "score": 100,
+                    "size_bytes": 8935,
+                    "tests": [],
+                    "details": {
+                        "python": {
+                            "has_code": true,
+                            "has_class": true,
+                            "has_function": true,
+                            "has_docstring": false,
+                            "imports_count": 7,
+                            "classes_count": 2,
+                            "functions_count": 8,
+                            "syntax_ok": true,
+                            "syntax_error": null
+                        }
+                    },
+                    "validation": {
+                        "path": "src/knowledge/knowledge_ranker.py",
+                        "module": "B18",
+                        "status": "validated",
+                        "last_test": "2026-05-13",
+                        "test_level": "manual",
+                        "tests": [
+                            "rank() > 0 sur queries FR",
+                            "score >= 3.0 atteint",
+                            "normalisation accents OK"
+                        ],
+                        "notes": "strip_accents + prefix-matching sur index complet."
+                    },
+                    "validated": true,
+                    "tested": true
+                },
+                {
+                    "path": "src/knowledge/knowledge_router.py",
+                    "exists": true,
+                    "status": "partial",
+                    "score": 40,
+                    "size_bytes": 15858,
+                    "tests": [],
+                    "details": {
+                        "python": {
+                            "has_code": true,
+                            "has_class": true,
+                            "has_function": true,
+                            "has_docstring": false,
+                            "imports_count": 0,
+                            "classes_count": 0,
+                            "functions_count": 0,
+                            "syntax_ok": false,
+                            "syntax_error": "invalid non-printable character U+FEFF ligne 1"
+                        }
+                    }
+                },
+                {
+                    "path": "src/knowledge/taxonomy_router.py",
+                    "exists": true,
+                    "status": "validated",
+                    "score": 100,
+                    "size_bytes": 6362,
+                    "tests": [],
+                    "details": {
+                        "python": {
+                            "has_code": true,
+                            "has_class": true,
+                            "has_function": true,
+                            "has_docstring": false,
+                            "imports_count": 5,
+                            "classes_count": 2,
+                            "functions_count": 7,
+                            "syntax_ok": true,
+                            "syntax_error": null
+                        }
+                    },
+                    "validation": {
+                        "path": "src/knowledge/taxonomy_router.py",
+                        "module": "B18",
+                        "status": "validated",
+                        "last_test": "2026-05-13",
+                        "test_level": "manual",
+                        "tests": [
+                            "route() retourne des resultats sur queries FR",
+                            "prefix-matching 5 chars OK"
+                        ],
+                        "notes": "strip_accents + prefix-matching pour conjugaisons francaises."
+                    },
+                    "validated": true,
+                    "tested": true
+                },
+                {
+                    "path": "tests/test_b18_knowledge.py",
+                    "exists": true,
+                    "status": "coded",
+                    "score": 60,
+                    "size_bytes": 11289,
+                    "tests": [],
+                    "details": {
+                        "python": {
+                            "has_code": true,
+                            "has_class": true,
+                            "has_function": true,
+                            "has_docstring": true,
+                            "imports_count": 22,
+                            "classes_count": 7,
+                            "functions_count": 36,
+                            "syntax_ok": true,
+                            "syntax_error": null
+                        }
+                    }
                 }
             ]
         },
@@ -9645,7 +9821,7 @@
             "id": "b22",
             "label": "Accessibility & Cognitive Assistance",
             "target_full_files_count": 35,
-            "full_project_progress": 37.1,
+            "full_project_progress": 40.6,
             "sub_targets": {
                 "policy_docs": 5,
                 "core_manager": 5,
@@ -9655,9 +9831,9 @@
                 "translation_modules": 3,
                 "tests": 5
             },
-            "progress": 72.2,
-            "expected_count": 18,
-            "files_count": 18,
+            "progress": 71.0,
+            "expected_count": 20,
+            "files_count": 20,
             "missing_count": 0,
             "status_counts": {
                 "structural": 5,
@@ -9668,7 +9844,7 @@
                 "empty": 0,
                 "partial": 0,
                 "created": 0,
-                "coded": 13,
+                "coded": 15,
                 "archive": 0,
                 "tested": 0,
                 "validated": 0
@@ -9691,7 +9867,9 @@
                 "src/accessibility/ui/__init__.py",
                 "src/accessibility/ui/visual_adapter.py",
                 "src/accessibility/ui/android_a11y.py",
-                "src/accessibility/ui/web_a11y.py"
+                "src/accessibility/ui/web_a11y.py",
+                "tests/b15_tests/test_b22_accessibility.py",
+                "tests/b15_tests/test_voice_output_manager.py"
             ],
             "files_missing": [],
             "files": [
@@ -10012,9 +10190,51 @@
                             "syntax_error": null
                         }
                     }
+                },
+                {
+                    "path": "tests/b15_tests/test_b22_accessibility.py",
+                    "exists": true,
+                    "status": "coded",
+                    "score": 60,
+                    "size_bytes": 15789,
+                    "tests": [],
+                    "details": {
+                        "python": {
+                            "has_code": true,
+                            "has_class": true,
+                            "has_function": true,
+                            "has_docstring": true,
+                            "imports_count": 6,
+                            "classes_count": 9,
+                            "functions_count": 50,
+                            "syntax_ok": true,
+                            "syntax_error": null
+                        }
+                    }
+                },
+                {
+                    "path": "tests/b15_tests/test_voice_output_manager.py",
+                    "exists": true,
+                    "status": "coded",
+                    "score": 60,
+                    "size_bytes": 3976,
+                    "tests": [],
+                    "details": {
+                        "python": {
+                            "has_code": true,
+                            "has_class": true,
+                            "has_function": true,
+                            "has_docstring": true,
+                            "imports_count": 2,
+                            "classes_count": 4,
+                            "functions_count": 21,
+                            "syntax_ok": true,
+                            "syntax_error": null
+                        }
+                    }
                 }
             ]
         }
     ],
-    "weighted_global_progress": 45.9
+    "weighted_global_progress": 46.5
 }
