@@ -1,19 +1,19 @@
 # ALFRED — BACKLOG & RÉFÉRENTIEL FICHIERS
 
-> Généré le 14/06/2026 19:34 depuis `dashboard_data.json` (mis à jour le 14/06/2026 19:34:24)
-> Progression technique : **62.9%** · Full projet : **44.2%**
-> 664 fichiers détectés / 1059 cible full
+> Généré le 14/06/2026 20:27 depuis `dashboard_data.json` (mis à jour le 14/06/2026 20:27:13)
+> Progression technique : **66.1%** · Full projet : **45.2%**
+> 677 fichiers détectés / 1059 cible full
 
 ## Synthèse globale
 
 | Statut | Nb | % | Priorité |
 |--------|---:|--:|----------|
 | ❌ A créer | 2 | 0.3% | 🔴 Urgent |
-| 🟡 Partiel | 188 | 28.3% | 🟡 Sprint |
-| 🟦 Codé — à tester | 207 | 31.2% | 🟡 Sprint |
-| 🧪 Testé — à valider | 9 | 1.4% | 🧪 Tests |
-| ✅ Validé ✅ | 207 | 31.2% | ✅ Done |
-| ⚙️ Structurel | 53 | 8.0% | ✅ Done |
+| 🟡 Partiel | 188 | 27.8% | 🟡 Sprint |
+| 🟦 Codé — à tester | 212 | 31.3% | 🟡 Sprint |
+| 🧪 Testé — à valider | 14 | 2.1% | 🧪 Tests |
+| ✅ Validé ✅ | 209 | 30.9% | ✅ Done |
+| ⚙️ Structurel | 54 | 8.0% | ✅ Done |
 
 ## Backlog par bloc
 
@@ -277,12 +277,12 @@
 | Structurels | 0 |
 | Manquants | 0 |
 
-### 🟡 B11 — Intelligence cognitive avancée `71.7%`
+### 🟡 B11 — Intelligence cognitive avancée `76.8%`
 
 | KPI | Valeur |
 |-----|--------|
-| Validés | 2 |
-| Testés | 0 |
+| Validés | 4 |
+| Testés | 5 |
 | Codés (à tester) | 7 |
 | Partiels | 1 |
 | Structurels | 2 |
@@ -326,16 +326,26 @@
 | `knowledges/cpl/strategy/strategy_fundamentals.json` | 🟦 Codé — à tester | Tester |
 | `knowledges/cpl/strategy/value_proposition_framework.json` | 🟦 Codé — à tester | Tester |
 
-### ❌ B13 — Compagnon pédiatrique / ARTHUR `0.0%`
+### 🟡 B13 — Compagnon pédiatrique / ARTHUR `66.7%`
 
 | KPI | Valeur |
 |-----|--------|
 | Validés | 0 |
 | Testés | 0 |
-| Codés (à tester) | 0 |
+| Codés (à tester) | 5 |
 | Partiels | 0 |
-| Structurels | 0 |
+| Structurels | 1 |
 | Manquants | 0 |
+
+**Fichiers à traiter :**
+
+| Fichier | Statut | Action |
+|---------|--------|--------|
+| `src/health/chronic_support.py` | 🟦 Codé — à tester | Tester |
+| `src/health/health_profile.py` | 🟦 Codé — à tester | Tester |
+| `src/health/interaction_adapter.py` | 🟦 Codé — à tester | Tester |
+| `src/health/onboarding.py` | 🟦 Codé — à tester | Tester |
+| `src/health/profile_loader.py` | 🟦 Codé — à tester | Tester |
 
 ### ✅ B14 — IoT & Intégrations `100.0%`
 
@@ -603,7 +613,7 @@
 | `src/accessibility/ui/android_a11y.py` | 🟦 Codé — à tester | Tester |
 | `src/accessibility/ui/web_a11y.py` | 🟦 Codé — à tester | Tester |
 
-## 🟦 Sprint — Fichiers codés à tester (207)
+## 🟦 Sprint — Fichiers codés à tester (212)
 
 Ces fichiers sont implémentés mais n'ont pas encore de tests.
 
@@ -714,6 +724,12 @@ Ces fichiers sont implémentés mais n'ont pas encore de tests.
 - `knowledges/cpl/strategy/business_model_design.json`
 - `knowledges/cpl/strategy/strategy_fundamentals.json`
 - `knowledges/cpl/strategy/value_proposition_framework.json`
+**B13**
+- `src/health/chronic_support.py`
+- `src/health/health_profile.py`
+- `src/health/interaction_adapter.py`
+- `src/health/onboarding.py`
+- `src/health/profile_loader.py`
 **B15**
 - `assets/avatars/avatar_medium/base_medium/alfred_medium_confused.png`
 - `assets/avatars/avatar_medium/base_medium/alfred_medium_cybersecurity.png`
@@ -905,3 +921,35 @@ personnalité sont dans `data/personality/templates/` et
 
 **Fait** : fichiers récupérés et réintégrés dans `tests/b08_tests/` —
 116 tests, tous passent (`pytest tests/b08_tests/`).
+
+## ⚪ B10 — Collaboration & Coordination (audit 14/06/2026)
+
+B10 a 0 fichier dans le manifest et aucun code source taggué `BLOCK: B10`
+n'existe dans `src/` — bloc roadmap non démarré, comme B07.
+
+**Action** : aucune, confirmation que B10 est un bloc V2/V3 non démarré.
+
+## 🟦 B11 — src/v3/fusion + src/v3/proactive absents du manifest (audit 14/06/2026)
+
+7 fichiers `src/v3/fusion/{confidence_engine,contradiction_detector,
+multi_signal_fusion_engine}.py` et `src/v3/proactive/{date_parser,
+proactive_engine,reminder_detector,reminder_engine}.py` (BLOCK: B11,
+STATUS: TESTED/STABLE) sont importés par `main.py` et couverts par
+`tests/b11_tests/` mais étaient absents de `dashboard_data_manifest.json`.
+
+**Fait** : ajoutés au manifest B11 (regen dashboard/BACKLOG) — B11 passe
+de 12 à 19 fichiers (58.4% "full").
+
+## 🟦 B13 — src/health/*.py absents du manifest, sans tests (audit 14/06/2026)
+
+`src/health/{__init__,chronic_support,health_profile,interaction_adapter,
+onboarding,profile_loader}.py` (BLOCK: B13, STATUS: ACTIVE) constituent le
+module "ARTHUR" (suivi santé/bien-être, onboarding, adaptation
+d'interaction), réellement utilisés par `main.py`, `regulation_engine.py`,
+`core/personality_adapter.py` — mais le manifest B13 était entièrement vide
+(0/25 cible).
+
+**Fait** : ajoutés au manifest B13 (regen dashboard/BACKLOG) — B13 passe de
+0% à 66.7% tech / 16.0% "full".
+**Reste à faire** : ces 5 fichiers n'ont **aucun test dédié** — à prévoir
+(`tests/b13_tests/`).
