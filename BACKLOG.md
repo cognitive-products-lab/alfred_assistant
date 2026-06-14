@@ -1,31 +1,31 @@
 # ALFRED — BACKLOG & RÉFÉRENTIEL FICHIERS
 
-> Généré le 14/06/2026 19:27 depuis `dashboard_data.json` (mis à jour le 14/06/2026 19:27:26)
-> Progression technique : **62.9%** · Full projet : **44.0%**
-> 660 fichiers détectés / 1059 cible full
+> Généré le 14/06/2026 19:34 depuis `dashboard_data.json` (mis à jour le 14/06/2026 19:34:24)
+> Progression technique : **62.9%** · Full projet : **44.2%**
+> 664 fichiers détectés / 1059 cible full
 
 ## Synthèse globale
 
 | Statut | Nb | % | Priorité |
 |--------|---:|--:|----------|
 | ❌ A créer | 2 | 0.3% | 🔴 Urgent |
-| 🟡 Partiel | 185 | 28.0% | 🟡 Sprint |
-| 🟦 Codé — à tester | 207 | 31.4% | 🟡 Sprint |
+| 🟡 Partiel | 188 | 28.3% | 🟡 Sprint |
+| 🟦 Codé — à tester | 207 | 31.2% | 🟡 Sprint |
 | 🧪 Testé — à valider | 9 | 1.4% | 🧪 Tests |
-| ✅ Validé ✅ | 207 | 31.4% | ✅ Done |
-| ⚙️ Structurel | 52 | 7.9% | ✅ Done |
+| ✅ Validé ✅ | 207 | 31.2% | ✅ Done |
+| ⚙️ Structurel | 53 | 8.0% | ✅ Done |
 
 ## Backlog par bloc
 
-### 🟡 B01 — Interaction conversationnelle intelligente `69.6%`
+### 🟡 B01 — Interaction conversationnelle intelligente `67.6%`
 
 | KPI | Valeur |
 |-----|--------|
 | Validés | 3 |
 | Testés | 4 |
 | Codés (à tester) | 13 |
-| Partiels | 1 |
-| Structurels | 3 |
+| Partiels | 4 |
+| Structurels | 4 |
 | Manquants | 1 |
 
 **Fichiers à traiter :**
@@ -34,6 +34,9 @@
 |---------|--------|--------|
 | `data/memory/episodic/dialogue_history.json` | ❌ A créer | Créer |
 | `data/dialogue_history.json` | 🟡 Partiel | Compléter |
+| `src/output/tts_engine.py` | 🟡 Partiel | Compléter |
+| `src/output/tts_output.py` | 🟡 Partiel | Compléter |
+| `src/output/tts_piper.py` | 🟡 Partiel | Compléter |
 | `config/conversation_rules.json` | 🟦 Codé — à tester | Tester |
 | `src/conversation/input/audio_capture.py` | 🟦 Codé — à tester | Tester |
 | `src/conversation/input/context_builder.py` | 🟦 Codé — à tester | Tester |
@@ -203,7 +206,7 @@
 |---------|--------|--------|
 | `data/context/user_context.json` | 🟡 Partiel | Compléter |
 
-### 🟡 B08 — Personnalisation utilisateur `68.1%`
+### 🟡 B08 — Personnalisation utilisateur `68.9%`
 
 | KPI | Valeur |
 |-----|--------|
@@ -864,3 +867,41 @@ couvre `session_manager`/`mfa_manager` (B20), pas ces 3 fichiers.
 runtime, **0 référence dans le code actuel** — prévu pour une future
 gestion de tâches/actions B05 (Organisation & Assistance), pas encore
 implémentée.
+
+## ⚪ B07 — Mobilité & Contexte externe (audit 14/06/2026)
+
+B07 reste un bloc roadmap quasi non démarré : seul `data/context/user_context.json`
+(`{"location": "home", "energy_level": "normal"}`) est suivi (1/25 cible,
+1.6% "full"), utilisé par `pipeline_bridge.py`, `health/profile_loader.py`,
+`regulation_engine.py` — mais aucun module dédié "mobilité" (GPS, contexte
+externe, capteurs) n'existe dans `src/`.
+
+**Action** : aucune, confirmation que B07 est un bloc V2 non démarré.
+
+## 🟦 B01 — src/output/*.py absents du manifest (audit 14/06/2026)
+
+`src/output/__init__.py`, `tts_engine.py`, `tts_output.py`, `tts_piper.py`
+(headers BLOCK: B04, STATUS: TESTED) sont des proxies (`from
+src.conversation.output.X import *`) réellement utilisés par
+`speech_manager.py` et `tests/test_b01_speech.py` — fonctionnellement de la
+synthèse vocale (B01), absents de `dashboard_data_manifest.json`
+(même pattern que le gap B05 auth ci-dessus).
+
+**Fait** : ajoutés au manifest B01 (regen dashboard/BACKLOG).
+
+## 🟡 B08 — data/personality.json (audit 14/06/2026)
+
+`data/personality.json` (`{"core": {}, "adaptation": {}}`) est un
+placeholder, **0 référence dans le code actuel** — les données réelles de
+personnalité sont dans `data/personality/templates/` et
+`data/personality/instances/`, utilisées par `personality_adapter.py`.
+
+## 🟢 B08 — Tests récupérés depuis la branche backup (audit 14/06/2026)
+
+`tests/b08_tests/test_behavior_engine.py`, `test_personality_adapter.py` et
+`__init__.py` existaient sur la branche `backup_b0adae0_lost_work` (commit
+`f22f145`, jamais mergé dans `dev`) mais étaient absents de `dev`
+(seuls des `.pyc` orphelins subsistaient dans `__pycache__`).
+
+**Fait** : fichiers récupérés et réintégrés dans `tests/b08_tests/` —
+116 tests, tous passent (`pytest tests/b08_tests/`).
