@@ -1,6 +1,6 @@
 # ALFRED — BACKLOG & RÉFÉRENTIEL FICHIERS
 
-> Généré le 10/06/2026 15:43 depuis `dashboard_data.json` (mis à jour le 03/06/2026 14:12:40)
+> Généré le 13/06/2026 12:39 depuis `dashboard_data.json` (mis à jour le 03/06/2026 14:12:40)
 > Progression technique : **62.9%** · Full projet : **43.4%**
 > 665 fichiers détectés / 1065 cible full
 
@@ -33,7 +33,7 @@
 |---------|--------|--------|
 | `data/dialogue_history.json` | 🟡 Partiel | Compléter |
 | `tests/test_b01_speech.py` | 🟡 Partiel | Compléter |
-| `config/conversation_rules.json` | 🟦 Codé — à tester | Tester |
+| `config/conversation_rules.json` | 🟦 Codé — à tester | Tester (contenu prêt, non encore connecté au pipeline de réponse — cf. audit 14/06/2026) |
 | `data/memory/episodic/dialogue_history.json` | 🟦 Codé — à tester | Tester |
 | `src/conversation/input/audio_capture.py` | 🟦 Codé — à tester | Tester |
 | `src/conversation/input/context_builder.py` | 🟦 Codé — à tester | Tester |
@@ -44,8 +44,8 @@
 | `src/llm/llm_client_openai.py` | 🟦 Codé — à tester | Tester |
 | `src/conversation/output/tts_output.py` | 🟦 Codé — à tester | Tester |
 | `tests/test_pipeline_llm.py` | 🟦 Codé — à tester | Tester |
-| `src/conversation/input/audio_listener.py` | 🟦 Codé — à tester | Tester |
-| `src/conversation/nlp/intent_classifier.py` | 🟦 Codé — à tester | Tester |
+| `src/conversation/input/audio_listener.py` | 🟪 Roadmap V2 | Stub non branché (NotImplementedError) — façade prévue pour brancher audio_capture.py, cf. audit 14/06/2026 |
+| `src/conversation/nlp/intent_classifier.py` | 🟪 Roadmap V2 | DRAFT non branché — pipeline réel utilise nlp_engine_v2.py, cf. audit 14/06/2026 |
 
 ### 🟡 B02 — Mémoire & RAG `71.2%`
 
