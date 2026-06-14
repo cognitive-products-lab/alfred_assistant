@@ -24,11 +24,11 @@ from datetime import datetime
 
 ROOT     = Path(__file__).resolve().parents[1]
 WEB_JSON = ROOT.parent / "ALFRED_WEB/static/dashboard/dashboard_data.json"
-LOCAL_JSON = ROOT / "dashboard/dashboard_data.json"
+LOCAL_JSON = ROOT / "dashboard/dashboard_data/dashboard_data.json"
 
 # Choisir le JSON le plus recent
 def load_json() -> dict:
-    for p in [WEB_JSON, LOCAL_JSON]:
+    for p in [LOCAL_JSON, WEB_JSON]:
         if p.exists():
             with open(p, encoding="utf-8") as f:
                 return json.load(f)
