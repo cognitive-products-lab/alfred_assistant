@@ -3,13 +3,13 @@ PROJECT      : ALFRED
 BLOCK        : GLOBAL
 FUNCTION     : XX.XX
 FILE         : src/accessibility/translation/__init__.py
-ROLE         : TO_DEFINE
+ROLE         : Marqueur de package Python (vide)
 
 AUTHOR       : Cognitive Products Lab
 CREATED      : 2026-06-03
-UPDATED      : 2026-06-03
+UPDATED      : 2026-06-14
 VERSION      : V1.0
-STATUS       : DRAFT
+STATUS       : STRUCTURAL
 
 DESCRIPTION :
 Module ALFRED — description a completer.

@@ -1,71 +1,73 @@
 # ALFRED — BACKLOG & RÉFÉRENTIEL FICHIERS
 
-> Généré le 13/06/2026 12:39 depuis `dashboard_data.json` (mis à jour le 03/06/2026 14:12:40)
-> Progression technique : **62.9%** · Full projet : **43.4%**
-> 665 fichiers détectés / 1065 cible full
+> Généré le 14/06/2026 17:53 depuis `dashboard_data.json` (mis à jour le 14/06/2026 17:52:49)
+> Progression technique : **63.0%** · Full projet : **43.9%**
+> 657 fichiers détectés / 1059 cible full
 
 ## Synthèse globale
 
 | Statut | Nb | % | Priorité |
 |--------|---:|--:|----------|
-| 🟡 Partiel | 200 | 30.1% | 🟡 Sprint |
-| 🟦 Codé — à tester | 207 | 31.1% | 🟡 Sprint |
-| 🧪 Testé — à valider | 3 | 0.5% | 🧪 Tests |
-| ✅ Validé ✅ | 203 | 30.5% | ✅ Done |
-| ⚙️ Structurel | 52 | 7.8% | ✅ Done |
+| ❌ A créer | 2 | 0.3% | 🔴 Urgent |
+| 🟡 Partiel | 185 | 28.2% | 🟡 Sprint |
+| 🟦 Codé — à tester | 204 | 31.1% | 🟡 Sprint |
+| 🧪 Testé — à valider | 9 | 1.4% | 🧪 Tests |
+| ✅ Validé ✅ | 207 | 31.5% | ✅ Done |
+| ⚙️ Structurel | 52 | 7.9% | ✅ Done |
 
 ## Backlog par bloc
 
-### 🟡 B01 — Interaction conversationnelle intelligente `73.6%`
+### 🟡 B01 — Interaction conversationnelle intelligente `69.6%`
 
 | KPI | Valeur |
 |-----|--------|
-| Validés | 6 |
-| Testés | 1 |
+| Validés | 3 |
+| Testés | 4 |
 | Codés (à tester) | 13 |
-| Partiels | 2 |
+| Partiels | 1 |
 | Structurels | 3 |
-| Manquants | 0 |
+| Manquants | 1 |
 
 **Fichiers à traiter :**
 
 | Fichier | Statut | Action |
 |---------|--------|--------|
+| `data/memory/episodic/dialogue_history.json` | ❌ A créer | Créer |
 | `data/dialogue_history.json` | 🟡 Partiel | Compléter |
-| `tests/test_b01_speech.py` | 🟡 Partiel | Compléter |
-| `config/conversation_rules.json` | 🟦 Codé — à tester | Tester (contenu prêt, non encore connecté au pipeline de réponse — cf. audit 14/06/2026) |
-| `data/memory/episodic/dialogue_history.json` | 🟦 Codé — à tester | Tester |
+| `config/conversation_rules.json` | 🟦 Codé — à tester | Tester |
 | `src/conversation/input/audio_capture.py` | 🟦 Codé — à tester | Tester |
 | `src/conversation/input/context_builder.py` | 🟦 Codé — à tester | Tester |
 | `src/conversation/nlp/nlp_engine_v2.py` | 🟦 Codé — à tester | Tester |
 | `src/conversation/input/speech_manager.py` | 🟦 Codé — à tester | Tester |
 | `src/conversation/input/text_input.py` | 🟦 Codé — à tester | Tester |
-| `src/conversation/input/voice_profile.py` | 🟦 Codé — à tester | Tester |
-| `src/llm/llm_client_openai.py` | 🟦 Codé — à tester | Tester |
+| `src/llm/llm_client_ollama.py` | 🟦 Codé — à tester | Tester |
 | `src/conversation/output/tts_output.py` | 🟦 Codé — à tester | Tester |
+| `src/core/response_generator.py` | 🟦 Codé — à tester | Tester |
+| `tests/test_b01_speech.py` | 🟦 Codé — à tester | Tester |
 | `tests/test_pipeline_llm.py` | 🟦 Codé — à tester | Tester |
-| `src/conversation/input/audio_listener.py` | 🟪 Roadmap V2 | Stub non branché (NotImplementedError) — façade prévue pour brancher audio_capture.py, cf. audit 14/06/2026 |
-| `src/conversation/nlp/intent_classifier.py` | 🟪 Roadmap V2 | DRAFT non branché — pipeline réel utilise nlp_engine_v2.py, cf. audit 14/06/2026 |
+| `src/conversation/input/audio_listener.py` | 🟦 Codé — à tester | Tester |
+| `src/conversation/nlp/intent_classifier.py` | 🟦 Codé — à tester | Tester |
 
-### 🟡 B02 — Mémoire & RAG `71.2%`
+### 🟡 B02 — Mémoire & RAG `67.2%`
 
 | KPI | Valeur |
 |-----|--------|
-| Validés | 7 |
+| Validés | 6 |
 | Testés | 0 |
 | Codés (à tester) | 12 |
 | Partiels | 4 |
 | Structurels | 2 |
-| Manquants | 0 |
+| Manquants | 1 |
 
 **Fichiers à traiter :**
 
 | Fichier | Statut | Action |
 |---------|--------|--------|
+| `data/user_memory.json` | ❌ A créer | Créer |
 | `config/v3/memory_rules.json` | 🟡 Partiel | Compléter |
-| `data/user_memory.json` | 🟡 Partiel | Compléter |
 | `data/v2/memory_samples.json` | 🟡 Partiel | Compléter |
 | `data/v3/memory_patterns.json` | 🟡 Partiel | Compléter |
+| `src/memory/memory_manager.py` | 🟡 Partiel | Compléter |
 | `knowledges/professional/engineering/ai/semantic_memory.json` | 🟦 Codé — à tester | Tester |
 | `knowledges/system/memory/episodic_memory.json` | 🟦 Codé — à tester | Tester |
 | `knowledges/system/memory/memory_context_linking.json` | 🟦 Codé — à tester | Tester |
@@ -74,19 +76,19 @@
 | `knowledges/system/memory/memory_prioritization.json` | 🟦 Codé — à tester | Tester |
 | `knowledges/system/memory/memory_system.json` | 🟦 Codé — à tester | Tester |
 | `src/memory/episodic_memory.py` | 🟦 Codé — à tester | Tester |
+| `src/memory/long_term_memory.py` | 🟦 Codé — à tester | Tester |
 | `src/memory/memory_indexer.py` | 🟦 Codé — à tester | Tester |
-| `src/memory/memory_manager.py` | 🟦 Codé — à tester | Tester |
 | `src/memory/rag_stub.py` | 🟦 Codé — à tester | Tester |
 | `src/rag/rag_engine.py` | 🟦 Codé — à tester | Tester |
 
-### 🟡 B03 — Émotions & Régulation `69.2%`
+### 🟡 B03 — Émotions & Régulation `73.1%`
 
 | KPI | Valeur |
 |-----|--------|
 | Validés | 7 |
-| Testés | 0 |
-| Codés (à tester) | 11 |
-| Partiels | 6 |
+| Testés | 4 |
+| Codés (à tester) | 8 |
+| Partiels | 5 |
 | Structurels | 2 |
 | Manquants | 0 |
 
@@ -99,7 +101,6 @@
 | `config/v3/tone_profiles.json` | 🟡 Partiel | Compléter |
 | `data/v3/emotion_state.json` | 🟡 Partiel | Compléter |
 | `data/v3/relational_state.json` | 🟡 Partiel | Compléter |
-| `tests/test_b02_b03.py` | 🟡 Partiel | Compléter |
 | `knowledges/cpl/human_communication/emotional_intelligence.json` | 🟦 Codé — à tester | Tester |
 | `knowledges/human/cognition/decision_fatigue.json` | 🟦 Codé — à tester | Tester |
 | `knowledges/human/emotional_intelligence/active_listening.json` | 🟦 Codé — à tester | Tester |
@@ -107,10 +108,7 @@
 | `knowledges/human/emotional_intelligence/emotional_patterns.json` | 🟦 Codé — à tester | Tester |
 | `knowledges/human/psychology/burnout_prevention.json` | 🟦 Codé — à tester | Tester |
 | `knowledges/human/psychology/resilience.json` | 🟦 Codé — à tester | Tester |
-| `src/regulation/emotion_detector.py` | 🟦 Codé — à tester | Tester |
-| `src/regulation/mode_manager.py` | 🟦 Codé — à tester | Tester |
-| `src/regulation/protection_guard.py` | 🟦 Codé — à tester | Tester |
-| `src/regulation/wellbeing_tracker.py` | 🟦 Codé — à tester | Tester |
+| `tests/test_b02_b03.py` | 🟦 Codé — à tester | Tester |
 
 ### 🟡 B04 — Sécurité & Protection `64.0%`
 
@@ -202,13 +200,13 @@
 |---------|--------|--------|
 | `data/context/user_context.json` | 🟡 Partiel | Compléter |
 
-### 🟡 B08 — Personnalisation utilisateur `69.6%`
+### 🟡 B08 — Personnalisation utilisateur `68.1%`
 
 | KPI | Valeur |
 |-----|--------|
 | Validés | 6 |
-| Testés | 2 |
-| Codés (à tester) | 15 |
+| Testés | 0 |
+| Codés (à tester) | 17 |
 | Partiels | 3 |
 | Structurels | 1 |
 | Manquants | 0 |
@@ -235,6 +233,8 @@
 | `knowledges/core/user_adaptation.json` | 🟦 Codé — à tester | Tester |
 | `knowledges/human/self_alignment/habits/discipline.json` | 🟦 Codé — à tester | Tester |
 | `knowledges/human/self_alignment/routines/feedback_loop.json` | 🟦 Codé — à tester | Tester |
+| `src/core/alfred_behavior_engine.py` | 🟦 Codé — à tester | Tester |
+| `src/core/personality_adapter.py` | 🟦 Codé — à tester | Tester |
 
 ### 🟡 B09 — Productivité & Copilote pro `75.4%`
 
@@ -271,14 +271,14 @@
 | Structurels | 0 |
 | Manquants | 0 |
 
-### 🟡 B11 — Intelligence cognitive avancée `73.3%`
+### 🟡 B11 — Intelligence cognitive avancée `71.7%`
 
 | KPI | Valeur |
 |-----|--------|
 | Validés | 2 |
 | Testés | 0 |
-| Codés (à tester) | 8 |
-| Partiels | 0 |
+| Codés (à tester) | 7 |
+| Partiels | 1 |
 | Structurels | 2 |
 | Manquants | 0 |
 
@@ -286,6 +286,7 @@
 
 | Fichier | Statut | Action |
 |---------|--------|--------|
+| `src/knowledge/knowledge_router.py` | 🟡 Partiel | Compléter |
 | `knowledges/human/cognition/cognitive_load.json` | 🟦 Codé — à tester | Tester |
 | `knowledges/human/cognition/critical_thinking.json` | 🟦 Codé — à tester | Tester |
 | `knowledges/human/cognition/focus_management.json` | 🟦 Codé — à tester | Tester |
@@ -293,7 +294,6 @@
 | `knowledges/human/cognition/uncertainty_management.json` | 🟦 Codé — à tester | Tester |
 | `knowledges/professional/engineering/ai/reasoning_advanced.json` | 🟦 Codé — à tester | Tester |
 | `knowledges/professional/engineering/ai/reasoning_engine.json` | 🟦 Codé — à tester | Tester |
-| `src/knowledge/knowledge_router.py` | 🟦 Codé — à tester | Tester |
 
 ### 🟡 B12 — Pilotage business & Stratégie `73.8%`
 
@@ -389,14 +389,14 @@
 | `assets/avatars/avatar_medium/base_medium/alfred_medium_very_excited.png` | 🟦 Codé — à tester | Tester |
 | *... 14 autres* | | |
 
-### 🟠 B16 — Démonstration & Scénarisation `40.0%`
+### 🟠 B16 — Démonstration & Scénarisation `43.3%`
 
 | KPI | Valeur |
 |-----|--------|
 | Validés | 0 |
 | Testés | 0 |
-| Codés (à tester) | 0 |
-| Partiels | 6 |
+| Codés (à tester) | 1 |
+| Partiels | 5 |
 | Structurels | 0 |
 | Manquants | 0 |
 
@@ -409,7 +409,7 @@
 | `data/v2/scenarios/career_transition.json` | 🟡 Partiel | Compléter |
 | `data/v2/scenarios/isolation_support.json` | 🟡 Partiel | Compléter |
 | `data/v2/scenarios/mental_overload.json` | 🟡 Partiel | Compléter |
-| `tests/test_pipeline.py` | 🟡 Partiel | Compléter |
+| `tests/test_pipeline.py` | 🟦 Codé — à tester | Tester |
 
 ### 🟢 B17 — Visual Generation contextuelle `94.3%`
 
@@ -439,14 +439,14 @@
 | `assets/backgrounds/mode_portrait/interieur/specifique/sport/background_portrait_interieur_sport.png` | 🟦 Codé — à tester | Tester |
 | `assets/backgrounds/mode_portrait/orientation portrait/specifique/Transport/background_portrait_exterieur_transport_debut fin journee.jpg` | 🟦 Codé — à tester | Tester |
 
-### 🟡 B18 — Knowledge & Intelligence System `60.2%`
+### 🟡 B18 — Knowledge & Intelligence System `62.3%`
 
 | KPI | Valeur |
 |-----|--------|
-| Validés | 52 |
-| Testés | 0 |
-| Codés (à tester) | 25 |
-| Partiels | 156 |
+| Validés | 60 |
+| Testés | 1 |
+| Codés (à tester) | 20 |
+| Partiels | 146 |
 | Structurels | 27 |
 | Manquants | 0 |
 
@@ -454,7 +454,6 @@
 
 | Fichier | Statut | Action |
 |---------|--------|--------|
-| `check_tools.ps1` | 🟡 Partiel | Compléter |
 | `config/v1/basic_pipeline_rules.json` | 🟡 Partiel | Compléter |
 | `config/v2/confidence_rules.json` | 🟡 Partiel | Compléter |
 | `config/v2/decision_rules.json` | 🟡 Partiel | Compléter |
@@ -484,7 +483,8 @@
 | `data/v3/context_memories.json` | 🟡 Partiel | Compléter |
 | `data/v3/conversation_state.json` | 🟡 Partiel | Compléter |
 | `data/v3/feedback_log_v3.json` | 🟡 Partiel | Compléter |
-| *... 151 autres* | | |
+| `data/v3/fusion_results.json` | 🟡 Partiel | Compléter |
+| *... 136 autres* | | |
 
 ### 🟡 B19 — Domotique Intelligente `60.0%`
 
@@ -512,14 +512,14 @@
 | `data/v4/sensor_state.json` | 🟡 Partiel | Compléter |
 | `data/v4/trigger_log.json` | 🟡 Partiel | Compléter |
 
-### 🟢 B20 — Cybersécurité Zero Trust `85.7%`
+### 🟢 B20 — Cybersécurité Zero Trust `89.0%`
 
 | KPI | Valeur |
 |-----|--------|
 | Validés | 31 |
 | Testés | 0 |
-| Codés (à tester) | 10 |
-| Partiels | 6 |
+| Codés (à tester) | 13 |
+| Partiels | 3 |
 | Structurels | 2 |
 | Manquants | 0 |
 
@@ -527,13 +527,13 @@
 
 | Fichier | Statut | Action |
 |---------|--------|--------|
-| `config/security/audit_retention_policy.json` | 🟡 Partiel | Compléter |
-| `config/security/trusted_devices.json` | 🟡 Partiel | Compléter |
 | `config/v3/safety_rules.json` | 🟡 Partiel | Compléter |
 | `data/security/access_decisions_history.json` | 🟡 Partiel | Compléter |
-| `data/security/incident_register.json` | 🟡 Partiel | Compléter |
 | `data/security/trusted_devices_runtime.json` | 🟡 Partiel | Compléter |
 | `config/safety_rules.json` | 🟦 Codé — à tester | Tester |
+| `config/security/audit_retention_policy.json` | 🟦 Codé — à tester | Tester |
+| `config/security/trusted_devices.json` | 🟦 Codé — à tester | Tester |
+| `data/security/incident_register.json` | 🟦 Codé — à tester | Tester |
 | `logs/security/security.log` | 🟦 Codé — à tester | Tester |
 | `src/security/api_security.py` | 🟦 Codé — à tester | Tester |
 | `src/security/network_security.py` | 🟦 Codé — à tester | Tester |
@@ -568,7 +568,7 @@
 | `ALFRED_WEB/templates/projet.html` | 🟦 Codé — à tester | Tester |
 | `ALFRED_WEB/static/css/style.css` | 🟦 Codé — à tester | Tester |
 
-### 🟡 B22 — Accessibility & Cognitive Assistance `71.1%`
+### 🟡 B22 — Accessibility & Cognitive Assistance `72.2%`
 
 | KPI | Valeur |
 |-----|--------|
@@ -597,23 +597,23 @@
 | `src/accessibility/ui/android_a11y.py` | 🟦 Codé — à tester | Tester |
 | `src/accessibility/ui/web_a11y.py` | 🟦 Codé — à tester | Tester |
 
-## 🟦 Sprint — Fichiers codés à tester (207)
+## 🟦 Sprint — Fichiers codés à tester (204)
 
 Ces fichiers sont implémentés mais n'ont pas encore de tests.
 
 **B01**
 - `config/conversation_rules.json`
-- `data/memory/episodic/dialogue_history.json`
 - `src/conversation/input/audio_capture.py`
 - `src/conversation/input/audio_listener.py`
 - `src/conversation/input/context_builder.py`
 - `src/conversation/input/speech_manager.py`
 - `src/conversation/input/text_input.py`
-- `src/conversation/input/voice_profile.py`
 - `src/conversation/nlp/intent_classifier.py`
 - `src/conversation/nlp/nlp_engine_v2.py`
 - `src/conversation/output/tts_output.py`
-- `src/llm/llm_client_openai.py`
+- `src/core/response_generator.py`
+- `src/llm/llm_client_ollama.py`
+- `tests/test_b01_speech.py`
 - `tests/test_pipeline_llm.py`
 **B02**
 - `knowledges/professional/engineering/ai/semantic_memory.json`
@@ -624,8 +624,8 @@ Ces fichiers sont implémentés mais n'ont pas encore de tests.
 - `knowledges/system/memory/memory_prioritization.json`
 - `knowledges/system/memory/memory_system.json`
 - `src/memory/episodic_memory.py`
+- `src/memory/long_term_memory.py`
 - `src/memory/memory_indexer.py`
-- `src/memory/memory_manager.py`
 - `src/memory/rag_stub.py`
 - `src/rag/rag_engine.py`
 **B03**
@@ -636,10 +636,7 @@ Ces fichiers sont implémentés mais n'ont pas encore de tests.
 - `knowledges/human/emotional_intelligence/emotional_patterns.json`
 - `knowledges/human/psychology/burnout_prevention.json`
 - `knowledges/human/psychology/resilience.json`
-- `src/regulation/emotion_detector.py`
-- `src/regulation/mode_manager.py`
-- `src/regulation/protection_guard.py`
-- `src/regulation/wellbeing_tracker.py`
+- `tests/test_b02_b03.py`
 **B04**
 - `.env.example`
 - `.gitignore`
@@ -682,6 +679,8 @@ Ces fichiers sont implémentés mais n'ont pas encore de tests.
 - `knowledges/core/user_adaptation.json`
 - `knowledges/human/self_alignment/habits/discipline.json`
 - `knowledges/human/self_alignment/routines/feedback_loop.json`
+- `src/core/alfred_behavior_engine.py`
+- `src/core/personality_adapter.py`
 **B09**
 - `knowledges/cpl/product_ia/product_design_methodology.json`
 - `knowledges/cpl/product_ia/tech_tradeoff_framework.json`
@@ -699,7 +698,6 @@ Ces fichiers sont implémentés mais n'ont pas encore de tests.
 - `knowledges/human/cognition/uncertainty_management.json`
 - `knowledges/professional/engineering/ai/reasoning_advanced.json`
 - `knowledges/professional/engineering/ai/reasoning_engine.json`
-- `src/knowledge/knowledge_router.py`
 **B12**
 - `knowledges/cpl/business_piloting/pricing_strategy.json`
 - `knowledges/cpl/business_piloting/profitability_analysis.json`
@@ -751,6 +749,8 @@ Ces fichiers sont implémentés mais n'ont pas encore de tests.
 - `assets/models/tts/fr_FR/fr_FR-upmc-medium.onnx.json`
 - `assets/voices/fr_FR-upmc-medium.onnx`
 - `assets/voices/fr_FR-upmc-medium.onnx.json`
+**B16**
+- `tests/test_pipeline.py`
 **B17**
 - `assets/backgrounds/mode_paysage/interieur/chambre/background_paysage_interieur_chambre_debut_journee.png`
 - `assets/backgrounds/mode_paysage/interieur/chambre/background_paysage_interieur_chambre_fin_journee.png`
@@ -768,7 +768,6 @@ Ces fichiers sont implémentés mais n'ont pas encore de tests.
 - `.env`
 - `ALFRED_CONTEXT.md`
 - `README.md`
-- `bootstrap_project.ps1`
 - `config/alfred_project.json`
 - `config/router_rules.json`
 - `config/v2/module_mapping.json`
@@ -786,12 +785,11 @@ Ces fichiers sont implémentés mais n'ont pas encore de tests.
 - `paths.py`
 - `requirements.txt`
 - `scripts/clean_project.ps1`
-- `scripts/deploy_knowledges.ps1`
-- `scripts/fix_response_generator_rename.ps1`
-- `scripts/ranger_fichiers_blocs.ps1`
-- `scripts/update_knowledge_registry.ps1`
 **B20**
 - `config/safety_rules.json`
+- `config/security/audit_retention_policy.json`
+- `config/security/trusted_devices.json`
+- `data/security/incident_register.json`
 - `logs/security/security.log`
 - `src/security/api_security.py`
 - `src/security/data_protection.py`
@@ -824,3 +822,19 @@ Ces fichiers sont implémentés mais n'ont pas encore de tests.
 - `src/accessibility/ui/visual_adapter.py`
 - `src/accessibility/ui/web_a11y.py`
 - `src/accessibility/wcag_checker.py`
+
+## 🟪 Scaffolding Roadmap V2-V4 — config/data non connectés (audit 14/06/2026)
+
+Les dossiers `config/v2/`, `config/v3/`, `config/v4/`, `data/v2/`, `data/v3/`,
+`data/v4/` (~70 fichiers, majoritairement `{}` / `{"x": []}` / `{"x": {}}`,
+y compris `config/v2/module_mapping.json` et `config/v2/decision_rules.json`
+qui ont un contenu mais ne sont lus par aucun code) sont des squelettes
+préparés pour les versions futures, **0 référence dans le code actuel**.
+
+À distinguer de `src/v2/` (25 fichiers) et `src/v3/` (27 fichiers), qui eux
+sont importés par `main.py` / `alfred_behavior_engine.py` / tests et doivent
+être conservés tels quels.
+
+**Action** : ne pas traiter individuellement — à revoir lors de l'audit
+dédié des dossiers de versions (`src/v1`, `src/v2`, `src/v2pp`, `src/v3`,
+`src/v4`).
