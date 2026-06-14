@@ -50,6 +50,11 @@ EMERGENCY**.
 - PIN : bcrypt rounds≥12, blocage après 5 tentatives échouées, session 900s.
 - Aucun rôle ne dépasse sa sensibilité maximale autorisée (`policy_engine.py`).
 
+> **Note** : `config/security/access_policies.json` (`{"policies": []}`) est un
+> fichier d'inventaire historique, non lu par le code. Les politiques d'accès
+> effectives (`_RESTRICTED_ACTIONS`, `_ROLE_MAX_SENSITIVITY`) sont codées dans
+> `policy_engine.py`, cf. section 2 et `zero_trust_rules.json` (ZT-07, ZT-08).
+
 ## 4. Chiffrement et secrets
 
 - Données persistantes (JSON mémoire) : Fernet (AES-128-CBC + HMAC-SHA256), clé
