@@ -164,7 +164,11 @@ class SecurityGovernance:
         mfa_ok = False
         if sec_settings.exists():
             try:
-                mfa_ok = json.loads(sec_settings.read_text()).get("authentication", {}).get("mfa_required", False)
+                cfg = json.loads(sec_settings.read_text())
+                mfa_ok = bool(
+                    cfg.get("authentication", {}).get("mfa_required", False)
+                    or cfg.get("mfa_required", False)
+                )
             except json.JSONDecodeError:
                 pass
         self._chk(
