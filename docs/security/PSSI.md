@@ -101,6 +101,12 @@ Priorités critiques V2 : rotation des clés Fernet, expiration/révocation auto
 des appareils, tests de charge sécurité, corrélation d'événements multi-incidents.
 Détail complet : `politique_cybersecurite_alfred.pdf` section 8.
 
+## 10. Risques résiduels acceptés
+
+| Date | Risque | Évaluation | Décision |
+|------|--------|------------|----------|
+| 2026-06-14 | Ancienne valeur de `data/security/fernet.key` (supprimée du suivi git, commit `3916aa8`) reste présente dans l'historique git de la branche `dev`. | Clé différente de celle active dans `.env` (`FERNET_KEY`). Vérification : aucune occurrence de l'ancienne valeur dans le code, les données ou la config actuels (`grep` sur tout le repo, 0 résultat). `encryption_service.py` utilise exclusivement `FERNET_KEY` (env). Impact réel jugé faible — la clé exposée n'est plus utilisée pour chiffrer/déchiffrer aucune donnée active. | **Risque accepté** sans réécriture d'historique (réécriture jugée plus risquée sur branche `dev` partagée que l'exposition résiduelle). À réévaluer lors de la prochaine rotation de clé planifiée (`key_rotation_scheduler.py`, V2) : si une réécriture d'historique est faite pour une autre raison, en profiter pour purger cette clé. |
+
 ---
 *Document vivant — mis à jour à chaque version majeure et après chaque incident
 significatif. Référence : `politique_cybersecurite_alfred.pdf` V1.0 (Mai 2026).*
