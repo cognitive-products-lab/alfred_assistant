@@ -1,19 +1,19 @@
 # ALFRED — BACKLOG & RÉFÉRENTIEL FICHIERS
 
-> Généré le 14/06/2026 20:30 depuis `dashboard_data.json` (mis à jour le 14/06/2026 20:30:09)
-> Progression technique : **66.3%** · Full projet : **45.9%**
-> 685 fichiers détectés / 1059 cible full
+> Généré le 14/06/2026 22:34 depuis `dashboard_data.json` (mis à jour le 14/06/2026 22:34:15)
+> Progression technique : **66.3%** · Full projet : **46.5%**
+> 693 fichiers détectés / 1059 cible full
 
 ## Synthèse globale
 
 | Statut | Nb | % | Priorité |
 |--------|---:|--:|----------|
 | ❌ A créer | 2 | 0.3% | 🔴 Urgent |
-| 🟡 Partiel | 188 | 27.4% | 🟡 Sprint |
-| 🟦 Codé — à tester | 213 | 31.1% | 🟡 Sprint |
-| 🧪 Testé — à valider | 16 | 2.3% | 🧪 Tests |
-| ✅ Validé ✅ | 214 | 31.2% | ✅ Done |
-| ⚙️ Structurel | 54 | 7.9% | ✅ Done |
+| 🟡 Partiel | 189 | 27.3% | 🟡 Sprint |
+| 🟦 Codé — à tester | 216 | 31.2% | 🟡 Sprint |
+| 🧪 Testé — à valider | 17 | 2.5% | 🧪 Tests |
+| ✅ Validé ✅ | 217 | 31.3% | ✅ Done |
+| ⚙️ Structurel | 54 | 7.8% | ✅ Done |
 
 ## Backlog par bloc
 
@@ -455,14 +455,14 @@
 | `assets/backgrounds/mode_portrait/interieur/specifique/sport/background_portrait_interieur_sport.png` | 🟦 Codé — à tester | Tester |
 | `assets/backgrounds/mode_portrait/orientation portrait/specifique/Transport/background_portrait_exterieur_transport_debut fin journee.jpg` | 🟦 Codé — à tester | Tester |
 
-### 🟡 B18 — Knowledge & Intelligence System `62.3%`
+### 🟡 B18 — Knowledge & Intelligence System `62.7%`
 
 | KPI | Valeur |
 |-----|--------|
-| Validés | 60 |
-| Testés | 1 |
-| Codés (à tester) | 20 |
-| Partiels | 146 |
+| Validés | 63 |
+| Testés | 2 |
+| Codés (à tester) | 21 |
+| Partiels | 147 |
 | Structurels | 27 |
 | Manquants | 0 |
 
@@ -500,7 +500,7 @@
 | `data/v3/conversation_state.json` | 🟡 Partiel | Compléter |
 | `data/v3/feedback_log_v3.json` | 🟡 Partiel | Compléter |
 | `data/v3/fusion_results.json` | 🟡 Partiel | Compléter |
-| *... 136 autres* | | |
+| *... 138 autres* | | |
 
 ### 🟡 B19 — Domotique Intelligente `60.0%`
 
@@ -584,13 +584,13 @@
 | `ALFRED_WEB/templates/projet.html` | 🟦 Codé — à tester | Tester |
 | `ALFRED_WEB/static/css/style.css` | 🟦 Codé — à tester | Tester |
 
-### 🟡 B22 — Accessibility & Cognitive Assistance `72.2%`
+### 🟡 B22 — Accessibility & Cognitive Assistance `71.0%`
 
 | KPI | Valeur |
 |-----|--------|
 | Validés | 0 |
 | Testés | 0 |
-| Codés (à tester) | 13 |
+| Codés (à tester) | 15 |
 | Partiels | 0 |
 | Structurels | 5 |
 | Manquants | 0 |
@@ -612,8 +612,10 @@
 | `src/accessibility/ui/visual_adapter.py` | 🟦 Codé — à tester | Tester |
 | `src/accessibility/ui/android_a11y.py` | 🟦 Codé — à tester | Tester |
 | `src/accessibility/ui/web_a11y.py` | 🟦 Codé — à tester | Tester |
+| `tests/b15_tests/test_b22_accessibility.py` | 🟦 Codé — à tester | Tester |
+| `tests/b15_tests/test_voice_output_manager.py` | 🟦 Codé — à tester | Tester |
 
-## 🟦 Sprint — Fichiers codés à tester (213)
+## 🟦 Sprint — Fichiers codés à tester (216)
 
 Ces fichiers sont implémentés mais n'ont pas encore de tests.
 
@@ -811,6 +813,7 @@ Ces fichiers sont implémentés mais n'ont pas encore de tests.
 - `paths.py`
 - `requirements.txt`
 - `scripts/clean_project.ps1`
+- `tests/test_b18_knowledge.py`
 **B20**
 - `config/safety_rules.json`
 - `config/security/audit_retention_policy.json`
@@ -848,6 +851,8 @@ Ces fichiers sont implémentés mais n'ont pas encore de tests.
 - `src/accessibility/ui/visual_adapter.py`
 - `src/accessibility/ui/web_a11y.py`
 - `src/accessibility/wcag_checker.py`
+- `tests/b15_tests/test_b22_accessibility.py`
+- `tests/b15_tests/test_voice_output_manager.py`
 
 ## 🟪 Scaffolding Roadmap V2-V4 — config/data non connectés (audit 14/06/2026)
 
@@ -984,3 +989,37 @@ B17 est un bloc 100% asset (backgrounds contextuels), 84/225 fichiers
 cible, 94.3% tech — aucune anomalie de tracking détectée.
 
 **Action** : aucune.
+
+## 🟦 B18 — src/knowledge/*.py absents du manifest (audit 14/06/2026)
+
+5 fichiers `src/knowledge/{context_merger,domain_matcher,knowledge_ranker,
+knowledge_router,taxonomy_router}.py` (BLOCK: B18, STATUS: TESTED) et
+`tests/test_b18_knowledge.py` (qui les importe et les teste) étaient
+absents de `dashboard_data_manifest.json`.
+
+**Fait** : ajoutés au manifest B18 (regen dashboard/BACKLOG) — B18 passe de
+254 à 260 fichiers (64.2% "full").
+
+## ⚪ B19 — Domotique Intelligente, scaffolding V4 (audit 14/06/2026)
+
+Les 15 fichiers du manifest B19 sont exclusivement des squelettes
+`config/v4/*.json`, `data/v4/*.json` et `src/v4/{actions,home_state,
+orchestrator,scenarios,triggers}/__init__.py` — relève du même scaffolding
+roadmap V2-V4 déjà documenté plus haut, aucun code domotique réel n'existe
+encore.
+
+**Action** : aucune nouvelle action, déjà couvert (à revoir lors de l'audit
+dossiers de versions, tâche #11).
+
+## 🟦 B22 — tests accessibilité absents du manifest (audit 14/06/2026)
+
+`tests/b15_tests/test_b22_accessibility.py` et
+`tests/b15_tests/test_voice_output_manager.py` (seuls tests existants pour
+les 10 modules `src/accessibility/*`, situés par erreur dans `b15_tests/`
+au lieu de `b22_tests/`) étaient absents du manifest B22 (qui prévoit
+`sub_targets.tests: 5`).
+
+**Fait** : ajoutés au manifest B22 (regen dashboard/BACKLOG) — B22 passe de
+18 à 20 fichiers (40.6% "full").
+**Reste à faire** : 3 tests supplémentaires restent à écrire pour atteindre
+la cible `sub_targets.tests: 5`.
