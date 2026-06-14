@@ -54,6 +54,10 @@ EMERGENCY**.
 > fichier d'inventaire historique, non lu par le code. Les politiques d'accès
 > effectives (`_RESTRICTED_ACTIONS`, `_ROLE_MAX_SENSITIVITY`) sont codées dans
 > `policy_engine.py`, cf. section 2 et `zero_trust_rules.json` (ZT-07, ZT-08).
+> Même constat (B04) pour `config/ethics_rules.json` (`{"rules": []}`) : le
+> cadre éthique réel est dans `knowledges/system/ethics/ethical_framework.json`
+> et `knowledges/cpl/ethics_governance/*.json`, chargés via
+> `knowledges/knowledge_registry.json` (`knowledge_loader.py`, Bloc 18).
 
 ## 4. Chiffrement et secrets
 
