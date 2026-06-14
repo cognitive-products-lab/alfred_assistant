@@ -1,18 +1,18 @@
 # ALFRED — BACKLOG & RÉFÉRENTIEL FICHIERS
 
-> Généré le 14/06/2026 17:53 depuis `dashboard_data.json` (mis à jour le 14/06/2026 17:52:49)
-> Progression technique : **63.0%** · Full projet : **43.9%**
-> 657 fichiers détectés / 1059 cible full
+> Généré le 14/06/2026 19:27 depuis `dashboard_data.json` (mis à jour le 14/06/2026 19:27:26)
+> Progression technique : **62.9%** · Full projet : **44.0%**
+> 660 fichiers détectés / 1059 cible full
 
 ## Synthèse globale
 
 | Statut | Nb | % | Priorité |
 |--------|---:|--:|----------|
 | ❌ A créer | 2 | 0.3% | 🔴 Urgent |
-| 🟡 Partiel | 185 | 28.2% | 🟡 Sprint |
-| 🟦 Codé — à tester | 204 | 31.1% | 🟡 Sprint |
+| 🟡 Partiel | 185 | 28.0% | 🟡 Sprint |
+| 🟦 Codé — à tester | 207 | 31.4% | 🟡 Sprint |
 | 🧪 Testé — à valider | 9 | 1.4% | 🧪 Tests |
-| ✅ Validé ✅ | 207 | 31.5% | ✅ Done |
+| ✅ Validé ✅ | 207 | 31.4% | ✅ Done |
 | ⚙️ Structurel | 52 | 7.9% | ✅ Done |
 
 ## Backlog par bloc
@@ -135,13 +135,13 @@
 | `knowledges/system/ethics/ethical_framework.json` | 🟦 Codé — à tester | Tester |
 | `pyproject.toml` | 🟦 Codé — à tester | Tester |
 
-### 🟡 B05 — Organisation & Assistance `67.3%`
+### 🟡 B05 — Organisation & Assistance `65.7%`
 
 | KPI | Valeur |
 |-----|--------|
 | Validés | 2 |
 | Testés | 0 |
-| Codés (à tester) | 6 |
+| Codés (à tester) | 9 |
 | Partiels | 2 |
 | Structurels | 1 |
 | Manquants | 0 |
@@ -158,6 +158,9 @@
 | `knowledges/cpl/execution/task_prioritization.json` | 🟦 Codé — à tester | Tester |
 | `knowledges/cpl/human_organization/energy_management.json` | 🟦 Codé — à tester | Tester |
 | `knowledges/human/skills/softskills/organization.json` | 🟦 Codé — à tester | Tester |
+| `src/auth/auth_manager.py` | 🟦 Codé — à tester | Tester |
+| `src/auth/login_handler.py` | 🟦 Codé — à tester | Tester |
+| `src/auth/user_session.py` | 🟦 Codé — à tester | Tester |
 
 ### 🟡 B06 — Communication & Lien social `64.4%`
 
@@ -597,7 +600,7 @@
 | `src/accessibility/ui/android_a11y.py` | 🟦 Codé — à tester | Tester |
 | `src/accessibility/ui/web_a11y.py` | 🟦 Codé — à tester | Tester |
 
-## 🟦 Sprint — Fichiers codés à tester (204)
+## 🟦 Sprint — Fichiers codés à tester (207)
 
 Ces fichiers sont implémentés mais n'ont pas encore de tests.
 
@@ -654,6 +657,9 @@ Ces fichiers sont implémentés mais n'ont pas encore de tests.
 - `knowledges/cpl/execution/task_prioritization.json`
 - `knowledges/cpl/human_organization/energy_management.json`
 - `knowledges/human/skills/softskills/organization.json`
+- `src/auth/auth_manager.py`
+- `src/auth/login_handler.py`
+- `src/auth/user_session.py`
 **B06**
 - `knowledges/cpl/human_communication/client_interaction.json`
 - `knowledges/cpl/human_communication/communication_principles.json`
@@ -838,3 +844,23 @@ sont importés par `main.py` / `alfred_behavior_engine.py` / tests et doivent
 **Action** : ne pas traiter individuellement — à revoir lors de l'audit
 dédié des dossiers de versions (`src/v1`, `src/v2`, `src/v2pp`, `src/v3`,
 `src/v4`).
+
+## 🟦 B05 — Authentification non testée (audit 14/06/2026)
+
+`src/auth/auth_manager.py`, `src/auth/login_handler.py` et
+`src/auth/user_session.py` (BLOCK B05, STATUS: ACTIVE) sont la chaîne de
+connexion réellement utilisée par `main.py` (`start_auto_session`), mais
+étaient absents de `dashboard_data_manifest.json` (non comptés dans la
+progression B05) et n'ont **aucun test dédié** — `tests/security/test_pentest_auth.py`
+couvre `session_manager`/`mfa_manager` (B20), pas ces 3 fichiers.
+
+**Fait** : ajoutés au manifest B05 (regen dashboard/BACKLOG).
+**Reste à faire** : écrire des tests unitaires pour `auth_manager.py`,
+`login_handler.py`, `user_session.py`.
+
+## 🟡 B05 — data/actions/tasks.json (audit 14/06/2026)
+
+`data/actions/tasks.json` (`{"tasks": []}`) est un placeholder de données
+runtime, **0 référence dans le code actuel** — prévu pour une future
+gestion de tâches/actions B05 (Organisation & Assistance), pas encore
+implémentée.
