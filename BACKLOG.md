@@ -1,19 +1,19 @@
 # ALFRED — BACKLOG & RÉFÉRENTIEL FICHIERS
 
-> Généré le 14/06/2026 20:27 depuis `dashboard_data.json` (mis à jour le 14/06/2026 20:27:13)
-> Progression technique : **66.1%** · Full projet : **45.2%**
-> 677 fichiers détectés / 1059 cible full
+> Généré le 14/06/2026 20:30 depuis `dashboard_data.json` (mis à jour le 14/06/2026 20:30:09)
+> Progression technique : **66.3%** · Full projet : **45.9%**
+> 685 fichiers détectés / 1059 cible full
 
 ## Synthèse globale
 
 | Statut | Nb | % | Priorité |
 |--------|---:|--:|----------|
 | ❌ A créer | 2 | 0.3% | 🔴 Urgent |
-| 🟡 Partiel | 188 | 27.8% | 🟡 Sprint |
-| 🟦 Codé — à tester | 212 | 31.3% | 🟡 Sprint |
-| 🧪 Testé — à valider | 14 | 2.1% | 🧪 Tests |
-| ✅ Validé ✅ | 209 | 30.9% | ✅ Done |
-| ⚙️ Structurel | 54 | 8.0% | ✅ Done |
+| 🟡 Partiel | 188 | 27.4% | 🟡 Sprint |
+| 🟦 Codé — à tester | 213 | 31.1% | 🟡 Sprint |
+| 🧪 Testé — à valider | 16 | 2.3% | 🧪 Tests |
+| ✅ Validé ✅ | 214 | 31.2% | ✅ Done |
+| ⚙️ Structurel | 54 | 7.9% | ✅ Done |
 
 ## Backlog par bloc
 
@@ -358,13 +358,13 @@
 | Structurels | 1 |
 | Manquants | 0 |
 
-### 🟡 B15 — Présence visuelle & Avatar `62.1%`
+### 🟡 B15 — Présence visuelle & Avatar `66.5%`
 
 | KPI | Valeur |
 |-----|--------|
-| Validés | 2 |
-| Testés | 0 |
-| Codés (à tester) | 43 |
+| Validés | 7 |
+| Testés | 2 |
+| Codés (à tester) | 44 |
 | Partiels | 1 |
 | Structurels | 1 |
 | Manquants | 0 |
@@ -374,6 +374,7 @@
 | Fichier | Statut | Action |
 |---------|--------|--------|
 | `assets/models/tts/fr_FR/ALIASES` | 🟡 Partiel | Compléter |
+| `src/ui/device_settings.py` | 🟦 Codé — à tester | Tester |
 | `assets/avatars/avatar_normal/base_normal/avatar_mouth_a_eyes_closed.png.png` | 🟦 Codé — à tester | Tester |
 | `assets/avatars/avatar_normal/base_normal/avatar_mouth_a_eyes_half.png.png` | 🟦 Codé — à tester | Tester |
 | `assets/avatars/avatar_normal/base_normal/avatar_mouth_a_eyes_open.png.png` | 🟦 Codé — à tester | Tester |
@@ -402,8 +403,7 @@
 | `assets/avatars/avatar_medium/base_medium/alfred_medium_cybersecurity.png` | 🟦 Codé — à tester | Tester |
 | `assets/avatars/avatar_medium/base_medium/alfred_medium_love.png` | 🟦 Codé — à tester | Tester |
 | `assets/avatars/avatar_medium/base_medium/alfred_medium_excited.png` | 🟦 Codé — à tester | Tester |
-| `assets/avatars/avatar_medium/base_medium/alfred_medium_very_excited.png` | 🟦 Codé — à tester | Tester |
-| *... 14 autres* | | |
+| *... 15 autres* | | |
 
 ### 🟠 B16 — Démonstration & Scénarisation `43.3%`
 
@@ -613,7 +613,7 @@
 | `src/accessibility/ui/android_a11y.py` | 🟦 Codé — à tester | Tester |
 | `src/accessibility/ui/web_a11y.py` | 🟦 Codé — à tester | Tester |
 
-## 🟦 Sprint — Fichiers codés à tester (212)
+## 🟦 Sprint — Fichiers codés à tester (213)
 
 Ces fichiers sont implémentés mais n'ont pas encore de tests.
 
@@ -774,6 +774,7 @@ Ces fichiers sont implémentés mais n'ont pas encore de tests.
 - `assets/models/tts/fr_FR/fr_FR-upmc-medium.onnx.json`
 - `assets/voices/fr_FR-upmc-medium.onnx`
 - `assets/voices/fr_FR-upmc-medium.onnx.json`
+- `src/ui/device_settings.py`
 **B16**
 - `tests/test_pipeline.py`
 **B17**
@@ -953,3 +954,33 @@ d'interaction), réellement utilisés par `main.py`, `regulation_engine.py`,
 0% à 66.7% tech / 16.0% "full".
 **Reste à faire** : ces 5 fichiers n'ont **aucun test dédié** — à prévoir
 (`tests/b13_tests/`).
+
+## 🟦 B15 — src/ui/*.py absents du manifest (audit 14/06/2026)
+
+8 fichiers `src/ui/{alfred_app,avatar_controller,avatar_engine,
+avatar_renderer,background_manager,device_settings,sound_wave,
+ui_bridge}.py` (BLOCK: B15, STATUS: STABLE/TESTED/ACTIVE) sont entièrement
+couverts par `tests/b15_tests/` (8 fichiers de test) mais étaient absents
+de `dashboard_data_manifest.json`.
+
+**Fait** : ajoutés au manifest B15 (regen dashboard/BACKLOG) — B15 passe de
+47 à 55 fichiers (146.4% "full", déjà au-delà de la cible grâce aux assets
+avatar).
+
+## ⚪ B14/B16 — scaffolding déjà couvert (audit 14/06/2026)
+
+`src/v4/{actions,home_state,integration,orchestrator,scenarios,security,
+triggers}/__init__.py` (B14, 8 fichiers `# ALFRED module`, 0 référence sauf
+`paths.py`) et `config/v2/scenario_catalog.json` /
+`data/v2/scenarios/*.json` (B16, `{"scenarios": []}` / `{}`, 0 référence)
+relèvent du même scaffolding roadmap V2-V4 déjà documenté ci-dessus —
+à revoir lors de l'audit dédié des dossiers de versions (tâche #11).
+
+**Action** : aucune nouvelle action, déjà couvert.
+
+## ⚪ B17 — Visual Generation contextuelle (audit 14/06/2026)
+
+B17 est un bloc 100% asset (backgrounds contextuels), 84/225 fichiers
+cible, 94.3% tech — aucune anomalie de tracking détectée.
+
+**Action** : aucune.
