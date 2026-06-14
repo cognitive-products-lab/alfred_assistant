@@ -77,6 +77,45 @@ def _apply_fade(audio, samplerate: int, fade_ms: float = 5.0):
         return audio
 
 
+def _resample(audio, orig_sr: int, target_sr: int):
+    """Resample audio (mono ou stereo) par interpolation lineaire.
+
+    Le modele Piper genere a 22050 Hz, mais certains peripheriques de sortie
+    (ex. Jabra SPEAK 510 en WASAPI) refusent ce sample rate avec
+    PortAudioError -9997 "Invalid sample rate" et n'acceptent que leur
+    default_samplerate (souvent 44100/48000 Hz).
+    """
+    if orig_sr == target_sr:
+        return audio
+    try:
+        import numpy as _np
+        n_in = audio.shape[0]
+        n_out = int(round(n_in * target_sr / orig_sr))
+        x_old = _np.linspace(0.0, 1.0, n_in, endpoint=False)
+        x_new = _np.linspace(0.0, 1.0, n_out, endpoint=False)
+        if audio.ndim == 1:
+            return _np.interp(x_new, x_old, audio).astype(audio.dtype)
+        return _np.stack(
+            [_np.interp(x_new, x_old, audio[:, ch]) for ch in range(audio.shape[1])],
+            axis=1,
+        ).astype(audio.dtype)
+    except Exception:
+        return audio
+
+
+def _output_samplerate(sd_module, fallback: int) -> int:
+    """Determine le sample rate par defaut du peripherique de sortie courant."""
+    try:
+        device = sd_module.default.device[1]
+        info = sd_module.query_devices(device)
+        rate = info.get("default_samplerate")
+        if rate:
+            return int(rate)
+    except Exception:
+        pass
+    return fallback
+
+
 def _ensure_audio_libs() -> bool:
     """Charge sounddevice et soundfile a la premiere utilisation."""
     global sd, sf
@@ -435,6 +474,8 @@ class PiperTTS:
                 command,
                 input=text.strip(),
                 text=True,
+                encoding="utf-8",
+                errors="replace",
                 check=True,
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
@@ -447,6 +488,14 @@ class PiperTTS:
             # Fondu d'entrée/sortie (~5 ms) — évite le "clic"/grésillement entendu
             # entre chaque phrase quand sd.play() est appelé en rafale (streaming).
             audio = _apply_fade(audio, samplerate)
+
+            # Resample si le device de sortie n'accepte pas le sample rate Piper
+            # (ex. PaErrorCode -9997 "Invalid sample rate" sur Jabra SPEAK 510 USB
+            # qui n'accepte que son default_samplerate, 44100 Hz)
+            target_rate = _output_samplerate(sd, samplerate)
+            if target_rate != samplerate:
+                audio = _resample(audio, samplerate, target_rate)
+                samplerate = target_rate
 
             # Sortie sur le device par défaut système (ne pas forcer un index)
             # PaErrorCode -9998 = device 3 est input-only sur cette machine
