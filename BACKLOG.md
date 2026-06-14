@@ -1,19 +1,19 @@
 # ALFRED — BACKLOG & RÉFÉRENTIEL FICHIERS
 
-> Généré le 14/06/2026 23:39 depuis `dashboard_data.json` (mis à jour le 14/06/2026 23:39:49)
-> Progression technique : **66.3%** · Full projet : **46.8%**
-> 698 fichiers détectés / 1059 cible full
+> Généré le 14/06/2026 23:48 depuis `dashboard_data.json` (mis à jour le 14/06/2026 23:47:58)
+> Progression technique : **66.0%** · Full projet : **48.0%**
+> 727 fichiers détectés / 1068 cible full
 
 ## Synthèse globale
 
 | Statut | Nb | % | Priorité |
 |--------|---:|--:|----------|
 | ❌ A créer | 2 | 0.3% | 🔴 Urgent |
-| 🟡 Partiel | 189 | 27.1% | 🟡 Sprint |
-| 🟦 Codé — à tester | 221 | 31.7% | 🟡 Sprint |
-| 🧪 Testé — à valider | 17 | 2.4% | 🧪 Tests |
-| ✅ Validé ✅ | 217 | 31.1% | ✅ Done |
-| ⚙️ Structurel | 54 | 7.7% | ✅ Done |
+| 🟡 Partiel | 190 | 26.1% | 🟡 Sprint |
+| 🟦 Codé — à tester | 247 | 34.0% | 🟡 Sprint |
+| 🧪 Testé — à valider | 18 | 2.5% | 🧪 Tests |
+| ✅ Validé ✅ | 218 | 30.0% | ✅ Done |
+| ⚙️ Structurel | 54 | 7.4% | ✅ Done |
 
 ## Backlog par bloc
 
@@ -565,14 +565,14 @@
 | `src/security/security_dashboard.py` | 🟦 Codé — à tester | Tester |
 | `src/security/security_governance.py` | 🟦 Codé — à tester | Tester |
 
-### 🟡 B21 — ALFRED Web Platform `68.0%`
+### 🟡 B21 — ALFRED Web Platform `63.1%`
 
 | KPI | Valeur |
 |-----|--------|
-| Validés | 2 |
-| Testés | 0 |
-| Codés (à tester) | 8 |
-| Partiels | 0 |
+| Validés | 3 |
+| Testés | 1 |
+| Codés (à tester) | 34 |
+| Partiels | 1 |
 | Structurels | 0 |
 | Manquants | 0 |
 
@@ -580,14 +580,37 @@
 
 | Fichier | Statut | Action |
 |---------|--------|--------|
+| `ALFRED_WEB/babel.cfg` | 🟡 Partiel | Compléter |
 | `ALFRED_WEB/requirements.txt` | 🟦 Codé — à tester | Tester |
 | `ALFRED_WEB/README.md` | 🟦 Codé — à tester | Tester |
+| `ALFRED_WEB/static/css/style.css` | 🟦 Codé — à tester | Tester |
 | `ALFRED_WEB/templates/base.html` | 🟦 Codé — à tester | Tester |
 | `ALFRED_WEB/templates/index.html` | 🟦 Codé — à tester | Tester |
-| `ALFRED_WEB/templates/contact.html` | 🟦 Codé — à tester | Tester |
-| `ALFRED_WEB/templates/apprentissages.html` | 🟦 Codé — à tester | Tester |
 | `ALFRED_WEB/templates/projet.html` | 🟦 Codé — à tester | Tester |
-| `ALFRED_WEB/static/css/style.css` | 🟦 Codé — à tester | Tester |
+| `ALFRED_WEB/templates/apprentissages.html` | 🟦 Codé — à tester | Tester |
+| `ALFRED_WEB/templates/travaux.html` | 🟦 Codé — à tester | Tester |
+| `ALFRED_WEB/templates/hardware.html` | 🟦 Codé — à tester | Tester |
+| `ALFRED_WEB/templates/setup_bureau.html` | 🟦 Codé — à tester | Tester |
+| `ALFRED_WEB/templates/pentest_demo.html` | 🟦 Codé — à tester | Tester |
+| `ALFRED_WEB/templates/security_report.html` | 🟦 Codé — à tester | Tester |
+| `ALFRED_WEB/templates/dashboard_security.html` | 🟦 Codé — à tester | Tester |
+| `ALFRED_WEB/templates/dashboard_tests.html` | 🟦 Codé — à tester | Tester |
+| `ALFRED_WEB/templates/smsi_dashboard.html` | 🟦 Codé — à tester | Tester |
+| `ALFRED_WEB/templates/cpl.html` | 🟦 Codé — à tester | Tester |
+| `ALFRED_WEB/templates/rse.html` | 🟦 Codé — à tester | Tester |
+| `ALFRED_WEB/templates/articles.html` | 🟦 Codé — à tester | Tester |
+| `ALFRED_WEB/templates/articles_categorie.html` | 🟦 Codé — à tester | Tester |
+| `ALFRED_WEB/templates/article_perte_donnees.html` | 🟦 Codé — à tester | Tester |
+| `ALFRED_WEB/templates/article_ia_accessibilite_zero_trust.html` | 🟦 Codé — à tester | Tester |
+| `ALFRED_WEB/templates/article_teletravail_flexible_sante_agefiph.html` | 🟦 Codé — à tester | Tester |
+| `ALFRED_WEB/templates/article_carriere_grc_flexibilite_facteur_humain.html` | 🟦 Codé — à tester | Tester |
+| `ALFRED_WEB/templates/article_accessibilite_fr_en_lecture_vocale.html` | 🟦 Codé — à tester | Tester |
+| `ALFRED_WEB/templates/doc_stub.html` | 🟦 Codé — à tester | Tester |
+| `ALFRED_WEB/templates/profil.html` | 🟦 Codé — à tester | Tester |
+| `ALFRED_WEB/templates/mentions_legales.html` | 🟦 Codé — à tester | Tester |
+| `ALFRED_WEB/templates/contact.html` | 🟦 Codé — à tester | Tester |
+| `ALFRED_WEB/templates/error.html` | 🟦 Codé — à tester | Tester |
+| *... 5 autres* | | |
 
 ### 🟡 B22 — Accessibility & Cognitive Assistance `71.0%`
 
@@ -620,7 +643,7 @@
 | `tests/b15_tests/test_b22_accessibility.py` | 🟦 Codé — à tester | Tester |
 | `tests/b15_tests/test_voice_output_manager.py` | 🟦 Codé — à tester | Tester |
 
-## 🟦 Sprint — Fichiers codés à tester (221)
+## 🟦 Sprint — Fichiers codés à tester (247)
 
 Ces fichiers sont implémentés mais n'ont pas encore de tests.
 
@@ -842,11 +865,37 @@ Ces fichiers sont implémentés mais n'ont pas encore de tests.
 - `ALFRED_WEB/README.md`
 - `ALFRED_WEB/requirements.txt`
 - `ALFRED_WEB/static/css/style.css`
+- `ALFRED_WEB/templates/_article_comments.html`
+- `ALFRED_WEB/templates/_construction.html`
+- `ALFRED_WEB/templates/_footer.html`
+- `ALFRED_WEB/templates/_navbar.html`
+- `ALFRED_WEB/templates/_template_article.html`
 - `ALFRED_WEB/templates/apprentissages.html`
+- `ALFRED_WEB/templates/article_accessibilite_fr_en_lecture_vocale.html`
+- `ALFRED_WEB/templates/article_carriere_grc_flexibilite_facteur_humain.html`
+- `ALFRED_WEB/templates/article_ia_accessibilite_zero_trust.html`
+- `ALFRED_WEB/templates/article_perte_donnees.html`
+- `ALFRED_WEB/templates/article_teletravail_flexible_sante_agefiph.html`
+- `ALFRED_WEB/templates/articles.html`
+- `ALFRED_WEB/templates/articles_categorie.html`
 - `ALFRED_WEB/templates/base.html`
 - `ALFRED_WEB/templates/contact.html`
+- `ALFRED_WEB/templates/cpl.html`
+- `ALFRED_WEB/templates/dashboard_security.html`
+- `ALFRED_WEB/templates/dashboard_tests.html`
+- `ALFRED_WEB/templates/doc_stub.html`
+- `ALFRED_WEB/templates/error.html`
+- `ALFRED_WEB/templates/hardware.html`
 - `ALFRED_WEB/templates/index.html`
+- `ALFRED_WEB/templates/mentions_legales.html`
+- `ALFRED_WEB/templates/pentest_demo.html`
+- `ALFRED_WEB/templates/profil.html`
 - `ALFRED_WEB/templates/projet.html`
+- `ALFRED_WEB/templates/rse.html`
+- `ALFRED_WEB/templates/security_report.html`
+- `ALFRED_WEB/templates/setup_bureau.html`
+- `ALFRED_WEB/templates/smsi_dashboard.html`
+- `ALFRED_WEB/templates/travaux.html`
 **B22**
 - `docs/accessibility/ALFRED_Accessibility_Policy.pdf`
 - `src/accessibility/accessibility_manager.py`
@@ -863,7 +912,6 @@ Ces fichiers sont implémentés mais n'ont pas encore de tests.
 - `src/accessibility/wcag_checker.py`
 - `tests/b15_tests/test_b22_accessibility.py`
 - `tests/b15_tests/test_voice_output_manager.py`
-
 ## 🟪 Scaffolding Roadmap V2-V4 — config/data non connectés (audit 14/06/2026)
 
 Les dossiers `config/v2/`, `config/v3/`, `config/v4/`, `data/v2/`, `data/v3/`,
@@ -1067,3 +1115,32 @@ Bilan de l'audit dédié des dossiers de versions :
 **Conclusion** : aucun nouveau gap restant dans `src/v1`, `src/v2`,
 `src/v2pp`, `src/v3`, `src/v4` — tous les fichiers de code réel sont
 maintenant trackés dans le manifest.
+
+## 🟦 B21 — ALFRED_WEB sous-évalué dans le manifest (audit 14/06/2026)
+
+Le manifest `dashboard_data_manifest.json` ne suivait que 10 fichiers pour
+B21 (cible 30, soit 22.7% "full"), alors que `docs/BACKLOG.md` d'ALFRED_WEB
+indique le bloc **LIVRÉ et déployé en production** (cognitive-products-lab.fr)
+depuis le 25/05/2026.
+
+Audit du dépôt `ALFRED_WEB` (séparé, branche `main`, propre) :
+- **Cœur Flask (5)** : `app.py`, `tts_engine.py`, `requirements.txt`,
+  `README.md`, `babel.cfg`.
+- **Templates Jinja2 (33)** : 19 templates rendus directement via
+  `render_template()` (pages vitrine, dashboards, 8 articles, doc_stub,
+  profil, mentions légales, contact, error, pentest_demo, security_report,
+  smsi_dashboard, cpl, rse...) + `base.html` (layout) + 5 partials inclus
+  (`_navbar.html`, `_footer.html`, `_article_comments.html`,
+  `_construction.html`, `_template_article.html`).
+- **Assets (1)** : `static/css/style.css` (les autres assets `static/`
+  sont des binaires — images, fonts, PDF — non comptés, par cohérence avec
+  les autres blocs).
+- **Déploiement** : `Procfile`/`render.yaml` existent mais ne sont pas du
+  code applicatif — sous-target `deployment_ci` ramené à 0.
+
+**Fait** : `expected_files` B21 passe de 10 à 39 fichiers,
+`target_full_files_count` 30→39, `sub_targets` ajustés
+(`flask_core=5`, `templates_html=33`, `static_assets=1`,
+`deployment_ci=0`). Le "full" B21 passe de 22.7% à 63.1% (39/39 fichiers
+détectés, le tech 63.1% restant lié aux headers/STATUS internes
+d'ALFRED_WEB non audités ici — hors périmètre ALFRED_PC).
