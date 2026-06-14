@@ -1,29 +1,29 @@
 # ALFRED — BACKLOG & RÉFÉRENTIEL FICHIERS
 
-> Généré le 14/06/2026 22:34 depuis `dashboard_data.json` (mis à jour le 14/06/2026 22:34:15)
-> Progression technique : **66.3%** · Full projet : **46.5%**
-> 693 fichiers détectés / 1059 cible full
+> Généré le 14/06/2026 23:39 depuis `dashboard_data.json` (mis à jour le 14/06/2026 23:39:49)
+> Progression technique : **66.3%** · Full projet : **46.8%**
+> 698 fichiers détectés / 1059 cible full
 
 ## Synthèse globale
 
 | Statut | Nb | % | Priorité |
 |--------|---:|--:|----------|
 | ❌ A créer | 2 | 0.3% | 🔴 Urgent |
-| 🟡 Partiel | 189 | 27.3% | 🟡 Sprint |
-| 🟦 Codé — à tester | 216 | 31.2% | 🟡 Sprint |
-| 🧪 Testé — à valider | 17 | 2.5% | 🧪 Tests |
-| ✅ Validé ✅ | 217 | 31.3% | ✅ Done |
-| ⚙️ Structurel | 54 | 7.8% | ✅ Done |
+| 🟡 Partiel | 189 | 27.1% | 🟡 Sprint |
+| 🟦 Codé — à tester | 221 | 31.7% | 🟡 Sprint |
+| 🧪 Testé — à valider | 17 | 2.4% | 🧪 Tests |
+| ✅ Validé ✅ | 217 | 31.1% | ✅ Done |
+| ⚙️ Structurel | 54 | 7.7% | ✅ Done |
 
 ## Backlog par bloc
 
-### 🟡 B01 — Interaction conversationnelle intelligente `67.6%`
+### 🟡 B01 — Interaction conversationnelle intelligente `67.1%`
 
 | KPI | Valeur |
 |-----|--------|
 | Validés | 3 |
 | Testés | 4 |
-| Codés (à tester) | 13 |
+| Codés (à tester) | 18 |
 | Partiels | 4 |
 | Structurels | 4 |
 | Manquants | 1 |
@@ -50,6 +50,11 @@
 | `tests/test_pipeline_llm.py` | 🟦 Codé — à tester | Tester |
 | `src/conversation/input/audio_listener.py` | 🟦 Codé — à tester | Tester |
 | `src/conversation/nlp/intent_classifier.py` | 🟦 Codé — à tester | Tester |
+| `src/v2/fusion/fusion_engine.py` | 🟦 Codé — à tester | Tester |
+| `src/v2/confidence/confidence_scorer.py` | 🟦 Codé — à tester | Tester |
+| `src/v2/decision/decision_engine.py` | 🟦 Codé — à tester | Tester |
+| `tests/b01_tests/test_fusion_engine.py` | 🟦 Codé — à tester | Tester |
+| `tests/integration_tests/test_v2_pipeline.py` | 🟦 Codé — à tester | Tester |
 
 ### 🟡 B02 — Mémoire & RAG `67.2%`
 
@@ -615,7 +620,7 @@
 | `tests/b15_tests/test_b22_accessibility.py` | 🟦 Codé — à tester | Tester |
 | `tests/b15_tests/test_voice_output_manager.py` | 🟦 Codé — à tester | Tester |
 
-## 🟦 Sprint — Fichiers codés à tester (216)
+## 🟦 Sprint — Fichiers codés à tester (221)
 
 Ces fichiers sont implémentés mais n'ont pas encore de tests.
 
@@ -631,6 +636,11 @@ Ces fichiers sont implémentés mais n'ont pas encore de tests.
 - `src/conversation/output/tts_output.py`
 - `src/core/response_generator.py`
 - `src/llm/llm_client_ollama.py`
+- `src/v2/confidence/confidence_scorer.py`
+- `src/v2/decision/decision_engine.py`
+- `src/v2/fusion/fusion_engine.py`
+- `tests/b01_tests/test_fusion_engine.py`
+- `tests/integration_tests/test_v2_pipeline.py`
 - `tests/test_b01_speech.py`
 - `tests/test_pipeline_llm.py`
 **B02**
@@ -1023,3 +1033,37 @@ au lieu de `b22_tests/`) étaient absents du manifest B22 (qui prévoit
 18 à 20 fichiers (40.6% "full").
 **Reste à faire** : 3 tests supplémentaires restent à écrire pour atteindre
 la cible `sub_targets.tests: 5`.
+
+## 🟦 B01 — src/v2/{fusion,confidence,decision}/*.py absents du manifest (audit 14/06/2026 — audit v1-v4)
+
+3 fichiers `src/v2/fusion/fusion_engine.py`, `src/v2/confidence/confidence_scorer.py`,
+`src/v2/decision/decision_engine.py` (header `BLOCK: B01 V2`, STATUS: ACTIVE)
+sont le cœur du pipeline V2 (fusion multi-sources mémoire+knowledge+LLM,
+score de confiance, décision contextuelle), importés par `main.py` et
+`core/alfred_behavior_engine.py`, testés par `tests/b01_tests/test_fusion_engine.py`
+et `tests/integration_tests/test_v2_pipeline.py` — tous absents du manifest.
+
+**Fait** : ajoutés au manifest B01 (regen dashboard/BACKLOG) — B01 passe de
+28 à 33 fichiers (91.2% "full").
+
+## ⚪ Audit src/v1, src/v2pp, src/v2 (placeholders), src/v3 (placeholders), src/v4 — conclusion (audit 14/06/2026)
+
+Bilan de l'audit dédié des dossiers de versions :
+- `src/v1/__init__.py`, `src/v2pp/__init__.py` : marqueurs de package vides,
+  déjà trackés dans le manifest (B18), aucune anomalie.
+- `src/v2/{experience,fallback,governance,knowledge,learning,product,
+  scenarios}/__init__.py`, `src/v3/{conversation,emotion,learning,memory,
+  orchestrator,safety}/__init__.py` et `src/v4/{actions,home_state,
+  integration,orchestrator,scenarios,security,triggers}/__init__.py` :
+  tous des placeholders `# ALFRED module` déjà trackés dans le manifest
+  (B18/B19), 0 référence — scaffolding roadmap confirmé, cohérent avec la
+  note "Scaffolding Roadmap V2-V4" ci-dessus.
+- `src/v2/fusion/fusion_engine.py`, `src/v2/confidence/confidence_scorer.py`,
+  `src/v2/decision/decision_engine.py` : code réel B01 V2, gap corrigé
+  ci-dessus.
+- `src/v3/fusion/*` et `src/v3/proactive/*` : code réel B11, gap déjà
+  corrigé lors de l'audit B10-B13.
+
+**Conclusion** : aucun nouveau gap restant dans `src/v1`, `src/v2`,
+`src/v2pp`, `src/v3`, `src/v4` — tous les fichiers de code réel sont
+maintenant trackés dans le manifest.
