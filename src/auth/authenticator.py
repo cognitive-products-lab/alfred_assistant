@@ -8,9 +8,9 @@ ROLE         : Authentification locale par code PIN (bcrypt + brute-force protec
 
 AUTHOR       : Cognitive Products Lab
 CREATED      : 2026-05-23
-UPDATED      : 2026-05-23
+UPDATED      : 2026-06-15
 VERSION      : V1.0
-STATUS       : ACTIVE
+STATUS       : VALIDATED
 
 DEPENDENCIES :
 - bcrypt
