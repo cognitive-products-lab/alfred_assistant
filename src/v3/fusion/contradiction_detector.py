@@ -9,7 +9,7 @@ AUTHOR       : Cognitive Products Lab
 CREATED      : 2026-05-14
 UPDATED      : 2026-05-14
 VERSION      : V1.0
-STATUS       : TESTED
+STATUS       : VALIDATED
 
 DESCRIPTION :
 Detecteur de contradictions entre les signaux entrants.

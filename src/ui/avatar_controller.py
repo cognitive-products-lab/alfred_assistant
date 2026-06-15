@@ -9,7 +9,7 @@ AUTHOR       : Cognitive Products Lab
 CREATED      : 2026-05-14
 UPDATED      : 2026-05-14
 VERSION      : V1.0
-STATUS       : TESTED
+STATUS       : VALIDATED
 
 DESCRIPTION :
 Controleur central de l'avatar ALFRED.
@@ -193,6 +193,27 @@ class AvatarController:
         else:
             # Retour au mode courant
             self.set_state(self._current_state.mode or DEFAULT_STATE)
+
+    def pause_speaking(self) -> None:
+        """Suspend l'animation bouche entre deux phrases TTS (silence réel),
+        sans changer l'état avatar — évite le flash idle/thinking."""
+        if self.headless or self._renderer is None:
+            return
+        try:
+            if hasattr(self._renderer, "pause_mouth"):
+                self._renderer.pause_mouth()
+        except Exception:
+            pass
+
+    def resume_speaking(self) -> None:
+        """Relance l'animation bouche au début d'une nouvelle phrase TTS."""
+        if self.headless or self._renderer is None:
+            return
+        try:
+            if hasattr(self._renderer, "resume_mouth"):
+                self._renderer.resume_mouth()
+        except Exception:
+            pass
 
     def set_listening(self, listening: bool) -> None:
         """
