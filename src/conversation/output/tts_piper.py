@@ -7,14 +7,20 @@ ROLE         : Synthese vocale Piper (lecture WAV + lissage audio)
 
 AUTHOR       : Cognitive Products Lab
 CREATED      : 2026-05-10
-UPDATED      : 2026-06-10
-VERSION      : V1.1
+UPDATED      : 2026-06-15
+VERSION      : V1.2
 STATUS       : VALIDATED
 
 DESCRIPTION :
 Ajout d'un fondu d'entree/sortie (~5ms) sur chaque buffer audio pour
 supprimer le grésillement entre phrases en streaming. A re-valider en
 conditions reelles avant de repasser en STABLE.
+
+NOTE 2026-06-15 : PiperTTS.speak() calcule desormais self.last_amplitude
+(RMS du buffer audio de la phrase, avant sd.play) -- mesure simple lue par
+main.py._cb_play_start et transmise a AvatarController.set_speaking /
+resume_speaking pour adapter le rythme de la bouche au volume reel de
+chaque phrase (cf. AvatarRenderer._amplitude_to_period).
 """
 
 # ============================================================
@@ -446,6 +452,11 @@ class PiperTTS:
         # Callbacks déclenchés en synchronisation avec la lecture audio réelle
         self.on_play_start: "callable | None" = None  # juste après sd.play()
         self.on_play_stop:  "callable | None" = None  # juste après sd.wait()
+        # Amplitude RMS de la dernière phrase synthétisée (0.0-~0.3 pour une
+        # voix normale) -- mesure simple lue par l'avatar (cf.
+        # AvatarController.resume_speaking) pour adapter le rythme de bouche
+        # au volume réel de chaque phrase TTS.
+        self.last_amplitude: float = 0.0
 
     def speak(self, text: str) -> bool:
         import os
@@ -502,6 +513,11 @@ class PiperTTS:
             if target_rate != samplerate:
                 audio = _resample(audio, samplerate, target_rate)
                 samplerate = target_rate
+
+            # Amplitude RMS de la phrase -- calculée avant lecture pour être
+            # disponible dès on_play_start (sync avatar/bouche).
+            import numpy as np
+            self.last_amplitude = float(np.sqrt(np.mean(np.square(audio)))) if audio.size else 0.0
 
             # Sortie sur le device par défaut système (ne pas forcer un index)
             # PaErrorCode -9998 = device 3 est input-only sur cette machine

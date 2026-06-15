@@ -7,13 +7,54 @@ BLOCK        : GLOBAL
 FILE         : main.py
 ROLE         : Point d'entrée principal ALFRED — pipeline conversation V1.2
 AUTHOR       : Cognitive Products Lab
-UPDATED      : 2026-06-10
-VERSION      : V1.2.1
+UPDATED      : 2026-06-15
+VERSION      : V1.2.2
 STATUS       : TO_TEST
 
 NOTE 2026-06-10 : fix clean_for_tts (apostrophes typographiques cassées
 par une restauration précédente). À revalider en conditions réelles
 avant repassage en ACTIVE.
+
+NOTE 2026-06-15 : ajout commande "test_mic" (diagnostic niveau micro
+RMS/peak) + application de device_settings.json (Réglages UI) au demarrage
+CLI, pour diagnostiquer la voix non captee (VAD supprime tout l'audio).
+B04 vision (llava) cable et verifie. Validation reelle mode vocal OK
+(test_mic + ecoute fonctionnels apres fix device_settings + gain logiciel).
+Logger "faster_whisper" passe en WARNING pour eviter la pollution console
+(VAD filter logs) en mode vocal hybride (ecoute continue).
+Fix bug "ALFRED ne reagit pas en mode vocal" : la boucle principale
+appelait _read_input() (input() bloquant) en plus de
+hybrid._keyboard_loop (autre thread, autre input() bloquant) -> conflit
+stdin, la transcription vocale restait en file sans etre traitee tant
+qu'aucune touche n'etait tapee. Remplace par hybrid.get_input() bloquant
+(file unique clavier+voix).
+
+Commande "ecoute" : remplace l'enregistrement a duree fixe (10s, coupait
+les messages longs) par listen_voice_until_enter() — enregistrement en
+continu (sd.InputStream) jusqu'a appui sur Entree, plafonne a 120s.
+listen_voice_once (duree fixe) reste utilise par le mode vocal hybride
+(ecoute en arriere-plan). Logique de transcription/anti-hallucination
+factorisee dans _transcribe_audio().
+
+NOTE 2026-06-15 (bis) : 2 fixes suite retour UI/terminal —
+1) "Première utilisation détectée" s'affichait même avec un historique de
+   dialogue existant (3 échanges) : la détection ne testait que l'absence
+   du fichier personality_{USER_ID}.json (onboarding jamais fait), pas
+   l'historique. Ajout d'un check sur components["memory"].history : si
+   non vide, message reformulé sans "première utilisation".
+2) Vouvoiement résiduel visible dans le streaming terminal/UI ("Vous avez
+   posé...", "en vous fournissant...") : _tutoiement_fallback() (INT-007)
+   n'était appliqué qu'à la réponse complète via _post_process(), pas aux
+   phrases streamées par on_sentence(). Appliqué désormais phrase par
+   phrase dans on_sentence() avant affichage/TTS.
+
+NOTE 2026-06-15 (ter) : _cb_play_start lit désormais
+_tts_backend.last_amplitude (RMS de la phrase TTS, cf. tts_piper.py) et le
+transmet à AvatarController.set_speaking/resume_speaking -- la bouche de
+l'avatar va plus vite sur les phrases fortes, plus lentement sur les
+phrases faibles (sync simple TTS/avatar).
+
+À revalider en conditions réelles avant repassage en ACTIVE.
 
 Objectif :
   Conserver la V1 actuelle fonctionnelle, tout en préparant proprement la V2.
@@ -90,9 +131,15 @@ USER_ID = "celine"   # identifiant onboarding — correspond aux fichiers data/p
 # ─────────────────────────────────────────────────────────────────────────────
 # Modèle Ollama actif — changer ici pour switcher
 #
-#   "llama3.2"   → actuel, léger
-#   "mistral:7b" → recommandé (meilleur en français)
+#   "llama3.2"   → actuel, léger (CPU sans GPU dédié)
+#   "mistral:7b" → recommandé (meilleur en français, mais lent sans GPU)
 #   "phi3:mini"  → ultra-rapide (conversationnel léger)
+#
+#   Modèles lourds (Minisforum MS-S1 Max, 64-128 Go RAM unifiée — à tester) :
+#   "llama3.3:70b"        → excellent français, ~42 Go RAM en Q4
+#   "qwen2.5:72b"         → très bon multilingue/français, ~45 Go RAM en Q4
+#   "command-r-plus:104b" → fort en RAG/contexte long, ~60 Go RAM en Q4
+#   "gpt-oss:120b"        → ~32 tok/s mesuré sur Ryzen AI Max+ 395, ~65 Go RAM en Q4
 #
 # Pré-requis : ollama pull <modele>
 # ─────────────────────────────────────────────────────────────────────────────
@@ -398,6 +445,7 @@ def print_help() -> None:
     print("    vocal                         → activer/désactiver le microphone")
     print("    son                           → activer/désactiver le son (TTS)")
     print("    ecoute                        → dicter un message une seule fois")
+    print("    test_mic                      → tester le niveau du micro (diagnostic)")
     print("    rappels                       → afficher les rappels actifs")
     print("─" * 58)
     print("")
@@ -511,11 +559,19 @@ def init_components() -> dict[str, Any]:
     from src.memory.memory_engine import MemoryEngine
     from src.regulation.mode_manager import get_mode_manager
     from src.llm.llm_client_ollama import OllamaLLMClient
+    from src.llm.vision_client_ollama import OllamaVisionClient
     from src.llm.llm_client_openai import OpenAILLMClient
     from src.llm.llm_router import LLMRouter
     from src.llm.llm_client_anthropic import AnthropicLLMClient
     from src.conversation.input.input_manager import HybridInputManager
-    
+
+    # Applique le device audio configuré (Réglages UI) si présent, pour que
+    # le test micro CLI utilise le même périphérique que l'UI Kivy.
+    try:
+        from src.ui.device_settings import load_device_settings, apply_audio_settings
+        apply_audio_settings(load_device_settings())
+    except Exception:
+        pass
 
     components: dict[str, Any] = {
         "adapter": None,
@@ -645,12 +701,23 @@ def init_components() -> dict[str, Any]:
         print(f"  [AVERT] TTS Piper indisponible : {exc}")
         components["tts"] = None
 
+    # Vision (B04) — analyse d'image caméra via Ollama llava
+    try:
+        vision_client = OllamaVisionClient(model="llava:7b")
+        components["vision"] = vision_client if vision_client.is_available() else None
+        if components["vision"] is None:
+            print("  [AVERT] Modèle vision (llava:7b) indisponible — fallback texte.")
+    except Exception as exc:
+        print(f"  [AVERT] OllamaVisionClient indisponible : {exc}")
+        components["vision"] = None
+
     # ResponseGenerator
     try:
         components["generator"] = ResponseGenerator(
             llm_client=components["llm"],
             debug=False,
             tts_available=components.get("tts") is not None,
+            vision_client=components.get("vision"),
         )
     except Exception as exc:
         print(f"  [ERREUR] ResponseGenerator : {exc}")
@@ -689,17 +756,27 @@ def init_components() -> dict[str, Any]:
         pers_file = DATA_PROFILE / f"personality_{USER_ID}.json"
         components["_onboarding_pending"] = not pers_file.exists()
         if components["_onboarding_pending"]:
-            print("\n  [ALFRED] Premiere utilisation detectee.")
-            print("  Pour personnaliser ALFRED, tapez 'onboarding' dans la conversation.")
-            try:
-                from src.ui.alfred_app import set_ui_response
-                set_ui_response(
-                    "👋 Première utilisation détectée !\n"
-                    "Tape 'onboarding' pour me personnaliser "
-                    "(prénom, préférences, profil)."
-                )
-            except Exception:
-                pass
+            # Le fichier de personnalité absent ne signifie pas forcément que
+            # c'est la toute première utilisation : l'historique de dialogue
+            # peut déjà contenir des échanges (onboarding jamais fait, mais
+            # ALFRED déjà utilisé) -- cf. retour 2026-06-15 ("Première
+            # utilisation détectée" affiché alors que 3 échanges existaient).
+            history = getattr(components.get("memory"), "history", None)
+            already_used = bool(history)
+            if already_used:
+                print("\n  [ALFRED] Aucun profil personnalisé (tapez 'onboarding' pour le créer).")
+            else:
+                print("\n  [ALFRED] Premiere utilisation detectee.")
+                print("  Pour personnaliser ALFRED, tapez 'onboarding' dans la conversation.")
+                try:
+                    from src.ui.alfred_app import set_ui_response
+                    set_ui_response(
+                        "👋 Première utilisation détectée !\n"
+                        "Tape 'onboarding' pour me personnaliser "
+                        "(prénom, préférences, profil)."
+                    )
+                except Exception:
+                    pass
     except Exception:
         components["_onboarding_pending"] = False
 
@@ -809,42 +886,34 @@ def _get_whisper_model():
     """Charge le modèle Whisper une seule fois (singleton)."""
     global _whisper_model
     if _whisper_model is None:
+        import logging
         import warnings
         from faster_whisper import WhisperModel
         warnings.filterwarnings("ignore", category=RuntimeWarning, module="faster_whisper")
+        # Coupe les logs INFO/DEBUG de faster-whisper (VAD filter, etc.) qui
+        # polluent la console en mode vocal hybride (écoute continue toutes
+        # les 10s) et entrent en collision avec le streaming TTS/texte.
+        logging.getLogger("faster_whisper").setLevel(logging.WARNING)
         _whisper_model = WhisperModel("small", compute_type="int8")
     return _whisper_model
 
 
-def listen_voice_once(duration: int = VOICE_RECORD_SECONDS, silent: bool = False) -> str:
+def _transcribe_audio(audio) -> str:
     """
-    Capture le micro pendant quelques secondes et retourne le texte transcrit.
-    V1 améliorée : écoute plus longue + Whisper small + réglages anti-hallucination.
+    Applique le gain logiciel, transcrit un buffer audio (16kHz mono float32)
+    via Whisper et filtre les hallucinations. Partagé par listen_voice_once
+    et listen_voice_until_enter.
     """
-    import warnings
-    import sounddevice as sd
     import numpy as np
-
-    warnings.filterwarnings("ignore", category=RuntimeWarning, message=".*overflow.*")
-    warnings.filterwarnings("ignore", category=RuntimeWarning, message=".*invalid value.*")
-
-    samplerate = 16000
-
-    if not silent:
-        print(f"  🎤 Écoute pendant {duration} secondes...", end="\r")
-
-    audio = sd.rec(
-        int(duration * samplerate),
-        samplerate=samplerate,
-        channels=1,
-        dtype="float32",
-    )
-    sd.wait()
 
     audio = np.squeeze(audio)
 
-    if not silent:
-        print("  🧠 Transcription...")
+    # Gain logiciel si le micro capte un signal faible (évite que le VAD
+    # de Whisper rejette toute la prise comme du silence).
+    peak = float(np.max(np.abs(audio))) if audio.size else 0.0
+    if 0.0 < peak < 0.2:
+        gain = min(0.2 / peak, 10.0)
+        audio = np.clip(audio * gain, -1.0, 1.0)
 
     model = _get_whisper_model()
 
@@ -879,6 +948,130 @@ def listen_voice_once(duration: int = VOICE_RECORD_SECONDS, silent: bool = False
             return ""
 
     return text
+
+
+def listen_voice_once(duration: int = VOICE_RECORD_SECONDS, silent: bool = False) -> str:
+    """
+    Capture le micro pendant `duration` secondes (durée fixe) et retourne le
+    texte transcrit. Utilisé par le mode vocal hybride (écoute en arrière-plan).
+    """
+    import warnings
+    import sounddevice as sd
+
+    warnings.filterwarnings("ignore", category=RuntimeWarning, message=".*overflow.*")
+    warnings.filterwarnings("ignore", category=RuntimeWarning, message=".*invalid value.*")
+
+    samplerate = 16000
+
+    if not silent:
+        print(f"  🎤 Écoute pendant {duration} secondes...", end="\r")
+
+    audio = sd.rec(
+        int(duration * samplerate),
+        samplerate=samplerate,
+        channels=1,
+        dtype="float32",
+    )
+    sd.wait()
+
+    if not silent:
+        print("  🧠 Transcription...")
+
+    return _transcribe_audio(audio)
+
+
+def listen_voice_until_enter(max_duration: int = 120) -> str:
+    """
+    Capture le micro en continu (durée variable) à partir d'un premier
+    déclenchement (commande "ecoute"), jusqu'à ce que l'utilisateur appuie
+    sur Entrée pour signaler la fin de son message — évite que les messages
+    longs soient coupés par une durée d'enregistrement fixe.
+
+    Plafonnée à `max_duration` secondes par sécurité.
+    """
+    import warnings
+    import sounddevice as sd
+    import numpy as np
+
+    warnings.filterwarnings("ignore", category=RuntimeWarning, message=".*overflow.*")
+    warnings.filterwarnings("ignore", category=RuntimeWarning, message=".*invalid value.*")
+
+    samplerate = 16000
+    frames: list = []
+
+    def _callback(indata, frame_count, time_info, status):
+        frames.append(indata.copy())
+
+    print("  🎤 Écoute... (appuie sur Entrée quand tu as terminé)")
+
+    with sd.InputStream(
+        samplerate=samplerate,
+        channels=1,
+        dtype="float32",
+        callback=_callback,
+    ):
+        try:
+            input()
+        except (EOFError, KeyboardInterrupt):
+            pass
+
+    if not frames:
+        return ""
+
+    audio = np.concatenate(frames, axis=0)
+
+    max_samples = max_duration * samplerate
+    if len(audio) > max_samples:
+        audio = audio[:max_samples]
+
+    print("  🧠 Transcription...")
+
+    return _transcribe_audio(audio)
+
+
+def test_mic_levels(duration: int = 3) -> None:
+    """
+    Diagnostic micro : enregistre quelques secondes sur le device d'entrée
+    courant (sounddevice.default.device[0]) et affiche le niveau capté.
+
+    Aide à distinguer un problème Whisper/VAD (texte non détecté malgré un
+    micro qui capte bien) d'un problème de device/volume (signal trop faible
+    pour que le VAD reconnaisse de la parole).
+    """
+    import sounddevice as sd
+    import numpy as np
+
+    samplerate = 16000
+    in_idx = sd.default.device[0]
+    try:
+        dev_name = sd.query_devices(in_idx)["name"]
+    except Exception:
+        dev_name = "?"
+
+    print(f"\n  🎤 Test micro — device #{in_idx} ({dev_name})")
+    print(f"  Parle normalement pendant {duration} secondes...")
+
+    audio = sd.rec(int(duration * samplerate), samplerate=samplerate, channels=1, dtype="float32")
+    sd.wait()
+    audio = np.squeeze(audio)
+
+    peak = float(np.max(np.abs(audio)))
+    rms = float(np.sqrt(np.mean(audio ** 2)))
+
+    print(f"  Niveau max  : {peak:.4f}")
+    print(f"  Niveau RMS  : {rms:.5f}")
+
+    if peak < 0.01:
+        print(
+            "  ⚠ Signal très faible — le micro ne capte quasi rien.\n"
+            "    Vérifie : bon device sélectionné (Réglages), volume micro Windows,\n"
+            "    bouton mute physique du micro/casque."
+        )
+    elif peak < 0.05:
+        print("  ⚠ Signal faible — la voix risque d'être filtrée par le VAD. Augmente le gain micro.")
+    else:
+        print("  ✓ Signal correct.")
+    print()
 
 def handle_command(command: str, components: dict[str, Any]) -> bool:
     """
@@ -1109,7 +1302,7 @@ def handle_command(command: str, components: dict[str, Any]) -> bool:
 
     if cmd == "ecoute":
         try:
-            text = listen_voice_once()
+            text = listen_voice_until_enter()
             if text:
                 print(f"\n  Toi 🎤 : {text}\n")
                 components["_voice_once_text"] = text
@@ -1117,6 +1310,13 @@ def handle_command(command: str, components: dict[str, Any]) -> bool:
                 print("\n  Aucun texte détecté.\n")
         except Exception as exc:
             print(f"\n  [ERREUR écoute] {type(exc).__name__} — {exc}\n")
+        return True
+
+    if cmd == "test_mic":
+        try:
+            test_mic_levels()
+        except Exception as exc:
+            print(f"\n  [ERREUR test_mic] {type(exc).__name__} — {exc}\n")
         return True
 
     return False
@@ -1527,6 +1727,14 @@ Priorités :
         except Exception:
             history_text = ""
 
+    # B04 — Snapshot caméra si question vision et caméra active
+    try:
+        from src.ui.alfred_app import is_camera_active, get_camera_snapshot_b64
+        if is_camera_active():
+            context["vision_frame_b64"] = get_camera_snapshot_b64()
+    except Exception:
+        pass
+
     response = generator.generate_response(
         user_message=user_input_for_llm,
         response_context=context,
@@ -1634,8 +1842,17 @@ def main() -> None:
         _avatar_cb = components.get("avatar")
 
         def _cb_play_start() -> None:
+            # Amplitude RMS de la phrase qui démarre (mesure simple, cf.
+            # PiperTTS.last_amplitude) -- ajuste le rythme de bouche au
+            # volume réel de chaque phrase TTS.
+            amplitude = getattr(_tts_backend, "last_amplitude", 0.0)
             if _avatar_cb:
-                _avatar_cb.set_speaking(True)
+                if _avatar_cb._response_active and _avatar_cb._controller.current_state.is_speaking:
+                    # Déjà en état "speaking" (entre deux phrases) : relance juste
+                    # l'animation bouche sans re-déclencher tout le set_state.
+                    _avatar_cb.resume_speaking(amplitude)
+                else:
+                    _avatar_cb.set_speaking(True, amplitude)
             try:
                 from src.ui.alfred_app import set_ui_speaking
                 set_ui_speaking(True)
@@ -1644,12 +1861,16 @@ def main() -> None:
 
         def _cb_play_stop() -> None:
             if _avatar_cb:
-                _avatar_cb.on_tts_stop()   # respecte le verrou begin/end_response
+                if _avatar_cb._response_active:
+                    # Séquence en cours : on garde l'état "speaking" mais on
+                    # suspend la bouche pendant le silence (entre les phrases).
+                    _avatar_cb.pause_speaking()
+                else:
+                    _avatar_cb.on_tts_stop()
             try:
                 from src.ui.alfred_app import set_ui_speaking
-                # SoundWave suit le même verrou : muet inter-phrases si réponse active
-                if not (_avatar_cb and _avatar_cb._response_active):
-                    set_ui_speaking(False)
+                # SoundWave réellement synchronisée avec l'audio (silence entre phrases)
+                set_ui_speaking(False)
             except Exception:
                 pass
 
@@ -1694,23 +1915,26 @@ def main() -> None:
             hybrid = components.get("_hybrid")
             voice_enabled = components.get("voice_enabled")
 
-            # ── Vérifie d'abord si une transcription vocale est prête ──
+            # ── Mode vocal hybride : une seule file partagée clavier+micro ──
+            # (le clavier est déjà lu par hybrid._keyboard_loop ; appeler
+            # _read_input() ici en plus créerait deux lectures concurrentes
+            # de stdin et bloquerait le traitement des transcriptions voix
+            # tant qu'aucune touche n'est tapée — cf. bug "ALFRED ne réagit
+            # pas en mode vocal" du 2026-06-15)
             if hybrid and voice_enabled:
-                voice_item = hybrid.get_voice_nowait()
-                if voice_item:
-                    source, raw_input = voice_item
-                    if source == "voice":
-                        print(f"\n  Toi 🎤 : {raw_input}")
-                    elif source == "error":
-                        print(f"  [AVERT vocal] {raw_input}")
-                        continue
-                    raw_input = (raw_input or "").strip()
-                    if not raw_input:
-                        continue
-                else:
-                    # Aucune voix en attente → UI ou clavier
-                    raw_input = _read_input()
+                source, raw_input = hybrid.get_input()
+                if source == "voice":
+                    print(f"\n  Toi 🎤 : {raw_input}")
+                elif source == "error":
+                    print(f"  [AVERT vocal] {raw_input}")
+                    continue
+                elif source == "keyboard":
                     hybrid.last_keyboard_time = time.time()
+                elif source == "system":
+                    raise EOFError
+                raw_input = (raw_input or "").strip()
+                if not raw_input:
+                    continue
             else:
                 raw_input = _read_input()
 
@@ -1810,6 +2034,15 @@ def main() -> None:
                 s = phrase.strip()
                 if not s:
                     return
+                # 0. Filet tutoiement (INT-007) — le streaming phrase par phrase
+                # contourne _post_process() (appliqué seulement sur la réponse
+                # complète à la fin), donc le vouvoiement résiduel du LLM local
+                # restait visible dans le terminal/UI streamés (cf. retour
+                # 2026-06-15, ex. "Vous avez posé des questions...").
+                try:
+                    s = components["generator"]._tutoiement_fallback(s)
+                except Exception:
+                    pass
                 # 1. Filtre sécurité (Bloc 20)
                 if _sec_ok and _out_filter:
                     s = _out_filter(s)

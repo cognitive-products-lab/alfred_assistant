@@ -7,9 +7,14 @@ ROLE         : Controleur avatar ALFRED -- machine a etats visuels, hooks mode e
 
 AUTHOR       : Cognitive Products Lab
 CREATED      : 2026-05-14
-UPDATED      : 2026-05-14
-VERSION      : V1.0
+UPDATED      : 2026-06-15 (V1.1 — amplitude TTS -> rythme bouche)
+VERSION      : V1.1
 STATUS       : VALIDATED
+
+NOTE 2026-06-15 : set_speaking() et resume_speaking() acceptent un parametre
+amplitude (RMS de la phrase TTS, defaut 1.0/inchangé) transmis a
+AvatarRenderer.set_mouth_amplitude/resume_mouth -- sync simple
+TTS/avatar (cf. PiperTTS.last_amplitude dans tts_piper.py).
 
 DESCRIPTION :
 Controleur central de l'avatar ALFRED.
@@ -180,16 +185,25 @@ class AvatarController:
             return self.set_state(mode)
         return True
 
-    def set_speaking(self, speaking: bool) -> None:
+    def set_speaking(self, speaking: bool, amplitude: float = 1.0) -> None:
         """
         Synchronise l'avatar avec l'activite TTS.
 
         Args:
-            speaking : True = ALFRED parle, False = ALFRED a fini
+            speaking  : True = ALFRED parle, False = ALFRED a fini
+            amplitude : amplitude RMS de la phrase TTS qui démarre (cf.
+                        PiperTTS.last_amplitude) -- ajuste le rythme de
+                        bouche dès la première phrase de la réponse.
         """
         self._current_state.is_speaking = speaking
         if speaking:
             self.set_state("speaking")
+            if not self.headless and self._renderer is not None:
+                try:
+                    if hasattr(self._renderer, "set_mouth_amplitude"):
+                        self._renderer.set_mouth_amplitude(amplitude)
+                except Exception:
+                    pass
         else:
             # Retour au mode courant
             self.set_state(self._current_state.mode or DEFAULT_STATE)
@@ -205,13 +219,17 @@ class AvatarController:
         except Exception:
             pass
 
-    def resume_speaking(self) -> None:
-        """Relance l'animation bouche au début d'une nouvelle phrase TTS."""
+    def resume_speaking(self, amplitude: float = 1.0) -> None:
+        """Relance l'animation bouche au début d'une nouvelle phrase TTS.
+
+        amplitude : amplitude RMS de la phrase qui démarre -- une phrase
+        plus forte donne un rythme de bouche plus rapide, une phrase plus
+        faible un rythme plus lent (mesure simple de sync TTS/avatar)."""
         if self.headless or self._renderer is None:
             return
         try:
             if hasattr(self._renderer, "resume_mouth"):
-                self._renderer.resume_mouth()
+                self._renderer.resume_mouth(amplitude)
         except Exception:
             pass
 
