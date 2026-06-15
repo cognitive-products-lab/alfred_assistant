@@ -19,6 +19,9 @@ TO_COMPLETE
 Tests B20 — compliance_manager.py
 """
 
+from pathlib import Path
+
+from src.security import compliance_manager
 from src.security.compliance_manager import (
     list_sensitive_files,
     compliance_report,
@@ -54,13 +57,26 @@ def test_delete_user_data_requires_confirmation():
     assert result["errors"] == []
 
 
-def test_delete_user_data_with_confirmation_returns_structure():
+def test_delete_user_data_with_confirmation_returns_structure(tmp_path, monkeypatch):
+    # IMPORTANT : ne jamais laisser ce test taper sur le projet réel,
+    # delete_user_data(confirm=True) supprime des fichiers (dialogue_history.json,
+    # user_memory.json, security.log) -- cf. bug "dialogue_history toujours vide"
+    # corrigé le 2026-06-15.
+    monkeypatch.setattr(compliance_manager, "_ROOT", tmp_path)
+    for rel in compliance_manager.SENSITIVE_FILES:
+        p = tmp_path / rel
+        p.parent.mkdir(parents=True, exist_ok=True)
+        p.write_text("{}", encoding="utf-8")
+
     result = delete_user_data(confirm=True)
 
     assert result["confirmed"] is True
     assert "deleted" in result
     assert "missing" in result
     assert "errors" in result
+    assert set(result["deleted"]) == set(compliance_manager.SENSITIVE_FILES)
+    for rel in compliance_manager.SENSITIVE_FILES:
+        assert not (tmp_path / rel).exists()
 
 
 def test_check_privacy_readiness_contains_score():
