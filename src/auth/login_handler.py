@@ -8,9 +8,9 @@ ROLE         : Handler connexion/déconnexion ALFRED (CLI + UI)
 
 AUTHOR       : Cognitive Products Lab
 CREATED      : 2026-05-31
-UPDATED      : 2026-05-31
+UPDATED      : 2026-06-15
 VERSION      : V1.0
-STATUS       : ACTIVE
+STATUS       : VALIDATED
 
 DESCRIPTION :
 Point d'entrée unifié pour le login/logout ALFRED.

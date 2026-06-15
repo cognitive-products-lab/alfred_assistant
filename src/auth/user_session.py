@@ -8,9 +8,9 @@ ROLE         : Gestion du profil et des préférences session utilisateur
 
 AUTHOR       : Cognitive Products Lab
 CREATED      : 2026-05-31
-UPDATED      : 2026-05-31
+UPDATED      : 2026-06-15
 VERSION      : V1.0
-STATUS       : ACTIVE
+STATUS       : VALIDATED
 
 DESCRIPTION :
 Charge et expose le profil utilisateur depuis data/users/.
@@ -24,6 +24,7 @@ Fonctions couvertes :
 """
 from __future__ import annotations
 
+import copy
 import json
 from pathlib import Path
 
@@ -62,7 +63,7 @@ def set_preference(key: str, value) -> None:
 
 def get_session_profile() -> dict:
     """Retourne le profil complet de la session courante."""
-    return _session_profile.copy()
+    return copy.deepcopy(_session_profile)
 
 
 def get_preferred_language() -> str:

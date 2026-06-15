@@ -1,7 +1,7 @@
 # ALFRED — BACKLOG & RÉFÉRENTIEL FICHIERS
 
-> Généré le 15/06/2026 11:12 depuis `dashboard_data.json` (mis à jour le 15/06/2026 11:07:00)
-> Progression technique : **66.6%** · Full projet : **48.4%**
+> Généré le 15/06/2026 11:50 depuis `dashboard_data.json` (mis à jour le 15/06/2026 11:48:12)
+> Progression technique : **67.0%** · Full projet : **48.5%**
 > 728 fichiers détectés / 1068 cible full
 
 ## Synthèse globale
@@ -10,9 +10,9 @@
 |--------|---:|--:|----------|
 | ❌ A créer | 1 | 0.1% | 🔴 Urgent |
 | 🟡 Partiel | 190 | 26.1% | 🟡 Sprint |
-| 🟦 Codé — à tester | 248 | 34.1% | 🟡 Sprint |
+| 🟦 Codé — à tester | 245 | 33.7% | 🟡 Sprint |
 | 🧪 Testé — à valider | 3 | 0.4% | 🧪 Tests |
-| ✅ Validé ✅ | 233 | 32.0% | ✅ Done |
+| ✅ Validé ✅ | 236 | 32.4% | ✅ Done |
 | ⚙️ Structurel | 54 | 7.4% | ✅ Done |
 
 ## Backlog par bloc
@@ -143,13 +143,13 @@
 | `knowledges/system/ethics/ethical_framework.json` | 🟦 Codé — à tester | Tester |
 | `pyproject.toml` | 🟦 Codé — à tester | Tester |
 
-### 🟡 B05 — Organisation & Assistance `65.7%`
+### 🟡 B05 — Organisation & Assistance `74.3%`
 
 | KPI | Valeur |
 |-----|--------|
-| Validés | 2 |
+| Validés | 5 |
 | Testés | 0 |
-| Codés (à tester) | 9 |
+| Codés (à tester) | 6 |
 | Partiels | 2 |
 | Structurels | 1 |
 | Manquants | 0 |
@@ -166,9 +166,6 @@
 | `knowledges/cpl/execution/task_prioritization.json` | 🟦 Codé — à tester | Tester |
 | `knowledges/cpl/human_organization/energy_management.json` | 🟦 Codé — à tester | Tester |
 | `knowledges/human/skills/softskills/organization.json` | 🟦 Codé — à tester | Tester |
-| `src/auth/auth_manager.py` | 🟦 Codé — à tester | Tester |
-| `src/auth/login_handler.py` | 🟦 Codé — à tester | Tester |
-| `src/auth/user_session.py` | 🟦 Codé — à tester | Tester |
 
 ### 🟡 B06 — Communication & Lien social `64.4%`
 
@@ -643,7 +640,7 @@
 | `tests/b15_tests/test_b22_accessibility.py` | 🟦 Codé — à tester | Tester |
 | `tests/b15_tests/test_voice_output_manager.py` | 🟦 Codé — à tester | Tester |
 
-## 🟦 Sprint — Fichiers codés à tester (248)
+## 🟦 Sprint — Fichiers codés à tester (245)
 
 Ces fichiers sont implémentés mais n'ont pas encore de tests.
 
@@ -706,9 +703,6 @@ Ces fichiers sont implémentés mais n'ont pas encore de tests.
 - `knowledges/cpl/execution/task_prioritization.json`
 - `knowledges/cpl/human_organization/energy_management.json`
 - `knowledges/human/skills/softskills/organization.json`
-- `src/auth/auth_manager.py`
-- `src/auth/login_handler.py`
-- `src/auth/user_session.py`
 **B06**
 - `knowledges/cpl/human_communication/client_interaction.json`
 - `knowledges/cpl/human_communication/communication_principles.json`
