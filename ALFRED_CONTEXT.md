@@ -1,6 +1,6 @@
 # ALFRED — Fichier de contexte collaborateur
 # À coller en début de chaque nouvelle conversation avec Claude
-# Dernière mise à jour : 13 Juin 2026 — Session 5
+# Dernière mise à jour : 15 Juin 2026 — Session 6
 # ============================================================
 
 ## 🎯 QUI JE SUIS
@@ -504,18 +504,48 @@ Bloc 20 → V1 pipeline → personality_adapter.py
 
 ---
 
-## 📌 TÂCHES PRÉVUES — PROCHAINE SESSION (15/06/2026)
+## ✅ SESSION 6 — 15/06/2026 — Récapitulatif
 
-> Issues de l'audit bloc-par-bloc complet (B01→B22 + ALFRED_WEB) terminé le 14/06/2026.
+1. **B05 — Tests authentification (FAIT)** — création de `tests/test_b05_auth.py`
+   (32 tests) couvrant `auth_manager`, `login_handler`, `user_session`,
+   `authenticator` (0 → 32 tests, gap sécurité comblé). Bug réel trouvé/corrigé :
+   `user_session.get_session_profile()` faisait un `.copy()` superficiel
+   (préférences mutables partagées) → passage en `copy.deepcopy`.
+   Les 4 fichiers passent en `validated` (registry + dashboards + BACKLOG +
+   `pilotage_projet_alfred.xlsm`). Suite complète : 1558/1558 tests OK.
+   Commits ALFRED_PC `ffede3e` / `f28d468` (dev), ALFRED_WEB `79b64e4` (main).
 
-1. **Test réel `python main.py`** (priorité reportée) — valider mémoire, tutoiement,
-   français, streaming TTS en conditions réelles.
-2. **B05 — Tests authentification** — module fonctionnel mais 0 test (gap audit),
-   risque sécurité sur module critique.
-3. **B08 — Trancher `data/personality.json`** (placeholder `{"core": {}, "adaptation": {}}`,
+2. **Promotion 15 fichiers testés → validés** (B01/B03/B11/B15/B18) — dashboards
+   data/security/tests régénérés et synchronisés vers le site web.
+   Commit ALFRED_PC `3682b6e` (dev), ALFRED_WEB `19c8ec3` (main).
+
+3. **Corrections suite aux retours de test réel `python main.py`** :
+   - Crash `AttributeError: HybridInputManager.get_voice_nowait` en mode
+     vocal hybride (corrigé, puis remplacé par une approche `get_input()`
+     bloquant clavier+voix dans une session parallèle).
+   - Lecture TTS Piper mal encodée (caractères accentués) → forçage
+     `PYTHONIOENCODING=utf-8` / `PYTHONUTF8=1` sur le subprocess Piper CLI.
+   - `tools/sync_dashboards.py` manquant (seul le `.pyc` existait) — recréé
+     depuis le bytecode, corrige aussi 2 bugs latents (comparaison de statut
+     `"OK [sanitisé]"` qui annulait le push, et `SRC_TESTS` qui pointait vers
+     un JSON obsolète). Script testé en live : sync + push OK vers ALFRED_WEB
+     (commits `3567797`, `76135a4`).
+   - ⚠️ En parallèle (autre session) : refonte de `main.py`/`input_manager.py`
+     pour le mode vocal + ajout de `PiperTTS.last_amplitude` (RMS du buffer
+     audio) transmis à `AvatarController` pour synchroniser le rythme de la
+     bouche au volume réel — `tts_piper.py` passé en V1.2.
+
+---
+
+## 📌 TÂCHES PRÉVUES — PROCHAINE SESSION
+
+1. **Test réel `python main.py`** (en cours dans une autre session) — valider
+   mémoire, tutoiement, français, streaming TTS + sync avatar/amplitude en
+   conditions réelles.
+2. **B08 — Trancher `data/personality.json`** (placeholder `{"core": {}, "adaptation": {}}`,
    0 référence) — supprimer ou documenter son rôle futur.
-4. **UI `alfred_app.py`** — popup Réglages, caméra live, onboarding, fix Markdown.
-5. **Sprint "Fichiers codés à tester" (221 fichiers)** — cibler 2-3 fichiers sur les
+3. **UI `alfred_app.py`** — popup Réglages, caméra live, onboarding, fix Markdown.
+4. **Sprint "Fichiers codés à tester"** — cibler 2-3 fichiers sur les
    blocs les plus faibles en "full %" (B07 1.6%, B10 0%, B14 4%) pour transformer du
    scaffolding en code réel testé.
 
