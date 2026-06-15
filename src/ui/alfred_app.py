@@ -7,9 +7,9 @@ ROLE         : Application Kivy ALFRED V1.4 — fenetre complete avec controles 
 
 AUTHOR       : Cognitive Products Lab
 CREATED      : 2026-05-14
-UPDATED      : 2026-06-03 (V1.4 — get_avatar_engine, WebcamOverlay, background via engine)
-VERSION      : V1.4
-STATUS       : STABLE
+UPDATED      : 2026-06-15 (V1.7 — taille fenêtre par défaut agrandie)
+VERSION      : V1.7
+STATUS       : TO_TEST
 
 DESCRIPTION :
 Application graphique Kivy d'ALFRED, prototype complet.
@@ -19,8 +19,39 @@ Layout vertical (420 x 720) :
   AvatarRenderer (47%) -- 6 calques + background dynamique
   SoundWaveWidget( 7%) -- visualisation audio (speaking / listening)
   ConversationBox(26%) -- historique dialogue scrollable
-  InputRow        (8%) -- TextInput + bouton envoi
+  InputRow        (8%) -- TextInput + bouton micro (push-to-talk) + bouton envoi
   StatusBar       (6%) -- mode | émotion | état
+
+NOTE 2026-06-15 : InputRow a désormais un bouton 🎤 type WhatsApp — clic pour
+démarrer l'enregistrement (sd.InputStream, durée libre), clic pour l'arrêter
+et transcrire via Whisper (_transcribe_audio de src/main.py) en arrière-plan ;
+le texte transcrit est posé dans le champ de saisie pour relecture avant
+envoi. Écoute continue volontairement non implémentée ici (cf. choix
+confidentialité — [[feedback_alfred_voice_privacy]]). Testé en conditions
+réelles : capture + transcription + envoi OK.
+
+NOTE 2026-06-15 (bis) : fix affichage des icônes ControlBar (🔊🎤📷⚙️) et
+InputRow (🎤⏹→), rendues en carrés ".notdef" car OpenDyslexic ne contient
+pas ces glyphes. Ajout de _FONT_ICON (Segoe UI Emoji) + helper _icon_label()
+qui wrap l'icône dans un tag markup [font=...] tandis que le libellé garde
+OpenDyslexic. Étendu via _wrap_emoji_markup() (regex sur plages Unicode
+emoji/symboles/flèches) appliqué dans ConversationBox._add_label() et
+append_stream_phrase(), pour que les emoji du texte libre (réponses ALFRED,
+ex. "👋 Première utilisation détectée !", préfixe "💭") s'affichent aussi
+correctement.
+
+NOTE 2026-06-15 (ter) : fix InputRow.set_enabled() — le bouton micro était
+forcé disabled=True dès que _recording=True, quel que soit l'argument
+`enabled`. Or set_input_enabled(False) est appelé pendant qu'ALFRED traite
+la réponse, ce qui pouvait verrouiller le micro et empêcher le 2e clic
+(arrêt d'enregistrement) si l'utilisateur démarrait l'enregistrement avant
+la fin du cycle précédent. Le bouton micro reste désormais cliquable tant
+qu'un enregistrement est en cours, indépendamment de `enabled`.
+
+NOTE 2026-06-15 (quater) : taille de fenêtre par défaut passée de 420x720 à
+740x830 — à 420px de large, les boutons de la ControlBar (Son | Micro |
+Caméra | Réglages) se chevauchaient à l'ouverture. Fenêtre redimensionnable
+(resizable=1) inchangée, l'utilisateur peut toujours ajuster.
 
 Bridges thread-safe :
   UI -> Pipeline : ui_bridge.send_user_input()
@@ -41,6 +72,7 @@ from __future__ import annotations
 import math
 import os
 import random
+import re
 import sys
 import textwrap
 from pathlib import Path
@@ -48,8 +80,8 @@ from pathlib import Path
 os.environ.setdefault("KIVY_NO_ENV_CONFIG", "1")
 
 from kivy.config import Config  # noqa: E402
-Config.set("graphics", "width",  "420")
-Config.set("graphics", "height", "720")
+Config.set("graphics", "width",  "740")
+Config.set("graphics", "height", "830")
 Config.set("graphics", "resizable", "1")
 Config.set("graphics", "borderless", "0")
 Config.set("graphics", "show_cursor", "1")
@@ -92,6 +124,39 @@ from src.ui.device_settings import (              # noqa: E402
 #   1. Télécharger OpenDyslexic.ttf dans assets/fonts/
 #   2. Remplacer _FONT par str(ROOT / "assets/fonts/OpenDyslexic.ttf")
 _FONT        = str(ROOT / "assets" / "fonts" / "OpenDyslexic3-Regular.ttf")
+
+# OpenDyslexic ne contient pas les glyphes emoji/symboles (🎤 ⏹ →) -> rendus
+# en carrés ".notdef". Police système dédiée aux icônes des boutons.
+_FONT_ICON = "C:/Windows/Fonts/seguiemj.ttf"
+if not Path(_FONT_ICON).exists():
+    _FONT_ICON = _FONT
+
+
+def _icon_label(icon: str, label: str) -> str:
+    """Texte markup bouton : icône via _FONT_ICON, libellé via la police par défaut."""
+    return f"[font={_FONT_ICON}]{icon}[/font] {label}"
+
+
+# Plages Unicode emoji/symboles courantes (mêmes glyphes absents d'OpenDyslexic
+# que pour les boutons, ex. 👋 💭 🔊 🎤). Regroupe les séquences consécutives
+# pour minimiser le nombre de balises [font=...].
+_EMOJI_RE = re.compile(
+    "["
+    "\U0001F300-\U0001FAFF"
+    "\U00002600-\U000027BF"
+    "\U0001F1E6-\U0001F1FF"
+    "←-⇿"
+    "⌀-⏿"
+    "️"
+    "]+"
+)
+
+
+def _wrap_emoji_markup(text: str) -> str:
+    """Enrobe les séquences emoji/symboles d'un texte markup avec _FONT_ICON
+    pour éviter qu'elles s'affichent en carrés ".notdef" (police OpenDyslexic)."""
+    return _EMOJI_RE.sub(lambda m: f"[font={_FONT_ICON}]{m.group(0)}[/font]", text)
+
 _FS_MENU     = "22sp"     # ControlBar boutons  (était 11sp)
 _FS_STATUS   = "20sp"     # StatusBar labels    (était 10sp)
 _FS_CHAT     = "26sp"     # ConversationBox     (était 13sp)
@@ -207,6 +272,26 @@ def set_ui_listening(active: bool) -> None:
         )
 
 
+def is_camera_active() -> bool:
+    """Indique si la caméra est actuellement activée (overlay webcam)."""
+    if _app_instance is not None and _app_instance._layout is not None:
+        return _app_instance._layout.avatar_area.camera_active
+    return False
+
+
+def get_camera_snapshot_b64(quality: int = 80) -> Optional[str]:
+    """
+    Capture la dernière frame caméra (pleine résolution) en JPEG base64.
+    Thread-safe — ne nécessite pas le thread Kivy (lecture sous verrou).
+
+    Returns:
+        Chaîne base64 ou None si caméra inactive / aucune frame disponible.
+    """
+    if _app_instance is None or _app_instance._layout is None:
+        return None
+    return _app_instance._layout.avatar_area.capture_snapshot_jpeg_b64(quality=quality)
+
+
 def set_ui_location(location: str) -> None:
     """Change le fond selon le lieu (salon, cuisine, bureau...) — thread-safe."""
     if _app_instance is not None:
@@ -240,17 +325,18 @@ class ControlBar(BoxLayout):
             self._bg = Rectangle(pos=self.pos, size=self.size)
         self.bind(pos=self._upd_bg, size=self._upd_bg)
 
-        self._btn_son = self._make_btn("🔊 Son",     self._toggle_son)
-        self._btn_mic = self._make_btn("🎤 Micro",   self._toggle_mic)
-        self._btn_cam = self._make_btn("📷 Caméra",  self._toggle_cam)
-        self._btn_cfg = self._make_btn("⚙️ Réglages", self._toggle_cfg)
+        self._btn_son = self._make_btn("🔊", "Son",     self._toggle_son)
+        self._btn_mic = self._make_btn("🎤", "Micro",   self._toggle_mic)
+        self._btn_cam = self._make_btn("📷", "Caméra",  self._toggle_cam)
+        self._btn_cfg = self._make_btn("⚙️", "Réglages", self._toggle_cfg)
 
         for b in [self._btn_son, self._btn_mic, self._btn_cam, self._btn_cfg]:
             self.add_widget(b)
 
-    def _make_btn(self, label: str, cb) -> Button:
+    def _make_btn(self, icon: str, label: str, cb) -> Button:
         b = Button(
-            text=label,
+            text=_icon_label(icon, label),
+            markup=True,
             font_size=_FS_MENU,
             font_name=_FONT,
             size_hint=(0.25, 1),
@@ -268,10 +354,10 @@ class ControlBar(BoxLayout):
     def _toggle_son(self) -> None:
         self._sound_muted = not self._sound_muted
         if self._sound_muted:
-            self._btn_son.text             = "🔇 Muet"
+            self._btn_son.text             = _icon_label("🔇", "Muet")
             self._btn_son.background_color = _CLR_BTN_OFF
         else:
-            self._btn_son.text             = "🔊 Son"
+            self._btn_son.text             = _icon_label("🔊", "Son")
             self._btn_son.background_color = _CLR_BTN
         if self._on_cmd:
             self._on_cmd("son")
@@ -279,12 +365,12 @@ class ControlBar(BoxLayout):
     def _toggle_mic(self) -> None:
         self._mic_active = not self._mic_active
         if self._mic_active:
-            self._btn_mic.text             = "🎤 ON"
+            self._btn_mic.text             = _icon_label("🎤", "ON")
             self._btn_mic.background_color = _CLR_BTN_ON
             if _app_instance and _app_instance._layout:
                 _app_instance._layout.wave.set_listening(True)
         else:
-            self._btn_mic.text             = "🎤 Micro"
+            self._btn_mic.text             = _icon_label("🎤", "Micro")
             self._btn_mic.background_color = _CLR_BTN
             if _app_instance and _app_instance._layout:
                 _app_instance._layout.wave.set_listening(False)
@@ -297,16 +383,16 @@ class ControlBar(BoxLayout):
             overlay = _app_instance._layout.avatar_area
             active  = overlay.toggle_camera()
             if active:
-                self._btn_cam.text             = "📷 ON"
+                self._btn_cam.text             = _icon_label("📷", "ON")
                 self._btn_cam.background_color = _CLR_BTN_ON
             else:
-                self._btn_cam.text             = "📷 Caméra"
+                self._btn_cam.text             = _icon_label("📷", "Caméra")
                 self._btn_cam.background_color = _CLR_BTN
         else:
             # Fallback : pas encore prêt
-            self._btn_cam.text = "📷 ..."
+            self._btn_cam.text = _icon_label("📷", "...")
             Clock.schedule_once(
-                lambda dt: setattr(self._btn_cam, "text", "📷 Caméra"), 1.5
+                lambda dt: setattr(self._btn_cam, "text", _icon_label("📷", "Caméra")), 1.5
             )
 
     def _toggle_cfg(self) -> None:
@@ -330,11 +416,11 @@ class ControlBar(BoxLayout):
                     overlay._cam_widget._cam_index = new_cam
 
             self._btn_cfg.background_color = _CLR_BTN
-            self._btn_cfg.text = "⚙️ Réglages"
+            self._btn_cfg.text = _icon_label("⚙️", "Réglages")
 
         def _on_dismiss() -> None:
             self._btn_cfg.background_color = _CLR_BTN
-            self._btn_cfg.text = "⚙️ Réglages"
+            self._btn_cfg.text = _icon_label("⚙️", "Réglages")
 
         open_settings_popup(on_apply=_on_apply)
 
@@ -429,7 +515,8 @@ class ConversationBox(ScrollView):
         italic: bool   = False,
         prefix: str    = "",
     ) -> Label:
-        display = f"[i]{prefix}{text}[/i]" if italic else f"{prefix}{text}"
+        display = _wrap_emoji_markup(f"{prefix}{text}")
+        display = f"[i]{display}[/i]" if italic else display
         lbl = Label(
             text=display,
             markup=True,
@@ -488,7 +575,7 @@ class ConversationBox(ScrollView):
                 self._stream_text, color=_CLR_ALF, prefix="ALFRED : "
             )
         else:
-            self._stream_lbl.text = "ALFRED : " + self._stream_text
+            self._stream_lbl.text = _wrap_emoji_markup("ALFRED : " + self._stream_text)
         Clock.schedule_once(lambda dt: setattr(self, "scroll_y", 0), 0.02)
 
     def finalize_stream(self) -> None:
@@ -508,7 +595,7 @@ class ConversationBox(ScrollView):
 # ============================================================
 
 class InputRow(BoxLayout):
-    """TextInput + bouton Envoyer."""
+    """TextInput + bouton micro (push-to-talk) + bouton Envoyer."""
 
     def __init__(self, on_submit_cb=None, **kwargs: object) -> None:
         kwargs.setdefault("orientation", "horizontal")
@@ -518,6 +605,9 @@ class InputRow(BoxLayout):
         super().__init__(**kwargs)
 
         self._on_submit = on_submit_cb
+        self._recording   = False
+        self._mic_stream  = None
+        self._mic_frames: list = []
 
         with self.canvas.before:
             Color(0.05, 0.05, 0.11, 0.97)
@@ -533,15 +623,26 @@ class InputRow(BoxLayout):
             font_size=_FS_INPUT,
             font_name=_FONT,
             multiline=False,
-            size_hint=(0.82, 1),
+            size_hint=(0.66, 1),
             padding=[10, 8],
         )
         self._txt.bind(on_text_validate=self._submit)
 
+        self._btn_mic = Button(
+            text="🎤",
+            font_size=_FS_SEND,
+            font_name=_FONT_ICON,
+            size_hint=(0.16, 1),
+            background_color=_CLR_BTN,
+            color=_FG_TEXT,
+            bold=True,
+        )
+        self._btn_mic.bind(on_release=lambda _: self._toggle_mic())
+
         self._btn = Button(
             text="→",
             font_size=_FS_SEND,
-            font_name=_FONT,
+            font_name=_FONT_ICON,
             size_hint=(0.18, 1),
             background_color=(0.28, 0.36, 0.58, 1),
             color=_FG_TEXT,
@@ -550,6 +651,7 @@ class InputRow(BoxLayout):
         self._btn.bind(on_release=lambda _: self._submit())
 
         self.add_widget(self._txt)
+        self.add_widget(self._btn_mic)
         self.add_widget(self._btn)
 
     def _upd_bg(self, *_: object) -> None:
@@ -568,11 +670,101 @@ class InputRow(BoxLayout):
     def set_enabled(self, enabled: bool) -> None:
         self._txt.disabled  = not enabled
         self._btn.disabled  = not enabled
+        # Le micro reste cliquable pendant un enregistrement actif (clic
+        # d'arret), meme si enabled=False (ALFRED en cours de reponse).
+        self._btn_mic.disabled = (not enabled) and (not self._recording)
         self._btn.background_color = (
             (0.28, 0.36, 0.58, 1) if enabled else (0.14, 0.14, 0.22, 1)
         )
 
     def focus_input(self) -> None:
+        self._txt.focus = True
+
+    # ── Micro push-to-talk (clic pour démarrer, clic pour arrêter) ─────────
+    #
+    # Comme la commande CLI "ecoute" (cf. main.py listen_voice_until_enter) :
+    # 1er clic démarre l'enregistrement (sd.InputStream, durée libre),
+    # 2e clic l'arrête et lance la transcription Whisper en arrière-plan.
+    # Le texte transcrit est posé dans le champ de saisie pour relecture
+    # avant envoi — pas d'écoute continue (cf. choix confidentialité B20).
+
+    def _toggle_mic(self) -> None:
+        if self._recording:
+            self._stop_recording()
+        else:
+            self._start_recording()
+
+    def _start_recording(self) -> None:
+        try:
+            import sounddevice as sd
+        except Exception as exc:
+            print(f"  [AVERT micro UI] {exc}")
+            return
+
+        self._mic_frames = []
+
+        def _callback(indata, frame_count, time_info, status) -> None:
+            self._mic_frames.append(indata.copy())
+
+        try:
+            self._mic_stream = sd.InputStream(
+                samplerate=16000,
+                channels=1,
+                dtype="float32",
+                callback=_callback,
+            )
+            self._mic_stream.start()
+        except Exception as exc:
+            print(f"  [AVERT micro UI] {exc}")
+            self._mic_stream = None
+            return
+
+        self._recording = True
+        self._btn_mic.text = "⏹"
+        self._btn_mic.background_color = _CLR_BTN_ON
+        self._txt.hint_text = "Écoute... clique sur ⏹ pour terminer"
+        set_ui_listening(True)
+
+    def _stop_recording(self) -> None:
+        stream = self._mic_stream
+        self._mic_stream = None
+        self._recording  = False
+        self._btn_mic.text = "🎤"
+        self._btn_mic.background_color = _CLR_BTN
+        self._txt.hint_text = "Écris à ALFRED..."
+        set_ui_listening(False)
+
+        if stream is not None:
+            try:
+                stream.stop()
+                stream.close()
+            except Exception:
+                pass
+
+        frames = self._mic_frames
+        self._mic_frames = []
+        if not frames:
+            return
+
+        import threading
+        threading.Thread(target=self._transcribe_async, args=(frames,), daemon=True).start()
+
+    def _transcribe_async(self, frames: list) -> None:
+        import numpy as np
+
+        audio = np.concatenate(frames, axis=0)
+        try:
+            from src.main import _transcribe_audio
+            text = _transcribe_audio(audio)
+        except Exception as exc:
+            print(f"  [AVERT transcription UI] {exc}")
+            return
+
+        if text:
+            Clock.schedule_once(lambda dt: self._fill_transcription(text))
+
+    def _fill_transcription(self, text: str) -> None:
+        self._txt.text = text
         self._txt.focus = True
 
 
