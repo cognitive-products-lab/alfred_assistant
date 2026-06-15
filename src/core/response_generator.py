@@ -7,14 +7,25 @@ ROLE         : Construction du prompt systeme + post-traitement reponse LLM
 
 AUTHOR       : Cognitive Products Lab
 CREATED      : 2026-05-10
-UPDATED      : 2026-06-10
-VERSION      : V1.1
+UPDATED      : 2026-06-15 (V1.3 — interdiction meta-commentaire communication)
+VERSION      : V1.3
 STATUS       : TO_TEST
 
 DESCRIPTION :
 Renforcement tutoiement obligatoire, qualite francais (orthographe/
 grammaire/conjugaison) et regle anti-faux souvenirs (memory_block).
+B04 -- branchement vision (llava) : message de repli distingue
+"camera inactive" (vision dispo, active le bouton Camera) de
+"vision non disponible" (cote en developpement).
 A re-valider en conditions reelles avant de repasser en STABLE.
+
+NOTE 2026-06-15 : ALFRED répétait des phrases meta sur sa propre façon de
+communiquer ("je vais t'expliquer comment je peux utiliser ces connaissances
+pour répondre de manière claire et contextuelle", "cela me permet de
+communiquer de manière plus naturelle et humaine") -- redondant, puisque
+ALFRED doit appliquer ce mode de communication sans le déclarer. Ajout d'une
+règle INTERDICTION DE META-COMMENTAIRE SUR TA COMMUNICATION dans les
+INSTRUCTIONS IMPÉRATIVES.
 """
 
 # -*- coding: utf-8 -*-
@@ -53,6 +64,7 @@ class ResponseGenerator:
         behavior_engine: Optional[Any] = None,
         knowledge_loader: Optional[Any] = None,
         confidence_scorer: Optional[Any] = None,  # V2 ConfidenceScorer
+        vision_client: Optional[Any] = None,  # B04 — client vision (Ollama llava)
         **kwargs,
     ):
         self.behavior_engine = behavior_engine
@@ -62,6 +74,7 @@ class ResponseGenerator:
         self.debug = debug
         self.tts_available = tts_available
         self.confidence_scorer = confidence_scorer   # V2 — peut être None
+        self.vision_client = vision_client           # B04 — peut être None
 
     # =========================================================
     # ENTRÉE PRINCIPALE
@@ -77,7 +90,7 @@ class ResponseGenerator:
         on_sentence: Optional[Callable[[str], None]] = None,
     ) -> str:
         """Génère une réponse complète. Si on_sentence fourni, appelé phrase par phrase pendant le stream."""
-        forced = self._forced_response(user_message)
+        forced = self._forced_response(user_message, response_context)
         if forced:
             return forced
 
@@ -162,7 +175,7 @@ class ResponseGenerator:
     # =========================================================
     # PROMPT SYSTÈME
     # =========================================================
-    def _forced_response(self, user_message: str) -> str:
+    def _forced_response(self, user_message: str, response_context: Optional[Dict[str, Any]] = None) -> str:
         """
         Réponses déterministes pour éviter les hallucinations sur les cas critiques.
         """
@@ -192,6 +205,33 @@ class ResponseGenerator:
             "sortie audio",
         ]
 
+        vision_keywords = [
+            "caméra activé",
+            "camera activé",
+            "caméra active",
+            "camera active",
+            "active la caméra",
+            "active la camera",
+            "j'ai activé la caméra",
+            "j'ai activé la camera",
+            "decris ce que tu vois",
+            "décris ce que tu vois",
+            "decris ce qui se trouve",
+            "décris ce qui se trouve",
+            "qu'est-ce que tu vois",
+            "qu'est ce que tu vois",
+            "comment je suis habillé",
+            "comment je suis habille",
+            "regarde la caméra",
+            "regarde la camera",
+            "via la caméra",
+            "via la camera",
+            "grâce à la caméra",
+            "grace a la camera",
+            "à travers la caméra",
+            "a travers la camera",
+        ]
+
         code_check_keywords = [
             "vérifie tes ligne",
             "verifie tes ligne",
@@ -204,6 +244,38 @@ class ResponseGenerator:
             "ligne de code",
             "lignes de code",
         ]
+
+        asks_vision = any(
+            keyword in real_user_message
+            for keyword in vision_keywords
+        )
+
+        if asks_vision:
+            vision_frame_b64 = (response_context or {}).get("vision_frame_b64")
+            if self.vision_client and vision_frame_b64:
+                try:
+                    description = self.vision_client.analyze_image(
+                        vision_frame_b64,
+                        "Décris cette image en français, de façon naturelle et concise "
+                        "(tenue de la personne, objets et pièce visibles à l'arrière-plan).",
+                    )
+                    if description:
+                        return f"D'après ce que je vois via la caméra : {description}"
+                except Exception:
+                    pass
+
+            if self.vision_client and not vision_frame_b64:
+                return (
+                    "Je peux analyser l'image de la caméra, mais elle n'est pas "
+                    "activée pour l'instant. Active la caméra (bouton 📷 Caméra) "
+                    "puis repose-moi la question."
+                )
+
+            return (
+                "Je n’ai pas encore la capacité d’analyser une image de caméra. "
+                "Le flux vidéo est affiché à l’écran, mais je ne peux pas encore "
+                "le \"voir\" ni le décrire — cette fonctionnalité est en cours de développement."
+            )
 
         asks_audio = any(
             keyword in real_user_message
@@ -287,6 +359,15 @@ RÈGLE AUDIO :
 - Le module vocal Piper TTS n’est pas disponible sur cette session. ALFRED répond uniquement en texte.
 - Si l’utilisateur demande pourquoi le haut-parleur ne fonctionne pas, explique simplement que le module vocal est indisponible pour cette session.
 - Aucune promesse de vérification. Aucun faux diagnostic.
+"""
+
+        vision_block = """
+RÈGLE VISION / CAMÉRA :
+- Tu n’as PAS de capacité d’analyse d’image caméra pour le moment.
+- Si l’utilisateur te demande de décrire ce qu’il porte, ce qui se trouve derrière lui,
+  ou tout autre élément visible via la caméra/webcam, tu dis clairement que tu n’as pas
+  encore cette capacité — tu ne décris JAMAIS une pièce, une tenue ou un objet imaginaire.
+- N’invente jamais avoir "activé", "analysé" ou "vu" une image de caméra.
 """
 
         knowledge_context = context.get("knowledge_context", "")
@@ -388,6 +469,8 @@ MODE ACTIF :
 
 {audio_block}
 
+{vision_block}
+
 RÔLE :
 {assistant.get("role", "Assistant personnel adaptatif")}
 
@@ -461,6 +544,11 @@ INSTRUCTIONS IMPÉRATIVES :
 - Tu n’utilises JAMAIS de formule d’introduction comme "Bonjour !" si la conversation est déjà engagée.
 - Tu ne demandes qu’UNE seule question si tu en poses une — jamais deux.
 - Tu vas droit au but. Tu n’expliques pas ce que tu vas faire — tu le fais.
+- INTERDICTION DE META-COMMENTAIRE SUR TA COMMUNICATION : tu ne décris jamais
+  ta propre façon de communiquer (ex : "je vais t'expliquer comment je peux
+  utiliser ces connaissances pour répondre de manière claire et contextuelle",
+  "cela me permet de communiquer de manière plus naturelle et humaine"). Tu
+  communiques ainsi directement, sans l'annoncer ni le justifier.
 """.strip()
 
     # =========================================================
@@ -612,6 +700,67 @@ Réponds maintenant.""".strip()
         "ne vous inquiétez pas",
     ]
 
+    # Formes "vous" irrégulières -> forme "tu" correspondante (cf. INT-007)
+    _VOUS_IRREGULAR_VERBS = {
+        "êtes": "es", "etes": "es", "avez": "as", "allez": "vas",
+        "faites": "fais", "dites": "dis", "pouvez": "peux", "voulez": "veux",
+        "devez": "dois", "savez": "sais", "venez": "viens", "voyez": "vois",
+        "croyez": "crois",
+    }
+
+    # Prépositions après lesquelles "vous" devient "toi" (et non "te")
+    _PREP_TOI = ("pour", "avec", "chez", "sans", "contre", "envers", "vers",
+                 "selon", "derrière", "derriere", "devant", "entre")
+
+    def _tutoiement_fallback(self, text: str) -> str:
+        """Filet de sécurité INT-007 : convertit le vouvoiement résiduel en
+        tutoiement quand le LLM local n'a pas respecté la consigne du prompt.
+
+        Couvre les cas les plus fréquents (verbes en -ez, formes irrégulières,
+        "vous" objet, "votre/vos"). Les accords de genre de "votre" -> "ton/ta"
+        ne sont pas garantis (par défaut "ton"), ce qui reste préférable au
+        vouvoiement systématique.
+        """
+        def cap(repl: str, orig: str) -> str:
+            return repl[0].upper() + repl[1:] if orig[:1].isupper() else repl
+
+        def repl_verb(m: "re.Match[str]") -> str:
+            word = m.group(1)
+            lower = word.lower()
+            if lower in self._VOUS_IRREGULAR_VERBS:
+                new = self._VOUS_IRREGULAR_VERBS[lower]
+            elif lower.endswith("ez") and len(lower) > 2:
+                new = lower[:-2] + "es"
+            else:
+                return m.group(0)
+            return f"{cap('tu', m.group(0))} {new}"
+
+        # 1) "vous" sujet + verbe conjugué -> "tu <verbe au tu>"
+        text = re.sub(r"(?i)\bvous\s+(\w+)\b", repl_verb, text)
+
+        # 2) préposition + "vous" -> préposition + "toi"
+        text = re.sub(
+            r"(?i)\b(" + "|".join(self._PREP_TOI) + r")\s+vous\b",
+            lambda m: f"{m.group(1)} toi",
+            text,
+        )
+
+        # 3) "vous" objet devant voyelle/h -> "t'"
+        text = re.sub(
+            r"(?i)\bvous\s+(?=[aeiouhàâäéèêëîïôöùûü])",
+            lambda m: cap("t'", m.group(0)),
+            text,
+        )
+
+        # 4) "vous" restant (objet) -> "te"
+        text = re.sub(r"(?i)\bvous\b", lambda m: cap("te", m.group(0)), text)
+
+        # 5) Possessifs : "vos" -> "tes" (toujours correct), "votre" -> "ton"
+        text = re.sub(r"(?i)\bvos\b", lambda m: cap("tes", m.group(0)), text)
+        text = re.sub(r"(?i)\bvotre\b", lambda m: cap("ton", m.group(0)), text)
+
+        return text
+
     def _post_process(self, response: str, context: Dict[str, Any]) -> str:
         """Nettoie la réponse finale."""
         if not response or not response.strip():
@@ -626,6 +775,9 @@ Réponds maintenant.""".strip()
                 response_clean,
                 flags=re.IGNORECASE,
             )
+
+        # Filet de sécurité INT-007 : convertit le vouvoiement résiduel
+        response_clean = self._tutoiement_fallback(response_clean)
 
         # Supprime le Markdown (bullets *, **, titres #, etc.) — terminal uniquement
         # ```code``` ou `code` → code (blocs avant inline pour ne pas casser les ```)
