@@ -535,6 +535,23 @@ Bloc 20 → V1 pipeline → personality_adapter.py
      audio) transmis à `AvatarController` pour synchroniser le rythme de la
      bouche au volume réel — `tts_piper.py` passé en V1.2.
 
+4. **Audit isolation tests `tests/security_tests/`** — `test_compliance_manager.py`
+   appelait `delete_user_data(confirm=True)` sur `compliance_manager._ROOT` réel,
+   supprimant à chaque run `data/user_memory.json`, `data/memory/episodic/
+   dialogue_history.json` et `logs/security/security.log` → corrigé en
+   monkeypatchant `_ROOT` vers `tmp_path`. Audit étendu à tout `tests/security_tests/` :
+   `test_backup_security.py` écrivait/supprimait aussi dans le vrai `backup/security/`
+   (`cleanup_old_backups` + `.manifest.json` via la constante séparée `MANIFEST_FILE`)
+   → fixture autouse monkeypatchant `BACKUP_DIR` et `MANIFEST_FILE` vers `tmp_path`,
+   18 fichiers `.bak` réels + dossier `backup/` nettoyés. Suite confirmée 651/651 OK,
+   plus aucune écriture réelle. `dashboard/dashboard_data/validation_registry.json`
+   mis à jour : 25 entrées `src/security/*` promues `validated`/`automated`
+   (2026-06-15) + 17 nouvelles entrées ajoutées (api_security, asset_classifier,
+   data_flow_mapper, data_protection, html_report, key_rotation_scheduler,
+   disaster_recovery, network_security, pentest_report, rate_limiter, risk_engine,
+   security_dashboard, security_governance, session_anomaly_detector, soc_monitor,
+   tls_manager, unicode_sanitizer) — toutes couvertes par la suite pytest 651 tests.
+
 ---
 
 ## 📌 TÂCHES PRÉVUES — PROCHAINE SESSION
