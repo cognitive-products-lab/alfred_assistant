@@ -37,6 +37,23 @@ class HybridInputManager:
     def get_input(self):
         return self.inputs.get()
 
+    def get_voice_nowait(self):
+        """Récupère un item voix/erreur sans bloquer, sinon None.
+
+        Les items clavier/système (déjà gérés via input() direct) sont
+        remis dans la file pour ne pas être perdus.
+        """
+        try:
+            item = self.inputs.get_nowait()
+        except queue.Empty:
+            return None
+
+        if item[0] in ("voice", "error"):
+            return item
+
+        self.inputs.put(item)
+        return None
+
     # =========================
     # CLAVIER = PRIORITAIRE
     # =========================
