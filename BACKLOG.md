@@ -1,43 +1,43 @@
 # ALFRED — BACKLOG & RÉFÉRENTIEL FICHIERS
 
-> Généré le 14/06/2026 23:48 depuis `dashboard_data.json` (mis à jour le 14/06/2026 23:47:58)
-> Progression technique : **66.0%** · Full projet : **48.0%**
-> 727 fichiers détectés / 1068 cible full
+> Généré le 15/06/2026 11:12 depuis `dashboard_data.json` (mis à jour le 15/06/2026 11:07:00)
+> Progression technique : **66.6%** · Full projet : **48.4%**
+> 728 fichiers détectés / 1068 cible full
 
 ## Synthèse globale
 
 | Statut | Nb | % | Priorité |
 |--------|---:|--:|----------|
-| ❌ A créer | 2 | 0.3% | 🔴 Urgent |
+| ❌ A créer | 1 | 0.1% | 🔴 Urgent |
 | 🟡 Partiel | 190 | 26.1% | 🟡 Sprint |
-| 🟦 Codé — à tester | 247 | 34.0% | 🟡 Sprint |
-| 🧪 Testé — à valider | 18 | 2.5% | 🧪 Tests |
-| ✅ Validé ✅ | 218 | 30.0% | ✅ Done |
+| 🟦 Codé — à tester | 248 | 34.1% | 🟡 Sprint |
+| 🧪 Testé — à valider | 3 | 0.4% | 🧪 Tests |
+| ✅ Validé ✅ | 233 | 32.0% | ✅ Done |
 | ⚙️ Structurel | 54 | 7.4% | ✅ Done |
 
 ## Backlog par bloc
 
-### 🟡 B01 — Interaction conversationnelle intelligente `67.1%`
+### 🟡 B01 — Interaction conversationnelle intelligente `70.6%`
 
 | KPI | Valeur |
 |-----|--------|
-| Validés | 3 |
-| Testés | 4 |
-| Codés (à tester) | 18 |
+| Validés | 6 |
+| Testés | 1 |
+| Codés (à tester) | 19 |
 | Partiels | 4 |
 | Structurels | 4 |
-| Manquants | 1 |
+| Manquants | 0 |
 
 **Fichiers à traiter :**
 
 | Fichier | Statut | Action |
 |---------|--------|--------|
-| `data/memory/episodic/dialogue_history.json` | ❌ A créer | Créer |
 | `data/dialogue_history.json` | 🟡 Partiel | Compléter |
 | `src/output/tts_engine.py` | 🟡 Partiel | Compléter |
 | `src/output/tts_output.py` | 🟡 Partiel | Compléter |
 | `src/output/tts_piper.py` | 🟡 Partiel | Compléter |
 | `config/conversation_rules.json` | 🟦 Codé — à tester | Tester |
+| `data/memory/episodic/dialogue_history.json` | 🟦 Codé — à tester | Tester |
 | `src/conversation/input/audio_capture.py` | 🟦 Codé — à tester | Tester |
 | `src/conversation/input/context_builder.py` | 🟦 Codé — à tester | Tester |
 | `src/conversation/nlp/nlp_engine_v2.py` | 🟦 Codé — à tester | Tester |
@@ -89,12 +89,12 @@
 | `src/memory/rag_stub.py` | 🟦 Codé — à tester | Tester |
 | `src/rag/rag_engine.py` | 🟦 Codé — à tester | Tester |
 
-### 🟡 B03 — Émotions & Régulation `73.1%`
+### 🟡 B03 — Émotions & Régulation `76.2%`
 
 | KPI | Valeur |
 |-----|--------|
-| Validés | 7 |
-| Testés | 4 |
+| Validés | 11 |
+| Testés | 0 |
 | Codés (à tester) | 8 |
 | Partiels | 5 |
 | Structurels | 2 |
@@ -282,12 +282,12 @@
 | Structurels | 0 |
 | Manquants | 0 |
 
-### 🟡 B11 — Intelligence cognitive avancée `76.8%`
+### 🟢 B11 — Intelligence cognitive avancée `82.1%`
 
 | KPI | Valeur |
 |-----|--------|
-| Validés | 4 |
-| Testés | 5 |
+| Validés | 9 |
+| Testés | 0 |
 | Codés (à tester) | 7 |
 | Partiels | 1 |
 | Structurels | 2 |
@@ -363,12 +363,12 @@
 | Structurels | 1 |
 | Manquants | 0 |
 
-### 🟡 B15 — Présence visuelle & Avatar `66.5%`
+### 🟡 B15 — Présence visuelle & Avatar `67.3%`
 
 | KPI | Valeur |
 |-----|--------|
-| Validés | 7 |
-| Testés | 2 |
+| Validés | 9 |
+| Testés | 0 |
 | Codés (à tester) | 44 |
 | Partiels | 1 |
 | Structurels | 1 |
@@ -460,12 +460,12 @@
 | `assets/backgrounds/mode_portrait/interieur/specifique/sport/background_portrait_interieur_sport.png` | 🟦 Codé — à tester | Tester |
 | `assets/backgrounds/mode_portrait/orientation portrait/specifique/Transport/background_portrait_exterieur_transport_debut fin journee.jpg` | 🟦 Codé — à tester | Tester |
 
-### 🟡 B18 — Knowledge & Intelligence System `62.7%`
+### 🟡 B18 — Knowledge & Intelligence System `62.8%`
 
 | KPI | Valeur |
 |-----|--------|
-| Validés | 63 |
-| Testés | 2 |
+| Validés | 64 |
+| Testés | 1 |
 | Codés (à tester) | 21 |
 | Partiels | 147 |
 | Structurels | 27 |
@@ -643,12 +643,13 @@
 | `tests/b15_tests/test_b22_accessibility.py` | 🟦 Codé — à tester | Tester |
 | `tests/b15_tests/test_voice_output_manager.py` | 🟦 Codé — à tester | Tester |
 
-## 🟦 Sprint — Fichiers codés à tester (247)
+## 🟦 Sprint — Fichiers codés à tester (248)
 
 Ces fichiers sont implémentés mais n'ont pas encore de tests.
 
 **B01**
 - `config/conversation_rules.json`
+- `data/memory/episodic/dialogue_history.json`
 - `src/conversation/input/audio_capture.py`
 - `src/conversation/input/audio_listener.py`
 - `src/conversation/input/context_builder.py`
@@ -912,235 +913,3 @@ Ces fichiers sont implémentés mais n'ont pas encore de tests.
 - `src/accessibility/wcag_checker.py`
 - `tests/b15_tests/test_b22_accessibility.py`
 - `tests/b15_tests/test_voice_output_manager.py`
-## 🟪 Scaffolding Roadmap V2-V4 — config/data non connectés (audit 14/06/2026)
-
-Les dossiers `config/v2/`, `config/v3/`, `config/v4/`, `data/v2/`, `data/v3/`,
-`data/v4/` (~70 fichiers, majoritairement `{}` / `{"x": []}` / `{"x": {}}`,
-y compris `config/v2/module_mapping.json` et `config/v2/decision_rules.json`
-qui ont un contenu mais ne sont lus par aucun code) sont des squelettes
-préparés pour les versions futures, **0 référence dans le code actuel**.
-
-À distinguer de `src/v2/` (25 fichiers) et `src/v3/` (27 fichiers), qui eux
-sont importés par `main.py` / `alfred_behavior_engine.py` / tests et doivent
-être conservés tels quels.
-
-**Action** : ne pas traiter individuellement — à revoir lors de l'audit
-dédié des dossiers de versions (`src/v1`, `src/v2`, `src/v2pp`, `src/v3`,
-`src/v4`).
-
-## 🟦 B05 — Authentification non testée (audit 14/06/2026)
-
-`src/auth/auth_manager.py`, `src/auth/login_handler.py` et
-`src/auth/user_session.py` (BLOCK B05, STATUS: ACTIVE) sont la chaîne de
-connexion réellement utilisée par `main.py` (`start_auto_session`), mais
-étaient absents de `dashboard_data_manifest.json` (non comptés dans la
-progression B05) et n'ont **aucun test dédié** — `tests/security/test_pentest_auth.py`
-couvre `session_manager`/`mfa_manager` (B20), pas ces 3 fichiers.
-
-**Fait** : ajoutés au manifest B05 (regen dashboard/BACKLOG).
-**Reste à faire** : écrire des tests unitaires pour `auth_manager.py`,
-`login_handler.py`, `user_session.py`.
-
-## 🟡 B05 — data/actions/tasks.json (audit 14/06/2026)
-
-`data/actions/tasks.json` (`{"tasks": []}`) est un placeholder de données
-runtime, **0 référence dans le code actuel** — prévu pour une future
-gestion de tâches/actions B05 (Organisation & Assistance), pas encore
-implémentée.
-
-## ⚪ B07 — Mobilité & Contexte externe (audit 14/06/2026)
-
-B07 reste un bloc roadmap quasi non démarré : seul `data/context/user_context.json`
-(`{"location": "home", "energy_level": "normal"}`) est suivi (1/25 cible,
-1.6% "full"), utilisé par `pipeline_bridge.py`, `health/profile_loader.py`,
-`regulation_engine.py` — mais aucun module dédié "mobilité" (GPS, contexte
-externe, capteurs) n'existe dans `src/`.
-
-**Action** : aucune, confirmation que B07 est un bloc V2 non démarré.
-
-## 🟦 B01 — src/output/*.py absents du manifest (audit 14/06/2026)
-
-`src/output/__init__.py`, `tts_engine.py`, `tts_output.py`, `tts_piper.py`
-(headers BLOCK: B04, STATUS: TESTED) sont des proxies (`from
-src.conversation.output.X import *`) réellement utilisés par
-`speech_manager.py` et `tests/test_b01_speech.py` — fonctionnellement de la
-synthèse vocale (B01), absents de `dashboard_data_manifest.json`
-(même pattern que le gap B05 auth ci-dessus).
-
-**Fait** : ajoutés au manifest B01 (regen dashboard/BACKLOG).
-
-## 🟡 B08 — data/personality.json (audit 14/06/2026)
-
-`data/personality.json` (`{"core": {}, "adaptation": {}}`) est un
-placeholder, **0 référence dans le code actuel** — les données réelles de
-personnalité sont dans `data/personality/templates/` et
-`data/personality/instances/`, utilisées par `personality_adapter.py`.
-
-## 🟢 B08 — Tests récupérés depuis la branche backup (audit 14/06/2026)
-
-`tests/b08_tests/test_behavior_engine.py`, `test_personality_adapter.py` et
-`__init__.py` existaient sur la branche `backup_b0adae0_lost_work` (commit
-`f22f145`, jamais mergé dans `dev`) mais étaient absents de `dev`
-(seuls des `.pyc` orphelins subsistaient dans `__pycache__`).
-
-**Fait** : fichiers récupérés et réintégrés dans `tests/b08_tests/` —
-116 tests, tous passent (`pytest tests/b08_tests/`).
-
-## ⚪ B10 — Collaboration & Coordination (audit 14/06/2026)
-
-B10 a 0 fichier dans le manifest et aucun code source taggué `BLOCK: B10`
-n'existe dans `src/` — bloc roadmap non démarré, comme B07.
-
-**Action** : aucune, confirmation que B10 est un bloc V2/V3 non démarré.
-
-## 🟦 B11 — src/v3/fusion + src/v3/proactive absents du manifest (audit 14/06/2026)
-
-7 fichiers `src/v3/fusion/{confidence_engine,contradiction_detector,
-multi_signal_fusion_engine}.py` et `src/v3/proactive/{date_parser,
-proactive_engine,reminder_detector,reminder_engine}.py` (BLOCK: B11,
-STATUS: TESTED/STABLE) sont importés par `main.py` et couverts par
-`tests/b11_tests/` mais étaient absents de `dashboard_data_manifest.json`.
-
-**Fait** : ajoutés au manifest B11 (regen dashboard/BACKLOG) — B11 passe
-de 12 à 19 fichiers (58.4% "full").
-
-## 🟦 B13 — src/health/*.py absents du manifest, sans tests (audit 14/06/2026)
-
-`src/health/{__init__,chronic_support,health_profile,interaction_adapter,
-onboarding,profile_loader}.py` (BLOCK: B13, STATUS: ACTIVE) constituent le
-module "ARTHUR" (suivi santé/bien-être, onboarding, adaptation
-d'interaction), réellement utilisés par `main.py`, `regulation_engine.py`,
-`core/personality_adapter.py` — mais le manifest B13 était entièrement vide
-(0/25 cible).
-
-**Fait** : ajoutés au manifest B13 (regen dashboard/BACKLOG) — B13 passe de
-0% à 66.7% tech / 16.0% "full".
-**Reste à faire** : ces 5 fichiers n'ont **aucun test dédié** — à prévoir
-(`tests/b13_tests/`).
-
-## 🟦 B15 — src/ui/*.py absents du manifest (audit 14/06/2026)
-
-8 fichiers `src/ui/{alfred_app,avatar_controller,avatar_engine,
-avatar_renderer,background_manager,device_settings,sound_wave,
-ui_bridge}.py` (BLOCK: B15, STATUS: STABLE/TESTED/ACTIVE) sont entièrement
-couverts par `tests/b15_tests/` (8 fichiers de test) mais étaient absents
-de `dashboard_data_manifest.json`.
-
-**Fait** : ajoutés au manifest B15 (regen dashboard/BACKLOG) — B15 passe de
-47 à 55 fichiers (146.4% "full", déjà au-delà de la cible grâce aux assets
-avatar).
-
-## ⚪ B14/B16 — scaffolding déjà couvert (audit 14/06/2026)
-
-`src/v4/{actions,home_state,integration,orchestrator,scenarios,security,
-triggers}/__init__.py` (B14, 8 fichiers `# ALFRED module`, 0 référence sauf
-`paths.py`) et `config/v2/scenario_catalog.json` /
-`data/v2/scenarios/*.json` (B16, `{"scenarios": []}` / `{}`, 0 référence)
-relèvent du même scaffolding roadmap V2-V4 déjà documenté ci-dessus —
-à revoir lors de l'audit dédié des dossiers de versions (tâche #11).
-
-**Action** : aucune nouvelle action, déjà couvert.
-
-## ⚪ B17 — Visual Generation contextuelle (audit 14/06/2026)
-
-B17 est un bloc 100% asset (backgrounds contextuels), 84/225 fichiers
-cible, 94.3% tech — aucune anomalie de tracking détectée.
-
-**Action** : aucune.
-
-## 🟦 B18 — src/knowledge/*.py absents du manifest (audit 14/06/2026)
-
-5 fichiers `src/knowledge/{context_merger,domain_matcher,knowledge_ranker,
-knowledge_router,taxonomy_router}.py` (BLOCK: B18, STATUS: TESTED) et
-`tests/test_b18_knowledge.py` (qui les importe et les teste) étaient
-absents de `dashboard_data_manifest.json`.
-
-**Fait** : ajoutés au manifest B18 (regen dashboard/BACKLOG) — B18 passe de
-254 à 260 fichiers (64.2% "full").
-
-## ⚪ B19 — Domotique Intelligente, scaffolding V4 (audit 14/06/2026)
-
-Les 15 fichiers du manifest B19 sont exclusivement des squelettes
-`config/v4/*.json`, `data/v4/*.json` et `src/v4/{actions,home_state,
-orchestrator,scenarios,triggers}/__init__.py` — relève du même scaffolding
-roadmap V2-V4 déjà documenté plus haut, aucun code domotique réel n'existe
-encore.
-
-**Action** : aucune nouvelle action, déjà couvert (à revoir lors de l'audit
-dossiers de versions, tâche #11).
-
-## 🟦 B22 — tests accessibilité absents du manifest (audit 14/06/2026)
-
-`tests/b15_tests/test_b22_accessibility.py` et
-`tests/b15_tests/test_voice_output_manager.py` (seuls tests existants pour
-les 10 modules `src/accessibility/*`, situés par erreur dans `b15_tests/`
-au lieu de `b22_tests/`) étaient absents du manifest B22 (qui prévoit
-`sub_targets.tests: 5`).
-
-**Fait** : ajoutés au manifest B22 (regen dashboard/BACKLOG) — B22 passe de
-18 à 20 fichiers (40.6% "full").
-**Reste à faire** : 3 tests supplémentaires restent à écrire pour atteindre
-la cible `sub_targets.tests: 5`.
-
-## 🟦 B01 — src/v2/{fusion,confidence,decision}/*.py absents du manifest (audit 14/06/2026 — audit v1-v4)
-
-3 fichiers `src/v2/fusion/fusion_engine.py`, `src/v2/confidence/confidence_scorer.py`,
-`src/v2/decision/decision_engine.py` (header `BLOCK: B01 V2`, STATUS: ACTIVE)
-sont le cœur du pipeline V2 (fusion multi-sources mémoire+knowledge+LLM,
-score de confiance, décision contextuelle), importés par `main.py` et
-`core/alfred_behavior_engine.py`, testés par `tests/b01_tests/test_fusion_engine.py`
-et `tests/integration_tests/test_v2_pipeline.py` — tous absents du manifest.
-
-**Fait** : ajoutés au manifest B01 (regen dashboard/BACKLOG) — B01 passe de
-28 à 33 fichiers (91.2% "full").
-
-## ⚪ Audit src/v1, src/v2pp, src/v2 (placeholders), src/v3 (placeholders), src/v4 — conclusion (audit 14/06/2026)
-
-Bilan de l'audit dédié des dossiers de versions :
-- `src/v1/__init__.py`, `src/v2pp/__init__.py` : marqueurs de package vides,
-  déjà trackés dans le manifest (B18), aucune anomalie.
-- `src/v2/{experience,fallback,governance,knowledge,learning,product,
-  scenarios}/__init__.py`, `src/v3/{conversation,emotion,learning,memory,
-  orchestrator,safety}/__init__.py` et `src/v4/{actions,home_state,
-  integration,orchestrator,scenarios,security,triggers}/__init__.py` :
-  tous des placeholders `# ALFRED module` déjà trackés dans le manifest
-  (B18/B19), 0 référence — scaffolding roadmap confirmé, cohérent avec la
-  note "Scaffolding Roadmap V2-V4" ci-dessus.
-- `src/v2/fusion/fusion_engine.py`, `src/v2/confidence/confidence_scorer.py`,
-  `src/v2/decision/decision_engine.py` : code réel B01 V2, gap corrigé
-  ci-dessus.
-- `src/v3/fusion/*` et `src/v3/proactive/*` : code réel B11, gap déjà
-  corrigé lors de l'audit B10-B13.
-
-**Conclusion** : aucun nouveau gap restant dans `src/v1`, `src/v2`,
-`src/v2pp`, `src/v3`, `src/v4` — tous les fichiers de code réel sont
-maintenant trackés dans le manifest.
-
-## 🟦 B21 — ALFRED_WEB sous-évalué dans le manifest (audit 14/06/2026)
-
-Le manifest `dashboard_data_manifest.json` ne suivait que 10 fichiers pour
-B21 (cible 30, soit 22.7% "full"), alors que `docs/BACKLOG.md` d'ALFRED_WEB
-indique le bloc **LIVRÉ et déployé en production** (cognitive-products-lab.fr)
-depuis le 25/05/2026.
-
-Audit du dépôt `ALFRED_WEB` (séparé, branche `main`, propre) :
-- **Cœur Flask (5)** : `app.py`, `tts_engine.py`, `requirements.txt`,
-  `README.md`, `babel.cfg`.
-- **Templates Jinja2 (33)** : 19 templates rendus directement via
-  `render_template()` (pages vitrine, dashboards, 8 articles, doc_stub,
-  profil, mentions légales, contact, error, pentest_demo, security_report,
-  smsi_dashboard, cpl, rse...) + `base.html` (layout) + 5 partials inclus
-  (`_navbar.html`, `_footer.html`, `_article_comments.html`,
-  `_construction.html`, `_template_article.html`).
-- **Assets (1)** : `static/css/style.css` (les autres assets `static/`
-  sont des binaires — images, fonts, PDF — non comptés, par cohérence avec
-  les autres blocs).
-- **Déploiement** : `Procfile`/`render.yaml` existent mais ne sont pas du
-  code applicatif — sous-target `deployment_ci` ramené à 0.
-
-**Fait** : `expected_files` B21 passe de 10 à 39 fichiers,
-`target_full_files_count` 30→39, `sub_targets` ajustés
-(`flask_core=5`, `templates_html=33`, `static_assets=1`,
-`deployment_ci=0`). Le "full" B21 passe de 22.7% à 63.1% (39/39 fichiers
-détectés, le tech 63.1% restant lié aux headers/STATUS internes
-d'ALFRED_WEB non audités ici — hors périmètre ALFRED_PC).

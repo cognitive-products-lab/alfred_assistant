@@ -9,7 +9,7 @@ AUTHOR       : Cognitive Products Lab
 CREATED      : 2026-05-10
 UPDATED      : 2026-06-10
 VERSION      : V1.1
-STATUS       : TO_TEST
+STATUS       : VALIDATED
 
 DESCRIPTION :
 Ajout d'un fondu d'entree/sortie (~5ms) sur chaque buffer audio pour
