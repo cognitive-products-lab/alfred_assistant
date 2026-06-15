@@ -26,6 +26,7 @@ from pathlib import Path
 
 import pytest
 
+import src.security.backup_security as backup_security
 from src.security.backup_security import (
     secure_backup,
     backup_many,
@@ -33,6 +34,16 @@ from src.security.backup_security import (
     summarize_backups,
     cleanup_old_backups,
 )
+
+
+@pytest.fixture(autouse=True)
+def isolate_backup_dir(tmp_path, monkeypatch):
+    """Empeche les tests d'ecrire/supprimer dans backup/security/ (dossier reel)."""
+    backup_dir = tmp_path / "backup_security"
+    backup_dir.mkdir(parents=True, exist_ok=True)
+    monkeypatch.setattr(backup_security, "BACKUP_DIR", backup_dir)
+    monkeypatch.setattr(backup_security, "MANIFEST_FILE", backup_dir / ".manifest.json")
+    yield
 
 
 def test_secure_backup_creates_backup():
