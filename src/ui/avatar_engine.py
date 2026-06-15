@@ -7,9 +7,14 @@ ROLE         : Moteur avatar ALFRED -- facade unificatrice Controller + Renderer
 
 AUTHOR       : Cognitive Products Lab
 CREATED      : 2026-06-01
-UPDATED      : 2026-06-01 (Bug2 sync TTS + intégration alfred_app + main.py)
-VERSION      : V1.0
+UPDATED      : 2026-06-15 (V1.1 — amplitude TTS -> rythme bouche)
+VERSION      : V1.1
 STATUS       : VALIDATED
+
+NOTE 2026-06-15 : set_speaking()/resume_speaking() relaient désormais un
+paramètre amplitude (RMS de la phrase TTS) jusqu'à AvatarController ->
+AvatarRenderer pour adapter le rythme de la bouche au volume réel de
+chaque phrase (cf. tts_piper.PiperTTS.last_amplitude).
 
 DESCRIPTION :
 Facade centrale du sous-systeme avatar ALFRED.
@@ -164,14 +169,16 @@ class AvatarEngine:
     # Etats principaux
     # --------------------------------------------------------
 
-    def set_speaking(self, speaking: bool) -> None:
+    def set_speaking(self, speaking: bool, amplitude: float = 1.0) -> None:
         """
         Synchronise l'avatar avec l'activite TTS.
 
         Args:
-            speaking : True = ALFRED parle, False = fin de parole
+            speaking  : True = ALFRED parle, False = fin de parole
+            amplitude : amplitude RMS de la première phrase (cf.
+                        PiperTTS.last_amplitude) -- ajuste le rythme de bouche.
         """
-        self._controller.set_speaking(speaking)
+        self._controller.set_speaking(speaking, amplitude)
         self._logic.set_state("speaking" if speaking else self._controller.current_state.mode)
         self._emit_hook("speaking" if speaking else self._controller.state_name)
 
@@ -180,9 +187,12 @@ class AvatarEngine:
         (séquence de réponse toujours active — pas de retour idle)."""
         self._controller.pause_speaking()
 
-    def resume_speaking(self) -> None:
-        """Relance l'animation bouche au début d'une nouvelle phrase TTS."""
-        self._controller.resume_speaking()
+    def resume_speaking(self, amplitude: float = 1.0) -> None:
+        """Relance l'animation bouche au début d'une nouvelle phrase TTS.
+
+        amplitude : amplitude RMS de la phrase qui démarre -- ajuste le
+        rythme de bouche (plus fort = plus rapide)."""
+        self._controller.resume_speaking(amplitude)
 
     def set_listening(self, listening: bool) -> None:
         """

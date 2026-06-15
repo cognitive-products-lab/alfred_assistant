@@ -7,9 +7,36 @@ ROLE         : Renderer Kivy de l'avatar ALFRED -- sprites PNG + backgrounds + a
 
 AUTHOR       : Cognitive Products Lab
 CREATED      : 2026-05-14
-UPDATED      : 2026-06-01 (V1.3 — fix position FloatLayout pos_hint, overflow zone, blink thinking)
-VERSION      : V1.3
+UPDATED      : 2026-06-15 (V1.5 — fix bouche ouverte en pause + decalage frame "a")
+VERSION      : V1.5
 STATUS       : STABLE
+
+NOTE 2026-06-15 : alfred_medium_neutral_e.png (frame "e" du cycle bouche
+speaking) avait une échelle/position différente des 5 autres frames
+(a,i,o,u,m) -- artefact du nettoyage rembg du 14/06 qui avait recadré le
+personnage ~3% plus grand et décalé vers le haut, provoquant un "saut"
+(saccade) visible chaque fois que cette frame apparaissait dans le cycle.
+Recentré/redimensionné par script (scale 1362/1404, offset +65/+35 px) pour
+aligner sa bounding box (alpha>128) sur celle des frames i/o/u/m
+(y:86-1448). Backup pré-fix : alfred_medium_neutral_e.png.rembg_backup.
+
+Rythme bouche (_tick_mouth) : remplace schedule_interval(period fixe) par
+un schedule_once auto-replanifié avec gigue ±40% (_jittered_mouth_period)
+-- évite le flap métronomique et donne un mouvement plus fluide/humain
+pendant la lecture TTS, sans changer la logique de cycle déterministe
+testée dans AvatarRendererLogic (next_speaking_frame).
+
+NOTE 2026-06-15 (bis) : 2 fix lip-sync :
+1) pause_mouth() affichait la frame "a" (bouche grande ouverte, index 0)
+   pendant les silences entre phrases -> avatar visiblement bouche ouverte
+   pendant la saisie de la phrase suivante par le TTS. Bascule désormais
+   sur la frame "m" (bouche fermée, index 5 -- _MOUTH_CLOSED_IDX).
+2) alfred_medium_neutral_a.png avait son contenu décalé de ~55px (5.4% de
+   1024px) vers la gauche par rapport aux frames i/o/u/m (bbox alpha>128 :
+   a x:236-701 vs i/o/u/m x:347-701, centres 468.5 vs 524) -> léger "saut"
+   horizontal visible quand cette frame apparaît dans le cycle. Recentré
+   par translation +56px vers la droite (nouveau centre ~524.5). Backup
+   pré-fix : alfred_medium_neutral_a.png.shift_backup.
 
 DESCRIPTION :
 Renderer visuel Kivy pour l'avatar ALFRED.
@@ -296,6 +323,7 @@ if _KIVY_OK:
             self._bg_path     = ""
             self._speaking_textures: list = []   # textures pré-chargées (pas de reload)
             self._speaking_tex_idx: int = 0
+            self._mouth_period: float = 0.12     # base rythme bouche (gigue ±40%)
 
             # Blink automatique
             self._blink_clock       = None
@@ -488,8 +516,11 @@ if _KIVY_OK:
 
         def _start_anim(self, anim_type: str, period: float) -> None:
             if anim_type == "mouth":
-                self._anim_clock = Clock.schedule_interval(
-                    self._tick_mouth, period
+                self._mouth_period = period
+                # Premier tick programmé avec gigue (cf. _tick_mouth) pour un
+                # rythme de bouche moins métronomique dès le départ.
+                self._anim_clock = Clock.schedule_once(
+                    self._tick_mouth, self._jittered_mouth_period()
                 )
             elif anim_type == "breathe":
                 self._anim_clock = Clock.schedule_interval(
@@ -513,6 +544,13 @@ if _KIVY_OK:
             self._glow_alpha = lo + (hi - lo) * (phase * 0.5 + 0.5)
             self._redraw_canvas()
 
+        def _jittered_mouth_period(self) -> float:
+            """Rythme bouche légèrement irrégulier (gigue ±40%) pour un effet
+            de parole plus naturel qu'un flap métronomique à intervalle fixe."""
+            import random
+            base = getattr(self, "_mouth_period", 0.12)
+            return random.uniform(base * 0.6, base * 1.4)
+
         def _tick_mouth(self, dt: float) -> None:
             if self._speaking_textures:
                 # Swap texture directement — zéro reload, zéro flash noir
@@ -520,6 +558,66 @@ if _KIVY_OK:
                 self._speaking_tex_idx = (self._speaking_tex_idx + 1) % len(self._speaking_textures)
             else:
                 self._load_avatar(self._logic.next_speaking_frame())
+
+            # Auto-replanification avec gigue (remplace schedule_interval fixe)
+            if self._logic.state == "speaking":
+                self._anim_clock = Clock.schedule_once(
+                    self._tick_mouth, self._jittered_mouth_period()
+                )
+
+        # Index de la frame bouche fermée (m) dans _SPEAKING_MEDIUM_FRAMES,
+        # utilisée pendant les silences (pause_mouth) pour éviter que l'avatar
+        # reste visuellement bouche ouverte (frame "a") entre deux phrases.
+        _MOUTH_CLOSED_IDX: int = 5
+
+        def pause_mouth(self) -> None:
+            """Suspend l'animation bouche (silence TTS entre deux phrases),
+            sans changer l'état/sprite — évite le flash idle/thinking."""
+            if self._anim_clock and self._logic.state == "speaking":
+                self._anim_clock.cancel()
+                self._anim_clock = None
+                # Bouche fermée pendant le silence (frame "m", pas "a")
+                if self._speaking_textures:
+                    idx = min(self._MOUTH_CLOSED_IDX, len(self._speaking_textures) - 1)
+                    self._avatar_img.texture = self._speaking_textures[idx]
+                    self._speaking_tex_idx = idx
+                else:
+                    self._load_avatar(self._logic.get_sprite("speaking"))
+
+        # Amplitude RMS de référence (~niveau moyen d'une phrase TTS Piper
+        # en float32 normalisé). Sert à mapper l'amplitude réelle de chaque
+        # phrase sur une vitesse de bouche relative.
+        _AMPLITUDE_REF: float = 0.12
+
+        def _amplitude_to_period(self, amplitude: float) -> float:
+            """Convertit une amplitude RMS en période de bouche (s).
+
+            Phrase plus forte -> bouche plus rapide (période plus courte) ;
+            phrase plus faible -> bouche plus lente. Borné pour rester
+            crédible même sur des valeurs d'amplitude extrêmes/nulles.
+            """
+            if amplitude <= 0 or self._AMPLITUDE_REF <= 0:
+                return 0.12
+            factor = max(0.5, min(2.0, amplitude / self._AMPLITUDE_REF))
+            return max(0.07, min(0.22, 0.12 / factor))
+
+        def set_mouth_amplitude(self, amplitude: float) -> None:
+            """Ajuste le rythme de base de la bouche selon l'amplitude RMS
+            de la phrase TTS en cours (cf. PiperTTS.last_amplitude).
+
+            N'interrompt pas une animation en cours -- prend effet à la
+            prochaine replanification de _tick_mouth (gigue, cf.
+            _jittered_mouth_period)."""
+            self._mouth_period = self._amplitude_to_period(amplitude)
+
+        def resume_mouth(self, amplitude: float = 1.0) -> None:
+            """Relance l'animation bouche si l'état courant est 'speaking',
+            avec un rythme adapté à l'amplitude (volume) de la phrase qui
+            commence -- simple mesure de sync TTS/avatar (RMS par phrase)."""
+            self.set_mouth_amplitude(amplitude)
+            if self._logic.state == "speaking" and self._anim_clock is None:
+                anim_type, _ = self._logic.get_anim("speaking")
+                self._start_anim(anim_type, self._mouth_period)
 
         # --------------------------------------------------------
         # Blink automatique (3-6 secondes, 150 ms)
