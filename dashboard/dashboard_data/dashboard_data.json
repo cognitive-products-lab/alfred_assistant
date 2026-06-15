@@ -5,64 +5,65 @@
         "file": "dashboard_data.json",
         "version": "V1.0",
         "status": "ACTIVE",
-        "updated": "2026-06-14",
+        "updated": "2026-06-15",
         "generated_by": "update_dashboard_data.py"
     },
-    "last_update": "14/06/2026 23:47:58",
+    "last_update": "15/06/2026 11:07:00",
     "source": "dashboard_data_manifest.json + validation_registry.json",
     "mode": "manifest_expected_vs_existing_with_validation_registry",
-    "validated_files_count": 218,
-    "global_progress": 66.0,
+    "validated_files_count": 233,
+    "global_progress": 66.6,
     "total_target_full_files": 1068,
-    "global_full_project_progress": 48.0,
+    "global_full_project_progress": 48.4,
     "total_expected_files": 729,
-    "total_files_detected": 727,
-    "total_files_missing": 2,
+    "total_files_detected": 728,
+    "total_files_missing": 1,
     "global_status_counts": {
         "structural": 54,
-        "absent": 2,
+        "absent": 1,
         "to_start": 0,
         "alias_existing": 0,
         "merged_in_other_file": 0,
         "empty": 0,
         "partial": 190,
         "created": 0,
-        "coded": 247,
+        "coded": 248,
         "archive": 0,
-        "tested": 18,
-        "validated": 218
+        "tested": 3,
+        "validated": 233
     },
-    "validation_registry_count": 50,
+    "validation_registry_count": 65,
     "blocks": [
         {
             "id": "b01",
             "label": "Interaction conversationnelle intelligente",
             "target_full_files_count": 25,
-            "full_project_progress": 91.2,
+            "full_project_progress": 96.0,
             "sub_targets": {},
-            "progress": 67.1,
+            "progress": 70.6,
             "expected_count": 34,
-            "files_count": 33,
-            "missing_count": 1,
+            "files_count": 34,
+            "missing_count": 0,
             "status_counts": {
                 "structural": 4,
-                "absent": 1,
+                "absent": 0,
                 "to_start": 0,
                 "alias_existing": 0,
                 "merged_in_other_file": 0,
                 "empty": 0,
                 "partial": 4,
                 "created": 0,
-                "coded": 18,
+                "coded": 19,
                 "archive": 0,
-                "tested": 4,
-                "validated": 3
+                "tested": 1,
+                "validated": 6
             },
             "files_detected": [
                 "config/conversation_rules.json",
                 "config/intents_catalog.json",
                 "config/response_patterns.json",
                 "data/dialogue_history.json",
+                "data/memory/episodic/dialogue_history.json",
                 "src/conversation/input/__init__.py",
                 "src/conversation/input/audio_capture.py",
                 "src/conversation/input/context_builder.py",
@@ -93,9 +94,7 @@
                 "tests/b01_tests/test_fusion_engine.py",
                 "tests/integration_tests/test_v2_pipeline.py"
             ],
-            "files_missing": [
-                "data/memory/episodic/dialogue_history.json"
-            ],
+            "files_missing": [],
             "files": [
                 {
                     "path": "config/conversation_rules.json",
@@ -137,10 +136,10 @@
                 },
                 {
                     "path": "data/memory/episodic/dialogue_history.json",
-                    "exists": false,
-                    "status": "absent",
-                    "score": 0,
-                    "size_bytes": 0,
+                    "exists": true,
+                    "status": "coded",
+                    "score": 60,
+                    "size_bytes": 2,
                     "tests": [],
                     "details": {}
                 },
@@ -299,9 +298,9 @@
                 {
                     "path": "src/conversation/input/voice_profile.py",
                     "exists": true,
-                    "status": "tested",
-                    "score": 80,
-                    "size_bytes": 5840,
+                    "status": "validated",
+                    "score": 100,
+                    "size_bytes": 5677,
                     "tests": [],
                     "details": {
                         "python": {
@@ -315,7 +314,20 @@
                             "syntax_ok": true,
                             "syntax_error": null
                         }
-                    }
+                    },
+                    "validation": {
+                        "path": "src/conversation/input/voice_profile.py",
+                        "module": "B01",
+                        "status": "validated",
+                        "last_test": "2026-06-15",
+                        "test_level": "automated",
+                        "tests": [
+                            "tests/test_b01_speech.py::TestVoiceProfile"
+                        ],
+                        "notes": "Profils vocaux valides via tests/test_b01_speech.py (3/3 OK, via proxy src/input/voice_profile.py)."
+                    },
+                    "validated": true,
+                    "tested": true
                 },
                 {
                     "path": "src/llm/__init__.py",
@@ -420,9 +432,9 @@
                 {
                     "path": "src/conversation/output/tts_piper.py",
                     "exists": true,
-                    "status": "tested",
-                    "score": 80,
-                    "size_bytes": 18594,
+                    "status": "validated",
+                    "score": 100,
+                    "size_bytes": 18063,
                     "tests": [
                         "tests/test_tts_piper.py"
                     ],
@@ -438,7 +450,20 @@
                             "syntax_ok": true,
                             "syntax_error": null
                         }
-                    }
+                    },
+                    "validation": {
+                        "path": "src/conversation/output/tts_piper.py",
+                        "module": "B01",
+                        "status": "validated",
+                        "last_test": "2026-06-15",
+                        "test_level": "automated",
+                        "tests": [
+                            "tests/test_tts_piper.py"
+                        ],
+                        "notes": "Fondu audio entree/sortie valide via suite pytest (137/137 OK)."
+                    },
+                    "validated": true,
+                    "tested": true
                 },
                 {
                     "path": "src/core/response_generator.py",
@@ -562,8 +587,8 @@
                 {
                     "path": "src/conversation/output/tts_engine.py",
                     "exists": true,
-                    "status": "tested",
-                    "score": 80,
+                    "status": "validated",
+                    "score": 100,
                     "size_bytes": 2082,
                     "tests": [
                         "tests/test_tts_engine.py"
@@ -580,7 +605,20 @@
                             "syntax_ok": true,
                             "syntax_error": null
                         }
-                    }
+                    },
+                    "validation": {
+                        "path": "src/conversation/output/tts_engine.py",
+                        "module": "B01",
+                        "status": "validated",
+                        "last_test": "2026-06-15",
+                        "test_level": "automated",
+                        "tests": [
+                            "tests/test_tts_engine.py"
+                        ],
+                        "notes": "Facade TTSEngine.speak validee via suite pytest (137/137 OK)."
+                    },
+                    "validated": true,
+                    "tested": true
                 },
                 {
                     "path": "src/output/__init__.py",
@@ -1179,9 +1217,9 @@
             "id": "b03",
             "label": "Émotions & Régulation",
             "target_full_files_count": 30,
-            "full_project_progress": 63.3,
+            "full_project_progress": 66.0,
             "sub_targets": {},
-            "progress": 73.1,
+            "progress": 76.2,
             "expected_count": 26,
             "files_count": 26,
             "missing_count": 0,
@@ -1196,8 +1234,8 @@
                 "created": 0,
                 "coded": 8,
                 "archive": 0,
-                "tested": 4,
-                "validated": 7
+                "tested": 0,
+                "validated": 11
             },
             "files_detected": [
                 "config/v2/emotion_profiles.json",
@@ -1424,9 +1462,9 @@
                 {
                     "path": "src/regulation/emotion_detector.py",
                     "exists": true,
-                    "status": "tested",
-                    "score": 80,
-                    "size_bytes": 13687,
+                    "status": "validated",
+                    "score": 100,
+                    "size_bytes": 13365,
                     "tests": [],
                     "details": {
                         "python": {
@@ -1440,14 +1478,27 @@
                             "syntax_ok": true,
                             "syntax_error": null
                         }
-                    }
+                    },
+                    "validation": {
+                        "path": "src/regulation/emotion_detector.py",
+                        "module": "B03",
+                        "status": "validated",
+                        "last_test": "2026-06-15",
+                        "test_level": "automated",
+                        "tests": [
+                            "tests/test_b02_b03.py"
+                        ],
+                        "notes": "Detection emotions validee via tests/test_b02_b03.py (175/175 OK)."
+                    },
+                    "validated": true,
+                    "tested": true
                 },
                 {
                     "path": "src/regulation/mode_manager.py",
                     "exists": true,
-                    "status": "tested",
-                    "score": 80,
-                    "size_bytes": 14081,
+                    "status": "validated",
+                    "score": 100,
+                    "size_bytes": 13724,
                     "tests": [],
                     "details": {
                         "python": {
@@ -1461,14 +1512,27 @@
                             "syntax_ok": true,
                             "syntax_error": null
                         }
-                    }
+                    },
+                    "validation": {
+                        "path": "src/regulation/mode_manager.py",
+                        "module": "B03",
+                        "status": "validated",
+                        "last_test": "2026-06-15",
+                        "test_level": "automated",
+                        "tests": [
+                            "tests/test_b02_b03.py"
+                        ],
+                        "notes": "Machine a etats modes validee via tests/test_b02_b03.py (175/175 OK)."
+                    },
+                    "validated": true,
+                    "tested": true
                 },
                 {
                     "path": "src/regulation/protection_guard.py",
                     "exists": true,
-                    "status": "tested",
-                    "score": 80,
-                    "size_bytes": 9463,
+                    "status": "validated",
+                    "score": 100,
+                    "size_bytes": 9216,
                     "tests": [],
                     "details": {
                         "python": {
@@ -1482,14 +1546,27 @@
                             "syntax_ok": true,
                             "syntax_error": null
                         }
-                    }
+                    },
+                    "validation": {
+                        "path": "src/regulation/protection_guard.py",
+                        "module": "B03",
+                        "status": "validated",
+                        "last_test": "2026-06-15",
+                        "test_level": "automated",
+                        "tests": [
+                            "tests/test_b02_b03.py"
+                        ],
+                        "notes": "Garde-fous protection/ethique valides via tests/test_b02_b03.py (175/175 OK)."
+                    },
+                    "validated": true,
+                    "tested": true
                 },
                 {
                     "path": "src/regulation/wellbeing_tracker.py",
                     "exists": true,
-                    "status": "tested",
-                    "score": 80,
-                    "size_bytes": 11527,
+                    "status": "validated",
+                    "score": 100,
+                    "size_bytes": 11229,
                     "tests": [],
                     "details": {
                         "python": {
@@ -1503,7 +1580,20 @@
                             "syntax_ok": true,
                             "syntax_error": null
                         }
-                    }
+                    },
+                    "validation": {
+                        "path": "src/regulation/wellbeing_tracker.py",
+                        "module": "B03",
+                        "status": "validated",
+                        "last_test": "2026-06-15",
+                        "test_level": "automated",
+                        "tests": [
+                            "tests/test_b02_b03.py"
+                        ],
+                        "notes": "Suivi bien-etre valide via tests/test_b02_b03.py (175/175 OK)."
+                    },
+                    "validated": true,
+                    "tested": true
                 },
                 {
                     "path": "src/v3/emotion/__init__.py",
@@ -2569,9 +2659,9 @@
             "id": "b11",
             "label": "Intelligence cognitive avancée",
             "target_full_files_count": 25,
-            "full_project_progress": 58.4,
+            "full_project_progress": 62.4,
             "sub_targets": {},
-            "progress": 76.8,
+            "progress": 82.1,
             "expected_count": 19,
             "files_count": 19,
             "missing_count": 0,
@@ -2586,8 +2676,8 @@
                 "created": 0,
                 "coded": 7,
                 "archive": 0,
-                "tested": 5,
-                "validated": 4
+                "tested": 0,
+                "validated": 9
             },
             "files_detected": [
                 "knowledges/human/cognition/cognitive_load.json",
@@ -2766,9 +2856,9 @@
                 {
                     "path": "src/v3/fusion/confidence_engine.py",
                     "exists": true,
-                    "status": "tested",
-                    "score": 80,
-                    "size_bytes": 6941,
+                    "status": "validated",
+                    "score": 100,
+                    "size_bytes": 6751,
                     "tests": [],
                     "details": {
                         "python": {
@@ -2782,14 +2872,27 @@
                             "syntax_ok": true,
                             "syntax_error": null
                         }
-                    }
+                    },
+                    "validation": {
+                        "path": "src/v3/fusion/confidence_engine.py",
+                        "module": "B11",
+                        "status": "validated",
+                        "last_test": "2026-06-15",
+                        "test_level": "automated",
+                        "tests": [
+                            "tests/b11_tests/test_fusion_engine.py"
+                        ],
+                        "notes": "Moteur de confiance valide via tests/b11_tests/test_fusion_engine.py."
+                    },
+                    "validated": true,
+                    "tested": true
                 },
                 {
                     "path": "src/v3/fusion/contradiction_detector.py",
                     "exists": true,
-                    "status": "tested",
-                    "score": 80,
-                    "size_bytes": 6455,
+                    "status": "validated",
+                    "score": 100,
+                    "size_bytes": 6299,
                     "tests": [],
                     "details": {
                         "python": {
@@ -2803,14 +2906,27 @@
                             "syntax_ok": true,
                             "syntax_error": null
                         }
-                    }
+                    },
+                    "validation": {
+                        "path": "src/v3/fusion/contradiction_detector.py",
+                        "module": "B11",
+                        "status": "validated",
+                        "last_test": "2026-06-15",
+                        "test_level": "automated",
+                        "tests": [
+                            "tests/b11_tests/test_fusion_engine.py"
+                        ],
+                        "notes": "Detection de contradictions validee via tests/b11_tests/test_fusion_engine.py."
+                    },
+                    "validated": true,
+                    "tested": true
                 },
                 {
                     "path": "src/v3/fusion/multi_signal_fusion_engine.py",
                     "exists": true,
-                    "status": "tested",
-                    "score": 80,
-                    "size_bytes": 9845,
+                    "status": "validated",
+                    "score": 100,
+                    "size_bytes": 9576,
                     "tests": [],
                     "details": {
                         "python": {
@@ -2824,7 +2940,20 @@
                             "syntax_ok": true,
                             "syntax_error": null
                         }
-                    }
+                    },
+                    "validation": {
+                        "path": "src/v3/fusion/multi_signal_fusion_engine.py",
+                        "module": "B11",
+                        "status": "validated",
+                        "last_test": "2026-06-15",
+                        "test_level": "automated",
+                        "tests": [
+                            "tests/b11_tests/test_fusion_engine.py"
+                        ],
+                        "notes": "Fusion multi-signaux validee via tests/b11_tests/test_fusion_engine.py."
+                    },
+                    "validated": true,
+                    "tested": true
                 },
                 {
                     "path": "src/v3/proactive/date_parser.py",
@@ -2850,9 +2979,9 @@
                 {
                     "path": "src/v3/proactive/proactive_engine.py",
                     "exists": true,
-                    "status": "tested",
-                    "score": 80,
-                    "size_bytes": 8948,
+                    "status": "validated",
+                    "score": 100,
+                    "size_bytes": 8704,
                     "tests": [],
                     "details": {
                         "python": {
@@ -2866,7 +2995,20 @@
                             "syntax_ok": true,
                             "syntax_error": null
                         }
-                    }
+                    },
+                    "validation": {
+                        "path": "src/v3/proactive/proactive_engine.py",
+                        "module": "B11",
+                        "status": "validated",
+                        "last_test": "2026-06-15",
+                        "test_level": "automated",
+                        "tests": [
+                            "tests/b11_tests/test_proactive_reminder.py"
+                        ],
+                        "notes": "Moteur proactif valide via tests/b11_tests/test_proactive_reminder.py."
+                    },
+                    "validated": true,
+                    "tested": true
                 },
                 {
                     "path": "src/v3/proactive/reminder_detector.py",
@@ -2892,9 +3034,9 @@
                 {
                     "path": "src/v3/proactive/reminder_engine.py",
                     "exists": true,
-                    "status": "tested",
-                    "score": 80,
-                    "size_bytes": 6450,
+                    "status": "validated",
+                    "score": 100,
+                    "size_bytes": 6252,
                     "tests": [],
                     "details": {
                         "python": {
@@ -2908,7 +3050,20 @@
                             "syntax_ok": true,
                             "syntax_error": null
                         }
-                    }
+                    },
+                    "validation": {
+                        "path": "src/v3/proactive/reminder_engine.py",
+                        "module": "B11",
+                        "status": "validated",
+                        "last_test": "2026-06-15",
+                        "test_level": "automated",
+                        "tests": [
+                            "tests/b11_tests/test_proactive_reminder.py"
+                        ],
+                        "notes": "Moteur de rappels valide via tests/b11_tests/test_proactive_reminder.py."
+                    },
+                    "validated": true,
+                    "tested": true
                 }
             ]
         },
@@ -3306,9 +3461,9 @@
             "id": "b15",
             "label": "Présence visuelle & Avatar",
             "target_full_files_count": 25,
-            "full_project_progress": 146.4,
+            "full_project_progress": 148.0,
             "sub_targets": {},
-            "progress": 66.5,
+            "progress": 67.3,
             "expected_count": 55,
             "files_count": 55,
             "missing_count": 0,
@@ -3323,8 +3478,8 @@
                 "created": 0,
                 "coded": 44,
                 "archive": 0,
-                "tested": 2,
-                "validated": 7
+                "tested": 0,
+                "validated": 9
             },
             "files_detected": [
                 "src/ui/alfred_app.py",
@@ -3409,9 +3564,9 @@
                 {
                     "path": "src/ui/avatar_controller.py",
                     "exists": true,
-                    "status": "tested",
-                    "score": 80,
-                    "size_bytes": 14437,
+                    "status": "validated",
+                    "score": 100,
+                    "size_bytes": 14048,
                     "tests": [
                         "tests/b15_tests/test_avatar_controller.py"
                     ],
@@ -3427,14 +3582,27 @@
                             "syntax_ok": true,
                             "syntax_error": null
                         }
-                    }
+                    },
+                    "validation": {
+                        "path": "src/ui/avatar_controller.py",
+                        "module": "B15",
+                        "status": "validated",
+                        "last_test": "2026-06-15",
+                        "test_level": "automated",
+                        "tests": [
+                            "tests/b15_tests/test_avatar_controller.py"
+                        ],
+                        "notes": "Controleur avatar valide via suite pytest dediee."
+                    },
+                    "validated": true,
+                    "tested": true
                 },
                 {
                     "path": "src/ui/avatar_engine.py",
                     "exists": true,
-                    "status": "tested",
-                    "score": 80,
-                    "size_bytes": 16526,
+                    "status": "validated",
+                    "score": 100,
+                    "size_bytes": 16047,
                     "tests": [
                         "tests/b15_tests/test_avatar_engine.py"
                     ],
@@ -3450,7 +3618,20 @@
                             "syntax_ok": true,
                             "syntax_error": null
                         }
-                    }
+                    },
+                    "validation": {
+                        "path": "src/ui/avatar_engine.py",
+                        "module": "B15",
+                        "status": "validated",
+                        "last_test": "2026-06-15",
+                        "test_level": "automated",
+                        "tests": [
+                            "tests/b15_tests/test_avatar_engine.py"
+                        ],
+                        "notes": "Moteur avatar valide via suite pytest dediee."
+                    },
+                    "validated": true,
+                    "tested": true
                 },
                 {
                     "path": "src/ui/avatar_renderer.py",
@@ -5004,12 +5185,12 @@
             "id": "b18",
             "label": "Knowledge & Intelligence System",
             "target_full_files_count": 254,
-            "full_project_progress": 64.2,
+            "full_project_progress": 64.3,
             "sub_targets": {
                 "runtime_code_config": 44,
                 "knowledge_files": 200
             },
-            "progress": 62.7,
+            "progress": 62.8,
             "expected_count": 260,
             "files_count": 260,
             "missing_count": 0,
@@ -5024,8 +5205,8 @@
                 "created": 0,
                 "coded": 21,
                 "archive": 0,
-                "tested": 2,
-                "validated": 63
+                "tested": 1,
+                "validated": 64
             },
             "files_detected": [
                 ".env",
@@ -5305,7 +5486,7 @@
                     "exists": true,
                     "status": "coded",
                     "score": 60,
-                    "size_bytes": 25914,
+                    "size_bytes": 26800,
                     "tests": [],
                     "details": {}
                 },
@@ -7996,9 +8177,9 @@
                 {
                     "path": "src/knowledge/context_merger.py",
                     "exists": true,
-                    "status": "tested",
-                    "score": 80,
-                    "size_bytes": 7863,
+                    "status": "validated",
+                    "score": 100,
+                    "size_bytes": 7613,
                     "tests": [],
                     "details": {
                         "python": {
@@ -8012,7 +8193,20 @@
                             "syntax_ok": true,
                             "syntax_error": null
                         }
-                    }
+                    },
+                    "validation": {
+                        "path": "src/knowledge/context_merger.py",
+                        "module": "B18",
+                        "status": "validated",
+                        "last_test": "2026-06-15",
+                        "test_level": "automated",
+                        "tests": [
+                            "tests/test_b18_knowledge.py"
+                        ],
+                        "notes": "Fusion de contexte de connaissances validee via tests/test_b18_knowledge.py."
+                    },
+                    "validated": true,
+                    "tested": true
                 },
                 {
                     "path": "src/knowledge/domain_matcher.py",
@@ -8639,7 +8833,7 @@
                     "exists": true,
                     "status": "coded",
                     "score": 60,
-                    "size_bytes": 4121642,
+                    "size_bytes": 4126382,
                     "tests": [],
                     "details": {}
                 },
@@ -10653,5 +10847,5 @@
             ]
         }
     ],
-    "weighted_global_progress": 48.0
+    "weighted_global_progress": 48.4
 }

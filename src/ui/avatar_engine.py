@@ -9,7 +9,7 @@ AUTHOR       : Cognitive Products Lab
 CREATED      : 2026-06-01
 UPDATED      : 2026-06-01 (Bug2 sync TTS + intégration alfred_app + main.py)
 VERSION      : V1.0
-STATUS       : TESTED
+STATUS       : VALIDATED
 
 DESCRIPTION :
 Facade centrale du sous-systeme avatar ALFRED.
@@ -174,6 +174,15 @@ class AvatarEngine:
         self._controller.set_speaking(speaking)
         self._logic.set_state("speaking" if speaking else self._controller.current_state.mode)
         self._emit_hook("speaking" if speaking else self._controller.state_name)
+
+    def pause_speaking(self) -> None:
+        """Suspend l'animation bouche pendant un silence TTS entre phrases
+        (séquence de réponse toujours active — pas de retour idle)."""
+        self._controller.pause_speaking()
+
+    def resume_speaking(self) -> None:
+        """Relance l'animation bouche au début d'une nouvelle phrase TTS."""
+        self._controller.resume_speaking()
 
     def set_listening(self, listening: bool) -> None:
         """
