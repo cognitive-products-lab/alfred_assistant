@@ -470,6 +470,11 @@ class PiperTTS:
                 "--speaker", str(ALFRED_VOICE["speaker_id"]),
             ]
 
+            # PYTHONIOENCODING force le CLI Piper (script Python) à lire son
+            # stdin en UTF-8 — sans ça, Windows utilise le codepage console
+            # (cp1252/cp850) et les caractères accentués sont mal interprétés.
+            piper_env = dict(os.environ, PYTHONIOENCODING="utf-8", PYTHONUTF8="1")
+
             subprocess.run(
                 command,
                 input=text.strip(),
@@ -479,6 +484,7 @@ class PiperTTS:
                 check=True,
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
+                env=piper_env,
             )
             import sounddevice as sd
             import soundfile as sf
