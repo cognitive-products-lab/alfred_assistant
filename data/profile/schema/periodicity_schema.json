@@ -1,0 +1,206 @@
+{
+  "schema_version": "1.0",
+  "description": "Périodicité de re-passation des questionnaires psychologiques ALFRED",
+  "created_at": "2026-06-16",
+  "note": "Les fréquences sont basées sur la littérature scientifique concernant la stabilité temporelle des construits mesurés",
+  "dimensions": [
+    {
+      "id": "resilience_stress",
+      "label_fr": "Résilience et stress perçu",
+      "frequency": "mensuelle",
+      "frequence_jours": 30,
+      "rationale": "Le stress perçu (PSS) et la résilience (CD-RISC-10) sont les construits les plus variables dans le temps, sensibles aux événements de vie récents, aux saisons, à la charge de travail et au sommeil. Une mesure mensuelle permet de détecter rapidement les dégradations et d'adapter le comportement ALFRED en conséquence. Référence : Cohen et al. (1983) recommandent un suivi régulier du PSS pour les populations à risque.",
+      "trigger_conditions": [
+        "Mention explicite d'un événement stressant majeur (déménagement, rupture, perte d'emploi, deuil)",
+        "Plainte répétée de fatigue ou d'épuisement sur 3 interactions consécutives",
+        "Score précédent en zone critique (< 33) — re-passation dans 2 semaines",
+        "Demande explicite de l'utilisateur",
+        "Détection d'un pattern d'évitement des tâches sur 7 jours"
+      ],
+      "last_passed": null,
+      "next_due": null,
+      "priority_order": 1,
+      "estimated_duration_minutes": 7,
+      "questionnaire_ref": "05_resilience_stress.md"
+    },
+    {
+      "id": "engagement_burnout",
+      "label_fr": "Engagement et risque burnout",
+      "frequency": "mensuelle",
+      "frequence_jours": 30,
+      "rationale": "Le burnout est un processus progressif dont les indicateurs précoces (épuisement, cynisme) peuvent évoluer rapidement sur 4-6 semaines. L'UWES-9 est conçu comme un outil de monitoring longitudinal (Schaufeli & Bakker, 2004). Une surveillance mensuelle est cliniquement recommandée comme indicateur de santé au travail, particulièrement pour les entrepreneurs et indépendants.",
+      "trigger_conditions": [
+        "Mention de démotivation, de vide ou de perte de sens dans le travail",
+        "Baisse notable de productivité auto-rapportée sur 2+ semaines",
+        "Score d'épuisement précédent en zone critique",
+        "Période de surcharge de travail identifiée (> 50h/semaine)",
+        "Demande explicite de l'utilisateur",
+        "Absence de vacances ou de vraie coupure depuis plus de 2 mois"
+      ],
+      "last_passed": null,
+      "next_due": null,
+      "priority_order": 2,
+      "estimated_duration_minutes": 8,
+      "questionnaire_ref": "07_engagement_burnout.md"
+    },
+    {
+      "id": "chronotype_energie",
+      "label_fr": "Chronotype et gestion de l'énergie",
+      "frequency": "trimestrielle",
+      "frequence_jours": 90,
+      "rationale": "Le chronotype biologique est relativement stable mais présente des variations saisonnières significatives (effet lumière/photopériode) et évolue avec l'âge (Roenneberg et al., 2004, Journal of Biological Rhythms). Les patterns d'énergie personnelle sont plus dynamiques et influencés par les habitudes de vie, le sport, l'alimentation. Une mesure trimestrielle capture les variations saisonnières tout en évitant la sur-mesure d'un trait relativement stable.",
+      "trigger_conditions": [
+        "Changement de saison significatif (passage heure d'été/hivernale)",
+        "Changement important de mode de vie (nouveau job, nouveau sport, changement alimentaire majeur)",
+        "Plaintes persistantes de décalage entre l'emploi du temps et l'énergie disponible",
+        "Voyage long-courrier avec décalage horaire",
+        "Naissance d'un enfant ou perturbation durable du sommeil"
+      ],
+      "last_passed": null,
+      "next_due": null,
+      "priority_order": 3,
+      "estimated_duration_minutes": 10,
+      "questionnaire_ref": "04_chronotype_energie.md"
+    },
+    {
+      "id": "intelligence_emotionnelle",
+      "label_fr": "Intelligence émotionnelle",
+      "frequency": "semestrielle",
+      "frequence_jours": 180,
+      "rationale": "L'IE comme trait (TEIQue-SF) présente une stabilité modérée sur 6 mois mais peut évoluer avec les pratiques délibérées de développement personnel, la thérapie ou des événements de vie significatifs (Petrides, 2009). Une re-passation semestrielle permet de mesurer la progression sans sur-mesurer un trait relativement stable.",
+      "trigger_conditions": [
+        "Début ou fin d'une thérapie ou d'un accompagnement psychologique",
+        "Événement relationnel majeur (divorce, réconciliation, deuil)",
+        "Formation intensive en développement des softskills",
+        "Changement de rôle professionnel avec forte composante relationnelle"
+      ],
+      "last_passed": null,
+      "next_due": null,
+      "priority_order": 4,
+      "estimated_duration_minutes": 10,
+      "questionnaire_ref": "02_intelligence_emotionnelle.md"
+    },
+    {
+      "id": "communication_conflit",
+      "label_fr": "Communication et gestion des conflits",
+      "frequency": "semestrielle",
+      "frequence_jours": 180,
+      "rationale": "Les modes de gestion des conflits sont relativement stables mais peuvent évoluer significativement avec l'expérience professionnelle, la formation ou le travail thérapeutique. Thomas & Kilmann (1974) ont montré que ces modes sont apprenables et modifiables. Une mesure semestrielle capte les évolutions intentionnelles tout en évitant la sur-mesure.",
+      "trigger_conditions": [
+        "Période de conflits interpersonnels répétés au travail",
+        "Formation en communication non violente ou gestion des conflits",
+        "Changement de contexte professionnel (nouveau manager, nouvelle équipe)",
+        "Retour après une période difficile dans une relation professionnelle clé"
+      ],
+      "last_passed": null,
+      "next_due": null,
+      "priority_order": 5,
+      "estimated_duration_minutes": 15,
+      "questionnaire_ref": "08_communication_conflit.md"
+    },
+    {
+      "id": "big_five",
+      "label_fr": "Personnalité Big Five (TIPI)",
+      "frequency": "annuelle",
+      "frequence_jours": 365,
+      "rationale": "Les traits du Big Five sont parmi les construits psychologiques les plus stables dans le temps, avec une stabilité test-retest de 0.70-0.80 sur 4 semaines et des corrélations de 0.50-0.60 sur 10 ans (McCrae & Costa, 2003). Une mesure annuelle est suffisante pour détecter les évolutions significatives tout en évitant la sur-mesure d'un trait fondamentalement stable. Note : la source prioritaire reste AssessFirst SWIPE.",
+      "trigger_conditions": [
+        "Changement de vie radical (conversion religieuse, changement de pays, événement traumatique)",
+        "Demande explicite après une période de développement personnel intensif",
+        "Incohérence significative détectée entre le profil ALFRED et les comportements observés"
+      ],
+      "last_passed": null,
+      "next_due": null,
+      "priority_order": 6,
+      "estimated_duration_minutes": 5,
+      "questionnaire_ref": "01_big_five_TIPI.md"
+    },
+    {
+      "id": "valeurs_schwartz",
+      "label_fr": "Valeurs fondamentales (Schwartz PVQ-21)",
+      "frequency": "annuelle",
+      "frequence_jours": 365,
+      "rationale": "Les valeurs fondamentales selon Schwartz sont extrêmement stables dans le temps, comparables aux traits de personnalité en termes de stabilité (Schwartz et al., 2012, Journal of Research in Personality). Elles évoluent principalement lors de transitions majeures de vie (maternité, conversion, bouleversement identitaire). Une mesure annuelle est appropriée.",
+      "trigger_conditions": [
+        "Transition de vie majeure (maternité, divorce, conversion, changement de pays)",
+        "Crise existentielle ou de sens rapportée par l'utilisateur",
+        "Conflit de valeurs persistant identifié dans les interactions ALFRED",
+        "Bilan de vie ou démarche de reconversion professionnelle"
+      ],
+      "last_passed": null,
+      "next_due": null,
+      "priority_order": 7,
+      "estimated_duration_minutes": 12,
+      "questionnaire_ref": "03_valeurs_schwartz.md"
+    },
+    {
+      "id": "riasec_interets_pro",
+      "label_fr": "Intérêts professionnels RIASEC",
+      "frequency": "annuelle",
+      "frequence_jours": 365,
+      "rationale": "Les intérêts professionnels (Holland, 1997) présentent une stabilité élevée chez l'adulte (corrélation test-retest ~ 0.80 sur 4 semaines, ~ 0.60 sur 5 ans). Ils évoluent principalement lors de reconversions ou d'expositions à de nouveaux domaines. Une mesure annuelle est cohérente avec l'usage du RIASEC comme boussole de carrière plutôt qu'outil de suivi rapide.",
+      "trigger_conditions": [
+        "Réflexion active de reconversion professionnelle",
+        "Découverte d'un domaine ou métier entièrement nouveau",
+        "Épuisement professionnel suspecté lié à une inadéquation personne-environnement",
+        "Création d'entreprise ou changement de secteur"
+      ],
+      "last_passed": null,
+      "next_due": null,
+      "priority_order": 8,
+      "estimated_duration_minutes": 10,
+      "questionnaire_ref": "06_riasec_interets_pro.md"
+    },
+    {
+      "id": "assessfirst_source",
+      "label_fr": "Profil AssessFirst",
+      "frequency": "sur_changement_de_vie",
+      "frequence_jours": null,
+      "rationale": "Le profil AssessFirst (SWIPE + DRIVE + BRAIN) est un outil professionnel certifié qui mesure des traits fondamentaux très stables. Sa passation est coûteuse en temps et souvent associée à des contextes professionnels spécifiques. Il n'y a aucune raison scientifique de le repasser régulièrement en dehors de changements de vie majeurs. La littérature sur la stabilité du Big Five supporte cette approche.",
+      "trigger_conditions": [
+        "Reconversion professionnelle majeure (> 5 ans d'expérience dans un nouveau domaine)",
+        "Événement de vie transformateur (deuil majeur, maladie grave, maternité tardive)",
+        "Ressenti fort d'inadéquation entre le profil AssessFirst et l'identité actuelle",
+        "Demande spécifique dans un contexte professionnel (recrutement, bilan de compétences)",
+        "Délai minimum recommandé : 3 ans entre deux passations"
+      ],
+      "last_passed": null,
+      "next_due": null,
+      "priority_order": 9,
+      "estimated_duration_minutes": 60,
+      "questionnaire_ref": null
+    }
+  ],
+  "priority_rules": {
+    "description": "Règles de priorisation quand plusieurs questionnaires sont dus simultanément",
+    "rules": [
+      {
+        "ordre": 1,
+        "critere": "Questionnaires à fréquence mensuelle en retard — priorité absolue (indicateurs santé)",
+        "dimensions_concernees": ["resilience_stress", "engagement_burnout"]
+      },
+      {
+        "ordre": 2,
+        "critere": "Questionnaires déclenchés par un événement de vie récent identifié",
+        "dimensions_concernees": "toutes"
+      },
+      {
+        "ordre": 3,
+        "critere": "Questionnaires trimestriels en retard",
+        "dimensions_concernees": ["chronotype_energie"]
+      },
+      {
+        "ordre": 4,
+        "critere": "Questionnaires semestriels en retard",
+        "dimensions_concernees": ["intelligence_emotionnelle", "communication_conflit"]
+      },
+      {
+        "ordre": 5,
+        "critere": "Questionnaires annuels en retard",
+        "dimensions_concernees": ["big_five", "valeurs_schwartz", "riasec_interets_pro"]
+      }
+    ],
+    "max_par_session": 2,
+    "note": "Ne pas proposer plus de 2 questionnaires en une seule session — fatigue de passation"
+  }
+}
