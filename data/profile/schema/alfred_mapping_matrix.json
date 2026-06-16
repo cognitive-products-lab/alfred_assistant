@@ -1,0 +1,873 @@
+{
+  "matrix_version": "1.0",
+  "description": "Matrice de mapping dimensions psychologiques → paramètres comportementaux ALFRED",
+  "created_at": "2026-06-16",
+  "parametres_disponibles": {
+    "tone": ["directif", "chaleureux", "analytique", "soutenant", "énergisant"],
+    "response_length": ["court", "moyen", "long", "adaptatif"],
+    "proactivity": ["faible", "modéré", "élevé"],
+    "emotional_support_level": ["minimal", "standard", "élevé", "intensif"],
+    "challenge_level": ["minimal", "standard", "élevé"],
+    "check_in_frequency": ["à_la_demande", "hebdomadaire", "quotidienne"],
+    "explanation_depth": ["synthèse", "détaillé", "expert"],
+    "humor_level": ["désactivé", "léger", "modéré"],
+    "structure_preference": ["libre", "structuré", "très_structuré"]
+  },
+  "rules": [
+    {
+      "id": "rule_resilience_stress_eleve",
+      "dimension": "resilience_stress",
+      "sub_dimension": "stress_percu",
+      "level": "faible",
+      "description": "Stress perçu élevé (score PSS-4 faible = stress fort)",
+      "alfred_params": {
+        "tone": "soutenant",
+        "response_length": "court",
+        "proactivity": "faible",
+        "emotional_support_level": "intensif",
+        "challenge_level": "minimal",
+        "check_in_frequency": "quotidienne",
+        "explanation_depth": "synthèse",
+        "humor_level": "désactivé",
+        "structure_preference": "structuré"
+      }
+    },
+    {
+      "id": "rule_resilience_stress_moyen",
+      "dimension": "resilience_stress",
+      "sub_dimension": "stress_percu",
+      "level": "moyen",
+      "description": "Stress perçu modéré",
+      "alfred_params": {
+        "tone": "chaleureux",
+        "response_length": "moyen",
+        "proactivity": "modéré",
+        "emotional_support_level": "standard",
+        "challenge_level": "standard",
+        "check_in_frequency": "hebdomadaire",
+        "explanation_depth": "détaillé",
+        "humor_level": "léger",
+        "structure_preference": "structuré"
+      }
+    },
+    {
+      "id": "rule_resilience_stress_faible",
+      "dimension": "resilience_stress",
+      "sub_dimension": "stress_percu",
+      "level": "élevé",
+      "description": "Stress perçu faible (bonne gestion du stress)",
+      "alfred_params": {
+        "tone": "directif",
+        "response_length": "adaptatif",
+        "proactivity": "élevé",
+        "emotional_support_level": "minimal",
+        "challenge_level": "élevé",
+        "check_in_frequency": "à_la_demande",
+        "explanation_depth": "expert",
+        "humor_level": "modéré",
+        "structure_preference": "libre"
+      }
+    },
+    {
+      "id": "rule_resilience_globale_faible",
+      "dimension": "resilience_stress",
+      "sub_dimension": "resilience_globale",
+      "level": "faible",
+      "description": "Résilience faible — vulnérabilité aux difficultés",
+      "alfred_params": {
+        "tone": "soutenant",
+        "response_length": "court",
+        "proactivity": "faible",
+        "emotional_support_level": "élevé",
+        "challenge_level": "minimal",
+        "check_in_frequency": "quotidienne",
+        "explanation_depth": "synthèse",
+        "humor_level": "désactivé",
+        "structure_preference": "très_structuré"
+      }
+    },
+    {
+      "id": "rule_resilience_globale_moyen",
+      "dimension": "resilience_stress",
+      "sub_dimension": "resilience_globale",
+      "level": "moyen",
+      "description": "Résilience fonctionnelle — ressources présentes mais perfectibles",
+      "alfred_params": {
+        "tone": "chaleureux",
+        "response_length": "moyen",
+        "proactivity": "modéré",
+        "emotional_support_level": "standard",
+        "challenge_level": "standard",
+        "check_in_frequency": "hebdomadaire",
+        "explanation_depth": "détaillé",
+        "humor_level": "léger",
+        "structure_preference": "structuré"
+      }
+    },
+    {
+      "id": "rule_resilience_globale_eleve",
+      "dimension": "resilience_stress",
+      "sub_dimension": "resilience_globale",
+      "level": "élevé",
+      "description": "Résilience forte — capacité d'adaptation élevée",
+      "alfred_params": {
+        "tone": "énergisant",
+        "response_length": "adaptatif",
+        "proactivity": "élevé",
+        "emotional_support_level": "minimal",
+        "challenge_level": "élevé",
+        "check_in_frequency": "à_la_demande",
+        "explanation_depth": "expert",
+        "humor_level": "modéré",
+        "structure_preference": "libre"
+      }
+    },
+    {
+      "id": "rule_engagement_critique",
+      "dimension": "engagement_burnout",
+      "sub_dimension": "vigueur",
+      "level": "critique",
+      "description": "Engagement très faible / zone de burnout probable",
+      "alfred_params": {
+        "tone": "soutenant",
+        "response_length": "court",
+        "proactivity": "faible",
+        "emotional_support_level": "intensif",
+        "challenge_level": "minimal",
+        "check_in_frequency": "quotidienne",
+        "explanation_depth": "synthèse",
+        "humor_level": "désactivé",
+        "structure_preference": "très_structuré"
+      }
+    },
+    {
+      "id": "rule_engagement_faible",
+      "dimension": "engagement_burnout",
+      "sub_dimension": "vigueur",
+      "level": "faible",
+      "description": "Engagement insuffisant — signes précoces d'épuisement",
+      "alfred_params": {
+        "tone": "chaleureux",
+        "response_length": "court",
+        "proactivity": "faible",
+        "emotional_support_level": "élevé",
+        "challenge_level": "minimal",
+        "check_in_frequency": "quotidienne",
+        "explanation_depth": "synthèse",
+        "humor_level": "léger",
+        "structure_preference": "structuré"
+      }
+    },
+    {
+      "id": "rule_engagement_moyen",
+      "dimension": "engagement_burnout",
+      "sub_dimension": "vigueur",
+      "level": "moyen",
+      "description": "Engagement fonctionnel",
+      "alfred_params": {
+        "tone": "chaleureux",
+        "response_length": "moyen",
+        "proactivity": "modéré",
+        "emotional_support_level": "standard",
+        "challenge_level": "standard",
+        "check_in_frequency": "hebdomadaire",
+        "explanation_depth": "détaillé",
+        "humor_level": "léger",
+        "structure_preference": "structuré"
+      }
+    },
+    {
+      "id": "rule_engagement_eleve",
+      "dimension": "engagement_burnout",
+      "sub_dimension": "vigueur",
+      "level": "élevé",
+      "description": "Bon engagement au travail",
+      "alfred_params": {
+        "tone": "énergisant",
+        "response_length": "adaptatif",
+        "proactivity": "élevé",
+        "emotional_support_level": "minimal",
+        "challenge_level": "élevé",
+        "check_in_frequency": "à_la_demande",
+        "explanation_depth": "expert",
+        "humor_level": "modéré",
+        "structure_preference": "libre"
+      }
+    },
+    {
+      "id": "rule_engagement_tres_eleve",
+      "dimension": "engagement_burnout",
+      "sub_dimension": "vigueur",
+      "level": "très élevé",
+      "description": "Engagement exceptionnel — surveiller le sur-engagement",
+      "alfred_params": {
+        "tone": "énergisant",
+        "response_length": "adaptatif",
+        "proactivity": "élevé",
+        "emotional_support_level": "standard",
+        "challenge_level": "élevé",
+        "check_in_frequency": "hebdomadaire",
+        "explanation_depth": "expert",
+        "humor_level": "modéré",
+        "structure_preference": "libre"
+      }
+    },
+    {
+      "id": "rule_big_five_extraversion_faible",
+      "dimension": "big_five",
+      "sub_dimension": "extraversion",
+      "level": "faible",
+      "description": "Introversion marquée",
+      "alfred_params": {
+        "tone": "analytique",
+        "response_length": "long",
+        "proactivity": "faible",
+        "emotional_support_level": "standard",
+        "challenge_level": "standard",
+        "check_in_frequency": "à_la_demande",
+        "explanation_depth": "expert",
+        "humor_level": "léger",
+        "structure_preference": "structuré"
+      }
+    },
+    {
+      "id": "rule_big_five_extraversion_moyen",
+      "dimension": "big_five",
+      "sub_dimension": "extraversion",
+      "level": "moyen",
+      "description": "Ambiversion — adaptable",
+      "alfred_params": {
+        "tone": "chaleureux",
+        "response_length": "adaptatif",
+        "proactivity": "modéré",
+        "emotional_support_level": "standard",
+        "challenge_level": "standard",
+        "check_in_frequency": "à_la_demande",
+        "explanation_depth": "détaillé",
+        "humor_level": "léger",
+        "structure_preference": "structuré"
+      }
+    },
+    {
+      "id": "rule_big_five_extraversion_eleve",
+      "dimension": "big_five",
+      "sub_dimension": "extraversion",
+      "level": "élevé",
+      "description": "Extraversion marquée",
+      "alfred_params": {
+        "tone": "énergisant",
+        "response_length": "moyen",
+        "proactivity": "élevé",
+        "emotional_support_level": "minimal",
+        "challenge_level": "élevé",
+        "check_in_frequency": "à_la_demande",
+        "explanation_depth": "synthèse",
+        "humor_level": "modéré",
+        "structure_preference": "libre"
+      }
+    },
+    {
+      "id": "rule_big_five_ouverture_faible",
+      "dimension": "big_five",
+      "sub_dimension": "ouverture",
+      "level": "faible",
+      "description": "Faible ouverture à l'expérience — préférence pour le concret et le familier",
+      "alfred_params": {
+        "tone": "directif",
+        "response_length": "court",
+        "proactivity": "modéré",
+        "emotional_support_level": "standard",
+        "challenge_level": "standard",
+        "check_in_frequency": "à_la_demande",
+        "explanation_depth": "synthèse",
+        "humor_level": "léger",
+        "structure_preference": "très_structuré"
+      }
+    },
+    {
+      "id": "rule_big_five_ouverture_eleve",
+      "dimension": "big_five",
+      "sub_dimension": "ouverture",
+      "level": "élevé",
+      "description": "Grande ouverture à l'expérience — curiosité intellectuelle",
+      "alfred_params": {
+        "tone": "analytique",
+        "response_length": "long",
+        "proactivity": "élevé",
+        "emotional_support_level": "minimal",
+        "challenge_level": "élevé",
+        "check_in_frequency": "à_la_demande",
+        "explanation_depth": "expert",
+        "humor_level": "modéré",
+        "structure_preference": "libre"
+      }
+    },
+    {
+      "id": "rule_big_five_conscienciosite_faible",
+      "dimension": "big_five",
+      "sub_dimension": "conscienciosite",
+      "level": "faible",
+      "description": "Faible conscienciosité — besoin de structure externe",
+      "alfred_params": {
+        "tone": "directif",
+        "response_length": "court",
+        "proactivity": "élevé",
+        "emotional_support_level": "standard",
+        "challenge_level": "minimal",
+        "check_in_frequency": "quotidienne",
+        "explanation_depth": "synthèse",
+        "humor_level": "léger",
+        "structure_preference": "très_structuré"
+      }
+    },
+    {
+      "id": "rule_big_five_conscienciosite_eleve",
+      "dimension": "big_five",
+      "sub_dimension": "conscienciosite",
+      "level": "élevé",
+      "description": "Haute conscienciosité — organisation naturelle",
+      "alfred_params": {
+        "tone": "directif",
+        "response_length": "adaptatif",
+        "proactivity": "modéré",
+        "emotional_support_level": "minimal",
+        "challenge_level": "élevé",
+        "check_in_frequency": "à_la_demande",
+        "explanation_depth": "expert",
+        "humor_level": "léger",
+        "structure_preference": "très_structuré"
+      }
+    },
+    {
+      "id": "rule_big_five_agreabilite_faible",
+      "dimension": "big_five",
+      "sub_dimension": "agreabilite",
+      "level": "faible",
+      "description": "Agréabilité faible — directivité, scepticisme",
+      "alfred_params": {
+        "tone": "directif",
+        "response_length": "moyen",
+        "proactivity": "modéré",
+        "emotional_support_level": "minimal",
+        "challenge_level": "élevé",
+        "check_in_frequency": "à_la_demande",
+        "explanation_depth": "expert",
+        "humor_level": "léger",
+        "structure_preference": "libre"
+      }
+    },
+    {
+      "id": "rule_big_five_agreabilite_eleve",
+      "dimension": "big_five",
+      "sub_dimension": "agreabilite",
+      "level": "élevé",
+      "description": "Haute agréabilité — coopération, empathie",
+      "alfred_params": {
+        "tone": "chaleureux",
+        "response_length": "moyen",
+        "proactivity": "modéré",
+        "emotional_support_level": "élevé",
+        "challenge_level": "standard",
+        "check_in_frequency": "hebdomadaire",
+        "explanation_depth": "détaillé",
+        "humor_level": "modéré",
+        "structure_preference": "structuré"
+      }
+    },
+    {
+      "id": "rule_big_five_stabilite_faible",
+      "dimension": "big_five",
+      "sub_dimension": "stabilite_emotionnelle",
+      "level": "faible",
+      "description": "Stabilité émotionnelle faible (neuroticisme élevé)",
+      "alfred_params": {
+        "tone": "soutenant",
+        "response_length": "court",
+        "proactivity": "faible",
+        "emotional_support_level": "élevé",
+        "challenge_level": "minimal",
+        "check_in_frequency": "quotidienne",
+        "explanation_depth": "synthèse",
+        "humor_level": "désactivé",
+        "structure_preference": "très_structuré"
+      }
+    },
+    {
+      "id": "rule_big_five_stabilite_eleve",
+      "dimension": "big_five",
+      "sub_dimension": "stabilite_emotionnelle",
+      "level": "élevé",
+      "description": "Haute stabilité émotionnelle",
+      "alfred_params": {
+        "tone": "directif",
+        "response_length": "adaptatif",
+        "proactivity": "élevé",
+        "emotional_support_level": "minimal",
+        "challenge_level": "élevé",
+        "check_in_frequency": "à_la_demande",
+        "explanation_depth": "expert",
+        "humor_level": "modéré",
+        "structure_preference": "libre"
+      }
+    },
+    {
+      "id": "rule_eq_faible",
+      "dimension": "intelligence_emotionnelle",
+      "sub_dimension": "autocontrole_emotionnel",
+      "level": "faible",
+      "description": "IE faible — difficultés de régulation émotionnelle",
+      "alfred_params": {
+        "tone": "soutenant",
+        "response_length": "court",
+        "proactivity": "faible",
+        "emotional_support_level": "élevé",
+        "challenge_level": "minimal",
+        "check_in_frequency": "quotidienne",
+        "explanation_depth": "synthèse",
+        "humor_level": "désactivé",
+        "structure_preference": "structuré"
+      }
+    },
+    {
+      "id": "rule_eq_moyen",
+      "dimension": "intelligence_emotionnelle",
+      "sub_dimension": "autocontrole_emotionnel",
+      "level": "moyen",
+      "description": "IE modérée",
+      "alfred_params": {
+        "tone": "chaleureux",
+        "response_length": "moyen",
+        "proactivity": "modéré",
+        "emotional_support_level": "standard",
+        "challenge_level": "standard",
+        "check_in_frequency": "hebdomadaire",
+        "explanation_depth": "détaillé",
+        "humor_level": "léger",
+        "structure_preference": "structuré"
+      }
+    },
+    {
+      "id": "rule_eq_eleve",
+      "dimension": "intelligence_emotionnelle",
+      "sub_dimension": "autocontrole_emotionnel",
+      "level": "élevé",
+      "description": "IE élevée — excellente régulation émotionnelle",
+      "alfred_params": {
+        "tone": "analytique",
+        "response_length": "adaptatif",
+        "proactivity": "élevé",
+        "emotional_support_level": "minimal",
+        "challenge_level": "élevé",
+        "check_in_frequency": "à_la_demande",
+        "explanation_depth": "expert",
+        "humor_level": "modéré",
+        "structure_preference": "libre"
+      }
+    },
+    {
+      "id": "rule_chronotype_matin",
+      "dimension": "chronotype_energie",
+      "sub_dimension": "chronotype",
+      "level": "chronotype_matin",
+      "description": "Profil matinal — pic d'énergie le matin",
+      "alfred_params": {
+        "tone": "énergisant",
+        "response_length": "adaptatif",
+        "proactivity": "élevé",
+        "emotional_support_level": "standard",
+        "challenge_level": "élevé",
+        "check_in_frequency": "à_la_demande",
+        "explanation_depth": "expert",
+        "humor_level": "léger",
+        "structure_preference": "structuré",
+        "note": "Proposer les tâches complexes le matin, les tâches légères l'après-midi"
+      }
+    },
+    {
+      "id": "rule_chronotype_intermediaire",
+      "dimension": "chronotype_energie",
+      "sub_dimension": "chronotype",
+      "level": "chronotype_intermediaire",
+      "description": "Chronotype intermédiaire — flexible",
+      "alfred_params": {
+        "tone": "chaleureux",
+        "response_length": "adaptatif",
+        "proactivity": "modéré",
+        "emotional_support_level": "standard",
+        "challenge_level": "standard",
+        "check_in_frequency": "à_la_demande",
+        "explanation_depth": "détaillé",
+        "humor_level": "léger",
+        "structure_preference": "structuré"
+      }
+    },
+    {
+      "id": "rule_chronotype_soir",
+      "dimension": "chronotype_energie",
+      "sub_dimension": "chronotype",
+      "level": "chronotype_soir",
+      "description": "Profil vespéral — pic d'énergie en fin de journée",
+      "alfred_params": {
+        "tone": "analytique",
+        "response_length": "long",
+        "proactivity": "modéré",
+        "emotional_support_level": "standard",
+        "challenge_level": "élevé",
+        "check_in_frequency": "à_la_demande",
+        "explanation_depth": "expert",
+        "humor_level": "modéré",
+        "structure_preference": "libre",
+        "note": "Proposer les tâches créatives et complexes en soirée, les tâches routinières le matin"
+      }
+    },
+    {
+      "id": "rule_valeurs_depassement_eleve",
+      "dimension": "valeurs_schwartz",
+      "sub_dimension": "depassement_de_soi",
+      "level": "prioritaire",
+      "description": "Valeurs de dépassement de soi dominantes (universalisme, bienveillance)",
+      "alfred_params": {
+        "tone": "chaleureux",
+        "response_length": "long",
+        "proactivity": "modéré",
+        "emotional_support_level": "élevé",
+        "challenge_level": "standard",
+        "check_in_frequency": "hebdomadaire",
+        "explanation_depth": "détaillé",
+        "humor_level": "léger",
+        "structure_preference": "structuré"
+      }
+    },
+    {
+      "id": "rule_valeurs_affirmation_eleve",
+      "dimension": "valeurs_schwartz",
+      "sub_dimension": "affirmation_de_soi",
+      "level": "prioritaire",
+      "description": "Valeurs d'affirmation de soi dominantes (pouvoir, réussite)",
+      "alfred_params": {
+        "tone": "directif",
+        "response_length": "court",
+        "proactivity": "élevé",
+        "emotional_support_level": "minimal",
+        "challenge_level": "élevé",
+        "check_in_frequency": "à_la_demande",
+        "explanation_depth": "expert",
+        "humor_level": "léger",
+        "structure_preference": "libre"
+      }
+    },
+    {
+      "id": "rule_valeurs_ouverture_eleve",
+      "dimension": "valeurs_schwartz",
+      "sub_dimension": "ouverture_au_changement",
+      "level": "prioritaire",
+      "description": "Valeurs d'ouverture au changement dominantes (autonomie, stimulation, hédonisme)",
+      "alfred_params": {
+        "tone": "énergisant",
+        "response_length": "adaptatif",
+        "proactivity": "élevé",
+        "emotional_support_level": "standard",
+        "challenge_level": "élevé",
+        "check_in_frequency": "à_la_demande",
+        "explanation_depth": "expert",
+        "humor_level": "modéré",
+        "structure_preference": "libre"
+      }
+    },
+    {
+      "id": "rule_valeurs_conservation_eleve",
+      "dimension": "valeurs_schwartz",
+      "sub_dimension": "conservation",
+      "level": "prioritaire",
+      "description": "Valeurs de conservation dominantes (sécurité, conformité, tradition)",
+      "alfred_params": {
+        "tone": "directif",
+        "response_length": "moyen",
+        "proactivity": "faible",
+        "emotional_support_level": "standard",
+        "challenge_level": "standard",
+        "check_in_frequency": "hebdomadaire",
+        "explanation_depth": "détaillé",
+        "humor_level": "léger",
+        "structure_preference": "très_structuré"
+      }
+    },
+    {
+      "id": "rule_riasec_investigateur",
+      "dimension": "riasec_interets_pro",
+      "sub_dimension": "investigateur",
+      "level": "dominant",
+      "description": "Type Investigateur dominant — orientation analytique",
+      "alfred_params": {
+        "tone": "analytique",
+        "response_length": "long",
+        "proactivity": "modéré",
+        "emotional_support_level": "minimal",
+        "challenge_level": "élevé",
+        "check_in_frequency": "à_la_demande",
+        "explanation_depth": "expert",
+        "humor_level": "léger",
+        "structure_preference": "structuré"
+      }
+    },
+    {
+      "id": "rule_riasec_artistique",
+      "dimension": "riasec_interets_pro",
+      "sub_dimension": "artistique",
+      "level": "dominant",
+      "description": "Type Artistique dominant — orientation créative",
+      "alfred_params": {
+        "tone": "chaleureux",
+        "response_length": "adaptatif",
+        "proactivity": "modéré",
+        "emotional_support_level": "standard",
+        "challenge_level": "élevé",
+        "check_in_frequency": "à_la_demande",
+        "explanation_depth": "détaillé",
+        "humor_level": "modéré",
+        "structure_preference": "libre"
+      }
+    },
+    {
+      "id": "rule_riasec_social",
+      "dimension": "riasec_interets_pro",
+      "sub_dimension": "social",
+      "level": "dominant",
+      "description": "Type Social dominant — orientation aide et enseignement",
+      "alfred_params": {
+        "tone": "chaleureux",
+        "response_length": "moyen",
+        "proactivity": "élevé",
+        "emotional_support_level": "élevé",
+        "challenge_level": "standard",
+        "check_in_frequency": "hebdomadaire",
+        "explanation_depth": "détaillé",
+        "humor_level": "modéré",
+        "structure_preference": "structuré"
+      }
+    },
+    {
+      "id": "rule_riasec_entreprenant",
+      "dimension": "riasec_interets_pro",
+      "sub_dimension": "entreprenant",
+      "level": "dominant",
+      "description": "Type Entreprenant dominant — leadership, prise de risque",
+      "alfred_params": {
+        "tone": "directif",
+        "response_length": "court",
+        "proactivity": "élevé",
+        "emotional_support_level": "minimal",
+        "challenge_level": "élevé",
+        "check_in_frequency": "à_la_demande",
+        "explanation_depth": "synthèse",
+        "humor_level": "modéré",
+        "structure_preference": "libre"
+      }
+    },
+    {
+      "id": "rule_riasec_conventionnel",
+      "dimension": "riasec_interets_pro",
+      "sub_dimension": "conventionnel",
+      "level": "dominant",
+      "description": "Type Conventionnel dominant — ordre, précision, procédures",
+      "alfred_params": {
+        "tone": "directif",
+        "response_length": "moyen",
+        "proactivity": "faible",
+        "emotional_support_level": "minimal",
+        "challenge_level": "standard",
+        "check_in_frequency": "à_la_demande",
+        "explanation_depth": "expert",
+        "humor_level": "désactivé",
+        "structure_preference": "très_structuré"
+      }
+    },
+    {
+      "id": "rule_communication_collaboration",
+      "dimension": "communication_conflit",
+      "sub_dimension": "collaboration",
+      "level": "mode dominant",
+      "description": "Mode collaboratif dominant — win-win naturel",
+      "alfred_params": {
+        "tone": "chaleureux",
+        "response_length": "long",
+        "proactivity": "modéré",
+        "emotional_support_level": "élevé",
+        "challenge_level": "standard",
+        "check_in_frequency": "hebdomadaire",
+        "explanation_depth": "détaillé",
+        "humor_level": "modéré",
+        "structure_preference": "structuré"
+      }
+    },
+    {
+      "id": "rule_communication_competition",
+      "dimension": "communication_conflit",
+      "sub_dimension": "competition",
+      "level": "mode dominant",
+      "description": "Mode compétitif dominant — directivité forte",
+      "alfred_params": {
+        "tone": "directif",
+        "response_length": "court",
+        "proactivity": "élevé",
+        "emotional_support_level": "minimal",
+        "challenge_level": "élevé",
+        "check_in_frequency": "à_la_demande",
+        "explanation_depth": "synthèse",
+        "humor_level": "léger",
+        "structure_preference": "libre"
+      }
+    },
+    {
+      "id": "rule_communication_evitement",
+      "dimension": "communication_conflit",
+      "sub_dimension": "evitement",
+      "level": "mode dominant",
+      "description": "Mode évitement dominant — besoin de douceur dans les contradictions",
+      "alfred_params": {
+        "tone": "soutenant",
+        "response_length": "moyen",
+        "proactivity": "faible",
+        "emotional_support_level": "élevé",
+        "challenge_level": "minimal",
+        "check_in_frequency": "hebdomadaire",
+        "explanation_depth": "détaillé",
+        "humor_level": "léger",
+        "structure_preference": "structuré"
+      }
+    },
+    {
+      "id": "rule_communication_accommodement",
+      "dimension": "communication_conflit",
+      "sub_dimension": "accommodement",
+      "level": "mode dominant",
+      "description": "Mode accommodant dominant — tendance à s'effacer",
+      "alfred_params": {
+        "tone": "soutenant",
+        "response_length": "moyen",
+        "proactivity": "faible",
+        "emotional_support_level": "élevé",
+        "challenge_level": "minimal",
+        "check_in_frequency": "hebdomadaire",
+        "explanation_depth": "détaillé",
+        "humor_level": "léger",
+        "structure_preference": "structuré"
+      }
+    },
+    {
+      "id": "rule_communication_compromis",
+      "dimension": "communication_conflit",
+      "sub_dimension": "compromis",
+      "level": "mode dominant",
+      "description": "Mode compromis dominant — équilibre pragmatique",
+      "alfred_params": {
+        "tone": "analytique",
+        "response_length": "moyen",
+        "proactivity": "modéré",
+        "emotional_support_level": "standard",
+        "challenge_level": "standard",
+        "check_in_frequency": "hebdomadaire",
+        "explanation_depth": "détaillé",
+        "humor_level": "léger",
+        "structure_preference": "structuré"
+      }
+    }
+  ],
+  "combination_rules": [
+    {
+      "id": "combo_stress_eleve_resilience_faible",
+      "description": "Combinaison critique : stress perçu élevé ET résilience faible",
+      "conditions": [
+        { "dimension": "resilience_stress", "sub_dimension": "stress_percu", "level": "faible" },
+        { "dimension": "resilience_stress", "sub_dimension": "resilience_globale", "level": "faible" }
+      ],
+      "override_params": {
+        "tone": "soutenant",
+        "response_length": "court",
+        "proactivity": "faible",
+        "emotional_support_level": "intensif",
+        "challenge_level": "minimal",
+        "check_in_frequency": "quotidienne",
+        "explanation_depth": "synthèse",
+        "humor_level": "désactivé",
+        "structure_preference": "très_structuré"
+      },
+      "alert": "Zone de vulnérabilité élevée — envisager un accompagnement professionnel"
+    },
+    {
+      "id": "combo_burnout_et_stress",
+      "description": "Double signal : burnout probable ET stress élevé",
+      "conditions": [
+        { "dimension": "engagement_burnout", "sub_dimension": "vigueur", "level": "critique" },
+        { "dimension": "resilience_stress", "sub_dimension": "stress_percu", "level": "faible" }
+      ],
+      "override_params": {
+        "tone": "soutenant",
+        "response_length": "court",
+        "proactivity": "faible",
+        "emotional_support_level": "intensif",
+        "challenge_level": "minimal",
+        "check_in_frequency": "quotidienne",
+        "explanation_depth": "synthèse",
+        "humor_level": "désactivé",
+        "structure_preference": "très_structuré"
+      },
+      "alert": "Situation critique — réduire immédiatement la charge de travail et prioriser le repos"
+    },
+    {
+      "id": "combo_haute_performance",
+      "description": "Combinaison haute performance : resilience élevée + engagement élevé + stress faible",
+      "conditions": [
+        { "dimension": "resilience_stress", "sub_dimension": "resilience_globale", "level": "élevé" },
+        { "dimension": "engagement_burnout", "sub_dimension": "vigueur", "level": "élevé" },
+        { "dimension": "resilience_stress", "sub_dimension": "stress_percu", "level": "élevé" }
+      ],
+      "override_params": {
+        "tone": "directif",
+        "response_length": "adaptatif",
+        "proactivity": "élevé",
+        "emotional_support_level": "minimal",
+        "challenge_level": "élevé",
+        "check_in_frequency": "à_la_demande",
+        "explanation_depth": "expert",
+        "humor_level": "modéré",
+        "structure_preference": "libre"
+      },
+      "alert": null
+    },
+    {
+      "id": "combo_creatif_analytique",
+      "description": "Profil créatif-analytique : ouverture élevée + type investigateur",
+      "conditions": [
+        { "dimension": "big_five", "sub_dimension": "ouverture", "level": "élevé" },
+        { "dimension": "riasec_interets_pro", "sub_dimension": "investigateur", "level": "dominant" }
+      ],
+      "override_params": {
+        "tone": "analytique",
+        "response_length": "long",
+        "proactivity": "modéré",
+        "emotional_support_level": "minimal",
+        "challenge_level": "élevé",
+        "check_in_frequency": "à_la_demande",
+        "explanation_depth": "expert",
+        "humor_level": "modéré",
+        "structure_preference": "libre"
+      },
+      "alert": null
+    }
+  ],
+  "default_params": {
+    "description": "Paramètres appliqués en l'absence de données psychologiques complètes",
+    "alfred_params": {
+      "tone": "chaleureux",
+      "response_length": "adaptatif",
+      "proactivity": "modéré",
+      "emotional_support_level": "standard",
+      "challenge_level": "standard",
+      "check_in_frequency": "à_la_demande",
+      "explanation_depth": "détaillé",
+      "humor_level": "léger",
+      "structure_preference": "structuré"
+    }
+  }
+}
