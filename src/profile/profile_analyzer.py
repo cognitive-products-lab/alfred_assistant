@@ -6,6 +6,7 @@ Ce module gère la passation conversationnelle des questionnaires psychométriqu
   - Q02 : Style cognitif (Analytique/Intuitif + Verbal/Visuel)
   - Q03 : Régulation émotionnelle (ERQ + PSS)
   - Q04 : Motivations et valeurs (SDT)
+  - Q09 : Personnalité HEXACO-24 (6 dimensions — Ashton & Lee 2009)
   - Q00 : Profil complémentaire (qualitatif)
 
 Principe UX central : les questionnaires sont posés question par question dans la
@@ -62,6 +63,13 @@ QUESTIONNAIRE_META: Dict[str, Dict[str, Any]] = {
         "duration_max": 11,
         "min_for_partial": 9,
         "sections": ["autonomie", "competence", "appartenance"],
+    },
+    "q09_hexaco_personnalite": {
+        "label": "Personnalité HEXACO-24",
+        "duration_min": 8,
+        "duration_max": 10,
+        "min_for_partial": 12,
+        "sections": ["honnetete_humilite", "emotivite", "extraversion", "agreabilite", "conscienciosite", "ouverture"],
     },
     "q00_profil_complementaire": {
         "label": "Profil complémentaire",
@@ -341,6 +349,110 @@ QUESTIONNAIRE_ITEMS: Dict[str, List[Tuple[str, str, str]]] = {
          "La reconnaissance par des personnes que tu respectes compte vraiment pour toi ? "
          "De 1 à 7.",
          "likert_7"),
+    ],
+
+    "q09_hexaco_personnalite": [
+        # Dimension H — Honnêteté-Humilité
+        ("hex_h_01",
+         "Première affirmation — je ne serais jamais prêt(e) à flatter quelqu'un pour obtenir "
+         "une faveur, même si ça pourrait m'aider. De 1 (pas du tout d'accord) à 5 (tout à fait d'accord).",
+         "likert_5"),
+        ("hex_h_02",
+         "Si cela m'avantageait, je serais prêt(e) à tromper discrètement les gens. De 1 à 5.",
+         "likert_5"),
+        ("hex_h_03",
+         "Je traite tout le monde de façon égale — que la personne ait du pouvoir ou non, "
+         "que je puisse en tirer quelque chose ou pas. De 1 à 5.",
+         "likert_5"),
+        ("hex_h_04",
+         "Le statut social, le luxe, les marques — j'avoue que ça m'attire plus que je ne le "
+         "laisse paraître. De 1 à 5.",
+         "likert_5"),
+        # Dimension E — Émotivité
+        ("hex_e_01",
+         "Passons aux émotions — quand quelqu'un me blesse, j'ai besoin d'un bon moment avant "
+         "de me sentir mieux, même si je ne le montre pas forcément. De 1 à 5.",
+         "likert_5"),
+        ("hex_e_02",
+         "En situation de stress ou de pression, je me détends assez facilement — "
+         "ça ne me déstabilise pas longtemps. De 1 à 5.",
+         "likert_5"),
+        ("hex_e_03",
+         "Dans les moments difficiles, j'ai vraiment besoin du soutien de mes proches "
+         "pour traverser ça. De 1 à 5.",
+         "likert_5"),
+        ("hex_e_04",
+         "Je suis une personne assez peu sentimentale — les films et les histoires touchantes "
+         "ne m'émeuvent pas beaucoup. De 1 à 5.",
+         "likert_5"),
+        # Dimension X — eXtraversion
+        ("hex_x_01",
+         "Nouvelle section — en groupe, j'aime être au centre de l'attention, animer, "
+         "prendre la parole. De 1 à 5.",
+         "likert_5"),
+        ("hex_x_02",
+         "Je préfère vraiment les activités solitaires ou en petit comité aux grandes "
+         "réunions sociales. De 1 à 5.",
+         "likert_5"),
+        ("hex_x_03",
+         "Quand je rencontre de nouvelles personnes, j'entame facilement la conversation "
+         "— je n'attends pas que l'autre fasse le premier pas. De 1 à 5.",
+         "likert_5"),
+        ("hex_x_04",
+         "Dans les réunions ou soirées, j'ai souvent l'impression de ne pas avoir "
+         "grand-chose à dire. De 1 à 5.",
+         "likert_5"),
+        # Dimension A — Agréabilité
+        ("hex_a_01",
+         "Je suis capable de pardonner facilement à quelqu'un qui m'a blessé(e), "
+         "sans en garder de rancœur. De 1 à 5.",
+         "likert_5"),
+        ("hex_a_02",
+         "Quand je ne suis pas d'accord avec quelqu'un, je le dis clairement — "
+         "sans chercher à arrondir les angles. De 1 à 5.",
+         "likert_5"),
+        ("hex_a_03",
+         "Je préfère faire des compromis plutôt que de maintenir ma position "
+         "jusqu'au bout d'une discussion. De 1 à 5.",
+         "likert_5"),
+        ("hex_a_04",
+         "Je peux être assez critique envers les autres — surtout quand je pense "
+         "qu'ils font les choses à moitié. De 1 à 5.",
+         "likert_5"),
+        # Dimension C — Conscienciosité
+        ("hex_c_01",
+         "Avant de rendre un travail, je vérifie toujours qu'il est exact et "
+         "qu'il n'y a pas d'erreurs ou d'oublis. De 1 à 5.",
+         "likert_5"),
+        ("hex_c_02",
+         "J'ai tendance à repousser les tâches — à laisser traîner des choses "
+         "que j'aurais dû faire avant. De 1 à 5.",
+         "likert_5"),
+        ("hex_c_03",
+         "J'organise soigneusement mon temps et mes ressources — "
+         "j'ai des systèmes, des listes, des méthodes. De 1 à 5.",
+         "likert_5"),
+        ("hex_c_04",
+         "Il m'arrive d'être négligent(e) — de bâcler des tâches ou de ne pas "
+         "finir ce que j'ai commencé. De 1 à 5.",
+         "likert_5"),
+        # Dimension O — Ouverture à l'expérience
+        ("hex_o_01",
+         "Dernière section — je suis curieux(se) de comprendre comment fonctionne "
+         "le monde : les sciences, les comportements humains, les idées. De 1 à 5.",
+         "likert_5"),
+        ("hex_o_02",
+         "Honnêtement, je ne me considère pas comme quelqu'un de très imaginatif "
+         "ou créatif. De 1 à 5.",
+         "likert_5"),
+        ("hex_o_03",
+         "Quand j'ai un problème à résoudre, j'explore volontiers des approches "
+         "inhabituelles — même si ça prend plus de temps. De 1 à 5.",
+         "likert_5"),
+        ("hex_o_04",
+         "Je préfère les activités et environnements familiers aux expériences "
+         "vraiment nouvelles. De 1 à 5.",
+         "likert_5"),
     ],
 
     "q00_profil_complementaire": [
@@ -711,6 +823,8 @@ class QuestionnaireSession:
             scores = self._score_q03(answers)
         elif questionnaire_id == "q04_motivations_valeurs":
             scores = self._score_q04(answers)
+        elif questionnaire_id == "q09_hexaco_personnalite":
+            scores = self._score_q09(answers)
         else:
             return None  # questionnaire qualitatif (q00) — pas de scoring numérique
 
@@ -817,6 +931,27 @@ class QuestionnaireSession:
             "suppression": sup,
             "stress_percu_pss": pss,
         }
+
+    def _score_q09(self, answers: Dict[str, Any]) -> Dict[str, Any]:
+        """Q09 — HEXACO-24. Items _02 et _04 de chaque dimension sont inversés (6 - valeur)."""
+        dims = {
+            "honnetete_humilite": ["hex_h_01", "hex_h_02", "hex_h_03", "hex_h_04"],
+            "emotivite":          ["hex_e_01", "hex_e_02", "hex_e_03", "hex_e_04"],
+            "extraversion":       ["hex_x_01", "hex_x_02", "hex_x_03", "hex_x_04"],
+            "agreabilite":        ["hex_a_01", "hex_a_02", "hex_a_03", "hex_a_04"],
+            "conscienciosite":    ["hex_c_01", "hex_c_02", "hex_c_03", "hex_c_04"],
+            "ouverture":          ["hex_o_01", "hex_o_02", "hex_o_03", "hex_o_04"],
+        }
+        result: Dict[str, Any] = {}
+        for dim_name, keys in dims.items():
+            values = []
+            for k in keys:
+                v = answers.get(k)
+                if isinstance(v, (int, float)):
+                    # _02 et _04 sont inversés (se terminent par "02" ou "04")
+                    values.append(6 - v if k.endswith("_02") or k.endswith("_04") else v)
+            result[dim_name] = self._mean(values)
+        return result
 
     def _score_q04(self, answers: Dict[str, Any]) -> Dict[str, Any]:
         """Q04 — Motivations SDT."""
