@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CPL — Dashboard Gouvernance</title>
+  <style>
+    :root {
+      --bg: #07090f;
+      --surf: #0e1118;
+      --surf2: #13161f;
+      --bdr: #1c2030;
+      --violet: #6C3FC5;
+      --fuchsia: #E91E8C;
+      --ok: #27AE60;
+      --warn: #F39C12;
+      --danger: #E74C3C;
+      --info: #3498DB;
+      --planned: #6B7280;
+      --txt: #b8c4d8;
+      --dim: #647086;
+      --wh: #f0f4ff;
+      --f: 'Segoe UI', system-ui, monospace;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: radial-gradient(circle at top left, rgba(108,63,197,.07), transparent 35%),
+                  radial-gradient(circle at bottom right, rgba(233,30,140,.05), transparent 35%),
+                  var(--bg);
+      color: var(--txt);
+      font-family: var(--f);
+      font-size: 13px;
+      min-height: 100vh;
+    }
+
+    /* ── TOPBAR ── */
+    .topbar {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(7,9,15,.97);
+      backdrop-filter: blur(10px);
+      border-bottom: 2px solid var(--violet);
+      padding: 10px 24px;
+      display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+    }
+    .logo { font-size: 1.1rem; font-weight: 800; color: var(--wh); }
+    .logo span { color: var(--violet); }
+    .subtitle { color: var(--dim); font-size: .8rem; }
+    .live-status { font-size: .78rem; padding: 3px 10px; border-radius: 20px; }
+    .live-ok { background: rgba(39,174,96,.15); color: #2ecc71; border: 1px solid #27AE60; }
+    .live-err { background: rgba(231,76,60,.15); color: #e74c3c; border: 1px solid #E74C3C; }
+
+    /* ── NAV PILLS ── */
+    .nav-pills { display: flex; gap: 6px; flex-wrap: wrap; padding: 8px 24px; border-bottom: 1px solid var(--bdr); }
+    .nav-pill {
+      padding: 4px 12px; border-radius: 20px; cursor: pointer; font-size: .78rem;
+      border: 1px solid var(--bdr); color: var(--dim); transition: all .2s;
+      text-decoration: none;
+    }
+    .nav-pill:hover, .nav-pill.active { border-color: var(--violet); color: var(--wh); background: rgba(108,63,197,.15); }
+
+    /* ── MAIN ── */
+    .main { max-width: 1400px; margin: 0 auto; padding: 24px; }
+    .section { margin-bottom: 40px; }
+    .section-title {
+      font-size: 1rem; font-weight: 700; color: var(--wh);
+      padding-bottom: 8px; margin-bottom: 16px;
+      border-bottom: 1px solid var(--bdr);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .section-title .badge-count {
+      background: var(--violet); color: white; font-size: .7rem;
+      padding: 1px 7px; border-radius: 10px;
+    }
+
+    /* ── SCORE GLOBAL ── */
+    .global-card {
+      background: linear-gradient(135deg, rgba(108,63,197,.15), rgba(233,30,140,.08));
+      border: 1px solid var(--violet);
+      border-radius: 12px;
+      padding: 24px;
+      display: flex; align-items: center; gap: 32px; flex-wrap: wrap;
+      margin-bottom: 32px;
+    }
+    .score-circle {
+      width: 100px; height: 100px; border-radius: 50%;
+      background: conic-gradient(var(--violet) 0%, transparent 0%);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem; font-weight: 800; color: var(--wh);
+      border: 3px solid var(--bdr);
+      position: relative;
+    }
+    .global-meta { flex: 1; }
+    .global-meta h2 { font-size: 1.3rem; color: var(--wh); margin-bottom: 6px; }
+    .global-meta .niveau { font-size: .85rem; color: var(--violet); }
+    .global-meta .update { font-size: .75rem; color: var(--dim); margin-top: 4px; }
+
+    /* ── NORME CARDS ── */
+    .normes-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+    .norme-card {
+      background: var(--surf);
+      border: 1px solid var(--bdr);
+      border-radius: 10px;
+      padding: 16px;
+      transition: border-color .2s;
+      cursor: pointer;
+    }
+    .norme-card:hover { border-color: var(--violet); }
+    .norme-card.active { border-color: var(--violet); background: rgba(108,63,197,.08); }
+    .norme-header { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+    .norme-icon { font-size: 1.3rem; }
+    .norme-label { font-size: .9rem; font-weight: 700; color: var(--wh); }
+    .norme-desc { font-size: .72rem; color: var(--dim); margin-top: 2px; }
+    .norme-score-bar { height: 6px; background: var(--bdr); border-radius: 3px; margin: 10px 0; overflow: hidden; }
+    .norme-score-fill { height: 100%; border-radius: 3px; transition: width .5s; }
+    .norme-meta { display: flex; justify-content: space-between; font-size: .75rem; color: var(--dim); }
+    .norme-pct { font-size: 1.1rem; font-weight: 700; color: var(--wh); }
+    .norme-counts { display: flex; gap: 8px; margin-top: 8px; }
+    .count-badge { padding: 2px 8px; border-radius: 4px; font-size: .7rem; font-weight: 600; }
+    .count-ok { background: rgba(39,174,96,.2); color: #2ecc71; }
+    .count-warn { background: rgba(243,156,18,.2); color: #f39c12; }
+    .count-err { background: rgba(231,76,60,.2); color: #e74c3c; }
+    .count-planned { background: rgba(107,114,128,.2); color: #9CA3AF; }
+
+    /* ── DETAIL PANEL ── */
+    .detail-panel {
+      background: var(--surf);
+      border: 1px solid var(--bdr);
+      border-radius: 10px;
+      padding: 20px;
+      margin-top: 24px;
+    }
+    .detail-title { font-size: .95rem; font-weight: 700; color: var(--wh); margin-bottom: 16px; }
+
+    /* ── TABLE ── */
+    table { width: 100%; border-collapse: collapse; font-size: .8rem; }
+    th { text-align: left; padding: 8px 10px; color: var(--dim); font-weight: 600; border-bottom: 1px solid var(--bdr); }
+    td { padding: 8px 10px; border-bottom: 1px solid rgba(28,32,48,.5); vertical-align: top; }
+    tr:hover td { background: rgba(108,63,197,.05); }
+    .item-label { color: var(--wh); font-weight: 500; }
+    .item-article { color: var(--violet); font-size: .75rem; }
+    .item-gap { color: var(--warn); font-size: .72rem; margin-top: 3px; }
+    .item-action { color: var(--info); font-size: .72rem; margin-top: 2px; }
+    .proof-link { color: var(--violet); text-decoration: none; font-size: .72rem; }
+    .proof-missing { color: var(--danger); font-size: .72rem; }
+
+    /* ── STATUS BADGES ── */
+    .badge {
+      display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: .7rem; font-weight: 700; white-space: nowrap;
+    }
+    .badge-conforme { background: rgba(39,174,96,.2); color: #2ecc71; border: 1px solid rgba(39,174,96,.4); }
+    .badge-partiel { background: rgba(243,156,18,.2); color: #f39c12; border: 1px solid rgba(243,156,18,.4); }
+    .badge-non_conforme { background: rgba(231,76,60,.2); color: #e74c3c; border: 1px solid rgba(231,76,60,.4); }
+    .badge-na { background: rgba(107,114,128,.2); color: #9CA3AF; border: 1px solid rgba(107,114,128,.4); }
+    .badge-planifie { background: rgba(107,114,128,.15); color: #6B7280; border: 1px dashed rgba(107,114,128,.4); }
+
+    /* ── MATURITÉ ── */
+    .maturite-bar { display: flex; gap: 2px; align-items: center; }
+    .mat-dot { width: 8px; height: 8px; border-radius: 2px; }
+    .mat-filled { background: var(--violet); }
+    .mat-empty { background: var(--bdr); }
+
+    /* ── DOCUMENTS SECTION ── */
+    .docs-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 10px; }
+    .doc-card {
+      background: var(--surf2);
+      border: 1px solid var(--bdr);
+      border-radius: 8px;
+      padding: 12px;
+    }
+    .doc-card.present { border-left: 3px solid var(--ok); }
+    .doc-card.partiel { border-left: 3px solid var(--warn); }
+    .doc-card.absent { border-left: 3px solid var(--danger); }
+    .doc-card.planifie { border-left: 3px dashed var(--planned); }
+    .doc-label { color: var(--wh); font-size: .82rem; font-weight: 600; margin-bottom: 4px; }
+    .doc-path { color: var(--dim); font-size: .68rem; font-family: monospace; }
+    .doc-action { color: var(--warn); font-size: .7rem; margin-top: 4px; }
+
+    /* ── ROADMAP ── */
+    .roadmap-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
+    .roadmap-card { background: var(--surf2); border: 1px solid var(--bdr); border-radius: 8px; padding: 14px; }
+    .roadmap-quarter { color: var(--violet); font-weight: 700; font-size: .85rem; margin-bottom: 8px; }
+    .roadmap-item { color: var(--txt); font-size: .75rem; padding: 3px 0; border-bottom: 1px solid rgba(28,32,48,.5); }
+    .roadmap-item:last-child { border: none; }
+
+    /* ── EMPTY / ERROR ── */
+    .empty-state { text-align: center; padding: 40px; color: var(--dim); }
+    .empty-icon { font-size: 2rem; margin-bottom: 12px; }
+    .error-msg { background: rgba(231,76,60,.1); border: 1px solid var(--danger); border-radius: 8px; padding: 16px; color: #e74c3c; }
+  </style>
+</head>
+<body>
+
+<!-- ── TOPBAR ── -->
+<div class="topbar">
+  <div>
+    <div class="logo"><span>CPL</span> — Dashboard Gouvernance</div>
+    <div class="subtitle">Cognitive Products Lab · Conformité & Cybersécurité</div>
+  </div>
+  <div style="display:flex;gap:12px;align-items:center;">
+    <span id="lastUpdate" style="font-size:.75rem;color:var(--dim)">—</span>
+    <span id="liveStatus" class="live-status live-err">🔴 déconnecté</span>
+    <button onclick="refreshData()" style="background:var(--violet);color:white;border:none;padding:5px 14px;border-radius:6px;cursor:pointer;font-size:.78rem;">↻ Actualiser</button>
+  </div>
+</div>
+
+<!-- ── NAV PILLS ── -->
+<div class="nav-pills">
+  <a href="#global" class="nav-pill active">Vue globale</a>
+  <a href="#rgpd" class="nav-pill">🔵 RGPD</a>
+  <a href="#iso27001" class="nav-pill">🟠 ISO 27001</a>
+  <a href="#aiact" class="nav-pill">🟣 AI Act</a>
+  <a href="#nis2" class="nav-pill">🟢 NIS2</a>
+  <a href="#hds" class="nav-pill">🔴 HDS</a>
+  <a href="#docs" class="nav-pill">📄 Documents</a>
+  <a href="#roadmap" class="nav-pill">🗓️ Roadmap</a>
+</div>
+
+<!-- ── MAIN ── -->
+<div class="main">
+  <div id="errorMsg" style="display:none;" class="error-msg">
+    Impossible de charger les données — vérifier que <code>update_gouvernance_data.py</code> a été exécuté et que le serveur local est actif (port 8001).
+  </div>
+
+  <!-- Score global -->
+  <div id="globalSection" class="section" style="display:none;">
+    <div id="globalCard" class="global-card"></div>
+
+    <!-- Grille des normes -->
+    <div id="section-global" style="scroll-margin-top:70px;">
+      <div class="section-title">Conformité par norme</div>
+      <div id="normesGrid" class="normes-grid"></div>
+    </div>
+  </div>
+
+  <!-- Panels de détail par norme -->
+  <div id="detailPanels"></div>
+
+  <!-- Documents -->
+  <div id="section-docs" class="section" style="scroll-margin-top:70px;display:none;">
+    <div class="section-title">📄 Documents de gouvernance <span id="docsCount" class="badge-count">0</span></div>
+    <div id="docsGrid" class="docs-grid"></div>
+  </div>
+
+  <!-- Roadmap -->
+  <div id="section-roadmap" class="section" style="scroll-margin-top:70px;display:none;">
+    <div class="section-title">🗓️ Roadmap de certification</div>
+    <div id="roadmapGrid" class="roadmap-grid"></div>
+  </div>
+</div>
+
+<script>
+// ── Helpers ──────────────────────────────────────────────────────────────────
+
+function el(id) { return document.getElementById(id); }
+
+function scoreColor(pct) {
+  if (pct >= 80) return '#27AE60';
+  if (pct >= 50) return '#F39C12';
+  return '#E74C3C';
+}
+
+function badgeClass(statut) {
+  return 'badge badge-' + (statut || 'na');
+}
+
+function maturiteDots(niveau, max = 5) {
+  let html = '<div class="maturite-bar">';
+  for (let i = 0; i < max; i++) {
+    html += `<div class="mat-dot ${i < niveau ? 'mat-filled' : 'mat-empty'}" title="Niveau ${i+1}"></div>`;
+  }
+  html += `<span style="font-size:.7rem;color:var(--dim);margin-left:5px;">${niveau}/5</span>`;
+  html += '</div>';
+  return html;
+}
+
+// ── Rendu score global ────────────────────────────────────────────────────────
+
+function renderGlobal(data) {
+  const g = data.global || {};
+  const pct = g.score_global || 0;
+  const color = scoreColor(pct);
+  const deg = Math.round(pct * 3.6);
+
+  el('globalCard').innerHTML = `
+    <div class="score-circle" style="background:conic-gradient(${color} ${deg}deg, #1c2030 0deg);">
+      ${pct}%
+    </div>
+    <div class="global-meta">
+      <h2>Maturité Gouvernance CPL</h2>
+      <div class="niveau" style="color:${color};">${g.niveau_maturite || '—'}</div>
+      <div class="update">Dernière mise à jour : ${data.last_update || '—'}</div>
+      <div style="font-size:.75rem;color:var(--dim);margin-top:8px;">
+        Score pondéré : RGPD 30% · ISO 27001 25% · AI Act 25% · NIS2 10% · autres 10%
+      </div>
+    </div>
+  `;
+  el('lastUpdate').textContent = data.last_update || '';
+}
+
+// ── Rendu grille des normes ───────────────────────────────────────────────────
+
+function renderNormesGrid(data) {
+  const normes = data.normes || {};
+  let html = '';
+
+  for (const [id, norme] of Object.entries(normes)) {
+    const pct = norme.score_global != null ? norme.score_global : 0;
+    const color = scoreColor(pct);
+    const conformes = norme.conformes || 0;
+    const partiels = norme.partiels || 0;
+    const nonConformes = norme.non_conformes || 0;
+    const total = norme.total || 0;
+    const icon = norme.icone || '⚪';
+
+    html += `
+      <div class="norme-card" onclick="showDetail('${id}')" id="card-${id}">
+        <div class="norme-header">
+          <span class="norme-icon">${icon}</span>
+          <div>
+            <div class="norme-label">${norme.label || id.toUpperCase()}</div>
+            <div class="norme-desc">${(norme.description || '').substring(0, 60)}${norme.description?.length > 60 ? '…' : ''}</div>
+          </div>
+          <div class="norme-pct" style="margin-left:auto;color:${color};">${pct}%</div>
+        </div>
+        <div class="norme-score-bar">
+          <div class="norme-score-fill" style="width:${pct}%;background:${color};"></div>
+        </div>
+        <div class="norme-meta">
+          <span>${norme.echeance || '—'}</span>
+          <span>Priorité ${norme.priorite || '—'}</span>
+        </div>
+        ${total > 0 ? `<div class="norme-counts">
+          ${conformes > 0 ? `<span class="count-badge count-ok">✅ ${conformes}</span>` : ''}
+          ${partiels > 0 ? `<span class="count-badge count-warn">⚠️ ${partiels}</span>` : ''}
+          ${nonConformes > 0 ? `<span class="count-badge count-err">❌ ${nonConformes}</span>` : ''}
+          ${total > 0 ? `<span style="margin-left:auto;font-size:.7rem;color:var(--dim);">${total} exigences</span>` : ''}
+        </div>` : `<div style="font-size:.75rem;color:var(--dim);margin-top:8px;">Audit à réaliser</div>`}
+      </div>
+    `;
+  }
+
+  el('normesGrid').innerHTML = html;
+}
+
+// ── Rendu detail par norme ────────────────────────────────────────────────────
+
+function showDetail(normeId) {
+  // Toggle active state
+  document.querySelectorAll('.norme-card').forEach(c => c.classList.remove('active'));
+  const card = el('card-' + normeId);
+  if (card) card.classList.add('active');
+
+  // Scroll to detail
+  const anchor = el('detail-' + normeId);
+  if (anchor) {
+    anchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}
+
+function renderDetailPanels(data) {
+  const normes = data.normes || {};
+  let html = '';
+
+  for (const [id, norme] of Object.entries(normes)) {
+    const items = norme.items || [];
+    if (items.length === 0 && !norme.statut_global) continue;
+
+    const pct = norme.score_global != null ? norme.score_global : 0;
+    const color = scoreColor(pct);
+
+    let tableHtml = '';
+    if (items.length > 0) {
+      tableHtml = `
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Article</th>
+              <th>Exigence</th>
+              <th>Statut</th>
+              <th>Maturité</th>
+              <th>Preuve</th>
+              <th>Gap / Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${items.map(item => `
+              <tr>
+                <td style="color:var(--dim);font-size:.7rem;white-space:nowrap;">${item.id}</td>
+                <td style="white-space:nowrap;"><span class="item-article">${item.article || '—'}</span></td>
+                <td>
+                  <div class="item-label">${item.label}</div>
+                  ${item.produits?.length ? `<div style="font-size:.68rem;color:var(--dim);">${item.produits.join(' · ')}</div>` : ''}
+                </td>
+                <td><span class="${badgeClass(item.statut)}">${item.badge || item.statut}</span></td>
+                <td>${maturiteDots(item.maturite || 0)}</td>
+                <td>
+                  ${item.preuve_path
+                    ? (item.preuve_existe
+                        ? `<a class="proof-link" href="#" title="${item.preuve_path}">📄 ${item.preuve_path.split('/').pop()}</a>`
+                        : `<span class="proof-missing">⚠️ Manquant</span><br><span style="font-size:.65rem;color:var(--dim);">${item.preuve_path}</span>`)
+                    : '<span class="proof-missing">Pas de preuve</span>'
+                  }
+                </td>
+                <td>
+                  ${item.gap ? `<div class="item-gap">⚠️ ${item.gap}</div>` : ''}
+                  ${item.action ? `<div class="item-action">→ ${item.action}</div>` : ''}
+                  ${item.date_cible ? `<div style="font-size:.68rem;color:var(--dim);">🗓️ ${item.date_cible}</div>` : ''}
+                </td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      `;
+    } else {
+      tableHtml = `<div class="empty-state"><div class="empty-icon">📋</div>Audit détaillé planifié — en attente de réalisation</div>`;
+    }
+
+    html += `
+      <div id="detail-${id}" class="detail-panel" style="scroll-margin-top:70px;margin-top:24px;">
+        <div class="detail-title">
+          ${norme.icone || '⚪'} ${norme.label}
+          <span class="${badgeClass(pct >= 80 ? 'conforme' : pct >= 40 ? 'partiel' : 'non_conforme')}" style="margin-left:8px;">${pct}%</span>
+        </div>
+        ${norme.description ? `<div style="font-size:.8rem;color:var(--dim);margin-bottom:16px;">${norme.description} · Organisme : ${norme.organisme || '—'} · Échéance : ${norme.echeance || '—'}</div>` : ''}
+        ${tableHtml}
+      </div>
+    `;
+  }
+
+  el('detailPanels').innerHTML = html;
+}
+
+// ── Rendu documents ───────────────────────────────────────────────────────────
+
+function renderDocuments(data) {
+  const docs = data.documents_gouvernance || [];
+  if (docs.length === 0) return;
+
+  el('docsCount').textContent = docs.length;
+
+  const html = docs.map(doc => {
+    const cls = doc.statut === 'complet' ? 'present'
+              : doc.statut === 'partiel' ? 'partiel'
+              : doc.statut === 'absent' ? 'absent'
+              : 'planifie';
+    return `
+      <div class="doc-card ${cls}">
+        <div class="doc-label">${doc.existe ? '📄' : '⬜'} ${doc.label}</div>
+        <div class="doc-path">${doc.chemin}</div>
+        ${doc.taille_lignes > 0 ? `<div style="font-size:.7rem;color:var(--dim);margin-top:3px;">${doc.taille_lignes} lignes</div>` : ''}
+        ${doc.action ? `<div class="doc-action">→ ${doc.action}</div>` : ''}
+      </div>
+    `;
+  }).join('');
+
+  el('docsGrid').innerHTML = html;
+  el('section-docs').style.display = '';
+}
+
+// ── Rendu roadmap ─────────────────────────────────────────────────────────────
+
+function renderRoadmap(data) {
+  const roadmap = data.roadmap || {};
+  if (Object.keys(roadmap).length === 0) return;
+
+  const html = Object.entries(roadmap).map(([quarter, items]) => `
+    <div class="roadmap-card">
+      <div class="roadmap-quarter">📅 ${quarter.replace(/_/g, ' ')}</div>
+      ${items.map(item => `<div class="roadmap-item">• ${item}</div>`).join('')}
+    </div>
+  `).join('');
+
+  el('roadmapGrid').innerHTML = html;
+  el('section-roadmap').style.display = '';
+}
+
+// ── Refresh principal ─────────────────────────────────────────────────────────
+
+async function refreshData() {
+  el('liveStatus').textContent = '🟡 chargement…';
+  el('liveStatus').className = 'live-status live-err';
+
+  try {
+    const res = await fetch('./dashboard_gouvernance_data.json?ts=' + Date.now(), { cache: 'no-store' });
+    if (!res.ok) throw new Error('JSON indisponible');
+    const data = await res.json();
+
+    el('errorMsg').style.display = 'none';
+    el('globalSection').style.display = '';
+
+    renderGlobal(data);
+    renderNormesGrid(data);
+    renderDetailPanels(data);
+    renderDocuments(data);
+    renderRoadmap(data);
+
+    el('liveStatus').textContent = '🟢 connecté';
+    el('liveStatus').className = 'live-status live-ok';
+
+  } catch (err) {
+    console.error(err);
+    el('errorMsg').style.display = '';
+    el('liveStatus').textContent = '🔴 déconnecté';
+    el('liveStatus').className = 'live-status live-err';
+  }
+}
+
+// ── Init ──────────────────────────────────────────────────────────────────────
+refreshData();
+setInterval(refreshData, 10000);
+</script>
+</body>
+</html>
