@@ -1,0 +1,1001 @@
+{
+  "last_update": "16/06/2026 12:54:05",
+  "generated_by": "update_gouvernance_data.py",
+  "global": {
+    "score_global": 37.6,
+    "niveau_maturite": "Initial (1)",
+    "couleur": "#E67E22",
+    "poids_utilises": {
+      "rgpd": 30,
+      "iso27001": 25,
+      "aiact": 25,
+      "nis2": 10,
+      "hds": 5,
+      "secnumcloud": 3,
+      "passi": 2
+    }
+  },
+  "normes": {
+    "rgpd": {
+      "id": "rgpd",
+      "label": "RGPD / CNIL",
+      "description": "Règlement (UE) 2016/679 — Protection des données personnelles",
+      "organisme": "CNIL (contrôle) / DPO interne",
+      "echeance": "Obligatoire maintenant",
+      "priorite": 1,
+      "couleur": "#3498DB",
+      "icone": "🔵",
+      "sub_dossier": "dashboard/dashboard_gouvernance/rgpd/",
+      "exigences": [
+        {
+          "id": "RGPD-001",
+          "article": "Art. 30",
+          "label": "Registre des activités de traitement",
+          "fichier_preuve": "docs/gouvernance/registre_traitements_CPL.md",
+          "statut": "conforme",
+          "maturite": 3,
+          "produits": [
+            "ALFRED",
+            "ALFRED_CPL",
+            "ARTHUR"
+          ]
+        },
+        {
+          "id": "RGPD-002",
+          "article": "Art. 5",
+          "label": "Principes de traitement (licéité, minimisation, limitation)",
+          "fichier_preuve": "docs/gouvernance/cadre_reglementaire_CPL.md",
+          "statut": "conforme",
+          "maturite": 3,
+          "produits": [
+            "ALFRED",
+            "ALFRED_CPL",
+            "ARTHUR"
+          ]
+        },
+        {
+          "id": "RGPD-003",
+          "article": "Art. 25",
+          "label": "Privacy by Design & by Default",
+          "fichier_preuve": "docs/profil_systeme/securite_donnees.md",
+          "statut": "conforme",
+          "maturite": 3,
+          "produits": [
+            "ALFRED",
+            "ALFRED_CPL",
+            "ARTHUR"
+          ]
+        },
+        {
+          "id": "RGPD-004",
+          "article": "Art. 35",
+          "label": "AIPD — Traitement T001 (profil psychologique)",
+          "fichier_preuve": null,
+          "statut": "non_conforme",
+          "maturite": 1,
+          "produits": [
+            "ALFRED"
+          ],
+          "gap": "AIPD formelle non rédigée — à produire avant mise en production",
+          "action": "Rédiger docs/audits/rgpd/rgpd_aipd_t001.md",
+          "date_cible": "2026-09-01"
+        },
+        {
+          "id": "RGPD-005",
+          "article": "Art. 35",
+          "label": "AIPD — Traitement T004 (profil enfant ARTHUR)",
+          "fichier_preuve": null,
+          "statut": "non_conforme",
+          "maturite": 0,
+          "produits": [
+            "ARTHUR"
+          ],
+          "gap": "AIPD enfant non rédigée — obligatoire avant toute mise en production ARTHUR",
+          "action": "Rédiger docs/audits/rgpd/rgpd_aipd_t004.md",
+          "date_cible": "2026-09-01"
+        },
+        {
+          "id": "RGPD-006",
+          "article": "Art. 33",
+          "label": "Procédure notification CNIL 72h (violation données)",
+          "fichier_preuve": "docs/gouvernance/soc_cpl.md",
+          "statut": "partiel",
+          "maturite": 2,
+          "produits": [
+            "ALFRED",
+            "ALFRED_CPL",
+            "ARTHUR"
+          ],
+          "gap": "Playbook documenté mais procédure formelle non testée"
+        },
+        {
+          "id": "RGPD-007",
+          "article": "Art. 12-23",
+          "label": "Procédure exercice des droits (accès, rectification, effacement, portabilité)",
+          "fichier_preuve": null,
+          "statut": "partiel",
+          "maturite": 1,
+          "produits": [
+            "ALFRED",
+            "ALFRED_CPL",
+            "ARTHUR"
+          ],
+          "gap": "Droits définis dans le registre mais procédure opérationnelle non rédigée",
+          "action": "Rédiger docs/audits/rgpd/rgpd_droits_procedure.md"
+        },
+        {
+          "id": "RGPD-008",
+          "article": "Art. 13-14",
+          "label": "Information des personnes — politique de confidentialité",
+          "fichier_preuve": null,
+          "statut": "non_conforme",
+          "maturite": 0,
+          "produits": [
+            "ALFRED",
+            "ALFRED_CPL",
+            "ARTHUR"
+          ],
+          "gap": "Politique de confidentialité utilisateur non rédigée",
+          "action": "Rédiger politique de confidentialité accessible in-app"
+        },
+        {
+          "id": "RGPD-009",
+          "article": "Art. 32",
+          "label": "Sécurité des traitements — chiffrement, contrôle d'accès",
+          "fichier_preuve": "docs/profil_systeme/securite_donnees.md",
+          "statut": "conforme",
+          "maturite": 3,
+          "produits": [
+            "ALFRED",
+            "ALFRED_CPL",
+            "ARTHUR"
+          ]
+        },
+        {
+          "id": "RGPD-010",
+          "article": "Art. 8 + LIL art.45",
+          "label": "Conditions spéciales mineurs (seuil 15 ans, consentement parental)",
+          "fichier_preuve": "docs/gouvernance/registre_traitements_CPL.md",
+          "statut": "partiel",
+          "maturite": 2,
+          "produits": [
+            "ARTHUR"
+          ],
+          "gap": "Documenté mais interface parentale non implémentée"
+        }
+      ],
+      "score_global": 55.0,
+      "conformes": 4,
+      "partiels": 3,
+      "non_conformes": 3,
+      "total": 10,
+      "items": [
+        {
+          "id": "RGPD-001",
+          "article": "Art. 30",
+          "label": "Registre des activités de traitement",
+          "statut": "conforme",
+          "badge": "✅",
+          "maturite": 3,
+          "maturite_label": "Défini",
+          "preuve_path": "docs/gouvernance/registre_traitements_CPL.md",
+          "preuve_existe": true,
+          "gap": null,
+          "action": null,
+          "date_cible": null,
+          "produits": [
+            "ALFRED",
+            "ALFRED_CPL",
+            "ARTHUR"
+          ],
+          "score": 100
+        },
+        {
+          "id": "RGPD-002",
+          "article": "Art. 5",
+          "label": "Principes de traitement (licéité, minimisation, limitation)",
+          "statut": "conforme",
+          "badge": "✅",
+          "maturite": 3,
+          "maturite_label": "Défini",
+          "preuve_path": "docs/gouvernance/cadre_reglementaire_CPL.md",
+          "preuve_existe": true,
+          "gap": null,
+          "action": null,
+          "date_cible": null,
+          "produits": [
+            "ALFRED",
+            "ALFRED_CPL",
+            "ARTHUR"
+          ],
+          "score": 100
+        },
+        {
+          "id": "RGPD-003",
+          "article": "Art. 25",
+          "label": "Privacy by Design & by Default",
+          "statut": "conforme",
+          "badge": "✅",
+          "maturite": 3,
+          "maturite_label": "Défini",
+          "preuve_path": "docs/profil_systeme/securite_donnees.md",
+          "preuve_existe": true,
+          "gap": null,
+          "action": null,
+          "date_cible": null,
+          "produits": [
+            "ALFRED",
+            "ALFRED_CPL",
+            "ARTHUR"
+          ],
+          "score": 100
+        },
+        {
+          "id": "RGPD-004",
+          "article": "Art. 35",
+          "label": "AIPD — Traitement T001 (profil psychologique)",
+          "statut": "non_conforme",
+          "badge": "❌",
+          "maturite": 1,
+          "maturite_label": "Initial",
+          "preuve_path": null,
+          "preuve_existe": false,
+          "gap": "AIPD formelle non rédigée — à produire avant mise en production",
+          "action": "Rédiger docs/audits/rgpd/rgpd_aipd_t001.md",
+          "date_cible": "2026-09-01",
+          "produits": [
+            "ALFRED"
+          ],
+          "score": 0
+        },
+        {
+          "id": "RGPD-005",
+          "article": "Art. 35",
+          "label": "AIPD — Traitement T004 (profil enfant ARTHUR)",
+          "statut": "non_conforme",
+          "badge": "❌",
+          "maturite": 0,
+          "maturite_label": "Inexistant",
+          "preuve_path": null,
+          "preuve_existe": false,
+          "gap": "AIPD enfant non rédigée — obligatoire avant toute mise en production ARTHUR",
+          "action": "Rédiger docs/audits/rgpd/rgpd_aipd_t004.md",
+          "date_cible": "2026-09-01",
+          "produits": [
+            "ARTHUR"
+          ],
+          "score": 0
+        },
+        {
+          "id": "RGPD-006",
+          "article": "Art. 33",
+          "label": "Procédure notification CNIL 72h (violation données)",
+          "statut": "partiel",
+          "badge": "⚠️",
+          "maturite": 2,
+          "maturite_label": "Reproductible",
+          "preuve_path": "docs/gouvernance/soc_cpl.md",
+          "preuve_existe": true,
+          "gap": "Playbook documenté mais procédure formelle non testée",
+          "action": null,
+          "date_cible": null,
+          "produits": [
+            "ALFRED",
+            "ALFRED_CPL",
+            "ARTHUR"
+          ],
+          "score": 50
+        },
+        {
+          "id": "RGPD-007",
+          "article": "Art. 12-23",
+          "label": "Procédure exercice des droits (accès, rectification, effacement, portabilité)",
+          "statut": "partiel",
+          "badge": "⚠️",
+          "maturite": 1,
+          "maturite_label": "Initial",
+          "preuve_path": null,
+          "preuve_existe": false,
+          "gap": "Droits définis dans le registre mais procédure opérationnelle non rédigée",
+          "action": "Rédiger docs/audits/rgpd/rgpd_droits_procedure.md",
+          "date_cible": null,
+          "produits": [
+            "ALFRED",
+            "ALFRED_CPL",
+            "ARTHUR"
+          ],
+          "score": 50
+        },
+        {
+          "id": "RGPD-008",
+          "article": "Art. 13-14",
+          "label": "Information des personnes — politique de confidentialité",
+          "statut": "non_conforme",
+          "badge": "❌",
+          "maturite": 0,
+          "maturite_label": "Inexistant",
+          "preuve_path": null,
+          "preuve_existe": false,
+          "gap": "Politique de confidentialité utilisateur non rédigée",
+          "action": "Rédiger politique de confidentialité accessible in-app",
+          "date_cible": null,
+          "produits": [
+            "ALFRED",
+            "ALFRED_CPL",
+            "ARTHUR"
+          ],
+          "score": 0
+        },
+        {
+          "id": "RGPD-009",
+          "article": "Art. 32",
+          "label": "Sécurité des traitements — chiffrement, contrôle d'accès",
+          "statut": "conforme",
+          "badge": "✅",
+          "maturite": 3,
+          "maturite_label": "Défini",
+          "preuve_path": "docs/profil_systeme/securite_donnees.md",
+          "preuve_existe": true,
+          "gap": null,
+          "action": null,
+          "date_cible": null,
+          "produits": [
+            "ALFRED",
+            "ALFRED_CPL",
+            "ARTHUR"
+          ],
+          "score": 100
+        },
+        {
+          "id": "RGPD-010",
+          "article": "Art. 8 + LIL art.45",
+          "label": "Conditions spéciales mineurs (seuil 15 ans, consentement parental)",
+          "statut": "partiel",
+          "badge": "⚠️",
+          "maturite": 2,
+          "maturite_label": "Reproductible",
+          "preuve_path": "docs/gouvernance/registre_traitements_CPL.md",
+          "preuve_existe": true,
+          "gap": "Documenté mais interface parentale non implémentée",
+          "action": null,
+          "date_cible": null,
+          "produits": [
+            "ARTHUR"
+          ],
+          "score": 50
+        }
+      ]
+    },
+    "iso27001": {
+      "id": "iso27001",
+      "label": "ISO 27001:2022",
+      "description": "Système de Management de la Sécurité de l'Information (SMSI)",
+      "organisme": "Auditeur certifié COFRAC",
+      "echeance": "2027 Q2 (objectif certification)",
+      "priorite": 2,
+      "couleur": "#E67E22",
+      "icone": "🟠",
+      "sub_dossier": "dashboard/dashboard_gouvernance/iso27001/",
+      "domaines": [
+        {
+          "id": "ISO-CL4",
+          "label": "Cl. 4 — Contexte de l'organisation",
+          "controles": [
+            "4.1 Contexte",
+            "4.2 Parties intéressées",
+            "4.3 Périmètre SMSI"
+          ],
+          "fichier_preuve": "docs/gouvernance/blueprint_gouvernance_complet.md",
+          "statut": "partiel",
+          "maturite": 2
+        },
+        {
+          "id": "ISO-CL5",
+          "label": "Cl. 5 — Leadership",
+          "controles": [
+            "5.1 Leadership",
+            "5.2 Politique",
+            "5.3 Rôles"
+          ],
+          "fichier_preuve": "docs/gouvernance/cadre_reglementaire_CPL.md",
+          "statut": "partiel",
+          "maturite": 2,
+          "gap": "PSSI formelle non rédigée — blueprint existant insuffisant"
+        },
+        {
+          "id": "ISO-CL6",
+          "label": "Cl. 6 — Planification (EBIOS RM)",
+          "controles": [
+            "6.1 Gestion des risques",
+            "6.2 Objectifs sécurité"
+          ],
+          "fichier_preuve": null,
+          "statut": "non_conforme",
+          "maturite": 1,
+          "gap": "Analyse de risques EBIOS RM formelle non réalisée"
+        },
+        {
+          "id": "ISO-CL7",
+          "label": "Cl. 7 — Support (RH, sensibilisation, communication)",
+          "controles": [
+            "7.1 Ressources",
+            "7.2 Compétences",
+            "7.3 Sensibilisation"
+          ],
+          "fichier_preuve": null,
+          "statut": "partiel",
+          "maturite": 1
+        },
+        {
+          "id": "ISO-CL8",
+          "label": "Cl. 8 — Opérations",
+          "controles": [
+            "8.1 Planification",
+            "8.2 Appréciation risques",
+            "8.3 Traitement risques"
+          ],
+          "fichier_preuve": "docs/gouvernance/cartographie_donnees_CPL.md",
+          "statut": "partiel",
+          "maturite": 2
+        },
+        {
+          "id": "ISO-CL9",
+          "label": "Cl. 9 — Évaluation des performances",
+          "controles": [
+            "9.1 Surveillance",
+            "9.2 Audit interne",
+            "9.3 Revue direction"
+          ],
+          "fichier_preuve": "docs/gouvernance/soc_cpl.md",
+          "statut": "partiel",
+          "maturite": 2
+        },
+        {
+          "id": "ISO-CL10",
+          "label": "Cl. 10 — Amélioration continue",
+          "controles": [
+            "10.1 Non-conformités",
+            "10.2 Amélioration continue"
+          ],
+          "fichier_preuve": null,
+          "statut": "non_conforme",
+          "maturite": 1
+        },
+        {
+          "id": "ISO-ANNEXA",
+          "label": "Annexe A — 93 contrôles de sécurité",
+          "controles_total": 93,
+          "controles_evalues": 12,
+          "fichier_audit": null,
+          "statut": "non_conforme",
+          "maturite": 1,
+          "gap": "Audit des 93 contrôles non réalisé — à démarrer Q3 2026"
+        }
+      ],
+      "score_global": 31.2,
+      "conformes": 0,
+      "partiels": 5,
+      "non_conformes": 3,
+      "total": 8,
+      "items": [
+        {
+          "id": "ISO-CL4",
+          "label": "Cl. 4 — Contexte de l'organisation",
+          "statut": "partiel",
+          "badge": "⚠️",
+          "maturite": 2,
+          "maturite_label": "Reproductible",
+          "preuve_path": "docs/gouvernance/blueprint_gouvernance_complet.md",
+          "preuve_existe": true,
+          "gap": null,
+          "score": 50
+        },
+        {
+          "id": "ISO-CL5",
+          "label": "Cl. 5 — Leadership",
+          "statut": "partiel",
+          "badge": "⚠️",
+          "maturite": 2,
+          "maturite_label": "Reproductible",
+          "preuve_path": "docs/gouvernance/cadre_reglementaire_CPL.md",
+          "preuve_existe": true,
+          "gap": "PSSI formelle non rédigée — blueprint existant insuffisant",
+          "score": 50
+        },
+        {
+          "id": "ISO-CL6",
+          "label": "Cl. 6 — Planification (EBIOS RM)",
+          "statut": "non_conforme",
+          "badge": "❌",
+          "maturite": 1,
+          "maturite_label": "Initial",
+          "preuve_path": null,
+          "preuve_existe": false,
+          "gap": "Analyse de risques EBIOS RM formelle non réalisée",
+          "score": 0
+        },
+        {
+          "id": "ISO-CL7",
+          "label": "Cl. 7 — Support (RH, sensibilisation, communication)",
+          "statut": "partiel",
+          "badge": "⚠️",
+          "maturite": 1,
+          "maturite_label": "Initial",
+          "preuve_path": null,
+          "preuve_existe": false,
+          "gap": null,
+          "score": 50
+        },
+        {
+          "id": "ISO-CL8",
+          "label": "Cl. 8 — Opérations",
+          "statut": "partiel",
+          "badge": "⚠️",
+          "maturite": 2,
+          "maturite_label": "Reproductible",
+          "preuve_path": "docs/gouvernance/cartographie_donnees_CPL.md",
+          "preuve_existe": true,
+          "gap": null,
+          "score": 50
+        },
+        {
+          "id": "ISO-CL9",
+          "label": "Cl. 9 — Évaluation des performances",
+          "statut": "partiel",
+          "badge": "⚠️",
+          "maturite": 2,
+          "maturite_label": "Reproductible",
+          "preuve_path": "docs/gouvernance/soc_cpl.md",
+          "preuve_existe": true,
+          "gap": null,
+          "score": 50
+        },
+        {
+          "id": "ISO-CL10",
+          "label": "Cl. 10 — Amélioration continue",
+          "statut": "non_conforme",
+          "badge": "❌",
+          "maturite": 1,
+          "maturite_label": "Initial",
+          "preuve_path": null,
+          "preuve_existe": false,
+          "gap": null,
+          "score": 0
+        },
+        {
+          "id": "ISO-ANNEXA",
+          "label": "Annexe A — 93 contrôles de sécurité",
+          "statut": "non_conforme",
+          "badge": "❌",
+          "maturite": 1,
+          "maturite_label": "Initial",
+          "preuve_path": null,
+          "preuve_existe": false,
+          "gap": "Audit des 93 contrôles non réalisé — à démarrer Q3 2026",
+          "score": 0
+        }
+      ]
+    },
+    "aiact": {
+      "id": "aiact",
+      "label": "EU AI Act 2024/1689",
+      "description": "Règlement européen sur l'intelligence artificielle",
+      "organisme": "Autorité nationale compétente (ANSSI / AI Office France)",
+      "echeance": "Août 2026 (systèmes haut risque)",
+      "priorite": 2,
+      "couleur": "#9B59B6",
+      "icone": "🟣",
+      "sub_dossier": "dashboard/dashboard_gouvernance/aiact/",
+      "produits": {
+        "ALFRED": {
+          "classification": "haut_risque_potentiel",
+          "justification": "Système adaptatif avec profilage psychologique — art. 6 + Annexe III"
+        },
+        "ALFRED_CPL": {
+          "classification": "haut_risque",
+          "justification": "Usage professionnel RH / gestion performance — Annexe III art.4"
+        },
+        "ARTHUR": {
+          "classification": "haut_risque",
+          "justification": "Système IA destiné aux mineurs + données sensibles"
+        }
+      },
+      "exigences": [
+        {
+          "id": "AIACT-001",
+          "article": "Art. 9",
+          "label": "Système de gestion des risques IA",
+          "fichier_preuve": null,
+          "statut": "non_conforme",
+          "maturite": 1
+        },
+        {
+          "id": "AIACT-002",
+          "article": "Art. 10",
+          "label": "Gouvernance des données d'entraînement et de test",
+          "fichier_preuve": "docs/gouvernance/cartographie_donnees_CPL.md",
+          "statut": "partiel",
+          "maturite": 2
+        },
+        {
+          "id": "AIACT-003",
+          "article": "Art. 11",
+          "label": "Documentation technique système IA",
+          "fichier_preuve": "docs/profil_systeme/conception_technique.md",
+          "statut": "partiel",
+          "maturite": 2
+        },
+        {
+          "id": "AIACT-004",
+          "article": "Art. 12",
+          "label": "Tenue de registres (logs) — traçabilité",
+          "fichier_preuve": "docs/gouvernance/schema_tracabilite_donnees.json",
+          "statut": "partiel",
+          "maturite": 2
+        },
+        {
+          "id": "AIACT-005",
+          "article": "Art. 13",
+          "label": "Transparence et information des utilisateurs",
+          "fichier_preuve": null,
+          "statut": "non_conforme",
+          "maturite": 0,
+          "gap": "Notice de transparence utilisateur non rédigée"
+        },
+        {
+          "id": "AIACT-006",
+          "article": "Art. 14",
+          "label": "Supervision humaine (Human Oversight)",
+          "fichier_preuve": "docs/gouvernance/blueprint_gouvernance_complet.md",
+          "statut": "partiel",
+          "maturite": 2
+        }
+      ],
+      "score_global": 33.3,
+      "conformes": 0,
+      "partiels": 4,
+      "non_conformes": 2,
+      "total": 6,
+      "items": [
+        {
+          "id": "AIACT-001",
+          "article": "Art. 9",
+          "label": "Système de gestion des risques IA",
+          "statut": "non_conforme",
+          "badge": "❌",
+          "maturite": 1,
+          "maturite_label": "Initial",
+          "preuve_path": null,
+          "preuve_existe": false,
+          "gap": null,
+          "score": 0
+        },
+        {
+          "id": "AIACT-002",
+          "article": "Art. 10",
+          "label": "Gouvernance des données d'entraînement et de test",
+          "statut": "partiel",
+          "badge": "⚠️",
+          "maturite": 2,
+          "maturite_label": "Reproductible",
+          "preuve_path": "docs/gouvernance/cartographie_donnees_CPL.md",
+          "preuve_existe": true,
+          "gap": null,
+          "score": 50
+        },
+        {
+          "id": "AIACT-003",
+          "article": "Art. 11",
+          "label": "Documentation technique système IA",
+          "statut": "partiel",
+          "badge": "⚠️",
+          "maturite": 2,
+          "maturite_label": "Reproductible",
+          "preuve_path": "docs/profil_systeme/conception_technique.md",
+          "preuve_existe": true,
+          "gap": null,
+          "score": 50
+        },
+        {
+          "id": "AIACT-004",
+          "article": "Art. 12",
+          "label": "Tenue de registres (logs) — traçabilité",
+          "statut": "partiel",
+          "badge": "⚠️",
+          "maturite": 2,
+          "maturite_label": "Reproductible",
+          "preuve_path": "docs/gouvernance/schema_tracabilite_donnees.json",
+          "preuve_existe": true,
+          "gap": null,
+          "score": 50
+        },
+        {
+          "id": "AIACT-005",
+          "article": "Art. 13",
+          "label": "Transparence et information des utilisateurs",
+          "statut": "non_conforme",
+          "badge": "❌",
+          "maturite": 0,
+          "maturite_label": "Inexistant",
+          "preuve_path": null,
+          "preuve_existe": false,
+          "gap": "Notice de transparence utilisateur non rédigée",
+          "score": 0
+        },
+        {
+          "id": "AIACT-006",
+          "article": "Art. 14",
+          "label": "Supervision humaine (Human Oversight)",
+          "statut": "partiel",
+          "badge": "⚠️",
+          "maturite": 2,
+          "maturite_label": "Reproductible",
+          "preuve_path": "docs/gouvernance/blueprint_gouvernance_complet.md",
+          "preuve_existe": true,
+          "gap": null,
+          "score": 50
+        }
+      ]
+    },
+    "nis2": {
+      "id": "nis2",
+      "label": "NIS2 (2022/2555)",
+      "description": "Directive sur la sécurité des réseaux et systèmes d'information",
+      "organisme": "ANSSI",
+      "echeance": "Analyse périmètre requise",
+      "priorite": 3,
+      "couleur": "#1ABC9C",
+      "icone": "🟢",
+      "sub_dossier": "dashboard/dashboard_gouvernance/nis2/",
+      "perimetre_cpl": "À analyser — dépend de la taille et du secteur à la mise en production",
+      "exigences": [
+        {
+          "id": "NIS2-001",
+          "article": "Art. 21",
+          "label": "Mesures de gestion des risques cybersécurité",
+          "fichier_preuve": "docs/gouvernance/soc_cpl.md",
+          "statut": "partiel",
+          "maturite": 2
+        },
+        {
+          "id": "NIS2-002",
+          "article": "Art. 23",
+          "label": "Notification des incidents (24h alerte / 72h notif / 1 mois rapport)",
+          "fichier_preuve": "docs/gouvernance/soc_cpl.md",
+          "statut": "partiel",
+          "maturite": 2
+        }
+      ],
+      "score_global": 50.0,
+      "conformes": 0,
+      "partiels": 2,
+      "non_conformes": 0,
+      "total": 2,
+      "items": [
+        {
+          "id": "NIS2-001",
+          "article": "Art. 21",
+          "label": "Mesures de gestion des risques cybersécurité",
+          "statut": "partiel",
+          "badge": "⚠️",
+          "maturite": 2,
+          "maturite_label": "Reproductible",
+          "preuve_path": "docs/gouvernance/soc_cpl.md",
+          "preuve_existe": true,
+          "score": 50
+        },
+        {
+          "id": "NIS2-002",
+          "article": "Art. 23",
+          "label": "Notification des incidents (24h alerte / 72h notif / 1 mois rapport)",
+          "statut": "partiel",
+          "badge": "⚠️",
+          "maturite": 2,
+          "maturite_label": "Reproductible",
+          "preuve_path": "docs/gouvernance/soc_cpl.md",
+          "preuve_existe": true,
+          "score": 50
+        }
+      ]
+    },
+    "hds": {
+      "id": "hds",
+      "label": "HDS — Hébergement Données de Santé",
+      "description": "Certification obligatoire si ARTHUR collecte des données de santé enfants",
+      "organisme": "COFRAC",
+      "echeance": "Conditionnel — ARTHUR production avec données santé",
+      "priorite": 4,
+      "couleur": "#E74C3C",
+      "icone": "🔴",
+      "sub_dossier": "dashboard/dashboard_gouvernance/hds/",
+      "prerequis": [
+        "ISO 27001 certifiée",
+        "ISO 20000-1"
+      ],
+      "statut_global": "planifie",
+      "maturite_globale": 0,
+      "score_global": 0,
+      "conformes": 0,
+      "partiels": 0,
+      "non_conformes": 0,
+      "total": 0,
+      "items": []
+    },
+    "secnumcloud": {
+      "id": "secnumcloud",
+      "label": "SecNumCloud",
+      "description": "Qualification ANSSI pour hébergeurs cloud de données sensibles",
+      "organisme": "ANSSI",
+      "echeance": "Conditionnel — si CPL héberge données sensibles en cloud",
+      "priorite": 5,
+      "couleur": "#95A5A6",
+      "icone": "⚪",
+      "sub_dossier": "dashboard/dashboard_gouvernance/secnumcloud/",
+      "statut_global": "planifie",
+      "maturite_globale": 0,
+      "score_global": 0,
+      "conformes": 0,
+      "partiels": 0,
+      "non_conformes": 0,
+      "total": 0,
+      "items": []
+    },
+    "passi": {
+      "id": "passi",
+      "label": "PASSI (ANSSI)",
+      "description": "Prestataires d'Audit SSI qualifiés — si CPL lance une activité de conseil SSI",
+      "organisme": "ANSSI",
+      "echeance": "Conditionnel — activité audit SSI",
+      "priorite": 6,
+      "couleur": "#BDC3C7",
+      "icone": "⚪",
+      "sub_dossier": "dashboard/dashboard_gouvernance/passi/",
+      "sous_domaines": [
+        "Audit organisationnel",
+        "Audit architecture",
+        "Audit configuration",
+        "Audit code source",
+        "Pentest"
+      ],
+      "statut_global": "planifie",
+      "maturite_globale": 0,
+      "score_global": 0,
+      "conformes": 0,
+      "partiels": 0,
+      "non_conformes": 0,
+      "total": 0,
+      "items": []
+    }
+  },
+  "documents_gouvernance": [
+    {
+      "fichier": "blueprint_gouvernance_complet.md",
+      "chemin": "docs/gouvernance/blueprint_gouvernance_complet.md",
+      "label": "Blueprint gouvernance complet",
+      "statut": "complet",
+      "badge": "✅",
+      "existe": true,
+      "taille_lignes": 1119,
+      "taille_octets": 32411,
+      "action": null
+    },
+    {
+      "fichier": "cadre_reglementaire_CPL.md",
+      "chemin": "docs/gouvernance/cadre_reglementaire_CPL.md",
+      "label": "Cadre réglementaire CPL",
+      "statut": "complet",
+      "badge": "✅",
+      "existe": true,
+      "taille_lignes": 252,
+      "taille_octets": 12028,
+      "action": null
+    },
+    {
+      "fichier": "registre_traitements_CPL.md",
+      "chemin": "docs/gouvernance/registre_traitements_CPL.md",
+      "label": "Registre des traitements RGPD art.30",
+      "statut": "complet",
+      "badge": "✅",
+      "existe": true,
+      "taille_lignes": 201,
+      "taille_octets": 11144,
+      "action": null
+    },
+    {
+      "fichier": "cartographie_donnees_CPL.md",
+      "chemin": "docs/gouvernance/cartographie_donnees_CPL.md",
+      "label": "Cartographie des données",
+      "statut": "partiel",
+      "badge": "⚠️",
+      "existe": true,
+      "taille_lignes": 210,
+      "taille_octets": 13230,
+      "action": null
+    },
+    {
+      "fichier": "schema_tracabilite_donnees.json",
+      "chemin": "docs/gouvernance/schema_tracabilite_donnees.json",
+      "label": "Schéma traçabilité données",
+      "statut": "complet",
+      "badge": "✅",
+      "existe": true,
+      "taille_lignes": 464,
+      "taille_octets": 17098,
+      "action": null
+    },
+    {
+      "fichier": "soc_cpl.md",
+      "chemin": "docs/gouvernance/soc_cpl.md",
+      "label": "SOC CPL (3 niveaux)",
+      "statut": "complet",
+      "badge": "✅",
+      "existe": true,
+      "taille_lignes": 329,
+      "taille_octets": 14434,
+      "action": null
+    },
+    {
+      "fichier": "vision_performance_CPL.md",
+      "chemin": "docs/gouvernance/vision_performance_CPL.md",
+      "label": "Vision performance — Triangle d'or",
+      "statut": "complet",
+      "badge": "✅",
+      "existe": true,
+      "taille_lignes": 130,
+      "taille_octets": 5698,
+      "action": null
+    },
+    {
+      "fichier": "CHANTIER_AUDIT_CERTIFICATION.md",
+      "chemin": "docs/gouvernance/CHANTIER_AUDIT_CERTIFICATION.md",
+      "label": "Chantier audit & certification",
+      "statut": "planifie",
+      "badge": "📋",
+      "existe": true,
+      "taille_lignes": 212,
+      "taille_octets": 7711,
+      "action": null
+    },
+    {
+      "fichier": "PSSI_formelle.md",
+      "chemin": "docs/gouvernance/PSSI_formelle.md",
+      "label": "Politique de Sécurité des SI (PSSI)",
+      "statut": "absent",
+      "badge": "❌",
+      "existe": false,
+      "taille_lignes": 0,
+      "taille_octets": 0,
+      "action": "À rédiger selon template ANSSI — Q3 2026"
+    }
+  ],
+  "roadmap": {
+    "2026_Q3": [
+      "Audit interne RGPD complet",
+      "AIPD T001 (profil psychologique)",
+      "AIPD T004 (ARTHUR)",
+      "Procédure droits RGPD"
+    ],
+    "2026_Q4": [
+      "Audit interne ISO 27001 (93 contrôles)",
+      "SoA rédigée",
+      "PSSI formelle approuvée",
+      "Analyse périmètre NIS2"
+    ],
+    "2027_Q1": [
+      "Audit externe ISO 27001 pré-audit",
+      "Conformité AI Act ALFRED + ARTHUR"
+    ],
+    "2027_Q2": [
+      "Certification ISO 27001 (si budget)",
+      "Évaluation HDS si ARTHUR avec données santé"
+    ]
+  },
+  "niveaux_maturite_cmm": {
+    "0": "Inexistant — Aucune pratique en place",
+    "1": "Initial — Pratiques ad hoc, non documentées",
+    "2": "Reproductible — Pratiques documentées, application partielle",
+    "3": "Défini — Processus formalisés, appliqués systématiquement",
+    "4": "Maîtrisé — Mesures et indicateurs, amélioration continue",
+    "5": "Optimisé — Innovation, benchmark, amélioration proactive"
+  }
+}

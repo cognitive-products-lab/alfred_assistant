@@ -1,0 +1,52 @@
+{
+  "_note": "Scores attendus correspondant exactement aux réponses de sample_answers.json. Calculés selon la logique de profile_analyzer.py.",
+  "q01_bien_etre_subjectif": {
+    "swls_total": 26,
+    "panas_positif": 29,
+    "panas_negatif": 8,
+    "_calcul": {
+      "swls": "5+6+5+6+4 = 26",
+      "panas_positif": "6+5+7+6+5 = 29",
+      "panas_negatif": "2+3+2+1 = 8"
+    }
+  },
+  "q02_style_cognitif": {
+    "score_analytique": 5.5,
+    "score_intuitif": 3.0,
+    "profil_ai": "analytique",
+    "score_verbal": 5.33,
+    "score_visuel_spatial": 3.33,
+    "profil_vvs": "verbal",
+    "_calcul": {
+      "analytique": "mean(6,5,6,5) = 22/4 = 5.5",
+      "intuitif": "mean(3,3,2,4) = 12/4 = 3.0",
+      "diff_ai": "5.5 - 3.0 = 2.5 > 1.5 → analytique",
+      "verbal": "mean(5,6,5) = 16/3 ≈ 5.33",
+      "visuel_spatial": "mean(3,3,4) = 10/3 ≈ 3.33",
+      "diff_vvs": "5.33 - 3.33 = 2.0 > 1.0 → verbal"
+    }
+  },
+  "q03_regulation_emotionnelle": {
+    "reevaluation_cognitive": 3.6,
+    "suppression": 2.33,
+    "stress_percu_pss": 11,
+    "_calcul": {
+      "reevaluation": "mean(4,4,3,4,3) = 18/5 = 3.6",
+      "suppression": "mean(2,2,3) = 7/3 ≈ 2.33",
+      "pss": "str_01(2)+str_02(2)+str_03(3)+str_04_inverted(6-4=2)+str_05(2) = 11",
+      "inversion_str04": "6 - 4 = 2 (item positif inversé)"
+    }
+  },
+  "q04_motivations_valeurs": {
+    "autonomie": 5.67,
+    "competence": 5.33,
+    "appartenance": 3.67,
+    "motivation_dominante": "equilibre",
+    "_calcul": {
+      "autonomie": "mean(6,6,5,5,6,6) = 34/6 ≈ 5.67",
+      "competence": "mean(5,5,6,5,6,5) = 32/6 ≈ 5.33",
+      "appartenance": "mean(4,4,3,4,3,4) = 22/6 ≈ 3.67",
+      "dominante": "max=autonomie(5.67), diff_with_second=5.67-5.33=0.34 < 0.5 → equilibre"
+    }
+  }
+}
