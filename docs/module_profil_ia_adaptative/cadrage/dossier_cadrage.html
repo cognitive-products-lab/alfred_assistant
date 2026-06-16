@@ -1,0 +1,1288 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dossier de Cadrage — Module Profil Utilisateur, IA Adaptative & Gouvernance 360° — ALFRED / CPL</title>
+<style>
+  /* ===== RESET & BASE ===== */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --violet: #6C3FC5;
+    --violet-light: #8A5ED8;
+    --fuchsia: #E91E8C;
+    --success: #27AE60;
+    --warning: #F39C12;
+    --danger: #E74C3C;
+    --muted: #6B7280;
+    --card-bg: #1A1A2E;
+    --border: #2D2D4A;
+    --text-main: #E8E8F0;
+    --text-muted: #A0A0B8;
+    --bg-main: #0D0D1A;
+    --bg-section: #12122A;
+  }
+
+  body {
+    background: #0D0D1A;
+    color: #E8E8F0;
+    font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+  /* ===== NAVIGATION STICKY ===== */
+  nav {
+    position: sticky;
+    top: 0;
+    background: #0D0D1A;
+    z-index: 100;
+    border-bottom: 2px solid var(--violet);
+    padding: 0 32px;
+  }
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    flex-wrap: wrap;
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+  .nav-logo {
+    font-size: 18px;
+    font-weight: 900;
+    background: linear-gradient(135deg, var(--violet), var(--fuchsia));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    padding: 10px 16px 10px 0;
+    border-right: 1px solid var(--border);
+    margin-right: 12px;
+    white-space: nowrap;
+  }
+  nav a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 12px 8px;
+    transition: color 0.2s;
+    white-space: nowrap;
+    letter-spacing: 0.3px;
+  }
+  nav a:hover { color: var(--fuchsia); }
+
+  /* ===== HEADER ===== */
+  .doc-header {
+    background: linear-gradient(180deg, #1A1A2E 0%, #0D0D1A 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 60px 32px 48px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .doc-header::before {
+    content: '';
+    position: absolute;
+    top: -80px; left: 50%; transform: translateX(-50%);
+    width: 600px; height: 400px;
+    background: radial-gradient(ellipse, rgba(108,63,197,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .cpl-logo {
+    display: inline-block;
+    font-size: 48px;
+    font-weight: 900;
+    background: linear-gradient(135deg, var(--violet) 0%, var(--fuchsia) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: -2px;
+    margin-bottom: 8px;
+    line-height: 1;
+  }
+  .cpl-tagline {
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 32px;
+  }
+  .doc-title {
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--text-main);
+    margin-bottom: 8px;
+    letter-spacing: -0.5px;
+  }
+  .doc-subtitle {
+    font-size: 16px;
+    color: var(--fuchsia);
+    font-weight: 400;
+    margin-bottom: 28px;
+  }
+  .doc-meta {
+    display: inline-flex;
+    gap: 24px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 24px;
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+  .doc-meta span { display: flex; align-items: center; gap: 6px; }
+  .doc-meta strong { color: var(--text-main); }
+  .status-pill {
+    background: rgba(243,156,18,0.15);
+    border: 1px solid var(--warning);
+    color: var(--warning);
+    padding: 2px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+  }
+
+  /* ===== LAYOUT ===== */
+  .container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+  section {
+    padding: 56px 32px;
+    border-bottom: 1px solid var(--border);
+  }
+  section:nth-child(even) { background: var(--bg-section); }
+
+  /* ===== HEADINGS ===== */
+  .section-label {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--fuchsia);
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  h2 {
+    font-size: 26px;
+    font-weight: 800;
+    color: var(--text-main);
+    margin-bottom: 24px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--violet);
+    display: inline-block;
+  }
+  h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--violet-light);
+    margin: 28px 0 12px;
+  }
+  h4 {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-main);
+    margin: 20px 0 8px;
+  }
+  p { margin-bottom: 14px; color: var(--text-main); }
+
+  /* ===== CARDS ===== */
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin-bottom: 16px;
+  }
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+    margin-top: 20px;
+  }
+  .card-highlight {
+    border-left: 4px solid var(--violet);
+  }
+  .card-success { border-left: 4px solid var(--success); }
+  .card-warning { border-left: 4px solid var(--warning); }
+  .card-danger { border-left: 4px solid var(--danger); }
+
+  /* ===== TABLES ===== */
+  .table-wrap { overflow-x: auto; margin: 20px 0; border-radius: 8px; border: 1px solid var(--border); }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  thead th {
+    background: var(--violet);
+    color: white;
+    padding: 10px 14px;
+    text-align: left;
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 0.4px;
+    white-space: nowrap;
+  }
+  tbody tr { border-bottom: 1px solid var(--border); }
+  tbody tr:last-child { border-bottom: none; }
+  tbody tr:nth-child(even) { background: rgba(255,255,255,0.025); }
+  tbody td { padding: 9px 14px; color: var(--text-main); vertical-align: top; }
+  tbody tr:hover { background: rgba(108,63,197,0.08); }
+
+  /* ===== BADGES ===== */
+  .badge-done {
+    display: inline-flex; align-items: center; gap: 4px;
+    background: #27AE60; color: white;
+    padding: 2px 8px; border-radius: 4px;
+    font-size: 11px; font-weight: 700;
+  }
+  .badge-wip {
+    display: inline-flex; align-items: center; gap: 4px;
+    background: #F39C12; color: white;
+    padding: 2px 8px; border-radius: 4px;
+    font-size: 11px; font-weight: 700;
+  }
+  .badge-planned {
+    display: inline-flex; align-items: center; gap: 4px;
+    background: #6B7280; color: white;
+    padding: 2px 8px; border-radius: 4px;
+    font-size: 11px; font-weight: 700;
+  }
+  .badge-violet {
+    background: var(--violet); color: white;
+    padding: 2px 8px; border-radius: 4px;
+    font-size: 11px; font-weight: 700;
+    display: inline-block;
+  }
+
+  /* ===== RISQUES ===== */
+  .risk-critical { border-left: 4px solid #E74C3C; background: rgba(231,76,60,0.05); }
+  .risk-high { border-left: 4px solid #F39C12; background: rgba(243,156,18,0.05); }
+  .risk-medium { border-left: 4px solid #F1C40F; background: rgba(241,196,15,0.05); }
+  .risk-low { border-left: 4px solid #27AE60; background: rgba(39,174,96,0.05); }
+  .crit-5 { color: #E74C3C; font-weight: 800; }
+  .crit-4 { color: #E67E22; font-weight: 700; }
+  .crit-3 { color: #F1C40F; font-weight: 700; }
+  .crit-2 { color: #27AE60; font-weight: 600; }
+  .crit-1 { color: #3498DB; font-weight: 600; }
+
+  /* ===== DMAIC ===== */
+  .dmaic-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin: 24px 0; }
+  .dmaic-box {
+    border-radius: 10px;
+    padding: 18px 14px;
+    text-align: center;
+  }
+  .dmaic-d { background: rgba(108,63,197,0.2); border: 2px solid var(--violet); }
+  .dmaic-m { background: rgba(233,30,140,0.15); border: 2px solid var(--fuchsia); }
+  .dmaic-a { background: rgba(243,156,18,0.15); border: 2px solid var(--warning); }
+  .dmaic-i { background: rgba(39,174,96,0.15); border: 2px solid var(--success); }
+  .dmaic-c { background: rgba(52,152,219,0.15); border: 2px solid #3498DB; }
+  .dmaic-letter {
+    font-size: 32px;
+    font-weight: 900;
+    margin-bottom: 6px;
+    line-height: 1;
+  }
+  .dmaic-d .dmaic-letter { color: var(--violet-light); }
+  .dmaic-m .dmaic-letter { color: var(--fuchsia); }
+  .dmaic-a .dmaic-letter { color: var(--warning); }
+  .dmaic-i .dmaic-letter { color: var(--success); }
+  .dmaic-c .dmaic-letter { color: #3498DB; }
+  .dmaic-name { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; }
+  .dmaic-desc { font-size: 11px; color: var(--text-muted); line-height: 1.5; }
+
+  /* ===== CODE BLOCK ===== */
+  .code-block {
+    background: #0A0A18;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px 24px;
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 12px;
+    line-height: 1.8;
+    overflow-x: auto;
+    color: #C8C8E0;
+  }
+  .code-dir { color: #8A5ED8; font-weight: 700; }
+  .code-file { color: #A8D8A8; }
+  .code-file-py { color: #7EC8E3; }
+  .code-file-json { color: #FFD580; }
+  .code-file-md { color: #FFB3C6; }
+  .code-comment { color: var(--muted); font-style: italic; }
+
+  /* ===== ROI BOXES ===== */
+  .roi-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; margin: 20px 0; }
+  .roi-box {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+  }
+  .roi-box .roi-value {
+    font-size: 28px;
+    font-weight: 900;
+    background: linear-gradient(135deg, var(--violet), var(--fuchsia));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 6px;
+  }
+  .roi-box .roi-label { font-size: 12px; color: var(--text-muted); font-weight: 600; }
+  .roi-box .roi-detail { font-size: 11px; color: var(--muted); margin-top: 6px; line-height: 1.5; }
+
+  /* ===== RACI ===== */
+  .raci-r { color: var(--fuchsia); font-weight: 800; }
+  .raci-a { color: var(--warning); font-weight: 800; }
+  .raci-c { color: #3498DB; font-weight: 700; }
+  .raci-i { color: var(--muted); font-weight: 600; }
+
+  /* ===== ENJEUX ===== */
+  .enjeux-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; margin: 20px 0; }
+  .enjeu-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 20px;
+  }
+  .enjeu-icon { font-size: 24px; margin-bottom: 10px; }
+  .enjeu-title { font-weight: 700; font-size: 14px; margin-bottom: 8px; color: var(--violet-light); }
+  .enjeu-body { font-size: 12px; color: var(--text-muted); line-height: 1.6; }
+
+  /* ===== GLOSSARY ===== */
+  .glossary-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 12px; margin-top: 20px; }
+  .gloss-item { background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; padding: 12px 16px; }
+  .gloss-term { color: var(--fuchsia); font-weight: 700; font-size: 13px; margin-bottom: 4px; }
+  .gloss-def { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
+
+  /* ===== DIVIDER ===== */
+  .divider { height: 1px; background: var(--border); margin: 24px 0; }
+
+  /* ===== FOOTER ===== */
+  footer {
+    background: #080812;
+    border-top: 2px solid var(--violet);
+    padding: 32px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 12px;
+  }
+  footer .footer-logo {
+    font-size: 24px;
+    font-weight: 900;
+    background: linear-gradient(135deg, var(--violet), var(--fuchsia));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 8px;
+  }
+
+  /* ===== PRINT STYLES ===== */
+  @media print {
+    body { background: white; color: black; font-size: 12px; }
+    nav { display: none !important; }
+    .doc-header { background: white; border-bottom: 2px solid #333; }
+    .cpl-logo { -webkit-text-fill-color: #6C3FC5; background: none; color: #6C3FC5; }
+    .doc-title { color: black; }
+    .doc-subtitle { color: #E91E8C; }
+    .doc-meta { background: #f5f5f5; border: 1px solid #ccc; color: black; }
+    section { background: white !important; border-bottom: 1px solid #ccc; padding: 24px 0; }
+    h2 { color: #1a1a2e; border-bottom-color: #6C3FC5; }
+    h3 { color: #6C3FC5; }
+    p, li, td { color: #1a1a2e; }
+    table { page-break-inside: avoid; }
+    .card, .gloss-item, .enjeu-card, .roi-box { background: #f9f9f9; border: 1px solid #ccc; page-break-inside: avoid; }
+    thead th { background: #6C3FC5 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .badge-done { background: #27AE60 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .badge-wip { background: #F39C12 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .badge-planned { background: #6B7280 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .code-block { background: #f0f0f0; color: #1a1a2e; border: 1px solid #ccc; }
+    .dmaic-box { border: 1px solid #ccc; background: #f5f5f5 !important; }
+    footer { background: #f0f0f0; border-top: 1px solid #ccc; color: #444; }
+    .risk-critical, .risk-high, .risk-medium, .risk-low { background: #f9f9f9 !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ========== NAVIGATION ========== -->
+<nav>
+  <div class="nav-inner">
+    <span class="nav-logo">CPL</span>
+    <a href="#intro">Introduction</a>
+    <a href="#enjeux">Enjeux</a>
+    <a href="#risques">Risques</a>
+    <a href="#roi">ROI</a>
+    <a href="#methode">Méthode</a>
+    <a href="#raci">RACI</a>
+    <a href="#livrables">Livrables</a>
+    <a href="#arborescence">Arborescence</a>
+    <a href="#annexes">Annexes</a>
+    <a href="#glossaire">Glossaire</a>
+  </div>
+</nav>
+
+<!-- ========== HEADER ========== -->
+<header class="doc-header">
+  <div class="cpl-logo">CPL</div>
+  <div class="cpl-tagline">Cognitive Products Lab &mdash; Céline Rousselot</div>
+  <h1 class="doc-title">Dossier de Cadrage</h1>
+  <p class="doc-subtitle">Module Profil Utilisateur, IA Adaptative &amp; Gouvernance 360°</p>
+  <div class="doc-meta">
+    <span><strong>Projet :</strong> ALFRED Assistant</span>
+    <span><strong>Date :</strong> 2026-06-16</span>
+    <span><strong>Version :</strong> 1.0</span>
+    <span><strong>Statut :</strong> <span class="status-pill">En cours — Phase 1-2 livrées</span></span>
+    <span><strong>Auteure :</strong> Céline Rousselot, DPO-RSSI</span>
+  </div>
+</header>
+
+<!-- ========== INTRODUCTION ========== -->
+<section id="intro">
+  <div class="container">
+    <div class="section-label">Section 1</div>
+    <h2>Introduction &amp; Contexte Général</h2>
+
+    <h3>1.1 Le Projet ALFRED</h3>
+    <p>
+      ALFRED (Adaptive Learning Framework for Responsive Everyday Dialogue) est un assistant IA personnel développé
+      par CPL (Cognitive Products Lab), laboratoire fondé par Céline Rousselot. Conçu entièrement en Python avec le
+      framework d'interface utilisateur Kivy, ALFRED se positionne comme une alternative radicalement différente des
+      assistants IA cloud-first dominants : il s'exécute <strong>localement sur le terminal de l'utilisateur</strong>,
+      sans transmission de données personnelles vers des serveurs distants, sans dépendance à un fournisseur cloud, et
+      sans monétisation des données comportementales.
+    </p>
+    <p>
+      La vision fondatrice de CPL repose sur deux principes directeurs : la <strong>souveraineté numérique individuelle</strong>
+      — chaque utilisateur est le seul propriétaire de ses données — et l'<strong>intelligence contextuelle</strong> —
+      un assistant qui comprend l'individu en profondeur pour lui fournir une aide véritablement personnalisée, pas
+      seulement des réponses génériques calibrées pour le plus grand dénominateur commun.
+    </p>
+
+    <h3>1.2 Vision Local-First &amp; Privacy by Design</h3>
+    <p>
+      L'architecture <em>Local-First</em> d'ALFRED signifie que l'intégralité du profil psychologique de l'utilisateur,
+      de ses préférences, de son historique de sessions et de ses données comportementales réside exclusivement sur son
+      propre appareil. Le chiffrement symétrique <strong>Fernet (AES-128-CBC + HMAC-SHA256)</strong> protège l'ensemble
+      des fichiers de profil au repos. La clé de chiffrement dérivée du mot de passe utilisateur via PBKDF2-SHA256
+      n'est jamais stockée en clair ni transmise à l'extérieur.
+    </p>
+    <p>
+      Ce choix architectural n'est pas seulement une décision technique : c'est une déclaration philosophique. Dans un
+      écosystème IA où les données personnelles sont devenues la matière première d'une économie de surveillance,
+      CPL fait le pari inverse — que la <em>Privacy by Design</em> selon les principes définis dans l'ISO 31700 et
+      repris par le RGPD constitue un avantage compétitif durable, pas une contrainte réglementaire à minimiser.
+      Le <em>Security by Design</em>, intégré dès la phase de conception architecturale, évite la dette technique
+      sécuritaire qui frappe massivement les produits qui tentent de "sécuriser après coup".
+    </p>
+
+    <h3>1.3 Problématique du Module de Profilage</h3>
+    <p>
+      Les assistants IA généralistes souffrent d'un paradoxe fondamental : plus ils sont puissants sur le plan cognitif,
+      moins ils sont pertinents au niveau individuel. Un modèle de langage entraîné sur l'ensemble du web produit des
+      réponses calibrées pour "l'utilisateur moyen" — une abstraction statistique qui ne correspond à personne en
+      particulier. Pour une personne à haute sensibilité émotionnelle, un style de communication direct peut être
+      vécu comme agressif. Pour un profil analytique fort, un discours trop métaphorique est perçu comme imprécis.
+      Pour quelqu'un en état de stress chronique élevé, des réponses longues et complexes augmentent la charge
+      cognitive au lieu de la réduire.
+    </p>
+    <p>
+      Le Module Profil Utilisateur résout ce paradoxe en introduisant une couche de <strong>connaissance psychométrique
+      scientifiquement fondée</strong> entre l'utilisateur et le moteur IA. Neuf dimensions psychologiques — couvrant
+      la personnalité (Big Five/TIPI), le bien-être subjectif (SWLS), l'affect (PANAS), la motivation (SDT/IMI),
+      les valeurs (PVQ-21), les intérêts professionnels (RIASEC/Holland), l'intelligence émotionnelle (TEIQue-SF),
+      le chronotype (rMEQ), et la résilience (CD-RISC-10) — sont mesurées via des questionnaires validés, puis
+      mappées sur <strong>9 paramètres comportementaux d'ALFRED</strong> selon une matrice de règles formalisée.
+    </p>
+    <p>
+      Le résultat : un assistant qui adapte en temps réel son registre de communication, sa verbosité, son niveau
+      d'empathie exprimée, la profondeur analytique de ses réponses, et même sa disponibilité horaire en fonction
+      du chronotype de l'utilisateur — le tout sans jamais envoyer une seule donnée psychologique en dehors de
+      l'appareil personnel.
+    </p>
+
+    <h3>1.4 Périmètre du Présent Document</h3>
+    <p>
+      Ce dossier de cadrage couvre l'ensemble du périmètre du Module Profil : (1) la collecte psychométrique via
+      8 questionnaires standardisés, (2) le scoring normalisé et le stockage chiffré, (3) l'adaptation comportementale
+      d'ALFRED via la matrice de mapping, (4) la gouvernance des données sensibles au sens de l'article 9 du RGPD,
+      (5) la conformité à l'EU AI Act pour les systèmes adaptatifs, et (6) la planification d'ARTHUR V2 — le module
+      de gouvernance de niveau 2 incluant l'audit trail temps réel et la certification ISO 27001.
+    </p>
+
+    <div class="card card-highlight" style="margin-top:24px;">
+      <h4 style="color:var(--violet-light);margin-top:0;">Données clés du module</h4>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:12px;text-align:center;">
+        <div><div style="font-size:28px;font-weight:900;color:var(--fuchsia);">9</div><div style="font-size:11px;color:var(--muted);">Dimensions psychologiques</div></div>
+        <div><div style="font-size:28px;font-weight:900;color:var(--violet-light);">8</div><div style="font-size:11px;color:var(--muted);">Questionnaires validés</div></div>
+        <div><div style="font-size:28px;font-weight:900;color:var(--success);">116</div><div style="font-size:11px;color:var(--muted);">Items de mesure</div></div>
+        <div><div style="font-size:28px;font-weight:900;color:var(--warning);">40</div><div style="font-size:11px;color:var(--muted);">Règles de mapping</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== ENJEUX ========== -->
+<section id="enjeux">
+  <div class="container">
+    <div class="section-label">Section 2</div>
+    <h2>Enjeux Stratégiques</h2>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Catégorie</th><th>Enjeu principal</th><th>Indicateur clé</th><th>Priorité</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>UX &amp; Expérience</strong></td><td>Réduction des hallucinations contextuelles, pertinence des réponses</td><td>Taux satisfaction, NPS</td><td><span class="badge-violet">CRITIQUE</span></td></tr>
+          <tr><td><strong>Business</strong></td><td>Données first-party propriétaires, différenciation concurrentielle</td><td>LTV, Churn Rate</td><td><span class="badge-violet">HAUTE</span></td></tr>
+          <tr><td><strong>Réglementaire</strong></td><td>RGPD art.9, EU AI Act, NIS2</td><td>Zéro amendes, AIPD validée</td><td><span class="badge-violet">CRITIQUE</span></td></tr>
+          <tr><td><strong>Éthique</strong></td><td>Consentement explicite, droit d'effacement, transparence</td><td>Consentements traçables</td><td><span class="badge-violet">HAUTE</span></td></tr>
+          <tr><td><strong>Technique</strong></td><td>Scalabilité, maintenabilité, sécurité by design</td><td>Couverture tests &gt;80%</td><td><span class="badge-violet">HAUTE</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="enjeux-grid">
+      <div class="enjeu-card">
+        <div class="enjeu-icon">&#127919;</div>
+        <div class="enjeu-title">UX &amp; Expérience Utilisateur</div>
+        <div class="enjeu-body">
+          Un assistant qui adapte son registre communicationnel au profil psychologique réduit la charge cognitive de
+          l'utilisateur, diminue les incompréhensions, et augmente le taux d'engagement durable. La personnalisation
+          contextuelle permet de réduire les hallucinations perçues : une réponse correcte mais inadaptée au niveau
+          d'expertise de l'interlocuteur est souvent vécue comme une erreur. Objectif : NPS &gt; 70, taux de rétention
+          J30 &gt; 85%.
+        </div>
+      </div>
+      <div class="enjeu-card">
+        <div class="enjeu-icon">&#128200;</div>
+        <div class="enjeu-title">Business &amp; Valorisation</div>
+        <div class="enjeu-body">
+          Les données psychométriques first-party collectées avec consentement explicite représentent un actif
+          stratégique impossible à répliquer par les concurrents. Elles permettent une personnalisation d'une
+          profondeur inégalée sans dépendance aux cookies tiers (dépréciation en cours). La différenciation
+          concurrentielle se traduit directement sur le LTV (Life Time Value) et le taux de recommandation.
+        </div>
+      </div>
+      <div class="enjeu-card">
+        <div class="enjeu-icon">&#9878;</div>
+        <div class="enjeu-title">Conformité Réglementaire</div>
+        <div class="enjeu-body">
+          Les données psychologiques sont des données sensibles au sens de l'article 9 du RGPD, soumises à des
+          obligations renforcées : base légale explicite, AIPD obligatoire, mesures de sécurité adaptées. L'EU AI
+          Act classifie les systèmes adaptatifs comme à risque limité avec obligations de transparence. La NIS2
+          impose des mesures de continuité et de gestion des incidents. La non-conformité expose à des amendes
+          pouvant atteindre 4% du CA mondial ou 20M€.
+        </div>
+      </div>
+      <div class="enjeu-card">
+        <div class="enjeu-icon">&#9878;</div>
+        <div class="enjeu-title">Éthique &amp; Droits</div>
+        <div class="enjeu-body">
+          Le profil psychologique d'un individu constitue une représentation particulièrement sensible de son
+          identité intérieure. L'enjeu éthique dépasse la simple conformité légale : minimisation stricte des
+          données collectées, consentement granulaire par dimension, droit d'effacement effectif et irréversible,
+          transparence totale sur les mécanismes d'adaptation, impossibilité technique de discrimination algorithmique.
+        </div>
+      </div>
+      <div class="enjeu-card">
+        <div class="enjeu-icon">&#128736;</div>
+        <div class="enjeu-title">Architecture Technique</div>
+        <div class="enjeu-body">
+          La scalabilité du module doit anticiper l'ajout de nouvelles dimensions psychologiques sans refactoring
+          majeur. Le schéma JSON versionné garantit la rétrocompatibilité. La séparation stricte entre couche
+          de collecte, couche de scoring et couche d'adaptation permet une maintenance indépendante. L'architecture
+          modulaire facilite l'intégration d'ARTHUR V2 comme couche de gouvernance overlay.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== RISQUES ========== -->
+<section id="risques">
+  <div class="container">
+    <div class="section-label">Section 3</div>
+    <h2>Matrice des Risques</h2>
+    <p>
+      La criticité est calculée selon la formule <strong>C = Impact × Probabilité</strong> (chacun côté de 1 à 5).
+      Les risques de criticité ≥ 16 sont classés CRITIQUE, 9-15 ÉLEVÉ, 4-8 MOYEN, &lt;4 FAIBLE.
+    </p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th><th>Catégorie</th><th>Risque</th><th>Impact</th><th>Probabilité</th><th>Criticité</th><th>Mitigation</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="risk-critical">
+            <td><strong>R01</strong></td><td>Données</td>
+            <td>Fuite des réponses psychologiques en clair (fichier answers_template non chiffré)</td>
+            <td>5</td><td>3</td><td class="crit-5">15 &#9650; ÉLEVÉ</td>
+            <td>Chiffrement Fernet systématique, vérification à l'écriture, test d'intégrité au démarrage</td>
+          </tr>
+          <tr class="risk-critical">
+            <td><strong>R02</strong></td><td>Données</td>
+            <td>Perte ou corruption de la clé Fernet (irrécupérabilité des données)</td>
+            <td>5</td><td>2</td><td class="crit-4">10 &#9650; ÉLEVÉ</td>
+            <td>Procédure de sauvegarde clé, dérivation PBKDF2, documentation récupération, export chiffré</td>
+          </tr>
+          <tr class="risk-high">
+            <td><strong>R03</strong></td><td>Données</td>
+            <td>Corruption silencieuse du fichier answers_template.json (données corrompues utilisées pour scoring)</td>
+            <td>4</td><td>2</td><td class="crit-3">8 &#9651; MOYEN</td>
+            <td>Hash SHA-256 de contrôle à chaque écriture, validation JSON Schema à la lecture, logs d'intégrité</td>
+          </tr>
+          <tr class="risk-high">
+            <td><strong>R04</strong></td><td>Données</td>
+            <td>Accès non autorisé au profil si déverrouillage session sans re-authentification</td>
+            <td>4</td><td>3</td><td class="crit-4">12 &#9650; ÉLEVÉ</td>
+            <td>Timeout de session configurable, re-authentification sur accès profil, verrouillage auto Kivy</td>
+          </tr>
+          <tr class="risk-critical">
+            <td><strong>R05</strong></td><td>Légal</td>
+            <td>Non-conformité RGPD art.9 : collecte données sensibles sans base légale explicite documentée</td>
+            <td>5</td><td>3</td><td class="crit-5">15 &#9650; ÉLEVÉ</td>
+            <td>Consentement granulaire par dimension, registre des traitements (RoPA), AIPD T001 formalisée</td>
+          </tr>
+          <tr class="risk-critical">
+            <td><strong>R06</strong></td><td>Légal</td>
+            <td>EU AI Act : système adaptatif non documenté comme tel, absence de notice transparence</td>
+            <td>4</td><td>3</td><td class="crit-4">12 &#9650; ÉLEVÉ</td>
+            <td>Classification formelle, notice utilisateur, documentation des mécanismes d'adaptation</td>
+          </tr>
+          <tr class="risk-high">
+            <td><strong>R07</strong></td><td>Légal</td>
+            <td>AIPD manquante ou insuffisante avant mise en production du module</td>
+            <td>5</td><td>2</td><td class="crit-4">10 &#9650; ÉLEVÉ</td>
+            <td>AIPD T001 (questionnaires) et T004 (adapter) complétées Phase 3, revue DPO avant déploiement</td>
+          </tr>
+          <tr class="risk-medium">
+            <td><strong>R08</strong></td><td>UX</td>
+            <td>Taux d'abandon questionnaires &gt;50% (fatigue psychométrique, questionnaires trop longs)</td>
+            <td>3</td><td>4</td><td class="crit-4">12 &#9650; ÉLEVÉ</td>
+            <td>Découpage en sessions courtes (&lt;10 min), progression visible, sauvegarde partielle, mode rapide</td>
+          </tr>
+          <tr class="risk-medium">
+            <td><strong>R09</strong></td><td>UX</td>
+            <td>Résistance utilisateur au profilage psychologique (sentiment d'intrusion, méfiance)</td>
+            <td>3</td><td>3</td><td class="crit-3">9 &#9651; MOYEN</td>
+            <td>Communication transparente sur usage, bénéfices concrets démontrés, opt-out simple par dimension</td>
+          </tr>
+          <tr class="risk-medium">
+            <td><strong>R10</strong></td><td>UX</td>
+            <td>Perception d'un profil figé et inexact après plusieurs mois (drift comportemental)</td>
+            <td>3</td><td>3</td><td class="crit-3">9 &#9651; MOYEN</td>
+            <td>Re-test périodique selon periodicité_schema.json, indicateur de fraîcheur du profil, correction manuelle</td>
+          </tr>
+          <tr class="risk-high">
+            <td><strong>R11</strong></td><td>Technique</td>
+            <td>Drift du modèle de scoring (biais de normalisation, outliers non détectés)</td>
+            <td>4</td><td>2</td><td class="crit-3">8 &#9651; MOYEN</td>
+            <td>Tests unitaires scoring_keys.json, validation croisée DMAIC Control, alertes dérive ARTHUR V2</td>
+          </tr>
+          <tr class="risk-medium">
+            <td><strong>R12</strong></td><td>Technique</td>
+            <td>Incompatibilité de versions JSON entre questionnaires et profile_analyzer (breaking change)</td>
+            <td>3</td><td>3</td><td class="crit-3">9 &#9651; MOYEN</td>
+            <td>Versionnage sémantique dans chaque schema, migration automatique, tests de régression CI</td>
+          </tr>
+          <tr class="risk-medium">
+            <td><strong>R13</strong></td><td>Organisationnel</td>
+            <td>SPOF documentation : Céline Rousselot seule dépositaire des connaissances architecturales</td>
+            <td>4</td><td>3</td><td class="crit-4">12 &#9650; ÉLEVÉ</td>
+            <td>Documentation systématique (ce dossier), PSSI formelle, procédures opérationnelles écrites</td>
+          </tr>
+          <tr class="risk-medium">
+            <td><strong>R14</strong></td><td>Organisationnel</td>
+            <td>Obsolescence des frameworks psychométriques (nouvelles versions, retraits de validation)</td>
+            <td>2</td><td>2</td><td class="crit-2">4 &#9660; FAIBLE</td>
+            <td>Veille scientifique semestrielle, références bibliographiques DOI dans dimensions_schema.json</td>
+          </tr>
+          <tr class="risk-medium">
+            <td><strong>R15</strong></td><td>Organisationnel</td>
+            <td>Dépendances Python non maintenues (cryptography, Kivy) — vulnérabilités CVE non patchées</td>
+            <td>4</td><td>2</td><td class="crit-3">8 &#9651; MOYEN</td>
+            <td>Audit dépendances trimestriel (pip-audit), politique versions minimales, matrice compatibilité</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card-grid" style="margin-top:16px;">
+      <div class="card risk-critical"><strong>ÉLEVÉ (9-15)</strong><br><small style="color:var(--text-muted);">7 risques — Actions immédiates</small></div>
+      <div class="card risk-medium"><strong>MOYEN (4-8)</strong><br><small style="color:var(--text-muted);">7 risques — Surveillance active</small></div>
+      <div class="card risk-low"><strong>FAIBLE (&lt;4)</strong><br><small style="color:var(--text-muted);">1 risque — Monitoring passif</small></div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== ROI ========== -->
+<section id="roi">
+  <div class="container">
+    <div class="section-label">Section 4</div>
+    <h2>Retour sur Investissement (ROI)</h2>
+
+    <h3>4.1 ROI Sécurité — Coût de la Prévention vs. Coût d'une Faille</h3>
+    <p>
+      Le ratio de référence dans l'industrie de la sécurité informatique est de <strong>1:100</strong> : un euro
+      investi en sécurité amont (upstream, par design) évite en moyenne cent euros de coûts aval (downstream)
+      suite à un incident. Ce ratio s'établit en agrégeant le coût technique de remédiation, les coûts légaux et
+      réglementaires, le préjudice réputationnel, et les coûts de communication de crise.
+    </p>
+    <p>
+      Pour un module traitant des données psychologiques au sens de l'article 9 du RGPD, l'exposition maximale est
+      considérable : une notification CNIL d'incident impliquant des données sensibles déclenche une investigation
+      qui peut aboutir à des amendes pouvant atteindre <strong>4% du chiffre d'affaires annuel mondial, ou 20
+      millions d'euros</strong> (le montant le plus élevé s'appliquant). Pour une startup, cette sanction est
+      existentiellement menaçante.
+    </p>
+
+    <div class="roi-grid">
+      <div class="roi-box">
+        <div class="roi-value">1:100</div>
+        <div class="roi-label">Ratio sécurité upstream vs. downstream</div>
+        <div class="roi-detail">1€ investi en prévention évite 100€ de coûts incidents</div>
+      </div>
+      <div class="roi-box">
+        <div class="roi-value">20M€</div>
+        <div class="roi-label">Amende maximale RGPD art.9</div>
+        <div class="roi-detail">Ou 4% CA mondial si montant supérieur — données sensibles</div>
+      </div>
+      <div class="roi-box">
+        <div class="roi-value">72h</div>
+        <div class="roi-label">Délai notification CNIL obligatoire</div>
+        <div class="roi-detail">Après prise de connaissance d'une violation — RGPD art.33</div>
+      </div>
+      <div class="roi-box">
+        <div class="roi-value">€15-50k</div>
+        <div class="roi-label">Coût moyen audit sécurité préventif</div>
+        <div class="roi-detail">vs. coût moyen faille données sensibles : >500k€ tout compris</div>
+      </div>
+    </div>
+
+    <h3>4.2 ROI Conformité — Investissement vs. Risque</h3>
+    <p>
+      La certification ISO 27001 (SMSI — Système de Management de la Sécurité de l'Information) représente un
+      investissement initial estimé entre 30 000€ et 80 000€ pour une PME, puis un coût annuel de maintenance
+      de 10 000€ à 25 000€. En comparaison, le coût d'une non-certification face à un appel d'offres corporate
+      ou une due diligence investisseur inclut : perte du contrat, délais de négociation, audit ad-hoc forcé
+      à coût triple, et signal négatif de maturité opérationnelle.
+    </p>
+    <p>
+      La constitution d'un dossier de gouvernance documenté dès la Phase 3 (PSSI, AIPD, SoA, SMSI) permet à CPL
+      d'anticiper l'audit ISO 27001 cible de la Phase 4 sans refactoring documentaire coûteux. Le principe DMAIC
+      appliqué à la gouvernance garantit que chaque document produit maintenant est réutilisable directement
+      dans le dossier de certification.
+    </p>
+
+    <h3>4.3 ROI UX &amp; Produit</h3>
+    <p>
+      Les études Bain &amp; Company établissent qu'une augmentation de 1 point de NPS est corrélée à une croissance
+      de revenus de <strong>1 à 3%</strong> selon les secteurs. Pour un assistant IA, la personnalisation
+      psychométrique a démontré dans les études sur les tuteurs adaptatifs (domaine proche) des augmentations
+      d'engagement de 40% à 60% par rapport aux expériences non adaptatives. La réduction du churn liée à la
+      personnalisation est estimée à <strong>15-25% sur 12 mois</strong>.
+    </p>
+    <p>
+      La durée de vie cliente (LTV) augmente mécaniquement quand l'assistant devient "personnel" dans le sens
+      littéral — il connaît l'utilisateur, s'adapte à son évolution, et crée une relation difficile à remplacer
+      par un concurrent généraliste. Cet effet de lock-in éthique (fondé sur la valeur réelle et non sur les
+      coûts de sortie) est l'un des avantages concurrentiels les plus durables.
+    </p>
+
+    <div class="roi-grid">
+      <div class="roi-box">
+        <div class="roi-value">+40-60%</div>
+        <div class="roi-label">Engagement estimé avec personnalisation</div>
+        <div class="roi-detail">Basé sur études tuteurs adaptatifs — domaine IA personnalisée</div>
+      </div>
+      <div class="roi-box">
+        <div class="roi-value">-20%</div>
+        <div class="roi-label">Réduction churn estimée à J30</div>
+        <div class="roi-detail">Impact profil complet vs. expérience générique</div>
+      </div>
+      <div class="roi-box">
+        <div class="roi-value">+1 NPS</div>
+        <div class="roi-label">= +1 à 3% croissance revenus</div>
+        <div class="roi-detail">Corrélation Bain &amp; Co — secteur logiciels grand public</div>
+      </div>
+      <div class="roi-box">
+        <div class="roi-value">×2-3</div>
+        <div class="roi-label">Multiplication LTV estimée</div>
+        <div class="roi-detail">Utilisateur profilé vs. utilisateur non profilé sur 24 mois</div>
+      </div>
+    </div>
+
+    <h3>4.4 ROI Données First-Party</h3>
+    <p>
+      Dans un contexte de dépréciation des cookies tiers (blocage natif Safari/Firefox, phase-out Chrome en cours),
+      les données psychographiques first-party collectées avec consentement explicite sont l'actif le plus rare et
+      le plus défendable. Elles permettent une segmentation comportementale d'une précision inégalée, sans recours
+      aux intermédiaires data (DMP, CDP tiers), et sont intransférables à des concurrents — puisqu'elles restent
+      localement sur l'appareil de l'utilisateur, conformément à l'architecture Local-First.
+    </p>
+  </div>
+</section>
+
+<!-- ========== MÉTHODE DMAIC ========== -->
+<section id="methode">
+  <div class="container">
+    <div class="section-label">Section 5</div>
+    <h2>Méthode : DMAIC Lean Six Sigma</h2>
+    <p>
+      La démarche de développement du module suit la méthodologie <strong>DMAIC</strong> (Define, Measure, Analyze,
+      Improve, Control) issue du Lean Six Sigma. Cette approche structurée garantit que chaque livrable est ancré
+      dans une problématique mesurable, que les solutions sont fondées sur des données et non des hypothèses, et
+      que les améliorations sont pérennisées par des mécanismes de contrôle formels.
+    </p>
+
+    <div class="dmaic-grid">
+      <div class="dmaic-box dmaic-d">
+        <div class="dmaic-letter">D</div>
+        <div class="dmaic-name">Define</div>
+        <div class="dmaic-desc">9 dimensions psychologiques &amp; frameworks scientifiques cibles</div>
+      </div>
+      <div class="dmaic-box dmaic-m">
+        <div class="dmaic-letter">M</div>
+        <div class="dmaic-name">Measure</div>
+        <div class="dmaic-desc">8 questionnaires, 116 items, scoring normalisé 0-100</div>
+      </div>
+      <div class="dmaic-box dmaic-a">
+        <div class="dmaic-letter">A</div>
+        <div class="dmaic-name">Analyze</div>
+        <div class="dmaic-desc">Matrice 40 règles → 9 paramètres ALFRED</div>
+      </div>
+      <div class="dmaic-box dmaic-i">
+        <div class="dmaic-letter">I</div>
+        <div class="dmaic-name">Improve</div>
+        <div class="dmaic-desc">Adaptation comportementale, périodicité re-test</div>
+      </div>
+      <div class="dmaic-box dmaic-c">
+        <div class="dmaic-letter">C</div>
+        <div class="dmaic-name">Control</div>
+        <div class="dmaic-desc">Audit trail, SOC 3 niveaux, alertes dérive temporelle</div>
+      </div>
+    </div>
+
+    <h3>5.1 DEFINE — 9 Dimensions Psychologiques Cibles</h3>
+    <p>
+      La phase Define a permis d'identifier les neuf dimensions psychologiques les plus prédictives du comportement
+      interactionnel avec un assistant IA, en croisant la littérature psychométrique (meta-analyses, validations
+      transculturelles) avec les besoins d'adaptation identifiés pour ALFRED. Chaque dimension est associée à un
+      framework scientifique reconnu et un instrument de mesure validé :
+    </p>
+    <div class="card card-highlight">
+      <ol style="padding-left:20px;line-height:2.2;">
+        <li><strong style="color:var(--violet-light);">Big Five / TIPI</strong> — Personnalité de base (Ouverture, Conscienciosité, Extraversion, Agréabilité, Névrosisme)</li>
+        <li><strong style="color:var(--violet-light);">SWLS (Satisfaction With Life Scale)</strong> — Bien-être subjectif cognitif — Diener et al., 1985</li>
+        <li><strong style="color:var(--violet-light);">PANAS</strong> — Affect positif/négatif — Watson, Clark &amp; Tellegen, 1988</li>
+        <li><strong style="color:var(--violet-light);">SDT / IMI</strong> — Motivation intrinsèque vs. extrinsèque — Deci &amp; Ryan, 2000</li>
+        <li><strong style="color:var(--violet-light);">PVQ-21 (Portrait Values Questionnaire)</strong> — Valeurs fondamentales — Schwartz, 2012</li>
+        <li><strong style="color:var(--violet-light);">RIASEC / Holland</strong> — Intérêts professionnels et cognitifs — Holland, 1959</li>
+        <li><strong style="color:var(--violet-light);">TEIQue-SF</strong> — Intelligence émotionnelle trait — Petrides, 2009</li>
+        <li><strong style="color:var(--violet-light);">rMEQ (Morningness-Eveningness)</strong> — Chronotype — Horne &amp; Östberg révisé</li>
+        <li><strong style="color:var(--violet-light);">CD-RISC-10</strong> — Résilience psychologique — Connor &amp; Davidson, 2003</li>
+      </ol>
+    </div>
+
+    <h3>5.2 MEASURE — 8 Questionnaires, 116 Items</h3>
+    <p>
+      La phase Measure a produit huit questionnaires standardisés, adaptés en français et validés pour le contexte
+      numérique, totalisant 116 items répartis en sessions de 8 à 15 minutes. Le scoring normalisé ramène toutes
+      les mesures sur une échelle 0-100 pour permettre la comparaison inter-dimensions et l'application uniforme
+      des règles de mapping. La normalisation utilise des percentiles de référence issus des populations de
+      validation des instruments originaux.
+    </p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Questionnaire</th><th>Framework</th><th>Items</th><th>Durée</th><th>Scoring</th></tr></thead>
+        <tbody>
+          <tr><td>Q1 — Personnalité TIPI</td><td>Big Five / TIPI</td><td>10</td><td>3 min</td><td>5 scores 0-100</td></tr>
+          <tr><td>Q2 — Bien-être SWLS</td><td>SWLS Diener</td><td>5</td><td>2 min</td><td>1 score 0-100</td></tr>
+          <tr><td>Q3 — Affect PANAS</td><td>PANAS Watson</td><td>20</td><td>5 min</td><td>2 scores 0-100</td></tr>
+          <tr><td>Q4 — Motivation SDT</td><td>SDT / IMI</td><td>15</td><td>5 min</td><td>2 scores 0-100</td></tr>
+          <tr><td>Q5 — Valeurs PVQ-21</td><td>PVQ-21 Schwartz</td><td>21</td><td>7 min</td><td>10 scores 0-100</td></tr>
+          <tr><td>Q6 — Intérêts RIASEC</td><td>Holland RIASEC</td><td>18</td><td>5 min</td><td>6 scores 0-100</td></tr>
+          <tr><td>Q7 — IE TEIQue-SF</td><td>TEIQue Petrides</td><td>30</td><td>10 min</td><td>4 scores 0-100</td></tr>
+          <tr><td>Q8 — Chronotype rMEQ + Résilience CD-RISC</td><td>rMEQ + CD-RISC-10</td><td>15</td><td>5 min</td><td>2 scores 0-100</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>5.3 ANALYZE — Matrice de Mapping 40 Règles → 9 Paramètres</h3>
+    <p>
+      La phase Analyze a produit la matrice de mapping formalisée dans <code>alfred_mapping_matrix.json</code>,
+      qui définit 40 règles conditionnelles reliant les scores dimensionnels aux 9 paramètres comportementaux
+      d'ALFRED. Les règles sont pondérées et hiérarchisées pour gérer les cas de conflits entre dimensions
+      (ex : haute conscienciosité + haut névrosisme). Chaque règle est documentée avec sa justification
+      psychologique et son impact attendu sur l'expérience utilisateur.
+    </p>
+    <div class="card">
+      <h4>9 Paramètres comportementaux ALFRED</h4>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px;font-size:12px;">
+        <div><span style="color:var(--fuchsia);">1.</span> <strong>communication_style</strong> — direct/nuancé/métaphorique</div>
+        <div><span style="color:var(--fuchsia);">2.</span> <strong>verbosity_level</strong> — concis/standard/détaillé</div>
+        <div><span style="color:var(--fuchsia);">3.</span> <strong>empathy_expression</strong> — minimal/modéré/intense</div>
+        <div><span style="color:var(--fuchsia);">4.</span> <strong>analytical_depth</strong> — surface/intermédiaire/approfondi</div>
+        <div><span style="color:var(--fuchsia);">5.</span> <strong>motivation_framing</strong> — autonomie/compétence/relation</div>
+        <div><span style="color:var(--fuchsia);">6.</span> <strong>challenge_level</strong> — soutenant/équilibré/stimulant</div>
+        <div><span style="color:var(--fuchsia);">7.</span> <strong>availability_schedule</strong> — matin/continu/soir (chronotype)</div>
+        <div><span style="color:var(--fuchsia);">8.</span> <strong>emotional_tone</strong> — neutre/chaleureux/énergisant</div>
+        <div><span style="color:var(--fuchsia);">9.</span> <strong>resilience_support</strong> — fonctionnel/mixte/accompagnant</div>
+      </div>
+    </div>
+
+    <h3>5.4 IMPROVE — Adaptation Comportementale &amp; Périodicité</h3>
+    <p>
+      La phase Improve implémente l'adaptation en temps réel via <code>personality_adapter.py</code> et
+      <code>profile_analyzer.py</code>. L'adaptateur lit le profil chiffré, déchiffre en mémoire volatile
+      uniquement pour la session, et injecte les paramètres dans le contexte ALFRED avant chaque interaction.
+      La périodicité de re-test est définie dans <code>periodicity_schema.json</code> : certaines dimensions
+      (chronotype, bien-être) sont re-évaluées tous les 3 mois ; d'autres (Big Five, valeurs) tous les 12 mois,
+      car elles varient moins rapidement. Un indicateur visuel de fraîcheur du profil alerte l'utilisateur
+      lorsqu'une dimension dépasse sa fenêtre de validité.
+    </p>
+
+    <h3>5.5 CONTROL — Audit Trail, SOC 3 Niveaux, Alertes Dérive</h3>
+    <p>
+      La phase Control définit trois niveaux de contrôle opérationnel : (1) <strong>SOC Level 1</strong> — logs
+      applicatifs chiffrés de chaque accès au profil (lecture, écriture, déchiffrement), (2) <strong>SOC Level 2</strong>
+      — alertes automatiques en cas d'anomalie (tentative d'accès hors plage horaire chronotype, taux d'erreur
+      scoring &gt;5%), (3) <strong>SOC Level 3</strong> — audit externe semestriel par un tiers qualifié ANSSI.
+      La dérive temporelle est surveillée par comparaison des scores inter-sessions : un delta &gt;20% sur une
+      dimension déclenche un re-test prioritaire et une notification utilisateur.
+    </p>
+  </div>
+</section>
+
+<!-- ========== RACI ========== -->
+<section id="raci">
+  <div class="container">
+    <div class="section-label">Section 6</div>
+    <h2>Matrice RACI</h2>
+    <p>
+      <strong>R</strong> = Responsible (exécute), <strong>A</strong> = Accountable (décide, signataire),
+      <strong>C</strong> = Consulted (consulté avant décision), <strong>I</strong> = Informed (informé après action).
+    </p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Activité</th>
+            <th>Utilisateur</th>
+            <th>DPO-RSSI (Céline)</th>
+            <th>IA ALFRED</th>
+            <th>Développeur</th>
+            <th>Auditeur Ext.</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Collecte du consentement</strong></td>
+            <td class="raci-r">R</td><td class="raci-a">A</td><td class="raci-i">I</td><td class="raci-c">C</td><td class="raci-i">I</td>
+          </tr>
+          <tr>
+            <td><strong>Passation questionnaire psychométrique</strong></td>
+            <td class="raci-r">R</td><td class="raci-i">I</td><td class="raci-r">R</td><td class="raci-c">C</td><td class="raci-i">I</td>
+          </tr>
+          <tr>
+            <td><strong>Validation scientifique du scoring</strong></td>
+            <td class="raci-i">I</td><td class="raci-a">A</td><td class="raci-i">I</td><td class="raci-r">R</td><td class="raci-c">C</td>
+          </tr>
+          <tr>
+            <td><strong>Chiffrement des données profil</strong></td>
+            <td class="raci-c">C</td><td class="raci-a">A</td><td class="raci-r">R</td><td class="raci-r">R</td><td class="raci-i">I</td>
+          </tr>
+          <tr>
+            <td><strong>Consultation du profil par ALFRED</strong></td>
+            <td class="raci-a">A</td><td class="raci-i">I</td><td class="raci-r">R</td><td class="raci-i">I</td><td class="raci-i">I</td>
+          </tr>
+          <tr>
+            <td><strong>Mise à jour / re-test du profil</strong></td>
+            <td class="raci-r">R</td><td class="raci-c">C</td><td class="raci-r">R</td><td class="raci-i">I</td><td class="raci-i">I</td>
+          </tr>
+          <tr>
+            <td><strong>Suppression des données (droit effacement)</strong></td>
+            <td class="raci-r">R</td><td class="raci-a">A</td><td class="raci-r">R</td><td class="raci-c">C</td><td class="raci-i">I</td>
+          </tr>
+          <tr>
+            <td><strong>Audit de sécurité interne</strong></td>
+            <td class="raci-i">I</td><td class="raci-a">A</td><td class="raci-i">I</td><td class="raci-r">R</td><td class="raci-c">C</td>
+          </tr>
+          <tr>
+            <td><strong>Maintenance et évolution du code</strong></td>
+            <td class="raci-i">I</td><td class="raci-c">C</td><td class="raci-i">I</td><td class="raci-r">R</td><td class="raci-i">I</td>
+          </tr>
+          <tr>
+            <td><strong>Mise à jour réglementaire (RGPD, AI Act)</strong></td>
+            <td class="raci-i">I</td><td class="raci-a">A</td><td class="raci-i">I</td><td class="raci-c">C</td><td class="raci-r">R</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card" style="margin-top:16px;">
+      <h4 style="margin-top:0;">Légende RACI</h4>
+      <div style="display:flex;gap:24px;font-size:13px;flex-wrap:wrap;margin-top:8px;">
+        <span><span class="raci-r">R</span> — Responsible : exécute l'activité, peut déléguer partiellement</span>
+        <span><span class="raci-a">A</span> — Accountable : décisionnaire unique, signataire, ne peut se déléguer</span>
+        <span><span class="raci-c">C</span> — Consulted : avis requis avant décision, dialogue bilatéral</span>
+        <span><span class="raci-i">I</span> — Informed : informé du résultat, communication unilatérale</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== LIVRABLES ========== -->
+<section id="livrables">
+  <div class="container">
+    <div class="section-label">Section 7</div>
+    <h2>Plan de Livrables — 4 Phases</h2>
+
+    <h3>Phase 1 — Fondations Psychométriques <span class="badge-done">&#10003; DONE</span></h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Livrable</th><th>Description</th><th>Statut</th></tr></thead>
+        <tbody>
+          <tr><td><code>dimensions_schema.json</code></td><td>Schéma formel des 9 dimensions psychologiques avec métadonnées scientifiques (frameworks, DOI, instruments)</td><td><span class="badge-done">&#10003; DONE</span></td></tr>
+          <tr><td><code>alfred_mapping_matrix.json</code></td><td>Matrice de 40 règles reliant scores dimensionnels aux 9 paramètres comportementaux ALFRED</td><td><span class="badge-done">&#10003; DONE</span></td></tr>
+          <tr><td><code>periodicity_schema.json</code></td><td>Politique de périodicité de re-test par dimension (3, 6, 12, 24 mois) avec justifications</td><td><span class="badge-done">&#10003; DONE</span></td></tr>
+          <tr><td>8 questionnaires validés</td><td>Fichiers JSON structurés pour Q1-Q8 avec items, échelles, instructions passation</td><td><span class="badge-done">&#10003; DONE</span></td></tr>
+          <tr><td><code>scoring_keys.json</code></td><td>Clés de scoring par dimension : pondérations, inversions d'items, formules normalisation 0-100</td><td><span class="badge-done">&#10003; DONE</span></td></tr>
+          <tr><td><code>answers_template.json</code></td><td>Template de stockage des réponses brutes et scores calculés, versionné et chiffré Fernet</td><td><span class="badge-done">&#10003; DONE</span></td></tr>
+          <tr><td>README questionnaires</td><td>Documentation technique des questionnaires pour développeurs et auditeurs</td><td><span class="badge-done">&#10003; DONE</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Phase 2 — Implémentation Python <span class="badge-done">&#10003; DONE</span></h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Livrable</th><th>Description</th><th>Statut</th></tr></thead>
+        <tbody>
+          <tr><td><code>profile_analyzer.py</code> (QuestionnaireSession)</td><td>Classe de gestion de session de passation : orchestration, sauvegarde partielle, reprise, chiffrement à la volée</td><td><span class="badge-done">&#10003; DONE</span></td></tr>
+          <tr><td><code>personality_adapter.py</code></td><td>Module d'adaptation comportementale : lecture profil chiffré, application matrice de mapping, injection paramètres contexte ALFRED</td><td><span class="badge-done">&#10003; DONE</span></td></tr>
+          <tr><td><code>profile_analyzer.py</code> (CLI)</td><td>Interface ligne de commande pour passation autonome, scoring, visualisation profil ASCII, export chiffré</td><td><span class="badge-done">&#10003; DONE</span></td></tr>
+          <tr><td><code>questionnaire_profil_complementaire.md</code></td><td>Documentation des questionnaires complémentaires (PSS, UWES) pour passation orale avec ALFRED</td><td><span class="badge-done">&#10003; DONE</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Phase 3 — Gouvernance &amp; Conformité <span class="badge-wip">&#8635; WIP</span></h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Livrable</th><th>Description</th><th>Statut</th></tr></thead>
+        <tbody>
+          <tr><td>Gouvernance complète (7 docs)</td><td>RoPA, Politique de confidentialité, Procédure consentement, Procédure effacement, Notice transparence IA, Registre violations, Plan réponse incidents</td><td><span class="badge-wip">&#8635; WIP</span></td></tr>
+          <tr><td>PSSI formelle</td><td>Politique de Sécurité des Systèmes d'Information complète, couvrant classification données, contrôles d'accès, cryptographie, incidents</td><td><span class="badge-wip">&#8635; WIP</span></td></tr>
+          <tr><td>AIPD T001 (questionnaires)</td><td>Analyse d'Impact relative à la Protection des Données — traitement de collecte psychométrique</td><td><span class="badge-wip">&#8635; WIP</span></td></tr>
+          <tr><td>AIPD T004 (adapter)</td><td>AIPD — traitement d'adaptation comportementale par IA sur base de profil psychologique</td><td><span class="badge-wip">&#8635; WIP</span></td></tr>
+          <tr><td>SMSI (périmètre module)</td><td>Système de Management de la Sécurité de l'Information — politique, objectifs, périmètre, domaines ISO 27001</td><td><span class="badge-wip">&#8635; WIP</span></td></tr>
+          <tr><td>SoA (Statement of Applicability)</td><td>Déclaration d'Applicabilité ISO 27001:2022 — 93 contrôles analysés, applicabilité justifiée</td><td><span class="badge-wip">&#8635; WIP</span></td></tr>
+          <tr><td>Dossier d'audit documentation</td><td>Ce présent document de cadrage + synthèse executive pour comité de direction</td><td><span class="badge-wip">&#8635; WIP</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Phase 4 — Certification &amp; ARTHUR V2 <span class="badge-planned">&#128203; PLANNED</span></h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Livrable</th><th>Description</th><th>Statut</th></tr></thead>
+        <tbody>
+          <tr><td>ARTHUR V2 — Module gouvernance niveau 2</td><td>Système de gouvernance overlay : audit trail temps réel, alertes dérive, dashboard conformité, reporting automatisé</td><td><span class="badge-planned">&#128203; PLANNED</span></td></tr>
+          <tr><td>Certification ISO 27001</td><td>Audit de certification par organisme accrédité COFRAC — périmètre module profil + infrastructure ALFRED</td><td><span class="badge-planned">&#128203; PLANNED</span></td></tr>
+          <tr><td>Audit ANSSI externe</td><td>Prestation d'audit de sécurité par prestataire qualifié ANSSI (PASSI) — revue code + architecture + tests intrusion</td><td><span class="badge-planned">&#128203; PLANNED</span></td></tr>
+          <tr><td>PSS-10 &amp; UWES intégration</td><td>Intégration des questionnaires de stress perçu (PSS-10) et d'engagement au travail (UWES) dans le cycle de re-test</td><td><span class="badge-planned">&#128203; PLANNED</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ========== ARBORESCENCE ========== -->
+<section id="arborescence">
+  <div class="container">
+    <div class="section-label">Section 8</div>
+    <h2>Arborescence Complète du Module</h2>
+
+    <div class="code-block">
+<span class="code-dir">alfred_assistant/</span>
+├── <span class="code-dir">modules/</span>
+│   └── <span class="code-dir">profil_utilisateur/</span>                     <span class="code-comment"># Module principal de profilage psychométrique</span>
+│       ├── <span class="code-dir">questionnaires/</span>                      <span class="code-comment"># Q1-Q8 : questionnaires validés JSON</span>
+│       │   ├── <span class="code-file-json">q1_personnalite_tipi.json</span>
+│       │   ├── <span class="code-file-json">q2_bienetre_swls.json</span>
+│       │   ├── <span class="code-file-json">q3_affect_panas.json</span>
+│       │   ├── <span class="code-file-json">q4_motivation_sdt.json</span>
+│       │   ├── <span class="code-file-json">q5_valeurs_pvq21.json</span>
+│       │   ├── <span class="code-file-json">q6_interets_riasec.json</span>
+│       │   ├── <span class="code-file-json">q7_intelligence_emotionnelle_teique.json</span>
+│       │   ├── <span class="code-file-json">q8_chronotype_resilience.json</span>
+│       │   └── <span class="code-file-md">README_questionnaires.md</span>
+│       ├── <span class="code-dir">schemas/</span>                             <span class="code-comment"># Schémas de données et règles</span>
+│       │   ├── <span class="code-file-json">dimensions_schema.json</span>       <span class="code-comment"># 9 dimensions psychologiques formalisées</span>
+│       │   ├── <span class="code-file-json">alfred_mapping_matrix.json</span>   <span class="code-comment"># 40 règles dimensions → paramètres ALFRED</span>
+│       │   ├── <span class="code-file-json">periodicity_schema.json</span>      <span class="code-comment"># Politique re-test par dimension</span>
+│       │   └── <span class="code-file-json">scoring_keys.json</span>            <span class="code-comment"># Clés scoring, pondérations, normalisation</span>
+│       ├── <span class="code-dir">data/</span>                                <span class="code-comment"># Données utilisateur chiffrées Fernet</span>
+│       │   ├── <span class="code-file-json">answers_template.json</span>        <span class="code-comment"># Template réponses — chiffré en production</span>
+│       │   └── <span class="code-comment"># user_profile_[uuid].fernet    # Profil chiffré runtime</span>
+│       ├── <span class="code-file-py">profile_analyzer.py</span>              <span class="code-comment"># QuestionnaireSession + CLI scoring</span>
+│       ├── <span class="code-file-py">personality_adapter.py</span>           <span class="code-comment"># Adaptation comportementale ALFRED</span>
+│       ├── <span class="code-file-md">questionnaire_profil_complementaire.md</span>
+│       └── <span class="code-file-md">README.md</span>
+│
+├── <span class="code-dir">gouvernance/</span>                                 <span class="code-comment"># Documentation gouvernance &amp; conformité</span>
+│   ├── <span class="code-dir">rgpd/</span>
+│   │   ├── <span class="code-file-md">ropa_registre_traitements.md</span>      <span class="code-comment"># Registre des Activités de Traitement</span>
+│   │   ├── <span class="code-file-md">aipd_T001_questionnaires.md</span>       <span class="code-comment"># AIPD Traitement 001</span>
+│   │   ├── <span class="code-file-md">aipd_T004_personality_adapter.md</span>  <span class="code-comment"># AIPD Traitement 004</span>
+│   │   ├── <span class="code-file-md">politique_confidentialite.md</span>
+│   │   ├── <span class="code-file-md">procedure_consentement.md</span>
+│   │   ├── <span class="code-file-md">procedure_effacement.md</span>
+│   │   └── <span class="code-file-md">registre_violations.md</span>
+│   ├── <span class="code-dir">securite/</span>
+│   │   ├── <span class="code-file-md">pssi_politique_securite.md</span>        <span class="code-comment"># PSSI formelle</span>
+│   │   ├── <span class="code-file-md">smsi_perimetre_module.md</span>          <span class="code-comment"># SMSI périmètre module profil</span>
+│   │   └── <span class="code-file-md">soa_iso27001_2022.md</span>              <span class="code-comment"># Statement of Applicability</span>
+│   ├── <span class="code-dir">ia_act/</span>
+│   │   ├── <span class="code-file-md">notice_transparence_ia.md</span>
+│   │   └── <span class="code-file-md">classification_risque_systeme.md</span>
+│   └── <span class="code-dir">audit/</span>
+│       ├── <span class="code-file-md">plan_reponse_incidents.md</span>
+│       └── <span class="code-file-md">rapport_audit_interne.md</span>
+│
+└── <span class="code-dir">docs/</span>
+    └── <span class="code-dir">module_profil_ia_adaptative/</span>
+        └── <span class="code-dir">cadrage/</span>
+            └── <span class="code-file">dossier_cadrage.html</span>             <span class="code-comment"># Ce document</span>
+    </div>
+  </div>
+</section>
+
+<!-- ========== ANNEXES ========== -->
+<section id="annexes">
+  <div class="container">
+    <div class="section-label">Section 9</div>
+    <h2>Annexes Techniques</h2>
+
+    <h3>Annexe A — 9 Dimensions Psychologiques</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Dimension</th><th>Framework</th><th>Instrument</th><th>Items</th><th>Durée</th><th>Périodicité</th><th>Impact principal ALFRED</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Personnalité</strong></td><td>Big Five</td><td>TIPI (Gosling)</td><td>10</td><td>3 min</td><td>12 mois</td><td>communication_style, verbosity_level</td></tr>
+          <tr><td><strong>Bien-être subjectif</strong></td><td>SWB Diener</td><td>SWLS</td><td>5</td><td>2 min</td><td>3 mois</td><td>emotional_tone, empathy_expression</td></tr>
+          <tr><td><strong>Affect</strong></td><td>Modèle bimodal</td><td>PANAS</td><td>20</td><td>5 min</td><td>3 mois</td><td>empathy_expression, emotional_tone</td></tr>
+          <tr><td><strong>Motivation</strong></td><td>SDT Deci &amp; Ryan</td><td>IMI</td><td>15</td><td>5 min</td><td>6 mois</td><td>motivation_framing, challenge_level</td></tr>
+          <tr><td><strong>Valeurs</strong></td><td>Théorie valeurs Schwartz</td><td>PVQ-21</td><td>21</td><td>7 min</td><td>24 mois</td><td>communication_style, motivation_framing</td></tr>
+          <tr><td><strong>Intérêts</strong></td><td>Modèle RIASEC Holland</td><td>Inventaire Holland adapté</td><td>18</td><td>5 min</td><td>24 mois</td><td>analytical_depth, challenge_level</td></tr>
+          <tr><td><strong>Intelligence émotionnelle</strong></td><td>IE Trait Petrides</td><td>TEIQue-SF</td><td>30</td><td>10 min</td><td>12 mois</td><td>empathy_expression, resilience_support</td></tr>
+          <tr><td><strong>Chronotype</strong></td><td>Rythmes circadiens</td><td>rMEQ</td><td>5</td><td>2 min</td><td>6 mois</td><td>availability_schedule</td></tr>
+          <tr><td><strong>Résilience</strong></td><td>Connor-Davidson</td><td>CD-RISC-10</td><td>10</td><td>3 min</td><td>12 mois</td><td>resilience_support, challenge_level</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Annexe B — 9 Paramètres Comportementaux ALFRED</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Paramètre</th><th>Valeurs possibles</th><th>Dimensions sources</th><th>Description d'impact</th></tr></thead>
+        <tbody>
+          <tr><td><code>communication_style</code></td><td>direct / nuancé / métaphorique</td><td>Big Five (O, A), Valeurs</td><td>Registre lexical et structure argumentative des réponses</td></tr>
+          <tr><td><code>verbosity_level</code></td><td>concis / standard / détaillé</td><td>Big Five (C, N), Motivation</td><td>Longueur et densité des réponses ALFRED</td></tr>
+          <tr><td><code>empathy_expression</code></td><td>minimal / modéré / intense</td><td>PANAS, TEIQue, SWLS</td><td>Marqueurs empathiques, validation émotionnelle, formulations</td></tr>
+          <tr><td><code>analytical_depth</code></td><td>surface / intermédiaire / approfondi</td><td>RIASEC (I, A), Big Five (O)</td><td>Niveau de détail analytique, présence de sources et nuances</td></tr>
+          <tr><td><code>motivation_framing</code></td><td>autonomie / compétence / relation</td><td>SDT/IMI, Valeurs PVQ-21</td><td>Cadrage motivationnel des suggestions et encouragements</td></tr>
+          <tr><td><code>challenge_level</code></td><td>soutenant / équilibré / stimulant</td><td>CD-RISC, RIASEC, Big Five (C)</td><td>Niveau de challenge des propositions, degré d'exigence</td></tr>
+          <tr><td><code>availability_schedule</code></td><td>matin / continu / soir</td><td>rMEQ (chronotype)</td><td>Fenêtres horaires de disponibilité ALFRED et alertes proactives</td></tr>
+          <tr><td><code>emotional_tone</code></td><td>neutre / chaleureux / énergisant</td><td>PANAS, SWLS, Big Five (E)</td><td>Tonalité affective générale des interactions</td></tr>
+          <tr><td><code>resilience_support</code></td><td>fonctionnel / mixte / accompagnant</td><td>CD-RISC, TEIQue, SWLS</td><td>Mode d'accompagnement face aux obstacles et échecs</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Annexe C — Conformité Réglementaire</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Norme</th><th>Article / Section</th><th>Exigence</th><th>Statut</th><th>Fichier de preuve</th></tr></thead>
+        <tbody>
+          <tr><td><strong>RGPD</strong></td><td>Art. 9 — Données sensibles</td><td>Base légale explicite pour données psychologiques</td><td><span class="badge-wip">&#8635; WIP</span></td><td>procedure_consentement.md</td></tr>
+          <tr><td><strong>RGPD</strong></td><td>Art. 13-14 — Information</td><td>Notice transparence complète à la collecte</td><td><span class="badge-wip">&#8635; WIP</span></td><td>politique_confidentialite.md</td></tr>
+          <tr><td><strong>RGPD</strong></td><td>Art. 17 — Droit effacement</td><td>Suppression effective et irréversible sur demande</td><td><span class="badge-wip">&#8635; WIP</span></td><td>procedure_effacement.md</td></tr>
+          <tr><td><strong>RGPD</strong></td><td>Art. 30 — RoPA</td><td>Registre des activités de traitement à jour</td><td><span class="badge-wip">&#8635; WIP</span></td><td>ropa_registre_traitements.md</td></tr>
+          <tr><td><strong>RGPD</strong></td><td>Art. 35 — AIPD</td><td>AIPD obligatoire pour données sensibles à grande échelle</td><td><span class="badge-wip">&#8635; WIP</span></td><td>aipd_T001, aipd_T004</td></tr>
+          <tr><td><strong>EU AI Act</strong></td><td>Art. 50 — Transparence</td><td>Notice obligation systèmes IA adaptatifs</td><td><span class="badge-wip">&#8635; WIP</span></td><td>notice_transparence_ia.md</td></tr>
+          <tr><td><strong>EU AI Act</strong></td><td>Annexe III — Classification</td><td>Classification du niveau de risque documentée</td><td><span class="badge-wip">&#8635; WIP</span></td><td>classification_risque_systeme.md</td></tr>
+          <tr><td><strong>ISO 27001:2022</strong></td><td>Clause 6.1.3 — SoA</td><td>Statement of Applicability pour 93 contrôles</td><td><span class="badge-planned">&#128203; PLANNED</span></td><td>soa_iso27001_2022.md</td></tr>
+          <tr><td><strong>NIS2</strong></td><td>Art. 21 — Gestion risques</td><td>Mesures de gestion des risques cybersécurité</td><td><span class="badge-wip">&#8635; WIP</span></td><td>pssi_politique_securite.md</td></tr>
+          <tr><td><strong>LIL (Loi Informatique et Libertés)</strong></td><td>Art. 96 — Données sensibles</td><td>Traitement données sensibles en France</td><td><span class="badge-wip">&#8635; WIP</span></td><td>ropa_registre_traitements.md</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ========== GLOSSAIRE ========== -->
+<section id="glossaire">
+  <div class="container">
+    <div class="section-label">Section 10</div>
+    <h2>Glossaire</h2>
+
+    <div class="glossary-grid">
+      <div class="gloss-item"><div class="gloss-term">Fernet</div><div class="gloss-def">Algorithme de chiffrement symétrique authentifié de la bibliothèque <code>cryptography</code> Python. Implémente AES-128-CBC + HMAC-SHA256. Garantit confidentialité et intégrité des données chiffrées.</div></div>
+      <div class="gloss-item"><div class="gloss-term">TIPI</div><div class="gloss-def">Ten-Item Personality Inventory. Instrument ultra-court de mesure des Big Five (Gosling, Rentfrow &amp; Swann, 2003). 10 items, 7-point Likert. Validé dans plus de 40 pays.</div></div>
+      <div class="gloss-item"><div class="gloss-term">SWLS</div><div class="gloss-def">Satisfaction With Life Scale. Échelle de 5 items mesurant le bien-être subjectif cognitif (Diener, Emmons, Larsen &amp; Griffin, 1985). Gold standard en psychologie positive.</div></div>
+      <div class="gloss-item"><div class="gloss-term">PANAS</div><div class="gloss-def">Positive and Negative Affect Schedule. Mesure les affects positifs et négatifs via 20 adjectifs émotionnels (Watson, Clark &amp; Tellegen, 1988). Largement utilisé en psychologie clinique et positive.</div></div>
+      <div class="gloss-item"><div class="gloss-term">SDT</div><div class="gloss-def">Self-Determination Theory. Théorie de la motivation humaine (Deci &amp; Ryan) distinguant motivation intrinsèque, extrinsèque et amotivation. Base théorique de l'IMI (Intrinsic Motivation Inventory).</div></div>
+      <div class="gloss-item"><div class="gloss-term">DMAIC</div><div class="gloss-def">Define-Measure-Analyze-Improve-Control. Méthodologie Lean Six Sigma de résolution de problèmes et d'amélioration continue. Structure les projets en 5 phases séquentielles fondées sur des données.</div></div>
+      <div class="gloss-item"><div class="gloss-term">PSS</div><div class="gloss-def">Perceived Stress Scale. Échelle de 10 items mesurant le niveau de stress perçu au cours du dernier mois (Cohen, Kamarck &amp; Mermelstein, 1983). Planifiée pour intégration Phase 4.</div></div>
+      <div class="gloss-item"><div class="gloss-term">UWES</div><div class="gloss-def">Utrecht Work Engagement Scale. Mesure l'engagement au travail (vigueur, dévouement, absorption) via 9 ou 17 items (Schaufeli &amp; Bakker, 2003). Planifiée Phase 4.</div></div>
+      <div class="gloss-item"><div class="gloss-term">RIASEC</div><div class="gloss-def">Modèle des types de personnalité professionnelle de Holland (1959) : Réaliste, Investigateur, Artistique, Social, Entreprenant, Conventionnel. Fondement de l'orientation professionnelle.</div></div>
+      <div class="gloss-item"><div class="gloss-term">TEIQue</div><div class="gloss-def">Trait Emotional Intelligence Questionnaire. Mesure l'intelligence émotionnelle comme trait de personnalité stable (Petrides, 2009). Version SF (30 items) utilisée dans le module.</div></div>
+      <div class="gloss-item"><div class="gloss-term">rMEQ</div><div class="gloss-def">reduced Morningness-Eveningness Questionnaire. Version courte (5 items) du MEQ de Horne &amp; Östberg (1976). Mesure le chronotype sur un axe matinal-vespéral.</div></div>
+      <div class="gloss-item"><div class="gloss-term">CD-RISC-10</div><div class="gloss-def">Connor-Davidson Resilience Scale, version 10 items. Mesure la résilience psychologique perçue (Connor &amp; Davidson, 2003). Validée dans populations cliniques et non-cliniques.</div></div>
+      <div class="gloss-item"><div class="gloss-term">PVQ-21</div><div class="gloss-def">Portrait Values Questionnaire, 21 items. Mesure 10 valeurs fondamentales universelles selon la théorie de Schwartz (2012) : Pouvoir, Réussite, Hédonisme, Stimulation, Autonomie, Universalisme, Bienveillance, Tradition, Conformisme, Sécurité.</div></div>
+      <div class="gloss-item"><div class="gloss-term">Big Five</div><div class="gloss-def">Modèle de personnalité à cinq facteurs (OCEAN) : Ouverture, Conscienciosité, Extraversion, Agréabilité, Névrosisme. Modèle psychométrique le plus validé transculturellemment.</div></div>
+      <div class="gloss-item"><div class="gloss-term">HEXACO</div><div class="gloss-def">Modèle de personnalité à six facteurs étendant le Big Five par l'ajout de la dimension H (Honnêteté-Humilité). Pertinent pour les profils de confiance et coopération.</div></div>
+      <div class="gloss-item"><div class="gloss-term">SMSI</div><div class="gloss-def">Système de Management de la Sécurité de l'Information. Cadre de gouvernance ISO 27001 définissant les politiques, processus et contrôles pour protéger les actifs informationnels d'une organisation.</div></div>
+      <div class="gloss-item"><div class="gloss-term">PSSI</div><div class="gloss-def">Politique de Sécurité des Systèmes d'Information. Document stratégique définissant les objectifs, principes et règles de sécurité d'une organisation. Exigence ANSSI et NIS2.</div></div>
+      <div class="gloss-item"><div class="gloss-term">AIPD</div><div class="gloss-def">Analyse d'Impact relative à la Protection des Données (Data Protection Impact Assessment — DPIA). Obligatoire sous RGPD art.35 pour traitements à risque élevé, dont les données sensibles.</div></div>
+      <div class="gloss-item"><div class="gloss-term">SoA</div><div class="gloss-def">Statement of Applicability (Déclaration d'Applicabilité). Document ISO 27001 listant les 93 contrôles de l'Annexe A, leur applicabilité au périmètre, leur justification d'inclusion ou d'exclusion.</div></div>
+      <div class="gloss-item"><div class="gloss-term">CMM</div><div class="gloss-def">Capability Maturity Model. Modèle d'évaluation de la maturité des processus en 5 niveaux (Initial, Managed, Defined, Quantitatively Managed, Optimizing). Utilisé pour benchmarker la maturité sécurité.</div></div>
+      <div class="gloss-item"><div class="gloss-term">DPO</div><div class="gloss-def">Data Protection Officer (Délégué à la Protection des Données). Rôle RGPD art.37 chargé de contrôler la conformité des traitements de données personnelles. Chez CPL : Céline Rousselot.</div></div>
+      <div class="gloss-item"><div class="gloss-term">RSSI</div><div class="gloss-def">Responsable de la Sécurité des Systèmes d'Information. Garant de la politique de sécurité, des risques cyber et de la conformité NIS2/ISO 27001. Cumul de fonctions DPO+RSSI chez CPL.</div></div>
+      <div class="gloss-item"><div class="gloss-term">Privacy by Design</div><div class="gloss-def">Principe de conception intégrant la protection de la vie privée dès la phase d'architecture, pas en ajout post-hoc. Formalisé par Ann Cavoukian, intégré au RGPD art.25. L'une des bases architecturales d'ALFRED.</div></div>
+      <div class="gloss-item"><div class="gloss-term">Security by Design</div><div class="gloss-def">Approche de développement logiciel intégrant les contrôles de sécurité dès la conception. Réduit la dette technique sécuritaire et le coût de remédiation post-incident. Complémentaire à Privacy by Design.</div></div>
+      <div class="gloss-item"><div class="gloss-term">Local-First</div><div class="gloss-def">Architecture logicielle où les données et la logique applicative résident prioritairement sur l'appareil de l'utilisateur. Garantit la souveraineté numérique, la disponibilité hors-ligne, et l'indépendance vis-à-vis des fournisseurs cloud.</div></div>
+      <div class="gloss-item"><div class="gloss-term">RoPA</div><div class="gloss-def">Record of Processing Activities (Registre des Activités de Traitement). Obligation RGPD art.30 listant tous les traitements de données personnelles, leurs bases légales, durées de conservation et mesures de sécurité.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== FOOTER ========== -->
+<footer>
+  <div class="footer-logo">CPL</div>
+  <div>Cognitive Products Lab &mdash; Céline Rousselot</div>
+  <div style="margin-top:8px;">
+    <strong>ALFRED</strong> — Assistant IA Personnel Local-First &nbsp;|&nbsp;
+    Document confidentiel &mdash; Usage interne CPL &nbsp;|&nbsp;
+    Version 1.0 &mdash; 2026-06-16
+  </div>
+  <div style="margin-top:8px;font-size:11px;">
+    Ce document est protégé par le droit d'auteur. Toute reproduction, même partielle, sans autorisation écrite préalable de CPL est interdite.
+    Données psychométriques traitées conformément au RGPD art.9 et à la LIL.
+  </div>
+</footer>
+
+</body>
+</html>
