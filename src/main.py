@@ -775,16 +775,14 @@ def build_response(
     # -------------------------------------------------------------------------
     project_context = """
 Projet actuel :
-ALFRED V1.2 local-first.
+ALFRED V1.4 local-first.
 
 Travail en cours :
-- mode vocal et clavier
+- interface vocale (STT Whisper + synthèse Piper)
 - boucle conversationnelle
 - commandes système
-- STT Whisper
-- TTS Piper
 - mémoire JSON et SQLite
-- LLM Router Ollama local -> OpenAI fallback
+- LLM Router Ollama local -> OpenAI -> Anthropic Claude
 - stabilisation du pipeline conversationnel
 - Knowledge Retrieval Engine B18 actif
 
