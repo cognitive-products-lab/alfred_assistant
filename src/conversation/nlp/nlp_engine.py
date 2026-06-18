@@ -1,13 +1,16 @@
-﻿# ============================================================
-# ALFRED — src/input/nlp_engine.py
-# Bloc 01.04 — Compréhension NLP
+# ============================================================
+# ALFRED — src/conversation/nlp/nlp_engine.py
+# Bloc 01.02 — Compréhension des intentions
 #
-# Fonctions couvertes :
-#   01.04.001 STT                          🔲 stub V1 → Whisper V3
-#   01.04.002 Détection intention (intent) ✅ V1 (règles + keywords)
-#   01.04.003 Extraction entités NER       ⚡ V1 basique (dates, noms)
-#   01.04.004 Analyse sémantique           🔲 V2 (LLM local)
-#   01.04.005 Gestion fallback             ✅ V1
+# 📚 NOTION EXAM :
+#   D12-2 — Capsule 2 : Détection d'intention par règles et mots-clés
+#
+# 🎯 UTILITÉ ALFRED :
+#   Moteur NLP V1 — détecte l'intention (intent), extrait les entités
+#   NER basiques et gère le fallback si aucune intention reconnue.
+#
+# 🏗️ DOMAINE :
+#   Noyau conversationnel — NLP règles V1, stub STT → Whisper V3
 # ============================================================
 
 import re

@@ -1,4 +1,21 @@
-﻿# -*- coding: utf-8 -*-
+"""
+PROJECT      : ALFRED
+BLOCK        : B03
+FUNCTION     : XX.XX
+FILE         : emotion_detector.py
+ROLE         : Émotions & Régulation — Bloc 03
+
+AUTHOR       : Cognitive Products Lab
+CREATED      : 2026-05-10
+P26-05-12
+VERSION      : V1.0
+STATUS       : VALIDATED
+
+DESCRIPTION :
+Détection émotions, machine à états modes, protection, bien-être — ALFRED B03.
+"""
+
+# -*- coding: utf-8 -*-
 # ============================================================
 # ALFRED — src/regulation/emotion_detector.py
 # Bloc 03.01 — Détection émotion

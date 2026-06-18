@@ -1,0 +1,150 @@
+{
+  "_meta": {
+    "document": "Inventaire des Actifs Informationnels",
+    "reference": "ISO/IEC 27001:2022 — Contrôle A.5.9",
+    "version": "1.0",
+    "date": "2026-06-18",
+    "proprietaire": "Cognitive Products Lab — Céline Darras",
+    "statut": "Approuvé",
+    "classification_schema": {
+      "C1": "Public — aucune restriction",
+      "C2": "Interne — usage CPL uniquement",
+      "C3": "Confidentiel — accès restreint",
+      "C4": "Secret — chiffrement obligatoire"
+    }
+  },
+  "actifs": [
+    {
+      "id": "ACT-001",
+      "nom": "Code source ALFRED",
+      "type": "Logiciel / Propriété Intellectuelle",
+      "localisation": "D:/PROJET_ALFRED/ALFRED_PC/",
+      "classification": "C3",
+      "proprietaire": "Céline Darras",
+      "criticite": "Critique",
+      "mesures_protection": ["Git versioning", "Accès local uniquement", "Dépôt Git privé"],
+      "sauvegarde": "Git + backup LaCie"
+    },
+    {
+      "id": "ACT-002",
+      "nom": "Données personnelles utilisateurs",
+      "type": "Données",
+      "localisation": "D:/PROJET_ALFRED/ALFRED_PC/data/",
+      "classification": "C4",
+      "proprietaire": "Céline Darras",
+      "criticite": "Critique",
+      "mesures_protection": ["Chiffrement AES-256 (Fernet)", "MFA obligatoire", "Contrôle d'accès RBAC"],
+      "sauvegarde": "Backup chiffré LaCie"
+    },
+    {
+      "id": "ACT-003",
+      "nom": "Clés cryptographiques ALFRED",
+      "type": "Données / Cryptographie",
+      "localisation": "data/security/keys/",
+      "classification": "C4",
+      "proprietaire": "Céline Darras",
+      "criticite": "Critique",
+      "mesures_protection": ["Stockage chiffré", "Rotation planifiée", "Accès RSSI uniquement"],
+      "sauvegarde": "Backup hors-ligne chiffré"
+    },
+    {
+      "id": "ACT-004",
+      "nom": "Secrets MFA (TOTP)",
+      "type": "Données / Authentification",
+      "localisation": "data/security/mfa_secrets.json",
+      "classification": "C4",
+      "proprietaire": "Céline Darras",
+      "criticite": "Critique",
+      "mesures_protection": ["Chiffrement Fernet", "Accès unique RSSI"],
+      "sauvegarde": "Backup chiffré sécurisé"
+    },
+    {
+      "id": "ACT-005",
+      "nom": "Journaux d'audit (audit_trail)",
+      "type": "Données / Logs",
+      "localisation": "data/logs/audit/",
+      "classification": "C3",
+      "proprietaire": "Céline Darras",
+      "criticite": "Haute",
+      "mesures_protection": ["Écriture append-only", "Intégrité vérifiée"],
+      "sauvegarde": "Backup automatique"
+    },
+    {
+      "id": "ACT-006",
+      "nom": "PC Alfred — Minisforum MS-S1 Max",
+      "type": "Matériel",
+      "localisation": "Domicile Céline Darras",
+      "classification": "C3",
+      "proprietaire": "Céline Darras",
+      "criticite": "Critique",
+      "mesures_protection": ["Chiffrement disque D: (Veracrypt)", "Sécurité physique domicile", "Accès MFA", "Firewall actif"],
+      "sauvegarde": "LaCie externe chiffrée"
+    },
+    {
+      "id": "ACT-007",
+      "nom": "Infrastructure réseau (ER605 + SG108E)",
+      "type": "Réseau / Matériel",
+      "localisation": "Domicile Céline Darras",
+      "classification": "C3",
+      "proprietaire": "Céline Darras",
+      "criticite": "Haute",
+      "mesures_protection": ["Firewall TP-Link ER605", "Règles ACL documentées", "VLAN planifié Q3 2026"],
+      "sauvegarde": "Config exportée"
+    },
+    {
+      "id": "ACT-008",
+      "nom": "Disque de sauvegarde LaCie",
+      "type": "Matériel / Stockage",
+      "localisation": "Domicile Céline Darras",
+      "classification": "C3",
+      "proprietaire": "Céline Darras",
+      "criticite": "Haute",
+      "mesures_protection": ["Chiffrement intégral", "Stockage physique sécurisé"],
+      "sauvegarde": "N/A (c'est la sauvegarde)"
+    },
+    {
+      "id": "ACT-009",
+      "nom": "Dashboard gouvernance et conformité",
+      "type": "Logiciel / Rapport",
+      "localisation": "dashboard/",
+      "classification": "C2",
+      "proprietaire": "Céline Darras",
+      "criticite": "Modérée",
+      "mesures_protection": ["Accès local", "Versionné Git"],
+      "sauvegarde": "Git"
+    },
+    {
+      "id": "ACT-010",
+      "nom": "Documentation gouvernance et SMSI",
+      "type": "Documentation",
+      "localisation": "docs/",
+      "classification": "C2",
+      "proprietaire": "Céline Darras",
+      "criticite": "Modérée",
+      "mesures_protection": ["Versionné Git", "Accès local"],
+      "sauvegarde": "Git"
+    },
+    {
+      "id": "ACT-011",
+      "nom": "Registre des incidents de sécurité",
+      "type": "Données",
+      "localisation": "data/security/incident_register.json",
+      "classification": "C3",
+      "proprietaire": "Céline Darras",
+      "criticite": "Haute",
+      "mesures_protection": ["Accès contrôlé", "Versionné Git"],
+      "sauvegarde": "Backup automatique"
+    },
+    {
+      "id": "ACT-012",
+      "nom": "OpenAI API — Accès et clés",
+      "type": "Service tiers / API",
+      "localisation": "Externe — openai.com",
+      "classification": "C4",
+      "proprietaire": "Céline Darras",
+      "criticite": "Haute",
+      "mesures_protection": ["Clé API stockée chiffrée", "Rotation clé périodique", "Pas de données sensibles brutes transmises"],
+      "sauvegarde": "Renouvellement clé API si compromission"
+    }
+  ]
+}

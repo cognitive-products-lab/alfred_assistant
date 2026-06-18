@@ -1,1 +1,70 @@
-﻿{"rules": []}
+{
+  "rules": [
+    {
+      "id": "ZT-01",
+      "name": "Validation et nettoyage des entrees",
+      "description": "Toute entree utilisateur est sanitizee (input_validator) avant traitement. Entree invalide -> DENY_INPUT.",
+      "enforced_by": "zero_trust_orchestrator.authorize_request"
+    },
+    {
+      "id": "ZT-02",
+      "name": "Detection de menaces",
+      "description": "L'entree nettoyee est analysee par threat_detector. Menace detectee -> DENY_THREAT.",
+      "enforced_by": "zero_trust_orchestrator.authorize_request"
+    },
+    {
+      "id": "ZT-03",
+      "name": "Appareil de confiance requis",
+      "description": "L'appareil (device_id) doit etre enregistre comme de confiance (device_registry). Sinon -> DENY_DEVICE.",
+      "enforced_by": "zero_trust_orchestrator.authorize_request"
+    },
+    {
+      "id": "ZT-04",
+      "name": "MFA obligatoire OWNER/ADMIN",
+      "description": "Les roles OWNER et ADMIN doivent toujours verifier un TOTP de session, independamment de la config globale. GUEST et EMERGENCY en sont exemptes.",
+      "enforced_by": "mfa_manager.is_mfa_required"
+    },
+    {
+      "id": "ZT-05",
+      "name": "MFA global active",
+      "description": "Quand security_settings.json.mfa_required = true, le MFA est requis pour tous les roles non exemptes (USER, SERVICE, AI_MODULE).",
+      "enforced_by": "mfa_manager._global_mfa_required"
+    },
+    {
+      "id": "ZT-06",
+      "name": "Permission RBAC requise",
+      "description": "Le role doit posseder la permission demandee (access_control.has_access / permission_manager). Sinon -> DENY_PERMISSION.",
+      "enforced_by": "zero_trust_orchestrator.authorize_request"
+    },
+    {
+      "id": "ZT-07",
+      "name": "Sensibilite max par role",
+      "description": "Chaque role a un niveau de sensibilite maximal autorise (OWNER/ADMIN=CRITICAL, USER/SERVICE/AI_MODULE=MEDIUM, GUEST/EMERGENCY=LOW). Depassement -> DENY_POLICY ou DENY_PERMISSION.",
+      "enforced_by": "policy_engine.evaluate_policy"
+    },
+    {
+      "id": "ZT-08",
+      "name": "Actions restreintes",
+      "description": "DELETE_DATA et EXPORT_DATA reserves a OWNER. SEND_ALERT reserve a OWNER/ADMIN/EMERGENCY.",
+      "enforced_by": "policy_engine._RESTRICTED_ACTIONS"
+    },
+    {
+      "id": "ZT-09",
+      "name": "Score de risque eleve -> refus",
+      "description": "risk_score >= 80 -> DENY_RISK immediat, quel que soit le role.",
+      "enforced_by": "policy_engine.evaluate_policy"
+    },
+    {
+      "id": "ZT-10",
+      "name": "Risque modere + ressource sensible -> revision",
+      "description": "risk_score >= 50 ET resource_sensitivity >= HIGH -> decision REVIEW (validation manuelle).",
+      "enforced_by": "policy_engine.evaluate_policy"
+    },
+    {
+      "id": "ZT-11",
+      "name": "Tracabilite systematique",
+      "description": "Chaque decision (ALLOW ou DENY_*) est ecrite dans audit_trail.jsonl avec user_id, action, resource et decision.",
+      "enforced_by": "audit_trail.write_audit_event"
+    }
+  ]
+}
