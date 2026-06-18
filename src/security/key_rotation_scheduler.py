@@ -318,3 +318,33 @@ def get_smsi_summary() -> dict[str, Any]:
         "risk_summary":     risk_summary,
         "rotation_history": _load_rotation_log()[-5:],   # 5 dernières rotations
     }
+
+
+# ─── Classe façade (compatibilité import OO) ──────────────────────────────────
+
+class KeyRotationScheduler:
+    """
+    Façade orientée-objet sur les fonctions de rotation du module.
+    Permet l'import : from src.security.key_rotation_scheduler import KeyRotationScheduler
+    """
+
+    def check_all_keys(self) -> dict:
+        return check_all_keys()
+
+    def check_key_age(self, key: str, threshold_days: int | None = None) -> dict:
+        return check_key_age(key, threshold_days)
+
+    def get_rotation_history(self, key: str | None = None) -> list:
+        return get_rotation_history(key)
+
+    def get_last_rotation(self, key: str) -> dict | None:
+        return get_last_rotation(key)
+
+    def prepare_fernet_rotation(self) -> dict:
+        return prepare_fernet_rotation()
+
+    def record_rotation(self, key: str, notes: str = "") -> None:
+        record_rotation(key, notes)
+
+    def get_smsi_summary(self) -> dict:
+        return get_smsi_summary()
