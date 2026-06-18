@@ -1,3 +1,17 @@
+﻿<!--
+============================================================
+PROJECT  : ALFRED / Cognitive Products Lab
+BLOCK    : B20 — Sécurité, Gouvernance & Conformité
+DOCUMENT : Micro-segmentation Réseau — Configuration VLAN
+TYPE     : Documentation SMSI
+REF      : ISO/IEC 27001:2022 — A.8.22
+VERSION  : V1.0
+CREATED  : 2026-06-18
+UPDATED  : 2026-06-18
+AUTHOR   : Céline Darras — Cognitive Products Lab
+STATUS   : Approuvé
+============================================================
+-->
 # Micro-segmentation Réseau — Configuration VLAN
 
 > **Référence :** ISO/IEC 27001:2022 — Contrôle A.8.22  

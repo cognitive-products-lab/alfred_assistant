@@ -1,3 +1,17 @@
+﻿<!--
+============================================================
+PROJECT  : ALFRED / Cognitive Products Lab
+BLOCK    : B20 — Sécurité, Gouvernance & Conformité
+DOCUMENT : Système de Gestion des Risques IA
+TYPE     : Documentation SMSI
+REF      : EU AI Act Art. 9
+VERSION  : V1.0
+CREATED  : 2026-06-18
+UPDATED  : 2026-06-18
+AUTHOR   : Céline Darras — Cognitive Products Lab
+STATUS   : Approuvé
+============================================================
+-->
 # Système de Gestion des Risques IA
 
 > **Référence :** EU AI Act — Art. 9 (Règlement UE 2024/1689)  
