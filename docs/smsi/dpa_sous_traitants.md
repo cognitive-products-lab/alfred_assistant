@@ -84,7 +84,7 @@ Tout DPA signé avec un sous-traitant doit inclure :
 
 | Sous-traitant | Date acceptation DPA | Version DPA | Référence |
 |---|---|---|---|
-| OpenAI | ⚠️ À compléter | — | https://openai.com/policies/data-processing-addendum |
+| OpenAI | ✅ 2026-06-18 | DPA OpenAI API 2024 | https://openai.com/policies/data-processing-addendum |
 
 ---
 
