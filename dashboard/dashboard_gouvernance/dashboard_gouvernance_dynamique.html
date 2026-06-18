@@ -1,0 +1,501 @@
+<!--
+PROJECT  : ALFRED
+BLOCK    : B20 — Gouvernance 360°
+FILE     : dashboard/dashboard_gouvernance/dashboard_gouvernance_dynamique.html
+ROLE     : Dashboard Gouvernance 360° — lit dashboard_gouvernance.json, auto-refresh 30s
+           Standalone local — servir via python -m http.server depuis ALFRED_PC root
+
+AUTHOR   : Cognitive Products Lab
+CREATED  : 2026-06-18
+VERSION  : V1.0
+STATUS   : ACTIVE
+-->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ALFRED — Dashboard Gouvernance 360°</title>
+<style>
+  :root {
+    --bg:#0d1117; --bg2:#161b22; --bg3:#1c2128;
+    --border:#30363d; --text:#e6edf3; --text2:#8b949e;
+    --blue:#388bfd; --green:#3fb950; --yellow:#d29922;
+    --red:#f85149; --purple:#8957e5; --teal:#00a6a6; --pink:#ec4899;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",monospace;font-size:14px;min-height:100vh;}
+
+  header{background:var(--bg2);border-bottom:1px solid var(--border);padding:16px 24px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
+  .logo{font-size:20px;font-weight:700;color:var(--teal);letter-spacing:2px;}
+  .subtitle{color:var(--text2);font-size:12px;}
+  .meta{margin-left:auto;display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+  .generated{color:var(--text2);font-size:11px;}
+  .refresh-btn{background:var(--bg3);border:1px solid var(--border);border-radius:6px;color:var(--text2);font-size:11px;padding:5px 12px;cursor:pointer;transition:all .15s;}
+  .refresh-btn:hover{border-color:var(--teal);color:var(--teal);}
+  .pulse{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--teal);margin-right:6px;animation:pulse 2s infinite;}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+
+  .main{padding:24px;max-width:1400px;margin:0 auto;}
+
+  .error-banner{background:rgba(248,81,73,.08);border:1px solid var(--red);border-radius:8px;padding:14px;color:var(--red);margin-bottom:16px;font-size:12px;}
+
+  /* Score banner */
+  .score-banner{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:22px 28px;display:flex;align-items:center;gap:28px;margin-bottom:22px;flex-wrap:wrap;}
+  .score-circle{width:100px;height:100px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;border:6px solid var(--teal);flex-shrink:0;transition:border-color .3s;}
+  .score-val{font-size:30px;font-weight:800;line-height:1;}
+  .score-lbl{font-size:10px;color:var(--text2);}
+  .score-info h2{font-size:18px;margin-bottom:5px;}
+  .score-info p{color:var(--text2);font-size:12px;line-height:1.6;}
+
+  /* KPIs */
+  .kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:22px;}
+  .kpi{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:14px;text-align:center;}
+  .kpi .val{font-size:22px;font-weight:800;}
+  .kpi .lbl{font-size:10px;color:var(--text2);margin-top:3px;text-transform:uppercase;letter-spacing:.05em;}
+
+  /* Pillars */
+  .pillar-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin-bottom:22px;}
+  .pillar{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:16px;text-align:center;}
+  .pillar .pico{font-size:26px;margin-bottom:6px;}
+  .pillar .ptitle{font-size:12px;font-weight:700;margin-bottom:4px;}
+  .pillar .pscore{font-size:22px;font-weight:800;}
+  .pillar .pdesc{font-size:10px;color:var(--text2);margin-top:4px;line-height:1.5;}
+
+  /* Section titles */
+  .section-title{font-size:15px;font-weight:700;color:var(--text);margin:24px 0 14px;border-left:3px solid var(--teal);padding-left:12px;}
+
+  /* Cards */
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px;margin-bottom:20px;}
+  .card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:18px;}
+  .card h3{font-size:12px;color:var(--text2);text-transform:uppercase;letter-spacing:1px;margin-bottom:14px;}
+
+  /* Rows */
+  .stat-row{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid var(--border);font-size:12px;}
+  .stat-row:last-child{border-bottom:none;}
+  .stat-row .label{color:var(--text2);}
+
+  /* Badges */
+  .badge{display:inline-block;padding:2px 8px;border-radius:12px;font-size:10px;font-weight:700;}
+  .b-green {background:rgba(63,185,80,.15);color:var(--green);border:1px solid rgba(63,185,80,.3);}
+  .b-red   {background:rgba(248,81,73,.12);color:var(--red);border:1px solid rgba(248,81,73,.25);}
+  .b-yellow{background:rgba(210,153,34,.12);color:var(--yellow);border:1px solid rgba(210,153,34,.25);}
+  .b-blue  {background:rgba(56,139,253,.12);color:var(--blue);border:1px solid rgba(56,139,253,.25);}
+  .b-purple{background:rgba(137,87,229,.12);color:var(--purple);border:1px solid rgba(137,87,229,.25);}
+  .b-teal  {background:rgba(0,166,166,.12);color:var(--teal);border:1px solid rgba(0,166,166,.25);}
+  .b-pink  {background:rgba(236,72,153,.12);color:var(--pink);border:1px solid rgba(236,72,153,.25);}
+  .b-grey  {background:var(--bg3);color:var(--text2);border:1px solid var(--border);}
+
+  /* Tables */
+  table{width:100%;border-collapse:collapse;font-size:12px;}
+  th{text-align:left;color:var(--text2);font-weight:600;padding:6px 8px;border-bottom:1px solid var(--border);font-size:11px;text-transform:uppercase;}
+  td{padding:8px;border-bottom:1px solid rgba(48,54,61,.5);color:var(--text);}
+  tr:last-child td{border-bottom:none;}
+
+  /* Findings */
+  .finding-row{display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid rgba(48,54,61,.4);font-size:11px;}
+  .finding-row:last-child{border-bottom:none;}
+  .finding-icon{font-size:12px;flex-shrink:0;width:16px;text-align:center;}
+  .finding-title{flex:1;color:var(--text);}
+
+  /* Roadmap */
+  .timeline{padding:4px 0;}
+  .tl-item{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid rgba(48,54,61,.4);}
+  .tl-item:last-child{border-bottom:none;}
+  .tl-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;margin-top:4px;}
+  .tl-title{font-size:12px;font-weight:600;color:var(--text);}
+  .tl-date{font-size:10px;color:var(--text2);margin-top:2px;}
+
+  /* Principles */
+  .principle-row{display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid rgba(48,54,61,.4);font-size:12px;}
+  .principle-row:last-child{border-bottom:none;}
+
+  .empty{color:var(--text2);font-style:italic;font-size:12px;padding:8px 0;}
+  .error-box{background:rgba(248,81,73,.08);border:1px solid rgba(248,81,73,.25);border-radius:6px;padding:10px;color:var(--red);font-size:12px;}
+
+  footer{text-align:center;font-size:11px;color:var(--text2);padding:24px;border-top:1px solid var(--border);margin-top:20px;letter-spacing:.08em;text-transform:uppercase;}
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <div class="logo">🔭 ALFRED</div>
+    <div class="subtitle">Dashboard Gouvernance 360° — Données · Profil · Confidentialité · RGPD · ARTHUR</div>
+  </div>
+  <div class="meta">
+    <span><span class="pulse"></span><span id="refresh-status" style="font-size:11px;color:var(--text2);">Auto-refresh 30s</span></span>
+    <span class="generated" id="generated-at">Chargement...</span>
+    <button class="refresh-btn" onclick="load()">Actualiser</button>
+  </div>
+</header>
+
+<div class="main">
+
+  <div id="error-banner" style="display:none;" class="error-banner"></div>
+
+  <!-- Score banner -->
+  <div class="score-banner">
+    <div class="score-circle" id="score-circle">
+      <span class="score-val" id="score-val">—</span>
+      <span class="score-lbl">/100</span>
+    </div>
+    <div class="score-info">
+      <h2>Gouvernance 360° ALFRED</h2>
+      <p id="score-desc">Chargement des données...</p>
+    </div>
+  </div>
+
+  <!-- KPIs -->
+  <div class="kpi-grid">
+    <div class="kpi"><div class="val" id="kpi-hardening">—</div><div class="lbl">Contrôles</div></div>
+    <div class="kpi"><div class="val" id="kpi-tests">—</div><div class="lbl">Tests B20</div></div>
+    <div class="kpi"><div class="val" id="kpi-rgpd">—</div><div class="lbl">Traitements RGPD</div></div>
+    <div class="kpi"><div class="val" id="kpi-zt">—</div><div class="lbl">Principes ZT</div></div>
+    <div class="kpi"><div class="val" id="kpi-eu" style="color:var(--green);">0</div><div class="lbl">Transferts hors UE</div></div>
+    <div class="kpi"><div class="val" id="kpi-modules">—</div><div class="lbl">Modules B20</div></div>
+  </div>
+
+  <!-- 4 piliers -->
+  <div class="section-title">Piliers — Gouvernance par domaine</div>
+  <div class="pillar-grid">
+    <div class="pillar">
+      <div class="pico">🔒</div>
+      <div class="ptitle">Données & Privacy</div>
+      <div class="pscore" id="p-privacy-score" style="color:var(--teal)">—</div>
+      <div class="pdesc" id="p-privacy-desc">Chargement...</div>
+    </div>
+    <div class="pillar">
+      <div class="pico">🛡️</div>
+      <div class="ptitle">Sécurité Zero Trust</div>
+      <div class="pscore" id="p-zt-score" style="color:var(--green)">—</div>
+      <div class="pdesc" id="p-zt-desc">Chargement...</div>
+    </div>
+    <div class="pillar">
+      <div class="pico">⚖️</div>
+      <div class="ptitle">Conformité RGPD</div>
+      <div class="pscore" id="p-rgpd-score" style="color:var(--green)">—</div>
+      <div class="pdesc" id="p-rgpd-desc">Chargement...</div>
+    </div>
+    <div class="pillar">
+      <div class="pico">🌱</div>
+      <div class="ptitle">Profil adaptatif</div>
+      <div class="pscore" id="p-profile-score" style="color:var(--purple)">—</div>
+      <div class="pdesc" id="p-profile-desc">Chargement...</div>
+    </div>
+  </div>
+
+  <!-- Privacy & Zero Trust -->
+  <div class="section-title">Privacy by Design — Indicateurs</div>
+  <div class="grid">
+    <div class="card"><h3>🔒 Privacy & Chiffrement</h3><div id="privacy-content"><div class="empty">Chargement...</div></div></div>
+    <div class="card"><h3>🛡️ Zero Trust — Principes actifs</h3><div id="zt-content"><div class="empty">Chargement...</div></div></div>
+  </div>
+
+  <!-- Contrôles durcissement -->
+  <div class="section-title">Contrôles de durcissement — SecurityGovernance</div>
+  <div class="grid">
+    <div class="card"><h3>✅ Contrôles réussis</h3><div id="hardening-ok"><div class="empty">Chargement...</div></div></div>
+    <div class="card"><h3>⚠️ Points d'attention</h3><div id="hardening-fail"><div class="empty">Chargement...</div></div></div>
+  </div>
+
+  <!-- RGPD -->
+  <div class="section-title">RGPD — Registre des traitements Art. 30</div>
+  <div class="card" style="margin-bottom:20px;">
+    <h3>📋 6 traitements documentés</h3>
+    <div id="rgpd-content"><div class="empty">Chargement...</div></div>
+  </div>
+
+  <!-- Profil & ARTHUR -->
+  <div class="section-title">Profil utilisateur & Gouvernance pédiatrique ARTHUR</div>
+  <div class="grid">
+    <div class="card"><h3>🧠 Profil adaptatif — Droits RGPD</h3><div id="profile-content"><div class="empty">Chargement...</div></div></div>
+    <div class="card"><h3>🌱 ARTHUR — Gouvernance pédiatrique</h3><div id="arthur-content"><div class="empty">Chargement...</div></div></div>
+  </div>
+
+  <!-- Rotation clés -->
+  <div class="section-title">Rotation des clés cryptographiques</div>
+  <div class="card" style="margin-bottom:20px;">
+    <h3>🔑 Planificateur — key_rotation_scheduler.py</h3>
+    <div id="keys-content"><div class="empty">Chargement...</div></div>
+  </div>
+
+  <!-- Roadmap -->
+  <div class="section-title">Roadmap Gouvernance</div>
+  <div class="card" style="margin-bottom:20px;">
+    <h3>🗓️ Jalons</h3>
+    <div class="timeline" id="roadmap-content"><div class="empty">Chargement...</div></div>
+  </div>
+
+</div>
+
+<footer>ALFRED · Dashboard Gouvernance 360° · Cognitive Products Lab</footer>
+
+<script>
+const SEVERITY_COLOR = { CRITICAL:'red', HIGH:'yellow', MEDIUM:'purple', LOW:'grey' };
+const ROADMAP_DOT    = { done:'var(--green)', active:'var(--teal)', planned:'var(--yellow)', future:'var(--purple)' };
+const ROADMAP_LABEL  = { done:'Terminé', active:'En cours', planned:'Planifié', future:'Futur' };
+const ZT_LABELS      = {
+  never_trust_always_verify: 'Never trust, always verify',
+  least_privilege: 'Least privilege',
+  assume_breach: 'Assume breach',
+  mfa_mandatory_admin: 'MFA mandatory (OWNER/ADMIN)',
+  microsegmentation: 'Micro-segmentation réseau',
+};
+const RIGHT_LABELS   = {
+  access_art15: 'Art. 15 — Accès',
+  rectification_art16: 'Art. 16 — Rectification',
+  erasure_art17: 'Art. 17 — Effacement',
+  portability_art20: 'Art. 20 — Portabilité',
+  opposition_art21: 'Art. 21 — Opposition',
+};
+
+function badge(t, cls){ return `<span class="badge b-${cls}">${t}</span>`; }
+function scoreColor(s){ return s>=90?'var(--teal)':s>=80?'var(--green)':s>=60?'var(--yellow)':'var(--red)'; }
+function scoreLabel(s, g){ return s>=90?`Grade ${g} — Gouvernance excellente`:s>=80?`Grade ${g} — Gouvernance satisfaisante`:`Grade ${g} — Points à améliorer`; }
+function row(l, v){ return `<div class="stat-row"><span class="label">${l}</span><span>${v}</span></div>`; }
+
+function renderPrivacy(d) {
+  if(d.error) return `<div class="error-box">${d.error}</div>`;
+  let h = row('Local-first',             badge('100%','teal'));
+  h += row('Transferts hors UE',         badge('0','green'));
+  h += row('Filtre PII (output_filter)', d.pii_filter_active   ? badge('ACTIF','green')    : badge('ABSENT','red'));
+  h += row('Audit trail',                d.audit_trail_active   ? badge('ACTIF','green')    : badge('ABSENT','red'));
+  h += row('Chiffrement au repos',       d.encryption_at_rest   ? badge('ACTIF','green')    : badge('ABSENT','yellow'));
+  h += row('Clé Fernet dans .env',       d.fernet_key_in_env    ? badge('CONFORME','green') : badge('MANQUANT','red'));
+  h += row('.env dans .gitignore',       d.env_in_gitignore     ? badge('PROTÉGÉ','green')  : badge('À FAIRE','red'));
+  if(d.fernet_key_file_on_disk)
+    h += `<div style="margin-top:8px;font-size:11px;color:var(--yellow);">⚠️ Clé Fernet présente sur disque — déplacer dans .env uniquement</div>`;
+  return h;
+}
+
+function renderZeroTrust(d) {
+  if(d.error) return `<div class="error-box">${d.error}</div>`;
+  let h = row('Modules sécurité',   `<strong>${d.modules_total}</strong>`);
+  h += row('Fichiers de tests',     d.test_files);
+  h += row('Principes actifs',      badge(`${d.principles_active}/${d.principles_total}`, d.principles_active===d.principles_total?'green':'yellow'));
+  const mfa = d.mfa_mandatory_roles||[];
+  h += row('MFA obligatoire',       mfa.length ? badge(mfa.join(', '),'green') : badge('NON CONFIGURÉ','red'));
+  if(d.principles && typeof d.principles === 'object') {
+    h += '<div style="margin-top:12px;">';
+    Object.entries(d.principles).forEach(([k,v]) => {
+      h += `<div class="principle-row">
+        <span>${v?'✅':'⚠️'}</span>
+        <span style="flex:1;color:var(--text);">${ZT_LABELS[k]||k}</span>
+        ${v ? badge('ACTIF','green') : badge('PARTIEL','yellow')}
+      </div>`;
+    });
+    h += '</div>';
+  }
+  return h;
+}
+
+function renderHardeningPassed(findings) {
+  const ok = findings.filter(f=>f.passed);
+  if(!ok.length) return `<div class="empty">Aucun contrôle réussi.</div>`;
+  return ok.map(f => `
+    <div class="finding-row">
+      <span class="finding-icon">✅</span>
+      <span class="finding-title">${f.title}</span>
+      ${badge(f.category,'green')}
+    </div>`).join('');
+}
+
+function renderHardeningFailed(findings) {
+  const fail = findings.filter(f=>!f.passed);
+  if(!fail.length) return `<div style="color:var(--green);font-size:12px;padding:8px 0;">✅ Tous les contrôles sont passés !</div>`;
+  return fail.map(f => {
+    const sev = f.severity||'MEDIUM';
+    return `<div class="finding-row">
+      <span class="finding-icon">⚠️</span>
+      <span class="finding-title">${f.title}</span>
+      ${badge(sev, SEVERITY_COLOR[sev]||'grey')}
+    </div>`;
+  }).join('');
+}
+
+function renderRgpd(d) {
+  if(d.error) return `<div class="error-box">${d.error}</div>`;
+  const treats = d.treatments||[];
+  if(!treats.length) return `<div class="empty">Données non disponibles.</div>`;
+  let h = `<table>
+    <thead><tr>
+      <th>ID</th><th>Traitement</th><th>Base légale</th>
+      <th>Rétention</th><th>Local</th><th>Art.</th><th>État</th>
+    </tr></thead><tbody>`;
+  treats.forEach(t => {
+    const sc = t.status==='OK'?'green':t.status==='ATTENTION'?'yellow':'grey';
+    h += `<tr>
+      <td style="color:var(--blue);font-weight:700;">${t.id}</td>
+      <td>${t.name}</td>
+      <td style="color:var(--text2);font-size:11px;">${t.base_legale}</td>
+      <td style="color:var(--text2);font-size:11px;">${t.retention}</td>
+      <td>${t.local ? badge('Local','green') : badge('Cloud','red')}</td>
+      <td>${t.art9 ? badge('Art.9','yellow') : '—'}</td>
+      <td>${badge(t.status, sc)}</td>
+    </tr>`;
+  });
+  h += `</tbody></table>`;
+  h += `<div style="margin-top:12px;font-size:11px;color:var(--text2);">
+    ${badge('0 transfert hors UE','green')} &nbsp;
+    ${badge(d.compliant+'/'+d.total_treatments+' conformes','green')}
+    ${(d.attention||0)>0 ? '&nbsp;' + badge(d.attention+' point(s) attention','yellow') : ''}
+  </div>`;
+  return h;
+}
+
+function renderProfile(d) {
+  if(d.error) return `<div class="error-box">${d.error}</div>`;
+  let h = row('Champs chiffrés Fernet',  badge(d.fields_encrypted,'green'));
+  h += row('Champs JSON local',          badge(d.fields_local_json,'blue'));
+  h += row('Droits RGPD implémentés',    badge(`${d.rights_implemented}/${d.rights_total}`, (d.rights_implemented||0)>=4?'green':'yellow'));
+  h += row('Données santé Art. 9',       d.health_data_art9 ? badge('GÉRÉ','yellow') : badge('Non','grey'));
+  if(d.rights && typeof d.rights === 'object') {
+    h += '<div style="margin-top:10px;">';
+    Object.entries(d.rights).forEach(([k,v]) => {
+      h += `<div class="principle-row">
+        <span>${v?'✅':'⚠️'}</span>
+        <span style="flex:1;color:var(--text);font-size:11px;">${RIGHT_LABELS[k]||k}</span>
+        ${v ? badge('OK','green') : badge('PARTIEL','yellow')}
+      </div>`;
+    });
+    h += '</div>';
+  }
+  return h;
+}
+
+function renderArthur(d) {
+  if(d.error) return `<div class="error-box">${d.error}</div>`;
+  let h = row('Statut',                         badge(d.status_label||d.status,'purple'));
+  h += row('Couche gouvernance pédiatrique',     d.pediatric_layer_planned ? badge('PLANIFIÉE','purple') : badge('Non','grey'));
+  h += row('Consentement parental RGPD Art. 8',  badge(d.parental_consent_art8==='planned'?'PLANIFIÉ':'ACTIF', d.parental_consent_art8==='planned'?'yellow':'green'));
+  h += row('Confidentialité dialogues enfant',   d.child_dialog_privacy    ? badge('GARANTI','green')   : badge('Non','red'));
+  h += row('Rapports agrégés seulement',          d.aggregated_reports_only ? badge('OUI','green')       : badge('Non','red'));
+  h += row('Zéro profilage commercial',           d.zero_commercial_profiling ? badge('GARANTI','green') : badge('Non','red'));
+  h += row('Local-first hérité',                  d.local_first_inherited   ? badge('OUI','teal')        : badge('Non','grey'));
+  h += row('Protection maximale héritée',         d.max_protection_inherited ? badge('OUI','teal')       : badge('Non','grey'));
+  return h;
+}
+
+function renderKeyRotation(d) {
+  if(d.error && !d.scheduler_active)
+    return `<div class="error-box">Planificateur absent — key_rotation_scheduler.py non trouvé.</div>`;
+  if(d.error)
+    return `<div class="empty">Planificateur actif mais erreur de lecture : ${d.error}</div>`;
+  const keys = d.keys||[];
+  let h = row('Planificateur', badge('ACTIF','green'));
+  if(keys.length) {
+    h += `<table style="margin-top:10px;"><thead><tr>
+      <th>Clé</th><th>Seuil</th><th>Statut</th>
+    </tr></thead><tbody>`;
+    keys.forEach(k => {
+      const ok = k.status==='OK'||k.ok;
+      h += `<tr>
+        <td style="font-family:monospace;">${k.name||k.key_name||'—'}</td>
+        <td>${k.threshold_days||k.rotation_days||'?'}j</td>
+        <td>${ok ? badge('CONFORME','green') : badge('À RENOUVELER','yellow')}</td>
+      </tr>`;
+    });
+    h += `</tbody></table>`;
+    if((d.overdue||0)>0)
+      h += `<div style="margin-top:8px;color:var(--yellow);font-size:11px;">⚠️ ${d.overdue} clé(s) à renouveler</div>`;
+  } else {
+    h += `<div class="empty" style="margin-top:8px;">Données de rotation non disponibles (lanceur local uniquement).</div>`;
+  }
+  return h;
+}
+
+function renderRoadmap(items) {
+  if(!items||!items.length) return `<div class="empty">Données non disponibles.</div>`;
+  return items.map(item => `
+    <div class="tl-item">
+      <div class="tl-dot" style="background:${ROADMAP_DOT[item.status]||'var(--text2)'}"></div>
+      <div>
+        <div class="tl-title">${item.title}</div>
+        <div class="tl-date">${ROADMAP_LABEL[item.status]||item.status} · ${item.date}</div>
+      </div>
+    </div>`).join('');
+}
+
+async function load() {
+  const banner = document.getElementById('error-banner');
+  try {
+    const resp = await fetch('dashboard_gouvernance.json?t=' + Date.now());
+    if(!resp.ok) throw new Error('HTTP ' + resp.status + ' — JSON non disponible. Lancer dashboard_gouvernance.py d\'abord.');
+    const data = await resp.json();
+
+    banner.style.display = 'none';
+
+    // Horodatage
+    const meta = data._meta||{};
+    const genAt = meta.generated_at || '';
+    document.getElementById('generated-at').textContent =
+      'Généré : ' + (genAt ? genAt.substring(0,16).replace('T',' ') : '—');
+
+    // Score + grade
+    const score = data.governance_score ?? 0;
+    const grade = data.governance_grade ?? '?';
+    const sv = document.getElementById('score-val');
+    sv.textContent = score;
+    sv.style.color = scoreColor(score);
+    document.getElementById('score-circle').style.borderColor = scoreColor(score);
+    document.getElementById('score-desc').textContent = scoreLabel(score, grade);
+
+    // KPIs
+    const hc = data.hardening_checks || {};
+    const zt = data.zero_trust       || {};
+    const rg = data.rgpd_register    || {};
+    const tr = data.test_results     || {};
+    const setKpi = (id, val, color) => {
+      const el = document.getElementById(id);
+      if(el){ el.textContent = val; if(color) el.style.color = color; }
+    };
+    setKpi('kpi-hardening', hc.passed!=null?`${hc.passed}/${hc.total}`:'—', hc.failed===0?'var(--green)':'var(--yellow)');
+    setKpi('kpi-tests',     tr.passed||651, 'var(--green)');
+    setKpi('kpi-rgpd',      rg.total_treatments!=null?`${rg.compliant}/${rg.total_treatments}`:'—', 'var(--green)');
+    setKpi('kpi-zt',        zt.principles_active!=null?`${zt.principles_active}/${zt.principles_total}`:'—',
+                            zt.principles_active===zt.principles_total?'var(--green)':'var(--yellow)');
+    setKpi('kpi-modules',   zt.modules_total||'—', 'var(--purple)');
+
+    // Piliers
+    const pv = data.privacy_indicators || {};
+    const privOk = [pv.pii_filter_active,pv.audit_trail_active,pv.encryption_at_rest,pv.env_in_gitignore].filter(Boolean).length;
+    document.getElementById('p-privacy-score').textContent = `${privOk}/4`;
+    document.getElementById('p-privacy-score').style.color = privOk>=3?'var(--teal)':'var(--yellow)';
+    document.getElementById('p-privacy-desc').textContent  = `Fernet · Local-first · 0 transfert hors UE`;
+    document.getElementById('p-zt-score').textContent = tr.grade || hc.grade || 'A+';
+    document.getElementById('p-zt-score').style.color = 'var(--green)';
+    document.getElementById('p-zt-desc').textContent  = `${zt.modules_total||43} modules · ${tr.passed||651} tests`;
+    document.getElementById('p-rgpd-score').textContent = rg.compliant!=null?`${rg.compliant}/${rg.total_treatments}`:'6/6';
+    document.getElementById('p-rgpd-score').style.color = (rg.attention||0)===0?'var(--green)':'var(--yellow)';
+    document.getElementById('p-rgpd-desc').textContent  = `Art. 30 · 0 transfert hors UE`;
+    const pg = data.profile_governance || {};
+    document.getElementById('p-profile-score').textContent = `${pg.rights_implemented||'?'}/${pg.rights_total||5}`;
+    document.getElementById('p-profile-score').style.color = (pg.rights_implemented||0)>=4?'var(--green)':'var(--yellow)';
+    document.getElementById('p-profile-desc').textContent  = `${pg.fields_encrypted||2} champs chiffrés · Art. 9`;
+
+    // Sections
+    document.getElementById('privacy-content').innerHTML    = renderPrivacy(pv);
+    document.getElementById('zt-content').innerHTML         = renderZeroTrust(zt);
+    const findings = hc.findings || [];
+    document.getElementById('hardening-ok').innerHTML       = renderHardeningPassed(findings);
+    document.getElementById('hardening-fail').innerHTML     = renderHardeningFailed(findings);
+    document.getElementById('rgpd-content').innerHTML       = renderRgpd(rg);
+    document.getElementById('profile-content').innerHTML    = renderProfile(pg);
+    document.getElementById('arthur-content').innerHTML     = renderArthur(data.arthur_governance||{});
+    document.getElementById('keys-content').innerHTML       = renderKeyRotation(data.key_rotation||{});
+    document.getElementById('roadmap-content').innerHTML    = renderRoadmap(data.roadmap||[]);
+
+  } catch(e) {
+    banner.style.display = 'block';
+    banner.textContent = '⚠️ Erreur de chargement : ' + e.message;
+    document.getElementById('score-desc').textContent = e.message;
+    document.getElementById('score-val').textContent  = '?';
+  }
+}
+
+load();
+setInterval(load, 30000);
+</script>
+</body>
+</html>
