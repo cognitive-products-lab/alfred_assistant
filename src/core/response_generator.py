@@ -31,9 +31,14 @@ class ResponseGenerator:
         self,
         llm_client: Optional[Any] = None,
         debug: bool = False,
+        tts_available: bool = False,
+        vision_client: Optional[Any] = None,
+        **kwargs,
     ):
         self.llm_client = llm_client
         self.debug = debug
+        self.tts_available = tts_available
+        self.vision_client = vision_client
 
     # =========================================================
     # ENTRÉE PRINCIPALE
