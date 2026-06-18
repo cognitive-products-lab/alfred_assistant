@@ -1,0 +1,235 @@
+{
+  "_meta": { "project": "ALFRED", "block": "B18", "file": "nist_incident_response.json", "version": "V2.0", "status": "VALIDATED", "updated": "2026-06-03", "validated_by": "Cognitive Products Lab" },
+  "knowledge_id": "professional.engineering.cybersecurite.nist_incident_response",
+  "id": "professional.engineering.cybersecurite.nist_incident_response",
+  "title": "Réponse aux incidents — NIST SP 800-61",
+  "version": "2.0.0", "status": "active", "domain": "professional", "subdomain": "engineering", "category": "cybersecurite",
+  "summary": "NIST SP 800-61 Rev.2 : 4 phases (Préparation/Détection/Containment-Éradication-Recouvrement/Post-incident), playbooks, CSIRT, communication de crise et exercices tabletop.",
+  "purpose": "Permettre à ALFRED de guider une organisation à travers les phases de réponse à un incident de sécurité selon le framework NIST, de la préparation au post-mortem.",
+  "tags": ["NIST SP 800-61", "incident response", "réponse aux incidents", "CSIRT", "playbook", "tabletop exercise", "communication de crise", "containment", "éradication", "recouvrement", "post-mortem"],
+  "intents": [
+    "répondre à un incident de sécurité",
+    "appliquer le framework NIST IR",
+    "créer un playbook d'incident response",
+    "constituer une équipe CSIRT",
+    "organiser un exercice tabletop"
+  ],
+  "usage_context": [
+    "gestion d'un incident de sécurité en cours",
+    "préparation et planification IR",
+    "formation des équipes de réponse",
+    "audit de maturité IR",
+    "conformité ISO 27001 / NIS2"
+  ],
+  "priority": "critical", "safety_level": "sensitive",
+  "content": {
+    "definition": "Le NIST SP 800-61 (Computer Security Incident Handling Guide) est le guide de référence du National Institute of Standards and Technology pour la gestion des incidents de sécurité informatique. Il définit un cycle de vie en 4 phases permettant de détecter, contenir, éradiquer et se remettre d'un incident de manière structurée et documentée.",
+    "core_principles": [
+      "Préparer avant d'avoir besoin : les plans de réponse doivent exister avant l'incident",
+      "Documenter chaque action et décision pendant l'incident (timeline forensique)",
+      "Containment prioritaire sur l'éradication : stopper l'hémorragie avant de traiter",
+      "Préserver les preuves : ne pas modifier les systèmes compromis avant capture forensique",
+      "Amélioration continue : chaque incident génère des leçons apprises"
+    ],
+    "phases": {
+      "phase_1_preparation": {
+        "nom": "Préparation",
+        "objectif": "Mettre en place tous les éléments nécessaires pour répondre efficacement avant qu'un incident survienne",
+        "activites": [
+          "Constituer et former l'équipe CSIRT",
+          "Rédiger les playbooks par type d'incident (ransomware, phishing, DDoS, insider threat)",
+          "Déployer et tester les outils de réponse (EDR, SIEM, forensique)",
+          "Définir les critères de classification et les SLA",
+          "Établir les contacts d'urgence (CERT nationaux, forces de l'ordre, assureur cyber, avocats)",
+          "Organiser des exercices tabletop réguliers (minimum semestriel)",
+          "Préparer les kits de réponse forensique (USB bootable, outils offline)",
+          "Établir les accords de confidentialité et les procédures légales de collecte de preuves"
+        ],
+        "livrables": ["Plan de réponse aux incidents documenté", "Playbooks par type d'incident", "Liste de contacts d'urgence", "Procédures de communication de crise"]
+      },
+      "phase_2_detection_analyse": {
+        "nom": "Détection & Analyse",
+        "objectif": "Identifier et comprendre l'incident pour le classifier correctement et lancer la réponse appropriée",
+        "activites": [
+          "Corréler les alertes (SIEM, EDR, IDS) pour identifier un incident potentiel",
+          "Triage initial : vrai positif ou faux positif ?",
+          "Classification de la sévérité (P0/P1/P2/P3)",
+          "Constitution de la timeline des événements",
+          "Identification du vecteur d'attaque initial (Initial Access)",
+          "Identification des systèmes, comptes et données affectés",
+          "Notification des parties prenantes selon la procédure d'escalade"
+        ],
+        "indicateurs_compromission": {
+          "IoCs_reseau": ["IPs malveillantes dans les logs firewall", "Domaines C2 dans les requêtes DNS", "Trafic chiffré vers des destinations inhabituelles"],
+          "IoCs_systeme": ["Processus inconnus avec persistance (registry run keys, services)", "Fichiers chiffrés ou avec extension inhabituelle", "Outils d'attaque présents (Mimikatz, Cobalt Strike)"],
+          "IoCs_compte": ["Connexions à des heures inhabituelles", "Accès depuis des géolocalisations inattendues", "Tentatives massives d'accès refusés"]
+        }
+      },
+      "phase_3_containment_eradication_recouvrement": {
+        "nom": "Containment, Éradication & Recouvrement",
+        "sous_phases": {
+          "containment_court_terme": {
+            "objectif": "Stopper immédiatement la propagation sans attendre l'éradication complète",
+            "actions": [
+              "Isoler les systèmes compromis du réseau (EDR network isolation, VLAN quarantaine)",
+              "Révoquer les credentials compromis",
+              "Bloquer les IPs et domaines malveillants sur le firewall/proxy",
+              "Prendre des snapshots/images forensiques AVANT toute modification"
+            ]
+          },
+          "containment_long_terme": {
+            "objectif": "Maintenir le service en mode dégradé pendant l'investigation complète",
+            "actions": [
+              "Activer les systèmes de backup/failover",
+              "Surveillance renforcée du périmètre",
+              "Bloquer tous les vecteurs d'accès identifiés"
+            ]
+          },
+          "eradication": {
+            "objectif": "Supprimer complètement la présence de l'attaquant",
+            "actions": [
+              "Identifier et supprimer tous les malwares et backdoors (analyse forensique complète)",
+              "Réinitialiser tous les credentials potentiellement compromis",
+              "Patcher les vulnérabilités exploitées",
+              "Vérifier l'intégrité de tous les systèmes potentiellement touchés",
+              "Analyser les logs de 30 jours minimum pour identifier la portée complète"
+            ]
+          },
+          "recouvrement": {
+            "objectif": "Restaurer les systèmes et services en production de manière sécurisée",
+            "actions": [
+              "Restaurer depuis des backups sains (antérieurs à la compromission)",
+              "Tester les systèmes restaurés avant retour en production",
+              "Surveillance renforcée post-restauration (30-90 jours)",
+              "Vérification que l'attaquant ne peut pas réutiliser son accès initial"
+            ]
+          }
+        }
+      },
+      "phase_4_post_incident": {
+        "nom": "Post-Incident Activity",
+        "objectif": "Apprendre de l'incident pour améliorer les défenses et les processus",
+        "activites": [
+          "Post-mortem (blameless) documenté dans les 7 jours suivant la résolution",
+          "Timeline complète de l'incident (du début à la résolution)",
+          "Identification des lacunes : qu'est-ce qui a permis l'attaque ? Qu'est-ce qui a ralenti la réponse ?",
+          "Actions correctives priorisées et assignées avec deadlines",
+          "Mise à jour des playbooks et des règles de détection",
+          "Partage de Threat Intelligence (IoCs) avec la communauté (CERT nationaux, ISACs)",
+          "Formation spécifique si des lacunes de compétences ont été identifiées"
+        ],
+        "rapport_post_incident": [
+          "Chronologie détaillée de l'incident",
+          "Vecteur d'attaque initial et méthodes d'escalade",
+          "Systèmes et données affectés",
+          "Actions de réponse prises et leur efficacité",
+          "Coût de l'incident (temps d'indisponibilité, coûts de remédiation)",
+          "Recommandations pour prévenir un incident similaire"
+        ]
+      }
+    },
+    "CSIRT": {
+      "description": "Computer Security Incident Response Team — équipe dédiée à la gestion des incidents",
+      "roles": [
+        "Incident Manager : coordonne l'ensemble de la réponse, point de contact unique",
+        "Lead Analyst : direction technique de l'investigation",
+        "Communications Lead : gère la communication interne et externe",
+        "Legal/Compliance : conseille sur les obligations légales (RGPD, CNIL, assureur)",
+        "IT Operations : exécute les actions techniques (isolation, restauration)",
+        "Management Sponsor : décisions de business impact (arrêt d'un service critique)"
+      ],
+      "contacts_externes": [
+        "CERT national (CERT-FR en France, ANSSI pour les OIV)",
+        "Forces de l'ordre (cyberparquet, OCLTIC) si infraction pénale",
+        "Assureur cyber (notification et activation de la garantie)",
+        "Avocat spécialisé (propriété des preuves, obligations de notification)",
+        "Prestataire forensique externe (si capacités internes insuffisantes)"
+      ]
+    },
+    "communication_crise": {
+      "interne": [
+        "Notification immédiate à la Direction et RSSI dès P0/P1",
+        "Canal de communication dédié (Slack channel incident, ne PAS utiliser les systèmes potentiellement compromis)",
+        "Briefings réguliers (toutes les heures en P0, toutes les 4h en P1)",
+        "Pas de communication externe sans validation du Communications Lead"
+      ],
+      "externe": [
+        "Clients affectés : notification avec les faits connus, sans spéculation, avec actions prises",
+        "CNIL : notification dans 72h si violation de données personnelles (RGPD Art. 33)",
+        "Presse : une seule porte-parole désignée, communiqué factuel uniquement",
+        "Partenaires : notification si leur sécurité peut être affectée (supply chain)"
+      ],
+      "regles_dor": [
+        "Ne jamais mentir ou minimiser l'incident publiquement",
+        "Ne pas communiquer prématurément (avant d'avoir les faits)",
+        "Documenter tout échange avec des tiers (email, téléphone) pour la trace légale"
+      ]
+    },
+    "tabletop_exercises": {
+      "description": "Exercices de simulation d'incident sous forme de discussion, sans action technique réelle",
+      "frequence": "Semestrielle minimum, après chaque incident majeur",
+      "format": [
+        "Définir un scénario réaliste (ransomware, insider threat, supply chain attack)",
+        "Présenter le scénario par phases successives (injectables)",
+        "Chaque participant joue son rôle et décrit ses actions",
+        "Facilitateur guide et introduit des complications",
+        "Débriefing : qu'est-ce qui a bien fonctionné ? Qu'est-ce qui a manqué ?"
+      ],
+      "scenarios_types": [
+        "Ransomware détecté à 3h du matin, infrastructure de backup potentiellement affectée",
+        "Exfiltration de données découverte 6 semaines après la compromission initiale",
+        "Insider threat : un administrateur sur le point de partir copie les données clients"
+      ]
+    },
+    "playbooks_exemples": {
+      "ransomware": {
+        "etapes": [
+          "1. Isoler immédiatement tous les systèmes affectés (EDR network kill switch)",
+          "2. Identifier le patient zéro et le vecteur d'infection",
+          "3. Évaluer l'étendue du chiffrement (quels systèmes, quelles données)",
+          "4. NE PAS payer la rançon sans avis juridique et assureur",
+          "5. Notifier ANSSI/CERT-FR et assureur dans les 2h",
+          "6. Restaurer depuis backups offline vérifiés",
+          "7. Investiguer le vecteur initial pour patcher avant retour en production"
+        ]
+      },
+      "phishing_avec_clic": {
+        "etapes": [
+          "1. Identifier l'utilisateur et isoler son poste",
+          "2. Analyser l'URL ou la pièce jointe cliquée (sandbox)",
+          "3. Vérifier les logs EDR : y a-t-il eu exécution de code ?",
+          "4. Réinitialiser les credentials de l'utilisateur",
+          "5. Analyser les logs d'authentification pour détecter tout usage du compte compromis",
+          "6. Vérifier si d'autres utilisateurs ont reçu le même email (propagation)"
+        ]
+      }
+    },
+    "best_practices": [
+      "Tester les plans de réponse avant d'en avoir besoin (tabletop minimum 2x/an)",
+      "Maintenir une liste de contacts d'urgence imprimée (si les systèmes sont inaccessibles)",
+      "Pratiquer la préservation des preuves : toujours imager avant de nettoyer",
+      "Définir clairement qui a l'autorité pour prendre les décisions critiques (isolation d'un serveur de production)",
+      "Documenter en temps réel pendant l'incident (pas après, la mémoire est faillible)",
+      "Former tous les employés à reconnaître et signaler un incident (pas seulement l'équipe IT)"
+    ],
+    "anti_patterns": [
+      "Improviser la réponse sans playbook documenté",
+      "Isoler un système sans capturer une image forensique préalable (destruction de preuves)",
+      "Communiquer publiquement sans coordination avec les équipes juridiques et communication",
+      "Nettoyer et restaurer sans identifier le vecteur initial (l'attaquant revient)",
+      "Ne pas faire de post-mortem par manque de temps : les mêmes erreurs se répètent"
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["NIST SP 800-61", "incident response", "CSIRT", "playbook", "tabletop", "containment", "éradication", "communication de crise", "post-mortem"],
+    "related_knowledge": ["incident_classification", "security_monitoring_basics", "security_logging_strategy", "business_continuity_basics"],
+    "retrieval_priority": 9
+  },
+  "behavior_rules": { "tone": "professional", "response_style": "structured_clear", "max_complexity": "high", "allow_humor": false },
+  "safety_notes": {
+    "allowed_usage": ["Guidage dans la réponse à un incident", "Création de playbooks", "Formation CSIRT", "Organisation d'exercices tabletop"],
+    "forbidden_usage": ["Utiliser les playbooks pour anticiper et contourner la réponse lors d'une attaque"],
+    "fallback_behavior": "Pour un incident P0 en cours, recommander immédiatement de contacter un prestataire forensique certifié et le CERT-FR."
+  },
+  "metadata": { "author": "Cognitive Products Lab", "creation_date": "03/06/2026", "last_update": "03/06/2026", "review_status": "validated", "source_type": "manual_structured_knowledge", "language": "fr", "retrieval_ready": true, "rag_compatible": true }
+}

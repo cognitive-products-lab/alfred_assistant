@@ -1,14 +1,20 @@
-﻿# ============================================================
-# ALFRED — src/input/voice_profile.py
-# Bloc 01 V2 — Profils vocaux
-#
-# Centralise tous les paramètres de voix d'ALFRED.
-# Utilisé par tts_piper.py (V3) et tts_output.py (V1 terminal).
-#
-# Voix validée : fr_FR-upmc-medium — Speaker ID 1 "Pierre"
-# Modèle       : ONNX Piper — 22 050 Hz — medium quality
-# Licence      : CC BY-SA 4.0
-# ============================================================
+"""
+PROJECT      : ALFRED
+BLOCK        : B04
+FUNCTION     : 04.02
+FILE         : src/conversation/input/voice_profile.py
+ROLE         : Centralise les paramètres de voix ALFRED (modèle, speaker, chemins)
+
+AUTHOR       : Cognitive Products Lab
+CREATED      : 2026-06-03
+UPDATED      : 2026-06-05
+VERSION      : V1.1
+STATUS       : VALIDATED
+
+DESCRIPTION :
+Référentiel profils vocaux — modèle fr_FR-upmc-medium, speaker Pierre,
+chemins Piper corrigés pour tts_piper.py et tts_output.py.
+"""
 
 from dataclasses import dataclass
 from typing import Optional
@@ -43,8 +49,8 @@ ALFRED_VOICE = {
     "speaker_id": 1,  # Pierre — masculin, posé, 25-40 ans
     "sample_rate": 22050,
     "language":   "fr_FR",
-    "model_file": "../tools/piper/models/fr_FR-upmc-medium.onnx",
-    "config_file": "../tools/piper/models/fr_FR-upmc-medium.onnx.json",
+    "model_file": "tools/piper/models/fr_FR-upmc-medium.onnx",
+    "config_file": "tools/piper/models/fr_FR-upmc-medium.onnx.json",
 }
 
 

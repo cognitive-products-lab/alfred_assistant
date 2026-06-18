@@ -1,0 +1,535 @@
+<!--
+PROJECT  : ALFRED
+BLOCK    : B20 - Tests Securite
+FILE     : dashboard/dashboard_tests/dashboard_tests.html
+ROLE     : Interface HTML du dashboard tests ALFRED - resultats suite security_tests
+
+AUTHOR   : Cognitive Products Lab
+CREATED  : 2026-06-01
+UPDATED  : 2026-06-01
+VERSION  : V1.0
+STATUS   : ACTIVE
+-->
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ALFRED — Dashboard Tests Sécurité</title>
+<style>
+  :root {
+    --bg: #0d1117;
+    --bg2: #161b22;
+    --bg3: #1c2128;
+    --border: #30363d;
+    --text: #e6edf3;
+    --text2: #8b949e;
+    --blue: #388bfd;
+    --green: #3fb950;
+    --yellow: #d29922;
+    --red: #f85149;
+    --purple: #8957e5;
+    --teal: #39d353;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", monospace;
+    font-size: 14px;
+    min-height: 100vh;
+  }
+
+  header {
+    background: var(--bg2);
+    border-bottom: 1px solid var(--border);
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  header .logo {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--blue);
+    letter-spacing: 2px;
+  }
+
+  header .subtitle {
+    color: var(--text2);
+    font-size: 12px;
+  }
+
+  header .generated {
+    margin-left: auto;
+    color: var(--text2);
+    font-size: 11px;
+  }
+
+  .main { padding: 24px; max-width: 1400px; margin: 0 auto; }
+
+  .score-banner {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px 32px;
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    margin-bottom: 24px;
+  }
+
+  .score-circle {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 6px solid var(--green);
+    flex-shrink: 0;
+  }
+
+  .score-circle .score-val {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--green);
+  }
+
+  .score-circle .score-lbl {
+    font-size: 10px;
+    color: var(--text2);
+  }
+
+  .score-info h2 { font-size: 20px; margin-bottom: 6px; }
+  .score-info p  { color: var(--text2); font-size: 13px; }
+
+  .score-stats {
+    margin-left: auto;
+    display: flex;
+    gap: 32px;
+    flex-shrink: 0;
+  }
+
+  .score-stat {
+    text-align: center;
+  }
+
+  .score-stat .stat-val {
+    font-size: 28px;
+    font-weight: 700;
+  }
+
+  .score-stat .stat-lbl {
+    font-size: 11px;
+    color: var(--text2);
+    margin-top: 2px;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+  }
+
+  .card h3 {
+    font-size: 14px;
+    color: var(--text2);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .card h3 .icon { font-size: 16px; }
+
+  .stat-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+  }
+
+  .stat-row:last-child { border-bottom: none; }
+  .stat-row .label { color: var(--text2); }
+  .stat-row .value { font-weight: 600; }
+
+  .badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+  }
+
+  .badge-green  { background: #1a3a1a; color: var(--green); border: 1px solid var(--green); }
+  .badge-red    { background: #3a1a1a; color: var(--red); border: 1px solid var(--red); }
+  .badge-yellow { background: #3a2a00; color: var(--yellow); border: 1px solid var(--yellow); }
+  .badge-blue   { background: #0d1f3a; color: var(--blue); border: 1px solid var(--blue); }
+  .badge-purple { background: #1a0d3a; color: var(--purple); border: 1px solid var(--purple); }
+  .badge-grey   { background: var(--bg3); color: var(--text2); border: 1px solid var(--border); }
+
+  .progress-bar {
+    background: var(--bg3);
+    border-radius: 4px;
+    height: 8px;
+    overflow: hidden;
+    margin-top: 8px;
+  }
+
+  .progress-fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.6s ease;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+  }
+
+  th {
+    text-align: left;
+    color: var(--text2);
+    font-weight: 600;
+    padding: 6px 8px;
+    border-bottom: 1px solid var(--border);
+    font-size: 11px;
+    text-transform: uppercase;
+  }
+
+  td {
+    padding: 8px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text);
+  }
+
+  tr:last-child td { border-bottom: none; }
+  tr.row-fail td { background: #1a0a0a; }
+
+  .empty { color: var(--text2); font-style: italic; font-size: 12px; padding: 8px 0; }
+
+  .error-box {
+    background: #3a1a1a;
+    border: 1px solid var(--red);
+    border-radius: 6px;
+    padding: 10px;
+    color: var(--red);
+    font-size: 12px;
+  }
+
+  .section-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 16px;
+    margin-top: 8px;
+    border-left: 3px solid var(--blue);
+    padding-left: 12px;
+  }
+
+  .failure-item {
+    margin-top: 6px;
+    padding: 6px 10px;
+    background: var(--bg3);
+    border-left: 3px solid var(--red);
+    border-radius: 4px;
+    font-size: 11px;
+    font-family: monospace;
+    color: var(--red);
+    word-break: break-all;
+  }
+
+  .module-bar-wrap {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .module-bar-wrap .bar {
+    flex: 1;
+    background: var(--bg3);
+    border-radius: 4px;
+    height: 6px;
+    overflow: hidden;
+  }
+
+  .module-bar-wrap .bar-fill {
+    height: 100%;
+    border-radius: 4px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <div class="logo">ALFRED</div>
+    <div class="subtitle">Dashboard Tests — Suite security_tests</div>
+  </div>
+  <div class="generated" id="generated-at">Chargement...</div>
+</header>
+
+<div class="main">
+
+  <!-- Score Banner -->
+  <div class="score-banner">
+    <div class="score-circle" id="grade-circle">
+      <span class="score-val" id="grade-val">—</span>
+      <span class="score-lbl">grade</span>
+    </div>
+    <div class="score-info">
+      <h2 id="score-label">Résultats globaux</h2>
+      <p id="score-desc">Chargement des données...</p>
+      <div class="progress-bar" style="width:300px;margin-top:12px;">
+        <div class="progress-fill" id="global-bar" style="width:0%;background:var(--green);"></div>
+      </div>
+    </div>
+    <div class="score-stats">
+      <div class="score-stat">
+        <div class="score-val" id="stat-passed" style="color:var(--green);">—</div>
+        <div class="stat-lbl">Passed</div>
+      </div>
+      <div class="score-stat">
+        <div class="score-val" id="stat-failed" style="color:var(--red);">—</div>
+        <div class="stat-lbl">Failed</div>
+      </div>
+      <div class="score-stat">
+        <div class="score-val" id="stat-total" style="color:var(--blue);">—</div>
+        <div class="stat-lbl">Total</div>
+      </div>
+      <div class="score-stat">
+        <div class="score-val" id="stat-duration" style="color:var(--text2);">—</div>
+        <div class="stat-lbl">Durée (s)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Résumé stats -->
+  <div class="section-title">Vue d'ensemble</div>
+  <div class="grid">
+
+    <div class="card">
+      <h3><span class="icon">📊</span>Statistiques</h3>
+      <div id="stats-content"><div class="empty">Chargement...</div></div>
+    </div>
+
+    <div class="card">
+      <h3><span class="icon">✅</span>Modules réussis</h3>
+      <div id="ok-modules-content"><div class="empty">Chargement...</div></div>
+    </div>
+
+    <div class="card">
+      <h3><span class="icon">❌</span>Modules en échec</h3>
+      <div id="fail-modules-content"><div class="empty">Chargement...</div></div>
+    </div>
+
+  </div>
+
+  <!-- Table complète des modules -->
+  <div class="section-title">Détail par module</div>
+  <div class="card" style="margin-bottom:24px;">
+    <div id="modules-table"><div class="empty">Chargement...</div></div>
+  </div>
+
+  <!-- Échecs détaillés -->
+  <div id="failures-section" style="display:none;">
+    <div class="section-title">Échecs détaillés</div>
+    <div class="card" id="failures-content"></div>
+  </div>
+
+</div>
+
+<script>
+function badge(text, cls) {
+  return `<span class="badge badge-${cls}">${text}</span>`;
+}
+
+function gradeColor(g) {
+  if (g === 'A+' || g === 'A') return 'var(--green)';
+  if (g === 'B')               return 'var(--teal)';
+  if (g === 'C')               return 'var(--yellow)';
+  return 'var(--red)';
+}
+
+function rateColor(r) {
+  if (r >= 95) return 'var(--green)';
+  if (r >= 75) return 'var(--yellow)';
+  return 'var(--red)';
+}
+
+function statRow(label, value) {
+  return `<div class="stat-row"><span class="label">${label}</span><span class="value">${value}</span></div>`;
+}
+
+function renderStats(data) {
+  let html = '';
+  html += statRow('Tests passés',   badge(data.total_passed,  'green'));
+  html += statRow('Tests échoués',  badge(data.total_failed,  data.total_failed  > 0 ? 'red' : 'grey'));
+  html += statRow('Tests en erreur',badge(data.total_error,   data.total_error   > 0 ? 'red' : 'grey'));
+  html += statRow('Tests skippés',  badge(data.total_skipped, data.total_skipped > 0 ? 'yellow' : 'grey'));
+  html += statRow('Total tests',    badge(data.total_tests,   'blue'));
+  html += statRow('Taux de succès', badge(data.global_rate.toFixed(1) + '%', data.global_rate >= 95 ? 'green' : data.global_rate >= 75 ? 'yellow' : 'red'));
+  html += statRow('Durée totale',   `${data.total_duration_s.toFixed(2)}s`);
+  html += statRow('Modules testés', data.modules.length);
+  return html;
+}
+
+function renderOkModules(modules) {
+  const ok = modules.filter(m => m.ok);
+  if (ok.length === 0) return `<div class="empty">Aucun module entièrement réussi</div>`;
+  let html = '';
+  ok.forEach(m => {
+    html += `<div class="stat-row">
+      <span class="label" style="font-family:monospace;font-size:12px;">${m.name.replace('test_','')}</span>
+      <span class="value">${badge(m.passed + '/' + m.total, 'green')}</span>
+    </div>`;
+  });
+  return html;
+}
+
+function renderFailModules(modules) {
+  const fail = modules.filter(m => !m.ok);
+  if (fail.length === 0) return `<div class="empty" style="color:var(--green);">✓ Tous les modules sont OK</div>`;
+  let html = '';
+  fail.forEach(m => {
+    html += `<div class="stat-row">
+      <span class="label" style="font-family:monospace;font-size:12px;">${m.name.replace('test_','')}</span>
+      <span class="value">${badge(m.failed + ' failed', 'red')} ${m.error > 0 ? badge(m.error + ' err', 'red') : ''}</span>
+    </div>`;
+  });
+  return html;
+}
+
+function renderModulesTable(modules) {
+  let html = `<table><thead><tr>
+    <th>Statut</th>
+    <th>Module</th>
+    <th style="text-align:right;">Passed</th>
+    <th style="text-align:right;">Failed</th>
+    <th style="text-align:right;">Error</th>
+    <th style="text-align:right;">Total</th>
+    <th style="min-width:120px;">Taux</th>
+    <th style="text-align:right;">Durée</th>
+  </tr></thead><tbody>`;
+
+  modules.forEach(m => {
+    const statusBadge = m.ok ? badge('OK', 'green') : badge('KO', 'red');
+    const rateCls = m.rate >= 95 ? 'green' : m.rate >= 75 ? 'yellow' : 'red';
+    const barColor = m.rate >= 95 ? 'var(--green)' : m.rate >= 75 ? 'var(--yellow)' : 'var(--red)';
+    const failedCell = m.failed > 0 ? `<span style="color:var(--red);font-weight:600;">${m.failed}</span>` : '0';
+    const errorCell  = m.error  > 0 ? `<span style="color:var(--red);font-weight:600;">${m.error}</span>`  : '0';
+
+    html += `<tr class="${m.ok ? '' : 'row-fail'}">
+      <td>${statusBadge}</td>
+      <td style="font-family:monospace;font-size:12px;">${m.name}</td>
+      <td style="text-align:right;color:var(--green);">${m.passed}</td>
+      <td style="text-align:right;">${failedCell}</td>
+      <td style="text-align:right;">${errorCell}</td>
+      <td style="text-align:right;">${m.total}</td>
+      <td>
+        <div class="module-bar-wrap">
+          <div class="bar"><div class="bar-fill" style="width:${m.rate}%;background:${barColor};"></div></div>
+          <span style="font-size:11px;color:${barColor};min-width:40px;">${m.rate.toFixed(1)}%</span>
+        </div>
+      </td>
+      <td style="text-align:right;color:var(--text2);">${m.duration_s.toFixed(2)}s</td>
+    </tr>`;
+  });
+
+  html += `</tbody></table>`;
+  return html;
+}
+
+function renderFailures(modules) {
+  const failing = modules.filter(m => m.failures && m.failures.length > 0);
+  if (failing.length === 0) return;
+
+  const section = document.getElementById('failures-section');
+  const content = document.getElementById('failures-content');
+  section.style.display = 'block';
+
+  let html = '';
+  failing.forEach(m => {
+    html += `<div style="margin-bottom:16px;">
+      <div style="font-size:13px;font-weight:600;color:var(--red);margin-bottom:6px;">${m.name}</div>`;
+    m.failures.forEach(f => {
+      html += `<div class="failure-item">${f}</div>`;
+    });
+    html += `</div>`;
+  });
+  content.innerHTML = html;
+}
+
+async function load() {
+  let data;
+  try {
+    const resp = await fetch('dashboard_test.json?t=' + Date.now());
+    if (!resp.ok) throw new Error('Fichier non trouvé. Lancez : tools\\dashboard_tools\\dashboard_tests\\dashboard_test_server.bat');
+    data = await resp.json();
+  } catch (e) {
+    document.getElementById('score-desc').textContent = e.message;
+    document.getElementById('grade-val').textContent = '?';
+    return;
+  }
+
+  // Header
+  document.getElementById('generated-at').textContent =
+    'Généré le ' + (data.generated_at ?? '').substring(0, 16) + ' UTC';
+
+  // Score banner
+  const grade = data.grade ?? '?';
+  const rate  = data.global_rate ?? 0;
+  const color = gradeColor(grade);
+
+  const gradeEl = document.getElementById('grade-val');
+  gradeEl.textContent = grade;
+  gradeEl.style.color = color;
+  document.getElementById('grade-circle').style.borderColor = color;
+  document.getElementById('score-label').textContent =
+    `Résultats globaux — ${data.total_passed}/${data.total_tests} tests réussis`;
+  document.getElementById('score-desc').textContent =
+    rate >= 95 ? 'Suite de tests entièrement verte — aucune régression détectée.'
+    : rate >= 75 ? 'Quelques échecs à corriger avant livraison.'
+    : 'Régressions critiques détectées — action requise.';
+
+  document.getElementById('global-bar').style.width = rate + '%';
+  document.getElementById('global-bar').style.background = rateColor(rate);
+
+  document.getElementById('stat-passed').textContent   = data.total_passed;
+  document.getElementById('stat-failed').textContent   = data.total_failed + (data.total_error > 0 ? `+${data.total_error}` : '');
+  document.getElementById('stat-total').textContent    = data.total_tests;
+  document.getElementById('stat-duration').textContent = data.total_duration_s.toFixed(1);
+
+  const modules = data.modules ?? [];
+
+  document.getElementById('stats-content').innerHTML       = renderStats(data);
+  document.getElementById('ok-modules-content').innerHTML  = renderOkModules(modules);
+  document.getElementById('fail-modules-content').innerHTML = renderFailModules(modules);
+  document.getElementById('modules-table').innerHTML       = renderModulesTable(modules);
+  renderFailures(modules);
+}
+
+load();
+setInterval(load, 30000);
+</script>
+</body>
+</html>

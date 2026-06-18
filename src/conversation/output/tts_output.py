@@ -1,16 +1,16 @@
-﻿# ============================================================
+# ============================================================
 # ALFRED — src/conversation/output/tts_output.py
-# Bloc 01.03 — Voix & TTS + Restitution
+# Bloc 04.02 — Synthèse vocale (TTS)
 #
-# Fonctions couvertes :
-#   01.03.001 Synthèse vocale (Piper/Coqui) 🔲 V3
-#   01.03.002 Ajustement débit & intonation 🔲 V3
-#   01.03.003 Adaptation voix / émotion     🔲 V3
-#   01.03.004 Sortie audio multi-device      🔲 V3
-#   01.03.005 Sync TTS / avatar (lipSync)   🔲 V3+
-#   01.05.001 Affichage texte terminal      ✅ V1
+# 📚 NOTION EXAM :
+#   D13-2 — Capsule 4 : Interface de sortie vocale et affichage terminal
 #
-# STATUT V1 : TTS = STUB / Affichage terminal = ACTIF
+# 🎯 UTILITÉ ALFRED :
+#   Façade de sortie V1 — affichage terminal et stub TTS
+#   en attente du moteur Piper V3 (tts_piper.py).
+#
+# 🏗️ DOMAINE :
+#   Interaction vocale — sortie audio et texte terminal V1
 # ============================================================
 
 import sys

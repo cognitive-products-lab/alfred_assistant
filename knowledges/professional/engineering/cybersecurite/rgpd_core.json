@@ -1,29 +1,114 @@
 {
-  "schema_version": "1.0",
-  "type": "knowledge_unit",
-  "id": "knowledges.professional.engineering.cybersecurity.rgpd_core",
-  "title": "RGPD Core",
-  "domain": "professional",
-  "status": "validated_v1",
-
-  "summary": "Fiche permettant à ALFRED d’intégrer les principes du RGPD dans son fonctionnement.",
-
-  "core_definition": "Le RGPD est une réglementation européenne encadrant la collecte, le traitement et la protection des données personnelles.",
-
-  "core_principles": [
-    "minimisation des données",
-    "consentement",
-    "transparence",
-    "sécurité",
-    "droit d’accès et suppression"
-  ],
-
-  "alfred_rules": [
-    "ne pas collecter inutilement",
-    "ne pas stocker sans raison",
-    "respecter la vie privée",
-    "expliquer l’usage des données"
-  ],
-
-  "tags": [ "rgpd", "privacy", "data_protection", "compliance" ]
+  "_meta": { "project": "ALFRED", "block": "B18", "file": "rgpd_core.json", "version": "V2.0", "status": "VALIDATED", "updated": "2026-06-03", "validated_by": "Cognitive Products Lab" },
+  "knowledge_id": "professional.engineering.cybersecurite.rgpd_core",
+  "id": "professional.engineering.cybersecurite.rgpd_core",
+  "title": "RGPD — Protection des Données Personnelles & Conformité",
+  "version": "2.0.0", "status": "active", "domain": "professional", "subdomain": "engineering", "category": "cybersecurite",
+  "summary": "Le RGPD encadre la collecte et le traitement des données personnelles en Europe. Principes fondamentaux, droits des personnes, obligations des organisations et application au projet ALFRED.",
+  "purpose": "Permettre à ALFRED de conseiller sur la conformité RGPD, d'expliquer les droits des personnes, les obligations des responsables de traitement et les règles applicables à un assistant IA local-first.",
+  "tags": ["rgpd", "gdpr", "données personnelles", "privacy", "conformité", "cnil", "consentement", "dpo", "droit à l'oubli", "minimisation", "privacy by design", "responsable traitement"],
+  "intents": ["explain_rgpd", "ensure_rgpd_compliance", "handle_data_subject_request", "implement_privacy_by_design", "notify_data_breach"],
+  "usage_context": ["Audit de conformité RGPD", "Conception d'un produit traitant des données personnelles", "Réponse à une demande d'exercice de droits", "Notification d'une violation de données"],
+  "priority": "high", "safety_level": "sensitive",
+  "content": {
+    "definition": "Le RGPD (Règlement Général sur la Protection des Données, UE 2016/679) est la réglementation européenne qui encadre la collecte, le traitement et la protection des données personnelles de toute personne dans l'UE, quelle que soit la localisation du responsable de traitement.",
+    "core_principles": [
+      "Licéité, loyauté, transparence : traitement légal, honnête et compréhensible",
+      "Limitation des finalités : données collectées pour des finalités déterminées et légitimes",
+      "Minimisation : ne collecter que les données strictement nécessaires",
+      "Exactitude : données exactes et mises à jour",
+      "Limitation de la conservation : pas plus longtemps que nécessaire",
+      "Intégrité et confidentialité : protection technique et organisationnelle appropriée",
+      "Responsabilité (Accountability) : le responsable de traitement doit démontrer sa conformité"
+    ],
+    "personal_data": {
+      "definition": "Toute information permettant d'identifier directement ou indirectement une personne physique.",
+      "examples_direct": ["Nom, prénom", "Email", "Numéro de téléphone", "Photo", "Numéro de sécurité sociale"],
+      "examples_indirect": ["Adresse IP", "Cookie ID", "Données de localisation", "Données comportementales combinées"],
+      "sensitive_data": ["Origine raciale/ethnique", "Opinions politiques", "Religion", "Données biométriques", "Données de santé", "Orientation sexuelle — traitement interdit sauf exceptions"]
+    },
+    "legal_bases": [
+      {"base": "Consentement", "condition": "Libre, spécifique, éclairé et univoque — retirable à tout moment"},
+      {"base": "Contrat", "condition": "Traitement nécessaire à l'exécution d'un contrat avec la personne"},
+      {"base": "Obligation légale", "condition": "Traitement requis par une loi ou réglementation"},
+      {"base": "Intérêts vitaux", "condition": "Protection de la vie d'une personne"},
+      {"base": "Mission d'intérêt public", "condition": "Autorité publique dans l'exercice de ses missions"},
+      {"base": "Intérêts légitimes", "condition": "Intérêt légitime du responsable sans préjudice pour la personne — balance test obligatoire"}
+    ],
+    "individual_rights": [
+      {"right": "Droit d'accès (Art. 15)", "description": "Obtenir une copie de toutes les données traitées"},
+      {"right": "Droit de rectification (Art. 16)", "description": "Corriger des données inexactes"},
+      {"right": "Droit à l'effacement / oubli (Art. 17)", "description": "Demander la suppression des données"},
+      {"right": "Droit à la limitation (Art. 18)", "description": "Suspendre le traitement sans supprimer les données"},
+      {"right": "Portabilité (Art. 20)", "description": "Récupérer ses données dans un format structuré"},
+      {"right": "Opposition (Art. 21)", "description": "S'opposer au traitement basé sur intérêt légitime"},
+      {"right": "Décision automatisée (Art. 22)", "description": "Ne pas faire l'objet de décisions entièrement automatisées produisant des effets juridiques"}
+    ],
+    "obligations": {
+      "documentation": [
+        "Registre des traitements (art. 30) — obligatoire si > 250 employés ou traitements à risque",
+        "Analyse d'Impact (AIPD/DPIA) si traitement à risque élevé",
+        "Mention d'information aux personnes concernées"
+      ],
+      "technical_measures": [
+        "Pseudonymisation et chiffrement des données",
+        "Moyens permettant de garantir la confidentialité, intégrité, disponibilité",
+        "Tests et évaluations régulières des mesures",
+        "Privacy by Design : protection intégrée dès la conception"
+      ],
+      "breach_notification": {
+        "to_cnil": "72 heures après la découverte d'une violation de données (art. 33)",
+        "to_persons": "Sans délai si la violation est susceptible d'engendrer un risque élevé (art. 34)",
+        "content": ["Nature de la violation", "Données concernées", "Mesures prises", "Contact DPO"]
+      },
+      "dpo": "DPO (Délégué à la Protection des Données) obligatoire pour les autorités publiques, traitements à grande échelle de données sensibles"
+    },
+    "application_alfred": {
+      "data_processed": [
+        "Historique de conversation : base de la personnalisation — stocké localement, chiffré Fernet",
+        "Profil utilisateur : préférences, modes — local uniquement, pas de cloud",
+        "Données biométriques potentielles : voix (STT) — traitée localement avec Whisper, non transmise",
+        "Données de vision : webcam — traitée localement, jamais enregistrée par défaut"
+      ],
+      "legal_basis": "Consentement de l'utilisateur + intérêt légitime pour l'amélioration du service",
+      "privacy_by_design_measures": [
+        "Local-first : aucune donnée transmise sans action explicite de l'utilisateur",
+        "Minimisation : seul l'historique nécessaire à la session est conservé",
+        "Droit à l'effacement : commande 'reset' supprime la mémoire de session immédiatement",
+        "Chiffrement natif : toutes les données sensibles chiffrées au repos (Fernet)",
+        "Pas de tracking : aucune analyse comportementale ni publicité"
+      ],
+      "user_rights_implementation": [
+        "Accès : commande 'memoire' affiche toutes les données de session",
+        "Effacement : commande 'reset' supprime la mémoire JSON",
+        "Portabilité : export JSON disponible via commande 'memoire' → copier/coller"
+      ]
+    },
+    "best_practices": [
+      "Documenter tous les traitements dans un registre avant de commencer à collecter",
+      "Mettre en place la Privacy by Design dès la phase de conception",
+      "Former les équipes au RGPD — les erreurs humaines sont la première cause de violation",
+      "Tester régulièrement les procédures d'exercice des droits",
+      "Avoir un plan de réponse aux violations prêt avant qu'elles surviennent"
+    ],
+    "anti_patterns": [
+      "Collecter des données 'au cas où elles serviraient un jour'",
+      "Consentement pré-coché ou case à décocher pour refuser",
+      "Négliger la notification à la CNIL sous 72h (amende possible)",
+      "Stocker des données plus longtemps que la durée déclarée",
+      "Traiter des données sensibles sans base légale adaptée"
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["rgpd", "gdpr", "données personnelles", "consentement", "droit à l'oubli", "cnil", "privacy by design", "violation données", "notification 72h"],
+    "related_knowledge": ["professional.engineering.cybersecurite.cybersecurity_core", "professional.engineering.cybersecurite.secure_ai_pipeline"],
+    "retrieval_priority": 9
+  },
+  "behavior_rules": {"tone": "professional", "response_style": "structured_clear", "max_complexity": "medium", "allow_humor": false},
+  "safety_notes": {
+    "allowed_usage": ["Conseiller sur la conformité RGPD", "Expliquer les droits des personnes", "Guider la mise en place Privacy by Design"],
+    "restricted_usage": ["Ne pas fournir de conseil juridique engageant sans recommander un DPO/avocat spécialisé"],
+    "fallback_behavior": "Pour les situations complexes (contentieux, violations à grande échelle), recommander un DPO ou avocat spécialisé en protection des données."
+  },
+  "metadata": {"author": "Cognitive Products Lab", "creation_date": "03/06/2026", "last_update": "03/06/2026", "review_status": "validated", "source_type": "manual_structured_knowledge", "language": "fr", "retrieval_ready": true, "rag_compatible": true}
 }
