@@ -1,6 +1,6 @@
-# ALFRED — Fichier de contexte collaborateur
+﻿# ALFRED — Fichier de contexte collaborateur
 # À coller en début de chaque nouvelle conversation avec Claude
-# Dernière mise à jour : 15 Juin 2026 — Session 6
+# Dernière mise à jour : 18 Juin 2026 — Session 7
 # ============================================================
 
 ## 🎯 QUI JE SUIS
