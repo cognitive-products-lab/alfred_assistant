@@ -1,0 +1,386 @@
+<!--
+PROJECT  : ALFRED / Cognitive Products Lab
+FILE     : dashboard/dashboard_gouvernance/norm.html
+ROLE     : Dashboard détail par norme — lit ?id=NORMID depuis l'URL
+VERSION  : V2.0
+USAGE    : norm.html?id=RGPD | norm.html?id=ISO27001 | norm.html?id=AIACT | …
+-->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ALFRED CPL — Détail norme</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Syne:wght@700;800&display=swap');
+    :root {
+      --bg: #07090f; --surf: #0e1118; --surf2: #13161f; --bdr: #1c2030;
+      --acc: #00d4ff; --ok: #00e096; --par: #ffaa00; --todo: #ff4d6d;
+      --plan: #647086; --purple: #a78bfa; --txt: #b8c4d8; --dim: #647086; --wh: #f0f4ff;
+      --f: 'JetBrains Mono', monospace; --fh: 'Syne', sans-serif;
+      --norm-color: var(--acc);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: radial-gradient(circle at 15% 10%, rgba(0,212,255,.06), transparent 30%),
+                  radial-gradient(circle at 85% 5%, rgba(167,139,250,.06), transparent 30%), var(--bg);
+      color: var(--txt); font-family: var(--f); font-size: 12.5px; min-height: 100vh;
+    }
+
+    /* Topbar */
+    .topbar {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(7,9,15,.97); backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--bdr);
+      padding: 10px 24px;
+      display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+    }
+    .back-btn {
+      background: none; border: 1px solid var(--bdr); color: var(--dim);
+      font-family: var(--f); font-size: .6rem; padding: 4px 10px; border-radius: 6px;
+      cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 5px;
+      transition: all .15s; white-space: nowrap;
+    }
+    .back-btn:hover { border-color: var(--norm-color); color: var(--norm-color); }
+    .topbar-center { flex: 1; }
+    .logo { font-family: var(--fh); font-size: .95rem; font-weight: 800; color: var(--wh); }
+    .logo span { color: var(--norm-color); }
+    .meta { font-size: .56rem; color: var(--dim); letter-spacing: .1em; text-transform: uppercase; margin-top: 1px; }
+    .topbar-right { display: flex; align-items: center; gap: 10px; }
+    .badge { font-size: .6rem; font-weight: 700; padding: 4px 10px; border-radius: 6px; letter-spacing: .05em; text-transform: uppercase; }
+    .badge-d,.badge-c { background: rgba(255,77,109,.12); color: var(--todo); border: 1px solid rgba(255,77,109,.25); }
+    .badge-b { background: rgba(255,170,0,.12); color: var(--par); border: 1px solid rgba(255,170,0,.25); }
+    .badge-a { background: rgba(0,224,150,.12); color: var(--ok); border: 1px solid rgba(0,224,150,.25); }
+    .refresh-btn {
+      background: none; border: 1px solid var(--bdr); color: var(--dim);
+      font-family: var(--f); font-size: .6rem; padding: 4px 10px; border-radius: 6px;
+      cursor: pointer; transition: all .15s;
+    }
+    .refresh-btn:hover { border-color: var(--norm-color); color: var(--norm-color); }
+
+    /* Error */
+    .error-banner {
+      display: none; background: rgba(255,77,109,.1); border: 1px solid rgba(255,77,109,.3);
+      color: var(--todo); font-size: .65rem; padding: 8px 16px; margin: 12px 24px; border-radius: 6px;
+    }
+
+    /* Norm header */
+    .norm-header {
+      background: var(--surf); border-bottom: 3px solid var(--norm-color);
+      padding: 20px 28px; display: flex; align-items: center; gap: 24px; flex-wrap: wrap;
+    }
+    .norm-id-big {
+      font-family: var(--fh); font-size: 1.6rem; font-weight: 800;
+      color: var(--norm-color); min-width: 100px;
+    }
+    .norm-info { flex: 1; }
+    .norm-label-big { font-size: .85rem; font-weight: 700; color: var(--wh); margin-bottom: 2px; }
+    .norm-subtitle-big { font-size: .62rem; color: var(--dim); }
+    .norm-score-block { text-align: right; min-width: 120px; }
+    .norm-score-big { font-size: 1.8rem; font-weight: 700; line-height: 1; }
+    .norm-score-bar-wrap { margin-top: 6px; }
+    .norm-score-bar-track { height: 4px; background: var(--surf2); border-radius: 2px; overflow: hidden; }
+    .norm-score-bar-fill { height: 100%; border-radius: 2px; background: var(--norm-color); transition: width .5s ease; }
+    .norm-counts-header { display: flex; gap: 8px; margin-top: 8px; justify-content: flex-end; }
+    .nc { font-size: .55rem; padding: 2px 6px; border-radius: 3px; font-weight: 600; }
+    .nc-ok { background: rgba(0,224,150,.12); color: var(--ok); }
+    .nc-par { background: rgba(255,170,0,.12); color: var(--par); }
+    .nc-todo { background: rgba(255,77,109,.12); color: var(--todo); }
+
+    /* Section */
+    .section { padding: 24px 28px; }
+    .section-title {
+      font-size: .58rem; color: var(--dim); letter-spacing: .1em; text-transform: uppercase;
+      margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid var(--bdr);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .section-count { font-weight: 700; color: var(--wh); }
+
+    /* Requirements table */
+    .req-table { width: 100%; border-collapse: collapse; }
+    .req-table th {
+      font-size: .58rem; color: var(--dim); letter-spacing: .08em; text-transform: uppercase;
+      padding: 6px 12px; text-align: left; border-bottom: 1px solid var(--bdr);
+      background: var(--surf); position: sticky; top: 45px; z-index: 10;
+    }
+    .req-table td { padding: 9px 12px; border-bottom: 1px solid var(--bdr); vertical-align: top; }
+    .req-table tr:hover td { background: var(--surf); }
+    .req-id { font-size: .6rem; color: var(--norm-color); font-weight: 600; margin-bottom: 3px; display: block; }
+    .req-label { font-size: .67rem; color: var(--wh); line-height: 1.4; }
+    .req-note { font-size: .6rem; color: var(--dim); margin-top: 3px; font-style: italic; }
+    .req-flag { font-size: .58rem; color: var(--par); margin-top: 3px; }
+    .domain-badge { font-size: .55rem; padding: 2px 6px; border-radius: 3px; background: var(--surf2); color: var(--dim); white-space: nowrap; }
+    .status-pill { font-size: .58rem; padding: 2px 8px; border-radius: 4px; font-weight: 600; white-space: nowrap; }
+    .status-done { background: rgba(0,224,150,.1); color: var(--ok); border: 1px solid rgba(0,224,150,.2); }
+    .status-partial { background: rgba(255,170,0,.1); color: var(--par); border: 1px solid rgba(255,170,0,.2); }
+    .status-todo { background: rgba(255,77,109,.1); color: var(--todo); border: 1px solid rgba(255,77,109,.2); }
+    .proof-ok { color: var(--ok); font-size: .65rem; }
+    .proof-missing { color: var(--par); font-size: .65rem; }
+    .proof-na { color: var(--dim); font-size: .65rem; }
+
+    /* Plan d'action */
+    .plan-section { padding: 0 28px 24px; }
+    .plan-group { margin-bottom: 20px; }
+    .plan-group-title {
+      font-size: .6rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+      padding: 6px 10px; border-radius: 4px; margin-bottom: 10px; display: inline-block;
+    }
+    .plan-haute { background: rgba(255,77,109,.1); color: var(--todo); border: 1px solid rgba(255,77,109,.2); }
+    .plan-moyenne { background: rgba(255,170,0,.1); color: var(--par); border: 1px solid rgba(255,170,0,.2); }
+    .plan-item {
+      background: var(--surf); border: 1px solid var(--bdr); border-radius: 7px;
+      padding: 10px 14px; margin-bottom: 8px;
+    }
+    .plan-item-header { display: flex; align-items: flex-start; gap: 10px; }
+    .plan-item-id { font-size: .58rem; color: var(--norm-color); font-weight: 700; white-space: nowrap; margin-top: 2px; }
+    .plan-item-label { font-size: .67rem; color: var(--wh); line-height: 1.4; flex: 1; }
+    .plan-item-status { flex-shrink: 0; }
+    .plan-item-note { font-size: .6rem; color: var(--dim); margin-top: 5px; padding-left: 50px; font-style: italic; }
+    .plan-item-flag { font-size: .58rem; color: var(--par); margin-top: 3px; padding-left: 50px; }
+    .plan-empty { font-size: .65rem; color: var(--ok); padding: 12px; background: rgba(0,224,150,.06); border: 1px solid rgba(0,224,150,.15); border-radius: 6px; }
+
+    /* Nav norms */
+    .norm-nav { display: flex; gap: 8px; flex-wrap: wrap; padding: 0 28px 24px; }
+    .norm-nav-btn {
+      font-size: .58rem; padding: 4px 10px; border-radius: 5px; border: 1px solid var(--bdr);
+      background: none; color: var(--dim); cursor: pointer; text-decoration: none; transition: all .15s;
+    }
+    .norm-nav-btn:hover,.norm-nav-btn.current { border-color: var(--norm-color); color: var(--norm-color); background: rgba(0,0,0,.2); }
+
+    /* Footer */
+    .footer { padding: 12px 28px; border-top: 1px solid var(--bdr); font-size: .58rem; color: var(--dim); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+  </style>
+</head>
+<body>
+
+<div class="topbar">
+  <a class="back-btn" href="index.html">← Vue synthèse</a>
+  <div class="topbar-center">
+    <div class="logo">ALFRED <span id="norm-id-logo">CPL</span></div>
+    <div class="meta" id="meta-sub">Détail conformité — chargement…</div>
+  </div>
+  <div class="topbar-right">
+    <span class="badge badge-c" id="norm-grade-badge">—%</span>
+    <button class="refresh-btn" onclick="load()">↺ Rafraîchir</button>
+  </div>
+</div>
+
+<div class="error-banner" id="error-banner"></div>
+
+<div class="norm-header" id="norm-header" style="display:none">
+  <div class="norm-id-big" id="hdr-id">—</div>
+  <div class="norm-info">
+    <div class="norm-label-big" id="hdr-label">—</div>
+    <div class="norm-subtitle-big" id="hdr-subtitle">—</div>
+  </div>
+  <div class="norm-score-block">
+    <div class="norm-score-big" id="hdr-score">—</div>
+    <div class="norm-score-bar-wrap">
+      <div class="norm-score-bar-track">
+        <div class="norm-score-bar-fill" id="hdr-bar" style="width:0%"></div>
+      </div>
+    </div>
+    <div class="norm-counts-header" id="hdr-counts"></div>
+  </div>
+</div>
+
+<div class="section" id="req-section" style="display:none">
+  <div class="section-title">
+    <span>Exigences détaillées</span>
+    <span class="section-count" id="req-count">—</span>
+  </div>
+  <table class="req-table" id="req-table">
+    <thead>
+      <tr>
+        <th>Exigence</th>
+        <th>Domaine</th>
+        <th>Statut</th>
+        <th>Preuve</th>
+      </tr>
+    </thead>
+    <tbody id="req-tbody"></tbody>
+  </table>
+</div>
+
+<div class="plan-section" id="plan-section" style="display:none">
+  <div class="section-title" style="padding: 0 0 8px; border-bottom: 1px solid var(--bdr); margin-bottom:16px">
+    <span>Plan d'action</span>
+  </div>
+  <div id="plan-haute" class="plan-group"></div>
+  <div id="plan-moyenne" class="plan-group"></div>
+  <div id="plan-empty" class="plan-empty" style="display:none">✅ Toutes les exigences de cette norme sont atteintes.</div>
+</div>
+
+<div class="norm-nav" id="norm-nav"></div>
+
+<div class="footer">
+  <span id="ts-label">—</span>
+  <span>Rafraîchissement auto · 30 s</span>
+</div>
+
+<script>
+  const normId = new URLSearchParams(window.location.search).get('id') || '';
+  let _data = null;
+
+  const HIGH_DOMAINS = new Set(['Droits personnes','Données sensibles','Accountability','Incidents']);
+
+  function scoreColor(pct) {
+    if (pct >= 70) return 'var(--ok)';
+    if (pct >= 50) return 'var(--par)';
+    return 'var(--todo)';
+  }
+  function statusClass(s) {
+    return s === 'done' ? 'status-done' : s === 'partial' ? 'status-partial' : 'status-todo';
+  }
+  function statusLabel(s) {
+    return s === 'done' ? '✅ Atteint' : s === 'partial' ? '⚠️ Partiel' : '❌ À faire';
+  }
+
+  async function load() {
+    try {
+      const resp = await fetch('./dashboard_gouvernance_data.json?_=' + Date.now());
+      if (!resp.ok) throw new Error(resp.statusText);
+      _data = await resp.json();
+      document.getElementById('error-banner').style.display = 'none';
+      renderAll(_data);
+    } catch(e) {
+      const el = document.getElementById('error-banner');
+      el.style.display = 'block';
+      el.textContent = '⚠ ' + e.message;
+    }
+  }
+
+  function renderAll(data) {
+    // Norm nav (active norms)
+    const activeNorms = data.norms.filter(n => n.status === 'active');
+    document.getElementById('norm-nav').innerHTML = activeNorms.map(n =>
+      `<a class="norm-nav-btn${n.id === normId ? ' current' : ''}" href="norm.html?id=${n.id}">${n.id}</a>`
+    ).join('');
+
+    // Find current norm
+    const norm = data.norms.find(n => n.id === normId);
+    if (!norm) {
+      const el = document.getElementById('error-banner');
+      el.style.display = 'block';
+      el.textContent = `⚠ Norme "${normId}" introuvable. Vérifiez le paramètre ?id= dans l'URL.`;
+      return;
+    }
+
+    const col = norm.color || 'var(--acc)';
+    document.documentElement.style.setProperty('--norm-color', col);
+
+    // Topbar
+    document.getElementById('norm-id-logo').textContent = norm.id;
+    document.getElementById('meta-sub').textContent =
+      norm.subtitle + ' · ' + (data._meta?.generated_at?.slice(0,10) || '—');
+
+    if (norm.status !== 'active') {
+      const el = document.getElementById('error-banner');
+      el.style.display = 'block';
+      el.style.background = 'rgba(100,112,134,.1)';
+      el.style.borderColor = 'rgba(100,112,134,.3)';
+      el.style.color = 'var(--plan)';
+      el.textContent = `⏳ ${norm.label} est planifiée — horizon ${norm.planned_date || '?'}. Aucun score calculé.`;
+      return;
+    }
+
+    // Grade badge
+    const pctColor = scoreColor(norm.score_pct);
+    const grBadge = document.getElementById('norm-grade-badge');
+    const grade = norm.score_pct >= 85 ? 'A+' : norm.score_pct >= 70 ? 'A' : norm.score_pct >= 50 ? 'B' : norm.score_pct >= 30 ? 'C' : 'D';
+    grBadge.textContent = norm.score_pct + '% — Grade ' + grade;
+    grBadge.className = 'badge badge-' + grade.toLowerCase().replace('+','');
+
+    // Norm header
+    document.getElementById('norm-header').style.display = 'flex';
+    document.getElementById('norm-header').style.borderBottomColor = col;
+    document.getElementById('hdr-id').textContent = norm.id;
+    document.getElementById('hdr-id').style.color = col;
+    document.getElementById('hdr-label').textContent = norm.label;
+    document.getElementById('hdr-subtitle').textContent = norm.subtitle || '';
+    document.getElementById('hdr-score').textContent = norm.score_pct + '%';
+    document.getElementById('hdr-score').style.color = pctColor;
+    document.getElementById('hdr-bar').style.width = norm.score_pct + '%';
+    document.getElementById('hdr-bar').style.background = pctColor;
+
+    const parHtml = norm.requirements_partial > 0
+      ? `<span class="nc nc-par">${norm.requirements_partial} partial</span>` : '';
+    document.getElementById('hdr-counts').innerHTML =
+      `<span class="nc nc-ok">${norm.requirements_done} OK</span>
+       ${parHtml}
+       <span class="nc nc-todo">${norm.requirements_todo} todo</span>`;
+
+    // Requirements table
+    const reqs = norm.requirements || [];
+    document.getElementById('req-section').style.display = 'block';
+    document.getElementById('req-count').textContent = reqs.length + ' exigences';
+    document.getElementById('req-tbody').innerHTML = reqs.map(req => {
+      const sc = statusClass(req.status);
+      const sl = statusLabel(req.status);
+      const noteHtml = req.note ? `<div class="req-note">${req.note}</div>` : '';
+      const flagHtml = req.flag === 'proof_missing' ? `<div class="req-flag">⚠ fichier de preuve introuvable</div>` : '';
+      const proofHtml = req.proof_present
+        ? '<span class="proof-ok">✓ présente</span>'
+        : (req.declared_status !== 'todo' && req.flag === 'proof_missing'
+            ? '<span class="proof-missing">⚠ manquante</span>'
+            : '<span class="proof-na">—</span>');
+      return `<tr>
+        <td>
+          <span class="req-id">${req.id}</span>
+          <span class="req-label">${req.label}</span>
+          ${noteHtml}${flagHtml}
+        </td>
+        <td><span class="domain-badge">${req.domain || ''}</span></td>
+        <td><span class="status-pill ${sc}">${sl}</span></td>
+        <td>${proofHtml}</td>
+      </tr>`;
+    }).join('');
+
+    // Plan d'action
+    document.getElementById('plan-section').style.display = 'block';
+    const todo = reqs.filter(r => r.status !== 'done');
+    const haute = todo.filter(r => HIGH_DOMAINS.has(r.domain));
+    const moyenne = todo.filter(r => !HIGH_DOMAINS.has(r.domain));
+
+    function fmtPlanItem(r) {
+      const noteHtml = r.note ? `<div class="plan-item-note">${r.note}</div>` : '';
+      const flagHtml = r.flag === 'proof_missing' ? `<div class="plan-item-flag">⚠ fichier de preuve introuvable</div>` : '';
+      return `<div class="plan-item">
+        <div class="plan-item-header">
+          <span class="plan-item-id">${r.id}</span>
+          <span class="plan-item-label">${r.label}</span>
+          <span class="plan-item-status"><span class="status-pill ${statusClass(r.status)}">${statusLabel(r.status)}</span></span>
+        </div>
+        ${noteHtml}${flagHtml}
+      </div>`;
+    }
+
+    const hauteEl = document.getElementById('plan-haute');
+    const moyenneEl = document.getElementById('plan-moyenne');
+
+    if (haute.length > 0) {
+      hauteEl.innerHTML = `<div class="plan-group-title plan-haute">🔴 Priorité HAUTE — ${haute.length} item${haute.length > 1 ? 's' : ''}</div>` +
+        haute.map(fmtPlanItem).join('');
+    } else { hauteEl.innerHTML = ''; }
+
+    if (moyenne.length > 0) {
+      moyenneEl.innerHTML = `<div class="plan-group-title plan-moyenne">🟡 Priorité MOYENNE — ${moyenne.length} item${moyenne.length > 1 ? 's' : ''}</div>` +
+        moyenne.map(fmtPlanItem).join('');
+    } else { moyenneEl.innerHTML = ''; }
+
+    if (haute.length === 0 && moyenne.length === 0) {
+      document.getElementById('plan-empty').style.display = 'block';
+    } else {
+      document.getElementById('plan-empty').style.display = 'none';
+    }
+
+    // Timestamp
+    const ts = data._meta?.generated_at ? new Date(data._meta.generated_at).toLocaleString('fr-FR') : '—';
+    document.getElementById('ts-label').textContent = 'Généré le ' + ts;
+  }
+
+  load();
+  setInterval(load, 30000);
+</script>
+</body>
+</html>
