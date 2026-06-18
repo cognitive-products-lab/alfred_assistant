@@ -1,3 +1,17 @@
+﻿<!--
+============================================================
+PROJECT  : ALFRED / Cognitive Products Lab
+BLOCK    : B20 — Sécurité, Gouvernance & Conformité
+DOCUMENT : Procédure Notification Violation 72h (CNIL)
+TYPE     : Documentation SMSI
+REF      : RGPD Art. 33-34
+VERSION  : V1.0
+CREATED  : 2026-06-18
+UPDATED  : 2026-06-18
+AUTHOR   : Céline Darras — Cognitive Products Lab
+STATUS   : Approuvé
+============================================================
+-->
 # Procédure de Notification de Violation de Données — 72h CNIL
 
 > **Référence :** RGPD Art. 33-34 — Notification violations données personnelles  
