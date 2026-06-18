@@ -88,13 +88,16 @@ class ResponseGenerator:
 
         real_user_message = user_message.lower().strip()
 
-        # On isole uniquement la vraie question utilisateur
-        # pour éviter que le contexte injecté déclenche
-        # les heuristiques système.
-        if "question utilisateur :" in real_user_message:
-            real_user_message = real_user_message.split(
-             "question utilisateur :", 1
-         )[1].strip()
+        # Isoler uniquement la vraie question utilisateur
+        # (le message enrichi contient du contexte projet/mémoire avant la question)
+        for separator in [
+            "=== question utilisateur ===",
+            "question utilisateur :",
+            "=== message ===",
+        ]:
+            if separator in real_user_message:
+                real_user_message = real_user_message.split(separator, 1)[1].strip()
+                break
 
         audio_keywords = [
             "haut-parleur",
