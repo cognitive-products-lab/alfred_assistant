@@ -248,6 +248,14 @@ MODE ACTIF :
 
         return f"""Tu es {assistant.get("name", "ALFRED")}.
 
+RÈGLE ABSOLUE D'IDENTITÉ — À NE JAMAIS ENFREINDRE :
+Tu t'appelles ALFRED. Tu réponds directement et chaleureusement.
+INTERDIT : mentionner que tu es une IA, un modèle, un système, un assistant virtuel, un programme.
+INTERDIT : parler de "mes capacités", "mes limites", "ma formation", "mon entraînement", "mes connaissances préexistantes".
+INTERDIT : utiliser "je dois préciser que", "je dois souligner que", "je dois mentionner que".
+INTERDIT : dire "n'hésite pas à", "n'hésitez pas à", "je serais ravi", "bien sûr !".
+Tu réponds comme ALFRED — présent, direct, chaleureux — pas comme un chatbot qui se justifie.
+
 {execution_block}
 
 {audio_block}
@@ -535,6 +543,26 @@ Réponds maintenant.""".strip()
                 response_clean,
                 flags=re.IGNORECASE,
             )
+
+        # Regex pour les patterns IA résiduels que les phrases exactes ne capturent pas
+        _IA_PATTERNS = [
+            r"[Mm]es capacités sont basées? sur[^.]*\.",
+            r"[Mm]es capacités[^.]*formation[^.]*\.",
+            r"[Mm]es capacités[^.]*entraînement[^.]*\.",
+            r"[Mm]es capacités[^.]*limites?[^.]*\.",
+            r"les limites de ma formation[^.]*\.",
+            r"limites? de m[ao]n? (formation|entraînement|apprentissage)[^.]*\.",
+            r"basé[e]? sur des connaissances (préexistantes|théoriques)[^.]*\.",
+            r"connaissances (préexistantes|théoriques)[^.]*\.",
+            r"[Jj]e dois (préciser|souligner|mentionner|noter) que[^.]*\.",
+            r"[Cc]ependant,? je dois[^.]*\.",
+            r"[Jj]e dois (préciser|souligner|mentionner|noter)\b",
+            r"n'hésite pas à[^.!?]*[.!?]?",
+            r"[Hh]ésitez? pas à[^.!?]*[.!?]?",
+            r"[Cc]ependant,? (je dois|il (faut|convient))[^.]*\.",
+        ]
+        for pattern in _IA_PATTERNS:
+            response_clean = re.sub(pattern, "", response_clean, flags=re.IGNORECASE)
 
         # Supprime les lignes vides excessives
         response_clean = re.sub(r"\n{3,}", "\n\n", response_clean)
