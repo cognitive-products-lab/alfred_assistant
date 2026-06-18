@@ -1,9 +1,9 @@
-# Chantier — Système d'audit complet par norme
+﻿# Chantier — Système d'audit complet par norme
 ## Vers les certifications officielles CPL
 
-> Planifié — 2026-06-16  
-> Priorité : après livraison du système de profilage (PR #10)  
-> Objectif : outil d'auto-audit précis par norme → facilite l'obtention des certifications
+> ✅ Phase 1 accomplie — 2026-06-18 (Sprint conformité 42% → 97% A+)
+> Dashboard automatique opérationnel · 24 preuves SMSI · Audit horodaté à chaque commit
+> Prochaine phase : docs/audits/ GAP analysis + pré-audit ISO 27001 externe (2027 Q1)
 
 ---
 
@@ -168,7 +168,10 @@ Ce système permettra de :
 ## Roadmap de certification
 
 ```
-2026 Q3 — Audit interne RGPD complet (checklist + GAP analysis)
+✅ 2026 Q2 — Dashboard conformité (7 normes · 97% A+) + SMSI 24 preuves
+✅ 2026 Q2 — RGPD 95.5% · ISO27001 98.4% · AI Act 91.7% · NIS2 100%
+🔵 2026 Q3 — DPA OpenAI formalisée + VLAN isolation PC Alfred
+🟡 2026 Q3 — Audit interne RGPD complet (checklist + GAP analysis) (checklist + GAP analysis)
 2026 Q3 — AIPD pour T001 (profil psychologique) et T004 (enfant ARTHUR)
 2026 Q4 — Audit interne ISO 27001 (93 contrôles, SoA)
 2026 Q4 — PSSI formelle rédigée et approuvée
