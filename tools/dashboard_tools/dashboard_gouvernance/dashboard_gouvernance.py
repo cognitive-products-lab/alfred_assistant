@@ -262,13 +262,13 @@ def collect_profile_governance() -> dict:
     profile_exists = user_profile.exists()
     profile_size = user_profile.stat().st_size if profile_exists else 0
 
-    # Droits RGPD implémentés : /forget (effacement), /export (accès), config (opposition)
+    # Droits RGPD — preuve par fichier implémenté
     rights = {
-        "access_art15": (ROOT / "src/conversation/commands").exists(),  # commandes /export
-        "rectification_art16": profile_exists,  # edition directe JSON
-        "erasure_art17": (ROOT / "src/memory").exists(),   # /forget
-        "portability_art20": False,   # export partiel seulement
-        "opposition_art21": (ROOT / "config/features.json").exists(),
+        "access_art15":       (ROOT / "src/conversation/commands/export_command.py").exists(),
+        "rectification_art16": profile_exists,
+        "erasure_art17":      (ROOT / "src/memory").exists(),
+        "portability_art20":  (ROOT / "src/conversation/commands/portability.py").exists(),
+        "opposition_art21":   (ROOT / "config/features.json").exists(),
     }
     implemented = sum(1 for v in rights.values() if v)
 
@@ -313,14 +313,22 @@ def collect_key_rotation() -> dict:
         from src.security.key_rotation_scheduler import KeyRotationScheduler
         ks = KeyRotationScheduler()
         report = ks.check_all_keys()
-        # Anonymise : retire les noms de fichiers absolus
-        for k in report.get("keys", []):
-            k.pop("path", None)
+        # keys est un dict {nom_clé: {status, needs_rotation, ...}} — on l'anonymise
+        raw_keys = report.get("keys", {})
+        safe_keys = []
+        for key_name, key_info in (raw_keys.items() if isinstance(raw_keys, dict) else []):
+            safe_keys.append({
+                "name": key_name,
+                "status": key_info.get("status", "?"),
+                "needs_rotation": key_info.get("needs_rotation", False),
+                "days_since_rotation": key_info.get("days_since_rotation"),
+            })
+        overdue = sum(1 for k in safe_keys if k["needs_rotation"])
         return {
             "scheduler_active": True,
-            "keys": report.get("keys", []),
-            "overdue": report.get("overdue", 0),
-            "ok": report.get("ok", 0),
+            "keys": safe_keys,
+            "overdue": overdue,
+            "ok": len(safe_keys) - overdue,
         }
     except Exception as exc:
         return {"scheduler_active": True, "error": str(exc)}
