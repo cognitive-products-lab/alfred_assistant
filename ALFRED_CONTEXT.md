@@ -504,6 +504,39 @@ Bloc 20 → V1 pipeline → personality_adapter.py
 
 ---
 
+## ✅ SESSION 7 — 18/06/2026 — Récapitulatif
+
+**B20 Gouvernance — Sprint conformité réglementaire (42% → 97% A+)**
+
+Traitement exhaustif de toutes les priorités HAUTE et MOYENNE de l'audit gouvernance 2026-06-18.
+
+**Livrables :**
+- 24 documents de preuve créés dans `docs/smsi/` (RACI, AIPD, DPA, PCA, SSDLC, HITL, DdA…)
+- `docs/gouvernance/consentement_art9.md` — procédure consentement RGPD Art.9
+- `config/security/network_policy.json` — politique réseau ISO A.8.20
+- Manifest gouvernance V1.1 — 28 exigences `todo → done`
+- Headers CPL (bloc `PROJECT/BLOCK/VERSION/STATUS`) ajoutés à tous les docs/smsi
+- Roadmap `update_gouvernance_data.py` mise à jour (jalons RGPD/ISO/AI Act/NIS2 terminés)
+- Sync dashboards + push ALFRED_WEB
+
+**Scores après sprint :**
+| Norme | Avant | Après |
+|---|---|---|
+| RGPD | 68% (B) | 95.5% (A+) |
+| ISO 27001 | 34% (C) | 98.4% (A+) |
+| AI Act | 33% (C) | 91.7% (A+) |
+| NIS2 | 50% (B) | 100% (A+) |
+| **Global** | **42% (C)** | **97% (A+)** |
+
+**3 partials légitimes restants :**
+1. `RGPD-09` — DPA OpenAI : doc prête, acceptation portail platform.openai.com à faire
+2. `ISO-20` — VLAN PC Alfred : architecture documentée, implémentation physique Q3 2026
+3. `AIACT-06` — Registre UE IA : veille documentée, obligation non applicable (risque limité)
+
+**Commits :** `feeee9d` (dev, 33 fichiers +2701 lignes) → merge main
+
+---
+
 ## ✅ SESSION 6 — 15/06/2026 — Récapitulatif
 
 1. **B05 — Tests authentification (FAIT)** — création de `tests/test_b05_auth.py`
@@ -556,15 +589,15 @@ Bloc 20 → V1 pipeline → personality_adapter.py
 
 ## 📌 TÂCHES PRÉVUES — PROCHAINE SESSION
 
-1. **Test réel `python main.py`** (en cours dans une autre session) — valider
-   mémoire, tutoiement, français, streaming TTS + sync avatar/amplitude en
-   conditions réelles.
-2. **B08 — Trancher `data/personality.json`** (placeholder `{"core": {}, "adaptation": {}}`,
-   0 référence) — supprimer ou documenter son rôle futur.
-3. **UI `alfred_app.py`** — popup Réglages, caméra live, onboarding, fix Markdown.
-4. **Sprint "Fichiers codés à tester"** — cibler 2-3 fichiers sur les
-   blocs les plus faibles en "full %" (B07 1.6%, B10 0%, B14 4%) pour transformer du
-   scaffolding en code réel testé.
+**Gouvernance (résiduel) :**
+1. **DPA OpenAI (RGPD-09)** — Se connecter platform.openai.com → Settings → Data Processing Addendum → accepter → passer RGPD-09 `status: done` dans `_manifest.json` → relancer `update_gouvernance_data.py` → score ~98%
+2. **VLAN PC Alfred (ISO-20)** — Implémentation matérielle Q3 2026 (SG108E + ER605). Architecture dans `docs/smsi/vlan_config.md`
+
+**Développement :**
+3. **Test réel `python main.py`** — valider mémoire, tutoiement, français, streaming TTS + sync avatar/amplitude
+4. **B08 — Trancher `data/personality.json`** (placeholder `{"core": {}, "adaptation": {}}`) — supprimer ou documenter son rôle futur
+5. **UI `alfred_app.py`** — popup Réglages, caméra live, onboarding, fix Markdown
+6. **Sprint "Fichiers codés à tester"** — blocs les plus faibles (B07 1.6%, B10 0%, B14 4%)
 
 ---
 
