@@ -1,4 +1,4 @@
-# PSSI — Politique de Sécurité des Systèmes d'Information ALFRED
+﻿# PSSI — Politique de Sécurité des Systèmes d'Information ALFRED
 
 Cognitive Products Lab · ALFRED · V1.0 · Synthèse — Juin 2026 · Confidentiel interne
 
@@ -12,7 +12,44 @@ détaillés présents dans ce dossier (`docs/security/`) :
 - `addendum_cybersecurite_alfred.pdf` — Addendum cybersécurité
 - `document_data_security_20_05_2026.pdf` — Document sécurité des données (20/05/2026)
 
-Responsable : Céline ROUSSELOT, Fondatrice — Cognitive Products Lab.
+**SMSI ISO 27001:2022 — Documents opérationnels** (`docs/smsi/`) :
+
+| Document | Référence ISO |
+|---|---|
+| `politique_securite.md` | A.5.1 — Politique SMSI |
+| `raci_securite.md` | A.5.2 — Rôles et responsabilités |
+| `inventaire_actifs.json` | A.5.9 — Inventaire actifs |
+| `procedure_incidents.md` | A.5.24 — Gestion incidents (PDCA+RACI) |
+| `post_incident_analysis.md` | A.5.27 — Analyse post-incident |
+| `pca.md` | A.5.30 — Plan de continuité |
+| `declaration_applicabilite.md` | A.5.36 — Déclaration d'applicabilité (DdA) |
+| `securite_physique.md` | A.7.1 — Zones sécurisées |
+| `chiffrement_disque.md` | A.7.8 — Chiffrement disques |
+| `antimalware.md` | A.8.7 — Protection malwares |
+| `vuln_management.md` | A.8.8 — Gestion vulnérabilités |
+| `baseline_config.md` | A.8.9 — Configuration sécurisée |
+| `plan_sauvegarde.md` | A.8.13 — Sauvegarde 3-2-1 |
+| `tests_pca.md` | A.8.14 — Tests PCA |
+| `vlan_config.md` | A.8.22 — VLAN isolation (Q3 2026) |
+| `ssdlc_procedure.md` | A.8.25 — SSDLC |
+| `revue_code.md` | A.8.28 — Revue de code |
+| `audit_interne.md` | A.9.2 — Audits internes |
+| `revue_direction.md` | A.9.3 — Revue de direction |
+| `actions_correctives.md` | A.10.2 — Non-conformités |
+
+**Conformité réglementaire complémentaire** :
+- `docs/gouvernance/consentement_art9.md` — RGPD Art.9 consentement données sensibles
+- `docs/smsi/aipd_donnees_sante.md` — RGPD Art.35 AIPD
+- `docs/smsi/dpa_sous_traitants.md` — RGPD Art.28 DPA sous-traitants
+- `docs/smsi/procedure_notification_violation.md` — RGPD Art.33-34 notification 72h CNIL
+- `docs/smsi/procedure_signalement_nis2.md` — NIS2 Art.23 signalement ANSSI/CERT-FR
+- `docs/smsi/hitl_procedure.md` — AI Act Art.14 Human in the Loop
+- `docs/smsi/registre_risques_ia.md` — AI Act Art.9 gestion risques IA
+- `docs/smsi/gouvernance_donnees_entrainement.md` — AI Act Art.10
+
+**Score conformité global : 97% (A+)** — Rapports horodatés : `dashboard/dashboard_gouvernance/reports/`
+
+Responsable : Céline Darras, Fondatrice — Cognitive Products Lab.
 
 ## 1. Principes directeurs
 
