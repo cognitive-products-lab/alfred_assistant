@@ -1,18 +1,19 @@
 @echo off
+chcp 65001 >nul
 :: ============================================================
 :: PROJECT  : ALFRED / Cognitive Products Lab
-:: BLOCK    : B20 — Sécurité, Gouvernance & Conformité
+:: BLOCK    : B20 - Securite, Gouvernance & Conformite
 :: SCRIPT   : complete_dpa_openai.bat
 :: TYPE     : Launcher script
-:: VERSION  : V1.0
+:: VERSION  : V1.1
 :: CREATED  : 2026-06-18
 :: ============================================================
-title ALFRED — DPA OpenAI Finalisation
+title ALFRED - DPA OpenAI Finalisation RGPD-09
 cd /d "%~dp0\.."
 echo.
 echo ============================================================
-echo   ALFRED — DPA OpenAI : Finalisation automatique
-echo   Cognitive Products Lab — B20 Securite
+echo   ALFRED - DPA OpenAI : Finalisation automatique RGPD-09
+echo   Cognitive Products Lab - B20 Securite
 echo ============================================================
 echo.
 echo PREALABLE : Accepter le DPA sur platform.openai.com
