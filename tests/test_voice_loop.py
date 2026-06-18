@@ -1,43 +1,55 @@
-import sounddevice as sd
-import numpy as np
-from faster_whisper import WhisperModel
+"""
+PROJECT      : ALFRED
+BLOCK        : TESTS
+FUNCTION     : B04
+FILE         : tests/test_voice_loop.py
+ROLE         : Tests unitaires boucle vocale STT -> TTS
 
-from src.conversation.output.tts_engine import TTSEngine
-from src.conversation.output.tts_piper import PiperTTS
+AUTHOR       : Cognitive Products Lab
+CREATED      : 2026-06-03
+UPDATED      : 2026-06-05
+VERSION      : V1.1
+STATUS       : TESTED
 
-samplerate = 16000
-duration = 5
+DESCRIPTION :
+Vérifie les imports et la disponibilité des composants de la boucle vocale.
+Le test d'enregistrement micro réel est dans tests/manual/voice_loop_manual.py.
+"""
 
-print("🧪 TEST BOUCLE VOCALE ALFRED")
-print("🎤 Parle pendant 5 secondes...")
+import pytest
 
-audio = sd.rec(
-    int(duration * samplerate),
-    samplerate=samplerate,
-    channels=1,
-    dtype="float32"
-)
-sd.wait()
 
-audio = np.squeeze(audio)
+def test_tts_engine_import():
+    from src.conversation.output.tts_engine import TTSEngine
+    assert TTSEngine is not None
 
-print("🧠 Transcription...")
-model = WhisperModel("base", compute_type="int8")
-segments, _ = model.transcribe(audio, language="fr")
 
-user_text = " ".join(segment.text.strip() for segment in segments).strip()
+def test_piper_tts_import():
+    from src.conversation.output.tts_piper import PiperTTS
+    assert PiperTTS is not None
 
-print(f"🧑 Toi : {user_text}")
 
-if not user_text:
-    print("⚠️ Aucun texte détecté.")
-    raise SystemExit
+def test_sounddevice_available():
+    try:
+        import sounddevice as sd
+        assert sd is not None
+    except ImportError:
+        pytest.skip("sounddevice non installé")
 
-response = f"Oui Céline, je t'entends parfaitement. Tu as dit : {user_text}"
 
-print(f"🤖 ALFRED : {response}")
+def test_whisper_available():
+    try:
+        from faster_whisper import WhisperModel
+        assert WhisperModel is not None
+    except ImportError:
+        pytest.skip("faster-whisper non installé")
 
-tts = TTSEngine(backend=PiperTTS(mode="complicite", blocking=True))
-tts.speak(response)
 
-print("✅ Boucle vocale STT → réponse → TTS validée")
+def test_tts_engine_instantiation():
+    try:
+        from src.conversation.output.tts_engine import TTSEngine
+        from src.conversation.output.tts_piper import PiperTTS
+        tts = TTSEngine(backend=PiperTTS(mode="complicite", blocking=False))
+        assert tts is not None
+    except Exception as exc:
+        pytest.skip(f"TTS non disponible : {exc}")

@@ -1,9 +1,26 @@
+from __future__ import annotations
+
+"""
+PROJECT      : ALFRED
+BLOCK        : B18
+FUNCTION     : 18.05
+FILE         : src/knowledge/context_merger.py
+ROLE         : Construit un contexte exploitable à partir des connaissances classées
+
+AUTHOR       : Cognitive Products Lab
+CREATED      : 2026-06-03
+UPDATED      : 2026-06-05
+VERSION      : V1.1
+STATUS       : VALIDATED
+
+DESCRIPTION :
+Fusion contexte — assemble le bloc knowledge final injecté dans le prompt LLM.
+"""
+
 """
 ALFRED — context_merger.py
 Construit un contexte exploitable à partir des connaissances classées.
 """
-
-from __future__ import annotations
 
 from dataclasses import dataclass, field
 from typing import Any

@@ -1,0 +1,312 @@
+{
+  "_meta": {
+    "version": "1.0",
+    "questionnaire_id": "onboarding_health",
+    "label_fr": "Questionnaire santé & bien-être",
+    "label_en": "Health & wellbeing questionnaire",
+    "description": "Recueil du profil santé de l'utilisateur pour permettre à ALFRED d'adapter ses interactions. Données sensibles — consentement explicite requis.",
+    "consent_required": true,
+    "encryption_required": true,
+    "data_target": "data/health/health_{user_id}.json",
+    "estimated_duration_min": 5,
+    "skip_allowed": true,
+    "can_update_later": true
+  },
+
+  "consent_block": {
+    "id": "consent_health",
+    "type": "consent",
+    "required": true,
+    "title_fr": "Avant de commencer",
+    "text_fr": "Ces questions concernent ta santé et ton bien-être. Elles me permettent de mieux adapter la façon dont je communique avec toi. Tes réponses sont stockées uniquement sur cet appareil, chiffrées, et ne sont jamais partagées. Tu peux répondre partiellement, modifier tes réponses à tout moment, ou ne rien remplir du tout.",
+    "consent_items": [
+      {
+        "id": "consent_store",
+        "label_fr": "J'accepte que mes réponses soient stockées localement sur cet appareil.",
+        "required": true
+      },
+      {
+        "id": "consent_use",
+        "label_fr": "J'autorise ALFRED à utiliser ces informations pour adapter ses réponses.",
+        "required": true
+      },
+      {
+        "id": "consent_modify",
+        "label_fr": "Je sais que je peux modifier ou supprimer ces données à tout moment.",
+        "required": false,
+        "info_only": true
+      }
+    ]
+  },
+
+  "sections": [
+
+    {
+      "id": "section_general_health",
+      "title_fr": "Santé générale",
+      "optional": false,
+      "questions": [
+
+        {
+          "id": "q_has_chronic_condition",
+          "type": "boolean",
+          "label_fr": "Vis-tu avec une ou plusieurs conditions médicales chroniques ?",
+          "sublabel_fr": "Maladie, trouble, syndrome diagnostiqué ou auto-identifié.",
+          "skip_if_no": ["q_conditions_list", "q_condition_severity", "q_flare_frequency"],
+          "maps_to": "profile_status.active"
+        },
+
+        {
+          "id": "q_conditions_list",
+          "type": "multi_select_with_other",
+          "label_fr": "Quelles sont tes conditions principales ?",
+          "sublabel_fr": "Tu peux en sélectionner plusieurs.",
+          "condition_on": {"q_has_chronic_condition": true},
+          "options": [
+            {"value": "fibromyalgie", "label_fr": "Fibromyalgie"},
+            {"value": "sfc_em", "label_fr": "SFC / EM (fatigue chronique)"},
+            {"value": "lupus", "label_fr": "Lupus"},
+            {"value": "sed", "label_fr": "SED (syndrome d'Ehlers-Danlos)"},
+            {"value": "endometriose", "label_fr": "Endométriose"},
+            {"value": "sep", "label_fr": "SEP (sclérose en plaques)"},
+            {"value": "depression_chronique", "label_fr": "Dépression / épisodes dépressifs"},
+            {"value": "bipolarite", "label_fr": "Trouble bipolaire"},
+            {"value": "anxiete_generalisee", "label_fr": "Anxiété généralisée / TAG"},
+            {"value": "cancer", "label_fr": "Cancer (en cours ou suivi)"},
+            {"value": "diabete", "label_fr": "Diabète"},
+            {"value": "tdah", "label_fr": "TDAH"},
+            {"value": "migraine_chronique", "label_fr": "Migraine chronique"},
+            {"value": "hypersomnie_idiopathique", "label_fr": "Hypersomnie idiopathique"},
+            {"value": "tendinites_chroniques", "label_fr": "Tendinites / tendinopathies chroniques"}
+          ],
+          "other_label_fr": "Autre condition (précise si tu veux)",
+          "maps_to": "conditions.primary"
+        },
+
+        {
+          "id": "q_condition_severity",
+          "type": "scale",
+          "label_fr": "En ce moment, comment évalues-tu l'impact de ta/tes conditions sur ta vie quotidienne ?",
+          "condition_on": {"q_has_chronic_condition": true},
+          "scale": {
+            "min": 1, "max": 5,
+            "labels": {
+              "1": "Léger — je gère bien au quotidien",
+              "2": "Modéré — ça me demande des ajustements",
+              "3": "Significatif — certains jours sont difficiles",
+              "4": "Important — impact majeur au quotidien",
+              "5": "Très sévère — grande limitation fonctionnelle"
+            }
+          },
+          "maps_to": "profile_status.severity_level"
+        },
+
+        {
+          "id": "q_flare_frequency",
+          "type": "single_select",
+          "label_fr": "À quelle fréquence as-tu des poussées ou mauvaises périodes ?",
+          "condition_on": {"q_has_chronic_condition": true},
+          "options": [
+            {"value": "rarement", "label_fr": "Rarement (quelques fois par an)"},
+            {"value": "parfois", "label_fr": "Parfois (quelques fois par mois)"},
+            {"value": "souvent", "label_fr": "Souvent (plusieurs fois par semaine)"},
+            {"value": "presque_toujours", "label_fr": "Presque constamment"}
+          ],
+          "maps_to": "symptoms_profile.flare_frequency"
+        }
+      ]
+    },
+
+    {
+      "id": "section_symptoms",
+      "title_fr": "Symptômes & énergie",
+      "optional": false,
+      "questions": [
+
+        {
+          "id": "q_fatigue_baseline",
+          "type": "scale",
+          "label_fr": "Quel est ton niveau de fatigue habituel (hors mauvais jours) ?",
+          "scale": {
+            "min": 0, "max": 10,
+            "labels": {
+              "0": "Pas de fatigue particulière",
+              "3": "Légère fatigue gérable",
+              "5": "Fatigue modérée quotidienne",
+              "7": "Fatigue importante, effort pour tout",
+              "10": "Épuisement sévère permanent"
+            }
+          },
+          "maps_to": "symptoms_profile.fatigue_level_baseline"
+        },
+
+        {
+          "id": "q_cognitive_fog",
+          "type": "single_select",
+          "label_fr": "As-tu des difficultés cognitives (mémoire, concentration, trouver ses mots) ?",
+          "options": [
+            {"value": "jamais", "label_fr": "Rarement ou jamais"},
+            {"value": "parfois", "label_fr": "Parfois, surtout en cas de fatigue"},
+            {"value": "souvent", "label_fr": "Souvent — plusieurs fois par semaine"},
+            {"value": "presque_toujours", "label_fr": "Presque constamment"}
+          ],
+          "maps_to": "symptoms_profile.cognitive_fog_frequency"
+        },
+
+        {
+          "id": "q_pain_present",
+          "type": "boolean",
+          "label_fr": "Vis-tu avec des douleurs chroniques ou récurrentes ?",
+          "maps_to": "symptoms_profile.pain_present"
+        },
+
+        {
+          "id": "q_energy_pattern",
+          "type": "single_select",
+          "label_fr": "Comment décris-tu ton énergie dans la journée ?",
+          "options": [
+            {"value": "stable", "label_fr": "Assez stable tout au long de la journée"},
+            {"value": "matin_fort", "label_fr": "Meilleure le matin, fatigue l'après-midi"},
+            {"value": "apres_midi_fort", "label_fr": "Je monte en puissance dans la journée"},
+            {"value": "tres_variable", "label_fr": "Très variable — impossible à prédire"},
+            {"value": "toujours_faible", "label_fr": "Toujours faible, peu importe le moment"}
+          ],
+          "maps_to": "symptoms_profile.energy_pattern"
+        },
+
+        {
+          "id": "q_sleep_quality",
+          "type": "single_select",
+          "label_fr": "Comment est la qualité de ton sommeil en général ?",
+          "options": [
+            {"value": "bon", "label_fr": "Bon — je me réveille reposé·e"},
+            {"value": "variable", "label_fr": "Variable — certaines nuits sont difficiles"},
+            {"value": "mauvais", "label_fr": "Mauvais — rarement reposant"},
+            {"value": "tres_mauvais", "label_fr": "Très mauvais — insomnie ou sommeil non réparateur chronique"}
+          ],
+          "maps_to": "symptoms_profile.sleep_quality"
+        },
+
+        {
+          "id": "q_triggers_declared",
+          "type": "multi_select_with_other",
+          "label_fr": "Quels facteurs aggravent tes symptômes ou ta fatigue ?",
+          "optional": true,
+          "options": [
+            {"value": "stress", "label_fr": "Stress"},
+            {"value": "manque_sommeil", "label_fr": "Manque de sommeil"},
+            {"value": "efforts_physiques", "label_fr": "Efforts physiques"},
+            {"value": "efforts_cognitifs", "label_fr": "Efforts cognitifs / concentration"},
+            {"value": "interactions_sociales", "label_fr": "Interactions sociales longues"},
+            {"value": "meteo", "label_fr": "Changements météorologiques"},
+            {"value": "alimentation", "label_fr": "Alimentation"},
+            {"value": "hormones", "label_fr": "Cycle hormonal"}
+          ],
+          "other_label_fr": "Autre déclencheur",
+          "maps_to": "symptoms_profile.triggers_declared"
+        }
+      ]
+    },
+
+    {
+      "id": "section_treatment",
+      "title_fr": "Traitement & suivi médical",
+      "optional": true,
+      "sublabel_fr": "Ces informations m'aident à adapter mes suggestions et à ne jamais interférer avec ton traitement.",
+      "questions": [
+
+        {
+          "id": "q_in_treatment",
+          "type": "boolean",
+          "label_fr": "Es-tu actuellement suivi·e médicalement ou en traitement pour ta/tes conditions ?",
+          "maps_to": "treatment_context.in_active_treatment"
+        },
+
+        {
+          "id": "q_treatment_context",
+          "type": "multi_select_with_other",
+          "label_fr": "Quel type de suivi as-tu ?",
+          "optional": true,
+          "condition_on": {"q_in_treatment": true},
+          "options": [
+            {"value": "medecin_generaliste", "label_fr": "Médecin généraliste"},
+            {"value": "specialiste", "label_fr": "Spécialiste (rhumato, neuro, psy, etc.)"},
+            {"value": "psychologue", "label_fr": "Psychologue / psychothérapeute"},
+            {"value": "psychiatre", "label_fr": "Psychiatre"},
+            {"value": "kinesitherapeute", "label_fr": "Kinésithérapeute"},
+            {"value": "traitement_medicamenteux", "label_fr": "Traitement médicamenteux en cours"},
+            {"value": "hospitalisation", "label_fr": "Hospitalisation / hôpital de jour"}
+          ],
+          "other_label_fr": "Autre suivi",
+          "maps_to": "treatment_context.follow_up_types"
+        },
+
+        {
+          "id": "q_medication_reminders",
+          "type": "boolean",
+          "label_fr": "Veux-tu que je te propose des rappels de prise de traitement ?",
+          "condition_on": {"q_in_treatment": true},
+          "maps_to": "treatment_context.reminder_preferences.enabled"
+        }
+      ]
+    },
+
+    {
+      "id": "section_interaction_prefs",
+      "title_fr": "Préférences d'interaction pour les moments difficiles",
+      "optional": false,
+      "questions": [
+
+        {
+          "id": "q_fog_mode_auto",
+          "type": "boolean",
+          "label_fr": "Veux-tu que je détecte automatiquement les jours de brouillard cognitif et simplifie mes réponses ?",
+          "default": true,
+          "maps_to": "interaction_preferences.fog_mode_auto_activate"
+        },
+
+        {
+          "id": "q_checkin_frequency",
+          "type": "single_select",
+          "label_fr": "À quelle fréquence veux-tu que je te demande comment tu vas (bien-être) ?",
+          "options": [
+            {"value": "never", "label_fr": "Jamais — je préfère l'initiative"},
+            {"value": "session_start", "label_fr": "Au début de chaque session"},
+            {"value": "every_10_turns", "label_fr": "Environ toutes les 10 échanges"},
+            {"value": "daily", "label_fr": "Une fois par jour"}
+          ],
+          "default": "session_start",
+          "maps_to": "interaction_preferences.check_in_frequency"
+        },
+
+        {
+          "id": "q_response_length_pref",
+          "type": "single_select",
+          "label_fr": "En général, tu préfères que mes réponses soient…",
+          "options": [
+            {"value": "very_short", "label_fr": "Très courtes — l'essentiel seulement"},
+            {"value": "short", "label_fr": "Courtes — directes et claires"},
+            {"value": "medium", "label_fr": "Moyennes — avec du contexte"},
+            {"value": "adapt", "label_fr": "Adaptées selon le sujet"}
+          ],
+          "default": "adapt",
+          "maps_to": "interaction_preferences.response_length_preference"
+        },
+
+        {
+          "id": "q_caregiver_mode",
+          "type": "boolean",
+          "label_fr": "Es-tu aidant·e principal·e pour un proche (enfant, parent, partenaire) ?",
+          "sublabel_fr": "Cela m'aide à reconnaître les signaux d'épuisement liés à l'aide apportée.",
+          "maps_to": "caregiver_mode.is_caregiver"
+        }
+      ]
+    }
+  ],
+
+  "completion": {
+    "message_fr": "Merci. J'ai mémorisé tes préférences. Tu peux les modifier à tout moment en disant 'mettre à jour mon profil santé'.",
+    "data_written_to": "data/health/health_{user_id}.json",
+    "triggers_profile_activation": true
+  }
+}

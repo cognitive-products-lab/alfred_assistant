@@ -1,0 +1,277 @@
+<!--
+PROJECT  : ALFRED
+BLOCK    : GLOBAL - Tests
+FILE     : dashboard/dashboard_tests/dashboard_tests_dynamique.html
+ROLE     : Dashboard dynamique tous les tests ALFRED — lit dashboard_tests.json
+
+AUTHOR   : Cognitive Products Lab
+CREATED  : 2026-06-05
+UPDATED  : 2026-06-05
+VERSION  : V1.0
+STATUS   : ACTIVE
+-->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ALFRED — Dashboard Tests Global</title>
+<style>
+  :root {
+    --bg:     #0d1117;
+    --bg2:    #161b22;
+    --bg3:    #1c2128;
+    --border: #30363d;
+    --text:   #e6edf3;
+    --text2:  #8b949e;
+    --blue:   #388bfd;
+    --green:  #3fb950;
+    --yellow: #d29922;
+    --red:    #f85149;
+    --purple: #8957e5;
+    --teal:   #39d353;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", monospace; font-size: 14px; min-height: 100vh; }
+
+  header { background: var(--bg2); border-bottom: 1px solid var(--border); padding: 16px 24px; display: flex; align-items: center; gap: 16px; }
+  header .logo { font-size: 20px; font-weight: 700; color: var(--blue); letter-spacing: 2px; }
+  header .subtitle { color: var(--text2); font-size: 12px; }
+  header .meta { margin-left: auto; display: flex; align-items: center; gap: 16px; }
+  header .generated { color: var(--text2); font-size: 11px; }
+  .refresh-btn { background: var(--bg3); border: 1px solid var(--border); border-radius: 6px; color: var(--text2); font-size: 11px; padding: 4px 10px; cursor: pointer; }
+  .refresh-btn:hover { border-color: var(--blue); color: var(--blue); }
+  .pulse { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--green); margin-right: 6px; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+
+  .main { padding: 24px; max-width: 1400px; margin: 0 auto; }
+
+  .score-banner { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; padding: 24px 32px; display: flex; align-items: center; gap: 32px; margin-bottom: 24px; }
+  .score-circle { width: 100px; height: 100px; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; border: 6px solid var(--green); flex-shrink: 0; }
+  .score-circle .grade-val { font-size: 32px; font-weight: 700; }
+  .score-circle .grade-lbl { font-size: 10px; color: var(--text2); }
+  .score-info h2 { font-size: 20px; margin-bottom: 6px; }
+  .score-info p  { color: var(--text2); font-size: 13px; }
+  .progress-bar  { background: var(--bg3); border-radius: 4px; height: 8px; overflow: hidden; margin-top: 12px; width: 300px; }
+  .progress-fill { height: 100%; border-radius: 4px; transition: width .6s ease; }
+  .score-stats   { margin-left: auto; display: flex; gap: 32px; flex-shrink: 0; }
+  .score-stat    { text-align: center; }
+  .score-stat .stat-val { font-size: 28px; font-weight: 700; }
+  .score-stat .stat-lbl { font-size: 11px; color: var(--text2); margin-top: 2px; }
+
+  .section-title { font-size: 16px; font-weight: 700; color: var(--text); margin-bottom: 16px; margin-top: 8px; border-left: 3px solid var(--blue); padding-left: 12px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; margin-bottom: 24px; }
+  .card { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 20px; }
+  .card h3 { font-size: 13px; color: var(--text2); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; }
+
+  .stat-row { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
+  .stat-row:last-child { border-bottom: none; }
+  .stat-row .label { color: var(--text2); }
+
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: 11px; font-weight: 600; }
+  .badge-green  { background: #1a3a1a; color: var(--green);  border: 1px solid var(--green); }
+  .badge-red    { background: #3a1a1a; color: var(--red);    border: 1px solid var(--red); }
+  .badge-yellow { background: #3a2a00; color: var(--yellow); border: 1px solid var(--yellow); }
+  .badge-blue   { background: #0d1f3a; color: var(--blue);   border: 1px solid var(--blue); }
+  .badge-grey   { background: var(--bg3); color: var(--text2); border: 1px solid var(--border); }
+
+  table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  th { text-align: left; color: var(--text2); font-weight: 600; padding: 6px 8px; border-bottom: 1px solid var(--border); font-size: 11px; text-transform: uppercase; }
+  td { padding: 8px; border-bottom: 1px solid var(--border); color: var(--text); }
+  tr:last-child td { border-bottom: none; }
+  tr.row-fail td { background: #1a0a0a; }
+  .bar-wrap { display: flex; align-items: center; gap: 8px; }
+  .bar { flex: 1; background: var(--bg3); border-radius: 4px; height: 6px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 4px; }
+  .empty { color: var(--text2); font-style: italic; font-size: 12px; padding: 8px 0; }
+  .error-banner { background: #3a1a1a; border: 1px solid var(--red); border-radius: 8px; padding: 16px; color: var(--red); margin-bottom: 16px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <div class="logo">ALFRED</div>
+    <div class="subtitle">Dashboard Tests — Suite globale (tous modules)</div>
+  </div>
+  <div class="meta">
+    <span><span class="pulse"></span><span id="refresh-status" style="font-size:11px;color:var(--text2);">Auto-refresh 30s</span></span>
+    <span class="generated" id="generated-at">Chargement...</span>
+    <button class="refresh-btn" onclick="load()">Actualiser</button>
+  </div>
+</header>
+
+<div class="main">
+
+  <div id="error-banner" style="display:none;" class="error-banner"></div>
+
+  <!-- Score Banner -->
+  <div class="score-banner">
+    <div class="score-circle" id="grade-circle">
+      <span class="grade-val" id="grade-val">—</span>
+      <span class="grade-lbl">grade</span>
+    </div>
+    <div class="score-info">
+      <h2 id="score-label">Résultats globaux</h2>
+      <p id="score-desc">Chargement des données...</p>
+      <div class="progress-bar">
+        <div class="progress-fill" id="global-bar" style="width:0%;"></div>
+      </div>
+    </div>
+    <div class="score-stats">
+      <div class="score-stat"><div class="stat-val" id="stat-passed" style="color:var(--green);">—</div><div class="stat-lbl">Passed</div></div>
+      <div class="score-stat"><div class="stat-val" id="stat-failed" style="color:var(--red);">—</div><div class="stat-lbl">Failed+Err</div></div>
+      <div class="score-stat"><div class="stat-val" id="stat-total"  style="color:var(--blue);">—</div><div class="stat-lbl">Total</div></div>
+      <div class="score-stat"><div class="stat-val" id="stat-dur"    style="color:var(--text2);">—</div><div class="stat-lbl">Durée (s)</div></div>
+    </div>
+  </div>
+
+  <!-- Vue d'ensemble -->
+  <div class="section-title">Vue d'ensemble</div>
+  <div class="grid">
+    <div class="card"><h3>Statistiques</h3><div id="stats-content"><div class="empty">Chargement...</div></div></div>
+    <div class="card"><h3>Modules OK</h3><div id="ok-content"><div class="empty">Chargement...</div></div></div>
+    <div class="card"><h3>Modules KO</h3><div id="ko-content"><div class="empty">Chargement...</div></div></div>
+  </div>
+
+  <!-- Table modules -->
+  <div class="section-title">Détail par module</div>
+  <div class="card" style="margin-bottom:24px;">
+    <div id="modules-table"><div class="empty">Chargement...</div></div>
+  </div>
+
+</div>
+
+<script>
+const JSON_URL = 'dashboard_tests.json';
+
+function gc(g) {
+  if (g==='A'||g==='A+') return 'var(--green)';
+  if (g==='B') return 'var(--teal)';
+  if (g==='C') return 'var(--yellow)';
+  return 'var(--red)';
+}
+function rc(r) {
+  return r >= 95 ? 'var(--green)' : r >= 75 ? 'var(--yellow)' : 'var(--red)';
+}
+function badge(t, cls) { return `<span class="badge badge-${cls}">${t}</span>`; }
+function srow(lbl, val) { return `<div class="stat-row"><span class="label">${lbl}</span><span>${val}</span></div>`; }
+
+function renderStats(d) {
+  return srow('Tests passés',    badge(d.total_passed,  'green'))
+       + srow('Tests échoués',   badge(d.total_failed,  d.total_failed  > 0 ? 'red' : 'grey'))
+       + srow('Tests en erreur', badge(d.total_error,   d.total_error   > 0 ? 'red' : 'grey'))
+       + srow('Total',           badge(d.total_tests,   'blue'))
+       + srow('Taux',            badge((d.global_rate??0).toFixed(1)+'%', d.global_rate>=95?'green':d.global_rate>=75?'yellow':'red'))
+       + srow('Grade',           badge(d.grade??'?',    d.grade==='A'||d.grade==='A+'?'green':d.grade==='B'?'blue':'red'))
+       + srow('Durée totale',    `${(d.total_duration_s??0).toFixed(2)}s`)
+       + srow('Modules',         `${(d.modules??[]).filter(m=>m.ok).length} OK / ${(d.modules??[]).length} total`);
+}
+
+function renderOk(modules) {
+  const ok = modules.filter(m => m.ok);
+  if (!ok.length) return `<div class="empty">Aucun module entièrement réussi</div>`;
+  return ok.map(m =>
+    `<div class="stat-row">
+      <span class="label" style="font-family:monospace;font-size:12px;">${m.name}</span>
+      <span>${badge(m.passed+'/'+m.total,'green')}</span>
+    </div>`
+  ).join('');
+}
+
+function renderKo(modules) {
+  const ko = modules.filter(m => !m.ok);
+  if (!ko.length) return `<div class="empty" style="color:var(--green);">Tous les modules sont OK</div>`;
+  return ko.map(m =>
+    `<div class="stat-row">
+      <span class="label" style="font-family:monospace;font-size:12px;">${m.name}</span>
+      <span>${m.failed>0?badge(m.failed+' failed','red'):''} ${m.error>0?badge(m.error+' err','red'):''}</span>
+    </div>`
+  ).join('');
+}
+
+function renderTable(modules) {
+  let h = `<table><thead><tr>
+    <th>Statut</th><th>Module</th>
+    <th style="text-align:right;">P</th>
+    <th style="text-align:right;">F</th>
+    <th style="text-align:right;">E</th>
+    <th style="text-align:right;">Total</th>
+    <th style="min-width:140px;">Taux</th>
+    <th style="text-align:right;">Durée</th>
+  </tr></thead><tbody>`;
+  modules.forEach(m => {
+    const color = rc(m.rate);
+    h += `<tr class="${m.ok?'':'row-fail'}">
+      <td>${badge(m.ok?'OK':'KO', m.ok?'green':'red')}</td>
+      <td style="font-family:monospace;font-size:12px;">${m.name}</td>
+      <td style="text-align:right;color:var(--green);">${m.passed}</td>
+      <td style="text-align:right;${m.failed>0?'color:var(--red);font-weight:600;':''}">${m.failed}</td>
+      <td style="text-align:right;${m.error>0?'color:var(--red);font-weight:600;':''}">${m.error}</td>
+      <td style="text-align:right;">${m.total}</td>
+      <td>
+        <div class="bar-wrap">
+          <div class="bar"><div class="bar-fill" style="width:${m.rate}%;background:${color};"></div></div>
+          <span style="font-size:11px;color:${color};min-width:44px;">${m.rate.toFixed(1)}%</span>
+        </div>
+      </td>
+      <td style="text-align:right;color:var(--text2);">${m.duration_s.toFixed(2)}s</td>
+    </tr>`;
+  });
+  return h + '</tbody></table>';
+}
+
+async function load() {
+  document.getElementById('refresh-status').textContent = 'Actualisation...';
+  let data;
+  try {
+    const resp = await fetch(JSON_URL + '?t=' + Date.now());
+    if (!resp.ok) throw new Error('dashboard_tests.json introuvable — lancez dashboard_test_server.bat');
+    data = await resp.json();
+    document.getElementById('error-banner').style.display = 'none';
+  } catch (e) {
+    document.getElementById('error-banner').textContent = e.message;
+    document.getElementById('error-banner').style.display = 'block';
+    document.getElementById('refresh-status').textContent = 'Erreur de chargement';
+    return;
+  }
+
+  const rate    = data.global_rate ?? 0;
+  const grade   = data.grade ?? '?';
+  const color   = gc(grade);
+  const modules = data.modules ?? [];
+
+  const _dt = new Date((data.generated_at??'').replace(' ','T').replace(' UTC','Z'));
+  const _paris = _dt.toLocaleString('fr-FR', { timeZone:'Europe/Paris', year:'numeric', month:'2-digit', day:'2-digit', hour:'2-digit', minute:'2-digit' });
+  document.getElementById('generated-at').textContent = 'Généré le ' + _paris + ' (Paris)';
+  document.getElementById('grade-val').textContent = grade;
+  document.getElementById('grade-val').style.color = color;
+  document.getElementById('grade-circle').style.borderColor = color;
+  document.getElementById('score-label').textContent = `Résultats globaux — ${data.total_passed}/${data.total_tests} tests réussis`;
+  document.getElementById('score-desc').textContent =
+    rate >= 95 ? 'Suite entièrement verte — aucune régression détectée.'
+    : rate >= 80 ? 'Quelques points à corriger avant livraison.'
+    : 'Régressions détectées — action requise.';
+
+  const bar = document.getElementById('global-bar');
+  bar.style.width = rate + '%';
+  bar.style.background = rc(rate);
+
+  document.getElementById('stat-passed').textContent = data.total_passed;
+  document.getElementById('stat-failed').textContent = data.total_failed + (data.total_error > 0 ? '+'+data.total_error : '');
+  document.getElementById('stat-total').textContent  = data.total_tests;
+  document.getElementById('stat-dur').textContent    = (data.total_duration_s??0).toFixed(1);
+
+  document.getElementById('stats-content').innerHTML   = renderStats(data);
+  document.getElementById('ok-content').innerHTML      = renderOk(modules);
+  document.getElementById('ko-content').innerHTML      = renderKo(modules);
+  document.getElementById('modules-table').innerHTML   = renderTable(modules);
+
+  document.getElementById('refresh-status').textContent = 'Auto-refresh 30s';
+}
+
+load();
+setInterval(load, 30000);
+</script>
+</body>
+</html>

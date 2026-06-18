@@ -23,12 +23,17 @@ This roadmap is intentionally high-level and will evolve with the prototype.
 - [ ] Redesign main interface
 - [ ] Create Figma UI concepts
 - [ ] Build design system foundations
-- [ ] Improve avatar expression system
-- [ ] Add simple animation states
-- [ ] Improve dashboard readability
+- [x] Improve avatar expression system (B15 — renderer 6 calques, halo, sprites par état)
+- [x] Add simple animation states (idle/listening/thinking/speaking/support/focus + blink)
+- [x] Improve dashboard readability (dashboards dynamiques B01-B22, avancement 63.6%)
+- [x] Dashboard Conformité Réglementaire dynamique (B20 — 7 normes, score 97% A+, index+norm.html)
+- [x] RGPD complet — consentement Art.9, AIPD, DPA sous-traitants, procédure notification 72h CNIL
+- [x] ISO 27001 SMSI — procédure incidents (P1→P4), post-incident analysis, KPI MTTD/MTTR
+- [x] NIS2 — procédure signalement ANSSI/CERT-FR (H+24/H+72/J+30)
+- [x] ALFRED Web — dossier cadrage intégré `/projet/cadrage` (sous-onglet)
 - [ ] Explore Android interface
-- [ ] Improve voice interaction flow
-- [ ] Add accessibility modes
+- [ ] Improve voice interaction flow (TTS streaming OK, grésillement à corriger)
+- [x] Add accessibility modes (B22 — voice_output_manager, text_reader, WCAG checker)
 - [ ] Document user journeys
 
 ## V3 — Multi-Device & Advanced Assistant

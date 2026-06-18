@@ -1,0 +1,277 @@
+{
+  "_alfred_header": {
+    "file": "config/health/fragility_signals.json",
+    "bloc": "Bloc 13.01 / 13.03 — Suivi bien-être & gestion fatigue/stress santé",
+    "version": "V1.0",
+    "status": "ACTIVE",
+    "updated": "2026-05-26",
+    "description": "Signaux textuels spécifiques aux contextes de santé et de fragilité. Distincts des signaux émotionnels généraux (Bloc 03) — ces signaux indiquent un contexte de santé chronique. Charge ce fichier pour enrichir la détection contextuelle."
+  },
+
+  "detection_priority": "HIGH",
+  "note": "Ces signaux activent systématiquement le profil Bloc 13 et modifient le comportement d'ALFRED même si l'émotion détectée est neutre.",
+
+  "crisis_health_signals": {
+    "description": "Signaux indiquant une crise de santé aiguë — réponse immédiate requise",
+    "priority": "CRITICAL",
+    "keywords_fr": [
+      "je suis en poussée", "crise aiguë", "poussée sévère",
+      "je ne peux pas me lever", "je suis alitée", "je suis en crash",
+      "je n'ai plus la force de rien", "douleur insupportable",
+      "crise de douleur", "je souffre vraiment là",
+      "hypoglycémie sévère", "je fais une crise"
+    ],
+    "keywords_en": [
+      "severe flare", "crisis", "crash", "I can't get up",
+      "in bed unable to", "unbearable pain", "severe episode",
+      "I'm crashing", "bad flare up"
+    ],
+    "action": "switch_to_support_health_crisis",
+    "response_template": "Je suis là. Est-ce que tu as besoin d'aide concrète maintenant — quelqu'un à appeler, une chose à faire ?"
+  },
+
+  "flare_signals": {
+    "description": "Signaux de poussée ou aggravation d'une condition chronique",
+    "priority": "HIGH",
+    "keywords_fr": [
+      "poussée", "flare", "flare up", "rechute", "aggravation",
+      "ça empire", "les symptômes reviennent", "je suis moins bien",
+      "ma condition s'aggrave", "retour des symptômes",
+      "période difficile avec ma santé", "je gère mal ce mois-ci"
+    ],
+    "keywords_en": [
+      "flare", "flare up", "relapse", "getting worse", "symptoms returning",
+      "not managing well", "rough patch health-wise", "bad spell"
+    ],
+    "action": "activate_health_support_mode"
+  },
+
+  "cognitive_fog_signals": {
+    "description": "Brouillard cognitif — adapter immédiatement la complexité des réponses",
+    "priority": "HIGH",
+    "keywords_fr": [
+      "brouillard cognitif", "fog", "fibro fog", "brain fog",
+      "je suis dans le coton", "je n'arrive pas à penser",
+      "ma tête ne tourne pas", "je perds le fil", "je comprends rien",
+      "tout me demande un effort énorme", "je lis mais je ne retiens pas",
+      "j'oublie tout", "ma mémoire flanche", "je suis dans les nuages",
+      "je ne traite plus l'information normalement"
+    ],
+    "keywords_en": [
+      "brain fog", "cognitive fog", "can't think straight",
+      "losing my train of thought", "can't retain anything",
+      "foggy", "in a fog", "mind not working", "cognitive issues"
+    ],
+    "action": "activate_fog_mode",
+    "fog_mode_rules": {
+      "max_sentences_per_response": 3,
+      "no_complex_lists": true,
+      "repeat_if_asked": true,
+      "confirm_understanding": true,
+      "simplify_vocabulary": true
+    }
+  },
+
+  "pain_signals": {
+    "description": "Signaux de douleur chronique en cours",
+    "priority": "HIGH",
+    "keywords_fr": [
+      "j'ai mal", "douleur", "douleurs", "ça fait mal", "je souffre",
+      "douleur chronique", "douleurs diffuses", "douleurs partout",
+      "mes articulations", "mes muscles font mal", "douleur neuropathique",
+      "allodynie", "hyperalgésie", "douleur invalidante",
+      "je suis en douleur depuis", "mes douleurs sont fortes aujourd'hui"
+    ],
+    "keywords_en": [
+      "in pain", "hurting", "pain", "painful", "chronic pain",
+      "my joints", "my muscles ache", "neuropathic pain",
+      "allodynia", "pain flare", "pain is bad today"
+    ],
+    "action": "validate_pain_acknowledge"
+  },
+
+  "energy_envelope_signals": {
+    "description": "Gestion de l'enveloppe énergétique — pacing",
+    "priority": "MEDIUM",
+    "keywords_fr": [
+      "pacing", "enveloppe énergétique", "je dois doser mon énergie",
+      "je gère mon énergie", "je ne peux pas trop faire",
+      "j'ai un quota d'énergie", "trop d'énergie dépensée",
+      "je suis à court d'énergie", "cuillères", "théorie des cuillères",
+      "spoon theory", "je n'ai plus de cuillères"
+    ],
+    "keywords_en": [
+      "pacing", "energy envelope", "spoon theory", "out of spoons",
+      "energy management", "can't overdo it", "energy budget",
+      "rationing energy"
+    ],
+    "action": "respect_energy_limits"
+  },
+
+  "treatment_signals": {
+    "description": "Signaux liés aux traitements médicaux — context de suivi sans conseil médical",
+    "priority": "MEDIUM",
+    "keywords_fr": [
+      "mon traitement", "mes médicaments", "mon suivi médical",
+      "rendez-vous médecin", "consultation", "bilan sanguin",
+      "résultats d'analyse", "j'attends mes résultats",
+      "chirurgie", "opération", "hospitalisation", "perfusion"
+    ],
+    "keywords_en": [
+      "my treatment", "my medication", "medical appointment",
+      "blood test", "results", "waiting for results",
+      "surgery", "procedure", "hospitalization"
+    ],
+    "action": "health_context_acknowledge",
+    "never_give_medical_advice": true
+  },
+
+  "invisible_illness_signals": {
+    "description": "Signaux liés à l'invisibilité de la maladie — vécu de non-reconnaissance",
+    "priority": "MEDIUM",
+    "keywords_fr": [
+      "personne ne comprend", "je n'ai pas l'air malade",
+      "on ne me croit pas", "on pense que j'exagère",
+      "maladie invisible", "je me sens incomprise",
+      "les gens pensent que je simule", "c'est épuisant d'expliquer",
+      "je dois me justifier", "on me dit que j'ai l'air en forme",
+      "j'en ai assez qu'on minimise", "ça me pèse de ne pas être crue"
+    ],
+    "keywords_en": [
+      "don't look sick", "no one understands", "people don't believe me",
+      "invisible illness", "I feel dismissed", "people think I'm faking",
+      "tired of explaining", "have to justify", "you look fine"
+    ],
+    "action": "validate_invisible_illness",
+    "response_template": "Ne pas avoir l'air malade tout en souffrant, c'est l'une des choses les plus épuisantes et injustes. Je te crois."
+  },
+
+  "caregiver_signals": {
+    "description": "Signaux d'aidant proche — accompagnement d'une personne fragile",
+    "priority": "MEDIUM",
+    "keywords_fr": [
+      "aidante", "aidant", "je m'occupe de", "je prends soin de",
+      "épuisement de l'aidant", "burnout aidant",
+      "je gère la maladie de", "mon proche est malade",
+      "charge de l'aidant", "je suis seule pour gérer"
+    ],
+    "keywords_en": [
+      "caregiver", "caring for", "carer", "caregiver burnout",
+      "looking after", "my loved one is sick", "alone in managing"
+    ],
+    "action": "caregiver_support_mode"
+  },
+
+  "bipolar_mood_signals": {
+    "description": "Signaux d'épisode bipolaire — maniaque, dépressif ou mixte",
+    "priority": "HIGH",
+    "keywords_fr": [
+      "je suis en phase maniaque", "phase maniaque", "hypomanie", "je suis en hypomanie",
+      "les idées vont trop vite", "je n'ai pas dormi depuis des jours",
+      "je me sens invincible", "je dépense tout", "je prends des risques",
+      "épisode bipolaire", "rechute bipolaire", "phase mixte",
+      "je replonge dans le noir", "épisode dépressif bipolaire",
+      "lithium", "lamictal", "dépakote", "thymorégulateur",
+      "je bascule", "cyclothymie", "je change d'humeur très vite"
+    ],
+    "keywords_en": [
+      "manic episode", "hypomania", "bipolar episode", "mixed episode",
+      "thoughts racing", "haven't slept in days", "feel invincible",
+      "spending too much", "mood swing", "bipolar relapse"
+    ],
+    "action": "activate_bipolar_support_mode",
+    "response_template": "Je t'entends. On va avancer doucement, à ton rythme."
+  },
+
+  "hypersomnia_signals": {
+    "description": "Signaux d'hypersomnie — besoin de sommeil excessif non réparateur",
+    "priority": "MEDIUM",
+    "keywords_fr": [
+      "hypersomnie", "je dors trop", "j'arrive pas à me lever",
+      "sleep inertia", "inertie du sommeil", "ivresse du sommeil",
+      "je somnole toute la journée", "sieste forcée",
+      "je ne me réveille pas", "somnolence excessive",
+      "modafinil", "sodium oxybate", "je lutte pour rester éveillé·e",
+      "je rate tout à cause du sommeil", "je dors 12h et je suis fatigué·e"
+    ],
+    "keywords_en": [
+      "hypersomnia", "sleep inertia", "can't wake up", "too much sleep",
+      "still tired after sleeping", "excessive sleepiness", "sleeping too much"
+    ],
+    "action": "validate_hypersomnia_context"
+  },
+
+  "hyperactivity_signals": {
+    "description": "Signaux d'agitation / hyperactivité TDAH — impulsivité motrice ou verbale",
+    "priority": "MEDIUM",
+    "keywords_fr": [
+      "je peux pas rester en place", "je suis trop agité·e",
+      "j'ai trop d'énergie je sais pas quoi en faire",
+      "j'ai dit quelque chose sans réfléchir", "j'ai agi impulsivement",
+      "j'arrive pas à attendre", "je m'ennuie je vais exploser",
+      "j'interromps tout le monde", "je fais 10 choses à la fois",
+      "hyperactivité", "TDAH-PHI", "je suis en mode turbo"
+    ],
+    "keywords_en": [
+      "can't sit still", "too restless", "too much energy",
+      "acted impulsively", "can't wait", "interrupting everyone",
+      "hyperactive", "bouncing off the walls"
+    ],
+    "action": "adapt_for_hyperactivity_context"
+  },
+
+  "rumination_signals": {
+    "description": "Signaux de rumination mentale — pensées en boucle non productives",
+    "priority": "MEDIUM",
+    "keywords_fr": [
+      "je rumine", "j'arrête pas d'y penser", "ça tourne en boucle",
+      "je rejoue la scène", "je ressasse", "pensées intrusives",
+      "ma tête ne s'arrête pas", "je pense trop", "overthinking",
+      "j'aurais dû", "j'aurais pu", "pourquoi j'ai fait ça",
+      "je me repasse le film", "je n'arrive pas à m'arrêter d'y penser",
+      "la même pensée revient", "je culpabilise en boucle"
+    ],
+    "keywords_en": [
+      "ruminating", "can't stop thinking", "looping thoughts",
+      "overthinking", "replaying", "intrusive thoughts",
+      "thought spiral", "stuck in my head", "going over it again"
+    ],
+    "action": "activate_rumination_interrupt_mode"
+  },
+
+  "hyperfocus_signals": {
+    "description": "Signaux d'hyperfocus ou de dissociation environnementale par concentration extrême",
+    "priority": "LOW",
+    "keywords_fr": [
+      "hyperfocus", "j'étais dans ma bulle", "je n'ai pas entendu",
+      "je n'ai pas vu le temps passer", "j'ai perdu des heures",
+      "je n'arrivais plus à m'arrêter", "j'étais complètement absorbé·e",
+      "j'ai oublié de manger", "j'ai oublié de boire",
+      "je perds la notion du temps", "time blindness",
+      "je me réveille et il est 3h du matin",
+      "crash post-hyperfocus", "épuisé·e après ma session"
+    ],
+    "keywords_en": [
+      "hyperfocus", "in the zone", "lost track of time",
+      "couldn't stop", "didn't hear anything", "forgot to eat",
+      "time blindness", "fully absorbed", "post-hyperfocus crash"
+    ],
+    "action": "respect_hyperfocus_state"
+  },
+
+  "signal_weights": {
+    "crisis_health": 10,
+    "flare": 7,
+    "cognitive_fog": 6,
+    "bipolar_mood": 8,
+    "rumination": 5,
+    "pain": 5,
+    "invisible_illness": 4,
+    "energy_envelope": 4,
+    "caregiver": 5,
+    "treatment": 3,
+    "hypersomnia": 4,
+    "hyperactivity": 4,
+    "hyperfocus": 3
+  }
+}

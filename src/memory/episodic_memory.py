@@ -1,16 +1,19 @@
-﻿# ============================================================
+# ============================================================
 # ALFRED — src/memory/episodic_memory.py
-# Bloc 02.03 — Mémoire épisodique
+# Bloc 02.03 — Historique utilisateur
 #
-# Fonctions couvertes :
-#   02.03.001 Enregistrement événements vécus  ✅ V2
-#   02.03.002 Timeline chronologique           ✅ V2
-#   02.03.003 Liens contextuels (cause/effet)  ✅ V2
-#   02.03.004 Rappel épisodes pertinents       ✅ V2
-#   02.03.005 Clustering par thème/émotion     ✅ V2
+# 📚 NOTION EXAM :
+#   D21-3 — Capsule 2 : Mémoire épisodique et événements marquants
 #
-# Un "épisode" = moment notable (session intense, percée, blocage, émotion forte)
-# Différent de la mémoire ordinaire : c'est ce qui COMPTE pour l'utilisateur.
+# 🎯 UTILITÉ ALFRED :
+#   Enregistre les épisodes notables (percées, blocages, émotions fortes)
+#   avec timeline chronologique et liens contextuels cause/effet.
+#
+# 🏗️ DOMAINE :
+#   Mémoire & contexte — épisodique, différent de la mémoire ordinaire
+#
+# UPDATED : 2026-06-10 — chemin _EPISODE_FILE ancré sur paths.PATHS
+# STATUS  : TO_TEST (fix bug cwd-relatif, à revalider en conditions réelles)
 # ============================================================
 
 import json
@@ -19,9 +22,12 @@ from pathlib import Path
 from typing import Any
 
 from src.security.security_logger import log_event
+from paths import PATHS
 
 # ── Stockage JSON (local-first) ───────────────────────────
-_EPISODE_FILE = Path("data/memory/episodes.json")
+# Ancré sur la racine du projet (paths.py, basé sur __file__) — ne dépend pas
+# du répertoire de travail courant au lancement de main.py.
+_EPISODE_FILE = PATHS.data_memory / "episodes.json"
 _EPISODE_FILE.parent.mkdir(parents=True, exist_ok=True)
 
 
