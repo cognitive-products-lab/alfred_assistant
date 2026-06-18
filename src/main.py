@@ -626,6 +626,35 @@ def handle_command(command: str, components: dict[str, Any]) -> bool:
 
         return True
 
+    if cmd in {"recherche_on", "recherche_off", "research_on", "research_off"}:
+        activate = cmd in {"recherche_on", "research_on"}
+        try:
+            import json as _json
+            _path = PERSONALITY_PATH
+            with open(_path, "r", encoding="utf-8") as _f:
+                _data = _json.load(_f)
+            rm = _data.get("metadata", {}).get("research_mode", {})
+            if not isinstance(rm, dict):
+                rm = {}
+            rm["active"] = activate
+            _data.setdefault("metadata", {})["research_mode"] = rm
+            with open(_path, "w", encoding="utf-8") as _f:
+                _json.dump(_data, _f, ensure_ascii=False, indent=4)
+            from src.core.personality_adapter import PersonalityAdapter
+            components["adapter"] = PersonalityAdapter(
+                personality_path=str(PERSONALITY_PATH),
+                user_profile_path=str(USER_PROFILE_PATH),
+                allow_templates=False,
+            )
+            etat = "ACTIVÉ" if activate else "DÉSACTIVÉ"
+            print(f"\n  Mode recherche {etat}.\n")
+            if activate:
+                print("  ALFRED est maintenant en liberté interactionnelle élevée.")
+                print("  Planchers actifs : zéro malveillance, zéro toxicité.\n")
+        except Exception as exc:
+            print(f"\n  [ERREUR research_mode] {exc}\n")
+        return True
+
     if cmd == "ecoute":
         try:
             text = listen_voice_once()
