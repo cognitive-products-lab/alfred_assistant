@@ -1,0 +1,297 @@
+{
+  "schema_version": "1.0",
+  "description": "Schéma des 9 dimensions du profil psychologique ALFRED",
+  "created_at": "2026-06-16",
+  "dimensions": [
+    {
+      "id": "big_five",
+      "label_fr": "Personnalité Big Five (TIPI)",
+      "framework_source": {
+        "nom": "Ten-Item Personality Inventory (TIPI)",
+        "auteurs": "Gosling, S.D., Rentfrow, P.J., & Swann, W.B. Jr.",
+        "annee": 2003,
+        "publication": "Journal of Research in Personality, 37(6), 504-528",
+        "adaptation_fr": "Hahn, E., Gottschling, J., & Spinath, F.M. (2012). Short measurements of personality — Validity and reliability of the TIPI-G in German. Journal of Research in Personality, 46(5), 611-619 (version allemande validée ; adaptation française disponible dans la littérature académique)"
+      },
+      "description": "Mesure les 5 grandes dimensions stables de la personnalité humaine : ouverture à l'expérience, conscience/organisation, extraversion, agréabilité et stabilité émotionnelle. Ces traits sont considérés comme biologiquement ancrés et stables dans le temps.",
+      "score_range": [0, 100],
+      "levels": [
+        { "label": "très faible", "range": [0, 19], "description": "Score très en dessous de la moyenne populationnelle (< -2 SD)" },
+        { "label": "faible", "range": [20, 39], "description": "Score en dessous de la moyenne (entre -2 SD et -0.5 SD)" },
+        { "label": "moyen", "range": [40, 59], "description": "Score dans la moyenne populationnelle (±0.5 SD)" },
+        { "label": "élevé", "range": [60, 79], "description": "Score au-dessus de la moyenne (entre +0.5 SD et +2 SD)" },
+        { "label": "très élevé", "range": [80, 100], "description": "Score très au-dessus de la moyenne populationnelle (> +2 SD)" }
+      ],
+      "sub_dimensions": [
+        { "id": "ouverture", "label_fr": "Ouverture à l'expérience (O)", "description": "Curiosité intellectuelle, créativité, ouverture aux idées nouvelles" },
+        { "id": "conscienciosite", "label_fr": "Conscienciosité (C)", "description": "Organisation, autodiscipline, persévérance, fiabilité" },
+        { "id": "extraversion", "label_fr": "Extraversion (E)", "description": "Sociabilité, énergie sociale, assertivité, enthousiasme" },
+        { "id": "agreabilite", "label_fr": "Agréabilité (A)", "description": "Coopération, confiance, bienveillance envers autrui" },
+        { "id": "stabilite_emotionnelle", "label_fr": "Stabilité émotionnelle (N inversé)", "description": "Calme émotionnel, résistance aux émotions négatives (inverse du neuroticisme)" }
+      ],
+      "assessfirst_overlap": {
+        "actif": true,
+        "description": "Le profil AssessFirst SWIPE couvre les Big Five complets. Ces données constituent la source de vérité prioritaire. Le TIPI sert de mesure complémentaire légère et de vérification de cohérence périodique.",
+        "source_prioritaire": "assessfirst_source"
+      },
+      "questionnaire_ref": "01_big_five_TIPI.md"
+    },
+    {
+      "id": "intelligence_emotionnelle",
+      "label_fr": "Intelligence émotionnelle (TEIQue-SF)",
+      "framework_source": {
+        "nom": "Trait Emotional Intelligence Questionnaire — Short Form (TEIQue-SF)",
+        "auteurs": "Petrides, K.V.",
+        "annee": 2009,
+        "publication": "Petrides, K.V. (2009). Psychometric properties of the Trait Emotional Intelligence Questionnaire (TEIQue). In C. Stough, D.H. Saklofske, & J.D.A. Parker (Eds.), Assessing Emotional Intelligence. Springer.",
+        "adaptation_fr": "Version adaptée en français dans la littérature (voir aussi Mikolajczak, M., et al., 2007, Psychologica Belgica)"
+      },
+      "description": "Mesure l'intelligence émotionnelle en tant que trait de personnalité : capacité à percevoir, comprendre, gérer et utiliser les émotions — les siennes et celles d'autrui. Distinct de l'IE comme aptitude cognitive (modèle Mayer-Salovey-Caruso).",
+      "score_range": [0, 100],
+      "levels": [
+        { "label": "faible", "range": [0, 33], "description": "Difficulté à identifier et réguler ses émotions ; relations interpersonnelles parfois tendues" },
+        { "label": "moyen", "range": [34, 66], "description": "Gestion émotionnelle fonctionnelle avec des zones de développement identifiables" },
+        { "label": "élevé", "range": [67, 100], "description": "Excellente conscience émotionnelle, régulation efficace, empathie développée" }
+      ],
+      "sub_dimensions": [
+        { "id": "bien_etre_emotionnel", "label_fr": "Bien-être émotionnel", "description": "Satisfaction de vie, bonheur, optimisme" },
+        { "id": "autocontrole_emotionnel", "label_fr": "Autocontrôle émotionnel", "description": "Régulation des émotions, contrôle des impulsions, gestion du stress" },
+        { "id": "emotivite", "label_fr": "Émotivité", "description": "Empathie, perception des émotions d'autrui, expression émotionnelle" },
+        { "id": "sociabilite_eq", "label_fr": "Sociabilité émotionnelle", "description": "Gestion des relations, assertivité émotionnelle, compétences sociales" }
+      ],
+      "assessfirst_overlap": {
+        "actif": false,
+        "description": "AssessFirst SWIPE ne couvre pas directement l'IE comme dimension séparée. DRIVE peut fournir des indicateurs indirects sur les motivations sociales."
+      },
+      "questionnaire_ref": "02_intelligence_emotionnelle.md"
+    },
+    {
+      "id": "valeurs_schwartz",
+      "label_fr": "Valeurs fondamentales (PVQ-21 Schwartz)",
+      "framework_source": {
+        "nom": "Portrait Values Questionnaire — 21 items (PVQ-21)",
+        "auteurs": "Schwartz, S.H., Melech, G., Lehmann, A., Burgess, S., Harris, M., & Owens, V.",
+        "annee": 2001,
+        "publication": "Schwartz, S.H. et al. (2001). Extending the cross-cultural validity of the theory of basic human values with a different method of measurement. Journal of Cross-Cultural Psychology, 32(5), 519-542."
+      },
+      "description": "Mesure les 10 valeurs motivationnelles universelles de Schwartz, regroupées en 4 valeurs supérieures. Les valeurs guident les comportements, les choix de vie et les priorités — elles sont distinctes des traits de personnalité et évoluent lentement.",
+      "score_range": [0, 100],
+      "levels": [
+        { "label": "non prioritaire", "range": [0, 33], "description": "Valeur peu motivante au quotidien" },
+        { "label": "modérément important", "range": [34, 66], "description": "Valeur présente mais non dominante" },
+        { "label": "prioritaire", "range": [67, 100], "description": "Valeur centrale guidant fortement les décisions et comportements" }
+      ],
+      "sub_dimensions": [
+        { "id": "conformite", "label_fr": "Conformité", "description": "Respect des règles sociales, obéissance, retenue comportementale" },
+        { "id": "tradition", "label_fr": "Tradition", "description": "Respect des coutumes, dévotion, acceptation de son rôle social" },
+        { "id": "bienveillance", "label_fr": "Bienveillance", "description": "Préservation du bien-être des proches, loyauté, amour" },
+        { "id": "universalisme", "label_fr": "Universalisme", "description": "Compréhension, tolérance, protection de la nature et de tous" },
+        { "id": "autonomie", "label_fr": "Autonomie de pensée et d'action", "description": "Liberté de pensée, créativité, indépendance" },
+        { "id": "stimulation", "label_fr": "Stimulation", "description": "Excitation, nouveauté, vie trépidante" },
+        { "id": "hedonisme", "label_fr": "Hédonisme", "description": "Plaisir, satisfaction des désirs sensoriels" },
+        { "id": "reussite", "label_fr": "Réussite personnelle", "description": "Succès, ambition, compétence reconnue socialement" },
+        { "id": "pouvoir", "label_fr": "Pouvoir social", "description": "Statut social, prestige, contrôle sur les personnes et ressources" },
+        { "id": "securite", "label_fr": "Sécurité", "description": "Sécurité personnelle et familiale, ordre, stabilité sociale" }
+      ],
+      "valeurs_superieures": [
+        { "id": "depassement_de_soi", "label_fr": "Dépassement de soi", "includes": ["universalisme", "bienveillance"] },
+        { "id": "affirmation_de_soi", "label_fr": "Affirmation de soi", "includes": ["pouvoir", "reussite"] },
+        { "id": "ouverture_au_changement", "label_fr": "Ouverture au changement", "includes": ["autonomie", "stimulation", "hedonisme"] },
+        { "id": "conservation", "label_fr": "Conservation", "includes": ["securite", "conformite", "tradition"] }
+      ],
+      "assessfirst_overlap": {
+        "actif": true,
+        "description": "AssessFirst DRIVE mesure les motivations professionnelles qui recoupent partiellement les valeurs Schwartz (Réussite ↔ DRIVE Défi, Bienveillance ↔ DRIVE Soutien). PVQ-21 offre une mesure plus large couvrant aussi la vie personnelle."
+      },
+      "questionnaire_ref": "03_valeurs_schwartz.md"
+    },
+    {
+      "id": "chronotype_energie",
+      "label_fr": "Chronotype et gestion de l'énergie (rMEQ)",
+      "framework_source": {
+        "nom": "Reduced Morningness-Eveningness Questionnaire (rMEQ) — Chronotype",
+        "auteurs": "Adan, A. & Almirall, H.",
+        "annee": 1991,
+        "publication": "Adan, A. & Almirall, H. (1991). Horne & Östberg morningness-eveningness questionnaire: A reduced scale. Personality and Individual Differences, 12(3), 241-253.",
+        "complement": "Composante gestion de l'énergie : items originaux inspirés du modèle de Loehr & Schwartz (2003), The Power of Full Engagement, Free Press"
+      },
+      "description": "Mesure deux composantes : (1) le chronotype biologique (tendance matin/soir des rythmes circadiens) qui influence les pics de performance cognitive ; (2) les patterns de gestion de l'énergie (physique, émotionnelle, mentale, spirituelle) au quotidien.",
+      "score_range": [0, 100],
+      "levels": [
+        { "label": "chronotype_matin", "range": [0, 33], "description": "Typage matinal — pic d'énergie et de concentration tôt le matin (6h-10h)" },
+        { "label": "chronotype_intermediaire", "range": [34, 66], "description": "Chronotype intermédiaire — flexibilité dans les horaires de performance optimale" },
+        { "label": "chronotype_soir", "range": [67, 100], "description": "Typage vespéral — pic d'énergie et de créativité en fin d'après-midi ou soirée" }
+      ],
+      "sub_dimensions": [
+        { "id": "chronotype", "label_fr": "Chronotype (rMEQ)", "description": "Tendance biologique matin/intermédiaire/soir basée sur 5 items validés" },
+        { "id": "pic_energie_cognitif", "label_fr": "Pic d'énergie cognitive", "description": "Moment de la journée où la concentration et la performance intellectuelle sont maximales" },
+        { "id": "gestion_recuperation", "label_fr": "Gestion de la récupération", "description": "Capacité à identifier les besoins de récupération et à les satisfaire" },
+        { "id": "regularite_energetique", "label_fr": "Régularité du cycle énergétique", "description": "Profil stable / cyclique / irrégulier au quotidien et sur la semaine" }
+      ],
+      "assessfirst_overlap": {
+        "actif": false,
+        "description": "AssessFirst ne couvre pas le chronotype ni la gestion de l'énergie circadienne. Dimension complémentaire pure."
+      },
+      "questionnaire_ref": "04_chronotype_energie.md"
+    },
+    {
+      "id": "resilience_stress",
+      "label_fr": "Résilience et stress perçu (CD-RISC-10 + PSS-4)",
+      "framework_source": {
+        "nom_resilience": "Connor-Davidson Resilience Scale — 10 items (CD-RISC-10)",
+        "auteurs_resilience": "Campbell-Sills, L. & Stein, M.B.",
+        "annee_resilience": 2007,
+        "publication_resilience": "Campbell-Sills, L. & Stein, M.B. (2007). Psychometric analysis and refinement of the Connor-Davidson Resilience Scale (CD-RISC): Validation of a 10-item measure of resilience. Journal of Traumatic Stress, 20(6), 1019-1028.",
+        "nom_stress": "Perceived Stress Scale — 4 items (PSS-4)",
+        "auteurs_stress": "Cohen, S., Kamarck, T., & Mermelstein, R.",
+        "annee_stress": 1983,
+        "publication_stress": "Cohen, S., Kamarck, T., & Mermelstein, R. (1983). A global measure of perceived stress. Journal of Health and Social Behavior, 24(4), 385-396.",
+        "adaptation_fr_stress": "Lesage, F.X., Berjot, S., & Deschamps, F. (2012). Psychometric properties of the French versions of the Perceived Stress Scale. International Journal of Occupational Medicine and Environmental Health, 25(2), 178-184."
+      },
+      "description": "Mesure deux construits complémentaires : (1) la résilience — capacité à rebondir après les adversités, à s'adapter et à maintenir son fonctionnement ; (2) le stress perçu — évaluation subjective du niveau de stress vécu. Ces deux dimensions sont les plus variables dans le temps.",
+      "score_range": [0, 100],
+      "levels": [
+        { "label": "faible", "range": [0, 33], "description": "Résilience faible ou stress très élevé — zone d'attention prioritaire" },
+        { "label": "moyen", "range": [34, 66], "description": "Résilience fonctionnelle avec des ressources à renforcer" },
+        { "label": "élevé", "range": [67, 100], "description": "Résilience solide et/ou stress perçu faible — ressources émotionnelles disponibles" }
+      ],
+      "sub_dimensions": [
+        { "id": "resilience_globale", "label_fr": "Résilience globale (CD-RISC-10)", "description": "Capacité générale d'adaptation, de rebond et de maintien face à l'adversité" },
+        { "id": "stress_percu", "label_fr": "Stress perçu (PSS-4)", "description": "Niveau subjectif de stress ressenti — contrôle perçu, capacité à faire face, débordement" }
+      ],
+      "assessfirst_overlap": {
+        "actif": true,
+        "description": "AssessFirst SWIPE mesure partiellement la stabilité émotionnelle (N- du Big Five) qui corrèle avec la résilience. BRAIN peut indiquer la tolérance à l'incertitude. CD-RISC-10 + PSS-4 offrent une mesure directe et sensible au changement."
+      },
+      "questionnaire_ref": "05_resilience_stress.md"
+    },
+    {
+      "id": "riasec_interets_pro",
+      "label_fr": "Intérêts professionnels RIASEC (Holland)",
+      "framework_source": {
+        "nom": "Théorie hexagonale des intérêts professionnels (RIASEC)",
+        "auteurs": "Holland, J.L.",
+        "annee": 1997,
+        "publication": "Holland, J.L. (1997). Making vocational choices: A theory of vocational personalities and work environments (3rd ed.). Psychological Assessment Resources.",
+        "note": "Les items du questionnaire officiel SDS (Self-Directed Search) sont propriétaires. Les items ci-dessous sont originaux, fidèles aux construits de Holland mais non soumis à copyright."
+      },
+      "description": "Mesure les intérêts professionnels selon la théorie de Holland : chaque personne correspond à une combinaison de 6 types (Réaliste, Investigateur, Artistique, Social, Entreprenant, Conventionnel). Le code à 3 lettres dominant guide l'adéquation personne-environnement.",
+      "score_range": [0, 100],
+      "levels": [
+        { "label": "non dominant", "range": [0, 33], "description": "Type peu présent dans le profil — à ne pas imposer dans les suggestions ALFRED" },
+        { "label": "secondaire", "range": [34, 66], "description": "Type présent mais non dominant — intégrable en complément" },
+        { "label": "dominant", "range": [67, 100], "description": "Type central du profil — à valoriser fortement dans les suggestions ALFRED" }
+      ],
+      "sub_dimensions": [
+        { "id": "realiste", "label_fr": "Réaliste (R)", "description": "Préférence pour les activités concrètes, manuelles, techniques et physiques" },
+        { "id": "investigateur", "label_fr": "Investigateur (I)", "description": "Préférence pour l'analyse, la recherche, la résolution de problèmes complexes" },
+        { "id": "artistique", "label_fr": "Artistique (A)", "description": "Préférence pour la créativité, l'expression, l'originalité et l'ambiguïté" },
+        { "id": "social", "label_fr": "Social (S)", "description": "Préférence pour l'aide, l'enseignement, le travail avec et pour les autres" },
+        { "id": "entreprenant", "label_fr": "Entreprenant (E)", "description": "Préférence pour le leadership, la persuasion, la prise de risque et l'initiative" },
+        { "id": "conventionnel", "label_fr": "Conventionnel (C)", "description": "Préférence pour l'ordre, les données, la précision et les procédures établies" }
+      ],
+      "assessfirst_overlap": {
+        "actif": true,
+        "description": "AssessFirst DRIVE couvre les motivations professionnelles qui recoupent partiellement RIASEC (ex : motivation Créativité ↔ Artistique, motivation Analyse ↔ Investigateur). RIASEC apporte la dimension 'intérêts' qui complète les 'motivations'."
+      },
+      "questionnaire_ref": "06_riasec_interets_pro.md"
+    },
+    {
+      "id": "engagement_burnout",
+      "label_fr": "Engagement au travail et risque burnout (UWES-9 + MBI-GS simplifié)",
+      "framework_source": {
+        "nom_engagement": "Utrecht Work Engagement Scale — 9 items (UWES-9)",
+        "auteurs_engagement": "Schaufeli, W.B. & Bakker, A.B.",
+        "annee_engagement": 2004,
+        "publication_engagement": "Schaufeli, W.B. & Bakker, A.B. (2004). Job demands, job resources, and their relationship with burnout and engagement: A multi-sample study. Journal of Organizational Behavior, 25(3), 293-315.",
+        "note_mbi": "Les items MBI officiel (Maslach Burnout Inventory) sont propriétaires (Mind Garden). Les items de risque burnout ci-dessous sont originaux, fidèles aux construits de Maslach mais non soumis à copyright."
+      },
+      "description": "Mesure deux dimensions critiques du rapport au travail : (1) l'engagement — état motivationnel positif caractérisé par la vigueur, le dévouement et l'absorption ; (2) l'indicateur de risque de burnout — épuisement, cynisme et efficacité réduite. Ces deux construits sont inversement corrélés mais distincts.",
+      "score_range": [0, 100],
+      "levels": [
+        { "label": "critique", "range": [0, 24], "description": "Zone de risque élevé (burnout probable ou engagement très faible) — action recommandée" },
+        { "label": "faible", "range": [25, 44], "description": "Engagement insuffisant ou signes précoces de burnout" },
+        { "label": "moyen", "range": [45, 64], "description": "Engagement fonctionnel sans enthousiasme particulier" },
+        { "label": "élevé", "range": [65, 84], "description": "Bon niveau d'engagement, faible risque de burnout" },
+        { "label": "très élevé", "range": [85, 100], "description": "Engagement exceptionnel — surveiller malgré tout le risque de sur-engagement" }
+      ],
+      "sub_dimensions": [
+        { "id": "vigueur", "label_fr": "Vigueur (UWES)", "description": "Niveau d'énergie, de résistance mentale et de persévérance au travail" },
+        { "id": "devouement", "label_fr": "Dévouement (UWES)", "description": "Sens, enthousiasme, inspiration, fierté et challenge ressentis au travail" },
+        { "id": "absorption", "label_fr": "Absorption (UWES)", "description": "État de concentration totale, de flow, d'immersion dans le travail" },
+        { "id": "epuisement", "label_fr": "Épuisement émotionnel (risque burnout)", "description": "Sentiment d'être vidé de ses ressources émotionnelles et physiques" },
+        { "id": "cynisme", "label_fr": "Cynisme / Dépersonnalisation (risque burnout)", "description": "Détachement, attitude négative ou distanciée envers son travail" },
+        { "id": "efficacite_reduite", "label_fr": "Sentiment d'efficacité réduite (risque burnout)", "description": "Doute sur sa compétence, impression de ne plus être performant" }
+      ],
+      "assessfirst_overlap": {
+        "actif": false,
+        "description": "AssessFirst ne mesure pas directement l'engagement ou le burnout. Dimension complémentaire pure, particulièrement importante comme indicateur de santé au travail."
+      },
+      "questionnaire_ref": "07_engagement_burnout.md"
+    },
+    {
+      "id": "communication_conflit",
+      "label_fr": "Styles de communication et gestion des conflits (TKI-inspiré)",
+      "framework_source": {
+        "nom": "Modèle Thomas-Kilmann des modes de gestion des conflits",
+        "auteurs": "Thomas, K.W. & Kilmann, R.H.",
+        "annee": 1974,
+        "publication": "Thomas, K.W. & Kilmann, R.H. (1974). Thomas-Kilmann Conflict Mode Instrument. Xicom.",
+        "note": "Le TKI officiel est propriétaire (Wiley). Les items ci-dessous sont originaux, fidèles aux axes assertivité/coopération du modèle mais non soumis à copyright.",
+        "complement": "Thomas, K.W. (1992). Conflict and conflict management: Reflections and update. Journal of Organizational Behavior, 13(3), 265-274."
+      },
+      "description": "Mesure les 5 modes de gestion des conflits interpersonnels selon deux axes : assertivité (degré de défense de ses propres intérêts) et coopération (degré de satisfaction des intérêts d'autrui). Identifie le mode dominant et les modes de repli.",
+      "score_range": [0, 100],
+      "levels": [
+        { "label": "mode secondaire", "range": [0, 33], "description": "Mode peu utilisé — ressource de repli disponible mais non automatique" },
+        { "label": "mode alterné", "range": [34, 66], "description": "Mode utilisé selon les situations — comportement flexible" },
+        { "label": "mode dominant", "range": [67, 100], "description": "Mode de référence automatique face aux situations conflictuelles" }
+      ],
+      "sub_dimensions": [
+        { "id": "competition", "label_fr": "Compétition (assertif, peu coopératif)", "description": "Défense ferme de sa position, orientation résultat, win-lose" },
+        { "id": "collaboration", "label_fr": "Collaboration (assertif, coopératif)", "description": "Recherche d'une solution satisfaisant les deux parties, win-win" },
+        { "id": "compromis", "label_fr": "Compromis (modérément assertif et coopératif)", "description": "Recherche d'un accord partiel, partage équitable des concessions" },
+        { "id": "evitement", "label_fr": "Évitement (peu assertif, peu coopératif)", "description": "Report ou esquive du conflit, retrait de la situation" },
+        { "id": "accommodement", "label_fr": "Accommodement (peu assertif, coopératif)", "description": "Satisfaction des intérêts d'autrui au détriment des siens" }
+      ],
+      "assessfirst_overlap": {
+        "actif": true,
+        "description": "AssessFirst BRAIN mesure partiellement les styles de traitement de l'information qui influencent la communication. SWIPE (Agréabilité, Extraversion) corrèle avec certains modes. Ce questionnaire apporte la dimension 'comportement face au conflit' manquante."
+      },
+      "questionnaire_ref": "08_communication_conflit.md"
+    },
+    {
+      "id": "assessfirst_source",
+      "label_fr": "Profil AssessFirst (SWIPE + DRIVE + BRAIN)",
+      "framework_source": {
+        "nom": "AssessFirst — Plateforme d'évaluation psychométrique professionnelle",
+        "auteurs": "AssessFirst SAS",
+        "annee": 2008,
+        "publication": "Plateforme propriétaire certifiée. Rapports individuels disponibles via profil.assessfirst.com",
+        "modules": "SWIPE (Big Five adaptatif), DRIVE (motivations professionnelles), BRAIN (style cognitif et d'apprentissage)"
+      },
+      "description": "Source de données externe professionnelle couvrant la personnalité (Big Five complet via SWIPE), les motivations professionnelles (DRIVE) et le style cognitif/d'apprentissage (BRAIN). Constitue la source de vérité prioritaire pour les dimensions couvertes. Données issues du rapport AssessFirst de Céline Rousselot.",
+      "score_range": [0, 100],
+      "levels": [
+        { "label": "bas", "range": [0, 33], "description": "Score dans le tiers inférieur de la population de référence AssessFirst" },
+        { "label": "moyen", "range": [34, 66], "description": "Score dans la zone centrale de la distribution" },
+        { "label": "élevé", "range": [67, 100], "description": "Score dans le tiers supérieur de la population de référence" }
+      ],
+      "sub_dimensions": [
+        { "id": "swipe_o", "label_fr": "SWIPE — Ouverture", "description": "Curiosité intellectuelle et créativité (Big Five O)" },
+        { "id": "swipe_c", "label_fr": "SWIPE — Conscienciosité", "description": "Organisation et autodiscipline (Big Five C)" },
+        { "id": "swipe_e", "label_fr": "SWIPE — Extraversion", "description": "Sociabilité et assertivité (Big Five E)" },
+        { "id": "swipe_a", "label_fr": "SWIPE — Agréabilité", "description": "Coopération et bienveillance (Big Five A)" },
+        { "id": "swipe_n", "label_fr": "SWIPE — Stabilité émotionnelle", "description": "Calme émotionnel (Big Five N inversé)" },
+        { "id": "drive_motivations", "label_fr": "DRIVE — Motivations professionnelles", "description": "Profil des 20 motivateurs professionnels (défi, autonomie, créativité, etc.)" },
+        { "id": "brain_style_cognitif", "label_fr": "BRAIN — Style cognitif", "description": "Style de traitement de l'information et préférences d'apprentissage" }
+      ],
+      "assessfirst_overlap": {
+        "actif": true,
+        "description": "Cette dimension est la source AssessFirst elle-même. Elle alimente big_five, partiellement valeurs_schwartz, riasec_interets_pro et communication_conflit."
+      },
+      "questionnaire_ref": null,
+      "note": "Pas de questionnaire ALFRED associé. Données extraites manuellement du rapport AssessFirst et saisies dans user_profile.json."
+    }
+  ]
+}
