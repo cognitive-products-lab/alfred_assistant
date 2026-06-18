@@ -1,16 +1,19 @@
 # ============================================================
 # ALFRED — src/main.py
 # Bloc 01.04 — Orchestration des modules
+# Version : 1.4 — 2026-06-18
 #
 # 📚 NOTION EXAM :
 #   D11-1 — Capsule 1 : Pipeline conversationnel et orchestration V1
 #
 # 🎯 UTILITÉ ALFRED :
-#   Point d'entrée principal V1.2 — orchestre conversation texte,
-#   personnalité, mémoire, émotion, wellbeing et mode dégradé Ollama.
+#   Point d'entrée principal V1.4 — orchestre conversation texte,
+#   personnalité (profil psychométrique adaptatif), mémoire, émotion,
+#   wellbeing, mode recherche (liberté interactionnelle) et
+#   stack LLM local-first Ollama → OpenAI → Anthropic.
 #
 # 🏗️ DOMAINE :
-#   Noyau conversationnel & orchestration — pipeline complet V1 → V2
+#   Noyau conversationnel & orchestration — pipeline profil IA adaptative
 # ============================================================
 
 from __future__ import annotations

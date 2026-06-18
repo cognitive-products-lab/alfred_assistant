@@ -1,16 +1,19 @@
 # ============================================================
 # ALFRED — src/core/response_generator.py
 # Bloc 01.05 — Gestion des réponses
+# Version : 2.3 — 2026-06-18
 #
 # 📚 NOTION EXAM :
 #   D11-2 — Capsule 1 : Génération de réponses LLM-ready et prompt engineering
 #
 # 🎯 UTILITÉ ALFRED :
-#   Construit le prompt système (personnalité, mémoire, historique, session),
-#   réduit les hallucinations et gère le fallback offline.
+#   Construit le prompt système (personnalité adaptative, mémoire, historique,
+#   session, profil psychométrique utilisateur). Inclut le mode recherche
+#   (liberté interactionnelle élevée), post-processing anti-IA et
+#   gestion du fallback offline.
 #
 # 🏗️ DOMAINE :
-#   Noyau conversationnel — générateur de réponses LLM-ready V2.2
+#   Noyau conversationnel — générateur de réponses LLM-ready V2.3
 # ============================================================
 
 import json
