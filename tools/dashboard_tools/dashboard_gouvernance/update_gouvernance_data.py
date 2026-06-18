@@ -202,6 +202,19 @@ def main() -> None:
             print(f"  [{norm['id']:12s}] PLANIFIÉ  ({norm.get('planned_date', '')})")
 
     print(f"\n  Fichier : {OUTPUT}")
+
+    # Génération automatique du rapport d'audit daté
+    try:
+        import importlib.util, sys as _sys
+        _rpt = ROOT / "tools/dashboard_tools/dashboard_gouvernance/generate_audit_report.py"
+        _spec = importlib.util.spec_from_file_location("generate_audit_report", _rpt)
+        _mod = importlib.util.module_from_spec(_spec)
+        _spec.loader.exec_module(_mod)
+        report_path = _mod.generate_report()
+        print(f"  Rapport : {report_path}")
+    except Exception as exc:
+        print(f"  [WARN] Rapport non généré : {exc}")
+
     print("=" * 52)
 
 
