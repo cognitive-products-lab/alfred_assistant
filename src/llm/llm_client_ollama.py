@@ -61,6 +61,39 @@ MODEL_PROFILES: dict[str, dict] = {
         "num_ctx":     2048,
         "description": "Ultra-rapide — bon pour réponses courtes et navigation commandes",
     },
+    # Modèles lourds (Minisforum MS-S1 Max, 64-128 Go RAM unifiée) — a tester
+    "llama3.3:70b": {
+        "temperature": 0.3,
+        "max_tokens":  700,
+        "num_ctx":     8192,
+        "keep_alive":  "30m",
+        "timeout":     600,
+        "description": "70B, excellent français — ~42 Go RAM en Q4",
+    },
+    "qwen2.5:72b": {
+        "temperature": 0.3,
+        "max_tokens":  700,
+        "num_ctx":     8192,
+        "keep_alive":  "30m",
+        "timeout":     600,
+        "description": "72B, très bon multilingue/français — ~45 Go RAM en Q4",
+    },
+    "command-r-plus:104b": {
+        "temperature": 0.3,
+        "max_tokens":  700,
+        "num_ctx":     8192,
+        "keep_alive":  "30m",
+        "timeout":     600,
+        "description": "104B, fort en RAG/contexte long — ~60 Go RAM en Q4",
+    },
+    "gpt-oss:120b": {
+        "temperature": 0.4,
+        "max_tokens":  800,
+        "num_ctx":     8192,
+        "keep_alive":  "30m",
+        "timeout":     600,
+        "description": "120B MoE, ~32 tok/s mesuré sur Ryzen AI Max+ 395 — ~65 Go RAM en Q4 (128 Go recommandés)",
+    },
     # Fallback générique pour tout autre modèle
     "__default__": {
         "temperature": 0.4,
@@ -91,6 +124,8 @@ class OllamaLLMClient:
         self.temperature = temperature if temperature is not None else profile["temperature"]
         self.max_tokens  = max_tokens  if max_tokens  is not None else profile["max_tokens"]
         self.num_ctx     = profile.get("num_ctx", 2048)
+        self.keep_alive  = profile.get("keep_alive")
+        self.timeout     = profile.get("timeout", 300)
         self.profile_desc = profile.get("description", "")
 
     @classmethod
@@ -105,6 +140,7 @@ class OllamaLLMClient:
             "temperature": self.temperature,
             "max_tokens":  self.max_tokens,
             "num_ctx":     self.num_ctx,
+            "keep_alive":  self.keep_alive,
             "description": self.profile_desc,
         }
 
@@ -141,6 +177,8 @@ class OllamaLLMClient:
                 "num_ctx":     self.num_ctx,
             }
         }
+        if self.keep_alive:
+            payload["keep_alive"] = self.keep_alive
 
         data = json.dumps(payload).encode("utf-8")
         req = urllib.request.Request(
@@ -172,7 +210,7 @@ class OllamaLLMClient:
         first_token = True
         sentence_buf: list[str] = []
 
-        with urllib.request.urlopen(req, timeout=300) as resp:
+        with urllib.request.urlopen(req, timeout=self.timeout) as resp:
             for raw_line in resp:
                 line = raw_line.decode("utf-8").strip()
                 if not line:
@@ -217,6 +255,6 @@ class OllamaLLMClient:
 
     def _generate_blocking(self, req: urllib.request.Request) -> str:
         """Mode non-stream — retourne la réponse complète d'un coup."""
-        with urllib.request.urlopen(req, timeout=300) as resp:
+        with urllib.request.urlopen(req, timeout=self.timeout) as resp:
             result = json.loads(resp.read().decode())
             return result["message"]["content"].strip()

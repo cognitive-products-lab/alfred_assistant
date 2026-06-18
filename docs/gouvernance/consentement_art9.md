@@ -1,3 +1,17 @@
+﻿<!--
+============================================================
+PROJECT  : ALFRED / Cognitive Products Lab
+BLOCK    : B20 — Sécurité, Gouvernance & Conformité
+DOCUMENT : Procédure de Consentement Renforcé — Art. 9 RGPD
+TYPE     : Documentation Gouvernance RGPD
+REF      : RGPD Art. 9.2.a — Consentement explicite données sensibles
+VERSION  : V1.0
+CREATED  : 2026-06-18
+UPDATED  : 2026-06-18
+AUTHOR   : Céline Darras — Cognitive Products Lab
+STATUS   : Approuvé
+============================================================
+-->
 # Procédure de Consentement Renforcé — Art. 9 RGPD
 ## Données sensibles — Cognitive Products Lab / ALFRED
 

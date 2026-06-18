@@ -1,3 +1,17 @@
+﻿<!--
+============================================================
+PROJECT  : ALFRED / Cognitive Products Lab
+BLOCK    : B20 — Sécurité, Gouvernance & Conformité
+DOCUMENT : DPA — Data Processing Agreement Sous-traitants
+TYPE     : Documentation SMSI
+REF      : RGPD Art. 28 / Art. 46
+VERSION  : V1.0
+CREATED  : 2026-06-18
+UPDATED  : 2026-06-18
+AUTHOR   : Céline Darras — Cognitive Products Lab
+STATUS   : Approuvé
+============================================================
+-->
 # DPA — Data Processing Agreement (Accord de Traitement des Données)
 ## Sous-traitants de Cognitive Products Lab
 

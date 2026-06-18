@@ -1,18 +1,17 @@
 # ALFRED — BACKLOG & RÉFÉRENTIEL FICHIERS
 
-> Généré le 15/06/2026 11:50 depuis `dashboard_data.json` (mis à jour le 15/06/2026 11:48:12)
-> Progression technique : **67.0%** · Full projet : **48.5%**
-> 728 fichiers détectés / 1068 cible full
+> Généré le 18/06/2026 15:46 depuis `dashboard_data.json` (mis à jour le 15/06/2026 13:29:58)
+> Progression technique : **67.2%** · Full projet : **48.7%**
+> 729 fichiers détectés / 1068 cible full
 
 ## Synthèse globale
 
 | Statut | Nb | % | Priorité |
 |--------|---:|--:|----------|
-| ❌ A créer | 1 | 0.1% | 🔴 Urgent |
 | 🟡 Partiel | 190 | 26.1% | 🟡 Sprint |
-| 🟦 Codé — à tester | 245 | 33.7% | 🟡 Sprint |
+| 🟦 Codé — à tester | 238 | 32.6% | 🟡 Sprint |
 | 🧪 Testé — à valider | 3 | 0.4% | 🧪 Tests |
-| ✅ Validé ✅ | 236 | 32.4% | ✅ Done |
+| ✅ Validé ✅ | 244 | 33.5% | ✅ Done |
 | ⚙️ Structurel | 54 | 7.4% | ✅ Done |
 
 ## Backlog par bloc
@@ -56,26 +55,26 @@
 | `tests/b01_tests/test_fusion_engine.py` | 🟦 Codé — à tester | Tester |
 | `tests/integration_tests/test_v2_pipeline.py` | 🟦 Codé — à tester | Tester |
 
-### 🟡 B02 — Mémoire & RAG `67.2%`
+### 🟡 B02 — Mémoire & RAG `69.6%`
 
 | KPI | Valeur |
 |-----|--------|
 | Validés | 6 |
 | Testés | 0 |
-| Codés (à tester) | 12 |
+| Codés (à tester) | 13 |
 | Partiels | 4 |
 | Structurels | 2 |
-| Manquants | 1 |
+| Manquants | 0 |
 
 **Fichiers à traiter :**
 
 | Fichier | Statut | Action |
 |---------|--------|--------|
-| `data/user_memory.json` | ❌ A créer | Créer |
 | `config/v3/memory_rules.json` | 🟡 Partiel | Compléter |
 | `data/v2/memory_samples.json` | 🟡 Partiel | Compléter |
 | `data/v3/memory_patterns.json` | 🟡 Partiel | Compléter |
 | `src/memory/memory_manager.py` | 🟡 Partiel | Compléter |
+| `data/user_memory.json` | 🟦 Codé — à tester | Tester |
 | `knowledges/professional/engineering/ai/semantic_memory.json` | 🟦 Codé — à tester | Tester |
 | `knowledges/system/memory/episodic_memory.json` | 🟦 Codé — à tester | Tester |
 | `knowledges/system/memory/memory_context_linking.json` | 🟦 Codé — à tester | Tester |
@@ -360,13 +359,13 @@
 | Structurels | 1 |
 | Manquants | 0 |
 
-### 🟡 B15 — Présence visuelle & Avatar `67.3%`
+### 🟡 B15 — Présence visuelle & Avatar `66.5%`
 
 | KPI | Valeur |
 |-----|--------|
-| Validés | 9 |
+| Validés | 8 |
 | Testés | 0 |
-| Codés (à tester) | 44 |
+| Codés (à tester) | 45 |
 | Partiels | 1 |
 | Structurels | 1 |
 | Manquants | 0 |
@@ -376,6 +375,7 @@
 | Fichier | Statut | Action |
 |---------|--------|--------|
 | `assets/models/tts/fr_FR/ALIASES` | 🟡 Partiel | Compléter |
+| `src/ui/alfred_app.py` | 🟦 Codé — à tester | Tester |
 | `src/ui/device_settings.py` | 🟦 Codé — à tester | Tester |
 | `assets/avatars/avatar_normal/base_normal/avatar_mouth_a_eyes_closed.png.png` | 🟦 Codé — à tester | Tester |
 | `assets/avatars/avatar_normal/base_normal/avatar_mouth_a_eyes_half.png.png` | 🟦 Codé — à tester | Tester |
@@ -404,8 +404,7 @@
 | `assets/avatars/avatar_medium/base_medium/alfred_medium_confused.png` | 🟦 Codé — à tester | Tester |
 | `assets/avatars/avatar_medium/base_medium/alfred_medium_cybersecurity.png` | 🟦 Codé — à tester | Tester |
 | `assets/avatars/avatar_medium/base_medium/alfred_medium_love.png` | 🟦 Codé — à tester | Tester |
-| `assets/avatars/avatar_medium/base_medium/alfred_medium_excited.png` | 🟦 Codé — à tester | Tester |
-| *... 15 autres* | | |
+| *... 16 autres* | | |
 
 ### 🟠 B16 — Démonstration & Scénarisation `43.3%`
 
@@ -457,13 +456,13 @@
 | `assets/backgrounds/mode_portrait/interieur/specifique/sport/background_portrait_interieur_sport.png` | 🟦 Codé — à tester | Tester |
 | `assets/backgrounds/mode_portrait/orientation portrait/specifique/Transport/background_portrait_exterieur_transport_debut fin journee.jpg` | 🟦 Codé — à tester | Tester |
 
-### 🟡 B18 — Knowledge & Intelligence System `62.8%`
+### 🟡 B18 — Knowledge & Intelligence System `62.9%`
 
 | KPI | Valeur |
 |-----|--------|
-| Validés | 64 |
+| Validés | 65 |
 | Testés | 1 |
-| Codés (à tester) | 21 |
+| Codés (à tester) | 20 |
 | Partiels | 147 |
 | Structurels | 27 |
 | Manquants | 0 |
@@ -502,7 +501,7 @@
 | `data/v3/conversation_state.json` | 🟡 Partiel | Compléter |
 | `data/v3/feedback_log_v3.json` | 🟡 Partiel | Compléter |
 | `data/v3/fusion_results.json` | 🟡 Partiel | Compléter |
-| *... 138 autres* | | |
+| *... 137 autres* | | |
 
 ### 🟡 B19 — Domotique Intelligente `60.0%`
 
@@ -530,13 +529,13 @@
 | `data/v4/sensor_state.json` | 🟡 Partiel | Compléter |
 | `data/v4/trigger_log.json` | 🟡 Partiel | Compléter |
 
-### 🟢 B20 — Cybersécurité Zero Trust `89.0%`
+### 🟢 B20 — Cybersécurité Zero Trust `92.2%`
 
 | KPI | Valeur |
 |-----|--------|
-| Validés | 31 |
+| Validés | 39 |
 | Testés | 0 |
-| Codés (à tester) | 13 |
+| Codés (à tester) | 5 |
 | Partiels | 3 |
 | Structurels | 2 |
 | Manquants | 0 |
@@ -553,14 +552,6 @@
 | `config/security/trusted_devices.json` | 🟦 Codé — à tester | Tester |
 | `data/security/incident_register.json` | 🟦 Codé — à tester | Tester |
 | `logs/security/security.log` | 🟦 Codé — à tester | Tester |
-| `src/security/api_security.py` | 🟦 Codé — à tester | Tester |
-| `src/security/network_security.py` | 🟦 Codé — à tester | Tester |
-| `src/security/soc_monitor.py` | 🟦 Codé — à tester | Tester |
-| `src/security/data_protection.py` | 🟦 Codé — à tester | Tester |
-| `src/security/html_report.py` | 🟦 Codé — à tester | Tester |
-| `src/security/rate_limiter.py` | 🟦 Codé — à tester | Tester |
-| `src/security/security_dashboard.py` | 🟦 Codé — à tester | Tester |
-| `src/security/security_governance.py` | 🟦 Codé — à tester | Tester |
 
 ### 🟡 B21 — ALFRED Web Platform `63.1%`
 
@@ -640,7 +631,7 @@
 | `tests/b15_tests/test_b22_accessibility.py` | 🟦 Codé — à tester | Tester |
 | `tests/b15_tests/test_voice_output_manager.py` | 🟦 Codé — à tester | Tester |
 
-## 🟦 Sprint — Fichiers codés à tester (245)
+## 🟦 Sprint — Fichiers codés à tester (238)
 
 Ces fichiers sont implémentés mais n'ont pas encore de tests.
 
@@ -665,6 +656,7 @@ Ces fichiers sont implémentés mais n'ont pas encore de tests.
 - `tests/test_b01_speech.py`
 - `tests/test_pipeline_llm.py`
 **B02**
+- `data/user_memory.json`
 - `knowledges/professional/engineering/ai/semantic_memory.json`
 - `knowledges/system/memory/episodic_memory.json`
 - `knowledges/system/memory/memory_context_linking.json`
@@ -804,6 +796,7 @@ Ces fichiers sont implémentés mais n'ont pas encore de tests.
 - `assets/models/tts/fr_FR/fr_FR-upmc-medium.onnx.json`
 - `assets/voices/fr_FR-upmc-medium.onnx`
 - `assets/voices/fr_FR-upmc-medium.onnx.json`
+- `src/ui/alfred_app.py`
 - `src/ui/device_settings.py`
 **B16**
 - `tests/test_pipeline.py`
@@ -822,7 +815,6 @@ Ces fichiers sont implémentés mais n'ont pas encore de tests.
 - `assets/backgrounds/mode_portrait/orientation portrait/specifique/Transport/background_portrait_exterieur_transport_debut fin journee.jpg`
 **B18**
 - `.env`
-- `ALFRED_CONTEXT.md`
 - `README.md`
 - `config/alfred_project.json`
 - `config/router_rules.json`
@@ -848,14 +840,6 @@ Ces fichiers sont implémentés mais n'ont pas encore de tests.
 - `config/security/trusted_devices.json`
 - `data/security/incident_register.json`
 - `logs/security/security.log`
-- `src/security/api_security.py`
-- `src/security/data_protection.py`
-- `src/security/html_report.py`
-- `src/security/network_security.py`
-- `src/security/rate_limiter.py`
-- `src/security/security_dashboard.py`
-- `src/security/security_governance.py`
-- `src/security/soc_monitor.py`
 **B21**
 - `ALFRED_WEB/README.md`
 - `ALFRED_WEB/requirements.txt`

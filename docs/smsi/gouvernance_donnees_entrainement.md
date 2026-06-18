@@ -1,3 +1,17 @@
+﻿<!--
+============================================================
+PROJECT  : ALFRED / Cognitive Products Lab
+BLOCK    : B20 — Sécurité, Gouvernance & Conformité
+DOCUMENT : Gouvernance des Données d'Entraînement
+TYPE     : Documentation SMSI
+REF      : EU AI Act Art. 10
+VERSION  : V1.0
+CREATED  : 2026-06-18
+UPDATED  : 2026-06-18
+AUTHOR   : Céline Darras — Cognitive Products Lab
+STATUS   : Approuvé
+============================================================
+-->
 # Gouvernance des Données d'Entraînement
 
 > **Référence :** EU AI Act — Art. 10 (Règlement UE 2024/1689)  
