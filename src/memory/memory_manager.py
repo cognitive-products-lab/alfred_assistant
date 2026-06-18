@@ -1,16 +1,34 @@
-﻿# ============================================================
+﻿"""
+PROJECT      : ALFRED
+BLOCK        : B02
+FUNCTION     : 02.01
+FILE         : src/memory/memory_manager.py
+ROLE         : Gestionnaire mémoire session JSON — historique dialogue et contexte actif
+
+AUTHOR       : Cognitive Products Lab
+CREATED      : 2026-06-03
+UPDATED      : 2026-06-10
+VERSION      : V1.2
+STATUS       : TO_TEST
+
+DESCRIPTION :
+Gestionnaire mémoire session JSON — historique dialogue et contexte actif.
+Chemins ancrés sur paths.PATHS (fix bug cwd-relatif). A re-valider en
+conditions réelles avant de repasser en TESTED.
+"""
+# ============================================================
 # ALFRED — src/memory/memory_manager.py
-# Bloc 02.01 — Mémoire court terme
+# Bloc 02.01 — Mémoire courte
 #
-# Fonctions couvertes :
-#   02.01.001 Stockage session en mémoire vive   ✅ V1
-#   02.01.002 Historique dialogue courant        ✅ V1
-#   02.01.003 Contexte actif (états, intentions) ✅ V1
-#   02.01.004 Mise à jour dynamique              ✅ V1
-#   02.01.005 Flush / reset session              ✅ V1
+# 📚 NOTION EXAM :
+#   D21-1 — Capsule 2 : Mémoire de travail et historique de session
 #
-# Local-first : tout en RAM pendant la session.
-# Persistence JSON déclenchée en fin de session → long_term_memory.py
+# 🎯 UTILITÉ ALFRED :
+#   Stocke l'historique de dialogue courant et le contexte actif
+#   en RAM pendant la session ; persiste en JSON via long_term_memory.py.
+#
+# 🏗️ DOMAINE :
+#   Mémoire & contexte — mémoire courte locale, flush fin de session
 # ============================================================
 
 import json
@@ -19,9 +37,12 @@ from pathlib import Path
 from typing import Any
 
 from src.security.security_logger import log_event
+from paths import PATHS
 
 # ── Chemins données ───────────────────────────────────────
-_DATA_DIR      = Path("data/memory")
+# Ancré sur la racine du projet (paths.py, basé sur __file__) — ne dépend pas
+# du répertoire de travail courant au lancement de main.py.
+_DATA_DIR      = PATHS.data_memory
 _SESSION_FILE  = _DATA_DIR / "current_session.json"
 _DATA_DIR.mkdir(parents=True, exist_ok=True)
 
@@ -122,6 +143,11 @@ def get_history(n: int = 0) -> list[dict]:
     if n > 0:
         return _session["history"][-n:]
     return _session["history"].copy()
+
+
+def history_count() -> int:
+    """Retourne le nombre d'échanges en mémoire de session."""
+    return len(_session["history"])
 
 
 def get_last_user_message() -> str | None:

@@ -1,19 +1,16 @@
-﻿# ============================================================
-# ALFRED — src/input/stt_whisper.py
-# Bloc 01.01 V3 — Speech-to-Text avec Whisper local
+# ============================================================
+# ALFRED — src/conversation/input/stt_whisper.py
+# Bloc 04.01 — Reconnaissance vocale (STT)
 #
-# Fonctions couvertes :
-#   01.01.001 Activation micro / wake word  ✅ V3
-#   01.01.002 Capture flux audio            ✅ V3
-#   01.01.003 Filtrage bruit                ✅ V3 (Whisper natif)
-#   01.01.004 Détection fin de phrase       ✅ V3
-#   01.01.005 Feedback signal reçu          ✅ V3
+# 📚 NOTION EXAM :
+#   D13-1 — Capsule 4 : Speech-to-Text local avec Whisper OpenAI
 #
-# Dépendances V3 :
-#   pip install openai-whisper sounddevice numpy
-#   (décommenter dans requirements.txt)
+# 🎯 UTILITÉ ALFRED :
+#   Capture le flux audio, transcrit en texte via Whisper local
+#   et détecte la fin de phrase avant d'envoyer au pipeline NLP.
 #
-# Hardware : CPU suffisant pour tiny/base — GPU RTX 5080 pour large
+# 🏗️ DOMAINE :
+#   Interaction vocale — STT local V3, zéro cloud, privacy-first
 # ============================================================
 
 import os

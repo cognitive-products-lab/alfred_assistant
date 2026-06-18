@@ -1,0 +1,660 @@
+{
+  "scoring_version": "1.1",
+  "description": "Clés de scoring pour les 9 questionnaires psychologiques ALFRED",
+  "created_at": "2026-06-16",
+  "normalization_method": "linear_0_100",
+  "questionnaires": {
+    "big_five_TIPI": {
+      "description": "Ten-Item Personality Inventory — Gosling et al. (2003)",
+      "scale_min": 1,
+      "scale_max": 7,
+      "subscales": {
+        "extraversion": {
+          "items": ["q1", "q6"],
+          "reversed_items": ["q6"],
+          "reverse_formula": "8 - score",
+          "scoring": "mean",
+          "score_min": 1,
+          "score_max": 7,
+          "normalization": "linear_0_100",
+          "formula": "(mean - 1) / 6 * 100"
+        },
+        "agreabilite": {
+          "items": ["q2", "q7"],
+          "reversed_items": ["q2"],
+          "reverse_formula": "8 - score",
+          "scoring": "mean",
+          "score_min": 1,
+          "score_max": 7,
+          "normalization": "linear_0_100",
+          "formula": "(mean - 1) / 6 * 100"
+        },
+        "conscienciosite": {
+          "items": ["q3", "q8"],
+          "reversed_items": ["q8"],
+          "reverse_formula": "8 - score",
+          "scoring": "mean",
+          "score_min": 1,
+          "score_max": 7,
+          "normalization": "linear_0_100",
+          "formula": "(mean - 1) / 6 * 100"
+        },
+        "stabilite_emotionnelle": {
+          "items": ["q4", "q9"],
+          "reversed_items": ["q4"],
+          "reverse_formula": "8 - score",
+          "scoring": "mean",
+          "score_min": 1,
+          "score_max": 7,
+          "normalization": "linear_0_100",
+          "formula": "(mean - 1) / 6 * 100",
+          "note": "N inversé : score élevé = stabilité élevée (calme)"
+        },
+        "ouverture": {
+          "items": ["q5", "q10"],
+          "reversed_items": ["q10"],
+          "reverse_formula": "8 - score",
+          "scoring": "mean",
+          "score_min": 1,
+          "score_max": 7,
+          "normalization": "linear_0_100",
+          "formula": "(mean - 1) / 6 * 100"
+        }
+      }
+    },
+    "intelligence_emotionnelle": {
+      "description": "Adapté du TEIQue-SF — Petrides (2009)",
+      "scale_min": 1,
+      "scale_max": 7,
+      "subscales": {
+        "bien_etre_emotionnel": {
+          "items": ["eq1", "eq2", "eq3", "eq4"],
+          "reversed_items": [],
+          "scoring": "mean",
+          "score_min": 1,
+          "score_max": 7,
+          "normalization": "linear_0_100",
+          "formula": "(mean - 1) / 6 * 100"
+        },
+        "autocontrole_emotionnel": {
+          "items": ["eq5", "eq6", "eq7", "eq8"],
+          "reversed_items": [],
+          "scoring": "mean",
+          "score_min": 1,
+          "score_max": 7,
+          "normalization": "linear_0_100",
+          "formula": "(mean - 1) / 6 * 100"
+        },
+        "emotivite": {
+          "items": ["eq9", "eq10", "eq11", "eq12"],
+          "reversed_items": [],
+          "scoring": "mean",
+          "score_min": 1,
+          "score_max": 7,
+          "normalization": "linear_0_100",
+          "formula": "(mean - 1) / 6 * 100"
+        },
+        "sociabilite_eq": {
+          "items": ["eq13", "eq14", "eq15"],
+          "reversed_items": [],
+          "scoring": "mean",
+          "score_min": 1,
+          "score_max": 7,
+          "normalization": "linear_0_100",
+          "formula": "(mean - 1) / 6 * 100"
+        },
+        "ie_globale": {
+          "items": ["eq1", "eq2", "eq3", "eq4", "eq5", "eq6", "eq7", "eq8", "eq9", "eq10", "eq11", "eq12", "eq13", "eq14", "eq15"],
+          "reversed_items": [],
+          "scoring": "mean",
+          "score_min": 1,
+          "score_max": 7,
+          "normalization": "linear_0_100",
+          "formula": "(mean - 1) / 6 * 100"
+        }
+      }
+    },
+    "valeurs_schwartz": {
+      "description": "PVQ-21 — Schwartz et al. (2001)",
+      "scale_min": 1,
+      "scale_max": 6,
+      "center_correction": true,
+      "center_correction_note": "Soustraction de la moyenne individuelle de tous les items pour corriger la tendance à répondre systématiquement haut ou bas",
+      "subscales": {
+        "conformite": {
+          "items": ["v1", "v15", "v20"],
+          "reversed_items": [],
+          "scoring": "mean",
+          "score_min": 1,
+          "score_max": 6,
+          "normalization": "linear_0_100_centered",
+          "formula": "((mean - grand_mean) + 2.5) / 5 * 100"
+        },
+        "tradition": {
+          "items": ["v17", "v19"],
+          "reversed_items": [],
+          "scoring": "mean",
+          "score_min": 1,
+          "score_max": 6,
+          "normalization": "linear_0_100_centered",
+          "formula": "((mean - grand_mean) + 2.5) / 5 * 100"
+        },
+        "bienveillance": {
+          "items": ["v6", "v12", "v13"],
+          "reversed_items": [],
+          "scoring": "mean",
+          "score_min": 1,
+          "score_max": 6,
+          "normalization": "linear_0_100_centered",
+          "formula": "((mean - grand_mean) + 2.5) / 5 * 100"
+        },
+        "universalisme": {
+          "items": ["v14", "v18", "v21"],
+          "reversed_items": [],
+          "scoring": "mean",
+          "score_min": 1,
+          "score_max": 6,
+          "normalization": "linear_0_100_centered",
+          "formula": "((mean - grand_mean) + 2.5) / 5 * 100"
+        },
+        "autonomie": {
+          "items": ["v7", "v10"],
+          "reversed_items": [],
+          "scoring": "mean",
+          "score_min": 1,
+          "score_max": 6,
+          "normalization": "linear_0_100_centered",
+          "formula": "((mean - grand_mean) + 2.5) / 5 * 100"
+        },
+        "stimulation": {
+          "items": ["v5"],
+          "reversed_items": [],
+          "scoring": "mean",
+          "score_min": 1,
+          "score_max": 6,
+          "normalization": "linear_0_100_centered",
+          "formula": "((mean - grand_mean) + 2.5) / 5 * 100"
+        },
+        "hedonisme": {
+          "items": ["v11", "v16"],
+          "reversed_items": [],
+          "scoring": "mean",
+          "score_min": 1,
+          "score_max": 6,
+          "normalization": "linear_0_100_centered",
+          "formula": "((mean - grand_mean) + 2.5) / 5 * 100"
+        },
+        "reussite": {
+          "items": ["v4"],
+          "reversed_items": [],
+          "scoring": "mean",
+          "score_min": 1,
+          "score_max": 6,
+          "normalization": "linear_0_100_centered",
+          "formula": "((mean - grand_mean) + 2.5) / 5 * 100"
+        },
+        "pouvoir": {
+          "items": ["v2", "v8"],
+          "reversed_items": [],
+          "scoring": "mean",
+          "score_min": 1,
+          "score_max": 6,
+          "normalization": "linear_0_100_centered",
+          "formula": "((mean - grand_mean) + 2.5) / 5 * 100"
+        },
+        "securite": {
+          "items": ["v3", "v9"],
+          "reversed_items": [],
+          "scoring": "mean",
+          "score_min": 1,
+          "score_max": 6,
+          "normalization": "linear_0_100_centered",
+          "formula": "((mean - grand_mean) + 2.5) / 5 * 100"
+        }
+      },
+      "higher_order": {
+        "depassement_de_soi": {
+          "subscales": ["universalisme", "bienveillance"],
+          "scoring": "mean"
+        },
+        "affirmation_de_soi": {
+          "subscales": ["pouvoir", "reussite"],
+          "scoring": "mean"
+        },
+        "ouverture_au_changement": {
+          "subscales": ["autonomie", "stimulation", "hedonisme"],
+          "scoring": "mean"
+        },
+        "conservation": {
+          "subscales": ["securite", "conformite", "tradition"],
+          "scoring": "mean"
+        }
+      }
+    },
+    "chronotype_energie": {
+      "description": "rMEQ (Adan & Almirall, 1991) + items originaux énergie",
+      "subscales": {
+        "chronotype": {
+          "items": ["ch1", "ch2", "ch3", "ch4", "ch5"],
+          "reversed_items": [],
+          "scoring": "sum",
+          "score_min": 5,
+          "score_max": 25,
+          "normalization": "inverted_linear_0_100",
+          "formula": "100 - ((sum - 5) / 20 * 100)",
+          "note": "Score inversé : score élevé = chronotype soir (score rMEQ bas = soir)",
+          "categories": {
+            "22-25": "fortement_matinal",
+            "18-21": "moderement_matinal",
+            "12-17": "intermediaire",
+            "8-11": "moderement_vesperale",
+            "5-7": "fortement_vesperale"
+          }
+        },
+        "gestion_energie": {
+          "items": ["en1", "en2", "en3", "en4", "en5", "en6", "en7", "en8", "en9", "en10"],
+          "reversed_items": [],
+          "scoring": "mean",
+          "score_min": 1,
+          "score_max": 5,
+          "normalization": "linear_0_100",
+          "formula": "(mean - 1) / 4 * 100"
+        },
+        "regularite_energetique": {
+          "items": ["en5", "en9"],
+          "reversed_items": [],
+          "scoring": "mean",
+          "score_min": 1,
+          "score_max": 5,
+          "normalization": "linear_0_100",
+          "formula": "(mean - 1) / 4 * 100",
+          "note": "Score élevé = profil stable ; faible = profil cyclique ou irrégulier"
+        }
+      }
+    },
+    "resilience_stress": {
+      "description": "CD-RISC-10 (Campbell-Sills & Stein, 2007) + PSS-4 (Cohen et al., 1983)",
+      "subscales": {
+        "resilience_globale": {
+          "items": ["r1", "r2", "r3", "r4", "r5", "r6", "r7", "r8", "r9", "r10"],
+          "reversed_items": [],
+          "scoring": "sum",
+          "score_min": 0,
+          "score_max": 40,
+          "normalization": "linear_0_100",
+          "formula": "sum / 40 * 100",
+          "note": "Score élevé = forte résilience"
+        },
+        "stress_percu": {
+          "items": ["s1", "s2", "s3", "s4"],
+          "reversed_items": ["s3", "s4"],
+          "reverse_formula": "4 - score",
+          "scoring": "sum",
+          "score_min": 0,
+          "score_max": 16,
+          "normalization": "inverted_linear_0_100",
+          "formula": "100 - (sum / 16 * 100)",
+          "note": "Score inversé pour cohérence : score élevé = faible stress = bon état. Score PSS brut élevé = stress élevé."
+        }
+      }
+    },
+    "riasec_interets_pro": {
+      "description": "Théorie hexagonale de Holland (1997) — Items originaux",
+      "scale_min": 1,
+      "scale_max": 5,
+      "subscales": {
+        "realiste": {
+          "items": ["ri1", "ri2", "ri3"],
+          "reversed_items": [],
+          "scoring": "sum",
+          "score_min": 3,
+          "score_max": 15,
+          "normalization": "linear_0_100",
+          "formula": "(sum - 3) / 12 * 100"
+        },
+        "investigateur": {
+          "items": ["ri4", "ri5", "ri6"],
+          "reversed_items": [],
+          "scoring": "sum",
+          "score_min": 3,
+          "score_max": 15,
+          "normalization": "linear_0_100",
+          "formula": "(sum - 3) / 12 * 100"
+        },
+        "artistique": {
+          "items": ["ri7", "ri8", "ri9"],
+          "reversed_items": [],
+          "scoring": "sum",
+          "score_min": 3,
+          "score_max": 15,
+          "normalization": "linear_0_100",
+          "formula": "(sum - 3) / 12 * 100"
+        },
+        "social": {
+          "items": ["ri10", "ri11", "ri12"],
+          "reversed_items": [],
+          "scoring": "sum",
+          "score_min": 3,
+          "score_max": 15,
+          "normalization": "linear_0_100",
+          "formula": "(sum - 3) / 12 * 100"
+        },
+        "entreprenant": {
+          "items": ["ri13", "ri14", "ri15"],
+          "reversed_items": [],
+          "scoring": "sum",
+          "score_min": 3,
+          "score_max": 15,
+          "normalization": "linear_0_100",
+          "formula": "(sum - 3) / 12 * 100"
+        },
+        "conventionnel": {
+          "items": ["ri16", "ri17", "ri18"],
+          "reversed_items": [],
+          "scoring": "sum",
+          "score_min": 3,
+          "score_max": 15,
+          "normalization": "linear_0_100",
+          "formula": "(sum - 3) / 12 * 100"
+        }
+      }
+    },
+    "engagement_burnout": {
+      "description": "UWES-9 (Schaufeli & Bakker, 2004) + Indicateur risque burnout (items originaux)",
+      "subscales": {
+        "vigueur": {
+          "items": ["uw1", "uw2", "uw3"],
+          "reversed_items": [],
+          "scoring": "mean",
+          "score_min": 0,
+          "score_max": 6,
+          "normalization": "linear_0_100",
+          "formula": "mean / 6 * 100"
+        },
+        "devouement": {
+          "items": ["uw4", "uw5", "uw6"],
+          "reversed_items": [],
+          "scoring": "mean",
+          "score_min": 0,
+          "score_max": 6,
+          "normalization": "linear_0_100",
+          "formula": "mean / 6 * 100"
+        },
+        "absorption": {
+          "items": ["uw7", "uw8", "uw9"],
+          "reversed_items": [],
+          "scoring": "mean",
+          "score_min": 0,
+          "score_max": 6,
+          "normalization": "linear_0_100",
+          "formula": "mean / 6 * 100"
+        },
+        "engagement_global": {
+          "items": ["uw1", "uw2", "uw3", "uw4", "uw5", "uw6", "uw7", "uw8", "uw9"],
+          "reversed_items": [],
+          "scoring": "mean",
+          "score_min": 0,
+          "score_max": 6,
+          "normalization": "linear_0_100",
+          "formula": "mean / 6 * 100"
+        },
+        "epuisement": {
+          "items": ["bu1", "bu2"],
+          "reversed_items": [],
+          "scoring": "mean",
+          "score_min": 0,
+          "score_max": 4,
+          "normalization": "inverted_linear_0_100",
+          "formula": "100 - (mean / 4 * 100)",
+          "note": "Inversé pour cohérence : score élevé = faible épuisement = bon état"
+        },
+        "cynisme": {
+          "items": ["bu3"],
+          "reversed_items": [],
+          "scoring": "mean",
+          "score_min": 0,
+          "score_max": 4,
+          "normalization": "inverted_linear_0_100",
+          "formula": "100 - (mean / 4 * 100)",
+          "note": "Inversé : score élevé = faible cynisme = bon état"
+        },
+        "efficacite_reduite": {
+          "items": ["bu4", "bu5"],
+          "reversed_items": [],
+          "scoring": "mean",
+          "score_min": 0,
+          "score_max": 4,
+          "normalization": "inverted_linear_0_100",
+          "formula": "100 - (mean / 4 * 100)",
+          "note": "Inversé : score élevé = forte efficacité perçue = bon état"
+        }
+      }
+    },
+    "communication_conflit": {
+      "description": "Inspiré du modèle Thomas-Kilmann (1974) — Items originaux",
+      "subscales": {
+        "competition": {
+          "items_ipsatifs": {
+            "items": ["ip1", "ip3", "ip5", "ip7", "ip9"],
+            "scoring_map": {
+              "ip1": {"A": 1, "B": 0},
+              "ip3": {"A": 0, "B": 1},
+              "ip5": {"A": 0, "B": 1},
+              "ip7": {"A": 0, "B": 1},
+              "ip9": {"A": 0, "B": 1}
+            },
+            "score_min": 0,
+            "score_max": 5
+          },
+          "items_likert": {
+            "items": ["cc1", "cc2", "cc3"],
+            "reversed_items": [],
+            "scoring": "sum",
+            "score_min": 3,
+            "score_max": 15
+          },
+          "fusion": {
+            "methode": "weighted_sum",
+            "poids_ipsatif": 0.4,
+            "poids_likert": 0.6,
+            "normalization": "linear_0_100"
+          }
+        },
+        "collaboration": {
+          "items_ipsatifs": {
+            "items": ["ip2", "ip6", "ip8"],
+            "scoring_map": {
+              "ip2": {"A": 0, "B": 1},
+              "ip6": {"A": 1, "B": 0},
+              "ip8": {"A": 1, "B": 0}
+            },
+            "score_min": 0,
+            "score_max": 3
+          },
+          "items_likert": {
+            "items": ["cc4", "cc5", "cc6"],
+            "reversed_items": [],
+            "scoring": "sum",
+            "score_min": 3,
+            "score_max": 15
+          },
+          "fusion": {
+            "methode": "weighted_sum",
+            "poids_ipsatif": 0.4,
+            "poids_likert": 0.6,
+            "normalization": "linear_0_100"
+          }
+        },
+        "compromis": {
+          "items_ipsatifs": {
+            "items": ["ip1", "ip4", "ip6", "ip9"],
+            "scoring_map": {
+              "ip1": {"A": 0, "B": 1},
+              "ip4": {"A": 1, "B": 0},
+              "ip6": {"A": 0, "B": 1},
+              "ip9": {"A": 1, "B": 0}
+            },
+            "score_min": 0,
+            "score_max": 4
+          },
+          "items_likert": {
+            "items": ["cc7", "cc8", "cc9"],
+            "reversed_items": [],
+            "scoring": "sum",
+            "score_min": 3,
+            "score_max": 15
+          },
+          "fusion": {
+            "methode": "weighted_sum",
+            "poids_ipsatif": 0.4,
+            "poids_likert": 0.6,
+            "normalization": "linear_0_100"
+          }
+        },
+        "evitement": {
+          "items_ipsatifs": {
+            "items": ["ip2", "ip4", "ip7", "ip10"],
+            "scoring_map": {
+              "ip2": {"A": 1, "B": 0},
+              "ip4": {"A": 0, "B": 1},
+              "ip7": {"A": 1, "B": 0},
+              "ip10": {"A": 0, "B": 1}
+            },
+            "score_min": 0,
+            "score_max": 4
+          },
+          "items_likert": {
+            "items": ["cc10", "cc11", "cc12"],
+            "reversed_items": [],
+            "scoring": "sum",
+            "score_min": 3,
+            "score_max": 15
+          },
+          "fusion": {
+            "methode": "weighted_sum",
+            "poids_ipsatif": 0.4,
+            "poids_likert": 0.6,
+            "normalization": "linear_0_100"
+          }
+        },
+        "accommodement": {
+          "items_ipsatifs": {
+            "items": ["ip3", "ip5", "ip8", "ip10"],
+            "scoring_map": {
+              "ip3": {"A": 1, "B": 0},
+              "ip5": {"A": 1, "B": 0},
+              "ip8": {"A": 0, "B": 1},
+              "ip10": {"A": 1, "B": 0}
+            },
+            "score_min": 0,
+            "score_max": 4
+          },
+          "items_likert": {
+            "items": ["cc13", "cc14", "cc15"],
+            "reversed_items": [],
+            "scoring": "sum",
+            "score_min": 3,
+            "score_max": 15
+          },
+          "fusion": {
+            "methode": "weighted_sum",
+            "poids_ipsatif": 0.4,
+            "poids_likert": 0.6,
+            "normalization": "linear_0_100"
+          }
+        }
+      }
+    },
+    "hexaco_personnalite": {
+      "description": "HEXACO-24 — Ashton & Lee (2009), domaine public (hexaco.org)",
+      "scale_min": 1,
+      "scale_max": 5,
+      "reverse_formula": "6 - score",
+      "subscales": {
+        "honnetete_humilite": {
+          "items": ["hex_h_01", "hex_h_02", "hex_h_03", "hex_h_04"],
+          "reversed_items": ["hex_h_02", "hex_h_04"],
+          "scoring": "mean",
+          "score_min": 1.0,
+          "score_max": 5.0,
+          "normalization": "linear_0_100",
+          "formula": "(mean - 1) / 4 * 100",
+          "alfred_impact": {
+            "high": "tone direct, pas de flatterie, feedback honnête",
+            "low": "tone neutre, vigilance biais de confirmation"
+          }
+        },
+        "emotivite": {
+          "items": ["hex_e_01", "hex_e_02", "hex_e_03", "hex_e_04"],
+          "reversed_items": ["hex_e_02", "hex_e_04"],
+          "scoring": "mean",
+          "score_min": 1.0,
+          "score_max": 5.0,
+          "normalization": "linear_0_100",
+          "formula": "(mean - 1) / 4 * 100",
+          "alfred_impact": {
+            "high": "emotional_support_level = empathique",
+            "low": "emotional_support_level = factuel"
+          }
+        },
+        "extraversion": {
+          "items": ["hex_x_01", "hex_x_02", "hex_x_03", "hex_x_04"],
+          "reversed_items": ["hex_x_02", "hex_x_04"],
+          "scoring": "mean",
+          "score_min": 1.0,
+          "score_max": 5.0,
+          "normalization": "linear_0_100",
+          "formula": "(mean - 1) / 4 * 100",
+          "alfred_impact": {
+            "high": "proactivity = élevé, tone = chaleureux",
+            "low": "proactivity = minimal, tone = équilibré"
+          }
+        },
+        "agreabilite": {
+          "items": ["hex_a_01", "hex_a_02", "hex_a_03", "hex_a_04"],
+          "reversed_items": ["hex_a_02", "hex_a_04"],
+          "scoring": "mean",
+          "score_min": 1.0,
+          "score_max": 5.0,
+          "normalization": "linear_0_100",
+          "formula": "(mean - 1) / 4 * 100",
+          "alfred_impact": {
+            "high": "challenge_level = confort (évite conflit)",
+            "low": "challenge_level = modéré (direct)"
+          }
+        },
+        "conscienciosite": {
+          "items": ["hex_c_01", "hex_c_02", "hex_c_03", "hex_c_04"],
+          "reversed_items": ["hex_c_02", "hex_c_04"],
+          "scoring": "mean",
+          "score_min": 1.0,
+          "score_max": 5.0,
+          "normalization": "linear_0_100",
+          "formula": "(mean - 1) / 4 * 100",
+          "alfred_impact": {
+            "high": "structure_preference = structuré, explanation_depth = approfondi",
+            "low": "structure_preference = fluide"
+          }
+        },
+        "ouverture": {
+          "items": ["hex_o_01", "hex_o_02", "hex_o_03", "hex_o_04"],
+          "reversed_items": ["hex_o_02", "hex_o_04"],
+          "scoring": "mean",
+          "score_min": 1.0,
+          "score_max": 5.0,
+          "normalization": "linear_0_100",
+          "formula": "(mean - 1) / 4 * 100",
+          "alfred_impact": {
+            "high": "explanation_depth = approfondi, humor_level = présent",
+            "low": "explanation_depth = standard"
+          }
+        }
+      },
+      "interpretation_H": {
+        "high": {"threshold": 3.5, "profile": "Sincérité élevée, peu de manipulation"},
+        "medium": {"range": [2.5, 3.5], "profile": "Profil équilibré"},
+        "low": {"threshold": 2.5, "profile": "Tendances à la flatterie ou au statut"}
+      }
+    }
+  }
+}

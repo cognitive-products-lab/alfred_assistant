@@ -1,0 +1,182 @@
+{
+  "_meta": { "project": "ALFRED", "block": "B18", "file": "model_supply_chain_security.json", "version": "V2.0", "status": "VALIDATED", "updated": "2026-06-03", "validated_by": "Cognitive Products Lab" },
+  "knowledge_id": "professional.engineering.cybersecurite.model_supply_chain_security",
+  "id": "professional.engineering.cybersecurite.model_supply_chain_security",
+  "title": "Sécurité de la chaîne d'approvisionnement IA",
+  "version": "2.0.0", "status": "active", "domain": "professional", "subdomain": "engineering", "category": "cybersecurite",
+  "summary": "Risques supply chain IA : backdoors dans les modèles pré-entraînés, dépendances PyPI compromises, modèles HuggingFace trojanisés. Vérification des hashs, sandboxing d'inférence et audit des dépendances ML.",
+  "purpose": "Permettre à ALFRED de gérer les risques liés à l'utilisation de modèles tiers, de librairies ML et de datasets externes dans un pipeline IA sécurisé.",
+  "tags": ["supply chain IA", "model security", "HuggingFace security", "backdoor modèle", "PyPI compromis", "dépendances ML", "hash modèle", "sandboxing inférence", "trojanized model", "AI supply chain"],
+  "intents": [
+    "sécuriser les téléchargements de modèles IA",
+    "auditer les dépendances ML",
+    "détecter un backdoor dans un modèle",
+    "vérifier l'intégrité d'un modèle HuggingFace",
+    "sandboxer l'inférence d'un modèle externe"
+  ],
+  "usage_context": [
+    "utilisation de modèles open source en production",
+    "fine-tuning de modèles pré-entraînés",
+    "audit de sécurité d'un projet ML",
+    "conformité supply chain (SLSA, NIST SSDF)",
+    "déploiement de modèles dans un environnement sensible"
+  ],
+  "priority": "high", "safety_level": "sensitive",
+  "content": {
+    "definition": "La sécurité de la chaîne d'approvisionnement IA couvre les risques liés à l'utilisation de composants tiers dans un pipeline ML : modèles pré-entraînés, datasets, bibliothèques Python, outils MLOps. Un attaquant peut compromettre n'importe lequel de ces composants pour introduire un backdoor, exfiltrer des données ou corrompre les outputs du modèle.",
+    "core_principles": [
+      "Faire confiance mais vérifier : même les modèles de sources réputées peuvent être compromis",
+      "Vérification cryptographique : hash SHA-256 de chaque artefact téléchargé",
+      "Isolation : inférer des modèles non-vérifiés dans un sandbox sans accès à la production",
+      "Inventaire complet : SBOM ML documentant tous les composants et leurs versions",
+      "Minimiser les dépendances : chaque dépendance supplémentaire est une surface d'attaque"
+    ],
+    "vecteurs_attaque": {
+      "modeles_backdoored": {
+        "description": "Modèles pré-entraînés contenant un backdoor activé par un trigger spécifique",
+        "mecanisme": "Le modèle se comporte normalement sur les inputs habituels, mais produit des outputs contrôlés par l'attaquant lorsqu'un trigger est présent (mot spécifique, pattern visuel, marqueur dans le texte)",
+        "exemples_reels": [
+          "Modèles NLP trojanisés via BadNL (trigger mot unique modifiant la classification de sentiment)",
+          "Modèles vision détournés par BadNets (patch dans l'image → mauvaise classification)",
+          "Fine-tuned LLMs avec backdoor activé par une phrase secrète"
+        ],
+        "surfaces_exposition": ["HuggingFace Model Hub (80 000+ modèles, audit minimal)", "GitHub releases de projets populaires", "Miroirs PyPI non-officiels", "Téléchargements directs depuis sites tiers"]
+      },
+      "dependances_compromises": {
+        "description": "Librairies Python ML compromises via typosquatting, takeover de compte, ou injection directe",
+        "exemples_reels": [
+          "torch-nightly packages malveillants sur PyPI (2022)",
+          "Takeover de dépendances abandonées sur npm/PyPI",
+          "Injection dans les wheels PyPI via CI/CD compromis"
+        ],
+        "librairies_critiques_ML": ["torch / torchvision / torchaudio", "transformers (HuggingFace)", "tensorflow / keras", "numpy / scipy / scikit-learn", "langchain / llamaindex (supply chain étendue)"]
+      },
+      "datasets_empoisonnes": {
+        "description": "Datasets d'entraînement corrompus hébergés sur des sources publiques",
+        "exemples": ["Modification de datasets CommonCrawl, C4 via contributions malveillantes", "Empoisonnement de datasets sur Kaggle ou HuggingFace Datasets"],
+        "impact": "Le modèle entraîné sur ces données hérite des backdoors ou biais intentionnels"
+      }
+    },
+    "verification_integrite": {
+      "hash_SHA256": {
+        "description": "Vérification de l'empreinte cryptographique du modèle téléchargé",
+        "commandes": {
+          "linux": "sha256sum model.bin",
+          "windows": "Get-FileHash model.bin -Algorithm SHA256",
+          "python": "import hashlib; hashlib.sha256(open('model.bin','rb').read()).hexdigest()"
+        },
+        "processus": [
+          "1. Obtenir le hash officiel depuis la source de confiance (site officiel, release GitHub signée)",
+          "2. Télécharger le modèle",
+          "3. Calculer le hash localement",
+          "4. Comparer — toute divergence = ne pas utiliser le modèle"
+        ]
+      },
+      "huggingface": {
+        "mecanismes_disponibles": [
+          "Model card avec checksums : certains modèles publient les SHA256 de leurs fichiers",
+          "HuggingFace Safetensors : format qui empêche l'exécution de code arbitraire à la désérialisation",
+          "Modèles vérifiés (✓) par HuggingFace : authenticité du créateur vérifiée",
+          "Hub audit : inspecter le code Python dans les fichiers de configuration (modeling_*.py)"
+        ],
+        "risques_specifiques": [
+          "Pickle files : pytorch .pt/.bin peuvent exécuter du code arbitraire à la désérialisation",
+          "custom_code=True : télécharge et exécute du code Python depuis le repo HuggingFace",
+          "tokenizer files : les tokenizers peuvent aussi contenir du code malveillant"
+        ],
+        "bonnes_pratiques": [
+          "Toujours préférer le format Safetensors (.safetensors) aux fichiers Pickle (.bin/.pt)",
+          "Ne jamais utiliser trust_remote_code=True sans avoir audité le code",
+          "Utiliser des modèles vérifiés par des organisations de confiance (Meta, Mistral, Google, Anthropic)"
+        ]
+      },
+      "signature_modele": {
+        "description": "Signature cryptographique des artefacts ML pour garantir leur authenticité",
+        "outils": [
+          "Sigstore / cosign : signature d'artefacts containers et fichiers",
+          "MLflow model signatures : signature intégrée dans le registre MLflow",
+          "Notary v2 : signature d'images OCI"
+        ],
+        "workflow": "Développeur signe le modèle avec sa clé privée → hash + signature publiés → déploiement vérifie la signature avec la clé publique avant utilisation"
+      }
+    },
+    "audit_dependances_ML": {
+      "outils": {
+        "pip_audit": "Scan des vulnérabilités connues des packages Python (CVEs) — pip install pip-audit && pip-audit",
+        "safety": "Vérification des packages contre la base de données Safety DB — safety check",
+        "dependabot": "GitHub Dependabot : alertes automatiques sur les dépendances vulnérables",
+        "snyk": "Scan multi-écosystèmes (Python, npm, Docker) avec remediation guidée",
+        "OWASP_Dependency_Check": "Outil open source pour détecter les composants vulnérables"
+      },
+      "bonnes_pratiques": [
+        "Épingler toutes les versions de dépendances exactement (requirements.txt avec hashes via pip-compile --generate-hashes)",
+        "Utiliser un miroir PyPI privé (Nexus, Artifactory) vérifié avant déploiement",
+        "Scan des dépendances dans la CI/CD à chaque push",
+        "Revue humaine avant d'ajouter une nouvelle dépendance ML"
+      ]
+    },
+    "sandboxing_inference": {
+      "description": "Isoler l'environnement d'inférence pour limiter l'impact d'un modèle compromis",
+      "techniques": [
+        "Container Docker sans accès réseau externe : --network none lors de l'inférence de modèles non-vérifiés",
+        "Namespaces Linux (seccomp, AppArmor, user namespaces) pour restreindre les syscalls du processus d'inférence",
+        "gVisor (Google) : sandbox kernel léger pour isoler les containers d'inférence",
+        "Kata Containers : isolation VM légère pour les charges de travail ML sensibles",
+        "Aucun accès au filesystem de production : volumes en lecture seule, données séparées"
+      ],
+      "processus_validation": [
+        "1. Télécharger le modèle dans un environnement isolé (quarantaine)",
+        "2. Vérifier le hash et la signature",
+        "3. Scanner pour backdoors (Neural Cleanse, ABS si applicable)",
+        "4. Inférer sur des données de test bénignes — vérifier les outputs",
+        "5. Approuver et promouvoir vers l'environnement de production si validation réussie"
+      ]
+    },
+    "detection_backdoors": {
+      "techniques": [
+        "Neural Cleanse : reverse engineering du trigger potentiel, détection si un patch de pixels suffit à changer la classification",
+        "Activation Clustering (AC) : les activations sur des exemples empoisonnés forment un cluster séparé",
+        "STRIP (STRong Intentional Perturbation) : perturber les inputs — un modèle backdoored répondra différemment",
+        "Meta Neural Analysis : classifier des modèles eux-mêmes comme 'backdoored' ou 'clean' via un méta-classifeur"
+      ],
+      "limites": "La détection de backdoors est un domaine actif de recherche — aucune technique n'est universellement fiable"
+    },
+    "application_alfred": {
+      "controles": [
+        "Tous les modèles ALFRED téléchargés depuis HuggingFace en format Safetensors uniquement",
+        "trust_remote_code=False imposé systématiquement dans le code ALFRED",
+        "Hash SHA-256 de chaque modèle vérifié au démarrage via un script de validation",
+        "Dépendances ML épinglées avec hashes dans requirements.txt (pip-compile --generate-hashes)",
+        "pip-audit exécuté dans la CI/CD ALFRED à chaque PR",
+        "Service d'inférence ALFRED isolé en container sans accès réseau externe pendant l'inférence"
+      ]
+    },
+    "best_practices": [
+      "Ne jamais utiliser trust_remote_code=True en production",
+      "Préférer Safetensors à Pickle pour tous les modèles HuggingFace",
+      "Maintenir un registre de modèles approuvés avec leurs hashs officiels",
+      "Isoler le téléchargement et la validation des modèles du pipeline de production",
+      "Auditer les dépendances ML mensuellement et à chaque nouvelle dépendance",
+      "Utiliser des modèles depuis des organisations vérifiées sur HuggingFace"
+    ],
+    "anti_patterns": [
+      "pip install transformers sans vérifier la version ou les dépendances transitives",
+      "trust_remote_code=True sans audit du code (exécution de code arbitraire)",
+      "Télécharger des modèles depuis des sites miroirs non-officiels",
+      "Aucun contrôle de hash — si HuggingFace est compromis, les modèles sont remplacés silencieusement",
+      "Exécuter l'inférence avec accès complet au réseau — un modèle compromis peut exfiltrer des données"
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["supply chain IA", "modèle backdoored", "HuggingFace sécurité", "safetensors", "trust_remote_code", "hash modèle", "sandboxing inférence", "audit dépendances ML"],
+    "related_knowledge": ["supply_chain_security", "secure_ai_pipeline", "llm_security_risks", "secrets_management"],
+    "retrieval_priority": 8
+  },
+  "behavior_rules": { "tone": "professional", "response_style": "structured_clear", "max_complexity": "high", "allow_humor": false },
+  "safety_notes": {
+    "allowed_usage": ["Audit de la supply chain IA", "Vérification d'intégrité des modèles", "Configuration du sandboxing d'inférence", "Audit des dépendances ML"],
+    "forbidden_usage": ["Créer ou distribuer des modèles avec backdoors", "Compromettre des dépendances ML tierces"],
+    "fallback_behavior": "Pour les modèles utilisés dans des contextes critiques, recommander une analyse complète par une équipe de sécurité ML spécialisée."
+  },
+  "metadata": { "author": "Cognitive Products Lab", "creation_date": "03/06/2026", "last_update": "03/06/2026", "review_status": "validated", "source_type": "manual_structured_knowledge", "language": "fr", "retrieval_ready": true, "rag_compatible": true }
+}

@@ -1,8 +1,17 @@
-﻿# -*- coding: utf-8 -*-
-"""
-memory_answer_engine.py — ALFRED
-Réponses déterministes basées sur la mémoire.
-"""
+# ============================================================
+# ALFRED — src/memory/memory_answer_engine.py
+# Bloc 02.04 — Contextualisation intelligente
+#
+# 📚 NOTION EXAM :
+#   D22-2 — Capsule 3 : Réponses déterministes basées sur la mémoire
+#
+# 🎯 UTILITÉ ALFRED :
+#   Génère des réponses directement à partir de la mémoire existante
+#   sans appel LLM — priorité mémoire sur génération IA.
+#
+# 🏗️ DOMAINE :
+#   Mémoire & contexte — réponses mémorielles déterministes
+# ============================================================
 
 from __future__ import annotations
 

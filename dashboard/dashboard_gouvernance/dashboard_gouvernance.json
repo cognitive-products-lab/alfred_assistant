@@ -1,0 +1,356 @@
+{
+    "_meta": {
+        "project": "ALFRED",
+        "block": "B20",
+        "file": "dashboard_gouvernance.json",
+        "generated_at": "2026-06-18T11:02:12.428714+00:00",
+        "version": "V1.0",
+        "generated_by": "dashboard_gouvernance.py"
+    },
+    "hardening_checks": {
+        "total": 20,
+        "passed": 19,
+        "failed": 1,
+        "score_pct": 95.0,
+        "grade": "A+",
+        "findings": [
+            {
+                "title": "Module d'authentification PIN",
+                "passed": true,
+                "severity": "CRITICAL",
+                "category": "AUTHENTIFICATION"
+            },
+            {
+                "title": "Clé Fernet dans variable d'environnement (et non fichier disque)",
+                "passed": true,
+                "severity": "HIGH",
+                "category": "CHIFFREMENT"
+            },
+            {
+                "title": "Module de protection des données au repos",
+                "passed": true,
+                "severity": "HIGH",
+                "category": "CHIFFREMENT"
+            },
+            {
+                "title": "RBAC configuré avec des rôles réels",
+                "passed": true,
+                "severity": "CRITICAL",
+                "category": "AUTORISATION"
+            },
+            {
+                "title": "Règles Zero Trust définies",
+                "passed": true,
+                "severity": "HIGH",
+                "category": "POLITIQUE"
+            },
+            {
+                "title": "Rate limiter avec backoff exponentiel",
+                "passed": true,
+                "severity": "HIGH",
+                "category": "RÉSILIENCE"
+            },
+            {
+                "title": "Validateur d'entrée robuste (patterns étendus)",
+                "passed": true,
+                "severity": "HIGH",
+                "category": "VALIDATION"
+            },
+            {
+                "title": "Audit trail actif et non vide",
+                "passed": true,
+                "severity": "MEDIUM",
+                "category": "TRAÇABILITÉ"
+            },
+            {
+                "title": "Registre d'incidents",
+                "passed": true,
+                "severity": "MEDIUM",
+                "category": "TRAÇABILITÉ"
+            },
+            {
+                "title": "Suite de tests d'intrusion",
+                "passed": true,
+                "severity": "MEDIUM",
+                "category": "TESTS"
+            },
+            {
+                "title": "MFA activé dans les paramètres",
+                "passed": true,
+                "severity": "MEDIUM",
+                "category": "AUTHENTIFICATION"
+            },
+            {
+                "title": ".gitignore protège .env et *.key",
+                "passed": true,
+                "severity": "CRITICAL",
+                "category": "SECRETS"
+            },
+            {
+                "title": "Filtre de sortie des données sensibles",
+                "passed": true,
+                "severity": "MEDIUM",
+                "category": "DONNÉES"
+            },
+            {
+                "title": "Cartographie des actifs informationnels (asset_classifier)",
+                "passed": true,
+                "severity": "MEDIUM",
+                "category": "URBANISATION"
+            },
+            {
+                "title": "Registre RGPD Art. 30 documenté (data_flow_mapper)",
+                "passed": true,
+                "severity": "HIGH",
+                "category": "URBANISATION"
+            },
+            {
+                "title": "PSSI documentée (docs/security/PSSI.md)",
+                "passed": true,
+                "severity": "MEDIUM",
+                "category": "URBANISATION"
+            },
+            {
+                "title": "Matrice de risques EBIOS RM (risk_engine)",
+                "passed": true,
+                "severity": "HIGH",
+                "category": "RISQUES"
+            },
+            {
+                "title": "Planificateur rotation des clés (key_rotation_scheduler)",
+                "passed": true,
+                "severity": "HIGH",
+                "category": "CRYPTOGRAPHIE"
+            },
+            {
+                "title": "Plan de Continuité d'Activité (disaster_recovery)",
+                "passed": true,
+                "severity": "HIGH",
+                "category": "RESILIENCE"
+            },
+            {
+                "title": "Backups sécurisés présents",
+                "passed": false,
+                "severity": "MEDIUM",
+                "category": "RESILIENCE"
+            }
+        ]
+    },
+    "privacy_indicators": {
+        "local_first": true,
+        "eu_transfers": 0,
+        "pii_filter_active": true,
+        "audit_trail_active": true,
+        "encryption_at_rest": true,
+        "fernet_key_in_env": true,
+        "fernet_key_file_on_disk": true,
+        "env_in_gitignore": true
+    },
+    "rgpd_register": {
+        "total_treatments": 6,
+        "compliant": 5,
+        "attention": 1,
+        "eu_transfers": 0,
+        "treatments": [
+            {
+                "id": "T01",
+                "name": "Profil et personnalisation",
+                "base_legale": "Consentement",
+                "retention": "10 ans",
+                "local": true,
+                "art9": false,
+                "status": "OK"
+            },
+            {
+                "id": "T02",
+                "name": "Mémoire conversationnelle",
+                "base_legale": "Consentement + Intérêt légitime",
+                "retention": "5 ans",
+                "local": true,
+                "art9": false,
+                "status": "OK"
+            },
+            {
+                "id": "T03",
+                "name": "Journaux de sécurité",
+                "base_legale": "Intérêt légitime",
+                "retention": "90 jours",
+                "local": true,
+                "art9": false,
+                "status": "OK"
+            },
+            {
+                "id": "T04",
+                "name": "Données de santé (Art. 9)",
+                "base_legale": "Consentement renforcé",
+                "retention": "2 ans",
+                "local": true,
+                "art9": true,
+                "status": "ATTENTION"
+            },
+            {
+                "id": "T05",
+                "name": "Incidents sécurité",
+                "base_legale": "Obligation légale",
+                "retention": "1 an",
+                "local": true,
+                "art9": false,
+                "status": "OK"
+            },
+            {
+                "id": "T06",
+                "name": "Authentification / Sessions",
+                "base_legale": "Intérêt légitime",
+                "retention": "30 jours",
+                "local": true,
+                "art9": false,
+                "status": "OK"
+            }
+        ]
+    },
+    "zero_trust": {
+        "modules_total": 42,
+        "test_files": 44,
+        "principles_active": 4,
+        "principles_total": 5,
+        "mfa_mandatory_roles": [
+            "OWNER",
+            "ADMIN"
+        ],
+        "principles": {
+            "never_trust_always_verify": true,
+            "least_privilege": true,
+            "assume_breach": true,
+            "mfa_mandatory_admin": true,
+            "microsegmentation": false
+        }
+    },
+    "test_results": {
+        "total": 651,
+        "passed": 651,
+        "grade": "A+",
+        "source": "live"
+    },
+    "profile_governance": {
+        "profile_exists": true,
+        "profile_size_bytes": 7382,
+        "fields_encrypted": 2,
+        "fields_local_json": 3,
+        "rights_implemented": 5,
+        "rights_total": 5,
+        "health_data_art9": true,
+        "rights": {
+            "access_art15": true,
+            "rectification_art16": true,
+            "erasure_art17": true,
+            "portability_art20": true,
+            "opposition_art21": true
+        }
+    },
+    "arthur_governance": {
+        "status": "conception",
+        "status_label": "En conception — V3 2027",
+        "pediatric_layer_planned": true,
+        "parental_consent_art8": "planned",
+        "child_dialog_privacy": true,
+        "aggregated_reports_only": true,
+        "zero_commercial_profiling": true,
+        "local_first_inherited": true,
+        "max_protection_inherited": true
+    },
+    "key_rotation": {
+        "scheduler_active": true,
+        "keys": [
+            {
+                "name": "FERNET_KEY",
+                "status": "OK",
+                "needs_rotation": false,
+                "days_since_rotation": null
+            },
+            {
+                "name": "SECRET_KEY",
+                "status": "OK",
+                "needs_rotation": false,
+                "days_since_rotation": null
+            },
+            {
+                "name": "PIN_SALT",
+                "status": "OK",
+                "needs_rotation": false,
+                "days_since_rotation": null
+            },
+            {
+                "name": "API_SECRET_KEY",
+                "status": "OK",
+                "needs_rotation": false,
+                "days_since_rotation": null
+            }
+        ],
+        "overdue": 0,
+        "ok": 4
+    },
+    "roadmap": [
+        {
+            "title": "Socle Zero Trust — 43 modules · 651 tests A+",
+            "status": "done",
+            "date": "Juin 2026",
+            "color": "green"
+        },
+        {
+            "title": "RGPD Art. 30 — 6 traitements · 0 transfert hors UE",
+            "status": "done",
+            "date": "Juin 2026",
+            "color": "green"
+        },
+        {
+            "title": "SMSI ISO 27001 — classification C1→C4, EBIOS RM, PCA",
+            "status": "done",
+            "date": "Juin 2026",
+            "color": "green"
+        },
+        {
+            "title": "Dashboard Gouvernance 360° dynamique (ALFRED_WEB)",
+            "status": "done",
+            "date": "Juin 2026",
+            "color": "green"
+        },
+        {
+            "title": "Profil utilisateur enrichi — questionnaire HEXACO complet",
+            "status": "active",
+            "date": "Juillet 2026",
+            "color": "teal"
+        },
+        {
+            "title": "Portabilité Art. 20 — export + réimportation complète",
+            "status": "planned",
+            "date": "V2 2026",
+            "color": "yellow"
+        },
+        {
+            "title": "VLAN isolation PC Alfred · micro-segmentation réseau",
+            "status": "planned",
+            "date": "Q3 2026",
+            "color": "yellow"
+        },
+        {
+            "title": "DPA formelle données de santé Art. 9",
+            "status": "planned",
+            "date": "V2 2026",
+            "color": "yellow"
+        },
+        {
+            "title": "ARTHUR — flux consentement parental RGPD Art. 8",
+            "status": "future",
+            "date": "V3 2027",
+            "color": "purple"
+        },
+        {
+            "title": "ALFRED CPL — conformité B2B/B2I · DPA sous-traitants",
+            "status": "future",
+            "date": "V3 2027",
+            "color": "purple"
+        }
+    ],
+    "governance_score": 91,
+    "governance_grade": "A"
+}

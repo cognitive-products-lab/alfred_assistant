@@ -1,4 +1,29 @@
-﻿# ============================================================
+"""
+PROJECT      : ALFRED
+BLOCK        : B01
+FUNCTION     : XX.XX
+FILE         : tts_piper.py
+ROLE         : Synthese vocale Piper (lecture WAV + lissage audio)
+
+AUTHOR       : Cognitive Products Lab
+CREATED      : 2026-05-10
+UPDATED      : 2026-06-15
+VERSION      : V1.2
+STATUS       : VALIDATED
+
+DESCRIPTION :
+Ajout d'un fondu d'entree/sortie (~5ms) sur chaque buffer audio pour
+supprimer le grésillement entre phrases en streaming. A re-valider en
+conditions reelles avant de repasser en STABLE.
+
+NOTE 2026-06-15 : PiperTTS.speak() calcule desormais self.last_amplitude
+(RMS du buffer audio de la phrase, avant sd.play) -- mesure simple lue par
+main.py._cb_play_start et transmise a AvatarController.set_speaking /
+resume_speaking pour adapter le rythme de la bouche au volume reel de
+chaque phrase (cf. AvatarRenderer._amplitude_to_period).
+"""
+
+# ============================================================
 # ALFRED — src/conversation/output/tts_piper.py
 # Bloc 01.03 V3 — Text-to-Speech avec Piper local
 #
@@ -24,10 +49,92 @@ import time
 import wave
 import subprocess
 import tempfile
-import sounddevice as sd
-import soundfile as sf
 
 from pathlib import Path
+
+# sounddevice et soundfile charges en lazy pour eviter les echecs d'init audio
+# (pilote audio verrouille par une session precedente sur Windows)
+sd = None
+sf = None
+
+def _apply_fade(audio, samplerate: int, fade_ms: float = 5.0):
+    """Applique un fondu d'entrée/sortie linéaire de quelques ms.
+
+    Évite le "clic"/grésillement audible quand sd.play() est appelé en rafale
+    (une fois par phrase pendant le streaming) : sans fondu, chaque buffer
+    démarre/termine sur une discontinuité d'amplitude brutale.
+    """
+    try:
+        import numpy as _np
+        n_fade = int(samplerate * fade_ms / 1000.0)
+        if n_fade <= 0 or len(audio) <= 2 * n_fade:
+            return audio
+        fade_in  = _np.linspace(0.0, 1.0, n_fade, dtype=audio.dtype)
+        fade_out = _np.linspace(1.0, 0.0, n_fade, dtype=audio.dtype)
+        audio = audio.copy()
+        if audio.ndim == 1:
+            audio[:n_fade]  *= fade_in
+            audio[-n_fade:] *= fade_out
+        else:
+            audio[:n_fade, :]  *= fade_in[:, None]
+            audio[-n_fade:, :] *= fade_out[:, None]
+        return audio
+    except Exception:
+        return audio
+
+
+def _resample(audio, orig_sr: int, target_sr: int):
+    """Resample audio (mono ou stereo) par interpolation lineaire.
+
+    Le modele Piper genere a 22050 Hz, mais certains peripheriques de sortie
+    (ex. Jabra SPEAK 510 en WASAPI) refusent ce sample rate avec
+    PortAudioError -9997 "Invalid sample rate" et n'acceptent que leur
+    default_samplerate (souvent 44100/48000 Hz).
+    """
+    if orig_sr == target_sr:
+        return audio
+    try:
+        import numpy as _np
+        n_in = audio.shape[0]
+        n_out = int(round(n_in * target_sr / orig_sr))
+        x_old = _np.linspace(0.0, 1.0, n_in, endpoint=False)
+        x_new = _np.linspace(0.0, 1.0, n_out, endpoint=False)
+        if audio.ndim == 1:
+            return _np.interp(x_new, x_old, audio).astype(audio.dtype)
+        return _np.stack(
+            [_np.interp(x_new, x_old, audio[:, ch]) for ch in range(audio.shape[1])],
+            axis=1,
+        ).astype(audio.dtype)
+    except Exception:
+        return audio
+
+
+def _output_samplerate(sd_module, fallback: int) -> int:
+    """Determine le sample rate par defaut du peripherique de sortie courant."""
+    try:
+        device = sd_module.default.device[1]
+        info = sd_module.query_devices(device)
+        rate = info.get("default_samplerate")
+        if rate:
+            return int(rate)
+    except Exception:
+        pass
+    return fallback
+
+
+def _ensure_audio_libs() -> bool:
+    """Charge sounddevice et soundfile a la premiere utilisation."""
+    global sd, sf
+    if sd is not None:
+        return True
+    try:
+        import sounddevice as _sd
+        import soundfile as _sf
+        sd = _sd
+        sf = _sf
+        return True
+    except Exception:
+        return False
 
 from src.conversation.input.voice_profile import (
     ALFRED_VOICE,
@@ -51,7 +158,7 @@ except ImportError:
 # Chemins modèle
 # ─────────────────────────────────────────────────────────
 
-_BASE_DIR    = Path(__file__).resolve().parents[2]
+_BASE_DIR    = Path(__file__).resolve().parents[3]   # ALFRED_PC/ (src/conversation/output/ → +3)
 _MODEL_PATH  = _BASE_DIR / ALFRED_VOICE["model_file"]
 _CONFIG_PATH = _BASE_DIR / ALFRED_VOICE["config_file"]
 
@@ -202,9 +309,6 @@ def speak(
         import numpy as np
         audio = audio.astype(np.float32)
 
-        # Sortie audio stable
-        sd.default.device = (None, 3)
-
         sd.play(audio, samplerate=sample_rate)
 
         if blocking:
@@ -345,6 +449,14 @@ class PiperTTS:
     def __init__(self, mode: str = "default", blocking: bool = True) -> None:
         self.mode = mode
         self.blocking = blocking
+        # Callbacks déclenchés en synchronisation avec la lecture audio réelle
+        self.on_play_start: "callable | None" = None  # juste après sd.play()
+        self.on_play_stop:  "callable | None" = None  # juste après sd.wait()
+        # Amplitude RMS de la dernière phrase synthétisée (0.0-~0.3 pour une
+        # voix normale) -- mesure simple lue par l'avatar (cf.
+        # AvatarController.resume_speaking) pour adapter le rythme de bouche
+        # au volume réel de chaque phrase TTS.
+        self.last_amplitude: float = 0.0
 
     def speak(self, text: str) -> bool:
         import os
@@ -369,30 +481,75 @@ class PiperTTS:
                 "--speaker", str(ALFRED_VOICE["speaker_id"]),
             ]
 
+            # PYTHONIOENCODING force le CLI Piper (script Python) à lire son
+            # stdin en UTF-8 — sans ça, Windows utilise le codepage console
+            # (cp1252/cp850) et les caractères accentués sont mal interprétés.
+            piper_env = dict(os.environ, PYTHONIOENCODING="utf-8", PYTHONUTF8="1")
+
             subprocess.run(
                 command,
                 input=text.strip(),
                 text=True,
+                encoding="utf-8",
+                errors="replace",
                 check=True,
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
+                env=piper_env,
             )
             import sounddevice as sd
             import soundfile as sf
 
             audio, samplerate = sf.read(tmp_wav_path, dtype="float32")
 
-            sd.default.device = (None, 3)
+            # Fondu d'entrée/sortie (~5 ms) — évite le "clic"/grésillement entendu
+            # entre chaque phrase quand sd.play() est appelé en rafale (streaming).
+            audio = _apply_fade(audio, samplerate)
+
+            # Resample si le device de sortie n'accepte pas le sample rate Piper
+            # (ex. PaErrorCode -9997 "Invalid sample rate" sur Jabra SPEAK 510 USB
+            # qui n'accepte que son default_samplerate, 44100 Hz)
+            target_rate = _output_samplerate(sd, samplerate)
+            if target_rate != samplerate:
+                audio = _resample(audio, samplerate, target_rate)
+                samplerate = target_rate
+
+            # Amplitude RMS de la phrase -- calculée avant lecture pour être
+            # disponible dès on_play_start (sync avatar/bouche).
+            import numpy as np
+            self.last_amplitude = float(np.sqrt(np.mean(np.square(audio)))) if audio.size else 0.0
+
+            # Sortie sur le device par défaut système (ne pas forcer un index)
+            # PaErrorCode -9998 = device 3 est input-only sur cette machine
             sd.play(audio, samplerate)
-            sd.wait()
+
+            # Callback début lecture — synchronisé avec le démarrage audio réel
+            if self.on_play_start:
+                try:
+                    self.on_play_start()
+                except Exception:
+                    pass
 
             if self.blocking:
                 sd.wait()
+
+            # Callback fin lecture — synchronisé avec la fin audio réelle
+            if self.on_play_stop:
+                try:
+                    self.on_play_stop()
+                except Exception:
+                    pass
 
             return True
 
         except Exception as e:
             print(f"❌ Erreur Piper CLI : {type(e).__name__} — {e}")
+            # Garantit que on_play_stop est appelé même en cas d'erreur
+            if self.on_play_stop:
+                try:
+                    self.on_play_stop()
+                except Exception:
+                    pass
             return False
 
 

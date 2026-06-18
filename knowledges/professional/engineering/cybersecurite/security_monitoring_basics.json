@@ -1,0 +1,207 @@
+{
+  "_meta": { "project": "ALFRED", "block": "B18", "file": "security_monitoring_basics.json", "version": "V2.0", "status": "VALIDATED", "updated": "2026-06-03", "validated_by": "Cognitive Products Lab" },
+  "knowledge_id": "professional.engineering.cybersecurite.security_monitoring_basics",
+  "id": "professional.engineering.cybersecurite.security_monitoring_basics",
+  "title": "Surveillance de sécurité — SOC et opérations",
+  "version": "2.0.0", "status": "active", "domain": "professional", "subdomain": "engineering", "category": "cybersecurite",
+  "summary": "SOC : rôles Tier1/2/3, flux alerte→triage→investigation, SLA de réponse (P1<15min/P2<1h), métriques MTTD/MTTR, outils SIEM, organisation et prévention du burnout.",
+  "purpose": "Permettre à ALFRED de conseiller sur l'organisation d'un SOC, les processus opérationnels de surveillance de sécurité, et les outils SIEM pour une détection et réponse efficaces.",
+  "tags": ["SOC", "SIEM", "monitoring sécurité", "triage", "alertes", "MTTD", "MTTR", "Tier1", "Tier2", "Tier3", "Splunk", "Microsoft Sentinel", "IBM QRadar", "Elastic SIEM", "SLA réponse"],
+  "intents": [
+    "organiser un SOC",
+    "définir des SLA de réponse aux incidents",
+    "choisir un SIEM",
+    "améliorer le MTTD/MTTR",
+    "réduire le burnout des analystes SOC"
+  ],
+  "usage_context": [
+    "création ou amélioration d'un SOC",
+    "définition des processus de réponse aux incidents",
+    "sélection et déploiement d'un SIEM",
+    "formation des analystes SOC",
+    "audit de maturité SOC"
+  ],
+  "priority": "high", "safety_level": "normal",
+  "content": {
+    "definition": "Un Security Operations Center (SOC) est une équipe centralisée chargée de surveiller en continu la sécurité d'une organisation, de détecter les incidents, de les investiguer et de coordonner la réponse. Il s'appuie sur des outils (SIEM, SOAR, EDR) et des processus structurés pour réduire le délai de détection (MTTD) et de réponse (MTTR).",
+    "core_principles": [
+      "Surveillance continue 24/7/365 (ou couverture appropriée au risque)",
+      "Processus standardisés : même incident traité de la même manière à chaque fois",
+      "Triage rigoureux : prioritiser les alertes par criticité pour éviter la noyade",
+      "Documentation systématique de chaque investigation",
+      "Amélioration continue : post-mortems, mise à jour des playbooks"
+    ],
+    "organisation_SOC": {
+      "Tier_1": {
+        "role": "Analyste junior — triage et première analyse",
+        "responsabilites": [
+          "Réceptionner et trier les alertes SIEM",
+          "Appliquer les playbooks de premier niveau",
+          "Escalader les alertes non résolues vers Tier 2",
+          "Fermer les faux positifs documentés"
+        ],
+        "competences": "Connaissance des outils SIEM, playbooks, bases en réseau et Windows/Linux"
+      },
+      "Tier_2": {
+        "role": "Analyste confirmé — investigation approfondie",
+        "responsabilites": [
+          "Investiguer les incidents escaladés par Tier 1",
+          "Corrélation d'alertes multi-sources",
+          "Analyse de malware de premier niveau",
+          "Coordination avec les équipes IT pour containment",
+          "Mise à jour des playbooks"
+        ],
+        "competences": "Forensique, threat hunting, analyse de malware, scripting (Python, PowerShell)"
+      },
+      "Tier_3": {
+        "role": "Expert / Threat Hunter",
+        "responsabilites": [
+          "Incidents critiques et complexes",
+          "Threat hunting proactif (chercher les attaquants déjà présents)",
+          "Développement de nouvelles règles de détection",
+          "Red/Blue team exercises",
+          "Renseignement sur les menaces (Threat Intelligence)"
+        ],
+        "competences": "Reverse engineering, forensique avancée, renseignement sur les menaces, développement d'outils"
+      }
+    },
+    "flux_de_travail": {
+      "etapes": [
+        {
+          "etape": "1. Génération d'alerte",
+          "description": "SIEM, EDR, IDS ou outil de monitoring génère une alerte",
+          "automatisation": "SOAR peut qualifier automatiquement certaines alertes avant intervention humaine"
+        },
+        {
+          "etape": "2. Triage (Tier 1)",
+          "description": "L'analyste vérifie si l'alerte est un vrai positif, applique le playbook de triage",
+          "criteres": "Criticité de l'asset concerné, type de menace, contexte utilisateur",
+          "duree_cible": "< 5 min pour les alertes P1/P2"
+        },
+        {
+          "etape": "3. Investigation (Tier 2)",
+          "description": "Analyse approfondie : corrélation de sources, timeline des événements, pivot sur IoCs",
+          "outils": "SIEM, EDR, threat intelligence, sandbox malware"
+        },
+        {
+          "etape": "4. Containment",
+          "description": "Isolation de l'asset compromis, blocage de l'IP/compte attaquant",
+          "automatisation": "SOAR peut déclencher l'isolation automatique via API MDM/EDR/NAC"
+        },
+        {
+          "etape": "5. Documentation et clôture",
+          "description": "Rédaction du rapport d'incident, mise à jour du ticket, feedback pour améliorer les règles"
+        }
+      ]
+    },
+    "SLA_reponse": {
+      "P0_critique": {
+        "definition": "Système critique hors service, ransomware actif, compromission de données massives",
+        "MTTD_cible": "< 5 min",
+        "MTTR_containment": "< 15 min",
+        "escalade": "CSIRT + Direction + Communication immédiate"
+      },
+      "P1_majeur": {
+        "definition": "Compte admin compromis, mouvement latéral détecté, attaque en cours",
+        "MTTD_cible": "< 15 min",
+        "MTTR_containment": "< 1 heure",
+        "escalade": "SOC Tier 2/3 + responsable sécurité"
+      },
+      "P2_significatif": {
+        "definition": "Phishing cliqué, malware détecté sur un poste isolé, accès suspect",
+        "MTTD_cible": "< 1 heure",
+        "MTTR_containment": "< 4 heures",
+        "escalade": "SOC Tier 2"
+      },
+      "P3_faible": {
+        "definition": "Faux positif probable, alerte informationnelle, scan externe basique",
+        "MTTD_cible": "< 4 heures",
+        "MTTR_containment": "< 24 heures",
+        "escalade": "SOC Tier 1 autonome"
+      }
+    },
+    "metriques": {
+      "MTTD": {
+        "description": "Mean Time To Detect — délai moyen entre le début d'un incident et sa détection",
+        "objectif": "< 24h pour une organisation mature (industrie : souvent plusieurs semaines sans SIEM)",
+        "amelioration": "Déploiement de plus de sources de logs, règles de corrélation, UEBA"
+      },
+      "MTTR": {
+        "description": "Mean Time To Respond / Remediate — délai moyen entre la détection et la résolution complète",
+        "objectif": "< 4h pour les incidents P1",
+        "amelioration": "Playbooks automatisés, SOAR, formation des équipes"
+      },
+      "autres_metriques": [
+        "Taux de faux positifs (doit diminuer avec le tuning)",
+        "Taux d'alertes escaladées vs gérées en Tier 1",
+        "Couverture MITRE ATT&CK : % des techniques couvertes par des règles de détection",
+        "Nombre d'incidents P0/P1 par mois (indicateur de niveau d'exposition)"
+      ]
+    },
+    "outils_SIEM": {
+      "Splunk_Enterprise_Security": {
+        "forces": "Très puissant pour la recherche dans de grands volumes de logs, écosystème riche, SPL (Splunk Processing Language)",
+        "faiblesses": "Coût très élevé (licence basée sur le volume de données ingérées)",
+        "usage": "SOC grandes entreprises avec gros volumes de logs"
+      },
+      "Microsoft_Sentinel": {
+        "forces": "Cloud-native, intégration native M365/Azure, SOAR intégré, pricing à la consommation",
+        "faiblesses": "Coût peut exploser sur gros volumes, KQL plus complexe que Splunk SPL pour les débutants",
+        "usage": "Environnements Microsoft-centric, cloud first"
+      },
+      "IBM_QRadar": {
+        "forces": "Puissant système de corrélation, analyse réseau (QFlow), long historique enterprise",
+        "faiblesses": "Interface vieillissante, lent à déployer",
+        "usage": "Grandes entreprises, secteur financier et gouvernemental"
+      },
+      "Elastic_SIEM": {
+        "forces": "Open source (Elastic Security), très flexible, bon rapport coût/performance, intégration ELK Stack",
+        "faiblesses": "Nécessite plus de customisation, moins de règles out-of-the-box",
+        "usage": "SOC avec équipes techniques fortes, budgets limités"
+      },
+      "SOAR": {
+        "description": "Security Orchestration Automation and Response — automatise les réponses aux alertes répétitives",
+        "outils": ["Splunk SOAR (ex-Phantom)", "Microsoft Sentinel Playbooks (Logic Apps)", "Palo Alto XSOAR", "IBM QRadar SOAR"],
+        "use_cases": ["Isolation automatique d'un device EDR sur alerte malware", "Blocage d'IP sur firewall depuis SIEM", "Création automatique de ticket JIRA pour chaque P2+"]
+      }
+    },
+    "burnout_analystes": {
+      "causes": ["Volume d'alertes trop élevé (alert fatigue)", "Trop de faux positifs", "Travail répétitif sans valeur ajoutée", "Postures nocturnes et week-ends en rotation", "Manque de reconnaissance et de progression"],
+      "solutions": [
+        "Automatiser les tâches répétitives avec SOAR",
+        "Tuning continu pour réduire les faux positifs",
+        "Rotation équitable des gardes nocturnes",
+        "Formation et évolution de carrière (Tier 1 → Tier 2 → Tier 3)",
+        "Métriques de performance valorisant la qualité plutôt que le volume d'alertes traitées",
+        "Outils ergonomiques réduisant la charge cognitive (dashboards clairs, workflows guidés)"
+      ]
+    },
+    "best_practices": [
+      "Définir et documenter les playbooks pour les 20 alertes les plus fréquentes",
+      "Mesurer MTTD et MTTR chaque semaine et en faire un KPI d'équipe",
+      "Organiser des exercices de simulation d'incidents mensuels (tabletop exercises)",
+      "Automatiser le triage des alertes récurrentes via SOAR",
+      "Maintenir un inventaire des assets critiques pour contextualiser les alertes",
+      "Effectuer un post-mortem documenté pour chaque incident P0/P1"
+    ],
+    "anti_patterns": [
+      "SOC qui reçoit des milliers d'alertes par jour sans priorisation → alert fatigue",
+      "Analystes Tier 1 sans playbooks : chaque analyste gère les alertes différemment",
+      "SIEM mal configuré avec toutes les sources de logs activées sans tuning → coûts et bruit",
+      "Pas de métriques : impossible de mesurer la maturité ou l'amélioration",
+      "SOC 8h/24 sans couverture nocturne pour une organisation exposée à des menaces mondiales"
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["SOC", "SIEM", "MTTD", "MTTR", "triage", "alerte sécurité", "Splunk", "Microsoft Sentinel", "analyste SOC", "SLA incidents"],
+    "related_knowledge": ["security_logging_strategy", "incident_classification", "nist_incident_response", "behavioral_anomaly_detection", "intrusion_detection_basics"],
+    "retrieval_priority": 8
+  },
+  "behavior_rules": { "tone": "professional", "response_style": "structured_clear", "max_complexity": "high", "allow_humor": false },
+  "safety_notes": {
+    "allowed_usage": ["Organisation et conseil SOC", "Sélection SIEM", "Définition de processus de réponse", "Formation analystes"],
+    "forbidden_usage": ["Utiliser des connaissances SOC pour contourner la détection lors d'une attaque"],
+    "fallback_behavior": "Pour la mise en place d'un SOC, recommander un accompagnement par un intégrateur spécialisé (MSSP)."
+  },
+  "metadata": { "author": "Cognitive Products Lab", "creation_date": "03/06/2026", "last_update": "03/06/2026", "review_status": "validated", "source_type": "manual_structured_knowledge", "language": "fr", "retrieval_ready": true, "rag_compatible": true }
+}

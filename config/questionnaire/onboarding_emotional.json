@@ -1,0 +1,272 @@
+{
+  "_meta": {
+    "version": "1.0",
+    "questionnaire_id": "onboarding_emotional",
+    "label_fr": "Questionnaire profil émotionnel",
+    "label_en": "Emotional profile questionnaire",
+    "description": "Cartographie des émotions, patterns et besoins de régulation de l'utilisateur pour affiner l'adaptation émotionnelle d'ALFRED.",
+    "consent_required": false,
+    "data_target": "data/profile/emotional_{user_id}.json",
+    "estimated_duration_min": 4,
+    "skip_allowed": true,
+    "can_update_later": true
+  },
+
+  "introduction": {
+    "text_fr": "Ces questions me permettent de mieux comprendre ton rapport aux émotions et ce dont tu as besoin de moi dans les moments difficiles. Il n'y a pas de bonne ou mauvaise réponse."
+  },
+
+  "sections": [
+
+    {
+      "id": "section_emotional_baseline",
+      "title_fr": "Ton paysage émotionnel habituel",
+      "optional": false,
+      "questions": [
+
+        {
+          "id": "q_dominant_emotions",
+          "type": "multi_select",
+          "label_fr": "Quelles émotions tu vis le plus souvent ces derniers temps ? (plusieurs choix)",
+          "options": [
+            {"value": "stress", "label_fr": "Stress / pression"},
+            {"value": "anxiete", "label_fr": "Anxiété / inquiétude"},
+            {"value": "tristesse", "label_fr": "Tristesse / mélancolie"},
+            {"value": "fatigue", "label_fr": "Fatigue / épuisement"},
+            {"value": "frustration", "label_fr": "Frustration / irritabilité"},
+            {"value": "confusion", "label_fr": "Confusion / flou mental"},
+            {"value": "solitude", "label_fr": "Solitude / isolement"},
+            {"value": "motivation", "label_fr": "Motivation / élan"},
+            {"value": "joie", "label_fr": "Joie / légèreté"},
+            {"value": "sérénité", "label_fr": "Calme / sérénité"},
+            {"value": "curiosite", "label_fr": "Curiosité / enthousiasme"}
+          ],
+          "maps_to": "emotional_baseline.dominant_emotions"
+        },
+
+        {
+          "id": "q_emotional_variability",
+          "type": "single_select",
+          "label_fr": "Comment tes émotions évoluent-elles au cours d'une journée typique ?",
+          "options": [
+            {"value": "stable", "label_fr": "Assez stables — peu de variations"},
+            {"value": "moderate_variation", "label_fr": "Quelques variations normales"},
+            {"value": "high_variation", "label_fr": "Beaucoup de variations — humeur changeante"},
+            {"value": "extreme_swings", "label_fr": "Grandes oscillations qui m'affectent fort"}
+          ],
+          "maps_to": "emotional_baseline.variability"
+        },
+
+        {
+          "id": "q_stress_triggers",
+          "type": "multi_select_with_other",
+          "label_fr": "Qu'est-ce qui te met le plus sous pression ou te stresse ? (plusieurs choix)",
+          "optional": true,
+          "options": [
+            {"value": "work_overload", "label_fr": "Surcharge de travail ou de responsabilités"},
+            {"value": "uncertainty", "label_fr": "L'incertitude et ne pas savoir à l'avance"},
+            {"value": "conflict", "label_fr": "Les conflits ou tensions relationnelles"},
+            {"value": "performance", "label_fr": "La peur de ne pas être à la hauteur"},
+            {"value": "health", "label_fr": "Préoccupations de santé"},
+            {"value": "finances", "label_fr": "Questions financières"},
+            {"value": "isolation", "label_fr": "L'isolement social"},
+            {"value": "loss_of_control", "label_fr": "Sentiment de perte de contrôle"},
+            {"value": "sensory", "label_fr": "Surcharge sensorielle (bruit, monde, stimulations)"},
+            {"value": "transitions", "label_fr": "Changements et transitions de vie"}
+          ],
+          "other_label_fr": "Autre déclencheur",
+          "maps_to": "emotional_baseline.stress_triggers"
+        }
+      ]
+    },
+
+    {
+      "id": "section_regulation_style",
+      "title_fr": "Ton style de régulation émotionnelle",
+      "optional": false,
+      "sublabel_fr": "Comment tu gères naturellement tes émotions.",
+      "questions": [
+
+        {
+          "id": "q_regulation_strategy",
+          "type": "multi_select",
+          "label_fr": "Quand tu vis une émotion difficile, tu fais naturellement quoi ? (plusieurs choix)",
+          "options": [
+            {"value": "talk_about_it", "label_fr": "J'en parle à quelqu'un"},
+            {"value": "alone_time", "label_fr": "Je me retire et j'ai besoin de solitude"},
+            {"value": "physical_activity", "label_fr": "Je bouge — marche, sport, activité physique"},
+            {"value": "distraction", "label_fr": "Je me distrais — séries, jeux, contenu"},
+            {"value": "journaling", "label_fr": "J'écris — journal, notes"},
+            {"value": "creative", "label_fr": "Je crée — dessin, musique, artisanat"},
+            {"value": "analyse", "label_fr": "J'analyse ce que je ressens pour comprendre"},
+            {"value": "sleep", "label_fr": "Je dors ou je fais une sieste"},
+            {"value": "breathe", "label_fr": "Respiration, méditation, pleine conscience"},
+            {"value": "nothing", "label_fr": "Je laisse passer — ça vient, ça part"}
+          ],
+          "maps_to": "regulation.preferred_strategies"
+        },
+
+        {
+          "id": "q_emotion_awareness",
+          "type": "scale",
+          "label_fr": "À quel point tu es facilement conscient·e de ce que tu ressens en temps réel ?",
+          "scale": {
+            "min": 1, "max": 5,
+            "labels": {
+              "1": "Peu — je le réalise souvent après coup",
+              "3": "Moyen — parfois dans l'instant, parfois après",
+              "5": "Très — je suis généralement conscient·e en temps réel"
+            }
+          },
+          "maps_to": "regulation.emotion_awareness_level"
+        },
+
+        {
+          "id": "q_rumination_tendency",
+          "type": "single_select",
+          "label_fr": "As-tu tendance à ruminer — à repenser aux problèmes ou erreurs en boucle ?",
+          "options": [
+            {"value": "never", "label_fr": "Rarement — je passe à autre chose facilement"},
+            {"value": "sometimes", "label_fr": "Parfois — surtout sur les choses importantes"},
+            {"value": "often", "label_fr": "Souvent — les pensées reviennent fréquemment"},
+            {"value": "very_often", "label_fr": "Très souvent — c'est un vrai obstacle pour moi"}
+          ],
+          "maps_to": "regulation.rumination_tendency"
+        },
+
+        {
+          "id": "q_overwhelm_pattern",
+          "type": "single_select",
+          "label_fr": "Quand tu es émotionnellement submergé·e, tu as tendance à…",
+          "options": [
+            {"value": "freeze", "label_fr": "Me figer — je ne sais plus quoi faire ni par où commencer"},
+            {"value": "explode", "label_fr": "Tout sortir — l'émotion déborde vers l'extérieur"},
+            {"value": "withdraw", "label_fr": "Me retirer — je ferme les portes, je ne communique plus"},
+            {"value": "seek_help", "label_fr": "Chercher de l'aide ou quelqu'un à qui parler"},
+            {"value": "push_through", "label_fr": "Foncer quand même — je continue par automatisme"},
+            {"value": "collapse", "label_fr": "M'effondrer — je ne peux plus rien faire"}
+          ],
+          "maps_to": "regulation.overwhelm_pattern"
+        }
+      ]
+    },
+
+    {
+      "id": "section_alfred_emotional_role",
+      "title_fr": "Ce que tu veux d'ALFRED émotionnellement",
+      "optional": false,
+      "questions": [
+
+        {
+          "id": "q_alfred_emotional_role",
+          "type": "multi_select",
+          "label_fr": "Quel rôle émotionnel tu veux qu'ALFRED joue ? (plusieurs choix)",
+          "options": [
+            {"value": "listener", "label_fr": "Écouter sans juger — présence silencieuse"},
+            {"value": "mirror", "label_fr": "Reformuler et refléter ce que je vis"},
+            {"value": "anchor", "label_fr": "M'ancrer quand je suis emporté·e"},
+            {"value": "normalizer", "label_fr": "Me dire que ce que je ressens est normal"},
+            {"value": "challenger", "label_fr": "Me challenger doucement sur mes pensées limitantes"},
+            {"value": "companion", "label_fr": "Être simplement là — de la compagnie"},
+            {"value": "cheerleader", "label_fr": "M'encourager et me motiver"}
+          ],
+          "maps_to": "alfred_role.emotional_functions"
+        },
+
+        {
+          "id": "q_alfred_when_distressed",
+          "type": "single_select",
+          "label_fr": "Quand tu es vraiment mal, tu préfères qu'ALFRED…",
+          "options": [
+            {"value": "stay_silent_available", "label_fr": "Reste là en silence, disponible si je veux parler"},
+            {"value": "ask_once", "label_fr": "Me demande une fois comment je vais et suive mon lead"},
+            {"value": "check_in_regularly", "label_fr": "Continue de vérifier régulièrement"},
+            {"value": "redirect_gently", "label_fr": "Essaie doucement de me sortir du mauvais état"},
+            {"value": "practical_help", "label_fr": "Propose une aide concrète plutôt que du soutien émotionnel"}
+          ],
+          "maps_to": "alfred_role.when_distressed"
+        },
+
+        {
+          "id": "q_alfred_crisis_mode",
+          "type": "single_select",
+          "label_fr": "Si tu exprimes une grande détresse ou une situation de crise, ALFRED doit…",
+          "options": [
+            {"value": "always_mention_resources", "label_fr": "Toujours me rappeler les ressources professionnelles disponibles"},
+            {"value": "resources_if_severe", "label_fr": "Mentionner les ressources seulement si c'est vraiment sévère"},
+            {"value": "follow_my_lead", "label_fr": "Suivre mon lead — ne mentionner que si je le demande"},
+            {"value": "validate_first_always", "label_fr": "Valider en premier, toujours — les ressources ensuite"}
+          ],
+          "default": "resources_if_severe",
+          "maps_to": "alfred_role.crisis_response_preference"
+        },
+
+        {
+          "id": "q_recovery_support",
+          "type": "single_select",
+          "label_fr": "Après un mauvais moment, tu préfères qu'ALFRED…",
+          "options": [
+            {"value": "check_back", "label_fr": "Revienne sur comment tu vas dans la session suivante"},
+            {"value": "forget_it", "label_fr": "N'en parle plus — on repart sur de nouvelles bases"},
+            {"value": "light_reconnect", "label_fr": "Reconnecte légèrement sans appuyer sur la plaie"},
+            {"value": "follow_my_lead", "label_fr": "Suive mon initiative — je lancerai si j'en ai besoin"}
+          ],
+          "default": "follow_my_lead",
+          "maps_to": "alfred_role.post_crisis_follow_up"
+        }
+      ]
+    },
+
+    {
+      "id": "section_boundaries",
+      "title_fr": "Limites & zones sensibles",
+      "optional": true,
+      "sublabel_fr": "Pour qu'ALFRED ne touche jamais à des sujets qui te font du mal.",
+      "questions": [
+
+        {
+          "id": "q_sensitive_topics",
+          "type": "multi_select_with_other",
+          "label_fr": "Y a-t-il des sujets sur lesquels tu préfères qu'ALFRED ne s'aventure pas ?",
+          "optional": true,
+          "options": [
+            {"value": "family", "label_fr": "Famille / relations familiales"},
+            {"value": "finances", "label_fr": "Argent / finances"},
+            {"value": "past_trauma", "label_fr": "Événements traumatiques passés"},
+            {"value": "body_image", "label_fr": "Corps / image corporelle / poids"},
+            {"value": "religion_spirituality", "label_fr": "Religion / spiritualité"},
+            {"value": "politics", "label_fr": "Politique"},
+            {"value": "romantic_relationships", "label_fr": "Relations amoureuses"},
+            {"value": "death_grief", "label_fr": "Mort / deuil"}
+          ],
+          "other_label_fr": "Autre sujet sensible",
+          "maps_to": "boundaries.sensitive_topics_avoid"
+        },
+
+        {
+          "id": "q_avoid_behavior",
+          "type": "multi_select",
+          "label_fr": "Y a-t-il des comportements ou attitudes d'ALFRED qui te dérangent ? (à éviter absolument)",
+          "optional": true,
+          "options": [
+            {"value": "unsolicited_advice", "label_fr": "Conseils non sollicités"},
+            {"value": "excessive_positivity", "label_fr": "Positivité forcée ou fausse"},
+            {"value": "pushing_professionals", "label_fr": "Pousser vers les professionnels de façon répétée"},
+            {"value": "excessive_questions", "label_fr": "Trop de questions d'affilée"},
+            {"value": "interrupting_flow", "label_fr": "Interrompre le fil de ma pensée"},
+            {"value": "overexplaining", "label_fr": "Surexpliquer ce que je sais déjà"},
+            {"value": "excessive_check_ins", "label_fr": "Vérifier mon état trop souvent"},
+            {"value": "baby_talk", "label_fr": "Parler comme si j'étais fragile ou incapable"}
+          ],
+          "maps_to": "boundaries.behaviors_to_avoid"
+        }
+      ]
+    }
+  ],
+
+  "completion": {
+    "message_fr": "Profil émotionnel enregistré. Je m'en servirai pour mieux t'accompagner. Tu peux le mettre à jour quand tu veux.",
+    "data_written_to": "data/profile/emotional_{user_id}.json",
+    "triggers": ["regulation_engine_reload_profile"]
+  }
+}

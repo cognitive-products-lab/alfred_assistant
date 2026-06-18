@@ -1,0 +1,200 @@
+{
+  "_meta": {
+    "project": "ALFRED",
+    "block": "GLOBAL - Tests",
+    "file": "dashboard_tests_manifest.json",
+    "version": "V1.0",
+    "status": "ACTIVE",
+    "updated": "2026-05-31",
+    "description": "Manifest de surveillance de tous les tests ALFRED : unitaires, integration, securite, parole, vision"
+  },
+  "sections": {
+
+    "root_tests": {
+      "label": "Tests racine - tests/*.py",
+      "description": "Tests generaux et tests de pipeline a la racine du dossier tests/",
+      "target_files_count": 9,
+      "expected_files": [
+        "tests/__init__.py",
+        "tests/test_b01_speech.py",
+        "tests/test_b02_b03.py",
+        "tests/test_micro.py",
+        "tests/test_pipeline.py",
+        "tests/test_pipeline_llm.py",
+        "tests/test_security.py",
+        "tests/test_stt.py",
+        "tests/test_tts_engine.py",
+        "tests/test_tts_piper.py",
+        "tests/test_tts_piper_status.py"
+      ]
+    },
+
+    "b01_tests": {
+      "label": "Tests B01 - Conversation & NLP",
+      "description": "Tests unitaires du bloc 01 : context builder, LLM router, intent NLP",
+      "target_files_count": 4,
+      "expected_files": [
+        "tests/b01_tests/__init__.py",
+        "tests/b01_tests/test_context_builder.py",
+        "tests/b01_tests/test_llm_router.py",
+        "tests/b01_tests/test_nlp_intent.py"
+      ]
+    },
+
+    "b02_tests": {
+      "label": "Tests B02 - Memoire & RAG",
+      "description": "Tests unitaires du bloc 02 : moteur memoire, answer engine",
+      "target_files_count": 3,
+      "expected_files": [
+        "tests/b02_tests/__init__.py",
+        "tests/b02_tests/test_memory_answer_engine.py",
+        "tests/b02_tests/test_memory_engine.py"
+      ]
+    },
+
+    "b03_tests": {
+      "label": "Tests B03 - Emotions & Regulation",
+      "description": "Tests unitaires du bloc 03 : detection emotion, mode, garde-fou, bien-etre",
+      "target_files_count": 5,
+      "expected_files": [
+        "tests/b03_tests/__init__.py",
+        "tests/b03_tests/test_emotion_detector.py",
+        "tests/b03_tests/test_mode_manager.py",
+        "tests/b03_tests/test_protection_guard.py",
+        "tests/b03_tests/test_wellbeing_tracker.py"
+      ]
+    },
+
+    "b08_tests": {
+      "label": "Tests B08 - Personnalisation",
+      "description": "Tests unitaires du bloc 08 : moteur comportement, adaptateur personnalite",
+      "target_files_count": 3,
+      "expected_files": [
+        "tests/b08_tests/__init__.py",
+        "tests/b08_tests/test_behavior_engine.py",
+        "tests/b08_tests/test_personality_adapter.py"
+      ]
+    },
+
+    "b11_tests": {
+      "label": "Tests B11 - Intelligence cognitive",
+      "description": "Tests unitaires du bloc 11 : fusion engine, rappels proactifs",
+      "target_files_count": 3,
+      "expected_files": [
+        "tests/b11_tests/__init__.py",
+        "tests/b11_tests/test_fusion_engine.py",
+        "tests/b11_tests/test_proactive_reminder.py"
+      ]
+    },
+
+    "b15_tests": {
+      "label": "Tests B15 - Avatar & UI",
+      "description": "Tests unitaires du bloc 15 : controleur avatar, rendu, background, bridge UI",
+      "target_files_count": 5,
+      "expected_files": [
+        "tests/b15_tests/__init__.py",
+        "tests/b15_tests/test_avatar_controller.py",
+        "tests/b15_tests/test_avatar_renderer.py",
+        "tests/b15_tests/test_background_manager.py",
+        "tests/b15_tests/test_ui_bridge.py"
+      ]
+    },
+
+    "integration_tests": {
+      "label": "Tests d integration",
+      "description": "Tests de pipeline complet bout-en-bout",
+      "target_files_count": 2,
+      "expected_files": [
+        "tests/integration_tests/__init__.py",
+        "tests/integration_tests/test_main_pipeline.py"
+      ]
+    },
+
+    "security_pentest": {
+      "label": "Tests securite - Pentest B20",
+      "description": "Tests de penetration : authentification, chiffrement, injection, Zero Trust",
+      "target_files_count": 4,
+      "expected_files": [
+        "tests/security/test_pentest_auth.py",
+        "tests/security/test_pentest_encryption.py",
+        "tests/security/test_pentest_input.py",
+        "tests/security/test_pentest_zero_trust.py"
+      ]
+    },
+
+    "security_unit": {
+      "label": "Tests unitaires securite - B20",
+      "description": "Tests unitaires de chaque module src/security/ : access, audit, chiffrement, incidents...",
+      "target_files_count": 33,
+      "expected_files": [
+        "tests/security_tests/__init__.py",
+        "tests/security_tests/test_access_control.py",
+        "tests/security_tests/test_audit_trail.py",
+        "tests/security_tests/test_backup_security.py",
+        "tests/security_tests/test_behavioral_detector.py",
+        "tests/security_tests/test_compliance_manager.py",
+        "tests/security_tests/test_incident_correlation.py",
+        "tests/security_tests/test_input_validator.py",
+        "tests/security_tests/test_mfa_manager.py",
+        "tests/security_tests/test_output_filter.py",
+        "tests/security_tests/test_permission_manager.py",
+        "tests/security_tests/test_policy_decision_point.py",
+        "tests/security_tests/test_policy_engine.py",
+        "tests/security_tests/test_prompt_guard.py",
+        "tests/security_tests/test_quarantine_service.py",
+        "tests/security_tests/test_role_manager.py",
+        "tests/security_tests/test_secret_manager.py",
+        "tests/security_tests/test_security_config.py",
+        "tests/security_tests/test_security_logger.py",
+        "tests/security_tests/test_session_manager.py",
+        "tests/security_tests/test_threat_detector.py",
+        "tests/security_tests/test_zero_trust_orchestrator.py",
+      "tests/security_tests/test_network_security.py",
+      "tests/security_tests/test_api_security.py",
+      "tests/security_tests/test_encryption_service.py",
+      "tests/security_tests/test_rate_limiter.py",
+      "tests/security_tests/test_data_protection.py",
+      "tests/security_tests/test_device_registry.py",
+      "tests/security_tests/test_incident_manager.py",
+      "tests/security_tests/test_quarantine_service_extended.py",
+      "tests/security_tests/test_security_dashboard.py",
+      "tests/security_tests/test_soc_monitor.py",
+      "tests/security_tests/test_html_report.py"
+      ]
+    },
+
+    "speech_tests": {
+      "label": "Tests parole - STT & TTS",
+      "description": "Tests unitaires des modules de parole : STT Whisper, TTS engine, TTS Piper",
+      "target_files_count": 4,
+      "expected_files": [
+        "tests/speech_tests/__init__.py",
+        "tests/speech_tests/test_stt_whisper.py",
+        "tests/speech_tests/test_tts_engine.py",
+        "tests/speech_tests/test_tts_piper.py"
+      ]
+    },
+
+    "vision_tests": {
+      "label": "Tests vision - Camera & RTSP",
+      "description": "Tests unitaires des modules vision : camera, detection visage, flux RTSP",
+      "target_files_count": 4,
+      "expected_files": [
+        "tests/vision_tests/__init__.py",
+        "tests/vision_tests/test_camera_manager.py",
+        "tests/vision_tests/test_face_detector.py",
+        "tests/vision_tests/test_rtsp_stream.py"
+      ]
+    },
+
+    "manual_tests": {
+      "label": "Tests manuels",
+      "description": "Scripts de validation manuelle (non automatises)",
+      "target_files_count": 1,
+      "expected_files": [
+        "tests/manual/voice_loop_manual.py"
+      ]
+    }
+
+  }
+}

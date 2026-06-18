@@ -1,14 +1,16 @@
-﻿# ============================================================
-# ALFRED — src/input/nlp_engine_v2.py
-# Bloc 01.04 V2 — NLP enrichi, prêt pour LLM local
+# ============================================================
+# ALFRED — src/conversation/input/nlp_engine_v2.py
+# Bloc 01.02 — Compréhension des intentions
 #
-# Évolution de nlp_engine.py V1 :
-#   V1 → keywords uniquement
-#   V2 → keywords + scoring émotion + détection langue + LLM-ready
-#   V3 → LLM local (Mistral/llama-cpp) — hook prévu
+# 📚 NOTION EXAM :
+#   D12-2 — Capsule 2 : NLP enrichi V2 — stub d'analyse sémantique
 #
-# Usage : remplace nlp_engine.py quand V2 est actif.
-# main.py choisit la version selon APP_VERSION dans .env.
+# 🎯 UTILITÉ ALFRED :
+#   Stub NLP V2 dans le pipeline d'entrée — retourne une structure
+#   compatible avec le pipeline ALFRED en attendant le LLM local V3.
+#
+# 🏗️ DOMAINE :
+#   Noyau conversationnel — NLP pipeline input, structure LLM-ready
 # ============================================================
 
 import re
