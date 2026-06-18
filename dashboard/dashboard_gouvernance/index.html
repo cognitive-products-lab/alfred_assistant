@@ -135,12 +135,23 @@ USAGE    : http://localhost:8001/dashboard/dashboard_gouvernance/index.html
     .road-title { font-size: .68rem; color: var(--txt); line-height: 1.4; }
     .road-date { font-size: .58rem; color: var(--dim); margin-top: 2px; }
     .road-status-done .road-dot { background: var(--ok); }
-    .road-status-done .road-title { color: var(--dim); text-decoration: line-through; }
+    .road-status-done .road-title { color: var(--ok); }
     .road-status-active .road-dot { background: var(--acc); box-shadow: 0 0 6px var(--acc); }
     .road-status-active .road-title { color: var(--wh); font-weight: 600; }
     .road-status-planned .road-dot { background: var(--par); }
+    .road-status-planned .road-title { color: var(--par); }
     .road-status-future .road-dot { background: var(--purple); }
-    .road-status-future .road-title { color: var(--plan); font-style: italic; }
+    .road-status-future .road-title { color: var(--plan); }
+    .road-badge {
+      display: inline-flex; align-items: center; gap: 4px;
+      font-size: .55rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+      padding: 1px 7px; border-radius: 4px; margin-left: 8px; vertical-align: middle; flex-shrink: 0;
+    }
+    .road-badge-done    { background: rgba(0,224,150,.12); color: var(--ok);    border: 1px solid rgba(0,224,150,.25); }
+    .road-badge-active  { background: rgba(0,212,255,.12); color: var(--acc);   border: 1px solid rgba(0,212,255,.25); }
+    .road-badge-planned { background: rgba(255,170,0,.12); color: var(--par);   border: 1px solid rgba(255,170,0,.25); }
+    .road-badge-future  { background: rgba(167,139,250,.12); color: var(--purple); border: 1px solid rgba(167,139,250,.25); }
+    .road-title-wrap { display: flex; align-items: center; flex-wrap: wrap; gap: 4px; }
 
     /* Footer */
     .footer { padding: 16px 28px; border-top: 1px solid var(--bdr); font-size: .58rem; color: var(--dim); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
@@ -317,18 +328,31 @@ USAGE    : http://localhost:8001/dashboard/dashboard_gouvernance/index.html
     }).join('');
   }
 
+  const ROAD_BADGE = {
+    done:    ['✅', 'Fait',     'road-badge-done'],
+    active:  ['🔵', 'En cours', 'road-badge-active'],
+    planned: ['⏳', 'Planifié', 'road-badge-planned'],
+    future:  ['🔮', 'Futur',    'road-badge-future'],
+  };
+
   function renderRoadmap(items) {
-    document.getElementById('roadmap').innerHTML = items.map((item, i) => `
+    document.getElementById('roadmap').innerHTML = items.map((item, i) => {
+      const [icon, label, cls] = ROAD_BADGE[item.status] || ['○', item.status, 'road-badge-planned'];
+      return `
       <div class="road-item road-status-${item.status}">
         <div class="road-dot-wrap">
           <div class="road-dot"></div>
           ${i < items.length - 1 ? '<div class="road-line"></div>' : ''}
         </div>
         <div class="road-body">
-          <div class="road-title">${item.title}</div>
+          <div class="road-title-wrap">
+            <span class="road-title">${item.title}</span>
+            <span class="road-badge ${cls}">${icon} ${label}</span>
+          </div>
           <div class="road-date">${item.date || ''}</div>
         </div>
-      </div>`).join('');
+      </div>`;
+    }).join('');
   }
 
   load();
