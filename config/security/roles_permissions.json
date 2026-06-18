@@ -1,1 +1,46 @@
-﻿{"roles": {}}
+{
+  "roles": {
+    "OWNER": {
+      "description": "Proprietaire d'ALFRED (Celine) - acces complet",
+      "permissions": ["READ_MEMORY", "WRITE_MEMORY", "DELETE_DATA", "EXPORT_DATA", "ACCESS_SECURITY_LOGS", "CONTROL_DEVICE", "RUN_AI_MODULE"],
+      "max_resource_sensitivity": "CRITICAL",
+      "mfa_required": true
+    },
+    "ADMIN": {
+      "description": "Administration technique (maintenance, supervision)",
+      "permissions": ["READ_MEMORY", "WRITE_MEMORY", "ACCESS_SECURITY_LOGS", "CONTROL_DEVICE"],
+      "max_resource_sensitivity": "CRITICAL",
+      "mfa_required": true
+    },
+    "USER": {
+      "description": "Utilisateur standard d'ALFRED",
+      "permissions": ["READ_MEMORY", "WRITE_MEMORY", "RUN_AI_MODULE"],
+      "max_resource_sensitivity": "MEDIUM",
+      "mfa_required": false
+    },
+    "GUEST": {
+      "description": "Acces invite temporaire, tres restreint",
+      "permissions": ["RUN_AI_MODULE"],
+      "max_resource_sensitivity": "LOW",
+      "mfa_required": false
+    },
+    "SERVICE": {
+      "description": "Comptes de service inter-modules (ALFRED_PC <-> ALFRED_WEB)",
+      "permissions": ["RUN_AI_MODULE"],
+      "max_resource_sensitivity": "MEDIUM",
+      "mfa_required": false
+    },
+    "AI_MODULE": {
+      "description": "Modules IA internes (LLM, STT/TTS, memoire)",
+      "permissions": ["RUN_AI_MODULE"],
+      "max_resource_sensitivity": "MEDIUM",
+      "mfa_required": false
+    },
+    "EMERGENCY": {
+      "description": "Acces d'urgence (alerte sante/securite) - jamais de MFA pour ne pas bloquer une alerte",
+      "permissions": ["SEND_ALERT", "READ_EMERGENCY_CONTEXT"],
+      "max_resource_sensitivity": "LOW",
+      "mfa_required": false
+    }
+  }
+}

@@ -1,0 +1,362 @@
+<!--
+PROJECT  : ALFRED / Cognitive Products Lab
+FILE     : dashboard/dashboard_gouvernance/index.html
+ROLE     : Dashboard synthèse conformité réglementaire — 7 normes
+VERSION  : V2.0 — architecture index + norm.html
+USAGE    : http://localhost:8001/dashboard/dashboard_gouvernance/index.html
+-->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ALFRED CPL — Conformité Réglementaire</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Syne:wght@700;800&display=swap');
+    :root {
+      --bg: #07090f; --surf: #0e1118; --surf2: #13161f; --bdr: #1c2030;
+      --acc: #00d4ff; --ok: #00e096; --par: #ffaa00; --todo: #ff4d6d;
+      --plan: #647086; --purple: #a78bfa; --txt: #b8c4d8; --dim: #647086; --wh: #f0f4ff;
+      --f: 'JetBrains Mono', monospace; --fh: 'Syne', sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: radial-gradient(circle at 15% 10%, rgba(0,212,255,.07), transparent 30%),
+                  radial-gradient(circle at 85% 5%, rgba(167,139,250,.07), transparent 30%), var(--bg);
+      color: var(--txt); font-family: var(--f); font-size: 12.5px; min-height: 100vh;
+    }
+
+    /* Topbar */
+    .topbar {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(7,9,15,.97); backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--bdr);
+      padding: 12px 24px;
+      display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    }
+    .logo { font-family: var(--fh); font-size: 1.05rem; font-weight: 800; color: var(--wh); }
+    .logo span { color: var(--acc); }
+    .meta { font-size: .58rem; color: var(--dim); letter-spacing: .1em; text-transform: uppercase; margin-top: 2px; }
+    .topbar-right { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .badge { font-size: .6rem; font-weight: 700; padding: 4px 10px; border-radius: 6px; letter-spacing: .05em; text-transform: uppercase; white-space: nowrap; }
+    .badge-d,.badge-c { background: rgba(255,77,109,.12); color: var(--todo); border: 1px solid rgba(255,77,109,.25); }
+    .badge-b { background: rgba(255,170,0,.12); color: var(--par); border: 1px solid rgba(255,170,0,.25); }
+    .badge-a,.badge-a+ { background: rgba(0,224,150,.12); color: var(--ok); border: 1px solid rgba(0,224,150,.25); }
+    .refresh-btn {
+      background: none; border: 1px solid var(--bdr); color: var(--dim);
+      font-family: var(--f); font-size: .6rem; padding: 4px 10px; border-radius: 6px;
+      cursor: pointer; letter-spacing: .05em; transition: all .15s;
+    }
+    .refresh-btn:hover { border-color: var(--acc); color: var(--acc); }
+
+    /* Score banner */
+    .score-banner {
+      background: var(--surf); border-bottom: 1px solid var(--bdr);
+      padding: 20px 28px; display: flex; align-items: center; gap: 32px; flex-wrap: wrap;
+    }
+    .score-circle {
+      width: 80px; height: 80px; border-radius: 50%; flex-shrink: 0;
+      border: 3px solid var(--bdr); display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem; font-weight: 700; position: relative;
+      background: conic-gradient(var(--acc) var(--deg, 0deg), var(--surf2) 0);
+    }
+    .score-circle-inner {
+      width: 60px; height: 60px; border-radius: 50%;
+      background: var(--surf); display: flex; align-items: center; justify-content: center;
+      font-size: .9rem; font-weight: 700; color: var(--wh);
+    }
+    .score-info { flex: 1; }
+    .score-title { font-size: .58rem; color: var(--dim); letter-spacing: .1em; text-transform: uppercase; margin-bottom: 6px; }
+    .score-grade { font-size: 2rem; font-weight: 700; line-height: 1; }
+    .score-grade.grade-a { color: var(--ok); }
+    .score-grade.grade-b { color: var(--par); }
+    .score-grade.grade-c,.score-grade.grade-d { color: var(--todo); }
+    .score-reqs { font-size: .65rem; color: var(--dim); margin-top: 4px; }
+    .score-bar-wrap { flex: 2; min-width: 200px; }
+    .score-bar-label { font-size: .58rem; color: var(--dim); letter-spacing: .1em; text-transform: uppercase; margin-bottom: 6px; display: flex; justify-content: space-between; }
+    .score-bar-track { height: 6px; background: var(--surf2); border-radius: 3px; overflow: hidden; }
+    .score-bar-fill { height: 100%; background: linear-gradient(90deg, var(--acc), var(--ok)); border-radius: 3px; transition: width .6s ease; }
+    .score-pills { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+    .score-pill { font-size: .58rem; padding: 2px 8px; border-radius: 4px; background: var(--surf2); border: 1px solid var(--bdr); }
+
+    /* Error */
+    .error-banner {
+      display: none; background: rgba(255,77,109,.1); border: 1px solid rgba(255,77,109,.3);
+      color: var(--todo); font-size: .65rem; padding: 8px 16px; margin: 12px 24px; border-radius: 6px;
+    }
+
+    /* Section */
+    .section { padding: 24px 28px; }
+    .section-title {
+      font-size: .58rem; color: var(--dim); letter-spacing: .1em; text-transform: uppercase;
+      margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid var(--bdr);
+    }
+
+    /* Norm grid */
+    .norms-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; }
+    .norm-card {
+      background: var(--surf); border: 1px solid var(--bdr); border-radius: 10px;
+      padding: 16px; cursor: pointer; transition: all .2s; position: relative; overflow: hidden;
+      border-top: 2px solid var(--norm-color, var(--bdr));
+      text-decoration: none; display: block; color: inherit;
+    }
+    .norm-card:hover { border-color: var(--norm-color, var(--bdr)); background: var(--surf2); transform: translateY(-2px); box-shadow: 0 4px 20px rgba(0,0,0,.3); }
+    .norm-card.planned { opacity: .7; cursor: default; pointer-events: none; }
+    .norm-id { font-size: .65rem; font-weight: 700; color: var(--norm-color, var(--dim)); letter-spacing: .08em; }
+    .norm-label { font-size: .7rem; font-weight: 600; color: var(--wh); margin: 4px 0 2px; line-height: 1.3; }
+    .norm-subtitle { font-size: .58rem; color: var(--dim); margin-bottom: 10px; }
+    .norm-score-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+    .norm-pct { font-size: .9rem; font-weight: 700; min-width: 44px; }
+    .norm-bar-track { flex: 1; height: 4px; background: var(--surf2); border-radius: 2px; overflow: hidden; }
+    .norm-bar-fill { height: 100%; border-radius: 2px; transition: width .4s ease; }
+    .norm-counts { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
+    .nc { font-size: .55rem; padding: 2px 6px; border-radius: 3px; font-weight: 600; }
+    .nc-ok { background: rgba(0,224,150,.12); color: var(--ok); }
+    .nc-par { background: rgba(255,170,0,.12); color: var(--par); }
+    .nc-todo { background: rgba(255,77,109,.12); color: var(--todo); }
+    .nc-plan { background: rgba(100,112,134,.12); color: var(--plan); }
+    .norm-link-hint { font-size: .55rem; color: var(--dim); margin-top: 10px; text-align: right; opacity: .6; }
+    .norm-card:hover .norm-link-hint { opacity: 1; color: var(--acc); }
+    .planned-label { font-size: .62rem; color: var(--plan); margin-top: 6px; }
+
+    /* Legend */
+    .legend { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 16px; }
+    .leg-item { display: flex; align-items: center; gap: 5px; font-size: .58rem; color: var(--dim); }
+    .leg-dot { width: 8px; height: 8px; border-radius: 50%; }
+
+    /* Roadmap */
+    .roadmap { display: flex; flex-direction: column; gap: 0; }
+    .road-item { display: flex; gap: 14px; align-items: flex-start; }
+    .road-dot-wrap { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
+    .road-dot { width: 10px; height: 10px; border-radius: 50%; margin-top: 4px; flex-shrink: 0; }
+    .road-line { width: 1px; flex: 1; min-height: 20px; background: var(--bdr); margin: 4px 0; }
+    .road-body { padding-bottom: 16px; flex: 1; }
+    .road-title { font-size: .68rem; color: var(--txt); line-height: 1.4; }
+    .road-date { font-size: .58rem; color: var(--dim); margin-top: 2px; }
+    .road-status-done .road-dot { background: var(--ok); }
+    .road-status-done .road-title { color: var(--ok); }
+    .road-status-active .road-dot { background: var(--acc); box-shadow: 0 0 6px var(--acc); }
+    .road-status-active .road-title { color: var(--wh); font-weight: 600; }
+    .road-status-planned .road-dot { background: var(--par); }
+    .road-status-planned .road-title { color: var(--par); }
+    .road-status-future .road-dot { background: var(--purple); }
+    .road-status-future .road-title { color: var(--plan); }
+    .road-badge {
+      display: inline-flex; align-items: center; gap: 4px;
+      font-size: .55rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+      padding: 1px 7px; border-radius: 4px; margin-left: 8px; vertical-align: middle; flex-shrink: 0;
+    }
+    .road-badge-done    { background: rgba(0,224,150,.12); color: var(--ok);    border: 1px solid rgba(0,224,150,.25); }
+    .road-badge-active  { background: rgba(0,212,255,.12); color: var(--acc);   border: 1px solid rgba(0,212,255,.25); }
+    .road-badge-planned { background: rgba(255,170,0,.12); color: var(--par);   border: 1px solid rgba(255,170,0,.25); }
+    .road-badge-future  { background: rgba(167,139,250,.12); color: var(--purple); border: 1px solid rgba(167,139,250,.25); }
+    .road-title-wrap { display: flex; align-items: center; flex-wrap: wrap; gap: 4px; }
+
+    /* Footer */
+    .footer { padding: 16px 28px; border-top: 1px solid var(--bdr); font-size: .58rem; color: var(--dim); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+  </style>
+</head>
+<body>
+
+<div class="topbar">
+  <div>
+    <div class="logo">ALFRED <span>CPL</span></div>
+    <div class="meta" id="meta-sub">Conformité réglementaire — chargement…</div>
+  </div>
+  <div class="topbar-right">
+    <span class="badge badge-c" id="global-grade">—%</span>
+    <button class="refresh-btn" onclick="load()">↺ Rafraîchir</button>
+  </div>
+</div>
+
+<div class="error-banner" id="error-banner"></div>
+
+<div class="score-banner">
+  <div class="score-circle" id="score-circle">
+    <div class="score-circle-inner" id="score-val">—</div>
+  </div>
+  <div class="score-info">
+    <div class="score-title">Score CPL global</div>
+    <div class="score-grade" id="score-grade">—</div>
+    <div class="score-reqs" id="score-reqs">— exigences · — normes actives</div>
+  </div>
+  <div class="score-bar-wrap">
+    <div class="score-bar-label">
+      <span>Progression globale</span>
+      <span id="progress-pct-lbl">0%</span>
+    </div>
+    <div class="score-bar-track">
+      <div class="score-bar-fill" id="progress-fill" style="width:0%"></div>
+    </div>
+    <div class="score-pills" id="score-pills"></div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-title">Normes réglementaires — 7 référentiels</div>
+  <div class="legend">
+    <div class="leg-item"><div class="leg-dot" style="background:var(--ok)"></div> Exigence atteinte</div>
+    <div class="leg-item"><div class="leg-dot" style="background:var(--par)"></div> Partielle / preuve manquante</div>
+    <div class="leg-item"><div class="leg-dot" style="background:var(--todo)"></div> À faire</div>
+    <div class="leg-item"><div class="leg-dot" style="background:var(--plan)"></div> Norme planifiée</div>
+  </div>
+  <div class="norms-grid" id="norms-grid"></div>
+</div>
+
+<div class="section">
+  <div class="section-title">Roadmap conformité</div>
+  <div class="roadmap" id="roadmap"></div>
+</div>
+
+<div class="footer">
+  <span id="ts-label">—</span>
+  <span>Rafraîchissement auto · 30 s</span>
+</div>
+
+<script>
+  let _data = null;
+
+  function gradeClass(g) {
+    if (!g) return 'grade-c';
+    const l = g.toLowerCase().replace('+','');
+    return 'grade-' + l;
+  }
+  function scoreColor(pct) {
+    if (pct >= 70) return 'var(--ok)';
+    if (pct >= 50) return 'var(--par)';
+    return 'var(--todo)';
+  }
+
+  async function load() {
+    try {
+      const resp = await fetch('./dashboard_gouvernance_data.json?_=' + Date.now());
+      if (!resp.ok) throw new Error(resp.statusText);
+      _data = await resp.json();
+      document.getElementById('error-banner').style.display = 'none';
+      render(_data);
+    } catch(e) {
+      const el = document.getElementById('error-banner');
+      el.style.display = 'block';
+      el.textContent = '⚠ ' + e.message;
+    }
+  }
+
+  function render(data) {
+    const g = data.global;
+
+    // Topbar badge
+    const gr = document.getElementById('global-grade');
+    gr.textContent = g.score_pct + '% — Grade ' + g.grade;
+    gr.className = 'badge badge-' + g.grade.toLowerCase().replace('+','');
+
+    document.getElementById('meta-sub').textContent =
+      'CONFORMITÉ RÉGLEMENTAIRE · ' + (data._meta?.generated_at?.slice(0,10) || '—') + ' · ' + data._meta?.manifest_version;
+
+    // Score circle
+    const deg = Math.round(g.score_pct / 100 * 360);
+    document.getElementById('score-circle').style.setProperty('--deg', deg + 'deg');
+    document.getElementById('score-circle').style.background =
+      `conic-gradient(${scoreColor(g.score_pct)} ${deg}deg, var(--surf2) 0)`;
+    document.getElementById('score-val').textContent = g.score_pct + '%';
+    document.getElementById('score-val').style.color = scoreColor(g.score_pct);
+
+    const gradeEl = document.getElementById('score-grade');
+    gradeEl.textContent = g.grade;
+    gradeEl.className = 'score-grade ' + gradeClass(g.grade);
+
+    document.getElementById('score-reqs').textContent =
+      g.total_requirements + ' exigences · ' + g.active_norms + ' normes actives · ' + g.planned_norms + ' planifiées';
+
+    // Progress bar
+    document.getElementById('progress-fill').style.width = g.score_pct + '%';
+    document.getElementById('progress-pct-lbl').textContent = g.score_pct + '%';
+
+    // Pills
+    document.getElementById('score-pills').innerHTML = data.norms
+      .filter(n => n.status === 'active')
+      .map(n => `<span class="score-pill" style="color:${n.color};border-color:${n.color}22">${n.id} ${n.score_pct}%</span>`)
+      .join('');
+
+    // Norms grid
+    renderNormsGrid(data.norms);
+
+    // Roadmap
+    if (data.roadmap) renderRoadmap(data.roadmap);
+
+    // Timestamp
+    const ts = data._meta?.generated_at ? new Date(data._meta.generated_at).toLocaleString('fr-FR') : '—';
+    document.getElementById('ts-label').textContent = 'Généré le ' + ts;
+  }
+
+  function renderNormsGrid(norms) {
+    document.getElementById('norms-grid').innerHTML = norms.map(norm => {
+      const col = norm.color || 'var(--bdr)';
+      if (norm.status === 'active') {
+        const pctColor = scoreColor(norm.score_pct);
+        const parHtml = norm.requirements_partial > 0
+          ? `<span class="nc nc-par">${norm.requirements_partial} partial</span>` : '';
+        return `<a class="norm-card" href="norm.html?id=${norm.id}" style="--norm-color:${col}">
+          <div class="norm-id">${norm.id}</div>
+          <div class="norm-label">${norm.label}</div>
+          <div class="norm-subtitle">${norm.subtitle || ''}</div>
+          <div class="norm-score-row">
+            <div class="norm-pct" style="color:${pctColor}">${norm.score_pct}%</div>
+            <div class="norm-bar-track">
+              <div class="norm-bar-fill" style="width:${norm.score_pct}%;background:${pctColor}"></div>
+            </div>
+          </div>
+          <div class="norm-counts">
+            <span class="nc nc-ok">${norm.requirements_done} OK</span>
+            ${parHtml}
+            <span class="nc nc-todo">${norm.requirements_todo} todo</span>
+            <span class="nc" style="background:rgba(100,112,134,.1);color:var(--dim)">${norm.requirements_total} total</span>
+          </div>
+          <div class="norm-link-hint">Voir le détail →</div>
+        </a>`;
+      } else {
+        return `<div class="norm-card planned" style="--norm-color:${col}">
+          <div class="norm-id">${norm.id}</div>
+          <div class="norm-label">${norm.label}</div>
+          <div class="norm-subtitle">${norm.subtitle || ''}</div>
+          <div class="planned-label">⏳ Planifié — ${norm.planned_date || ''}</div>
+          <div class="norm-counts" style="margin-top:8px">
+            <span class="nc nc-plan">${norm.requirements_total} exigences à cadrer</span>
+          </div>
+        </div>`;
+      }
+    }).join('');
+  }
+
+  const ROAD_BADGE = {
+    done:    ['✅', 'Fait',     'road-badge-done'],
+    active:  ['🔵', 'En cours', 'road-badge-active'],
+    planned: ['⏳', 'Planifié', 'road-badge-planned'],
+    future:  ['🔮', 'Futur',    'road-badge-future'],
+  };
+
+  function renderRoadmap(items) {
+    document.getElementById('roadmap').innerHTML = items.map((item, i) => {
+      const [icon, label, cls] = ROAD_BADGE[item.status] || ['○', item.status, 'road-badge-planned'];
+      return `
+      <div class="road-item road-status-${item.status}">
+        <div class="road-dot-wrap">
+          <div class="road-dot"></div>
+          ${i < items.length - 1 ? '<div class="road-line"></div>' : ''}
+        </div>
+        <div class="road-body">
+          <div class="road-title-wrap">
+            <span class="road-title">${item.title}</span>
+            <span class="road-badge ${cls}">${icon} ${label}</span>
+          </div>
+          <div class="road-date">${item.date || ''}</div>
+        </div>
+      </div>`;
+    }).join('');
+  }
+
+  load();
+  setInterval(load, 30000);
+</script>
+</body>
+</html>

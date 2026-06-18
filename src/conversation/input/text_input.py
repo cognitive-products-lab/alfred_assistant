@@ -1,13 +1,16 @@
-﻿# ============================================================
-# ALFRED — src/input/text_input.py
-# Bloc 01.02 — Dialogue texte
+# ============================================================
+# ALFRED — src/conversation/input/text_input.py
+# Bloc 01.01 — Gestion des conversations
 #
-# Fonctions couvertes :
-#   01.02.001 Saisie clavier terminal       ✅ V1
-#   01.02.002 Validation & nettoyage input  ✅ V1
-#   01.02.003 Historisation échanges        ✅ V1
-#   01.02.004 Multilingue FR/EN             🔲 V2
-#   01.02.005 Contexte conversationnel      → context_builder.py
+# 📚 NOTION EXAM :
+#   D12-1 — Capsule 1 : Dialogue texte et historisation des échanges
+#
+# 🎯 UTILITÉ ALFRED :
+#   Gère la saisie clavier terminal, nettoie et valide l'input
+#   et historise les échanges de la session en cours.
+#
+# 🏗️ DOMAINE :
+#   Noyau conversationnel — interface texte V1, hotpath clavier
 # ============================================================
 
 import html

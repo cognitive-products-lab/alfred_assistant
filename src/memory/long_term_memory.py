@@ -1,15 +1,19 @@
-﻿# ============================================================
+# ============================================================
 # ALFRED — src/memory/long_term_memory.py
-# Bloc 02.02 — Mémoire long terme
+# Bloc 02.02 — Mémoire longue
 #
-# Fonctions couvertes :
-#   02.02.001 Stockage persistant SQLite    ✅ V1
-#   02.02.002 Indexation par date/sujet     ✅ V1
-#   02.02.003 Recherche sémantique          🔲 stub → V3 ChromaDB
-#   02.02.004 Compression / résumé          ✅ V2
-#   02.02.005 Archivage / oubli RGPD        ✅ V2
+# 📚 NOTION EXAM :
+#   D21-2 — Capsule 2 : Mémoire persistante SQLite et compression
 #
-# Local-first : SQLite sur disque externe HDD 4To ALFRED
+# 🎯 UTILITÉ ALFRED :
+#   Stocke les souvenirs à long terme via SQLite local (HDD 4To) ;
+#   indexe par date/sujet, compresse/résume et implémente l'oubli RGPD.
+#
+# 🏗️ DOMAINE :
+#   Mémoire & contexte — SQLite local-first, recherche sémantique V3
+#
+# UPDATED : 2026-06-10 — chemins _DB_DIR/_DB_PATH ancrés sur paths.PATHS
+# STATUS  : TO_TEST (fix bug cwd-relatif, à revalider en conditions réelles)
 # ============================================================
 
 import json
@@ -19,9 +23,12 @@ from pathlib import Path
 from typing import Any
 
 from src.security.security_logger import log_event
+from paths import PATHS
 
 # ── Chemins ───────────────────────────────────────────────
-_DB_DIR  = Path("data/memory")
+# Ancré sur la racine du projet (paths.py, basé sur __file__) — ne dépend pas
+# du répertoire de travail courant au lancement de main.py.
+_DB_DIR  = PATHS.data_memory
 _DB_PATH = _DB_DIR / "alfred_memory.db"
 _DB_DIR.mkdir(parents=True, exist_ok=True)
 

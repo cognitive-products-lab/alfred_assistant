@@ -1,11 +1,29 @@
+from __future__ import annotations
+
+"""
+PROJECT      : ALFRED
+BLOCK        : B18
+FUNCTION     : 18.03
+FILE         : src/knowledge/taxonomy_router.py
+ROLE         : Exploite taxonomy.json pour router les requêtes vers les knowledge_ids
+
+AUTHOR       : Cognitive Products Lab
+CREATED      : 2026-06-03
+UPDATED      : 2026-06-05
+VERSION      : V1.1
+STATUS       : TESTED
+
+DESCRIPTION :
+Router taxonomique — résout domaines, sous-domaines et intents depuis taxonomy.json.
+"""
+
 """
 ALFRED — taxonomy_router.py
 Exploite taxonomy.json pour retrouver les domaines, sous-domaines,
 intents et knowledge_ids liés à une requête.
 """
 
-from __future__ import annotations
-
+import re
 from dataclasses import dataclass, field
 from typing import Any
 
@@ -100,8 +118,9 @@ class TaxonomyRouter:
 
         searchable_text = self.normalize(" ".join(searchable_parts))
 
+        # \w+ retire la ponctuation collée aux mots (ex. "iso27001," -> "iso27001")
         words = [
-            word for word in query_norm.replace("'", " ").replace("-", " ").split()
+            word for word in re.findall(r"\w+", query_norm.replace("'", " ").replace("-", " "))
             if len(word) >= 4
         ]
 

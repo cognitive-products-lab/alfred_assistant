@@ -1,0 +1,427 @@
+{
+  "_meta": {
+    "version": "1.0",
+    "questionnaire_id": "onboarding_personality",
+    "label_fr": "Questionnaire personnalité & style de communication",
+    "label_en": "Personality & communication style questionnaire",
+    "description": "Permet à ALFRED de calibrer sa personnalité, son ton, et son style de communication aux préférences et besoins de l'utilisateur. Inclut MBTI simplifié et dimensions complémentaires.",
+    "consent_required": false,
+    "data_target": "data/profile/personality_{user_id}.json",
+    "estimated_duration_min": 7,
+    "skip_allowed": true,
+    "can_update_later": true
+  },
+
+  "introduction": {
+    "text_fr": "Ces questions n'ont pas de 'bonne' réponse. Elles m'aident uniquement à comprendre comment tu préfères qu'on interagisse ensemble. Tu peux les modifier à tout moment."
+  },
+
+  "sections": [
+
+    {
+      "id": "section_mbti_EI",
+      "title_fr": "Comment tu recharges ton énergie",
+      "dimension": "MBTI_E_I",
+      "sublabel_fr": "Ces questions explorent si tu es plutôt orienté·e vers l'extérieur (extraversion) ou vers l'intérieur (introversion) — sans jugement de valeur.",
+      "questions": [
+
+        {
+          "id": "q_ei_1",
+          "type": "scale_polar",
+          "label_fr": "Après une longue journée difficile, tu préfères…",
+          "pole_left": {"value": -2, "label_fr": "Voir des gens, parler, te distraire en société"},
+          "pole_right": {"value": 2, "label_fr": "Être seul·e, te retrouver dans le calme"},
+          "neutral_label_fr": "Les deux selon l'humeur",
+          "maps_to": "mbti.EI.q1"
+        },
+
+        {
+          "id": "q_ei_2",
+          "type": "scale_polar",
+          "label_fr": "Quand tu as un problème à résoudre, tu préfères…",
+          "pole_left": {"value": -2, "label_fr": "En parler à voix haute, rebondir sur les idées des autres"},
+          "pole_right": {"value": 2, "label_fr": "Y réfléchir seul·e d'abord, puis éventuellement en parler"},
+          "neutral_label_fr": "Ça dépend du problème",
+          "maps_to": "mbti.EI.q2"
+        },
+
+        {
+          "id": "q_ei_3",
+          "type": "scale_polar",
+          "label_fr": "Dans les interactions avec ALFRED, tu préfères…",
+          "pole_left": {"value": -2, "label_fr": "Qu'il engage la conversation, pose des questions, soit pro-actif"},
+          "pole_right": {"value": 2, "label_fr": "Qu'il attende que tu l'interpelles et réponde sans sur-solliciter"},
+          "neutral_label_fr": "Équilibre selon le contexte",
+          "maps_to": "mbti.EI.q3"
+        }
+      ]
+    },
+
+    {
+      "id": "section_mbti_SN",
+      "title_fr": "Comment tu traites l'information",
+      "dimension": "MBTI_S_N",
+      "sublabel_fr": "Sensing (concret, pratique) vs iNtuition (abstrait, global, vision).",
+      "questions": [
+
+        {
+          "id": "q_sn_1",
+          "type": "scale_polar",
+          "label_fr": "Tu préfères les explications…",
+          "pole_left": {"value": -2, "label_fr": "Concrètes, avec des exemples pratiques et des étapes claires"},
+          "pole_right": {"value": 2, "label_fr": "Conceptuelles, avec la vision globale et les principes sous-jacents"},
+          "neutral_label_fr": "Les deux selon le sujet",
+          "maps_to": "mbti.SN.q1"
+        },
+
+        {
+          "id": "q_sn_2",
+          "type": "scale_polar",
+          "label_fr": "Face à une décision, tu fais d'abord confiance à…",
+          "pole_left": {"value": -2, "label_fr": "Ce qui est factuel, observable, éprouvé"},
+          "pole_right": {"value": 2, "label_fr": "Ton intuition, le 'feeling', la vision d'ensemble"},
+          "neutral_label_fr": "Les deux selon la situation",
+          "maps_to": "mbti.SN.q2"
+        },
+
+        {
+          "id": "q_sn_3",
+          "type": "scale_polar",
+          "label_fr": "Pour ALFRED, tu préfères des réponses…",
+          "pole_left": {"value": -2, "label_fr": "Pratiques, directement applicables, avec des listes ou étapes"},
+          "pole_right": {"value": 2, "label_fr": "Nuancées, qui explorent les implications et les connexions"},
+          "neutral_label_fr": "Selon le sujet",
+          "maps_to": "mbti.SN.q3"
+        }
+      ]
+    },
+
+    {
+      "id": "section_mbti_TF",
+      "title_fr": "Comment tu prends tes décisions",
+      "dimension": "MBTI_T_F",
+      "sublabel_fr": "Thinking (logique, objectif) vs Feeling (valeurs, humain, relation).",
+      "questions": [
+
+        {
+          "id": "q_tf_1",
+          "type": "scale_polar",
+          "label_fr": "Quand tu viens me parler d'un problème, tu cherches d'abord…",
+          "pole_left": {"value": -2, "label_fr": "Une analyse logique, des solutions concrètes, de l'efficacité"},
+          "pole_right": {"value": 2, "label_fr": "D'abord être entendu·e et compris·e, les solutions après"},
+          "neutral_label_fr": "Les deux — validation et solution",
+          "maps_to": "mbti.TF.q1"
+        },
+
+        {
+          "id": "q_tf_2",
+          "type": "scale_polar",
+          "label_fr": "Pour donner un retour difficile, tu préfères qu'ALFRED soit…",
+          "pole_left": {"value": -2, "label_fr": "Direct et honnête, même si ça pique — la vérité avant le confort"},
+          "pole_right": {"value": 2, "label_fr": "Doux et diplomate — l'impact émotionnel compte autant que la précision"},
+          "neutral_label_fr": "Honnête mais avec tact",
+          "maps_to": "mbti.TF.q2"
+        },
+
+        {
+          "id": "q_tf_3",
+          "type": "scale_polar",
+          "label_fr": "Dans la conversation, tu accordes plus d'importance à…",
+          "pole_left": {"value": -2, "label_fr": "La cohérence logique et l'exactitude"},
+          "pole_right": {"value": 2, "label_fr": "L'harmonie relationnelle et la considération des personnes impliquées"},
+          "neutral_label_fr": "Les deux sont importants",
+          "maps_to": "mbti.TF.q3"
+        }
+      ]
+    },
+
+    {
+      "id": "section_mbti_JP",
+      "title_fr": "Comment tu t'organises",
+      "dimension": "MBTI_J_P",
+      "sublabel_fr": "Judging (structure, planification, décision) vs Perceiving (flexibilité, ouverture, adaptabilité).",
+      "questions": [
+
+        {
+          "id": "q_jp_1",
+          "type": "scale_polar",
+          "label_fr": "Dans ta façon de travailler ou planifier, tu es plutôt…",
+          "pole_left": {"value": -2, "label_fr": "Structuré·e — j'aime les plans, les listes, les deadlines claires"},
+          "pole_right": {"value": 2, "label_fr": "Flexible — je préfère m'adapter au fil de l'eau"},
+          "neutral_label_fr": "Selon le contexte",
+          "maps_to": "mbti.JP.q1"
+        },
+
+        {
+          "id": "q_jp_2",
+          "type": "scale_polar",
+          "label_fr": "Face à une décision, tu préfères…",
+          "pole_left": {"value": -2, "label_fr": "Trancher vite, même avec une information partielle, pour avancer"},
+          "pole_right": {"value": 2, "label_fr": "Garder les options ouvertes et réfléchir avant de décider"},
+          "neutral_label_fr": "Ça dépend de l'enjeu",
+          "maps_to": "mbti.JP.q2"
+        },
+
+        {
+          "id": "q_jp_3",
+          "type": "scale_polar",
+          "label_fr": "Comment tu vis les imprévus ?",
+          "pole_left": {"value": -2, "label_fr": "Plutôt mal — j'ai besoin de prévisibilité pour bien fonctionner"},
+          "pole_right": {"value": 2, "label_fr": "Assez bien — je m'adapte, parfois même j'aime l'imprévu"},
+          "neutral_label_fr": "Dépend de l'imprévus",
+          "maps_to": "mbti.JP.q3"
+        }
+      ]
+    },
+
+    {
+      "id": "section_cognitive_style",
+      "title_fr": "Style cognitif & traitement de l'information",
+      "optional": false,
+      "questions": [
+
+        {
+          "id": "q_processing_speed",
+          "type": "single_select",
+          "label_fr": "Comment tu traites l'information le plus efficacement ?",
+          "options": [
+            {"value": "fast_scan", "label_fr": "Je scanne rapidement — donne-moi les points clés"},
+            {"value": "deep_sequential", "label_fr": "Je lis tout en profondeur — j'ai besoin du contexte complet"},
+            {"value": "visual_first", "label_fr": "Je comprends mieux avec des exemples visuels ou des analogies"},
+            {"value": "interactive", "label_fr": "Je comprends en faisant — questions-réponses, dialogue"},
+            {"value": "variable", "label_fr": "Ça varie selon ma fatigue et le sujet"}
+          ],
+          "maps_to": "cognitive_style.processing_speed"
+        },
+
+        {
+          "id": "q_decision_style",
+          "type": "single_select",
+          "label_fr": "Quand tu dois prendre une décision difficile, tu préfères qu'ALFRED…",
+          "options": [
+            {"value": "give_recommendation", "label_fr": "Me donne directement sa recommandation avec les raisons"},
+            {"value": "pros_cons", "label_fr": "Me présente les pour/contre et me laisse décider"},
+            {"value": "ask_questions", "label_fr": "Me pose des questions pour m'aider à clarifier ce que je veux"},
+            {"value": "validate_my_choice", "label_fr": "Valide ma décision si j'en ai déjà une en tête"},
+            {"value": "defer", "label_fr": "Ne prend pas de position — me soutient quelle que soit ma décision"}
+          ],
+          "maps_to": "cognitive_style.decision_support_preference"
+        },
+
+        {
+          "id": "q_learning_style",
+          "type": "multi_select",
+          "label_fr": "Comment tu apprends le mieux ? (plusieurs choix possibles)",
+          "options": [
+            {"value": "examples", "label_fr": "Exemples concrets et cas réels"},
+            {"value": "analogies", "label_fr": "Analogies et métaphores"},
+            {"value": "step_by_step", "label_fr": "Étapes progressives"},
+            {"value": "theory_first", "label_fr": "Théorie d'abord, pratique ensuite"},
+            {"value": "trial_error", "label_fr": "Essai-erreur — apprendre en faisant"},
+            {"value": "summarize", "label_fr": "Résumés et synthèses"}
+          ],
+          "maps_to": "cognitive_style.learning_preferences"
+        }
+      ]
+    },
+
+    {
+      "id": "section_communication_style",
+      "title_fr": "Style de communication avec ALFRED",
+      "optional": false,
+      "questions": [
+
+        {
+          "id": "q_formality",
+          "type": "scale",
+          "label_fr": "Tu préfères qu'ALFRED s'adresse à toi avec quel niveau de formalité ?",
+          "scale": {
+            "min": 1, "max": 5,
+            "labels": {
+              "1": "Très familier — comme un ami proche",
+              "2": "Décontracté — naturel et chaleureux",
+              "3": "Équilibré — ni trop formel ni trop familier",
+              "4": "Professionnel mais humain",
+              "5": "Formel — respect des conventions"
+            }
+          },
+          "default": 2,
+          "maps_to": "communication.formality_level"
+        },
+
+        {
+          "id": "q_humor",
+          "type": "single_select",
+          "label_fr": "Le sens de l'humour d'ALFRED, c'est…",
+          "options": [
+            {"value": "encouraged", "label_fr": "Bienvenu et encouragé — j'aime rire"},
+            {"value": "light", "label_fr": "Léger et occasionnel — avec modération"},
+            {"value": "situational", "label_fr": "Situationnel — quand c'est approprié seulement"},
+            {"value": "none", "label_fr": "Pas nécessaire — je préfère le sérieux"}
+          ],
+          "default": "light",
+          "maps_to": "communication.humor_preference"
+        },
+
+        {
+          "id": "q_validation_style",
+          "type": "single_select",
+          "label_fr": "Quand tu partages quelque chose de difficile, tu veux qu'ALFRED…",
+          "options": [
+            {"value": "validate_first", "label_fr": "Commence toujours par me valider avant d'aller plus loin"},
+            {"value": "balance", "label_fr": "Équilibre validation et aide pratique"},
+            {"value": "solution_focused", "label_fr": "Aille vite vers des solutions concrètes"},
+            {"value": "follow_my_lead", "label_fr": "Suive mon rythme — je lui signale ce dont j'ai besoin"}
+          ],
+          "default": "validate_first",
+          "maps_to": "communication.validation_style"
+        },
+
+        {
+          "id": "q_proactivity",
+          "type": "single_select",
+          "label_fr": "Tu préfères qu'ALFRED soit…",
+          "options": [
+            {"value": "very_proactive", "label_fr": "Très pro-actif — il anticipe, suggère, engage"},
+            {"value": "moderately_proactive", "label_fr": "Modérément pro-actif — il propose sans insister"},
+            {"value": "reactive", "label_fr": "Réactif — il attend que j'initie"},
+            {"value": "minimal", "label_fr": "Minimal — il répond, c'est tout"}
+          ],
+          "default": "moderately_proactive",
+          "maps_to": "communication.proactivity_preference"
+        },
+
+        {
+          "id": "q_challenge_style",
+          "type": "single_select",
+          "label_fr": "Si ALFRED pense que tu fais fausse route ou que tu pourrais voir les choses autrement, il doit…",
+          "options": [
+            {"value": "challenge_directly", "label_fr": "Me le dire clairement et directement"},
+            {"value": "ask_question", "label_fr": "Me poser une question pour m'amener à y réfléchir"},
+            {"value": "suggest_gently", "label_fr": "Suggérer doucement une autre perspective"},
+            {"value": "never_challenge", "label_fr": "S'abstenir — je suis le seul juge de mes choix"}
+          ],
+          "default": "ask_question",
+          "maps_to": "communication.challenge_preference"
+        }
+      ]
+    },
+
+    {
+      "id": "section_motivation_values",
+      "title_fr": "Ce qui te motive & tes valeurs",
+      "optional": true,
+      "sublabel_fr": "Ces éléments permettent à ALFRED de mieux comprendre ce qui compte pour toi.",
+      "questions": [
+
+        {
+          "id": "q_primary_motivation",
+          "type": "single_select",
+          "label_fr": "Qu'est-ce qui te motive le plus en ce moment dans ta vie ?",
+          "options": [
+            {"value": "achievement", "label_fr": "Accomplir des objectifs et progresser"},
+            {"value": "connection", "label_fr": "Les relations et le lien avec les autres"},
+            {"value": "stability", "label_fr": "La stabilité, la sécurité, la sérénité"},
+            {"value": "creativity", "label_fr": "Créer, inventer, exprimer"},
+            {"value": "learning", "label_fr": "Apprendre et comprendre"},
+            {"value": "wellbeing", "label_fr": "Prendre soin de moi et de ma santé"},
+            {"value": "purpose", "label_fr": "Avoir un sens, contribuer à quelque chose de plus grand"}
+          ],
+          "maps_to": "values.primary_motivation"
+        },
+
+        {
+          "id": "q_support_type",
+          "type": "multi_select",
+          "label_fr": "En quoi ALFRED peut le plus t'être utile ? (plusieurs choix)",
+          "options": [
+            {"value": "emotional_support", "label_fr": "Soutien émotionnel — écoute et présence"},
+            {"value": "productivity", "label_fr": "Aide à la productivité et à l'organisation"},
+            {"value": "learning", "label_fr": "Aide à apprendre ou comprendre"},
+            {"value": "health_management", "label_fr": "Accompagnement santé et bien-être"},
+            {"value": "creativity", "label_fr": "Co-création et brainstorming"},
+            {"value": "decision_making", "label_fr": "Aide à la prise de décision"},
+            {"value": "companionship", "label_fr": "Simple compagnie et conversation"}
+          ],
+          "maps_to": "values.alfred_role"
+        }
+      ]
+    }
+  ],
+
+  "scoring": {
+    "mbti_compute": {
+      "EI": {
+        "fields": ["mbti.EI.q1", "mbti.EI.q2", "mbti.EI.q3"],
+        "aggregate": "mean",
+        "interpretation": {
+          "range": [-2, -0.5],
+          "result": "E",
+          "label": "Extraversion"
+        },
+        "interpretation_2": {
+          "range": [0.5, 2],
+          "result": "I",
+          "label": "Introversion"
+        },
+        "neutral_range": [-0.5, 0.5],
+        "neutral_result": "X",
+        "maps_to": "mbti.type.EI"
+      },
+      "SN": {
+        "fields": ["mbti.SN.q1", "mbti.SN.q2", "mbti.SN.q3"],
+        "aggregate": "mean",
+        "interpretation": {"range": [-2, -0.5], "result": "S", "label": "Sensing"},
+        "interpretation_2": {"range": [0.5, 2], "result": "N", "label": "iNtuition"},
+        "neutral_result": "X",
+        "maps_to": "mbti.type.SN"
+      },
+      "TF": {
+        "fields": ["mbti.TF.q1", "mbti.TF.q2", "mbti.TF.q3"],
+        "aggregate": "mean",
+        "interpretation": {"range": [-2, -0.5], "result": "T", "label": "Thinking"},
+        "interpretation_2": {"range": [0.5, 2], "result": "F", "label": "Feeling"},
+        "neutral_result": "X",
+        "maps_to": "mbti.type.TF"
+      },
+      "JP": {
+        "fields": ["mbti.JP.q1", "mbti.JP.q2", "mbti.JP.q3"],
+        "aggregate": "mean",
+        "interpretation": {"range": [-2, -0.5], "result": "J", "label": "Judging"},
+        "interpretation_2": {"range": [0.5, 2], "result": "P", "label": "Perceiving"},
+        "neutral_result": "X",
+        "maps_to": "mbti.type.JP"
+      },
+      "full_type": {
+        "concatenate": ["mbti.type.EI", "mbti.type.SN", "mbti.type.TF", "mbti.type.JP"],
+        "maps_to": "mbti.full_type"
+      }
+    }
+  },
+
+  "personality_adaptation_matrix": {
+    "description": "Mapping MBTI → paramètres de personnalité ALFRED",
+    "EI": {
+      "E": {"proactivity": "+0.3", "initiate_conversation": true, "response_length": "medium"},
+      "I": {"proactivity": "-0.3", "initiate_conversation": false, "response_length": "short"}
+    },
+    "SN": {
+      "S": {"concrete_examples": true, "step_by_step": true, "avoid_abstract": true},
+      "N": {"conceptual_first": true, "connect_ideas": true, "nuance_welcome": true}
+    },
+    "TF": {
+      "T": {"validate_then_solve": false, "direct_feedback": true, "logic_first": true},
+      "F": {"validate_then_solve": true, "direct_feedback": false, "empathy_high": true}
+    },
+    "JP": {
+      "J": {"structured_responses": true, "clear_next_steps": true, "avoid_ambiguity": true},
+      "P": {"flexible_tone": true, "open_ended_ok": true, "avoid_rigid_plans": true}
+    }
+  },
+
+  "completion": {
+    "message_fr": "Profil enregistré. J'ajusterai ma façon d'interagir avec toi en conséquence. Tu peux le modifier à tout moment.",
+    "data_written_to": "data/profile/personality_{user_id}.json",
+    "triggers": ["personality_adapter_reload"]
+  }
+}

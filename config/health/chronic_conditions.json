@@ -1,0 +1,781 @@
+{
+  "_alfred_header": {
+    "file": "config/health/chronic_conditions.json",
+    "bloc": "Bloc 13.02 / 13.03 / 13.04 — Soutien émotionnel, gestion fatigue, assistance santé",
+    "version": "V1.0",
+    "status": "ACTIVE",
+    "updated": "2026-05-26",
+    "description": "Base de connaissances des conditions chroniques que ALFRED accompagne. Permet une adaptation contextuelle profonde sans diagnostic. Source de vérité pour chronic_support.py."
+  },
+
+  "ethics_reminder": "ALFRED NE DIAGNOSTIQUE JAMAIS. Ce fichier sert à ADAPTER le comportement d'ALFRED — pas à identifier des pathologies. Toute mention d'une condition vient de l'utilisateur lui-même.",
+
+  "conditions": {
+
+    "fibromyalgie": {
+      "label_fr": "Fibromyalgie",
+      "label_en": "Fibromyalgia",
+      "category": "douleur_chronique",
+      "description_courte": "Syndrome douloureux diffus chronique avec fatigue sévère, troubles du sommeil et sensibilités multiples.",
+      "caracteristiques_principales": [
+        "douleurs musculaires diffuses et variables",
+        "fatigue chronique souvent sévère",
+        "troubles du sommeil non réparateur",
+        "brouillard cognitif (fibro fog)",
+        "hypersensibilité aux stimuli (bruit, lumière, toucher)",
+        "poussées imprévisibles alternant avec phases stables",
+        "impact invisible — pas de marqueur biologique visible"
+      ],
+      "cycles": {
+        "poussée": "aggravation soudaine ou progressive des symptômes — fatigue extrême, douleurs intenses, fog",
+        "stable": "période de rémission partielle — fonctionnement possible mais limité",
+        "post_effort": "aggravation des symptômes après effort physique ou cognitif (PEM partiel possible)"
+      },
+      "communication_adaptations": {
+        "longueur_réponse": "courte_à_moyenne",
+        "charge_cognitive": "minimale",
+        "rythme": "lent_et_patient",
+        "répétition_tolérée": true,
+        "reformulation_pro": true,
+        "éviter": [
+          "listes longues et denses",
+          "jargon médical non expliqué",
+          "pression vers l'action",
+          "ton condescendant sur la douleur invisible",
+          "minimiser la fatigue ('tout le monde est fatigué')",
+          "demander de l'effort supplémentaire en poussée"
+        ]
+      },
+      "signaux_détresse_spécifiques": [
+        "poussée", "crise de fibro", "fibro en feu", "fog énorme", "fibro fog",
+        "douleurs partout", "je suis en poussée", "je souffre partout",
+        "douleur diffuse", "j'ai mal partout", "le fog m'empêche de",
+        "je suis dans le coton", "pas de sommeil réparateur"
+      ],
+      "réponses_adaptées": {
+        "en_poussée": "Je suis là. Pas besoin de tout expliquer. Comment je peux t'alléger la charge là maintenant ?",
+        "sur_fog": "Pas de problème — on y va doucement. Je vais rester simple et clair.",
+        "sur_douleur": "La douleur invisibilisée est épuisante à porter. Je t'entends.",
+        "encouragement_non_toxique": "Tu gères déjà beaucoup. Prendre soin de toi n'est pas renoncer."
+      },
+      "à_ne_jamais_dire": [
+        "c'est dans ta tête",
+        "tout le monde a des douleurs",
+        "tu exagères peut-être",
+        "essaie juste de bouger plus",
+        "tu devrais sortir davantage"
+      ],
+      "ressources_orientation": [
+        "Rhumatologue spécialisé douleur chronique",
+        "Association FibromyalgieSOS",
+        "Médecine intégrative — approche pluridisciplinaire"
+      ]
+    },
+
+    "sfc_em": {
+      "label_fr": "Syndrome de fatigue chronique (SFC/EM)",
+      "label_en": "ME/CFS — Myalgic Encephalomyelitis / Chronic Fatigue Syndrome",
+      "category": "fatigue_chronique",
+      "description_courte": "Maladie neurologique sévère caractérisée par une fatigue invalidante, une intolérance à l'effort et de multiples symptômes systémiques.",
+      "caracteristiques_principales": [
+        "fatigue post-effort (PEM) — aggravation brutale après effort minimal",
+        "intolérance à l'activité physique ET cognitive",
+        "sommeil non réparateur",
+        "brouillard cognitif sévère",
+        "douleurs multiples",
+        "symptômes orthostatiques (malaise à la station debout)",
+        "rechutes sévères et imprévisibles",
+        "maladie souvent non reconnue — invalidante mais invisible"
+      ],
+      "cycles": {
+        "PEM": "post-exertional malaise — aggravation différée après effort — peut durer jours/semaines",
+        "crash": "effondrement brutal après dépassement du seuil énergétique",
+        "fenêtre_stable": "période de capacité partielle — à préserver absolument"
+      },
+      "communication_adaptations": {
+        "longueur_réponse": "très_courte",
+        "charge_cognitive": "minimale_absolue",
+        "rythme": "très_lent",
+        "pauses_proposées": true,
+        "éviter": [
+          "toute pression vers l'action",
+          "listes à plus de 3 points",
+          "questions multiples",
+          "encourager à 'forcer' quoi que ce soit",
+          "tout discours sur la volonté",
+          "comparaison avec fatigue 'normale'"
+        ]
+      },
+      "signaux_détresse_spécifiques": [
+        "SFC", "EM", "ME/CFS", "PEM", "crash", "je suis en crash",
+        "fatigue post-effort", "poussée de ME", "intolérance à l'effort",
+        "je ne peux pas me lever", "alité", "trop épuisée pour",
+        "ça va déclencher une poussée", "je dois doser mon énergie",
+        "envelope énergétique", "pacing"
+      ],
+      "réponses_adaptées": {
+        "en_crash": "Je t'entends. Pas un mot de plus de ma part si tu n'en veux pas. Je suis là.",
+        "sur_PEM": "Le PEM est brutal. Repose-toi d'abord. On peut continuer plus tard, ou jamais — c'est toi qui décides.",
+        "sur_pacing": "Je vais adapter mes réponses pour ne pas te coûter d'énergie cognitive. Dis-moi ton rythme.",
+        "encouragement": "Tenir avec une maladie comme la tienne demande une force que peu comprennent."
+      },
+      "à_ne_jamais_dire": [
+        "essaie juste de bouger",
+        "c'est peut-être psychologique",
+        "il faut se battre",
+        "tu n'as qu'à vouloir",
+        "la dépression ça fatigue aussi"
+      ],
+      "ressources_orientation": [
+        "Association française du syndrome de fatigue chronique (ASFC)",
+        "#MEAction",
+        "Médecin spécialisé maladies inflammatoires / immunologie"
+      ]
+    },
+
+    "lupus": {
+      "label_fr": "Lupus érythémateux systémique",
+      "label_en": "Systemic Lupus Erythematosus (SLE)",
+      "category": "maladie_auto_immune",
+      "description_courte": "Maladie auto-immune chronique touchant de multiples organes, avec poussées et rémissions imprévisibles.",
+      "caracteristiques_principales": [
+        "fatigue chronique sévère",
+        "douleurs articulaires et musculaires",
+        "photosensibilité",
+        "manifestations cutanées variables",
+        "atteintes systémiques potentielles (rein, coeur, système nerveux)",
+        "poussées imprévisibles et déclenchées par le stress ou l'exposition solaire",
+        "impact psychologique fort — maladie chronique invalidante invisible"
+      ],
+      "cycles": {
+        "poussée": "aggravation des symptômes — fatigue extrême, douleurs, parfois fièvre",
+        "rémission": "période de stabilisation partielle",
+        "déclencheurs_communs": ["stress", "soleil", "infections", "règles", "manque de sommeil"]
+      },
+      "communication_adaptations": {
+        "longueur_réponse": "courte_à_moyenne",
+        "charge_cognitive": "réduite",
+        "éviter": [
+          "suggestion d'exposition au soleil",
+          "minimiser la fatigue",
+          "pression en période de poussée"
+        ]
+      },
+      "signaux_détresse_spécifiques": [
+        "lupus", "poussée de lupus", "je suis en poussée", "photosensibilité",
+        "douleurs articulaires", "rhumatologie", "corticoïdes", "plaquenil",
+        "je suis épuisée par mon lupus", "flare up"
+      ],
+      "réponses_adaptées": {
+        "en_poussée": "Une poussée c'est vraiment épuisant. Comment tu te sens là ?",
+        "sur_fatigue": "La fatigue du lupus n'est pas une fatigue ordinaire. Je le sais. Comment je peux t'aider aujourd'hui ?"
+      },
+      "à_ne_jamais_dire": [
+        "tu as l'air en forme pourtant",
+        "tu exagères peut-être",
+        "essaie de prendre l'air"
+      ]
+    },
+
+    "sed": {
+      "label_fr": "Syndrome d'Ehlers-Danlos (SED)",
+      "label_en": "Ehlers-Danlos Syndrome (EDS)",
+      "category": "connectivopathie",
+      "description_courte": "Groupe de maladies génétiques du tissu conjonctif causant hyperflexibilité, douleurs chroniques et instabilité articulaire.",
+      "caracteristiques_principales": [
+        "hyperflexibilité articulaire avec instabilité et luxations",
+        "douleurs chroniques diffuses",
+        "fatigue importante",
+        "dysautonomie fréquente (POTS)",
+        "symptômes invisibles malgré invalidité fonctionnelle",
+        "comorbidités fréquentes (MCAS, SFC, fibromyalgie)"
+      ],
+      "signaux_détresse_spécifiques": [
+        "SED", "EDS", "hypermobile", "luxation", "subluxation",
+        "dysautonomie", "POTS", "instabilité articulaire",
+        "je me suis luxé", "je suis zebra"
+      ],
+      "réponses_adaptées": {
+        "général": "Le SED est complexe et souvent incompris. Je suis là pour ce que tu as besoin."
+      }
+    },
+
+    "endometriose": {
+      "label_fr": "Endométriose",
+      "label_en": "Endometriosis",
+      "category": "maladie_gynecologique_chronique",
+      "description_courte": "Maladie chronique caractérisée par la présence de tissu endométrial hors de l'utérus, causant douleurs intenses et fatigue.",
+      "caracteristiques_principales": [
+        "douleurs pelviennes chroniques, souvent cycliques",
+        "dysménorrhée sévère",
+        "fatigue chronique liée à la douleur et à l'inflammation",
+        "impact sur la fertilité",
+        "douleurs lors des rapports, de la défécation ou de la miction",
+        "errance diagnostique longue en moyenne (7-10 ans)",
+        "maladie souvent minimisée par le corps médical"
+      ],
+      "cycles": {
+        "phase_douloureuse": "avant et pendant les règles — douleur pouvant être invalidante",
+        "phase_relative": "entre les cycles — variable selon la sévérité",
+        "déclencheurs": ["stress", "alimentation", "activité physique intense"]
+      },
+      "signaux_détresse_spécifiques": [
+        "endométriose", "endo", "dysménorrhée", "règles douloureuses",
+        "douleurs pelviennes", "je suis en pleine crise d'endo",
+        "mes règles sont insupportables", "laparoscopie",
+        "adénomyose", "règles invalidantes"
+      ],
+      "réponses_adaptées": {
+        "en_crise": "La douleur d'une crise d'endo est réelle et sévère. Tu n'exagères pas. Comment tu tiens ?",
+        "sur_errance": "Des années à ne pas être crue, c'est une souffrance supplémentaire. Je t'entends.",
+        "encouragement": "Gérer une maladie chronique ET continuer à avancer, c'est remarquable."
+      },
+      "à_ne_jamais_dire": [
+        "toutes les femmes ont mal pendant leurs règles",
+        "c'est normal",
+        "tu verras quand tu seras enceinte"
+      ]
+    },
+
+    "sep": {
+      "label_fr": "Sclérose en plaques (SEP)",
+      "label_en": "Multiple Sclerosis (MS)",
+      "category": "maladie_neurologique",
+      "description_courte": "Maladie neurologique auto-immune chronique avec poussées et/ou progression affectant la mobilité, la fatigue et les fonctions cognitives.",
+      "caracteristiques_principales": [
+        "fatigue neurologique sévère — différente de la fatigue ordinaire",
+        "troubles de la mobilité variables",
+        "troubles cognitifs (mémoire, concentration, traitement de l'information)",
+        "sensibilité à la chaleur (signe d'Uhthoff)",
+        "poussées imprévisibles avec récupération variable",
+        "impact psychologique majeur — incertitude sur l'évolution"
+      ],
+      "signaux_détresse_spécifiques": [
+        "SEP", "sclérose en plaques", "MS", "poussée de SEP",
+        "fatigue neurologique", "spasticité", "troubles de la marche",
+        "interféron", "natalizumab", "ocrelizumab",
+        "je suis en poussée", "mes jambes ne répondent pas"
+      ],
+      "réponses_adaptées": {
+        "en_poussée": "Une poussée de SEP c'est déstabilisant à tous les niveaux. Je suis là.",
+        "sur_incertitude": "L'incertitude sur l'évolution est l'une des choses les plus difficiles à vivre."
+      }
+    },
+
+    "depression_chronique": {
+      "label_fr": "Dépression chronique / Dysthymie",
+      "label_en": "Chronic depression / Dysthymia",
+      "category": "sante_mentale_chronique",
+      "description_courte": "État dépressif persistant, moins intense qu'un épisode majeur mais durable et invalidant au quotidien.",
+      "caracteristiques_principales": [
+        "humeur basse chronique depuis > 2 ans",
+        "anhedonie partielle (perte de plaisir variable)",
+        "fatigue persistante",
+        "faible estime de soi chronique",
+        "difficultés de concentration",
+        "pessimisme installé",
+        "fonctionnement possible mais altéré"
+      ],
+      "signaux_détresse_spécifiques": [
+        "dépression", "dépressive chronique", "dysthymie", "antidépresseurs",
+        "suivi psychiatrique", "ça fait des années que", "je suis comme ça depuis toujours",
+        "jamais vraiment bien", "fond de tristesse permanent",
+        "le vide", "je fonctionne mais je ne vis pas"
+      ],
+      "réponses_adaptées": {
+        "sur_durée": "Vivre avec une tristesse chronique, c'est épuisant d'une façon que peu comprennent.",
+        "sur_fonctionnement": "Fonctionner malgré ça demande beaucoup plus d'énergie. C'est réel.",
+        "encouragement": "Le fait que tu continues malgré tout dit quelque chose d'important sur toi."
+      },
+      "à_ne_jamais_dire": [
+        "souris un peu",
+        "pense positif",
+        "compte tes blessings",
+        "d'autres ont pire",
+        "tu n'as qu'à sortir de chez toi"
+      ],
+      "suivi_professionnel_à_rappeler": true
+    },
+
+    "anxiete_generalisee": {
+      "label_fr": "Trouble anxieux généralisé (TAG)",
+      "label_en": "Generalized Anxiety Disorder (GAD)",
+      "category": "sante_mentale_chronique",
+      "description_courte": "Anxiété chronique excessive et persistante touchant de multiples domaines de vie.",
+      "caracteristiques_principales": [
+        "inquiétude excessive chronique difficile à contrôler",
+        "tensions musculaires",
+        "troubles du sommeil",
+        "irritabilité",
+        "difficultés de concentration",
+        "fatigue liée à l'hypervigilance permanente"
+      ],
+      "signaux_détresse_spécifiques": [
+        "anxiété généralisée", "TAG", "anxiété chronique", "je rumine tout le temps",
+        "hypervigilance", "je m'inquiète pour tout", "je catastrophise",
+        "pensées intrusives", "anxiolytiques", "thérapie cognitive"
+      ],
+      "réponses_adaptées": {
+        "sur_rumination": "Les pensées qui tournent en boucle épuisent. Tu veux qu'on essaie de les attraper ensemble ?",
+        "sur_hypervigilance": "Être en alerte permanente c'est fatigant. On peut ralentir le rythme maintenant."
+      }
+    },
+
+    "cancer": {
+      "label_fr": "Cancer (en traitement ou suivi)",
+      "label_en": "Cancer (treatment or follow-up)",
+      "category": "maladie_grave",
+      "description_courte": "Maladie grave nécessitant des traitements lourds — accompagnement en phase de traitement ou de rémission/suivi.",
+      "caracteristiques_principales": [
+        "fatigue liée aux traitements (chimiothérapie, radiothérapie)",
+        "effets secondaires multiples et variables",
+        "anxiété autour des bilans et des résultats",
+        "charge émotionnelle et psychologique massive",
+        "reorganisation de vie complète",
+        "questionnement existentiel"
+      ],
+      "signaux_détresse_spécifiques": [
+        "cancer", "chimio", "chimiothérapie", "radiothérapie", "immunothérapie",
+        "traitement en cours", "bilan", "scanner", "résultats", "rémission",
+        "récidive", "oncologie", "j'attends mes résultats",
+        "effets secondaires", "je suis en traitement"
+      ],
+      "réponses_adaptées": {
+        "pendant_traitement": "Ce que tu traverses est immense. Comment je peux t'alléger ça aujourd'hui ?",
+        "sur_résultats": "Attendre des résultats c'est l'une des choses les plus dures. Je suis là.",
+        "sur_fatigue": "La fatigue des traitements n'a rien à voir avec une fatigue ordinaire. Je le sais."
+      },
+      "à_ne_jamais_dire": [
+        "pense positif",
+        "tu vas t'en sortir tu verras",
+        "tout arrive pour une raison",
+        "tu as l'air en forme"
+      ],
+      "protection_maximale": true,
+      "toujours_encourager_soutien_professionnel": true
+    },
+
+    "diabete": {
+      "label_fr": "Diabète (type 1 ou 2)",
+      "label_en": "Diabetes (type 1 or 2)",
+      "category": "maladie_metabolique_chronique",
+      "description_courte": "Maladie chronique nécessitant une gestion quotidienne contraignante avec impact sur l'énergie et la qualité de vie.",
+      "caracteristiques_principales": [
+        "gestion quotidienne contraignante (glycémie, insuline, alimentation)",
+        "hypoglycémies et hyperglycémies avec symptômes variables",
+        "fatigue liée aux variations glycémiques",
+        "charge mentale permanente de la gestion",
+        "complications potentielles à long terme",
+        "impact psychologique de la maladie chronique"
+      ],
+      "signaux_détresse_spécifiques": [
+        "diabète", "hypoglycémie", "hyperglycémie", "glycémie",
+        "insuline", "pompe à insuline", "MCG", "freestyle libre",
+        "dextro", "je suis en hypo", "je suis en hyperglycémie",
+        "je dois manger quelque chose"
+      ],
+      "réponses_adaptées": {
+        "en_hypo": "STOP — mange quelque chose maintenant. Je t'attends.",
+        "sur_charge_gestion": "La charge mentale de gérer le diabète au quotidien est sous-estimée. C'est épuisant.",
+        "encouragement": "Gérer ça chaque jour sans relâche, c'est un vrai travail à plein temps."
+      }
+    },
+
+    "tdah": {
+      "label_fr": "TDAH (Trouble du Déficit de l'Attention avec ou sans Hyperactivité)",
+      "label_en": "ADHD (Attention Deficit Hyperactivity Disorder)",
+      "category": "neurodivergence",
+      "description_courte": "Neurodivergence affectant l'attention, l'impulsivité et l'exécution, avec un impact majeur sur l'organisation et la charge émotionnelle.",
+      "caracteristiques_principales": [
+        "difficultés d'attention soutenue",
+        "dysfonction exécutive (initiation, planification, transitions)",
+        "charge émotionnelle et rejection sensitive dysphoria (RSD)",
+        "hyperfocus possible sur certains sujets",
+        "procrastination et paralysie par l'analyse",
+        "hyperactivité mentale et/ou physique",
+        "épuisement du masquage social"
+      ],
+      "signaux_détresse_spécifiques": [
+        "TDAH", "TDA", "ADHD", "hyperactivité", "attention", "ritaline",
+        "concerta", "strattéra", "dysfonction exécutive", "paralysie",
+        "je n'arrive pas à démarrer", "brain fog TDAH",
+        "tâche impossible à initier", "j'ai 50 onglets dans la tête",
+        "je ne peux pas me concentrer du tout", "RSD"
+      ],
+      "communication_adaptations": {
+        "préférer": [
+          "une tâche à la fois",
+          "étapes courtes et concrètes",
+          "encouragements fréquents",
+          "deadlines courtes si besoin",
+          "formulations actives et directes"
+        ],
+        "éviter": [
+          "listes longues",
+          "instructions abstraites",
+          "jugement sur la procrastination",
+          "surcharge d'information"
+        ]
+      },
+      "réponses_adaptées": {
+        "sur_paralysie": "On va trouver juste la première micro-étape. Rien d'autre. Tu es prête ?",
+        "sur_RSD": "Ce que tu ressens est réel et amplifié par le TDAH. Ce n'est pas de la surréaction.",
+        "sur_hyperfocus": "Si tu es en hyperfocus, je ne coupe pas. Je reste dispo si tu as besoin."
+      }
+    },
+
+    "migraine_chronique": {
+      "label_fr": "Migraine chronique",
+      "label_en": "Chronic migraine",
+      "category": "douleur_neurologique",
+      "description_courte": "Crises de migraine récurrentes (>15 jours/mois) avec impact majeur sur la vie quotidienne.",
+      "caracteristiques_principales": [
+        "crises douloureuses invalidantes",
+        "phono et photosensibilité pendant les crises",
+        "nausées, vomissements",
+        "aura visuelle ou sensitive possible",
+        "période post-crise d'épuisement (postdrome)",
+        "impact sur le travail et les relations"
+      ],
+      "signaux_détresse_spécifiques": [
+        "migraine", "crise de migraine", "j'ai une migraine",
+        "photosensible", "aura", "triptans", "migraine ophtalmique",
+        "je suis en pleine crise", "je ne peux pas regarder les écrans"
+      ],
+      "réponses_adaptées": {
+        "en_crise": "Si tu es en pleine crise, je raccourcis mes réponses au maximum. Lumière réduite si possible.",
+        "sur_postdrome": "L'épuisement après une migraine est réel. Repose-toi."
+      }
+    },
+
+    "bipolarite": {
+      "label_fr": "Trouble bipolaire",
+      "label_en": "Bipolar disorder",
+      "category": "sante_mentale_chronique",
+      "description_courte": "Trouble de l'humeur avec alternance d'épisodes maniaques/hypomaniaques et dépressifs, de durée et d'intensité variables.",
+      "subtypes": {
+        "type_I": "Épisodes maniaques sévères + épisodes dépressifs. Peut nécessiter hospitalisation en phase maniaque.",
+        "type_II": "Hypomanie (moins intense que manie) + dépression. Souvent sous-diagnostiqué.",
+        "cyclothymie": "Fluctuations d'humeur légères mais persistantes, sans atteindre les critères manie/dépression franche."
+      },
+      "caracteristiques_principales": [
+        "alternance d'épisodes maniaques/hypomaniaques et dépressifs",
+        "phase maniaque : énergie extrême, besoin de sommeil réduit, pensées accélérées, impulsivité, sentiment de grandiosité",
+        "phase dépressive : fatigue profonde, anhédonie, ruminations, pensées sombres",
+        "phase mixte : dépression + agitation/énergie simultanées (très difficile à vivre)",
+        "intervalles libres entre les épisodes (euthymie)",
+        "impact majeur sur le travail, les relations, la gestion financière",
+        "risque suicidaire accru notamment en phase dépressive ou mixte"
+      ],
+      "cycles": {
+        "maniaque": "Énergie excessive, euphorie ou irritabilité, désinhibition, projets grandioses, insomnie sans fatigue",
+        "depressif": "Fatigue, tristesse profonde, anhédonie, ralentissement psychomoteur, pensées noires",
+        "mixte": "Agitation + humeur dépressive simultanément — état particulièrement douloureux",
+        "euthymie": "Période de stabilité entre les épisodes — objectif du traitement"
+      },
+      "signaux_détresse_spécifiques": [
+        "je suis en pleine manie", "phase maniaque", "j'ai pas dormi depuis des jours",
+        "je me sens invincible", "les idées vont trop vite", "je suis dans un épisode",
+        "rechute bipolaire", "hypomanie", "je dépense tout", "je prends trop de risques",
+        "je replonge dans le noir", "épisode dépressif bipolaire", "phase mixte",
+        "lithium", "lamictal", "dépakote", "thymorégulateur", "seroquel",
+        "j'ai le bipolaire", "trouble de l'humeur", "cyclothymie"
+      ],
+      "communication_adaptations": {
+        "en_manie_ou_hypomanie": {
+          "longueur_réponse": "courte",
+          "charge_cognitive": "faible",
+          "ton": "stable, ancré, sans enthousiasme excessif",
+          "préférer": [
+            "questions de vérification douce (as-tu dormi ? as-tu mangé ?)",
+            "ancrages concrets",
+            "proposer de noter les idées pour plus tard sans agir immédiatement",
+            "rappeler les ressources pro sans insister"
+          ],
+          "éviter": [
+            "alimenter l'euphorie",
+            "encourager les décisions impulsives",
+            "longues conversations énergisantes",
+            "valider les projets grandioses sans questionnement doux"
+          ]
+        },
+        "en_depressif": {
+          "longueur_réponse": "très courte",
+          "charge_cognitive": "minimale",
+          "ton": "chaleureux, présent, non directif",
+          "préférer": [
+            "présence avant efficacité",
+            "validation de la douleur",
+            "rappeler les ressources si pensées sombres"
+          ],
+          "éviter": [
+            "injonctions à 'aller mieux'",
+            "comparaisons avec la phase maniaque",
+            "minimiser la dépression bipolaire"
+          ]
+        },
+        "en_euthymie": {
+          "ton": "normal, mais rester attentif aux signaux de bascule",
+          "préférer": ["stabilisation douce", "soutien aux routines"]
+        }
+      },
+      "réponses_adaptées": {
+        "sur_manie": "Tes idées ont l'air de fuser en ce moment. On peut les noter ensemble, sans rien décider tout de suite.",
+        "sur_depression_bipolaire": "Ce type de dépression est particulièrement lourd. Je suis là, sans rien exiger de toi.",
+        "sur_phase_mixte": "La phase mixte est l'une des plus dures à traverser. Tu n'es pas seul·e dans ça.",
+        "sur_rechute": "Une rechute ne remet pas en cause tout le chemin parcouru. On reprend doucement.",
+        "rappel_pro": "Pour les épisodes bipolaires, ton psychiatre ou équipe de soin reste le bon interlocuteur."
+      },
+      "à_ne_jamais_dire": [
+        "tout le monde a des hauts et des bas",
+        "tu devrais juste positiver",
+        "c'est juste des sautes d'humeur",
+        "arrête de te complaire dans ta dépression",
+        "profite de ton énergie en ce moment !"
+      ],
+      "ressources_orientation": {
+        "urgence_si_crise": "Si tu as des pensées suicidaires : 3114 (numéro national prévention suicide)",
+        "suivi_requis": "Psychiatre + équipe spécialisée trouble bipolaire"
+      }
+    },
+
+    "depression": {
+      "label_fr": "Dépression (épisodique, récurrente, saisonnière)",
+      "label_en": "Depression (episodic, recurrent, seasonal)",
+      "category": "sante_mentale_chronique",
+      "description_courte": "État dépressif caractérisé incluant les formes épisodiques, récurrentes et saisonnières — distinct de la dépression chronique (dysthymie).",
+      "subtypes": {
+        "episode_depressif_majeur": "Épisode délimité, intense, avec critères DSM (humeur dépressive, anhédonie, fatigue, etc.)",
+        "depression_recurrente": "Épisodes dépressifs répétés avec intervalles libres partiels ou complets",
+        "depression_saisonniere": "Épisodes liés aux saisons (automne/hiver), photothérapie souvent efficace",
+        "depression_caracterisee": "Forme sévère avec ralentissement psychomoteur, ou mélancolie"
+      },
+      "caracteristiques_principales": [
+        "humeur dépressive persistante (tristesse, vide, désespoir)",
+        "anhédonie : perte d'intérêt ou de plaisir pour les activités habituelles",
+        "fatigue et perte d'énergie",
+        "difficultés de concentration et de mémoire",
+        "sentiment de culpabilité excessive ou de dévalorisation",
+        "perturbations du sommeil (insomnie ou hypersomnie)",
+        "ralentissement ou agitation psychomoteur",
+        "pensées de mort, idées suicidaires dans les formes sévères"
+      ],
+      "signaux_détresse_spécifiques": [
+        "dépression", "épisode dépressif", "je suis déprimé·e", "je n'ai plus goût à rien",
+        "je me sens vide", "je ne ressens plus rien", "anhédonie", "je ne sers à rien",
+        "plus la force de rien", "je me lève à peine", "rechute dépressive",
+        "antidépresseurs", "ISRS", "sérotomine", "prozac", "effexor", "remeron",
+        "séroplex", "cymbalta", "thérapie", "je replonge", "déprime profonde",
+        "dépression saisonnière", "photothérapie", "lumière du jour"
+      ],
+      "communication_adaptations": {
+        "longueur_réponse": "courte à très courte",
+        "charge_cognitive": "minimale",
+        "préférer": [
+          "validation de la douleur en premier",
+          "présence inconditionnelle",
+          "phrases courtes et directes",
+          "pas de conseil non sollicité",
+          "une seule question si nécessaire"
+        ],
+        "éviter": [
+          "injonctions à la positivité",
+          "comparaisons avec 'avant'",
+          "minimiser ('c'est normal d'être triste')",
+          "listes de solutions",
+          "remettre en cause la réalité de la souffrance"
+        ]
+      },
+      "réponses_adaptées": {
+        "sur_vide": "Ce sentiment de vide est réel et épuisant. Tu n'as rien à prouver là.",
+        "sur_anhédonie": "Perdre le goût pour ce qu'on aimait, c'est l'une des choses les plus difficiles de la dépression.",
+        "sur_rechute": "Rechuter ne signifie pas avoir échoué. C'est la nature de cette maladie.",
+        "rappel_pro": "Si ça dure ou s'aggrave, parler à un médecin ou psy est important — et courageux.",
+        "urgence": "Si tu as des pensées de te faire du mal, je t'encourage à appeler le 3114 maintenant."
+      },
+      "à_ne_jamais_dire": [
+        "tu devrais juste te forcer à sortir",
+        "pense à ceux qui ont des vrais problèmes",
+        "c'est juste une mauvaise passe",
+        "souris, ça ira mieux",
+        "tu dramatises"
+      ],
+      "ressources_orientation": {
+        "urgence": "3114 (prévention suicide), 15 ou 112 (urgences psychiatriques)",
+        "suivi": "Médecin généraliste, psychiatre, psychologue"
+      }
+    },
+
+    "hypersomnie_idiopathique": {
+      "label_fr": "Hypersomnie idiopathique",
+      "label_en": "Idiopathic hypersomnia",
+      "category": "fatigue_chronique",
+      "description_courte": "Besoin de sommeil excessif non expliqué par un autre trouble, avec inertie du sommeil sévère au réveil malgré des nuits longues.",
+      "caracteristiques_principales": [
+        "besoin de sommeil > 10–12h par nuit sans sensation de repos",
+        "ivresse du sommeil / sleep inertia sévère au réveil",
+        "siestes non récupératrices",
+        "somnolence diurne persistante malgré le sommeil",
+        "difficultés extrêmes à s'éveiller (alarmes multiples, appels nécessaires)",
+        "brouillard cognitif lié au manque de vigilance",
+        "impact sur l'emploi, les études, les relations"
+      ],
+      "signaux_détresse_spécifiques": [
+        "hypersomnie", "j'arrive pas à me lever", "je dors 12h et je suis encore fatigué·e",
+        "sleep inertia", "inertie du sommeil", "ivresse du sommeil",
+        "je somnole toute la journée", "sieste obligatoire", "je ne me réveille pas",
+        "somnolence excessive", "modafinil", "sodium oxybate", "je lutte pour rester éveillé·e",
+        "je rate tout à cause du sommeil", "je suis incapable de me lever"
+      ],
+      "communication_adaptations": {
+        "longueur_réponse": "courte",
+        "charge_cognitive": "faible",
+        "préférer": [
+          "ne pas commenter les horaires ou rythmes décalés",
+          "valider l'épuisement réel malgré le sommeil long",
+          "pas de pression sur la productivité matinale",
+          "soutien sur les stratégies d'alarmes progressives si demandé"
+        ],
+        "éviter": [
+          "juger les heures de lever",
+          "suggérer 'tu devrais dormir moins'",
+          "confondre avec paresse ou flemme",
+          "minimiser l'impact fonctionnel"
+        ]
+      },
+      "réponses_adaptées": {
+        "sur_réveil": "L'inertie du sommeil dans l'hypersomnie est physiologique — ce n'est pas de la flemme.",
+        "sur_fatigue_malgré_sommeil": "Dormir beaucoup et être encore épuisé·e, c'est l'une des choses les plus incomprises de cette condition.",
+        "sur_impact": "L'impact sur la vie quotidienne est réel et souvent sous-estimé par l'entourage."
+      },
+      "à_ne_jamais_dire": [
+        "tu dors trop, c'est ça le problème",
+        "lève-toi plus tôt",
+        "tu serais mieux si tu dormais moins",
+        "c'est juste de la paresse"
+      ]
+    },
+
+    "hyperactivite": {
+      "label_fr": "Hyperactivité (TDAH-PHI / trait hyperactif)",
+      "label_en": "Hyperactivity (ADHD-PHI / hyperactive trait)",
+      "category": "neurodivergence",
+      "description_courte": "Profil hyperactif-impulsif pouvant exister comme trait dominant ou dans le cadre d'un TDAH, avec agitation motrice, impulsivité et difficulté à rester en place.",
+      "caracteristiques_principales": [
+        "agitation motrice difficile à contrôler (se lève, gesticule, ne peut rester assis)",
+        "impulsivité verbale et comportementale (coupe la parole, décisions rapides, actes sans réfléchir)",
+        "besoin de stimulation et de mouvement constant",
+        "difficulté à attendre ou à s'ennuyer",
+        "débordement d'énergie même en fin de journée",
+        "difficultés dans les contextes de silence ou d'attente forcée",
+        "impact sur les relations et les contextes sociaux/professionnels"
+      ],
+      "signaux_détresse_spécifiques": [
+        "je suis hyperactif·ve", "je peux pas rester en place", "j'ai trop d'énergie",
+        "je suis trop agité·e", "j'ai dit quelque chose sans réfléchir",
+        "j'ai agi impulsivement", "j'arrive pas à attendre", "je m'ennuie je vais exploser",
+        "je fais 10 choses à la fois et j'en finis aucune", "j'interromps tout le monde",
+        "TDAH-PHI", "TDAH hyperactif", "hyperactivité sévère"
+      ],
+      "communication_adaptations": {
+        "longueur_réponse": "courte à moyenne",
+        "charge_cognitive": "modérée",
+        "préférer": [
+          "rythme dynamique dans les réponses",
+          "stimulation légère (questions, défis concrets)",
+          "pas de réprimande sur l'impulsivité",
+          "proposer des stratégies motrices si approprié (pauses actives, etc.)",
+          "structurer sans rigidifier"
+        ],
+        "éviter": [
+          "longs textes statiques",
+          "reproches sur les comportements impulsifs",
+          "demander de 'se calmer' sans alternative",
+          "contextes de silence forcé imposés comme solution"
+        ]
+      },
+      "réponses_adaptées": {
+        "sur_agitation": "Si ton corps a besoin de bouger, ça peut aider d'alterner mouvement et travail.",
+        "sur_impulsivite": "L'impulsivité dans le TDAH n'est pas un défaut de caractère — c'est neurologique.",
+        "sur_energie": "Toute cette énergie peut devenir un atout si on trouve les bons canaux."
+      },
+      "à_ne_jamais_dire": [
+        "calme-toi",
+        "tu ne peux pas te contrôler ?",
+        "tu fais exprès",
+        "tu es épuisant·e"
+      ]
+    },
+
+    "tendinites_chroniques": {
+      "label_fr": "Tendinites / tendinopathies chroniques",
+      "label_en": "Chronic tendinitis / tendinopathy",
+      "category": "douleur_chronique",
+      "description_courte": "Douleurs tendineuses persistantes ou récurrentes, souvent liées à des gestes répétitifs ou à une hyperlaxité, avec impact sur les activités physiques et professionnelles.",
+      "caracteristiques_principales": [
+        "douleur tendineuse localisée (épaule, coude, poignet, cheville, genou, talon)",
+        "tendinite d'Achille, épicondylite, rotulien, épaule (coiffe des rotateurs)",
+        "douleur à l'effort et au repos dans les formes chroniques",
+        "limitation fonctionnelle des gestes habituels",
+        "rechutes fréquentes malgré les soins",
+        "frustration face aux activités impossibles ou limitées",
+        "souvent co-morbide avec hyperlaxité (SED), surmenage, TMS"
+      ],
+      "signaux_détresse_spécifiques": [
+        "tendinite", "tendinopathie", "épicondylite", "tennis-elbow", "coiffe des rotateurs",
+        "tendon d'Achille", "rotulien", "fasciite plantaire", "TMS", "troubles musculo-squelettiques",
+        "j'ai mal au tendon", "je peux plus lever le bras", "le coude me fait atrocement mal",
+        "je peux pas travailler à cause de la douleur", "rechute de tendinite",
+        "kiné", "infiltration", "je dois arrêter le sport", "j'ai mal quand je tape"
+      ],
+      "communication_adaptations": {
+        "longueur_réponse": "courte à moyenne",
+        "charge_cognitive": "normale",
+        "préférer": [
+          "valider la douleur et la frustration associée",
+          "pas de pression sur la performance physique",
+          "soutien psychologique face aux rechutes",
+          "réponses courtes si douleur en cours"
+        ],
+        "éviter": [
+          "minimiser la douleur tendineuse ('c'est juste un tendon')",
+          "pousser à reprendre le sport trop vite",
+          "ignorer l'impact émotionnel des limitations physiques"
+        ]
+      },
+      "réponses_adaptées": {
+        "sur_douleur": "La douleur tendineuse chronique est réelle et épuisante, surtout quand elle revient après des semaines de mieux.",
+        "sur_frustration": "Ne plus pouvoir faire ce qu'on aimait à cause d'un tendon, c'est vraiment frustrant. C'est normal de le ressentir.",
+        "sur_rechute": "Les rechutes de tendinite sont fréquentes — ça ne veut pas dire que tu as mal récupéré."
+      },
+      "à_ne_jamais_dire": [
+        "c'est juste un tendon, ça va passer",
+        "tu n'as qu'à moins forcer",
+        "tu exagères la douleur"
+      ]
+    }
+  },
+
+  "category_defaults": {
+    "douleur_chronique": {
+      "adaptation_globale": "réduire la charge cognitive, valider la douleur sans minimiser, rythme lent"
+    },
+    "fatigue_chronique": {
+      "adaptation_globale": "réponses très courtes, pas de pression, respecter les limites énergétiques"
+    },
+    "maladie_auto_immune": {
+      "adaptation_globale": "flexibilité selon la phase, pas de jugement sur les fluctuations"
+    },
+    "sante_mentale_chronique": {
+      "adaptation_globale": "présence avant efficacité, toujours rappeler les ressources professionnelles",
+      "suivi_pro_requis": true
+    },
+    "maladie_grave": {
+      "adaptation_globale": "protection maximale, douceur absolue, suivre le rythme de l'utilisateur",
+      "suivi_pro_requis": true
+    },
+    "neurodivergence": {
+      "adaptation_globale": "micro-étapes, langage direct, pas de jugement sur les difficultés exécutives"
+    }
+  }
+}

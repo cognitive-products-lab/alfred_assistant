@@ -1,19 +1,17 @@
-﻿# ============================================================
-# ALFRED — src/input/audio_capture.py
-# Bloc 01.01 — Dialogue vocal
-#
-# Fonctions couvertes :
-#   01.01.001 Activation micro / wake word  🔲 V3 (Whisper)
-#   01.01.002 Capture flux audio            🔲 V3
-#   01.01.003 Filtrage bruit                🔲 V3
-#   01.01.004 Détection fin de phrase       🔲 V3
-#   01.01.005 Feedback signal reçu          🔲 V3
-#
-# STATUT V1 : STUB — Interface définie, implémentation V3
-# L'interface est stable : le reste du code peut l'appeler
-# sans modification quand le vrai STT sera branché en V3.
 # ============================================================
-
+# ALFRED — src/conversation/input/audio_capture.py
+# Bloc 04.03 — Détection sonore
+#
+# 📚 NOTION EXAM :
+#   D13-1 — Capsule 4 : Capture audio et gestion du flux microphone
+#
+# 🎯 UTILITÉ ALFRED :
+#   Capture le flux audio brut depuis le microphone ;
+#   stub V1 avec interface définie, implémentation complète V3.
+#
+# 🏗️ DOMAINE :
+#   Interaction vocale — capture audio bas niveau, sounddevice
+# ============================================================
 
 class AudioCaptureNotAvailable(Exception):
     """Levée quand le système audio n'est pas disponible."""

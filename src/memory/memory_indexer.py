@@ -1,16 +1,16 @@
-﻿# ============================================================
+# ============================================================
 # ALFRED — src/memory/memory_indexer.py
-# Bloc 02.05 — Indexation & recherche mémoire
+# Bloc 02.04 — Contextualisation intelligente
 #
-# Fonctions couvertes :
-#   02.05.001 Pipeline ingestion               ✅ V2
-#   02.05.002 Mise à jour incrémentale         ✅ V2
-#   02.05.003 Gestion doublons                 ✅ V2
-#   02.05.004 Scoring pertinence résultats     ✅ V2
-#   02.05.005 Export / sauvegarde index        ✅ V2
+# 📚 NOTION EXAM :
+#   D22-1 — Capsule 3 : Indexation et recherche mémoire multi-sources
 #
-# Agrège court terme + long terme + épisodique
-# dans une interface unique pour le pipeline principal.
+# 🎯 UTILITÉ ALFRED :
+#   Agrège mémoire courte, longue et épisodique dans un index unifié ;
+#   gère l'ingestion, les doublons et le scoring de pertinence.
+#
+# 🏗️ DOMAINE :
+#   Mémoire & contexte — indexation unifiée, RAG-ready
 # ============================================================
 
 from datetime import datetime
