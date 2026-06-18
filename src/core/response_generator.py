@@ -27,13 +27,10 @@ class ResponseGenerator:
         debug      : Affiche les prompts construits
     """
 
-    def __init__(
-        self,
-        llm_client: Optional[Any] = None,
-        debug: bool = False,
-    ):
+    def __init__(self, llm_client=None, debug=False, tts_available=False):
         self.llm_client = llm_client
         self.debug = debug
+        self.tts_available = tts_available
 
     # =========================================================
     # ENTRÉE PRINCIPALE

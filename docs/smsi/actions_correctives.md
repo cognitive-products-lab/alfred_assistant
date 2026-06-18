@@ -1,3 +1,17 @@
+﻿<!--
+============================================================
+PROJECT  : ALFRED / Cognitive Products Lab
+BLOCK    : B20 — Sécurité, Gouvernance & Conformité
+DOCUMENT : Gestion des Non-conformités et Actions Correctives
+TYPE     : Documentation SMSI
+REF      : ISO/IEC 27001:2022 — A.10.2
+VERSION  : V1.0
+CREATED  : 2026-06-18
+UPDATED  : 2026-06-18
+AUTHOR   : Céline Darras — Cognitive Products Lab
+STATUS   : Approuvé
+============================================================
+-->
 # Gestion des Non-conformités et Actions Correctives
 
 > **Référence :** ISO/IEC 27001:2022 — Contrôle A.10.2  

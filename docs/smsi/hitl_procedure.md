@@ -1,3 +1,17 @@
+﻿<!--
+============================================================
+PROJECT  : ALFRED / Cognitive Products Lab
+BLOCK    : B20 — Sécurité, Gouvernance & Conformité
+DOCUMENT : Supervision Humaine — Human in the Loop (HITL)
+TYPE     : Documentation SMSI
+REF      : EU AI Act Art. 14
+VERSION  : V1.0
+CREATED  : 2026-06-18
+UPDATED  : 2026-06-18
+AUTHOR   : Céline Darras — Cognitive Products Lab
+STATUS   : Approuvé
+============================================================
+-->
 # Supervision Humaine — Human in the Loop (HITL)
 
 > **Référence :** EU AI Act — Art. 14 (Règlement UE 2024/1689)  

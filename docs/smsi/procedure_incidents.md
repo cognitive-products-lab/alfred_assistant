@@ -1,3 +1,17 @@
+﻿<!--
+============================================================
+PROJECT  : ALFRED / Cognitive Products Lab
+BLOCK    : B20 — Sécurité, Gouvernance & Conformité
+DOCUMENT : Procédure Formelle de Gestion des Incidents
+TYPE     : Documentation SMSI
+REF      : ISO/IEC 27001:2022 — A.5.24 / NIS2 Art.23
+VERSION  : V1.0
+CREATED  : 2026-06-18
+UPDATED  : 2026-06-18
+AUTHOR   : Céline Darras — Cognitive Products Lab
+STATUS   : Approuvé
+============================================================
+-->
 # Procédure Formelle de Gestion des Incidents de Sécurité
 
 > **Référence :** ISO/IEC 27001:2022 — Contrôle A.5.24  
