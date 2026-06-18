@@ -1,23 +1,4 @@
 """
-PROJECT      : ALFRED
-BLOCK        : GLOBAL
-FUNCTION     : XX.XX
-FILE         : personality_adapter.py
-ROLE         : TO_DEFINE
-
-AUTHOR       : Cognitive Products Lab
-CREATED      : 2026-05-10
-UPDATED      : 2026-06-03
-VERSION      : V1.0
-STATUS       : ACTIVE
-
-DESCRIPTION :
-Moteur d'adaptation de personnalite ALFRED.
-Charge les profils JSON, detecte le mode contextuel, determine le ton
-et construit le contexte de reponse pour response_generator.
-"""
-
-"""
 personality_adapter.py
 Moteur d'adaptation de personnalité pour ALFRED.
 
@@ -34,14 +15,6 @@ import uuid
 from datetime import datetime
 from pathlib import Path
 from typing import Any, Dict, Optional
-
-# Import optionnel — évite la dépendance circulaire si health n'est pas disponible
-try:
-    from src.health.profile_loader import UserAdaptationContext
-    _PROFILE_LOADER_AVAILABLE = True
-except ImportError:
-    UserAdaptationContext = None          # type: ignore
-    _PROFILE_LOADER_AVAILABLE = False
 
 
 class PersonalityAdapter:
@@ -198,52 +171,6 @@ class PersonalityAdapter:
     # Détection du mode
     # ─────────────────────────────────────────────────────
 
-    # Mapping nomenclature emotion_detector → modes personality_adapter
-    _EMOTION_TO_MODE = {
-        "distress":   "emotional_support_light",
-        "stressed":   "emotional_support_light",
-        "anxious":    "emotional_support_light",
-        "sad":        "emotional_support_light",
-        "grieving":   "emotional_support_light",
-        "tired":      "low_energy_mode",
-        "confused":   "emotional_support_light",
-        "frustrated": "emotional_support_light",
-        "motivated":  "technical_mode",
-        "happy":      "neutral_assistant",
-        "focused":    "technical_mode",
-        "curious":    "learning_mode",
-        "content":    "neutral_assistant",
-        "neutral":    "neutral_assistant",
-        # Ancienne nomenclature (rétrocompatibilité)
-        "stress":     "emotional_support_light",
-        "anxiety":    "emotional_support_light",
-        "sadness":    "emotional_support_light",
-        "fear":       "emotional_support_light",
-    }
-
-    _EMOTION_LEVEL = {
-        "distress":   3,
-        "grieving":   3,
-        "stressed":   2,
-        "anxious":    2,
-        "sad":        2,
-        "tired":      2,
-        "frustrated": 1,
-        "confused":   1,
-        "motivated":  0,
-        "happy":      0,
-        "focused":    0,
-        "curious":    0,
-        "content":    0,
-        "neutral":    0,
-        # Ancienne nomenclature
-        "stress":     2,
-        "anxiety":    2,
-        "sadness":    2,
-        "fear":       3,
-        "mild_concern": 1,
-    }
-
     def detect_context_mode(
         self,
         user_message: str,
@@ -256,10 +183,8 @@ class PersonalityAdapter:
         if energy_level in ["low", "fatigue", "épuisé", "épuisée"]:
             return "low_energy_mode"
 
-        if detected_emotion and detected_emotion in self._EMOTION_TO_MODE:
-            mode = self._EMOTION_TO_MODE[detected_emotion]
-            if mode != "neutral_assistant":
-                return mode
+        if detected_emotion in ["stress", "anxiety", "sadness", "distress"]:
+            return "emotional_support_light"
 
         technical_keywords = [
             "code", "python", "json", "fichier", "module",
@@ -307,10 +232,12 @@ class PersonalityAdapter:
         energy_level: Optional[str] = None
     ) -> int:
         """Retourne un niveau émotionnel de 0 à 3."""
-        if energy_level in ["low", "fatigue"]:
+        if detected_emotion in ["sadness", "distress", "fear"]:
+            return 3
+        if detected_emotion in ["stress", "anxiety"] or energy_level in ["low", "fatigue"]:
             return 2
-        if detected_emotion:
-            return self._EMOTION_LEVEL.get(detected_emotion, 0)
+        if detected_emotion in ["mild_concern"]:
+            return 1
         return 0
 
     # ─────────────────────────────────────────────────────
@@ -415,22 +342,9 @@ class PersonalityAdapter:
         self,
         user_message: str,
         detected_emotion: Optional[str] = None,
-        energy_level: Optional[str] = None,
-        user_adaptation: Optional[Any] = None,   # UserAdaptationContext (optionnel)
+        energy_level: Optional[str] = None
     ) -> Dict[str, Any]:
-        """
-        Produit le contexte complet à transmettre au générateur de réponse.
-
-        Args:
-            user_message     : Message brut de l'utilisateur
-            detected_emotion : Émotion détectée (depuis emotion_detector)
-            energy_level     : Niveau d'énergie (depuis wellbeing_tracker)
-            user_adaptation  : UserAdaptationContext (depuis profile_loader) — applique
-                               les surcharges MBTI, préférences communication et frontières
-
-        Returns:
-            Dict contexte complet pour response_generator
-        """
+        """Produit le contexte complet à transmettre au générateur de réponse."""
         self.validate_required_sections()
 
         mode = self.detect_context_mode(
@@ -452,18 +366,7 @@ class PersonalityAdapter:
         personality = self.personality_core.get("stable_personality", {})
         user = self.user_profile.get("user_profile", {})
 
-        # Déchiffrement transparent des champs Fernet
-        user = dict(user)  # copie pour ne pas muter le profil chargé
-        for field in ("preferred_name",):
-            val = user.get(field, "")
-            if isinstance(val, str) and val.startswith("gAAAAA"):
-                try:
-                    from src.security.encryption_service import decrypt
-                    user[field] = decrypt(val) or user[field]
-                except Exception:
-                    pass
-
-        context = {
+        return {
             "assistant": {
                 "name": identity.get("name", "ALFRED"),
                 "version": identity.get("version", "V1"),
@@ -494,106 +397,7 @@ class PersonalityAdapter:
             "boundaries": self.personality_core.get("boundaries", {}),
             "safety": self.personality_core.get("safety", {}),
             "privacy_and_consent": self.user_profile.get("privacy_and_consent", {}),
-            "response_rules": response_rules,
-            "onboarding": {}   # peuplé si user_adaptation fourni
-        }
-
-        # Surcharges depuis le profil d'onboarding (MBTI, préférences, frontières)
-        if user_adaptation is not None and _PROFILE_LOADER_AVAILABLE:
-            self._merge_user_adaptation(context, user_adaptation)
-
-        return context
-
-    # ─────────────────────────────────────────────────────
-    # Fusion profil onboarding → contexte
-    # ─────────────────────────────────────────────────────
-
-    def _merge_user_adaptation(self, context: Dict[str, Any], uc: Any) -> None:
-        """
-        Applique les surcharges du UserAdaptationContext au contexte de réponse.
-
-        Règles de priorité :
-          - Les préférences explicites de l'utilisateur (onboarding) priment
-            sur les inférences mode/émotion pour humour, validation, ton, profondeur.
-          - Les flags MBTI enrichissent response_rules et adaptation sans les écraser.
-          - Les topics_avoid et behaviors_avoid enrichissent les boundaries.
-        """
-        rules  = context["response_rules"]
-        adapt  = context["adaptation"]
-        bounds = context["boundaries"]
-
-        # ── Humour ────────────────────────────────────────
-        if not uc.humor_enabled:
-            rules["use_humor"] = False
-
-        # ── Validation d'abord (TF + émotionnel) ─────────
-        if uc.validate_first:
-            rules["use_empathy"]           = True
-            adapt["validate_first"]        = True
-
-        # ── Profondeur de réponse ─────────────────────────
-        length_map = {
-            "very_short": "minimal",
-            "short":      "short",
-            "medium":     "medium",
-            "adapt":      adapt.get("response_depth", "medium"),
-        }
-        pref_length = getattr(uc, "response_length_pref", "adapt")
-        adapt["response_depth"] = length_map.get(pref_length, adapt["response_depth"])
-
-        # ── Style cognitif MBTI → response_rules ─────────
-        if getattr(uc, "concrete_first", False):
-            rules["use_examples"]      = True
-            rules["use_step_by_step"]  = True
-        if getattr(uc, "structured_resp", False):
-            rules["be_structured"]     = True
-        if getattr(uc, "direct_feedback", False):
-            rules["be_direct"]         = True
-        if getattr(uc, "flexible_tone", False):
-            adapt["flexible_tone"]     = True
-
-        # ── Ton enrichi (formalité utilisateur) ──────────
-        formality = getattr(uc, "formality_level", 2)
-        adapt["formality_level"] = formality
-        if formality <= 2 and "empathique" not in adapt["tone"]:
-            adapt["tone"] = adapt["tone"] + ", chaleureux"
-
-        # ── Challenge preference ──────────────────────────
-        adapt["challenge_pref"] = getattr(uc, "challenge_pref", "ask_question")
-
-        # ── Proactivité ────────────────────────────────────
-        adapt["proactivity_pref"] = getattr(uc, "proactivity_pref", "moderately_proactive")
-
-        # ── Frontières — sujets à éviter ─────────────────
-        topics_avoid = getattr(uc, "topics_avoid", [])
-        if topics_avoid:
-            if isinstance(bounds, dict):
-                bounds.setdefault("topics_avoid", [])
-                bounds["topics_avoid"] = list(set(bounds["topics_avoid"] + topics_avoid))
-
-        behaviors_avoid = getattr(uc, "behaviors_avoid", [])
-        if behaviors_avoid:
-            if isinstance(bounds, dict):
-                bounds.setdefault("behaviors_avoid", [])
-                bounds["behaviors_avoid"] = list(set(bounds["behaviors_avoid"] + behaviors_avoid))
-
-        # ── Rumination — stratégie ─────────────────────────
-        rum_tendency = getattr(uc, "rumination_tendency", "sometimes")
-        adapt["rumination_tendency"] = rum_tendency
-        if rum_tendency in ("often", "very_often"):
-            adapt["rumination_alert"] = True
-
-        # ── Rôle émotionnel ALFRED ────────────────────────
-        adapt["alfred_emotional_roles"] = getattr(uc, "alfred_emotional_roles", [])
-        adapt["when_distressed"]        = getattr(uc, "when_distressed", "ask_once")
-
-        # ── Section onboarding (résumé lisible) ───────────
-        context["onboarding"] = {
-            "loaded":        True,
-            "mbti":          getattr(uc, "mbti_type", ""),
-            "health_active": getattr(uc, "health_active", False),
-            "conditions":    getattr(uc, "conditions", []),
-            "profiles":      getattr(uc, "profiles_loaded", []),
+            "response_rules": response_rules
         }
 
     # ─────────────────────────────────────────────────────
