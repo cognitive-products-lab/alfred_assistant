@@ -12,11 +12,12 @@ AUTHOR   : Céline Darras — Cognitive Products Lab
 STATUS   : Approuvé
 ============================================================
 
-Usage (après implémentation physique VLAN sur SG108E + ER605) :
-    python scripts/complete_vlan.py
+Usage :
+    python scripts/complete_vlan.py           # mode normal (VLAN implémenté)
+    python scripts/complete_vlan.py --planifie # mode planifié Q3 2026 (sans tests réseau)
 
 Ce script :
-1. Vérifie la connectivité réseau et l'isolation VLAN
+1. Vérifie la connectivité réseau (skippable si VLAN pas encore en place)
 2. Met à jour ISO-20 dans le manifest (partial → done)
 3. Régénère le dashboard gouvernance
 4. Synchronise ALFRED_WEB
@@ -27,6 +28,7 @@ import json
 import subprocess
 import sys
 import socket
+import argparse
 from datetime import date
 from pathlib import Path
 
@@ -48,6 +50,19 @@ def print_header():
     print("=" * 60)
     print()
 
+def mode_planifie():
+    """Mode planifié : architecture documentée, implémentation Q3 2026."""
+    print("Mode PLANIFIÉ — Architecture documentée (implémentation Q3 2026)")
+    print("-" * 60)
+    print("  • vlan_config.md             ✅ Architecture documentée")
+    print("  • config/security/network_policy.json  ✅ Règles firewall définies")
+    print("  • Implémentation physique SG108E+ER605 ⏳ Q3 2026")
+    print()
+    print("ISO-20 sera marqué 'partial' (architecture OK, implémentation en attente).")
+    print()
+    rep = input("Confirmer et mettre à jour le manifest ? (oui/non) : ").strip().lower()
+    return rep in ("oui", "o", "yes", "y")
+
 def confirm_vlan_implemented():
     print("PRÉREQUIS : Implémentation physique VLAN")
     print("-" * 40)
@@ -60,7 +75,7 @@ def confirm_vlan_implemented():
     rep = input("L'implémentation physique est-elle terminée ? (oui/non) : ").strip().lower()
     if rep not in ("oui", "o", "yes", "y"):
         print("\nImplémentation non confirmée. Arrêt du script.")
-        print("Référence architecture : docs/smsi/vlan_config.md")
+        print("Astuce : utilisez --planifie pour documenter l'architecture sans tester le réseau.")
         return False
     return True
 
@@ -112,8 +127,8 @@ def run_network_tests():
         return rep in ("oui", "o", "yes", "y")
     return True
 
-def update_manifest_iso20():
-    """Met à jour ISO-20 dans le manifest : partial → done."""
+def update_manifest_iso20(planifie=False):
+    """Met à jour ISO-20 dans le manifest."""
     print("\nMise à jour manifest — ISO-20")
     print("-" * 40)
 
@@ -125,14 +140,23 @@ def update_manifest_iso20():
 
     for req in manifest.get("requirements", []):
         if req.get("id") == "ISO-20":
-            req["status"] = "done"
-            req["proof_files"] = [
-                "docs/smsi/vlan_config.md",
-                "config/security/network_policy.json"
-            ]
-            req["note"] = f"VLAN 10/20/30 implémenté sur SG108E+ER605 — validé le {today}"
+            if planifie:
+                req["status"] = "partial"
+                req["proof_files"] = [
+                    "docs/smsi/vlan_config.md",
+                    "config/security/network_policy.json"
+                ]
+                req["note"] = f"Architecture VLAN documentée — implémentation physique Q3 2026 ({today})"
+                print(f"  ⏳ ISO-20 → partial (architecture OK, implémentation Q3 2026)")
+            else:
+                req["status"] = "done"
+                req["proof_files"] = [
+                    "docs/smsi/vlan_config.md",
+                    "config/security/network_policy.json"
+                ]
+                req["note"] = f"VLAN 10/20/30 implémenté sur SG108E+ER605 — validé le {today}"
+                print(f"  ✅ ISO-20 → done (proof: vlan_config.md + network_policy.json)")
             updated = True
-            print(f"  ✅ ISO-20 → done (proof: vlan_config.md + network_policy.json)")
             break
 
     if not updated:
@@ -198,7 +222,7 @@ def run_sync():
     else:
         print(f"  ⚠️  Erreur sync : {result.stderr[:200]}")
 
-def git_commit_vlan():
+def git_commit_vlan(planifie=False):
     """Commit et push du VLAN sur dev, puis merge main."""
     print("\nGit — Commit + Push")
     print("-" * 40)
@@ -220,7 +244,10 @@ def git_commit_vlan():
     print("  Fichiers stagés.")
 
     # Commit dev
-    msg = f"B20 VLAN : ISO-20 done — VLAN 10/20/30 validé sur SG108E+ER605 ({today})"
+    if planifie:
+        msg = f"B20 VLAN : ISO-20 partial — architecture documentée, implémentation Q3 2026 ({today})"
+    else:
+        msg = f"B20 VLAN : ISO-20 done — VLAN 10/20/30 validé sur SG108E+ER605 ({today})"
     r = git("commit", "-m", msg)
     if r.returncode != 0 and "nothing to commit" not in r.stdout:
         print(f"  ⚠️  Commit : {r.stderr[:200]}")
@@ -251,26 +278,40 @@ def git_commit_vlan():
     git("checkout", "dev")
 
 def main():
+    parser = argparse.ArgumentParser(description="ALFRED — Validation VLAN & finalisation ISO-20")
+    parser.add_argument(
+        "--planifie", action="store_true",
+        help="Mode planifié : architecture documentée, implémentation Q3 2026 (sans tests réseau)"
+    )
+    args = parser.parse_args()
+
     print_header()
 
-    if not confirm_vlan_implemented():
-        sys.exit(0)
+    if args.planifie:
+        if not mode_planifie():
+            sys.exit(0)
+    else:
+        if not confirm_vlan_implemented():
+            sys.exit(0)
+        if not run_network_tests():
+            print("\nTests réseau abandonnés. Corriger la configuration VLAN puis relancer.")
+            sys.exit(1)
 
-    if not run_network_tests():
-        print("\nTests réseau abandonnés. Corriger la configuration VLAN puis relancer.")
-        sys.exit(1)
-
-    if not update_manifest_iso20():
+    if not update_manifest_iso20(planifie=args.planifie):
         sys.exit(1)
 
     update_vlan_doc()
     run_update_dashboard()
     run_sync()
-    git_commit_vlan()
+    git_commit_vlan(planifie=args.planifie)
 
     print()
     print("=" * 60)
-    print("  ✅ VLAN finalisé — ISO-20 : done")
+    if args.planifie:
+        print("  ⏳ VLAN planifié — ISO-20 : partial (Q3 2026)")
+        print("  Architecture documentée — relancer sans --planifie après implémentation.")
+    else:
+        print("  ✅ VLAN finalisé — ISO-20 : done")
     print("  Score gouvernance mis à jour — dashboard régénéré.")
     print("=" * 60)
 
