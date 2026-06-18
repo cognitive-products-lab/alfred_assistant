@@ -1,13 +1,19 @@
-"""
-llm_client_anthropic.py
-Client Anthropic (Claude) pour ALFRED.
-
-Pré-requis :
-    pip install anthropic python-dotenv
-
-Variable d'environnement (.env) :
-    ANTHROPIC_API_KEY=ta_cle_api
-"""
+# ============================================================
+# ALFRED — src/llm/llm_client_anthropic.py
+# Bloc 01.04c — Client LLM Anthropic (priorité 3)
+# Version : 1.0 — 2026-06-18
+#
+# 📚 NOTION EXAM :
+#   D52-1 — Capsule 5 : Routage LLM — local-first, fallback cloud
+#
+# 🎯 UTILITÉ ALFRED :
+#   Client Anthropic Claude — fallback tertiary (Ollama → OpenAI → Claude).
+#   Requiert ANTHROPIC_API_KEY dans .env.
+#   pip install anthropic python-dotenv
+#
+# 🏗️ DOMAINE :
+#   Noyau conversationnel — LLM cloud tertiary
+# ============================================================
 
 import os
 from typing import Optional
