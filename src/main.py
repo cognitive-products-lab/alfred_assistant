@@ -1,100 +1,21 @@
-# -*- coding: utf-8 -*-
+# ============================================================
+# ALFRED — src/main.py
+# Bloc 01.04 — Orchestration des modules
+#
+# 📚 NOTION EXAM :
+#   D11-1 — Capsule 1 : Pipeline conversationnel et orchestration V1
+#
+# 🎯 UTILITÉ ALFRED :
+#   Point d'entrée principal V1.2 — orchestre conversation texte,
+#   personnalité, mémoire, émotion, wellbeing et mode dégradé Ollama.
+#
+# 🏗️ DOMAINE :
+#   Noyau conversationnel & orchestration — pipeline complet V1 → V2
+# ============================================================
+
 from __future__ import annotations
 
-"""
-PROJECT      : ALFRED — main.py V1.2 + mémoire long terme + Bloc 20 Zero Trust
-BLOCK        : GLOBAL
-FILE         : main.py
-ROLE         : Point d'entrée principal ALFRED — pipeline conversation V1.2
-AUTHOR       : Cognitive Products Lab
-UPDATED      : 2026-06-15
-VERSION      : V1.2.2
-STATUS       : TO_TEST
-
-NOTE 2026-06-10 : fix clean_for_tts (apostrophes typographiques cassées
-par une restauration précédente). À revalider en conditions réelles
-avant repassage en ACTIVE.
-
-NOTE 2026-06-15 : ajout commande "test_mic" (diagnostic niveau micro
-RMS/peak) + application de device_settings.json (Réglages UI) au demarrage
-CLI, pour diagnostiquer la voix non captee (VAD supprime tout l'audio).
-B04 vision (llava) cable et verifie. Validation reelle mode vocal OK
-(test_mic + ecoute fonctionnels apres fix device_settings + gain logiciel).
-Logger "faster_whisper" passe en WARNING pour eviter la pollution console
-(VAD filter logs) en mode vocal hybride (ecoute continue).
-Fix bug "ALFRED ne reagit pas en mode vocal" : la boucle principale
-appelait _read_input() (input() bloquant) en plus de
-hybrid._keyboard_loop (autre thread, autre input() bloquant) -> conflit
-stdin, la transcription vocale restait en file sans etre traitee tant
-qu'aucune touche n'etait tapee. Remplace par hybrid.get_input() bloquant
-(file unique clavier+voix).
-
-Commande "ecoute" : remplace l'enregistrement a duree fixe (10s, coupait
-les messages longs) par listen_voice_until_enter() — enregistrement en
-continu (sd.InputStream) jusqu'a appui sur Entree, plafonne a 120s.
-listen_voice_once (duree fixe) reste utilise par le mode vocal hybride
-(ecoute en arriere-plan). Logique de transcription/anti-hallucination
-factorisee dans _transcribe_audio().
-
-NOTE 2026-06-15 (bis) : 2 fixes suite retour UI/terminal —
-1) "Première utilisation détectée" s'affichait même avec un historique de
-   dialogue existant (3 échanges) : la détection ne testait que l'absence
-   du fichier personality_{USER_ID}.json (onboarding jamais fait), pas
-   l'historique. Ajout d'un check sur components["memory"].history : si
-   non vide, message reformulé sans "première utilisation".
-2) Vouvoiement résiduel visible dans le streaming terminal/UI ("Vous avez
-   posé...", "en vous fournissant...") : _tutoiement_fallback() (INT-007)
-   n'était appliqué qu'à la réponse complète via _post_process(), pas aux
-   phrases streamées par on_sentence(). Appliqué désormais phrase par
-   phrase dans on_sentence() avant affichage/TTS.
-
-NOTE 2026-06-15 (ter) : _cb_play_start lit désormais
-_tts_backend.last_amplitude (RMS de la phrase TTS, cf. tts_piper.py) et le
-transmet à AvatarController.set_speaking/resume_speaking -- la bouche de
-l'avatar va plus vite sur les phrases fortes, plus lentement sur les
-phrases faibles (sync simple TTS/avatar).
-
-À revalider en conditions réelles avant repassage en ACTIVE.
-
-Objectif :
-  Conserver la V1 actuelle fonctionnelle, tout en préparant proprement la V2.
-
-Ce fichier garde :
-  - Pipeline conversation texte
-  - PersonalityAdapter
-  - ResponseGenerator
-  - AlfredBehaviorEngine
-  - KnowledgeLoader
-  - MemoryEngine JSON existant
-  - Ollama optionnel
-  - Détection émotion + wellbeing + mode B03
-
-Ce fichier ajoute :
-  - sanitize_input()
-  - commandes : exit / memoire / memoire_ltm / mode / stats / ltm_stats / reset / statut
-  - affichage plus propre
-  - mode dégradé contrôlé si Ollama indisponible
-  - architecture d'import unique en src.*
-  - branchement optionnel de src.memory.long_term_memory
-
-Ce fichier NE branche PAS encore :
-  - SpeechManager
-  - micro
-  - haut-parleur
-
-Ce fichier branche maintenant :
-  - mémoire long terme SQLite existante via src.memory.long_term_memory
-
-Pourquoi ?
-  Parce qu'une V1 stable vaut mieux qu'une V3 qui fait du trampoline dans les imports.
-
-Usage :
-  cd D:/PROJET_ALFRED/ALFRED_PC
-  python src/main.py
-"""
-
 import sys
-import time
 from datetime import datetime
 from pathlib import Path
 from typing import Any
@@ -126,30 +47,10 @@ CONFIG_DIR = ROOT / "config"
 
 ALFRED_NAME = "ALFRED"
 USER_FALLBACK_NAME = "Céline"
-USER_ID = "celine"   # identifiant onboarding — correspond aux fichiers data/profile/personality_celine.json
-
-# ─────────────────────────────────────────────────────────────────────────────
-# Modèle Ollama actif — changer ici pour switcher
-#
-#   "llama3.2"   → actuel, léger (CPU sans GPU dédié)
-#   "mistral:7b" → recommandé (meilleur en français, mais lent sans GPU)
-#   "phi3:mini"  → ultra-rapide (conversationnel léger)
-#
-#   Modèles lourds (Minisforum MS-S1 Max, 64-128 Go RAM unifiée — à tester) :
-#   "llama3.3:70b"        → excellent français, ~42 Go RAM en Q4
-#   "qwen2.5:72b"         → très bon multilingue/français, ~45 Go RAM en Q4
-#   "command-r-plus:104b" → fort en RAG/contexte long, ~60 Go RAM en Q4
-#   "gpt-oss:120b"        → ~32 tok/s mesuré sur Ryzen AI Max+ 395, ~65 Go RAM en Q4
-#
-# Pré-requis : ollama pull <modele>
-# ─────────────────────────────────────────────────────────────────────────────
-MODEL = "llama3.2"   # mistral:7b trop lent sans GPU → llama3.2 recommandé sur CPU
-
+MODEL = "llama3.2"
 MAX_INPUT_LENGTH = 2000
 MAX_MEMORY_CONTEXT = 8
 VOICE_RECORD_SECONDS = 10
-
-_whisper_model = None  # singleton — chargé une seule fois
 
 
 # =============================================================================
@@ -178,12 +79,17 @@ EMOTION_BRIDGE = {
 
 
 # =============================================================================
-# 4. UTILITAIRES TEXTE / SECURITE — Bloc 20 Zero Trust
+# 4. UTILITAIRES TEXTE / SECURITE BASIQUE
 # =============================================================================
 
 def sanitize_input(text: str) -> str:
     """
-    Nettoie l'entrée utilisateur (fallback si Bloc 20 indisponible).
+    Nettoie l'entrée utilisateur.
+
+    - Supprime les caractères non imprimables
+    - Garde les retours ligne et tabulations
+    - Tronque les messages trop longs
+    - Retourne une chaîne vide si l'entrée est inutilisable
     """
     if not text or not text.strip():
         return ""
@@ -199,191 +105,21 @@ def sanitize_input(text: str) -> str:
 
     return cleaned
 
-
-def security_check(raw_input: str) -> str:
-    """
-    Passe l'entrée par la chaîne Zero Trust (Bloc 20).
-    Retourne l'input nettoyé si autorisé, chaîne vide si refusé.
-    Fallback sur sanitize_input() si le module sécurité est indisponible.
-    """
-
-    cleaned = sanitize_input(raw_input)
-
-    if not cleaned:
-        return ""
-
-    try:
-        from src.security.zero_trust_orchestrator import (
-            quick_authorize_owner_local,
-        )
-
-        result = quick_authorize_owner_local(cleaned)
-
-        if not result.get("authorized", False):
-            reason = result.get("reason", "refus")
-
-            if reason == "Appareil non reconnu ou non fiable":
-                return cleaned
-
-            print(f"  [SECURITE] Requête bloquée : {reason}")
-            return ""
-
-        return result.get("cleaned_input", cleaned)
-
-    except Exception:
-        return cleaned
-
-def _safe_decrypt(value: str, fallback: str = USER_FALLBACK_NAME) -> str:
-    """
-    Déchiffre un token Fernet si détecté, retourne la valeur brute sinon.
-    Utilisé pour lire les champs chiffrés des profils utilisateur.
-    """
-    if not isinstance(value, str) or not value.startswith("gAAAAA"):
-        return value or fallback
-    try:
-        from src.security.encryption_service import decrypt
-        return decrypt(value) or fallback
-    except Exception:
-        return fallback
-
-
-_MEMORY_TRIGGERS = [
-    "mémorise", "memorise", "mémoriser",
-    "retiens que", "retiens :",
-    "souviens-toi que", "souviens toi que",
-    "n'oublie pas que", "noublie pas que",
-    "enregistre cette", "enregistre que",
-    "note que", "note cette",
-    "garde en mémoire", "garde en memoire",
-]
-
-_PREFS_FILE      = ROOT / "data" / "preferences_profile.json"
-_PRIVATE_PROFILE = ROOT / "private_data" / "user_profiles" / "celine_profile.json"
-_PRIVATE_HOUSEHOLD = ROOT / "private_data" / "user_profiles" / "household_relationships.json"
-
-
-def _detect_and_save_preference(user_input: str) -> str | None:
-    """
-    Détecte si l'utilisateur veut qu'ALFRED mémorise quelque chose.
-    Si oui, sauvegarde dans preferences_profile.json et retourne le contenu sauvegardé.
-    Retourne None si ce n'est pas une demande de mémorisation.
-    """
-    import json as _json
-    import uuid as _uuid
-    from datetime import datetime as _dt
-
-    lower = user_input.lower()
-    triggered = any(t in lower for t in _MEMORY_TRIGGERS)
-    if not triggered:
-        return None
-
-    # Extraire le contenu à mémoriser
-    content = user_input.strip()
-    for prefix in [
-        "mémorise cette information :", "mémorise cette information",
-        "memorise cette information :", "memorise cette information",
-        "mémorise :", "mémorise que", "mémoriser que",
-        "retiens que", "retiens :",
-        "souviens-toi que", "souviens toi que",
-        "n'oublie pas que", "noublie pas que",
-        "enregistre cette information :", "enregistre que",
-        "note que", "note :", "note cette information :",
-        "garde en mémoire que", "garde en memoire que",
-        "mémorise", "memorise",
-    ]:
-        idx = lower.find(prefix)
-        if idx != -1:
-            content = user_input[idx + len(prefix):].strip(" :–-")
-            break
-
-    if not content or len(content) < 5:
-        return None
-
-    # Charger le fichier existant
-    try:
-        data = _json.loads(_PREFS_FILE.read_text(encoding="utf-8"))
-    except Exception:
-        data = {"_meta": {}, "preferences": []}
-
-    if not isinstance(data.get("preferences"), list):
-        data["preferences"] = []
-
-    entry = {
-        "id":        str(_uuid.uuid4())[:8],
-        "content":   content,
-        "timestamp": _dt.now().isoformat(),
-        "source":    "user_explicit",
-    }
-    data["preferences"].append(entry)
-
-    try:
-        _PREFS_FILE.write_text(
-            _json.dumps(data, indent=2, ensure_ascii=False),
-            encoding="utf-8",
-        )
-        print(f"  [🧠 Mémoire] Préférence enregistrée : {content[:80]}")
-    except Exception as exc:
-        print(f"  [AVERT mémoire] Impossible de sauvegarder : {exc}")
-        return None
-
-    return content
-
-
-def _load_preferences() -> list[dict]:
-    """Charge les préférences utilisateur depuis preferences_profile.json."""
-    import json as _json
-    try:
-        data = _json.loads(_PREFS_FILE.read_text(encoding="utf-8"))
-        prefs = data.get("preferences", [])
-        return [p for p in prefs if isinstance(p, dict) and p.get("content")]
-    except Exception:
-        return []
-
-
-def _load_user_profile_context() -> str:
-    """
-    Charge celine_profile.json et household_relationships.json pour injection
-    dans le prompt LLM. Retourne un bloc texte résumé, ou '' si absent.
-    """
-    import json as _json
-    lines = []
-    try:
-        data = _json.loads(_PRIVATE_PROFILE.read_text(encoding="utf-8"))
-        u = data.get("user_profile", {})
-        name = u.get("display_name", "Céline")
-        identity = u.get("identity", {})
-        lines.append(f"[Profil utilisateur principal : {name}]")
-        for k, v in list(identity.items())[:12]:
-            if isinstance(v, (str, int, float, bool)) and v:
-                lines.append(f"- {k}: {v}")
-    except Exception:
-        pass
-    try:
-        data = _json.loads(_PRIVATE_HOUSEHOLD.read_text(encoding="utf-8"))
-        members = data.get("household", {}).get("members", [])
-        if members:
-            lines.append("[Foyer]")
-            for m in members:
-                uid = m.get("user_id", "")
-                role = m.get("role", "")
-                rel = m.get("relationship_status", "")
-                lines.append(f"- {uid} ({role}): {rel}")
-    except Exception:
-        pass
-    return "\n".join(lines)
-
-
 def clean_for_tts(text: str) -> str:
     replacements = {
-        "**": "", "*": "",
-        "’": "'", "‘": "'",
-        """: '"', """: '"',
-        "—": "-", "–": "-",
-        "«": "", "»": "",
-        "\U0001f449": "", "⚠️": "Attention.",
-        "\U0001f9e0": "", "\U0001f3a4": "", "✅": "", "❌": "", "\U0001f525": "",
-        "\U0001f504": "", "\U0001f4be": "", "\U0001f4c5": "", "\U0001f507": "", "\U0001f50a": "",
-        "#": "", "##": "", "###": "",
+        "👉": "",
+        "⚠️": "Attention.",
+        "🧠": "",
+        "🎤": "",
+        "✅": "",
+        "❌": "",
+        "🔥": "",
+        "—": "-",
+        "’": "'",
+        "“": '"',
+        "”": '"',
+        "«": "",
+        "»": "",
     }
 
     cleaned = text
@@ -441,12 +177,8 @@ def print_help() -> None:
     print("    reset                         → vider la mémoire de session JSON")
     print("    statut                        → état des composants")
     print("    aide                          → afficher cette aide")
-    print("    onboarding                    → relancer la configuration personnalisee")
-    print("    vocal                         → activer/désactiver le microphone")
-    print("    son                           → activer/désactiver le son (TTS)")
+    print("    vocal                         → activer/désactiver le mode vocal")
     print("    ecoute                        → dicter un message une seule fois")
-    print("    test_mic                      → tester le niveau du micro (diagnostic)")
-    print("    rappels                       → afficher les rappels actifs")
     print("─" * 58)
     print("")
 
@@ -468,36 +200,9 @@ def print_status(components: dict[str, Any]) -> None:
 
     print(f"  Modèle             : {MODEL}")
     print(f"  Date session       : {datetime.now().strftime('%Y-%m-%d %H:%M')}")
-    reg = components.get("regulation_engine")
-    uc  = components.get("user_adaptation_ctx")
-    reg_label = "NON"
-    if reg:
-        if uc and uc.profile_complete:
-            reg_label = f"OK — MBTI {uc.mbti_type or '?'} | {', '.join(uc.profiles_loaded)}"
-        else:
-            reg_label = "OK — pas de profil onboarding"
-    print(f"  Pipeline B03/B13   : {reg_label}")
     print(f"  TTS Piper          : {'OK' if components.get('tts') else 'NON'}")
-    print(f"  Son (TTS)          : {'COUPÉ 🔇' if components.get('tts_muted') else 'ACTIF 🔊'}")
-    print(f"  Microphone         : {'ACTIF 🎤' if components.get('voice_enabled') else 'INACTIF'}")
+    print(f"  Mode vocal         : {'ACTIF' if components.get('voice_enabled') else 'INACTIF'}")
     print("  LTM SQLite         : branchée si src.memory.long_term_memory est disponible")
-    sec_ok = components.get("security_ok", False)
-    sec_sid = components.get("security_session_id", "")
-    if sec_ok and sec_sid:
-        try:
-            from src.security.session_manager import get_session
-            sess = get_session("celine")
-            if sess:
-                elapsed = int(sess.get("elapsed_seconds", 0))
-                valid_str = "valide" if sess.get("valid", False) else "expirée"
-                sec_label = f"OK — session {sec_sid[:8]}... ({elapsed}s, {valid_str})"
-            else:
-                sec_label = f"OK — session {sec_sid[:8]}..."
-        except Exception:
-            sec_label = f"OK — session {sec_sid[:8]}..."
-    else:
-        sec_label = "NON"
-    print(f"  Zero Trust B20     : {sec_label}")
     print("")
 
 
@@ -555,23 +260,15 @@ def init_components() -> dict[str, Any]:
     from src.core.personality_adapter import PersonalityAdapter
     from src.core.response_generator import ResponseGenerator
     from src.core.alfred_behavior_engine import AlfredBehaviorEngine
+    from src.knowledge.knowledge_loader import KnowledgeLoader
     from src.knowledge.retrieval_engine import KnowledgeRetrievalEngine
     from src.memory.memory_engine import MemoryEngine
     from src.regulation.mode_manager import get_mode_manager
     from src.llm.llm_client_ollama import OllamaLLMClient
-    from src.llm.vision_client_ollama import OllamaVisionClient
     from src.llm.llm_client_openai import OpenAILLMClient
     from src.llm.llm_router import LLMRouter
-    from src.llm.llm_client_anthropic import AnthropicLLMClient
     from src.conversation.input.input_manager import HybridInputManager
-
-    # Applique le device audio configuré (Réglages UI) si présent, pour que
-    # le test micro CLI utilise le même périphérique que l'UI Kivy.
-    try:
-        from src.ui.device_settings import load_device_settings, apply_audio_settings
-        apply_audio_settings(load_device_settings())
-    except Exception:
-        pass
+    
 
     components: dict[str, Any] = {
         "adapter": None,
@@ -586,14 +283,8 @@ def init_components() -> dict[str, Any]:
         "session_id": datetime.now().strftime("%Y%m%d_%H%M%S"),
         "user_name": USER_FALLBACK_NAME,
         "tts": None,
-        "voice_enabled": False,   # vocal OFF au démarrage → taper "vocal" pour l'activer
+        "voice_enabled": True,
         "retrieval_engine": None,
-        "security_ok": False,
-        "security_session_id": "",
-        "output_filter": None,
-        "fusion_engine": None,
-        "proactive_engine": None,
-        "avatar": None,
     }
 
     # Mémoire JSON existante
@@ -625,12 +316,11 @@ def init_components() -> dict[str, Any]:
             allow_templates=False,
         )
         components["adapter"] = adapter
-        raw_name = (
+        components["user_name"] = (
             adapter.user_profile
             .get("user_profile", {})
             .get("preferred_name", USER_FALLBACK_NAME)
         )
-        components["user_name"] = _safe_decrypt(raw_name)
     except Exception as exc:
         print(f"  [ERREUR] PersonalityAdapter : {exc}")
         raise
@@ -642,42 +332,44 @@ def init_components() -> dict[str, Any]:
         print(f"  [AVERT] BehaviorEngine indisponible : {exc}")
         components["behavior_engine"] = None
 
+    # KnowledgeLoader
+    try:
+        components["loader"] = KnowledgeLoader(
+            knowledge_root=str(KNOWLEDGE_ROOT),
+            config_dir=str(CONFIG_DIR),
+            debug=False,
+        )
+    except Exception as exc:
+        print(f"  [AVERT] KnowledgeLoader indisponible : {exc}")
+        components["loader"] = None
+
+    
     # =========================================================================
-    # Knowledge Retrieval Engine (contient son propre KnowledgeLoader V2.0)
+    # Knowledge Retrieval Engine
     # =========================================================================
     try:
-        re = KnowledgeRetrievalEngine(
-            project_root=str(ROOT),
-            max_chars_per_knowledge=400,   # réduit pour LLM local (était 900)
+        components["retrieval_engine"] = KnowledgeRetrievalEngine(
+            project_root=str(ROOT)
         )
-        components["retrieval_engine"] = re
-        # Expose le loader interne pour le statut et les accès directs
-        components["loader"] = re.loader
+
     except Exception as exc:
         print(f"  [AVERT] RetrievalEngine indisponible : {exc}")
         components["retrieval_engine"] = None
-        components["loader"] = None
 
     # LLM Router : Ollama local -> OpenAI fallback -> fallback offline
     try:
         ollama = OllamaLLMClient(model=MODEL)
 
         try:
-            openai = OpenAILLMClient(model="gpt-4o-mini")
+            openai = OpenAILLMClient(model="gpt-4o")
+         
         except Exception as exc:
             openai = None
             print(f"  [AVERT] OpenAI indisponible : {exc}")
 
-        try:
-            anthropic = AnthropicLLMClient(model="claude-haiku-4-5")
-        except Exception as exc:
-            anthropic = None
-            print(f"  [AVERT] Anthropic indisponible : {exc}")
-
         components["llm"] = LLMRouter(
             primary=ollama,
             secondary=openai,
-            tertiary=anthropic,
             allow_cloud_fallback=True,
             debug=True,
         )
@@ -689,35 +381,11 @@ def init_components() -> dict[str, Any]:
         print(f"  [AVERT] Aucun LLM disponible : {exc}")
         components["llm"] = None
 
-    # TTS Piper CLI — init avant ResponseGenerator pour que tts_available soit correct
-    try:
-        from src.conversation.output.tts_engine import TTSEngine
-        from src.conversation.output.tts_piper import PiperTTS
-
-        components["tts"] = TTSEngine(
-            backend=PiperTTS(mode="complicite", blocking=True)
-        )
-    except Exception as exc:
-        print(f"  [AVERT] TTS Piper indisponible : {exc}")
-        components["tts"] = None
-
-    # Vision (B04) — analyse d'image caméra via Ollama llava
-    try:
-        vision_client = OllamaVisionClient(model="llava:7b")
-        components["vision"] = vision_client if vision_client.is_available() else None
-        if components["vision"] is None:
-            print("  [AVERT] Modèle vision (llava:7b) indisponible — fallback texte.")
-    except Exception as exc:
-        print(f"  [AVERT] OllamaVisionClient indisponible : {exc}")
-        components["vision"] = None
-
     # ResponseGenerator
     try:
         components["generator"] = ResponseGenerator(
             llm_client=components["llm"],
             debug=False,
-            tts_available=components.get("tts") is not None,
-            vision_client=components.get("vision"),
         )
     except Exception as exc:
         print(f"  [ERREUR] ResponseGenerator : {exc}")
@@ -729,149 +397,18 @@ def init_components() -> dict[str, Any]:
     except Exception as exc:
         print(f"  [AVERT] ModeManager indisponible : {exc}")
         components["mode_manager"] = None
-
-    # =========================================================================
-    # Blocs 03 + 13 — Pipeline émotionnel & santé + profil utilisateur
-    # =========================================================================
+    
+    # TTS Piper CLI
     try:
-        from src.regulation.regulation_engine import get_regulation_engine
-        from src.health.profile_loader import get_user_context
-        components["regulation_engine"]  = get_regulation_engine()
-        components["user_adaptation_ctx"] = get_user_context(USER_ID)
-        uc = components["user_adaptation_ctx"]
-        if uc.profile_complete:
-            print(f"  [B03/B13] Pipeline actif — profil chargé (MBTI: {uc.mbti_type or '?'}, "
-                  f"santé: {'oui' if uc.health_active else 'non'}, "
-                  f"profils: {', '.join(uc.profiles_loaded)})")
-        else:
-            print("  [B03/B13] Pipeline actif — aucun profil onboarding (lancez l'onboarding)")
-    except Exception as exc:
-        print(f"  [AVERT] Pipeline B03/B13 indisponible : {exc}")
-        components["regulation_engine"]   = None
-        components["user_adaptation_ctx"] = None
+        from src.conversation.output.tts_engine import TTSEngine
+        from src.conversation.output.tts_piper import PiperTTS
 
-    # Onboarding — proposer si aucun profil personnalité détecté
-    try:
-        from paths import DATA_PROFILE
-        pers_file = DATA_PROFILE / f"personality_{USER_ID}.json"
-        components["_onboarding_pending"] = not pers_file.exists()
-        if components["_onboarding_pending"]:
-            # Le fichier de personnalité absent ne signifie pas forcément que
-            # c'est la toute première utilisation : l'historique de dialogue
-            # peut déjà contenir des échanges (onboarding jamais fait, mais
-            # ALFRED déjà utilisé) -- cf. retour 2026-06-15 ("Première
-            # utilisation détectée" affiché alors que 3 échanges existaient).
-            history = getattr(components.get("memory"), "history", None)
-            already_used = bool(history)
-            if already_used:
-                print("\n  [ALFRED] Aucun profil personnalisé (tapez 'onboarding' pour le créer).")
-            else:
-                print("\n  [ALFRED] Premiere utilisation detectee.")
-                print("  Pour personnaliser ALFRED, tapez 'onboarding' dans la conversation.")
-                try:
-                    from src.ui.alfred_app import set_ui_response
-                    set_ui_response(
-                        "👋 Première utilisation détectée !\n"
-                        "Tape 'onboarding' pour me personnaliser "
-                        "(prénom, préférences, profil)."
-                    )
-                except Exception:
-                    pass
-    except Exception:
-        components["_onboarding_pending"] = False
-
-    # =========================================================================
-    # Bloc 20 — Zero Trust Security
-    # =========================================================================
-    try:
-        from src.security.device_registry import init_default_device
-        from src.security.session_manager import create_session
-        from src.security.output_filter import filter_output, analyze_output
-        from src.security.zero_trust_orchestrator import build_security_context
-
-        init_default_device("local_pc")
-        sec_session_id = create_session("celine", "local_pc", "OWNER")
-        components["security_ok"] = True
-        components["security_session_id"] = sec_session_id
-        components["output_filter"] = filter_output
-        components["analyze_output"] = analyze_output
-        components["security_context"] = build_security_context(
-            "celine", "OWNER", "local_pc", sec_session_id
+        components["tts"] = TTSEngine(
+            backend=PiperTTS(mode="complicite", blocking=True)
         )
-        print(f"  [SÉCURITÉ] Zero Trust actif — session {sec_session_id[:8]}...")
-
-        # SOC Monitor — watchdog daemon (cycle toutes les 5 min)
-        try:
-            from src.security.soc_monitor import start_watchdog
-            start_watchdog(interval_seconds=300)
-            print("  [SÉCURITÉ] SOC watchdog démarré (intervalle 5 min)")
-        except Exception as exc_soc:
-            print(f"  [AVERT] SOC watchdog indisponible : {exc_soc}")
-
     except Exception as exc:
-        print(f"  [AVERT] Bloc 20 sécurité indisponible : {exc}")
-        components["security_ok"] = False
-        components["security_session_id"] = ""
-        components["output_filter"] = None
-
-    # =========================================================================
-    # B11 — Fusion multi-signaux + Moteur proactif + Rappels
-    # =========================================================================
-    try:
-        from src.v3.fusion.multi_signal_fusion_engine import MultiSignalFusionEngine
-        from src.v3.proactive.proactive_engine import ProactiveEngine
-        from src.v3.proactive.reminder_engine import ReminderEngine
-        components["fusion_engine"]   = MultiSignalFusionEngine()
-        components["proactive_engine"] = ProactiveEngine()
-        components["reminder_engine"] = ReminderEngine()
-        print("  [B11] Fusion multi-signaux + Proactif + Rappels actifs.")
-    except Exception as exc:
-        print(f"  [AVERT] B11 fusion/proactif indisponible : {exc}")
-
-    # =========================================================================
-    # B15 — Avatar Engine (headless V1 — renderer Kivy connecté par alfred_app)
-    # =========================================================================
-    try:
-        from src.ui.avatar_engine import get_avatar_engine
-        components["avatar"] = get_avatar_engine(headless=True)
-        print("  [B15] Avatar Engine actif (headless).")
-    except Exception as exc:
-        print(f"  [AVERT] B15 avatar indisponible : {exc}")
-
-    # =========================================================================
-    # B05 — Auth V1 : auto-login local
-    # =========================================================================
-    try:
-        from src.auth.login_handler import start_auto_session
-        auth_sid = start_auto_session(user_id=USER_ID, role="OWNER")
-        components["auth_session_id"] = auth_sid
-        print(f"  [B05] Auth : session locale démarrée ({auth_sid[:8] if auth_sid else 'N/A'}...)")
-    except Exception as exc:
-        print(f"  [AVERT] B05 Auth indisponible : {exc}")
-        components["auth_session_id"] = ""
-
-    # =========================================================================
-    # V2 — Fusion + Confidence + Decision (mode passif — enrichit la réponse)
-    # =========================================================================
-    try:
-        from src.v2.fusion.fusion_engine import get_fusion_engine
-        from src.v2.confidence.confidence_scorer import get_confidence_scorer
-        from src.v2.decision.decision_engine import get_decision_engine
-        components["v2_fusion"]     = get_fusion_engine()
-        components["v2_confidence"] = get_confidence_scorer()
-        components["v2_decision"]   = get_decision_engine()
-        print("  [V2] Fusion + Confidence + Decision actifs.")
-
-        # Brancher le ConfidenceScorer V2 dans le ResponseGenerator
-        gen = components.get("generator")
-        if gen is not None:
-            gen.confidence_scorer = components["v2_confidence"]
-            print("  [V2] ConfidenceScorer branché dans ResponseGenerator.")
-    except Exception as exc:
-        print(f"  [AVERT] V2 intelligence indisponible : {exc}")
-        components["v2_fusion"]     = None
-        components["v2_confidence"] = None
-        components["v2_decision"]   = None
+        print(f"  [AVERT] TTS Piper indisponible : {exc}")
+        components["tts"] = None
 
     return components
 
@@ -882,89 +419,18 @@ def init_components() -> dict[str, Any]:
 # 8. COMMANDES SPECIALES
 # =============================================================================
 
-def _get_whisper_model():
-    """Charge le modèle Whisper une seule fois (singleton)."""
-    global _whisper_model
-    if _whisper_model is None:
-        import logging
-        import warnings
-        from faster_whisper import WhisperModel
-        warnings.filterwarnings("ignore", category=RuntimeWarning, module="faster_whisper")
-        # Coupe les logs INFO/DEBUG de faster-whisper (VAD filter, etc.) qui
-        # polluent la console en mode vocal hybride (écoute continue toutes
-        # les 10s) et entrent en collision avec le streaming TTS/texte.
-        logging.getLogger("faster_whisper").setLevel(logging.WARNING)
-        _whisper_model = WhisperModel("small", compute_type="int8")
-    return _whisper_model
-
-
-def _transcribe_audio(audio) -> str:
+def listen_voice_once(duration: int = VOICE_RECORD_SECONDS) -> str:
     """
-    Applique le gain logiciel, transcrit un buffer audio (16kHz mono float32)
-    via Whisper et filtre les hallucinations. Partagé par listen_voice_once
-    et listen_voice_until_enter.
+    Capture le micro pendant quelques secondes et retourne le texte transcrit.
+    V1 améliorée : écoute plus longue + Whisper small + réglages anti-hallucination.
     """
-    import numpy as np
-
-    audio = np.squeeze(audio)
-
-    # Gain logiciel si le micro capte un signal faible (évite que le VAD
-    # de Whisper rejette toute la prise comme du silence).
-    peak = float(np.max(np.abs(audio))) if audio.size else 0.0
-    if 0.0 < peak < 0.2:
-        gain = min(0.2 / peak, 10.0)
-        audio = np.clip(audio * gain, -1.0, 1.0)
-
-    model = _get_whisper_model()
-
-    segments, _ = model.transcribe(
-        audio,
-        language="fr",
-        beam_size=5,
-        vad_filter=True,
-        vad_parameters={"min_silence_duration_ms": 500},
-        temperature=0.0,
-        initial_prompt="Alfred, assistant personnel. Conversation en français.",
-        no_speech_threshold=0.6,
-        log_prob_threshold=-0.8,
-    )
-
-    text = " ".join(segment.text.strip() for segment in segments).strip()
-
-    # Filtre hallucinations Whisper :
-    # - texte vide ou trop court
-    # - moins de 30% de lettres (ex: ")))))))", "...", bruits encodés)
-    # - répétition excessive d'un même caractère
-    if not text or len(text) < 3:
-        return ""
-
-    alpha_ratio = sum(c.isalpha() or c.isspace() for c in text) / len(text)
-    if alpha_ratio < 0.4:
-        return ""
-
-    # Détecte répétition de caractère non-alphabétique (ex: ")))))))))")
-    for char in set(text):
-        if not char.isalpha() and text.count(char) > len(text) * 0.3:
-            return ""
-
-    return text
-
-
-def listen_voice_once(duration: int = VOICE_RECORD_SECONDS, silent: bool = False) -> str:
-    """
-    Capture le micro pendant `duration` secondes (durée fixe) et retourne le
-    texte transcrit. Utilisé par le mode vocal hybride (écoute en arrière-plan).
-    """
-    import warnings
     import sounddevice as sd
-
-    warnings.filterwarnings("ignore", category=RuntimeWarning, message=".*overflow.*")
-    warnings.filterwarnings("ignore", category=RuntimeWarning, message=".*invalid value.*")
+    import numpy as np
+    from faster_whisper import WhisperModel
 
     samplerate = 16000
 
-    if not silent:
-        print(f"  🎤 Écoute pendant {duration} secondes...", end="\r")
+    print(f"  🎤 Écoute pendant {duration} secondes...", end="\r")
 
     audio = sd.rec(
         int(duration * samplerate),
@@ -974,104 +440,28 @@ def listen_voice_once(duration: int = VOICE_RECORD_SECONDS, silent: bool = False
     )
     sd.wait()
 
-    if not silent:
-        print("  🧠 Transcription...")
-
-    return _transcribe_audio(audio)
-
-
-def listen_voice_until_enter(max_duration: int = 120) -> str:
-    """
-    Capture le micro en continu (durée variable) à partir d'un premier
-    déclenchement (commande "ecoute"), jusqu'à ce que l'utilisateur appuie
-    sur Entrée pour signaler la fin de son message — évite que les messages
-    longs soient coupés par une durée d'enregistrement fixe.
-
-    Plafonnée à `max_duration` secondes par sécurité.
-    """
-    import warnings
-    import sounddevice as sd
-    import numpy as np
-
-    warnings.filterwarnings("ignore", category=RuntimeWarning, message=".*overflow.*")
-    warnings.filterwarnings("ignore", category=RuntimeWarning, message=".*invalid value.*")
-
-    samplerate = 16000
-    frames: list = []
-
-    def _callback(indata, frame_count, time_info, status):
-        frames.append(indata.copy())
-
-    print("  🎤 Écoute... (appuie sur Entrée quand tu as terminé)")
-
-    with sd.InputStream(
-        samplerate=samplerate,
-        channels=1,
-        dtype="float32",
-        callback=_callback,
-    ):
-        try:
-            input()
-        except (EOFError, KeyboardInterrupt):
-            pass
-
-    if not frames:
-        return ""
-
-    audio = np.concatenate(frames, axis=0)
-
-    max_samples = max_duration * samplerate
-    if len(audio) > max_samples:
-        audio = audio[:max_samples]
+    audio = np.squeeze(audio)
 
     print("  🧠 Transcription...")
 
-    return _transcribe_audio(audio)
+    model = WhisperModel("small", compute_type="int8")
 
+    segments, _ = model.transcribe(
+        audio,
+        language="fr",
+        beam_size=5,
+        vad_filter=True,
+        temperature=0.0,
+        initial_prompt=(
+            "Conversation en français avec Alfred, assistant vocal personnel. "
+            "Le prénom de l'utilisatrice est Céline. "
+            "Le sujet actuel est le branchement du micro, du haut-parleur, du STT et du TTS."
+        ),
+    )
 
-def test_mic_levels(duration: int = 3) -> None:
-    """
-    Diagnostic micro : enregistre quelques secondes sur le device d'entrée
-    courant (sounddevice.default.device[0]) et affiche le niveau capté.
+    text = " ".join(segment.text.strip() for segment in segments).strip()
 
-    Aide à distinguer un problème Whisper/VAD (texte non détecté malgré un
-    micro qui capte bien) d'un problème de device/volume (signal trop faible
-    pour que le VAD reconnaisse de la parole).
-    """
-    import sounddevice as sd
-    import numpy as np
-
-    samplerate = 16000
-    in_idx = sd.default.device[0]
-    try:
-        dev_name = sd.query_devices(in_idx)["name"]
-    except Exception:
-        dev_name = "?"
-
-    print(f"\n  🎤 Test micro — device #{in_idx} ({dev_name})")
-    print(f"  Parle normalement pendant {duration} secondes...")
-
-    audio = sd.rec(int(duration * samplerate), samplerate=samplerate, channels=1, dtype="float32")
-    sd.wait()
-    audio = np.squeeze(audio)
-
-    peak = float(np.max(np.abs(audio)))
-    rms = float(np.sqrt(np.mean(audio ** 2)))
-
-    print(f"  Niveau max  : {peak:.4f}")
-    print(f"  Niveau RMS  : {rms:.5f}")
-
-    if peak < 0.01:
-        print(
-            "  ⚠ Signal très faible — le micro ne capte quasi rien.\n"
-            "    Vérifie : bon device sélectionné (Réglages), volume micro Windows,\n"
-            "    bouton mute physique du micro/casque."
-        )
-    elif peak < 0.05:
-        print("  ⚠ Signal faible — la voix risque d'être filtrée par le VAD. Augmente le gain micro.")
-    else:
-        print("  ✓ Signal correct.")
-    print()
+    return text
 
 def handle_command(command: str, components: dict[str, Any]) -> bool:
     """
@@ -1101,22 +491,6 @@ def handle_command(command: str, components: dict[str, Any]) -> bool:
 
     if cmd in {"aide", "help", "?"}:
         print_help()
-        return True
-
-    if cmd in {"onboarding", "configuration", "profil", "questionnaire"}:
-        try:
-            from src.health.onboarding import run_full_onboarding
-            from src.health.profile_loader import invalidate_cache
-            print("\n  Lancement du parcours de configuration personnalisée...\n")
-            paths = run_full_onboarding(user_id=USER_ID)
-            if paths:
-                invalidate_cache(USER_ID)
-                # Recharger le contexte dans les composants
-                from src.health.profile_loader import get_user_context
-                components["user_adaptation_ctx"] = get_user_context(USER_ID, force_reload=True)
-                print("  Profil rechargé dans le pipeline.")
-        except Exception as exc:
-            print(f"\n  [ERREUR onboarding] {exc}\n")
         return True
 
     if cmd == "memoire":
@@ -1221,29 +595,10 @@ def handle_command(command: str, components: dict[str, Any]) -> bool:
     if cmd == "vocal":
         components["voice_enabled"] = not components.get("voice_enabled", False)
         state = "activé" if components["voice_enabled"] else "désactivé"
-
-        # Démarrer ou arrêter HybridInputManager selon l'état
-        if components["voice_enabled"]:
-            if not components.get("_hybrid"):
-                try:
-                    from src.conversation.input.input_manager import HybridInputManager
-                    h = HybridInputManager(voice_func=lambda: listen_voice_once(silent=True))
-                    h.start()
-                    components["_hybrid"] = h
-                    print("  Mode vocal hybride démarré.")
-                except Exception as exc:
-                    print(f"  [AVERT] HybridInputManager indisponible : {exc}")
-        else:
-            h = components.get("_hybrid")
-            if h:
-                try:
-                    h.stop()
-                except Exception:
-                    pass
-                components["_hybrid"] = None
-
+        
         print(f"\n  Mode vocal {state}.\n")
 
+        # 🔊 Feedback vocal
         tts = components.get("tts")
         if tts:
             try:
@@ -1271,38 +626,9 @@ def handle_command(command: str, components: dict[str, Any]) -> bool:
 
         return True
 
-    if cmd == "son":
-        tts = components.get("tts")
-        if not tts:
-            print("\n  TTS Piper non disponible sur cette session.\n")
-            return True
-
-        # Toggle : on stocke l'état dans components
-        son_actif = not components.get("tts_muted", False)
-        components["tts_muted"] = son_actif   # True = muet
-        state = "coupé" if son_actif else "activé"
-        print(f"\n  Son {state}.\n")
-        return True
-
-    if cmd in {"rappels", "rappel"}:
-        re_engine = components.get("reminder_engine")
-        if not re_engine:
-            print("\n  Module rappels non disponible.\n")
-            return True
-        actifs = re_engine.get_active()
-        if not actifs:
-            print("\n  Aucun rappel enregistré.\n")
-        else:
-            print(f"\n  ── {len(actifs)} rappel(s) actif(s) ──")
-            for r in actifs:
-                due = r.due_at[:10] if r.due_at else "?"
-                print(f"  [{r.id}] {due}  {r.title}")
-            print()
-        return True
-
     if cmd == "ecoute":
         try:
-            text = listen_voice_until_enter()
+            text = listen_voice_once()
             if text:
                 print(f"\n  Toi 🎤 : {text}\n")
                 components["_voice_once_text"] = text
@@ -1310,13 +636,6 @@ def handle_command(command: str, components: dict[str, Any]) -> bool:
                 print("\n  Aucun texte détecté.\n")
         except Exception as exc:
             print(f"\n  [ERREUR écoute] {type(exc).__name__} — {exc}\n")
-        return True
-
-    if cmd == "test_mic":
-        try:
-            test_mic_levels()
-        except Exception as exc:
-            print(f"\n  [ERREUR test_mic] {type(exc).__name__} — {exc}\n")
         return True
 
     return False
@@ -1330,7 +649,6 @@ def build_response(
     user_input: str,
     components: dict[str, Any],
     time_ctx: dict[str, Any],
-    on_sentence=None,
 ) -> tuple[str, str, str, str]:
     """
     Construit la réponse ALFRED.
@@ -1346,95 +664,23 @@ def build_response(
     generator = components["generator"]
 
     # -------------------------------------------------------------------------
-    # 0. Pipeline Blocs 03 + 13 (process_message unifié)
-    # -------------------------------------------------------------------------
-    pipeline_ctx  = None
-    pipeline_guidelines = ""
-    forced_resp   = None
-
-    regulation_engine = components.get("regulation_engine")
-    user_adaptation   = components.get("user_adaptation_ctx")
-
-    if regulation_engine:
-        try:
-            from src.core.pipeline_bridge import (
-                enrich_context_with_pipeline,
-                get_pipeline_mode_guidelines,
-                get_forced_response,
-            )
-            pipeline_ctx = regulation_engine.process(
-                user_input=user_input,
-                time_context=time_ctx,
-                user_context=user_adaptation,
-            )
-            pipeline_guidelines = get_pipeline_mode_guidelines(pipeline_ctx)
-            forced_resp = get_forced_response(pipeline_ctx)
-
-            # Court-circuit : protection ou crise santé → réponse directe
-            if forced_resp:
-                return forced_resp, "support_mode", pipeline_ctx.emotion, "low"
-
-        except Exception as exc:
-            print(f"  [AVERT] Pipeline B03/B13 : {exc}")
-            pipeline_ctx = None
-
-    # -------------------------------------------------------------------------
-    # 1. Détection contexte B03 (fallback si pipeline indisponible)
+    # 1. Détection contexte B03
     # -------------------------------------------------------------------------
     detected = detect_context(user_input, time_ctx)
 
     emotion_state = detected["emotion_state"]
-    emotion_label = (
-        pipeline_ctx.emotion
-        if pipeline_ctx
-        else safe_getattr(emotion_state, "emotion", "neutral")
-    )
+    emotion_label = safe_getattr(emotion_state, "emotion", "neutral")
     behavior_mode = detected["behavior_mode"]
     energy_level = "low" if detected["fatigue"] > 0.5 else "medium"
 
     # -------------------------------------------------------------------------
-    # 1b. B11 — Fusion multi-signaux (NLP + émotion + contexte)
-    # -------------------------------------------------------------------------
-    fusion_engine = components.get("fusion_engine")
-    if fusion_engine:
-        try:
-            nlp_raw = detected.get("nlp") or {}
-            fused = fusion_engine.fuse(
-                nlp_signal={
-                    "intent": nlp_raw.get("intent", "general"),
-                    "confidence": nlp_raw.get("confidence", 0.5),
-                } if nlp_raw else None,
-                emotion_signal={
-                    "emotion": emotion_label,
-                    "intensity": detected.get("intensity", 0.0),
-                },
-                context_signal={
-                    "energy_level": energy_level,
-                    "period": time_ctx.get("period", ""),
-                },
-            )
-            if fused.confidence >= 0.4:
-                behavior_mode = fused.recommended_mode
-            components["_last_fused"] = fused
-        except Exception:
-            pass
-
-    # -------------------------------------------------------------------------
-    # 2. Construction contexte PersonalityAdapter (avec profil onboarding)
+    # 2. Construction contexte PersonalityAdapter
     # -------------------------------------------------------------------------
     context = adapter.build_response_context(
         user_message=user_input,
         detected_emotion=detected["behavior_emotion"],
         energy_level=energy_level,
-        user_adaptation=user_adaptation,   # MBTI + préférences comm + frontières
     )
-
-    # Fusion PipelineContext → response_context (mode santé, ton, règles)
-    if pipeline_ctx:
-        try:
-            enrich_context_with_pipeline(context, pipeline_ctx)
-        except Exception as exc:
-            print(f"  [AVERT] pipeline_bridge : {exc}")
 
     # -------------------------------------------------------------------------
     # 3. Mémoire long terme SQLite
@@ -1442,7 +688,7 @@ def build_response(
     try:
         ltm = components.get("ltm")
         if components.get("ltm_ok") and ltm:
-            recent_memories = ltm.get_recent_memories(n=3)   # réduit pour LLM local
+            recent_memories = ltm.get_recent_memories(n=5)
 
             memory_lines = ["[Mémoire long terme SQLite — échanges récents]"]
             for mem in recent_memories:
@@ -1461,30 +707,6 @@ def build_response(
         print(f"  [AVERT LTM] contexte mémoire non injecté : {exc}")
 
     context["memory_context"] = memory_context
-
-    # -------------------------------------------------------------------------
-    # 3a. Profil utilisateur privé (celine_profile + household)
-    # -------------------------------------------------------------------------
-    try:
-        user_profile_ctx = _load_user_profile_context()
-        context["user_profile_context"] = user_profile_ctx
-    except Exception:
-        context["user_profile_context"] = ""
-
-    # -------------------------------------------------------------------------
-    # 3b. Préférences utilisateur explicites
-    # -------------------------------------------------------------------------
-    try:
-        prefs = _load_preferences()
-        if prefs:
-            pref_lines = ["[Préférences et instructions permanentes de l'utilisateur]"]
-            for p in prefs[-20:]:   # max 20 entrées
-                pref_lines.append(f"- {p['content']}")
-            context["user_preferences"] = "\n".join(pref_lines)
-        else:
-            context["user_preferences"] = ""
-    except Exception:
-        context["user_preferences"] = ""
 
     # -------------------------------------------------------------------------
     # 4. Knowledge Retrieval Engine B18
@@ -1508,14 +730,6 @@ def build_response(
             context["knowledge_context"] = knowledge_context
             context["knowledge_ids"] = retrieval_result.knowledge_ids
             context["knowledge_domains"] = retrieval_result.domains
-
-            # Debug retrieval — affiche les knowledges chargés
-            if retrieval_result.knowledge_ids:
-                print(f"  [B18] {len(retrieval_result.knowledge_ids)} knowledge(s) chargé(s) :")
-                for kid in retrieval_result.knowledge_ids:
-                    print(f"        → {kid}")
-            else:
-                print("  [B18] Aucun knowledge récupéré pour cette requête.")
 
         except Exception as exc:
             print(f"  [AVERT retrieval] {exc}")
@@ -1609,91 +823,11 @@ Priorités :
             context["adaptation"]["mode"] = decision.mode
             context["adaptation"]["tone"] = decision.tone
             context["user_state"] = user_state
-            context["_behavior_decision"] = decision   # stocké pour enrichissement V2
 
         except Exception as exc:
             print(f"  [AVERT behavior] {exc}")
 
     mode = context.get("adaptation", {}).get("mode", behavior_mode)
-
-    # -------------------------------------------------------------------------
-    # 7b. V2 Intelligence — Fusion + Confidence + Decision
-    # -------------------------------------------------------------------------
-    v2_fusion     = components.get("v2_fusion")
-    v2_confidence = components.get("v2_confidence")
-    v2_decision   = components.get("v2_decision")
-    v2_result     = {}
-
-    if v2_fusion and v2_confidence and v2_decision:
-        try:
-            # ── Correction bug : utiliser detected["behavior_emotion"] directement ──
-            emotion_v2 = detected.get("behavior_emotion", "neutral")
-
-            fusion = v2_fusion.fuse(
-                memory_context=memory_context,
-                knowledge_context=knowledge_context,
-                user_message=user_input,
-                emotion=emotion_v2,
-                mode=mode,
-            )
-
-            # Pre-score sans response_text (réponse pas encore générée)
-            # Le ResponseGenerator affinera le score avec le texte réel.
-            confidence = v2_confidence.score(
-                fusion_score=fusion.fusion_score,
-                memory_coverage=1.0 if memory_context else 0.0,
-                knowledge_coverage=1.0 if knowledge_context else 0.0,
-                emotion=emotion_v2,
-                mode=mode,
-                response_text="",   # sera affiné dans ResponseGenerator
-            )
-
-            v2_dec = v2_decision.decide(
-                confidence_score=confidence.score,
-                confidence_level=confidence.level,
-                fusion_score=fusion.fusion_score,
-                primary_source=fusion.primary_source,
-                emotion=emotion_v2,
-                mode=mode,
-                user_message=user_input,
-                has_memory=bool(memory_context),
-                has_knowledge=bool(knowledge_context),
-                is_question="?" in user_input,
-            )
-
-            # ── Enrichir BehaviorDecision via apply_v2_decision() ────────────
-            if behavior_engine:
-                try:
-                    decision_obj = context.get("_behavior_decision")
-                    if decision_obj is not None:
-                        enriched = behavior_engine.apply_v2_decision(
-                            decision=decision_obj,
-                            fusion_result=fusion,
-                            decision_result=v2_dec,
-                        )
-                        # Sync : mettre à jour le tone si override V2
-                        v2_tone_mapped = context["adaptation"].get("tone")
-                        if enriched.metadata.get("v2_tone") and enriched.metadata["v2_tone"] != "neutral":
-                            context["adaptation"]["tone"] = enriched.tone
-                except Exception:
-                    pass
-
-            v2_result = {
-                "fusion_score":      fusion.fusion_score,
-                "confidence_score":  confidence.score,
-                "confidence_level":  confidence.level,
-                "strategy":          v2_dec.strategy.value,
-                "should_hedge":      v2_dec.should_hedge,
-                "hedge_prefix":      v2_dec.hedge_prefix,
-                "post_actions":      v2_dec.post_actions,
-                "merged_context":    fusion.merged_context,
-            }
-            context["v2"] = v2_result
-            # Expose l'émotion détectée pour que le ConfidenceScorer du generator l'utilise
-            context["detected_emotion"] = emotion_v2
-
-        except Exception as exc_v2:
-            pass   # V2 dégradé silencieusement — pipeline V1 continue
 
     # -------------------------------------------------------------------------
     # 8. Prompt enrichi envoyé au LLM
@@ -1719,65 +853,10 @@ Priorités :
     # -------------------------------------------------------------------------
     # 9. Génération réponse
     # -------------------------------------------------------------------------
-    memory = components.get("memory")
-    history_text = ""
-    if memory:
-        try:
-            history_text = memory.format_context_for_prompt(3)   # réduit pour LLM local
-        except Exception:
-            history_text = ""
-
-    # B04 — Snapshot caméra si question vision et caméra active
-    try:
-        from src.ui.alfred_app import is_camera_active, get_camera_snapshot_b64
-        if is_camera_active():
-            context["vision_frame_b64"] = get_camera_snapshot_b64()
-    except Exception:
-        pass
-
     response = generator.generate_response(
         user_message=user_input_for_llm,
         response_context=context,
-        history_text=history_text,
-        mode_guidelines=pipeline_guidelines,   # directives LLM B03+B13+MBTI
-        on_sentence=on_sentence,
     )
-
-    # ── V2 post-traitement : hedge prefix si confidence faible ────────────────
-    if v2_result.get("should_hedge") and v2_result.get("hedge_prefix") and response:
-        response = v2_result["hedge_prefix"] + response
-
-    # ── V2 post-actions ───────────────────────────────────────────────────────
-    for action in v2_result.get("post_actions", []):
-        if action == "save_to_memory" and v2_result.get("confidence_score", 0) >= 0.6:
-            pass  # déjà géré par le pipeline mémoire existant
-        elif action == "track_wellbeing":
-            pass  # déjà géré par B03/B13
-
-    # -------------------------------------------------------------------------
-    # 10. B11 — Suggestion proactive (après réponse LLM)
-    # -------------------------------------------------------------------------
-    proactive_engine = components.get("proactive_engine")
-    if proactive_engine:
-        try:
-            suggestion = proactive_engine.check_and_suggest(
-                context_signal={
-                    "period": time_ctx.get("period", ""),
-                    "energy_level": energy_level,
-                },
-                emotion_signal={
-                    "emotion": emotion_label,
-                    "intensity": detected.get("intensity", 0.0),
-                },
-                wellbeing_state=detected.get("wellbeing"),
-            )
-            components["_proactive_suggestion"] = suggestion
-        except Exception:
-            components["_proactive_suggestion"] = None
-
-    # Expose les clés B03/B13 du context pour la boucle principale
-    components["_last_check_in"]  = context.get("check_in_message") if isinstance(context, dict) else None
-    components["_last_offer_pause"] = context.get("offer_pause", False) if isinstance(context, dict) else False
 
     return response, mode, emotion_label, energy_level
 
@@ -1788,7 +867,6 @@ Priorités :
 
 def main() -> None:
     from src.conversation.input.context_builder import get_time_context
-    from src.conversation.input.input_manager import HybridInputManager
 
     components = init_components()
     memory = components["memory"]
@@ -1803,148 +881,21 @@ def main() -> None:
     banner(user_name, memory_summary, llm_available)
     print_help()
 
-    # ── Rappels dus au démarrage ───────────────────────────────────────────
-    try:
-        re_engine = components.get("reminder_engine")
-        if re_engine:
-            dus = re_engine.get_due_reminders()
-            if dus:
-                print(f"  ⏰ {len(dus)} rappel(s) arrivé(s) à échéance :")
-                for r in dus:
-                    print(f"     → {r.title}")
-                print()
-    except Exception as exc:
-        print(f"  [AVERT] Vérification rappels indisponible : {exc}")
-
-    # Initialisation HybridInputManager si mode vocal actif
-    hybrid: HybridInputManager | None = None
-
-    def _start_hybrid() -> HybridInputManager | None:
-        try:
-            h = HybridInputManager(voice_func=lambda: listen_voice_once(silent=True))
-            h.start()
-            print("  Mode vocal hybride actif — parle ou tape librement.")
-            return h
-        except Exception as exc:
-            print(f"  [AVERT] HybridInputManager indisponible : {exc}")
-            return None
-
-    if components.get("voice_enabled"):
-        hybrid = _start_hybrid()
-
-    components["_hybrid"] = hybrid
-
-    # ── Câblage callbacks audio → avatar (synchronisation haut-parleur) ──────
-    # on_play_start / on_play_stop sont déclenchés par PiperTTS exactement
-    # quand sd.play() démarre et quand sd.wait() revient — pas à l'écriture.
-    _tts_backend = getattr(components.get("tts"), "backend", None)
-    if _tts_backend and hasattr(_tts_backend, "on_play_start"):
-        _avatar_cb = components.get("avatar")
-
-        def _cb_play_start() -> None:
-            # Amplitude RMS de la phrase qui démarre (mesure simple, cf.
-            # PiperTTS.last_amplitude) -- ajuste le rythme de bouche au
-            # volume réel de chaque phrase TTS.
-            amplitude = getattr(_tts_backend, "last_amplitude", 0.0)
-            if _avatar_cb:
-                if _avatar_cb._response_active and _avatar_cb._controller.current_state.is_speaking:
-                    # Déjà en état "speaking" (entre deux phrases) : relance juste
-                    # l'animation bouche sans re-déclencher tout le set_state.
-                    _avatar_cb.resume_speaking(amplitude)
-                else:
-                    _avatar_cb.set_speaking(True, amplitude)
-            try:
-                from src.ui.alfred_app import set_ui_speaking
-                set_ui_speaking(True)
-            except Exception:
-                pass
-
-        def _cb_play_stop() -> None:
-            if _avatar_cb:
-                if _avatar_cb._response_active:
-                    # Séquence en cours : on garde l'état "speaking" mais on
-                    # suspend la bouche pendant le silence (entre les phrases).
-                    _avatar_cb.pause_speaking()
-                else:
-                    _avatar_cb.on_tts_stop()
-            try:
-                from src.ui.alfred_app import set_ui_speaking
-                # SoundWave réellement synchronisée avec l'audio (silence entre phrases)
-                set_ui_speaking(False)
-            except Exception:
-                pass
-
-        _tts_backend.on_play_start = _cb_play_start
-        _tts_backend.on_play_stop  = _cb_play_stop
-
+    from src.conversation.input.input_manager import HybridInputManager
+    
     # Accueil vocal automatique
     try:
         tts = components.get("tts")
         if tts and components.get("voice_enabled"):
-            msg = f"Bonjour {user_name}. Alfred est lancé."
-            if hybrid:
-                msg += " Mode vocal hybride actif."
-            tts.speak(msg)
+            tts.speak(f"Bonjour {user_name}. Alfred est lancé. Je t'écoute.")
     except Exception as exc:
         print(f"  [AVERT TTS accueil] {exc}")
 
-    def _read_input(prompt: str = "  Toi ⌨️ : ") -> str:
-        """Lit l'input depuis la file UI (si active) ou le terminal."""
-        try:
-            from src.ui.ui_bridge import is_active as _ui_ok, wait_for_ui_input as _ui_get
-            if _ui_ok():
-                return _ui_get()
-        except ImportError:
-            pass
-        return input(prompt).strip()
-
     while True:
-        # B15 — Avatar : pret a ecouter
-        _av = components.get("avatar")
-        if _av:
-            _av.set_listening(True)
         try:
-            from src.ui.alfred_app import set_ui_input_enabled, set_ui_listening, set_ui_speaking
-            set_ui_speaking(False)
-            set_ui_listening(True)
-            set_ui_input_enabled(True)
-        except Exception:
-            pass
-
-        try:
-            hybrid = components.get("_hybrid")
-            voice_enabled = components.get("voice_enabled")
-
-            # ── Mode vocal hybride : une seule file partagée clavier+micro ──
-            # (le clavier est déjà lu par hybrid._keyboard_loop ; appeler
-            # _read_input() ici en plus créerait deux lectures concurrentes
-            # de stdin et bloquerait le traitement des transcriptions voix
-            # tant qu'aucune touche n'est tapée — cf. bug "ALFRED ne réagit
-            # pas en mode vocal" du 2026-06-15)
-            if hybrid and voice_enabled:
-                source, raw_input = hybrid.get_input()
-                if source == "voice":
-                    print(f"\n  Toi 🎤 : {raw_input}")
-                elif source == "error":
-                    print(f"  [AVERT vocal] {raw_input}")
-                    continue
-                elif source == "keyboard":
-                    hybrid.last_keyboard_time = time.time()
-                elif source == "system":
-                    raise EOFError
-                raw_input = (raw_input or "").strip()
-                if not raw_input:
-                    continue
-            else:
-                raw_input = _read_input()
+            raw_input = input("  Toi ⌨️ : ").strip()
 
         except (KeyboardInterrupt, EOFError):
-            if components.get("security_ok"):
-                try:
-                    from src.security.session_manager import close_session
-                    close_session("celine")
-                except Exception:
-                    pass
             print(f"\n\n  {ALFRED_NAME} : À bientôt, {user_name}.\n")
             break
 
@@ -1954,193 +905,38 @@ def main() -> None:
         cmd = raw_input.lower().strip()
 
         if cmd in {"exit", "quit", "au revoir", "bye", "quitter"}:
-            h = components.get("_hybrid")
-            if h:
-                try:
-                    h.stop()
-                except Exception:
-                    pass
             print(f"\n  {ALFRED_NAME} : À bientôt, {user_name}.\n")
             break
 
         if handle_command(cmd, components):
-            # Si "ecoute" a transcrit un texte, le traiter comme une saisie utilisateur
-            voice_text = components.pop("_voice_once_text", None)
-            if voice_text:
-                raw_input = voice_text
-            else:
-                continue
+            continue
 
-        user_input = security_check(raw_input)
+        user_input = sanitize_input(raw_input)
         if not user_input:
             continue
 
-        # ── Détection demandes de mémorisation ────────────────────────────
-        _saved_pref = _detect_and_save_preference(user_input)
-
-        # ── Détection automatique de rappels dans le message ──────────────
-        try:
-            re_engine = components.get("reminder_engine")
-            if re_engine:
-                from src.v3.proactive.reminder_detector import detect_reminders
-                detected_reminders = detect_reminders(user_input)
-                for dr in detected_reminders:
-                    r = re_engine.add(title=dr.title, due_at=dr.due_at.isoformat())
-                    due_str = dr.due_at.strftime("%d/%m/%Y")
-                    print(f"  [📅 Rappel noté] {r.title} — {due_str} (id: {r.id})")
-        except Exception as exc:
-            print(f"  [AVERT rappels] {exc}")
-
         try:
             time_ctx = get_time_context()
-
-            # B15 — Contexte lieu : fond cuisine si sujet cuisine/recette
-            _COOKING_KEYWORDS = {
-                "recette", "recettes", "cuisin", "cuisinier", "cuisinière",
-                "ingrédient", "ingredient", "préparer", "preparer",
-                "plat", "dessert", "gâteau", "gateau", "tarte", "soupe",
-                "poulet", "pâtes", "pates", "riz", "gratin", "brownie",
-                "fondant", "tiramisu", "crêpes", "crepes", "cookies",
-                "mousse", "chocolat", "dîner", "diner", "déjeuner",
-                "manger", "mange", "repas", "menu", "cuisinez",
-            }
-            _ui_loc = user_input.lower()
-            _is_cooking = any(kw in _ui_loc for kw in _COOKING_KEYWORDS)
-            try:
-                from src.ui.alfred_app import set_ui_location
-                set_ui_location("cuisine" if _is_cooking else "salon")
-            except Exception:
-                pass
-
-            # B15 — Avatar : début séquence réponse (thinking + verrou speaking)
-            avatar = components.get("avatar")
-            if avatar:
-                avatar.begin_response()
-            try:
-                from src.ui.alfred_app import set_ui_thinking, set_ui_input_enabled, set_ui_speaking
-                set_ui_thinking(True)
-                set_ui_input_enabled(False)
-                set_ui_speaking(False)   # SoundWave muette pendant la réflexion
-            except Exception:
-                pass
-
-            # 🔊 TTS streaming + UI streaming — callback phrase par phrase
-            tts = components.get("tts")
-            tts_muted = components.get("tts_muted", False)
-            _tts_active = tts and not tts_muted
-            _sec_ok = components.get("security_ok", False)
-            _out_filter = components.get("output_filter")
-            def on_sentence(phrase: str) -> None:
-                s = phrase.strip()
-                if not s:
-                    return
-                # 0. Filet tutoiement (INT-007) — le streaming phrase par phrase
-                # contourne _post_process() (appliqué seulement sur la réponse
-                # complète à la fin), donc le vouvoiement résiduel du LLM local
-                # restait visible dans le terminal/UI streamés (cf. retour
-                # 2026-06-15, ex. "Vous avez posé des questions...").
-                try:
-                    s = components["generator"]._tutoiement_fallback(s)
-                except Exception:
-                    pass
-                # 1. Filtre sécurité (Bloc 20)
-                if _sec_ok and _out_filter:
-                    s = _out_filter(s)
-                # 2. Texte visible immédiatement
-                try:
-                    from src.ui.alfred_app import stream_ui_phrase
-                    stream_ui_phrase(s)
-                except Exception:
-                    pass
-                # 3. TTS — avatar + SoundWave synchronisés via on_play_start/stop
-                if _tts_active:
-                    try:
-                        tts.speak(clean_for_tts(s))
-                    except Exception as exc:
-                        print(f"  [AVERT TTS stream] {exc}")
 
             response, mode, emotion_label, energy_level = build_response(
                 user_input=user_input,
                 components=components,
                 time_ctx=time_ctx,
-                on_sentence=on_sentence,
             )
-
-            # B15 — Avatar : synchronise mode + émotion (verrou speaking encore actif)
-            if avatar:
-                try:
-                    avatar.set_mode(mode.split("_")[0] if "_" in mode else mode)
-                    avatar.set_emotion(emotion_label)
-                except Exception:
-                    pass
-
-            # ── Filtre sécurité sortie IA (Bloc 20) ───────────────────────
-            _analyze = components.get("analyze_output")
-            if components.get("security_ok") and _analyze:
-                _filtered = _analyze(response)
-                response = _filtered["filtered"]
-                if _filtered["replacements"] > 0:
-                    from src.security.security_logger import log_event as _log_sec
-                    _log_sec(f"output_filter: {_filtered['replacements']} donnée(s) masquée(s)", "WARNING")
-
-            # B15 — UI Kivy : affiche la réponse filtrée dans la zone texte
-            try:
-                from src.ui.alfred_app import set_ui_response
-                set_ui_response(response)
-            except Exception:
-                pass
 
             print(
                 f"  [mode: {mode} | émotion: {emotion_label} | "
                 f"énergie: {time_ctx.get('energy_level', energy_level)}]"
             )
+            print(f"\n  {ALFRED_NAME} : {response}\n")
 
-            # Affichage texte (streaming = déjà affiché token par token)
-            ollama = getattr(components.get("llm"), "primary", None)
-            was_streamed = getattr(ollama, "last_was_streamed", False)
-            if not was_streamed:
-                print(f"\n  {ALFRED_NAME} : {response}\n")
-                # TTS fallback pour réponses non-streamées (OpenAI ou forced)
-                # avatar + SoundWave synchronisés via on_play_start/stop callbacks
-                if tts and not tts_muted:
-                    import re as _re
-                    chunks = [c.strip() for c in _re.split(r'\n\n+', response) if c.strip()]
-                    if not chunks:
-                        chunks = [c.strip() for c in _re.split(r'(?<=[.!?])\s+', response) if c.strip()]
-                    if not chunks:
-                        chunks = [response]
-                    for chunk in chunks:
-                        if chunk:
-                            tts.speak(clean_for_tts(chunk))
-            else:
-                print()  # saut de ligne après le stream
-
-            # B15 — Fin séquence réponse (libère verrou speaking après tout le TTS)
-            if avatar:
-                try:
-                    avatar.end_response()
-                except Exception:
-                    pass
-
-            # ── Check-in santé Bloc 13 ─────────────────────────────────────
-            _check_in = components.pop("_last_check_in", None)
-            if _check_in:
-                print(f"\n  {ALFRED_NAME} [bien-etre] : {_check_in}\n")
-                if tts and not tts_muted:
-                    try:
-                        tts.speak(clean_for_tts(_check_in))
-                    except Exception:
-                        pass
-
-            # ── Pause suggérée (fog / poussée) ────────────────────────────
-            if components.pop("_last_offer_pause", False):
-                _pause_msg = "Veux-tu faire une pause ? Je reste disponible quand tu veux."
-                print(f"  {ALFRED_NAME} : {_pause_msg}\n")
-
-            # B11 — Suggestion proactive
-            proactive_suggestion = components.pop("_proactive_suggestion", None)
-            if proactive_suggestion:
-                print(f"\n  {ALFRED_NAME} [proactif] : {proactive_suggestion.content}\n")
+            # 🔊 TTS
+            try:
+                tts = components.get("tts")
+                if tts and components.get("voice_enabled"):
+                    tts.speak(clean_for_tts(response))
+            except Exception as exc:
+                print(f"  [AVERT TTS] {exc}")
 
             # 💾 mémoire JSON
             try:
@@ -2173,14 +969,6 @@ def main() -> None:
         except (KeyboardInterrupt, EOFError):
             print(f"\n\n  {ALFRED_NAME} : À bientôt, {user_name}.\n")
             break
-
-    # ── Fermeture session sécurité ─────────────────────────────────────────
-    if components.get("security_ok"):
-        try:
-            from src.security.session_manager import close_session
-            close_session("celine")
-        except Exception:
-            pass
 
 
 # =============================================================================
