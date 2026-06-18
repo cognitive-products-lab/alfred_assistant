@@ -22,6 +22,7 @@ ALFRED — knowledge_ranker.py
 Fusionne et classe les knowledge_ids issus du domain_matcher et du taxonomy_router.
 """
 
+import re
 from dataclasses import dataclass, field
 from typing import Any
 
@@ -159,9 +160,10 @@ class KnowledgeRanker:
     ) -> None:
         query_lower = query.lower()
 
+        # \w+ retire la ponctuation collée aux mots (ex. "iso27001," -> "iso27001")
         query_words = [
             word.lower()
-            for word in query.replace("'", " ").replace("-", " ").split()
+            for word in re.findall(r"\w+", query.replace("'", " ").replace("-", " "))
             if len(word) >= 4
         ]
 

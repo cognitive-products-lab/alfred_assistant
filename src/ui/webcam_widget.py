@@ -91,6 +91,7 @@ class WebcamWidget(Widget):
         self._latest_rgb: Optional[bytes] = None
         self._frame_size = (0, 0)     # (w, h) de la dernière frame
         self._texture: Optional[Texture] = None
+        self._latest_frame_bgr = None  # frame pleine résolution (cv2, BGR) — pour analyse vision
 
         # ── Canvas ────────────────────────────────────────
         with self.canvas:
@@ -128,8 +129,19 @@ class WebcamWidget(Widget):
             return False
         if self._running:
             return True
-        cap = cv2.VideoCapture(self._cam_index)
+        # CAP_DSHOW : sur Windows, le backend par défaut (MSMF) "ouvre"
+        # parfois un index sans caméra réelle (isOpened=True mais read()
+        # renvoie toujours ret=False -> carré blanc figé). DSHOW énumère
+        # correctement les caméras USB.
+        backend = cv2.CAP_DSHOW if hasattr(cv2, "CAP_DSHOW") else cv2.CAP_ANY
+        cap = cv2.VideoCapture(self._cam_index, backend)
         if not cap.isOpened():
+            cap.release()
+            return False
+        # Vérifie qu'une image est réellement disponible avant de déclarer
+        # la caméra active (sinon le widget reste un rectangle blanc figé).
+        ret, _frame = cap.read()
+        if not ret or _frame is None:
             cap.release()
             return False
         cap.set(cv2.CAP_PROP_FRAME_WIDTH,  _THUMB_W * 2)   # capture native plus large
@@ -160,6 +172,26 @@ class WebcamWidget(Widget):
     def is_active(self) -> bool:
         return self._running
 
+    def capture_snapshot_jpeg_b64(self, quality: int = 80) -> Optional[str]:
+        """
+        Retourne la dernière frame capturée (pleine résolution) encodée
+        en JPEG base64 — pour analyse par un modèle vision (ex. llava).
+
+        Returns:
+            Chaîne base64 (sans préfixe data:) ou None si aucune frame disponible.
+        """
+        if not _CV2_OK:
+            return None
+        with self._lock:
+            frame = self._latest_frame_bgr
+        if frame is None:
+            return None
+        import base64
+        ok, buf = cv2.imencode(".jpg", frame, [cv2.IMWRITE_JPEG_QUALITY, quality])
+        if not ok:
+            return None
+        return base64.b64encode(buf.tobytes()).decode("ascii")
+
     # ── Thread de capture ─────────────────────────────────
 
     def _capture_loop(self) -> None:
@@ -172,13 +204,14 @@ class WebcamWidget(Widget):
                     time.sleep(0.05)
                     continue
                 # Redimensionner + BGR→RGB + flip vertical (origine Kivy = bas-gauche)
-                frame = cv2.resize(frame, (_THUMB_W, _THUMB_H), interpolation=cv2.INTER_LINEAR)
-                frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+                thumb = cv2.resize(frame, (_THUMB_W, _THUMB_H), interpolation=cv2.INTER_LINEAR)
+                frame_rgb = cv2.cvtColor(thumb, cv2.COLOR_BGR2RGB)
                 frame_rgb = np.flipud(frame_rgb)   # flip pour Kivy
                 data = frame_rgb.tobytes()
                 with self._lock:
                     self._latest_rgb = data
                     self._frame_size = (_THUMB_W, _THUMB_H)
+                    self._latest_frame_bgr = frame  # pleine résolution, pour analyse vision
             except Exception:
                 time.sleep(0.1)
                 continue
@@ -283,6 +316,10 @@ class WebcamOverlay(FloatLayout):
     @property
     def camera_active(self) -> bool:
         return self._cam_widget.is_active
+
+    def capture_snapshot_jpeg_b64(self, quality: int = 80) -> Optional[str]:
+        """Délègue au WebcamWidget — snapshot pleine résolution pour analyse vision."""
+        return self._cam_widget.capture_snapshot_jpeg_b64(quality=quality)
 
     def stop_camera(self) -> None:
         self._cam_widget.stop()
