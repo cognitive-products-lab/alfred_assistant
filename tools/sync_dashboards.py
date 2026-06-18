@@ -18,17 +18,19 @@ from pathlib import Path
 ALFRED_PC = Path(__file__).resolve().parents[1]
 ROOT = ALFRED_PC.parent
 
-SRC_DATA = ALFRED_PC / "dashboard/dashboard_data/dashboard_data.json"
-SRC_SECURITY = ALFRED_PC / "dashboard/dashboard_security/dashboard_security.json"
-SRC_TESTS = ALFRED_PC / "dashboard/dashboard_tests/dashboard_tests.json"
+SRC_DATA        = ALFRED_PC / "dashboard/dashboard_data/dashboard_data.json"
+SRC_SECURITY    = ALFRED_PC / "dashboard/dashboard_security/dashboard_security.json"
+SRC_TESTS       = ALFRED_PC / "dashboard/dashboard_tests/dashboard_tests.json"
+SRC_GOUVERNANCE = ALFRED_PC / "dashboard/dashboard_gouvernance/dashboard_gouvernance.json"
 
 WEB_ROOT = ROOT / "ALFRED_WEB"
 DEST_DIR = WEB_ROOT / "static/dashboard"
 
-DEST_DATA = DEST_DIR / "dashboard_data.json"
-DEST_SECURITY = DEST_DIR / "dashboard_security.json"
-DEST_TESTS = DEST_DIR / "dashboard_test.json"
-LOG_FILE = DEST_DIR / "sync_log.json"
+DEST_DATA        = DEST_DIR / "dashboard_data.json"
+DEST_SECURITY    = DEST_DIR / "dashboard_security.json"
+DEST_TESTS       = DEST_DIR / "dashboard_test.json"
+DEST_GOUVERNANCE = DEST_DIR / "dashboard_gouvernance.json"
+LOG_FILE         = DEST_DIR / "sync_log.json"
 
 # Patterns sensibles a anonymiser avant publication web
 _SENSITIVE_PATTERNS = {
@@ -98,6 +100,7 @@ def git_push(ts: str) -> dict:
         "static/dashboard/dashboard_data.json",
         "static/dashboard/dashboard_security.json",
         "static/dashboard/dashboard_test.json",
+        "static/dashboard/dashboard_gouvernance.json",
         "static/dashboard/sync_log.json",
     ])
 
@@ -118,9 +121,10 @@ def main() -> None:
     print(f"\n=== Sync dashboards ALFRED - {ts} ===\n")
 
     results = [
-        sync_file(SRC_DATA, DEST_DATA, "dashboard_data.json"),
-        sync_file(SRC_SECURITY, DEST_SECURITY, "dashboard_security.json", sanitize=True),
-        sync_file(SRC_TESTS, DEST_TESTS, "dashboard_test.json"),
+        sync_file(SRC_DATA,        DEST_DATA,        "dashboard_data.json"),
+        sync_file(SRC_SECURITY,    DEST_SECURITY,    "dashboard_security.json",    sanitize=True),
+        sync_file(SRC_TESTS,       DEST_TESTS,       "dashboard_test.json"),
+        sync_file(SRC_GOUVERNANCE, DEST_GOUVERNANCE, "dashboard_gouvernance.json"),
     ]
 
     all_ok = all(r["status"].startswith("OK") for r in results)
