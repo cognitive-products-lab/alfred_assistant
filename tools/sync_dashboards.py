@@ -18,19 +18,23 @@ from pathlib import Path
 ALFRED_PC = Path(__file__).resolve().parents[1]
 ROOT = ALFRED_PC.parent
 
-SRC_DATA        = ALFRED_PC / "dashboard/dashboard_data/dashboard_data.json"
-SRC_SECURITY    = ALFRED_PC / "dashboard/dashboard_security/dashboard_security.json"
-SRC_TESTS       = ALFRED_PC / "dashboard/dashboard_tests/dashboard_tests.json"
-SRC_GOUVERNANCE = ALFRED_PC / "dashboard/dashboard_gouvernance/dashboard_gouvernance.json"
+SRC_DATA              = ALFRED_PC / "dashboard/dashboard_data/dashboard_data.json"
+SRC_SECURITY          = ALFRED_PC / "dashboard/dashboard_security/dashboard_security.json"
+SRC_TESTS             = ALFRED_PC / "dashboard/dashboard_tests/dashboard_tests.json"
+SRC_GOUVERNANCE       = ALFRED_PC / "dashboard/dashboard_gouvernance/dashboard_gouvernance.json"
+SRC_GOUVERNANCE_DATA  = ALFRED_PC / "dashboard/dashboard_gouvernance/dashboard_gouvernance_data.json"
 
 WEB_ROOT = ROOT / "ALFRED_WEB"
 DEST_DIR = WEB_ROOT / "static/dashboard"
 
-DEST_DATA        = DEST_DIR / "dashboard_data.json"
-DEST_SECURITY    = DEST_DIR / "dashboard_security.json"
-DEST_TESTS       = DEST_DIR / "dashboard_test.json"
-DEST_GOUVERNANCE = DEST_DIR / "dashboard_gouvernance.json"
-LOG_FILE         = DEST_DIR / "sync_log.json"
+DEST_DATA              = DEST_DIR / "dashboard_data.json"
+DEST_SECURITY          = DEST_DIR / "dashboard_security.json"
+DEST_TESTS             = DEST_DIR / "dashboard_test.json"
+DEST_GOUVERNANCE       = DEST_DIR / "dashboard_gouvernance.json"
+DEST_GOUVERNANCE_DATA  = DEST_DIR / "dashboard_gouvernance_data.json"
+LOG_FILE               = DEST_DIR / "sync_log.json"
+
+UPDATE_GOUVERNANCE = ALFRED_PC / "tools/dashboard_tools/dashboard_gouvernance/update_gouvernance_data.py"
 
 # Patterns sensibles a anonymiser avant publication web
 _SENSITIVE_PATTERNS = {
@@ -101,6 +105,7 @@ def git_push(ts: str) -> dict:
         "static/dashboard/dashboard_security.json",
         "static/dashboard/dashboard_test.json",
         "static/dashboard/dashboard_gouvernance.json",
+        "static/dashboard/dashboard_gouvernance_data.json",
         "static/dashboard/sync_log.json",
     ])
 
@@ -116,15 +121,37 @@ def git_push(ts: str) -> dict:
     return {"status": "OK", "commit": msg}
 
 
+def regenerate_gouvernance() -> dict:
+    """Exécute update_gouvernance_data.py pour recalculer les scores avant sync."""
+    if not UPDATE_GOUVERNANCE.exists():
+        return {"status": "SKIP", "reason": "update_gouvernance_data.py introuvable"}
+    result = subprocess.run(
+        ["python", str(UPDATE_GOUVERNANCE)],
+        cwd=str(ALFRED_PC),
+        capture_output=True,
+        text=True,
+    )
+    if result.returncode != 0:
+        return {"status": "ERROR", "reason": result.stderr.strip()[:200]}
+    return {"status": "OK"}
+
+
 def main() -> None:
     ts = datetime.now().isoformat(timespec="seconds")
     print(f"\n=== Sync dashboards ALFRED - {ts} ===\n")
 
+    print("  Régénération dashboard_gouvernance_data.json...")
+    regen = regenerate_gouvernance()
+    tag = regen["status"]
+    detail = regen.get("reason", "")
+    print(f"  [{tag}]  update_gouvernance_data.py  {detail}\n")
+
     results = [
-        sync_file(SRC_DATA,        DEST_DATA,        "dashboard_data.json"),
-        sync_file(SRC_SECURITY,    DEST_SECURITY,    "dashboard_security.json",    sanitize=True),
-        sync_file(SRC_TESTS,       DEST_TESTS,       "dashboard_test.json"),
-        sync_file(SRC_GOUVERNANCE, DEST_GOUVERNANCE, "dashboard_gouvernance.json"),
+        sync_file(SRC_DATA,             DEST_DATA,             "dashboard_data.json"),
+        sync_file(SRC_SECURITY,         DEST_SECURITY,         "dashboard_security.json", sanitize=True),
+        sync_file(SRC_TESTS,            DEST_TESTS,            "dashboard_test.json"),
+        sync_file(SRC_GOUVERNANCE,      DEST_GOUVERNANCE,      "dashboard_gouvernance.json"),
+        sync_file(SRC_GOUVERNANCE_DATA, DEST_GOUVERNANCE_DATA, "dashboard_gouvernance_data.json"),
     ]
 
     all_ok = all(r["status"].startswith("OK") for r in results)
