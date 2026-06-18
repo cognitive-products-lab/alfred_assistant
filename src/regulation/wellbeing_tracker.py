@@ -1,4 +1,21 @@
-﻿# ============================================================
+"""
+PROJECT      : ALFRED
+BLOCK        : B03
+FUNCTION     : XX.XX
+FILE         : wellbeing_tracker.py
+ROLE         : Émotions & Régulation — Bloc 03
+
+AUTHOR       : Cognitive Products Lab
+CREATED      : 2026-05-10
+P26-05-12
+VERSION      : V1.0
+STATUS       : VALIDATED
+
+DESCRIPTION :
+Détection émotions, machine à états modes, protection, bien-être — ALFRED B03.
+"""
+
+# ============================================================
 # ALFRED — src/regulation/wellbeing_tracker.py
 # Bloc 03.05 — Suivi bien-être, énergie & fatigue
 #
@@ -16,9 +33,10 @@ from pathlib import Path
 from dataclasses import dataclass, field
 
 from src.security.security_logger import log_event
+from paths import DATA_MEMORY
 
 # ── Stockage ──────────────────────────────────────────────
-_WELLBEING_FILE = Path("data/memory/wellbeing_log.json")
+_WELLBEING_FILE = DATA_MEMORY / "wellbeing_log.json"
 _WELLBEING_FILE.parent.mkdir(parents=True, exist_ok=True)
 
 

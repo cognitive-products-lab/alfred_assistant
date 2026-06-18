@@ -366,6 +366,10 @@ class PersonalityAdapter:
         personality = self.personality_core.get("stable_personality", {})
         user = self.user_profile.get("user_profile", {})
 
+        metadata = self.personality_core.get("metadata", {})
+        rm = metadata.get("research_mode", {})
+        research_active = rm.get("active", False) if isinstance(rm, dict) else bool(rm)
+
         return {
             "assistant": {
                 "name": identity.get("name", "ALFRED"),
@@ -397,7 +401,8 @@ class PersonalityAdapter:
             "boundaries": self.personality_core.get("boundaries", {}),
             "safety": self.personality_core.get("safety", {}),
             "privacy_and_consent": self.user_profile.get("privacy_and_consent", {}),
-            "response_rules": response_rules
+            "response_rules": response_rules,
+            "research_mode": research_active,
         }
 
     # ─────────────────────────────────────────────────────

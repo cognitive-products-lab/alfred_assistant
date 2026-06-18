@@ -1,0 +1,67 @@
+{
+  "_meta": {
+    "project": "ALFRED",
+    "file": "config/features.json",
+    "role": "Registre des fonctionnalités optionnelles — droit d'opposition Art. 21 RGPD",
+    "version": "V1.0",
+    "updated": "2026-06-18"
+  },
+  "features": {
+    "memory_conversational": {
+      "enabled": true,
+      "label": "Mémoire conversationnelle",
+      "description": "ALFRED mémorise les échanges passés pour personnaliser les réponses futures.",
+      "legal_basis": "Consentement",
+      "art21_opposable": true,
+      "data_impact": ["data/memory/episodes.json", "data/memory/alfred_memory.db"]
+    },
+    "wellbeing_tracking": {
+      "enabled": true,
+      "label": "Suivi du bien-être",
+      "description": "ALFRED enregistre les indicateurs de bien-être et d'énergie au fil du temps.",
+      "legal_basis": "Consentement",
+      "art21_opposable": true,
+      "data_impact": ["data/memory/wellbeing_log.json"]
+    },
+    "behavioral_adaptation": {
+      "enabled": true,
+      "label": "Adaptation comportementale",
+      "description": "ALFRED ajuste son style de communication selon le profil et l'historique.",
+      "legal_basis": "Intérêt légitime",
+      "art21_opposable": true,
+      "data_impact": ["data/profile/alfred_behavioral_params.json"]
+    },
+    "proactive_suggestions": {
+      "enabled": true,
+      "label": "Suggestions proactives",
+      "description": "ALFRED propose des actions ou rappels sans sollicitation explicite.",
+      "legal_basis": "Intérêt légitime",
+      "art21_opposable": true,
+      "data_impact": []
+    },
+    "health_data_art9": {
+      "enabled": false,
+      "label": "Données de santé (Art. 9)",
+      "description": "Traitement de données liées à la santé — nécessite un consentement renforcé explicite.",
+      "legal_basis": "Consentement renforcé Art. 9",
+      "art21_opposable": false,
+      "requires_explicit_consent": true,
+      "data_impact": ["data/profile/user_profile.json"]
+    },
+    "security_audit_logging": {
+      "enabled": true,
+      "label": "Journaux de sécurité",
+      "description": "Enregistrement des événements de sécurité à des fins de protection du système.",
+      "legal_basis": "Intérêt légitime (sécurité)",
+      "art21_opposable": false,
+      "note": "Non opposable — obligatoire pour la sécurité du système"
+    }
+  },
+  "user_rights": {
+    "art15_access": true,
+    "art16_rectification": true,
+    "art17_erasure": true,
+    "art20_portability": true,
+    "art21_opposition": true
+  }
+}

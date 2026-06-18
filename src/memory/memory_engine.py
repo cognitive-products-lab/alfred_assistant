@@ -1,4 +1,21 @@
 """
+PROJECT      : ALFRED
+BLOCK        : B02
+FUNCTION     : 02.01
+FILE         : src/memory/memory_engine.py
+ROLE         : Moteur memoire JSON local (sauvegarde/lecture historique dialogues)
+
+AUTHOR       : Cognitive Products Lab
+CREATED      : 2026-06-03
+UPDATED      : 2026-06-14
+VERSION      : V1.0
+STATUS       : VALIDATED
+
+DESCRIPTION :
+Memoire & RAG — MemoryEngine, importe et utilise par main.py / main_v3.py.
+"""
+
+"""
 memory_engine.py
 Moteur mémoire local pour ALFRED.
 

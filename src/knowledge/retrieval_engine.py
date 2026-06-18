@@ -1,9 +1,26 @@
+from __future__ import annotations
+
+"""
+PROJECT      : ALFRED
+BLOCK        : GLOBAL
+FUNCTION     : XX.XX
+FILE         : src/knowledge/retrieval_engine.py
+ROLE         : TO_DEFINE
+
+AUTHOR       : Cognitive Products Lab
+CREATED      : 2026-06-03
+UPDATED      : 2026-06-05
+VERSION      : V1.1
+STATUS       : TESTED
+
+DESCRIPTION :
+Module ALFRED — description a completer.
+"""
+
 """
 ALFRED — retrieval_engine.py
 Orchestrateur principal du Knowledge Retrieval Engine B18.
 """
-
-from __future__ import annotations
 
 from dataclasses import dataclass, field
 from typing import Any
@@ -47,10 +64,13 @@ class KnowledgeRetrievalEngine:
 
     def __init__(
         self,
-        project_root: str = "D:/PROJET_ALFRED/ALFRED_PC",
+        project_root: str | KnowledgeLoader = "D:/PROJET_ALFRED/ALFRED_PC",
         max_chars_per_knowledge: int = 900
     ):
-        self.loader = KnowledgeLoader(project_root=project_root)
+        if isinstance(project_root, KnowledgeLoader):
+            self.loader = project_root
+        else:
+            self.loader = KnowledgeLoader(project_root=project_root)
         self.matcher = DomainMatcher(self.loader)
         self.router = TaxonomyRouter(self.loader)
         self.ranker = KnowledgeRanker(
@@ -128,11 +148,10 @@ class KnowledgeRetrievalEngine:
         else:
             for item in result.ranked_knowledge:
                 print(f"[{item.score:.1f}] {item.knowledge_id}")
-                print(f"  Sources: {item.sources}")
-                print(f"  Domains: {item.domains}")
 
-        print("\n--- PROMPT BLOCK ---")
-        print(result.prompt_block)
+
+# Alias pour compatibilité avec les tests et imports existants
+RetrievalEngine = KnowledgeRetrievalEngine
 
 
 if __name__ == "__main__":

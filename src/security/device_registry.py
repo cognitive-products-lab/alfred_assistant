@@ -1,4 +1,22 @@
 """
+════════════════════════════════════════════════════════════
+PROJECT      : ALFRED
+BLOCK        : B20
+FUNCTION     : 20.08
+FILE         : device_registry.py
+ROLE         : Registre des appareils de confiance (local-first)
+
+AUTHOR       : Cognitive Products Lab
+CREATED      : 2026-05-23
+UPDATED      : 2026-05-23
+VERSION      : V1.0
+STATUS       : ACTIVE
+
+DESCRIPTION :
+Gère la liste des device_id autorisés. Stockage JSON dans data/security/trusted_devices.json.
+════════════════════════════════════════════════════════════
+"""
+"""
 device_registry.py
 Registre des appareils de confiance pour ALFRED.
 
@@ -11,12 +29,13 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 from src.security.security_logger import log_event
+from paths import PATHS
 
 # ─────────────────────────────────────────────────────────
 # Stockage
 # ─────────────────────────────────────────────────────────
 
-_REGISTRY_FILE = Path("data/security/trusted_devices.json")
+_REGISTRY_FILE = PATHS.data_security / "trusted_devices.json"
 
 
 def _load_registry() -> dict:
@@ -37,6 +56,21 @@ def _save_registry(registry: dict) -> None:
         json.dumps(registry, indent=4, ensure_ascii=False),
         encoding="utf-8"
     )
+def list_devices(include_revoked: bool = False) -> dict:
+    """Retourne la liste des appareils pour le dashboard sécurité.
+
+    Args:
+        include_revoked: si True, retourne tous les appareils (y compris révoqués).
+                         si False (défaut), retourne uniquement les appareils de confiance.
+    """
+    if include_revoked:
+        return _load_registry()  # registre complet, révoqués inclus
+
+    return {
+        device_id: data
+        for device_id, data in _load_registry().items()
+        if data.get("trusted", False) is True
+    }
 
 
 # ─────────────────────────────────────────────────────────
@@ -163,3 +197,11 @@ if __name__ == "__main__":
 
     revoke_device("local_pc")
     print(f"local_pc après révocation : {is_trusted_device('local_pc')}")
+
+
+def record_failed_attempt(device_id: str) -> None:
+    """Enregistre une tentative échouée pour un appareil."""
+    registry = _load_registry()
+    if device_id in registry:
+        registry[device_id]["failed_attempts"] = registry[device_id].get("failed_attempts", 0) + 1
+        _save_registry(registry)
