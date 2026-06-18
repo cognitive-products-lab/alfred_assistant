@@ -138,25 +138,28 @@ def update_manifest_iso20(planifie=False):
     today = date.today().isoformat()
     updated = False
 
-    for req in manifest.get("requirements", []):
-        if req.get("id") == "ISO-20":
-            if planifie:
-                req["status"] = "partial"
-                req["proof_files"] = [
-                    "docs/smsi/vlan_config.md",
-                    "config/security/network_policy.json"
-                ]
-                req["note"] = f"Architecture VLAN documentée — implémentation physique Q3 2026 ({today})"
-                print(f"  ⏳ ISO-20 → partial (architecture OK, implémentation Q3 2026)")
-            else:
-                req["status"] = "done"
-                req["proof_files"] = [
-                    "docs/smsi/vlan_config.md",
-                    "config/security/network_policy.json"
-                ]
-                req["note"] = f"VLAN 10/20/30 implémenté sur SG108E+ER605 — validé le {today}"
-                print(f"  ✅ ISO-20 → done (proof: vlan_config.md + network_policy.json)")
-            updated = True
+    for norm in manifest.get("norms", []):
+        for req in norm.get("requirements", []):
+            if req.get("id") == "ISO-20":
+                if planifie:
+                    req["status"] = "partial"
+                    req["proof_files"] = [
+                        "docs/smsi/vlan_config.md",
+                        "config/security/network_policy.json"
+                    ]
+                    req["note"] = f"Architecture VLAN documentée — implémentation physique Q3 2026 ({today})"
+                    print(f"  ⏳ ISO-20 → partial (architecture OK, implémentation Q3 2026)")
+                else:
+                    req["status"] = "done"
+                    req["proof_files"] = [
+                        "docs/smsi/vlan_config.md",
+                        "config/security/network_policy.json"
+                    ]
+                    req["note"] = f"VLAN 10/20/30 implémenté sur SG108E+ER605 — validé le {today}"
+                    print(f"  ✅ ISO-20 → done (proof: vlan_config.md + network_policy.json)")
+                updated = True
+                break
+        if updated:
             break
 
     if not updated:
