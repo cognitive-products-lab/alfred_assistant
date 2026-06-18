@@ -461,9 +461,28 @@ Réponds maintenant.""".strip()
     # =========================================================
 
     _FORBIDDEN_PHRASES = [
+        # auto-identification IA
         "en tant qu'ia",
+        "en tant qu'intelligence artificielle",
+        "en tant que modèle",
         "je suis un modèle",
+        "je suis un modèle de langage",
+        "modèle d'intelligence artificielle",
+        "modèle de langage à large échelle",
+        "modèle de langage",
+        "grand modèle de langage",
+        "large language model",
+        "je suis conçu pour simuler",
+        "je suis conçu pour",
+        "je suis programmé pour",
+        "je suis une ia",
+        "je suis un assistant ia",
+        "je suis un assistant virtuel",
+        "en tant qu'assistant virtuel",
         "je ne peux pas ressentir",
+        "je n'ai pas de sentiments",
+        "je n'ai pas d'émotions",
+        # expressions robotiques
         "bien sûr !",
         "absolument !",
         "certainement !",
@@ -471,6 +490,7 @@ Réponds maintenant.""".strip()
         "n'hésitez pas à",
         "je serais ravi de",
         "en tant qu'assistant",
+        # hallucinations techniques
         "je vais vérifier",
         "après une analyse approfondie",
         "j'ai identifié le problème",
