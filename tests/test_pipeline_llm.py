@@ -1,162 +1,123 @@
 """
-test_pipeline_llm.py
-Test du pipeline ALFRED avec LLM branché.
-Tente Ollama en priorité (local), bascule sur OpenAI si absent.
+PROJECT      : ALFRED
+BLOCK        : GLOBAL
+FUNCTION     : TESTS
+FILE         : tests/test_pipeline_llm.py
+ROLE         : Tests d'integration du pipeline ALFRED avec LLM branche
 
-Usage :
-    cd D:/PROJET_ALFRED/ALFRED_PC
-    python tests/test_pipeline_llm.py
+AUTHOR       : Cognitive Products Lab
+CREATED      : 2026-05-10
+UPDATED      : 2026-06-13
+VERSION      : V2.0
+STATUS       : ACTIVE
+
+DESCRIPTION :
+Verifie la chaine AlfredBehaviorEngine -> KnowledgeLoader -> ResponseGenerator
+avec un LLM Ollama reellement branche. Ignore (skip) si Ollama / le modele
+ne sont pas disponibles. Test lent (appels LLM reels) -> groupe "slow",
+exclu par tests/run_all_tests.py --fast.
 """
 
-import sys
-import os
+from __future__ import annotations
 
-sys.path.insert(0, os.path.abspath("."))
+import sys
+from pathlib import Path
+
+import pytest
+
+ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 
 from src.core.alfred_behavior_engine import AlfredBehaviorEngine, UserState
-from src.knowledge.knowledge_loader import KnowledgeLoader
 from src.core.response_generator import ResponseGenerator
+from src.knowledge.knowledge_loader import KnowledgeLoader
+from src.llm.llm_client_ollama import OllamaLLMClient
 
 
-# ─────────────────────────────────────────────────────────
-# Sélection automatique du client LLM
-# ─────────────────────────────────────────────────────────
-def get_llm_client():
-    """Tente Ollama d'abord, bascule sur OpenAI sinon."""
-
-    # Tentative Ollama (local, gratuit)
-    try:
-        from src.llm.llm_client_ollama import OllamaLLMClient
-        client = OllamaLLMClient(model="llama3.2")
-        if client.is_available():
-            print("✅ LLM : Ollama (llama3.2) — local")
-            return client
-        else:
-            print("⚠️  Ollama disponible mais modèle llama3.2 absent.")
-            print("   Lance : ollama pull llama3.2")
-    except Exception as e:
-        print(f"⚠️  Ollama non disponible : {e}")
-
-    # Tentative OpenAI (cloud)
-    try:
-        from src.llm.llm_client_openai import OpenAILLMClient
-        client = OpenAILLMClient(model="gpt-4o-mini")
-        print("✅ LLM : OpenAI (gpt-4o-mini)")
-        return client
-    except ValueError as e:
-        print(f"⚠️  OpenAI non disponible : {e}")
-
-    print("ℹ️  Aucun LLM disponible — mode fallback local activé.")
-    return None
-
-
-# ─────────────────────────────────────────────────────────
-# Initialisation
-# ─────────────────────────────────────────────────────────
-print("\n" + "="*55)
-print("  ALFRED — Test Pipeline avec LLM")
-print("="*55 + "\n")
-
-llm_client = get_llm_client()
-
-engine = AlfredBehaviorEngine(
-    "knowledges/core/alfred_core_identity.json"
-)
-loader = KnowledgeLoader(
-    knowledge_root="knowledges",
-    config_dir="config",
-    debug=False
-)
-generator = ResponseGenerator(
-    llm_client=llm_client,
-    behavior_engine=engine,
-    knowledge_loader=loader,
-    debug=False
-)
-
-print(f"✅ BehaviorEngine  — chargé")
-print(f"✅ KnowledgeLoader — {loader.index_size} fiches")
-print(f"✅ LLM             — {'branché' if llm_client else 'fallback local'}")
-
-
-# ─────────────────────────────────────────────────────────
-# Scénario de test
-# ─────────────────────────────────────────────────────────
-test_cases = [
-    {
-        "message": "Je suis épuisée, j'ai trop de choses à gérer et je ne sais pas par où commencer.",
-        "user_state": UserState(
-            emotion="fatigue",
-            intensity=0.8,
-            intent="organization",
-            fatigue_level=0.8,
-            stress_level=0.7
-        )
-    },
-    {
-        "message": "Aide-moi à organiser ma journée, j'ai 5 tâches importantes.",
-        "user_state": UserState(
-            emotion="neutral",
-            intensity=0.3,
-            intent="planning",
-            fatigue_level=0.2,
-            stress_level=0.2
-        )
-    },
-    {
-        "message": "Explique-moi simplement ce qu'est le RAG.",
-        "user_state": UserState(
-            emotion="neutral",
-            intensity=0.1,
-            intent="explain",
-            fatigue_level=0.1,
-            stress_level=0.1
-        )
-    }
+TEST_CASES = [
+    pytest.param(
+        "Je suis épuisée, j'ai trop de choses à gérer et je ne sais pas par où commencer.",
+        UserState(emotion="fatigue", intensity=0.8, intent="organization",
+                   fatigue_level=0.8, stress_level=0.7),
+        id="fatigue_stress",
+    ),
+    pytest.param(
+        "Aide-moi à organiser ma journée, j'ai 5 tâches importantes.",
+        UserState(emotion="neutral", intensity=0.3, intent="planning",
+                   fatigue_level=0.2, stress_level=0.2),
+        id="organisation",
+    ),
+    pytest.param(
+        "Explique-moi simplement ce qu'est le RAG.",
+        UserState(emotion="neutral", intensity=0.1, intent="explain",
+                   fatigue_level=0.1, stress_level=0.1),
+        id="explication_rag",
+    ),
 ]
 
-context_base = {
-    "assistant": {
-        "name": "ALFRED",
-        "role": "assistant virtuel adaptatif",
-        "mission": "accompagner, réduire la charge mentale, structurer."
-    },
-    "personality": {
-        "archetype": "complice_protecteur",
-        "dominant_traits": ["calme", "structurant", "protecteur", "fiable", "chaleureux"],
-        "forbidden_traits": ["culpabilisant", "infantilisant", "froid", "robotique"]
-    },
-    "boundaries": {
-        "medical": "pas de diagnostic, pas de remplacement professionnel",
-        "privacy": "confidentialité stricte"
-    }
-}
 
-for i, case in enumerate(test_cases, 1):
-    decision = engine.decide_behavior(case["user_state"])
-    context = {
-        **context_base,
+@pytest.fixture(scope="module")
+def llm_client():
+    client = OllamaLLMClient(model="llama3.2", stream=False)
+    if not client.is_available():
+        pytest.skip("Ollama indisponible ou modèle llama3.2 absent")
+    return client
+
+
+@pytest.fixture(scope="module")
+def engine() -> AlfredBehaviorEngine:
+    return AlfredBehaviorEngine("knowledges/core/alfred_core_identity.json")
+
+
+@pytest.fixture(scope="module")
+def loader() -> KnowledgeLoader:
+    return KnowledgeLoader(knowledge_root="knowledges", config_dir="config", debug=False)
+
+
+@pytest.fixture(scope="module")
+def generator(llm_client, engine, loader) -> ResponseGenerator:
+    return ResponseGenerator(
+        llm_client=llm_client,
+        behavior_engine=engine,
+        knowledge_loader=loader,
+        debug=False,
+    )
+
+
+@pytest.mark.parametrize("message, user_state", TEST_CASES)
+def test_pipeline_llm_case(engine, generator, message, user_state):
+    decision = engine.decide_behavior(user_state)
+    assert decision.mode
+
+    response_context = {
+        "assistant": {
+            "name": "ALFRED",
+            "role": "assistant virtuel adaptatif",
+            "mission": "accompagner, réduire la charge mentale, structurer.",
+        },
+        "personality": {
+            "archetype": "complice_protecteur",
+            "dominant_traits": ["calme", "structurant", "protecteur", "fiable", "chaleureux"],
+            "forbidden_traits": ["culpabilisant", "infantilisant", "froid", "robotique"],
+        },
+        "boundaries": {
+            "medical": "pas de diagnostic, pas de remplacement professionnel",
+            "privacy": "confidentialité stricte",
+        },
         "rag_top_k": 2,
         "adaptation": {
             "mode": decision.mode,
             "tone": decision.tone,
-            "response_depth": "medium"
+            "response_depth": "medium",
         },
-        "user_state": case["user_state"]
+        "user_state": user_state,
     }
 
-    print(f"\n{'─'*55}")
-    print(f"  TEST {i} — Mode : {decision.mode} | Ton : {decision.tone}")
-    print(f"  Message : {case['message'][:70]}...")
-    print(f"{'─'*55}")
-
     response = generator.generate_response(
-        user_message=case["message"],
-        response_context=context
+        user_message=message,
+        response_context=response_context,
     )
 
-    print(f"\nALFRED :\n{response}\n")
-
-print("="*55)
-print("  Tests terminés")
-print("="*55 + "\n")
+    assert isinstance(response, str)
+    assert response.strip()

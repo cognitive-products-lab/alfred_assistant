@@ -1,4 +1,21 @@
-﻿
+"""
+PROJECT      : ALFRED
+BLOCK        : B03
+FUNCTION     : XX.XX
+FILE         : protection_guard.py
+ROLE         : Émotions & Régulation — Bloc 03
+
+AUTHOR       : Cognitive Products Lab
+CREATED      : 2026-05-10
+P26-05-12
+VERSION      : V1.0
+STATUS       : VALIDATED
+
+DESCRIPTION :
+Détection émotions, machine à états modes, protection, bien-être — ALFRED B03.
+"""
+
+
 # ============================================================
 # ALFRED — src/regulation/protection_guard.py
 # Bloc 03.04 — Mode protection & garde-fous éthiques

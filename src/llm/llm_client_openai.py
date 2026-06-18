@@ -1,4 +1,21 @@
 """
+PROJECT      : ALFRED
+BLOCK        : B04
+FUNCTION     : XX.XX
+FILE         : src/llm/llm_client_openai.py
+ROLE         : TO_DEFINE
+
+AUTHOR       : Cognitive Products Lab
+CREATED      : 2026-06-03
+UPDATED      : 2026-06-05
+VERSION      : V1.1
+STATUS       : TESTED
+
+DESCRIPTION :
+LLM Router Ollama/OpenAI — description a completer.
+"""
+
+"""
 llm_client_openai.py
 Client OpenAI pour ALFRED.
 
@@ -38,7 +55,8 @@ class OpenAILLMClient:
         self,
         system_prompt: str,
         user_prompt: str,
-        previous_response_id: Optional[str] = None
+        previous_response_id: Optional[str] = None,
+        on_sentence=None,
     ) -> str:
         response = self.client.chat.completions.create(
             model=self.model,

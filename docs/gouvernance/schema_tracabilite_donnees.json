@@ -1,0 +1,464 @@
+{
+  "_meta": {
+    "titre": "Schéma de traçabilité des données — Cognitive Products Lab",
+    "version": "1.0",
+    "date_creation": "2026-06-16",
+    "auteur": "CPL / Céline Rousselot",
+    "statut": "draft",
+    "description": "Définit les champs obligatoires de traçabilité pour chaque donnée collectée ou traitée par CPL dans le cadre des produits ALFRED, ALFRED CPL et ARTHUR. Ce schéma est le référentiel unique de gouvernance des données."
+  },
+
+  "champs_obligatoires_par_donnee": {
+
+    "identification": {
+      "donnee_id": {
+        "type": "string",
+        "format": "UUID-v4",
+        "description": "Identifiant unique de la donnée ou du traitement",
+        "obligatoire": true,
+        "exemple": "d1f3a2b4-89cc-4e1a-a234-123456789abc"
+      },
+      "donnee_label": {
+        "type": "string",
+        "description": "Nom lisible de la donnée",
+        "obligatoire": true,
+        "exemple": "Score d'engagement utilisateur anonymisé"
+      },
+      "categorie": {
+        "type": "string",
+        "enum": [
+          "identite_utilisateur",
+          "profil_psychologique",
+          "donnees_usage",
+          "donnees_technique",
+          "donnees_conversation",
+          "donnees_sante",
+          "donnees_facturation",
+          "donnees_feedback",
+          "metadonnees_systeme",
+          "donnees_mineurs"
+        ],
+        "description": "Catégorie fonctionnelle de la donnée",
+        "obligatoire": true
+      },
+      "sensibilite": {
+        "type": "string",
+        "enum": ["publique", "interne", "confidentielle", "critique", "sensible_rgpd"],
+        "description": "Niveau de sensibilité. 'sensible_rgpd' = catégories spéciales art. 9 (santé, données psychologiques, données mineurs)",
+        "obligatoire": true
+      },
+      "produit_concerne": {
+        "type": "array",
+        "items": {"enum": ["ALFRED", "ALFRED_CPL", "ARTHUR"]},
+        "description": "Produit(s) pour lesquels cette donnée s'applique",
+        "obligatoire": true
+      }
+    },
+
+    "finalite_et_base_juridique": {
+      "finalite_principale": {
+        "type": "string",
+        "description": "Pourquoi cette donnée est collectée (objectif clair et précis)",
+        "obligatoire": true,
+        "exemple": "Améliorer la pertinence des recommandations personnalisées"
+      },
+      "finalites_secondaires": {
+        "type": "array",
+        "items": {"type": "string"},
+        "description": "Usages secondaires autorisés, listés explicitement",
+        "obligatoire": false
+      },
+      "base_juridique_rgpd": {
+        "type": "string",
+        "enum": [
+          "consentement_explicite_art6_1a",
+          "execution_contrat_art6_1b",
+          "obligation_legale_art6_1c",
+          "interet_vital_art6_1d",
+          "mission_interet_public_art6_1e",
+          "interet_legitime_art6_1f",
+          "consentement_explicite_donnees_sensibles_art9_2a"
+        ],
+        "description": "Base juridique RGPD (art. 6 ou art. 9 pour données spéciales)",
+        "obligatoire": true
+      },
+      "consentement_requis": {
+        "type": "boolean",
+        "description": "Si true, le consentement explicite de l'utilisateur est obligatoire avant collecte",
+        "obligatoire": true
+      },
+      "consentement_parental_requis": {
+        "type": "boolean",
+        "description": "Si true (ARTHUR), le consentement du représentant légal est obligatoire",
+        "obligatoire": true
+      },
+      "opt_in_requis": {
+        "type": "boolean",
+        "description": "La collecte est opt-in (true) ou opt-out (false). CPL privilégie systématiquement l'opt-in.",
+        "obligatoire": true
+      }
+    },
+
+    "collecte": {
+      "source_collecte": {
+        "type": "string",
+        "description": "D'où provient la donnée (interface utilisateur, système, tiers...)",
+        "obligatoire": true,
+        "exemple": "Interface ALFRED locale — réponse utilisateur au questionnaire"
+      },
+      "lieu_collecte": {
+        "type": "string",
+        "enum": ["appareil_local_uniquement", "serveur_cpl", "service_tiers", "multi_sources"],
+        "description": "Où la donnée est collectée initialement",
+        "obligatoire": true
+      },
+      "methode_collecte": {
+        "type": "string",
+        "description": "Comment la donnée est collectée (explicite/implicite, automatique/manuelle)",
+        "obligatoire": true,
+        "exemple": "Saisie explicite par l'utilisateur via dialogue conversationnel ALFRED"
+      },
+      "frequence_collecte": {
+        "type": "string",
+        "enum": ["unique", "ponctuelle", "periodique", "continue", "a_la_demande"],
+        "obligatoire": true
+      },
+      "donnee_brute_ou_traitee": {
+        "type": "string",
+        "enum": ["brute", "agregee", "anonymisee", "pseudonymisee"],
+        "description": "Nature de la donnée au moment de la collecte par CPL",
+        "obligatoire": true
+      }
+    },
+
+    "stockage_et_securite": {
+      "lieu_stockage_primaire": {
+        "type": "string",
+        "enum": [
+          "appareil_utilisateur_local",
+          "serveur_cpl_france",
+          "serveur_cpl_ue",
+          "service_cloud_ue",
+          "jamais_stockee"
+        ],
+        "obligatoire": true
+      },
+      "lieu_stockage_secondaire": {
+        "type": ["string", "null"],
+        "description": "Sauvegarde ou réplication (null si aucun)",
+        "obligatoire": true
+      },
+      "chiffrement_repos": {
+        "type": "boolean",
+        "description": "Donnée chiffrée au repos (true = Fernet/AES-256 minimum)",
+        "obligatoire": true
+      },
+      "chiffrement_transit": {
+        "type": "boolean",
+        "description": "Donnée chiffrée en transit (true = TLS 1.3 minimum)",
+        "obligatoire": true
+      },
+      "pseudonymisation": {
+        "type": "boolean",
+        "description": "Identifiants directs remplacés par des pseudonymes avant stockage CPL",
+        "obligatoire": true
+      },
+      "anonymisation_complete": {
+        "type": "boolean",
+        "description": "Donnée rendue irréversiblement non réidentifiable avant tout traitement CPL",
+        "obligatoire": true
+      },
+      "acces_autorise": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "role": {"type": "string", "exemple": "data_scientist_cpl"},
+            "perimetre": {"type": "string", "exemple": "lecture_seule_donnees_agregees"},
+            "justification": {"type": "string"}
+          }
+        },
+        "description": "Liste des rôles autorisés à accéder à cette donnée et leur périmètre",
+        "obligatoire": true
+      }
+    },
+
+    "duree_de_vie": {
+      "duree_conservation": {
+        "type": "string",
+        "description": "Durée maximale de conservation après collecte ou dernière interaction",
+        "obligatoire": true,
+        "exemple": "24 mois après dernière activité utilisateur"
+      },
+      "duree_conservation_legale": {
+        "type": ["string", "null"],
+        "description": "Durée légale obligatoire si applicable (ex: comptabilité = 10 ans)",
+        "obligatoire": true
+      },
+      "declencheur_suppression": {
+        "type": "array",
+        "items": {"type": "string"},
+        "description": "Événements déclenchant la suppression automatique",
+        "obligatoire": true,
+        "exemple": ["fermeture_compte", "demande_effacement_utilisateur", "expiration_duree_conservation"]
+      },
+      "processus_suppression": {
+        "type": "string",
+        "description": "Comment la suppression est effectuée (écrasement sécurisé, anonymisation...)",
+        "obligatoire": true
+      }
+    },
+
+    "responsabilites": {
+      "responsable_traitement": {
+        "type": "object",
+        "properties": {
+          "entite": {"type": "string", "valeur_fixe": "Cognitive Products Lab (CPL)"},
+          "representant": {"type": "string", "valeur_fixe": "Céline Rousselot, Fondatrice"},
+          "contact_dpo": {"type": "string", "description": "Email DPO ou contact privacy"}
+        },
+        "obligatoire": true
+      },
+      "responsable_metier": {
+        "type": "string",
+        "description": "Équipe ou rôle CPL responsable de ce traitement",
+        "obligatoire": true,
+        "exemple": "Équipe Produit ALFRED"
+      },
+      "sous_traitants": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "nom": {"type": "string"},
+            "pays": {"type": "string"},
+            "finalite": {"type": "string"},
+            "garanties_rgpd": {"type": "string"},
+            "contrat_dpa_signe": {"type": "boolean"}
+          }
+        },
+        "description": "Liste des sous-traitants ayant accès à cette donnée (null si aucun)",
+        "obligatoire": true
+      },
+      "transfert_hors_ue": {
+        "type": "boolean",
+        "description": "La donnée peut-elle sortir de l'UE ?",
+        "obligatoire": true
+      },
+      "garanties_transfert_hors_ue": {
+        "type": ["string", "null"],
+        "description": "Si transfert hors UE : clauses contractuelles types, décision d'adéquation...",
+        "obligatoire": true
+      }
+    },
+
+    "audit_trail": {
+      "description": "Traçabilité complète du cycle de vie de la donnée. OBLIGATOIRE pour toutes les données de sensibilité >= confidentielle.",
+
+      "creation": {
+        "date_creation": {
+          "type": "string",
+          "format": "ISO8601",
+          "description": "Date et heure de création/première collecte",
+          "obligatoire": true
+        },
+        "cree_par": {
+          "type": "string",
+          "description": "Rôle ou identifiant système ayant créé la donnée",
+          "obligatoire": true,
+          "exemple": "utilisateur_consentement_explicite / systeme_alfred_v2"
+        },
+        "contexte_creation": {
+          "type": "string",
+          "description": "Contexte dans lequel la donnée a été créée",
+          "obligatoire": true
+        }
+      },
+
+      "consultations": {
+        "type": "array",
+        "description": "Journal de toutes les consultations",
+        "items": {
+          "type": "object",
+          "properties": {
+            "date_consultation": {"type": "string", "format": "ISO8601"},
+            "consulte_par": {"type": "string", "description": "Rôle ou identifiant"},
+            "motif": {"type": "string"},
+            "resultat": {"type": "string", "enum": ["succes", "echec_droits_insuffisants", "donnee_introuvable"]}
+          }
+        },
+        "obligatoire": true
+      },
+
+      "modifications": {
+        "type": "array",
+        "description": "Journal de toutes les modifications",
+        "items": {
+          "type": "object",
+          "properties": {
+            "date_modification": {"type": "string", "format": "ISO8601"},
+            "modifie_par": {"type": "string"},
+            "champ_modifie": {"type": "string"},
+            "valeur_avant": {"type": "string", "description": "Hashée si donnée sensible"},
+            "valeur_apres": {"type": "string", "description": "Hashée si donnée sensible"},
+            "motif": {"type": "string"}
+          }
+        },
+        "obligatoire": true
+      },
+
+      "exportations": {
+        "type": "array",
+        "description": "Journal de toutes les exportations (portabilité, partage tiers)",
+        "items": {
+          "type": "object",
+          "properties": {
+            "date_export": {"type": "string", "format": "ISO8601"},
+            "exporte_par": {"type": "string"},
+            "destinataire": {"type": "string"},
+            "format": {"type": "string"},
+            "motif": {"type": "string", "enum": ["droit_portabilite_utilisateur", "partage_sous_traitant", "sauvegarde_securisee"]}
+          }
+        },
+        "obligatoire": true
+      },
+
+      "suppression": {
+        "date_suppression": {
+          "type": ["string", "null"],
+          "format": "ISO8601",
+          "description": "Date et heure de suppression effective",
+          "obligatoire": true
+        },
+        "supprime_par": {
+          "type": ["string", "null"],
+          "description": "Rôle ou système ayant effectué la suppression",
+          "obligatoire": true
+        },
+        "motif_suppression": {
+          "type": ["string", "null"],
+          "enum": [
+            "demande_effacement_utilisateur",
+            "expiration_duree_conservation",
+            "retrait_consentement",
+            "fermeture_compte",
+            "correction_erreur",
+            "obligation_legale",
+            null
+          ],
+          "obligatoire": true
+        },
+        "methode_suppression": {
+          "type": ["string", "null"],
+          "description": "Comment la suppression a été réalisée",
+          "obligatoire": true
+        },
+        "attestation_suppression": {
+          "type": "boolean",
+          "description": "Confirmation que la suppression est effective et vérifiée",
+          "obligatoire": true
+        }
+      }
+    },
+
+    "droits_utilisateur": {
+      "description": "Droits RGPD applicables à cette donnée",
+      "droit_acces": {
+        "type": "boolean",
+        "description": "L'utilisateur peut consulter ses données (art. 15)",
+        "obligatoire": true
+      },
+      "droit_rectification": {
+        "type": "boolean",
+        "description": "L'utilisateur peut corriger ses données (art. 16)",
+        "obligatoire": true
+      },
+      "droit_effacement": {
+        "type": "boolean",
+        "description": "L'utilisateur peut demander la suppression (art. 17)",
+        "obligatoire": true
+      },
+      "droit_portabilite": {
+        "type": "boolean",
+        "description": "L'utilisateur peut récupérer ses données dans un format standard (art. 20)",
+        "obligatoire": true
+      },
+      "droit_opposition": {
+        "type": "boolean",
+        "description": "L'utilisateur peut s'opposer au traitement (art. 21)",
+        "obligatoire": true
+      },
+      "droit_limitation": {
+        "type": "boolean",
+        "description": "L'utilisateur peut limiter le traitement (art. 18)",
+        "obligatoire": true
+      },
+      "delai_reponse_droits": {
+        "type": "string",
+        "valeur_fixe": "30 jours calendaires (prorogeable 2 mois pour demandes complexes — art. 12 RGPD)",
+        "obligatoire": true
+      }
+    },
+
+    "evaluation_risques": {
+      "aipd_requise": {
+        "type": "boolean",
+        "description": "Analyse d'Impact sur la Protection des Données requise (art. 35 RGPD) — obligatoire pour données sensibles à grande échelle",
+        "obligatoire": true
+      },
+      "niveau_risque": {
+        "type": "string",
+        "enum": ["negligeable", "faible", "moyen", "eleve", "critique"],
+        "obligatoire": true
+      },
+      "mesures_attenuation": {
+        "type": "array",
+        "items": {"type": "string"},
+        "description": "Mesures techniques et organisationnelles pour réduire les risques",
+        "obligatoire": true
+      },
+      "date_derniere_evaluation": {
+        "type": ["string", "null"],
+        "format": "ISO8601",
+        "obligatoire": true
+      },
+      "frequence_reevaluation": {
+        "type": "string",
+        "exemple": "annuelle ou lors de tout changement majeur du traitement",
+        "obligatoire": true
+      }
+    }
+  },
+
+  "valeurs_par_defaut_cpl": {
+    "description": "Valeurs par défaut appliquées par CPL sur tout nouveau traitement",
+    "chiffrement_repos": true,
+    "chiffrement_transit": true,
+    "pseudonymisation": true,
+    "transfert_hors_ue": false,
+    "consentement_requis": true,
+    "opt_in_requis": true,
+    "duree_conservation_defaut": "24 mois après dernière activité",
+    "droit_acces": true,
+    "droit_rectification": true,
+    "droit_effacement": true,
+    "droit_portabilite": true,
+    "droit_opposition": true,
+    "droit_limitation": true
+  },
+
+  "regles_absolues_cpl": {
+    "description": "Règles non négociables — aucune exception possible",
+    "regles": [
+      "Les données de profil psychologique ne quittent jamais l'appareil utilisateur sans consentement explicite et éclairé, renouvelable annuellement",
+      "Les données de conversation ne sont jamais collectées par CPL sans opt-in explicite",
+      "Les données concernant des mineurs (ARTHUR) nécessitent le consentement écrit du représentant légal",
+      "Aucun transfert de données hors UE sans garanties RGPD équivalentes documentées",
+      "L'audit trail est immuable — aucune modification rétroactive des logs",
+      "Toute demande d'exercice de droits utilisateur est traitée dans les 30 jours",
+      "Un registre des violations de données est tenu et la CNIL est notifiée sous 72h en cas de violation (art. 33 RGPD)",
+      "La collecte minimale est la règle — collecter uniquement ce qui est strictement nécessaire à la finalité déclarée",
+      "Toute nouvelle finalité de traitement requiert une nouvelle base juridique et un nouveau consentement"
+    ]
+  }
+}
