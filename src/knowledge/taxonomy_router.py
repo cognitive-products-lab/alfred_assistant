@@ -23,6 +23,7 @@ Exploite taxonomy.json pour retrouver les domaines, sous-domaines,
 intents et knowledge_ids liés à une requête.
 """
 
+import re
 from dataclasses import dataclass, field
 from typing import Any
 
@@ -117,8 +118,9 @@ class TaxonomyRouter:
 
         searchable_text = self.normalize(" ".join(searchable_parts))
 
+        # \w+ retire la ponctuation collée aux mots (ex. "iso27001," -> "iso27001")
         words = [
-            word for word in query_norm.replace("'", " ").replace("-", " ").split()
+            word for word in re.findall(r"\w+", query_norm.replace("'", " ").replace("-", " "))
             if len(word) >= 4
         ]
 

@@ -1,3 +1,17 @@
+﻿<!--
+============================================================
+PROJECT  : ALFRED / Cognitive Products Lab
+BLOCK    : B20 — Sécurité, Gouvernance & Conformité
+DOCUMENT : Procédure Signalement Incidents NIS2 — Art. 23
+TYPE     : Documentation SMSI
+REF      : Directive (UE) 2022/2555 — NIS2
+VERSION  : V1.0
+CREATED  : 2026-06-18
+UPDATED  : 2026-06-18
+AUTHOR   : Céline Darras — Cognitive Products Lab
+STATUS   : Approuvé
+============================================================
+-->
 # Procédure de Signalement d'Incidents — NIS2 Art. 23
 
 > **Référence :** Directive (UE) 2022/2555 — NIS2 Art. 23  

@@ -1,3 +1,17 @@
+﻿<!--
+============================================================
+PROJECT  : ALFRED / Cognitive Products Lab
+BLOCK    : B20 — Sécurité, Gouvernance & Conformité
+DOCUMENT : Analyse d'Impact AIPD — Données de Santé
+TYPE     : Documentation SMSI
+REF      : RGPD Art. 35
+VERSION  : V1.0
+CREATED  : 2026-06-18
+UPDATED  : 2026-06-18
+AUTHOR   : Céline Darras — Cognitive Products Lab
+STATUS   : Approuvé
+============================================================
+-->
 # Analyse d'Impact relative à la Protection des Données (AIPD)
 ## Données de santé et données sensibles — ALFRED
 

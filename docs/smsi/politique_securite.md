@@ -1,3 +1,17 @@
+﻿<!--
+============================================================
+PROJECT  : ALFRED / Cognitive Products Lab
+BLOCK    : B20 — Sécurité, Gouvernance & Conformité
+DOCUMENT : Politique de Sécurité du Système d'Information (SMSI)
+TYPE     : Documentation SMSI
+REF      : ISO/IEC 27001:2022 — A.5.1
+VERSION  : V1.0
+CREATED  : 2026-06-18
+UPDATED  : 2026-06-18
+AUTHOR   : Céline Darras — Cognitive Products Lab
+STATUS   : Approuvé
+============================================================
+-->
 # Politique de Sécurité du Système d'Information (SMSI)
 ## Cognitive Products Lab — ALFRED
 

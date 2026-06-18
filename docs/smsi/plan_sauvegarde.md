@@ -1,3 +1,17 @@
+﻿<!--
+============================================================
+PROJECT  : ALFRED / Cognitive Products Lab
+BLOCK    : B20 — Sécurité, Gouvernance & Conformité
+DOCUMENT : Plan de Sauvegarde et de Restauration
+TYPE     : Documentation SMSI
+REF      : ISO/IEC 27001:2022 — A.8.13
+VERSION  : V1.0
+CREATED  : 2026-06-18
+UPDATED  : 2026-06-18
+AUTHOR   : Céline Darras — Cognitive Products Lab
+STATUS   : Approuvé
+============================================================
+-->
 # Plan de Sauvegarde et de Restauration
 
 > **Référence :** ISO/IEC 27001:2022 — Contrôle A.8.13  

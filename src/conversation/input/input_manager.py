@@ -11,6 +11,10 @@
 #
 # 🏗️ DOMAINE :
 #   Noyau conversationnel — entrées hybrides texte/voix, thread-safe
+#
+# UPDATED 2026-06-15 : suppression de get_voice_nowait() (non utilisée
+# après le fix du bug "ALFRED ne réagit pas en mode vocal" — main.py
+# consomme désormais get_input() en bloquant pour clavier ET voix).
 # ============================================================
 
 from __future__ import annotations
@@ -36,23 +40,6 @@ class HybridInputManager:
 
     def get_input(self):
         return self.inputs.get()
-
-    def get_voice_nowait(self):
-        """Récupère un item voix/erreur sans bloquer, sinon None.
-
-        Les items clavier/système (déjà gérés via input() direct) sont
-        remis dans la file pour ne pas être perdus.
-        """
-        try:
-            item = self.inputs.get_nowait()
-        except queue.Empty:
-            return None
-
-        if item[0] in ("voice", "error"):
-            return item
-
-        self.inputs.put(item)
-        return None
 
     # =========================
     # CLAVIER = PRIORITAIRE
