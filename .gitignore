@@ -1,4 +1,4 @@
-﻿# Visual Studio
+# Visual Studio
 .vs/
 
 # Logs
@@ -57,17 +57,31 @@ data/memory/sessions/
 htmlcov/
 .coverage
 
-# Pytest
-.pytest_cache/
-
 # Artefacts de tests sécurité (régénérés à chaque run)
 backup/security/*.bak
 
 # Verrous locaux Claude Code
 src/security/.claude/*.lock
 
-# Docx locaux
-docs/entretien/OWN_Security_prep_20260618.md
-
 # Sorties de scripts de test ad-hoc
 test_run_output.txt
+
+# Claude Code internal (worktrees, sessions)
+.claude/
+
+# =========================
+# SÉCURITÉ — NE JAMAIS COMMITER
+# =========================
+
+# Profil psychologique — données sensibles
+data/profile/answers/
+data/profile/answers_encrypted/
+data/profile/keys/
+*.fernet_key
+user_answers_*.json
+
+# Clé de chiffrement Fernet
+data/security/fernet.key
+
+# Documents privés / confidentiels
+docs/entretien/
