@@ -1110,59 +1110,147 @@
 <section id="arborescence">
   <div class="container">
     <div class="section-label">Section 8</div>
-    <h2>Arborescence Complète du Module</h2>
+    <h2>Arborescence Réelle du Module</h2>
+    <p style="color:var(--text-muted);margin-bottom:24px;font-size:13px;">
+      Structure effective du dépôt <code>alfred_assistant/</code> — branche <code>claude/assessfirst-profile-integration</code> — mise à jour 2026-06-18.
+      Seuls les dossiers et fichiers relatifs au module Profil + IA Adaptative sont représentés.
+      Les données psychologiques (réponses, clés Fernet) ne sont jamais versionnées.
+    </p>
 
     <div class="code-block">
 <span class="code-dir">alfred_assistant/</span>
-├── <span class="code-dir">modules/</span>
-│   └── <span class="code-dir">profil_utilisateur/</span>                     <span class="code-comment"># Module principal de profilage psychométrique</span>
-│       ├── <span class="code-dir">questionnaires/</span>                      <span class="code-comment"># Q1-Q8 : questionnaires validés JSON</span>
-│       │   ├── <span class="code-file-json">q1_personnalite_tipi.json</span>
-│       │   ├── <span class="code-file-json">q2_bienetre_swls.json</span>
-│       │   ├── <span class="code-file-json">q3_affect_panas.json</span>
-│       │   ├── <span class="code-file-json">q4_motivation_sdt.json</span>
-│       │   ├── <span class="code-file-json">q5_valeurs_pvq21.json</span>
-│       │   ├── <span class="code-file-json">q6_interets_riasec.json</span>
-│       │   ├── <span class="code-file-json">q7_intelligence_emotionnelle_teique.json</span>
-│       │   ├── <span class="code-file-json">q8_chronotype_resilience.json</span>
-│       │   └── <span class="code-file-md">README_questionnaires.md</span>
-│       ├── <span class="code-dir">schemas/</span>                             <span class="code-comment"># Schémas de données et règles</span>
-│       │   ├── <span class="code-file-json">dimensions_schema.json</span>       <span class="code-comment"># 9 dimensions psychologiques formalisées</span>
-│       │   ├── <span class="code-file-json">alfred_mapping_matrix.json</span>   <span class="code-comment"># 40 règles dimensions → paramètres ALFRED</span>
-│       │   ├── <span class="code-file-json">periodicity_schema.json</span>      <span class="code-comment"># Politique re-test par dimension</span>
-│       │   └── <span class="code-file-json">scoring_keys.json</span>            <span class="code-comment"># Clés scoring, pondérations, normalisation</span>
-│       ├── <span class="code-dir">data/</span>                                <span class="code-comment"># Données utilisateur chiffrées Fernet</span>
-│       │   ├── <span class="code-file-json">answers_template.json</span>        <span class="code-comment"># Template réponses — chiffré en production</span>
-│       │   └── <span class="code-comment"># user_profile_[uuid].fernet    # Profil chiffré runtime</span>
-│       ├── <span class="code-file-py">profile_analyzer.py</span>              <span class="code-comment"># QuestionnaireSession + CLI scoring</span>
-│       ├── <span class="code-file-py">personality_adapter.py</span>           <span class="code-comment"># Adaptation comportementale ALFRED</span>
-│       ├── <span class="code-file-md">questionnaire_profil_complementaire.md</span>
-│       └── <span class="code-file-md">README.md</span>
 │
-├── <span class="code-dir">gouvernance/</span>                                 <span class="code-comment"># Documentation gouvernance &amp; conformité</span>
-│   ├── <span class="code-dir">rgpd/</span>
-│   │   ├── <span class="code-file-md">ropa_registre_traitements.md</span>      <span class="code-comment"># Registre des Activités de Traitement</span>
-│   │   ├── <span class="code-file-md">aipd_T001_questionnaires.md</span>       <span class="code-comment"># AIPD Traitement 001</span>
-│   │   ├── <span class="code-file-md">aipd_T004_personality_adapter.md</span>  <span class="code-comment"># AIPD Traitement 004</span>
-│   │   ├── <span class="code-file-md">politique_confidentialite.md</span>
-│   │   ├── <span class="code-file-md">procedure_consentement.md</span>
-│   │   ├── <span class="code-file-md">procedure_effacement.md</span>
-│   │   └── <span class="code-file-md">registre_violations.md</span>
-│   ├── <span class="code-dir">securite/</span>
-│   │   ├── <span class="code-file-md">pssi_politique_securite.md</span>        <span class="code-comment"># PSSI formelle</span>
-│   │   ├── <span class="code-file-md">smsi_perimetre_module.md</span>          <span class="code-comment"># SMSI périmètre module profil</span>
-│   │   └── <span class="code-file-md">soa_iso27001_2022.md</span>              <span class="code-comment"># Statement of Applicability</span>
-│   ├── <span class="code-dir">ia_act/</span>
-│   │   ├── <span class="code-file-md">notice_transparence_ia.md</span>
-│   │   └── <span class="code-file-md">classification_risque_systeme.md</span>
-│   └── <span class="code-dir">audit/</span>
-│       ├── <span class="code-file-md">plan_reponse_incidents.md</span>
-│       └── <span class="code-file-md">rapport_audit_interne.md</span>
+├── <span class="code-dir">src/</span>                                         <span class="code-comment"># Code source ALFRED</span>
+│   ├── <span class="code-dir">core/</span>                                    <span class="code-comment"># Noyau conversationnel</span>
+│   │   ├── <span class="code-file-py">profile_analyzer.py</span>              <span class="code-comment"># QuestionnaireSession, scoring, CLI (version core)</span>
+│   │   ├── <span class="code-file-py">personality_adapter.py</span>           <span class="code-comment"># Lecture profil → paramètres comportementaux ALFRED</span>
+│   │   └── <span class="code-file-py">response_generator.py</span>            <span class="code-comment"># Génération réponses + mode recherche + post-process</span>
+│   ├── <span class="code-dir">profile/</span>                                 <span class="code-comment"># Module profil autonome</span>
+│   │   └── <span class="code-file-py">profile_analyzer.py</span>              <span class="code-comment"># Variante analyse profil (src/profile)</span>
+│   └── <span class="code-dir">llm/</span>                                     <span class="code-comment"># Routage LLM local-first</span>
+│       ├── <span class="code-file-py">llm_router.py</span>                    <span class="code-comment"># Orchestration Ollama → OpenAI → Anthropic</span>
+│       ├── <span class="code-file-py">llm_client_ollama.py</span>             <span class="code-comment"># Client Ollama local (llama3.2 — priorité 1)</span>
+│       ├── <span class="code-file-py">llm_client_openai.py</span>             <span class="code-comment"># Client OpenAI cloud (gpt-4o-mini — priorité 2)</span>
+│       └── <span class="code-file-py">llm_client_anthropic.py</span>          <span class="code-comment"># Client Anthropic Claude (haiku — priorité 3)</span>
+│
+├── <span class="code-dir">data/</span>                                        <span class="code-comment"># Données runtime ALFRED</span>
+│   ├── <span class="code-dir">profile/</span>                                 <span class="code-comment"># Données psychométriques utilisateur</span>
+│   │   ├── <span class="code-dir">questionnaires/</span>                      <span class="code-comment"># Questionnaires validés (Markdown)</span>
+│   │   │   ├── <span class="code-file-md">01_big_five_TIPI.md</span>              <span class="code-comment"># Big Five — TIPI 10 items</span>
+│   │   │   ├── <span class="code-file-md">02_intelligence_emotionnelle.md</span>  <span class="code-comment"># IE — TEIQue-SF 30 items</span>
+│   │   │   ├── <span class="code-file-md">03_valeurs_schwartz.md</span>           <span class="code-comment"># Valeurs — PVQ-21</span>
+│   │   │   ├── <span class="code-file-md">04_chronotype_energie.md</span>         <span class="code-comment"># Chronotype — rMEQ 5 items</span>
+│   │   │   ├── <span class="code-file-md">05_resilience_stress.md</span>          <span class="code-comment"># Résilience — CD-RISC-10</span>
+│   │   │   ├── <span class="code-file-md">06_riasec_interets_pro.md</span>        <span class="code-comment"># Intérêts pro — Holland RIASEC 18 items</span>
+│   │   │   ├── <span class="code-file-md">07_engagement_burnout.md</span>         <span class="code-comment"># Engagement — UWES-9</span>
+│   │   │   ├── <span class="code-file-md">08_communication_conflit.md</span>      <span class="code-comment"># Style de communication &amp; gestion des conflits</span>
+│   │   │   ├── <span class="code-file-md">09_hexaco_personnalite.md</span>        <span class="code-comment"># Personnalité — HEXACO-24 (honnêteté-humilité)</span>
+│   │   │   ├── <span class="code-file-md">q01_bien_etre_subjectif.md</span>       <span class="code-comment"># Bien-être — SWLS 5 items</span>
+│   │   │   ├── <span class="code-file-md">q02_style_cognitif.md</span>            <span class="code-comment"># Style cognitif — items complémentaires</span>
+│   │   │   ├── <span class="code-file-md">q03_regulation_emotionnelle.md</span>   <span class="code-comment"># Régulation émotionnelle — PANAS 20 items</span>
+│   │   │   ├── <span class="code-file-md">q04_motivations_valeurs.md</span>       <span class="code-comment"># Motivations — SDT/IMI 15 items</span>
+│   │   │   └── <span class="code-file-md">README.md</span>
+│   │   ├── <span class="code-dir">schema/</span>                              <span class="code-comment"># Schémas de données et règles de mapping</span>
+│   │   │   ├── <span class="code-file-json">dimensions_schema.json</span>           <span class="code-comment"># 9 dimensions psychologiques formalisées</span>
+│   │   │   ├── <span class="code-file-json">alfred_mapping_matrix.json</span>       <span class="code-comment"># 40 règles dimensions → 9 paramètres ALFRED</span>
+│   │   │   └── <span class="code-file-json">periodicity_schema.json</span>          <span class="code-comment"># Politique de re-test par dimension</span>
+│   │   ├── <span class="code-dir">scoring/</span>                             <span class="code-comment"># Clés et templates de scoring</span>
+│   │   │   ├── <span class="code-file-json">scoring_keys.json</span>                <span class="code-comment"># Clés de scoring, pondérations, normalisation</span>
+│   │   │   └── <span class="code-file-json">answers_template.json</span>            <span class="code-comment"># Template réponses vide</span>
+│   │   ├── <span class="code-file-json">alfred_behavioral_params.json</span>        <span class="code-comment"># Paramètres comportementaux générés (runtime)</span>
+│   │   ├── <span class="code-file-json">user_profile.json</span>                    <span class="code-comment"># Profil utilisateur courant</span>
+│   │   └── <span class="code-file-md">questionnaire_profil_complementaire.md</span>
+│   ├── <span class="code-dir">personality/</span>                             <span class="code-comment"># Personnalité IA ALFRED</span>
+│   │   ├── <span class="code-dir">instances/</span>
+│   │   │   └── <span class="code-file-json">personality_core_instance.json</span>   <span class="code-comment"># Instance active — inclut research_mode flag</span>
+│   │   └── <span class="code-dir">templates/</span>
+│   │       └── <span class="code-file-json">personality_core.json</span>            <span class="code-comment"># Template personnalité (référence)</span>
+│   ├── <span class="code-dir">users/</span>                                   <span class="code-comment"># Profils utilisateurs</span>
+│   │   ├── <span class="code-dir">instances/</span>
+│   │   │   └── <span class="code-file-json">user_celine_instance.json</span>        <span class="code-comment"># Profil Céline — chiffré Fernet en production</span>
+│   │   └── <span class="code-dir">templates/</span>
+│   │       └── <span class="code-file-json">user_adaptation_profile.json</span>     <span class="code-comment"># Template profil utilisateur</span>
+│   └── <span class="code-dir">security/</span>                                <span class="code-comment"># Sécurité runtime — JAMAIS versionnés</span>
+│       └── <span class="code-comment"># fernet.key                          ← EXCLU du dépôt (.gitignore)</span>
+│
+├── <span class="code-dir">tools/</span>
+│   └── <span class="code-dir">profile_tools/</span>                           <span class="code-comment"># Outils de génération et validation</span>
+│       ├── <span class="code-file-py">generate_alfred_params.py</span>            <span class="code-comment"># Génère alfred_behavioral_params.json depuis le profil</span>
+│       └── <span class="code-file-py">test_alfred_profile_integration.py</span>   <span class="code-comment"># Suite 35 tests intégration ✅ (pytest)</span>
 │
 └── <span class="code-dir">docs/</span>
-    └── <span class="code-dir">module_profil_ia_adaptative/</span>
-        └── <span class="code-dir">cadrage/</span>
-            └── <span class="code-file">dossier_cadrage.html</span>             <span class="code-comment"># Ce document</span>
+    ├── <span class="code-dir">module_profil_ia_adaptative/</span>             <span class="code-comment"># Documentation technique du module (ce dossier)</span>
+    │   ├── <span class="code-file-md">README.md</span>
+    │   ├── <span class="code-dir">cadrage/</span>
+    │   │   └── <span class="code-file">dossier_cadrage.html</span>             <span class="code-comment"># Ce document</span>
+    │   ├── <span class="code-dir">conception/</span>
+    │   │   ├── <span class="code-file-md">architecture_technique.md</span>
+    │   │   ├── <span class="code-file-md">dimensions_psychologiques.md</span>
+    │   │   ├── <span class="code-file-md">frameworks_questionnaires.md</span>
+    │   │   └── <span class="code-file-md">pipeline_scoring.md</span>
+    │   ├── <span class="code-dir">implementation/</span>
+    │   │   └── <span class="code-file-md">api_reference.md</span>
+    │   ├── <span class="code-dir">gouvernance/</span>
+    │   │   └── <span class="code-file-md">synthese_gouvernance.md</span>
+    │   ├── <span class="code-dir">arthur/</span>
+    │   │   └── <span class="code-file-md">conception_arthur.md</span>             <span class="code-comment"># Chantier V2 — agent Arthur</span>
+    │   └── <span class="code-dir">tests/</span>
+    │       ├── <span class="code-file-md">README.md</span>
+    │       ├── <span class="code-file-py">test_profile_analyzer.py</span>
+    │       ├── <span class="code-file-py">test_scoring.py</span>
+    │       ├── <span class="code-dir">fixtures/</span>
+    │       │   ├── <span class="code-file-json">expected_scores.json</span>
+    │       │   └── <span class="code-file-json">sample_answers.json</span>
+    │       └── <span class="code-dir">integration/</span>
+    │           └── <span class="code-file-py">test_full_pipeline.py</span>
+    ├── <span class="code-dir">gouvernance/</span>                             <span class="code-comment"># Gouvernance 360° CPL</span>
+    │   ├── <span class="code-file-md">blueprint_gouvernance_complet.md</span>
+    │   ├── <span class="code-file-md">cadre_reglementaire_CPL.md</span>
+    │   ├── <span class="code-file-md">cartographie_donnees_CPL.md</span>
+    │   ├── <span class="code-file-md">registre_traitements_CPL.md</span>
+    │   ├── <span class="code-file-md">soc_cpl.md</span>
+    │   └── <span class="code-file-md">vision_performance_CPL.md</span>
+    └── <span class="code-dir">profil_systeme/</span>                          <span class="code-comment"># Documentation système ALFRED</span>
+        ├── <span class="code-file-md">conception_technique.md</span>
+        ├── <span class="code-file-md">guide_utilisateur.md</span>
+        └── <span class="code-file-md">securite_donnees.md</span>
+    </div>
+
+    <div style="margin-top:28px;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;">
+      <div style="background:rgba(108,63,197,0.1);border:1px solid rgba(108,63,197,0.3);border-radius:8px;padding:16px;">
+        <div style="font-weight:700;color:var(--violet-light);margin-bottom:8px;">Fichiers protégés — jamais versionnés</div>
+        <ul style="list-style:none;font-size:12px;color:var(--text-muted);">
+          <li>🔒 <code>data/security/fernet.key</code></li>
+          <li>🔒 <code>data/profile/answers_encrypted/</code></li>
+          <li>🔒 <code>data/profile/keys/</code></li>
+          <li>🔒 <code>*.fernet_key</code></li>
+          <li>🔒 <code>user_answers_*.json</code></li>
+          <li>🔒 <code>docs/entretien/</code></li>
+          <li>🔒 <code>.env</code></li>
+        </ul>
+      </div>
+      <div style="background:rgba(39,174,96,0.08);border:1px solid rgba(39,174,96,0.25);border-radius:8px;padding:16px;">
+        <div style="font-weight:700;color:var(--success);margin-bottom:8px;">Statut des tests — 2026-06-18</div>
+        <ul style="list-style:none;font-size:12px;color:var(--text-muted);">
+          <li>✅ <strong>35/35</strong> tests intégration profil</li>
+          <li>✅ Pipeline scoring HEXACO-24 validé</li>
+          <li>✅ generate_alfred_params.py opérationnel</li>
+          <li>✅ LLM stack Ollama→OpenAI→Anthropic</li>
+          <li>✅ Mode recherche (research_mode) activable</li>
+          <li>⏳ Q01→Q09 réponses utilisateur en attente</li>
+        </ul>
+      </div>
+      <div style="background:rgba(243,156,18,0.08);border:1px solid rgba(243,156,18,0.25);border-radius:8px;padding:16px;">
+        <div style="font-weight:700;color:var(--warning);margin-bottom:8px;">Conventions de nommage</div>
+        <ul style="list-style:none;font-size:12px;color:var(--text-muted);">
+          <li><code style="color:#A8E6CF">01_*.md</code> — questionnaires série principale</li>
+          <li><code style="color:#A8E6CF">q0x_*.md</code> — questionnaires série complémentaire</li>
+          <li><code style="color:#FFD3B6">*_instance.json</code> — données runtime actives</li>
+          <li><code style="color:#FFD3B6">*_template.json</code> — templates versionnés</li>
+          <li><code style="color:#C3ABE0">*_schema.json</code> — schémas structurels</li>
+          <li><code style="color:#C3ABE0">*_keys.json</code> — clés de scoring (non chiffrées)</code></li>
+        </ul>
+      </div>
     </div>
   </div>
 </section>
