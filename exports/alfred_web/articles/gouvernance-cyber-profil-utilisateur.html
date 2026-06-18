@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gouvernance, Cybersécurité & Profil Utilisateur — ALFRED | Cognitive Products Lab</title>
+  <style>
+    :root {
+      --violet:    #6C3FC5;
+      --fuchsia:   #E91E8C;
+      --dark:      #0D0D1A;
+      --dark-card: #13132A;
+      --grey:      #1E1E3A;
+      --light:     #F0EEF8;
+      --text:      #C8C4E0;
+      --white:     #FFFFFF;
+      --success:   #2DD4BF;
+      --warning:   #F59E0B;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--dark);
+      color: var(--text);
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      background: linear-gradient(135deg, var(--dark) 0%, #1a0a3a 50%, #0a0a2a 100%);
+      border-bottom: 1px solid rgba(108, 63, 197, 0.3);
+      padding: 80px 24px 60px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(108,63,197,0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .tag {
+      display: inline-block;
+      background: rgba(108, 63, 197, 0.2);
+      border: 1px solid var(--violet);
+      color: var(--light);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 6px 16px;
+      border-radius: 20px;
+      margin-bottom: 24px;
+    }
+    .hero h1 {
+      color: var(--white);
+      font-size: clamp(28px, 5vw, 48px);
+      font-weight: 800;
+      line-height: 1.2;
+      max-width: 800px;
+      margin: 0 auto 20px;
+    }
+    .hero h1 span { color: var(--fuchsia); }
+    .hero-sub {
+      font-size: 18px;
+      color: var(--text);
+      max-width: 620px;
+      margin: 0 auto 36px;
+    }
+    .meta {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      flex-wrap: wrap;
+      font-size: 13px;
+      color: rgba(200,196,224,0.7);
+    }
+    .meta span { display: flex; align-items: center; gap: 6px; }
+
+    /* ─── LAYOUT ─── */
+    .container {
+      max-width: 880px;
+      margin: 0 auto;
+      padding: 60px 24px;
+    }
+
+    section { margin-bottom: 56px; }
+
+    h2 {
+      color: var(--white);
+      font-size: 26px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid rgba(108,63,197,0.4);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    h2 .icon { font-size: 22px; }
+
+    h3 {
+      color: var(--light);
+      font-size: 18px;
+      font-weight: 600;
+      margin: 28px 0 12px;
+    }
+
+    p { margin-bottom: 16px; }
+
+    /* ─── CARDS ─── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+      margin-top: 24px;
+    }
+    .card {
+      background: var(--dark-card);
+      border: 1px solid rgba(108,63,197,0.25);
+      border-radius: 12px;
+      padding: 24px;
+      transition: border-color 0.2s;
+    }
+    .card:hover { border-color: var(--violet); }
+    .card-icon { font-size: 28px; margin-bottom: 12px; }
+    .card h4 { color: var(--white); font-size: 15px; font-weight: 700; margin-bottom: 8px; }
+    .card p  { font-size: 14px; color: var(--text); margin: 0; }
+
+    /* ─── TRIANGLE ─── */
+    .triangle-wrap {
+      background: var(--dark-card);
+      border: 1px solid rgba(108,63,197,0.25);
+      border-radius: 16px;
+      padding: 40px 32px;
+      text-align: center;
+      margin-top: 24px;
+    }
+    .triangle-svg { max-width: 420px; width: 100%; }
+    .triangle-legend {
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      flex-wrap: wrap;
+      margin-top: 28px;
+    }
+    .tleg { font-size: 14px; }
+    .tleg strong { color: var(--white); display: block; font-size: 16px; margin-bottom: 4px; }
+
+    /* ─── DMAIC ─── */
+    .dmaic {
+      display: flex;
+      gap: 0;
+      border-radius: 12px;
+      overflow: hidden;
+      margin-top: 24px;
+    }
+    .dmaic-step {
+      flex: 1;
+      padding: 20px 16px;
+      text-align: center;
+      min-width: 0;
+    }
+    .dmaic-step:nth-child(1) { background: rgba(108,63,197,0.35); }
+    .dmaic-step:nth-child(2) { background: rgba(108,63,197,0.28); }
+    .dmaic-step:nth-child(3) { background: rgba(108,63,197,0.21); }
+    .dmaic-step:nth-child(4) { background: rgba(233,30,140,0.25); }
+    .dmaic-step:nth-child(5) { background: rgba(233,30,140,0.35); }
+    .dmaic-letter {
+      font-size: 28px;
+      font-weight: 900;
+      color: var(--white);
+      display: block;
+      margin-bottom: 6px;
+    }
+    .dmaic-word  { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--light); display: block; margin-bottom: 8px; }
+    .dmaic-desc  { font-size: 12px; color: var(--text); }
+
+    /* ─── REGULATORY BADGES ─── */
+    .reg-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .reg-badge {
+      background: var(--dark-card);
+      border: 1px solid rgba(108,63,197,0.4);
+      border-radius: 8px;
+      padding: 10px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--light);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .reg-badge .dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--success);
+      flex-shrink: 0;
+    }
+    .reg-badge.high .dot { background: var(--fuchsia); }
+
+    /* ─── QUOTE ─── */
+    blockquote {
+      border-left: 3px solid var(--fuchsia);
+      padding: 20px 24px;
+      background: rgba(233,30,140,0.06);
+      border-radius: 0 12px 12px 0;
+      font-style: italic;
+      font-size: 17px;
+      color: var(--light);
+      margin: 32px 0;
+    }
+    blockquote cite { display: block; margin-top: 12px; font-style: normal; font-size: 13px; color: var(--text); }
+
+    /* ─── DELIVERABLES TABLE ─── */
+    .deliverables {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      font-size: 14px;
+    }
+    .deliverables th {
+      text-align: left;
+      color: var(--fuchsia);
+      font-weight: 600;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 10px 16px;
+      border-bottom: 1px solid rgba(108,63,197,0.3);
+    }
+    .deliverables td {
+      padding: 12px 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      color: var(--text);
+      vertical-align: top;
+    }
+    .deliverables tr:hover td { background: rgba(108,63,197,0.06); }
+    .deliverables td:first-child { color: var(--light); font-weight: 600; }
+    .status {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+    .status.done { background: rgba(45,212,191,0.15); color: var(--success); }
+    .status.wip  { background: rgba(245,158,11,0.15); color: var(--warning); }
+
+    /* ─── CTA ─── */
+    .cta-block {
+      background: linear-gradient(135deg, rgba(108,63,197,0.2), rgba(233,30,140,0.15));
+      border: 1px solid rgba(108,63,197,0.4);
+      border-radius: 16px;
+      padding: 40px 32px;
+      text-align: center;
+    }
+    .cta-block h3 { color: var(--white); font-size: 22px; margin-bottom: 12px; }
+    .cta-block p  { max-width: 520px; margin: 0 auto 24px; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      border-top: 1px solid rgba(108,63,197,0.2);
+      padding: 32px 24px;
+      text-align: center;
+      font-size: 13px;
+      color: rgba(200,196,224,0.5);
+    }
+    footer strong { color: var(--violet); }
+
+    @media (max-width: 600px) {
+      .dmaic { flex-direction: column; }
+      .triangle-legend { gap: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══ HERO ═══ -->
+<header class="hero">
+  <div class="tag">Carrière &amp; Apprentissage</div>
+  <h1>Gouvernance, Cybersécurité<br/>&amp; <span>Profil Utilisateur IA</span></h1>
+  <p class="hero-sub">
+    Comment j'ai conçu un système de données éthique, sécurisé et conforme
+    pour un assistant IA adaptatif — du profil psychologique au SOC.
+  </p>
+  <div class="meta">
+    <span>📅 Juin 2026</span>
+    <span>👩‍💻 Céline Rousselot</span>
+    <span>🏷️ RGPD · AI Act · ANSSI · Lean Six Sigma</span>
+    <span>⏱️ 12 min de lecture</span>
+  </div>
+</header>
+
+<main class="container">
+
+  <!-- ─── CONTEXTE ─── -->
+  <section>
+    <h2><span class="icon">🎯</span> Contexte &amp; problématique</h2>
+    <p>
+      Dans le cadre du projet <strong>ALFRED</strong> — assistant IA adaptatif local-first
+      (Cognitive Products Lab) — j'ai dû résoudre un problème structurant :
+      <em>comment construire un profil utilisateur riche et précis, utile à la personnalisation de l'IA,
+      sans compromettre la sécurité, la vie privée, ni la conformité réglementaire ?</em>
+    </p>
+    <p>
+      La réponse ne pouvait pas être partielle. Elle devait simultanément couvrir la
+      <strong>dimension scientifique</strong> (frameworks psychologiques validés),
+      la <strong>dimension technique</strong> (chiffrement, local-first, auditabilité)
+      et la <strong>dimension réglementaire</strong> (RGPD, AI Act, NIS2, ANSSI).
+    </p>
+    <blockquote>
+      La qualité de la donnée d'entrée détermine la qualité de l'adaptation de l'IA.
+      Un profil approximatif produit une IA approximative. Un profil sécurisé construit
+      une confiance durable.
+      <cite>— Principes de conception ALFRED, CPL 2026</cite>
+    </blockquote>
+  </section>
+
+  <!-- ─── SYSTÈME DE PROFILAGE ─── -->
+  <section>
+    <h2><span class="icon">🧠</span> Système de profilage psychologique</h2>
+    <p>
+      Plutôt que de collecter des données superficielles (âge, préférences de surface),
+      j'ai construit un système s'appuyant sur des <strong>frameworks psychologiques validés
+      scientifiquement</strong>, intégré comme une conversation naturelle avec ALFRED.
+    </p>
+
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-icon">🪞</div>
+        <h4>Personnalité — TIPI/OCEAN</h4>
+        <p>Big Five (Gosling et al., 2003). 10 items, 5 dimensions stables. Révisé annuellement.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">❤️</div>
+        <h4>Intelligence émotionnelle</h4>
+        <p>TEIQue-SF (Petrides, 2009). Bien-être, autocontrôle, émotivité, sociabilité.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🧩</div>
+        <h4>Style cognitif — SDT</h4>
+        <p>Self-Determination Theory. Motivations autonomes vs contrôlées. Révisé trimestriellement.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">⚡</div>
+        <h4>Résilience &amp; stress — PSS + CD-RISC</h4>
+        <p>Cohen (1983) + Connor-Davidson (2007). Indicateur mensuel — le plus variable.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🏆</div>
+        <h4>Engagement — UWES-9</h4>
+        <p>Schaufeli &amp; Bakker (2004). Vigueur, dévouement, absorption. Mensuel — critique burnout.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🎯</div>
+        <h4>Bien-être — SWLS + PANAS</h4>
+        <p>Diener (1985) + Watson (1988). Satisfaction de vie et affects positifs/négatifs.</p>
+      </div>
+    </div>
+
+    <h3>Format conversationnel — UX non intrusive</h3>
+    <p>
+      Chaque questionnaire est posé <strong>question par question dans la conversation ALFRED</strong>,
+      comme un dialogue naturel. L'utilisateur peut s'arrêter et reprendre à tout moment.
+      Chaque réponse est sauvegardée immédiatement. Des scores partiels sont disponibles
+      dès 60% de complétion.
+    </p>
+  </section>
+
+  <!-- ─── TRIANGLE D'OR ─── -->
+  <section>
+    <h2><span class="icon">△</span> Triangle d'or de la performance</h2>
+    <p>
+      Cette architecture répond à une logique <strong>Lean Six Sigma</strong> :
+      chaque investissement dans la qualité des données réduit les coûts opérationnels
+      et augmente la valeur perçue — donc le revenu.
+    </p>
+
+    <div class="triangle-wrap">
+      <svg class="triangle-svg" viewBox="0 0 400 320" xmlns="http://www.w3.org/2000/svg">
+        <!-- Triangle fill -->
+        <polygon points="200,30 360,280 40,280" fill="rgba(108,63,197,0.08)" stroke="rgba(108,63,197,0.4)" stroke-width="1.5"/>
+        <!-- Inner triangle -->
+        <polygon points="200,100 300,260 100,260" fill="rgba(233,30,140,0.08)" stroke="rgba(233,30,140,0.3)" stroke-width="1"/>
+        <!-- Vertices -->
+        <circle cx="200" cy="30" r="18" fill="rgba(108,63,197,0.9)"/>
+        <circle cx="40" cy="280" r="18" fill="rgba(45,212,191,0.9)"/>
+        <circle cx="360" cy="280" r="18" fill="rgba(233,30,140,0.9)"/>
+        <!-- Labels -->
+        <text x="200" y="35" text-anchor="middle" fill="white" font-size="12" font-weight="bold" dy="1">Q</text>
+        <text x="200" y="12" text-anchor="middle" fill="#C8C4E0" font-size="13" font-weight="700">QUALITÉ</text>
+        <text x="40" y="285" text-anchor="middle" fill="white" font-size="12" font-weight="bold" dy="1">C</text>
+        <text x="30" y="312" text-anchor="middle" fill="#C8C4E0" font-size="13" font-weight="700">COÛT</text>
+        <text x="360" y="285" text-anchor="middle" fill="white" font-size="12" font-weight="bold" dy="1">R</text>
+        <text x="372" y="312" text-anchor="middle" fill="#C8C4E0" font-size="13" font-weight="700">REVENU</text>
+        <!-- Center label -->
+        <text x="200" y="178" text-anchor="middle" fill="rgba(233,30,140,0.9)" font-size="14" font-weight="800">CPL</text>
+        <text x="200" y="196" text-anchor="middle" fill="#C8C4E0" font-size="11">PERFORMANCE</text>
+      </svg>
+
+      <div class="triangle-legend">
+        <div class="tleg">
+          <strong style="color:#6C3FC5">QUALITÉ</strong>
+          Données précises → IA précise<br/>UX adaptée → satisfaction
+        </div>
+        <div class="tleg">
+          <strong style="color:#2DD4BF">COÛT</strong>
+          Failles → 0 → moins d'incidents<br/>Conformité dès V1 → pas de dette
+        </div>
+        <div class="tleg">
+          <strong style="color:#E91E8C">REVENU</strong>
+          Confiance → fidélisation<br/>Conformité → différenciation B2B
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── DMAIC ─── -->
+  <section>
+    <h2><span class="icon">⚙️</span> Méthodologie DMAIC appliquée</h2>
+    <p>
+      L'ensemble du système a été structuré selon la méthode <strong>DMAIC (Lean Six Sigma)</strong>
+      — chaque phase documentée et traçable.
+    </p>
+    <div class="dmaic">
+      <div class="dmaic-step">
+        <span class="dmaic-letter">D</span>
+        <span class="dmaic-word">Define</span>
+        <span class="dmaic-desc">Dimensions psychologiques à mesurer, périmètre RGPD, produits concernés</span>
+      </div>
+      <div class="dmaic-step">
+        <span class="dmaic-letter">M</span>
+        <span class="dmaic-word">Measure</span>
+        <span class="dmaic-desc">Questionnaires validés, scores normalisés 0-100, périodicité</span>
+      </div>
+      <div class="dmaic-step">
+        <span class="dmaic-letter">A</span>
+        <span class="dmaic-word">Analyze</span>
+        <span class="dmaic-desc">ProfileAnalyzer, matrice de mapping, scores → paramètres ALFRED</span>
+      </div>
+      <div class="dmaic-step">
+        <span class="dmaic-letter">I</span>
+        <span class="dmaic-word">Improve</span>
+        <span class="dmaic-desc">Comportement ALFRED adapté, UX personnalisée, re-test périodique</span>
+      </div>
+      <div class="dmaic-step">
+        <span class="dmaic-letter">C</span>
+        <span class="dmaic-word">Control</span>
+        <span class="dmaic-desc">SOC, audit trail, RGPD, AlertesCNIL/ANSSI, révisions annuelles</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── GOUVERNANCE & CYBER ─── -->
+  <section>
+    <h2><span class="icon">🔒</span> Gouvernance &amp; Cybersécurité</h2>
+    <p>
+      La gouvernance des données n'est pas un ajout post-conception — elle est
+      <strong>intégrée dès le premier commit</strong> (Security by Design, Privacy by Design).
+    </p>
+
+    <h3>Cadre réglementaire couvert</h3>
+    <div class="reg-grid">
+      <div class="reg-badge"><span class="dot"></span>RGPD art. 30 — Registre des traitements</div>
+      <div class="reg-badge"><span class="dot"></span>LIL / CNIL — Droit français</div>
+      <div class="reg-badge high"><span class="dot"></span>EU AI Act 2024/1689 — Classification produits</div>
+      <div class="reg-badge high"><span class="dot"></span>NIS2 2022/2555 — Cybersécurité</div>
+      <div class="reg-badge high"><span class="dot"></span>Cyber Resilience Act 2024/2847</div>
+      <div class="reg-badge"><span class="dot"></span>ANSSI — Recommandations techniques</div>
+      <div class="reg-badge"><span class="dot"></span>ISO 27001:2022 — Cible de conformité</div>
+      <div class="reg-badge high"><span class="dot"></span>HDS — Hébergement Données Santé (ARTHUR)</div>
+    </div>
+
+    <h3>Schéma de traçabilité — chaque donnée est auditable</h3>
+    <p>
+      Chaque traitement est documenté avec : <em>qui a créé / consulté / modifié / supprimé,
+      quand, pourquoi, par quel rôle</em> — et les données ne pouvant jamais quitter
+      l'appareil de l'utilisateur sont identifiées explicitement.
+    </p>
+
+    <h3>SOC progressif — 3 niveaux</h3>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-icon">🔎</div>
+        <h4>Niveau 1 — Maintenant</h4>
+        <p>Collecte de logs anonymisés, revue quotidienne manuelle, veille CERT-FR/ANSSI, alertes critiques.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">⚡</div>
+        <h4>Niveau 2 — V2 (12 mois)</h4>
+        <p>SIEM léger (Wazuh), règles de détection automatisées, playbooks de réponse.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🏢</div>
+        <h4>Niveau 3 — V3 (si croissance)</h4>
+        <p>MSSP certifié ANSSI, SOC 24/7, pentest semestriel.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── LIVRABLES ─── -->
+  <section>
+    <h2><span class="icon">📦</span> Livrables produits</h2>
+    <table class="deliverables">
+      <thead>
+        <tr>
+          <th>Document / Composant</th>
+          <th>Rôle</th>
+          <th>Statut</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>dimensions_schema.json</td>
+          <td>9 dimensions psychologiques — frameworks, scores, niveaux</td>
+          <td><span class="status done">Livré</span></td>
+        </tr>
+        <tr>
+          <td>alfred_mapping_matrix.json</td>
+          <td>Scores → paramètres comportementaux ALFRED</td>
+          <td><span class="status done">Livré</span></td>
+        </tr>
+        <tr>
+          <td>profile_analyzer.py</td>
+          <td>Calcul scores, sessions progressives, chiffrement Fernet</td>
+          <td><span class="status done">Livré</span></td>
+        </tr>
+        <tr>
+          <td>registre_traitements_CPL.md</td>
+          <td>Registre RGPD art. 30 — 7 traitements documentés</td>
+          <td><span class="status done">Livré</span></td>
+        </tr>
+        <tr>
+          <td>cartographie_donnees_CPL.md</td>
+          <td>Data map complet — flux, stockage, accès, risques</td>
+          <td><span class="status done">Livré</span></td>
+        </tr>
+        <tr>
+          <td>schema_tracabilite_donnees.json</td>
+          <td>Schéma audit trail — création / consultation / modification / suppression</td>
+          <td><span class="status done">Livré</span></td>
+        </tr>
+        <tr>
+          <td>cadre_reglementaire_CPL.md</td>
+          <td>RGPD + AI Act + NIS2 + ANSSI + CRA + HDS — matrice de conformité</td>
+          <td><span class="status done">Livré</span></td>
+        </tr>
+        <tr>
+          <td>soc_cpl.md</td>
+          <td>Architecture SOC 3 niveaux, playbooks, KPI, veille</td>
+          <td><span class="status done">Livré</span></td>
+        </tr>
+        <tr>
+          <td>PSSI formelle</td>
+          <td>Politique de Sécurité des Systèmes d'Information</td>
+          <td><span class="status wip">En cours</span></td>
+        </tr>
+        <tr>
+          <td>AIPD (par traitement sensible)</td>
+          <td>Analyse d'Impact sur la Protection des Données</td>
+          <td><span class="status wip">En cours</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ─── CTA ─── -->
+  <section>
+    <div class="cta-block">
+      <h3>Vision &amp; prochaines étapes</h3>
+      <p>
+        Ce système constitue la fondation du profil utilisateur V1 pour ALFRED et ALFRED CPL.
+        La V2 étendra ce dispositif à ARTHUR (enfants &lt; 15 ans), avec contrôle parental
+        renforcé et conformité HDS pour les données de santé.
+      </p>
+      <p style="font-size:14px; color:rgba(200,196,224,0.6); margin-top:8px;">
+        Projet open-source — Cognitive Products Lab · cognitive-products-lab/alfred_assistant
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <p>© 2026 <strong>Cognitive Products Lab</strong> — Céline Rousselot &nbsp;|&nbsp; Article rédigé dans le cadre du projet ALFRED</p>
+</footer>
+
+</body>
+</html>
