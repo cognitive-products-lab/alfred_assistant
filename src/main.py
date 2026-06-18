@@ -153,7 +153,7 @@ def banner(name: str, memory_summary: str, llm_available: bool) -> None:
 
     print("")
     print("╔══════════════════════════════════════════════════╗")
-    print("║        ALFRED — V1.2 + mémoire long terme        ║")
+    print("║        ALFRED — V1.4 + mémoire long terme        ║")
     print("║     Local-first | Security by Design             ║")
     print("╚══════════════════════════════════════════════════╝")
     print(f"  Base     : {ROOT}")
@@ -266,6 +266,7 @@ def init_components() -> dict[str, Any]:
     from src.regulation.mode_manager import get_mode_manager
     from src.llm.llm_client_ollama import OllamaLLMClient
     from src.llm.llm_client_openai import OpenAILLMClient
+    from src.llm.llm_client_anthropic import AnthropicLLMClient
     from src.llm.llm_router import LLMRouter
     from src.conversation.input.input_manager import HybridInputManager
     
@@ -356,20 +357,26 @@ def init_components() -> dict[str, Any]:
         print(f"  [AVERT] RetrievalEngine indisponible : {exc}")
         components["retrieval_engine"] = None
 
-    # LLM Router : Ollama local -> OpenAI fallback -> fallback offline
+    # LLM Router : Ollama local -> OpenAI -> Anthropic Claude
     try:
         ollama = OllamaLLMClient(model=MODEL)
 
         try:
-            openai = OpenAILLMClient(model="gpt-4o")
-         
+            openai = OpenAILLMClient(model="gpt-4o-mini")
         except Exception as exc:
             openai = None
             print(f"  [AVERT] OpenAI indisponible : {exc}")
 
+        try:
+            anthropic = AnthropicLLMClient(model="claude-haiku-4-5-20251001")
+        except Exception as exc:
+            anthropic = None
+            print(f"  [AVERT] Anthropic indisponible : {exc}")
+
         components["llm"] = LLMRouter(
             primary=ollama,
             secondary=openai,
+            tertiary=anthropic,
             allow_cloud_fallback=True,
             debug=True,
         )
