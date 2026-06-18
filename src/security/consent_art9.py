@@ -1,6 +1,6 @@
 """
 PROJECT : ALFRED
-BLOCK   : B01 / RGPD
+BLOCK   : B20 / RGPD
 FILE    : src/security/consent_art9.py
 ROLE    : Gestion du consentement renforcé Art. 9 RGPD — données sensibles de santé
 

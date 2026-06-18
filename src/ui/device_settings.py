@@ -53,14 +53,22 @@ def list_cameras() -> list[dict]:
         # Supprime les warnings obsensor/ffmpeg lors du scan des indices
         _os.environ.setdefault("OPENCV_LOG_LEVEL", "ERROR")
         import cv2
+        # CAP_DSHOW : sur Windows, le backend par défaut (MSMF) peut "ouvrir"
+        # un index sans caméra réelle (isOpened=True mais aucune image lue).
+        # DSHOW énumère correctement les caméras USB branchées.
+        backend = cv2.CAP_DSHOW if hasattr(cv2, "CAP_DSHOW") else cv2.CAP_ANY
         for i in range(6):
-            cap = cv2.VideoCapture(i)
+            cap = cv2.VideoCapture(i, backend)
             if cap.isOpened():
+                ret, _frame = cap.read()
+                if not ret:
+                    cap.release()
+                    continue
                 w = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
                 h = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+                # Pas de label "(intégrée)" : l'ordre des index DSHOW n'est pas
+                # garanti (l'index 0 n'est pas forcément la caméra intégrée).
                 label = f"Caméra {i}"
-                if i == 0:
-                    label += " (intégrée)"
                 if w and h:
                     label += f"  {w}×{h}"
                 cameras.append({"index": i, "name": label})
