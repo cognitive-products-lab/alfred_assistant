@@ -1,0 +1,96 @@
+{
+  "_meta": {
+    "document": "Politique de Sécurité Réseau",
+    "reference": "ISO/IEC 27001:2022 — Contrôle A.8.20 / NIS2 Art. 21",
+    "version": "1.0",
+    "date": "2026-06-18",
+    "proprietaire": "Cognitive Products Lab — Céline Darras",
+    "statut": "Approuvé"
+  },
+  "infrastructure": {
+    "firewall": {
+      "modele": "TP-Link ER605",
+      "firmware_version": "A vérifier",
+      "mode": "Routeur-Firewall NAT",
+      "statut": "Actif"
+    },
+    "switch": {
+      "modele": "TP-Link SG108E",
+      "mode": "Switch manageable",
+      "statut": "Actif"
+    }
+  },
+  "regles_firewall": [
+    {
+      "id": "FW-001",
+      "description": "Bloquer tout trafic entrant non sollicité (default deny)",
+      "direction": "inbound",
+      "action": "DENY",
+      "protocole": "*",
+      "statut": "Actif"
+    },
+    {
+      "id": "FW-002",
+      "description": "Autoriser HTTPS sortant (API OpenAI, mises à jour)",
+      "direction": "outbound",
+      "port": "443",
+      "protocole": "TCP",
+      "action": "ALLOW",
+      "statut": "Actif"
+    },
+    {
+      "id": "FW-003",
+      "description": "Autoriser DNS (résolution noms)",
+      "direction": "outbound",
+      "port": "53",
+      "protocole": "UDP/TCP",
+      "action": "ALLOW",
+      "statut": "Actif"
+    },
+    {
+      "id": "FW-004",
+      "description": "Bloquer tout trafic non explicitement autorisé",
+      "direction": "both",
+      "action": "DENY",
+      "protocole": "*",
+      "statut": "Actif (default deny)"
+    }
+  ],
+  "segmentation_reseau": {
+    "vlan_actuel": "Réseau plat — isolation VLAN PC Alfred planifiée Q3 2026",
+    "vlan_planifie": {
+      "VLAN_PC_ALFRED": {
+        "id": 10,
+        "description": "PC Alfred isolé",
+        "horizon": "Q3 2026",
+        "statut": "Planifié"
+      },
+      "VLAN_ADMIN": {
+        "id": 20,
+        "description": "Administration réseau",
+        "horizon": "Q3 2026",
+        "statut": "Planifié"
+      },
+      "VLAN_IOT": {
+        "id": 30,
+        "description": "Appareils IoT isolés",
+        "horizon": "Q3 2026",
+        "statut": "Planifié"
+      }
+    }
+  },
+  "wifi": {
+    "protocole": "WPA3",
+    "ssid_masque": true,
+    "mac_filtering": "Recommandé",
+    "isolation_client": true
+  },
+  "revisions": [
+    {
+      "version": "1.0",
+      "date": "2026-06-18",
+      "auteur": "Céline Darras",
+      "modification": "Création politique réseau initiale — conformité ISO A.8.20"
+    }
+  ]
+}
