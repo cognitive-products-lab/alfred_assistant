@@ -196,14 +196,18 @@ def update_vlan_doc():
     else:
         print("  ℹ️  vlan_config.md déjà à jour ou statut différent.")
 
+def _run(cmd, **kwargs):
+    """subprocess.run avec encodage Windows-safe."""
+    return subprocess.run(
+        cmd, capture_output=True, text=True,
+        encoding="utf-8", errors="replace", **kwargs
+    )
+
 def run_update_dashboard():
     """Régénère le dashboard gouvernance."""
     print("\nRégénération dashboard gouvernance")
     print("-" * 40)
-    result = subprocess.run(
-        [sys.executable, str(UPDATE_SCRIPT)],
-        capture_output=True, text=True, encoding="utf-8"
-    )
+    result = _run([sys.executable, str(UPDATE_SCRIPT)])
     if result.returncode == 0:
         print("  ✅ Dashboard régénéré")
     else:
@@ -216,10 +220,7 @@ def run_sync():
     if not SYNC_SCRIPT.exists():
         print("  ℹ️  sync_dashboards.py non trouvé — sync manuelle requise.")
         return
-    result = subprocess.run(
-        [sys.executable, str(SYNC_SCRIPT)],
-        capture_output=True, text=True, encoding="utf-8"
-    )
+    result = _run([sys.executable, str(SYNC_SCRIPT)])
     if result.returncode == 0:
         print("  ✅ Sync ALFRED_WEB OK")
     else:
@@ -230,9 +231,11 @@ def git_commit_vlan(planifie=False):
     print("\nGit — Commit + Push")
     print("-" * 40)
 
-    git = lambda *args: subprocess.run(
-        ["git", *args], cwd=ROOT, capture_output=True, text=True, encoding="utf-8"
-    )
+    import os
+    git_env = {**os.environ, "GIT_TERMINAL_PROMPT": "0"}
+
+    def git(*args, timeout=60):
+        return _run(["git", *args], cwd=ROOT, env=git_env, timeout=timeout)
 
     today = date.today().isoformat()
 
@@ -258,25 +261,26 @@ def git_commit_vlan(planifie=False):
         print(f"  ✅ Commit dev : {msg[:60]}…")
 
     # Push dev
-    r = git("push", "origin", "dev")
+    r = git("push", "origin", "dev", timeout=90)
     if r.returncode == 0:
         print("  ✅ Push dev OK")
     else:
-        print(f"  ⚠️  Push dev : {r.stderr[:200]}")
+        print(f"  ⚠️  Push dev : {r.stderr[:300]}")
 
     # Merge main
     git("checkout", "main")
-    r = git("merge", "dev", "--no-ff", "-m", f"Merge dev → main : VLAN ISO-20 done ({today})")
+    merge_msg = f"Merge dev -> main : VLAN ISO-20 done ({today})"
+    r = git("merge", "dev", "--no-ff", "-m", merge_msg)
     if r.returncode == 0:
         print("  ✅ Merge main OK")
     else:
-        print(f"  ⚠️  Merge main : {r.stderr[:200]}")
+        print(f"  ⚠️  Merge main : {r.stderr[:300]}")
 
-    r = git("push", "origin", "main")
+    r = git("push", "origin", "main", timeout=90)
     if r.returncode == 0:
         print("  ✅ Push main OK")
     else:
-        print(f"  ⚠️  Push main : {r.stderr[:200]}")
+        print(f"  ⚠️  Push main : {r.stderr[:300]}")
 
     git("checkout", "dev")
 
