@@ -1,9 +1,15 @@
 """
 PROJECT  : ALFRED / Cognitive Products Lab
-BLOCK    : B20
+BLOCK    : B20 — Sécurité, Gouvernance & Conformité
 FILE     : tools/dashboard_tools/dashboard_gouvernance/update_gouvernance_data.py
 ROLE     : Lit _manifest.json, vérifie les fichiers de preuve sur disque,
            recalcule les scores de conformité, écrit dashboard_gouvernance_data.json
+
+AUTHOR   : Cognitive Products Lab — Céline Darras
+CREATED  : 2026-06-16
+UPDATED  : 2026-06-20
+VERSION  : V1.2
+STATUS   : STABLE
 
 USAGE    :
     cd D:/PROJET_ALFRED/ALFRED_PC
