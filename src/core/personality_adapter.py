@@ -1,13 +1,22 @@
 """
-personality_adapter.py
-Moteur d'adaptation de personnalité pour ALFRED.
+PROJECT      : ALFRED
+BLOCK        : B08 — Personnalité & Adaptation
+FUNCTION     : 08.01 — Moteur d'adaptation de personnalité
+FILE         : src/core/personality_adapter.py
+ROLE         : Moteur central reliant personnalité ALFRED + profil utilisateur.
+               Adapte le ton, le niveau émotionnel et la profondeur de réponse.
+               Intègre les préférences MBTI/onboarding via _apply_user_adaptation().
 
-Rôle :
-- Charger la personnalité stable d'ALFRED.
-- Charger le profil utilisateur.
-- Empêcher l'utilisation directe des templates publics.
-- Adapter le ton, le niveau émotionnel et le mode de réponse.
-- Préparer un contexte exploitable par response_generator.py.
+AUTHOR       : Cognitive Products Lab
+CREATED      : 2026-05-01
+UPDATED      : 2026-06-20
+VERSION      : V1.2
+STATUS       : VALIDATED
+
+CHANGELOG V1.2 (20/06/2026) :
+  - build_response_context() accepte user_adaptation (UserAdaptationContext)
+  - _apply_user_adaptation() : enrichit ton, profondeur, règles depuis MBTI/onboarding
+  - Nouvelle clé mbti_adaptation dans le contexte retourné (pour response_generator)
 """
 
 import json
@@ -342,7 +351,8 @@ class PersonalityAdapter:
         self,
         user_message: str,
         detected_emotion: Optional[str] = None,
-        energy_level: Optional[str] = None
+        energy_level: Optional[str] = None,
+        user_adaptation: Optional[Any] = None,
     ) -> Dict[str, Any]:
         """Produit le contexte complet à transmettre au générateur de réponse."""
         self.validate_required_sections()
@@ -370,7 +380,7 @@ class PersonalityAdapter:
         rm = metadata.get("research_mode", {})
         research_active = rm.get("active", False) if isinstance(rm, dict) else bool(rm)
 
-        return {
+        context = {
             "assistant": {
                 "name": identity.get("name", "ALFRED"),
                 "version": identity.get("version", "V1"),
@@ -403,6 +413,97 @@ class PersonalityAdapter:
             "privacy_and_consent": self.user_profile.get("privacy_and_consent", {}),
             "response_rules": response_rules,
             "research_mode": research_active,
+        }
+
+        if user_adaptation is not None:
+            self._apply_user_adaptation(context, user_adaptation)
+
+        return context
+
+    # ─────────────────────────────────────────────────────
+    # Adaptation MBTI / profil onboarding
+    # ─────────────────────────────────────────────────────
+
+    def _apply_user_adaptation(self, context: Dict[str, Any], ua: Any) -> None:
+        """
+        Enrichit le contexte avec les préférences MBTI et comm issues de l'onboarding.
+        Surcharge uniquement ce que le profil indique explicitement.
+        """
+        adaptation = context["adaptation"]
+        rules = context["response_rules"]
+
+        # ── Profondeur de réponse ──────────────────────────────────────────────
+        # health profile response_length_pref > personality processing_pref
+        length_pref = getattr(ua, "response_length_pref", "adapt")
+        processing  = getattr(ua, "processing_pref", "adapt")
+
+        if length_pref and length_pref != "adapt":
+            _length_map = {"short": "short", "medium": "medium",
+                           "long": "detailed", "detailed": "detailed"}
+            adaptation["response_depth"] = _length_map.get(length_pref, adaptation["response_depth"])
+        elif processing and processing != "adapt":
+            _proc_map = {"fast_scan": "short", "deep": "detailed",
+                         "interactive": "medium"}
+            adaptation["response_depth"] = _proc_map.get(processing, adaptation["response_depth"])
+
+        # ── Ton ───────────────────────────────────────────────────────────────
+        # On enrichit le ton existant avec des qualificatifs MBTI sans l'écraser
+        tone_qualifiers: list[str] = []
+
+        formality = getattr(ua, "formality_level", 2)
+        if formality <= 1:
+            tone_qualifiers.append("très familier")
+        elif formality >= 4:
+            tone_qualifiers.append("formel")
+
+        if getattr(ua, "validate_first", False):
+            tone_qualifiers.append("validant")
+
+        if getattr(ua, "flexible_tone", False) and adaptation["mode"] not in (
+            "low_energy_mode", "emotional_support_light"
+        ):
+            tone_qualifiers.append("souple")
+
+        if tone_qualifiers:
+            adaptation["tone"] = adaptation["tone"] + ", " + ", ".join(tone_qualifiers)
+
+        # ── Règles comportementales ───────────────────────────────────────────
+        if getattr(ua, "concrete_first", False):
+            rules["use_examples"] = True
+
+        if getattr(ua, "structured_resp", False):
+            rules["be_structured"] = True
+
+        if getattr(ua, "direct_feedback", False):
+            rules["be_direct"] = True
+
+        if getattr(ua, "validate_first", False):
+            rules["validate_before_solve"] = True
+
+        humor = getattr(ua, "humor_enabled", True)
+        # Ne pas activer l'humour si le mode l'interdit déjà
+        if not humor:
+            rules["use_humor"] = False
+
+        challenge = getattr(ua, "challenge_pref", "ask_question")
+        rules["challenge_mode"] = challenge  # never / suggest / ask_question / direct
+
+        # ── Section mbti_adaptation (pour response_generator) ─────────────────
+        context["mbti_adaptation"] = {
+            "mbti_type":           getattr(ua, "mbti_type", ""),
+            "concrete_first":      getattr(ua, "concrete_first", False),
+            "conceptual_first":    getattr(ua, "conceptual_first", False),
+            "validate_first":      getattr(ua, "validate_first", False),
+            "direct_feedback":     getattr(ua, "direct_feedback", False),
+            "structured_resp":     getattr(ua, "structured_resp", False),
+            "humor_enabled":       humor,
+            "formality_level":     formality,
+            "proactivity_pref":    getattr(ua, "proactivity_pref", "moderately_proactive"),
+            "decision_support":    getattr(ua, "decision_support", "pros_cons"),
+            "topics_avoid":        getattr(ua, "topics_avoid", []),
+            "behaviors_avoid":     getattr(ua, "behaviors_avoid", []),
+            "alfred_emotional_roles": getattr(ua, "alfred_emotional_roles", []),
+            "when_distressed":     getattr(ua, "when_distressed", "ask_once"),
         }
 
     # ─────────────────────────────────────────────────────
