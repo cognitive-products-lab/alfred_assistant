@@ -7,8 +7,8 @@ ROLE         : Genere dashboard_data.json depuis dashboard_data_manifest.json et
 
 AUTHOR       : Cognitive Products Lab
 CREATED      : 2026-05-10
-UPDATED      : 2026-05-23
-VERSION      : V1.2
+UPDATED      : 2026-06-20
+VERSION      : V1.3
 STATUS       : STABLE
 
 DESCRIPTION :
