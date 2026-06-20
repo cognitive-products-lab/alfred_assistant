@@ -1756,12 +1756,83 @@ Priorités :
 
 
 # =============================================================================
-# 10. MAIN LOOP
+# 10. AUTHENTIFICATION AU DÉMARRAGE
+# =============================================================================
+
+_MAX_PIN_ATTEMPTS = 3
+
+
+def prompt_auth() -> bool:
+    """
+    Porte d'authentification PIN au démarrage d'ALFRED.
+
+    - Aucun PIN enregistré → propose d'en créer un (skip autorisé pour la
+      première utilisation afin de ne pas bloquer).
+    - PIN enregistré → demande le PIN, 3 tentatives, exit si bloqué.
+
+    Retourne True si l'accès est autorisé, False sinon.
+    """
+    import getpass
+    from src.auth.authenticator import has_pin, register_pin, authenticate
+
+    user_id = USER_ID
+
+    print("\n  ── Authentification ALFRED ──")
+
+    # ── Première utilisation : aucun PIN ──────────────────────────────────────
+    if not has_pin(user_id):
+        print("  Aucun code PIN enregistré pour cet utilisateur.")
+        print("  Pour sécuriser ALFRED, vous pouvez créer un PIN maintenant.")
+        choix = input("  Créer un PIN ? [o/N] : ").strip().lower()
+        if choix in {"o", "oui", "y", "yes"}:
+            while True:
+                pin1 = getpass.getpass("  Nouveau PIN (4-32 caractères) : ")
+                pin2 = getpass.getpass("  Confirmer le PIN : ")
+                if pin1 != pin2:
+                    print("  Les PINs ne correspondent pas. Recommencez.")
+                    continue
+                if register_pin(user_id, pin1):
+                    print("  PIN enregistré avec succès.\n")
+                    return True
+                else:
+                    print("  PIN invalide (longueur 4-32 chiffres/caractères). Recommencez.")
+        else:
+            print("  Démarrage sans PIN — pensez à en créer un (commande : pin).\n")
+            return True
+
+    # ── PIN existant : demande vérification ───────────────────────────────────
+    for attempt in range(1, _MAX_PIN_ATTEMPTS + 1):
+        try:
+            pin = getpass.getpass(f"  Code PIN ({attempt}/{_MAX_PIN_ATTEMPTS}) : ")
+        except (KeyboardInterrupt, EOFError):
+            print("\n  Authentification annulée.")
+            return False
+
+        result = authenticate(user_id, pin)
+        if result["success"]:
+            print("  Accès autorisé.\n")
+            return True
+
+        reason = result.get("reason", "Échec")
+        print(f"  {reason}.")
+
+        if "Trop de tentatives" in reason or "bloqué" in reason.lower():
+            break
+
+    print("  Accès refusé. ALFRED ne peut pas démarrer.\n")
+    return False
+
+
+# =============================================================================
+# 11. MAIN LOOP
 # =============================================================================
 
 def main() -> None:
     from src.conversation.input.context_builder import get_time_context
     from src.conversation.input.input_manager import HybridInputManager
+
+    if not prompt_auth():
+        sys.exit(1)
 
     components = init_components()
     memory = components["memory"]
@@ -2132,7 +2203,7 @@ def main() -> None:
 
 
 # =============================================================================
-# 11. ENTREE PROGRAMME
+# 12. ENTREE PROGRAMME
 # =============================================================================
 
 if __name__ == "__main__":

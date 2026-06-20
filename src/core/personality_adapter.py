@@ -240,10 +240,13 @@ class PersonalityAdapter:
         detected_emotion: Optional[str] = None,
         energy_level: Optional[str] = None
     ) -> int:
-        """Retourne un niveau émotionnel de 0 à 3."""
-        if detected_emotion in ["sadness", "distress", "fear"]:
+        """Retourne un niveau émotionnel de 0 à 3.
+        3 = sévère (distress, fear), 2 = modéré (sadness, stress, fatigue),
+        1 = léger (mild_concern), 0 = neutre.
+        """
+        if detected_emotion in ["distress", "fear"]:
             return 3
-        if detected_emotion in ["stress", "anxiety"] or energy_level in ["low", "fatigue"]:
+        if detected_emotion in ["sadness", "stress", "anxiety"] or energy_level in ["low", "fatigue"]:
             return 2
         if detected_emotion in ["mild_concern"]:
             return 1
