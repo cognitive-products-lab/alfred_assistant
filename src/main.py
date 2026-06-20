@@ -8,7 +8,7 @@ FILE         : main.py
 ROLE         : Point d'entrée principal ALFRED — pipeline conversation V1.2
 AUTHOR       : Cognitive Products Lab
 VERSION      : V1.2
-STATUS       : ACTIVE
+STATUS       : VALIDATED
 
 Objectif :
   Conserver la V1 actuelle fonctionnelle, tout en préparant proprement la V2.
@@ -1760,6 +1760,11 @@ Priorités :
 # =============================================================================
 
 _MAX_PIN_ATTEMPTS = 3
+_AUTH_DONE = False
+
+
+def _auth_already_done() -> bool:
+    return _AUTH_DONE
 
 
 def prompt_auth() -> bool:
@@ -1771,7 +1776,13 @@ def prompt_auth() -> bool:
     - PIN enregistré → demande le PIN, 3 tentatives, exit si bloqué.
 
     Retourne True si l'accès est autorisé, False sinon.
+    Met à jour _AUTH_DONE pour éviter un double appel depuis alfred_with_ui.py.
     """
+    global _AUTH_DONE
+
+    if _AUTH_DONE:
+        return True
+
     import getpass
     from src.auth.authenticator import has_pin, register_pin, authenticate
 
@@ -1793,11 +1804,13 @@ def prompt_auth() -> bool:
                     continue
                 if register_pin(user_id, pin1):
                     print("  PIN enregistré avec succès.\n")
+                    _AUTH_DONE = True
                     return True
                 else:
                     print("  PIN invalide (longueur 4-32 chiffres/caractères). Recommencez.")
         else:
             print("  Démarrage sans PIN — pensez à en créer un (commande : pin).\n")
+            _AUTH_DONE = True
             return True
 
     # ── PIN existant : demande vérification ───────────────────────────────────
@@ -1811,6 +1824,7 @@ def prompt_auth() -> bool:
         result = authenticate(user_id, pin)
         if result["success"]:
             print("  Accès autorisé.\n")
+            _AUTH_DONE = True
             return True
 
         reason = result.get("reason", "Échec")
@@ -1831,6 +1845,9 @@ def main() -> None:
     from src.conversation.input.context_builder import get_time_context
     from src.conversation.input.input_manager import HybridInputManager
 
+    # prompt_auth() gère lui-même le flag _AUTH_DONE :
+    # - lancé via alfred_with_ui.py → déjà validé avant Kivy, retourne True immédiatement
+    # - lancé via main.py directement → demande le PIN ici
     if not prompt_auth():
         sys.exit(1)
 
