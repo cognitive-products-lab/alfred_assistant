@@ -1,7 +1,7 @@
 # ============================================================
 # ALFRED — src/core/response_generator.py
 # Bloc 01.05 — Gestion des réponses
-# Version : 2.3 — 2026-06-18
+# Version : 2.4 — 2026-06-20
 #
 # 📚 NOTION EXAM :
 #   D11-2 — Capsule 1 : Génération de réponses LLM-ready et prompt engineering
@@ -36,12 +36,14 @@ class ResponseGenerator:
         debug: bool = False,
         tts_available: bool = False,
         vision_client: Optional[Any] = None,
+        confidence_scorer: Optional[Any] = None,
         **kwargs,
     ):
         self.llm_client = llm_client
         self.debug = debug
         self.tts_available = tts_available
         self.vision_client = vision_client
+        self.confidence_scorer = confidence_scorer
 
     # =========================================================
     # ENTRÉE PRINCIPALE
@@ -587,6 +589,34 @@ Réponds maintenant.""".strip()
             response_clean = response_clean[:1500].rstrip() + "\n\n[...]"
 
         return response_clean if response_clean else "Je n’ai pas de réponse fiable pour le moment."
+
+    # =========================================================
+    # CONFIDENCE SCORING
+    # =========================================================
+
+    def _apply_confidence_scoring(self, response: str, context: Dict[str, Any]) -> str:
+        """Ajoute un hedge prefix si la confiance est faible (sauf si V2 l'a déjà fait)."""
+        if self.confidence_scorer is None:
+            return response
+
+        v2 = context.get("v2", {})
+        if v2.get("should_hedge") and v2.get("hedge_prefix"):
+            return response
+
+        try:
+            memory_ctx = context.get("memory_context", "") or ""
+            knowledge_ctx = context.get("knowledge_context", "") or ""
+            result = self.confidence_scorer.score(
+                fusion_score=v2.get("fusion_score", 0.5),
+                memory_coverage=1.0 if memory_ctx.strip() else 0.0,
+                knowledge_coverage=1.0 if knowledge_ctx.strip() else 0.0,
+            )
+            if result and getattr(result, "should_hedge", False) and getattr(result, "hedge_phrase", ""):
+                return result.hedge_phrase + response
+        except Exception:
+            pass
+
+        return response
 
     # =========================================================
     # DEBUG
