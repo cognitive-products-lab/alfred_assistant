@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Gouvernance, Cybersécurité & Profil Utilisateur — ALFRED | Cognitive Products Lab</title>
+  <title>Governance, Cybersecurity & User Profile — ALFRED | Cognitive Products Lab</title>
   <style>
     :root {
       --violet:    #6C3FC5;
@@ -26,6 +26,41 @@
       font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
       font-size: 16px;
       line-height: 1.7;
+    }
+
+    /* ─── LANG SWITCHER ─── */
+    .lang-bar {
+      position: fixed;
+      top: 0; right: 0;
+      z-index: 200;
+      display: flex;
+      gap: 0;
+      padding: 10px 16px;
+    }
+    .lang-btn {
+      display: inline-block;
+      padding: 5px 14px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: 1px solid rgba(108,63,197,0.4);
+      color: rgba(200,196,224,0.6);
+      background: rgba(13,13,26,0.9);
+      backdrop-filter: blur(8px);
+      transition: all 0.2s;
+    }
+    .lang-btn:first-child { border-radius: 8px 0 0 8px; }
+    .lang-btn:last-child  { border-radius: 0 8px 8px 0; border-left: none; }
+    .lang-btn.active {
+      background: var(--violet);
+      color: var(--white);
+      border-color: var(--violet);
+    }
+    .lang-btn:hover:not(.active) {
+      color: var(--light);
+      border-color: var(--violet);
     }
 
     /* ─── HERO ─── */
@@ -281,41 +316,6 @@
     }
     footer strong { color: var(--violet); }
 
-    /* ─── LANG SWITCHER ─── */
-    .lang-bar {
-      position: fixed;
-      top: 0; right: 0;
-      z-index: 200;
-      display: flex;
-      gap: 0;
-      padding: 10px 16px;
-    }
-    .lang-btn {
-      display: inline-block;
-      padding: 5px 14px;
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      text-decoration: none;
-      border: 1px solid rgba(108,63,197,0.4);
-      color: rgba(200,196,224,0.6);
-      background: rgba(13,13,26,0.9);
-      backdrop-filter: blur(8px);
-      transition: all 0.2s;
-    }
-    .lang-btn:first-child { border-radius: 8px 0 0 8px; }
-    .lang-btn:last-child  { border-radius: 0 8px 8px 0; border-left: none; }
-    .lang-btn.active {
-      background: var(--violet);
-      color: var(--white);
-      border-color: var(--violet);
-    }
-    .lang-btn:hover:not(.active) {
-      color: var(--light);
-      border-color: var(--violet);
-    }
-
     @media (max-width: 600px) {
       .dmaic { flex-direction: column; }
       .triangle-legend { gap: 16px; }
@@ -326,145 +326,140 @@
 
 <!-- ═══ LANG SWITCHER ═══ -->
 <div class="lang-bar">
-  <a href="gouvernance-cyber-profil-utilisateur.html" class="lang-btn active">FR</a>
-  <a href="governance-cybersecurity-user-profile.html" class="lang-btn">EN</a>
+  <a href="gouvernance-cyber-profil-utilisateur.html" class="lang-btn">FR</a>
+  <a href="governance-cybersecurity-user-profile.html" class="lang-btn active">EN</a>
 </div>
 
 <!-- ═══ HERO ═══ -->
 <header class="hero">
-  <div class="tag">Carrière &amp; Apprentissage</div>
-  <h1>Gouvernance, Cybersécurité<br/>&amp; <span>Profil Utilisateur IA</span></h1>
+  <div class="tag">Career &amp; Learning</div>
+  <h1>Governance, Cybersecurity<br/>&amp; <span>AI User Profile</span></h1>
   <p class="hero-sub">
-    Comment j'ai conçu un système de données éthique, sécurisé et conforme
-    pour un assistant IA adaptatif — du profil psychologique au SOC.
+    How I designed an ethical, secure, and compliant data system
+    for an adaptive AI assistant — from psychological profiling to SOC.
   </p>
   <div class="meta">
-    <span>📅 Juin 2026</span>
+    <span>📅 June 2026</span>
     <span>👩‍💻 Céline Rousselot</span>
-    <span>🏷️ RGPD · AI Act · ANSSI · Lean Six Sigma</span>
-    <span>⏱️ 12 min de lecture</span>
+    <span>🏷️ GDPR · AI Act · ANSSI · Lean Six Sigma</span>
+    <span>⏱️ 12 min read</span>
   </div>
 </header>
 
 <main class="container">
 
-  <!-- ─── CONTEXTE ─── -->
+  <!-- ─── CONTEXT ─── -->
   <section>
-    <h2><span class="icon">🎯</span> Contexte &amp; problématique</h2>
+    <h2><span class="icon">🎯</span> Context &amp; problem statement</h2>
     <p>
-      Dans le cadre du projet <strong>ALFRED</strong> — assistant IA adaptatif local-first
-      (Cognitive Products Lab) — j'ai dû résoudre un problème structurant :
-      <em>comment construire un profil utilisateur riche et précis, utile à la personnalisation de l'IA,
-      sans compromettre la sécurité, la vie privée, ni la conformité réglementaire ?</em>
+      As part of the <strong>ALFRED</strong> project — a local-first adaptive AI assistant
+      (Cognitive Products Lab) — I had to solve a structural challenge:
+      <em>how do you build a rich, accurate user profile that genuinely personalises the AI
+      without compromising security, privacy, or regulatory compliance?</em>
     </p>
     <p>
-      La réponse ne pouvait pas être partielle. Elle devait simultanément couvrir la
-      <strong>dimension scientifique</strong> (frameworks psychologiques validés),
-      la <strong>dimension technique</strong> (chiffrement, local-first, auditabilité)
-      et la <strong>dimension réglementaire</strong> (RGPD, AI Act, NIS2, ANSSI).
+      The answer couldn't be partial. It had to simultaneously cover the
+      <strong>scientific dimension</strong> (validated psychological frameworks),
+      the <strong>technical dimension</strong> (encryption, local-first, auditability)
+      and the <strong>regulatory dimension</strong> (GDPR, AI Act, NIS2, ANSSI).
     </p>
     <blockquote>
-      La qualité de la donnée d'entrée détermine la qualité de l'adaptation de l'IA.
-      Un profil approximatif produit une IA approximative. Un profil sécurisé construit
-      une confiance durable.
-      <cite>— Principes de conception ALFRED, CPL 2026</cite>
+      The quality of input data determines the quality of AI adaptation.
+      An approximate profile produces an approximate AI. A secure profile
+      builds lasting trust.
+      <cite>— ALFRED design principles, CPL 2026</cite>
     </blockquote>
   </section>
 
-  <!-- ─── SYSTÈME DE PROFILAGE ─── -->
+  <!-- ─── PROFILING SYSTEM ─── -->
   <section>
-    <h2><span class="icon">🧠</span> Système de profilage psychologique</h2>
+    <h2><span class="icon">🧠</span> Psychological profiling system</h2>
     <p>
-      Plutôt que de collecter des données superficielles (âge, préférences de surface),
-      j'ai construit un système s'appuyant sur des <strong>frameworks psychologiques validés
-      scientifiquement</strong>, intégré comme une conversation naturelle avec ALFRED.
+      Rather than collecting surface-level data (age, stated preferences),
+      I built a system grounded in <strong>scientifically validated
+      psychological frameworks</strong>, delivered as a natural conversation with ALFRED.
     </p>
 
     <div class="card-grid">
       <div class="card">
         <div class="card-icon">🪞</div>
-        <h4>Personnalité — TIPI/OCEAN</h4>
-        <p>Big Five (Gosling et al., 2003). 10 items, 5 dimensions stables. Révisé annuellement.</p>
+        <h4>Personality — TIPI/OCEAN</h4>
+        <p>Big Five (Gosling et al., 2003). 10 items, 5 stable dimensions. Reviewed annually.</p>
       </div>
       <div class="card">
         <div class="card-icon">❤️</div>
-        <h4>Intelligence émotionnelle</h4>
-        <p>TEIQue-SF (Petrides, 2009). Bien-être, autocontrôle, émotivité, sociabilité.</p>
+        <h4>Emotional Intelligence</h4>
+        <p>TEIQue-SF (Petrides, 2009). Well-being, self-control, emotionality, sociability.</p>
       </div>
       <div class="card">
         <div class="card-icon">🧩</div>
-        <h4>Style cognitif — SDT</h4>
-        <p>Self-Determination Theory. Motivations autonomes vs contrôlées. Révisé trimestriellement.</p>
+        <h4>Cognitive style — SDT</h4>
+        <p>Self-Determination Theory. Autonomous vs controlled motivation. Reviewed quarterly.</p>
       </div>
       <div class="card">
         <div class="card-icon">⚡</div>
-        <h4>Résilience &amp; stress — PSS + CD-RISC</h4>
-        <p>Cohen (1983) + Connor-Davidson (2007). Indicateur mensuel — le plus variable.</p>
+        <h4>Resilience &amp; stress — PSS + CD-RISC</h4>
+        <p>Cohen (1983) + Connor-Davidson (2007). Monthly indicator — the most variable.</p>
       </div>
       <div class="card">
         <div class="card-icon">🏆</div>
         <h4>Engagement — UWES-9</h4>
-        <p>Schaufeli &amp; Bakker (2004). Vigueur, dévouement, absorption. Mensuel — critique burnout.</p>
+        <p>Schaufeli &amp; Bakker (2004). Vigour, dedication, absorption. Monthly — critical for burnout.</p>
       </div>
       <div class="card">
         <div class="card-icon">🎯</div>
-        <h4>Bien-être — SWLS + PANAS</h4>
-        <p>Diener (1985) + Watson (1988). Satisfaction de vie et affects positifs/négatifs.</p>
+        <h4>Well-being — SWLS + PANAS</h4>
+        <p>Diener (1985) + Watson (1988). Life satisfaction and positive/negative affect.</p>
       </div>
     </div>
 
-    <h3>Format conversationnel — UX non intrusive</h3>
+    <h3>Conversational format — non-intrusive UX</h3>
     <p>
-      Chaque questionnaire est posé <strong>question par question dans la conversation ALFRED</strong>,
-      comme un dialogue naturel. L'utilisateur peut s'arrêter et reprendre à tout moment.
-      Chaque réponse est sauvegardée immédiatement. Des scores partiels sont disponibles
-      dès 60% de complétion.
+      Each questionnaire is delivered <strong>question by question within the ALFRED conversation</strong>,
+      as a natural dialogue. The user can pause and resume at any time.
+      Each answer is saved immediately. Partial scores are available
+      from 60% completion onwards.
     </p>
   </section>
 
-  <!-- ─── TRIANGLE D'OR ─── -->
+  <!-- ─── GOLDEN TRIANGLE ─── -->
   <section>
-    <h2><span class="icon">△</span> Triangle d'or de la performance</h2>
+    <h2><span class="icon">△</span> The performance golden triangle</h2>
     <p>
-      Cette architecture répond à une logique <strong>Lean Six Sigma</strong> :
-      chaque investissement dans la qualité des données réduit les coûts opérationnels
-      et augmente la valeur perçue — donc le revenu.
+      This architecture follows a <strong>Lean Six Sigma</strong> logic:
+      every investment in data quality reduces operational costs
+      and increases perceived value — and therefore revenue.
     </p>
 
     <div class="triangle-wrap">
       <svg class="triangle-svg" viewBox="0 0 400 320" xmlns="http://www.w3.org/2000/svg">
-        <!-- Triangle fill -->
         <polygon points="200,30 360,280 40,280" fill="rgba(108,63,197,0.08)" stroke="rgba(108,63,197,0.4)" stroke-width="1.5"/>
-        <!-- Inner triangle -->
         <polygon points="200,100 300,260 100,260" fill="rgba(233,30,140,0.08)" stroke="rgba(233,30,140,0.3)" stroke-width="1"/>
-        <!-- Vertices -->
         <circle cx="200" cy="30" r="18" fill="rgba(108,63,197,0.9)"/>
         <circle cx="40" cy="280" r="18" fill="rgba(45,212,191,0.9)"/>
         <circle cx="360" cy="280" r="18" fill="rgba(233,30,140,0.9)"/>
-        <!-- Labels -->
         <text x="200" y="35" text-anchor="middle" fill="white" font-size="12" font-weight="bold" dy="1">Q</text>
-        <text x="200" y="12" text-anchor="middle" fill="#C8C4E0" font-size="13" font-weight="700">QUALITÉ</text>
+        <text x="200" y="12" text-anchor="middle" fill="#C8C4E0" font-size="13" font-weight="700">QUALITY</text>
         <text x="40" y="285" text-anchor="middle" fill="white" font-size="12" font-weight="bold" dy="1">C</text>
-        <text x="30" y="312" text-anchor="middle" fill="#C8C4E0" font-size="13" font-weight="700">COÛT</text>
+        <text x="30" y="312" text-anchor="middle" fill="#C8C4E0" font-size="13" font-weight="700">COST</text>
         <text x="360" y="285" text-anchor="middle" fill="white" font-size="12" font-weight="bold" dy="1">R</text>
-        <text x="372" y="312" text-anchor="middle" fill="#C8C4E0" font-size="13" font-weight="700">REVENU</text>
-        <!-- Center label -->
+        <text x="372" y="312" text-anchor="middle" fill="#C8C4E0" font-size="13" font-weight="700">REVENUE</text>
         <text x="200" y="178" text-anchor="middle" fill="rgba(233,30,140,0.9)" font-size="14" font-weight="800">CPL</text>
         <text x="200" y="196" text-anchor="middle" fill="#C8C4E0" font-size="11">PERFORMANCE</text>
       </svg>
 
       <div class="triangle-legend">
         <div class="tleg">
-          <strong style="color:#6C3FC5">QUALITÉ</strong>
-          Données précises → IA précise<br/>UX adaptée → satisfaction
+          <strong style="color:#6C3FC5">QUALITY</strong>
+          Accurate data → accurate AI<br/>Tailored UX → satisfaction
         </div>
         <div class="tleg">
-          <strong style="color:#2DD4BF">COÛT</strong>
-          Failles → 0 → moins d'incidents<br/>Conformité dès V1 → pas de dette
+          <strong style="color:#2DD4BF">COST</strong>
+          Zero breaches → fewer incidents<br/>Compliance from V1 → no debt
         </div>
         <div class="tleg">
-          <strong style="color:#E91E8C">REVENU</strong>
-          Confiance → fidélisation<br/>Conformité → différenciation B2B
+          <strong style="color:#E91E8C">REVENUE</strong>
+          Trust → retention<br/>Compliance → B2B differentiator
         </div>
       </div>
     </div>
@@ -472,148 +467,148 @@
 
   <!-- ─── DMAIC ─── -->
   <section>
-    <h2><span class="icon">⚙️</span> Méthodologie DMAIC appliquée</h2>
+    <h2><span class="icon">⚙️</span> DMAIC methodology applied</h2>
     <p>
-      L'ensemble du système a été structuré selon la méthode <strong>DMAIC (Lean Six Sigma)</strong>
-      — chaque phase documentée et traçable.
+      The entire system was structured using the <strong>DMAIC (Lean Six Sigma)</strong> method —
+      each phase documented and traceable.
     </p>
     <div class="dmaic">
       <div class="dmaic-step">
         <span class="dmaic-letter">D</span>
         <span class="dmaic-word">Define</span>
-        <span class="dmaic-desc">Dimensions psychologiques à mesurer, périmètre RGPD, produits concernés</span>
+        <span class="dmaic-desc">Psychological dimensions to measure, GDPR scope, products in scope</span>
       </div>
       <div class="dmaic-step">
         <span class="dmaic-letter">M</span>
         <span class="dmaic-word">Measure</span>
-        <span class="dmaic-desc">Questionnaires validés, scores normalisés 0-100, périodicité</span>
+        <span class="dmaic-desc">Validated questionnaires, normalised scores 0–100, periodicity</span>
       </div>
       <div class="dmaic-step">
         <span class="dmaic-letter">A</span>
         <span class="dmaic-word">Analyze</span>
-        <span class="dmaic-desc">ProfileAnalyzer, matrice de mapping, scores → paramètres ALFRED</span>
+        <span class="dmaic-desc">ProfileAnalyzer, mapping matrix, scores → ALFRED parameters</span>
       </div>
       <div class="dmaic-step">
         <span class="dmaic-letter">I</span>
         <span class="dmaic-word">Improve</span>
-        <span class="dmaic-desc">Comportement ALFRED adapté, UX personnalisée, re-test périodique</span>
+        <span class="dmaic-desc">Adapted ALFRED behaviour, personalised UX, periodic re-testing</span>
       </div>
       <div class="dmaic-step">
         <span class="dmaic-letter">C</span>
         <span class="dmaic-word">Control</span>
-        <span class="dmaic-desc">SOC, audit trail, RGPD, AlertesCNIL/ANSSI, révisions annuelles</span>
+        <span class="dmaic-desc">SOC, audit trail, GDPR, CNIL/ANSSI alerts, annual reviews</span>
       </div>
     </div>
   </section>
 
-  <!-- ─── GOUVERNANCE & CYBER ─── -->
+  <!-- ─── GOVERNANCE & CYBERSECURITY ─── -->
   <section>
-    <h2><span class="icon">🔒</span> Gouvernance &amp; Cybersécurité</h2>
+    <h2><span class="icon">🔒</span> Governance &amp; Cybersecurity</h2>
     <p>
-      La gouvernance des données n'est pas un ajout post-conception — elle est
-      <strong>intégrée dès le premier commit</strong> (Security by Design, Privacy by Design).
+      Data governance is not a post-design add-on — it is
+      <strong>embedded from the first commit</strong> (Security by Design, Privacy by Design).
     </p>
 
-    <h3>Cadre réglementaire couvert</h3>
+    <h3>Regulatory framework covered</h3>
     <div class="reg-grid">
-      <div class="reg-badge"><span class="dot"></span>RGPD art. 30 — Registre des traitements</div>
-      <div class="reg-badge"><span class="dot"></span>LIL / CNIL — Droit français</div>
-      <div class="reg-badge high"><span class="dot"></span>EU AI Act 2024/1689 — Classification produits</div>
-      <div class="reg-badge high"><span class="dot"></span>NIS2 2022/2555 — Cybersécurité</div>
+      <div class="reg-badge"><span class="dot"></span>GDPR art. 30 — Processing register</div>
+      <div class="reg-badge"><span class="dot"></span>French Data Protection Act / CNIL</div>
+      <div class="reg-badge high"><span class="dot"></span>EU AI Act 2024/1689 — Product classification</div>
+      <div class="reg-badge high"><span class="dot"></span>NIS2 2022/2555 — Cybersecurity</div>
       <div class="reg-badge high"><span class="dot"></span>Cyber Resilience Act 2024/2847</div>
-      <div class="reg-badge"><span class="dot"></span>ANSSI — Recommandations techniques</div>
-      <div class="reg-badge"><span class="dot"></span>ISO 27001:2022 — Cible de conformité</div>
-      <div class="reg-badge high"><span class="dot"></span>HDS — Hébergement Données Santé (ARTHUR)</div>
+      <div class="reg-badge"><span class="dot"></span>ANSSI — Technical recommendations</div>
+      <div class="reg-badge"><span class="dot"></span>ISO 27001:2022 — Compliance target</div>
+      <div class="reg-badge high"><span class="dot"></span>HDS — Health Data Hosting (ARTHUR)</div>
     </div>
 
-    <h3>Schéma de traçabilité — chaque donnée est auditable</h3>
+    <h3>Traceability schema — every data point is auditable</h3>
     <p>
-      Chaque traitement est documenté avec : <em>qui a créé / consulté / modifié / supprimé,
-      quand, pourquoi, par quel rôle</em> — et les données ne pouvant jamais quitter
-      l'appareil de l'utilisateur sont identifiées explicitement.
+      Each processing operation is documented with: <em>who created / accessed / modified / deleted,
+      when, why, under which role</em> — and data that must never leave the user's
+      device is explicitly identified.
     </p>
 
-    <h3>SOC progressif — 3 niveaux</h3>
+    <h3>Progressive SOC — 3 levels</h3>
     <div class="card-grid">
       <div class="card">
         <div class="card-icon">🔎</div>
-        <h4>Niveau 1 — Maintenant</h4>
-        <p>Collecte de logs anonymisés, revue quotidienne manuelle, veille CERT-FR/ANSSI, alertes critiques.</p>
+        <h4>Level 1 — Now</h4>
+        <p>Anonymised log collection, daily manual review, CERT-FR/ANSSI monitoring, critical alerts.</p>
       </div>
       <div class="card">
         <div class="card-icon">⚡</div>
-        <h4>Niveau 2 — V2 (12 mois)</h4>
-        <p>SIEM léger (Wazuh), règles de détection automatisées, playbooks de réponse.</p>
+        <h4>Level 2 — V2 (12 months)</h4>
+        <p>Lightweight SIEM (Wazuh), automated detection rules, response playbooks.</p>
       </div>
       <div class="card">
         <div class="card-icon">🏢</div>
-        <h4>Niveau 3 — V3 (si croissance)</h4>
-        <p>MSSP certifié ANSSI, SOC 24/7, pentest semestriel.</p>
+        <h4>Level 3 — V3 (if growth)</h4>
+        <p>ANSSI-certified MSSP, 24/7 SOC, bi-annual penetration testing.</p>
       </div>
     </div>
   </section>
 
-  <!-- ─── LIVRABLES ─── -->
+  <!-- ─── DELIVERABLES ─── -->
   <section>
-    <h2><span class="icon">📦</span> Livrables produits</h2>
+    <h2><span class="icon">📦</span> Deliverables</h2>
     <table class="deliverables">
       <thead>
         <tr>
-          <th>Document / Composant</th>
-          <th>Rôle</th>
-          <th>Statut</th>
+          <th>Document / Component</th>
+          <th>Role</th>
+          <th>Status</th>
         </tr>
       </thead>
       <tbody>
         <tr>
           <td>dimensions_schema.json</td>
-          <td>9 dimensions psychologiques — frameworks, scores, niveaux</td>
-          <td><span class="status done">Livré</span></td>
+          <td>9 psychological dimensions — frameworks, scores, levels</td>
+          <td><span class="status done">Delivered</span></td>
         </tr>
         <tr>
           <td>alfred_mapping_matrix.json</td>
-          <td>Scores → paramètres comportementaux ALFRED</td>
-          <td><span class="status done">Livré</span></td>
+          <td>Scores → ALFRED behavioural parameters</td>
+          <td><span class="status done">Delivered</span></td>
         </tr>
         <tr>
           <td>profile_analyzer.py</td>
-          <td>Calcul scores, sessions progressives, chiffrement Fernet</td>
-          <td><span class="status done">Livré</span></td>
+          <td>Score calculation, progressive sessions, Fernet encryption</td>
+          <td><span class="status done">Delivered</span></td>
         </tr>
         <tr>
           <td>registre_traitements_CPL.md</td>
-          <td>Registre RGPD art. 30 — 7 traitements documentés</td>
-          <td><span class="status done">Livré</span></td>
+          <td>GDPR art. 30 register — 7 documented processing activities</td>
+          <td><span class="status done">Delivered</span></td>
         </tr>
         <tr>
           <td>cartographie_donnees_CPL.md</td>
-          <td>Data map complet — flux, stockage, accès, risques</td>
-          <td><span class="status done">Livré</span></td>
+          <td>Full data map — flows, storage, access, risks</td>
+          <td><span class="status done">Delivered</span></td>
         </tr>
         <tr>
           <td>schema_tracabilite_donnees.json</td>
-          <td>Schéma audit trail — création / consultation / modification / suppression</td>
-          <td><span class="status done">Livré</span></td>
+          <td>Audit trail schema — create / read / update / delete</td>
+          <td><span class="status done">Delivered</span></td>
         </tr>
         <tr>
           <td>cadre_reglementaire_CPL.md</td>
-          <td>RGPD + AI Act + NIS2 + ANSSI + CRA + HDS — matrice de conformité</td>
-          <td><span class="status done">Livré</span></td>
+          <td>GDPR + AI Act + NIS2 + ANSSI + CRA + HDS — compliance matrix</td>
+          <td><span class="status done">Delivered</span></td>
         </tr>
         <tr>
           <td>soc_cpl.md</td>
-          <td>Architecture SOC 3 niveaux, playbooks, KPI, veille</td>
-          <td><span class="status done">Livré</span></td>
+          <td>3-level SOC architecture, playbooks, KPIs, monitoring</td>
+          <td><span class="status done">Delivered</span></td>
         </tr>
         <tr>
-          <td>PSSI formelle</td>
-          <td>Politique de Sécurité des Systèmes d'Information</td>
-          <td><span class="status wip">En cours</span></td>
+          <td>PSSI (formal security policy)</td>
+          <td>Information Systems Security Policy</td>
+          <td><span class="status wip">In progress</span></td>
         </tr>
         <tr>
-          <td>AIPD (par traitement sensible)</td>
-          <td>Analyse d'Impact sur la Protection des Données</td>
-          <td><span class="status wip">En cours</span></td>
+          <td>DPIA (per sensitive processing)</td>
+          <td>Data Protection Impact Assessment</td>
+          <td><span class="status wip">In progress</span></td>
         </tr>
       </tbody>
     </table>
@@ -622,14 +617,14 @@
   <!-- ─── CTA ─── -->
   <section>
     <div class="cta-block">
-      <h3>Vision &amp; prochaines étapes</h3>
+      <h3>Vision &amp; next steps</h3>
       <p>
-        Ce système constitue la fondation du profil utilisateur V1 pour ALFRED et ALFRED CPL.
-        La V2 étendra ce dispositif à ARTHUR (enfants &lt; 15 ans), avec contrôle parental
-        renforcé et conformité HDS pour les données de santé.
+        This system forms the foundation of the V1 user profile for ALFRED and ALFRED CPL.
+        V2 will extend this framework to ARTHUR (children &lt; 15), with enhanced parental controls
+        and HDS compliance for health data.
       </p>
       <p style="font-size:14px; color:rgba(200,196,224,0.6); margin-top:8px;">
-        Projet open-source — Cognitive Products Lab · cognitive-products-lab/alfred_assistant
+        Open-source project — Cognitive Products Lab · cognitive-products-lab/alfred_assistant
       </p>
     </div>
   </section>
@@ -637,7 +632,7 @@
 </main>
 
 <footer>
-  <p>© 2026 <strong>Cognitive Products Lab</strong> — Céline Rousselot &nbsp;|&nbsp; Article rédigé dans le cadre du projet ALFRED</p>
+  <p>© 2026 <strong>Cognitive Products Lab</strong> — Céline Rousselot &nbsp;|&nbsp; Article written as part of the ALFRED project</p>
 </footer>
 
 </body>
