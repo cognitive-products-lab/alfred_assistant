@@ -522,8 +522,8 @@ def evaluate_file(relative_path: str) -> dict:
         info["status"] = "partial"
         info["score"] = 40
 
-    # Pour les HTML : lire STATUS : xxx dans l'en-tête (même regex que Python)
-    if suffix in (".html", ".htm", ".md", ".txt"):
+    # Pour les HTML/MD/CSS/CFG : lire STATUS : xxx dans l'en-tête (même regex que Python)
+    if suffix in (".html", ".htm", ".md", ".txt", ".css", ".cfg"):
         header_status = read_header_status_from_py(text)
         if header_status:
             info["status"] = header_status
