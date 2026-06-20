@@ -6,15 +6,22 @@ ROLE         : Panneau de réglages devices — Caméra / Microphone / Sortie so
 
 AUTHOR       : Cognitive Products Lab
 CREATED      : 2026-06-03
-VERSION      : V1.0
-STATUS       : ACTIVE
+UPDATED      : 2026-06-20
+VERSION      : V1.1
+STATUS       : VALIDATED
 
 DESCRIPTION :
 Popup Kivy "Réglages devices" à la Google Meet.
 Permet de choisir :
-  - Caméra active (parmi les index disponibles)
+  - Caméra active (parmi les index disponibles) — nommage réel par hostname
   - Microphone d'entrée (sounddevice)
   - Sortie audio (sounddevice)
+
+Nommage caméras (V1.1) :
+  - Priorité 1 : labels utilisateur (data/settings/camera_labels.json, par hostname)
+  - Priorité 2 : noms Windows PnP via PowerShell
+  - Priorité 3 : "Caméra N WxH" générique
+  - Bouton ✏️ Renommer dans le popup pour nommer sans éditer le JSON
 
 Persistance JSON : data/settings/device_settings.json
 Chargé au démarrage, appliqué immédiatement à WebcamWidget + sounddevice.
@@ -39,23 +46,126 @@ except Exception:
 
 
 # =============================================================================
+# Labels caméra — identification par hostname + override manuel
+# =============================================================================
+
+try:
+    from paths import PATHS
+    _LABELS_FILE = PATHS.data / "settings" / "camera_labels.json"
+except Exception:
+    _LABELS_FILE = Path(__file__).parents[2] / "data" / "settings" / "camera_labels.json"
+
+
+def _get_windows_camera_names() -> list[str]:
+    """
+    Récupère les noms réels des caméras via PowerShell (PnP Device Class=Camera).
+    Retourne une liste ordonnée correspondant aux index DirectShow/cv2.
+    Silencieux en cas d'échec.
+    """
+    try:
+        import subprocess
+        result = subprocess.run(
+            [
+                "powershell", "-NoProfile", "-NonInteractive", "-Command",
+                "Get-PnpDevice -Class Camera -Status OK "
+                "| Sort-Object InstanceId "
+                "| Select-Object -ExpandProperty FriendlyName",
+            ],
+            capture_output=True, text=True, timeout=6, encoding="utf-8",
+            errors="replace",
+        )
+        if result.returncode == 0:
+            names = [l.strip() for l in result.stdout.strip().splitlines() if l.strip()]
+            return names
+    except Exception:
+        pass
+    return []
+
+
+def load_camera_labels() -> dict[str, str]:
+    """
+    Charge les labels utilisateur depuis camera_labels.json.
+    Format : {"hostname": {"0": "Caméra IA ALFRED", "1": "Intégrée PC", ...}}
+    Retourne le dict index→label pour l'hostname courant.
+    """
+    import socket
+    hostname = socket.gethostname().lower()
+    try:
+        if _LABELS_FILE.exists():
+            data = json.loads(_LABELS_FILE.read_text(encoding="utf-8"))
+            return {str(k): v for k, v in data.get(hostname, {}).items()}
+    except Exception as exc:
+        logger.warning("load_camera_labels: %s", exc)
+    return {}
+
+
+def save_camera_label(index: int, label: str) -> None:
+    """Sauvegarde un label caméra pour l'hostname courant."""
+    import socket
+    hostname = socket.gethostname().lower()
+    try:
+        data: dict = {}
+        if _LABELS_FILE.exists():
+            data = json.loads(_LABELS_FILE.read_text(encoding="utf-8"))
+        data.setdefault(hostname, {})[str(index)] = label
+        _LABELS_FILE.parent.mkdir(parents=True, exist_ok=True)
+        _LABELS_FILE.write_text(json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8")
+    except Exception as exc:
+        logger.warning("save_camera_label: %s", exc)
+
+
+def _build_camera_label(index: int, w: int, h: int,
+                        user_labels: dict[str, str],
+                        win_names: list[str]) -> str:
+    """
+    Construit le label final d'une caméra dans cet ordre de priorité :
+      1. Label utilisateur (camera_labels.json)
+      2. Nom Windows PnP (PowerShell)
+      3. "Caméra N  WxH" générique
+    """
+    # 1. Label utilisateur
+    if str(index) in user_labels:
+        label = user_labels[str(index)]
+        if w and h:
+            label += f"  {w}×{h}"
+        return label
+
+    # 2. Nom Windows (index dans la liste PnP ≈ index DSHOW)
+    if index < len(win_names) and win_names[index]:
+        label = win_names[index]
+        if w and h:
+            label += f"  {w}×{h}"
+        return label
+
+    # 3. Fallback générique
+    label = f"Caméra {index}"
+    if w and h:
+        label += f"  {w}×{h}"
+    return label
+
+
+# =============================================================================
 # Énumération des périphériques — indépendant de Kivy
 # =============================================================================
 
 def list_cameras() -> list[dict]:
     """
-    Retourne la liste des caméras disponibles.
-    Format : [{"index": 0, "name": "Caméra 0 (intégrée)"}, ...]
+    Retourne la liste des caméras disponibles avec leurs vrais noms.
+    Format : [{"index": 0, "name": "Trollino USB  640×480"}, ...]
+
+    Priorité du nom :
+      1. Label utilisateur (data/settings/camera_labels.json)
+      2. Nom Windows PnP (PowerShell, automatique)
+      3. "Caméra N  WxH" générique
     """
+    user_labels = load_camera_labels()
+    win_names   = _get_windows_camera_names()
+
     cameras = []
     try:
         import os as _os
-        # Supprime les warnings obsensor/ffmpeg lors du scan des indices
         _os.environ.setdefault("OPENCV_LOG_LEVEL", "ERROR")
         import cv2
-        # CAP_DSHOW : sur Windows, le backend par défaut (MSMF) peut "ouvrir"
-        # un index sans caméra réelle (isOpened=True mais aucune image lue).
-        # DSHOW énumère correctement les caméras USB branchées.
         backend = cv2.CAP_DSHOW if hasattr(cv2, "CAP_DSHOW") else cv2.CAP_ANY
         for i in range(6):
             cap = cv2.VideoCapture(i, backend)
@@ -66,11 +176,7 @@ def list_cameras() -> list[dict]:
                     continue
                 w = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
                 h = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
-                # Pas de label "(intégrée)" : l'ordre des index DSHOW n'est pas
-                # garanti (l'index 0 n'est pas forcément la caméra intégrée).
-                label = f"Caméra {i}"
-                if w and h:
-                    label += f"  {w}×{h}"
+                label = _build_camera_label(i, w, h, user_labels, win_names)
                 cameras.append({"index": i, "name": label})
                 cap.release()
     except ImportError:
@@ -321,6 +427,86 @@ def _build_popup(on_apply) -> "Popup":  # type: ignore[name-defined]
     cam_names = [c["name"] for c in cams]
     sp_cam = _make_spinner(cam_names, _find_name(cams, current["camera_index"]))
     root.add_widget(sp_cam)
+
+    # Bouton "Renommer" — ouvre un TextInput pour labelliser la caméra sélectionnée
+    def _on_rename(_inst) -> None:
+        from kivy.uix.popup import Popup
+        from kivy.uix.textinput import TextInput
+        from kivy.uix.button import Button as _Btn
+        from kivy.uix.boxlayout import BoxLayout as _Box
+
+        # Retrouver l'index de la caméra sélectionnée
+        sel_name = sp_cam.text
+        sel_idx = next((c["index"] for c in cams if c["name"] == sel_name), -1)
+        if sel_idx < 0:
+            return
+
+        # Nom actuel (sans la résolution)
+        current_label = sel_name.split("  ")[0].strip()
+
+        ti = TextInput(
+            text=current_label,
+            multiline=False,
+            size_hint=(1, None), height=44,
+            font_size="18sp",
+            foreground_color=(0.9, 0.9, 0.95, 1),
+            background_color=(0.08, 0.10, 0.18, 1),
+            cursor_color=(0.54, 0.62, 0.83, 1),
+        )
+        btn_ok  = _Btn(text="✅ Sauvegarder", size_hint=(0.6, None), height=44,
+                       background_color=(0.12, 0.30, 0.18, 1))
+        btn_ann = _Btn(text="Annuler", size_hint=(0.4, None), height=44,
+                       background_color=(0.10, 0.12, 0.20, 1))
+        row  = _Box(orientation="horizontal", size_hint=(1, None), height=44, spacing=8)
+        row.add_widget(btn_ok)
+        row.add_widget(btn_ann)
+        box = _Box(orientation="vertical", padding=16, spacing=10)
+        box.add_widget(Label(
+            text=f"Nouveau nom pour la caméra {sel_idx} :",
+            size_hint=(1, None), height=36,
+            color=(0.54, 0.62, 0.83, 1), font_size="16sp",
+        ))
+        box.add_widget(ti)
+        box.add_widget(row)
+
+        rename_popup = Popup(
+            title="Renommer la caméra",
+            content=box,
+            size_hint=(0.85, None), height=220,
+        )
+
+        def _do_save(_i):
+            new_label = ti.text.strip()
+            if new_label:
+                save_camera_label(sel_idx, new_label)
+                # Rafraîchir l'entrée dans sp_cam visuellement
+                new_name = new_label
+                # Retrouver la résolution dans le nom original
+                parts = sel_name.split("  ")
+                if len(parts) > 1:
+                    new_name += "  " + parts[-1]
+                for cam in cams:
+                    if cam["index"] == sel_idx:
+                        cam["name"] = new_name
+                        break
+                new_cam_names = [c["name"] for c in cams]
+                sp_cam.values = new_cam_names
+                sp_cam.text   = new_name
+            rename_popup.dismiss()
+
+        btn_ok.bind(on_release=_do_save)
+        btn_ann.bind(on_release=lambda *_: rename_popup.dismiss())
+        rename_popup.open()
+
+    btn_rename = Button(
+        text="✏️ Renommer",
+        size_hint=(1, None), height=36,
+        background_color=(0.10, 0.12, 0.20, 1),
+        color=_ACCENT,
+        font_size="16sp",
+    )
+    btn_rename.bind(on_release=_on_rename)
+    root.add_widget(btn_rename)
 
     # ── Microphone ────────────────────────────────────────────────────────────
     root.add_widget(_make_label("🎤  Microphone"))
