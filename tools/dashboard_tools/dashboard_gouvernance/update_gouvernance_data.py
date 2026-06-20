@@ -144,7 +144,7 @@ def build_roadmap() -> list[dict]:
         {"title": "ISO 27001 — SMSI complet : PCA, RACI, revue direction, vulnérabilités, SSDLC (97%)", "status": "done", "date": "Juin 2026"},
         {"title": "AI Act — HITL, registre risques IA, gouvernance données entraînement", "status": "done", "date": "Juin 2026"},
         {"title": "NIS2 — procédure signalement incidents (ANSSI/CERT-FR)", "status": "done", "date": "Juin 2026"},
-        {"title": "DPA formelle OpenAI — acceptation portail (RGPD-09)", "status": "active", "date": "V2 2026"},
+        {"title": "DPA formelle OpenAI — acceptation portail (RGPD-09)", "status": "done", "date": "Juin 2026"},
         {"title": "VLAN isolation PC Alfred · micro-segmentation réseau (ISO A.8.20)", "status": "planned", "date": "Q3 2026"},
         {"title": "HDS — hébergement données santé ARTHUR (Décret 2018-137)", "status": "future", "date": "V2 2027"},
         {"title": "SecNumCloud — infrastructure souveraine + audit ANSSI", "status": "future", "date": "V3 2027"},
