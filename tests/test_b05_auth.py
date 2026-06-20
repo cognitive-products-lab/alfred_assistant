@@ -8,9 +8,9 @@ ROLE         : Tests unitaires authentification (B05)
 
 AUTHOR       : Cognitive Products Lab
 CREATED      : 2026-06-15
-UPDATED      : 2026-06-15
-VERSION      : V1.0
-STATUS       : ACTIVE
+UPDATED      : 2026-06-20
+VERSION      : V1.1
+STATUS       : VALIDATED
 
 DESCRIPTION :
 Couvre src/auth/auth_manager.py, src/auth/login_handler.py,
