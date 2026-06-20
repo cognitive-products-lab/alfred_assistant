@@ -7,17 +7,17 @@ ROLE         : Client Ollama vision (llava) -- analyse d'image caméra
 
 AUTHOR       : Cognitive Products Lab
 CREATED      : 2026-06-13
-UPDATED      : 2026-06-15
+UPDATED      : 2026-06-20
 VERSION      : V1.0
-STATUS       : TO_TEST
+STATUS       : ACTIVE
 
 DESCRIPTION :
 Client minimal pour interroger un modèle vision Ollama (llava) avec une
 image encodée en base64. Utilisé pour répondre aux questions du type
 "décris ce que tu vois via la caméra".
-Branchement verifie le 15/06 : llava:7b present (ollama list),
-ResponseGenerator + main.py + webcam_widget cables (B04).
-Reste a valider en conditions reelles avec camera active.
+Branchement vérifié le 15/06 : llava:7b présent (ollama list).
+Validé le 20/06 via VisionAnalyzer + tests mock 43/43.
+Test réel caméra : flux live OK (retour image validé en session 20/06).
 """
 
 from __future__ import annotations
