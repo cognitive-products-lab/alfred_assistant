@@ -122,6 +122,78 @@
       "status": "validated",
       "last_test": "2026-05-06",
       "notes": "Système de backgrounds validé : intérieur, extérieur, variations jour/nuit et ambiances visuelles."
+    },
+    {
+      "path": "src/v2/fusion/fusion_engine.py",
+      "module": "B22",
+      "status": "validated",
+      "last_test": "2026-06-20",
+      "test_level": "unit",
+      "tests": ["test_v2_pipeline.py — 48/48"],
+      "notes": "Validé via suite intégration V2 (48/48). FusionEngine fusion mémoire+knowledge+émotion."
+    },
+    {
+      "path": "src/v2/confidence/confidence_scorer.py",
+      "module": "B22",
+      "status": "validated",
+      "last_test": "2026-06-20",
+      "test_level": "unit",
+      "tests": ["test_v2_pipeline.py::TestResponseGeneratorConfidence — 5/5"],
+      "notes": "Validé via suite intégration V2. ConfidenceScorer + hedge prefix si score faible."
+    },
+    {
+      "path": "src/v2/decision/decision_engine.py",
+      "module": "B22",
+      "status": "validated",
+      "last_test": "2026-06-20",
+      "test_level": "unit",
+      "tests": ["test_v2_pipeline.py — 48/48"],
+      "notes": "Validé via suite intégration V2. DecisionEngine sélection mode ALFRED."
+    },
+    {
+      "path": "src/core/personality_adapter.py",
+      "module": "B08",
+      "status": "validated",
+      "last_test": "2026-06-20",
+      "test_level": "unit",
+      "tests": ["test_personality_adapter.py — passé", "fix sadness→niveau 2", "_apply_user_adaptation() MBTI implémenté"],
+      "notes": "Validé session 20/06 : fix crash user_adaptation kwarg, fix emotional_level sadness=2, _apply_user_adaptation() ajouté."
+    },
+    {
+      "path": "src/llm/llm_client_openai.py",
+      "module": "B01",
+      "status": "validated",
+      "last_test": "2026-06-20",
+      "test_level": "manual",
+      "tests": ["intégration pipeline main.py"],
+      "notes": "Client OpenAI validé en session réelle via pipeline principal."
+    },
+    {
+      "path": "src/main.py",
+      "module": "B18",
+      "status": "validated",
+      "last_test": "2026-06-20",
+      "test_level": "manual",
+      "tests": ["python main.py — session réelle 20/06", "commandes vision regarde/surveille", "caméras nommées OK"],
+      "notes": "Re-validé session 20/06 : VisionAnalyzer branché, commandes vision OK, nommage caméras OK."
+    },
+    {
+      "path": "src/vision/vision_analyzer.py",
+      "module": "B04",
+      "status": "tested",
+      "last_test": "2026-06-20",
+      "test_level": "unit",
+      "tests": ["test_vision_analyzer.py — 43/43 (mocks)"],
+      "notes": "43/43 tests mock passés. Test réel llava:7b + caméra active à faire dans une session dédiée."
+    },
+    {
+      "path": "src/ui/device_settings.py",
+      "module": "B03",
+      "status": "validated",
+      "last_test": "2026-06-20",
+      "test_level": "manual",
+      "tests": ["popup caméra Kivy — nommage OK", "bouton renommer OK"],
+      "notes": "Validé session 20/06 : nommage caméras par hostname + bouton ✏️ Renommer fonctionnel."
     }
   ]
 }
