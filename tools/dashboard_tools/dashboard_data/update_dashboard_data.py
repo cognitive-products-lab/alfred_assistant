@@ -321,6 +321,8 @@ def read_meta_status_from_json(text: str) -> str | None:
         return "validated"
     if s == "STABLE":
         return "validated"
+    if s in ("EN_LIGNE", "ONLINE", "DEPLOYED"):
+        return "validated"
     if s == "TESTED":
         return "tested"
     if s in ("ACTIVE", "CREATED", "DRAFT", "CODED"):
@@ -349,6 +351,8 @@ def read_header_status_from_py(text: str) -> str | None:
     if s in ("VALIDATED", "VALIDÉ", "VALIDE"):
         return "validated"
     if s == "STABLE":
+        return "validated"
+    if s in ("EN_LIGNE", "ONLINE", "DEPLOYED"):
         return "validated"
     if s == "TESTED":
         return "tested"
