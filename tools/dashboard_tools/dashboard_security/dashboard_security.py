@@ -7,8 +7,8 @@ ROLE         : Genere dashboard_security.json a partir des donnees de securite l
 
 AUTHOR       : Cognitive Products Lab
 CREATED      : 2026-05-15
-UPDATED      : 2026-05-23
-VERSION      : V1.1
+UPDATED      : 2026-06-20
+VERSION      : V1.2
 STATUS       : STABLE
 
 DESCRIPTION :
