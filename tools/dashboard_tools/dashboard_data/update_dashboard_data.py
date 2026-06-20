@@ -514,13 +514,21 @@ def evaluate_file(relative_path: str) -> dict:
 
         return info
 
-    # Fichiers doc, md, txt, yaml, etc.
+    # Fichiers doc, md, txt, yaml, html, etc.
     if len(text.strip()) > 200:
         info["status"] = "coded"
         info["score"] = 60
     else:
         info["status"] = "partial"
         info["score"] = 40
+
+    # Pour les HTML : lire STATUS : xxx dans l'en-tête (même regex que Python)
+    if suffix in (".html", ".htm", ".md", ".txt"):
+        header_status = read_header_status_from_py(text)
+        if header_status:
+            info["status"] = header_status
+            info["score"] = 100 if header_status == "validated" else (80 if header_status == "tested" else 60)
+            return info
 
     if find_validation_marker(relative_path, text):
         info["status"] = "validated"
