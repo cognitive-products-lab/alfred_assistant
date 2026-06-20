@@ -8,7 +8,7 @@ AUTHOR       : Cognitive Products Lab
 CREATED      : 2026-05-14
 UPDATED      : 2026-06-03
 VERSION      : V1.2
-STATUS       : STABLE
+STATUS       : VALIDATED
 
 DESCRIPTION :
 Lance ALFRED avec l'interface graphique Kivy en parallele du pipeline
@@ -128,6 +128,30 @@ def _run_pipeline() -> None:
 # ============================================================
 
 if __name__ == "__main__":
+    # ── Silence logs Kivy pendant l'auth PIN ─────────────────────────────────
+    import os as _os
+    _os.environ.setdefault("KIVY_LOG_LEVEL", "warning")
+    _os.environ.setdefault("KIVY_NO_CONSOLELOG", "1")
+
+    # ── Authentification via popup tkinter (avant Kivy) ───────────────────────
+    from src.auth.authenticator import has_pin, register_pin, authenticate
+    from src.main import _AUTH_DONE as _auth_flag   # noqa: F401 — import pour le module
+    import src.main as _main_mod
+    from src.ui.pin_dialog import show_auth_dialog, show_register_dialog
+
+    if has_pin("celine"):
+        _ok = show_auth_dialog("celine", authenticate)
+    else:
+        _ok = show_register_dialog("celine", register_pin)
+
+    if not _ok:
+        sys.exit(1)
+
+    _main_mod._AUTH_DONE = True   # évite double auth dans le thread pipeline
+
+    # ── Restaurer les logs Kivy normaux après auth ────────────────────────────
+    _os.environ.pop("KIVY_NO_CONSOLELOG", None)
+
     # ── Workaround Kivy ZeroDivisionError sur Windows multi-écrans ───────────
     # win._density peut tomber à 0 quand la fenêtre passe sur un 2e écran
     # (bug sdl2 + Windows DPI scaling). Forcer density=1 évite le crash.
