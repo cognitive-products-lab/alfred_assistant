@@ -791,6 +791,24 @@ def init_components() -> dict[str, Any]:
         components["v2_confidence"] = None
         components["v2_decision"]   = None
 
+    # =========================================================================
+    # B04 — VisionAnalyzer (monitoring caméra + analyse d'image)
+    # =========================================================================
+    try:
+        from src.vision.vision_analyzer import VisionAnalyzer
+        components["vision_analyzer"] = VisionAnalyzer()
+        llava_ok = components["vision_analyzer"].is_vision_available()
+        cv2_ok   = components["vision_analyzer"].is_opencv_available()
+        print(f"  [B04] VisionAnalyzer actif (llava: {'✓' if llava_ok else '✗'}, "
+              f"OpenCV: {'✓' if cv2_ok else '✗'})")
+        # Snapshot headless (mode main.py sans Kivy)
+        snap_fn = _make_headless_snapshot_fn(camera_index=0)
+        components["_vision_snapshot_fn"] = snap_fn
+    except Exception as exc:
+        print(f"  [AVERT] B04 VisionAnalyzer indisponible : {exc}")
+        components["vision_analyzer"] = None
+        components["_vision_snapshot_fn"] = None
+
     return components
 
 
@@ -874,6 +892,90 @@ def listen_voice_once(duration: int = VOICE_RECORD_SECONDS, silent: bool = False
             return ""
 
     return text
+
+# =============================================================================
+# B04 — Helpers vision
+# =============================================================================
+
+def _alfred_speak(text: str, components: dict[str, Any]) -> None:
+    """Affiche et vocalise un message ALFRED (utilisé par les callbacks vision)."""
+    print(f"\n  [ALFRED] {text}\n")
+    tts = components.get("tts")
+    if tts and not components.get("tts_muted", False):
+        try:
+            tts.speak(text)
+        except Exception:
+            pass
+    try:
+        from src.ui.alfred_app import set_ui_response
+        set_ui_response(text)
+    except Exception:
+        pass
+
+
+def _on_vision_alert(event, components: dict[str, Any]) -> None:
+    """
+    Callback appelé par VisionAnalyzer.start_monitoring() sur chaque VisionEvent.
+
+    - expression  → stocke l'émotion pour que le pipeline adapte son ton
+    - motion info → log silencieux uniquement
+    - warning     → affiche une notification
+    - critical    → ALFRED parle immédiatement (chute / urgence)
+    """
+    from src.vision.vision_analyzer import VisionEvent
+
+    if event.type == "expression":
+        # Mise à jour silencieuse de l'émotion visuelle détectée
+        components["_last_vision_emotion"] = event.emotion_hint
+        return
+
+    if event.severity == "info":
+        return  # mouvement modéré : log silencieux
+
+    if event.severity == "warning":
+        print(f"\n  [B04] ⚠ {event.description}\n")
+        return
+
+    if event.severity == "critical":
+        # Chute / urgence → ALFRED intervient vocalement sans attendre la saisie
+        msg = (
+            "Céline, je t'ai vue tomber ! Es-tu blessée ? "
+            "Réponds-moi ou appelle les secours si nécessaire."
+        )
+        _alfred_speak(msg, components)
+        print(f"\n  [B04] 🚨 URGENCE — {event.description}\n")
+
+
+def _make_headless_snapshot_fn(camera_index: int = 0):
+    """
+    Crée une snapshot_fn pour main.py (sans Kivy).
+    Ouvre cv2.VideoCapture une seule fois en lazy init.
+    Retourne une fonction () -> Optional[str] (JPEG base64).
+    """
+    try:
+        import cv2, base64
+    except ImportError:
+        return None
+
+    _state = {"cap": None}
+
+    def snapshot() -> str | None:
+        if _state["cap"] is None:
+            backend = cv2.CAP_DSHOW if hasattr(cv2, "CAP_DSHOW") else cv2.CAP_ANY
+            cap = cv2.VideoCapture(camera_index, backend)
+            if not cap.isOpened():
+                return None
+            _state["cap"] = cap
+        ret, frame = _state["cap"].read()
+        if not ret or frame is None:
+            return None
+        ok, buf = cv2.imencode(".jpg", frame, [cv2.IMWRITE_JPEG_QUALITY, 75])
+        if not ok:
+            return None
+        return base64.b64encode(buf.tobytes()).decode("ascii")
+
+    return snapshot
+
 
 def handle_command(command: str, components: dict[str, Any]) -> bool:
     """
@@ -1086,6 +1188,74 @@ def handle_command(command: str, components: dict[str, Any]) -> bool:
         print(f"\n  Son {state}.\n")
         return True
 
+    # ── B04 Vision — commandes explicites ─────────────────────────────────────
+    _VISION_SCENE_TRIGGERS = {
+        "regarde", "qu'est-ce que tu vois", "que vois-tu",
+        "décris ce que tu vois", "dis-moi ce que tu vois",
+    }
+    _VISION_EXPR_TRIGGERS = {
+        "mon expression", "comment j'ai l'air", "mon visage",
+        "lis mon expression", "ma tête",
+    }
+    _VISION_MONITOR_ON  = {"surveille", "surveille-moi", "active surveillance"}
+    _VISION_MONITOR_OFF = {"arrête surveillance", "stop surveillance"}
+
+    if any(t in cmd for t in _VISION_SCENE_TRIGGERS):
+        va   = components.get("vision_analyzer")
+        snap = components.get("_vision_snapshot_fn")
+        if va and snap:
+            frame_b64 = snap()
+            if frame_b64:
+                event = va.describe_scene(frame_b64)
+                _alfred_speak(event.description, components)
+            else:
+                print("\n  [B04] Aucune frame — active la caméra d'abord (📷).\n")
+        else:
+            print("\n  [B04] Caméra ou VisionAnalyzer non disponible.\n")
+        return True
+
+    if any(t in cmd for t in _VISION_EXPR_TRIGGERS):
+        va   = components.get("vision_analyzer")
+        snap = components.get("_vision_snapshot_fn")
+        if va and snap:
+            frame_b64 = snap()
+            if frame_b64:
+                event = va.analyze_expression(frame_b64)
+                components["_last_vision_emotion"] = event.emotion_hint
+                _alfred_speak(event.description, components)
+            else:
+                print("\n  [B04] Aucune frame — active la caméra d'abord.\n")
+        else:
+            print("\n  [B04] Caméra ou VisionAnalyzer non disponible.\n")
+        return True
+
+    if any(t in cmd for t in _VISION_MONITOR_ON):
+        va   = components.get("vision_analyzer")
+        snap = components.get("_vision_snapshot_fn")
+        if va and snap:
+            if not va.is_monitoring:
+                va.start_monitoring(
+                    snapshot_fn=snap,
+                    on_alert=lambda e: _on_vision_alert(e, components),
+                    interval_s=2.0,
+                    expression_interval_s=30.0,
+                )
+                print("\n  [B04] Surveillance caméra activée.\n")
+                _alfred_speak("Je surveille maintenant via la caméra.", components)
+            else:
+                print("\n  [B04] Surveillance déjà active.\n")
+        else:
+            print("\n  [B04] Caméra ou VisionAnalyzer non disponible.\n")
+        return True
+
+    if any(t in cmd for t in _VISION_MONITOR_OFF):
+        va = components.get("vision_analyzer")
+        if va and va.is_monitoring:
+            va.stop_monitoring()
+            print("\n  [B04] Surveillance arrêtée.\n")
+            _alfred_speak("Surveillance arrêtée.", components)
+        return True
+
     if cmd in {"rappels", "rappel"}:
         re_engine = components.get("reminder_engine")
         if not re_engine:
@@ -1186,6 +1356,22 @@ def build_response(
     )
     behavior_mode = detected["behavior_mode"]
     energy_level = "low" if detected["fatigue"] > 0.5 else "medium"
+
+    # B04 — Émotion visuelle (analyse expression caméra) enrichit l'émotion détectée
+    vision_emotion = components.get("_last_vision_emotion", "")
+    _VISION_TO_ALFRED_EMOTION = {
+        "fatigue":   ("fatigue", "low"),
+        "stress":    ("stress", "medium"),
+        "tristesse": ("sadness", "medium"),
+        "joie":      ("joy", "medium"),
+        "neutre":    ("", ""),
+    }
+    if vision_emotion and vision_emotion in _VISION_TO_ALFRED_EMOTION:
+        v_emo, v_energy = _VISION_TO_ALFRED_EMOTION[vision_emotion]
+        if v_emo and not detected.get("behavior_emotion"):
+            detected["behavior_emotion"] = v_emo
+        if v_energy == "low":
+            energy_level = "low"
 
     # -------------------------------------------------------------------------
     # 1b. B11 — Fusion multi-signaux (NLP + émotion + contexte)
