@@ -1,53 +1,115 @@
 {
-  "id": "project_management_core",
-  "name": "Project Management Core",
-  "version": "1.0.0",
-  "category": "execution",
-  "purpose": "Aider ALFRED à planifier, suivre et sécuriser l'exécution d'un projet.",
-  "concepts": [
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "id": "knowledges.cpl.execution.project_management_core",
+  "title": "Gestion de projet — fondamentaux",
+  "domain": "cpl",
+  "subdomain": "execution",
+  "status": "validated",
+  "summary": "Un projet bien géré aligne scope, délais, ressources et qualité autour d'un objectif clair. Les fondamentaux : cadrage initial, jalons, suivi d'avancement, gestion des blocages et communication.",
+  "core_definition": "La gestion de projet est l'ensemble des pratiques permettant d'atteindre un objectif défini dans un périmètre, un délai et avec des ressources contraints. Elle couvre le cadrage, la planification, l'exécution, le suivi et la clôture.",
+  "knowledge": {
+    "project_triangle": {
+      "description": "Le triangle coût-délai-qualité : on ne peut optimiser que deux des trois dimensions simultanément.",
+      "levers": [
+        "Scope (périmètre fonctionnel)",
+        "Time (délais et jalons)",
+        "Cost/Resources (budget, équipe)",
+        "Quality (niveau d'exigence)"
+      ]
+    },
+    "project_phases": [
+      {
+        "phase": "Cadrage",
+        "outputs": [
+          "objectif SMART",
+          "parties prenantes",
+          "contraintes",
+          "critères de succès"
+        ]
+      },
+      {
+        "phase": "Planification",
+        "outputs": [
+          "WBS (décomposition des tâches)",
+          "jalons",
+          "dépendances",
+          "plan de risques"
+        ]
+      },
+      {
+        "phase": "Exécution",
+        "outputs": [
+          "suivi d'avancement",
+          "gestion des blocages",
+          "communication équipe"
+        ]
+      },
+      {
+        "phase": "Clôture",
+        "outputs": [
+          "livrable validé",
+          "retex",
+          "capitalisation",
+          "communication finale"
+        ]
+      }
+    ],
+    "essential_practices": [
+      "Fixer un objectif SMART dès le départ (Spécifique, Mesurable, Atteignable, Réaliste, Temporellement défini)",
+      "Identifier les parties prenantes et leurs attentes avant de planifier",
+      "Prioriser les tâches à fort impact sur le chemin critique",
+      "Prévoir une marge de sécurité (buffer) sur les estimations",
+      "Communiquer l'avancement régulièrement sans attendre que quelqu'un demande",
+      "Escalader les blocages tôt plutôt que de les absorber silencieusement"
+    ],
+    "common_failures": [
+      "Scope creep : périmètre qui s'élargit sans décision formelle",
+      "Dépendances non identifiées qui bloquent l'exécution",
+      "Sous-estimation systématique des délais (biais d'optimisme)",
+      "Communication insuffisante avec les parties prenantes",
+      "Absence de retex à la clôture — mêmes erreurs reproduites"
+    ]
+  },
+  "example_answers": [
     {
-      "name": "Planning",
-      "definition": "Organisation des tâches dans le temps.",
-      "usage": "Assurer progression et réduire incertitude."
+      "prompt": "Comment cadrer rapidement un projet ?",
+      "answer": "En une heure, on clarifie : quel est l'objectif précis ? Qui sont les parties prenantes et qu'attendent-elles ? Quelles sont les contraintes non négociables (délai, budget, tech) ? Et quels sont les critères de succès mesurables ? Avec ça, on peut planifier sans naviguer à l'aveugle."
     },
     {
-      "name": "Livrable",
-      "definition": "Résultat concret attendu.",
-      "usage": "Mesurer l'avancement réel."
+      "prompt": "Le projet prend du retard, que faire ?",
+      "answer": "D'abord diagnostiquer : c'est un problème de scope, de ressources, de dépendance bloquante ou d'estimation ? Ensuite, trois options : réduire le scope, ajouter des ressources, ou repousser le jalon. Choisir explicitement et communiquer vite aux parties prenantes — l'attente silencieuse aggrave toujours la situation."
     },
     {
-      "name": "Jalon",
-      "definition": "Point de contrôle important.",
-      "usage": "Arbitrer, valider ou corriger."
+      "prompt": "Comment éviter le scope creep ?",
+      "answer": "Formaliser le périmètre dès le cadrage (liste de ce qui est IN et de ce qui est OUT). Toute demande d'ajout passe par une décision explicite : soit on la priorise et on réévalue le délai, soit on la reporte en backlog. Dire non sans justification claire génère du conflit — dire non avec un 'pas maintenant, et voilà quand' est accepté."
     }
   ],
-  "rules": [
-    "Chaque action doit être reliée à un livrable.",
-    "Chaque jalon doit avoir un critère de validation.",
-    "Ne pas multiplier les tâches sans priorité."
+  "response_guidance": {
+    "tone": "structuré, pragmatique, orienté résolution",
+    "structure": [
+      "identifier la phase projet actuelle",
+      "pointer le problème concret",
+      "proposer une action immédiate",
+      "anticiper le risque suivant"
+    ],
+    "avoid": [
+      "donner un cours théorique sur PRINCE2 ou PMBoK",
+      "ignorer les contraintes réelles",
+      "proposer une solution qui nécessite plus de ressources qu'il n'en existe"
+    ]
+  },
+  "tags": [
+    "projet",
+    "gestion de projet",
+    "planification",
+    "scope",
+    "jalons",
+    "cpl"
   ],
-  "decision_framework": [
-    "Quel objectif ?",
-    "Quels livrables ?",
-    "Quelles dépendances ?",
-    "Quels risques ?",
-    "Quel prochain jalon ?"
-  ],
-  "use_cases": [
-    {
-      "context": "Développement module ALFRED",
-      "action": "Découper en tâches, livrables et jalons",
-      "output": "Plan d'exécution"
-    },
-    {
-      "context": "Mission client CPL",
-      "action": "Structurer cadrage, production, restitution",
-      "output": "Planning de mission"
-    }
-  ],
-  "links": [
-    "task_prioritization",
-    "risk_management",
-    "agile_methods"
+  "related_knowledge_units": [
+    "knowledges.cpl.execution.task_prioritization",
+    "knowledges.cpl.execution.risk_management",
+    "knowledges.professional.frameworks.agile_scrum_basics"
   ]
 }
