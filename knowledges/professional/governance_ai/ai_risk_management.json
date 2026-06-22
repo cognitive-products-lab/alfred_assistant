@@ -1,26 +1,98 @@
 {
-    "id":  "ai.risk.management",
-    "created_at":  "2026-06-03",
-    "title":  "ai risk management",
-    "tags":  [
-
-             ],
-    "source":  "recreated_from_dashboard_manifest",
-    "description":  "Fiche connaissance recréée automatiquement à partir du manifest dashboard.",
-    "status":  "draft",
-    "content":  {
-                    "summary":  "",
-                    "links":  [
-
-                              ],
-                    "use_cases":  [
-
-                                  ],
-                    "risks":  [
-
-                              ],
-                    "key_points":  [
-
-                                   ]
-                }
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "id": "knowledges.professional.governance_ai.ai_risk_management",
+  "title": "Gestion des risques IA",
+  "domain": "professional",
+  "subdomain": "governance_ai",
+  "status": "validated",
+  "summary": "Les systèmes IA introduisent des risques spécifiques : hallucinations, biais, attaques adversariales, dépendance aux données, dérive comportementale. Les identifier, évaluer et mitiger fait partie de toute gouvernance IA sérieuse.",
+  "core_definition": "La gestion des risques IA est le processus d'identification, d'évaluation et de traitement des risques propres aux systèmes IA — incluant les risques techniques (qualité des données, performance), éthiques (biais, discrimination), de sécurité (adversarial attacks, data poisoning) et opérationnels (dépendance, dérive).",
+  "knowledge": {
+    "ai_specific_risks": [
+      {
+        "risk": "Hallucinations / erreurs factuelles",
+        "mitigation": "RAG sur sources vérifiées, phrases de hedge, validation humaine sur cas critiques"
+      },
+      {
+        "risk": "Biais algorithmiques",
+        "mitigation": "Audit des données d'entraînement, tests équité sur groupes protégés, monitoring continu"
+      },
+      {
+        "risk": "Dérive comportementale (model drift)",
+        "mitigation": "Monitoring des performances dans le temps, retests périodiques sur benchmarks"
+      },
+      {
+        "risk": "Prompt injection / attaques adversariales",
+        "mitigation": "Validation des inputs, isolation des contextes système et utilisateur, sandboxing"
+      },
+      {
+        "risk": "Dépendance à un seul fournisseur",
+        "mitigation": "Architecture multi-modèle, plan de fallback, contrats de réversibilité"
+      },
+      {
+        "risk": "Fuite de données sensibles",
+        "mitigation": "Minimisation des données transmises au LLM, anonymisation, stockage local"
+      }
+    ],
+    "risk_classification_eu_ai_act": [
+      {
+        "level": "Risque inacceptable",
+        "examples": "Systèmes de notation sociale, manipulation subliminale",
+        "obligation": "Interdits"
+      },
+      {
+        "level": "Haut risque",
+        "examples": "Recrutement IA, crédit, santé, justice, éducation",
+        "obligation": "Conformité stricte, documentation, audit"
+      },
+      {
+        "level": "Risque limité",
+        "examples": "Chatbots, assistants texte",
+        "obligation": "Transparence obligatoire (informer l'utilisateur)"
+      },
+      {
+        "level": "Risque minimal",
+        "examples": "Filtres anti-spam, recommandations de films",
+        "obligation": "Pas d'obligation spécifique"
+      }
+    ]
+  },
+  "example_answers": [
+    {
+      "prompt": "Notre IA commence à donner des réponses différentes de celles d'il y a 6 mois — pourquoi ?",
+      "answer": "Model drift — dérive comportementale. Plusieurs causes : changement du modèle de base (mise à jour par le fournisseur), changement des données d'entrée (distribution shift), ou accumulation de retours qui modifient le comportement. Action : retest sur des benchmarks de référence, comparaison avec les outputs de référence, et monitoring régulier des métriques clés."
+    },
+    {
+      "prompt": "Comment savoir si notre IA est biaisée ?",
+      "answer": "Audit de fairness : tester les outputs sur des groupes démographiques différents (genre, âge, origine) avec des prompts équivalents. Si les réponses varient de façon systématique pour des raisons liées à ces caractéristiques, il y a un biais. Des outils comme Fairlearn (Microsoft) ou AI Fairness 360 (IBM) automatisent une partie de cet audit."
+    }
+  ],
+  "response_guidance": {
+    "tone": "rigoureux, orienté conformité et opérationnalité",
+    "structure": [
+      "identifier le principe de gouvernance en jeu",
+      "expliquer l'application concrète",
+      "pointer les risques de non-conformité"
+    ],
+    "avoid": [
+      "trop théorique sans ancrage opérationnel",
+      "ignorer le contexte réglementaire EU",
+      "confondre gouvernance et éthique abstraite"
+    ]
+  },
+  "tags": [
+    "risques IA",
+    "biais",
+    "hallucinations",
+    "model drift",
+    "adversarial",
+    "gouvernance IA",
+    "AI governance",
+    "conformité"
+  ],
+  "related_knowledge_units": [
+    "knowledges.professional.standards_iso.iso_42001_ai_management_system",
+    "knowledges.cpl.ethics_governance.ethical_ai_framework"
+  ]
 }
