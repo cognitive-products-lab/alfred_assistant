@@ -46,6 +46,7 @@ class LLMRouter:
         system_prompt: str,
         user_prompt: str,
         previous_response_id: Optional[str] = None,
+        on_sentence=None,
     ) -> str:
         if self._is_client_available(self.primary):
             try:
@@ -56,6 +57,7 @@ class LLMRouter:
                     system_prompt=system_prompt,
                     user_prompt=user_prompt,
                     previous_response_id=previous_response_id,
+                    on_sentence=on_sentence,
                 )
             except Exception as exc:
                 if self.debug:
