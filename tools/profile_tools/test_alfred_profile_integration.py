@@ -1,4 +1,21 @@
 """
+PROJECT      : ALFRED
+BLOCK        : TOOLS
+FUNCTION     : XX.XX
+FILE         : tools/profile_tools/test_alfred_profile_integration.py
+ROLE         : TO_DEFINE
+
+AUTHOR       : Cognitive Products Lab
+CREATED      : 2026-06-22
+UPDATED      : 2026-06-22
+VERSION      : V1.0
+STATUS       : DRAFT
+
+DESCRIPTION :
+Outils projet — description a completer.
+"""
+
+"""
 test_alfred_profile_integration.py — Smoke test : profil psychométrique → ALFRED
 
 Vérifie que :
