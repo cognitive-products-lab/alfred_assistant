@@ -1,53 +1,104 @@
 {
-  "id": "governance_model",
-  "name": "Governance Model",
-  "version": "1.0.0",
-  "category": "ethics_governance",
-  "purpose": "Aider ALFRED à structurer la gouvernance des données, des décisions, des responsabilités et des usages.",
-  "concepts": [
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "id": "knowledges.cpl.ethics_governance.governance_model",
+  "title": "Modèle de gouvernance organisationnelle",
+  "domain": "cpl",
+  "subdomain": "ethics_governance",
+  "status": "validated",
+  "summary": "La gouvernance définit qui décide quoi, selon quelles règles et avec quelle responsabilité. Un modèle de gouvernance clair évite les conflits de compétences, accélère les décisions et protège la conformité.",
+  "core_definition": "Le modèle de gouvernance est le système formel ou semi-formel qui définit les structures de décision, les rôles et responsabilités, les règles d'escalade et les mécanismes de contrôle au sein d'une organisation ou d'un projet.",
+  "knowledge": {
+    "governance_elements": [
+      {
+        "element": "Instances de décision",
+        "description": "Comités, boards, tribu produit — qui décide quoi, à quelle fréquence"
+      },
+      {
+        "element": "RACI",
+        "description": "Responsible, Accountable, Consulted, Informed — clarifier qui fait, qui valide, qui est consulté"
+      },
+      {
+        "element": "Règles d'escalade",
+        "description": "À quel niveau une décision doit-elle remonter ? Quel délai d'escalade ?"
+      },
+      {
+        "element": "Audit et contrôle",
+        "description": "Comment vérifie-t-on la conformité des décisions aux règles définies ?"
+      },
+      {
+        "element": "Amendement",
+        "description": "Comment les règles de gouvernance peuvent-elles être modifiées ?"
+      }
+    ],
+    "governance_models": [
+      {
+        "model": "Centralisé",
+        "description": "Décisions concentrées en haut. Rapide pour les décisions stratégiques, lent pour les opérations.",
+        "best_for": "Organisations jeunes, situations de crise"
+      },
+      {
+        "model": "Décentralisé",
+        "description": "Décisions déléguées aux équipes opérationnelles. Rapide, mais risque de fragmentation.",
+        "best_for": "Organisations matures avec une culture forte"
+      },
+      {
+        "model": "Matriciel",
+        "description": "Doubles lignes hiérarchiques (fonctionnel + projet). Flexible, mais ambiguïté sur la responsabilité.",
+        "best_for": "Grandes organisations avec projets transversaux"
+      },
+      {
+        "model": "Holacratique",
+        "description": "Auto-organisation par cercles et rôles. Pas de hiérarchie formelle.",
+        "best_for": "Équipes très autonomes, culture de confiance élevée"
+      }
+    ],
+    "governance_for_ai": [
+      "Définir un owner de chaque système IA (responsabilité claire)",
+      "Établir des règles de validation avant déploiement (tests, audit éthique)",
+      "Créer un processus de signalement des comportements inattendus",
+      "Réviser régulièrement les règles comportementales des systèmes en production",
+      "Tracer les décisions importantes prises avec assistance IA"
+    ]
+  },
+  "example_answers": [
     {
-      "name": "Gouvernance",
-      "definition": "Système de règles, rôles et processus encadrant une activité.",
-      "usage": "Garantir cohérence, responsabilité et contrôle."
+      "prompt": "Comment structurer la gouvernance d'un projet IA en entreprise ?",
+      "answer": "Quatre éléments essentiels : un owner identifié (accountability claire), une instance de validation avant déploiement (comité tech + éthique), des règles comportementales documentées (ce que le système peut/ne peut pas faire), et un processus de signalement des problèmes. Simple et opérationnel dès le premier trimestre."
     },
     {
-      "name": "Traçabilité",
-      "definition": "Capacité à retrouver l’origine d’une décision ou action.",
-      "usage": "Permettre audit, correction et justification."
+      "prompt": "Notre équipe n'arrive pas à décider — problème de gouvernance ou de personnes ?",
+      "answer": "Souvent les deux, mais le plus souvent c'est un problème de gouvernance masqué par un problème de personnes. Questions clés : qui est accountable (pas responsible) de la décision ? Y a-t-il un RACI formalisé ? Les règles d'escalade sont-elles claires ? Souvent, clarifier le RACI suffit à débloquer les décisions."
     },
     {
-      "name": "Responsabilité",
-      "definition": "Identification claire de qui décide, valide ou contrôle.",
-      "usage": "Éviter les zones floues dans les usages IA."
+      "prompt": "Qu'est-ce qu'un bon RACI ?",
+      "answer": "Un bon RACI a un seul Accountable par décision (pas deux), des Responsibles clairement identifiés, peu de Consulted (max 3-4 sinon c'est une réunion déguisée), et des Informed bien ciblés. Trop de monde dans la colonne A ou R = décision paralysée. Le RACI n'est pas un outil de politesse — c'est un outil de clarté."
     }
   ],
-  "rules": [
-    "Chaque donnée sensible doit avoir une finalité claire.",
-    "Chaque décision critique doit rester validable par un humain.",
-    "Les règles de gouvernance doivent être documentées et révisables."
+  "response_guidance": {
+    "tone": "structuré, orienté clarté et efficacité",
+    "structure": [
+      "identifier le problème de gouvernance sous-jacent",
+      "proposer le bon outil (RACI, instance, règle d'escalade)",
+      "calibrer selon la taille et la maturité de l'organisation"
+    ],
+    "avoid": [
+      "proposer une gouvernance trop lourde pour une petite structure",
+      "ignorer la culture organisationnelle existante",
+      "confondre gouvernance et bureaucratie"
+    ]
+  },
+  "tags": [
+    "gouvernance",
+    "RACI",
+    "décision",
+    "organisation",
+    "responsabilité",
+    "cpl"
   ],
-  "decision_framework": [
-    "Quelle donnée est utilisée ?",
-    "Pourquoi est-elle nécessaire ?",
-    "Qui y accède ?",
-    "Qui valide la décision ?",
-    "Quelle trace est conservée ?"
-  ],
-  "use_cases": [
-    {
-      "context": "Déploiement B2I",
-      "action": "Définir rôles, accès, données et processus de validation",
-      "output": "Modèle de gouvernance opérationnel"
-    },
-    {
-      "context": "Produit SaaS CPL",
-      "action": "Cartographier responsabilités, risques et contrôles",
-      "output": "Cadre de gouvernance produit"
-    }
-  ],
-  "links": [
-    "ethical_ai_framework",
-    "risk_management",
-    "privacy_by_design"
+  "related_knowledge_units": [
+    "knowledges.cpl.ethics_governance.ethical_ai_framework",
+    "knowledges.cpl.execution.decision_making_framework",
+    "knowledges.professional.governance_ai.ai_governance_basics"
   ]
 }

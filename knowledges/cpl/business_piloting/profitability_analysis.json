@@ -1,53 +1,96 @@
 {
-  "id": "profitability_analysis",
-  "name": "Profitability Analysis",
-  "version": "1.0.0",
-  "category": "business_piloting",
-  "purpose": "Aider ALFRED à calculer rentabilité, seuils annuels et scénarios financiers.",
-  "concepts": [
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "id": "knowledges.cpl.business_piloting.profitability_analysis",
+  "title": "Analyse de rentabilité",
+  "domain": "cpl",
+  "subdomain": "business_piloting",
+  "status": "validated",
+  "summary": "La rentabilité mesure si une activité génère plus de valeur qu'elle n'en consomme. L'analyse des marges, du point mort et du ROI permet de piloter la profitabilité de chaque produit, client ou service.",
+  "core_definition": "L'analyse de rentabilité évalue la capacité d'une activité, d'un produit ou d'un projet à générer un bénéfice net après déduction de tous ses coûts directs et indirects. Elle guide les décisions d'investissement, de prix et de portefeuille.",
+  "knowledge": {
+    "key_metrics": [
+      {
+        "metric": "Marge brute",
+        "formula": "(CA - Coûts variables) / CA × 100",
+        "reads": "Part du CA restant après les coûts directs de production / livraison"
+      },
+      {
+        "metric": "EBITDA",
+        "formula": "Résultat avant intérêts, impôts, dépréciations et amortissements",
+        "reads": "Rentabilité opérationnelle pure, avant effets financiers et fiscaux"
+      },
+      {
+        "metric": "Point mort (break-even)",
+        "formula": "Coûts fixes / Marge sur coût variable unitaire",
+        "reads": "Volume ou CA à atteindre pour commencer à gagner de l'argent"
+      },
+      {
+        "metric": "ROI",
+        "formula": "(Bénéfice net / Investissement) × 100",
+        "reads": "Rendement d'un investissement sur une période donnée"
+      },
+      {
+        "metric": "LTV / CAC ratio",
+        "formula": "Valeur vie client / Coût d'acquisition client",
+        "reads": "Santé économique du modèle SaaS/subscription — sain si LTV > 3× CAC"
+      }
+    ],
+    "profitability_analysis_process": [
+      "Identifier les lignes de revenus (par produit, client, segment)",
+      "Allouer les coûts directs à chaque ligne de revenus",
+      "Calculer la marge brute par ligne",
+      "Identifier les coûts indirects à répartir (structure, admin, marketing)",
+      "Calculer la marge nette contributive par ligne",
+      "Identifier les lignes rentables, les lignes déficitaires, et décider"
+    ],
+    "decision_triggers": [
+      "Marge brute < 30% : analyser les coûts de production / delivery",
+      "CAC > LTV/3 : le modèle d'acquisition est non viable — revoir les canaux",
+      "Un client représente > 40% du CA : risque de concentration critique",
+      "Croissance du CA sans croissance de la marge : scalabilité problématique"
+    ]
+  },
+  "example_answers": [
     {
-      "name": "Seuil de rentabilité",
-      "definition": "CA nécessaire pour couvrir les charges.",
-      "usage": "Savoir combien vendre pour ne pas perdre."
+      "prompt": "Comment savoir si mon activité est vraiment rentable ?",
+      "answer": "On calcule la marge brute par produit ou service (revenus moins coûts directs). Ensuite on enlève les coûts fixes (structure, salaires, loyer). Si le résultat est positif, c'est rentable. Souvent, certains produits portent d'autres — l'analyse par ligne révèle les vaches à lait et les gouffres cachés."
     },
     {
-      "name": "Résultat",
-      "definition": "Différence entre CA et charges.",
-      "usage": "Mesurer la performance économique."
+      "prompt": "Mon chiffre d'affaires croît mais ma trésorerie baisse — pourquoi ?",
+      "answer": "Croissance sans rentabilité. Trois causes fréquentes : coûts variables qui croissent plus vite que le CA (livraison non scalable), investissements en avance sur les revenus, ou délais de paiement clients qui créent un décalage de trésorerie. On analyse chaque ligne de coût pour identifier celle qui ne suit pas."
     },
     {
-      "name": "Scénario financier",
-      "definition": "Projection pessimiste, réaliste ou ambitieuse.",
-      "usage": "Anticiper risques et leviers."
+      "prompt": "Comment calculer le point mort d'un SaaS ?",
+      "answer": "Point mort = Coûts fixes mensuels / MRR par client. Si tes coûts fixes sont 10k€/mois et ton MRR moyen est 100€/client, il te faut 100 clients actifs pour être à l'équilibre. Tout au-dessus génère de la marge. Cette métrique est clé pour savoir quand le modèle devient soutenable."
     }
   ],
-  "rules": [
-    "Recalculer le seuil chaque année.",
-    "Distinguer CA, charges, résultat et trésorerie.",
-    "Identifier prix, volume, coûts variables et rémunération."
+  "response_guidance": {
+    "tone": "analytique, factuel, orienté pilotage",
+    "structure": [
+      "identifier la métrique clé selon le contexte",
+      "calculer ou estimer avec les données disponibles",
+      "interpréter le résultat",
+      "proposer une décision ou un suivi"
+    ],
+    "avoid": [
+      "utiliser des termes comptables sans les définir",
+      "donner un avis sur la santé business sans données",
+      "confondre rentabilité et trésorerie"
+    ]
+  },
+  "tags": [
+    "rentabilité",
+    "marge",
+    "break-even",
+    "LTV",
+    "CAC",
+    "ROI",
+    "cpl"
   ],
-  "decision_framework": [
-    "Montant total des charges ?",
-    "Prix moyen par segment ?",
-    "Combien de clients ?",
-    "Quels coûts ralentir si CA inférieur ?",
-    "Quels investissements accélérer si CA supérieur ?"
-  ],
-  "use_cases": [
-    {
-      "context": "A5 réaliste déficitaire",
-      "action": "Ajuster rémunération, freelances et communication",
-      "output": "Scénario viable"
-    },
-    {
-      "context": "Préparation financeur",
-      "action": "Présenter seuils annuels et leviers",
-      "output": "Analyse défendable"
-    }
-  ],
-  "links": [
-    "pricing_strategy",
-    "cashflow_management",
-    "business_model_design"
+  "related_knowledge_units": [
+    "knowledges.cpl.business_piloting.pricing_strategy",
+    "knowledges.cpl.business_piloting.revenue_mix_strategy",
+    "knowledges.professional.product_management.kpi_product_advanced"
   ]
 }
