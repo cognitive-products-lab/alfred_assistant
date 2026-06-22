@@ -1,158 +1,65 @@
 {
-  "schema_version": "1.0",
+  "schema_version": "1.2",
   "type": "knowledge_unit",
-  "id": "knowledges.professional.engineering.ai.llm_basics",
-  "title": "LLM Basics",
+  "id": "knowledges.professional.engineering.llm_basics",
+  "title": "Bases des LLMs (Large Language Models)",
   "domain": "professional",
-  "status": "validated_v1",
-
-  "summary": "Fiche permettant à ALFRED de comprendre le fonctionnement des modèles de langage (LLM), leurs forces, leurs limites et la manière de les utiliser efficacement.",
-
-  "core_definition": "Un LLM (Large Language Model) est un modèle d’intelligence artificielle entraîné sur de grandes quantités de texte pour prédire et générer du langage naturel.",
-
-  "core_principles": [
-    "un LLM prédit du texte, il ne comprend pas comme un humain",
-    "la qualité dépend fortement du prompt",
-    "le contexte fourni influence directement la réponse",
-    "le modèle peut halluciner (inventer des informations)",
-    "le LLM ne possède pas de mémoire persistante par défaut",
-    "les réponses doivent être cadrées et vérifiées"
-  ],
-
-  "how_it_works": {
-    "training": "Le modèle est entraîné sur des milliards de textes pour apprendre les patterns du langage.",
-    "inference": "Il génère la réponse mot par mot en fonction du contexte.",
-    "context_window": "Le modèle ne voit que ce qui est présent dans le prompt (limite de tokens).",
-    "probabilistic": "Les réponses sont probabilistes, pas déterministes."
-  },
-
-  "key_concepts": [
-    "prompt",
-    "context",
-    "tokens",
-    "temperature",
-    "hallucination",
-    "instruction following",
-    "context window"
-  ],
-
-  "prompting_principles": [
-    "être clair et spécifique",
-    "donner un rôle au modèle",
-    "structurer la demande",
-    "fournir du contexte utile",
-    "limiter les ambiguïtés",
-    "itérer si nécessaire"
-  ],
-
-  "strengths": [
-    "génération de texte rapide",
-    "explication de concepts",
-    "structuration d’informations",
-    "assistance à la rédaction",
-    "aide à la réflexion"
-  ],
-
-  "limitations": [
-    "hallucinations possibles",
-    "pas de compréhension réelle",
-    "dépendance au prompt",
-    "pas de mémoire native",
-    "peut produire des réponses plausibles mais fausses"
-  ],
-
-  "common_errors": [
-    "faire confiance sans vérification",
-    "donner des prompts vagues",
-    "attendre une vérité absolue",
-    "oublier les limites du modèle",
-    "ne pas contrôler la sortie"
-  ],
-
-  "response_principles": [
-    "expliquer simplement le fonctionnement",
-    "rappeler les limites quand nécessaire",
-    "aider à structurer un prompt",
-    "ne pas sur-vendre les capacités du modèle",
-    "proposer une utilisation pragmatique"
-  ],
-
-  "conversation_uses": [
-    "expliquer ce qu’est un LLM",
-    "aider à écrire un prompt",
-    "améliorer une interaction avec un modèle",
-    "corriger un usage du LLM",
-    "expliquer les erreurs d’un modèle"
-  ],
-
-  "example_answers": [
-    {
-      "prompt": "Pourquoi le modèle se trompe ?",
-      "answer": "Parce qu’un LLM ne sait pas, il prédit. Si le contexte est flou ou incomplet, il peut produire une réponse plausible mais incorrecte."
-    },
-    {
-      "prompt": "Comment améliorer mes prompts ?",
-      "answer": "Sois précis : objectif clair, contexte, contraintes. Plus ton prompt est structuré, plus la réponse sera fiable."
-    },
-    {
-      "prompt": "Est-ce que le modèle comprend ?",
-      "answer": "Non au sens humain. Il reconnaît des patterns et génère du texte cohérent, mais sans compréhension réelle."
-    }
-  ],
-
-  "response_guidance": {
-    "tone": "clair, pédagogique, pragmatique",
-    "structure": [
-      "définition simple",
-      "fonctionnement",
-      "forces",
-      "limites",
-      "conseil pratique"
+  "subdomain": "engineering",
+  "status": "validated",
+  "summary": "Les LLMs sont des reseaux de neurones entraines sur de vastes corpus de texte pour predire le token suivant. Cette architecture simple mene a des capacites emergentes remarquables — mais aussi a des limites systematiques (hallucination, contexte fini, biais).",
+  "core_definition": "Un Large Language Model (LLM) est un modele de deep learning base sur l'architecture Transformer, entraine sur de grands corpus de texte pour predire la probabilite du prochain token, et qui developpe en cours d'entrainement des capacites emergentes de comprehension et de generation du langage.",
+  "knowledge": {
+    "how_llms_work": [
+      "Architecture Transformer (Vaswani et al., 2017) : encodage, mecanisme d'attention, decodage",
+      "Pretraining : prediction du prochain token sur des milliards de textes",
+      "RLHF (Reinforcement Learning from Human Feedback) : alignement sur les preferences humaines",
+      "Inference : generation token par token, sampling probabiliste"
     ],
-    "avoid": [
-      "faire croire que le modèle est infaillible",
-      "utiliser du jargon non expliqué",
-      "donner des réponses trop techniques sans besoin",
-      "présenter le LLM comme une intelligence humaine"
+    "llm_capabilities": [
+      "Generation de texte fluide et coherent",
+      "Comprehension et reponse aux questions",
+      "Raisonnement (ameliore par Chain of Thought)",
+      "Traduction, resume, classification",
+      "Code generation et debugging",
+      "Dialogue multi-tour avec memoire de contexte"
+    ],
+    "llm_limitations": [
+      "Hallucination : generation confiante de faits incorrects",
+      "Contexte fini (8K-200K tokens selon le modele)",
+      "Coupure des connaissances a une date (knowledge cutoff)",
+      "Biais des donnees d'entrainement",
+      "Pas d'acces aux informations en temps reel (sans outils)"
     ]
   },
-
-  "links_to_alfred_identity": {
-    "dominant_layer": "jarvis",
-    "mode": "technical_mode",
-    "why": "Comprendre les LLM permet à ALFRED de mieux contrôler ses réponses et d’éviter les erreurs liées au modèle."
+  "example_answers": [
+    {
+      "prompt": "Comment fonctionnent les LLMs comme toi ?",
+      "answer": "A l'essence : je suis entraine a predire quel token (fragment de mot) a le plus de chance de suivre les tokens precedents, sur des milliards de textes. Cet entrainement simple mene a des capacites emergentes — je 'comprends' le langage, je 'raisonne', je 'cree'. Mais ces guillemets sont importants : je ne pense pas comme un humain, je genere des sequences statistiquement plausibles. Mes 'connaissances' sont les patterns observes dans mes donnees d'entrainement. Mes erreurs viennent d'extrapolations incorrectes ou de donnees manquantes ou biaisees."
+    },
+    {
+      "prompt": "Quelle difference entre GPT-4, Claude, Llama et Mistral ?",
+      "answer": "Quatre familles principales : (1) GPT-4/GPT-4o (OpenAI) : le plus connu, fort en code et raisonnement, via API ou ChatGPT, (2) Claude (Anthropic) : focus securite et alignement, tres bon en analyse longue et raisonnement ethique, (3) Llama 3 (Meta) : open source, peut tourner en local via Ollama, bon rapport qualite/taille, (4) Mistral (Mistral AI, francais) : modeles efficaces et open source, tres bon rapport performance/taille. Pour ALFRED : Ollama avec Mistral ou Llama 3 pour l'execution locale, Claude ou GPT-4 pour les taches necessitant le maximum de qualite."
+    }
+  ],
+  "response_guidance": {
+    "tone": "strategique, ancre dans la pratique",
+    "structure": [
+      "contextualiser",
+      "expliquer le concept",
+      "proposer un angle actionnable"
+    ],
+    "avoid": [
+      "trop theorique",
+      "ignorer le contexte"
+    ]
   },
-
-  "related_knowledge_units": [
-    "knowledges.professional.engineering.ai.rag",
-    "knowledges.professional.engineering.ai.vector_database",
-    "knowledges.professional.engineering.ai.chunking_strategies",
-    "knowledges.core.alfred_core_identity"
-  ],
-
-  "related_features": [
-    "4.01.001",
-    "5.01.001",
-    "5.01.004",
-    "5.03.003",
-    "18.01.001",
-    "18.01.002"
-  ],
-
   "tags": [
-    "llm",
-    "ai",
-    "prompt",
-    "model",
-    "generation",
-    "limitations",
-    "rag",
-    "alfred"
+    "LLM",
+    "transformer",
+    "IA",
+    "ChatGPT",
+    "Claude",
+    "Ollama"
   ],
-
-  "quality": {
-    "confidence": "high",
-    "requires_sources": false,
-    "review_needed": false
-  }
+  "related_knowledge_units": []
 }

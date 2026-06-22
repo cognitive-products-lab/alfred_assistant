@@ -1,162 +1,71 @@
 {
-  "schema_version": "1.0",
+  "schema_version": "1.2",
   "type": "knowledge_unit",
   "id": "knowledges.lifestyle.health.stress_management",
-  "title": "Stress Management",
+  "title": "Gestion du stress",
   "domain": "lifestyle",
-  "status": "validated_v1",
-
-  "summary": "Fiche permettant à ALFRED d’accompagner l’utilisateur en situation de stress en réduisant la pression perçue, en clarifiant les priorités et en favorisant un retour progressif à un état de contrôle.",
-
-  "core_definition": "La gestion du stress consiste à identifier les sources de tension, réduire la surcharge cognitive et émotionnelle, et retrouver une capacité d’action adaptée au contexte sans sur-réaction ni blocage.",
-
-  "important_boundary": {
-    "medical_limit": "ALFRED ne traite pas les troubles anxieux et ne remplace pas un professionnel de santé.",
-    "safe_role": "ALFRED peut aider à structurer, rassurer, réduire la pression et proposer des actions simples."
-  },
-
-  "stress_signals": [
-    "je suis stressée",
-    "je panique",
-    "je suis débordée",
-    "j’ai trop de choses",
-    "je n’arrive plus à réfléchir",
-    "je suis sous pression",
-    "je suis submergée",
-    "je ne sais pas par où commencer"
-  ],
-
-  "stress_types": {
-    "acute": {
-      "description": "Réaction immédiate à une situation perçue comme urgente ou menaçante.",
-      "examples": [
-        "deadline proche",
-        "imprévu",
-        "pression externe"
-      ]
+  "subdomain": "health",
+  "status": "validated",
+  "summary": "Le stress a deux visages : le bon stress (eustress) qui aiguise les performances, et le mauvais stress chronique qui les detruit. La gestion du stress consiste a optimiser le premier et a reduire le second via regulation physiologique et changements de perception.",
+  "core_definition": "La gestion du stress est l'ensemble des pratiques cognitives, comportementales et physiologiques permettant de moduler la reponse au stress pour maintenir un niveau optimal de performance et de bien-etre, en utilisant les techniques de regulation physiologique rapide et de recadrage cognitif.",
+  "knowledge": {
+    "stress_physiology": {
+      "acute_stress": "Cortisol + adrenaline → preparation a l'action (utile a court terme)",
+      "chronic_stress": "Cortisol eleve en continu → degradation des fonctions immunitaires, cognitives et emotionnelles",
+      "recovery": "Le systeme parasympathique (reste-et-digere) desactive le systeme de stress — activable deliberement"
     },
-    "chronic": {
-      "description": "Stress installé dans la durée lié à une surcharge continue.",
-      "examples": [
-        "charge mentale élevée",
-        "fatigue accumulée",
-        "désorganisation"
-      ]
-    }
-  },
-
-  "response_principles": [
-    "réduire la complexité immédiatement",
-    "clarifier une seule priorité",
-    "rendre la situation compréhensible",
-    "éviter toute pression supplémentaire",
-    "ramener au concret",
-    "éviter la projection négative",
-    "réintroduire un sentiment de contrôle"
-  ],
-
-  "action_strategies": {
-    "immediate_calming": [
-      "ralentir volontairement le rythme",
-      "se concentrer sur une seule information",
-      "mettre de côté le reste temporairement",
-      "revenir à une action simple"
+    "quick_relief_techniques": [
+      {
+        "technique": "Respiration physiologique (Huberman)",
+        "method": "Double inspiration par le nez (inspire, inspire encore), longue expiration par la bouche — reduit le CO2 rapidement et active le vagal nerve",
+        "speed": "30 secondes"
+      },
+      {
+        "technique": "Cold exposure",
+        "method": "Visage dans l'eau froide ou douche froide 30s — active le diving reflex, baisse le rythme cardiaque",
+        "speed": "30 secondes a 2 minutes"
+      },
+      {
+        "technique": "Mouvement physique",
+        "method": "Marche rapide 10-15 min — metabolise les hormones de stress",
+        "speed": "10-20 minutes"
+      }
     ],
-    "structuring": [
-      "identifier la tâche la plus importante",
-      "distinguer urgent vs non urgent",
-      "réduire la liste",
-      "séquencer les actions"
-    ],
-    "load_reduction": [
-      "supprimer les tâches non essentielles",
-      "reporter ce qui peut attendre",
-      "simplifier l’objectif",
-      "réduire le niveau d’exigence temporairement"
+    "long_term_resilience": [
+      "Sommeil regulier et suffisant (socle fondamental)",
+      "Exercice regulier — meilleure meta-intervention anti-stress connue",
+      "Pratique de pleine conscience (8 semaines de MBSR = reduction du cortisol mesuree)",
+      "Relations sociales de qualite — l'isolation amplifie le stress"
     ]
   },
-
-  "conversation_uses": [
-    "répondre à un message de stress",
-    "clarifier une situation confuse",
-    "aider à prioriser sous pression",
-    "réduire la charge mentale",
-    "éviter le blocage"
-  ],
-
   "example_answers": [
     {
-      "prompt": "Je suis stressée, j’ai trop de choses.",
-      "answer": "On simplifie immédiatement. Une seule priorité. Le reste disparaît temporairement."
+      "prompt": "Je suis tres stresse avant mes presentations — comment gerer ca ?",
+      "answer": "Avant : preparation solide reduit l'anxiete d'incertitude (repeter 3x a voix haute est plus efficace que relire 10x les notes). La veille : eviter l'alcool et favoriser un bon sommeil. 10 min avant : respiration physiologique (inspire-inspire-expire longue) pendant 5 cycles — baisse le cortisol mesurable. Pendant : reformuler l'anxiete en excitation ('je suis excite' et 'je suis anxieux' produisent la meme physiologie — le label change la performance). Et se rappeler : le public veut que tu reussisses, pas te voir echouer."
     },
     {
-      "prompt": "Je panique, je ne sais pas quoi faire.",
-      "answer": "Stop. On ne résout pas tout. Donne-moi la chose la plus urgente, on s’occupe uniquement de ça."
-    },
-    {
-      "prompt": "Je suis débordée.",
-      "answer": "Tu n’es pas débordée, tu es face à trop d’éléments en même temps. On va réduire ça à quelque chose de gérable."
+      "prompt": "ALFRED peut-il m'aider quand je suis vraiment stresse ?",
+      "answer": "Oui — de plusieurs facons : (1) Ici et maintenant : respiration guidee (je peux te guider etape par etape), (2) Externaliser la preoccupation — me dire ce qui te stresse souvent aide a l'objectiver, (3) Distinguer ce qui est dans ton controle de ce qui ne l'est pas (cercle d'influence de Stephen Covey) — n'agir que sur le premier, (4) Identifier les pensees automatiques catastrophistes et les tester ('est-ce que c'est certain ? Quelle est la probabilite reelle ?'). Si le stress est intense et persistant : orienter vers un professionnel — ALFRED ne remplace pas un therapeute."
     }
   ],
-
   "response_guidance": {
-    "tone": "calme, posé, structurant, rassurant",
+    "tone": "bienveillant et ancré dans la réalité",
     "structure": [
-      "ralentir",
-      "clarifier",
-      "réduire",
-      "proposer une action simple"
+      "contextualiser",
+      "expliquer le concept",
+      "proposer un angle actionnable"
     ],
     "avoid": [
-      "tu dois te calmer",
-      "ce n’est pas grave",
-      "tu exagères",
-      "faire un plan trop complexe",
-      "ajouter de la pression"
+      "trop théorique",
+      "ignorer le contexte de l'utilisateur"
     ]
   },
-
-  "links_to_alfred_identity": {
-    "dominant_layer": "alfred_pennyworth",
-    "mode": "support_mode",
-    "secondary_layer": "jarvis",
-    "why": "Le stress nécessite d’abord un apaisement et une réduction de charge, puis une structuration simple."
-  },
-
-  "related_knowledge_units": [
-    "knowledges.core.alfred_core_identity",
-    "knowledges.lifestyle.health.fatigue_management",
-    "knowledges.lifestyle.health.recovery_cycles",
-    "knowledges.lifestyle.daily_life.organization_basics",
-    "knowledges.human.self_alignment.routines.energy_management"
-  ],
-
-  "related_features": [
-    "3.03.001",
-    "3.03.002",
-    "4.03.001",
-    "4.03.002",
-    "5.03.002",
-    "5.05.001",
-    "14.02.003",
-    "18.05.004"
-  ],
-
   "tags": [
     "stress",
-    "support",
-    "stabilite",
-    "prioritization",
-    "load_reduction",
-    "mental_load",
-    "self_alignment",
-    "alfred"
+    "cortisol",
+    "regulation",
+    "respiration",
+    "bien-etre"
   ],
-
-  "quality": {
-    "confidence": "high",
-    "requires_sources": false,
-    "review_needed": false,
-    "medical_safety": "non_medical_support_only"
-  }
+  "related_knowledge_units": []
 }
