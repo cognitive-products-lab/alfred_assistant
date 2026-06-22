@@ -56,6 +56,7 @@ class ResponseGenerator:
         history_text: str = "",
         session_summary: Optional[Dict[str, Any]] = None,
         mode_guidelines: str = "",
+        on_sentence=None,
     ) -> str:
         """Génère une réponse complète."""
         forced = self._forced_response(user_message)
@@ -82,7 +83,7 @@ class ResponseGenerator:
             print(user_prompt)
 
         if self.llm_client:
-            response = self._call_llm(system_prompt, user_prompt)
+            response = self._call_llm(system_prompt, user_prompt, on_sentence=on_sentence)
         else:
             response = self._fallback_response(user_message, response_context)
 
@@ -433,12 +434,18 @@ Réponds maintenant.""".strip()
     # APPEL LLM
     # =========================================================
 
-    def _call_llm(self, system_prompt: str, user_prompt: str) -> str:
+    def _call_llm(self, system_prompt: str, user_prompt: str, on_sentence=None) -> str:
         """Appelle le LLM externe via le client abstrait."""
         try:
+            import inspect
+            sig = inspect.signature(self.llm_client.generate)
+            kwargs = {}
+            if "on_sentence" in sig.parameters and on_sentence is not None:
+                kwargs["on_sentence"] = on_sentence
             response = self.llm_client.generate(
                 system_prompt=system_prompt,
                 user_prompt=user_prompt,
+                **kwargs,
             )
             return response.strip()
         except Exception as exc:

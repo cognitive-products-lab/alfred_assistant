@@ -893,6 +893,39 @@ def listen_voice_once(duration: int = VOICE_RECORD_SECONDS, silent: bool = False
 
     return text
 
+
+def _transcribe_audio(audio) -> str:
+    """Transcrit un tableau numpy audio (float32, 16kHz, mono) via Whisper.
+
+    Utilisé par alfred_app.py pour transcrire l'audio capturé par le micro UI.
+    """
+    import numpy as np
+
+    audio = np.squeeze(audio)
+    model = _get_whisper_model()
+    segments, _ = model.transcribe(
+        audio,
+        language="fr",
+        beam_size=5,
+        vad_filter=True,
+        vad_parameters={"min_silence_duration_ms": 500},
+        temperature=0.0,
+        initial_prompt="Alfred, assistant personnel. Conversation en français.",
+        no_speech_threshold=0.6,
+        log_prob_threshold=-0.8,
+    )
+    text = " ".join(segment.text.strip() for segment in segments).strip()
+    if not text or len(text) < 3:
+        return ""
+    alpha_ratio = sum(c.isalpha() or c.isspace() for c in text) / len(text)
+    if alpha_ratio < 0.4:
+        return ""
+    for char in set(text):
+        if not char.isalpha() and text.count(char) > len(text) * 0.3:
+            return ""
+    return text
+
+
 # =============================================================================
 # B04 — Helpers vision
 # =============================================================================
