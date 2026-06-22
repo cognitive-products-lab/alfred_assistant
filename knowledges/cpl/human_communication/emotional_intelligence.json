@@ -1,52 +1,90 @@
 {
-  "id": "emotional_intelligence",
-  "name": "Emotional Intelligence",
-  "version": "1.0.0",
-  "category": "human_communication",
-  "purpose": "Aider ALFRED à détecter, comprendre et adapter ses réponses aux états émotionnels sans diagnostic.",
-  "concepts": [
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "id": "knowledges.cpl.human_communication.emotional_intelligence",
+  "title": "Intelligence émotionnelle en contexte professionnel",
+  "domain": "cpl",
+  "subdomain": "human_communication",
+  "status": "validated",
+  "summary": "L'intelligence émotionnelle en contexte pro, c'est la capacité à reconnaître ses propres émotions et celles des autres pour adapter son comportement et créer des interactions productives, même sous pression.",
+  "core_definition": "L'intelligence émotionnelle (IE) en contexte professionnel est la capacité à identifier, comprendre et gérer ses propres émotions et celles de ses interlocuteurs afin d'améliorer la qualité des relations, des décisions et des performances collectives.",
+  "knowledge": {
+    "ie_components": [
+      {
+        "component": "Conscience de soi",
+        "description": "Reconnaître ses propres émotions en temps réel et leur impact sur ses décisions et comportements"
+      },
+      {
+        "component": "Maîtrise de soi",
+        "description": "Réguler ses réactions émotionnelles — ne pas agir sous l'impulsion, surtout sous pression"
+      },
+      {
+        "component": "Motivation intrinsèque",
+        "description": "Rester orienté vers ses objectifs malgré les obstacles, sans dépendre de la validation externe"
+      },
+      {
+        "component": "Empathie",
+        "description": "Comprendre le point de vue et les émotions des autres, même sans les partager"
+      },
+      {
+        "component": "Compétences sociales",
+        "description": "Créer et maintenir des relations, influencer positivement, gérer les conflits"
+      }
+    ],
+    "professional_applications": [
+      "Feedback : donner une critique constructive en reconnaissant d'abord l'effort",
+      "Conflit : désamorcer une tension en nommant l'émotion perçue ('j'ai l'impression que tu es frustré par cette situation')",
+      "Négociation : lire les signaux non-verbaux pour adapter le timing et le message",
+      "Leadership : créer un environnement où les équipes se sentent en sécurité pour s'exprimer",
+      "Décision sous pression : différer une décision importante quand l'état émotionnel est altéré"
+    ],
+    "ie_in_ai_interactions": [
+      "Détecter les signaux émotionnels dans les messages (frustration, anxiété, enthousiasme)",
+      "Adapter le ton avant d'adapter le contenu",
+      "Valider l'état émotionnel avant de proposer des solutions",
+      "Ne jamais minimiser une difficulté ('c'est simple') quand l'utilisateur la perçoit comme difficile",
+      "Proposer une aide sans créer de dépendance émotionnelle"
+    ]
+  },
+  "example_answers": [
     {
-      "name": "Émotion perçue",
-      "definition": "Indice émotionnel dans langage, rythme ou contexte.",
-      "usage": "Adapter ton et soutien."
+      "prompt": "Mon collègue s'est énervé en réunion, comment gérer ?",
+      "answer": "D'abord, ne pas répondre à l'énervement par un contre-argument — ça escalade. Reconnaître : 'Je vois que tu es frustré par cette situation.' Puis marquer une pause si possible. Une fois la tension retombée, aborder le fond : 'On reprend quand tu veux, le sujet mérite qu'on le traite calmement.'"
     },
     {
-      "name": "Empathie opérationnelle",
-      "definition": "Reconnaître une difficulté et proposer une aide concrète.",
-      "usage": "Éviter les réponses froides."
+      "prompt": "Comment donner du feedback négatif sans créer de conflit ?",
+      "answer": "Structure SBI : Situation (le contexte précis), Behavior (le comportement observable, pas la personne), Impact (ce que ça a produit concrètement). 'Lors de la présentation de lundi, quand les données de la slide 3 n'étaient pas à jour, le client a perdu confiance. J'aimerque les chiffres soient toujours vérifiés la veille.' — factuel, non personnel, orienté amélioration."
     },
     {
-      "name": "Non-diagnostic",
-      "definition": "Ne pas poser d'étiquette médicale ou psychologique.",
-      "usage": "Préserver sécurité et éthique."
+      "prompt": "Je suis stressé avant une décision importante, que faire ?",
+      "answer": "L'état émotionnel altère la qualité des décisions. Si possible, différer de quelques heures. Sinon, externaliser : écrire la décision à prendre, les options, les critères — ça sort la décision de la tête où les émotions brouillent tout. Et demander un regard extérieur si l'enjeu est élevé."
     }
   ],
-  "rules": [
-    "Ne jamais diagnostiquer.",
-    "Répondre à l'émotion sans dramatiser.",
-    "Privilégier soutien concret et réduction de charge."
+  "response_guidance": {
+    "tone": "empathique, sans jugement, orienté pratique",
+    "structure": [
+      "reconnaître l'état émotionnel sous-jacent",
+      "valider avant d'expliquer",
+      "proposer une méthode concrète",
+      "laisser l'utilisateur choisir"
+    ],
+    "avoid": [
+      "minimiser les émotions ('c'est normal, ça arrive à tout le monde')",
+      "donner des conseils non demandés sur la gestion émotionnelle",
+      "confondre intelligence émotionnelle et manipulation"
+    ]
+  },
+  "tags": [
+    "intelligence émotionnelle",
+    "empathie",
+    "feedback",
+    "conflit",
+    "relations pro",
+    "cpl"
   ],
-  "decision_framework": [
-    "Quel état émotionnel semble présent ?",
-    "Soutien, action ou clarification ?",
-    "Faut-il réduire la complexité ?",
-    "Quelle prochaine action sécurise ?"
-  ],
-  "use_cases": [
-    {
-      "context": "Utilisateur découragé",
-      "action": "Rassurer, découper, proposer une action simple",
-      "output": "Réponse motivante"
-    },
-    {
-      "context": "Utilisateur en surcharge",
-      "action": "Réduire les options et prioriser",
-      "output": "Plan minimal viable"
-    }
-  ],
-  "links": [
-    "communication_principles",
-    "energy_management",
-    "behavior_adaptation"
+  "related_knowledge_units": [
+    "knowledges.human.emotional_intelligence.empathy",
+    "knowledges.human.emotional_intelligence.self_regulation",
+    "knowledges.cpl.human_communication.communication_principles"
   ]
 }
