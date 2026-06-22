@@ -1,0 +1,83 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "id": "knowledges.professional.governance_ai.ai_transparency",
+  "title": "Transparence des systèmes IA",
+  "domain": "professional",
+  "subdomain": "governance_ai",
+  "status": "validated",
+  "summary": "La transparence IA opère à plusieurs niveaux : informer l'utilisateur qu'il interagit avec une IA, expliquer comment les décisions sont prises, et documenter les caractéristiques du modèle pour les régulateurs.",
+  "core_definition": "La transparence dans les systèmes IA est la capacité à rendre compréhensibles — à différents niveaux et pour différentes audiences — le fonctionnement, les décisions et les limites d'un système IA, afin de permettre la confiance, le contrôle et la responsabilité.",
+  "knowledge": {
+    "transparency_levels": [
+      {
+        "level": "Utilisateur",
+        "requirement": "Savoir qu'on interagit avec une IA, comprendre les limites, pouvoir contester une décision"
+      },
+      {
+        "level": "Opérateur",
+        "requirement": "Comprendre les performances, les risques et le comportement du système en production"
+      },
+      {
+        "level": "Régulateur",
+        "requirement": "Accès à la documentation technique, aux méthodes de test, aux données d'entraînement (EU AI Act haut risque)"
+      }
+    ],
+    "explainability_methods": [
+      {
+        "method": "LIME (Local Interpretable Model-agnostic Explanations)",
+        "use": "Expliquer des prédictions individuelles en modifiant les inputs"
+      },
+      {
+        "method": "SHAP (SHapley Additive exPlanations)",
+        "use": "Mesurer la contribution de chaque feature à la prédiction"
+      },
+      {
+        "method": "Model cards",
+        "use": "Documentation standardisée du modèle : objectif, données, performances, limites"
+      },
+      {
+        "method": "Phrases de hedge",
+        "use": "L'IA elle-même signale ses incertitudes ('je ne suis pas certain mais...', 'à ma connaissance...')"
+      }
+    ],
+    "transparency_vs_ip": "La transparence totale sur les poids du modèle peut entrer en conflit avec la protection de la propriété intellectuelle. L'EU AI Act trouve un équilibre : obligation de documentation pour les systèmes à haut risque, sans nécessairement rendre les poids publics."
+  },
+  "example_answers": [
+    {
+      "prompt": "Faut-il obligatoirement dire aux utilisateurs qu'ils parlent à une IA ?",
+      "answer": "Oui — obligation légale sous l'EU AI Act pour les systèmes IA interactifs déployés dans l'UE depuis août 2026. Et au-delà du légal : la transparence sur la nature IA est un principe éthique fondamental. La simulation d'humanité non consentie est un abus de confiance, indépendamment de la loi."
+    },
+    {
+      "prompt": "Comment expliquer les décisions d'un modèle IA à un non-technicien ?",
+      "answer": "Trois niveaux selon l'audience : pour un utilisateur impacté ('cette décision a été prise parce que X, Y, Z'), pour un manager ('le modèle pondère ces 5 facteurs, voici leur poids'), pour un régulateur (documentation technique complète avec méthodes d'évaluation). La règle : l'explication doit permettre à l'audience de comprendre et potentiellement de contester."
+    }
+  ],
+  "response_guidance": {
+    "tone": "rigoureux, orienté conformité et opérationnalité",
+    "structure": [
+      "identifier le principe de gouvernance en jeu",
+      "expliquer l'application concrète",
+      "pointer les risques de non-conformité"
+    ],
+    "avoid": [
+      "trop théorique sans ancrage opérationnel",
+      "ignorer le contexte réglementaire EU",
+      "confondre gouvernance et éthique abstraite"
+    ]
+  },
+  "tags": [
+    "transparence",
+    "explicabilité",
+    "LIME",
+    "SHAP",
+    "model card",
+    "gouvernance IA",
+    "AI governance",
+    "conformité"
+  ],
+  "related_knowledge_units": [
+    "knowledges.professional.standards_iso.iso_42001_ai_management_system",
+    "knowledges.cpl.ethics_governance.ethical_ai_framework"
+  ]
+}
