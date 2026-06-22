@@ -1,0 +1,101 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "id": "knowledges.cpl.business_strategy.financial_modeling_basics",
+  "title": "Modélisation financière — bases",
+  "domain": "cpl",
+  "subdomain": "business_strategy",
+  "status": "validated",
+  "summary": "La modélisation financière traduit des hypothèses business en projections numériques (P&L, cash flow, bilan) pour prendre des décisions éclairées sur l'investissement, la croissance et le financement. La valeur est dans les hypothèses, pas les formules.",
+  "core_definition": "La modélisation financière est la construction de représentations chiffrées des performances financières d'une entreprise (actuelles et futures), en liant des hypothèses business (croissance des revenus, marges, coûts) à des états financiers projetés, pour guider les décisions stratégiques et opérationnelles.",
+  "knowledge": {
+    "key_financial_statements": [
+      {
+        "statement": "P&L (Compte de résultat)",
+        "description": "Revenus - Coûts = Résultat. Mesure la profitabilité sur une période."
+      },
+      {
+        "statement": "Cash Flow",
+        "description": "Entrées - Sorties de trésorerie. Distinct du P&L — une entreprise peut être profitable mais manquer de cash."
+      },
+      {
+        "statement": "Bilan",
+        "description": "Actifs = Passifs + Capitaux propres. Mesure la santé financière à un instant T."
+      }
+    ],
+    "saas_financial_metrics": [
+      {
+        "metric": "MRR (Monthly Recurring Revenue)",
+        "formula": "Somme des revenus récurrents mensuels actifs"
+      },
+      {
+        "metric": "ARR (Annual Recurring Revenue)",
+        "formula": "MRR × 12"
+      },
+      {
+        "metric": "Churn rate (MRR)",
+        "formula": "(MRR perdu dans le mois) / (MRR début du mois)"
+      },
+      {
+        "metric": "CAC",
+        "formula": "(Total dépenses sales + marketing) / (Nouveaux clients acquis dans la période)"
+      },
+      {
+        "metric": "LTV",
+        "formula": "ARPU / Churn rate (ou ARPU × durée de vie moyenne du client)"
+      },
+      {
+        "metric": "LTV/CAC",
+        "formula": "Ratio de rentabilité unitaire — > 3x = viable"
+      },
+      {
+        "metric": "Payback period",
+        "formula": "CAC / (ARPU × Marge brute %) — en mois"
+      }
+    ],
+    "modeling_principles": [
+      "Séparer les hypothèses des formules — mettre les hypothèses en haut, les calculs en dessous",
+      "Modéliser les scénarios (pessimiste, base, optimiste) — pas juste le scénario base",
+      "Granularité adaptée : modèle mensuel sur 12 mois, trimestriel sur 3 ans",
+      "Sensibilité aux hypothèses clés — quels inputs ont le plus d'impact sur le résultat ?"
+    ]
+  },
+  "example_answers": [
+    {
+      "prompt": "Quelles métriques financières surveiller en priorité pour un SaaS early-stage ?",
+      "answer": "Trois métriques fondamentales : (1) MRR et croissance MoM — le signe de vie de base du SaaS, (2) Churn (en MRR et en clients) — si > 3% mensuel, le bucket a un trou, (3) Runway (mois de cash restants au taux de burn actuel) — te dit combien de temps tu as. En parallèle : CAC et LTV pour valider que le modèle est économiquement viable. Avant le PMF, le MRR et le churn sont les deux signaux les plus importants."
+    },
+    {
+      "prompt": "Comment construire un modèle financier simple pour ma startup ?",
+      "answer": "Structure en 4 blocs dans un tableur : (1) Hypothèses (onglet séparé) : croissance clients, ARPU, churn, coûts variables par client, salaires, autres fixes, (2) Revenus : MRR cumulé mois par mois, (3) Coûts : variables + fixes + salaires, (4) P&L et Cash Flow. Trois scénarios (lier les mêmes formules à des hypothèses différentes). La valeur : forcer à être explicite sur les hypothèses plutôt que de parler de croissance en abstrait. Le tableur est le reflet de votre théorie du business."
+    }
+  ],
+  "response_guidance": {
+    "tone": "stratégique, ancré dans la réalité opérationnelle et les contraintes de marché",
+    "structure": [
+      "analyser le contexte concurrentiel et client",
+      "proposer la lecture stratégique",
+      "recommander les prochaines actions"
+    ],
+    "avoid": [
+      "conseils trop génériques",
+      "ignorer les contraintes de ressources",
+      "optimisme non fondé"
+    ]
+  },
+  "tags": [
+    "finance",
+    "modélisation",
+    "MRR",
+    "CAC",
+    "LTV",
+    "SaaS",
+    "stratégie",
+    "business",
+    "CPL"
+  ],
+  "related_knowledge_units": [
+    "knowledges.cpl.strategy.strategy_fundamentals",
+    "knowledges.cpl.business_piloting.profitability_analysis"
+  ]
+}

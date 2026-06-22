@@ -1,0 +1,137 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "id": "knowledges.professional.iot.iot_network_protocols",
+  "title": "Protocoles réseau IoT",
+  "domain": "professional",
+  "subdomain": "iot",
+  "status": "validated",
+  "summary": "Le choix du protocole réseau IoT (Zigbee, Z-Wave, Matter, Wi-Fi, BLE) détermine la portée, la consommation énergétique, la latence, l'interopérabilité et la sécurité du système. Chaque protocole a ses cas d'usage optimaux.",
+  "core_definition": "Les protocoles réseau IoT sont les standards de communication utilisés par les dispositifs connectés pour échanger des données. Ils se distinguent par leur portée, leur bande passante, leur consommation énergétique, leur topologie réseau et leur niveau d'interopérabilité.",
+  "knowledge": {
+    "protocols_comparison": [
+      {
+        "protocol": "Zigbee",
+        "range": "10-100m",
+        "power": "Très faible",
+        "bandwidth": "250Kbps",
+        "topology": "Mesh",
+        "pros": [
+          "Très faible consommation",
+          "Mesh auto-réparant",
+          "Large écosystème"
+        ],
+        "cons": [
+          "Interopérabilité variable entre marques",
+          "Nécessite un hub"
+        ]
+      },
+      {
+        "protocol": "Z-Wave",
+        "range": "30-100m",
+        "power": "Faible",
+        "bandwidth": "100Kbps",
+        "topology": "Mesh",
+        "pros": [
+          "Interopérabilité garantie (certification)",
+          "Bande fréquence dédiée (moins d'interférences)"
+        ],
+        "cons": [
+          "Écosystème plus petit que Zigbee",
+          "Plus cher"
+        ]
+      },
+      {
+        "protocol": "Matter",
+        "range": "Variable (IP-based)",
+        "power": "Variable",
+        "bandwidth": "Haut",
+        "topology": "IP over Thread/Wi-Fi/Ethernet",
+        "pros": [
+          "Interopérabilité garantie cross-marques",
+          "Sécurité moderne",
+          "Support Apple/Google/Amazon/Amazon"
+        ],
+        "cons": [
+          "Standard récent (2022) — peu de dispositifs natifs"
+        ]
+      },
+      {
+        "protocol": "Wi-Fi",
+        "range": "30-100m",
+        "power": "Élevé",
+        "bandwidth": "Très haut",
+        "topology": "Star",
+        "pros": [
+          "Pas de hub nécessaire",
+          "Intégration directe"
+        ],
+        "cons": [
+          "Consommation élevée",
+          "Sature le réseau Wi-Fi",
+          "Sécurité variable"
+        ]
+      },
+      {
+        "protocol": "BLE (Bluetooth Low Energy)",
+        "range": "10-30m",
+        "power": "Très faible",
+        "bandwidth": "1Mbps",
+        "topology": "Star/Mesh",
+        "pros": [
+          "Natif sur smartphones",
+          "Très faible énergie"
+        ],
+        "cons": [
+          "Portée limitée",
+          "Connectivité directe limitée sans hub"
+        ]
+      }
+    ],
+    "recommendation_by_use_case": [
+      "Capteurs batterie (température, humidité, détecteurs) : Zigbee ou Z-Wave",
+      "Éclairage connecté : Zigbee (le plus large écosystème en 2024-2026)",
+      "Nouveau projet cross-marque (2025+) : Matter",
+      "Caméras et flux vidéo : Wi-Fi (bande passante nécessaire)",
+      "Localisation intérieure : BLE"
+    ]
+  },
+  "example_answers": [
+    {
+      "prompt": "Quel protocole choisir pour ma domotique : Zigbee ou Matter ?",
+      "answer": "En 2025-2026 : Zigbee pour les capteurs batterie (large écosystème, fiable, faible consommation) et Matter pour les nouveaux dispositifs qui le supportent (interopérabilité future garantie). Les deux coexistent dans Home Assistant. Ne pas choisir uniquement du Wi-Fi pour la domotique — sature le réseau et consomme trop."
+    },
+    {
+      "prompt": "Pourquoi mes dispositifs Zigbee perdent parfois la connexion ?",
+      "answer": "Zigbee utilise un mesh — chaque dispositif alimenté (ampoule, prise connectée) est un routeur qui étend le réseau. Les problèmes courants : trop peu de routeurs dans le mesh (seulement des capteurs batterie), interférences Wi-Fi sur le canal 2.4GHz (aligner les canaux : Zigbee 11/15/20/25 pour éviter les canaux Wi-Fi 1/6/11), ou hub trop éloigné. Ajouter une prise connectée Zigbee entre le hub et les capteurs éloignés résout souvent le problème."
+    }
+  ],
+  "response_guidance": {
+    "tone": "technique, pragmatique, sensible à la confidentialité et à la sécurité",
+    "structure": [
+      "identifier le composant ou problème IoT",
+      "expliquer le mécanisme",
+      "pointer les risques",
+      "proposer la solution"
+    ],
+    "avoid": [
+      "ignorer la sécurité",
+      "négliger la contrainte de ressources",
+      "trop générique"
+    ]
+  },
+  "tags": [
+    "protocoles",
+    "Zigbee",
+    "Z-Wave",
+    "Matter",
+    "Wi-Fi",
+    "BLE",
+    "IoT",
+    "système ambiant"
+  ],
+  "related_knowledge_units": [
+    "knowledges.professional.engineering.systeme_design.local_first_architecture",
+    "knowledges.cpl.ethics_governance.ethical_ai_framework"
+  ]
+}
