@@ -1,52 +1,108 @@
 {
-  "id": "energy_management",
-  "name": "Energy Management",
-  "version": "1.0.0",
-  "category": "human_organization",
-  "purpose": "Aider ALFRED à intégrer la charge mentale, la fatigue et le rythme humain dans la planification et les décisions.",
-  "concepts": [
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "id": "knowledges.cpl.human_organization.energy_management",
+  "title": "Gestion de l'énergie personnelle",
+  "domain": "cpl",
+  "subdomain": "human_organization",
+  "status": "validated",
+  "summary": "L'énergie, pas le temps, est la ressource centrale de la performance. Gérer son énergie revient à alterner charge et récupération, aligner les tâches cognitives sur les pics d'énergie, et protéger sa capacité à travailler dans la durée.",
+  "core_definition": "La gestion de l'énergie personnelle (Energy Management) est la pratique d'optimiser sa capacité physique, cognitive, émotionnelle et motivationnelle pour maintenir une performance durable sans s'épuiser. Elle s'oppose à la gestion du temps pure, qui ignore la qualité de l'attention disponible.",
+  "knowledge": {
+    "energy_dimensions": [
+      {
+        "dimension": "Physique",
+        "description": "Sommeil, alimentation, mouvement — le socle sur lequel tout repose",
+        "signals": "Fatigue chronique, maux de tête, tensions musculaires"
+      },
+      {
+        "dimension": "Cognitive",
+        "description": "Capacité de concentration, de raisonnement, de création",
+        "signals": "Difficulté à se concentrer, erreurs fréquentes, pensée ralentie"
+      },
+      {
+        "dimension": "Émotionnelle",
+        "description": "Régulation des émotions, résilience face au stress, qualité des relations",
+        "signals": "Irritabilité, surréaction, isolement"
+      },
+      {
+        "dimension": "Motivationnelle",
+        "description": "Sens, alignement valeurs/actions, engagement",
+        "signals": "Procrastination, cynisme, désengagement"
+      }
+    ],
+    "energy_management_practices": [
+      "Identifier ses pics d'énergie quotidiens et planifier les tâches cognitives lourdes à ces moments",
+      "Blocs de travail focalisé (90 min max) alternés avec des micro-récupérations (10-15 min)",
+      "Fin de journée rituel de clôture (lister les 3 choses faites + les 2 priorités de demain)",
+      "Protéger le sommeil comme une priorité non-négociable (qualité > quantité)",
+      "Identifier et éliminer les activités 'énergivores' à faible valeur",
+      "Alimentation et hydratation comme levier cognitif (pic glycémique = crash attentionnel)"
+    ],
+    "recovery_types": [
+      {
+        "type": "Micro-récupération",
+        "duration": "5-15 min",
+        "exemples": "marcher, s'étirer, regarder par la fenêtre, respiration"
+      },
+      {
+        "type": "Meso-récupération",
+        "duration": "30-90 min",
+        "exemples": "déjeuner sans écran, sieste courte (20 min), sortie en nature"
+      },
+      {
+        "type": "Macro-récupération",
+        "duration": "2 jours à 2 semaines",
+        "exemples": "weekend déconnecté, vacances réelles (sans email)"
+      }
+    ],
+    "burnout_early_signals": [
+      "Fatigue qui ne disparaît pas après une nuit de sommeil",
+      "Perte de plaisir dans des activités habituellement appréciées",
+      "Irritabilité disproportionnée face à des micro-événements",
+      "Difficulté croissante à démarrer les tâches (procrastination inhabituelle)",
+      "Sentiment de ne jamais 'en faire assez' malgré le travail effectué"
+    ]
+  },
+  "example_answers": [
     {
-      "name": "Énergie disponible",
-      "definition": "Capacité réelle d’attention, d’action et de décision à un moment donné.",
-      "usage": "Adapter le niveau d’effort demandé."
+      "prompt": "Je suis épuisé mais j'ai encore beaucoup à faire — comment gérer ?",
+      "answer": "L'épuisement sur une tâche cognitive nuit à la qualité du résultat. 20 minutes de récupération réelle (marche, repos sans écran) permettent souvent de récupérer 2h de performance. Ce n'est pas perdre du temps — c'est en gagner. Identifier la tâche la plus critique et la faire en premier, puis prendre une vraie pause."
     },
     {
-      "name": "Charge mentale",
-      "definition": "Accumulation d’informations, décisions et responsabilités à gérer.",
-      "usage": "Réduire surcharge et dispersion."
+      "prompt": "Comment mieux gérer mon énergie dans la journée ?",
+      "answer": "D'abord : observer son rythme naturel pendant 3 jours. Quand es-tu le plus alerte ? Quand as-tu un creux ? Planifier le travail profond (écriture, analyse, code) sur les pics, les tâches légères (emails, admin) sur les creux. Et introduire deux micro-pauses actives dans la matinée et l'après-midi."
     },
     {
-      "name": "Rythme soutenable",
-      "definition": "Cadence de travail compatible avec la durée et la santé.",
-      "usage": "Éviter burnout, abandon ou désorganisation."
+      "prompt": "Je sens que je vais vers le burnout — quels signaux prendre au sérieux ?",
+      "answer": "Quatre signaux critiques : fatigue qui persiste après sommeil, irritabilité hors contexte, perte de sens ('à quoi ça sert'), erreurs inhabituelles. Si tu cumules trois de ces quatre, il faut ralentir maintenant. Pas réduire légèrement — vraiment ralentir. Et en parler à quelqu'un de confiance ou à un professionnel si ça dure."
     }
   ],
-  "rules": [
-    "Ne pas proposer un plan lourd si l’utilisateur est en surcharge.",
-    "Prioriser une action utile plutôt qu’une longue liste.",
-    "Préserver la continuité vaut mieux qu’une accélération destructrice."
+  "response_guidance": {
+    "tone": "bienveillant, ancré dans le concret, sans injonction à la performance",
+    "structure": [
+      "identifier la dimension d'énergie concernée",
+      "reconnaître l'état actuel sans minimiser",
+      "proposer une action de récupération immédiate",
+      "suggérer un ajustement structurel si pertinent"
+    ],
+    "avoid": [
+      "répondre 'travaille plus intelligemment' sans méthode",
+      "ignorer les signaux de burnout",
+      "confondre optimisation de l'énergie et glorification de la productivité"
+    ]
+  },
+  "tags": [
+    "énergie",
+    "burnout",
+    "récupération",
+    "focus",
+    "performance durable",
+    "cpl"
   ],
-  "decision_framework": [
-    "Quel est le niveau d’énergie actuel ?",
-    "Quelle action minimale produit de la valeur ?",
-    "Que peut-on reporter sans risque ?",
-    "Quel rythme est soutenable ?"
-  ],
-  "use_cases": [
-    {
-      "context": "Dirigeante CPL fatiguée",
-      "action": "Réduire le plan à une action prioritaire",
-      "output": "Plan réaliste et protecteur"
-    },
-    {
-      "context": "Projet trop dispersé",
-      "action": "Classer idées par impact, effort et énergie requise",
-      "output": "Priorités soutenables"
-    }
-  ],
-  "links": [
-    "task_prioritization",
-    "emotional_intelligence",
-    "decision_making_framework"
+  "related_knowledge_units": [
+    "knowledges.human.wellbeing.burnout_signals",
+    "knowledges.lifestyle.health.fatigue_management",
+    "knowledges.human.self_alignment.routines.energy_management"
   ]
 }
