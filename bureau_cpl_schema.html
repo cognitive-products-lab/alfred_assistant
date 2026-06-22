@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Schéma bureau CPL — Cognitive Products Lab</title>
+<style>
+  :root {
+    --purple: #534AB7; --purple-l: #EEEDFE;
+    --teal: #0F6E56;   --teal-l: #E1F5EE;
+    --blue: #185FA5;   --blue-l: #E6F1FB;
+    --amber: #BA7517;  --amber-l: #FAEEDA;
+    --gray: #5F5E5A;   --gray-l: #F1EFE8;
+    --green: #3B6D11;  --green-l: #EAF3DE;
+    --coral: #993C1D;  --coral-l: #FAECE7;
+    --text: #2C2C2A;   --text-s: #5F5E5A;
+    --border: #D3D1C7; --bg: #FAFAF8;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    padding: 2rem;
+  }
+  .schema-wrapper {
+    max-width: 960px;
+    margin: 0 auto;
+  }
+  .schema-header {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 2px solid var(--purple);
+  }
+  .schema-header h1 {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--purple);
+    letter-spacing: -0.01em;
+  }
+  .schema-header p {
+    font-size: 0.8rem;
+    color: var(--text-s);
+    margin-top: 0.4rem;
+  }
+  .niveau {
+    display: flex;
+    align-items: stretch;
+    margin-bottom: 8px;
+    gap: 8px;
+  }
+  .niveau-label {
+    width: 52px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 4px;
+  }
+  .niveau-label .num {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--text-s);
+  }
+  .niveau-label .nom {
+    font-size: 0.6rem;
+    color: var(--text-s);
+    text-align: center;
+    line-height: 1.2;
+    margin-top: 2px;
+  }
+  .niveau-content {
+    flex: 1;
+    border: 1px dashed var(--border);
+    border-radius: 8px;
+    background: rgba(255,255,255,0.6);
+    padding: 8px;
+    display: flex;
+    gap: 8px;
+    align-items: stretch;
+    flex-wrap: wrap;
+  }
+  .card {
+    border-radius: 8px;
+    padding: 8px 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 1.5px solid;
+    min-height: 56px;
+  }
+  .card .card-title {
+    font-size: 0.72rem;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+  .card .card-sub {
+    font-size: 0.62rem;
+    opacity: 0.8;
+    line-height: 1.4;
+    margin-top: 2px;
+  }
+  .card.purple  { background: var(--purple-l); border-color: var(--purple); color: var(--purple); }
+  .card.teal    { background: var(--teal-l);   border-color: var(--teal);   color: var(--teal);   }
+  .card.blue    { background: var(--blue-l);   border-color: var(--blue);   color: var(--blue);   }
+  .card.amber   { background: var(--amber-l);  border-color: var(--amber);  color: var(--amber);  }
+  .card.gray    { background: var(--gray-l);   border-color: var(--border); color: var(--gray);   }
+  .card.green   { background: var(--green-l);  border-color: var(--green);  color: var(--green);  }
+  .card.coral   { background: var(--coral-l);  border-color: var(--coral);  color: var(--coral);  }
+  .card.full    { flex: 1; }
+  .card.w2      { flex: 2; }
+  .card.w3      { flex: 3; }
+  .arrow-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2px 0;
+    gap: 16px;
+    margin-left: 60px;
+  }
+  .arrow {
+    font-size: 0.65rem;
+    color: var(--text-s);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .arrow span { font-size: 0.9rem; }
+  .arrow.dashed { opacity: 0.5; }
+  .legend {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.65rem;
+    color: var(--text-s);
+    align-items: center;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .legend-line {
+    width: 24px;
+    height: 2px;
+    background: var(--gray);
+  }
+  .legend-line.dashed {
+    background: repeating-linear-gradient(90deg, var(--gray) 0, var(--gray) 4px, transparent 4px, transparent 8px);
+  }
+  .legend-line.dotted {
+    background: repeating-linear-gradient(90deg, var(--gray) 0, var(--gray) 2px, transparent 2px, transparent 6px);
+  }
+  .legend-dot {
+    width: 10px; height: 10px;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+  .schema-footer {
+    text-align: center;
+    margin-top: 1.5rem;
+    font-size: 0.65rem;
+    color: var(--text-s);
+  }
+  .support-tag {
+    font-size: 0.58rem;
+    border-radius: 3px;
+    padding: 1px 4px;
+    margin-top: 2px;
+    display: inline-block;
+    opacity: 0.7;
+    border: 1px solid currentColor;
+    align-self: flex-start;
+  }
+  .badge-futur {
+    font-size: 0.55rem;
+    background: var(--amber-l);
+    color: var(--amber);
+    border: 1px solid var(--amber);
+    border-radius: 3px;
+    padding: 1px 4px;
+    align-self: flex-start;
+    margin-top: 2px;
+  }
+</style>
+</head>
+<body>
+<div class="schema-wrapper">
+
+  <div class="schema-header">
+    <h1>Schéma bureau CPL — Infrastructure poste de travail</h1>
+    <p>Cognitive Products Lab · MS-S1 MAX / HP EliteBook / PC Pro · Juin 2026</p>
+  </div>
+
+  <!-- N1 ÉCRANS -->
+  <div class="niveau">
+    <div class="niveau-label"><span class="num">N1</span><span class="nom">ÉCRANS</span></div>
+    <div class="niveau-content">
+      <div class="card blue" style="flex:1">
+        <div class="card-title">Gauche</div>
+        <div class="card-sub">HDMI · support individuel</div>
+        <span class="support-tag">Station LaGreen</span>
+      </div>
+      <div class="card purple" style="flex:1">
+        <div class="card-title">Centre</div>
+        <div class="card-sub">DP via USB-C · support commun</div>
+        <span class="support-tag">MS-S1 MAX direct</span>
+      </div>
+      <div class="card amber" style="flex:1.4">
+        <div class="card-title">KVM HDMI 2×2</div>
+        <div class="card-sub">Bascule MS-S1 MAX ↔ EliteBook<br>→ Écran Droit + Supérieur</div>
+      </div>
+      <div class="card gray" style="flex:1">
+        <div class="card-title">Droit</div>
+        <div class="card-sub">HDMI → KVM · support individuel H/V</div>
+      </div>
+      <div class="card gray" style="flex:1">
+        <div class="card-title">Supérieur</div>
+        <div class="card-sub">HDMI → KVM · support individuel</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="arrow-row">
+    <div class="arrow"><span>↑</span> USB-C→DP (MS-S1→Centre)</div>
+    <div class="arrow"><span>↑</span> HDMI (MS-S1→KVM)</div>
+    <div class="arrow"><span>↑</span> HDMI (St.Dell→KVM)</div>
+    <div class="arrow dashed"><span>↑</span> HDMI (St.LaGreen→Gauche)</div>
+  </div>
+
+  <!-- N2 MACHINES -->
+  <div class="niveau">
+    <div class="niveau-label"><span class="num">N2</span><span class="nom">MACHINES</span></div>
+    <div class="niveau-content">
+      <div class="card blue" style="flex:1">
+        <div class="card-title">PC Pro / Visiteur</div>
+        <div class="card-sub">Gauche · Station LaGreen</div>
+        <span class="badge-futur">Futur</span>
+      </div>
+      <div class="card purple" style="flex:1">
+        <div class="card-title">MS-S1 MAX</div>
+        <div class="card-sub">Centre · Alfred CPL<br>HDMI + 2×USB4 V2 · 64Go · 2To</div>
+      </div>
+      <div class="card teal" style="flex:1">
+        <div class="card-title">HP EliteBook</div>
+        <div class="card-sub">Droite · Dev actuel<br>Station Dell</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="arrow-row">
+    <div class="arrow"><span>↑</span> USB (Commut→MS-S1 MAX)</div>
+    <div class="arrow"><span>↑</span> USB (Commut→St.Dell)</div>
+    <div class="arrow"><span>↑</span> USB (Commut→St.LaGreen)</div>
+    <div class="arrow"><span>↑</span> USB (Jabra→MS-S1)</div>
+    <div class="arrow dashed"><span>⟿</span> BT (Jabra→Elite+Pro)</div>
+  </div>
+
+  <!-- N3 PÉRIPHÉRIQUES + STOCKAGE -->
+  <div class="niveau">
+    <div class="niveau-label"><span class="num">N3</span><span class="nom">PÉRIPH. STOCKAGE</span></div>
+    <div class="niveau-content">
+      <div class="card gray" style="flex:1.6">
+        <div class="card-title">Commut. USB 4/4</div>
+        <div class="card-sub">Webcam · Souris centrale · Clavier · Pavé numérique<br>P4 libre → PC visiteur futur</div>
+      </div>
+      <div class="card gray" style="flex:1">
+        <div class="card-title">Jabra BT</div>
+        <div class="card-sub">Bluetooth<br>EliteBook + PC Pro/visiteur</div>
+      </div>
+      <div class="card purple" style="flex:1">
+        <div class="card-title">Jabra ALFRED</div>
+        <div class="card-sub">USB direct<br>MS-S1 MAX dédié</div>
+      </div>
+      <div class="card purple" style="flex:0.9">
+        <div class="card-title">Empreinte</div>
+        <div class="card-sub">Auth ALFRED<br>USB MS-S1 MAX</div>
+      </div>
+      <div class="card coral" style="flex:0.7">
+        <div class="card-title">LaCie 4To</div>
+        <div class="card-sub">Core actif<br>🔐 BitLocker</div>
+      </div>
+      <div class="card gray" style="flex:0.7">
+        <div class="card-title">WD 5To</div>
+        <div class="card-sub">Backup F:\<br>🔒 Incrémental/Complet</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="arrow-row">
+    <div class="arrow"><span>↑</span> USB-C (Elite→St.Dell)</div>
+    <div class="arrow dashed"><span>↑</span> USB-C (PC Pro→St.LaGreen)</div>
+    <div class="arrow"><span>↑</span> Ethernet (St.Dell→SG108E)</div>
+    <div class="arrow dashed"><span>↑</span> Ethernet (St.LaGreen→SG108E)</div>
+  </div>
+
+  <!-- N4 STATIONS D'ACCUEIL -->
+  <div class="niveau">
+    <div class="niveau-label"><span class="num">N4</span><span class="nom">STATIONS D'ACCUEIL</span></div>
+    <div class="niveau-content">
+      <div class="card blue" style="flex:1">
+        <div class="card-title">Station LaGreen</div>
+        <div class="card-sub">DP + Ethernet · Alim. secteur dédiée ✅<br>Active dès maintenant · PC visiteur/Pro</div>
+      </div>
+      <div class="card teal" style="flex:1">
+        <div class="card-title">Station Dell</div>
+        <div class="card-sub">HDMI + Ethernet · Alim. secteur dédiée ✅<br>HP EliteBook</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="arrow-row">
+    <div class="arrow"><span>↑</span> Ethernet (SG108E P1→MS-S1)</div>
+    <div class="arrow"><span>↑</span> Ethernet (SG108E P2→Elite)</div>
+    <div class="arrow dashed"><span>↑</span> Ethernet (SG108E P3→PC Pro)</div>
+    <div class="arrow"><span>→</span> Box FAI→ER605→SG108E</div>
+  </div>
+
+  <!-- N5 RÉSEAU -->
+  <div class="niveau">
+    <div class="niveau-label"><span class="num">N5</span><span class="nom">RÉSEAU TP-LINK</span></div>
+    <div class="niveau-content">
+      <div class="card gray" style="flex:0.7">
+        <div class="card-title">Box FAI</div>
+        <div class="card-sub">Internet</div>
+      </div>
+      <div class="card green" style="flex:1.2">
+        <div class="card-title">TP-Link ER605</div>
+        <div class="card-sub">Routeur Omada VPN<br>côte à côte ↔ switch</div>
+      </div>
+      <div class="card green" style="flex:2">
+        <div class="card-title">TP-Link SG108E — Switch 8 ports Gigabit</div>
+        <div class="card-sub">P1: MS-S1 MAX · P2: EliteBook (St.Dell) · P3: PC Pro (St.LaGreen) · P4: ER605 uplink · P5-8: libres</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- N6 ALIMENTATION -->
+  <div class="niveau">
+    <div class="niveau-label"><span class="num">N6</span><span class="nom">ALIM.</span></div>
+    <div class="niveau-content">
+      <div class="card amber full">
+        <div class="card-title">Multiprise parafoudre 16A — ~520W total</div>
+        <div class="card-sub">MS-S1 MAX + 4 écrans + TP-Link ER605 + SG108E + Station Dell + Station LaGreen</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FUTUR -->
+  <div class="niveau">
+    <div class="niveau-label"><span class="num">↗</span><span class="nom">FUTUR</span></div>
+    <div class="niveau-content">
+      <div class="card gray full" style="opacity:0.7; border-style: dashed;">
+        <div class="card-title">Webcam dédiée ALFRED</div>
+        <div class="card-sub">4K · AI face tracking · OpenCV compatible · USB-C · ~180-200€ (Logitech Brio 4K / Insta360 Link 2)</div>
+      </div>
+      <div class="card blue full" style="opacity:0.7; border-style: dashed;">
+        <div class="card-title">PC Pro</div>
+        <div class="card-sub">Station LaGreen déjà active · KVM P3 · SG108E P3 — infrastructure prête</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Légende -->
+  <div class="legend">
+    <div class="legend-item"><div class="legend-line"></div> Câble actif</div>
+    <div class="legend-item"><div class="legend-line dashed"></div> Futur / PC Pro</div>
+    <div class="legend-item"><div class="legend-line dotted"></div> Bluetooth</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--purple)"></div> Dédié MS-S1 MAX</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--green)"></div> Réseau Ethernet</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--coral)"></div> Stockage sécurisé</div>
+  </div>
+
+  <div class="schema-footer">
+    Cognitive Products Lab — Infrastructure bureau CPL — Juin 2026 — alfred-cpl.fr
+  </div>
+
+</div>
+</body>
+</html>
