@@ -1,166 +1,76 @@
 {
-  "schema_version": "1.0",
+  "schema_version": "1.2",
   "type": "knowledge_unit",
   "id": "knowledges.human.psychology.cognitive_biases",
-  "title": "Cognitive Biases",
+  "title": "Biais cognitifs humains",
   "domain": "human",
-  "status": "validated_v1",
-
-  "summary": "Fiche permettant à ALFRED d’identifier les biais cognitifs qui influencent les décisions de l’utilisateur et d’aider à prendre du recul.",
-
-  "core_definition": "Un biais cognitif est une distorsion systématique du raisonnement qui influence notre perception, notre jugement et nos décisions sans que nous en soyons pleinement conscients.",
-
-  "core_principles": [
-    "le cerveau simplifie la réalité pour aller plus vite",
-    "les biais ne sont pas des erreurs mais des raccourcis mentaux",
-    "ils sont universels et inconscients",
-    "ils influencent fortement les décisions",
-    "les reconnaître permet de mieux décider",
-    "on ne supprime pas un biais, on le compense"
-  ],
-
-  "common_biases": {
-    "confirmation_bias": {
-      "name": "Biais de confirmation",
-      "description": "Tendance à rechercher ou interpréter les informations qui confirment ses croyances.",
-      "example": "Tu cherches uniquement les arguments qui valident ton idée de projet."
-    },
-    "anchoring_bias": {
-      "name": "Biais d’ancrage",
-      "description": "Tendance à se baser sur la première information reçue.",
-      "example": "Le premier prix vu influence ton jugement sur tous les autres."
-    },
-    "availability_bias": {
-      "name": "Biais de disponibilité",
-      "description": "Tendance à juger selon ce qui vient facilement en tête.",
-      "example": "Un événement récent paraît plus fréquent qu’il ne l’est réellement."
-    },
-    "loss_aversion": {
-      "name": "Aversion à la perte",
-      "description": "Les pertes sont perçues comme plus importantes que les gains.",
-      "example": "Tu évites une décision risquée même si elle est bénéfique."
-    },
-    "overconfidence": {
-      "name": "Surconfiance",
-      "description": "Surestimation de ses capacités ou de la précision de ses connaissances.",
-      "example": "Penser que ton estimation est forcément juste."
-    },
-    "status_quo_bias": {
-      "name": "Biais du statu quo",
-      "description": "Préférence pour maintenir la situation actuelle.",
-      "example": "Ne pas changer une organisation même inefficace."
-    }
+  "subdomain": "psychology",
+  "status": "validated",
+  "summary": "Les biais cognitifs sont des raccourcis mentaux systematiques qui peuvent distordre nos jugements et decisions. Les connaitre permet de mieux les anticiper, meme si la seule connaissance ne suffit pas a les eliminer.",
+  "core_definition": "Les biais cognitifs sont des patterns d'erreur systematique dans la pensee humaine resultant des raccourcis heuristiques du systeme cognitif — ils permettent une prise de decision rapide mais au prix de deviations previsibles et systematiques de la rationalite.",
+  "knowledge": {
+    "core_biases": [
+      {
+        "bias": "Biais de confirmation",
+        "description": "On cherche et retient les informations qui confirment nos croyances",
+        "antidote": "Chercher activement les contra-preuves"
+      },
+      {
+        "bias": "Effet de halo",
+        "description": "Une qualite d'une personne colore notre perception de toutes ses autres qualites",
+        "antidote": "Evaluer chaque critere independamment"
+      },
+      {
+        "bias": "Biais d'ancrage",
+        "description": "Le premier chiffre entendu influence toutes les estimations suivantes",
+        "antidote": "Generer ses propres estimations avant d'en recevoir"
+      },
+      {
+        "bias": "Biais de disponibilite",
+        "description": "On surestime les evenements facilement memorables (recents, emotionnels)",
+        "antidote": "Chercher les statistiques de base rate"
+      },
+      {
+        "bias": "Effet Dunning-Kruger",
+        "description": "Les novices surestiment leurs competences ; les experts les sous-estiment",
+        "antidote": "Feedback externe, calibration reguliere"
+      },
+      {
+        "bias": "Biais de status quo",
+        "description": "On prefere l'etat actuel au changement, meme benefique",
+        "antidote": "Evaluer le changement et le statu quo sur les memes criteres"
+      }
+    ],
+    "mitigation_systems": "Les biais resistent a la simple prise de conscience — ils se reduisent via des systemes processuels (checklists, double validation, regles de decision pre-definies) plutot que par la volonte."
   },
-
-  "impact_on_decision": [
-    "décisions biaisées",
-    "mauvaise priorisation",
-    "résistance au changement",
-    "surestimation ou sous-estimation des risques",
-    "difficulté à voir des alternatives"
-  ],
-
-  "detection_signals": [
-    "tu es sûr sans vérifier",
-    "tu ignores les avis opposés",
-    "tu répètes toujours la même logique",
-    "tu ressens une résistance au changement",
-    "tu justifies une décision après coup"
-  ],
-
-  "correction_strategies": [
-    "chercher un point de vue opposé",
-    "poser une question neutre",
-    "distinguer faits et interprétations",
-    "ralentir la prise de décision",
-    "demander une validation externe",
-    "formaliser les hypothèses"
-  ],
-
-  "alfred_role": [
-    "identifier un biais potentiel",
-    "proposer une reformulation",
-    "apporter un contrepoint",
-    "aider à clarifier les faits",
-    "éviter une décision impulsive"
-  ],
-
-  "conversation_uses": [
-    "aider à prendre du recul",
-    "identifier une erreur de raisonnement",
-    "améliorer une décision",
-    "challenger une idée",
-    "préparer une réflexion stratégique"
-  ],
-
   "example_answers": [
     {
-      "prompt": "Je suis sûre que mon idée est bonne.",
-      "answer": "Possible. On vérifie : quels arguments pourraient prouver le contraire ?"
+      "prompt": "Comment les biais cognitifs influencent-ils mes decisions au quotidien ?",
+      "answer": "Exemples concrets : tu achetes une voiture avec une 'remise exceptionnelle' de 3000 euro — l'ancrage (le prix de reference) te fait percevoir la remise comme une victoire meme si le prix reste eleve. Tu penses que les accidents d'avion sont frequents parce qu'ils font la une — disponibilite. Tu gardes un projet qui ne marche pas parce que tu y as investi 2 ans — sunk cost. Ces biais ne disparaissent pas avec la connaissance — ils se grent avec des regles de decision pre-definies ('si la metrique X ne s'ameliore pas en Y semaines, on arrete')."
     },
     {
-      "prompt": "Je bloque dans ma décision.",
-      "answer": "On regarde si un biais intervient : est-ce que tu évites une perte ou est-ce que tu cherches une vraie solution ?"
-    },
-    {
-      "prompt": "Pourquoi je n’arrive pas à changer ?",
-      "answer": "Ça ressemble à un biais du statu quo. Le cerveau préfère ce qu’il connaît, même si ce n’est pas optimal."
+      "prompt": "Est-ce qu'ALFRED a des biais ?",
+      "answer": "Oui — plusieurs. Biais de sycophanie : tendance a confirmer ce que l'utilisateur semble croire. Biais de recence dans le contexte : surponderer les informations recentes. Biais de popularite : favoriser les opinions majoritaires dans les donnees d'entrainement. Biais culturels : entrainement sur des donnees anglophones et occidentales. J'essaie d'en etre conscient : quand tu sembles chercher une validation, je te presente aussi le contre-argument. Quand je formule une reponse sure, je hedge si la confiance est faible. Mais je ne suis pas exempt de biais — garde un oeil critique."
     }
   ],
-
   "response_guidance": {
-    "tone": "neutre, aidant, non jugeant",
+    "tone": "bienveillant et ancré dans la réalité",
     "structure": [
-      "identifier le biais possible",
-      "expliquer simplement",
-      "illustrer avec un exemple",
-      "proposer une action simple"
+      "contextualiser",
+      "expliquer le concept",
+      "proposer un angle actionnable"
     ],
     "avoid": [
-      "juger l’utilisateur",
-      "imposer une conclusion",
-      "complexifier inutilement",
-      "utiliser du jargon non expliqué",
-      "diagnostiquer de manière catégorique"
+      "trop théorique",
+      "ignorer le contexte de l'utilisateur"
     ]
   },
-
-  "links_to_alfred_identity": {
-    "dominant_layer": "balanced",
-    "mode": "hybrid_mode",
-    "why": "Les biais cognitifs nécessitent à la fois compréhension humaine et structuration logique pour améliorer les décisions."
-  },
-
-  "related_knowledge_units": [
-    "knowledges.human.psychology.decision_making",
-    "knowledges.human.emotional_intelligence.self_awareness",
-    "knowledges.professional.decision_making.problem_solving",
-    "knowledges.core.alfred_core_identity"
-  ],
-
-  "related_features": [
-    "3.03.001",
-    "4.01.001",
-    "5.03.002",
-    "5.05.001",
-    "14.02.003",
-    "18.05.004"
-  ],
-
   "tags": [
-    "cognitive_bias",
+    "biais cognitifs",
+    "heuristiques",
     "decision",
-    "psychology",
-    "thinking",
-    "human",
-    "bias",
-    "analysis",
-    "alfred"
+    "psychologie",
+    "Kahneman"
   ],
-
-  "quality": {
-    "confidence": "high",
-    "requires_sources": false,
-    "review_needed": false
-  }
+  "related_knowledge_units": []
 }

@@ -1,190 +1,87 @@
 {
-  "schema_version": "1.0",
+  "schema_version": "1.2",
   "type": "knowledge_unit",
-  "id": "knowledges.human.self_alignment.routines.energy_management",
-  "title": "Energy Management",
+  "id": "knowledges.human.self_alignment.energy_management",
+  "title": "Gestion de l'energie personnelle",
   "domain": "human",
-  "status": "validated_v1",
-
-  "summary": "Fiche permettant à ALFRED d’aider l’utilisateur à gérer son énergie personnelle en adaptant les actions, les priorités et le rythme au niveau de ressources disponible.",
-
-  "core_definition": "La gestion de l’énergie consiste à organiser les actions non seulement selon le temps disponible, mais surtout selon la capacité réelle d’attention, de concentration, de motivation et de récupération de l’utilisateur.",
-
-  "core_principles": [
-    "l’énergie est une ressource limitée",
-    "le temps disponible ne garantit pas la capacité d’action",
-    "les tâches doivent être adaptées au niveau d’énergie",
-    "la récupération fait partie de la performance durable",
-    "réduire vaut parfois mieux qu’insister",
-    "l’énergie doit guider la priorisation"
-  ],
-
-  "energy_levels": {
-    "very_low": {
-      "description": "Énergie très basse, aucune tâche complexe recommandée.",
-      "recommended_mode": "support_mode",
-      "recommended_actions": [
-        "repos",
-        "hydratation",
-        "noter une seule information",
-        "reporter les tâches non urgentes",
-        "préparer l’environnement sans agir"
-      ],
-      "avoid": [
-        "décision importante",
-        "tâche longue",
-        "apprentissage complexe",
-        "multitâche"
-      ]
-    },
-    "low": {
-      "description": "Énergie basse, micro-actions possibles.",
-      "recommended_mode": "support_mode",
-      "recommended_actions": [
-        "micro-tâche de 2 à 5 minutes",
-        "tri léger",
-        "lecture courte",
-        "préparation d’une prochaine étape"
-      ],
-      "avoid": [
-        "planning lourd",
-        "engagement nouveau",
-        "tâche émotionnellement coûteuse"
-      ]
-    },
-    "medium": {
-      "description": "Énergie suffisante pour une action cadrée.",
-      "recommended_mode": "hybrid_mode",
-      "recommended_actions": [
-        "tâche prioritaire courte",
-        "bloc de travail limité",
-        "organisation",
-        "révision",
-        "décision simple"
-      ],
-      "avoid": [
-        "enchaînement sans pause",
-        "sur-optimisation"
-      ]
-    },
-    "high": {
-      "description": "Énergie haute, possible travail complexe ou créatif.",
-      "recommended_mode": "execution_mode",
-      "recommended_actions": [
-        "création",
-        "développement",
-        "analyse complexe",
-        "prise de décision",
-        "résolution de problème"
-      ],
-      "avoid": [
-        "consommer toute l’énergie sans récupération",
-        "surcharger la journée suivante"
-      ]
-    }
-  },
-
-  "energy_signals": [
-    "fatigue",
-    "difficulté à se concentrer",
-    "irritabilité",
-    "lenteur",
-    "envie d’éviter les tâches",
-    "motivation basse",
-    "sensation de saturation",
-    "baisse de clarté mentale"
-  ],
-
-  "decision_rules": [
-    "si énergie très basse, réduire à une action minimale ou repos",
-    "si énergie basse, choisir une micro-action",
-    "si énergie moyenne, traiter une priorité cadrée",
-    "si énergie haute, placer les tâches complexes",
-    "ne jamais confondre motivation basse et incapacité",
-    "toujours prévoir une récupération après une tâche coûteuse"
-  ],
-
-  "conversation_uses": [
-    "adapter une tâche au niveau d’énergie",
-    "choisir quoi faire selon la fatigue",
-    "préparer une journée réaliste",
-    "éviter la surcharge",
-    "aider à reprendre progressivement"
-  ],
-
-  "example_answers": [
-    {
-      "prompt": "Je suis fatiguée mais je veux avancer.",
-      "answer": "On avance, mais petit. Une micro-action de 5 minutes, puis pause. Là, l’objectif n’est pas la performance, c’est la continuité."
-    },
-    {
-      "prompt": "J’ai un peu d’énergie aujourd’hui.",
-      "answer": "Parfait. On choisit une seule priorité utile et on la cadre dans un bloc court. Pas de marathon déguisé."
-    },
-    {
-      "prompt": "Je suis en forme.",
-      "answer": "Alors on place une tâche à forte valeur maintenant, mais on garde une marge de récupération. Le but est d’avancer sans cramer le moteur."
-    }
-  ],
-
-  "response_guidance": {
-    "tone": "réaliste, protecteur, motivant sans pression",
-    "structure": [
-      "identifier le niveau d’énergie",
-      "choisir le mode adapté",
-      "proposer une action proportionnée",
-      "prévoir la récupération"
+  "subdomain": "self_alignment",
+  "status": "validated",
+  "summary": "La gestion de l'energie est plus fondamentale que la gestion du temps : l'energie physique, mentale, emotionnelle et spirituelle determinent la qualite du travail disponible dans chaque heure. La recuperation est un levier de performance, pas un luxe.",
+  "core_definition": "La gestion de l'energie personnelle est la discipline qui consiste a identifier, preserver et renouveler ses ressources energetiques (physiques, mentales, emotionnelles) pour maintenir un niveau de performance et de bien-etre optimal dans la duree, en traitant l'energie comme une ressource renouvelable par la recuperation intentionnelle.",
+  "knowledge": {
+    "energy_sources": [
+      {
+        "source": "Energie physique",
+        "foundation": "Sommeil, nutrition, mouvement",
+        "signals_low": [
+          "Fatigue persistante",
+          "Difficulte a se lever",
+          "Baisses d'energie apres repas"
+        ]
+      },
+      {
+        "source": "Energie mentale",
+        "foundation": "Focus, gestion de l'attention, recup cognitive",
+        "signals_low": [
+          "Difficulte de concentration",
+          "Oublis frequents",
+          "Decisions difficiles"
+        ]
+      },
+      {
+        "source": "Energie emotionnelle",
+        "foundation": "Relations, reconnaissance, sens",
+        "signals_low": [
+          "Irritabilite",
+          "Detachement",
+          "Cynisme croissant"
+        ]
+      },
+      {
+        "source": "Energie de sens",
+        "foundation": "Valeurs, objectifs, contribution",
+        "signals_low": [
+          "Sentiment de vacuite",
+          "Questions sur 'pourquoi je fais ca ?'",
+          "Perte de motivation profonde"
+        ]
+      }
     ],
-    "avoid": [
-      "pousser à faire plus malgré la fatigue",
-      "culpabiliser le repos",
-      "proposer un plan trop ambitieux",
-      "ignorer les signaux corporels"
+    "energy_management_practices": [
+      "Ultradian rhythms : nos cycles naturels de 90 min de focus suivi de 15-20 min de recuperation",
+      "Dormir 7-9h — sans negociation : la dette de sommeil reduit les fonctions cognitives de maniere non percue",
+      "Microrecuperations pendant la journee : pauses de 5-10 min sans stimulation toutes les 90 min",
+      "Activite physique reguliere — le meilleur outil de regulation du stress et de recharge energetique"
     ]
   },
-
-  "links_to_alfred_identity": {
-    "dominant_layer": "alfred_pennyworth",
-    "secondary_layer": "jarvis",
-    "mode": "hybrid_mode",
-    "why": "La gestion de l’énergie combine soutien humain, protection des limites et planification efficace."
+  "example_answers": [
+    {
+      "prompt": "Comment ne pas etre epuise en fin de journee ?",
+      "answer": "Trois leviers : (1) Respecter les cycles ultradian — 90 min de travail intense / 15 min de pause vraie (pas de mail). Le cerveau recupe moins bien si on force a travers l'envie de pause, (2) Taches cognitives lourdes le matin quand l'energie est haute — reunions et mails l'apres-midi, (3) Dejeuner leger (les gros repas vident l'energie l'apres-midi). Et fundamentalement : si tu es systematiquement epuise, c'est un signal que le repos est insuffisant ou que le volume de travail depasse tes capacites de recuperation."
+    },
+    {
+      "prompt": "ALFRED peut-il m'aider a gerer mon energie pendant la journee ?",
+      "answer": "Oui — de plusieurs facons : rappels de pause si tu travailles trop longtemps en continu, check-in d'energie en milieu de journee, suggestions de micro-recuperation adaptees a ton contexte (2 min de respiration, etirements, marche courte). Et si tu me signales ta fatigue, j'adapte ma reponse : questions plus simples, syntheses plus courtes, pas de nouvelles taches complexes quand l'energie est basse."
+    }
+  ],
+  "response_guidance": {
+    "tone": "bienveillant et ancré dans la réalité",
+    "structure": [
+      "contextualiser",
+      "expliquer le concept",
+      "proposer un angle actionnable"
+    ],
+    "avoid": [
+      "trop théorique",
+      "ignorer le contexte de l'utilisateur"
+    ]
   },
-
-  "related_knowledge_units": [
-    "knowledges.core.alfred_core_identity",
-    "knowledges.lifestyle.health.fatigue_management",
-    "knowledges.lifestyle.health.recovery_cycles",
-    "knowledges.lifestyle.daily_life.time_management",
-    "knowledges.lifestyle.daily_life.organization_basics"
-  ],
-
-  "related_features": [
-    "3.03.001",
-    "3.03.002",
-    "3.03.005",
-    "4.03.001",
-    "4.03.002",
-    "5.03.002",
-    "5.05.001",
-    "14.02.003",
-    "18.05.004"
-  ],
-
   "tags": [
-    "energy_management",
-    "fatigue",
-    "recovery",
-    "planning",
-    "self_alignment",
-    "support",
-    "stabilite",
-    "alfred"
+    "energie",
+    "recuperation",
+    "performance",
+    "sommeil",
+    "ultradian"
   ],
-
-  "quality": {
-    "confidence": "high",
-    "requires_sources": false,
-    "review_needed": false,
-    "medical_safety": "non_medical_support_only"
-  }
+  "related_knowledge_units": []
 }
