@@ -1,26 +1,103 @@
 {
-    "id":  "crisis.escalation.awareness",
-    "created_at":  "2026-06-03",
-    "title":  "crisis escalation awareness",
-    "tags":  [
-
-             ],
-    "source":  "recreated_from_dashboard_manifest",
-    "description":  "Fiche connaissance recréée automatiquement à partir du manifest dashboard.",
-    "status":  "draft",
-    "content":  {
-                    "summary":  "",
-                    "links":  [
-
-                              ],
-                    "use_cases":  [
-
-                                  ],
-                    "risks":  [
-
-                              ],
-                    "key_points":  [
-
-                                   ]
-                }
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "id": "knowledges.human.wellbeing.crisis_escalation_awareness",
+  "title": "Conscience de l'escalade vers la crise",
+  "domain": "human",
+  "subdomain": "wellbeing",
+  "status": "validated",
+  "summary": "Reconnaître les étapes d'escalade vers une crise — psychologique, relationnelle ou professionnelle — permet d'intervenir avant l'effondrement. Plus on intervient tôt, plus les options sont nombreuses et efficaces.",
+  "core_definition": "La conscience de l'escalade vers la crise est la capacité à identifier les signaux progressifs qui indiquent qu'une situation (personnelle, relationnelle ou professionnelle) se dégrade vers un point de rupture, et à activer des ressources appropriées avant que la crise soit déclarée.",
+  "knowledge": {
+    "escalation_stages": [
+      {
+        "stage": "1. Inconfort",
+        "signals": "Légère tension, quelque chose qui ne va pas mais difficile à nommer",
+        "action": "Mettre des mots sur ce qui se passe, en parler à quelqu'un de confiance"
+      },
+      {
+        "stage": "2. Stress",
+        "signals": "Fatigue accrue, irritabilité, difficultés de concentration",
+        "action": "Réduire la charge, identifier la source, ajuster"
+      },
+      {
+        "stage": "3. Détresse",
+        "signals": "Épuisement marqué, pensées négatives envahissantes, retrait social",
+        "action": "Consulter un médecin, demander un arrêt si nécessaire, support professionnel"
+      },
+      {
+        "stage": "4. Crise",
+        "signals": "Effondrement fonctionnel, pensées de danger pour soi ou les autres",
+        "action": "Urgence médicale ou psychologique — 15 (SAMU), 3114 (suicide), 3919 (violences)"
+      }
+    ],
+    "early_intervention_value": "Intervenir au stade 1-2 demande peu d'efforts et beaucoup d'options. Attendre le stade 4 signifie une reconstruction longue et douloureuse. La honte de demander de l'aide tôt est le principal frein à l'intervention précoce.",
+    "alfred_role": [
+      "Détecter les signaux de détresse dans les échanges",
+      "Poser des questions ouvertes sur l'état général sans forcer",
+      "Rappeler les ressources disponibles sans dramatiser",
+      "Rediriger vers une aide professionnelle dès le stade 3",
+      "Ne jamais minimiser ou ignorer une expression de souffrance"
+    ],
+    "crisis_resources_france": [
+      {
+        "resource": "SAMU",
+        "number": "15",
+        "for": "Urgences médicales et psychiatriques"
+      },
+      {
+        "resource": "Suicide écoute",
+        "number": "3114",
+        "for": "Crise suicidaire, 24h/24"
+      },
+      {
+        "resource": "SOS Amitié",
+        "number": "09 72 39 40 50",
+        "for": "Solitude, détresse émotionnelle"
+      },
+      {
+        "resource": "Violences femmes info",
+        "number": "3919",
+        "for": "Violences conjugales ou familiales"
+      }
+    ]
+  },
+  "example_answers": [
+    {
+      "prompt": "Je sens que quelque chose ne va pas mais je n'arrive pas à mettre le doigt dessus.",
+      "answer": "C'est souvent le stade 1 — l'inconfort diffus. Le corps et l'esprit signalent quelque chose avant que le cerveau conscient l'identifie. Essaie d'écrire ce qui se passe, même de façon désordonnée. Ou note simplement : 'Ce qui m'occupe l'esprit en ce moment, c'est...' Le fait de nommer aide souvent à voir plus clair."
+    },
+    {
+      "prompt": "Un proche semble vraiment au bout du rouleau — comment l'aider ?",
+      "answer": "Être présent sans résoudre : 'Je vois que tu vas pas bien. Je suis là.' Pas de conseil, pas de minimisation. Demander directement si nécessaire : 'Est-ce que tu as des pensées de te faire du mal ?' Si oui — le numéro 3114 est disponible 24h/24. Tu peux aussi l'accompagner à appeler. Ta présence et cette question peuvent changer beaucoup."
+    }
+  ],
+  "response_guidance": {
+    "tone": "bienveillant, sans minimiser, ancré dans le concret",
+    "structure": [
+      "reconnaître l'état actuel",
+      "proposer une action de récupération",
+      "suggérer une piste de fond"
+    ],
+    "avoid": [
+      "injonctions à la positivité",
+      "minimiser la difficulté",
+      "confondre soutien et thérapie"
+    ]
+  },
+  "tags": [
+    "crise",
+    "escalade",
+    "détresse",
+    "urgence",
+    "signaux",
+    "intervention",
+    "bien-être",
+    "équilibre"
+  ],
+  "related_knowledge_units": [
+    "knowledges.human.wellbeing.burnout_signals",
+    "knowledges.human.interaction.vulnerable_support",
+    "knowledges.system.ethics.ethical_framework"
+  ]
 }
