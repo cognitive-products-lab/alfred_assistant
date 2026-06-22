@@ -1,26 +1,85 @@
 {
-    "id":  "chain.of.thought.basics",
-    "created_at":  "2026-06-03",
-    "title":  "chain of thought basics",
-    "tags":  [
-
-             ],
-    "source":  "recreated_from_dashboard_manifest",
-    "description":  "Fiche connaissance recréée automatiquement à partir du manifest dashboard.",
-    "status":  "draft",
-    "content":  {
-                    "summary":  "",
-                    "links":  [
-
-                              ],
-                    "use_cases":  [
-
-                                  ],
-                    "risks":  [
-
-                              ],
-                    "key_points":  [
-
-                                   ]
-                }
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "id": "knowledges.professional.engineering.reasoning.chain_of_thought_basics",
+  "title": "Chain of Thought — raisonnement pas à pas",
+  "domain": "professional",
+  "subdomain": "engineering_reasoning",
+  "status": "validated",
+  "summary": "Le Chain of Thought (CoT) est une technique de prompting qui encourage le LLM à décomposer son raisonnement en étapes explicites avant de donner une réponse. Il améliore significativement les performances sur les tâches complexes et réduit les erreurs.",
+  "core_definition": "Le Chain of Thought (CoT) est une technique de prompting et une capacité de raisonnement des LLMs qui consiste à générer une séquence d'étapes de raisonnement intermédiaires avant de produire la réponse finale, améliorant les performances sur les tâches qui nécessitent plusieurs étapes logiques.",
+  "knowledge": {
+    "cot_techniques": [
+      {
+        "technique": "Few-shot CoT",
+        "description": "Fournir des exemples de raisonnement pas à pas dans le prompt",
+        "trigger": "Exemples avec solutions développées"
+      },
+      {
+        "technique": "Zero-shot CoT",
+        "description": "Ajouter 'Raisonnons étape par étape' dans le prompt",
+        "trigger": "'Let's think step by step' / 'Raisonnons étape par étape'"
+      },
+      {
+        "technique": "Self-consistency",
+        "description": "Générer plusieurs chemins de raisonnement et prendre le résultat majoritaire",
+        "use": "Problèmes ambigus ou incertains"
+      },
+      {
+        "technique": "Tree of Thoughts",
+        "description": "Explorer plusieurs branches de raisonnement en parallèle et évaluer leur qualité",
+        "use": "Problèmes de planification complexe"
+      }
+    ],
+    "when_cot_helps": [
+      "Mathématiques et calculs multi-étapes",
+      "Raisonnement logique (syllogismes, déduction)",
+      "Problèmes de planification (séquences d'actions)",
+      "Analyse de scénarios complexes",
+      "Déduction à partir de règles et de faits"
+    ],
+    "cot_limitations": [
+      "Peut générer des raisonnements convaincants mais incorrects (confident hallucinations)",
+      "Augmente la longueur des réponses — pas adapté aux échanges rapides",
+      "Les étapes intermédiaires ne sont pas nécessairement le vrai mécanisme interne du modèle",
+      "Moins utile pour les connaissances factuelles directes"
+    ]
+  },
+  "example_answers": [
+    {
+      "prompt": "Comment utiliser le CoT pour améliorer les réponses d'ALFRED sur des problèmes complexes ?",
+      "answer": "Deux façons : dans le prompt système (inclure 'Pour les problèmes complexes, décompose le raisonnement avant de conclure') ou dans la requête ('Raisonne étape par étape avant de répondre'). ALFRED applique naturellement le CoT sur les problèmes qui le nécessitent — mais le forcer explicitement améliore la précision sur les questions d'analyse et de calcul."
+    },
+    {
+      "prompt": "Peut-on faire confiance au raisonnement pas à pas d'un LLM ?",
+      "answer": "Partiellement. Le CoT améliore la précision mais ne garantit pas l'exactitude. Les étapes intermédiaires peuvent être plausibles mais incorrectes. Pour les décisions importantes : valider la logique humainement, vérifier les chiffres indépendamment, et utiliser des sources de vérité externes quand c'est possible. Le CoT est un outil d'aide à la réflexion, pas une preuve."
+    }
+  ],
+  "response_guidance": {
+    "tone": "rigoureux, ancré dans les mécanismes cognitifs et techniques du raisonnement LLM",
+    "structure": [
+      "identifier le type de raisonnement ou biais",
+      "expliquer le mécanisme",
+      "proposer une technique d'amélioration"
+    ],
+    "avoid": [
+      "confondre raisonnement humain et LLM",
+      "ignorer les limites des LLMs",
+      "trop abstrait"
+    ]
+  },
+  "tags": [
+    "chain of thought",
+    "CoT",
+    "raisonnement",
+    "prompting",
+    "étapes",
+    "raisonnement",
+    "LLM",
+    "inférence"
+  ],
+  "related_knowledge_units": [
+    "knowledges.professional.engineering.ai.reasoning_engine",
+    "knowledges.human.cognition.critical_thinking"
+  ]
 }
