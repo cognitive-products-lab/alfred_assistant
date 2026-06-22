@@ -1,140 +1,58 @@
 {
-  "schema_version": "1.0",
+  "schema_version": "1.2",
   "type": "knowledge_unit",
-  "id": "knowledges.human.skills.softskills.communication",
-  "title": "Communication",
+  "id": "knowledges.human.skills.communication",
+  "title": "Communication efficace",
   "domain": "human",
-  "status": "validated_v1",
-  "summary": "Fiche permettant à ALFRED d’aider l’utilisateur à formuler ses idées clairement, adapter son message à son interlocuteur et améliorer la qualité de ses échanges personnels ou professionnels.",
-  "core_definition": "La communication consiste à transmettre une information, une intention ou une émotion de manière compréhensible, adaptée au contexte et respectueuse de l’interlocuteur.",
-  "core_principles": [
-    "clarifier l’objectif du message avant de parler ou écrire",
-    "adapter le niveau de détail à l’interlocuteur",
-    "dire clairement les choses sans agressivité",
-    "écouter avant de répondre",
-    "reformuler pour éviter les malentendus",
-    "distinguer fait, interprétation et émotion"
-  ],
-  "communication_modes": {
-    "direct": {
-      "description": "Communication claire, concise, orientée action.",
-      "usage": "consigne, décision, clarification rapide"
+  "subdomain": "skills",
+  "status": "validated",
+  "summary": "La communication efficace est la capacite a transmettre un message clair, a ecouter avec intention et a adapter son discours a son interlocuteur. Elle combine structure du message, calibration du registre et gestion des malentendus.",
+  "core_definition": "La communication efficace est la capacite a partager des informations, des emotions et des intentions de facon claire et adaptee a son interlocuteur et a son contexte, en maximisant la comprehension et en minimisant les malentendus.",
+  "knowledge": {
+    "communication_principles": [
+      "Clarifier son intention avant de parler : informer, convaincre, decider, soutenir ?",
+      "Adapter le registre a l'audience : vocabulaire, niveau de detail, canaux",
+      "Ecoute active : signaux d'attention, reformulation, questions de clarification",
+      "Structure du message : bottom-line en premier (Pyramid Principle), details ensuite",
+      "Feedback sur la comprehension : 'Est-ce que c'est clair ?' / reformulation de l'ecoute"
+    ],
+    "message_structure": {
+      "pyramid_principle": "Commencer par la conclusion (bottom-line), puis les arguments, puis les details — l'inverse de la pensee naturelle mais optimal pour la comprehension",
+      "BLUF": "Bottom Line Up Front — militaire et consulting : reponse d'abord, contexte ensuite"
     },
-    "empathetic": {
-      "description": "Communication centrée sur l’écoute et la reconnaissance de l’état émotionnel.",
-      "usage": "soutien, tension, échange sensible"
-    },
-    "structured": {
-      "description": "Communication organisée avec contexte, problème, proposition et prochaine étape.",
-      "usage": "mail professionnel, réunion, gestion de projet"
-    },
-    "assertive": {
-      "description": "Communication ferme et respectueuse permettant de poser une limite ou défendre une position.",
-      "usage": "désaccord, négociation, recadrage"
+    "written_vs_oral": {
+      "ecrit": "Avantages : precision, trace, asynchrone. Defauts : perd le non-verbal, risque de misinterpretation du ton",
+      "oral": "Avantages : riche, interactif, emotional. Defauts : ephemere, dependant de la disponibilite commune"
     }
   },
-  "simple_frameworks": {
-    "context_message_action": {
-      "description": "Structurer un message en trois parties : contexte, message principal, action attendue.",
-      "example": "Contexte : où on en est. Message : ce qui doit être compris. Action : ce qui est attendu."
-    },
-    "fact_feeling_need_request": {
-      "description": "Distinguer le fait, le ressenti, le besoin et la demande.",
-      "usage": "communication sensible ou émotionnelle"
-    },
-    "one_message_one_goal": {
-      "description": "Un message efficace doit porter un objectif principal.",
-      "usage": "éviter les messages confus ou trop longs"
-    }
-  },
-  "common_problems": [
-    "message trop long",
-    "objectif flou",
-    "ton trop sec",
-    "peur de mal dire",
-    "surjustification",
-    "difficulté à poser une limite",
-    "confusion entre émotion et argument"
-  ],
-  "response_principles": [
-    "aider à clarifier l’intention",
-    "proposer une formulation simple",
-    "adapter le ton au contexte",
-    "réduire la surcharge verbale",
-    "préserver la relation sans diluer le message"
-  ],
-  "conversation_uses": [
-    "rédiger un message",
-    "préparer un échange difficile",
-    "formuler une demande claire",
-    "répondre à un mail",
-    "poser une limite",
-    "améliorer un discours oral"
-  ],
   "example_answers": [
     {
-      "prompt": "Je ne sais pas comment lui dire.",
-      "answer": "On va faire simple : quel est le message principal à faire passer, et quel ton veux-tu garder — doux, ferme ou très direct ?"
+      "prompt": "Comment etre plus percutant dans mes presentations ?",
+      "answer": "Pyramid Principle : commencer par la conclusion ('je recommande X'), puis les 3 arguments principaux, puis les details. La plupart des presenteurs font l'inverse — ils construisent vers la conclusion, ce qui perd l'audience en chemin. Autres leviers : reduire de moitie le nombre de slides, une idee par slide avec un titre qui est deja la conclusion (pas 'resultats Q3' mais 'Q3 : croissance de 20% grace au canal partenarial'), et terminer par les prochaines actions specifiques (qui fait quoi avant quand)."
     },
     {
-      "prompt": "Aide-moi à écrire un message clair.",
-      "answer": "On structure en trois blocs : contexte, demande, prochaine étape. Ça évite le roman diplomatique en douze tomes."
-    },
-    {
-      "prompt": "Je veux être ferme sans être agressive.",
-      "answer": "On garde une phrase courte, factuelle, avec une limite claire. Ferme ne veut pas dire brutal."
+      "prompt": "Comment mieux communiquer par ecrit dans mon equipe ?",
+      "answer": "Trois habitudes : (1) BLUF (Bottom Line Up Front) — commencer chaque email par ce que tu attends (information ? decision ? action ? lecture seule ?) avant le contexte, (2) Canal adapte au message — Slack pour rapide/conversationnel, email pour formal/tracable, reunions pour les decisions importantes (pas les mises a jour), (3) Relecture du point de vue du destinataire — 'Qu'est-ce qu'il pourrait ne pas comprendre ou mal interpreter dans ce message ?'"
     }
   ],
   "response_guidance": {
-    "tone": "clair, aidant, précis, non jugeant",
+    "tone": "bienveillant et ancré dans la réalité",
     "structure": [
-      "identifier l’objectif",
-      "identifier l’interlocuteur",
-      "choisir le ton",
-      "proposer une formulation",
-      "vérifier la clarté"
+      "contextualiser",
+      "expliquer le concept",
+      "proposer un angle actionnable"
     ],
     "avoid": [
-      "surformuler",
-      "mettre trop de nuances qui diluent le message",
-      "parler à la place de l’utilisateur sans validation",
-      "rendre le message passif-agressif",
-      "utiliser du jargon inutile"
+      "trop théorique",
+      "ignorer le contexte de l'utilisateur"
     ]
   },
-  "links_to_alfred_identity": {
-    "dominant_layer": "balanced",
-    "mode": "hybrid_mode",
-    "why": "La communication combine clarté logique, adaptation émotionnelle et respect de l’autonomie de l’utilisateur."
-  },
-  "related_knowledge_units": [
-    "knowledges.core.alfred_core_identity",
-    "knowledges.human.emotional_intelligence.empathy",
-    "knowledges.human.emotional_intelligence.self_regulation",
-    "knowledges.human.skills.softskills.leadership_personal"
-  ],
-  "related_features": [
-    "2.03.001",
-    "5.01.004",
-    "5.03.002",
-    "5.04.002",
-    "5.05.001",
-    "14.02.003",
-    "18.05.004"
-  ],
   "tags": [
     "communication",
-    "softskills",
-    "clarity",
-    "assertiveness",
-    "empathy",
-    "message",
-    "human",
-    "alfred"
+    "messages",
+    "ecoute",
+    "presentations",
+    "ecrit"
   ],
-  "quality": {
-    "confidence": "high",
-    "requires_sources": false,
-    "review_needed": false
-  }
+  "related_knowledge_units": []
 }
