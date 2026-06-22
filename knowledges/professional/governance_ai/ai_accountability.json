@@ -1,79 +1,80 @@
 {
-  "_meta": {
-    "project": "ALFRED",
-    "block": "B18",
-    "file": "ai_accountability.json",
-    "version": "V1.0",
-    "status": "VALIDATED",
-    "updated": "2026-05-13",
-    "standardized_by": "generate_knowledges.py",
-    "validated_by": "Cognitive Products Lab",
-    "validated_date": "2026-05-13"
-  },
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
   "id": "knowledges.professional.governance_ai.ai_accountability",
-  "domain": "professional_governance",
-  "category": "ai_governance",
-  "title": "AI Accountability",
-  "description": "Responsabilité et traçabilité des décisions IA.",
-  "version": "1.0",
-  "status": "active",
-  "tags": [
-    "ai accountability",
-    "ai governance",
-    "governance ai",
-    "professional",
-    "professional governance"
-  ],
-  "content": {
-    "summary": "Responsabilité et traçabilité des décisions IA.",
-    "details": [
-      "Decision traceability",
-      "Human responsibility",
-      "Auditability",
-      "Operational accountability",
-      "Une IA ne porte pas juridiquement la responsabilité",
-      "Les décisions critiques doivent rester supervisées",
-      "Les actions doivent être traçables",
-      "Logs décisionnels",
-      "Historique des actions",
-      "Validation humaine"
+  "title": "Responsabilité et accountability dans les systèmes IA",
+  "domain": "professional",
+  "subdomain": "governance_ai",
+  "status": "validated",
+  "summary": "L'accountability IA signifie qu'un humain identifiable est responsable du comportement, des erreurs et des impacts de chaque système IA déployé. Sans accountability claire, les incidents restent sans correction et les risques s'accumulent.",
+  "core_definition": "L'accountability dans les systèmes IA est le principe selon lequel une personne ou une organisation doit pouvoir répondre des décisions et comportements d'un système IA, en assumer les conséquences et mettre en place les corrections nécessaires.",
+  "knowledge": {
+    "accountability_model": [
+      {
+        "role": "AI Owner",
+        "responsibility": "Propriétaire business du système — répond des décisions business et des impacts sur les utilisateurs"
+      },
+      {
+        "role": "AI Developer",
+        "responsibility": "Responsable technique — répond de la qualité, de la sécurité et de la performance du modèle"
+      },
+      {
+        "role": "AI Operator",
+        "responsibility": "Responsable de l'exploitation — répond du monitoring, des incidents et de la maintenance"
+      },
+      {
+        "role": "AI Ethics Reviewer",
+        "responsibility": "Responsable de la conformité éthique et réglementaire — valide avant déploiement"
+      }
     ],
-    "references": []
+    "accountability_mechanisms": [
+      "Documentation complète du cycle de vie (model cards, datasheets)",
+      "Traçabilité des décisions prises avec ou par l'IA",
+      "Processus d'audit régulier avec résultats documentés",
+      "Mécanisme de recours pour les personnes impactées par une décision IA",
+      "Rapport d'incident obligatoire pour tout comportement inattendu"
+    ],
+    "eu_ai_act_obligations": [
+      "Systèmes à haut risque : registre EU obligatoire, documentation technique, monitoring continu",
+      "Transparency requirements : informer les utilisateurs qu'ils interagissent avec une IA",
+      "Human oversight : obligation de supervision humaine pour les décisions critiques"
+    ]
   },
-  "metadata": {
-    "created": "2026-05-12",
-    "updated": "2026-05-12",
-    "author": "Cognitive Products Lab"
+  "example_answers": [
+    {
+      "prompt": "Qui est responsable si notre système IA prend une mauvaise décision ?",
+      "answer": "En droit actuel, le fournisseur du système et l'opérateur qui le déploie partagent la responsabilité. L'EU AI Act introduit des obligations précises pour les systèmes à haut risque. En interne : il faut un AI Owner nommé avant tout déploiement. Sans owner identifié, personne n'est responsable — et les incidents restent sans réponse."
+    },
+    {
+      "prompt": "Comment tracer les décisions prises par une IA ?",
+      "answer": "Trois niveaux : journalisation des inputs/outputs (ce qui entre et ce qui sort), contexte de la décision (qui a demandé quoi, quand, avec quel prompt), et résultat business (quelle décision a été prise sur la base de la recommandation IA). Pour les systèmes à fort impact, la traçabilité est une obligation réglementaire, pas une option."
+    }
+  ],
+  "response_guidance": {
+    "tone": "rigoureux, orienté conformité et opérationnalité",
+    "structure": [
+      "identifier le principe de gouvernance en jeu",
+      "expliquer l'application concrète",
+      "pointer les risques de non-conformité"
+    ],
+    "avoid": [
+      "trop théorique sans ancrage opérationnel",
+      "ignorer le contexte réglementaire EU",
+      "confondre gouvernance et éthique abstraite"
+    ]
   },
-  "core_concepts": [
-    "Decision traceability",
-    "Human responsibility",
-    "Auditability",
-    "Operational accountability"
+  "tags": [
+    "accountability",
+    "responsabilité",
+    "owner",
+    "traçabilité",
+    "incident",
+    "gouvernance IA",
+    "AI governance",
+    "conformité"
   ],
-  "principles": [
-    "Une IA ne porte pas juridiquement la responsabilité",
-    "Les décisions critiques doivent rester supervisées",
-    "Les actions doivent être traçables"
-  ],
-  "alfred_application": [
-    "Logs décisionnels",
-    "Historique des actions",
-    "Validation humaine"
-  ],
-  "risks_if_missing": [
-    "Décisions non explicables",
-    "Absence de responsabilité",
-    "Perte de confiance"
-  ],
-  "aliases": [],
-  "relationships": {
-    "merged_from": [],
-    "see_also": [],
-    "depends_on": []
-  },
-  "retrieval": {
-    "priority": "medium",
-    "trigger_queries": []
-  }
+  "related_knowledge_units": [
+    "knowledges.professional.standards_iso.iso_42001_ai_management_system",
+    "knowledges.cpl.ethics_governance.ethical_ai_framework"
+  ]
 }

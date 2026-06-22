@@ -1,0 +1,103 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "id": "knowledges.professional.governance_ai.bias_detection",
+  "title": "Détection et mitigation des biais IA",
+  "domain": "professional",
+  "subdomain": "governance_ai",
+  "status": "validated",
+  "summary": "Les biais dans les systèmes IA peuvent amplifier des inégalités existantes à grande échelle. Les détecter nécessite des méthodes statistiques sur des groupes protégés ; les mitiger exige d'agir sur les données, le modèle ou le post-traitement.",
+  "core_definition": "La détection de biais dans les systèmes IA est le processus d'identification des différences systématiques injustes dans les performances ou les sorties d'un modèle selon des caractéristiques protégées (genre, origine ethnique, âge, handicap), indépendamment des intentions des concepteurs.",
+  "knowledge": {
+    "bias_types": [
+      {
+        "type": "Biais de données",
+        "description": "Les données d'entraînement reflètent des inégalités historiques — le modèle les apprend et les perpétue",
+        "example": "CV de recrutement historiquement masculins → modèle favorisant les hommes"
+      },
+      {
+        "type": "Biais d'agrégation",
+        "description": "Le modèle entraîné sur la population générale performe mal sur des sous-groupes spécifiques",
+        "example": "Diagnostic médical moins précis pour les groupes sous-représentés dans les données"
+      },
+      {
+        "type": "Biais de mesure",
+        "description": "Les labels ou features utilisés sont eux-mêmes biaisés",
+        "example": "Utiliser les arrests comme proxy de la criminalité (surreprésente certains groupes)"
+      },
+      {
+        "type": "Biais d'évaluation",
+        "description": "L'évaluation est faite sur un benchmark non représentatif",
+        "example": "Benchmark uniquement en anglais américain pour un système multilingue"
+      }
+    ],
+    "detection_methods": [
+      "Analyse statistique des outputs par groupe protégé (disparate impact analysis)",
+      "Fairness metrics : demographic parity, equalized odds, predictive parity",
+      "Tests d'adversarial fairness (même prompt avec profils démographiques variés)",
+      "Outils : Fairlearn (Microsoft), AI Fairness 360 (IBM), What-If Tool (Google)"
+    ],
+    "mitigation_strategies": [
+      {
+        "stage": "Données",
+        "actions": [
+          "Rééchantillonnage",
+          "Augmentation des sous-groupes sous-représentés",
+          "Nettoyage des labels biaisés"
+        ]
+      },
+      {
+        "stage": "Modèle",
+        "actions": [
+          "Contraintes de fairness dans l'optimisation",
+          "Calibration par groupe",
+          "Adversarial debiasing"
+        ]
+      },
+      {
+        "stage": "Post-traitement",
+        "actions": [
+          "Seuils de décision différenciés",
+          "Vérification humaine systématique pour les groupes à risque"
+        ]
+      }
+    ]
+  },
+  "example_answers": [
+    {
+      "prompt": "Comment tester si notre modèle de recrutement est biaisé ?",
+      "answer": "Test de parité démographique : soumettre des CVs identiques en changeant uniquement le nom (signal probable du genre ou de l'origine). Si le taux de sélection varie significativement, il y a un biais. C'est le principe du CV testing, désormais utilisable automatiquement avec des outils comme AI Fairness 360. Résultat documenté et action de correction avant déploiement."
+    },
+    {
+      "prompt": "Peut-on avoir un système IA parfaitement équitable ?",
+      "answer": "Non — et c'est mathématiquement démontré (impossibilité de satisfaire simultanément toutes les définitions de fairness en présence d'inégalités dans les données). Ce qu'on peut faire : choisir explicitement quelle définition de l'équité est prioritaire dans le contexte donné, la mesurer, et en assumer les compromis avec les parties prenantes."
+    }
+  ],
+  "response_guidance": {
+    "tone": "rigoureux, orienté conformité et opérationnalité",
+    "structure": [
+      "identifier le principe de gouvernance en jeu",
+      "expliquer l'application concrète",
+      "pointer les risques de non-conformité"
+    ],
+    "avoid": [
+      "trop théorique sans ancrage opérationnel",
+      "ignorer le contexte réglementaire EU",
+      "confondre gouvernance et éthique abstraite"
+    ]
+  },
+  "tags": [
+    "biais",
+    "fairness",
+    "équité",
+    "discrimination",
+    "disparate impact",
+    "gouvernance IA",
+    "AI governance",
+    "conformité"
+  ],
+  "related_knowledge_units": [
+    "knowledges.professional.standards_iso.iso_42001_ai_management_system",
+    "knowledges.cpl.ethics_governance.ethical_ai_framework"
+  ]
+}

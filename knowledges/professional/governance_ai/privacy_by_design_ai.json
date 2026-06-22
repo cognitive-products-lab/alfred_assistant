@@ -1,0 +1,65 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "id": "knowledges.professional.governance_ai.privacy_by_design_ai",
+  "title": "Privacy by design dans les systèmes IA",
+  "domain": "professional",
+  "subdomain": "governance_ai",
+  "status": "validated",
+  "summary": "Le privacy by design intègre la protection de la vie privée dès la conception du système IA — minimisation des données, pseudonymisation, contrôle utilisateur — plutôt qu'en correctif après déploiement.",
+  "core_definition": "Le Privacy by Design appliqué aux systèmes IA est l'approche qui intègre la protection de la vie privée comme contrainte de conception fondamentale, en minimisant les données collectées, en pseudonymisant dès que possible, et en donnant à l'utilisateur le contrôle réel sur ses données.",
+  "knowledge": {
+    "privacy_by_design_principles": [
+      "Proactive not reactive — anticiper les risques privacy avant qu'ils surviennent",
+      "Privacy as the default — la configuration par défaut est la plus protectrice pour l'utilisateur",
+      "Privacy embedded — la privacy est dans l'architecture, pas un layer ajouté",
+      "Full functionality — privacy ET fonctionnalité, pas l'un ou l'autre",
+      "End-to-end security — protection sur toute la durée de vie des données",
+      "Visibility and transparency — auditable par des tiers",
+      "Respect for user privacy — centré sur l'utilisateur"
+    ],
+    "ai_specific_applications": [
+      "Minimisation : ne collecter que les données nécessaires au fonctionnement du modèle",
+      "Pseudonymisation : remplacer les identifiants directs avant transmission au LLM",
+      "Apprentissage fédéré : entraîner le modèle sur les données localement sans les centraliser",
+      "Differential privacy : ajouter du bruit statistique pour protéger les données individuelles",
+      "Traitement local : inférence sur device plutôt que dans le cloud"
+    ],
+    "alfred_application": "ALFRED est conçu local-first : traitement des données personnelles sur le device, pas de transmission au cloud sans consentement explicite. C'est une implémentation du privacy by design appliquée à l'assistant personnel."
+  },
+  "example_answers": [
+    {
+      "prompt": "Comment éviter que notre LLM mémorise des données personnelles ?",
+      "answer": "Trois approches : minimiser les données personnelles dans les prompts (anonymiser ou pseudonymiser avant envoi), utiliser des modèles locaux pour le traitement des données sensibles (pas de transmission externe), et implémenter le 'machine unlearning' si nécessaire pour retirer des données spécifiques après entraînement. Le RGPD impose un droit à l'effacement — vérifier si le modèle peut satisfaire ce droit."
+    },
+    {
+      "prompt": "Quelle différence entre anonymisation et pseudonymisation ?",
+      "answer": "L'anonymisation supprime tout lien avec la personne de façon irréversible — les données anonymisées ne sont plus des données personnelles au sens RGPD. La pseudonymisation remplace les identifiants directs par des alias (token, hash) mais reste réversible avec la clé — les données pseudonymisées restent des données personnelles. L'anonymisation vraie est très difficile à atteindre (risque de ré-identification)."
+    }
+  ],
+  "response_guidance": {
+    "tone": "rigoureux, orienté conformité et opérationnalité",
+    "structure": [
+      "identifier le principe en jeu",
+      "expliquer l'application concrète",
+      "pointer les obligations réglementaires"
+    ],
+    "avoid": [
+      "trop théorique",
+      "ignorer le contexte EU",
+      "confondre principes et obligations"
+    ]
+  },
+  "tags": [
+    "privacy by design",
+    "RGPD",
+    "minimisation",
+    "pseudonymisation",
+    "local-first",
+    "gouvernance IA",
+    "conformité"
+  ],
+  "related_knowledge_units": [
+    "knowledges.professional.standards_iso.iso_42001_ai_management_system"
+  ]
+}
