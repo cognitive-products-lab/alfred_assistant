@@ -1,0 +1,72 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "id": "knowledges.professional.engineering.reasoning.inductive_reasoning",
+  "title": "Raisonnement inductif",
+  "domain": "professional",
+  "subdomain": "engineering_reasoning",
+  "status": "validated",
+  "summary": "Le raisonnement inductif part d'observations spécifiques pour inférer des règles générales. Contrairement à la déduction, il ne garantit pas la vérité de la conclusion — mais c'est le moteur de l'apprentissage et de la découverte.",
+  "core_definition": "Le raisonnement inductif est une forme de raisonnement qui procède du particulier vers le général : à partir d'observations spécifiques répétées, on infère des règles, des patterns ou des lois générales qui peuvent expliquer les observations et prédire les cas futurs.",
+  "knowledge": {
+    "inductive_reasoning_types": [
+      {
+        "type": "Généralisation simple",
+        "description": "De N observations similaires, inférer une règle",
+        "example": "Les 10 derniers déploiements ont causé des lenteurs le lundi → les déploiements causent des lenteurs"
+      },
+      {
+        "type": "Analogie",
+        "description": "Si deux systèmes se ressemblent sur X propriétés, ils se ressemblent probablement sur Y",
+        "example": "Ce framework ressemble à React → il a probablement un lifecycle similaire"
+      },
+      {
+        "type": "Inférence causale",
+        "description": "Observer une corrélation et inférer une causalité (attention : corrélation ≠ causalité)",
+        "example": "Après déploiement de la feature A, les conversions ont augmenté"
+      }
+    ],
+    "strengths_and_limits": {
+      "strength": "L'induction est le seul moteur de découverte à partir de données — elle permet de créer de nouvelles hypothèses",
+      "limit": "Une généralisation inductive reste toujours réfutable par un contre-exemple. La force de l'induction dépend de la taille et la diversité de l'échantillon",
+      "famous_problem": "Problème du cygne noir (Nassim Taleb) : avoir vu 1000 cygnes blancs n'exclut pas l'existence d'un cygne noir"
+    },
+    "ai_ml_connection": "L'apprentissage automatique est fondamentalement inductif : à partir d'exemples d'entraînement, le modèle infère des règles générales. Le risque principal est le surapprentissage (overfitting) — la règle apprise est trop spécifique aux données d'entraînement."
+  },
+  "example_answers": [
+    {
+      "prompt": "Comment distinguer une vraie tendance d'un artefact statistique dans mes données ?",
+      "answer": "Trois tests : (1) Taille d'échantillon — une tendance sur N=5 est fragile, sur N=200 elle est plus solide. (2) Réplication — retrouve-t-on la tendance sur d'autres périodes ou segments ? (3) Mécanisme causal plausible — y a-t-il une raison logique pour que cette relation existe ? Une corrélation sans mécanisme est suspecte. Et si tu peux, teste A/B : c'est le seul vrai test causal."
+    },
+    {
+      "prompt": "Dans quel cas utiliser le raisonnement inductif plutôt que déductif ?",
+      "answer": "L'inductif quand tu explores (tu n'as pas encore de règles, tu cherches des patterns dans les données), le déductif quand tu appliques des règles connues à un cas spécifique. En pratique, les deux alternent : induction pour formuler une hypothèse, déduction pour en tirer des prédictions testables, expérimentation pour valider ou réfuter. C'est le cycle scientifique classique."
+    }
+  ],
+  "response_guidance": {
+    "tone": "rigoureux, ancré dans les mécanismes cognitifs et techniques du raisonnement LLM",
+    "structure": [
+      "identifier le type de raisonnement ou biais",
+      "expliquer le mécanisme",
+      "proposer une technique d'amélioration"
+    ],
+    "avoid": [
+      "confondre raisonnement humain et LLM",
+      "ignorer les limites des LLMs",
+      "trop abstrait"
+    ]
+  },
+  "tags": [
+    "induction",
+    "généralisation",
+    "patterns",
+    "ML",
+    "causalité",
+    "raisonnement",
+    "LLM",
+    "inférence"
+  ],
+  "related_knowledge_units": [
+    "knowledges.professional.engineering.ai.reasoning_engine"
+  ]
+}

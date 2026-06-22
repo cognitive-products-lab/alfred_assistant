@@ -1,0 +1,75 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "id": "knowledges.professional.engineering.reasoning.abductive_reasoning",
+  "title": "Raisonnement abductif (inférence à la meilleure explication)",
+  "domain": "professional",
+  "subdomain": "engineering_reasoning",
+  "status": "validated",
+  "summary": "Le raisonnement abductif cherche l'explication la plus simple et la plus probable d'une observation — 'Qu'est-ce qui explique le mieux ce que je vois ?' C'est le raisonnement du diagnostic médical, de la détection de bugs et des enquêtes.",
+  "core_definition": "Le raisonnement abductif (ou inférence à la meilleure explication) est une forme de raisonnement qui, partant d'observations, cherche l'hypothèse la plus simple et la plus vraisemblable qui les explique. Contrairement à la déduction, la conclusion est probable mais pas certaine ; contrairement à l'induction, on ne cherche pas une règle générale mais la meilleure explication d'un cas particulier.",
+  "knowledge": {
+    "abductive_process": [
+      "1. Observer un fait surprenant ou un problème",
+      "2. Générer des hypothèses explicatives candidates",
+      "3. Évaluer chaque hypothèse : simplicité (rasoir d'Occam), vraisemblance, cohérence avec d'autres faits",
+      "4. Sélectionner l'hypothèse la plus probable (la meilleure explication)",
+      "5. Tester l'hypothèse pour la confirmer ou l'infirmer"
+    ],
+    "application_domains": [
+      {
+        "domain": "Diagnostic médical",
+        "example": "Symptômes → hypothèses de maladies → tests pour confirmer"
+      },
+      {
+        "domain": "Debugging",
+        "example": "Erreur → hypothèses de causes → tests isolants"
+      },
+      {
+        "domain": "Enquête",
+        "example": "Indices → hypothèses sur les coupables → vérification"
+      },
+      {
+        "domain": "Design produit",
+        "example": "Comportement utilisateur inattendu → hypothèses de confusion UX → tests utilisateurs"
+      }
+    ],
+    "occam_razor": "A hypothèse égale vraisemblance, préférer la plus simple. En debugging : avant de supposer une corruption de mémoire, vérifier d'abord les causes classiques (null, type error, configuration)."
+  },
+  "example_answers": [
+    {
+      "prompt": "Comment ALFRED raisonne-t-il quand il ne comprend pas une demande ?",
+      "answer": "J'utilise l'abduction : quel est l'objectif le plus probable derrière cette demande ? Je génère 2-3 interprétations candidates, j'évalue leur vraisemblance selon le contexte (ce que je sais de toi, le fil de conversation), et je choisis la plus probable. Si j'opte pour une interprétation, je la nomme explicitement : 'Je comprends ça comme X — si je me trompe, corrige-moi.'"
+    },
+    {
+      "prompt": "C'est quoi la différence entre l'abduction et la déduction dans le diagnostic d'un problème ?",
+      "answer": "Déduction : tu as la règle et tu arrives à la conclusion ('Si X alors Y, X est vrai, donc Y'). Abduction : tu as seulement la conclusion et tu cherches la règle la plus probable ('Y est observé — quelle règle expliquerait le mieux Y ?'). Le médecin raisonne en abduction : il observe des symptômes et cherche la maladie qui les explique le mieux. Le débogueur passe de l'abduction à la déduction : hypothèse → prédiction de ce qu'on devrait voir si l'hypothèse est vraie → test."
+    }
+  ],
+  "response_guidance": {
+    "tone": "rigoureux, ancré dans les mécanismes cognitifs et techniques du raisonnement LLM",
+    "structure": [
+      "identifier le type de raisonnement ou biais",
+      "expliquer le mécanisme",
+      "proposer une technique d'amélioration"
+    ],
+    "avoid": [
+      "confondre raisonnement humain et LLM",
+      "ignorer les limites des LLMs",
+      "trop abstrait"
+    ]
+  },
+  "tags": [
+    "abduction",
+    "diagnostic",
+    "meilleure explication",
+    "debugging",
+    "Occam",
+    "raisonnement",
+    "LLM",
+    "inférence"
+  ],
+  "related_knowledge_units": [
+    "knowledges.professional.engineering.ai.reasoning_engine"
+  ]
+}
