@@ -1,0 +1,88 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "id": "knowledges.professional.iot.mqtt_protocol",
+  "title": "Protocole MQTT",
+  "domain": "professional",
+  "subdomain": "iot",
+  "status": "validated",
+  "summary": "MQTT est le protocole de messagerie légère de référence pour l'IoT — publication/abonnement sur des topics, faible overhead, adapté aux connexions instables et aux dispositifs contraints.",
+  "core_definition": "MQTT (Message Queuing Telemetry Transport) est un protocole de messagerie publish-subscribe léger conçu pour les communications M2M et IoT. Il utilise un broker central pour router les messages entre publishers et subscribers, avec un overhead minimal et une gestion adaptée aux connexions instables.",
+  "knowledge": {
+    "mqtt_concepts": [
+      {
+        "concept": "Broker",
+        "description": "Serveur central qui reçoit, filtre et route les messages (Mosquitto, EMQX, HiveMQ)"
+      },
+      {
+        "concept": "Topic",
+        "description": "Chaîne hiérarchique qui classe les messages (ex: maison/salon/temperature)",
+        "wildcards": "+ (un niveau), # (tous les niveaux)"
+      },
+      {
+        "concept": "Publisher",
+        "description": "Dispositif ou service qui publie des messages sur un topic"
+      },
+      {
+        "concept": "Subscriber",
+        "description": "Dispositif ou service qui s'abonne à un topic pour recevoir les messages"
+      },
+      {
+        "concept": "QoS",
+        "description": "Niveau de qualité de service — 0 (at most once), 1 (at least once), 2 (exactly once)"
+      },
+      {
+        "concept": "Retain",
+        "description": "Le broker conserve le dernier message d'un topic — utile pour l'état courant des capteurs"
+      }
+    ],
+    "use_cases": [
+      "Communication entre capteurs IoT et hub domotique (Home Assistant via MQTT)",
+      "Télémétrie temps réel (température, humidité, état des dispositifs)",
+      "Commandes de contrôle (allumer/éteindre, changer mode)",
+      "Intégration ALFRED ↔ domotique (événements bidirectionnels)"
+    ],
+    "alfred_mqtt_integration": {
+      "subscribe": "ALFRED peut s'abonner à des topics domotiques pour recevoir les événements (alerte, état capteur)",
+      "publish": "ALFRED peut publier des commandes (mode_travail: actif) que la domotique écoute",
+      "broker": "Mosquitto local sur le même réseau — pas de dépendance cloud"
+    }
+  },
+  "example_answers": [
+    {
+      "prompt": "Comment intégrer ALFRED avec Home Assistant via MQTT ?",
+      "answer": "Setup : Mosquitto broker local, ALFRED s'abonne aux topics HA (hass/state/#) et publie sur les topics de commande. Exemple : ALFRED publie 'hass/alfred/mode: focus' → HA l'écoute et ajuste la domotique (lumière, son). En Python : paho-mqtt est la bibliothèque de référence. Configuration MQTT dans HA : builtin depuis Home Assistant 2022."
+    },
+    {
+      "prompt": "Quelle différence entre MQTT et REST pour l'IoT ?",
+      "answer": "MQTT est event-driven et persistant : les dispositifs restent connectés et reçoivent les messages dès qu'ils arrivent. REST est request-response : le client doit poller pour savoir si l'état a changé. Pour l'IoT temps réel, MQTT est supérieur. Pour les intégrations API ponctuelles, REST est plus simple à implémenter. Les deux coexistent souvent : MQTT pour les événements temps réel, REST pour les configurations et les requêtes ponctuelles."
+    }
+  ],
+  "response_guidance": {
+    "tone": "technique, pragmatique, sensible à la confidentialité et à la sécurité",
+    "structure": [
+      "identifier le composant ou problème IoT",
+      "expliquer le mécanisme",
+      "pointer les risques",
+      "proposer la solution"
+    ],
+    "avoid": [
+      "ignorer la sécurité",
+      "négliger la contrainte de ressources",
+      "trop générique"
+    ]
+  },
+  "tags": [
+    "MQTT",
+    "broker",
+    "publish-subscribe",
+    "Home Assistant",
+    "Mosquitto",
+    "IoT",
+    "système ambiant"
+  ],
+  "related_knowledge_units": [
+    "knowledges.professional.engineering.systeme_design.local_first_architecture",
+    "knowledges.cpl.ethics_governance.ethical_ai_framework"
+  ]
+}
