@@ -1,26 +1,81 @@
 {
-    "id":  "edge.device.authentication",
-    "created_at":  "2026-06-03",
-    "title":  "edge device authentication",
-    "tags":  [
-
-             ],
-    "source":  "recreated_from_dashboard_manifest",
-    "description":  "Fiche connaissance recréée automatiquement à partir du manifest dashboard.",
-    "status":  "draft",
-    "content":  {
-                    "summary":  "",
-                    "links":  [
-
-                              ],
-                    "use_cases":  [
-
-                                  ],
-                    "risks":  [
-
-                              ],
-                    "key_points":  [
-
-                                   ]
-                }
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "id": "knowledges.professional.iot.edge_device_authentication",
+  "title": "Authentification des dispositifs edge",
+  "domain": "professional",
+  "subdomain": "iot",
+  "status": "validated",
+  "summary": "Authentifier les dispositifs IoT avant de leur permettre de publier sur le réseau est une étape de sécurité fondamentale. Les identités de dispositif (certificats, PSK, OAuth2 device flow) protègent l'intégrité du système.",
+  "core_definition": "L'authentification des dispositifs edge est le processus par lequel un système vérifie l'identité d'un dispositif IoT avant de lui accorder l'accès aux ressources réseau, en utilisant des mécanismes cryptographiques (certificats, tokens) adaptés aux contraintes des systèmes embarqués.",
+  "knowledge": {
+    "auth_methods": [
+      {
+        "method": "Username/Password MQTT",
+        "security": "Faible si non chiffré — acceptable avec TLS",
+        "use": "Dispositifs simples sur réseau local TLS"
+      },
+      {
+        "method": "Certificate-based TLS (mTLS)",
+        "security": "Fort",
+        "use": "Systèmes critiques, connexions cloud",
+        "challenge": "Gestion des certificats (renouvellement, révocation)"
+      },
+      {
+        "method": "Pre-shared keys (PSK)",
+        "security": "Moyen",
+        "use": "Dispositifs très contraints en ressources",
+        "challenge": "Distribution sécurisée des clés"
+      },
+      {
+        "method": "OAuth2 Device Flow",
+        "security": "Fort",
+        "use": "Dispositifs qui se connectent à des APIs cloud",
+        "flow": "Dispositif → code → utilisateur autorise → token"
+      }
+    ],
+    "local_auth_setup": [
+      "Mosquitto avec ACL (Access Control List) : chaque dispositif a un username/password unique",
+      "Certificats auto-signés pour le réseau local (Let's Encrypt si accès externe)",
+      "Rotation régulière des credentials (au moins annuelle)",
+      "Monitoring des connexions inattendues (nouveau device sur le broker → alerte)"
+    ]
+  },
+  "example_answers": [
+    {
+      "prompt": "Comment sécuriser mon broker MQTT contre les accès non autorisés ?",
+      "answer": "Trois niveaux : (1) Username/password unique par dispositif dans mosquitto.conf + password file, (2) TLS pour chiffrer le canal (même sur réseau local), (3) ACL (Access Control List) pour limiter quel dispositif peut publier/s'abonner sur quels topics. Résultat : un dispositif compromis ne peut pas publier sur les topics d'un autre dispositif."
+    },
+    {
+      "prompt": "Un nouveau dispositif inconnu s'est connecté à mon broker MQTT — que faire ?",
+      "answer": "Incident de sécurité potentiel. Vérifier les logs du broker (mosquitto log_type all) pour identifier le source IP et les topics tentés. Si l'IP n'est pas reconnue : bloquer via le firewall, changer les credentials de tous les dispositifs, vérifier si d'autres dispositifs ont été compromis. Dans le futur : implémenter des ACL strictes pour rejeter les connexions non authentifiées."
+    }
+  ],
+  "response_guidance": {
+    "tone": "technique, pragmatique, sensible à la confidentialité et à la sécurité",
+    "structure": [
+      "identifier le composant ou problème IoT",
+      "expliquer le mécanisme",
+      "pointer les risques",
+      "proposer la solution"
+    ],
+    "avoid": [
+      "ignorer la sécurité",
+      "négliger la contrainte de ressources",
+      "trop générique"
+    ]
+  },
+  "tags": [
+    "authentification",
+    "sécurité",
+    "MQTT",
+    "certificats",
+    "ACL",
+    "IoT",
+    "système ambiant"
+  ],
+  "related_knowledge_units": [
+    "knowledges.professional.engineering.systeme_design.local_first_architecture",
+    "knowledges.cpl.ethics_governance.ethical_ai_framework"
+  ]
 }
