@@ -1,72 +1,102 @@
 {
-  "_meta": {
-    "project": "ALFRED",
-    "block": "B18",
-    "file": "ai_auditability.json",
-    "version": "V1.0",
-    "status": "VALIDATED",
-    "updated": "2026-05-13",
-    "standardized_by": "generate_knowledges.py",
-    "validated_by": "Cognitive Products Lab",
-    "validated_date": "2026-05-13"
-  },
-  "id": "knowledges.governance.ai_auditability",
-  "domain": "ai_compliance",
-  "category": "governance",
-  "title": "AI Auditability",
-  "description": "Auditabilité et traçabilité des systèmes d’IA.",
-  "version": "1.0",
-  "status": "active",
-  "tags": [
-    "ai auditability",
-    "ai compliance",
-    "governance"
-  ],
-  "content": {
-    "summary": "Auditabilité et traçabilité des systèmes d’IA.",
-    "details": [
-      "Audit trail",
-      "Decision logs",
-      "Transparency",
-      "Traceability",
-      "Tracer les décisions IA",
-      "Faciliter les audits",
-      "Améliorer la transparence",
-      "Logs ALFRED",
-      "Historique décisions",
-      "Contrôle conformité"
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "id": "knowledges.professional.governance_ai.ai_auditability",
+  "title": "Auditabilité des systèmes IA",
+  "domain": "professional",
+  "subdomain": "governance_ai",
+  "status": "validated",
+  "summary": "Un système IA est auditable quand il peut être examiné pour vérifier sa conformité, ses performances et son comportement — par des équipes internes, des régulateurs ou des auditeurs externes. L'auditabilité se conçoit, elle ne s'improvise pas.",
+  "core_definition": "L'auditabilité d'un système IA est sa capacité à être examiné, évalué et vérifié par des tiers — en termes de performances, de comportements, de conformité éthique et réglementaire — grâce à une documentation adéquate, une traçabilité complète et des mécanismes de test reproductibles.",
+  "knowledge": {
+    "auditability_components": [
+      {
+        "component": "Documentation",
+        "includes": [
+          "Model cards",
+          "Datasheets for datasets",
+          "Architecture technique",
+          "Hypothèses de conception"
+        ]
+      },
+      {
+        "component": "Traçabilité",
+        "includes": [
+          "Logs des inputs/outputs",
+          "Versioning des modèles",
+          "Historique des changements de configuration"
+        ]
+      },
+      {
+        "component": "Reproductibilité",
+        "includes": [
+          "Tests automatisés reproductibles",
+          "Benchmarks de référence",
+          "Environnements de test documentés"
+        ]
+      },
+      {
+        "component": "Accessibilité pour les auditeurs",
+        "includes": [
+          "Accès contrôlé aux logs",
+          "Interface d'audit dédiée",
+          "Processus d'escalade défini"
+        ]
+      }
     ],
-    "references": []
+    "audit_types": [
+      {
+        "type": "Audit interne",
+        "frequency": "Trimestriel ou semestriel",
+        "scope": "Performance, biais, sécurité"
+      },
+      {
+        "type": "Audit externe",
+        "frequency": "Annuel ou pré-déploiement pour les systèmes à haut risque",
+        "scope": "Conformité réglementaire complète"
+      },
+      {
+        "type": "Audit continu (monitoring)",
+        "frequency": "En temps réel ou quasi-réel",
+        "scope": "Détection de dérive, incidents, anomalies"
+      }
+    ]
   },
-  "metadata": {
-    "created": "2026-05-12",
-    "updated": "2026-05-12",
-    "author": "Cognitive Products Lab"
+  "example_answers": [
+    {
+      "prompt": "Comment préparer notre système IA pour un audit réglementaire ?",
+      "answer": "Quatre éléments essentiels : documentation technique complète (model card, architecture, données), logs des décisions couvrant la période requise, résultats des tests de performance et d'équité, et liste des incidents avec les corrections apportées. L'audit ne se prépare pas en urgence — la documentation doit être maintenue en continu."
+    },
+    {
+      "prompt": "Qu'est-ce qu'un model card ?",
+      "answer": "Une model card est un document standardisé qui décrit un modèle IA : son objectif, les données d'entraînement, les performances mesurées sur différents groupes, les limites connues et les usages non recommandés. Google a popularisé le format en 2019 (Mitchell et al.). L'EU AI Act exige un équivalent pour les systèmes à haut risque."
+    }
+  ],
+  "response_guidance": {
+    "tone": "rigoureux, orienté conformité et opérationnalité",
+    "structure": [
+      "identifier le principe de gouvernance en jeu",
+      "expliquer l'application concrète",
+      "pointer les risques de non-conformité"
+    ],
+    "avoid": [
+      "trop théorique sans ancrage opérationnel",
+      "ignorer le contexte réglementaire EU",
+      "confondre gouvernance et éthique abstraite"
+    ]
   },
-  "core_concepts": [
-    "Audit trail",
-    "Decision logs",
-    "Transparency",
-    "Traceability"
+  "tags": [
+    "auditabilité",
+    "model card",
+    "logs",
+    "documentation",
+    "reproductibilité",
+    "gouvernance IA",
+    "AI governance",
+    "conformité"
   ],
-  "objectives": [
-    "Tracer les décisions IA",
-    "Faciliter les audits",
-    "Améliorer la transparence"
-  ],
-  "alfred_application": [
-    "Logs ALFRED",
-    "Historique décisions",
-    "Contrôle conformité"
-  ],
-  "aliases": [],
-  "relationships": {
-    "merged_from": [],
-    "see_also": [],
-    "depends_on": []
-  },
-  "retrieval": {
-    "priority": "medium",
-    "trigger_queries": []
-  }
+  "related_knowledge_units": [
+    "knowledges.professional.standards_iso.iso_42001_ai_management_system",
+    "knowledges.cpl.ethics_governance.ethical_ai_framework"
+  ]
 }

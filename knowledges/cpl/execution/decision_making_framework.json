@@ -1,53 +1,113 @@
 {
-  "id": "decision_making_framework",
-  "name": "Decision Making Framework",
-  "version": "1.0.0",
-  "category": "execution",
-  "purpose": "Aider ALFRED à structurer les décisions complexes avec critères, options, risques et recommandations.",
-  "concepts": [
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "id": "knowledges.cpl.execution.decision_making_framework",
+  "title": "Cadres de prise de décision",
+  "domain": "cpl",
+  "subdomain": "execution",
+  "status": "validated",
+  "summary": "Décider efficacement exige de clarifier le type de décision, les critères qui comptent et qui doit trancher. Les cadres structurent le raisonnement et réduisent les biais cognitifs qui dégradent la qualité des choix.",
+  "core_definition": "Un cadre de décision est un processus structuré pour choisir entre plusieurs options en minimisant les biais cognitifs et en maximisant la qualité du raisonnement. Il s'adapte à la réversibilité, l'urgence et le niveau de certitude de la situation.",
+  "knowledge": {
+    "decision_types": [
+      {
+        "type": "Décision réversible à faible impact",
+        "approach": "Décider vite, tester, ajuster. Pas besoin de consensus."
+      },
+      {
+        "type": "Décision réversible à fort impact",
+        "approach": "Valider les hypothèses clés avant de décider. Impliquer les parties prenantes."
+      },
+      {
+        "type": "Décision irréversible à faible impact",
+        "approach": "Décider avec méthode simple. Prendre en compte les conséquences à long terme."
+      },
+      {
+        "type": "Décision irréversible à fort impact",
+        "approach": "Processus rigoureux : options, critères, scénarios, validation externe si possible."
+      }
+    ],
+    "frameworks": [
+      {
+        "name": "WRAP (Heath & Heath)",
+        "steps": [
+          "Widen your options — explorer au-delà des deux options apparentes",
+          "Reality-test your assumptions — tester les hypothèses clés",
+          "Attain distance — prendre du recul émotionnel",
+          "Prepare to be wrong — prévoir un plan B"
+        ]
+      },
+      {
+        "name": "Analyse coûts/bénéfices",
+        "steps": [
+          "Lister les options",
+          "Définir les critères de valeur",
+          "Peser chaque option sur chaque critère",
+          "Choisir l'option avec le meilleur équilibre global"
+        ]
+      },
+      {
+        "name": "Pré-mortem",
+        "steps": [
+          "Imaginer que la décision a échoué dans 12 mois",
+          "Identifier pourquoi elle a échoué",
+          "Utiliser ces causes potentielles pour renforcer la décision ou changer de cap"
+        ]
+      }
+    ],
+    "decision_biases_to_watch": [
+      "Biais de confirmation — chercher des informations qui valident ce qu'on croit déjà",
+      "Biais du statu quo — préférer ne rien changer même quand c'est sous-optimal",
+      "Biais d'ancrage — être trop influencé par la première information reçue",
+      "HIPPO effect — suivre la personne la mieux payée plutôt que les données",
+      "Escalade de l'engagement — persévérer dans une mauvaise direction pour justifier les coûts passés"
+    ],
+    "decision_criteria": [
+      "Impact attendu sur l'objectif principal",
+      "Réversibilité — peut-on corriger si c'est une erreur ?",
+      "Délai de feedback — quand saurons-nous si c'est la bonne décision ?",
+      "Coût d'opportunité — à quoi renonce-t-on en choisissant cette option ?"
+    ]
+  },
+  "example_answers": [
     {
-      "name": "Décision structurée",
-      "definition": "Choix fondé sur critères explicites plutôt que sur intuition seule.",
-      "usage": "Rendre les arbitrages défendables."
+      "prompt": "On a du mal à trancher entre deux options, comment décider ?",
+      "answer": "D'abord : est-ce réversible ou non ? Si c'est réversible, décide vite et teste. Si non, structure : quels critères comptent vraiment ? Quelle option performe le mieux sur les critères non-négociables ? Ensuite, le pré-mortem : si dans 6 mois c'est un échec, pourquoi ? Cette question révèle souvent ce qu'on ne voulait pas voir."
     },
     {
-      "name": "Critère",
-      "definition": "Élément utilisé pour comparer les options.",
-      "usage": "Objectiver le choix."
+      "prompt": "Toute l'équipe est d'accord mais j'ai un doute.",
+      "answer": "Le doute individuel face au consensus vaut la peine d'être exprimé. Joue l'avocat du diable : 'Qu'est-ce qu'on n'a pas encore envisagé ?' ou 'Pourquoi est-ce qu'on échouerait malgré tout ?' Ce n'est pas bloquer — c'est améliorer la qualité de la décision collective."
     },
     {
-      "name": "Recommandation",
-      "definition": "Option proposée avec justification.",
-      "usage": "Aider à passer à l’action."
+      "prompt": "Comment éviter de décider sous pression émotionnelle ?",
+      "answer": "La règle des 10/10/10 (Suzy Welch) : dans 10 minutes, dans 10 mois, dans 10 ans — comment je me sentirai par rapport à cette décision ? L'ancrage temporel coupe l'urgence perçue et remet la décision dans une perspective plus saine."
     }
   ],
-  "rules": [
-    "Toujours expliciter les critères d’arbitrage.",
-    "Présenter les options avec avantages et limites.",
-    "Recommander une option quand les données sont suffisantes."
+  "response_guidance": {
+    "tone": "ancré, raisonné, qui aide à penser sans décider à la place",
+    "structure": [
+      "clarifier le type de décision",
+      "identifier les biais actifs",
+      "appliquer le cadre adapté",
+      "proposer un test ou une validation rapide"
+    ],
+    "avoid": [
+      "décider à la place de l'utilisateur",
+      "minimiser les doutes légitimes",
+      "surcomplexifier avec trop de frameworks simultanément"
+    ]
+  },
+  "tags": [
+    "décision",
+    "WRAP",
+    "pré-mortem",
+    "biais cognitifs",
+    "arbitrage",
+    "cpl"
   ],
-  "decision_framework": [
-    "Quelles options existent ?",
-    "Quels critères comptent ?",
-    "Quels risques ?",
-    "Quelle option maximise valeur et sécurité ?",
-    "Quelle prochaine action ?"
-  ],
-  "use_cases": [
-    {
-      "context": "Choix entre ralentir ou accélérer",
-      "action": "Comparer CA, coûts, santé, risque et opportunité",
-      "output": "Décision argumentée"
-    },
-    {
-      "context": "Choix d’un segment client prioritaire",
-      "action": "Comparer B2B, B2I, B2C selon valeur et faisabilité",
-      "output": "Priorité stratégique"
-    }
-  ],
-  "links": [
-    "strategy_fundamentals",
-    "risk_management",
-    "prioritization_methods"
+  "related_knowledge_units": [
+    "knowledges.professional.decision.decision_making",
+    "knowledges.human.cognition.decision_fatigue",
+    "knowledges.cpl.execution.risk_management"
   ]
 }

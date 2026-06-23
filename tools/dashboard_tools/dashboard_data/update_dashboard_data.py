@@ -738,7 +738,7 @@ def build_dashboard_data() -> dict:
 
         counts = status_counts(files_info)
 
-        blocks.append({
+        block_entry = {
             "id": block_id.lower(),
             "label": label,
             "target_full_files_count": target_full_files_count,
@@ -752,7 +752,10 @@ def build_dashboard_data() -> dict:
             "files_detected": detected,
             "files_missing": missing,
             "files": files_info,
-        })
+        }
+        if "roadmap_note" in block:
+            block_entry["roadmap_note"] = block["roadmap_note"]
+        blocks.append(block_entry)
 
     global_progress = (
         round(sum(block["progress"] for block in blocks) / len(blocks), 1)

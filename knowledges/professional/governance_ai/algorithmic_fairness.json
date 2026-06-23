@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "id": "knowledges.professional.governance_ai.algorithmic_fairness",
+  "title": "Équité algorithmique",
+  "domain": "professional",
+  "subdomain": "governance_ai",
+  "status": "validated",
+  "summary": "L'équité algorithmique est un domaine complexe avec plusieurs définitions mathématiquement incompatibles. Choisir la bonne définition selon le contexte est une décision éthique et politique autant que technique.",
+  "core_definition": "L'équité algorithmique (algorithmic fairness) est l'ensemble des méthodes et mesures permettant d'évaluer et d'assurer que les décisions d'un algorithme traitent équitablement les individus, notamment les membres de groupes historiquement désavantagés.",
+  "knowledge": {
+    "fairness_definitions": [
+      {
+        "name": "Parité démographique (Statistical parity)",
+        "definition": "Le taux de décision positive est identique pour tous les groupes",
+        "limitation": "Peut être satisfait même si la précision est différente selon les groupes"
+      },
+      {
+        "name": "Égalité des chances (Equal opportunity)",
+        "definition": "Le taux de vrais positifs est identique pour tous les groupes",
+        "limitation": "Ne garantit pas que les faux positifs sont équitables"
+      },
+      {
+        "name": "Parité prédictive (Predictive parity)",
+        "definition": "La précision des prédictions est identique pour tous les groupes",
+        "limitation": "Peut coexister avec des taux d'erreur très différents selon les groupes"
+      },
+      {
+        "name": "Équité individuelle (Individual fairness)",
+        "definition": "Individus similaires reçoivent des décisions similaires",
+        "limitation": "Difficile à mesurer sans définir 'similaire'"
+      }
+    ],
+    "impossibility_theorem": "Il est mathématiquement impossible de satisfaire simultanément toutes les définitions de fairness en présence de différences de base rates entre groupes (Chouldechova 2017, Kleinberg 2016). La définition à choisir est un choix éthique, pas technique.",
+    "practical_approach": [
+      "Définir explicitement quelle notion de fairness est prioritaire pour le cas d'usage",
+      "Mesurer les métriques de fairness sélectionnées par groupe protégé",
+      "Accepter les compromis explicitement avec les parties prenantes",
+      "Documenter le choix et les raisons"
+    ]
+  },
+  "example_answers": [
+    {
+      "prompt": "Notre modèle a un taux de précision de 95% — est-il équitable ?",
+      "answer": "Pas nécessairement. Un taux global de 95% peut masquer un taux de 98% pour un groupe et 85% pour un autre. Mesurer la précision par groupe protégé (genre, origine, âge) est la première étape. La précision globale cache souvent des inégalités que seule la décomposition révèle."
+    },
+    {
+      "prompt": "Quelle définition de fairness utiliser pour notre système de recrutement ?",
+      "answer": "Dans le recrutement, l'égalité des chances (equal opportunity) est souvent la définition la plus défendable éthiquement et juridiquement : les candidats qualifiés de tous les groupes doivent avoir le même taux de sélection. La parité démographique absolue peut être légalement contestée si elle ignore la qualification. Consulter un juriste spécialisé en droit du travail et discrimination avant déploiement."
+    }
+  ],
+  "response_guidance": {
+    "tone": "rigoureux, orienté conformité et opérationnalité",
+    "structure": [
+      "identifier le principe en jeu",
+      "expliquer l'application concrète",
+      "pointer les obligations réglementaires"
+    ],
+    "avoid": [
+      "trop théorique",
+      "ignorer le contexte EU",
+      "confondre principes et obligations"
+    ]
+  },
+  "tags": [
+    "équité",
+    "algorithme",
+    "fairness",
+    "biais",
+    "groupes protégés",
+    "impossibilité",
+    "gouvernance IA",
+    "conformité"
+  ],
+  "related_knowledge_units": [
+    "knowledges.professional.standards_iso.iso_42001_ai_management_system"
+  ]
+}
