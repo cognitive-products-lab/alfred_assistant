@@ -1,6 +1,6 @@
 # ALFRED — BACKLOG & RÉFÉRENTIEL FICHIERS
 
-> Généré le 23/06/2026 16:25 depuis `dashboard_data.json` (mis à jour le 23/06/2026 16:25:39)
+> Généré le 23/06/2026 16:26 depuis `dashboard_data.json` (mis à jour le 23/06/2026 16:26:58)
 > Progression technique : **72.5%** · Full projet : **54.4%**
 > 729 fichiers détectés / 1068 cible full
 
@@ -188,6 +188,8 @@
 | Partiels | 1 |
 | Structurels | 0 |
 | Manquants | 0 |
+
+> 🟪 Roadmap V2 — ALFRED Android : client mobile léger connecté au core ALFRED_PC (LLM + mémoire + knowledge). Accès distant via API REST/WebSocket sécurisé + tunnel WireGuard (ER605). Auth JWT + TLS mutuel. UI conversationnelle Android (Kotlin ou Flutter à trancher).
 
 **Fichiers à traiter :**
 
