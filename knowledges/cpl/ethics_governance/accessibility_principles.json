@@ -1,52 +1,92 @@
 {
-  "id": "accessibility_principles",
-  "name": "Accessibility Principles",
-  "version": "1.0.0",
-  "category": "ethics_governance",
-  "purpose": "Aider ALFRED à concevoir des solutions accessibles, inclusives et adaptées aux capacités des utilisateurs.",
-  "concepts": [
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "id": "knowledges.cpl.ethics_governance.accessibility_principles",
+  "title": "Principes d'accessibilité (produit et communication)",
+  "domain": "cpl",
+  "subdomain": "ethics_governance",
+  "status": "validated",
+  "summary": "L'accessibilité consiste à concevoir des produits et communications utilisables par tous, quelles que soient les capacités cognitives, physiques ou technologiques. C'est à la fois une obligation légale, une valeur éthique et un avantage business.",
+  "core_definition": "L'accessibilité (a11y) est la conception de produits, services et communications de sorte qu'ils puissent être utilisés par des personnes présentant un handicap (visuel, moteur, cognitif, auditif) et plus largement par tout utilisateur dans des conditions dégradées (mauvais réseau, stress, mobile, age avancé).",
+  "knowledge": {
+    "wcag_principles": [
+      {
+        "principle": "Perceptible",
+        "meaning": "L'information doit être présentée de façon que tous puissent la percevoir (alternatives textuelles aux images, sous-titres vidéo, contraste suffisant)"
+      },
+      {
+        "principle": "Utilisable",
+        "meaning": "L'interface doit être navigable sans souris (clavier, lecteur d'écran), sans délai arbitraire, sans contenu épileptogène"
+      },
+      {
+        "principle": "Compréhensible",
+        "meaning": "Le texte doit être lisible, le comportement prévisible, les erreurs clairement expliquées"
+      },
+      {
+        "principle": "Robuste",
+        "meaning": "Le contenu doit fonctionner avec les technologies actuelles et futures (navigateurs, assistants vocaux)"
+      }
+    ],
+    "cognitive_accessibility": [
+      "Langage simple (phrases courtes, vocabulaire commun, pas de jargon non expliqué)",
+      "Structure visuelle claire (titres, listes, espacement)",
+      "Charge cognitive réduite (pas plus de 7±2 éléments par groupement)",
+      "Feedback immédiat sur les actions (confirmation, erreur, chargement)",
+      "Pas d'urgence artificielle qui stresse l'utilisateur"
+    ],
+    "ai_accessibility": [
+      "Réponses en langage naturel adapté au niveau de l'utilisateur",
+      "Possibilité de demander une reformulation plus simple",
+      "Ne jamais supposer un niveau d'expertise non confirmé",
+      "Support vocal ET textuel pour les interactions",
+      "Éviter les longs blocs de texte — structurer avec des listes ou des étapes"
+    ],
+    "business_case": [
+      "15% de la population mondiale vit avec un handicap (OMS)",
+      "Les améliorations d'accessibilité bénéficient à 100% des utilisateurs (sous-titres, langage clair, contraste)",
+      "Obligation légale en UE (European Accessibility Act 2025 pour les produits numériques)",
+      "Améliore le SEO et la compatibilité mobile"
+    ]
+  },
+  "example_answers": [
     {
-      "name": "Accessibilité",
-      "definition": "Capacité d’un produit à être utilisé par des personnes ayant des besoins variés.",
-      "usage": "Réduire exclusion et friction d’usage."
+      "prompt": "Comment rendre ALFRED plus accessible ?",
+      "answer": "Trois axes : langage (réponses simples, possibilité de simplifier à la demande), structure (listes plutôt que longs paragraphes, titres clairs), et modes d'interaction (vocal + texte, réponse adaptée au contexte mobile vs desktop). L'accessibilité cognitive profite à tout le monde, pas seulement aux personnes en situation de handicap."
     },
     {
-      "name": "Charge cognitive",
-      "definition": "Effort mental nécessaire pour comprendre ou utiliser un système.",
-      "usage": "Simplifier l’expérience et éviter la surcharge."
+      "prompt": "Quels sont les critères WCAG les plus importants à respecter en priorité ?",
+      "answer": "Niveau AA minimum : contraste texte/fond ≥ 4.5:1, navigation clavier complète, alternatives textuelles aux images informatives, pas de contenu uniquement par la couleur. Pour une IA : clarté du langage et structure de réponse sont les critères d'accessibilité cognitive les plus impactants."
     },
     {
-      "name": "Adaptation multimodale",
-      "definition": "Possibilité d’utiliser texte, voix, visuel ou interaction simplifiée.",
-      "usage": "Adapter le produit aux préférences et contraintes."
+      "prompt": "Accessibilité et design, est-ce compatible ?",
+      "answer": "Oui. Les contraintes d'accessibilité améliorent souvent le design pour tout le monde. Un contraste élevé est plus lisible en plein soleil. Un langage simple est compris plus vite. Une navigation au clavier est précieuse pour les power users. L'accessibilité n'est pas une contrainte sur le design — c'est une contrainte de qualité."
     }
   ],
-  "rules": [
-    "Prévoir plusieurs modes d’interaction quand c’est utile.",
-    "Réduire le nombre d’actions nécessaires pour atteindre un objectif.",
-    "Ne jamais supposer qu’un utilisateur peut toujours lire, écrire, parler ou écouter."
+  "response_guidance": {
+    "tone": "pédagogique, positif, sans culpabiliser",
+    "structure": [
+      "identifier l'axe d'accessibilité concerné",
+      "citer le critère ou le principe applicable",
+      "proposer une amélioration concrète",
+      "rappeler le bénéfice universel"
+    ],
+    "avoid": [
+      "traiter l'accessibilité comme un coût supplémentaire",
+      "négliger l'accessibilité cognitive au profit de l'accessibilité technique",
+      "promettre la conformité totale sans audit"
+    ]
+  },
+  "tags": [
+    "accessibilité",
+    "WCAG",
+    "a11y",
+    "inclusion",
+    "design universel",
+    "cpl"
   ],
-  "decision_framework": [
-    "Quel public utilise la solution ?",
-    "Quels obstacles peuvent apparaître ?",
-    "Peut-on simplifier l’action ?",
-    "Faut-il proposer texte, voix ou visuel ?"
-  ],
-  "use_cases": [
-    {
-      "context": "B2C utilisateur en surcharge",
-      "action": "Simplifier parcours et réduire options",
-      "output": "Interaction plus accessible"
-    },
-    {
-      "context": "Institution santé/social",
-      "action": "Adapter langage, rythme, interface et consentement",
-      "output": "Parcours inclusif"
-    }
-  ],
-  "links": [
-    "ux_principles",
-    "user_needs_analysis",
-    "emotional_intelligence"
+  "related_knowledge_units": [
+    "knowledges.cpl.ethics_governance.ethical_ai_framework",
+    "knowledges.cpl.product_ia.product_design_methodology",
+    "knowledges.professional.frameworks.rgpd_gdpr_basics"
   ]
 }

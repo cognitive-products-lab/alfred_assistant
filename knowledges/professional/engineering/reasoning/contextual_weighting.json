@@ -1,26 +1,84 @@
 {
-    "id":  "contextual.weighting",
-    "created_at":  "2026-06-03",
-    "title":  "contextual weighting",
-    "tags":  [
-
-             ],
-    "source":  "recreated_from_dashboard_manifest",
-    "description":  "Fiche connaissance recréée automatiquement à partir du manifest dashboard.",
-    "status":  "draft",
-    "content":  {
-                    "summary":  "",
-                    "links":  [
-
-                              ],
-                    "use_cases":  [
-
-                                  ],
-                    "risks":  [
-
-                              ],
-                    "key_points":  [
-
-                                   ]
-                }
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "id": "knowledges.professional.engineering.reasoning.contextual_weighting",
+  "title": "Pondération contextuelle dans les réponses",
+  "domain": "professional",
+  "subdomain": "engineering_reasoning",
+  "status": "validated",
+  "summary": "Face à plusieurs sources d'information (mémoire, knowledge, conversation, instructions système), un LLM doit pondérer leur importance relative. La pondération contextuelle est le mécanisme qui détermine quelle source prime.",
+  "core_definition": "La pondération contextuelle est le processus par lequel un LLM détermine l'importance relative des différentes sources d'information disponibles (instructions système, historique conversationnel, knowledge RAG, données utilisateur) pour construire une réponse cohérente et pertinente.",
+  "knowledge": {
+    "context_sources_hierarchy": [
+      {
+        "source": "Instructions système",
+        "weight": "Très élevé — override des autres sources dans la plupart des cas"
+      },
+      {
+        "source": "Tour de conversation récent",
+        "weight": "Élevé — contexte immédiat de la requête"
+      },
+      {
+        "source": "Connaissances RAG récupérées",
+        "weight": "Moyen-élevé — factuel et spécifique"
+      },
+      {
+        "source": "Historique conversation lointain",
+        "weight": "Moyen — contexte général de l'utilisateur"
+      },
+      {
+        "source": "Connaissances d'entraînement",
+        "weight": "Base — tout ce que le modèle sait par défaut"
+      },
+      {
+        "source": "Inférences et extrapolations",
+        "weight": "Faible — à hedger explicitement"
+      }
+    ],
+    "weighting_challenges": [
+      "Conflits entre sources (instructions système contredisent une information RAG)",
+      "Sources obsolètes (connaissance d'entraînement vs information récente)",
+      "Sources de qualité variable (document RAG peu fiable vs instruction explicite)",
+      "Biais de récence vs importance (la dernière info n'est pas toujours la plus importante)"
+    ],
+    "alfred_weighting_model": "ALFRED applique une hiérarchie : règles système (non overridable) > mémoire utilisateur (contexte personnel) > knowledge RAG (factuel) > historique conversation > connaissance générale. En cas de conflit, ALFRED privilégie les sources plus spécifiques et plus récentes."
+  },
+  "example_answers": [
+    {
+      "prompt": "Si je te dis quelque chose qui contredit ta knowledge, laquelle tu choisis ?",
+      "answer": "Ce que tu me dis prend priorité sur mes connaissances générales — tu connais ton contexte mieux que moi. Si tu me dis 'dans notre entreprise, le processus X fonctionne ainsi', je m'adapte même si c'est différent de la pratique standard. Exception : si tu me demandes quelque chose qui viole une règle de sécurité ou éthique fondamentale — là les règles système s'appliquent quoi qu'il arrive."
+    },
+    {
+      "prompt": "Comment les LLMs choisissent ce qui prime dans leur contexte ?",
+      "answer": "L'attention mechanism des transformers pondère les tokens selon leur pertinence pour générer le token suivant. Concrètement : les instructions système et le contexte récent ont tendance à peser plus. Les informations RAG bien ciblées peuvent primer sur les connaissances d'entraînement. Mais ce n'est pas déterministe — d'où l'importance d'instructions claires et de RAG précis pour guider la pondération vers ce qu'on veut."
+    }
+  ],
+  "response_guidance": {
+    "tone": "rigoureux, ancré dans les mécanismes cognitifs et techniques du raisonnement LLM",
+    "structure": [
+      "identifier le type de raisonnement ou biais",
+      "expliquer le mécanisme",
+      "proposer une technique d'amélioration"
+    ],
+    "avoid": [
+      "confondre raisonnement humain et LLM",
+      "ignorer les limites des LLMs",
+      "trop abstrait"
+    ]
+  },
+  "tags": [
+    "pondération",
+    "sources",
+    "priorité",
+    "RAG",
+    "attention",
+    "contexte",
+    "raisonnement",
+    "LLM",
+    "inférence"
+  ],
+  "related_knowledge_units": [
+    "knowledges.professional.engineering.ai.reasoning_engine",
+    "knowledges.human.cognition.critical_thinking"
+  ]
 }

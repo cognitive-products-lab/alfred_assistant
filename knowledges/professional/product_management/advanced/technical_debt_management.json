@@ -1,0 +1,70 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "id": "knowledges.professional.product_management.advanced.technical_debt_management",
+  "title": "Gestion de la dette technique en product management",
+  "domain": "professional",
+  "subdomain": "product_management_advanced",
+  "status": "validated",
+  "summary": "La dette technique est un actif qui accumule des 'intérêts' sous forme de ralentissement de développement et de bugs. Le PM doit comprendre, quantifier et négocier la dette technique pour prendre des décisions éclairées sur le ratio features/refactoring.",
+  "core_definition": "La gestion de la dette technique en product management est la capacité du PM à comprendre les implications business de la dette technique accumulée, à la quantifier en termes d'impact sur la vélocité et la qualité, et à négocier avec les équipes d'ingénierie un équilibre sain entre développement de nouvelles features et remboursement de la dette.",
+  "knowledge": {
+    "technical_debt_definition": "Similairement à la dette financière : un raccourci technique pris maintenant crée des 'intérêts' sous forme de temps supplémentaire requis pour chaque future modification dans la zone concernée. La dette est acceptable si elle est consciente et remboursée à temps.",
+    "pm_debt_management": [
+      "Allouer 20% de la capacité engineering au remboursement de dette (règle empirique)",
+      "Quantifier la dette en termes d'impact vélocité (exemple : 'cette dette nous coûte 15% de notre capacité chaque sprint')",
+      "Prioriser la dette qui bloque les futures initiatives stratégiques",
+      "Inclure le remboursement de dette dans les roadmaps (pas comme une initiative cachée)"
+    ],
+    "debt_prioritization": [
+      {
+        "priority": "Haute",
+        "criterion": "Dette qui ralentit directement les initiatives prioritaires du prochain trimestre"
+      },
+      {
+        "priority": "Moyenne",
+        "criterion": "Dette qui génère des bugs récurrents impactant l'expérience utilisateur"
+      },
+      {
+        "priority": "Basse",
+        "criterion": "Dette dans du code rarement modifié ou sur le chemin de la dépréciation"
+      }
+    ]
+  },
+  "example_answers": [
+    {
+      "prompt": "Comment convaincre les stakeholders business d'allouer du temps au remboursement de la dette technique ?",
+      "answer": "Traduire en langage business : 'Notre dette technique actuelle nous coûte 2 jours-développeur par sprint de overhead. À 1500€/jour, c'est 3000€ par sprint soit ~72k€/an en coût d'opportunité, sans compter les bugs en production qui coûtent X€ en support.' Une fois la dette quantifiée en euros et en délais de livraison, la conversation change. Et montrer l'impact futur : 'si on ne rembourse pas X module, la feature Y (priorité Q1) prendra 3 mois au lieu d'1 mois'."
+    },
+    {
+      "prompt": "Comment ALFRED peut m'aider à gérer la dette technique de mon projet ?",
+      "answer": "ALFRED peut t'aider à structurer le dialogue avec l'équipe engineering : quelles zones de dette ont le plus d'impact sur les initiatives à venir ? Comment quantifier la vélocité perdue ? Et côté roadmap : comment réserver de la capacité pour la dette sans sacrifier la livraison de valeur ? Je peux aussi t'aider à préparer la communication aux stakeholders — transformer un problème technique en décision business."
+    }
+  ],
+  "response_guidance": {
+    "tone": "stratégique, ancré dans les métriques et la réalité des utilisateurs",
+    "structure": [
+      "identifier le contexte produit",
+      "expliquer le framework",
+      "proposer une application concrète"
+    ],
+    "avoid": [
+      "trop théorique",
+      "ignorer les contraintes business",
+      "recommander sans contexte"
+    ]
+  },
+  "tags": [
+    "dette technique",
+    "refactoring",
+    "vélocité",
+    "product management",
+    "engineering",
+    "product management",
+    "produit"
+  ],
+  "related_knowledge_units": [
+    "knowledges.cpl.strategy.strategy_fundamentals",
+    "knowledges.cpl.product_ia.user_needs_analysis"
+  ]
+}
