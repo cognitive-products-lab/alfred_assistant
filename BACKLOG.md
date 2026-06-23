@@ -1,6 +1,6 @@
 # ALFRED — BACKLOG & RÉFÉRENTIEL FICHIERS
 
-> Généré le 23/06/2026 16:26 depuis `dashboard_data.json` (mis à jour le 23/06/2026 16:26:58)
+> Généré le 23/06/2026 16:28 depuis `dashboard_data.json` (mis à jour le 23/06/2026 16:28:16)
 > Progression technique : **72.5%** · Full projet : **54.4%**
 > 729 fichiers détectés / 1068 cible full
 
@@ -264,7 +264,7 @@
 | Structurels | 0 |
 | Manquants | 0 |
 
-> 🟪 Roadmap V2 — Bloc absent (0 fichier). Fonctionnalités collaboration/coordination à définir et implémenter en V2.
+> 🟪 Roadmap V2 — ALFRED CPL : collaborateur professionnel interactif. Interface mode pro (brainstorming, revue docs, suivi projets), knowledges métier CPL (IA, cybersécurité, entrepreneuriat, droit numérique), co-rédaction, mémoire des décisions. Module src/collaboration/ + knowledges/professional/cpl/ à créer.
 
 ### 🟢 B11 — Intelligence cognitive avancée `82.1%`
 
