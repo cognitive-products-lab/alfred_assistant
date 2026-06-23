@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "id": "knowledges.professional.governance_ai.data_governance_ai",
+  "title": "Gouvernance des données pour l'IA",
+  "domain": "professional",
+  "subdomain": "governance_ai",
+  "status": "validated",
+  "summary": "La qualité, la provenance et la conformité des données d'entraînement et d'inférence déterminent la qualité et la légalité des systèmes IA. La gouvernance des données IA articule collecte, consentement, qualité et rétention.",
+  "core_definition": "La gouvernance des données pour l'IA est l'ensemble des politiques, processus et contrôles qui assurent que les données utilisées pour entraîner, valider et opérer les systèmes IA sont de qualité suffisante, légalement obtenues, conformes aux réglementations et tracées tout au long de leur cycle de vie.",
+  "knowledge": {
+    "data_governance_components": [
+      {
+        "component": "Catalogue de données",
+        "description": "Inventaire documenté de toutes les données utilisées : source, format, qualité, consentement"
+      },
+      {
+        "component": "Data lineage",
+        "description": "Traçabilité complète : d'où viennent les données, comment ont-elles été transformées, où sont-elles utilisées"
+      },
+      {
+        "component": "Qualité des données",
+        "description": "Métriques de complétude, cohérence, exactitude et fraîcheur — monitorer en continu"
+      },
+      {
+        "component": "Consentement et RGPD",
+        "description": "Vérification que les données d'entraînement respectent le consentement des personnes concernées"
+      },
+      {
+        "component": "Rétention et droit à l'oubli",
+        "description": "Processus pour supprimer les données à la demande ou en fin de durée de conservation"
+      }
+    ],
+    "ai_specific_data_risks": [
+      "Données d'entraînement avec biais historiques — reproduits et amplifiés par le modèle",
+      "Données personnelles utilisées sans consentement adéquat pour l'IA",
+      "Contamination train/test qui surestime les performances",
+      "Données synthétiques insuffisamment validées",
+      "Mémorisation par le LLM de données sensibles restituables via prompts"
+    ]
+  },
+  "example_answers": [
+    {
+      "prompt": "Peut-on utiliser les données clients pour entraîner notre modèle IA ?",
+      "answer": "Oui, sous conditions strictes : consentement explicite pour cet usage spécifique dans les CGU, anonymisation si les données sont sensibles, mention dans la politique de confidentialité, et droit à l'oubli applicable (si un client demande la suppression, ses données doivent être retirées du dataset et le modèle potentiellement retrained). Consulter le DPO avant toute collecte."
+    },
+    {
+      "prompt": "Comment s'assurer que les données d'entraînement sont de bonne qualité ?",
+      "answer": "Cinq dimensions : complétude (pas trop de valeurs manquantes), exactitude (les labels sont corrects), cohérence (pas de contradictions internes), fraîcheur (les données sont récentes) et représentativité (couvrent tous les cas d'usage et groupes d'utilisateurs). Un audit de qualité des données avant tout entraînement est non négociable."
+    }
+  ],
+  "response_guidance": {
+    "tone": "rigoureux, orienté conformité et opérationnalité",
+    "structure": [
+      "identifier le principe de gouvernance en jeu",
+      "expliquer l'application concrète",
+      "pointer les risques de non-conformité"
+    ],
+    "avoid": [
+      "trop théorique sans ancrage opérationnel",
+      "ignorer le contexte réglementaire EU",
+      "confondre gouvernance et éthique abstraite"
+    ]
+  },
+  "tags": [
+    "données",
+    "data governance",
+    "RGPD",
+    "data lineage",
+    "consentement",
+    "gouvernance IA",
+    "AI governance",
+    "conformité"
+  ],
+  "related_knowledge_units": [
+    "knowledges.professional.standards_iso.iso_42001_ai_management_system",
+    "knowledges.cpl.ethics_governance.ethical_ai_framework"
+  ]
+}

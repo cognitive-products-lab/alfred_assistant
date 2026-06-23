@@ -1,53 +1,120 @@
 {
-  "id": "business_model_design",
-  "name": "Business Model Design",
-  "version": "1.0.0",
-  "category": "strategy",
-  "purpose": "Aider ALFRED à structurer un modèle économique viable combinant B2B, B2I, B2C, service et SaaS.",
-  "concepts": [
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "id": "knowledges.cpl.strategy.business_model_design",
+  "title": "Design du modèle business",
+  "domain": "cpl",
+  "subdomain": "strategy",
+  "status": "validated",
+  "summary": "Un modèle business décrit comment une organisation crée, délivre et capture de la valeur. Le Business Model Canvas (BMC) est l'outil de référence pour le cadrer en 9 blocs.",
+  "core_definition": "Le modèle business est la logique par laquelle une organisation génère de la valeur pour ses clients et la transforme en revenus durables. Il articule la proposition de valeur, les segments clients, les canaux, les ressources clés, les flux de revenus et la structure de coûts.",
+  "knowledge": {
+    "bmc_blocks": [
+      {
+        "block": "Segments clients",
+        "question": "Pour qui créons-nous de la valeur ?"
+      },
+      {
+        "block": "Proposition de valeur",
+        "question": "Quel problème résolvons-nous ? Quel besoin satisfaisons-nous ?"
+      },
+      {
+        "block": "Canaux",
+        "question": "Comment atteignons-nous nos clients ?"
+      },
+      {
+        "block": "Relations clients",
+        "question": "Quel type de relation établissons-nous ?"
+      },
+      {
+        "block": "Flux de revenus",
+        "question": "Comment monétisons-nous la valeur créée ?"
+      },
+      {
+        "block": "Ressources clés",
+        "question": "Quels actifs sont indispensables ?"
+      },
+      {
+        "block": "Activités clés",
+        "question": "Quelles actions sont critiques ?"
+      },
+      {
+        "block": "Partenaires clés",
+        "question": "Qui nous aide à réussir ?"
+      },
+      {
+        "block": "Structure de coûts",
+        "question": "Quels sont les coûts les plus importants ?"
+      }
+    ],
+    "common_models": [
+      {
+        "name": "SaaS / Abonnement",
+        "logic": "Revenus récurrents, coût d'acquisition amorti dans le temps"
+      },
+      {
+        "name": "Freemium",
+        "logic": "Acquisition large gratuite, conversion sur fonctions premium"
+      },
+      {
+        "name": "Marketplace",
+        "logic": "Commission sur transactions entre offreurs et demandeurs"
+      },
+      {
+        "name": "Conseil / Services",
+        "logic": "Valeur dans l'expertise humaine, facturation au temps ou au livrable"
+      },
+      {
+        "name": "Produit + Services",
+        "logic": "Produit core + accompagnement, maintenance ou formation en upsell"
+      }
+    ],
+    "viability_tests": [
+      "Les clients paient-ils vraiment pour ce qu'on propose ?",
+      "Le coût d'acquisition client (CAC) est-il inférieur à la valeur vie client (LTV) ?",
+      "Le modèle est-il scalable ou dépendant de ressources rares ?",
+      "Les flux de revenus sont-ils diversifiés ou concentrés sur un seul client ?"
+    ]
+  },
+  "example_answers": [
     {
-      "name": "Business model",
-      "definition": "Logique de création, livraison et capture de valeur.",
-      "usage": "Relier offre, cible, revenus, coûts et ressources."
+      "prompt": "Comment choisir entre freemium et abonnement payant ?",
+      "answer": "Freemium si tu as besoin d'une base d'utilisateurs large pour créer de l'effet réseau ou valider l'usage. Abonnement payant dès le début si tu cibles des professionnels avec un problème précis et douloureux. L'erreur classique : offrir trop gratuitement et ne jamais convertir."
     },
     {
-      "name": "Modèle hybride",
-      "definition": "Combinaison de sources de revenus, par exemple conseil puis SaaS.",
-      "usage": "Réduire le risque par diversification."
+      "prompt": "On a une idée produit, comment modéliser le business ?",
+      "answer": "On commence par les deux blocs centraux du BMC : la proposition de valeur et le segment client. Tout le reste découle de là — les canaux pour les atteindre, les revenus pour monétiser, les ressources pour délivrer. En 45 minutes, on peut avoir un BMC de travail suffisant pour aller tester."
     },
     {
-      "name": "Scalabilité",
-      "definition": "Croissance sans hausse proportionnelle des coûts.",
-      "usage": "Passer du service au produit plus rentable."
+      "prompt": "Qu'est-ce qu'un bon modèle business pour une IA ?",
+      "answer": "Pour une IA : préférer un modèle à revenus récurrents (abonnement) car les coûts d'inférence sont continus. Le freemium fonctionne si le produit crée une habitude rapide. Éviter la facturation à l'usage si les coûts sont imprévisibles côté infrastructure."
     }
   ],
-  "rules": [
-    "Distinguer service, SaaS et revenus récurrents.",
-    "Ne pas lancer un SaaS sans validation terrain.",
-    "Sécuriser le court terme par le service avant le SaaS."
+  "response_guidance": {
+    "tone": "pragmatique, orienté action, concret",
+    "structure": [
+      "identifier le bloc BMC concerné",
+      "décrire la logique value/revenue",
+      "pointer le risque principal",
+      "suggestion de test immédiat"
+    ],
+    "avoid": [
+      "lister les 9 blocs BMC sans les relier à la situation",
+      "être trop théorique",
+      "ignorer la question de la viabilité économique"
+    ]
+  },
+  "tags": [
+    "business model",
+    "BMC",
+    "monetisation",
+    "revenus",
+    "stratégie",
+    "cpl"
   ],
-  "decision_framework": [
-    "Quelle cible paie ?",
-    "Quel problème est monétisable ?",
-    "Le revenu est-il ponctuel ou récurrent ?",
-    "Quels coûts sont fixes ou variables ?",
-    "Le modèle peut-il ralentir ou accélérer ?"
-  ],
-  "use_cases": [
-    {
-      "context": "Création d'une offre CPL",
-      "action": "Comparer B2B, B2I et B2C",
-      "output": "Modèle segmenté"
-    },
-    {
-      "context": "Préparation financeur",
-      "action": "Expliquer la logique conseil puis SaaS",
-      "output": "Trajectoire économique crédible"
-    }
-  ],
-  "links": [
-    "pricing_strategy",
-    "profitability_analysis",
-    "revenue_mix_strategy"
+  "related_knowledge_units": [
+    "knowledges.cpl.strategy.strategy_fundamentals",
+    "knowledges.cpl.strategy.value_proposition_framework",
+    "knowledges.cpl.business_piloting.pricing_strategy"
   ]
 }

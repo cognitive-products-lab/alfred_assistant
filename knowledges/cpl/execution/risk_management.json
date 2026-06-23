@@ -1,53 +1,108 @@
 {
-  "id": "risk_management",
-  "name": "Risk Management",
-  "version": "1.0.0",
-  "category": "execution",
-  "purpose": "Aider ALFRED à identifier, évaluer et réduire les risques projet, business, techniques et humains.",
-  "concepts": [
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "id": "knowledges.cpl.execution.risk_management",
+  "title": "Gestion des risques",
+  "domain": "cpl",
+  "subdomain": "execution",
+  "status": "validated",
+  "summary": "Un risque est un événement incertain qui pourrait affecter les objectifs. La gestion des risques consiste à les identifier, évaluer (probabilité × impact), prioriser et définir une réponse adaptée avant qu'ils se matérialisent.",
+  "core_definition": "La gestion des risques (Risk Management) est le processus structuré d'identification, d'évaluation et de traitement des menaces potentielles sur un projet ou une organisation, afin de réduire les surprises et préserver la capacité à atteindre les objectifs.",
+  "knowledge": {
+    "risk_process": [
+      {
+        "step": "1. Identification",
+        "action": "Lister tous les risques plausibles (risques techniques, humains, externes, financiers, calendaires)"
+      },
+      {
+        "step": "2. Évaluation",
+        "action": "Scorer chaque risque : Probabilité (1-5) × Impact (1-5) = Score de criticité"
+      },
+      {
+        "step": "3. Priorisation",
+        "action": "Traiter en priorité les risques à score élevé (≥ 12/25)"
+      },
+      {
+        "step": "4. Réponse",
+        "action": "Choisir une stratégie de réponse pour chaque risque critique"
+      },
+      {
+        "step": "5. Suivi",
+        "action": "Réévaluer régulièrement — un risque peut changer de probabilité ou d'impact en cours de projet"
+      }
+    ],
+    "response_strategies": [
+      {
+        "strategy": "Évitement",
+        "logic": "Modifier le plan pour éliminer le risque (changer de technologie, de délai, de périmètre)"
+      },
+      {
+        "strategy": "Réduction",
+        "logic": "Réduire la probabilité ou l'impact (prototyper plus tôt, ajouter un test, former l'équipe)"
+      },
+      {
+        "strategy": "Transfert",
+        "logic": "Transférer le risque à un tiers (assurance, clause contractuelle, partenaire)"
+      },
+      {
+        "strategy": "Acceptation",
+        "logic": "Accepter le risque en connaissance de cause, avec un plan de contingence si nécessaire"
+      }
+    ],
+    "risk_categories": [
+      "Risques techniques (technologie non maîtrisée, dette technique)",
+      "Risques ressources (absence clé, charge sous-estimée)",
+      "Risques calendaires (dépendance externe, contrainte réglementaire)",
+      "Risques business (marché qui change, client qui annule)",
+      "Risques data/sécurité (fuite, corruption, RGPD)"
+    ],
+    "early_warning_signs": [
+      "Tâches critiques qui glissent sans escalade",
+      "Dépendances non confirmées dans le plan",
+      "Feedback client absent depuis trop longtemps",
+      "Estimations systématiquement dépassées de >30%",
+      "Membre clé de l'équipe surchargé sans remplaçant"
+    ]
+  },
+  "example_answers": [
     {
-      "name": "Risque",
-      "definition": "Événement incertain pouvant impacter un objectif.",
-      "usage": "Anticiper avant que le problème n’arrive."
+      "prompt": "Comment identifier les risques d'un projet rapidement ?",
+      "answer": "Un brainstorming de 30 minutes avec l'équipe suffit souvent. On part des catégories : technique, ressources, calendaire, business, données. Pour chaque catégorie, la question est : qu'est-ce qui pourrait mal tourner et qui nous surprendrait ? On liste sans filtrer, on évalue ensuite."
     },
     {
-      "name": "Probabilité",
-      "definition": "Chance qu’un risque se produise.",
-      "usage": "Classer les risques."
+      "prompt": "On a un risque technique fort sur une dépendance externe, que faire ?",
+      "answer": "Stratégie de réduction : prototyper l'intégration dès maintenant plutôt qu'en fin de projet. Si la dépendance est bloquante, anticiper une alternative (plan B). Escalader à la direction si le risque est hors de contrôle de l'équipe — garder ça silencieux est la pire option."
     },
     {
-      "name": "Impact",
-      "definition": "Gravité des conséquences si le risque se produit.",
-      "usage": "Prioriser les réponses."
+      "prompt": "Quelle différence entre risque et problème ?",
+      "answer": "Un risque est potentiel — il peut arriver ou non. Un problème est réel — il s'est déjà matérialisé. On gère les risques en amont (prévention / préparation) et les problèmes en temps réel (correction / contingence). L'erreur classique : ne gérer que les problèmes et ignorer les risques jusqu'à ce qu'ils deviennent des problèmes."
     }
   ],
-  "rules": [
-    "Toujours traiter en priorité les risques à fort impact.",
-    "Associer chaque risque critique à une action de réduction.",
-    "Réviser les risques à chaque jalon important."
+  "response_guidance": {
+    "tone": "structuré, anticipatif, sans alarmisme",
+    "structure": [
+      "identifier la catégorie de risque",
+      "évaluer probabilité et impact",
+      "proposer la stratégie de réponse adaptée",
+      "définir le déclencheur de suivi"
+    ],
+    "avoid": [
+      "paniquer ou minimiser",
+      "proposer une réponse sans l'adapter au contexte",
+      "ignorer les risques faible probabilité mais fort impact (black swans)"
+    ]
+  },
+  "tags": [
+    "risques",
+    "risk management",
+    "probabilité",
+    "impact",
+    "mitigation",
+    "cpl"
   ],
-  "decision_framework": [
-    "Quel risque menace l’objectif ?",
-    "Quelle probabilité ?",
-    "Quel impact ?",
-    "Quelle action préventive ?",
-    "Quel plan B ?"
-  ],
-  "use_cases": [
-    {
-      "context": "Budget A5 sous tension",
-      "action": "Identifier leviers rémunération, freelances, communication",
-      "output": "Plan d’ajustement"
-    },
-    {
-      "context": "Développement SaaS incertain",
-      "action": "Définir jalons de validation avant investissement",
-      "output": "Roadmap sécurisée"
-    }
-  ],
-  "links": [
-    "profitability_analysis",
-    "project_management_core",
-    "tech_tradeoff_framework"
+  "related_knowledge_units": [
+    "knowledges.cpl.execution.project_management_core",
+    "knowledges.professional.decision.tradeoff_analysis",
+    "knowledges.professional.standards_iso.iso_31000_risk_management"
   ]
 }
