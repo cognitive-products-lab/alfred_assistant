@@ -106,6 +106,34 @@ DOMAIN_META: dict[str, dict] = {
         "retrieval_hint_en": "Triggered on daily queries: organisation, health, habits, "
                              "personal goals.",
     },
+    "cognition": {
+        "label_fr": "Cognition",   "label_en": "Cognition",
+        "emoji": "🧩",             "color": "#a371f7",
+        "usage_fr": "Processus mentaux et systèmes de pensée : attention, focus, biais cognitifs, "
+                    "pensée critique, modèles mentaux. Complémentaire au domaine human pour "
+                    "les requêtes liées à la clarté d'esprit et à la prise de décision.",
+        "usage_en": "Mental processes and thinking systems: attention, focus, cognitive biases, "
+                    "critical thinking, mental models. Complements the human domain for "
+                    "queries about mental clarity and decision-making.",
+        "retrieval_hint_fr": "Activé sur les requêtes liées à la concentration, aux biais, à la "
+                             "pensée critique ou aux systèmes de réflexion (deep work, modèles mentaux).",
+        "retrieval_hint_en": "Triggered on queries about focus, biases, critical thinking or "
+                             "thinking systems (deep work, mental models).",
+    },
+    "communication": {
+        "label_fr": "Communication", "label_en": "Communication",
+        "emoji": "💬",               "color": "#39d353",
+        "usage_fr": "Toutes les formes de communication : verbale, non-verbale, écrite, digitale, "
+                    "interculturelle, influence et personal branding. 20 fichiers couvrant "
+                    "les soft skills communicationnels essentiels.",
+        "usage_en": "All forms of communication: verbal, non-verbal, written, digital, "
+                    "cross-cultural, influence and personal branding. 20 files covering "
+                    "essential communication soft skills.",
+        "retrieval_hint_fr": "Activé sur les requêtes liées à la prise de parole, à l'écriture, "
+                             "au leadership communicationnel, aux réseaux sociaux ou à l'influence.",
+        "retrieval_hint_en": "Triggered on queries about public speaking, writing, communication "
+                             "leadership, social media or influence.",
+    },
     "index": {
         "label_fr": "Index",       "label_en": "Index",
         "emoji": "📑",             "color": "#8b949e",
@@ -312,7 +340,7 @@ def generate() -> None:
             examples_by_domain[d].append(k["id"])
 
     # ── Construction des domaines ──────────────────────────────────────────
-    domain_order = ["core", "human", "professional", "cpl", "culture", "system", "lifestyle"]
+    domain_order = ["core", "human", "professional", "cpl", "culture", "system", "lifestyle", "cognition", "communication"]
     other_domains = [d for d in scanned if d not in domain_order]
     all_domains = domain_order + other_domains
 
