@@ -162,6 +162,13 @@ if __name__ == "__main__":
     from src.ui.ui_bridge import activate as _bridge_activate
     _bridge_activate()
 
+    # Régénère la knowledge map en arrière-plan (non bloquant)
+    try:
+        from tools.startup_refresh import refresh_knowledge_dashboard_async
+        refresh_knowledge_dashboard_async()
+    except Exception:
+        pass
+
     # Pipeline en thread daemon (auto-restart integre)
     pipeline_thread = threading.Thread(
         target=_run_pipeline,
