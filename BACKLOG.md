@@ -1,6 +1,6 @@
 # ALFRED — BACKLOG & RÉFÉRENTIEL FICHIERS
 
-> Généré le 23/06/2026 16:02 depuis `dashboard_data.json` (mis à jour le 23/06/2026 16:02:01)
+> Généré le 23/06/2026 16:25 depuis `dashboard_data.json` (mis à jour le 23/06/2026 16:25:39)
 > Progression technique : **72.5%** · Full projet : **54.4%**
 > 729 fichiers détectés / 1068 cible full
 
@@ -339,7 +339,7 @@
 | Structurels | 1 |
 | Manquants | 0 |
 
-> 🟪 Roadmap V2/V3 — Architecture IoT esquissée (src/v4/) : 7 sous-modules tous vides (__init__.py uniquement). Implémentation prévue en V2/V3 (domotique, scénarios, triggers).
+> 🟪 Roadmap V2 — Architecture IoT esquissée (src/v4/). Systèmes disponibles : Google Home + Tuya. Implémenter : tinytuya (accès local/cloud) + Google Home API, pattern Adapter (tuya_adapter.py + google_home_adapter.py).
 
 ### 🟡 B15 — Présence visuelle & Avatar `66.9%`
 
@@ -495,6 +495,8 @@
 | Partiels | 10 |
 | Structurels | 5 |
 | Manquants | 0 |
+
+> 🟪 Roadmap V2 — Providers domotiques confirmés : Google Home + Tuya (tinytuya). Intégration à brancher sur src/v4/ lors de l'implémentation B14.
 
 **Fichiers à traiter :**
 
