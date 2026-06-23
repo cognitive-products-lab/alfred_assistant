@@ -94,6 +94,44 @@
             "culture.universes.marvel.iron_man",
             "culture.universes.marvel.jarvis"
           ]
+        },
+        "manga": {
+          "label": "Manga, anime et culture japonaise pop",
+          "intents": [
+            "recommend_manga",
+            "explain_manga_genre",
+            "discuss_one_piece",
+            "discuss_naruto",
+            "discuss_attack_on_titan",
+            "discuss_demon_slayer",
+            "discuss_dragon_ball",
+            "discuss_berserk",
+            "discuss_jujutsu_kaisen",
+            "explain_ghibli",
+            "explain_anime_culture",
+            "explain_manga_history",
+            "compare_manga_webtoon",
+            "discuss_junji_ito",
+            "explain_mangaka_profession",
+            "compare_manga_bd_franco_belge"
+          ],
+          "linked_knowledge": [
+            "culture.manga.anime_culture",
+            "culture.manga.attack_on_titan",
+            "culture.manga.berserk",
+            "culture.manga.demon_slayer",
+            "culture.manga.dragon_ball",
+            "culture.manga.franco_belge_vs_manga",
+            "culture.manga.jujutsu_kaisen",
+            "culture.manga.junji_ito_horror",
+            "culture.manga.manga_genres",
+            "culture.manga.manga_history",
+            "culture.manga.manga_vs_webtoon",
+            "culture.manga.mangaka_creation",
+            "culture.manga.naruto",
+            "culture.manga.one_piece",
+            "culture.manga.studio_ghibli_anime"
+          ]
         }
       }
     },
@@ -960,12 +998,70 @@
       }
     },
     "cuisine": {
-      "description": "Art culinaire, techniques, cuisines du monde",
-      "subdomains": [
-        "fondamentaux",
-        "francaise",
-        "asiatique"
-      ]
+      "label": "Cuisine et art culinaire",
+      "description": "Techniques de cuisine, recettes, cuisines du monde, patisserie et culture culinaire.",
+      "priority": "medium",
+      "safety_note": null,
+      "subdomains": {
+        "fondamentaux": {
+          "label": "Fondamentaux culinaires",
+          "intents": [
+            "explain_cooking_technique",
+            "recommend_equipment",
+            "explain_seasoning",
+            "explain_knife_skills",
+            "explain_sauce",
+            "explain_cooking_method"
+          ],
+          "linked_knowledge": [
+            "cuisine.fondamentaux.assaisonnement",
+            "cuisine.fondamentaux.couteaux_et_decoupe",
+            "cuisine.fondamentaux.cuissons_fondamentales",
+            "cuisine.fondamentaux.equipement_base",
+            "cuisine.fondamentaux.sauces_bases"
+          ]
+        },
+        "francaise": {
+          "label": "Cuisine francaise",
+          "intents": [
+            "explain_french_cuisine",
+            "recommend_french_recipe",
+            "explain_pastry",
+            "explain_french_technique"
+          ],
+          "linked_knowledge": [
+            "cuisine.francaise.cuisine_francaise_bases",
+            "cuisine.francaise.patisserie_bases"
+          ]
+        },
+        "asiatique": {
+          "label": "Cuisines asiatiques",
+          "intents": [
+            "explain_japanese_cuisine",
+            "explain_chinese_cuisine",
+            "explain_thai_cuisine",
+            "explain_korean_cuisine",
+            "explain_vietnamese_cuisine",
+            "explain_indian_cuisine",
+            "recommend_asian_recipe",
+            "explain_asian_ingredient",
+            "explain_dashi",
+            "explain_ramen",
+            "explain_curry",
+            "explain_kimchi",
+            "explain_pho",
+            "explain_wok_technique"
+          ],
+          "linked_knowledge": [
+            "cuisine.asiatique.cuisine_chinoise",
+            "cuisine.asiatique.cuisine_coreenne",
+            "cuisine.asiatique.cuisine_indienne",
+            "cuisine.asiatique.cuisine_japonaise",
+            "cuisine.asiatique.cuisine_thaie",
+            "cuisine.asiatique.cuisine_vietnamienne"
+          ]
+        }
+      }
     }
   },
   "intent_routing_rules": {
@@ -1050,6 +1146,27 @@
       "professional.engineering_reasoning",
       "professional.engineering_ai",
       "human.cognition"
+    ],
+    "communication_request": [
+      "communication.verbal",
+      "communication.written",
+      "communication.influence",
+      "communication.digital",
+      "communication.nonverbal"
+    ],
+    "cognition_thinking_request": [
+      "cognition.systeme_pensee",
+      "human.cognition",
+      "human.psychology"
+    ],
+    "cuisine_cooking_request": [
+      "cuisine.fondamentaux",
+      "cuisine.asiatique",
+      "cuisine.francaise"
+    ],
+    "manga_anime_culture_request": [
+      "culture.manga",
+      "culture.general"
     ]
   },
   "loading_policy": {
@@ -1062,11 +1179,14 @@
     ],
     "optional_domains": [
       "culture",
-      "lifestyle"
+      "lifestyle",
+      "communication",
+      "cognition",
+      "cuisine"
     ],
     "planned_domains_behavior": "Les sous-domaines avec status=planned sont conservés dans la taxonomie mais ne doivent pas être chargés tant qu'aucun fichier knowledge n'est associé.",
     "fallback_rule": "Si aucune correspondance claire n'est trouvée, ALFRED doit utiliser core.context_awareness, system.memory.memory_context_linking et human.cognition.uncertainty_management."
   },
   "last_updated": "2026-06-23",
-  "total_subdomains": 52
+  "total_subdomains": 53
 }
