@@ -1884,6 +1884,13 @@ def main() -> None:
     if not prompt_auth():
         sys.exit(1)
 
+    # Régénère la knowledge map en arrière-plan (non bloquant)
+    try:
+        from tools.startup_refresh import refresh_knowledge_dashboard_async
+        refresh_knowledge_dashboard_async()
+    except Exception:
+        pass
+
     components = init_components()
     memory = components["memory"]
     user_name = components.get("user_name", USER_FALLBACK_NAME)
