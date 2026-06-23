@@ -1,155 +1,103 @@
 {
-  "schema_version": "1.0",
+  "schema_version": "1.2",
   "type": "knowledge_unit",
   "id": "knowledges.lifestyle.health.fatigue_management",
-  "title": "Fatigue Management",
+  "title": "Gestion de la fatigue",
   "domain": "lifestyle",
-  "status": "validated_v1",
-
-  "summary": "Fiche destinée à aider ALFRED à accompagner l’utilisateur en cas de fatigue, surcharge ou baisse d’énergie, avec une approche non médicale, centrée sur la réduction de la charge mentale et l’action minimale utile.",
-
-  "core_definition": "La gestion de la fatigue consiste à adapter les actions, le rythme et les priorités au niveau d’énergie disponible, afin d’éviter la surcharge, préserver la récupération et maintenir une progression réaliste.",
-
-  "important_boundary": {
-    "medical_limit": "ALFRED ne diagnostique pas, ne traite pas et ne remplace pas un professionnel de santé.",
-    "safe_role": "ALFRED peut aider à organiser, prioriser, réduire la charge mentale et encourager le repos lorsque nécessaire."
-  },
-
-  "fatigue_signals": [
-    "je suis épuisée",
-    "je suis fatiguée",
-    "je n’ai plus d’énergie",
-    "je n’arrive pas à avancer",
-    "je suis vidée",
-    "je suis à plat",
-    "tout me semble trop lourd",
-    "je n’arrive pas à me concentrer"
-  ],
-
-  "response_principles": [
-    "réduire immédiatement le périmètre",
-    "ne pas pousser à la performance",
-    "proposer une seule action utile",
-    "favoriser la récupération",
-    "éviter la culpabilisation",
-    "valider la limite exprimée",
-    "préserver l’autonomie de décision"
-  ],
-
-  "action_levels": {
-    "very_low_energy": {
-      "description": "Énergie très basse, action minimale uniquement.",
-      "recommended_actions": [
-        "boire un verre d’eau",
-        "s’installer confortablement",
-        "noter une seule chose à ne pas oublier",
-        "reporter les tâches non urgentes",
-        "prévoir une pause"
-      ],
-      "response_style": "très court, rassurant, sans pression"
-    },
-    "low_energy": {
-      "description": "Énergie basse mais possibilité d’une micro-action.",
-      "recommended_actions": [
-        "choisir une tâche de moins de 5 minutes",
-        "préparer l’étape suivante sans l’exécuter",
-        "trier une seule information",
-        "réduire la liste à trois priorités maximum"
-      ],
-      "response_style": "simple, structuré, encourageant"
-    },
-    "medium_energy": {
-      "description": "Énergie modérée permettant une action légère et cadrée.",
-      "recommended_actions": [
-        "faire un mini-plan",
-        "traiter une priorité",
-        "avancer par bloc court",
-        "prévoir une pause après l’action"
-      ],
-      "response_style": "pragmatique, clair, orienté action"
-    }
-  },
-
-  "conversation_uses": [
-    "répondre à un message de fatigue",
-    "adapter une tâche au niveau d’énergie",
-    "prioriser quand l’utilisateur est épuisé",
-    "proposer une micro-action",
-    "éviter la sur-performance"
-  ],
-
-  "example_answers": [
-    {
-      "prompt": "Je suis épuisée.",
-      "answer": "On ne force pas. On réduit : une seule chose utile maintenant, même minuscule. Le reste peut attendre."
-    },
-    {
-      "prompt": "Je dois avancer mais je suis fatiguée.",
-      "answer": "On passe en mode énergie basse : pas de grand plan. Tu choisis une micro-action de 5 minutes, puis pause."
-    },
-    {
-      "prompt": "Je n’arrive pas à me concentrer.",
-      "answer": "Alors on ne demande pas au cerveau de faire un marathon. On garde une seule tâche visible, le reste disparaît temporairement."
-    }
-  ],
-
-  "response_guidance": {
-    "tone": "calme, doux, direct, non culpabilisant",
-    "structure": [
-      "reconnaître la fatigue",
-      "réduire le périmètre",
-      "proposer une action minimale",
-      "préserver la récupération"
+  "subdomain": "health",
+  "status": "validated",
+  "summary": "La fatigue chronique est distincte de la fatigue aigue — elle ne se resout pas par un bon repos ponctuel. La gestion de la fatigue comprend l'identification de sa source (physique, mentale, emotionnelle, de sens) et des strategies adaptes a chaque type.",
+  "core_definition": "La gestion de la fatigue est l'ensemble des pratiques permettant de prevenir, detecter et remedier aux differents types de fatigue — aigue (resolu par le repos), chronique (necessitant une reforme plus profonde) et de burnout (demandant une intervention significative) — en identifiant les sources specifiques et en adaptant les solutions.",
+  "knowledge": {
+    "fatigue_types": [
+      {
+        "type": "Fatigue physique",
+        "signals": [
+          "Muscles lourds",
+          "Endormissement facile",
+          "Recuperation lente"
+        ],
+        "remedies": [
+          "Sommeil",
+          "Nutrition",
+          "Recuperation active"
+        ]
+      },
+      {
+        "type": "Fatigue mentale",
+        "signals": [
+          "Difficulte de concentration",
+          "Decisions difficiles",
+          "Oublis frequents"
+        ],
+        "remedies": [
+          "Pauses cognitives",
+          "Reduction de la charge informationnelle",
+          "Sommeil profond"
+        ]
+      },
+      {
+        "type": "Fatigue emotionnelle",
+        "signals": [
+          "Irritabilite",
+          "Desengagement",
+          "Vide emotionnel"
+        ],
+        "remedies": [
+          "Activites ressourcantes",
+          "Temps seul",
+          "Soutien social"
+        ]
+      },
+      {
+        "type": "Burnout (fatigue de sens)",
+        "signals": [
+          "Cynisme",
+          "Detachement du travail",
+          "Sentiment d'inefficacite"
+        ],
+        "remedies": [
+          "Arret si necessaire",
+          "Accompagnement professionnel",
+          "Refonte de la situation"
+        ]
+      }
     ],
-    "avoid": [
-      "tu dois te motiver",
-      "force-toi un peu",
-      "allez, courage",
-      "tout est dans la tête",
-      "faire un plan trop lourd"
+    "prevention": [
+      "Somme de qualite suffisante (7-9h, reguliere)",
+      "Microrecuperations dans la journee",
+      "Limites aux engagements — savoir dire non",
+      "Detection precoce des signaux (avant le mur)"
     ]
   },
-
-  "links_to_alfred_identity": {
-    "dominant_layer": "alfred_pennyworth",
-    "mode": "support_mode",
-    "why": "La fatigue appelle d’abord la stabilité, la réduction de charge et le soutien, avant toute logique de performance."
+  "example_answers": [
+    {
+      "prompt": "Je suis toujours fatigue meme apres avoir dormi — qu'est-ce qui se passe ?",
+      "answer": "Plusieurs possibilites : (1) Qualite du sommeil mediocre malgre la duree — apnee du sommeil (surtout si tu rondles ou te reveilles sans etre repose), ecran avant le coucher, alcool, (2) Fatigue emotionnelle ou mentale qui ne se resout pas par le sommeil physique — si tu te reveilles en pensant deja au travail, le repos n'est pas efficace, (3) Probleme medical — hypothyroidie, anemie, deficience en vitamines D/B12 — a verifier avec un bilan sanguin si la fatigue persiste. Commence par exclure le medical avant d'ajuster les comportements."
+    },
+    {
+      "prompt": "Comment gerer la fatigue en periode de surcharge de travail ?",
+      "answer": "Priorites de survie : (1) Ne pas sacrifier le sommeil — en dessous de 6h, la performance cognitive s'effondre et les erreurs augmentent (et tu ne le percois pas — la fatigue altere la perception de sa propre fatigue), (2) Micro-pauses obligatoires — 5 min toutes les 90 min : fermer les yeux, respirer, bouger, (3) Reduire la charge informationnelle — notifications off, emails en 2 creneaux par jour, (4) Identifier la tache #1 de la journee et la faire en premier quand l'energie est la plus haute. La surcharge est souvent temporaire — mais si elle est chronique, c'est un signal structurel."
+    }
+  ],
+  "response_guidance": {
+    "tone": "bienveillant et ancré dans la réalité",
+    "structure": [
+      "contextualiser",
+      "expliquer le concept",
+      "proposer un angle actionnable"
+    ],
+    "avoid": [
+      "trop théorique",
+      "ignorer le contexte de l'utilisateur"
+    ]
   },
-
-  "related_knowledge_units": [
-    "knowledges.core.alfred_core_identity",
-    "knowledges.lifestyle.health.stress_management",
-    "knowledges.lifestyle.health.recovery_cycles",
-    "knowledges.lifestyle.daily_life.organization_basics",
-    "knowledges.human.self_alignment.routines.energy_management"
-  ],
-
-  "related_features": [
-    "3.03.001",
-    "3.03.002",
-    "4.03.001",
-    "4.03.002",
-    "5.03.002",
-    "5.05.001",
-    "14.02.003",
-    "18.05.004"
-  ],
-
   "tags": [
     "fatigue",
-    "energy_management",
-    "support",
-    "stabilite",
-    "low_energy",
-    "daily_life",
-    "self_alignment",
-    "alfred"
+    "burnout",
+    "recuperation",
+    "sommeil",
+    "sante"
   ],
-
-  "quality": {
-    "confidence": "high",
-    "requires_sources": false,
-    "review_needed": false,
-    "medical_safety": "non_medical_support_only"
-  }
+  "related_knowledge_units": []
 }

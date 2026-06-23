@@ -1,0 +1,93 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "id": "knowledges.professional.engineering.reasoning.deductive_reasoning",
+  "title": "Raisonnement déductif",
+  "domain": "professional",
+  "subdomain": "engineering_reasoning",
+  "status": "validated",
+  "summary": "Le raisonnement déductif part de prémisses générales pour en dériver des conclusions nécessaires. C'est le mode de raisonnement formel le plus fiable — si les prémisses sont vraies et la logique valide, la conclusion est vraie.",
+  "core_definition": "Le raisonnement déductif est une forme de raisonnement logique qui procède du général vers le particulier : à partir de prémisses générales (principes, règles, faits établis), on dérive des conclusions spécifiques dont la vérité est garantie si les prémisses sont vraies et le raisonnement valide.",
+  "knowledge": {
+    "deductive_forms": [
+      {
+        "form": "Syllogisme",
+        "structure": [
+          "Prémisse majeure : Tous les X sont Y",
+          "Prémisse mineure : Z est un X",
+          "Conclusion : Z est Y"
+        ],
+        "example": "Tous les modèles ont une fenêtre de contexte. GPT-4 est un modèle. GPT-4 a une fenêtre de contexte."
+      },
+      {
+        "form": "Modus ponens",
+        "structure": [
+          "Si P alors Q",
+          "P est vrai",
+          "Donc Q est vrai"
+        ],
+        "example": "Si le budget est dépassé, le projet est en danger. Le budget est dépassé. Le projet est en danger."
+      },
+      {
+        "form": "Modus tollens",
+        "structure": [
+          "Si P alors Q",
+          "Q est faux",
+          "Donc P est faux"
+        ],
+        "example": "Si le code est correct, les tests passent. Les tests ne passent pas. Le code n'est pas correct."
+      }
+    ],
+    "common_deductive_fallacies": [
+      {
+        "fallacy": "Affirmer le conséquent",
+        "example": "Si P alors Q. Q est vrai. Donc P est vrai. — INVALIDE (Q peut être vrai pour d'autres raisons)"
+      },
+      {
+        "fallacy": "Prémisse fausse",
+        "example": "Raisonnement valide mais sur une prémisse incorrecte → conclusion fausse"
+      },
+      {
+        "fallacy": "Généralisation abusive",
+        "example": "Traiter une règle avec exceptions comme absolue"
+      }
+    ],
+    "llm_deductive_performance": "Les LLMs performent bien sur la déduction formelle simple (syllogismes), mais tendent à 'court-circuiter' sur des chaînes de déduction longues. Le Chain of Thought force l'externalisation des étapes intermédiaires, améliorant la précision."
+  },
+  "example_answers": [
+    {
+      "prompt": "Aide-moi à vérifier si mon raisonnement est correct : 'Si notre taux de rétention est bon, les utilisateurs sont satisfaits. Notre taux de rétention est 80%. Donc nos utilisateurs sont satisfaits.'",
+      "answer": "Le raisonnement est valide formellement (modus ponens), mais attention à la prémisse majeure. Un bon taux de rétention n'implique pas nécessairement la satisfaction — il peut indiquer des frictions à la sortie (switching costs élevés) plutôt que de la satisfaction. Je te conseille de vérifier avec des données de satisfaction directes (NPS, CSAT) avant de conclure."
+    },
+    {
+      "prompt": "Comment utiliser la logique déductive pour analyser un bug ?",
+      "answer": "Structure classique : Prémisse 1 (règle du système) : 'Si l'input est null, la fonction X lève une NullPointerException'. Prémisse 2 (observation) : 'Une NullPointerException est levée'. Conclusion intermédiaire : 'L'input est probablement null'. Test de modus tollens : si l'input n'est PAS null après log, la prémisse 1 est insuffisante — chercher d'autres chemins vers l'exception. La déduction cadre le debug de façon systématique."
+    }
+  ],
+  "response_guidance": {
+    "tone": "rigoureux, ancré dans les mécanismes cognitifs et techniques du raisonnement LLM",
+    "structure": [
+      "identifier le type de raisonnement ou biais",
+      "expliquer le mécanisme",
+      "proposer une technique d'amélioration"
+    ],
+    "avoid": [
+      "confondre raisonnement humain et LLM",
+      "ignorer les limites des LLMs",
+      "trop abstrait"
+    ]
+  },
+  "tags": [
+    "déduction",
+    "syllogisme",
+    "logique formelle",
+    "modus ponens",
+    "raisonnement",
+    "raisonnement",
+    "LLM",
+    "inférence"
+  ],
+  "related_knowledge_units": [
+    "knowledges.professional.engineering.ai.reasoning_engine"
+  ]
+}
