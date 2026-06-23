@@ -23,6 +23,7 @@ SRC_SECURITY          = ALFRED_PC / "dashboard/dashboard_security/dashboard_secu
 SRC_TESTS             = ALFRED_PC / "dashboard/dashboard_tests/dashboard_tests.json"
 SRC_GOUVERNANCE       = ALFRED_PC / "dashboard/dashboard_gouvernance/dashboard_gouvernance.json"
 SRC_GOUVERNANCE_DATA  = ALFRED_PC / "dashboard/dashboard_gouvernance/dashboard_gouvernance_data.json"
+SRC_KNOWLEDGE_DATA    = ALFRED_PC / "dashboard/dashboard_knowledges_tool/knowledge_dashboard_data.json"
 
 WEB_ROOT = ROOT / "ALFRED_WEB"
 DEST_DIR = WEB_ROOT / "static/dashboard"
@@ -32,9 +33,11 @@ DEST_SECURITY          = DEST_DIR / "dashboard_security.json"
 DEST_TESTS             = DEST_DIR / "dashboard_test.json"
 DEST_GOUVERNANCE       = DEST_DIR / "dashboard_gouvernance.json"
 DEST_GOUVERNANCE_DATA  = DEST_DIR / "dashboard_gouvernance_data.json"
+DEST_KNOWLEDGE_DATA    = DEST_DIR / "knowledge_dashboard_data.json"
 LOG_FILE               = DEST_DIR / "sync_log.json"
 
-UPDATE_GOUVERNANCE = ALFRED_PC / "tools/dashboard_tools/dashboard_gouvernance/update_gouvernance_data.py"
+UPDATE_GOUVERNANCE   = ALFRED_PC / "tools/dashboard_tools/dashboard_gouvernance/update_gouvernance_data.py"
+GEN_KNOWLEDGE        = ALFRED_PC / "dashboard/dashboard_knowledges_tool/generate_knowledge_dashboard.py"
 
 # Patterns sensibles a anonymiser avant publication web
 _SENSITIVE_PATTERNS = {
@@ -106,6 +109,7 @@ def git_push(ts: str) -> dict:
         "static/dashboard/dashboard_test.json",
         "static/dashboard/dashboard_gouvernance.json",
         "static/dashboard/dashboard_gouvernance_data.json",
+        "static/dashboard/knowledge_dashboard_data.json",
         "static/dashboard/sync_log.json",
     ])
 
@@ -119,6 +123,21 @@ def git_push(ts: str) -> dict:
         return {"status": "ERROR", "reason": push.stderr.strip()}
 
     return {"status": "OK", "commit": msg}
+
+
+def regenerate_knowledge_dashboard() -> dict:
+    """Exécute generate_knowledge_dashboard.py pour recalculer le JSON knowledges."""
+    if not GEN_KNOWLEDGE.exists():
+        return {"status": "SKIP", "reason": "generate_knowledge_dashboard.py introuvable"}
+    result = subprocess.run(
+        ["python", str(GEN_KNOWLEDGE)],
+        cwd=str(ALFRED_PC),
+        capture_output=True,
+        text=True,
+    )
+    if result.returncode != 0:
+        return {"status": "ERROR", "reason": result.stderr.strip()[:200]}
+    return {"status": "OK"}
 
 
 def regenerate_gouvernance() -> dict:
@@ -140,6 +159,10 @@ def main() -> None:
     ts = datetime.now().isoformat(timespec="seconds")
     print(f"\n=== Sync dashboards ALFRED - {ts} ===\n")
 
+    print("  Régénération knowledge_dashboard_data.json...")
+    regen_k = regenerate_knowledge_dashboard()
+    print(f"  [{regen_k['status']}]  generate_knowledge_dashboard.py  {regen_k.get('reason', '')}\n")
+
     print("  Régénération dashboard_gouvernance_data.json...")
     regen = regenerate_gouvernance()
     tag = regen["status"]
@@ -152,6 +175,7 @@ def main() -> None:
         sync_file(SRC_TESTS,            DEST_TESTS,            "dashboard_test.json"),
         sync_file(SRC_GOUVERNANCE,      DEST_GOUVERNANCE,      "dashboard_gouvernance.json"),
         sync_file(SRC_GOUVERNANCE_DATA, DEST_GOUVERNANCE_DATA, "dashboard_gouvernance_data.json"),
+        sync_file(SRC_KNOWLEDGE_DATA,   DEST_KNOWLEDGE_DATA,   "knowledge_dashboard_data.json"),
     ]
 
     all_ok = all(r["status"].startswith("OK") for r in results)
