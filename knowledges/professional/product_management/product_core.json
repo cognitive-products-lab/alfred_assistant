@@ -1,153 +1,62 @@
 {
-  "schema_version": "1.0",
+  "schema_version": "1.2",
   "type": "knowledge_unit",
   "id": "knowledges.professional.product_management.product_core",
-  "title": "Product Core",
+  "title": "Fondamentaux du product management",
   "domain": "professional",
-  "status": "validated_v1",
-
-  "summary": "Fiche permettant à ALFRED de structurer une réflexion produit, comprendre un besoin utilisateur et transformer une idée en solution concrète.",
-
-  "core_definition": "Le Product Management consiste à identifier un problème utilisateur réel, concevoir une solution adaptée et piloter sa création pour générer de la valeur.",
-
-  "core_principles": [
-    "partir du problème avant la solution",
-    "comprendre l’utilisateur réel (pas supposé)",
-    "livrer de la valeur rapidement",
-    "itérer plutôt que chercher la perfection",
-    "mesurer l’impact réel",
-    "aligner produit, business et technique"
-  ],
-
-  "product_logic": {
-    "problem": "Quel problème concret est résolu ?",
-    "user": "Pour qui ?",
-    "solution": "Quelle solution proposée ?",
-    "value": "Pourquoi c’est utile ?",
-    "metric": "Comment on mesure le succès ?"
-  },
-
-  "key_concepts": [
-    "product-market fit",
-    "user value",
-    "prioritization",
-    "iteration",
-    "feedback loop",
-    "roadmap",
-    "MVP (Minimum Viable Product)"
-  ],
-
-  "core_methods": {
-    "mvp": {
-      "description": "Créer la version la plus simple du produit pour tester rapidement la valeur.",
-      "goal": "apprendre vite avec peu de ressources"
-    },
-    "build_measure_learn": {
-      "description": "Construire → mesurer → apprendre → ajuster",
-      "goal": "amélioration continue"
-    },
-    "user_first": {
-      "description": "Comprendre le besoin réel avant toute solution",
-      "goal": "éviter de construire un produit inutile"
-    }
-  },
-
-  "common_errors": [
-    "construire une solution sans problème clair",
-    "ignorer le besoin utilisateur",
-    "sur-complexifier dès le début",
-    "ne pas tester rapidement",
-    "ne pas mesurer les résultats",
-    "prioriser selon l’ego plutôt que la valeur"
-  ],
-
-  "response_principles": [
-    "ramener au problème utilisateur",
-    "simplifier la réflexion",
-    "structurer en étapes",
-    "proposer une action concrète",
-    "éviter la théorie inutile"
-  ],
-
-  "conversation_uses": [
-    "clarifier une idée produit",
-    "structurer un projet",
-    "définir un MVP",
-    "prioriser des fonctionnalités",
-    "analyser un problème utilisateur",
-    "préparer une roadmap"
-  ],
-
-  "example_answers": [
-    {
-      "prompt": "J’ai une idée de produit.",
-      "answer": "Avant la solution, on clarifie le problème : pour qui, dans quelle situation, et pourquoi ça pose un vrai problème ?"
-    },
-    {
-      "prompt": "Je suis bloquée sur mon projet.",
-      "answer": "On revient au cœur : problème utilisateur → valeur → solution minimale. Le reste attend."
-    },
-    {
-      "prompt": "Je veux structurer ALFRED.",
-      "answer": "On découpe : besoin utilisateur → fonctionnalités clés → MVP → test → amélioration. Simple et progressif."
-    }
-  ],
-
-  "response_guidance": {
-    "tone": "structuré, pragmatique, orienté action",
-    "structure": [
-      "clarifier le problème",
-      "identifier l’utilisateur",
-      "proposer une solution simple",
-      "prioriser",
-      "prochaine action"
+  "subdomain": "product_management",
+  "status": "validated",
+  "summary": "Le product management est le role qui consiste a definir quoi construire (la bonne chose) pour que l'engineering puisse construire la chose bien. Le PM est responsable de la vision produit, de la strategie, et des resultats de l'equipe produit.",
+  "core_definition": "Le product management est la fonction d'une organisation qui consiste a identifier les besoins des utilisateurs et du marche, a definir et prioriser les solutions a construire, et a coordonner leur livraison avec les equipes d'ingenierie et de design pour maximiser la valeur delivrée.",
+  "knowledge": {
+    "pm_responsibilities": [
+      "Comprendre les utilisateurs (interviews, donnees comportementales)",
+      "Definir la vision et la strategie produit",
+      "Prioriser les features et les initiatives",
+      "Coordonner avec l'engineering et le design",
+      "Mesurer les resultats et iterer",
+      "Communiquer aux parties prenantes"
     ],
-    "avoid": [
-      "théorie excessive",
-      "solutions complexes trop tôt",
-      "jargon non expliqué",
-      "réponses abstraites sans action",
-      "perfectionnisme bloquant"
+    "pm_vs_po": {
+      "PM (Product Manager)": "Focus strategique — vision, marche, utilisateurs, roadmap long terme",
+      "PO (Product Owner)": "Focus tactique — backlog, user stories, sprint, collaboration engineering"
+    },
+    "good_pm_traits": [
+      "Curiosite insatiable pour les utilisateurs",
+      "Pensee structuree et basee sur les donnees",
+      "Communication claire avec des audiences tres differentes",
+      "Influence sans autorite hierarchique directe",
+      "Tolerance a l'ambiguite et la capacite a decider quand meme"
     ]
   },
-
-  "links_to_alfred_identity": {
-    "dominant_layer": "jarvis",
-    "mode": "execution_mode",
-    "why": "Le Product Management mobilise la logique, la structuration et la capacité à transformer une idée en action concrète."
+  "example_answers": [
+    {
+      "prompt": "Quel est le role d'un bon product manager ?",
+      "answer": "En une phrase : s'assurer qu'on construit la bonne chose pour les bons utilisateurs. En pratique : comprendre profondement les utilisateurs (interviews, usage data), traduire ce comprhenison en problemes a resoudre (pas en solutions), prioriser rigoureusement avec les contraintes engineering et business, et mesurer si ce qu'on a livre a cree de la valeur reelle. Le PM n'est pas un 'mini-CEO' — il n'a pas d'autorite hierarchique. Son influence vient de la qualite de sa comprhenison et de sa communication."
+    },
+    {
+      "prompt": "Comment devenir product manager quand on vient d'un autre domaine ?",
+      "answer": "Trois transitions courantes : (1) Depuis l'engineering : avantage technique fort, travailler sur la comprehension utilisateur et la communication business, (2) Depuis le design : empathie utilisateur forte, travailler sur la rigueur donnees et les criteres de prioritisation, (3) Depuis le business/conseil : rigueur analytique forte, travailler sur la comprhenison technique et le cycle de delivery produit. Dans tous les cas : commencer par apprendre le vocabulaire (JTBD, OKR, sprint, MVP), pratiquer sur un side-project ou dans un role adjacent (PO, growth), et lire 'Inspired' de Marty Cagan."
+    }
+  ],
+  "response_guidance": {
+    "tone": "strategique, ancre dans la pratique",
+    "structure": [
+      "contextualiser",
+      "expliquer le concept",
+      "proposer un angle actionnable"
+    ],
+    "avoid": [
+      "trop theorique",
+      "ignorer le contexte"
+    ]
   },
-
-  "related_knowledge_units": [
-    "knowledges.professional.decision_making.prioritization",
-    "knowledges.professional.decision_making.problem_solving",
-    "knowledges.professional.strategy.product_strategy",
-    "knowledges.human.self_alignment.routines.habit_building"
-  ],
-
-  "related_features": [
-    "4.01.001",
-    "5.01.004",
-    "5.03.001",
-    "5.05.001",
-    "9.01.001",
-    "10.01.001",
-    "18.05.004"
-  ],
-
   "tags": [
-    "product",
-    "product_management",
-    "MVP",
-    "user",
-    "value",
-    "iteration",
-    "strategy",
-    "alfred"
+    "product management",
+    "PM",
+    "vision produit",
+    "priorisation",
+    "utilisateurs"
   ],
-
-  "quality": {
-    "confidence": "high",
-    "requires_sources": false,
-    "review_needed": false
-  }
+  "related_knowledge_units": []
 }

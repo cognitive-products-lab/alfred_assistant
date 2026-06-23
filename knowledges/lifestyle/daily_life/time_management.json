@@ -1,162 +1,57 @@
 {
-  "schema_version": "1.0",
+  "schema_version": "1.2",
   "type": "knowledge_unit",
   "id": "knowledges.lifestyle.daily_life.time_management",
-  "title": "Time Management",
+  "title": "Gestion du temps",
   "domain": "lifestyle",
-  "status": "validated_v2",
-
-  "summary": "Fiche permettant à ALFRED d’aider l’utilisateur à organiser son temps, prioriser ses tâches et réduire la surcharge mentale.",
-
-  "core_definition": "La gestion du temps consiste à organiser ses activités de manière cohérente avec ses priorités, son énergie et ses contraintes afin d’atteindre ses objectifs sans surcharge.",
-
-  "core_principles": [
-    "tout ne peut pas être prioritaire",
-    "le temps est limité, l’énergie aussi",
-    "prioriser est plus important que planifier",
-    "faire moins mais mieux",
-    "découper pour avancer",
-    "adapter le planning à son niveau d’énergie"
-  ],
-
-  "key_concepts": [
-    "priorisation",
-    "charge mentale",
-    "énergie",
-    "focus",
-    "planification",
-    "tâches",
-    "objectifs"
-  ],
-
-  "core_methods": {
-    "eisenhower_matrix": {
-      "description": "Classer les tâches selon urgent / important.",
-      "usage": "priorisation rapide"
-    },
-    "time_blocking": {
-      "description": "Bloquer des plages horaires dédiées à une tâche.",
-      "usage": "protéger le temps de concentration"
-    },
-    "one_task_rule": {
-      "description": "Se concentrer sur une seule tâche à la fois.",
-      "usage": "éviter la dispersion"
-    },
-    "micro_tasking": {
-      "description": "Découper une tâche en petites actions.",
-      "usage": "réduire la charge mentale"
-    }
+  "subdomain": "daily_life",
+  "status": "validated",
+  "summary": "La gestion du temps est moins une question de temps que d'attention et d'energie. Les meilleurs systemes alignent les taches les plus importantes avec les moments de plus haute energie et creent des blocs de temps proteges pour le travail profond.",
+  "core_definition": "La gestion du temps est la discipline qui consiste a allouer deliberement son temps et son attention en priorite aux activites qui creent le plus de valeur, en protegeant les ressources attentionnelles contre les interruptions et en construisant des structures de travail adaptees a ses rythmes biologiques.",
+  "knowledge": {
+    "time_management_principles": [
+      "Le temps est egal pour tous, l'attention ne l'est pas : proteger l'attention est plus important que compter les heures",
+      "Aligner taches importantes et energie haute (le matin pour la plupart des gens)",
+      "Deep Work (Newport) : blocs de 90-120 min sans interruption pour le travail cognitif exigeant",
+      "Time blocking : programmer dans l'agenda les blocs de travail prioritaire, pas seulement les reunions",
+      "Regle 80/20 : 20% des activites generent 80% de la valeur — identifier et proteger ces 20%"
+    ],
+    "time_thieves": [
+      "Reunions sans agenda ni decision — remplacer par des updates asynchrones",
+      "Notifications constantes — mode Ne pas deranger par defaut",
+      "Multitasking — diminue l'efficacite de 40% sur chaque tache",
+      "Perfectionnisme sur les taches secondaires"
+    ],
+    "weekly_planning": "Revue hebdomadaire (30 min le vendredi) : noter les 3 plus grandes victoires, identifier les 3 priorites cles de la semaine suivante, bloquer les creneaux dans l'agenda avant que les reunions ne les colonisent."
   },
-
-  "common_problems": [
-    "trop de tâches",
-    "manque de priorisation",
-    "procrastination",
-    "fatigue",
-    "planning irréaliste",
-    "dispersion",
-    "perte de focus"
-  ],
-
-  "adaptation_rules": {
-    "high_energy": {
-      "strategy": "tâches complexes et importantes",
-      "example": "travail de fond, réflexion stratégique"
-    },
-    "medium_energy": {
-      "strategy": "tâches structurées",
-      "example": "organisation, suivi, rédaction"
-    },
-    "low_energy": {
-      "strategy": "tâches simples ou repos",
-      "example": "tri, petites actions, récupération"
-    }
-  },
-
-  "response_principles": [
-    "réduire la complexité",
-    "prioriser clairement",
-    "proposer une action immédiate",
-    "éviter les listes longues",
-    "adapter à l’énergie utilisateur"
-  ],
-
-  "conversation_uses": [
-    "organiser une journée",
-    "prioriser des tâches",
-    "sortir d’une surcharge mentale",
-    "débloquer une procrastination",
-    "simplifier un planning",
-    "retrouver du focus"
-  ],
-
   "example_answers": [
     {
-      "prompt": "J’ai trop de choses à faire.",
-      "answer": "On simplifie : une seule priorité maintenant. Le reste attend."
+      "prompt": "Je n'arrive jamais a faire ce qui est important — je passe ma journee sur l'urgent.",
+      "answer": "Matrice d'Eisenhower : classer toutes tes taches en 4 quadrants (urgent+important, important+non-urgent, urgent+non-important, ni l'un ni l'autre). Le piege : passer son temps dans l'urgent-important (crises) au lieu de l'important-non-urgent (prevention, strategie, developpement). Solution structurelle : bloquer 2h le matin pour le Quadrant 2 (important/non-urgent) AVANT d'ouvrir emails et Slack. Ce qui est urgent mais pas important devrait etre delegue."
     },
     {
-      "prompt": "Je n’avance pas.",
-      "answer": "On découpe : quelle est la plus petite action possible pour avancer ?"
-    },
-    {
-      "prompt": "Je suis fatiguée.",
-      "answer": "On adapte : pas de tâche complexe. Une action simple ou du repos."
+      "prompt": "Comment reduire le temps passe en reunions ?",
+      "answer": "Trois levier : (1) Questioner si chaque recurrente est encore necessaire — 30% des reunions regulieres ont depassé leur utilite, (2) Agenda obligatoire avec decision attendue : pas d'agenda = refuser ou reporter, (3) Reunions plus courtes par defaut (25 min et 50 min au lieu de 30 et 60) — la contrainte de temps force la concision. Et pour les updates d'equipe : Loom video ou document Notion asynchrone — chacun lit quand ca l'arrange, la reunion devient une exception pour les decisions qui necessite l'echange."
     }
   ],
-
   "response_guidance": {
-    "tone": "pragmatique, simple, rassurant",
+    "tone": "bienveillant et ancré dans la réalité",
     "structure": [
-      "identifier la situation",
-      "réduire la complexité",
-      "prioriser",
-      "proposer une action simple"
+      "contextualiser",
+      "expliquer le concept",
+      "proposer un angle actionnable"
     ],
     "avoid": [
-      "proposer des plannings irréalistes",
-      "donner trop d’options",
-      "complexifier l’organisation",
-      "ignorer la fatigue",
-      "forcer la productivité"
+      "trop théorique",
+      "ignorer le contexte de l'utilisateur"
     ]
   },
-
-  "links_to_alfred_identity": {
-    "dominant_layer": "balanced",
-    "mode": "execution_mode",
-    "why": "La gestion du temps combine structuration logique et adaptation humaine (énergie, fatigue, contexte)."
-  },
-
-  "related_knowledge_units": [
-    "knowledges.human.self_alignment.routines.daily_balance",
-    "knowledges.human.skills.softskills.organization",
-    "knowledges.human.emotional_intelligence.self_awareness",
-    "knowledges.professional.product_management.product_core"
-  ],
-
-  "related_features": [
-    "4.01.001",
-    "5.03.001",
-    "5.05.001",
-    "9.01.001",
-    "10.01.001",
-    "18.05.004"
-  ],
-
   "tags": [
-    "time_management",
-    "productivity",
-    "focus",
-    "organization",
-    "energy",
-    "planning",
-    "alfred"
+    "temps",
+    "priorites",
+    "Deep Work",
+    "time blocking",
+    "productivite"
   ],
-
-  "quality": {
-    "confidence": "high",
-    "requires_sources": false,
-    "review_needed": false
-  }
+  "related_knowledge_units": []
 }

@@ -1,52 +1,94 @@
 {
-  "id": "task_prioritization",
-  "name": "Task Prioritization",
-  "version": "1.0.0",
-  "category": "execution",
-  "purpose": "Aider ALFRED à classer les tâches selon impact, urgence, effort, risque et énergie disponible.",
-  "concepts": [
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "id": "knowledges.cpl.execution.task_prioritization",
+  "title": "Priorisation des tâches",
+  "domain": "cpl",
+  "subdomain": "execution",
+  "status": "validated",
+  "summary": "Prioriser consiste à choisir quoi faire en premier quand tout semble urgent. Les méthodes ICE, MoSCoW et la matrice Impact/Effort permettent de structurer ces arbitrages rapidement.",
+  "core_definition": "La priorisation est le processus de classement des tâches, fonctionnalités ou initiatives selon leur importance relative, leur impact attendu et les contraintes disponibles (temps, énergie, ressources). Elle transforme une liste de todo en un plan d'action cohérent.",
+  "knowledge": {
+    "frameworks": [
+      {
+        "name": "Matrice Impact / Effort",
+        "logic": "Classer chaque tâche selon son impact business et son niveau d'effort. Faire en premier les Quick Wins (fort impact, faible effort).",
+        "quadrants": [
+          "Quick Wins → faire maintenant",
+          "Grands projets → planifier",
+          "Fill-ins → faire si temps",
+          "Thankless tasks → éviter ou déléguer"
+        ]
+      },
+      {
+        "name": "ICE Score",
+        "logic": "Score = Impact × Confidence × Ease (1-10 chacun). Classer par score décroissant.",
+        "use_when": "Prioriser des features ou expériences en phase early-stage produit"
+      },
+      {
+        "name": "MoSCoW",
+        "logic": "Must have / Should have / Could have / Won't have. Utile pour un backlog ou une release.",
+        "use_when": "Cadrer le scope d'une version ou d'un sprint"
+      },
+      {
+        "name": "Méthode ABCDE",
+        "logic": "A = must do today (conséquences si pas fait), B = should do, C = nice to do, D = déléguer, E = éliminer.",
+        "use_when": "Priorisation personnelle quotidienne"
+      }
+    ],
+    "key_principles": [
+      "Une tâche non priorisée n'existe pas — elle sera faite aléatoirement ou jamais.",
+      "L'urgence perçue et l'importance réelle ne coïncident presque jamais.",
+      "Prioriser c'est aussi décider explicitement ce qu'on ne fait pas.",
+      "Revoir la priorisation dès qu'un contexte change (blocage, nouvelle info, feedback client).",
+      "Le consensus de priorisation est souvent une erreur : quelqu'un doit trancher."
+    ],
+    "anti_patterns": [
+      "Tout mettre en priorité 1 — annule l'utilité de la priorisation",
+      "Prioriser sans données — décision au feeling uniquement",
+      "Refuser de déprioritiser une tâche déjà lancée (biais du coût irrécupérable)",
+      "Confondre ce que le client demande et ce dont il a besoin"
+    ]
+  },
+  "example_answers": [
     {
-      "name": "Priorisation",
-      "definition": "Choix de ce qui doit être fait en premier.",
-      "usage": "Éviter dispersion et surcharge."
+      "prompt": "J'ai 20 tâches et je ne sais pas par où commencer.",
+      "answer": "On applique la matrice Impact/Effort : pour chaque tâche, deux questions — combien ça vaut si c'est fait ? et combien ça coûte à faire ? Les Quick Wins (fort impact, faible effort) passent en premier. On trouve généralement 3 à 5 tâches qui méritent vraiment d'être faites aujourd'hui."
     },
     {
-      "name": "Impact",
-      "definition": "Valeur créée par une tâche.",
-      "usage": "Identifier les actions utiles."
+      "prompt": "Comment prioriser les fonctionnalités d'un produit ?",
+      "answer": "ICE score ou MoSCoW selon le stade. En early stage, ICE (Impact × Confidence × Ease) permet de scorer rapidement et de comparer. En préparation de release, MoSCoW clarifie ce qui est bloquant vs ce qui est nice-to-have. Dans tous les cas : inclure la voix des utilisateurs réels dans l'évaluation de l'impact."
     },
     {
-      "name": "Effort",
-      "definition": "Temps, énergie ou ressources nécessaires.",
-      "usage": "Évaluer la faisabilité."
+      "prompt": "Mon équipe dit que tout est urgent.",
+      "answer": "Quand tout est urgent, rien ne l'est. On pose la question autrement : si on ne peut faire qu'une seule chose cette semaine, laquelle a le plus d'impact ? Puis une deuxième. La contrainte artificielle force l'arbitrage que le confort de 'tout' empêche."
     }
   ],
-  "rules": [
-    "Prioriser impact fort et effort raisonnable.",
-    "Limiter les tâches simultanées.",
-    "Une priorité doit avoir un livrable clair."
+  "response_guidance": {
+    "tone": "clair, orienté décision, sans jugement sur les choix passés",
+    "structure": [
+      "comprendre le contexte (nombre de tâches, type)",
+      "proposer le bon framework",
+      "guider l'application",
+      "valider la décision finale"
+    ],
+    "avoid": [
+      "proposer tous les frameworks sans recommander",
+      "ne pas prendre en compte les contraintes réelles (énergie, deadline)",
+      "forcer une méthode inadaptée au contexte"
+    ]
+  },
+  "tags": [
+    "priorisation",
+    "ICE",
+    "MoSCoW",
+    "backlog",
+    "gestion du temps",
+    "cpl"
   ],
-  "decision_framework": [
-    "Quelle tâche crée le plus de valeur ?",
-    "Quel effort est requis ?",
-    "Quel risque si on reporte ?",
-    "Quelle tâche débloque les autres ?"
-  ],
-  "use_cases": [
-    {
-      "context": "Liste longue de fichiers ALFRED",
-      "action": "Classer top 10, top 30, top 50",
-      "output": "Plan d’exécution"
-    },
-    {
-      "context": "Préparation rendez-vous",
-      "action": "Identifier messages essentiels",
-      "output": "Discours priorisé"
-    }
-  ],
-  "links": [
-    "energy_management",
-    "project_management_core",
-    "decision_making_framework"
+  "related_knowledge_units": [
+    "knowledges.cpl.execution.project_management_core",
+    "knowledges.professional.decision.prioritization",
+    "knowledges.human.cognition.decision_fatigue"
   ]
 }

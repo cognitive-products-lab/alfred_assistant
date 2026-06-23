@@ -1,105 +1,83 @@
 {
-  "schema_version": "1.0",
+  "schema_version": "1.2",
   "type": "knowledge_unit",
   "id": "knowledges.professional.product_management.product_discovery",
   "title": "Product Discovery",
   "domain": "professional",
-  "status": "validated_v1",
-  "summary": "Fiche permettant à ALFRED d’aider à explorer les besoins utilisateurs, valider un problème et réduire les risques avant de développer une solution.",
-  "core_definition": "La Product Discovery est la phase d’exploration qui vise à comprendre les utilisateurs, leurs problèmes, leurs contextes et les opportunités avant de construire un produit.",
-  "core_principles": [
-    "comprendre avant de construire",
-    "valider le problème avant la solution",
-    "écouter les utilisateurs réels",
-    "tester les hypothèses rapidement",
-    "réduire les risques produit, business, technique et usage"
-  ],
-  "discovery_questions": [
-    "Quel problème réel cherche-t-on à résoudre ?",
-    "Qui rencontre ce problème ?",
-    "Dans quel contexte apparaît-il ?",
-    "Quelles solutions existent déjà ?",
-    "Pourquoi les solutions actuelles sont insuffisantes ?",
-    "Comment mesurer que le problème est résolu ?"
-  ],
-  "methods": {
-    "user_interviews": "entretiens qualitatifs pour comprendre le contexte et les irritants",
-    "survey": "questionnaire pour repérer tendances et signaux faibles",
-    "observation": "analyse des comportements réels",
-    "prototype_test": "test rapide d’une solution ou d’un parcours",
-    "assumption_mapping": "cartographie des hypothèses critiques"
+  "subdomain": "product_management",
+  "status": "validated",
+  "summary": "La product discovery est l'ensemble des activites qui permettent de valider qu'on construit la bonne chose avant de la construire — en testant les hypotheses sur les problemes utilisateurs et les solutions potentielles avec un investissement minimal.",
+  "core_definition": "La product discovery est la phase d'un processus de developpement produit dans laquelle l'equipe valide que les problemes identifies sont reels et importants pour les utilisateurs, que les solutions envisagees les resolvent effectivement, et que les solutions sont techniquement faisables et viables pour le business.",
+  "knowledge": {
+    "discovery_questions": [
+      "Le probleme est-il reel ? (interviews, donnees quantitatives)",
+      "Le probleme est-il suffisamment important pour que les utilisateurs cherchent une solution ? (willingness to pay, comportement actuel)",
+      "Notre solution resout-elle effectivement le probleme ? (prototype, test utilisateur)",
+      "Les utilisateurs peuvent-ils utiliser la solution ? (tests d'usabilite)",
+      "La solution est-elle techniquement faisable ? (spike technique)",
+      "La solution est-elle viable pour le business ? (model economique, competence requise)"
+    ],
+    "discovery_techniques": [
+      {
+        "technique": "Interviews utilisateurs",
+        "question": "Probleme reel ? Important ?",
+        "cost": "Faible"
+      },
+      {
+        "technique": "Prototype papier",
+        "question": "La solution est-elle comprehensible ?",
+        "cost": "Tres faible"
+      },
+      {
+        "technique": "Prototype cliquable (Figma)",
+        "question": "L'UX fonctionne-t-elle ?",
+        "cost": "Moyen"
+      },
+      {
+        "technique": "Smoke test / Landing page",
+        "question": "Y a-t-il de l'interet ?",
+        "cost": "Faible"
+      },
+      {
+        "technique": "Wizard of Oz",
+        "question": "La solution cree-t-elle de la valeur ?",
+        "cost": "Moyen (manual)"
+      },
+      {
+        "technique": "A/B test",
+        "question": "Quelle option performe mieux ?",
+        "cost": "Eleve (dev requis)"
+      }
+    ]
   },
-  "risks_reduced": [
-    "construire une solution inutile",
-    "mal comprendre l’utilisateur",
-    "surinvestir trop tôt",
-    "confondre besoin exprimé et besoin réel",
-    "prioriser selon intuition seule"
-  ],
-  "conversation_uses": [
-    "préparer un questionnaire utilisateur",
-    "définir des hypothèses",
-    "analyser des retours VOC",
-    "préparer une phase MVP",
-    "clarifier un problème utilisateur"
-  ],
   "example_answers": [
     {
-      "prompt": "Je veux lancer cette fonctionnalité.",
-      "answer": "Avant de lancer, on valide trois choses : quel problème elle résout, pour qui, et comment on saura qu’elle apporte vraiment de la valeur."
+      "prompt": "Comment valider mon idee produit avant de developper ?",
+      "answer": "Sequence par hypotheses : (1) Hypothese probleme — est-ce un vrai probleme ? Interviews de 5-10 personnes de ton segment cible, ecoute sans pitcher. Si 7/10 decrivent activement ce probleme et cherchent une solution : valide. (2) Hypothese solution — est-ce qu'ils paient / s'inscrivent ? Landing page avec CTA (liste d'attente, pre-commande). 200 visiteurs, > 5% de conversion : signal positif. (3) Hypothese UX — peuvent-ils utiliser la solution ? Prototype Figma avec 5 utilisateurs en test d'usabilite. Ces 3 etapes coutent quelques jours et valident ou invalident avant d'investir dans le developpement."
     },
     {
-      "prompt": "Comment faire une discovery ?",
-      "answer": "On part des hypothèses : utilisateur, problème, contexte, solution actuelle, valeur attendue. Puis on les teste avec des données terrain."
+      "prompt": "Pourquoi mes features ne sont-elles pas utilisees une fois livrees ?",
+      "answer": "Symptome d'un probleme de discovery. Causes frequentes : (1) Le probleme est reel mais mineur — les utilisateurs ne changent pas leur comportement pour des ameliorations marginales, (2) La solution ne correspond pas a la facon dont les utilisateurs pensent au probleme — on a resolu le probleme 'tel qu'on le comprend', pas tel qu'ils le vivent, (3) L'onboarding de la feature est insuffisant — les utilisateurs ne savent pas qu'elle existe ou comment l'utiliser. Remediation : interviews utilisateurs sur les features non-utilisees (pas 'pourquoi vous n'utilisez pas X ?' mais 'racontez-moi comment vous gerez Y aujourd'hui ?')."
     }
   ],
   "response_guidance": {
-    "tone": "curieux, structurant, orienté utilisateur",
+    "tone": "strategique, ancre dans la pratique",
     "structure": [
-      "hypothèse",
-      "utilisateur",
-      "problème",
-      "preuve attendue",
-      "test simple"
+      "contextualiser",
+      "expliquer le concept",
+      "proposer un angle actionnable"
     ],
     "avoid": [
-      "développer sans validation",
-      "confondre avis et preuve",
-      "poser des questions biaisées",
-      "surinterpréter un seul retour"
+      "trop theorique",
+      "ignorer le contexte"
     ]
   },
-  "links_to_alfred_identity": {
-    "dominant_layer": "jarvis",
-    "secondary_layer": "alfred_pennyworth",
-    "mode": "hybrid_mode",
-    "why": "La discovery combine analyse structurée et compréhension empathique du besoin utilisateur."
-  },
-  "related_knowledge_units": [
-    "knowledges.professional.product_management.product_core",
-    "knowledges.professional.strategy.product_strategy.problem_framing",
-    "knowledges.professional.methodologies.lean_six_sigma.voc",
-    "knowledges.professional.product_management.product_metrics"
-  ],
-  "related_features": [
-    "9.01.001",
-    "9.03.001",
-    "9.03.002",
-    "18.05.004"
-  ],
   "tags": [
-    "product_discovery",
-    "user_research",
-    "voc",
-    "hypothesis",
-    "mvp",
-    "problem",
-    "product_management",
-    "alfred_cpl"
+    "discovery",
+    "validation",
+    "prototype",
+    "interviews",
+    "hypotheses"
   ],
-  "quality": {
-    "confidence": "high",
-    "requires_sources": false,
-    "review_needed": false
-  }
+  "related_knowledge_units": []
 }

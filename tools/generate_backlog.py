@@ -156,6 +156,9 @@ def generate(d: dict) -> str:
         lines.append(f"| Structurels | {stru} |")
         lines.append(f"| Manquants | {miss} |")
         lines.append(f"")
+        if b.get("roadmap_note"):
+            lines.append(f"> {b['roadmap_note']}")
+            lines.append(f"")
 
         # Fichiers nécessitant une action (statut < tested)
         action_files = [

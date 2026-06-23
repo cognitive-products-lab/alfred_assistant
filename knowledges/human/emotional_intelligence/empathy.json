@@ -1,43 +1,67 @@
 {
-  "schema_version": "1.0",
+  "schema_version": "1.2",
   "type": "knowledge_unit",
-  "id": "knowledges.human.emotional_intelligence.empathy",
-  "title": "Empathy",
+  "id": "knowledges.human.interaction.empathy",
+  "title": "Empathie",
   "domain": "human",
-  "status": "validated_v1",
-
-  "summary": "Comprendre et refléter l’état émotionnel de l’utilisateur.",
-
-  "core_definition": "L’empathie est la capacité à reconnaître et comprendre les émotions d’un autre sans les juger.",
-
-  "principles": [
-    "reformuler",
-    "valider l’émotion",
-    "éviter les jugements",
-    "ne pas projeter"
+  "subdomain": "interaction",
+  "status": "validated",
+  "summary": "L'empathie est la capacite a percevoir et ressentir le vecu emotionnel d'autrui — distincte de la sympathie (partager l'emotion) et de la compassion (agir pour reduire la souffrance). Elle se cultive et s'ajuste.",
+  "core_definition": "L'empathie est la faculte cognitive et affective de se representer l'experience subjective d'une autre personne et de reagir de facon accordee a son etat emotionnel, sans se confondre avec elle ni nier sa propre perspective.",
+  "knowledge": {
+    "empathy_types": [
+      {
+        "type": "Empathie cognitive",
+        "description": "Comprendre intellectuellement la perspective de l'autre",
+        "risk": "Peut etre utilisee sans connexion emotionnelle (manipulation)"
+      },
+      {
+        "type": "Empathie affective",
+        "description": "Ressentir quelque chose de similaire a ce que l'autre ressent",
+        "risk": "Peut mener a la detresse empathique (burnout du soignant)"
+      },
+      {
+        "type": "Empathie compassionnelle",
+        "description": "Comprendre, ressentir, ET vouloir aider",
+        "optimal": true
+      }
+    ],
+    "empathy_blockers": [
+      "Jugement immediat",
+      "Comparaison ('moi aussi j'ai vecu pire')",
+      "Minimisation ('c'est pas si grave')",
+      "Conseils precipites avant validation"
+    ],
+    "alfred_empathy_approach": "ALFRED vise l'empathie compassionnelle : comprendre ce que l'utilisateur ressent, valider son experience, et proposer de l'aide adaptee — sans projeter ses propres emotions ni se laisser deborder."
+  },
+  "example_answers": [
+    {
+      "prompt": "Comment etre plus empathique dans mes relations ?",
+      "answer": "Trois pratiques : (1) Ecoute active — poser son telephone, regarder la personne, signaler par des hochements de tete qu'on est la, (2) Reformulation — 'Si je comprends bien, tu te sens X a cause de Y ?' — ca montre qu'on a entendu et laisse corriger, (3) Curiosite genuineour la perspective de l'autre — 'Comment tu vis ca ?' plutot que 'A ta place je ferais...'. L'empathie s'entraine comme un muscle — les relations profondes la developpent naturellement."
+    },
+    {
+      "prompt": "Comment eviter le burnout quand on est tres empathique ?",
+      "answer": "La frontiere entre empathie et fusion est la cle. Se rappeler : je peux comprendre et soutenir sans porter le poids de l'autre. Pratiques : fixer ses limites de disponibilite, decompresser apres des echanges emotionnellement lourds (marche, musique, silence), distinguer 'je me soucie de toi' de 'je souffre pour toi'. Et parfois : orienter vers un professionnel plutot que de tout porter seul."
+    }
   ],
-
-  "conversation_uses": [
-    "répondre à une émotion",
-    "améliorer la relation utilisateur"
-  ],
-
   "response_guidance": {
-    "tone": "humain, compréhensif",
+    "tone": "bienveillant et ancré dans la réalité",
+    "structure": [
+      "contextualiser",
+      "expliquer le concept",
+      "proposer un angle actionnable"
+    ],
     "avoid": [
-      "jugement",
-      "analyse froide"
+      "trop théorique",
+      "ignorer le contexte de l'utilisateur"
     ]
   },
-
   "tags": [
-    "empathy",
-    "emotion",
-    "human"
+    "empathie",
+    "écoute",
+    "compassion",
+    "relations",
+    "bienveillance"
   ],
-
-  "quality": {
-    "confidence": "high",
-    "review_needed": false
-  }
+  "related_knowledge_units": []
 }

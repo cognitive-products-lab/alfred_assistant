@@ -1,26 +1,90 @@
 {
-    "id":  "environmental.signal.processing",
-    "created_at":  "2026-06-03",
-    "title":  "environmental signal processing",
-    "tags":  [
-
-             ],
-    "source":  "recreated_from_dashboard_manifest",
-    "description":  "Fiche connaissance recréée automatiquement à partir du manifest dashboard.",
-    "status":  "draft",
-    "content":  {
-                    "summary":  "",
-                    "links":  [
-
-                              ],
-                    "use_cases":  [
-
-                                  ],
-                    "risks":  [
-
-                              ],
-                    "key_points":  [
-
-                                   ]
-                }
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "id": "knowledges.professional.iot.environmental_signal_processing",
+  "title": "Traitement des signaux environnementaux",
+  "domain": "professional",
+  "subdomain": "iot",
+  "status": "validated",
+  "summary": "Les signaux environnementaux (lumière, son, température, humidité, CO2) sont des indicateurs du contexte qui permettent d'enrichir la compréhension de la situation d'un utilisateur et d'adapter les réponses en conséquence.",
+  "core_definition": "Le traitement des signaux environnementaux est l'acquisition, le filtrage et l'interprétation des données physiques mesurées par des capteurs d'ambiance pour produire une compréhension du contexte utile aux systèmes d'intelligence ambiante.",
+  "knowledge": {
+    "environmental_signals": [
+      {
+        "signal": "Lumière (lux)",
+        "interpretation": "Heure approximative, activité probable (travail intense vs repos), mode d'éclairage",
+        "sensor": "BH1750, TSL2561"
+      },
+      {
+        "signal": "Son (dB SPL)",
+        "interpretation": "Niveau de bruit ambiant, présence de personnes, activité en cours",
+        "sensor": "INMP441, MAX4466"
+      },
+      {
+        "signal": "Température (°C)",
+        "interpretation": "Confort thermique, activité physique, saison",
+        "sensor": "DHT22, BME280, SHT40"
+      },
+      {
+        "signal": "Humidité (%HR)",
+        "interpretation": "Confort, risque de moisissures, impact sur la santé perçue",
+        "sensor": "DHT22, BME280"
+      },
+      {
+        "signal": "CO2 (ppm)",
+        "interpretation": "Qualité de l'air, niveau d'occupation de la pièce, besoin de ventilation",
+        "sensor": "SCD40, MH-Z19B"
+      },
+      {
+        "signal": "COV (TVOC)",
+        "interpretation": "Produits chimiques volatils, qualité de l'air global",
+        "sensor": "SGP30, BME688"
+      }
+    ],
+    "cognitive_impact_of_environment": [
+      "CO2 > 1000 ppm : dégradation mesurable des fonctions cognitives (concentration, mémoire)",
+      "Température > 26°C : réduction de la productivité cognitive de 8-12% (Harvard T.H. Chan School)",
+      "Lumière > 500 lux à 5000K : améliore l'éveil et la concentration",
+      "Bruit > 65dB : augmente le stress et réduit la qualité du travail cognitif"
+    ],
+    "alfred_context_enrichment": "ALFRED peut utiliser les données environnementales pour enrichir son contexte : si le CO2 est élevé, suggérer d'aérer ; si la luminosité est faible en après-midi, adapter le ton ; si la température est inconfortable, en tenir compte dans les recommandations de récupération."
+  },
+  "example_answers": [
+    {
+      "prompt": "Quels capteurs ajouter autour d'ALFRED pour enrichir son contexte ?",
+      "answer": "Par ordre de valeur : (1) CO2 (SCD40 ~35€) — impacte directement la cognition, information utile pour ALFRED, (2) Température+humidité (BME280 ~5€) — confort et contexte général, (3) Lumière (BH1750 ~3€) — estimation de l'heure et de l'ambiance. Ces trois capteurs donnent un contexte environnemental riche. Tout s'intègre via I2C/GPIO sur un Raspberry Pi ou via Zigbee avec des capteurs commerciaux (Aqara, Sonoff)."
+    },
+    {
+      "prompt": "Comment ALFRED peut utiliser la qualité de l'air pour m'aider ?",
+      "answer": "Si le CO2 dépasse 1000 ppm, ALFRED peut signaler proactivement : 'L'air est un peu chargé — ouvrir une fenêtre 5 min aiderait à maintenir ta concentration.' Cette alerte proactive est un exemple d'intelligence ambiante appliquée : le capteur fournit le signal, ALFRED fournit le contexte et la suggestion actionnable."
+    }
+  ],
+  "response_guidance": {
+    "tone": "technique, pragmatique, sensible à la confidentialité et à la sécurité",
+    "structure": [
+      "identifier le composant ou problème IoT",
+      "expliquer le mécanisme",
+      "pointer les risques",
+      "proposer la solution"
+    ],
+    "avoid": [
+      "ignorer la sécurité",
+      "négliger la contrainte de ressources",
+      "trop générique"
+    ]
+  },
+  "tags": [
+    "capteurs",
+    "environnement",
+    "CO2",
+    "lumière",
+    "température",
+    "cognition",
+    "IoT",
+    "système ambiant"
+  ],
+  "related_knowledge_units": [
+    "knowledges.professional.engineering.systeme_design.local_first_architecture",
+    "knowledges.cpl.ethics_governance.ethical_ai_framework"
+  ]
 }

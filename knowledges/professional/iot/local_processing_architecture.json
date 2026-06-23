@@ -1,0 +1,74 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "id": "knowledges.professional.iot.local_processing_architecture",
+  "title": "Architecture de traitement local (local-first IoT)",
+  "domain": "professional",
+  "subdomain": "iot",
+  "status": "validated",
+  "summary": "L'architecture local-first pour l'IoT traite les données sur le réseau local avant (ou sans) envoi vers le cloud. Elle réduit la latence, améliore la confidentialité et crée des systèmes résilients aux pannes réseau.",
+  "core_definition": "L'architecture local-first IoT est un paradigme de conception dans lequel le traitement des données et les décisions IA sont effectués sur des équipements locaux (PC, NAS, Raspberry Pi, hub domotique), en limitant ou éliminant la dépendance au cloud pour les fonctions core.",
+  "knowledge": {
+    "local_components": [
+      {
+        "component": "Broker local (MQTT)",
+        "role": "Routage des messages entre dispositifs — Mosquitto sur le réseau local"
+      },
+      {
+        "component": "Base de données locale",
+        "role": "Stockage des timeseries et des états — InfluxDB, TimescaleDB, SQLite"
+      },
+      {
+        "component": "Moteur de règles local",
+        "role": "Exécution des automatisations — Node-RED, Home Assistant"
+      },
+      {
+        "component": "Modèles IA locaux",
+        "role": "Inférence sans cloud — Ollama, llava, Piper, Whisper"
+      },
+      {
+        "component": "Dashboard local",
+        "role": "Visualisation sans dépendance externe — Grafana, Home Assistant UI"
+      }
+    ],
+    "cloud_optional_fallback": "Dans un design local-first, le cloud est optionnel (backup, accès distant, modèles de qualité supérieure) et non critique. Si le cloud est indisponible, toutes les fonctions core continuent.",
+    "alfred_local_first": "ALFRED est conçu local-first : LLM via Ollama, TTS via Piper, STT via Whisper, mémoire via SQLite, données sur le PC Windows. L'API OpenAI/Anthropic est un fallback optionnel pour la qualité, pas une dépendance core."
+  },
+  "example_answers": [
+    {
+      "prompt": "Comment construire un hub domotique 100% local ?",
+      "answer": "Stack recommandée : Home Assistant (hub central) + Mosquitto (broker MQTT) + Zigbee2MQTT ou Z-Wave pour les capteurs sans fil + InfluxDB/Grafana pour les historiques. Le tout sur un mini-PC ou Raspberry Pi 5. Home Assistant gère aussi les règles d'automatisation et les interfaces. Estimation : quelques heures de setup, puis très stable sur le long terme."
+    },
+    {
+      "prompt": "Pourquoi local-first plutôt que de tout mettre dans le cloud ?",
+      "answer": "Quatre raisons concrètes : (1) latence — une action domotique locale répond en <100ms vs 200-500ms via le cloud, (2) disponibilité — fonctionne si internet tombe, (3) confidentialité — les données de mouvement et de présence ne sortent pas de ta maison, (4) coût — pas de abonnement cloud à long terme. Limite : mise à jour et accès distant plus complexes."
+    }
+  ],
+  "response_guidance": {
+    "tone": "technique, pragmatique, sensible à la confidentialité et à la sécurité",
+    "structure": [
+      "identifier le composant ou problème IoT",
+      "expliquer le mécanisme",
+      "pointer les risques",
+      "proposer la solution"
+    ],
+    "avoid": [
+      "ignorer la sécurité",
+      "négliger la contrainte de ressources",
+      "trop générique"
+    ]
+  },
+  "tags": [
+    "local-first",
+    "architecture",
+    "Home Assistant",
+    "Mosquitto",
+    "offline",
+    "IoT",
+    "système ambiant"
+  ],
+  "related_knowledge_units": [
+    "knowledges.professional.engineering.systeme_design.local_first_architecture",
+    "knowledges.cpl.ethics_governance.ethical_ai_framework"
+  ]
+}
