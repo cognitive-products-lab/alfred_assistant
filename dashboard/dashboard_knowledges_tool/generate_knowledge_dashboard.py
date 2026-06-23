@@ -209,10 +209,15 @@ def _load_json(path: Path) -> dict | list:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
+# Domaines exclus du dashboard public (version privée d'ALFRED uniquement)
+PRIVATE_DOMAINS: set[str] = {"seduction"}
+
+
 def _scan_domain_files() -> dict[str, dict[str, list[str]]]:
     """
     Scans knowledges/ pour compter les fichiers réels par domaine/sous-domaine.
     Retourne : { "core": { "core": ["alfred_core_identity", ...] }, ... }
+    Les domaines listés dans PRIVATE_DOMAINS sont silencieusement ignorés.
     """
     result: dict[str, dict[str, list[str]]] = {}
     excluded = {
@@ -223,6 +228,8 @@ def _scan_domain_files() -> dict[str, dict[str, list[str]]]:
         if not domain_dir.is_dir():
             continue
         domain = domain_dir.name
+        if domain in PRIVATE_DOMAINS:
+            continue
         result[domain] = {}
         for item in domain_dir.iterdir():
             if item.is_dir():
