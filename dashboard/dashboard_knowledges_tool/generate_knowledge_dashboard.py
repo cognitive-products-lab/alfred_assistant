@@ -134,6 +134,20 @@ DOMAIN_META: dict[str, dict] = {
         "retrieval_hint_en": "Triggered on queries about public speaking, writing, communication "
                              "leadership, social media or influence.",
     },
+    "cuisine": {
+        "label_fr": "Cuisine",     "label_en": "Cuisine",
+        "emoji": "🍳",             "color": "#fb8f44",
+        "usage_fr": "Techniques culinaires, recettes et culture gastronomique : fondamentaux "
+                    "(couteaux, cuissons, sauces), cuisine française et pâtisserie, cuisines "
+                    "asiatiques (japonaise, coréenne, thaïe, vietnamienne, chinoise, indienne).",
+        "usage_en": "Culinary techniques, recipes and gastronomy: fundamentals (knives, cooking "
+                    "methods, sauces), French cuisine and pastry, Asian cuisines (Japanese, "
+                    "Korean, Thai, Vietnamese, Chinese, Indian).",
+        "retrieval_hint_fr": "Activé sur les requêtes liées à la cuisine, aux recettes, aux "
+                             "techniques culinaires ou aux cuisines du monde.",
+        "retrieval_hint_en": "Triggered on queries about cooking, recipes, culinary techniques "
+                             "or world cuisines.",
+    },
     "index": {
         "label_fr": "Index",       "label_en": "Index",
         "emoji": "📑",             "color": "#8b949e",
@@ -347,7 +361,7 @@ def generate() -> None:
             examples_by_domain[d].append(k["id"])
 
     # ── Construction des domaines ──────────────────────────────────────────
-    domain_order = ["core", "human", "professional", "cpl", "culture", "system", "lifestyle", "cognition", "communication"]
+    domain_order = ["core", "human", "professional", "cpl", "culture", "system", "lifestyle", "cognition", "communication", "cuisine"]
     other_domains = [d for d in scanned if d not in domain_order]
     all_domains = domain_order + other_domains
 
