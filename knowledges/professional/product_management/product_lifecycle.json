@@ -1,92 +1,87 @@
 {
-  "schema_version": "1.0",
+  "schema_version": "1.2",
   "type": "knowledge_unit",
   "id": "knowledges.professional.product_management.product_lifecycle",
-  "title": "Product Lifecycle",
+  "title": "Cycle de vie produit",
   "domain": "professional",
-  "status": "validated_v1",
-  "summary": "Fiche permettant à ALFRED d’expliquer et structurer les grandes étapes du cycle de vie d’un produit, de l’idée initiale à l’amélioration continue.",
-  "core_definition": "Le cycle de vie produit désigne l’ensemble des phases traversées par un produit : découverte du besoin, conception, lancement, croissance, optimisation, maintien ou retrait.",
-  "core_principles": [
-    "un produit évolue par phases",
-    "chaque phase a ses objectifs, risques et indicateurs",
-    "la découverte utilisateur précède la construction",
-    "le lancement n’est pas une fin mais un début d’apprentissage",
-    "l’amélioration continue permet d’adapter le produit au réel"
-  ],
-  "lifecycle_stages": {
-    "discovery": "identifier le problème utilisateur, les besoins et les opportunités",
-    "definition": "définir la proposition de valeur, le périmètre et les priorités",
-    "design": "concevoir l’expérience, les parcours et les fonctionnalités",
-    "development": "construire une version testable du produit",
-    "launch": "mettre le produit en usage auprès d’une cible",
-    "growth": "améliorer l’adoption, l’usage et la valeur",
-    "maturity": "stabiliser, optimiser et industrialiser",
-    "decline_or_pivot": "retirer, transformer ou repositionner le produit si la valeur baisse"
+  "subdomain": "product_management",
+  "status": "validated",
+  "summary": "Le cycle de vie d'un produit (introduction, croissance, maturite, declin) determine les strategies optimales de croissance, de pricing et d'investissement. Savoir ou en est son produit dans ce cycle oriente les decisions.",
+  "core_definition": "Le cycle de vie d'un produit est la sequence des phases traversees par un produit depuis son introduction jusqu'a son retrait du marche — introduction, croissance, maturite et declin — chaque phase ayant des caracteristiques de marche, de competition et des strategies optimales specifiques.",
+  "knowledge": {
+    "lifecycle_phases": [
+      {
+        "phase": "Introduction",
+        "characteristics": [
+          "Croissance lente",
+          "Couts eleves",
+          "Competition faible"
+        ],
+        "strategy": "Construire la notoriete, eduquer le marche, affiner le PMF"
+      },
+      {
+        "phase": "Croissance",
+        "characteristics": [
+          "Croissance rapide",
+          "Profitabilite amelioree",
+          "Competition qui entre"
+        ],
+        "strategy": "Maximiser la croissance, investir en marketing et sales, renforcer la differentiation"
+      },
+      {
+        "phase": "Maturite",
+        "characteristics": [
+          "Croissance ralentie",
+          "Competition intense",
+          "Marge sous pression"
+        ],
+        "strategy": "Optimiser les couts, defendre les segments cles, envisager l'innovation de rupture"
+      },
+      {
+        "phase": "Declin",
+        "characteristics": [
+          "Decroissance des ventes",
+          "Reduction des investissements"
+        ],
+        "strategy": "Recolter (milking), pivoter, ou retirer le produit"
+      }
+    ],
+    "extension_strategies": [
+      "Nouveaux usages pour le produit existant",
+      "Nouveaux segments de marche",
+      "Nouvelles geographies",
+      "Améliorations produit significatives",
+      "Bundling avec d'autres produits"
+    ]
   },
-  "conversation_uses": [
-    "situer un projet dans son cycle de vie",
-    "préparer une roadmap",
-    "identifier la prochaine étape produit",
-    "éviter de construire trop tôt",
-    "structurer un MVP"
-  ],
   "example_answers": [
     {
-      "prompt": "Où en est mon produit ?",
-      "answer": "On regarde la phase : découverte, définition, construction ou lancement. Tant que le besoin utilisateur n’est pas validé, on reste en discovery, pas en industrialisation."
+      "prompt": "Comment savoir ou en est mon produit dans son cycle de vie ?",
+      "answer": "Regarder trois indicateurs : (1) Taux de croissance (accelere = introduction/croissance, ralentit = maturite, decline = declin), (2) Intensite concurrentielle (peu de concurrents = introduction, beaucoup et guerre des prix = maturite), (3) Comportement des utilisateurs (adoption active de nouveaux utilisateurs = croissance, surtout des renouvellements = maturite). Un produit SaaS B2B atteint souvent la maturite apres 5-8 ans sur un marche vertical."
     },
     {
-      "prompt": "Quelle est la prochaine étape ?",
-      "answer": "La prochaine étape dépend du cycle : si le problème est clair, on définit le MVP ; s’il ne l’est pas, on retourne interroger le besoin."
+      "prompt": "Mon produit est en maturite — que faire pour relancer la croissance ?",
+      "answer": "Quatre leviers : (1) Nouveaux segments non adresses (marchés verticaux adjacents, nouvelles geographies), (2) Nouveaux cas d'usage pour les clients existants (features qui ouvrent de nouveaux workflows), (3) Montee en gamme (enterprise, services) ou descente en gamme (SMB, self-serve), (4) Innovation de rupture adjacente — soit un nouveau produit, soit une transformation profonde du produit actuel. La plupart des extensions de la maturite combinent 2-3 de ces leviers."
     }
   ],
   "response_guidance": {
-    "tone": "structuré, pragmatique, orienté produit",
+    "tone": "strategique, ancre dans la pratique",
     "structure": [
-      "identifier la phase",
-      "clarifier l’objectif",
-      "repérer le risque principal",
-      "proposer la prochaine action"
+      "contextualiser",
+      "expliquer le concept",
+      "proposer un angle actionnable"
     ],
     "avoid": [
-      "sauter directement au développement",
-      "confondre idée et produit",
-      "ignorer les retours utilisateurs",
-      "industrialiser sans validation"
+      "trop theorique",
+      "ignorer le contexte"
     ]
   },
-  "links_to_alfred_identity": {
-    "dominant_layer": "jarvis",
-    "mode": "execution_mode",
-    "why": "Le cycle de vie produit mobilise la structuration, l’analyse et l’amélioration continue."
-  },
-  "related_knowledge_units": [
-    "knowledges.professional.product_management.product_core",
-    "knowledges.professional.product_management.product_discovery",
-    "knowledges.professional.product_management.product_metrics",
-    "knowledges.professional.strategy.product_strategy.roadmap_prioritization"
-  ],
-  "related_features": [
-    "9.01.001",
-    "9.01.002",
-    "9.01.003",
-    "9.04.001",
-    "18.05.004"
-  ],
   "tags": [
-    "product_lifecycle",
-    "product_management",
-    "mvp",
-    "roadmap",
-    "discovery",
-    "launch",
-    "iteration",
-    "alfred_cpl"
+    "cycle de vie",
+    "croissance",
+    "maturite",
+    "declin",
+    "strategie produit"
   ],
-  "quality": {
-    "confidence": "high",
-    "requires_sources": false,
-    "review_needed": false
-  }
+  "related_knowledge_units": []
 }

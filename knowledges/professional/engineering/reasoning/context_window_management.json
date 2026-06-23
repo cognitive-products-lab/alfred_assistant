@@ -1,26 +1,95 @@
 {
-    "id":  "context.window.management",
-    "created_at":  "2026-06-03",
-    "title":  "context window management",
-    "tags":  [
-
-             ],
-    "source":  "recreated_from_dashboard_manifest",
-    "description":  "Fiche connaissance recréée automatiquement à partir du manifest dashboard.",
-    "status":  "draft",
-    "content":  {
-                    "summary":  "",
-                    "links":  [
-
-                              ],
-                    "use_cases":  [
-
-                                  ],
-                    "risks":  [
-
-                              ],
-                    "key_points":  [
-
-                                   ]
-                }
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "id": "knowledges.professional.engineering.reasoning.context_window_management",
+  "title": "Gestion de la fenêtre de contexte",
+  "domain": "professional",
+  "subdomain": "engineering_reasoning",
+  "status": "validated",
+  "summary": "La fenêtre de contexte d'un LLM est limitée — au-delà, le modèle oublie le début de la conversation. Gérer cette contrainte demande compression, sélection et structuration du contexte pertinent.",
+  "core_definition": "La gestion de la fenêtre de contexte est l'ensemble des techniques permettant d'optimiser l'utilisation de la fenêtre de contexte limitée d'un LLM, en sélectionnant, compressant et structurant l'information pour maximiser la qualité des réponses sans dépasser les limites du modèle.",
+  "knowledge": {
+    "context_window_sizes": [
+      {
+        "model": "Llama 3 8B (Ollama)",
+        "tokens": "8192 (8K)",
+        "notes": "Court — conversations moyennes"
+      },
+      {
+        "model": "Mistral 7B (Ollama)",
+        "tokens": "32768 (32K)",
+        "notes": "Confortable pour des sessions longues"
+      },
+      {
+        "model": "GPT-4o",
+        "tokens": "128000 (128K)",
+        "notes": "Très long — long documents possibles"
+      },
+      {
+        "model": "Claude 3.5 Sonnet",
+        "tokens": "200000 (200K)",
+        "notes": "Le plus long disponible à date"
+      }
+    ],
+    "context_management_techniques": [
+      {
+        "technique": "Conversation summarization",
+        "description": "Résumer périodiquement l'historique de conversation pour le compresser dans le contexte"
+      },
+      {
+        "technique": "Selective retention",
+        "description": "Garder uniquement les messages les plus pertinents pour la question courante"
+      },
+      {
+        "technique": "Memory externalization",
+        "description": "Stocker en mémoire externe (SQLite, vector DB) et récupérer les parties pertinentes via RAG"
+      },
+      {
+        "technique": "Context compression",
+        "description": "Compresser le contexte avec un modèle léger avant de l'envoyer au modèle principal"
+      },
+      {
+        "technique": "Sliding window",
+        "description": "Garder les N derniers messages et un résumé de l'historique plus ancien"
+      }
+    ],
+    "alfred_context_strategy": "ALFRED utilise SQLite pour la mémoire épisodique (persistante entre sessions) et compresse le contexte de session en gardant les échanges récents + un résumé de la session. Pour les informations importantes, elles sont stockées en mémoire structurée et récupérées par RAG quand pertinent."
+  },
+  "example_answers": [
+    {
+      "prompt": "Pourquoi ALFRED oublie parfois des choses dites en début de conversation ?",
+      "answer": "La fenêtre de contexte du LLM est limitée. Quand la conversation est longue, les éléments les plus anciens sortent du contexte actif du modèle. ALFRED utilise une mémoire épisodique (SQLite) pour persister les informations importantes entre sessions, mais dans une session très longue, le début peut être compressé. Si quelque chose est important, note-le ou dis-le moi en début de message — je le prendrai en compte."
+    },
+    {
+      "prompt": "Comment optimiser les coûts d'API LLM liés au contexte ?",
+      "answer": "Trois leviers : (1) Résumé automatique du contexte — compresser l'historique toutes les N turns, (2) RAG — ne pas mettre tout le contexte dans le prompt, injecter uniquement les parties pertinentes, (3) Modèle adapté à la tâche — ne pas utiliser GPT-4 pour les tâches qui marchent avec GPT-3.5. Le coût API LLM est quasi-linéaire avec le nombre de tokens — optimiser le contexte est le levier le plus direct."
+    }
+  ],
+  "response_guidance": {
+    "tone": "rigoureux, ancré dans les mécanismes cognitifs et techniques du raisonnement LLM",
+    "structure": [
+      "identifier le type de raisonnement ou biais",
+      "expliquer le mécanisme",
+      "proposer une technique d'amélioration"
+    ],
+    "avoid": [
+      "confondre raisonnement humain et LLM",
+      "ignorer les limites des LLMs",
+      "trop abstrait"
+    ]
+  },
+  "tags": [
+    "contexte",
+    "fenêtre",
+    "tokens",
+    "mémoire",
+    "compression",
+    "raisonnement",
+    "LLM",
+    "inférence"
+  ],
+  "related_knowledge_units": [
+    "knowledges.professional.engineering.ai.reasoning_engine",
+    "knowledges.human.cognition.critical_thinking"
+  ]
 }

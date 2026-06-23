@@ -1,26 +1,76 @@
 {
-    "id":  "growth.loops",
-    "created_at":  "2026-06-03",
-    "title":  "growth loops",
-    "tags":  [
-
-             ],
-    "source":  "recreated_from_dashboard_manifest",
-    "description":  "Fiche connaissance recréée automatiquement à partir du manifest dashboard.",
-    "status":  "draft",
-    "content":  {
-                    "summary":  "",
-                    "links":  [
-
-                              ],
-                    "use_cases":  [
-
-                                  ],
-                    "risks":  [
-
-                              ],
-                    "key_points":  [
-
-                                   ]
-                }
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "id": "knowledges.professional.product_management.advanced.growth_loops",
+  "title": "Growth Loops — boucles de croissance virales",
+  "domain": "professional",
+  "subdomain": "product_management_advanced",
+  "status": "validated",
+  "summary": "Les growth loops sont des boucles de rétroaction auto-alimentées où les utilisateurs existants génèrent des nouveaux utilisateurs (via partage, création de contenu, ou effets réseau) — créant une croissance organique qui ne dépend pas de la dépense publicitaire.",
+  "core_definition": "Un growth loop est un mécanisme systémique dans lequel l'utilisation d'un produit par des utilisateurs existants génère de l'exposition ou de la valeur pour de nouveaux utilisateurs potentiels, créant une boucle de croissance auto-entretenue qui augmente en force avec le nombre d'utilisateurs.",
+  "knowledge": {
+    "growth_loop_types": [
+      {
+        "type": "Viral loop",
+        "mechanism": "Un utilisateur invite ou expose le produit à d'autres",
+        "example": "Dropbox — invite → 2Go de stockage bonus pour chaque ami invité qui s'inscrit"
+      },
+      {
+        "type": "Content loop",
+        "mechanism": "Les utilisateurs créent du contenu qui attire d'autres utilisateurs",
+        "example": "YouTube — créateurs uploadent des vidéos → vues non-connectées → inscription"
+      },
+      {
+        "type": "SEO loop",
+        "mechanism": "Les interactions utilisateurs génèrent du contenu indexable",
+        "example": "Quora — questions-réponses indexées sur Google → trafic organique → nouveaux utilisateurs"
+      },
+      {
+        "type": "Network effect loop",
+        "mechanism": "Le produit est plus valuable avec plus d'utilisateurs",
+        "example": "LinkedIn — plus de connexions → meilleur recrutement → plus d'entreprises → plus d'offres → plus d'utilisateurs"
+      }
+    ],
+    "loop_vs_funnel": {
+      "funnel": "Linéaire : acquisition → activation → rétention → revenue. Chaque étape perd des utilisateurs. Dépend de l'injection externe (publicité).",
+      "loop": "Cyclique : les utilisateurs actuels alimentent la prochaine cohorte. Croissance exponentielle si le coefficient viral > 1."
+    },
+    "viral_coefficient": "K = nb_invitations_par_utilisateur × taux_de_conversion. Si K > 1 : croissance exponentielle. Si K < 1 : croissance mais dépend de l'acquisition externe."
+  },
+  "example_answers": [
+    {
+      "prompt": "Est-ce qu'ALFRED peut avoir un growth loop ?",
+      "answer": "Oui — plusieurs mécanismes possibles : (1) Sharing loop : si les réponses d'ALFRED sont partageables (et que les personnes qui les reçoivent veulent accéder au même service), (2) Content loop : si les utilisateurs d'ALFRED produisent des articles/analyses avec l'aide d'ALFRED et que ces contenus mentionnent ALFRED, (3) Recommendation loop : un utilisateur satisfait recommande ALFRED à ses proches. Le loop le plus naturel pour un assistant personnel : le bouche-à-oreille qualifié."
+    },
+    {
+      "prompt": "Comment calculer si mon produit a un vrai viral loop ?",
+      "answer": "Mesurer K = (invitations envoyées par utilisateur actif) × (taux de conversion invitation → inscription). Si K = 0.5 : pour 100 utilisateurs, 50 nouveaux entrent via invitation. Si K = 1.2 : croissance organique exponentielle sans dépense publicitaire. Attention : K > 1 est rare — la plupart des produits ont K < 0.5 et dépendent de l'acquisition payante pour alimenter la boucle."
+    }
+  ],
+  "response_guidance": {
+    "tone": "stratégique, ancré dans les métriques et la réalité des utilisateurs",
+    "structure": [
+      "identifier le contexte produit",
+      "expliquer le framework",
+      "proposer une application concrète"
+    ],
+    "avoid": [
+      "trop théorique",
+      "ignorer les contraintes business",
+      "recommander sans contexte"
+    ]
+  },
+  "tags": [
+    "growth loop",
+    "viralité",
+    "coefficient viral",
+    "effets réseau",
+    "croissance organique",
+    "product management",
+    "produit"
+  ],
+  "related_knowledge_units": [
+    "knowledges.cpl.strategy.strategy_fundamentals",
+    "knowledges.cpl.product_ia.user_needs_analysis"
+  ]
 }

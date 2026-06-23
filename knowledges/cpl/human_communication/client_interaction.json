@@ -1,52 +1,101 @@
 {
-  "id": "client_interaction",
-  "name": "Client Interaction",
-  "version": "1.0.0",
-  "category": "human_communication",
-  "purpose": "Aider ALFRED à structurer les échanges clients, la découverte de besoin, la reformulation et la proposition.",
-  "concepts": [
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "id": "knowledges.cpl.human_communication.client_interaction",
+  "title": "Interaction client — principes et pratiques",
+  "domain": "cpl",
+  "subdomain": "human_communication",
+  "status": "validated",
+  "summary": "Une relation client solide se construit sur la confiance, la clarté des attentes et la capacité à gérer les imprévus avec professionnalisme. Chaque interaction est une opportunité de renforcer ou d'éroder cette confiance.",
+  "core_definition": "L'interaction client englobe l'ensemble des échanges entre un prestataire ou un produit et ses clients : onboarding, suivi de projet, gestion des attentes, escalades et clôture. La qualité de ces interactions détermine la satisfaction, la fidélité et les recommandations.",
+  "knowledge": {
+    "interaction_phases": [
+      {
+        "phase": "Onboarding",
+        "objective": "Créer confiance, aligner les attentes, définir les règles du jeu",
+        "pitfalls": "Promettre sans encadrer les conditions, négliger le suivi initial"
+      },
+      {
+        "phase": "Suivi actif",
+        "objective": "Maintenir la visibilité sur l'avancement, anticiper les blocages",
+        "pitfalls": "Silence entre les livrables, absence de proactivité sur les problèmes"
+      },
+      {
+        "phase": "Gestion des difficultés",
+        "objective": "Communiquer rapidement, proposer des solutions, ne pas défensif",
+        "pitfalls": "Cacher un problème, rejeter la responsabilité, promettre sans tenir"
+      },
+      {
+        "phase": "Clôture et fidélisation",
+        "objective": "Valider la satisfaction, capitaliser sur la relation, explorer les suites",
+        "pitfalls": "Disparaître après livraison, ne pas demander de retex"
+      }
+    ],
+    "client_communication_rules": [
+      "Anticiper les questions avant qu'elles soient posées",
+      "Toujours confirmer par écrit les décisions verbales",
+      "Ne jamais annoncer un problème sans proposer une solution ou une alternative",
+      "Adapter le niveau de détail technique au profil du client",
+      "Être proactif sur les délais : mieux vaut annoncer un retard tôt qu'une surprise à la deadline"
+    ],
+    "difficult_situations": [
+      {
+        "situation": "Client insatisfait",
+        "response": "Écouter sans se défendre d'abord, valider le ressenti, puis expliquer et proposer une solution concrète"
+      },
+      {
+        "situation": "Demande hors scope",
+        "response": "Reconnaître la valeur de la demande, expliquer l'impact scope/délai/coût, proposer un devis ou un report"
+      },
+      {
+        "situation": "Retard sur livraison",
+        "response": "Prévenir le plus tôt possible, expliquer la cause sans excuses excessives, donner une nouvelle date ferme"
+      },
+      {
+        "situation": "Malentendu sur les attentes",
+        "response": "Revenir aux éléments écrits (brief, cahier des charges), reformuler ensemble l'attendu, repartir d'un commun accord"
+      }
+    ]
+  },
+  "example_answers": [
     {
-      "name": "Découverte client",
-      "definition": "Phase de compréhension du besoin, contexte, objectifs et contraintes.",
-      "usage": "Éviter de vendre une solution inadaptée."
+      "prompt": "Un client est mécontent d'un livrable, comment réagir ?",
+      "answer": "Première étape : écouter sans interrompre ni se justifier. 'Je comprends ta déception, dis-moi précisément ce qui ne correspond pas à tes attentes.' Une fois le problème bien cerné : proposer une solution concrète et un délai. Ne pas sur-promettre pour calmer — promettre ce qu'on peut tenir, tenir ce qu'on promet."
     },
     {
-      "name": "Reformulation",
-      "definition": "Restitution claire du besoin entendu.",
-      "usage": "Créer confiance et alignement."
+      "prompt": "Comment annoncer un retard à un client ?",
+      "answer": "Le plus tôt possible — pas à la deadline. Formuler : la nouvelle date ferme, la cause (sans excuse excessive), ce qu'on fait pour rattraper. 'Je préfère te prévenir maintenant plutôt que te surprendre vendredi : la livraison sera décalée au [date] en raison de [cause]. Voilà ce qu'on met en place pour tenir ce nouvel engagement.' Court et professionnel."
     },
     {
-      "name": "Proposition structurée",
-      "definition": "Présentation d’une solution, d’un périmètre, d’un prix et d’un livrable.",
-      "usage": "Faciliter la décision client."
+      "prompt": "Le client demande une fonctionnalité hors scope, comment dire non ?",
+      "answer": "Ne pas dire 'non' brut — dire 'oui, et voilà ce que ça implique'. 'C'est une bonne idée. Pour l'intégrer dans ce projet, il faudrait ajouter X jours et Y euros. Je peux en faire un devis, ou on peut l'inscrire en priorité pour la prochaine phase.' La demande est valorisée, les contraintes sont explicites, le client choisit."
     }
   ],
-  "rules": [
-    "Toujours comprendre avant de proposer.",
-    "Reformuler les enjeux avant de parler prix.",
-    "Relier chaque livrable à une valeur client."
+  "response_guidance": {
+    "tone": "professionnel, empathique, orienté solution",
+    "structure": [
+      "identifier la phase de la relation client",
+      "calibrer le message selon l'enjeu émotionnel",
+      "formuler concrètement",
+      "anticiper la réaction et les suites"
+    ],
+    "avoid": [
+      "promettre ce qu'on ne peut pas tenir pour calmer",
+      "être défensif ou rejeter la responsabilité",
+      "utiliser du jargon technique avec un client non technique"
+    ]
+  },
+  "tags": [
+    "client",
+    "relation client",
+    "communication",
+    "confiance",
+    "gestion de projet",
+    "cpl"
   ],
-  "decision_framework": [
-    "Quel est le problème client ?",
-    "Quel impact économique ou opérationnel ?",
-    "Quel niveau de maturité ?",
-    "Quel livrable peut créer de la valeur rapidement ?"
-  ],
-  "use_cases": [
-    {
-      "context": "Prospect B2B avec idée vague",
-      "action": "Questionner, reformuler, proposer cadrage",
-      "output": "Offre de mission claire"
-    },
-    {
-      "context": "Institution B2I prudente",
-      "action": "Rassurer sur éthique, gouvernance et accessibilité",
-      "output": "Proposition adaptée"
-    }
-  ],
-  "links": [
-    "communication_principles",
-    "value_proposition_framework",
-    "sales_funnel"
+  "related_knowledge_units": [
+    "knowledges.cpl.human_communication.communication_principles",
+    "knowledges.cpl.execution.project_management_core",
+    "knowledges.human.skills.softskills.assertiveness"
   ]
 }

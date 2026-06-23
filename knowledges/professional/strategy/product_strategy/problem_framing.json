@@ -1,99 +1,55 @@
 {
-  "schema_version": "1.0",
+  "schema_version": "1.2",
   "type": "knowledge_unit",
-  "id": "knowledges.professional.strategy.product_strategy.problem_framing",
-  "title": "Problem Framing",
+  "id": "knowledges.professional.strategy.problem_framing",
+  "title": "Cadrage du probleme (Problem Framing)",
   "domain": "professional",
-  "status": "validated_v1",
-  "summary": "Fiche permettant à ALFRED d’aider à formuler correctement un problème avant de proposer une solution.",
-  "core_definition": "Le problem framing consiste à cadrer un problème de manière claire, neutre et actionnable afin d’éviter de résoudre le mauvais sujet.",
-  "core_principles": [
-    "un problème bien formulé précède toute solution",
-    "un problème doit être observable",
-    "il doit préciser qui est concerné",
-    "il doit distinguer symptôme et cause",
-    "il doit éviter les solutions déguisées"
-  ],
-  "problem_structure": {
-    "user": "Qui est concerné ?",
-    "context": "Dans quelle situation ?",
-    "pain": "Quelle difficulté est rencontrée ?",
-    "impact": "Quelles conséquences ?",
-    "current_alternatives": "Comment le problème est-il géré aujourd’hui ?"
+  "subdomain": "strategy",
+  "status": "validated",
+  "summary": "Le problem framing est l'art de definir le bon probleme a resoudre avant de chercher des solutions. Un probleme bien cadre est deja a moitie resolu ; un probleme mal cadre genere des solutions a cote des besoins reels.",
+  "core_definition": "Le problem framing est la technique strategique qui consiste a definir et formuler precisement un probleme — en identifiant le vrai probleme (pas le symptome), les contraintes, les parties prenantes impactees et les criteres de succes — pour s'assurer que les efforts de resolution vont dans la bonne direction.",
+  "knowledge": {
+    "framing_techniques": [
+      "Distinction symptome/cause : '5 Pourquoi' pour remonter a la cause racine",
+      "Reformulation : 'Le vrai probleme n'est pas X mais Y' — changer l'angle revele de nouvelles solutions",
+      "Point de vue utilisateur : 'Qui a ce probleme ? Dans quelle situation ? Avec quelle frequence ?'",
+      "Quantification : 'Quel est le cout ou l'impact du probleme non resolu ?'",
+      "Contraintes explicites : 'Quelles solutions sont hors scope et pourquoi ?'"
+    ],
+    "design_thinking_define": "La phase 'Define' du Design Thinking formalise le problem framing : 'Comment pourrions-nous [faire quelque chose] pour [utilisateur] afin que [resultat]' — le 'Comment pourrions-nous' ouvre l'espace de solutions sans les forcer.",
+    "reframe_examples": [
+      "Probleme initial : 'Nos utilisateurs n'utilisent pas la feature X'. Reframe : 'Nos utilisateurs n'ont pas identifie le moment ou X leur serait utile'",
+      "Probleme initial : 'Nous avons trop peu de leads'. Reframe : 'Notre entonnoir de conversion perd 80% des leads entre qualification et demo'"
+    ]
   },
-  "good_problem_statement": "Dans [contexte], [cible] rencontre [problème], ce qui entraîne [impact].",
-  "bad_problem_examples": [
-    "Il faut créer une application",
-    "Les utilisateurs veulent de l’IA",
-    "Il faut automatiser",
-    "Le produit doit être plus moderne"
-  ],
-  "good_problem_examples": [
-    "Les utilisateurs en surcharge mentale ont du mal à prioriser leurs tâches, ce qui augmente leur fatigue et réduit leur capacité d’action.",
-    "Les équipes projet dispersées manquent d’une vision claire des priorités, ce qui crée retards et décisions contradictoires."
-  ],
-  "conversation_uses": [
-    "reformuler une idée en problème",
-    "préparer une discovery",
-    "clarifier un besoin client",
-    "éviter de partir trop vite en solution",
-    "structurer une problématique mémoire ou produit"
-  ],
   "example_answers": [
     {
-      "prompt": "Je veux créer une fonctionnalité IA.",
-      "answer": "On recadre : quel problème utilisateur cette fonctionnalité résout-elle ? L’IA est peut-être la solution, mais pas le problème."
+      "prompt": "Comment cadrer un probleme avant de le resoudre ?",
+      "answer": "En 4 etapes : (1) Ecrire le probleme tel qu'il est percu actuellement — l'externaliser revele souvent des ambiguites, (2) Demander '5 Pourquoi' — a chaque niveau, le probleme se redefinit, (3) Reformuler : 'Si le vrai probleme etait [autre chose], quelles solutions seraient possibles ?' — le changement d'angle revele de nouvelles options, (4) Valider avec les personnes impactees : 'Est-ce que ce cadrage correspond a votre experience du probleme ?' Un cadrage valide par les personnes impactees est plus robuste qu'un cadrage construit en chambre."
     },
     {
-      "prompt": "Je ne sais pas formuler mon problème.",
-      "answer": "On utilise la forme simple : dans quel contexte, qui rencontre quelle difficulté, avec quel impact ?"
+      "prompt": "Mon equipe cherche des solutions mais on tourne en rond — que faire ?",
+      "answer": "Signal que le probleme est mal cadre. Exercice : chaque membre de l'equipe ecrit sa definition du probleme en 1 phrase. Comparer — si les definitions sont tres differentes, vous ne cherchez pas a resoudre le meme probleme. Processus : reunir l'equipe, collecter les definitions, trouver les points communs et les divergences, converger vers une definition partagee et validee avec les utilisateurs. Ce travail de cadrage collectif peut prendre 1-2h mais il fait gagner des semaines de solutions a cote."
     }
   ],
   "response_guidance": {
-    "tone": "précis, structurant, challenger bienveillant",
+    "tone": "strategique, ancre dans la pratique",
     "structure": [
-      "symptôme",
-      "utilisateur concerné",
-      "contexte",
-      "impact",
-      "formulation du problème"
+      "contextualiser",
+      "expliquer le concept",
+      "proposer un angle actionnable"
     ],
     "avoid": [
-      "accepter une solution comme problème",
-      "formuler de manière trop vague",
-      "ignorer l’impact",
-      "sauter directement au plan d’action"
+      "trop theorique",
+      "ignorer le contexte"
     ]
   },
-  "links_to_alfred_identity": {
-    "dominant_layer": "jarvis",
-    "mode": "execution_mode",
-    "why": "Le cadrage de problème permet à ALFRED de structurer avant d’agir."
-  },
-  "related_knowledge_units": [
-    "knowledges.professional.product_management.product_discovery",
-    "knowledges.professional.product_management.product_core",
-    "knowledges.professional.strategy.product_strategy.value_proposition",
-    "knowledges.professional.decision_making.problem_solving"
-  ],
-  "related_features": [
-    "4.03.001",
-    "5.04.001",
-    "9.03.001",
-    "18.05.004"
-  ],
   "tags": [
-    "problem_framing",
-    "problem",
-    "strategy",
-    "product",
-    "discovery",
-    "user_need",
-    "alfred_cpl"
+    "problem framing",
+    "5 pourquoi",
+    "cadrage",
+    "design thinking",
+    "strategie"
   ],
-  "quality": {
-    "confidence": "high",
-    "requires_sources": false,
-    "review_needed": false
-  }
+  "related_knowledge_units": []
 }

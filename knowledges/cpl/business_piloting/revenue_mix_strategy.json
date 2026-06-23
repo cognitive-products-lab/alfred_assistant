@@ -1,52 +1,95 @@
 {
-  "id": "revenue_mix_strategy",
-  "name": "Revenue Mix Strategy",
-  "version": "1.0.0",
-  "category": "business_piloting",
-  "purpose": "Aider ALFRED à équilibrer revenus B2B, B2I, B2C, service et SaaS selon les phases de croissance.",
-  "concepts": [
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "id": "knowledges.cpl.business_piloting.revenue_mix_strategy",
+  "title": "Stratégie de mix de revenus",
+  "domain": "cpl",
+  "subdomain": "business_piloting",
+  "status": "validated",
+  "summary": "Diversifier ses sources de revenus réduit le risque de concentration et améliore la résilience. Un bon mix combine revenus récurrents (prévisibles), ponctuels (flexibles) et latents (upsell).",
+  "core_definition": "Le mix de revenus est la combinaison optimale de sources de revenus d'une organisation — abonnements, ventes unitaires, services, commissions, licences — conçue pour maximiser la stabilité, la croissance et la rentabilité globale.",
+  "knowledge": {
+    "revenue_types": [
+      {
+        "type": "Revenus récurrents (MRR/ARR)",
+        "examples": "Abonnements SaaS, maintenance, retainers",
+        "benefit": "Prévisibles, valorisés 5-10× en valorisation startup"
+      },
+      {
+        "type": "Revenus ponctuels",
+        "examples": "Ventes unitaires, projets, formations",
+        "benefit": "Flexibles, levier de croissance rapide"
+      },
+      {
+        "type": "Revenus d'expansion",
+        "examples": "Upsell, cross-sell, modules additionnels",
+        "benefit": "Meilleure LTV, coût d'acquisition nul"
+      },
+      {
+        "type": "Revenus partenaires",
+        "examples": "Commissions, affiliations, revendeurs",
+        "benefit": "Scalabilité sans équipe de vente propre"
+      },
+      {
+        "type": "Revenus passifs",
+        "examples": "Licences, API fees, royalties",
+        "benefit": "Marge très élevée si le produit existe déjà"
+      }
+    ],
+    "mix_principles": [
+      "Viser 60-70% de revenus récurrents dans un modèle SaaS/produit",
+      "Limiter la dépendance à un seul client (max 30% du CA)",
+      "Développer l'expansion revenue avant le nouveau client (plus économique)",
+      "Analyser la marge par type de revenu — tous ne sont pas également profitables",
+      "Tester de nouvelles sources sans déstabiliser les sources existantes"
+    ],
+    "concentration_risks": [
+      "Un client > 40% du CA : risque systémique à un départ",
+      "100% de revenus ponctuels : croissance non prévisible",
+      "Revenus géographiques concentrés : exposition aux crises locales",
+      "Mono-produit : vulnérabilité à la disruption ou à l'obsolescence"
+    ]
+  },
+  "example_answers": [
     {
-      "name": "Mix de revenus",
-      "definition": "Répartition des revenus entre plusieurs segments ou offres.",
-      "usage": "Réduire dépendance à une seule source."
+      "prompt": "On vit uniquement de projets ponctuels, comment stabiliser ?",
+      "answer": "Identifier dans nos projets ce qui se répète — maintenance, mises à jour, accompagnement — et le proposer sous forme d'abonnement mensuel. Même 20% de revenus récurrents change radicalement la prédictibilité du business. L'offre de retainer est souvent plus facile à vendre à un client existant qu'à un nouveau."
     },
     {
-      "name": "Revenu récurrent",
-      "definition": "Revenu qui se répète dans le temps, notamment par abonnement.",
-      "usage": "Stabiliser la croissance."
+      "prompt": "Un client représente 60% de notre CA, que faire ?",
+      "answer": "Risque critique à traiter maintenant, avant la crise. Plan d'action en parallèle : diversifier activement (prospection, partenariats) et sécuriser la relation client existante (contrat long terme, expansion dans le compte). Ne jamais tenter de réduire la dépendance en dégradant la relation avec le client concentré."
     },
     {
-      "name": "Service comme moteur initial",
-      "definition": "Utilisation du conseil pour générer du CA et valider les usages avant SaaS.",
-      "usage": "Sécuriser le lancement."
+      "prompt": "Quelles nouvelles sources de revenus explorer pour un produit IA ?",
+      "answer": "API access pour intégration tierce, formation et certification utilisateurs, consulting d'implémentation, marketplace de connecteurs, licence white-label pour partenaires. La règle : commencer par les plus proches de ce qu'on sait déjà faire — le risque d'exécution est plus faible."
     }
   ],
-  "rules": [
-    "Ne pas dépendre d’un seul segment client.",
-    "Le service finance et valide ; le SaaS scale.",
-    "Adapter le mix selon maturité, traction et capacité opérationnelle."
+  "response_guidance": {
+    "tone": "orienté pilotage, réaliste sur les risques",
+    "structure": [
+      "évaluer le mix actuel",
+      "identifier le risque de concentration",
+      "proposer une diversification réaliste",
+      "mesurer la progression"
+    ],
+    "avoid": [
+      "proposer des sources de revenus non accessibles à court terme",
+      "ignorer les coûts d'activation d'un nouveau canal",
+      "sous-estimer l'effort de vente pour chaque nouveau type"
+    ]
+  },
+  "tags": [
+    "revenus",
+    "mix",
+    "diversification",
+    "MRR",
+    "ARR",
+    "récurrents",
+    "cpl"
   ],
-  "decision_framework": [
-    "Quel segment génère le revenu le plus vite ?",
-    "Quel segment valide le mieux le produit ?",
-    "Quelle part récurrente est visée ?",
-    "Quel risque de dépendance existe ?"
-  ],
-  "use_cases": [
-    {
-      "context": "CPL A1-A3",
-      "action": "Prioriser revenus de service B2B/B2I",
-      "output": "CA court terme sécurisé"
-    },
-    {
-      "context": "CPL A4-A10",
-      "action": "Augmenter progressivement la part SaaS",
-      "output": "Modèle scalable"
-    }
-  ],
-  "links": [
-    "business_model_design",
-    "pricing_strategy",
-    "profitability_analysis"
+  "related_knowledge_units": [
+    "knowledges.cpl.business_piloting.profitability_analysis",
+    "knowledges.cpl.business_piloting.pricing_strategy",
+    "knowledges.cpl.strategy.business_model_design"
   ]
 }

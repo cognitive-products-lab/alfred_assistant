@@ -67,7 +67,7 @@ from typing import Optional, Tuple
 # Sprites base_normal (mouth+eyes) — utilisés pour l'animation bouche speaking
 _ASSET_BASE = (
     Path(__file__).resolve().parents[2]
-    / "assets" / "avatars" / "avatar_normal" / "base_normal"
+    / "assets" / "avatars" / "no_active_avatar_normal" / "base_normal"
 )
 _SPRITE_EXT = ".png.png"
 

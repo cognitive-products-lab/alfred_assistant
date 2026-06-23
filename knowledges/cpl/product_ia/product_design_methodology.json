@@ -1,52 +1,115 @@
 {
-  "id": "product_design_methodology",
-  "name": "Product Design Methodology",
-  "version": "1.0.0",
-  "category": "product_ai",
-  "purpose": "Aider ALFRED à structurer la conception d'un produit intelligent de l'idée au prototype.",
-  "concepts": [
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "id": "knowledges.cpl.product_ia.product_design_methodology",
+  "title": "Méthodologie de design produit IA",
+  "domain": "cpl",
+  "subdomain": "product_ia",
+  "status": "validated",
+  "summary": "Designer un produit IA exige de combiner discovery utilisateur, faisabilité technique et éthique. Le design part toujours d'un problème réel, pas d'une technologie disponible.",
+  "core_definition": "La méthodologie de design produit IA est un processus itératif qui articule la compréhension des besoins utilisateurs, la définition d'une proposition de valeur, la conception des interactions (UX/conversation), l'intégration des modèles IA et la validation continue en conditions réelles.",
+  "knowledge": {
+    "design_process": [
+      {
+        "phase": "Discovery",
+        "actions": [
+          "Interviews utilisateurs (jobs-to-be-done)",
+          "Cartographie des douleurs actuelles",
+          "Benchmark des alternatives"
+        ],
+        "output": "Problem statement validé"
+      },
+      {
+        "phase": "Define",
+        "actions": [
+          "Personas prioritaires",
+          "User stories IA (avec attendus et cas limites)",
+          "Critères d'évaluation de la qualité IA"
+        ],
+        "output": "Scope produit et critères de succès"
+      },
+      {
+        "phase": "Design",
+        "actions": [
+          "Conversation design (flow de dialogue)",
+          "UI minimaliste centrée sur la confiance",
+          "Fallbacks et gestion des erreurs IA"
+        ],
+        "output": "Prototype basse fidélité"
+      },
+      {
+        "phase": "Prototype & Test",
+        "actions": [
+          "Test utilisateur sur le prototype",
+          "Évaluation de la qualité des réponses IA",
+          "Ajustements prompts / modèle"
+        ],
+        "output": "MVP validé"
+      },
+      {
+        "phase": "Itérer",
+        "actions": [
+          "Métriques d'usage et satisfaction",
+          "Feedback loops",
+          "Versioning du modèle"
+        ],
+        "output": "Produit évolutif"
+      }
+    ],
+    "ai_product_specificities": [
+      "Le comportement du modèle IA est non déterministe — prévoir des tests systématiques sur des cas limites",
+      "La confiance utilisateur se construit par la transparence sur les limites du système",
+      "Les hallucinations doivent être mitigées par design (sources, hedges, fallbacks)",
+      "Le design conversationnel remplace souvent le design d'interface classique",
+      "La latence perçue impacte la satisfaction — optimiser les temps de réponse ou les masquer"
+    ],
+    "trust_design_principles": [
+      "Annoncer clairement que l'utilisateur interagit avec une IA",
+      "Montrer les sources quand possible",
+      "Permettre à l'utilisateur de corriger ou remettre en question une réponse",
+      "Ne jamais simuler une certitude que le système n'a pas",
+      "Expliquer pourquoi l'IA ne peut pas répondre à certaines questions"
+    ]
+  },
+  "example_answers": [
     {
-      "name": "Cadrage produit",
-      "definition": "Définition du problème, cible, valeur et limites.",
-      "usage": "Éviter une solution floue."
+      "prompt": "Comment concevoir les interactions d'un assistant IA ?",
+      "answer": "On part des conversations réelles : quelles questions les utilisateurs posent, dans quel ordre, avec quel niveau de précision ? On mappe les intentions (intents) et les réponses attendues. Ensuite on conçoit les cas nominaux et les cas limites (question floue, hors périmètre, réponse incorrecte). Un bon assistant IA gère l'échec aussi bien que le succès."
     },
     {
-      "name": "MVP",
-      "definition": "Version minimale testant la valeur principale.",
-      "usage": "Réduire le risque et apprendre vite."
+      "prompt": "Comment éviter que l'IA hallucine en production ?",
+      "answer": "Design défensif : borner le domaine de réponse (RAG sur une base de connaissance maîtrisée), ajouter des phrases de hedge ('je ne suis pas certain mais...'), afficher les sources, et laisser l'utilisateur valider. Aucun système LLM ne garantit l'exactitude — le design doit le prendre en compte."
     },
     {
-      "name": "Roadmap",
-      "definition": "Plan d'évolution du produit.",
-      "usage": "Prioriser versions et livrables."
+      "prompt": "Quelle différence entre UX classique et conversation design ?",
+      "answer": "L'UX classique conçoit des interfaces visuelles avec des états, des boutons, des flows. Le conversation design conçoit des échanges en langage naturel avec des intentions, des entités, des tours de parole et des stratégies de récupération. Les deux partagent le même objectif : que l'utilisateur arrive à ses fins sans friction."
     }
   ],
-  "rules": [
-    "Commencer par le problème avant la solution.",
-    "Limiter la V1 aux indispensables.",
-    "Chaque version doit valider une hypothèse claire."
+  "response_guidance": {
+    "tone": "pratique, orienté terrain, sensible aux contraintes IA",
+    "structure": [
+      "identifier la phase du projet produit",
+      "pointer les spécificités IA à anticiper",
+      "recommander une action concrète",
+      "signaler les pièges classiques"
+    ],
+    "avoid": [
+      "traiter un produit IA comme un produit logiciel standard",
+      "ignorer la question de la confiance utilisateur",
+      "recommander sans tenir compte des capacités réelles du modèle disponible"
+    ]
+  },
+  "tags": [
+    "design produit",
+    "IA",
+    "conversation design",
+    "UX IA",
+    "trust",
+    "cpl"
   ],
-  "decision_framework": [
-    "Quel problème la version résout-elle ?",
-    "Quelle fonctionnalité est indispensable ?",
-    "Quel livrable teste la valeur ?",
-    "Quelle métrique décide la suite ?"
-  ],
-  "use_cases": [
-    {
-      "context": "Assistant IA adaptatif",
-      "action": "Définir V1, V2, V3 selon valeur et faisabilité",
-      "output": "Roadmap progressive"
-    },
-    {
-      "context": "Client B2B avec idée non structurée",
-      "action": "Cadrer besoin, cible, fonctionnalités et livrables",
-      "output": "Dossier de cadrage produit"
-    }
-  ],
-  "links": [
-    "mvp_definition",
-    "product_roadmap_management",
-    "ai_usage_framework"
+  "related_knowledge_units": [
+    "knowledges.cpl.product_ia.user_needs_analysis",
+    "knowledges.cpl.product_ia.tech_tradeoff_framework",
+    "knowledges.professional.engineering.ai.prompt_engineering"
   ]
 }
