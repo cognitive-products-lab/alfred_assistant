@@ -1,28 +1,28 @@
 # ALFRED — BACKLOG & RÉFÉRENTIEL FICHIERS
 
-> Généré le 18/06/2026 15:50 depuis `dashboard_data.json` (mis à jour le 15/06/2026 13:29:58)
-> Progression technique : **67.2%** · Full projet : **48.7%**
+> Généré le 23/06/2026 16:02 depuis `dashboard_data.json` (mis à jour le 23/06/2026 16:02:01)
+> Progression technique : **72.5%** · Full projet : **54.4%**
 > 729 fichiers détectés / 1068 cible full
 
 ## Synthèse globale
 
 | Statut | Nb | % | Priorité |
 |--------|---:|--:|----------|
-| 🟡 Partiel | 190 | 26.1% | 🟡 Sprint |
-| 🟦 Codé — à tester | 238 | 32.6% | 🟡 Sprint |
+| 🟡 Partiel | 79 | 10.8% | 🟡 Sprint |
+| 🟦 Codé — à tester | 252 | 34.6% | 🟡 Sprint |
 | 🧪 Testé — à valider | 3 | 0.4% | 🧪 Tests |
-| ✅ Validé ✅ | 244 | 33.5% | ✅ Done |
+| ✅ Validé ✅ | 341 | 46.8% | ✅ Done |
 | ⚙️ Structurel | 54 | 7.4% | ✅ Done |
 
 ## Backlog par bloc
 
-### 🟡 B01 — Interaction conversationnelle intelligente `70.6%`
+### 🟡 B01 — Interaction conversationnelle intelligente `71.2%`
 
 | KPI | Valeur |
 |-----|--------|
 | Validés | 6 |
-| Testés | 1 |
-| Codés (à tester) | 19 |
+| Testés | 2 |
+| Codés (à tester) | 18 |
 | Partiels | 4 |
 | Structurels | 4 |
 | Manquants | 0 |
@@ -38,7 +38,6 @@
 | `config/conversation_rules.json` | 🟦 Codé — à tester | Tester |
 | `data/memory/episodic/dialogue_history.json` | 🟦 Codé — à tester | Tester |
 | `src/conversation/input/audio_capture.py` | 🟦 Codé — à tester | Tester |
-| `src/conversation/input/context_builder.py` | 🟦 Codé — à tester | Tester |
 | `src/conversation/nlp/nlp_engine_v2.py` | 🟦 Codé — à tester | Tester |
 | `src/conversation/input/speech_manager.py` | 🟦 Codé — à tester | Tester |
 | `src/conversation/input/text_input.py` | 🟦 Codé — à tester | Tester |
@@ -88,13 +87,13 @@
 | `src/memory/rag_stub.py` | 🟦 Codé — à tester | Tester |
 | `src/rag/rag_engine.py` | 🟦 Codé — à tester | Tester |
 
-### 🟡 B03 — Émotions & Régulation `76.2%`
+### 🟡 B03 — Émotions & Régulation `77.7%`
 
 | KPI | Valeur |
 |-----|--------|
-| Validés | 11 |
+| Validés | 12 |
 | Testés | 0 |
-| Codés (à tester) | 8 |
+| Codés (à tester) | 7 |
 | Partiels | 5 |
 | Structurels | 2 |
 | Manquants | 0 |
@@ -108,7 +107,6 @@
 | `config/v3/tone_profiles.json` | 🟡 Partiel | Compléter |
 | `data/v3/emotion_state.json` | 🟡 Partiel | Compléter |
 | `data/v3/relational_state.json` | 🟡 Partiel | Compléter |
-| `knowledges/cpl/human_communication/emotional_intelligence.json` | 🟦 Codé — à tester | Tester |
 | `knowledges/human/cognition/decision_fatigue.json` | 🟦 Codé — à tester | Tester |
 | `knowledges/human/emotional_intelligence/active_listening.json` | 🟦 Codé — à tester | Tester |
 | `knowledges/human/emotional_intelligence/emotional_management.json` | 🟦 Codé — à tester | Tester |
@@ -117,13 +115,13 @@
 | `knowledges/human/psychology/resilience.json` | 🟦 Codé — à tester | Tester |
 | `tests/test_b02_b03.py` | 🟦 Codé — à tester | Tester |
 
-### 🟡 B04 — Sécurité & Protection `64.0%`
+### 🟡 B04 — Sécurité & Protection `76.0%`
 
 | KPI | Valeur |
 |-----|--------|
-| Validés | 1 |
+| Validés | 4 |
 | Testés | 0 |
-| Codés (à tester) | 9 |
+| Codés (à tester) | 6 |
 | Partiels | 0 |
 | Structurels | 0 |
 | Manquants | 0 |
@@ -136,19 +134,16 @@
 | `.gitignore` | 🟦 Codé — à tester | Tester |
 | `config/ethics_rules.json` | 🟦 Codé — à tester | Tester |
 | `config/settings.json` | 🟦 Codé — à tester | Tester |
-| `knowledges/cpl/ethics_governance/accessibility_principles.json` | 🟦 Codé — à tester | Tester |
-| `knowledges/cpl/ethics_governance/ethical_ai_framework.json` | 🟦 Codé — à tester | Tester |
-| `knowledges/cpl/ethics_governance/governance_model.json` | 🟦 Codé — à tester | Tester |
 | `knowledges/system/ethics/ethical_framework.json` | 🟦 Codé — à tester | Tester |
 | `pyproject.toml` | 🟦 Codé — à tester | Tester |
 
-### 🟡 B05 — Organisation & Assistance `74.3%`
+### 🟢 B05 — Organisation & Assistance `88.6%`
 
 | KPI | Valeur |
 |-----|--------|
-| Validés | 5 |
+| Validés | 10 |
 | Testés | 0 |
-| Codés (à tester) | 6 |
+| Codés (à tester) | 1 |
 | Partiels | 2 |
 | Structurels | 1 |
 | Manquants | 0 |
@@ -159,20 +154,15 @@
 |---------|--------|--------|
 | `data/actions/tasks.json` | 🟡 Partiel | Compléter |
 | `data/v2/scenarios/daily_organization.json` | 🟡 Partiel | Compléter |
-| `knowledges/cpl/execution/decision_making_framework.json` | 🟦 Codé — à tester | Tester |
-| `knowledges/cpl/execution/project_management_core.json` | 🟦 Codé — à tester | Tester |
-| `knowledges/cpl/execution/risk_management.json` | 🟦 Codé — à tester | Tester |
-| `knowledges/cpl/execution/task_prioritization.json` | 🟦 Codé — à tester | Tester |
-| `knowledges/cpl/human_organization/energy_management.json` | 🟦 Codé — à tester | Tester |
 | `knowledges/human/skills/softskills/organization.json` | 🟦 Codé — à tester | Tester |
 
-### 🟡 B06 — Communication & Lien social `64.4%`
+### 🟡 B06 — Communication & Lien social `73.3%`
 
 | KPI | Valeur |
 |-----|--------|
-| Validés | 1 |
+| Validés | 3 |
 | Testés | 0 |
-| Codés (à tester) | 8 |
+| Codés (à tester) | 6 |
 | Partiels | 0 |
 | Structurels | 0 |
 | Manquants | 0 |
@@ -181,8 +171,6 @@
 
 | Fichier | Statut | Action |
 |---------|--------|--------|
-| `knowledges/cpl/human_communication/client_interaction.json` | 🟦 Codé — à tester | Tester |
-| `knowledges/cpl/human_communication/communication_principles.json` | 🟦 Codé — à tester | Tester |
 | `knowledges/human/skills/softskills/argumentation_frameworks.json` | 🟦 Codé — à tester | Tester |
 | `knowledges/human/skills/softskills/assertiveness.json` | 🟦 Codé — à tester | Tester |
 | `knowledges/human/skills/softskills/communication_clarity.json` | 🟦 Codé — à tester | Tester |
@@ -207,14 +195,14 @@
 |---------|--------|--------|
 | `data/context/user_context.json` | 🟡 Partiel | Compléter |
 
-### 🟡 B08 — Personnalisation utilisateur `68.9%`
+### 🟡 B08 — Personnalisation utilisateur `70.4%`
 
 | KPI | Valeur |
 |-----|--------|
-| Validés | 6 |
+| Validés | 7 |
 | Testés | 0 |
 | Codés (à tester) | 17 |
-| Partiels | 3 |
+| Partiels | 2 |
 | Structurels | 1 |
 | Manquants | 0 |
 
@@ -224,12 +212,12 @@
 |---------|--------|--------|
 | `data/personality.json` | 🟡 Partiel | Compléter |
 | `data/preferences_profile.json` | 🟡 Partiel | Compléter |
-| `data/profile/user_profile.json` | 🟡 Partiel | Compléter |
 | `config/personality_core.json` | 🟦 Codé — à tester | Tester |
 | `config/user_adaptation_profile.json` | 🟦 Codé — à tester | Tester |
 | `data/personality/instances/personality_core_instance.json` | 🟦 Codé — à tester | Tester |
 | `data/personality/templates/personality_core.json` | 🟦 Codé — à tester | Tester |
 | `data/personality/templates/personality_core_template_public.json` | 🟦 Codé — à tester | Tester |
+| `data/profile/user_profile.json` | 🟦 Codé — à tester | Tester |
 | `data/users/instances/user_celine_instance.json` | 🟦 Codé — à tester | Tester |
 | `data/users/templates/user_adaptation_profile.json` | 🟦 Codé — à tester | Tester |
 | `data/users/templates/user_profile_template_public.json` | 🟦 Codé — à tester | Tester |
@@ -241,15 +229,14 @@
 | `knowledges/human/self_alignment/habits/discipline.json` | 🟦 Codé — à tester | Tester |
 | `knowledges/human/self_alignment/routines/feedback_loop.json` | 🟦 Codé — à tester | Tester |
 | `src/core/alfred_behavior_engine.py` | 🟦 Codé — à tester | Tester |
-| `src/core/personality_adapter.py` | 🟦 Codé — à tester | Tester |
 
-### 🟡 B09 — Productivité & Copilote pro `75.4%`
+### 🟢 B09 — Productivité & Copilote pro `84.6%`
 
 | KPI | Valeur |
 |-----|--------|
-| Validés | 5 |
+| Validés | 8 |
 | Testés | 0 |
-| Codés (à tester) | 8 |
+| Codés (à tester) | 5 |
 | Partiels | 0 |
 | Structurels | 0 |
 | Manquants | 0 |
@@ -258,9 +245,6 @@
 
 | Fichier | Statut | Action |
 |---------|--------|--------|
-| `knowledges/cpl/product_ia/product_design_methodology.json` | 🟦 Codé — à tester | Tester |
-| `knowledges/cpl/product_ia/tech_tradeoff_framework.json` | 🟦 Codé — à tester | Tester |
-| `knowledges/cpl/product_ia/user_needs_analysis.json` | 🟦 Codé — à tester | Tester |
 | `knowledges/human/skills/softskills/problem_solving.json` | 🟦 Codé — à tester | Tester |
 | `knowledges/professional/decision/decision_models.json` | 🟦 Codé — à tester | Tester |
 | `knowledges/professional/decision/decision_support.json` | 🟦 Codé — à tester | Tester |
@@ -277,6 +261,8 @@
 | Partiels | 0 |
 | Structurels | 0 |
 | Manquants | 0 |
+
+> 🟪 Roadmap V2 — Bloc absent (0 fichier). Fonctionnalités collaboration/coordination à définir et implémenter en V2.
 
 ### 🟢 B11 — Intelligence cognitive avancée `82.1%`
 
@@ -302,13 +288,13 @@
 | `knowledges/professional/engineering/ai/reasoning_advanced.json` | 🟦 Codé — à tester | Tester |
 | `knowledges/professional/engineering/ai/reasoning_engine.json` | 🟦 Codé — à tester | Tester |
 
-### 🟡 B12 — Pilotage business & Stratégie `73.8%`
+### 🟢 B12 — Pilotage business & Stratégie `88.8%`
 
 | KPI | Valeur |
 |-----|--------|
-| Validés | 7 |
+| Validés | 13 |
 | Testés | 0 |
-| Codés (à tester) | 6 |
+| Codés (à tester) | 0 |
 | Partiels | 3 |
 | Structurels | 0 |
 | Manquants | 0 |
@@ -320,12 +306,6 @@
 | `config/v2/kpi_config.json` | 🟡 Partiel | Compléter |
 | `config/v2/product_roadmap.json` | 🟡 Partiel | Compléter |
 | `data/v2/product_state.json` | 🟡 Partiel | Compléter |
-| `knowledges/cpl/business_piloting/pricing_strategy.json` | 🟦 Codé — à tester | Tester |
-| `knowledges/cpl/business_piloting/profitability_analysis.json` | 🟦 Codé — à tester | Tester |
-| `knowledges/cpl/business_piloting/revenue_mix_strategy.json` | 🟦 Codé — à tester | Tester |
-| `knowledges/cpl/strategy/business_model_design.json` | 🟦 Codé — à tester | Tester |
-| `knowledges/cpl/strategy/strategy_fundamentals.json` | 🟦 Codé — à tester | Tester |
-| `knowledges/cpl/strategy/value_proposition_framework.json` | 🟦 Codé — à tester | Tester |
 
 ### 🟡 B13 — Compagnon pédiatrique / ARTHUR `66.7%`
 
@@ -359,13 +339,15 @@
 | Structurels | 1 |
 | Manquants | 0 |
 
-### 🟡 B15 — Présence visuelle & Avatar `66.5%`
+> 🟪 Roadmap V2/V3 — Architecture IoT esquissée (src/v4/) : 7 sous-modules tous vides (__init__.py uniquement). Implémentation prévue en V2/V3 (domotique, scénarios, triggers).
+
+### 🟡 B15 — Présence visuelle & Avatar `66.9%`
 
 | KPI | Valeur |
 |-----|--------|
-| Validés | 8 |
+| Validés | 9 |
 | Testés | 0 |
-| Codés (à tester) | 45 |
+| Codés (à tester) | 44 |
 | Partiels | 1 |
 | Structurels | 1 |
 | Manquants | 0 |
@@ -376,18 +358,17 @@
 |---------|--------|--------|
 | `assets/models/tts/fr_FR/ALIASES` | 🟡 Partiel | Compléter |
 | `src/ui/alfred_app.py` | 🟦 Codé — à tester | Tester |
-| `src/ui/device_settings.py` | 🟦 Codé — à tester | Tester |
-| `assets/avatars/avatar_normal/base_normal/avatar_mouth_a_eyes_closed.png.png` | 🟦 Codé — à tester | Tester |
-| `assets/avatars/avatar_normal/base_normal/avatar_mouth_a_eyes_half.png.png` | 🟦 Codé — à tester | Tester |
-| `assets/avatars/avatar_normal/base_normal/avatar_mouth_a_eyes_open.png.png` | 🟦 Codé — à tester | Tester |
-| `assets/avatars/avatar_normal/base_normal/avatar_mouth_idle_eyes_closed.png.png` | 🟦 Codé — à tester | Tester |
-| `assets/avatars/avatar_normal/base_normal/avatar_mouth_idle_eyes_half.png.png` | 🟦 Codé — à tester | Tester |
-| `assets/avatars/avatar_normal/base_normal/avatar_mouth_m_eyes_closed.png.png` | 🟦 Codé — à tester | Tester |
-| `assets/avatars/avatar_normal/base_normal/avatar_mouth_m_eyes_half.png.png` | 🟦 Codé — à tester | Tester |
-| `assets/avatars/avatar_normal/base_normal/avatar_mouth_m_eyes_open.png.png` | 🟦 Codé — à tester | Tester |
-| `assets/avatars/avatar_normal/base_normal/avatar_mouth_o_eyes_closed.png.png` | 🟦 Codé — à tester | Tester |
-| `assets/avatars/avatar_normal/base_normal/avatar_mouth_o_eyes_half.png.png` | 🟦 Codé — à tester | Tester |
-| `assets/avatars/avatar_normal/base_normal/avatar_mouth_o_eyes_open.png.png` | 🟦 Codé — à tester | Tester |
+| `assets/avatars/no_active_avatar_normal/base_normal/avatar_mouth_a_eyes_closed.png.png` | 🟦 Codé — à tester | Tester |
+| `assets/avatars/no_active_avatar_normal/base_normal/avatar_mouth_a_eyes_half.png.png` | 🟦 Codé — à tester | Tester |
+| `assets/avatars/no_active_avatar_normal/base_normal/avatar_mouth_a_eyes_open.png.png` | 🟦 Codé — à tester | Tester |
+| `assets/avatars/no_active_avatar_normal/base_normal/avatar_mouth_idle_eyes_closed.png.png` | 🟦 Codé — à tester | Tester |
+| `assets/avatars/no_active_avatar_normal/base_normal/avatar_mouth_idle_eyes_half.png.png` | 🟦 Codé — à tester | Tester |
+| `assets/avatars/no_active_avatar_normal/base_normal/avatar_mouth_m_eyes_closed.png.png` | 🟦 Codé — à tester | Tester |
+| `assets/avatars/no_active_avatar_normal/base_normal/avatar_mouth_m_eyes_half.png.png` | 🟦 Codé — à tester | Tester |
+| `assets/avatars/no_active_avatar_normal/base_normal/avatar_mouth_m_eyes_open.png.png` | 🟦 Codé — à tester | Tester |
+| `assets/avatars/no_active_avatar_normal/base_normal/avatar_mouth_o_eyes_closed.png.png` | 🟦 Codé — à tester | Tester |
+| `assets/avatars/no_active_avatar_normal/base_normal/avatar_mouth_o_eyes_half.png.png` | 🟦 Codé — à tester | Tester |
+| `assets/avatars/no_active_avatar_normal/base_normal/avatar_mouth_o_eyes_open.png.png` | 🟦 Codé — à tester | Tester |
 | `assets/avatars/avatar_medium/base_medium/alfred_medium_neutral.png` | 🟦 Codé — à tester | Tester |
 | `assets/avatars/avatar_medium/base_medium/alfred_medium_neutral_a.png` | 🟦 Codé — à tester | Tester |
 | `assets/avatars/avatar_medium/base_medium/alfred_medium_neutral_e.png` | 🟦 Codé — à tester | Tester |
@@ -404,7 +385,8 @@
 | `assets/avatars/avatar_medium/base_medium/alfred_medium_confused.png` | 🟦 Codé — à tester | Tester |
 | `assets/avatars/avatar_medium/base_medium/alfred_medium_cybersecurity.png` | 🟦 Codé — à tester | Tester |
 | `assets/avatars/avatar_medium/base_medium/alfred_medium_love.png` | 🟦 Codé — à tester | Tester |
-| *... 16 autres* | | |
+| `assets/avatars/avatar_medium/base_medium/alfred_medium_excited.png` | 🟦 Codé — à tester | Tester |
+| *... 15 autres* | | |
 
 ### 🟠 B16 — Démonstration & Scénarisation `43.3%`
 
@@ -456,14 +438,14 @@
 | `assets/backgrounds/mode_portrait/interieur/specifique/sport/background_portrait_interieur_sport.png` | 🟦 Codé — à tester | Tester |
 | `assets/backgrounds/mode_portrait/orientation portrait/specifique/Transport/background_portrait_exterieur_transport_debut fin journee.jpg` | 🟦 Codé — à tester | Tester |
 
-### 🟡 B18 — Knowledge & Intelligence System `62.9%`
+### 🟡 B18 — Knowledge & Intelligence System `77.4%`
 
 | KPI | Valeur |
 |-----|--------|
-| Validés | 65 |
+| Validés | 104 |
 | Testés | 1 |
-| Codés (à tester) | 20 |
-| Partiels | 147 |
+| Codés (à tester) | 90 |
+| Partiels | 38 |
 | Structurels | 27 |
 | Manquants | 0 |
 
@@ -501,7 +483,7 @@
 | `data/v3/conversation_state.json` | 🟡 Partiel | Compléter |
 | `data/v3/feedback_log_v3.json` | 🟡 Partiel | Compléter |
 | `data/v3/fusion_results.json` | 🟡 Partiel | Compléter |
-| *... 137 autres* | | |
+| *... 98 autres* | | |
 
 ### 🟡 B19 — Domotique Intelligente `60.0%`
 
@@ -553,52 +535,16 @@
 | `data/security/incident_register.json` | 🟦 Codé — à tester | Tester |
 | `logs/security/security.log` | 🟦 Codé — à tester | Tester |
 
-### 🟡 B21 — ALFRED Web Platform `63.1%`
+### ✅ B21 — ALFRED Web Platform `100.0%`
 
 | KPI | Valeur |
 |-----|--------|
-| Validés | 3 |
-| Testés | 1 |
-| Codés (à tester) | 34 |
-| Partiels | 1 |
+| Validés | 39 |
+| Testés | 0 |
+| Codés (à tester) | 0 |
+| Partiels | 0 |
 | Structurels | 0 |
 | Manquants | 0 |
-
-**Fichiers à traiter :**
-
-| Fichier | Statut | Action |
-|---------|--------|--------|
-| `ALFRED_WEB/babel.cfg` | 🟡 Partiel | Compléter |
-| `ALFRED_WEB/requirements.txt` | 🟦 Codé — à tester | Tester |
-| `ALFRED_WEB/README.md` | 🟦 Codé — à tester | Tester |
-| `ALFRED_WEB/static/css/style.css` | 🟦 Codé — à tester | Tester |
-| `ALFRED_WEB/templates/base.html` | 🟦 Codé — à tester | Tester |
-| `ALFRED_WEB/templates/index.html` | 🟦 Codé — à tester | Tester |
-| `ALFRED_WEB/templates/projet.html` | 🟦 Codé — à tester | Tester |
-| `ALFRED_WEB/templates/apprentissages.html` | 🟦 Codé — à tester | Tester |
-| `ALFRED_WEB/templates/travaux.html` | 🟦 Codé — à tester | Tester |
-| `ALFRED_WEB/templates/hardware.html` | 🟦 Codé — à tester | Tester |
-| `ALFRED_WEB/templates/setup_bureau.html` | 🟦 Codé — à tester | Tester |
-| `ALFRED_WEB/templates/pentest_demo.html` | 🟦 Codé — à tester | Tester |
-| `ALFRED_WEB/templates/security_report.html` | 🟦 Codé — à tester | Tester |
-| `ALFRED_WEB/templates/dashboard_security.html` | 🟦 Codé — à tester | Tester |
-| `ALFRED_WEB/templates/dashboard_tests.html` | 🟦 Codé — à tester | Tester |
-| `ALFRED_WEB/templates/smsi_dashboard.html` | 🟦 Codé — à tester | Tester |
-| `ALFRED_WEB/templates/cpl.html` | 🟦 Codé — à tester | Tester |
-| `ALFRED_WEB/templates/rse.html` | 🟦 Codé — à tester | Tester |
-| `ALFRED_WEB/templates/articles.html` | 🟦 Codé — à tester | Tester |
-| `ALFRED_WEB/templates/articles_categorie.html` | 🟦 Codé — à tester | Tester |
-| `ALFRED_WEB/templates/article_perte_donnees.html` | 🟦 Codé — à tester | Tester |
-| `ALFRED_WEB/templates/article_ia_accessibilite_zero_trust.html` | 🟦 Codé — à tester | Tester |
-| `ALFRED_WEB/templates/article_teletravail_flexible_sante_agefiph.html` | 🟦 Codé — à tester | Tester |
-| `ALFRED_WEB/templates/article_carriere_grc_flexibilite_facteur_humain.html` | 🟦 Codé — à tester | Tester |
-| `ALFRED_WEB/templates/article_accessibilite_fr_en_lecture_vocale.html` | 🟦 Codé — à tester | Tester |
-| `ALFRED_WEB/templates/doc_stub.html` | 🟦 Codé — à tester | Tester |
-| `ALFRED_WEB/templates/profil.html` | 🟦 Codé — à tester | Tester |
-| `ALFRED_WEB/templates/mentions_legales.html` | 🟦 Codé — à tester | Tester |
-| `ALFRED_WEB/templates/contact.html` | 🟦 Codé — à tester | Tester |
-| `ALFRED_WEB/templates/error.html` | 🟦 Codé — à tester | Tester |
-| *... 5 autres* | | |
 
 ### 🟡 B22 — Accessibility & Cognitive Assistance `71.0%`
 
@@ -631,7 +577,7 @@
 | `tests/b15_tests/test_b22_accessibility.py` | 🟦 Codé — à tester | Tester |
 | `tests/b15_tests/test_voice_output_manager.py` | 🟦 Codé — à tester | Tester |
 
-## 🟦 Sprint — Fichiers codés à tester (238)
+## 🟦 Sprint — Fichiers codés à tester (252)
 
 Ces fichiers sont implémentés mais n'ont pas encore de tests.
 
@@ -640,7 +586,6 @@ Ces fichiers sont implémentés mais n'ont pas encore de tests.
 - `data/memory/episodic/dialogue_history.json`
 - `src/conversation/input/audio_capture.py`
 - `src/conversation/input/audio_listener.py`
-- `src/conversation/input/context_builder.py`
 - `src/conversation/input/speech_manager.py`
 - `src/conversation/input/text_input.py`
 - `src/conversation/nlp/intent_classifier.py`
@@ -670,7 +615,6 @@ Ces fichiers sont implémentés mais n'ont pas encore de tests.
 - `src/memory/rag_stub.py`
 - `src/rag/rag_engine.py`
 **B03**
-- `knowledges/cpl/human_communication/emotional_intelligence.json`
 - `knowledges/human/cognition/decision_fatigue.json`
 - `knowledges/human/emotional_intelligence/active_listening.json`
 - `knowledges/human/emotional_intelligence/emotional_management.json`
@@ -683,21 +627,11 @@ Ces fichiers sont implémentés mais n'ont pas encore de tests.
 - `.gitignore`
 - `config/ethics_rules.json`
 - `config/settings.json`
-- `knowledges/cpl/ethics_governance/accessibility_principles.json`
-- `knowledges/cpl/ethics_governance/ethical_ai_framework.json`
-- `knowledges/cpl/ethics_governance/governance_model.json`
 - `knowledges/system/ethics/ethical_framework.json`
 - `pyproject.toml`
 **B05**
-- `knowledges/cpl/execution/decision_making_framework.json`
-- `knowledges/cpl/execution/project_management_core.json`
-- `knowledges/cpl/execution/risk_management.json`
-- `knowledges/cpl/execution/task_prioritization.json`
-- `knowledges/cpl/human_organization/energy_management.json`
 - `knowledges/human/skills/softskills/organization.json`
 **B06**
-- `knowledges/cpl/human_communication/client_interaction.json`
-- `knowledges/cpl/human_communication/communication_principles.json`
 - `knowledges/human/skills/softskills/argumentation_frameworks.json`
 - `knowledges/human/skills/softskills/assertiveness.json`
 - `knowledges/human/skills/softskills/communication_clarity.json`
@@ -710,6 +644,7 @@ Ces fichiers sont implémentés mais n'ont pas encore de tests.
 - `data/personality/instances/personality_core_instance.json`
 - `data/personality/templates/personality_core.json`
 - `data/personality/templates/personality_core_template_public.json`
+- `data/profile/user_profile.json`
 - `data/users/instances/user_celine_instance.json`
 - `data/users/templates/user_adaptation_profile.json`
 - `data/users/templates/user_profile_template_public.json`
@@ -721,11 +656,7 @@ Ces fichiers sont implémentés mais n'ont pas encore de tests.
 - `knowledges/human/self_alignment/habits/discipline.json`
 - `knowledges/human/self_alignment/routines/feedback_loop.json`
 - `src/core/alfred_behavior_engine.py`
-- `src/core/personality_adapter.py`
 **B09**
-- `knowledges/cpl/product_ia/product_design_methodology.json`
-- `knowledges/cpl/product_ia/tech_tradeoff_framework.json`
-- `knowledges/cpl/product_ia/user_needs_analysis.json`
 - `knowledges/human/skills/softskills/problem_solving.json`
 - `knowledges/professional/decision/decision_models.json`
 - `knowledges/professional/decision/decision_support.json`
@@ -739,13 +670,6 @@ Ces fichiers sont implémentés mais n'ont pas encore de tests.
 - `knowledges/human/cognition/uncertainty_management.json`
 - `knowledges/professional/engineering/ai/reasoning_advanced.json`
 - `knowledges/professional/engineering/ai/reasoning_engine.json`
-**B12**
-- `knowledges/cpl/business_piloting/pricing_strategy.json`
-- `knowledges/cpl/business_piloting/profitability_analysis.json`
-- `knowledges/cpl/business_piloting/revenue_mix_strategy.json`
-- `knowledges/cpl/strategy/business_model_design.json`
-- `knowledges/cpl/strategy/strategy_fundamentals.json`
-- `knowledges/cpl/strategy/value_proposition_framework.json`
 **B13**
 - `src/health/chronic_support.py`
 - `src/health/health_profile.py`
@@ -778,17 +702,17 @@ Ces fichiers sont implémentés mais n'ont pas encore de tests.
 - `assets/avatars/avatar_medium/base_medium/alfred_medium_thinking_full.png`
 - `assets/avatars/avatar_medium/base_medium/alfred_medium_very_excited.png`
 - `assets/avatars/avatar_medium/base_medium/alfred_medium_working.png`
-- `assets/avatars/avatar_normal/base_normal/avatar_mouth_a_eyes_closed.png.png`
-- `assets/avatars/avatar_normal/base_normal/avatar_mouth_a_eyes_half.png.png`
-- `assets/avatars/avatar_normal/base_normal/avatar_mouth_a_eyes_open.png.png`
-- `assets/avatars/avatar_normal/base_normal/avatar_mouth_idle_eyes_closed.png.png`
-- `assets/avatars/avatar_normal/base_normal/avatar_mouth_idle_eyes_half.png.png`
-- `assets/avatars/avatar_normal/base_normal/avatar_mouth_m_eyes_closed.png.png`
-- `assets/avatars/avatar_normal/base_normal/avatar_mouth_m_eyes_half.png.png`
-- `assets/avatars/avatar_normal/base_normal/avatar_mouth_m_eyes_open.png.png`
-- `assets/avatars/avatar_normal/base_normal/avatar_mouth_o_eyes_closed.png.png`
-- `assets/avatars/avatar_normal/base_normal/avatar_mouth_o_eyes_half.png.png`
-- `assets/avatars/avatar_normal/base_normal/avatar_mouth_o_eyes_open.png.png`
+- `assets/avatars/no_active_avatar_normal/base_normal/avatar_mouth_a_eyes_closed.png.png`
+- `assets/avatars/no_active_avatar_normal/base_normal/avatar_mouth_a_eyes_half.png.png`
+- `assets/avatars/no_active_avatar_normal/base_normal/avatar_mouth_a_eyes_open.png.png`
+- `assets/avatars/no_active_avatar_normal/base_normal/avatar_mouth_idle_eyes_closed.png.png`
+- `assets/avatars/no_active_avatar_normal/base_normal/avatar_mouth_idle_eyes_half.png.png`
+- `assets/avatars/no_active_avatar_normal/base_normal/avatar_mouth_m_eyes_closed.png.png`
+- `assets/avatars/no_active_avatar_normal/base_normal/avatar_mouth_m_eyes_half.png.png`
+- `assets/avatars/no_active_avatar_normal/base_normal/avatar_mouth_m_eyes_open.png.png`
+- `assets/avatars/no_active_avatar_normal/base_normal/avatar_mouth_o_eyes_closed.png.png`
+- `assets/avatars/no_active_avatar_normal/base_normal/avatar_mouth_o_eyes_half.png.png`
+- `assets/avatars/no_active_avatar_normal/base_normal/avatar_mouth_o_eyes_open.png.png`
 - `assets/models/tts/fr_FR/MODEL_CARD`
 - `assets/models/tts/fr_FR/fr_FR-mls_1840-low.onnx`
 - `assets/models/tts/fr_FR/fr_FR-mls_1840-low.onnx.json`
@@ -797,7 +721,6 @@ Ces fichiers sont implémentés mais n'ont pas encore de tests.
 - `assets/voices/fr_FR-upmc-medium.onnx`
 - `assets/voices/fr_FR-upmc-medium.onnx.json`
 - `src/ui/alfred_app.py`
-- `src/ui/device_settings.py`
 **B16**
 - `tests/test_pipeline.py`
 **B17**
@@ -819,16 +742,86 @@ Ces fichiers sont implémentés mais n'ont pas encore de tests.
 - `config/alfred_project.json`
 - `config/router_rules.json`
 - `config/v2/module_mapping.json`
-- `knowledges/culture/universes/dc/alfred_pennyworth.json`
-- `knowledges/culture/universes/dc/batman.json`
-- `knowledges/culture/universes/dc/joker.json`
-- `knowledges/culture/universes/marvel/jarvis.json`
+- `knowledges/cpl/business_strategy/consulting_governance.json`
+- `knowledges/cpl/business_strategy/customer_persona_business.json`
+- `knowledges/cpl/business_strategy/customer_retention.json`
+- `knowledges/cpl/business_strategy/delivery_quality_framework.json`
+- `knowledges/cpl/business_strategy/go_to_market_advanced.json`
+- `knowledges/cpl/business_strategy/innovation_portfolio_management.json`
+- `knowledges/cpl/business_strategy/market_segmentation_strategy.json`
+- `knowledges/cpl/business_strategy/pricing_psychology.json`
+- `knowledges/cpl/business_strategy/product_service_hybrid_model.json`
+- `knowledges/cpl/business_strategy/recurring_revenue_models.json`
+- `knowledges/cpl/business_strategy/resource_optimization.json`
+- `knowledges/cpl/business_strategy/saas_transition_strategy.json`
+- `knowledges/cpl/business_strategy/service_margin_management.json`
+- `knowledges/cpl/business_strategy/strategic_decision_framework.json`
+- `knowledges/cpl/business_strategy/value_based_pricing.json`
+- `knowledges/human/interaction/conversation_repair.json`
+- `knowledges/human/interaction/decision_support_under_stress.json`
+- `knowledges/human/interaction/emotion_transition_detection.json`
+- `knowledges/human/interaction/frustration_management.json`
+- `knowledges/human/interaction/mental_fatigue_detection.json`
+- `knowledges/human/interaction/multi_turn_context_management.json`
+- `knowledges/human/interaction/psychological_safety.json`
+- `knowledges/human/interaction/relational_balance.json`
+- `knowledges/human/interaction/silence_and_pause_management.json`
+- `knowledges/human/interaction/social_energy_management.json`
+- `knowledges/human/interaction/stress_response_patterns.json`
+- `knowledges/human/interaction/supportive_language.json`
 - `knowledges/human/psychology/behavioral_patterns.json`
 - `knowledges/human/psychology/motivation.json`
 - `knowledges/human/skills/softskills/adaptability.json`
 - `knowledges/human/skills/softskills/creativity.json`
-- `knowledges/index/knowledge_registry.json`
+- `knowledges/human/wellbeing/decision_energy_conservation.json`
+- `knowledges/human/wellbeing/energy_budgeting.json`
+- `knowledges/human/wellbeing/executive_dysfunction.json`
+- `knowledges/human/wellbeing/fatigue_patterns.json`
+- `knowledges/human/wellbeing/focus_recovery_balance.json`
+- `knowledges/human/wellbeing/medical_boundary_rules.json`
+- `knowledges/human/wellbeing/mental_overload_patterns.json`
+- `knowledges/human/wellbeing/motivation_fluctuation_patterns.json`
+- `knowledges/human/wellbeing/recovery_cycles.json`
+- `knowledges/human/wellbeing/recovery_management.json`
+- `knowledges/human/wellbeing/sleep_hygiene_basics.json`
+- `knowledges/human/wellbeing/stress_reduction_support.json`
+- `knowledges/human/wellbeing/stress_signals.json`
+- `knowledges/human/wellbeing/support_without_diagnosis.json`
+- `knowledges/human/wellbeing/wellbeing_non_medical_support.json`
 - `knowledges/manifest.json`
+- `knowledges/professional/engineering/reasoning/contradiction_detection.json`
+- `knowledges/professional/engineering/reasoning/fallback_reasoning.json`
+- `knowledges/professional/engineering/reasoning/goal_alignment_reasoning.json`
+- `knowledges/professional/engineering/reasoning/hallucination_detection.json`
+- `knowledges/professional/engineering/reasoning/memory_reasoning_links.json`
+- `knowledges/professional/engineering/reasoning/meta_reasoning_basics.json`
+- `knowledges/professional/engineering/reasoning/multi_agent_reasoning.json`
+- `knowledges/professional/engineering/reasoning/probabilistic_reasoning_basics.json`
+- `knowledges/professional/engineering/reasoning/reasoning_failure_patterns.json`
+- `knowledges/professional/engineering/reasoning/reasoning_orchestration.json`
+- `knowledges/professional/engineering/reasoning/retrieval_augmented_reasoning.json`
+- `knowledges/professional/engineering/reasoning/self_consistency_reasoning.json`
+- `knowledges/professional/engineering/reasoning/task_decomposition_reasoning.json`
+- `knowledges/professional/engineering/reasoning/tree_of_thoughts.json`
+- `knowledges/professional/engineering/reasoning/uncertainty_reasoning.json`
+- `knowledges/professional/governance_ai/compliance_monitoring.json`
+- `knowledges/professional/governance_ai/decision_transparency.json`
+- `knowledges/professional/governance_ai/eu_ai_act_basics.json`
+- `knowledges/professional/governance_ai/explainability_xai.json`
+- `knowledges/professional/governance_ai/gdpr_ai_intersection.json`
+- `knowledges/professional/governance_ai/traceability_principles.json`
+- `knowledges/professional/iot/iot_device_segmentation.json`
+- `knowledges/professional/iot/iot_threat_basics.json`
+- `knowledges/professional/iot/local_network_security.json`
+- `knowledges/professional/iot/offline_first_home_automation.json`
+- `knowledges/professional/iot/presence_detection.json`
+- `knowledges/professional/iot/room_state_modeling.json`
+- `knowledges/professional/iot/smart_alert_prioritization.json`
+- `knowledges/professional/iot/smart_home_basics.json`
+- `knowledges/professional/product_management/advanced/product_governance.json`
+- `knowledges/professional/product_management/advanced/product_health_monitoring.json`
+- `knowledges/professional/product_management/advanced/product_kpi_frameworks.json`
+- `knowledges/professional/product_management/advanced/product_scaling_strategy.json`
 - `knowledges/taxonomy.json`
 - `paths.py`
 - `requirements.txt`
@@ -840,41 +833,6 @@ Ces fichiers sont implémentés mais n'ont pas encore de tests.
 - `config/security/trusted_devices.json`
 - `data/security/incident_register.json`
 - `logs/security/security.log`
-**B21**
-- `ALFRED_WEB/README.md`
-- `ALFRED_WEB/requirements.txt`
-- `ALFRED_WEB/static/css/style.css`
-- `ALFRED_WEB/templates/_article_comments.html`
-- `ALFRED_WEB/templates/_construction.html`
-- `ALFRED_WEB/templates/_footer.html`
-- `ALFRED_WEB/templates/_navbar.html`
-- `ALFRED_WEB/templates/_template_article.html`
-- `ALFRED_WEB/templates/apprentissages.html`
-- `ALFRED_WEB/templates/article_accessibilite_fr_en_lecture_vocale.html`
-- `ALFRED_WEB/templates/article_carriere_grc_flexibilite_facteur_humain.html`
-- `ALFRED_WEB/templates/article_ia_accessibilite_zero_trust.html`
-- `ALFRED_WEB/templates/article_perte_donnees.html`
-- `ALFRED_WEB/templates/article_teletravail_flexible_sante_agefiph.html`
-- `ALFRED_WEB/templates/articles.html`
-- `ALFRED_WEB/templates/articles_categorie.html`
-- `ALFRED_WEB/templates/base.html`
-- `ALFRED_WEB/templates/contact.html`
-- `ALFRED_WEB/templates/cpl.html`
-- `ALFRED_WEB/templates/dashboard_security.html`
-- `ALFRED_WEB/templates/dashboard_tests.html`
-- `ALFRED_WEB/templates/doc_stub.html`
-- `ALFRED_WEB/templates/error.html`
-- `ALFRED_WEB/templates/hardware.html`
-- `ALFRED_WEB/templates/index.html`
-- `ALFRED_WEB/templates/mentions_legales.html`
-- `ALFRED_WEB/templates/pentest_demo.html`
-- `ALFRED_WEB/templates/profil.html`
-- `ALFRED_WEB/templates/projet.html`
-- `ALFRED_WEB/templates/rse.html`
-- `ALFRED_WEB/templates/security_report.html`
-- `ALFRED_WEB/templates/setup_bureau.html`
-- `ALFRED_WEB/templates/smsi_dashboard.html`
-- `ALFRED_WEB/templates/travaux.html`
 **B22**
 - `docs/accessibility/ALFRED_Accessibility_Policy.pdf`
 - `src/accessibility/accessibility_manager.py`
