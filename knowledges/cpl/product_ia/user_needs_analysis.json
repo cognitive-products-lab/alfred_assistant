@@ -1,53 +1,116 @@
 {
-  "id": "user_needs_analysis",
-  "name": "User Needs Analysis",
-  "version": "1.0.0",
-  "category": "product_ai",
-  "purpose": "Aider ALFRED à analyser les besoins utilisateurs, les irritants, les usages réels et les attentes implicites.",
-  "concepts": [
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "id": "knowledges.cpl.product_ia.user_needs_analysis",
+  "title": "Analyse des besoins utilisateurs",
+  "domain": "cpl",
+  "subdomain": "product_ia",
+  "status": "validated",
+  "summary": "Comprendre les vrais besoins utilisateurs exige d'aller au-delà des demandes exprimées. La méthode Jobs-to-be-Done, les entretiens et l'observation permettent de découvrir les douleurs latentes et les motivations profondes.",
+  "core_definition": "L'analyse des besoins utilisateurs est le processus de compréhension approfondie des motivations, douleurs, contextes et objectifs réels des utilisateurs cibles, au-delà de leurs demandes de surface. Elle est la base de tout produit qui résout un vrai problème.",
+  "knowledge": {
+    "discovery_methods": [
+      {
+        "method": "Entretien utilisateur",
+        "when": "Phase de discovery, avant de coder",
+        "tips": [
+          "Poser des questions ouvertes",
+          "Aller au 'pourquoi' derrière chaque réponse",
+          "Observer les comportements réels, pas les intentions déclarées"
+        ]
+      },
+      {
+        "method": "Jobs-to-be-Done (JTBD)",
+        "when": "Quand on veut comprendre la vraie motivation d'usage",
+        "tips": [
+          "Que cherche l'utilisateur à accomplir dans sa vie / son travail ?",
+          "Quel progrès veut-il faire ?",
+          "Que se passe-t-il s'il n'y arrive pas ?"
+        ]
+      },
+      {
+        "method": "Shadowing / Observation",
+        "when": "Pour découvrir les frictions non verbalisées",
+        "tips": [
+          "Observer sans intervenir",
+          "Noter les moments de confusion ou d'hésitation",
+          "Identifier les workarounds spontanés"
+        ]
+      },
+      {
+        "method": "Analyse de données d'usage",
+        "when": "Sur un produit existant",
+        "tips": [
+          "Où les utilisateurs abandonnent-ils ?",
+          "Quelles fonctions sont les plus / moins utilisées ?",
+          "Quels patterns révèlent des besoins non servis ?"
+        ]
+      }
+    ],
+    "need_types": [
+      {
+        "type": "Besoins fonctionnels",
+        "example": "Organiser mes tâches, retrouver une information rapidement"
+      },
+      {
+        "type": "Besoins émotionnels",
+        "example": "Se sentir compétent, ne pas stresser, avoir confiance"
+      },
+      {
+        "type": "Besoins sociaux",
+        "example": "Être perçu comme compétent par ses pairs, collaborer facilement"
+      },
+      {
+        "type": "Besoins latents",
+        "example": "Besoins réels que l'utilisateur n'exprime pas car il ne les voit pas encore"
+      }
+    ],
+    "common_biases": [
+      "Confondre ce que l'utilisateur dit vouloir et ce dont il a besoin",
+      "Généraliser à partir de trop peu d'entretiens (minimum 5-7 pour commencer à saturer)",
+      "Sélectionner uniquement des utilisateurs enthousiastes — les sceptiques sont plus informatifs",
+      "Poser des questions fermées qui confirment l'hypothèse de départ"
+    ]
+  },
+  "example_answers": [
     {
-      "name": "Besoin utilisateur",
-      "definition": "Écart entre situation actuelle et résultat souhaité.",
-      "usage": "Base de la conception produit."
+      "prompt": "Comment savoir ce que veulent vraiment nos utilisateurs ?",
+      "answer": "En posant des questions ouvertes sur leurs problèmes actuels, pas sur les features souhaitées. 'Décris-moi ta dernière semaine de travail' révèle plus que 'Qu'est-ce qu'on devrait ajouter ?' Les utilisateurs décrivent leurs douleurs mieux qu'ils ne prescrivent des solutions."
     },
     {
-      "name": "Usage réel",
-      "definition": "Comportement observé ou déclaré en contexte.",
-      "usage": "Éviter les solutions théoriques."
+      "prompt": "On a 500 retours utilisateurs, comment les analyser ?",
+      "answer": "Classer les retours par thème (pas par feature) : quels problèmes reviennent ? Quel niveau d'intensité ('c'est gênant' vs 'c'est bloquant') ? Ensuite remonter à la cause racine — un même problème peut avoir des expressions très différentes. Prioriser selon l'intensité et la fréquence."
     },
     {
-      "name": "Voice of Customer",
-      "definition": "Collecte structurée des attentes et irritants.",
-      "usage": "Transformer les retours en exigences produit."
+      "prompt": "Comment mener un bon entretien utilisateur en 30 minutes ?",
+      "answer": "Trois parties : contexte (qui tu es, comment tu travailles aujourd'hui — 10 min), douleurs actuelles (ce qui te frustre, ce que tu contournes — 15 min), validation légère de l'hypothèse produit en dernier (5 min, sans pitcher). L'erreur classique : pitcher trop tôt et biaiser toutes les réponses suivantes."
     }
   ],
-  "rules": [
-    "Ne jamais confondre idée produit et besoin utilisateur.",
-    "Distinguer besoin exprimé, besoin réel et contrainte d'usage.",
-    "Valider les hypothèses par retours terrain."
+  "response_guidance": {
+    "tone": "curieux, centré utilisateur, ancré dans l'observation",
+    "structure": [
+      "identifier la méthode adaptée au stade",
+      "guider la collecte",
+      "aider à l'interprétation",
+      "pointer les biais potentiels"
+    ],
+    "avoid": [
+      "confondre feedback quantitatif et compréhension qualitative",
+      "valider des hypothèses au lieu de les tester",
+      "ignorer les utilisateurs non-enthousiastes"
+    ]
+  },
+  "tags": [
+    "besoins utilisateurs",
+    "JTBD",
+    "discovery",
+    "entretien",
+    "UX research",
+    "cpl"
   ],
-  "decision_framework": [
-    "Qui est l'utilisateur ?",
-    "Quel problème rencontre-t-il ?",
-    "Dans quel contexte ?",
-    "Quelle solution actuelle ?",
-    "Quel bénéfice attend-il ?"
-  ],
-  "use_cases": [
-    {
-      "context": "B2C charge mentale",
-      "action": "Identifier tâches répétitives, blocages et besoins d'adaptation",
-      "output": "Besoins priorisés"
-    },
-    {
-      "context": "Institution santé/social",
-      "action": "Analyser besoins bénéficiaires et professionnels",
-      "output": "Exigences fonctionnelles et éthiques"
-    }
-  ],
-  "links": [
-    "ux_principles",
-    "product_design_methodology",
-    "value_proposition_framework"
+  "related_knowledge_units": [
+    "knowledges.cpl.product_ia.product_design_methodology",
+    "knowledges.professional.product_management.product_discovery",
+    "knowledges.professional.product_management.user_feedback_loops"
   ]
 }

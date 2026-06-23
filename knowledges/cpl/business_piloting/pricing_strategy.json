@@ -1,52 +1,100 @@
 {
-  "id": "pricing_strategy",
-  "name": "Pricing Strategy",
-  "version": "1.0.0",
-  "category": "business_piloting",
-  "purpose": "Aider ALFRED à raisonner sur les prix, la montée en gamme et la valeur perçue.",
-  "concepts": [
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "id": "knowledges.cpl.business_piloting.pricing_strategy",
+  "title": "Stratégie de prix",
+  "domain": "cpl",
+  "subdomain": "business_piloting",
+  "status": "validated",
+  "summary": "Le prix n'est pas un coût plus une marge — c'est un signal de valeur. La stratégie de prix alignée sur la valeur perçue maximise les revenus tout en préservant la relation client.",
+  "core_definition": "La stratégie de prix (Pricing Strategy) détermine comment fixer le prix d'un produit ou service en équilibrant la valeur perçue par le client, la position concurrentielle, les coûts et l'objectif business (volume, marge, part de marché).",
+  "knowledge": {
+    "pricing_models": [
+      {
+        "model": "Cost-plus",
+        "logic": "Prix = Coûts + Marge souhaitée",
+        "risk": "Ignore la valeur perçue et le marché"
+      },
+      {
+        "model": "Value-based",
+        "logic": "Prix = Valeur perçue par le client",
+        "risk": "Nécessite de bien comprendre le client et ses alternatives"
+      },
+      {
+        "model": "Competitive pricing",
+        "logic": "Prix aligné sur les concurrents ±delta",
+        "risk": "Guerre des prix si le marché n'est pas différencié"
+      },
+      {
+        "model": "Freemium",
+        "logic": "Gratuit pour l'usage core, payant pour les fonctions avancées",
+        "risk": "Difficulté de conversion, coûts serveurs non couverts"
+      },
+      {
+        "model": "Abonnement (SaaS)",
+        "logic": "Revenus récurrents prévisibles, engagement client",
+        "risk": "Churn si la valeur n'est pas régulièrement démontrée"
+      },
+      {
+        "model": "Usage-based",
+        "logic": "Facturation à la consommation réelle",
+        "risk": "Revenus imprévisibles, difficile à budgéter côté client"
+      }
+    ],
+    "pricing_levers": [
+      "Prix d'entrée (pour acquérir) vs prix de croissance (upsell / expansion)",
+      "Ancrage : présenter un prix élevé en premier pour valoriser le prix cible",
+      "Déclinaison par tiers (Good / Better / Best) pour maximiser la capture de valeur",
+      "Remises stratégiques vs remises systématiques (qui forment une attente)",
+      "Test A/B de prix sur nouveaux marchés avant généralisation"
+    ],
+    "value_based_questions": [
+      "Quel est le coût de l'alternative pour le client ?",
+      "Combien de temps / d'argent notre solution lui économise-t-elle ?",
+      "Quel est l'impact d'un non-achat sur son activité ?",
+      "À quel prix le client perçoit-il l'offre comme 'cheap' et perd confiance ?"
+    ]
+  },
+  "example_answers": [
     {
-      "name": "Prix",
-      "definition": "Montant facturé pour une offre.",
-      "usage": "Refléter valeur, marché et capacité de vente."
+      "prompt": "Comment fixer le prix d'un SaaS B2B ?",
+      "answer": "Part de la valeur créée, pas des coûts. Si ton outil économise 5h/semaine à un consultant facturant 100€/h, la valeur mensuelle est ~2000€. Ton prix peut être 200-400€/mois (10-20% de la valeur capturée). Tester avec 3 tiers (Starter / Pro / Business) permet de segmenter la capture selon la maturité du client."
     },
     {
-      "name": "Montée en gamme",
-      "definition": "Passage vers des offres à plus forte valeur.",
-      "usage": "Augmenter le CA sans volume excessif."
+      "prompt": "Faut-il baisser le prix pour acquérir plus de clients ?",
+      "answer": "Rarement la bonne réponse. Baisser le prix sans augmenter la valeur perçue dégrade la marque et attire les mauvais clients (price-sensitive, churn élevé). Avant de baisser : tester si le problème est le prix ou la proposition de valeur. Souvent, c'est la valeur qui n'est pas suffisamment démontrée."
     },
     {
-      "name": "Panier moyen",
-      "definition": "Montant moyen par client ou mission.",
-      "usage": "Calculer le seuil de rentabilité."
+      "prompt": "Comment gérer les demandes de remise ?",
+      "answer": "Ne jamais donner une remise sans contrepartie. Remise contre volume, contre engagement annuel, contre témoignage client, contre référence. Une remise sans contrepartie forme une attente et dévalue l'offre. La règle : si tu baisses le prix, obtiens quelque chose en échange."
     }
   ],
-  "rules": [
-    "Ne pas compenser un prix trop faible par du volume.",
-    "Aligner prix et transformation apportée.",
-    "Créer plusieurs niveaux d'offres."
+  "response_guidance": {
+    "tone": "orienté business, pragmatique, sans jugement sur la situation actuelle",
+    "structure": [
+      "identifier le modèle de prix actuel ou cible",
+      "évaluer l'alignement valeur/prix",
+      "proposer un ajustement ou un test",
+      "anticiper l'impact sur la marge et la relation client"
+    ],
+    "avoid": [
+      "simplifier à coûts+marge",
+      "ignorer la concurrence",
+      "recommander une baisse de prix comme première solution"
+    ]
+  },
+  "tags": [
+    "prix",
+    "pricing",
+    "SaaS",
+    "valeur perçue",
+    "marge",
+    "revenus",
+    "cpl"
   ],
-  "decision_framework": [
-    "Quelle valeur créée ?",
-    "Quel coût évité au client ?",
-    "Quel niveau d'accompagnement ?",
-    "Quel prix permet la rentabilité ?"
-  ],
-  "use_cases": [
-    {
-      "context": "Seuil CPL",
-      "action": "Comparer offres 2500, 5000 et 8000 euros",
-      "output": "Clients nécessaires par scénario"
-    },
-    {
-      "context": "Offre B2C mensuelle",
-      "action": "Comparer 39, 89 et 149 euros",
-      "output": "Positionnement tarifaire"
-    }
-  ],
-  "links": [
-    "profitability_analysis",
-    "business_model_design",
-    "sales_funnel"
+  "related_knowledge_units": [
+    "knowledges.cpl.business_piloting.profitability_analysis",
+    "knowledges.cpl.strategy.value_proposition_framework",
+    "knowledges.cpl.strategy.business_model_design"
   ]
 }

@@ -1,53 +1,104 @@
 {
-  "id": "tech_tradeoff_framework",
-  "name": "Technical Trade-off Framework",
-  "version": "1.0.0",
-  "category": "product_ai",
-  "purpose": "Aider ALFRED à arbitrer entre innovation, faisabilité, coûts, sécurité et performance.",
-  "concepts": [
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "id": "knowledges.cpl.product_ia.tech_tradeoff_framework",
+  "title": "Cadre de décision technique (tradeoffs)",
+  "domain": "cpl",
+  "subdomain": "product_ia",
+  "status": "validated",
+  "summary": "Chaque choix technique implique des compromis : performance vs coût, flexibilité vs rapidité, contrôle vs dépendance. Un cadre de tradeoffs structure ces arbitrages en alignant les décisions tech sur les priorités business.",
+  "core_definition": "Le cadre de décision technique (tech tradeoff framework) est un outil d'analyse qui permet de comparer des options techniques selon plusieurs dimensions (performance, coût, maintenabilité, sécurité, time-to-market, dépendance) pour prendre des décisions alignées sur les objectifs business actuels.",
+  "knowledge": {
+    "tradeoff_dimensions": [
+      {
+        "dimension": "Performance vs Coût",
+        "question": "Quelle latence / qualité est acceptable face à quel coût d'infrastructure ?"
+      },
+      {
+        "dimension": "Build vs Buy",
+        "question": "Développer en interne vs utiliser une solution existante — impact sur le contrôle, la différenciation et la dette technique"
+      },
+      {
+        "dimension": "Flexibilité vs Rapidité",
+        "question": "Architecture générique et évolutive vs solution spécialisée et rapide à déployer"
+      },
+      {
+        "dimension": "Contrôle vs Dépendance",
+        "question": "Maîtrise totale (open source, local) vs dépendance à un fournisseur (SaaS, API)"
+      },
+      {
+        "dimension": "Qualité vs Time-to-market",
+        "question": "Perfectionnisme qui retarde vs MVP imparfait qui apprend vite"
+      },
+      {
+        "dimension": "Scalabilité vs Simplicité",
+        "question": "Architecture scalable mais complexe vs architecture simple mais limitée"
+      }
+    ],
+    "decision_process": [
+      "Définir les critères non-négociables (sécurité, RGPD, performance minimale)",
+      "Identifier les contraintes actuelles (budget, équipe, délai)",
+      "Scorer chaque option sur chaque dimension selon l'importance business actuelle",
+      "Choisir l'option avec le meilleur alignement — pas la solution parfaite, la solution adaptée maintenant",
+      "Documenter les hypothèses pour réévaluer dans 6 mois"
+    ],
+    "ai_specific_tradeoffs": [
+      {
+        "tradeoff": "LLM local vs API externe",
+        "local": "Confidentialité, coût fixe, latence maîtrisée",
+        "api": "Qualité supérieure, maintenance nulle, coût variable"
+      },
+      {
+        "tradeoff": "RAG vs Fine-tuning",
+        "rag": "Flexible, actualisable, transparent sur les sources",
+        "fine_tuning": "Meilleure cohérence stylistique, nécessite des données annotées et plus de coût"
+      },
+      {
+        "tradeoff": "Embeddings propriétaires vs open source",
+        "proprietary": "Performance haute, coût récurrent",
+        "open_source": "Contrôle total, qualité variable selon le modèle"
+      }
+    ]
+  },
+  "example_answers": [
     {
-      "name": "Trade-off technique",
-      "definition": "Arbitrage entre plusieurs choix techniques ayant chacun avantages et limites.",
-      "usage": "Décider sans surdimensionner."
+      "prompt": "Faut-il utiliser l'API OpenAI ou un modèle local pour ALFRED ?",
+      "answer": "Dépend des priorités : si la confidentialité des données est critique (données personnelles, usage local), un modèle local comme Llama / Mistral via Ollama est préférable malgré une qualité inférieure. Si la qualité de la réponse prime et que les données ne sont pas sensibles, l'API OpenAI reste supérieure aujourd'hui. ALFRED peut gérer les deux en parallèle selon le contexte."
     },
     {
-      "name": "Dette technique",
-      "definition": "Compromis qui accélère aujourd’hui mais peut coûter plus tard.",
-      "usage": "Identifier les risques futurs."
+      "prompt": "On doit choisir entre MongoDB et PostgreSQL pour stocker la mémoire d'ALFRED.",
+      "answer": "Pour de la mémoire conversationnelle structurée (épisodes, contextes), PostgreSQL avec JSONB est plus maintenable et queryable. MongoDB convient mieux si les schémas de données sont très variables ou si la scalabilité horizontale est critique dès le départ — rarement le cas en early stage. PostgreSQL + pgvector pour les embeddings est une stack solide et simple."
     },
     {
-      "name": "Faisabilité",
-      "definition": "Capacité réelle à construire, maintenir et financer une solution.",
-      "usage": "Éviter les promesses irréalistes."
+      "prompt": "Comment choisir entre construire ou acheter une solution de vector database ?",
+      "answer": "Acheter (Pinecone, Weaviate, Qdrant cloud) si tu veux avancer vite et que la maintenance infra n'est pas un objectif. Construire (pgvector, Chroma local) si tu as des contraintes de confidentialité, de coût ou de contrôle. En early stage, commencer par le plus simple — migrer plus tard si nécessaire."
     }
   ],
-  "rules": [
-    "Ne pas choisir la technologie la plus avancée si elle n’est pas nécessaire.",
-    "Toujours arbitrer coût, valeur, risque et maintenabilité.",
-    "Préférer une V1 robuste à une V1 spectaculaire mais instable."
+  "response_guidance": {
+    "tone": "analytique, sans dogmatisme technologique, ancré dans les contraintes réelles",
+    "structure": [
+      "identifier les dimensions de tradeoff pertinentes",
+      "collecter les contraintes non-négociables",
+      "comparer les options sur les critères clés",
+      "recommander avec les hypothèses explicites"
+    ],
+    "avoid": [
+      "imposer une technologie sans connaître les contraintes",
+      "ignorer le time-to-market",
+      "sous-estimer la dette technique des décisions rapides"
+    ]
+  },
+  "tags": [
+    "tradeoff",
+    "décision technique",
+    "build vs buy",
+    "architecture",
+    "IA",
+    "cpl"
   ],
-  "decision_framework": [
-    "Quelle valeur apporte ce choix ?",
-    "Quel coût immédiat et futur ?",
-    "Quel risque sécurité ou maintenance ?",
-    "Existe-t-il une alternative plus simple ?",
-    "Ce choix bloque-t-il la scalabilité ?"
-  ],
-  "use_cases": [
-    {
-      "context": "Choix local-first vs cloud",
-      "action": "Comparer souveraineté, coût, performance et complexité",
-      "output": "Décision technique argumentée"
-    },
-    {
-      "context": "Montée hardware A3/A5",
-      "action": "Déclencher investissement selon besoin validé",
-      "output": "Roadmap technique maîtrisée"
-    }
-  ],
-  "links": [
-    "product_design_methodology",
-    "risk_management",
-    "business_model_design"
+  "related_knowledge_units": [
+    "knowledges.cpl.product_ia.product_design_methodology",
+    "knowledges.professional.engineering.ai.rag_architecture",
+    "knowledges.professional.engineering.systeme_design.software_architecture"
   ]
 }
