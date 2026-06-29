@@ -1,0 +1,119 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "mathematics.algebra.basics",
+  "version": "1.0.0",
+  "domain": "mathematics",
+  "subdomain": "algebra",
+  "category": "pure_mathematics",
+  "priority": "high",
+  "safety_level": "normal",
+  "title": "Algèbre Fondamentale",
+  "summary": "Bases de l'algèbre : expressions, équations du 1er et 2e degré, systèmes, fonctions, polynômes et applications concrètes.",
+  "purpose": "Permettre à ALFRED d'expliquer les concepts algébriques fondamentaux et d'aider à résoudre des problèmes mathématiques courants.",
+  "tags": ["algèbre", "équation", "fonction", "polynôme", "variable", "système_équations", "mathématiques"],
+  "intents": ["explain_algebra", "solve_equations", "explain_functions", "help_with_math"],
+  "usage_context": ["Aide scolaire", "Mathématiques appliquées", "Programmation et algorithmes"],
+  "content": {
+    "definition": "L'algèbre est la branche des mathématiques qui utilise des symboles (variables) pour représenter des quantités inconnues et établir des relations entre elles.",
+    "fundamental_concepts": [
+      {
+        "concept": "Variable",
+        "description": "Symbole représentant une quantité inconnue ou variable (x, y, n)."
+      },
+      {
+        "concept": "Expression algébrique",
+        "description": "Combinaison de variables et de constantes : 2x + 3, x² - 4."
+      },
+      {
+        "concept": "Équation",
+        "description": "Affirmation d'égalité entre deux expressions : 2x + 3 = 7."
+      }
+    ],
+    "first_degree_equations": {
+      "form": "ax + b = c",
+      "method": "Isoler x : x = (c - b) / a",
+      "example": "3x - 6 = 12 → 3x = 18 → x = 6"
+    },
+    "second_degree_equations": {
+      "form": "ax² + bx + c = 0",
+      "discriminant": "Δ = b² - 4ac",
+      "solutions": [
+        "Δ > 0 : deux solutions réelles x = (-b ± √Δ) / 2a",
+        "Δ = 0 : une solution double x = -b / 2a",
+        "Δ < 0 : pas de solution réelle (solutions complexes)"
+      ],
+      "example": "x² - 5x + 6 = 0, Δ = 25-24 = 1, x = (5 ± 1)/2 → x = 3 ou x = 2"
+    },
+    "systems_of_equations": {
+      "methods": [
+        "Substitution : exprimer une variable en fonction de l'autre.",
+        "Combinaison/élimination : additionner les équations pour éliminer une variable.",
+        "Méthode matricielle (Gauss) pour les systèmes plus grands."
+      ],
+      "example": "x + y = 10 et x - y = 4 → 2x = 14 → x = 7, y = 3"
+    },
+    "functions": {
+      "definition": "Une fonction f associe à chaque valeur de x une valeur unique f(x).",
+      "types": [
+        {"type": "Linéaire", "form": "f(x) = ax + b", "graph": "Droite"},
+        {"type": "Quadratique", "form": "f(x) = ax² + bx + c", "graph": "Parabole"},
+        {"type": "Exponentielle", "form": "f(x) = aˣ", "application": "Croissance/décroissance"},
+        {"type": "Logarithme", "form": "f(x) = log(x)", "application": "Inverses d'exponentielles, décibels, pH"}
+      ]
+    },
+    "factoring": [
+      "Facteur commun : 6x² + 9x = 3x(2x + 3)",
+      "Identité remarquable : a² - b² = (a+b)(a-b)",
+      "Identité : (a+b)² = a² + 2ab + b²",
+      "Identité : (a-b)² = a² - 2ab + b²"
+    ],
+    "applications": [
+      "Finance : calcul d'intérêts composés (exponentielle).",
+      "Physique : cinématique (position = f(t²)).",
+      "Informatique : complexité algorithmique O(n), O(log n).",
+      "Statistiques : régression linéaire (y = ax + b)."
+    ],
+    "examples": [
+      {
+        "situation": "Utilisateur a du mal avec l'équation du 2e degré x² - 5x + 6 = 0",
+        "recommended_behavior": "Calculer le discriminant Δ = 25 - 24 = 1 > 0, donc deux solutions. x = (5 + 1)/2 = 3 ou x = (5 - 1)/2 = 2. Vérification : 3×2 = 6, 3+2 = 5 ✓",
+        "avoid": "Donner juste la réponse sans expliquer la méthode."
+      }
+    ],
+    "best_practices": [
+      "Toujours vérifier la solution trouvée en la substituant dans l'équation originale.",
+      "Montrer chaque étape du raisonnement pour faciliter l'apprentissage.",
+      "Partir de cas concrets avant les formules abstraites."
+    ],
+    "anti_patterns": [
+      "Sauter des étapes qui semblent 'évidentes' — elles ne le sont pas toujours.",
+      "Confondre équation et expression (une expression ne se résout pas).",
+      "Oublier de vérifier les solutions dans les problèmes avec des contraintes."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["algèbre", "équation", "discriminant", "fonction", "polynôme", "variable"],
+    "related_domains": ["mathematics", "science"],
+    "related_knowledge": ["mathematics.probability_statistics", "mathematics.calculus_basics"],
+    "retrieval_priority": 7
+  },
+  "behavior_rules": {"tone": "educational", "response_style": "step_by_step", "max_complexity": "medium", "allow_humor": false},
+  "safety_notes": {
+    "allowed_usage": ["Aide mathématique éducative"],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "Recommander un tuteur ou des ressources en ligne pour des difficultés persistantes."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "29/06/2026",
+    "last_update": "29/06/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

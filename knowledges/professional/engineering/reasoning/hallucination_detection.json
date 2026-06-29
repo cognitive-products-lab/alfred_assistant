@@ -1,26 +1,76 @@
 {
-    "id":  "hallucination.detection",
-    "created_at":  "2026-06-03",
-    "title":  "hallucination detection",
-    "tags":  [
-
-             ],
-    "source":  "recreated_from_dashboard_manifest",
-    "description":  "Fiche connaissance recréée automatiquement à partir du manifest dashboard.",
-    "status":  "draft",
-    "content":  {
-                    "summary":  "",
-                    "links":  [
-
-                              ],
-                    "use_cases":  [
-
-                                  ],
-                    "risks":  [
-
-                              ],
-                    "key_points":  [
-
-                                   ]
-                }
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "id": "knowledges.professional.engineering.reasoning.hallucination_detection",
+  "title": "Détection des hallucinations LLM — identifier et vérifier les confabulations",
+  "domain": "professional",
+  "subdomain": "reasoning",
+  "status": "validated",
+  "metadata": {
+    "created_at": "2026-06-24",
+    "validated_at": "2026-06-24",
+    "validated_by": "ALFRED enrichment pipeline",
+    "enrichment_version": "day3",
+    "schema_version": "1.2",
+    "review_notes": "",
+    "block": "b18"
+  },
+  "priority": "critical",
+  "summary": "Les LLM génèrent parfois des informations plausibles mais fausses (hallucinations). Savoir les détecter, les vérifier et les prévenir est essentiel pour une utilisation fiable de l'IA.",
+  "core_definition": "Une hallucination LLM est une sortie générée qui est factuellement incorrecte, inventée ou non soutenue par les données d'entraînement, mais présentée avec le même degré de confiance qu'une information vraie. Elles sont particulièrement dangereuses car elles sont souvent syntaxiquement parfaites et stylistiquement convaincantes.",
+  "knowledge": {
+    "types": {
+      "fabrication_factuelle": "Dates, chiffres, citations, noms inventés",
+      "fabrication_de_references": "Articles, livres, URLs qui n'existent pas",
+      "extrapolation": "Généralisations excessives depuis des données partielles",
+      "confabulation_contextuelle": "Inventer des détails pour combler des lacunes du contexte"
+    },
+    "signaux_d_alerte": [
+      "Références très précises (auteur, date, page) sur des sujets rares",
+      "Cohérence interne parfaite mais non vérifiable",
+      "Réponse trop rapide et trop complète à une question complexe",
+      "Manque de \"je ne sais pas\""
+    ],
+    "verification": {
+      "sources_primaires": "Vérifier directement dans la source originale",
+      "cross_check": "Confronter plusieurs sources indépendantes",
+      "requete_inverse": "Demander au LLM de citer ses sources — l'absence ou la vague réponse est un signal"
+    },
+    "prevention": {
+      "grounding": "Fournir les sources dans le prompt (RAG)",
+      "temperature_basse": "Réduit la variabilité mais pas toujours les hallucinations",
+      "self_consistency": "Poser la même question de plusieurs façons — les réponses incohérentes signalent l'incertitude"
+    }
+  },
+  "example_answers": [
+    {
+      "prompt": "Comment savoir si tu inventes quelque chose ?",
+      "answer": "Bonne question à me poser. Signaux à surveiller : si je cite des sources très précises sur un sujet obscur, si ma réponse est trop parfaite, si je n'exprime aucune incertitude sur un sujet qui devrait en générer. La règle générale : pour toute information factuelle importante (chiffres, citations, références), vérifier dans la source primaire. Je peux me tromper."
+    },
+    {
+      "prompt": "Les LLM hallucinent beaucoup ?",
+      "answer": "Ça dépend du type de tâche. Sur des tâches de raisonnement ou de structure : faible taux d'erreur. Sur des faits précis, surtout rares ou récents : taux d'hallucination significatif. Les références bibliographiques sont particulièrement risquées — les LLM \"inventent\" des articles plausibles. La bonne pratique : traiter les sorties LLM comme un brouillon à vérifier sur les faits critiques, pas comme une source primaire."
+    }
+  ],
+  "response_guidance": {
+    "tone": "transparent, factuel, orienté vérification",
+    "structure": [
+      "définir",
+      "détecter",
+      "vérifier"
+    ],
+    "avoid": [
+      "nier ses propres limites",
+      "sur-promettre la fiabilité"
+    ]
+  },
+  "tags": [
+    "hallucination",
+    "LLM",
+    "IA",
+    "fact-checking",
+    "fiabilité",
+    "confabulation"
+  ],
+  "related_knowledge_units": []
 }

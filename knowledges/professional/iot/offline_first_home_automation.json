@@ -1,26 +1,75 @@
 {
-    "id":  "offline.first.home.automation",
-    "created_at":  "2026-06-03",
-    "title":  "offline first home automation",
-    "tags":  [
-
-             ],
-    "source":  "recreated_from_dashboard_manifest",
-    "description":  "Fiche connaissance recréée automatiquement à partir du manifest dashboard.",
-    "status":  "draft",
-    "content":  {
-                    "summary":  "",
-                    "links":  [
-
-                              ],
-                    "use_cases":  [
-
-                                  ],
-                    "risks":  [
-
-                              ],
-                    "key_points":  [
-
-                                   ]
-                }
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "id": "knowledges.professional.iot.offline_first_home_automation",
+  "title": "Domotique offline-first — contrôle local sans dépendance cloud",
+  "domain": "professional",
+  "subdomain": "iot",
+  "status": "validated",
+  "metadata": {
+    "created_at": "2026-06-24",
+    "validated_at": "2026-06-24",
+    "validated_by": "ALFRED enrichment pipeline",
+    "enrichment_version": "day3",
+    "schema_version": "1.2",
+    "review_notes": "",
+    "block": "b18"
+  },
+  "priority": "high",
+  "summary": "Approche domotique privilégiant le contrôle local sur le contrôle cloud : avantages (privacy, résilience, latence), solutions (Home Assistant, Matter, tinytuya) et limites.",
+  "core_definition": "La domotique offline-first est une architecture dans laquelle les appareils connectés sont contrôlés localement sur le réseau domestique, sans dépendance aux serveurs cloud des fabricants, préservant la confidentialité, améliorant la résilience et réduisant la latence.",
+  "knowledge": {
+    "avantages": {
+      "privacy": "Les données domotiques (présence, comportements) ne quittent pas la maison",
+      "resilience": "Fonctionne même si le cloud du fabricant est coupé ou arrêté",
+      "latence": "Commandes locales < 100ms vs cloud 200-500ms",
+      "perenite": "Indépendant des décisions commerciales du fabricant"
+    },
+    "solutions": {
+      "home_assistant": "Plateforme open-source, 3000+ intégrations, local-first par défaut",
+      "matter": "Standard universel (Apple, Google, Amazon, Samsung) — local first by design, depuis 2022",
+      "tinytuya": "Bibliothèque Python pour contrôler les appareils Tuya en local (sans cloud)",
+      "zigbee_zwave": "Protocoles RF locaux — pas de cloud, pas de WiFi, très fiables"
+    },
+    "limites": {
+      "setup": "Plus complexe que le plug-and-play cloud",
+      "support_fabricant": "Certains appareils résistent au contrôle local",
+      "mises_a_jour": "À gérer manuellement"
+    },
+    "alfred_context": "ALFRED B14 IoT cible tinytuya (Tuya local) + Home Assistant comme hub local, avec pattern Adapter pour abstraction des protocoles."
+  },
+  "example_answers": [
+    {
+      "prompt": "Pourquoi contrôler ma domotique en local plutôt que via le cloud ?",
+      "answer": "Trois raisons principales : 1) Privacy — tes habitudes de vie (réveil, présence, luminosité préférée) ne sont pas dans les serveurs du fabricant. 2) Fiabilité — si le cloud Tuya ou Google est en panne, ta maison continue de fonctionner. 3) Longévité — si le fabricant arrête son service dans 3 ans, tes appareils restent utilisables. Le trade-off : la configuration initiale est plus complexe."
+    },
+    {
+      "prompt": "Comment utiliser des appareils Tuya sans passer par l'app cloud ?",
+      "answer": "Deux options : 1) tinytuya — bibliothèque Python qui permet le contrôle local en découvrant les appareils sur ton réseau. Nécessite de récupérer les clés locales via l'API Tuya Developer (gratuit). 2) Home Assistant avec l'intégration Tuya locale — interface visuelle, automatisations, pas de code. Les deux nécessitent que l'appareil soit sur le même réseau local et que le port UDP 6668 soit accessible."
+    }
+  ],
+  "response_guidance": {
+    "tone": "technique accessible, contextualisé ALFRED",
+    "structure": [
+      "avantages",
+      "solutions",
+      "limites",
+      "Alfred context"
+    ],
+    "avoid": [
+      "ignorer la complexité",
+      "trop vendeur d'une solution"
+    ]
+  },
+  "tags": [
+    "domotique",
+    "offline",
+    "local",
+    "Home Assistant",
+    "Tuya",
+    "Matter",
+    "tinytuya",
+    "ALFRED"
+  ],
+  "related_knowledge_units": []
 }

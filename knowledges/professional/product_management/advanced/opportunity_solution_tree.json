@@ -1,74 +1,72 @@
 {
-  "_meta": {
-    "project": "ALFRED",
-    "block": "B18",
-    "file": "opportunity_solution_tree.json",
-    "version": "V1.0",
-    "status": "VALIDATED",
-    "updated": "2026-05-13",
-    "standardized_by": "generate_knowledges.py",
-    "validated_by": "Cognitive Products Lab",
-    "validated_date": "2026-05-13"
-  },
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
   "id": "knowledges.professional.product_management.advanced.opportunity_solution_tree",
-  "domain": "professional_product",
-  "category": "product_management",
-  "title": "Opportunity Solution Tree",
-  "description": "Méthode de cartographie des opportunités produit.",
-  "version": "1.0",
-  "status": "active",
-  "tags": [
-    "advanced",
-    "opportunity solution tree",
-    "product management",
-    "professional",
-    "professional product"
-  ],
-  "content": {
-    "summary": "Méthode de cartographie des opportunités produit.",
-    "details": [
-      "Outcome",
-      "Opportunities",
-      "Solutions",
-      "Experiments",
-      "Structurer les idées produit",
-      "Relier besoins et solutions",
-      "Prioriser les expérimentations",
-      "Roadmap ALFRED",
-      "Priorisation V1/V2/V3",
-      "Évolution fonctionnalités"
-    ],
-    "references": []
-  },
+  "title": "Opportunity Solution Tree — relier découverte et delivery",
+  "domain": "professional",
+  "subdomain": "product_management_advanced",
+  "status": "validated",
   "metadata": {
-    "created": "2026-05-12",
-    "updated": "2026-05-12",
-    "author": "Cognitive Products Lab"
+    "created_at": "2026-06-24",
+    "validated_at": "2026-06-24",
+    "validated_by": "ALFRED enrichment pipeline",
+    "enrichment_version": "day3",
+    "schema_version": "1.2",
+    "review_notes": "",
+    "block": "b18"
   },
-  "core_concepts": [
-    "Outcome",
-    "Opportunities",
-    "Solutions",
-    "Experiments"
-  ],
-  "objectives": [
-    "Structurer les idées produit",
-    "Relier besoins et solutions",
-    "Prioriser les expérimentations"
-  ],
-  "alfred_application": [
-    "Roadmap ALFRED",
-    "Priorisation V1/V2/V3",
-    "Évolution fonctionnalités"
-  ],
-  "aliases": [],
-  "relationships": {
-    "merged_from": [],
-    "see_also": [],
-    "depends_on": []
+  "priority": "high",
+  "summary": "Framework de Teresa Torres qui relie visuellement l'outcome visé, les opportunités utilisateurs, les solutions potentielles et les expériences à mener — évite le feature factory.",
+  "core_definition": "L'Opportunity Solution Tree (OST) est un arbre de décision visuel qui part d'un outcome business désiré, identifie les opportunités (besoins, pain points, désirs utilisateurs) qui y contribuent, génère des solutions pour chaque opportunité, et planifie les expériences pour les valider avant de les construire.",
+  "knowledge": {
+    "structure": {
+      "niveau_1": "Outcome désiré (ex : augmenter la rétention J30 de 20%)",
+      "niveau_2": "Opportunités — besoins et friction utilisateurs qui bloquent l'outcome",
+      "niveau_3": "Solutions — idées pour résoudre chaque opportunité",
+      "niveau_4": "Expériences — tests rapides pour valider les solutions avant de les développer"
+    },
+    "pourquoi_utile": "Empêche de sauter directement aux solutions sans comprendre les opportunités. Rend visibles les hypothèses implicites. Structure la continuous discovery.",
+    "construction": [
+      "1. Définir l'outcome avec le business (OKR ou North Star)",
+      "2. Mener des interviews régulières pour identifier les opportunités",
+      "3. Générer plusieurs solutions par opportunité (pas une seule)",
+      "4. Prioriser les expériences à mener selon impact × confiance × effort"
+    ],
+    "erreurs_frequentes": [
+      "Mettre des features à la place des opportunités",
+      "Un seul chemin de l'outcome à la solution (pas un arbre)",
+      "Sauter les expériences pour aller directement au développement"
+    ]
   },
-  "retrieval": {
-    "priority": "medium",
-    "trigger_queries": []
-  }
+  "example_answers": [
+    {
+      "prompt": "Comment construire un Opportunity Solution Tree pour mon produit ?",
+      "answer": "Partir de l'outcome que ton équipe cherche à atteindre ce trimestre (pas une feature, un résultat mesurable). Ensuite, lister les opportunités que tu as découvertes en interviews : quels besoins non satisfaits, quelles frictions, quels moments de satisfaction qu'on pourrait amplifier ? Pour chaque opportunité, générer 3+ idées de solution — la diversité est importante. Enfin, pour chaque solution prometteuse, définir l'expérience la plus rapide qui te donnera de la confiance avant de construire."
+    },
+    {
+      "prompt": "Quelle différence entre une opportunité et une solution dans un OST ?",
+      "answer": "Une opportunité c'est un besoin, une friction ou un désir utilisateur — formulé du point de vue de l'utilisateur (\"les utilisateurs abandonnent à l'étape de configuration parce qu'elle est trop complexe\"). Une solution c'est ce qu'on construit pour y répondre — formulé du point de vue du produit (\"assistant de configuration en 3 étapes avec valeurs par défaut intelligentes\"). L'OST force à distinguer les deux — on peut avoir plusieurs solutions pour une même opportunité."
+    }
+  ],
+  "response_guidance": {
+    "tone": "product management, Teresa Torres, orienté pratique",
+    "structure": [
+      "structure de l'arbre",
+      "construction",
+      "erreurs"
+    ],
+    "avoid": [
+      "confondre feature et opportunité",
+      "présenter comme une solution magique"
+    ]
+  },
+  "tags": [
+    "OST",
+    "opportunity solution tree",
+    "Teresa Torres",
+    "discovery",
+    "product management",
+    "continuous discovery"
+  ],
+  "related_knowledge_units": []
 }

@@ -1,26 +1,74 @@
 {
-    "id":  "room.state.modeling",
-    "created_at":  "2026-06-03",
-    "title":  "room state modeling",
-    "tags":  [
-
-             ],
-    "source":  "recreated_from_dashboard_manifest",
-    "description":  "Fiche connaissance recréée automatiquement à partir du manifest dashboard.",
-    "status":  "draft",
-    "content":  {
-                    "summary":  "",
-                    "links":  [
-
-                              ],
-                    "use_cases":  [
-
-                                  ],
-                    "risks":  [
-
-                              ],
-                    "key_points":  [
-
-                                   ]
-                }
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "id": "knowledges.professional.iot.room_state_modeling",
+  "title": "Modélisation d'état de pièce — représenter le contexte domotique",
+  "domain": "professional",
+  "subdomain": "iot",
+  "status": "validated",
+  "metadata": {
+    "created_at": "2026-06-24",
+    "validated_at": "2026-06-24",
+    "validated_by": "ALFRED enrichment pipeline",
+    "enrichment_version": "day3",
+    "schema_version": "1.2",
+    "review_notes": "",
+    "block": "b18"
+  },
+  "priority": "medium",
+  "summary": "Comment modéliser l'état d'une pièce (présence, luminosité, température, activité) pour déclencher des automatisations intelligentes et contextuelle.",
+  "core_definition": "La modélisation d'état de pièce est la représentation structurée de l'état courant d'un espace (qui est là, ce qu'il fait, les conditions ambiantes) permettant à un système domotique ou à ALFRED de déclencher des actions contextuellement appropriées.",
+  "knowledge": {
+    "dimensions_etat": {
+      "presence": "Occupée/vide, qui (si identification possible), depuis combien de temps",
+      "activite": "Travail, repos, réunion, repas — déduit des capteurs ou déclaré",
+      "ambiance": "Luminosité (lux), température, humidité, CO2",
+      "mode": "Jour/nuit, absent/présent, focus/relax"
+    },
+    "sources_donnees": [
+      "Capteurs de présence (PIR, mmWave)",
+      "Calendrier (réunion planifiée = activité connue)",
+      "Heure (proxy pour l'activité probable)",
+      "Déclaration explicite (\"ALFRED, je travaille\")"
+    ],
+    "representation": {
+      "state_machine": "Machine à états finis — transitions entre états définis",
+      "probabiliste": "Probabilité de chaque état selon les capteurs — plus robuste aux faux positifs",
+      "json_alfred": "{\"room\": \"bureau\", \"presence\": true, \"activity\": \"work\", \"since\": \"14:30\", \"lighting\": \"focus\"}"
+    },
+    "alfred_context": "ALFRED peut maintenir un modèle d'état de l'environnement de Céline pour adapter ses réponses (ne pas distraire en mode focus, proposer une pause selon la durée de travail détectée)."
+  },
+  "example_answers": [
+    {
+      "prompt": "Comment ALFRED peut savoir ce que je fais pour adapter ses réponses ?",
+      "answer": "Plusieurs sources combinées : capteurs de présence (tu es là ou pas), calendrier (tu as une réunion = pas de distraction), déclaration explicite (\"je travaille en mode focus\"), et patterns temporels (14h-18h = probabilité de travail élevée). ALFRED peut maintenir un état de contexte et adapter son niveau de proactivité — silencieux en focus, disponible en mode ouvert."
+    },
+    {
+      "prompt": "C'est quoi une machine à états pour la domotique ?",
+      "answer": "Un ensemble d'états possibles (Absent / Présent-Actif / Présent-Repos / Réunion) et des règles de transition entre eux selon les événements (détection mouvement → Actif, calendrier réunion → Réunion, pas de mouvement 30 min → Repos). C'est plus robuste qu'une simple condition because les états ont de la mémoire — un \"pas de mouvement\" ne change pas l'état immédiatement, il faut une durée seuil."
+    }
+  ],
+  "response_guidance": {
+    "tone": "technique, contextualisé ALFRED",
+    "structure": [
+      "dimensions",
+      "sources",
+      "représentation",
+      "Alfred context"
+    ],
+    "avoid": [
+      "trop abstrait",
+      "ignorer les sources de données pratiques"
+    ]
+  },
+  "tags": [
+    "état",
+    "pièce",
+    "modélisation",
+    "domotique",
+    "contexte",
+    "ALFRED",
+    "IoT"
+  ],
+  "related_knowledge_units": []
 }

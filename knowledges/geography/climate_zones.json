@@ -1,0 +1,107 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "geography.physical.climate_zones",
+  "version": "1.0.0",
+  "domain": "geography",
+  "subdomain": "physical_geography",
+  "category": "climatology",
+  "priority": "medium",
+  "safety_level": "normal",
+  "title": "Zones Climatiques Mondiales",
+  "summary": "Classification de Köppen des zones climatiques, leurs caractéristiques, distributions géographiques et liens avec le changement climatique.",
+  "purpose": "Permettre à ALFRED d'expliquer les différents types de climat et leur distribution géographique dans le monde.",
+  "tags": ["climat", "zone_climatique", "Köppen", "tropical", "désertique", "tempéré", "polaire", "changement_climatique"],
+  "intents": ["explain_climate_zones", "answer_weather_questions", "discuss_climate_change_impacts"],
+  "usage_context": ["Géographie physique", "Voyage", "Agriculture", "Environnement"],
+  "content": {
+    "definition": "Une zone climatique est une région de la Terre caractérisée par des conditions météorologiques et atmosphériques similaires sur le long terme.",
+    "koppen_classification": [
+      {
+        "code": "A — Tropical",
+        "characteristics": "Température moyenne toujours > 18°C, fortes précipitations",
+        "subtypes": ["Af : forêt équatoriale (Amazonie, Congo, Asie SE)", "Am : mousson tropicale", "Aw : savane"],
+        "regions": "Afrique équatoriale, Amazonie, Asie du Sud-Est"
+      },
+      {
+        "code": "B — Aride et semi-aride",
+        "characteristics": "Évapotranspiration > précipitations",
+        "subtypes": ["BWh : désert chaud (Sahara)", "BSh : steppe chaude", "BWk : désert froid (Gobi)"],
+        "regions": "Sahara, Arabie, Australie centrale, Amérique du Nord-Ouest"
+      },
+      {
+        "code": "C — Tempéré",
+        "characteristics": "4 saisons, pas de mois < -3°C",
+        "subtypes": ["Csa/b : méditerranéen (Méditerranée, Californie)", "Cfb : océanique (Europe de l'Ouest)", "Cfa : subtropical humide (SE USA, E Chine)"],
+        "regions": "Europe occidentale, côtes méditerranéennes, SE USA"
+      },
+      {
+        "code": "D — Continental",
+        "characteristics": "Saisons très marquées, hivers froids (< -3°C)",
+        "subtypes": ["Dfa : continental humide", "Dfc : subarctique"],
+        "regions": "Europe centrale et orientale, Canada, Russie centrale"
+      },
+      {
+        "code": "E — Polaire",
+        "characteristics": "Température maximale < 10°C",
+        "subtypes": ["ET : toundra", "EF : glace perpétuelle"],
+        "regions": "Arctique, Antarctique, Groënland, Sibérie nordique"
+      }
+    ],
+    "factors_determining_climate": [
+      "Latitude : plus on s'éloigne de l'équateur, plus il fait froid.",
+      "Altitude : la température baisse de ~6,5°C par 1000 m.",
+      "Proximité des océans : les côtes ont un climat plus tempéré.",
+      "Courants marins : Gulf Stream (Europe douce), Humboldt (côte pacifique froide).",
+      "Relief : effet d'abri (versant sous le vent = foehn, versant au vent = précipitations)."
+    ],
+    "climate_change_impacts": [
+      "Expansion des zones arides vers les pôles.",
+      "Réduction des zones polaires et fonte des glaciers.",
+      "Intensification des événements extrêmes (canicules, cyclones).",
+      "Modification des zones agricoles (northward shift en Europe).",
+      "Montée des eaux menaçant les zones côtières de type C et A."
+    ],
+    "examples": [
+      {
+        "situation": "Utilisateur demande pourquoi il fait si chaud à Dubaï et si froid en Alaska sur la même latitude approximative",
+        "recommended_behavior": "Expliquer que Dubaï est en zone B (désertique) et Alaska en zone D/E (continental/polaire) — la latitude seule ne détermine pas le climat ; les masses d'air, la continentalité et l'altitude jouent un rôle majeur.",
+        "avoid": "Lier le climat uniquement à la latitude."
+      }
+    ],
+    "best_practices": [
+      "Utiliser la classification de Köppen comme cadre de référence.",
+      "Relier les zones climatiques à la végétation et à l'agriculture locales.",
+      "Toujours contextualiser les anomalies climatiques."
+    ],
+    "anti_patterns": [
+      "Réduire le climat à la seule latitude.",
+      "Confondre temps (météo) et climat.",
+      "Ignorer les micros-climats locaux."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["zone climatique", "Köppen", "tropical", "désertique", "tempéré", "polaire"],
+    "related_domains": ["geography", "science"],
+    "related_knowledge": ["geography.world_oceans", "geography.africa_geography"],
+    "retrieval_priority": 6
+  },
+  "behavior_rules": {"tone": "educational", "response_style": "structured_clear", "max_complexity": "medium", "allow_humor": false},
+  "safety_notes": {
+    "allowed_usage": ["Éducation géographique et climatique"],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "Mentionner les projections IPCC pour les questions sur le changement climatique."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "29/06/2026",
+    "last_update": "29/06/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

@@ -1,26 +1,77 @@
 {
-    "id":  "smart.home.basics",
-    "created_at":  "2026-06-03",
-    "title":  "smart home basics",
-    "tags":  [
-
-             ],
-    "source":  "recreated_from_dashboard_manifest",
-    "description":  "Fiche connaissance recréée automatiquement à partir du manifest dashboard.",
-    "status":  "draft",
-    "content":  {
-                    "summary":  "",
-                    "links":  [
-
-                              ],
-                    "use_cases":  [
-
-                                  ],
-                    "risks":  [
-
-                              ],
-                    "key_points":  [
-
-                                   ]
-                }
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "id": "knowledges.professional.iot.smart_home_basics",
+  "title": "Domotique — fondamentaux et écosystèmes",
+  "domain": "professional",
+  "subdomain": "iot",
+  "status": "validated",
+  "metadata": {
+    "created_at": "2026-06-24",
+    "validated_at": "2026-06-24",
+    "validated_by": "ALFRED enrichment pipeline",
+    "enrichment_version": "day3",
+    "schema_version": "1.2",
+    "review_notes": "",
+    "block": "b18"
+  },
+  "priority": "medium",
+  "summary": "Introduction aux concepts fondamentaux de la domotique : protocoles, écosystèmes, architecture et points d'entrée pour un déploiement progressif.",
+  "core_definition": "La domotique (smart home) désigne l'ensemble des technologies permettant d'automatiser et de contrôler les équipements d'un logement (éclairage, chauffage, sécurité, électroménager) via des protocoles de communication et des interfaces unifiées.",
+  "knowledge": {
+    "protocoles": {
+      "wifi": "Universel, simple, consomme plus d'énergie, dépendant du router",
+      "zigbee": "Mesh, faible consommation, local, nécessite un hub (Philips Hue Bridge, Conbee, Sonoff Zigbee)",
+      "zwave": "Similaire à Zigbee, fréquences différentes, très fiable",
+      "matter": "Standard universel 2022 — WiFi + Thread, local first, interopérable",
+      "bluetooth_ble": "Courte portée, pour capteurs et présence"
+    },
+    "ecosystemes": {
+      "google_home": "Voix (Google Assistant), large compatibilité, cloud-dependent",
+      "apple_homekit": "Très sécurisé, local-first, écosystème Apple uniquement",
+      "amazon_alexa": "Large compatibilité, cloud-dependent, moins privacy-friendly",
+      "home_assistant": "Open source, local-first, 3000+ intégrations, courbe d'apprentissage"
+    },
+    "architecture_recommandee": "Hub local (Home Assistant sur Raspberry Pi ou NAS) + appareils Zigbee/Matter pour le contrôle local, avec intégration Google Home/Apple HomeKit pour la voix",
+    "entree_progressive": [
+      "1. Commencer par l'éclairage connecté (Zigbee)",
+      "2. Ajouter des prises connectées pour l'énergie",
+      "3. Capteurs (température, présence)",
+      "4. Hub centralisé (Home Assistant)",
+      "5. Automatisations complexes"
+    ]
+  },
+  "example_answers": [
+    {
+      "prompt": "Par où commencer en domotique sans se ruiner ni se perdre ?",
+      "answer": "Entrée douce recommandée : quelques ampoules Zigbee (Ikea TRÅDFRI, Sengled) avec un hub Zigbee USB (Sonoff Zigbee Dongle Plus à ~20€). Zigbee = local, fiable, économique. Une fois que tu maîtrises l'éclairage, ajouter Home Assistant (Raspberry Pi ou VM) pour centraliser. Ne pas commencer par Matter — encore en maturation. Ne pas commencer par un écosystème propriétaire fermé."
+    },
+    {
+      "prompt": "Quelle différence entre Zigbee et WiFi pour la domotique ?",
+      "answer": "Zigbee : fréquence dédiée (2.4 GHz), réseau mesh (les appareils se relaient), très basse consommation (piles durables), nécessite un hub, local par défaut. WiFi : chaque appareil se connecte directement à la box, pas de hub supplémentaire, mais consomme plus, ajoute de la charge sur le routeur, et dépend souvent du cloud fabricant. Pour une installation sérieuse : Zigbee ou Matter. Pour quelques appareils simples : WiFi acceptable."
+    }
+  ],
+  "response_guidance": {
+    "tone": "introductif, progressif, neutre sur les écosystèmes",
+    "structure": [
+      "protocoles",
+      "écosystèmes",
+      "architecture",
+      "entrée progressive"
+    ],
+    "avoid": [
+      "trop avancé",
+      "parti pris pour un écosystème"
+    ]
+  },
+  "tags": [
+    "domotique",
+    "smart home",
+    "Zigbee",
+    "Matter",
+    "Home Assistant",
+    "protocoles",
+    "IoT"
+  ],
+  "related_knowledge_units": []
 }

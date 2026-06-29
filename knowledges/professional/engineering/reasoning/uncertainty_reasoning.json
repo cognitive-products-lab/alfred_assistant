@@ -1,26 +1,71 @@
 {
-    "id":  "uncertainty.reasoning",
-    "created_at":  "2026-06-03",
-    "title":  "uncertainty reasoning",
-    "tags":  [
-
-             ],
-    "source":  "recreated_from_dashboard_manifest",
-    "description":  "Fiche connaissance recréée automatiquement à partir du manifest dashboard.",
-    "status":  "draft",
-    "content":  {
-                    "summary":  "",
-                    "links":  [
-
-                              ],
-                    "use_cases":  [
-
-                                  ],
-                    "risks":  [
-
-                              ],
-                    "key_points":  [
-
-                                   ]
-                }
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "id": "knowledges.professional.engineering.reasoning.uncertainty_reasoning",
+  "title": "Raisonnement sous incertitude — décider sans certitude",
+  "domain": "professional",
+  "subdomain": "reasoning",
+  "status": "validated",
+  "metadata": {
+    "created_at": "2026-06-24",
+    "validated_at": "2026-06-24",
+    "validated_by": "ALFRED enrichment pipeline",
+    "enrichment_version": "day3",
+    "schema_version": "1.2",
+    "review_notes": "",
+    "block": "b18"
+  },
+  "priority": "high",
+  "summary": "Cadres et pratiques pour prendre des décisions raisonnables quand l'information est incomplète, les probabilités sont inconnues, ou le contexte est ambigu.",
+  "core_definition": "Le raisonnement sous incertitude est l'ensemble des méthodes permettant de structurer la prise de décision dans des contextes où les informations nécessaires sont partielles, les probabilités sont estimées plutôt que connues, et les conséquences sont difficiles à prévoir avec précision.",
+  "knowledge": {
+    "types_incertitude": {
+      "risque": "Probabilités connues — casino, assurance",
+      "incertitude_knightienne": "Probabilités inconnues — situations nouvelles",
+      "ambiguite": "Même les options ne sont pas clairement définies",
+      "complexite": "Les variables sont trop nombreuses et interdépendantes"
+    },
+    "strategies": {
+      "maximin": "Choisir l'option dont le pire cas est le moins mauvais — stratégie défensive",
+      "maximax": "Choisir l'option dont le meilleur cas est le plus attractif — stratégie offensive",
+      "regret_minimax": "Minimiser le regret maximum possible",
+      "options_preserving": "Préférer les décisions qui gardent des options ouvertes"
+    },
+    "pratiques": {
+      "scénarios": "Construire 3 scénarios (pessimiste/réaliste/optimiste) et vérifier que la décision est robuste sur plusieurs",
+      "premortem": "Imaginer que ça a échoué et chercher pourquoi — détecter les risques avant",
+      "reversibilite": "Préférer les décisions réversibles quand l'incertitude est haute"
+    }
+  },
+  "example_answers": [
+    {
+      "prompt": "Je dois décider mais je n'ai pas assez d'informations.",
+      "answer": "Deux questions préalables : 1) Quelle information changerait vraiment ta décision si tu l'avais ? Si elle est obtainable, vaut-il le coût de l'attendre ? 2) Quelle est la réversibilité de chaque option ? Sous haute incertitude, préférer les options réversibles même si elles semblent moins bonnes. La premortem est aussi utile : imagine que tu as décidé et que ça a échoué dans 6 mois — qu'est-ce qui a causé l'échec ?"
+    },
+    {
+      "prompt": "Comment ne pas regretter une décision prise dans le flou ?",
+      "answer": "En changeant le critère d'évaluation : une bonne décision n'est pas une décision qui a bien tourné, c'est une décision bien prise avec les informations disponibles au moment de la décision. Si tu as suivi un processus raisonnable, la décision était bonne — même si le résultat est mauvais (le résultat dépend aussi du hasard). Tenir ce journal aide à calibrer le processus, pas à ruminer les résultats."
+    }
+  ],
+  "response_guidance": {
+    "tone": "structurant, non-anxiogène",
+    "structure": [
+      "types",
+      "stratégies",
+      "pratiques"
+    ],
+    "avoid": [
+      "théorie de la décision pure",
+      "culpabiliser l'incertitude"
+    ]
+  },
+  "tags": [
+    "incertitude",
+    "décision",
+    "risque",
+    "scénarios",
+    "premortem",
+    "réversibilité"
+  ],
+  "related_knowledge_units": []
 }

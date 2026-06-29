@@ -1,26 +1,71 @@
 {
-    "id":  "fallback.reasoning",
-    "created_at":  "2026-06-03",
-    "title":  "fallback reasoning",
-    "tags":  [
-
-             ],
-    "source":  "recreated_from_dashboard_manifest",
-    "description":  "Fiche connaissance recréée automatiquement à partir du manifest dashboard.",
-    "status":  "draft",
-    "content":  {
-                    "summary":  "",
-                    "links":  [
-
-                              ],
-                    "use_cases":  [
-
-                                  ],
-                    "risks":  [
-
-                              ],
-                    "key_points":  [
-
-                                   ]
-                }
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "id": "knowledges.professional.engineering.reasoning.fallback_reasoning",
+  "title": "Raisonnement de repli — que faire quand les données manquent",
+  "domain": "professional",
+  "subdomain": "reasoning",
+  "status": "validated",
+  "metadata": {
+    "created_at": "2026-06-24",
+    "validated_at": "2026-06-24",
+    "validated_by": "ALFRED enrichment pipeline",
+    "enrichment_version": "day3",
+    "schema_version": "1.2",
+    "review_notes": "",
+    "block": "b18"
+  },
+  "priority": "high",
+  "summary": "Stratégies pour raisonner de manière fiable quand l'information est incomplète, ambiguë ou absente. Inclut heuristiques, estimations raisonnées et gestion de l'incertitude.",
+  "core_definition": "Le raisonnement de repli (fallback reasoning) désigne l'ensemble des stratégies cognitives activées quand les données nécessaires à un raisonnement complet sont indisponibles, permettant d'aboutir à une conclusion ou une action raisonnable malgré l'incertitude.",
+  "knowledge": {
+    "strategies": {
+      "estimation_fermi": "Décomposer un problème inconnu en sous-problèmes estimables",
+      "analogie": "Appliquer le raisonnement d'un cas connu à un cas inconnu",
+      "pire_meilleur_cas": "Borner l'incertitude par les extrêmes pour décider malgré tout",
+      "prior_bayesien": "Partir de la distribution de base et ajuster selon les indices disponibles"
+    },
+    "quand_s_arreter": "Savoir quand l'incertitude est trop grande pour décider — et le dire explicitement plutôt que de forcer une réponse",
+    "declaration_d_incertitude": {
+      "format": "\"Je ne sais pas X avec certitude, mais voici ce que je peux estimer : [raisonnement]\"",
+      "calibration": "Ne pas surconfier une estimation — donner une fourchette réaliste"
+    },
+    "erreurs": [
+      "Forcer une réponse précise quand seule une fourchette est honnête",
+      "Appliquer une analogie sans vérifier sa pertinence",
+      "Ignorer les données disponibles par excès de prudence"
+    ]
+  },
+  "example_answers": [
+    {
+      "prompt": "Je n'ai pas toutes les informations pour décider.",
+      "answer": "Qu'est-ce qui manque exactement ? Souvent on peut distinguer l'information qui change vraiment la décision de celle qui serait juste confortable à avoir. Si l'info manquante est critique : attendre ou demander. Si elle n'est pas critique : décider avec ce qu'on a en nommant l'incertitude."
+    },
+    {
+      "prompt": "Comment estimer quelque chose qu'on ne connaît pas ?",
+      "answer": "Approche Fermi : décomposer en éléments qu'on peut estimer séparément, puis multiplier. Exemple — estimer le marché des livraisons de pizza en France : population × foyers × fréquence × part qui commande. Chaque estimation est imprécise, mais le produit converge souvent vers un ordre de grandeur utile."
+    }
+  ],
+  "response_guidance": {
+    "tone": "méthodique, honnête sur les limites",
+    "structure": [
+      "stratégie",
+      "application",
+      "limites"
+    ],
+    "avoid": [
+      "fausse précision",
+      "refus de raisonner",
+      "ignorer l'incertitude"
+    ]
+  },
+  "tags": [
+    "incertitude",
+    "estimation",
+    "fallback",
+    "Fermi",
+    "raisonnement",
+    "données manquantes"
+  ],
+  "related_knowledge_units": []
 }

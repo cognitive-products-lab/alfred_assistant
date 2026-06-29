@@ -1,0 +1,100 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "mathematics.number_theory.basics",
+  "version": "1.0.0",
+  "domain": "mathematics",
+  "subdomain": "number_theory",
+  "category": "pure_mathematics",
+  "priority": "medium",
+  "safety_level": "normal",
+  "title": "Théorie des Nombres",
+  "summary": "Fondements de la théorie des nombres : entiers, divisibilité, nombres premiers, PGCD, arithmétique modulaire et applications en cryptographie.",
+  "purpose": "Permettre à ALFRED d'expliquer les propriétés des entiers, les nombres premiers et leur importance en cryptographie et en informatique.",
+  "tags": ["théorie_nombres", "premiers", "divisibilité", "PGCD", "modulo", "Euclide", "RSA", "mathématiques"],
+  "intents": ["explain_number_theory", "explain_prime_numbers", "explain_modular_arithmetic", "help_with_math"],
+  "usage_context": ["Mathématiques", "Cryptographie", "Informatique théorique"],
+  "content": {
+    "definition": "La théorie des nombres étudie les propriétés des entiers et leurs relations — c'est l'une des plus anciennes et des plus pures branches des mathématiques.",
+    "number_sets": [
+      "ℕ : entiers naturels {0, 1, 2, 3, ...}",
+      "ℤ : entiers relatifs {..., -2, -1, 0, 1, 2, ...}",
+      "ℚ : rationnels (fractions p/q avec q ≠ 0)",
+      "ℝ : réels (rationnels + irrationnels comme π, √2)",
+      "ℂ : complexes (a + bi où i² = -1)"
+    ],
+    "divisibility": {
+      "definition": "a divise b (a | b) si b = k×a pour un entier k.",
+      "rules": [
+        "Divisible par 2 : dernier chiffre pair",
+        "Divisible par 3 : somme des chiffres divisible par 3",
+        "Divisible par 9 : somme des chiffres divisible par 9",
+        "Divisible par 5 : finit par 0 ou 5",
+        "Divisible par 11 : différence alternée des chiffres divisible par 11"
+      ]
+    },
+    "prime_numbers": {
+      "definition": "Un entier > 1 n'ayant que deux diviseurs : 1 et lui-même.",
+      "examples": "2, 3, 5, 7, 11, 13, 17, 19, 23, 29...",
+      "infinity": "Il existe une infinité de nombres premiers (Euclide, ~300 av. J.-C.).",
+      "fundamental_theorem": "Tout entier > 1 se décompose de façon unique en produit de nombres premiers.",
+      "twin_primes": "Paires de premiers séparés de 2 : (3,5), (5,7), (11,13), (17,19)... — conjecture : infinité de paires.",
+      "riemann_hypothesis": "Lié à la distribution des nombres premiers — l'un des Problèmes du Prix du Millénaire non résolus."
+    },
+    "gcd_lcm": {
+      "gcd": "PGCD (Plus Grand Commun Diviseur) : Algorithme d'Euclide — PGCD(a, b) = PGCD(b, a mod b) jusqu'à b = 0.",
+      "lcm": "PPCM (Plus Petit Commun Multiple) : PPCM(a,b) = a×b / PGCD(a,b).",
+      "example": "PGCD(48, 18) : 48 = 2×18 + 12, 18 = 1×12 + 6, 12 = 2×6 + 0 → PGCD = 6"
+    },
+    "modular_arithmetic": {
+      "definition": "a ≡ b (mod m) signifie que m divise (a - b). L'arithmétique modulo m revient à travailler avec les restes de la division par m.",
+      "applications": [
+        "Cryptographie RSA (basé sur Fermat/Euler).",
+        "Codes de contrôle (ISBN, carte bancaire — Luhn).",
+        "Calendrier : calculer le jour de la semaine."
+      ],
+      "fermat_little": "Si p est premier et a non divisible par p : aᵖ⁻¹ ≡ 1 (mod p) — fondement de RSA."
+    },
+    "examples": [
+      {
+        "situation": "Utilisateur demande comment RSA utilise les nombres premiers",
+        "recommended_behavior": "Expliquer que RSA repose sur la difficulté de factoriser le produit de deux grands nombres premiers. Multiplier est facile (millisecondes) ; factoriser est computationnellement infaisable pour des clés de 2048 bits.",
+        "avoid": "Ignorer le lien avec la cryptographie — c'est l'application la plus concrète."
+      }
+    ],
+    "best_practices": [
+      "Utiliser l'algorithme d'Euclide pour calculer le PGCD.",
+      "Relier la théorie des nombres à la cryptographie pour montrer son utilité.",
+      "Souligner que certains problèmes semblant simples (conjecture de Goldbach) restent non résolus."
+    ],
+    "anti_patterns": [
+      "Présenter 1 comme un nombre premier (il ne l'est pas).",
+      "Ignorer le théorème fondamental de l'arithmétique.",
+      "Omettre l'application en cryptographie — c'est ce qui rend la théorie des nombres fondamentale pour l'informatique."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["théorie des nombres", "nombres premiers", "PGCD", "modulo", "Euclide", "RSA"],
+    "related_domains": ["mathematics", "technology"],
+    "related_knowledge": ["mathematics.algebra_basics", "technology.cryptography"],
+    "retrieval_priority": 6
+  },
+  "behavior_rules": {"tone": "educational", "response_style": "structured_clear", "max_complexity": "medium", "allow_humor": false},
+  "safety_notes": {
+    "allowed_usage": ["Éducation mathématique"],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "Rediriger vers des ressources académiques pour les problèmes non résolus."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "29/06/2026",
+    "last_update": "29/06/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

@@ -1,0 +1,115 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "medicine.nutrition.basics",
+  "version": "1.0.0",
+  "domain": "medicine",
+  "subdomain": "nutrition",
+  "category": "preventive_health",
+  "priority": "high",
+  "safety_level": "sensitive",
+  "title": "Nutrition Fondamentale",
+  "summary": "Macronutriments, micronutriments, métabolisme de base, besoins caloriques, alimentation saine et principaux mythes nutritionnels.",
+  "purpose": "Permettre à ALFRED de répondre aux questions nutritionnelles avec précision scientifique et prudence, sans remplacer les conseils d'un diététicien.",
+  "tags": ["nutrition", "alimentation", "protéines", "glucides", "lipides", "vitamines", "calories", "diète", "métabolisme"],
+  "intents": ["explain_nutrition", "discuss_diet", "answer_food_questions", "explain_macronutrients"],
+  "usage_context": ["Santé et alimentation", "Perte de poids", "Sport et nutrition", "Maladies liées à l'alimentation"],
+  "content": {
+    "definition": "La nutrition est la science étudiant les relations entre les aliments et la santé — comment le corps absorbe, utilise et élabore les nutriments.",
+    "macronutrients": [
+      {
+        "nutrient": "Glucides",
+        "calories_per_gram": 4,
+        "role": "Source d'énergie principale (glucose → ATP), stockage sous forme de glycogène.",
+        "types": ["Simples (sucres) : rapides", "Complexes (amidon) : lents et rassasiants", "Fibres : non digestibles, essentielles au microbiome"],
+        "recommended_percentage": "45-65 % des apports caloriques totaux"
+      },
+      {
+        "nutrient": "Protéines",
+        "calories_per_gram": 4,
+        "role": "Construction et réparation des tissus, enzymes, hormones, anticorps.",
+        "sources": ["Viandes, poissons, œufs (protéines complètes)", "Légumineuses + céréales (complémentarité végétale)"],
+        "recommended_intake": "0,8 g/kg/jour (sédentaire) ; 1,2-2,0 g/kg (sportif)"
+      },
+      {
+        "nutrient": "Lipides",
+        "calories_per_gram": 9,
+        "role": "Énergie de réserve, structure des membranes cellulaires, hormones stéroïdes, absorption vitamines liposolubles (A,D,E,K).",
+        "types": ["Saturés (beurre, graisse animale) : limitez", "Monoinsaturés (huile d'olive) : favorables", "Polyinsaturés omega-3 (poissons gras) : essentiels", "Trans (graisses hydrogénées) : évitez"]
+      }
+    ],
+    "micronutrients": [
+      {"nutrient": "Vitamine D", "role": "Absorption du calcium, immunité, humeur. Déficience très fréquente."},
+      {"nutrient": "Vitamine C", "role": "Antioxydant, synthèse du collagène, absorption du fer."},
+      {"nutrient": "Fer", "role": "Transport de l'oxygène (hémoglobine). Déficience → anémie."},
+      {"nutrient": "Magnésium", "role": "Muscle, nerfs, énergie. Déficience liée au stress."},
+      {"nutrient": "Omega-3 (EPA/DHA)", "role": "Santé cardiovasculaire, cerveau, anti-inflammatoire."},
+      {"nutrient": "Calcium", "role": "Os, dents, contraction musculaire, signaux nerveux."}
+    ],
+    "caloric_needs": {
+      "bmr_formula": "Mifflin-St Jeor : Homme = 10×poids(kg) + 6,25×taille(cm) - 5×âge + 5",
+      "activity_multipliers": [
+        {"level": "Sédentaire", "multiplier": 1.2},
+        {"level": "Légèrement actif", "multiplier": 1.375},
+        {"level": "Modérément actif", "multiplier": 1.55},
+        {"level": "Très actif", "multiplier": 1.725}
+      ],
+      "note": "Ces formules sont des estimations ; les besoins individuels varient."
+    },
+    "healthy_diet_principles": [
+      "Diversité : manger de tout en quantités raisonnables.",
+      "Aliments peu transformés en priorité.",
+      "Légumes et fruits : 5 portions/jour minimum.",
+      "Réduire sucres ajoutés, sel et graisses trans.",
+      "Hydratation : 1,5-2L d'eau/jour.",
+      "Régularité des repas pour stabiliser la glycémie."
+    ],
+    "common_myths": [
+      {"myth": "Les graisses font grossir", "reality": "L'excès calorique fait grossir, pas les graisses per se. Les bons lipides sont essentiels."},
+      {"myth": "Le jeûne intermittent brûle plus de graisses", "reality": "Le jeûne intermittent peut être efficace mais n'est pas supérieur à un déficit calorique simple à calories égales."},
+      {"myth": "Il faut 8 verres d'eau par jour", "reality": "Les besoins varient selon l'activité et le climat — les aliments contribuent aussi à l'hydratation."},
+      {"myth": "Les superfoods guérissent les maladies", "reality": "Aucun aliment unique n'a de propriétés médicales démontrées — c'est le régime global qui compte."}
+    ],
+    "examples": [
+      {
+        "situation": "Utilisateur veut perdre du poids et demande le meilleur régime",
+        "recommended_behavior": "Expliquer que la perte de poids durable requiert un déficit calorique modéré (~500 kcal/jour), riche en protéines et fibres, et recommander une consultation avec un diététicien pour un plan personnalisé.",
+        "avoid": "Recommander un régime extrême ou une promesse de résultats rapides."
+      }
+    ],
+    "best_practices": [
+      "Baser les conseils sur les recommandations des autorités sanitaires (OMS, ANSES).",
+      "Souligner que la nutrition individuelle est complexe et dépend de nombreux facteurs.",
+      "Déconstruire les mythes nutritionnels avec des preuves scientifiques."
+    ],
+    "anti_patterns": [
+      "Recommander des régimes restrictifs sans supervision médicale.",
+      "Légitimer des compléments ou 'régimes miracles' sans base scientifique.",
+      "Donner des conseils nutritionnels pour des maladies spécifiques (diabète, maladies rénales)."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["nutrition", "alimentation", "protéines", "glucides", "lipides", "vitamines", "calories"],
+    "related_domains": ["medicine", "lifestyle"],
+    "related_knowledge": ["medicine.human_anatomy", "medicine.mental_health_basics"],
+    "retrieval_priority": 8
+  },
+  "behavior_rules": {"tone": "professional_supportive", "response_style": "structured_clear", "max_complexity": "medium", "allow_humor": false},
+  "safety_notes": {
+    "allowed_usage": ["Éducation nutritionnelle générale"],
+    "restricted_usage": ["Conseils pour maladies métaboliques ou TCA"],
+    "forbidden_usage": ["Régimes extrêmes ou prescription médicale"],
+    "fallback_behavior": "Recommander un diététicien ou médecin pour les plans alimentaires personnalisés."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "29/06/2026",
+    "last_update": "29/06/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

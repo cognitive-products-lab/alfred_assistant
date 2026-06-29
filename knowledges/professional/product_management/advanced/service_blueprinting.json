@@ -1,74 +1,76 @@
 {
-  "_meta": {
-    "project": "ALFRED",
-    "block": "B18",
-    "file": "service_blueprinting.json",
-    "version": "V1.0",
-    "status": "VALIDATED",
-    "updated": "2026-05-13",
-    "standardized_by": "generate_knowledges.py",
-    "validated_by": "Cognitive Products Lab",
-    "validated_date": "2026-05-13"
-  },
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
   "id": "knowledges.professional.product_management.advanced.service_blueprinting",
-  "domain": "professional_product",
-  "category": "product_management",
-  "title": "Service Blueprinting",
-  "description": "Cartographie détaillée des interactions et processus service.",
-  "version": "1.0",
-  "status": "active",
-  "tags": [
-    "advanced",
-    "product management",
-    "professional",
-    "professional product",
-    "service blueprinting"
-  ],
-  "content": {
-    "summary": "Cartographie détaillée des interactions et processus service.",
-    "details": [
-      "Frontstage",
-      "Backstage",
-      "Support processes",
-      "User interactions",
-      "Comprendre les dépendances",
-      "Optimiser l’expérience",
-      "Identifier les points faibles",
-      "Architecture conversationnelle",
-      "Flux IA",
-      "Interactions multi-modules"
-    ],
-    "references": []
-  },
+  "title": "Service Blueprinting — cartographier l'expérience de service bout en bout",
+  "domain": "professional",
+  "subdomain": "product_management_advanced",
+  "status": "validated",
   "metadata": {
-    "created": "2026-05-12",
-    "updated": "2026-05-12",
-    "author": "Cognitive Products Lab"
+    "created_at": "2026-06-24",
+    "validated_at": "2026-06-24",
+    "validated_by": "ALFRED enrichment pipeline",
+    "enrichment_version": "day3",
+    "schema_version": "1.2",
+    "review_notes": "",
+    "block": "b18"
   },
-  "core_concepts": [
-    "Frontstage",
-    "Backstage",
-    "Support processes",
-    "User interactions"
-  ],
-  "objectives": [
-    "Comprendre les dépendances",
-    "Optimiser l’expérience",
-    "Identifier les points faibles"
-  ],
-  "alfred_application": [
-    "Architecture conversationnelle",
-    "Flux IA",
-    "Interactions multi-modules"
-  ],
-  "aliases": [],
-  "relationships": {
-    "merged_from": [],
-    "see_also": [],
-    "depends_on": []
+  "priority": "medium",
+  "summary": "Outil UX et service design pour visualiser l'expérience utilisateur (frontstage) et les processus internes (backstage) qui la soutiennent — révèle les points de friction invisibles.",
+  "core_definition": "Le Service Blueprint est un outil de visualisation qui cartographie simultanément l'expérience de l'utilisateur (actions, touchpoints, émotions) et les processus internes de l'organisation qui la soutiennent (actions visibles du personnel, backstage, systèmes de support), révélant les décalages entre l'expérience voulue et l'expérience réelle.",
+  "knowledge": {
+    "couches": {
+      "customer_actions": "Ce que fait le client à chaque étape du parcours",
+      "frontstage": "Interactions visibles entre le client et le service (personnel, interfaces)",
+      "line_of_visibility": "Frontière entre ce que voit le client et ce qui se passe en coulisses",
+      "backstage": "Processus internes non visibles du client (logistique, systèmes)",
+      "support_processes": "Systèmes et partenaires qui soutiennent le backstage"
+    },
+    "quand_utiliser": [
+      "Diagnostiquer des points de friction dans un service existant",
+      "Concevoir un nouveau service de bout en bout",
+      "Aligner les équipes front et back sur l'expérience cible",
+      "Identifier les opportunités d'automatisation ou d'amélioration"
+    ],
+    "vs_customer_journey_map": "CJM = centré sur l'expérience client uniquement. Service Blueprint = CJM + processus internes. Le blueprint révèle pourquoi l'expérience est ce qu'elle est, pas seulement ce qu'elle est.",
+    "construction": [
+      "Définir le scope du service à cartographier",
+      "Recruter 5-8 parties prenantes (front, back, IT, ops)",
+      "Workshop de 3-4h pour co-construire",
+      "Valider avec des utilisateurs réels"
+    ]
   },
-  "retrieval": {
-    "priority": "medium",
-    "trigger_queries": []
-  }
+  "example_answers": [
+    {
+      "prompt": "C'est quoi un Service Blueprint et quand l'utiliser ?",
+      "answer": "C'est une carte qui montre simultanément ce que vit le client et ce qui se passe en coulisses pour produire cette expérience. L'utiliser quand : tu as une expérience qui fonctionne mal sans savoir pourquoi (le blueprint révèle les gaps entre front et back), tu conçois un nouveau service impliquant plusieurs équipes, ou tu veux aligner front et back sur une expérience cible commune. Ce n'est pas un outil quotidien — c'est un outil de transformation de service."
+    },
+    {
+      "prompt": "Quelle différence entre une Customer Journey Map et un Service Blueprint ?",
+      "answer": "La CJM documente l'expérience du client : ses actions, ses émotions, ses points de contact — du point de vue de l'utilisateur. Le Service Blueprint ajoute en dessous la ligne de visibilité : ce que font les agents (visible par le client), ce que font les équipes back-office (invisible), et les systèmes de support. La CJM dit \"voilà ce que vit le client\". Le blueprint dit aussi \"voilà pourquoi c'est comme ça\" — et où intervenir pour l'améliorer."
+    }
+  ],
+  "response_guidance": {
+    "tone": "service design, UX, orienté workshop",
+    "structure": [
+      "couches",
+      "quand utiliser",
+      "vs CJM",
+      "construction"
+    ],
+    "avoid": [
+      "confondre avec une simple CJM",
+      "sous-estimer la complexité du backstage"
+    ]
+  },
+  "tags": [
+    "service blueprint",
+    "service design",
+    "UX",
+    "journey map",
+    "backstage",
+    "frontstage",
+    "processus"
+  ],
+  "related_knowledge_units": []
 }

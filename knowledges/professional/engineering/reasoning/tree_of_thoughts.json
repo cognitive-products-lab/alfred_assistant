@@ -1,26 +1,71 @@
 {
-    "id":  "tree.of.thoughts",
-    "created_at":  "2026-06-03",
-    "title":  "tree of thoughts",
-    "tags":  [
-
-             ],
-    "source":  "recreated_from_dashboard_manifest",
-    "description":  "Fiche connaissance recréée automatiquement à partir du manifest dashboard.",
-    "status":  "draft",
-    "content":  {
-                    "summary":  "",
-                    "links":  [
-
-                              ],
-                    "use_cases":  [
-
-                                  ],
-                    "risks":  [
-
-                              ],
-                    "key_points":  [
-
-                                   ]
-                }
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "id": "knowledges.professional.engineering.reasoning.tree_of_thoughts",
+  "title": "Tree of Thoughts — exploration arborescente du raisonnement",
+  "domain": "professional",
+  "subdomain": "reasoning",
+  "status": "validated",
+  "metadata": {
+    "created_at": "2026-06-24",
+    "validated_at": "2026-06-24",
+    "validated_by": "ALFRED enrichment pipeline",
+    "enrichment_version": "day3",
+    "schema_version": "1.2",
+    "review_notes": "",
+    "block": "b18"
+  },
+  "priority": "medium",
+  "summary": "Technique de raisonnement qui explore plusieurs branches de pensée en parallèle, évalue leur promesse et choisit le meilleur chemin — comme un joueur d'échecs qui calcule plusieurs coups à l'avance.",
+  "core_definition": "Le Tree of Thoughts (ToT) est une technique de raisonnement qui structure l'exploration du problème comme un arbre où chaque nœud est un état intermédiaire du raisonnement, les branches sont les continuations possibles, et un processus d'évaluation détermine quelles branches poursuivre.",
+  "knowledge": {
+    "structure": {
+      "noeud": "État du raisonnement à un moment donné",
+      "branche": "Continuation possible — une direction de pensée",
+      "evaluation": "Évaluer la promesse de chaque branche avant d'aller plus loin",
+      "pruning": "Abandonner les branches peu prometteuses tôt"
+    },
+    "vs_chain_of_thought": {
+      "CoT": "Raisonnement linéaire — une seule chaîne",
+      "ToT": "Raisonnement arborescent — plusieurs chemins explorés en parallèle"
+    },
+    "applications": {
+      "problemes_creatifs": "Explorer plusieurs angles créatifs avant d'en développer un",
+      "planification": "Évaluer plusieurs plans avant de s'engager",
+      "debug": "Explorer plusieurs hypothèses de cause avant d'investiguer"
+    },
+    "implementation_pratique": "Demander explicitement au LLM : \"Génère 3 approches différentes, évalue chacune, puis développe la meilleure\""
+  },
+  "example_answers": [
+    {
+      "prompt": "Comment explorer un problème créatif sans se bloquer sur la première idée ?",
+      "answer": "Tree of Thoughts pratique : générer 3 directions complètement différentes (même si certaines semblent mauvaises), évaluer brièvement chacune sur 2 critères, puis approfondir la plus prometteuse. L'erreur fréquente : évaluer pendant la génération — ça bloque la créativité. D'abord générer, ensuite évaluer."
+    },
+    {
+      "prompt": "C'est quoi la différence entre chain-of-thought et tree-of-thoughts ?",
+      "answer": "CoT : je raisonne étape par étape en une ligne droite. ToT : je génère plusieurs branches de raisonnement en parallèle, j'évalue leur promesse, et je poursuis la meilleure (comme aux échecs). ToT est plus robuste sur les problèmes où la première approche n'est pas toujours la bonne — mais plus coûteux en ressources."
+    }
+  ],
+  "response_guidance": {
+    "tone": "technique, imagé",
+    "structure": [
+      "concept",
+      "comparaison CoT",
+      "applications",
+      "pratique"
+    ],
+    "avoid": [
+      "mathématique pur",
+      "trop abstrait"
+    ]
+  },
+  "tags": [
+    "tree of thoughts",
+    "raisonnement",
+    "LLM",
+    "exploration",
+    "créativité",
+    "planification"
+  ],
+  "related_knowledge_units": []
 }

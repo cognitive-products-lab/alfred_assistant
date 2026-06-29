@@ -1,0 +1,106 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "mathematics.combinatorics.basics",
+  "version": "1.0.0",
+  "domain": "mathematics",
+  "subdomain": "combinatorics",
+  "category": "applied_mathematics",
+  "priority": "medium",
+  "safety_level": "normal",
+  "title": "Combinatoire et Dénombrement",
+  "summary": "Principes de comptage, permutations, arrangements, combinaisons, principe de multiplication et applications aux probabilités et à l'informatique.",
+  "purpose": "Permettre à ALFRED d'expliquer les bases du dénombrement et de résoudre des problèmes combinatoires courants.",
+  "tags": ["combinatoire", "permutation", "combinaison", "dénombrement", "factorielle", "probabilités", "informatique"],
+  "intents": ["explain_combinatorics", "solve_counting_problems", "explain_permutations_combinations"],
+  "usage_context": ["Mathématiques", "Probabilités", "Informatique", "Jeux et casino"],
+  "content": {
+    "definition": "La combinatoire est la branche des mathématiques qui étudie les méthodes de comptage des configurations finies.",
+    "counting_principles": [
+      {
+        "principle": "Principe additif",
+        "statement": "Si A et B sont deux ensembles disjoints, |A ∪ B| = |A| + |B|."
+      },
+      {
+        "principle": "Principe multiplicatif",
+        "statement": "Si une action A peut être réalisée de p façons et B de q façons indépendamment, A puis B peut être réalisé de p×q façons.",
+        "example": "Choisir un plat parmi 3 et un dessert parmi 4 = 3×4 = 12 repas possibles"
+      }
+    ],
+    "factorial": {
+      "definition": "n! = n × (n-1) × (n-2) × ... × 2 × 1",
+      "convention": "0! = 1",
+      "examples": "3! = 6, 5! = 120, 10! = 3 628 800"
+    },
+    "permutations": {
+      "definition": "Arrangement ordonné de p éléments parmi n distincts.",
+      "formula": "Aₙᵖ = n! / (n-p)!",
+      "full_permutation": "Permutation de n éléments : P = n!",
+      "example": "Nombre d'anagrammes de PARIS = 5! = 120 (lettres distinctes)"
+    },
+    "combinations": {
+      "definition": "Sélection non ordonnée de p éléments parmi n. L'ordre n'importe pas.",
+      "formula": "C(n,p) = n! / [p! × (n-p)!] = binomial coefficient",
+      "notation": "C(n,p) ou nCp ou (n sur p)",
+      "example": "Choisir 3 joueurs parmi 10 = C(10,3) = 10!/(3!×7!) = 120"
+    },
+    "key_properties": [
+      "C(n,p) = C(n, n-p) — symétrie",
+      "C(n,0) = C(n,n) = 1",
+      "Triangle de Pascal : C(n,p) = C(n-1,p-1) + C(n-1,p)"
+    ],
+    "applications": [
+      {"application": "Loterie (6/49)", "calculation": "C(49,6) = 13 983 816 — probabilité de 1 sur ~14 millions"},
+      {"application": "Poker (main de 5 cartes)", "calculation": "C(52,5) = 2 598 960 combinaisons"},
+      {"application": "Algorithmes", "calculation": "Complexité combinatoire des NP-problèmes"},
+      {"application": "Cryptographie", "calculation": "Espace des clés : 2^256 pour AES-256"}
+    ],
+    "binomial_theorem": {
+      "formula": "(a + b)ⁿ = Σ C(n,k) × aⁿ⁻ᵏ × bᵏ pour k de 0 à n",
+      "example": "(a + b)³ = a³ + 3a²b + 3ab² + b³",
+      "coefficients": "Les coefficients sont les lignes du Triangle de Pascal."
+    },
+    "inclusion_exclusion": "Pour compter |A ∪ B| = |A| + |B| - |A ∩ B| — évite le double comptage.",
+    "examples": [
+      {
+        "situation": "Utilisateur demande la probabilité de gagner au Loto (6 bons numéros sur 49)",
+        "recommended_behavior": "Calculer C(49,6) = 13 983 816. Probabilité = 1/13 983 816 ≈ 0,0000072 %. Expliquer que même 100 tickets ne changent pas significativement les odds.",
+        "avoid": "Donner un résultat sans montrer le calcul combinatoire."
+      }
+    ],
+    "best_practices": [
+      "Vérifier si l'ordre compte (permutation) ou non (combinaison).",
+      "Utiliser le triangle de Pascal pour les petites valeurs.",
+      "Vérifier les résultats avec des cas simples avant de généraliser."
+    ],
+    "anti_patterns": [
+      "Confondre permutation et combinaison.",
+      "Oublier que l'ordre n'importe pas dans une combinaison.",
+      "Ignorer le principe d'inclusion-exclusion pour les ensembles non disjoints."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["combinatoire", "permutation", "combinaison", "dénombrement", "factorielle", "loto"],
+    "related_domains": ["mathematics"],
+    "related_knowledge": ["mathematics.probability_statistics", "mathematics.algebra_basics"],
+    "retrieval_priority": 6
+  },
+  "behavior_rules": {"tone": "educational", "response_style": "step_by_step", "max_complexity": "medium", "allow_humor": true},
+  "safety_notes": {
+    "allowed_usage": ["Éducation mathématique"],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "Recommander des exercices pratiques de dénombrement pour la maîtrise."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "29/06/2026",
+    "last_update": "29/06/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

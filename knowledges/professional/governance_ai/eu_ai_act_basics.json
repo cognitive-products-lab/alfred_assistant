@@ -1,26 +1,80 @@
 {
-    "id":  "eu.ai.act.basics",
-    "created_at":  "2026-06-03",
-    "title":  "eu ai act basics",
-    "tags":  [
-
-             ],
-    "source":  "recreated_from_dashboard_manifest",
-    "description":  "Fiche connaissance recréée automatiquement à partir du manifest dashboard.",
-    "status":  "draft",
-    "content":  {
-                    "summary":  "",
-                    "links":  [
-
-                              ],
-                    "use_cases":  [
-
-                                  ],
-                    "risks":  [
-
-                              ],
-                    "key_points":  [
-
-                                   ]
-                }
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "id": "knowledges.professional.governance_ai.eu_ai_act_basics",
+  "title": "EU AI Act — les fondamentaux du règlement européen sur l'IA",
+  "domain": "professional",
+  "subdomain": "governance_ai",
+  "status": "validated",
+  "metadata": {
+    "created_at": "2026-06-24",
+    "validated_at": "2026-06-24",
+    "validated_by": "ALFRED enrichment pipeline",
+    "enrichment_version": "day3",
+    "schema_version": "1.2",
+    "review_notes": "",
+    "block": "b18"
+  },
+  "priority": "critical",
+  "summary": "Présentation des éléments clés de l'EU AI Act : classification par risque, obligations par catégorie, calendrier d'application et impact pour les organisations qui développent ou utilisent de l'IA.",
+  "core_definition": "L'EU AI Act (Règlement UE 2024/1689) est le premier cadre réglementaire mondial contraignant sur l'intelligence artificielle, adopté en 2024 et applicable progressivement jusqu'en 2027. Il classe les systèmes IA par niveau de risque et impose des obligations proportionnelles.",
+  "knowledge": {
+    "classification_risques": {
+      "inacceptable": "Interdit : manipulation subliminale, score social, reconnaissance faciale en temps réel dans l'espace public (sauf exceptions), exploitation de vulnérabilités",
+      "haut_risque": "Obligations strictes : infrastructures critiques, éducation, emploi, services essentiels, law enforcement, migration, justice",
+      "risque_limite": "Obligations de transparence : chatbots (dire que c'est une IA), deepfakes (labellisation)",
+      "risque_minimal": "Libre : filtres spam, IA dans jeux vidéo, recommandations non-critiques"
+    },
+    "obligations_haut_risque": [
+      "Système de management du risque",
+      "Gouvernance des données",
+      "Documentation technique",
+      "Transparence et information utilisateurs",
+      "Contrôle humain (human oversight)",
+      "Robustesse, précision et cybersécurité",
+      "Enregistrement dans la base de données EU"
+    ],
+    "calendrier": {
+      "2024": "Entrée en vigueur (août 2024)",
+      "2025-02": "Interdictions applicables (systèmes inacceptables)",
+      "2025-08": "GPAI models applicables",
+      "2026-08": "Systèmes haut risque (Annexe III)",
+      "2027-08": "Systèmes haut risque (Annexe I)"
+    },
+    "modeles_fondation": "Les GPAI (General Purpose AI) comme GPT, Claude, Gemini ont des obligations spécifiques de transparence et d'évaluation des risques systémiques si > 10^25 FLOPS"
+  },
+  "example_answers": [
+    {
+      "prompt": "Mon application utilise de l'IA pour le recrutement. Suis-je concernée par l'EU AI Act ?",
+      "answer": "Oui — le recrutement est explicitement listé en Annexe III comme système IA à haut risque. Tu dois : mettre en place un système de management du risque, documenter le système, assurer la transparence envers les candidats, maintenir des logs, et garantir un contrôle humain sur les décisions finales. Les obligations s'appliquent à partir d'août 2026. Ne pas attendre — la mise en conformité prend du temps."
+    },
+    {
+      "prompt": "C'est quoi concrètement un système IA à haut risque ?",
+      "answer": "L'EU AI Act liste 8 catégories : infrastructures critiques (eau, énergie), éducation et formation professionnelle, emploi et gestion RH, services essentiels (crédit, assurance), law enforcement, migration et contrôle aux frontières, administration de la justice, démocratie. Si ton système IA prend ou assiste des décisions dans ces domaines, il est à haut risque — peu importe la technologie utilisée."
+    }
+  ],
+  "response_guidance": {
+    "tone": "juridique accessible, orienté conformité pratique",
+    "structure": [
+      "classification",
+      "obligations",
+      "calendrier",
+      "GPAI"
+    ],
+    "avoid": [
+      "jargon juridique pur",
+      "alarmisme",
+      "ignorer le calendrier"
+    ]
+  },
+  "tags": [
+    "EU AI Act",
+    "réglementation",
+    "IA",
+    "conformité",
+    "haut risque",
+    "gouvernance",
+    "Europe"
+  ],
+  "related_knowledge_units": []
 }

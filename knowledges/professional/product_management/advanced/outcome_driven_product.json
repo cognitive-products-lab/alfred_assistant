@@ -1,74 +1,68 @@
 {
-  "_meta": {
-    "project": "ALFRED",
-    "block": "B18",
-    "file": "outcome_driven_product.json",
-    "version": "V1.0",
-    "status": "VALIDATED",
-    "updated": "2026-05-13",
-    "standardized_by": "generate_knowledges.py",
-    "validated_by": "Cognitive Products Lab",
-    "validated_date": "2026-05-13"
-  },
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
   "id": "knowledges.professional.product_management.advanced.outcome_driven_product",
-  "domain": "professional_product",
-  "category": "product_management",
-  "title": "Outcome Driven Product",
-  "description": "Approche orientée résultats utilisateurs plutôt que fonctionnalités.",
-  "version": "1.0",
-  "status": "active",
-  "tags": [
-    "advanced",
-    "outcome driven product",
-    "product management",
-    "professional",
-    "professional product"
-  ],
-  "content": {
-    "summary": "Approche orientée résultats utilisateurs plutôt que fonctionnalités.",
-    "details": [
-      "Outcomes",
-      "Impact measurement",
-      "User success",
-      "Value creation",
-      "Mesurer l’impact réel",
-      "Aligner produit et besoins",
-      "Réduire le feature dumping",
-      "Mesure bien-être utilisateur",
-      "Réduction fatigue",
-      "Amélioration efficacité"
-    ],
-    "references": []
-  },
+  "title": "Outcome-Driven Product — piloter par les résultats, pas les features",
+  "domain": "professional",
+  "subdomain": "product_management_advanced",
+  "status": "validated",
   "metadata": {
-    "created": "2026-05-12",
-    "updated": "2026-05-12",
-    "author": "Cognitive Products Lab"
+    "created_at": "2026-06-24",
+    "validated_at": "2026-06-24",
+    "validated_by": "ALFRED enrichment pipeline",
+    "enrichment_version": "day3",
+    "schema_version": "1.2",
+    "review_notes": "",
+    "block": "b18"
   },
-  "core_concepts": [
-    "Outcomes",
-    "Impact measurement",
-    "User success",
-    "Value creation"
-  ],
-  "objectives": [
-    "Mesurer l’impact réel",
-    "Aligner produit et besoins",
-    "Réduire le feature dumping"
-  ],
-  "alfred_application": [
-    "Mesure bien-être utilisateur",
-    "Réduction fatigue",
-    "Amélioration efficacité"
-  ],
-  "aliases": [],
-  "relationships": {
-    "merged_from": [],
-    "see_also": [],
-    "depends_on": []
+  "priority": "high",
+  "summary": "Approche de product management qui mesure le succès à l'aune des changements de comportement utilisateur (outcomes) plutôt que du volume de features livrées.",
+  "core_definition": "L'approche Outcome-Driven Product consiste à définir le succès d'un produit par les changements mesurables dans le comportement ou la situation des utilisateurs (outcomes) plutôt que par la quantité de fonctionnalités développées (outputs), en responsabilisant les équipes sur les résultats et non sur les livrables.",
+  "knowledge": {
+    "concepts": {
+      "output": "Ce qu'on produit (features, pages, API endpoints) — mesurable mais pas suffisant",
+      "outcome": "Changement de comportement ou de situation chez l'utilisateur (rétention, engagement, succès tâche)",
+      "impact": "Résultat business final (CA, parts de marché, NPS)"
+    },
+    "chaine_logique": "Output → Outcome → Impact — la majorité des PM mesurent les outputs, le but est de mesurer les outcomes",
+    "comment_definir_un_outcome": [
+      "\"Quel changement de comportement utilisateur cherchons-nous ?\"",
+      "\"Comment saurons-nous que nous avons réussi sans regarder nos livrables ?\"",
+      "Doit être mesurable, atteignable par l'équipe, centré utilisateur"
+    ],
+    "organisation": "Les équipes outcome-driven reçoivent un problème à résoudre, pas une liste de features à livrer — elles ont l'autonomie de trouver la meilleure solution",
+    "reference": "Josh Seiden 'Outcomes Over Output' — manifeste de cette approche"
   },
-  "retrieval": {
-    "priority": "medium",
-    "trigger_queries": []
-  }
+  "example_answers": [
+    {
+      "prompt": "Notre équipe livre beaucoup mais l'impact est faible. Pourquoi ?",
+      "answer": "Symptôme classique du feature factory : on livre des outputs (fonctionnalités) sans mesurer si elles génèrent les outcomes voulus (changements de comportement utilisateur). Trois questions à poser à chaque feature livrée : quel comportement utilisateur devrait changer ? comment on mesure ce changement ? est-ce que le changement a eu lieu ? Si l'équipe ne peut pas répondre aux deux premières questions avant de livrer, le problème est structurel."
+    },
+    {
+      "prompt": "Comment donner un outcome à mon équipe plutôt qu'une liste de features ?",
+      "answer": "Format : \"Nous croyons que si nous [réduisons la friction à l'onboarding], nous observerons [une augmentation de l'activation J1 de X à Y]. Nous saurons avoir réussi quand [la métrique atteint Y pendant 4 semaines].\" C'est une hypothesis-driven roadmap. L'équipe est responsable de l'outcome — elle choisit les solutions pour y arriver. Ça nécessite de la confiance dans l'équipe et de la clarté sur les métriques."
+    }
+  ],
+  "response_guidance": {
+    "tone": "product management, orienté transformation organisationnelle",
+    "structure": [
+      "concepts",
+      "chaîne logique",
+      "définir un outcome",
+      "organisation"
+    ],
+    "avoid": [
+      "opposer output et outcome de façon manichéenne",
+      "ignorer la difficulté du changement culturel"
+    ]
+  },
+  "tags": [
+    "outcome",
+    "output",
+    "product management",
+    "feature factory",
+    "résultats",
+    "Josh Seiden"
+  ],
+  "related_knowledge_units": []
 }

@@ -1,12 +1,39 @@
 {
-  "_meta": { "project": "ALFRED", "block": "B18", "file": "intrusion_detection_basics.json", "version": "V2.0", "status": "VALIDATED", "updated": "2026-06-03", "validated_by": "Cognitive Products Lab" },
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "_meta": {
+    "project": "ALFRED",
+    "block": "B18",
+    "file": "intrusion_detection_basics.json",
+    "version": "V2.0",
+    "status": "VALIDATED",
+    "updated": "2026-06-03",
+    "validated_by": "Cognitive Products Lab"
+  },
   "knowledge_id": "professional.engineering.cybersecurite.intrusion_detection_basics",
   "id": "professional.engineering.cybersecurite.intrusion_detection_basics",
   "title": "Détection d'intrusion (IDS/IPS)",
-  "version": "2.0.0", "status": "active", "domain": "professional", "subdomain": "engineering", "category": "cybersecurite",
+  "version": "2.0.0",
+  "domain": "professional",
+  "subdomain": "engineering",
+  "category": "cybersecurite",
   "summary": "IDS/IPS : NIDS vs HIDS, détection par signatures vs anomalies, Snort/Suricata/Zeek, règles de détection, placement dans l'architecture, tuning et honeypots.",
   "purpose": "Permettre à ALFRED de conseiller sur le déploiement, la configuration et le tuning des systèmes de détection et prévention d'intrusion dans des architectures réseau complexes.",
-  "tags": ["IDS", "IPS", "NIDS", "HIDS", "Snort", "Suricata", "Zeek", "intrusion detection", "détection d'intrusion", "signatures", "anomalies réseau", "honeypot", "règles de détection"],
+  "tags": [
+    "IDS",
+    "IPS",
+    "NIDS",
+    "HIDS",
+    "Snort",
+    "Suricata",
+    "Zeek",
+    "intrusion detection",
+    "détection d'intrusion",
+    "signatures",
+    "anomalies réseau",
+    "honeypot",
+    "règles de détection"
+  ],
   "intents": [
     "déployer un IDS/IPS",
     "configurer Suricata ou Snort",
@@ -22,7 +49,8 @@
     "conformité PCI-DSS (exigence IDS/IPS)",
     "investigation réseau post-incident"
   ],
-  "priority": "high", "safety_level": "sensitive",
+  "priority": "high",
+  "safety_level": "sensitive",
   "content": {
     "definition": "Un système de détection d'intrusion (IDS) surveille le trafic réseau ou les activités système pour détecter des comportements malveillants ou des violations de politiques et générer des alertes. Un IPS (Intrusion Prevention System) va plus loin en bloquant automatiquement le trafic suspect. Ces systèmes constituent une couche de défense essentielle dans toute architecture de sécurité en profondeur.",
     "core_principles": [
@@ -36,33 +64,78 @@
       "NIDS": {
         "description": "Network IDS — surveille le trafic réseau en analysant les paquets",
         "placement": "Sur un port SPAN (miroir) d'un switch ou d'un TAP réseau, en coupure pour IPS",
-        "avantages": ["Vue globale du trafic réseau", "Un seul capteur couvre tout un segment réseau", "Non intrusif (mode passif)"],
-        "limites": ["Trafic chiffré non analysable (TLS/HTTPS sans déchiffrement)", "Peut être saturé par un volume trop élevé", "Pas de visibilité sur les activités locales à un host"],
-        "outils": ["Snort 3", "Suricata", "Zeek (Bro)", "Security Onion (distribution complète)"]
+        "avantages": [
+          "Vue globale du trafic réseau",
+          "Un seul capteur couvre tout un segment réseau",
+          "Non intrusif (mode passif)"
+        ],
+        "limites": [
+          "Trafic chiffré non analysable (TLS/HTTPS sans déchiffrement)",
+          "Peut être saturé par un volume trop élevé",
+          "Pas de visibilité sur les activités locales à un host"
+        ],
+        "outils": [
+          "Snort 3",
+          "Suricata",
+          "Zeek (Bro)",
+          "Security Onion (distribution complète)"
+        ]
       },
       "HIDS": {
         "description": "Host IDS — surveille les activités sur un hôte spécifique (logs, processus, fichiers système, registre)",
         "placement": "Agent installé sur chaque serveur ou poste à surveiller",
-        "avantages": ["Visibilité complète sur l'hôte (fichiers, processus, syscalls)", "Fonctionne sur le trafic chiffré (analyse côté host)", "Détection de rootkits et de modifications de fichiers système"],
-        "limites": ["Consomme des ressources sur l'hôte surveillé", "Doit être déployé sur chaque machine", "Peut être compromis si l'hôte l'est aussi"],
-        "outils": ["OSSEC / Wazuh (open source, très complet)", "Auditd (Linux)", "Sysmon (Windows)", "Tripwire (intégrité fichiers)", "CrowdStrike Falcon (EDR/HIDS)"]
+        "avantages": [
+          "Visibilité complète sur l'hôte (fichiers, processus, syscalls)",
+          "Fonctionne sur le trafic chiffré (analyse côté host)",
+          "Détection de rootkits et de modifications de fichiers système"
+        ],
+        "limites": [
+          "Consomme des ressources sur l'hôte surveillé",
+          "Doit être déployé sur chaque machine",
+          "Peut être compromis si l'hôte l'est aussi"
+        ],
+        "outils": [
+          "OSSEC / Wazuh (open source, très complet)",
+          "Auditd (Linux)",
+          "Sysmon (Windows)",
+          "Tripwire (intégrité fichiers)",
+          "CrowdStrike Falcon (EDR/HIDS)"
+        ]
       },
       "NBA": {
         "description": "Network Behavior Analysis — détection par analyse des flux réseau (NetFlow, IPFIX) plutôt que des paquets",
         "avantages": "Fonctionne même sur le trafic chiffré, vue macro des communications",
-        "outils": ["Cisco Stealthwatch", "Darktrace", "Corelight (basé sur Zeek)"]
+        "outils": [
+          "Cisco Stealthwatch",
+          "Darktrace",
+          "Corelight (basé sur Zeek)"
+        ]
       }
     },
     "methodes_detection": {
       "signatures": {
         "description": "Correspondance du trafic avec des patterns connus d'attaques (CVEs, exploits, malware)",
-        "avantages": ["Très faible taux de faux positifs pour les menaces connues", "Détection immédiate et fiable", "Base de signatures maintenue par la communauté (Emerging Threats, VRT)"],
-        "limites": ["Inefficace contre les 0-days et les menaces inconnues", "Nécessite des mises à jour fréquentes des signatures", "Contournable par obfuscation ou chiffrement"]
+        "avantages": [
+          "Très faible taux de faux positifs pour les menaces connues",
+          "Détection immédiate et fiable",
+          "Base de signatures maintenue par la communauté (Emerging Threats, VRT)"
+        ],
+        "limites": [
+          "Inefficace contre les 0-days et les menaces inconnues",
+          "Nécessite des mises à jour fréquentes des signatures",
+          "Contournable par obfuscation ou chiffrement"
+        ]
       },
       "anomalies": {
         "description": "Définition d'une baseline du trafic normal, puis détection des déviations",
-        "avantages": ["Peut détecter des attaques inconnues (0-days)", "Utile pour détecter les scans lents et les exfiltrations progressives"],
-        "limites": ["Taux de faux positifs plus élevé", "Baseline difficile à établir dans des environnements dynamiques"]
+        "avantages": [
+          "Peut détecter des attaques inconnues (0-days)",
+          "Utile pour détecter les scans lents et les exfiltrations progressives"
+        ],
+        "limites": [
+          "Taux de faux positifs plus élevé",
+          "Baseline difficile à établir dans des environnements dynamiques"
+        ]
       },
       "heuristiques": {
         "description": "Règles basées sur des comportements suspects génériques (ex: connexion vers 100 ports différents = scan)",
@@ -77,13 +150,22 @@
       },
       "Suricata": {
         "description": "IDS/IPS/NSM open source, alternative moderne à Snort",
-        "avantages": ["Multi-threading natif (haute performance)", "Compatible avec les règles Snort", "Inspection de protocoles applicatifs (HTTP, TLS, DNS, SMB)", "Sortie JSON native pour intégration SIEM"],
+        "avantages": [
+          "Multi-threading natif (haute performance)",
+          "Compatible avec les règles Snort",
+          "Inspection de protocoles applicatifs (HTTP, TLS, DNS, SMB)",
+          "Sortie JSON native pour intégration SIEM"
+        ],
         "recommandation": "Préféré à Snort pour les nouveaux déploiements en raison de ses performances"
       },
       "Zeek": {
         "description": "Framework d'analyse réseau orienté logs et scripts, pas de détection de signatures par défaut",
         "usage": "NSM (Network Security Monitoring), génération de logs structurés riches (conn.log, http.log, dns.log, ssl.log)",
-        "avantages": ["Logs extrêmement détaillés et analysables par SIEM", "Scripts personnalisables pour détection comportementale", "Idéal pour le threat hunting"]
+        "avantages": [
+          "Logs extrêmement détaillés et analysables par SIEM",
+          "Scripts personnalisables pour détection comportementale",
+          "Idéal pour le threat hunting"
+        ]
       },
       "Security_Onion": {
         "description": "Distribution Linux clé en main pour NSM/IDS, intègre Suricata + Zeek + Elasticsearch + Kibana",
@@ -108,7 +190,12 @@
         "Protocoles non-standards ou anormaux",
         "Lateral movement (Pass-the-Hash, Kerberoasting)"
       ],
-      "sources_regles": ["Emerging Threats (ET) — règles communautaires gratuites", "Talos Intelligence (Cisco) — règles commerciales Snort", "ETPRO — version payante ET avec règles 0-day", "Règles personnalisées basées sur la threat intelligence interne"]
+      "sources_regles": [
+        "Emerging Threats (ET) — règles communautaires gratuites",
+        "Talos Intelligence (Cisco) — règles commerciales Snort",
+        "ETPRO — version payante ET avec règles 0-day",
+        "Règles personnalisées basées sur la threat intelligence interne"
+      ]
     },
     "placement_architecture": {
       "recommandations": [
@@ -127,7 +214,12 @@
         "honeytoken": "Credential, fichier ou donnée leurre — toute utilisation = alerte immédiate (compte AD 'honeypot_admin')"
       },
       "valeur": "Une connexion vers un honeypot est un indicateur quasi-certain d'attaque (pas de trafic légitime attendu)",
-      "outils": ["OpenCanary (Canary Tools, open source)", "Canary Tokens (honeytoken web)", "Thinkst Canary (commercial)", "HoneyDB"]
+      "outils": [
+        "OpenCanary (Canary Tools, open source)",
+        "Canary Tokens (honeytoken web)",
+        "Thinkst Canary (commercial)",
+        "HoneyDB"
+      ]
     },
     "tuning_faux_positifs": {
       "probleme": "Un IDS mal tuné génère des centaines d'alertes par jour — les analystes se noient et arrêtent de regarder",
@@ -165,15 +257,54 @@
     ]
   },
   "retrieval_hints": {
-    "priority_keywords": ["IDS", "IPS", "NIDS", "HIDS", "Snort", "Suricata", "Zeek", "détection d'intrusion", "honeypot", "règles de détection", "faux positifs IDS"],
-    "related_knowledge": ["security_monitoring_basics", "network_segmentation", "security_logging_strategy", "behavioral_anomaly_detection"],
+    "priority_keywords": [
+      "IDS",
+      "IPS",
+      "NIDS",
+      "HIDS",
+      "Snort",
+      "Suricata",
+      "Zeek",
+      "détection d'intrusion",
+      "honeypot",
+      "règles de détection",
+      "faux positifs IDS"
+    ],
+    "related_knowledge": [
+      "security_monitoring_basics",
+      "network_segmentation",
+      "security_logging_strategy",
+      "behavioral_anomaly_detection"
+    ],
     "retrieval_priority": 8
   },
-  "behavior_rules": { "tone": "professional", "response_style": "structured_clear", "max_complexity": "high", "allow_humor": false },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "high",
+    "allow_humor": false
+  },
   "safety_notes": {
-    "allowed_usage": ["Configuration IDS/IPS", "Rédaction de règles de détection", "Déploiement honeypots", "Tuning et optimisation"],
-    "forbidden_usage": ["Écrire des règles pour contourner un IDS existant", "Utiliser les connaissances pour éviter la détection lors d'une attaque non-autorisée"],
+    "allowed_usage": [
+      "Configuration IDS/IPS",
+      "Rédaction de règles de détection",
+      "Déploiement honeypots",
+      "Tuning et optimisation"
+    ],
+    "forbidden_usage": [
+      "Écrire des règles pour contourner un IDS existant",
+      "Utiliser les connaissances pour éviter la détection lors d'une attaque non-autorisée"
+    ],
     "fallback_behavior": "Pour les règles IPS en production, tester impérativement en lab et valider avec l'équipe réseau avant déploiement."
   },
-  "metadata": { "author": "Cognitive Products Lab", "creation_date": "03/06/2026", "last_update": "03/06/2026", "review_status": "validated", "source_type": "manual_structured_knowledge", "language": "fr", "retrieval_ready": true, "rag_compatible": true }
+  "status": "validated",
+  "metadata": {
+    "created_at": "2026-06-23",
+    "validated_at": "2026-06-23",
+    "validated_by": "ALFRED enrichment pipeline",
+    "enrichment_version": "day1",
+    "schema_version": "1.2",
+    "review_notes": "migré depuis ancien format",
+    "block": "b18"
+  }
 }

@@ -1,12 +1,38 @@
 {
-  "_meta": { "project": "ALFRED", "block": "B18", "file": "zero_trust_architecture.json", "version": "V2.0", "status": "VALIDATED", "updated": "2026-06-03", "validated_by": "Cognitive Products Lab" },
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "_meta": {
+    "project": "ALFRED",
+    "block": "B18",
+    "file": "zero_trust_architecture.json",
+    "version": "V2.0",
+    "status": "VALIDATED",
+    "updated": "2026-06-03",
+    "validated_by": "Cognitive Products Lab"
+  },
   "knowledge_id": "professional.engineering.cybersecurite.zero_trust_architecture",
   "id": "professional.engineering.cybersecurite.zero_trust_architecture",
   "title": "Architecture Zero Trust",
-  "version": "2.0.0", "status": "active", "domain": "professional", "subdomain": "engineering", "category": "cybersecurite",
+  "version": "2.0.0",
+  "domain": "professional",
+  "subdomain": "engineering",
+  "category": "cybersecurite",
   "summary": "Modèle de sécurité basé sur le principe 'never trust, always verify' : aucun utilisateur, appareil ou réseau n'est considéré fiable par défaut, même interne.",
   "purpose": "Fournir à ALFRED le cadre conceptuel et pratique pour concevoir, évaluer et renforcer des architectures Zero Trust dans des environnements hybrides, cloud et IA.",
-  "tags": ["zero trust", "ZTA", "ZTNA", "microsegmentation", "identity", "never trust always verify", "sécurité réseau", "accès conditionnel", "BeyondCorp", "Zscaler", "Okta", "CyberArk"],
+  "tags": [
+    "zero trust",
+    "ZTA",
+    "ZTNA",
+    "microsegmentation",
+    "identity",
+    "never trust always verify",
+    "sécurité réseau",
+    "accès conditionnel",
+    "BeyondCorp",
+    "Zscaler",
+    "Okta",
+    "CyberArk"
+  ],
   "intents": [
     "expliquer l'architecture Zero Trust",
     "comparer ZTNA et VPN",
@@ -21,7 +47,8 @@
     "réponse à incident avec mouvement latéral",
     "sécurisation d'un assistant IA comme ALFRED"
   ],
-  "priority": "critical", "safety_level": "sensitive",
+  "priority": "critical",
+  "safety_level": "sensitive",
   "content": {
     "definition": "Zero Trust Architecture (ZTA) est un modèle de sécurité qui part du principe qu'aucune entité — utilisateur, appareil, service ou réseau — ne doit être considérée comme fiable par défaut, qu'elle soit interne ou externe au périmètre réseau. Chaque accès doit être explicitement autorisé, continuellement vérifié et accordé selon le principe du moindre privilège.",
     "core_principles": [
@@ -34,61 +61,149 @@
     "five_pillars": {
       "identite": {
         "description": "Vérification forte de l'identité de chaque utilisateur et service",
-        "mecanismes": ["MFA obligatoire (FIDO2/passkeys préférés)", "SSO fédéré (OIDC/SAML)", "Conditional Access basé sur risque", "Identity Provider centralisé (Okta, Entra ID)"]
+        "mecanismes": [
+          "MFA obligatoire (FIDO2/passkeys préférés)",
+          "SSO fédéré (OIDC/SAML)",
+          "Conditional Access basé sur risque",
+          "Identity Provider centralisé (Okta, Entra ID)"
+        ]
       },
       "device": {
         "description": "Validation de la posture de sécurité de chaque appareil avant d'autoriser l'accès",
-        "mecanismes": ["MDM enrollment obligatoire", "Patch level minimum", "EDR actif et à jour", "Chiffrement du disque (BitLocker/FileVault)", "Certificat device émis par PKI interne"]
+        "mecanismes": [
+          "MDM enrollment obligatoire",
+          "Patch level minimum",
+          "EDR actif et à jour",
+          "Chiffrement du disque (BitLocker/FileVault)",
+          "Certificat device émis par PKI interne"
+        ]
       },
       "reseau": {
         "description": "Segmentation granulaire et suppression de la confiance implicite du réseau interne",
-        "mecanismes": ["Microsegmentation (East-West)", "ZTNA remplace le VPN", "Software Defined Perimeter (SDP)", "DNS filtering", "Chiffrement TLS mutuel (mTLS) entre services"]
+        "mecanismes": [
+          "Microsegmentation (East-West)",
+          "ZTNA remplace le VPN",
+          "Software Defined Perimeter (SDP)",
+          "DNS filtering",
+          "Chiffrement TLS mutuel (mTLS) entre services"
+        ]
       },
       "application": {
         "description": "Contrôle d'accès au niveau applicatif avec autorisation contextuelle",
-        "mecanismes": ["RBAC/ABAC par application", "API Gateway avec token validation", "WAF devant chaque application", "Session management strict (timeout, re-auth)", "Proxy d'accès applicatif (Zscaler Private Access, Cloudflare Access)"]
+        "mecanismes": [
+          "RBAC/ABAC par application",
+          "API Gateway avec token validation",
+          "WAF devant chaque application",
+          "Session management strict (timeout, re-auth)",
+          "Proxy d'accès applicatif (Zscaler Private Access, Cloudflare Access)"
+        ]
       },
       "data": {
         "description": "Classification et protection des données à chaque étape",
-        "mecanismes": ["Data classification (Public/Interne/Confidentiel/Secret)", "DLP (Data Loss Prevention)", "Chiffrement au repos et en transit", "Contrôle d'accès basé sur la sensibilité des données", "DSPM (Data Security Posture Management)"]
+        "mecanismes": [
+          "Data classification (Public/Interne/Confidentiel/Secret)",
+          "DLP (Data Loss Prevention)",
+          "Chiffrement au repos et en transit",
+          "Contrôle d'accès basé sur la sensibilité des données",
+          "DSPM (Data Security Posture Management)"
+        ]
       }
     },
     "ztna_vs_vpn": {
       "vpn": {
         "modele": "Accès réseau complet après authentification",
-        "problemes": ["Confiance implicite au réseau interne", "Surface d'attaque large", "Mouvement latéral facilité", "Performance dégradée (hairpinning)"],
+        "problemes": [
+          "Confiance implicite au réseau interne",
+          "Surface d'attaque large",
+          "Mouvement latéral facilité",
+          "Performance dégradée (hairpinning)"
+        ],
         "cas_usage_restant": "Accès legacy aux systèmes non-compatibles ZTNA"
       },
       "ztna": {
         "modele": "Accès applicatif granulaire, jamais réseau complet",
-        "avantages": ["Isolation par application", "Accès conditionnel par contexte", "Réduction de la surface d'attaque", "Meilleure performance (split tunneling intelligent)"],
-        "outils": ["Zscaler Private Access (ZPA)", "Cloudflare Access", "Palo Alto Prisma Access", "Cisco Secure Access (Duo)", "Microsoft Entra Private Access"]
+        "avantages": [
+          "Isolation par application",
+          "Accès conditionnel par contexte",
+          "Réduction de la surface d'attaque",
+          "Meilleure performance (split tunneling intelligent)"
+        ],
+        "outils": [
+          "Zscaler Private Access (ZPA)",
+          "Cloudflare Access",
+          "Palo Alto Prisma Access",
+          "Cisco Secure Access (Duo)",
+          "Microsoft Entra Private Access"
+        ]
       }
     },
     "implementation_roadmap": [
       {
         "phase": "Phase 1 — Inventaire et visibilité (0-3 mois)",
-        "actions": ["Cartographier tous les assets (users, devices, applications, data)", "Identifier les flux réseau actuels", "Classifier les données", "Déployer un outil de découverte (Axonius, runZero)"]
+        "actions": [
+          "Cartographier tous les assets (users, devices, applications, data)",
+          "Identifier les flux réseau actuels",
+          "Classifier les données",
+          "Déployer un outil de découverte (Axonius, runZero)"
+        ]
       },
       {
         "phase": "Phase 2 — Identité et MFA (3-6 mois)",
-        "actions": ["Centraliser l'IAM (Okta/Entra ID)", "Déployer MFA pour tous les comptes", "Implémenter Conditional Access", "SSO pour toutes les applications critiques"]
+        "actions": [
+          "Centraliser l'IAM (Okta/Entra ID)",
+          "Déployer MFA pour tous les comptes",
+          "Implémenter Conditional Access",
+          "SSO pour toutes les applications critiques"
+        ]
       },
       {
         "phase": "Phase 3 — Microsegmentation (6-12 mois)",
-        "actions": ["Segmenter le réseau en zones (voir network_segmentation)", "Implémenter mTLS entre microservices", "Déployer un ZTNA pour remplacer le VPN", "Activer un EDR sur tous les endpoints"]
+        "actions": [
+          "Segmenter le réseau en zones (voir network_segmentation)",
+          "Implémenter mTLS entre microservices",
+          "Déployer un ZTNA pour remplacer le VPN",
+          "Activer un EDR sur tous les endpoints"
+        ]
       },
       {
         "phase": "Phase 4 — Surveillance et automatisation (12+ mois)",
-        "actions": ["SIEM/SOAR pour corrélation des signaux", "UEBA pour détection comportementale", "Automated response (isolation automatique d'un device compromis)", "Revue continue des politiques d'accès"]
+        "actions": [
+          "SIEM/SOAR pour corrélation des signaux",
+          "UEBA pour détection comportementale",
+          "Automated response (isolation automatique d'un device compromis)",
+          "Revue continue des politiques d'accès"
+        ]
       }
     ],
     "outils_reference": {
-      "IAM": ["Okta Workforce Identity", "Microsoft Entra ID", "PingIdentity", "JumpCloud"],
-      "PAM": ["CyberArk Privileged Access Manager", "BeyondTrust", "Delinea Secret Server"],
-      "ZTNA": ["Zscaler Private Access", "Cloudflare Access", "Palo Alto Prisma Access"],
-      "microsegmentation": ["Illumio", "Guardicore (Akamai)", "Cisco Tetration", "VMware NSX"],
-      "device_trust": ["Microsoft Intune", "Jamf Pro", "CrowdStrike Falcon", "SentinelOne"]
+      "IAM": [
+        "Okta Workforce Identity",
+        "Microsoft Entra ID",
+        "PingIdentity",
+        "JumpCloud"
+      ],
+      "PAM": [
+        "CyberArk Privileged Access Manager",
+        "BeyondTrust",
+        "Delinea Secret Server"
+      ],
+      "ZTNA": [
+        "Zscaler Private Access",
+        "Cloudflare Access",
+        "Palo Alto Prisma Access"
+      ],
+      "microsegmentation": [
+        "Illumio",
+        "Guardicore (Akamai)",
+        "Cisco Tetration",
+        "VMware NSX"
+      ],
+      "device_trust": [
+        "Microsoft Intune",
+        "Jamf Pro",
+        "CrowdStrike Falcon",
+        "SentinelOne"
+      ]
     },
     "application_alfred": {
       "description": "Application du Zero Trust au projet ALFRED",
@@ -119,15 +234,51 @@
     ]
   },
   "retrieval_hints": {
-    "priority_keywords": ["zero trust", "ZTA", "ZTNA", "never trust always verify", "microsegmentation", "BeyondCorp", "accès conditionnel"],
-    "related_knowledge": ["network_segmentation", "identity_access_management", "least_privilege_access", "device_trust_validation", "secure_ai_pipeline"],
+    "priority_keywords": [
+      "zero trust",
+      "ZTA",
+      "ZTNA",
+      "never trust always verify",
+      "microsegmentation",
+      "BeyondCorp",
+      "accès conditionnel"
+    ],
+    "related_knowledge": [
+      "network_segmentation",
+      "identity_access_management",
+      "least_privilege_access",
+      "device_trust_validation",
+      "secure_ai_pipeline"
+    ],
     "retrieval_priority": 9
   },
-  "behavior_rules": { "tone": "professional", "response_style": "structured_clear", "max_complexity": "high", "allow_humor": false },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "high",
+    "allow_humor": false
+  },
   "safety_notes": {
-    "allowed_usage": ["Conseil architecture sécurité", "Audit de conformité Zero Trust", "Formation équipes IT", "Recommandations outillage"],
-    "forbidden_usage": ["Contourner des politiques de sécurité Zero Trust existantes", "Identifier des failles dans une architecture sans mandat d'audit"],
+    "allowed_usage": [
+      "Conseil architecture sécurité",
+      "Audit de conformité Zero Trust",
+      "Formation équipes IT",
+      "Recommandations outillage"
+    ],
+    "forbidden_usage": [
+      "Contourner des politiques de sécurité Zero Trust existantes",
+      "Identifier des failles dans une architecture sans mandat d'audit"
+    ],
     "fallback_behavior": "En cas de doute sur l'application, recommander une consultation avec un architecte sécurité certifié CISSP/CISM."
   },
-  "metadata": { "author": "Cognitive Products Lab", "creation_date": "03/06/2026", "last_update": "03/06/2026", "review_status": "validated", "source_type": "manual_structured_knowledge", "language": "fr", "retrieval_ready": true, "rag_compatible": true }
+  "status": "validated",
+  "metadata": {
+    "created_at": "2026-06-23",
+    "validated_at": "2026-06-23",
+    "validated_by": "ALFRED enrichment pipeline",
+    "enrichment_version": "day1",
+    "schema_version": "1.2",
+    "review_notes": "migré depuis ancien format",
+    "block": "b18"
+  }
 }

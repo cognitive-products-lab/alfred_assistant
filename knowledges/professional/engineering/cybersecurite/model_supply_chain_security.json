@@ -1,12 +1,36 @@
 {
-  "_meta": { "project": "ALFRED", "block": "B18", "file": "model_supply_chain_security.json", "version": "V2.0", "status": "VALIDATED", "updated": "2026-06-03", "validated_by": "Cognitive Products Lab" },
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "_meta": {
+    "project": "ALFRED",
+    "block": "B18",
+    "file": "model_supply_chain_security.json",
+    "version": "V2.0",
+    "status": "VALIDATED",
+    "updated": "2026-06-03",
+    "validated_by": "Cognitive Products Lab"
+  },
   "knowledge_id": "professional.engineering.cybersecurite.model_supply_chain_security",
   "id": "professional.engineering.cybersecurite.model_supply_chain_security",
   "title": "Sécurité de la chaîne d'approvisionnement IA",
-  "version": "2.0.0", "status": "active", "domain": "professional", "subdomain": "engineering", "category": "cybersecurite",
+  "version": "2.0.0",
+  "domain": "professional",
+  "subdomain": "engineering",
+  "category": "cybersecurite",
   "summary": "Risques supply chain IA : backdoors dans les modèles pré-entraînés, dépendances PyPI compromises, modèles HuggingFace trojanisés. Vérification des hashs, sandboxing d'inférence et audit des dépendances ML.",
   "purpose": "Permettre à ALFRED de gérer les risques liés à l'utilisation de modèles tiers, de librairies ML et de datasets externes dans un pipeline IA sécurisé.",
-  "tags": ["supply chain IA", "model security", "HuggingFace security", "backdoor modèle", "PyPI compromis", "dépendances ML", "hash modèle", "sandboxing inférence", "trojanized model", "AI supply chain"],
+  "tags": [
+    "supply chain IA",
+    "model security",
+    "HuggingFace security",
+    "backdoor modèle",
+    "PyPI compromis",
+    "dépendances ML",
+    "hash modèle",
+    "sandboxing inférence",
+    "trojanized model",
+    "AI supply chain"
+  ],
   "intents": [
     "sécuriser les téléchargements de modèles IA",
     "auditer les dépendances ML",
@@ -21,7 +45,8 @@
     "conformité supply chain (SLSA, NIST SSDF)",
     "déploiement de modèles dans un environnement sensible"
   ],
-  "priority": "high", "safety_level": "sensitive",
+  "priority": "high",
+  "safety_level": "sensitive",
   "content": {
     "definition": "La sécurité de la chaîne d'approvisionnement IA couvre les risques liés à l'utilisation de composants tiers dans un pipeline ML : modèles pré-entraînés, datasets, bibliothèques Python, outils MLOps. Un attaquant peut compromettre n'importe lequel de ces composants pour introduire un backdoor, exfiltrer des données ou corrompre les outputs du modèle.",
     "core_principles": [
@@ -40,7 +65,12 @@
           "Modèles vision détournés par BadNets (patch dans l'image → mauvaise classification)",
           "Fine-tuned LLMs avec backdoor activé par une phrase secrète"
         ],
-        "surfaces_exposition": ["HuggingFace Model Hub (80 000+ modèles, audit minimal)", "GitHub releases de projets populaires", "Miroirs PyPI non-officiels", "Téléchargements directs depuis sites tiers"]
+        "surfaces_exposition": [
+          "HuggingFace Model Hub (80 000+ modèles, audit minimal)",
+          "GitHub releases de projets populaires",
+          "Miroirs PyPI non-officiels",
+          "Téléchargements directs depuis sites tiers"
+        ]
       },
       "dependances_compromises": {
         "description": "Librairies Python ML compromises via typosquatting, takeover de compte, ou injection directe",
@@ -49,11 +79,20 @@
           "Takeover de dépendances abandonées sur npm/PyPI",
           "Injection dans les wheels PyPI via CI/CD compromis"
         ],
-        "librairies_critiques_ML": ["torch / torchvision / torchaudio", "transformers (HuggingFace)", "tensorflow / keras", "numpy / scipy / scikit-learn", "langchain / llamaindex (supply chain étendue)"]
+        "librairies_critiques_ML": [
+          "torch / torchvision / torchaudio",
+          "transformers (HuggingFace)",
+          "tensorflow / keras",
+          "numpy / scipy / scikit-learn",
+          "langchain / llamaindex (supply chain étendue)"
+        ]
       },
       "datasets_empoisonnes": {
         "description": "Datasets d'entraînement corrompus hébergés sur des sources publiques",
-        "exemples": ["Modification de datasets CommonCrawl, C4 via contributions malveillantes", "Empoisonnement de datasets sur Kaggle ou HuggingFace Datasets"],
+        "exemples": [
+          "Modification de datasets CommonCrawl, C4 via contributions malveillantes",
+          "Empoisonnement de datasets sur Kaggle ou HuggingFace Datasets"
+        ],
         "impact": "Le modèle entraîné sur ces données hérite des backdoors ou biais intentionnels"
       }
     },
@@ -168,15 +207,51 @@
     ]
   },
   "retrieval_hints": {
-    "priority_keywords": ["supply chain IA", "modèle backdoored", "HuggingFace sécurité", "safetensors", "trust_remote_code", "hash modèle", "sandboxing inférence", "audit dépendances ML"],
-    "related_knowledge": ["supply_chain_security", "secure_ai_pipeline", "llm_security_risks", "secrets_management"],
+    "priority_keywords": [
+      "supply chain IA",
+      "modèle backdoored",
+      "HuggingFace sécurité",
+      "safetensors",
+      "trust_remote_code",
+      "hash modèle",
+      "sandboxing inférence",
+      "audit dépendances ML"
+    ],
+    "related_knowledge": [
+      "supply_chain_security",
+      "secure_ai_pipeline",
+      "llm_security_risks",
+      "secrets_management"
+    ],
     "retrieval_priority": 8
   },
-  "behavior_rules": { "tone": "professional", "response_style": "structured_clear", "max_complexity": "high", "allow_humor": false },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "high",
+    "allow_humor": false
+  },
   "safety_notes": {
-    "allowed_usage": ["Audit de la supply chain IA", "Vérification d'intégrité des modèles", "Configuration du sandboxing d'inférence", "Audit des dépendances ML"],
-    "forbidden_usage": ["Créer ou distribuer des modèles avec backdoors", "Compromettre des dépendances ML tierces"],
+    "allowed_usage": [
+      "Audit de la supply chain IA",
+      "Vérification d'intégrité des modèles",
+      "Configuration du sandboxing d'inférence",
+      "Audit des dépendances ML"
+    ],
+    "forbidden_usage": [
+      "Créer ou distribuer des modèles avec backdoors",
+      "Compromettre des dépendances ML tierces"
+    ],
     "fallback_behavior": "Pour les modèles utilisés dans des contextes critiques, recommander une analyse complète par une équipe de sécurité ML spécialisée."
   },
-  "metadata": { "author": "Cognitive Products Lab", "creation_date": "03/06/2026", "last_update": "03/06/2026", "review_status": "validated", "source_type": "manual_structured_knowledge", "language": "fr", "retrieval_ready": true, "rag_compatible": true }
+  "status": "validated",
+  "metadata": {
+    "created_at": "2026-06-23",
+    "validated_at": "2026-06-23",
+    "validated_by": "ALFRED enrichment pipeline",
+    "enrichment_version": "day1",
+    "schema_version": "1.2",
+    "review_notes": "migré depuis ancien format",
+    "block": "b18"
+  }
 }

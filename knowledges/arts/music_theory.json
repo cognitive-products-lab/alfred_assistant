@@ -1,0 +1,113 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "arts.music.theory",
+  "version": "1.0.0",
+  "domain": "arts",
+  "subdomain": "music",
+  "category": "performing_arts",
+  "priority": "medium",
+  "safety_level": "normal",
+  "title": "Théorie Musicale Fondamentale",
+  "summary": "Bases de la théorie musicale : notes, gammes, accords, rythme, solfège, modes et harmonie — applicable à tous les styles musicaux.",
+  "purpose": "Permettre à ALFRED d'expliquer les bases de la musique, d'aider à comprendre des concepts théoriques et de répondre aux questions de solfège et d'harmonie.",
+  "tags": ["musique", "solfège", "gamme", "accord", "rythme", "harmonie", "mélodie", "note", "mode", "partition"],
+  "intents": ["explain_music_theory", "explain_scales_chords", "answer_music_questions", "help_with_composition"],
+  "usage_context": ["Apprentissage musical", "Composition", "Questions de solfège"],
+  "content": {
+    "definition": "La théorie musicale est l'étude des éléments constitutifs de la musique : hauteur des sons, durées, timbres, dynamiques et leur organisation en systèmes expressifs.",
+    "notes": {
+      "chromatic_scale": "12 demi-tons dans l'octave : Do, Do#, Ré, Ré#, Mi, Fa, Fa#, Sol, Sol#, La, La#, Si",
+      "frequency_reference": "La (A4) = 440 Hz — diapason standard international",
+      "octave": "Doublement de la fréquence : La3 = 220 Hz, La4 = 440 Hz, La5 = 880 Hz"
+    },
+    "scales": [
+      {
+        "scale": "Gamme majeure",
+        "intervals": "Ton-Ton-Demi-Ton-Ton-Ton-Ton-Demi-Ton (T-T-S-T-T-T-S)",
+        "example": "Do majeur : Do-Ré-Mi-Fa-Sol-La-Si-Do",
+        "character": "Joyeuse, lumineuse"
+      },
+      {
+        "scale": "Gamme mineure naturelle",
+        "intervals": "T-S-T-T-S-T-T",
+        "example": "La mineur : La-Si-Do-Ré-Mi-Fa-Sol-La",
+        "character": "Mélancolique, sombre"
+      },
+      {
+        "scale": "Gamme pentatonique",
+        "description": "5 notes — la plus universelle (blues, rock, musiques du monde)",
+        "example": "Do-Ré-Mi-Sol-La (majeure pentatonique)"
+      }
+    ],
+    "chords": [
+      {"chord": "Accord majeur", "structure": "Fondamentale + tierce majeure (4 demi-tons) + quinte (7 demi-tons)", "example": "Do majeur : Do-Mi-Sol"},
+      {"chord": "Accord mineur", "structure": "Fondamentale + tierce mineure (3 demi-tons) + quinte (7 demi-tons)", "example": "Do mineur : Do-Ré#-Sol"},
+      {"chord": "Accord de septième de dominante", "structure": "Majeur + 7ème mineure — très utilisé en jazz et blues", "example": "Sol7 : Sol-Si-Ré-Fa"}
+    ],
+    "harmony": {
+      "diatonic_chords": "Accords construits sur chaque degré de la gamme. En Do majeur : I=Do, II=Ré mineur, III=Mi mineur, IV=Fa, V=Sol, VI=La mineur, VII=Si dim.",
+      "cadences": [
+        "Parfaite (V→I) : conclusion forte, repos.",
+        "Imparfaite (I→V) : fin en suspens.",
+        "Plagale (IV→I) : douce, 'Amen'.",
+        "Rompue (V→VI) : surprise, inattendue."
+      ],
+      "circle_of_fifths": "Représentation circulaire des 12 tonalités et leurs relations harmoniques — outil essentiel pour moduler."
+    },
+    "rhythm": {
+      "beat": "Pulsation de base de la musique.",
+      "meter": "Organisation en mesures : 4/4 (pop, rock), 3/4 (valse), 6/8 (berceuse, triplé).",
+      "tempo": "Vitesse en BPM : Largo (~40-60), Andante (~76-108), Allegro (~120-168), Presto (~168-200).",
+      "note_values": "Ronde = 4 temps, Blanche = 2, Noire = 1, Croche = 1/2, Doubles croches = 1/4"
+    },
+    "musical_modes": [
+      {"mode": "Ionien", "note": "= Gamme majeure"},
+      {"mode": "Dorien", "note": "Mineur avec 6ème rehaussée — jazz, blues"},
+      {"mode": "Mixolydien", "note": "Majeur avec 7ème abaissée — rock, folk"},
+      {"mode": "Phrygien", "note": "Mineur avec 2ème abaissée — flamenco, métal"},
+      {"mode": "Lydien", "note": "Majeur avec 4ème haussée — rêveur, John Williams"}
+    ],
+    "examples": [
+      {
+        "situation": "Utilisateur veut comprendre pourquoi certaines chansons sonnent 'triste'",
+        "recommended_behavior": "Expliquer le rôle des gammes mineures, des harmonies mineures et du tempo lent dans la perception émotionnelle de la musique.",
+        "avoid": "Réduire à 'c'est subjectif' sans explication théorique."
+      }
+    ],
+    "best_practices": [
+      "Utiliser des exemples musicaux connus pour illustrer les concepts.",
+      "Relier la théorie à la pratique instrumentale.",
+      "Souligner que la théorie est un outil, pas une contrainte créative."
+    ],
+    "anti_patterns": [
+      "Noyer le débutant dans les formules sans exemples auditifs.",
+      "Présenter la théorie musicale occidentale comme universelle (musiques asiatiques, arabes ont d'autres systèmes).",
+      "Ignorer le solfège rythmique au profit des seules hauteurs."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["musique", "gamme", "accord", "solfège", "harmonie", "note", "rythme"],
+    "related_domains": ["arts"],
+    "related_knowledge": ["arts.music_history", "mathematics.algebra_basics"],
+    "retrieval_priority": 7
+  },
+  "behavior_rules": {"tone": "educational", "response_style": "structured_clear", "max_complexity": "medium", "allow_humor": true},
+  "safety_notes": {
+    "allowed_usage": ["Éducation musicale"],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "Recommander un professeur de musique pour un apprentissage instrumental complet."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "29/06/2026",
+    "last_update": "29/06/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

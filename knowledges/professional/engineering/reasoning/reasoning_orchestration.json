@@ -1,26 +1,67 @@
 {
-    "id":  "reasoning.orchestration",
-    "created_at":  "2026-06-03",
-    "title":  "reasoning orchestration",
-    "tags":  [
-
-             ],
-    "source":  "recreated_from_dashboard_manifest",
-    "description":  "Fiche connaissance recréée automatiquement à partir du manifest dashboard.",
-    "status":  "draft",
-    "content":  {
-                    "summary":  "",
-                    "links":  [
-
-                              ],
-                    "use_cases":  [
-
-                                  ],
-                    "risks":  [
-
-                              ],
-                    "key_points":  [
-
-                                   ]
-                }
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "id": "knowledges.professional.engineering.reasoning.reasoning_orchestration",
+  "title": "Orchestration du raisonnement — coordonner des raisonnements complexes",
+  "domain": "professional",
+  "subdomain": "reasoning",
+  "status": "validated",
+  "metadata": {
+    "created_at": "2026-06-24",
+    "validated_at": "2026-06-24",
+    "validated_by": "ALFRED enrichment pipeline",
+    "enrichment_version": "day3",
+    "schema_version": "1.2",
+    "review_notes": "",
+    "block": "b18"
+  },
+  "priority": "high",
+  "summary": "Comment structurer et séquencer des raisonnements complexes impliquant plusieurs étapes, sources ou agents pour aboutir à des conclusions fiables et traçables.",
+  "core_definition": "L'orchestration du raisonnement est la capacité à concevoir et piloter un processus de raisonnement en plusieurs étapes, en déterminant l'ordre optimal des opérations, les points de vérification, les conditions de branchement et les mécanismes d'intégration des résultats intermédiaires.",
+  "knowledge": {
+    "schemas_d_orchestration": {
+      "sequential": "Chaque étape prend le résultat de la précédente — simple mais fragile aux erreurs early",
+      "parallel": "Étapes indépendantes exécutées simultanément — puis intégration",
+      "conditional": "Le chemin dépend des résultats intermédiaires — adaptatif",
+      "iteratif": "Raffinement progressif jusqu'à convergence"
+    },
+    "points_cles": {
+      "checkpoints": "Vérifier la qualité à chaque étape avant de passer à la suivante",
+      "rollback": "Pouvoir revenir en arrière si une étape produit un résultat invalide",
+      "transparence": "Tracer les étapes pour auditabilité",
+      "timeout": "Définir quand arrêter si la convergence n'est pas atteinte"
+    },
+    "en_pratique_alfred": "ALFRED orchestre : compréhension de la demande → recherche en mémoire → génération → vérification de cohérence → réponse. Chaque étape peut influencer les suivantes."
+  },
+  "example_answers": [
+    {
+      "prompt": "Comment structurer un raisonnement compliqué sans se perdre ?",
+      "answer": "D'abord décomposer le problème en sous-questions indépendantes. Ensuite identifier les dépendances (A doit être résolu avant B). Traiter séquentiellement les dépendances, en parallèle ce qui est indépendant. Et écrire les conclusions intermédiaires — pas les garder en tête. Un raisonnement complexe qui reste dans la tête rate à cause de la mémoire de travail, pas de la capacité."
+    },
+    {
+      "prompt": "Qu'est-ce qu'un pipeline de raisonnement dans une IA ?",
+      "answer": "C'est la séquence d'opérations qu'un système IA exécute pour passer d'une entrée à une sortie. Exemple simple : parse la question → identifie l'intention → cherche le contexte pertinent → génère une réponse → vérifie la cohérence. Chaque étape a ses propres critères de qualité. Un bug dans le pipeline peut venir de n'importe quelle étape — d'où l'importance de tracer et de tester chaque étape séparément."
+    }
+  ],
+  "response_guidance": {
+    "tone": "technique, structuré",
+    "structure": [
+      "schéma",
+      "points clés",
+      "application concrète"
+    ],
+    "avoid": [
+      "trop théorique",
+      "ignorer les contraintes pratiques"
+    ]
+  },
+  "tags": [
+    "orchestration",
+    "raisonnement",
+    "pipeline",
+    "IA",
+    "séquençage",
+    "coordination"
+  ],
+  "related_knowledge_units": []
 }

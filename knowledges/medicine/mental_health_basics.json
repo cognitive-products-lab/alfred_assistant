@@ -1,0 +1,121 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "medicine.psychiatry.mental_health_basics",
+  "version": "1.0.0",
+  "domain": "medicine",
+  "subdomain": "psychiatry",
+  "category": "mental_health",
+  "priority": "high",
+  "safety_level": "high_risk",
+  "title": "Santé Mentale — Bases Fondamentales",
+  "summary": "Bases de la santé mentale : troubles courants (dépression, anxiété, burn-out), facteurs de risque, ressources de soutien et réduction de la stigmatisation.",
+  "purpose": "Permettre à ALFRED d'aborder les questions de santé mentale avec sensibilité, de réduire la stigmatisation et d'orienter vers des ressources appropriées sans jamais diagnostiquer.",
+  "tags": ["santé_mentale", "dépression", "anxiété", "burn-out", "thérapie", "TCC", "stigmatisation", "bien-être", "psychiatrie"],
+  "intents": ["support_mental_health", "explain_mental_disorders", "reduce_stigma", "answer_mental_health_questions"],
+  "usage_context": ["Soutien émotionnel", "Questions sur les troubles mentaux", "Ressources de santé mentale"],
+  "content": {
+    "definition": "La santé mentale est un état de bien-être dans lequel une personne peut se réaliser, surmonter les tensions normales de la vie, travailler de façon productive et contribuer à sa communauté (OMS).",
+    "prevalence": "1 personne sur 4 sera touchée par un trouble mental dans sa vie. 15 % de la population mondiale souffre d'un trouble mental à un moment donné.",
+    "major_conditions": [
+      {
+        "condition": "Dépression majeure",
+        "prevalence": "~280 millions de personnes dans le monde",
+        "symptoms": ["Humeur dépressive persistante (>2 semaines)", "Perte d'intérêt ou de plaisir", "Fatigue", "Troubles du sommeil", "Pensées négatives récurrentes"],
+        "treatment": ["Psychothérapie (TCC)", "Antidépresseurs (ISRS)", "Thérapies combinées"]
+      },
+      {
+        "condition": "Troubles anxieux",
+        "types": ["Anxiété généralisée (TAG)", "Trouble panique", "Phobies spécifiques", "Trouble obsessionnel-compulsif (TOC)", "PTSD"],
+        "treatment": ["TCC (exposition, restructuration cognitive)", "ISRS", "Techniques de relaxation"]
+      },
+      {
+        "condition": "Burn-out",
+        "definition": "Syndrome d'épuisement professionnel caractérisé par 3 dimensions : épuisement, cynisme/détachement, sentiment d'inefficacité.",
+        "causes": ["Surcharge de travail", "Manque d'autonomie", "Absence de reconnaissance"],
+        "treatment": ["Repos", "Thérapie", "Réorganisation du travail"]
+      },
+      {
+        "condition": "Troubles bipolaires",
+        "description": "Alternance d'épisodes maniaques (euphorie, énergie excessive) et dépressifs.",
+        "treatment": "Stabilisateurs d'humeur (lithium), psychothérapie"
+      }
+    ],
+    "psychotherapies": [
+      {"therapy": "TCC (Thérapie Cognitive et Comportementale)", "efficacy": "Première ligne pour dépression, anxiété, phobies — efficacité prouvée."},
+      {"therapy": "EMDR", "efficacy": "Efficace pour le PTSD (désensibilisation par mouvements oculaires)."},
+      {"therapy": "Thérapies d'acceptation (ACT)", "efficacy": "Flexibilité psychologique, mindfulness."},
+      {"therapy": "Psychanalyse / Psychodynamique", "efficacy": "Exploration de l'inconscient et des conflits passés."}
+    ],
+    "risk_factors": [
+      "Antécédents familiaux (génétique).",
+      "Traumatismes (maltraitance, deuil, accidents).",
+      "Isolement social.",
+      "Maladies chroniques.",
+      "Stress professionnel ou financier prolongé.",
+      "Substances (alcool, drogues)."
+    ],
+    "protective_factors": [
+      "Relations sociales solides.",
+      "Activité physique régulière.",
+      "Sommeil de qualité.",
+      "Sens et engagement (travail, bénévolat).",
+      "Accès aux soins."
+    ],
+    "destigmatization": [
+      "Les troubles mentaux sont des maladies comme les autres — ils ont des bases biologiques.",
+      "Chercher de l'aide est un signe de force, non de faiblesse.",
+      "La santé mentale concerne tout le monde, pas seulement les personnes 'fragilisées'.",
+      "Les personnes atteintes de troubles mentaux peuvent mener des vies épanouies avec un soutien approprié."
+    ],
+    "resources_france": [
+      {"resource": "SOS Amitié", "contact": "09 72 39 40 50 (24h/24)"},
+      {"resource": "Numéro national prévention suicide", "contact": "3114 (24h/24)"},
+      {"resource": "Psycom", "url": "psycom.org — ressources en santé mentale"},
+      {"resource": "Mon Soutien Psy", "description": "8 séances remboursées avec un psychologue (médecin traitant requis)"}
+    ],
+    "examples": [
+      {
+        "situation": "Utilisateur dit se sentir très déprimé depuis des semaines",
+        "recommended_behavior": "Valider ses émotions, exprimer de l'empathie, lui demander s'il a accès à un soutien médical ou à un thérapeute, lui donner le numéro 3114 si nécessaire.",
+        "avoid": "Minimiser ('ça va passer'), diagnostiquer, ou donner des conseils non sollicités de 'penser positif'."
+      }
+    ],
+    "best_practices": [
+      "Écouter sans juger avant de répondre.",
+      "Valider les émotions sans les amplifier ni les minimiser.",
+      "Toujours orienter vers des professionnels pour les situations de détresse sérieuse.",
+      "Donner le 3114 si des pensées suicidaires sont évoquées."
+    ],
+    "anti_patterns": [
+      "Diagnostiquer un trouble mental.",
+      "Minimiser la détresse ('tu n'as pas à te plaindre').",
+      "Recommander des médicaments ou des posologies.",
+      "Ignorer les signaux de détresse grave."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["santé mentale", "dépression", "anxiété", "burn-out", "thérapie", "TCC", "suicide"],
+    "related_domains": ["medicine", "human"],
+    "related_knowledge": ["science.biology.neuroscience", "medicine.nutrition_basics"],
+    "retrieval_priority": 10
+  },
+  "behavior_rules": {"tone": "empathetic", "response_style": "structured_clear", "max_complexity": "low", "allow_humor": false},
+  "safety_notes": {
+    "allowed_usage": ["Soutien émotionnel", "Information sur les troubles mentaux", "Réduction de stigmatisation"],
+    "restricted_usage": ["Questions sur les médicaments psychiatriques"],
+    "forbidden_usage": ["Diagnostics psychiatriques", "Recommandations de traitement médicamenteux", "Négliger les urgences suicidaires"],
+    "fallback_behavior": "Fournir le 3114 (France) immédiatement si des pensées suicidaires sont mentionnées. Toujours recommander une consultation médicale ou psychologique."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "29/06/2026",
+    "last_update": "29/06/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

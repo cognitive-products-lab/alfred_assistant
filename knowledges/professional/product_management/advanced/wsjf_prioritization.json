@@ -1,71 +1,78 @@
 {
-  "_meta": {
-    "project": "ALFRED",
-    "block": "B18",
-    "file": "wsjf_prioritization.json",
-    "version": "V1.0",
-    "status": "VALIDATED",
-    "updated": "2026-05-13",
-    "standardized_by": "generate_knowledges.py",
-    "validated_by": "Cognitive Products Lab",
-    "validated_date": "2026-05-13"
-  },
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
   "id": "knowledges.professional.product_management.advanced.wsjf_prioritization",
-  "domain": "professional_product",
-  "category": "product_management",
-  "title": "WSJF Prioritization",
-  "description": "Méthode de priorisation Weighted Shortest Job First.",
-  "version": "1.0",
-  "status": "active",
-  "tags": [
-    "advanced",
-    "product management",
-    "professional",
-    "professional product",
-    "wsjf prioritization"
-  ],
-  "content": {
-    "summary": "Méthode de priorisation Weighted Shortest Job First.",
-    "details": [
-      "Optimiser la valeur livrée",
-      "Prioriser intelligemment",
-      "Réduire les délais",
-      "Priorisation blocs",
-      "Gestion backlog",
-      "Pilotage roadmap"
-    ],
-    "references": []
-  },
+  "title": "WSJF — Weighted Shortest Job First pour prioriser le backlog",
+  "domain": "professional",
+  "subdomain": "product_management_advanced",
+  "status": "validated",
   "metadata": {
-    "created": "2026-05-12",
-    "updated": "2026-05-12",
-    "author": "Cognitive Products Lab"
+    "created_at": "2026-06-24",
+    "validated_at": "2026-06-24",
+    "validated_by": "ALFRED enrichment pipeline",
+    "enrichment_version": "day3",
+    "schema_version": "1.2",
+    "review_notes": "",
+    "block": "b18"
   },
-  "formula": "WSJF = Cost of Delay / Job Size",
-  "evaluation_criteria": [
-    "Business value",
-    "Time criticality",
-    "Risk reduction",
-    "Effort"
-  ],
-  "objectives": [
-    "Optimiser la valeur livrée",
-    "Prioriser intelligemment",
-    "Réduire les délais"
-  ],
-  "alfred_application": [
-    "Priorisation blocs",
-    "Gestion backlog",
-    "Pilotage roadmap"
-  ],
-  "aliases": [],
-  "relationships": {
-    "merged_from": [],
-    "see_also": [],
-    "depends_on": []
+  "priority": "high",
+  "summary": "Framework de priorisation SAFe basé sur la valeur économique : WSJF = Coût du Délai / Durée du Job — favorise les items à haute valeur et courte durée.",
+  "core_definition": "Le WSJF (Weighted Shortest Job First) est un framework de priorisation issu du Lean et popularisé par SAFe, qui classe les items du backlog selon le ratio Coût du Délai / Taille du Job — priorisant les items qui combinent une forte valeur urgente avec un faible effort.",
+  "knowledge": {
+    "formule": "WSJF = Coût du Délai (CoD) / Durée du Job (effort relatif)",
+    "composantes_cod": {
+      "valeur_business": "Impact économique ou stratégique si livré — et si retardé",
+      "time_criticality": "Est-ce que la valeur diminue avec le temps ? Y a-t-il une deadline ?",
+      "risk_reduction": "Réduit-il un risque majeur ou une opportunité de se différencier ?"
+    },
+    "scoring": {
+      "echelle": "Fibonacci (1, 2, 3, 5, 8, 13, 21) pour les composantes et l'effort",
+      "relatif": "Les scores sont relatifs, pas absolus — comparer les items entre eux",
+      "exemple": "CoD = 8+5+3 = 16, Effort = 4, WSJF = 16/4 = 4.0"
+    },
+    "quand_utiliser": [
+      "Backlog PI Planning (SAFe)",
+      "Arbitrage entre epics ou features en compétition",
+      "Quand les décisions purement intuitives sont contestées — WSJF apporte un cadre objectivable"
+    ],
+    "limites": [
+      "Les scores sont subjectifs malgré l'apparence de rigueur",
+      "Complexe à maintenir sur un grand backlog",
+      "Favorise les quick wins — peut négliger les investissements long terme"
+    ]
   },
-  "retrieval": {
-    "priority": "medium",
-    "trigger_queries": []
-  }
+  "example_answers": [
+    {
+      "prompt": "Comment utiliser le WSJF pour prioriser mon backlog ?",
+      "answer": "Processus en 4 étapes : 1) Lister les items à prioriser. 2) Pour chaque item, noter en relatif (Fibonacci) : valeur business, criticité temporelle, réduction de risque. Somme = Coût du Délai. 3) Estimer l'effort relatif en story points ou T-shirt sizing. 4) WSJF = CoD / Effort. Trier par WSJF décroissant. L'important : le scoring doit se faire en groupe avec les bonnes personnes (PM + tech + business), pas seul dans son coin."
+    },
+    {
+      "prompt": "WSJF vs RICE — lequel choisir ?",
+      "answer": "RICE (Reach × Impact × Confidence / Effort) est meilleur pour les produits B2C à large base utilisateurs où le reach est quantifiable. WSJF est meilleur dans un contexte Lean/SAFe, pour des epics et features à forte composante économique ou de risque, et dans des organisations qui utilisent déjà le PI Planning. Pour une startup early stage : ni l'un ni l'autre — le gut feeling guidé par les données utilisateurs est souvent plus rapide et aussi fiable."
+    }
+  ],
+  "response_guidance": {
+    "tone": "analytique, SAFe/Lean, orienté application",
+    "structure": [
+      "formule",
+      "composantes",
+      "scoring",
+      "quand utiliser",
+      "limites"
+    ],
+    "avoid": [
+      "présenter comme objectif alors que subjectif",
+      "ignorer les alternatives"
+    ]
+  },
+  "tags": [
+    "WSJF",
+    "priorisation",
+    "SAFe",
+    "Lean",
+    "coût du délai",
+    "backlog",
+    "product management"
+  ],
+  "related_knowledge_units": []
 }

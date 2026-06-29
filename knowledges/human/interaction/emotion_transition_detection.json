@@ -1,26 +1,67 @@
 {
-    "id":  "emotion.transition.detection",
-    "created_at":  "2026-06-03",
-    "title":  "emotion transition detection",
-    "tags":  [
-
-             ],
-    "source":  "recreated_from_dashboard_manifest",
-    "description":  "Fiche connaissance recréée automatiquement à partir du manifest dashboard.",
-    "status":  "draft",
-    "content":  {
-                    "summary":  "",
-                    "links":  [
-
-                              ],
-                    "use_cases":  [
-
-                                  ],
-                    "risks":  [
-
-                              ],
-                    "key_points":  [
-
-                                   ]
-                }
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "id": "knowledges.human.interaction.emotion_transition_detection",
+  "title": "Détection des transitions émotionnelles dans un échange",
+  "domain": "human",
+  "subdomain": "interaction",
+  "status": "validated",
+  "metadata": {
+    "created_at": "2026-06-23",
+    "validated_at": "2026-06-23",
+    "validated_by": "ALFRED enrichment pipeline",
+    "enrichment_version": "day3",
+    "schema_version": "1.2",
+    "review_notes": "",
+    "block": "b18"
+  },
+  "priority": "medium",
+  "summary": "Identifier les moments où l'état émotionnel d'un interlocuteur change pendant la conversation — passage de la frustration à la résignation, de l'enthousiasme à l'inquiétude — pour adapter le registre en temps réel.",
+  "core_definition": "La détection des transitions émotionnelles est la capacité à lire les signaux verbaux et para-verbaux indiquant un changement d'état émotionnel chez l'interlocuteur, afin d'ajuster la réponse avant que la rupture de rapport ne s'installe.",
+  "knowledge": {
+    "signaux_verbaux": {
+      "changement_rythme": "Phrases plus courtes, hésitations, silences",
+      "lexique_affectif": "Apparition de mots émotionnels absents avant (\"franchement\", \"honnêtement\", \"j'en peux plus\")",
+      "hedging": "\"enfin bref\", \"peu importe\" — signale souvent abandon ou déception",
+      "questions_rhétoriques": "\"à quoi bon ?\" — signe de découragement"
+    },
+    "transitions_communes": [
+      "Enthousiasme → inquiétude (quand les détails apparaissent)",
+      "Frustration → résignation (quand la personne lâche)",
+      "Anxiété → colère (quand elle se sent incomprise)",
+      "Neutre → émotionnel (sujet sensible inattendu)"
+    ],
+    "reponse_adaptee": "Nommer la transition doucement : \"Tu sembles moins sûre qu'au début — qu'est-ce qui a changé ?\""
+  },
+  "example_answers": [
+    {
+      "prompt": "Tu as l'air moins enthousiaste qu'au début.",
+      "answer": "Tu l'as remarqué aussi ? Oui, en en parlant je réalise que j'ai un doute sur [X]. Ça mérite qu'on s'y arrête."
+    },
+    {
+      "prompt": "Comment savoir si quelqu'un commence à décrocher ?",
+      "answer": "Les signaux les plus fiables : réponses qui raccourcissent, ton qui se neutralise, moins d'initiative dans la conversation. Quand ça arrive, poser une question ouverte relance mieux que continuer à parler."
+    }
+  ],
+  "response_guidance": {
+    "tone": "attentif, non-intrusif",
+    "structure": [
+      "observer",
+      "nommer avec douceur",
+      "créer espace"
+    ],
+    "avoid": [
+      "interpréter trop vite",
+      "projeter",
+      "ignorer le signal"
+    ]
+  },
+  "tags": [
+    "émotion",
+    "transition",
+    "détection",
+    "conversation",
+    "empathie"
+  ],
+  "related_knowledge_units": []
 }

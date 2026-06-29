@@ -1,0 +1,111 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "mathematics.geometry.basics",
+  "version": "1.0.0",
+  "domain": "mathematics",
+  "subdomain": "geometry",
+  "category": "pure_mathematics",
+  "priority": "medium",
+  "safety_level": "normal",
+  "title": "Géométrie Fondamentale",
+  "summary": "Géométrie euclidienne et analytique : figures planes, solides, théorèmes classiques (Pythagore, Thalès), trigonométrie et géométrie des coordonnées.",
+  "purpose": "Permettre à ALFRED d'expliquer les concepts géométriques fondamentaux et de résoudre des problèmes de géométrie courants.",
+  "tags": ["géométrie", "Pythagore", "Thalès", "triangle", "cercle", "volume", "trigonométrie", "vecteur"],
+  "intents": ["explain_geometry", "solve_geometry_problems", "explain_trigonometry", "help_with_math"],
+  "usage_context": ["Aide scolaire", "Architecture", "Physique et ingénierie"],
+  "content": {
+    "definition": "La géométrie est la branche des mathématiques qui étudie les formes, les tailles, les positions et les propriétés des figures dans l'espace.",
+    "plane_figures": [
+      {"shape": "Triangle", "area": "base × hauteur / 2", "perimeter": "a + b + c", "note": "Somme des angles = 180°"},
+      {"shape": "Rectangle", "area": "longueur × largeur", "perimeter": "2(l + L)"},
+      {"shape": "Cercle", "area": "π × r²", "circumference": "2π × r", "note": "π ≈ 3.14159"},
+      {"shape": "Trapèze", "area": "(base₁ + base₂) × hauteur / 2"},
+      {"shape": "Parallélogramme", "area": "base × hauteur"}
+    ],
+    "solids": [
+      {"solid": "Cube", "volume": "a³", "surface": "6a²"},
+      {"solid": "Sphère", "volume": "(4/3)πr³", "surface": "4πr²"},
+      {"solid": "Cylindre", "volume": "πr²h", "surface": "2πr² + 2πrh"},
+      {"solid": "Cône", "volume": "(1/3)πr²h"},
+      {"solid": "Pyramide", "volume": "(1/3) × base × hauteur"}
+    ],
+    "classic_theorems": [
+      {
+        "theorem": "Théorème de Pythagore",
+        "statement": "Dans un triangle rectangle, le carré de l'hypoténuse = somme des carrés des deux autres côtés : a² + b² = c²",
+        "applications": "Calcul de distances, navigation, construction"
+      },
+      {
+        "theorem": "Théorème de Thalès",
+        "statement": "Si deux droites parallèles interceptent deux sécantes, les segments formés sont proportionnels.",
+        "applications": "Similitude, mesures indirectes"
+      },
+      {
+        "theorem": "Théorème de l'angle inscrit",
+        "statement": "L'angle inscrit dans un cercle vaut la moitié de l'angle au centre interceptant le même arc."
+      }
+    ],
+    "trigonometry": {
+      "ratios": [
+        "sin(θ) = côté opposé / hypoténuse",
+        "cos(θ) = côté adjacent / hypoténuse",
+        "tan(θ) = côté opposé / côté adjacent = sin/cos"
+      ],
+      "key_values": [
+        {"angle": "0°", "sin": 0, "cos": 1, "tan": 0},
+        {"angle": "30°", "sin": "1/2", "cos": "√3/2", "tan": "1/√3"},
+        {"angle": "45°", "sin": "√2/2", "cos": "√2/2", "tan": 1},
+        {"angle": "60°", "sin": "√3/2", "cos": "1/2", "tan": "√3"},
+        {"angle": "90°", "sin": 1, "cos": 0, "tan": "indéfini"}
+      ],
+      "applications": "Navigation, physique (ondes), ingénierie, architecture"
+    },
+    "analytic_geometry": {
+      "distance": "d(A,B) = √[(x₂-x₁)² + (y₂-y₁)²]",
+      "midpoint": "M = ((x₁+x₂)/2, (y₁+y₂)/2)",
+      "line_equation": "y = ax + b (pente a, ordonnée à l'origine b)"
+    },
+    "examples": [
+      {
+        "situation": "Utilisateur veut calculer la hauteur d'un arbre avec son ombre",
+        "recommended_behavior": "Appliquer le théorème de Thalès : hauteur/ombre_arbre = taille_personne/ombre_personne. Si une personne de 1,80m projette une ombre de 2m et l'arbre une ombre de 10m : H = 1,80 × 10 / 2 = 9m.",
+        "avoid": "Ignorer le contexte pratique et rester dans l'abstrait."
+      }
+    ],
+    "best_practices": [
+      "Faire un schéma avant de résoudre tout problème de géométrie.",
+      "Identifier les relations entre les éléments (parallélisme, perpendicularité) avant de calculer.",
+      "Vérifier les unités de mesure (mètres, centimètres, radians vs degrés)."
+    ],
+    "anti_patterns": [
+      "Appliquer Pythagore à un triangle qui n'est pas rectangle.",
+      "Confondre rayon et diamètre.",
+      "Oublier de convertir les angles en radians pour la trigonométrie en calcul."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["géométrie", "Pythagore", "triangle", "cercle", "trigonométrie", "volume"],
+    "related_domains": ["mathematics"],
+    "related_knowledge": ["mathematics.algebra_basics", "science.physics.quantum_mechanics"],
+    "retrieval_priority": 7
+  },
+  "behavior_rules": {"tone": "educational", "response_style": "step_by_step", "max_complexity": "medium", "allow_humor": false},
+  "safety_notes": {
+    "allowed_usage": ["Aide mathématique éducative"],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "Recommander des ressources visuelles (GeoGebra) pour la visualisation géométrique."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "29/06/2026",
+    "last_update": "29/06/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

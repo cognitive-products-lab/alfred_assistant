@@ -1,15 +1,53 @@
 {
-  "_meta": { "project": "ALFRED", "block": "B18", "file": "rgpd_core.json", "version": "V2.0", "status": "VALIDATED", "updated": "2026-06-03", "validated_by": "Cognitive Products Lab" },
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "_meta": {
+    "project": "ALFRED",
+    "block": "B18",
+    "file": "rgpd_core.json",
+    "version": "V2.0",
+    "status": "VALIDATED",
+    "updated": "2026-06-03",
+    "validated_by": "Cognitive Products Lab"
+  },
   "knowledge_id": "professional.engineering.cybersecurite.rgpd_core",
   "id": "professional.engineering.cybersecurite.rgpd_core",
   "title": "RGPD — Protection des Données Personnelles & Conformité",
-  "version": "2.0.0", "status": "active", "domain": "professional", "subdomain": "engineering", "category": "cybersecurite",
+  "version": "2.0.0",
+  "domain": "professional",
+  "subdomain": "engineering",
+  "category": "cybersecurite",
   "summary": "Le RGPD encadre la collecte et le traitement des données personnelles en Europe. Principes fondamentaux, droits des personnes, obligations des organisations et application au projet ALFRED.",
   "purpose": "Permettre à ALFRED de conseiller sur la conformité RGPD, d'expliquer les droits des personnes, les obligations des responsables de traitement et les règles applicables à un assistant IA local-first.",
-  "tags": ["rgpd", "gdpr", "données personnelles", "privacy", "conformité", "cnil", "consentement", "dpo", "droit à l'oubli", "minimisation", "privacy by design", "responsable traitement"],
-  "intents": ["explain_rgpd", "ensure_rgpd_compliance", "handle_data_subject_request", "implement_privacy_by_design", "notify_data_breach"],
-  "usage_context": ["Audit de conformité RGPD", "Conception d'un produit traitant des données personnelles", "Réponse à une demande d'exercice de droits", "Notification d'une violation de données"],
-  "priority": "high", "safety_level": "sensitive",
+  "tags": [
+    "rgpd",
+    "gdpr",
+    "données personnelles",
+    "privacy",
+    "conformité",
+    "cnil",
+    "consentement",
+    "dpo",
+    "droit à l'oubli",
+    "minimisation",
+    "privacy by design",
+    "responsable traitement"
+  ],
+  "intents": [
+    "explain_rgpd",
+    "ensure_rgpd_compliance",
+    "handle_data_subject_request",
+    "implement_privacy_by_design",
+    "notify_data_breach"
+  ],
+  "usage_context": [
+    "Audit de conformité RGPD",
+    "Conception d'un produit traitant des données personnelles",
+    "Réponse à une demande d'exercice de droits",
+    "Notification d'une violation de données"
+  ],
+  "priority": "high",
+  "safety_level": "sensitive",
   "content": {
     "definition": "Le RGPD (Règlement Général sur la Protection des Données, UE 2016/679) est la réglementation européenne qui encadre la collecte, le traitement et la protection des données personnelles de toute personne dans l'UE, quelle que soit la localisation du responsable de traitement.",
     "core_principles": [
@@ -23,26 +61,83 @@
     ],
     "personal_data": {
       "definition": "Toute information permettant d'identifier directement ou indirectement une personne physique.",
-      "examples_direct": ["Nom, prénom", "Email", "Numéro de téléphone", "Photo", "Numéro de sécurité sociale"],
-      "examples_indirect": ["Adresse IP", "Cookie ID", "Données de localisation", "Données comportementales combinées"],
-      "sensitive_data": ["Origine raciale/ethnique", "Opinions politiques", "Religion", "Données biométriques", "Données de santé", "Orientation sexuelle — traitement interdit sauf exceptions"]
+      "examples_direct": [
+        "Nom, prénom",
+        "Email",
+        "Numéro de téléphone",
+        "Photo",
+        "Numéro de sécurité sociale"
+      ],
+      "examples_indirect": [
+        "Adresse IP",
+        "Cookie ID",
+        "Données de localisation",
+        "Données comportementales combinées"
+      ],
+      "sensitive_data": [
+        "Origine raciale/ethnique",
+        "Opinions politiques",
+        "Religion",
+        "Données biométriques",
+        "Données de santé",
+        "Orientation sexuelle — traitement interdit sauf exceptions"
+      ]
     },
     "legal_bases": [
-      {"base": "Consentement", "condition": "Libre, spécifique, éclairé et univoque — retirable à tout moment"},
-      {"base": "Contrat", "condition": "Traitement nécessaire à l'exécution d'un contrat avec la personne"},
-      {"base": "Obligation légale", "condition": "Traitement requis par une loi ou réglementation"},
-      {"base": "Intérêts vitaux", "condition": "Protection de la vie d'une personne"},
-      {"base": "Mission d'intérêt public", "condition": "Autorité publique dans l'exercice de ses missions"},
-      {"base": "Intérêts légitimes", "condition": "Intérêt légitime du responsable sans préjudice pour la personne — balance test obligatoire"}
+      {
+        "base": "Consentement",
+        "condition": "Libre, spécifique, éclairé et univoque — retirable à tout moment"
+      },
+      {
+        "base": "Contrat",
+        "condition": "Traitement nécessaire à l'exécution d'un contrat avec la personne"
+      },
+      {
+        "base": "Obligation légale",
+        "condition": "Traitement requis par une loi ou réglementation"
+      },
+      {
+        "base": "Intérêts vitaux",
+        "condition": "Protection de la vie d'une personne"
+      },
+      {
+        "base": "Mission d'intérêt public",
+        "condition": "Autorité publique dans l'exercice de ses missions"
+      },
+      {
+        "base": "Intérêts légitimes",
+        "condition": "Intérêt légitime du responsable sans préjudice pour la personne — balance test obligatoire"
+      }
     ],
     "individual_rights": [
-      {"right": "Droit d'accès (Art. 15)", "description": "Obtenir une copie de toutes les données traitées"},
-      {"right": "Droit de rectification (Art. 16)", "description": "Corriger des données inexactes"},
-      {"right": "Droit à l'effacement / oubli (Art. 17)", "description": "Demander la suppression des données"},
-      {"right": "Droit à la limitation (Art. 18)", "description": "Suspendre le traitement sans supprimer les données"},
-      {"right": "Portabilité (Art. 20)", "description": "Récupérer ses données dans un format structuré"},
-      {"right": "Opposition (Art. 21)", "description": "S'opposer au traitement basé sur intérêt légitime"},
-      {"right": "Décision automatisée (Art. 22)", "description": "Ne pas faire l'objet de décisions entièrement automatisées produisant des effets juridiques"}
+      {
+        "right": "Droit d'accès (Art. 15)",
+        "description": "Obtenir une copie de toutes les données traitées"
+      },
+      {
+        "right": "Droit de rectification (Art. 16)",
+        "description": "Corriger des données inexactes"
+      },
+      {
+        "right": "Droit à l'effacement / oubli (Art. 17)",
+        "description": "Demander la suppression des données"
+      },
+      {
+        "right": "Droit à la limitation (Art. 18)",
+        "description": "Suspendre le traitement sans supprimer les données"
+      },
+      {
+        "right": "Portabilité (Art. 20)",
+        "description": "Récupérer ses données dans un format structuré"
+      },
+      {
+        "right": "Opposition (Art. 21)",
+        "description": "S'opposer au traitement basé sur intérêt légitime"
+      },
+      {
+        "right": "Décision automatisée (Art. 22)",
+        "description": "Ne pas faire l'objet de décisions entièrement automatisées produisant des effets juridiques"
+      }
     ],
     "obligations": {
       "documentation": [
@@ -59,7 +154,12 @@
       "breach_notification": {
         "to_cnil": "72 heures après la découverte d'une violation de données (art. 33)",
         "to_persons": "Sans délai si la violation est susceptible d'engendrer un risque élevé (art. 34)",
-        "content": ["Nature de la violation", "Données concernées", "Mesures prises", "Contact DPO"]
+        "content": [
+          "Nature de la violation",
+          "Données concernées",
+          "Mesures prises",
+          "Contact DPO"
+        ]
       },
       "dpo": "DPO (Délégué à la Protection des Données) obligatoire pour les autorités publiques, traitements à grande échelle de données sensibles"
     },
@@ -100,15 +200,48 @@
     ]
   },
   "retrieval_hints": {
-    "priority_keywords": ["rgpd", "gdpr", "données personnelles", "consentement", "droit à l'oubli", "cnil", "privacy by design", "violation données", "notification 72h"],
-    "related_knowledge": ["professional.engineering.cybersecurite.cybersecurity_core", "professional.engineering.cybersecurite.secure_ai_pipeline"],
+    "priority_keywords": [
+      "rgpd",
+      "gdpr",
+      "données personnelles",
+      "consentement",
+      "droit à l'oubli",
+      "cnil",
+      "privacy by design",
+      "violation données",
+      "notification 72h"
+    ],
+    "related_knowledge": [
+      "professional.engineering.cybersecurite.cybersecurity_core",
+      "professional.engineering.cybersecurite.secure_ai_pipeline"
+    ],
     "retrieval_priority": 9
   },
-  "behavior_rules": {"tone": "professional", "response_style": "structured_clear", "max_complexity": "medium", "allow_humor": false},
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
   "safety_notes": {
-    "allowed_usage": ["Conseiller sur la conformité RGPD", "Expliquer les droits des personnes", "Guider la mise en place Privacy by Design"],
-    "restricted_usage": ["Ne pas fournir de conseil juridique engageant sans recommander un DPO/avocat spécialisé"],
+    "allowed_usage": [
+      "Conseiller sur la conformité RGPD",
+      "Expliquer les droits des personnes",
+      "Guider la mise en place Privacy by Design"
+    ],
+    "restricted_usage": [
+      "Ne pas fournir de conseil juridique engageant sans recommander un DPO/avocat spécialisé"
+    ],
     "fallback_behavior": "Pour les situations complexes (contentieux, violations à grande échelle), recommander un DPO ou avocat spécialisé en protection des données."
   },
-  "metadata": {"author": "Cognitive Products Lab", "creation_date": "03/06/2026", "last_update": "03/06/2026", "review_status": "validated", "source_type": "manual_structured_knowledge", "language": "fr", "retrieval_ready": true, "rag_compatible": true}
+  "status": "validated",
+  "metadata": {
+    "created_at": "2026-06-23",
+    "validated_at": "2026-06-23",
+    "validated_by": "ALFRED enrichment pipeline",
+    "enrichment_version": "day1",
+    "schema_version": "1.2",
+    "review_notes": "migré depuis ancien format",
+    "block": "b18"
+  }
 }

@@ -1,15 +1,54 @@
 {
-  "_meta": { "project": "ALFRED", "block": "B18", "file": "threat_modeling_stride.json", "version": "V2.0", "status": "VALIDATED", "updated": "2026-06-03", "validated_by": "Cognitive Products Lab" },
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "_meta": {
+    "project": "ALFRED",
+    "block": "B18",
+    "file": "threat_modeling_stride.json",
+    "version": "V2.0",
+    "status": "VALIDATED",
+    "updated": "2026-06-03",
+    "validated_by": "Cognitive Products Lab"
+  },
   "knowledge_id": "professional.engineering.cybersecurite.threat_modeling_stride",
   "id": "professional.engineering.cybersecurite.threat_modeling_stride",
   "title": "Modélisation des Menaces STRIDE — Identifier les Risques dès la Conception",
-  "version": "2.0.0", "status": "active", "domain": "professional", "subdomain": "engineering", "category": "cybersecurite",
+  "version": "2.0.0",
+  "domain": "professional",
+  "subdomain": "engineering",
+  "category": "cybersecurite",
   "summary": "STRIDE est une méthodologie de modélisation des menaces qui identifie les risques de sécurité dès la phase de conception : Spoofing, Tampering, Repudiation, Information Disclosure, Denial of Service, Elevation of Privilege.",
   "purpose": "Permettre à ALFRED d'animer ou guider un atelier de threat modeling STRIDE, d'analyser les DFD d'une architecture et de prioriser les contre-mesures par risque réel.",
-  "tags": ["stride", "threat modeling", "modélisation menaces", "dfd", "data flow diagram", "spoofing", "tampering", "repudiation", "information disclosure", "dos", "elevation privilege", "dread", "microsoft threat modeling tool"],
-  "intents": ["conduct_threat_modeling", "apply_stride", "analyze_dfd", "prioritize_security_risks", "design_security_by_design"],
-  "usage_context": ["Atelier de threat modeling lors de la phase de conception", "Revue de sécurité d'une architecture existante", "Formation Security by Design", "Audit de sécurité applicative"],
-  "priority": "high", "safety_level": "normal",
+  "tags": [
+    "stride",
+    "threat modeling",
+    "modélisation menaces",
+    "dfd",
+    "data flow diagram",
+    "spoofing",
+    "tampering",
+    "repudiation",
+    "information disclosure",
+    "dos",
+    "elevation privilege",
+    "dread",
+    "microsoft threat modeling tool"
+  ],
+  "intents": [
+    "conduct_threat_modeling",
+    "apply_stride",
+    "analyze_dfd",
+    "prioritize_security_risks",
+    "design_security_by_design"
+  ],
+  "usage_context": [
+    "Atelier de threat modeling lors de la phase de conception",
+    "Revue de sécurité d'une architecture existante",
+    "Formation Security by Design",
+    "Audit de sécurité applicative"
+  ],
+  "priority": "high",
+  "safety_level": "normal",
   "content": {
     "definition": "STRIDE est un framework de threat modeling développé par Microsoft pour identifier systématiquement les menaces pesant sur un système. Il s'applique à chaque composant et flux de données d'un DFD (Data Flow Diagram) pour générer une liste exhaustive de menaces à traiter.",
     "core_principles": [
@@ -24,49 +63,123 @@
         "letter": "S",
         "threat": "Spoofing — Usurpation d'identité",
         "description": "Un attaquant se fait passer pour un utilisateur, service ou composant légitime.",
-        "examples": ["Faux serveur LDAP interceptant les authentifications", "Token JWT falsifié", "ARP spoofing se faisant passer pour la passerelle"],
-        "countermeasures": ["Authentification forte (MFA, certificats mutuels mTLS)", "Validation des tokens côté serveur", "DNSSEC, HTTPS avec certificate pinning"],
-        "applies_to": ["Utilisateurs", "Processus externes", "Dataflows"]
+        "examples": [
+          "Faux serveur LDAP interceptant les authentifications",
+          "Token JWT falsifié",
+          "ARP spoofing se faisant passer pour la passerelle"
+        ],
+        "countermeasures": [
+          "Authentification forte (MFA, certificats mutuels mTLS)",
+          "Validation des tokens côté serveur",
+          "DNSSEC, HTTPS avec certificate pinning"
+        ],
+        "applies_to": [
+          "Utilisateurs",
+          "Processus externes",
+          "Dataflows"
+        ]
       },
       {
         "letter": "T",
         "threat": "Tampering — Altération des données",
         "description": "Modification non autorisée des données en transit ou au repos.",
-        "examples": ["Modification d'un paramètre dans une requête API", "Altération d'un fichier de configuration", "Man-in-the-middle modifiant les réponses"],
-        "countermeasures": ["Signatures cryptographiques (HMAC, RSA)", "TLS en transit", "Chiffrement au repos + vérification d'intégrité (hashes)", "Contrôle d'accès strict en écriture"],
-        "applies_to": ["Dataflows", "Data stores", "Processus"]
+        "examples": [
+          "Modification d'un paramètre dans une requête API",
+          "Altération d'un fichier de configuration",
+          "Man-in-the-middle modifiant les réponses"
+        ],
+        "countermeasures": [
+          "Signatures cryptographiques (HMAC, RSA)",
+          "TLS en transit",
+          "Chiffrement au repos + vérification d'intégrité (hashes)",
+          "Contrôle d'accès strict en écriture"
+        ],
+        "applies_to": [
+          "Dataflows",
+          "Data stores",
+          "Processus"
+        ]
       },
       {
         "letter": "R",
         "threat": "Repudiation — Répudiation d'actions",
         "description": "Un acteur nie avoir effectué une action qu'il a réellement accomplie.",
-        "examples": ["Utilisateur niant avoir passé une commande frauduleuse", "Administrateur niant avoir modifié une configuration critique"],
-        "countermeasures": ["Audit trail immuable (logs signés, blockchain)", "Journalisation de chaque action avec identité + timestamp", "Non-répudiation cryptographique (signatures numériques)"],
-        "applies_to": ["Utilisateurs", "Processus externes"]
+        "examples": [
+          "Utilisateur niant avoir passé une commande frauduleuse",
+          "Administrateur niant avoir modifié une configuration critique"
+        ],
+        "countermeasures": [
+          "Audit trail immuable (logs signés, blockchain)",
+          "Journalisation de chaque action avec identité + timestamp",
+          "Non-répudiation cryptographique (signatures numériques)"
+        ],
+        "applies_to": [
+          "Utilisateurs",
+          "Processus externes"
+        ]
       },
       {
         "letter": "I",
         "threat": "Information Disclosure — Divulgation d'informations",
         "description": "Accès non autorisé à des données confidentielles.",
-        "examples": ["Stack trace exposant la structure interne de l'application", "Endpoint API retournant des données d'autres utilisateurs (IDOR)", "Log file accessible publiquement contenant des credentials"],
-        "countermeasures": ["Chiffrement au repos et en transit", "Contrôle d'accès basé sur les rôles (RBAC)", "Filtrage des messages d'erreur en production", "Data masking dans les logs"],
-        "applies_to": ["Dataflows", "Data stores", "Processus"]
+        "examples": [
+          "Stack trace exposant la structure interne de l'application",
+          "Endpoint API retournant des données d'autres utilisateurs (IDOR)",
+          "Log file accessible publiquement contenant des credentials"
+        ],
+        "countermeasures": [
+          "Chiffrement au repos et en transit",
+          "Contrôle d'accès basé sur les rôles (RBAC)",
+          "Filtrage des messages d'erreur en production",
+          "Data masking dans les logs"
+        ],
+        "applies_to": [
+          "Dataflows",
+          "Data stores",
+          "Processus"
+        ]
       },
       {
         "letter": "D",
         "threat": "Denial of Service — Déni de service",
         "description": "Rendre le système indisponible pour ses utilisateurs légitimes.",
-        "examples": ["Flood de requêtes saturant l'API", "Consommation excessive de ressources (memory leak exploité)", "Attaque Slowloris maintenant des connexions ouvertes"],
-        "countermeasures": ["Rate limiting et throttling", "WAF avec protection DDoS", "Auto-scaling cloud", "Circuit breakers", "Timeout sur toutes les opérations"],
-        "applies_to": ["Processus", "Dataflows", "Data stores"]
+        "examples": [
+          "Flood de requêtes saturant l'API",
+          "Consommation excessive de ressources (memory leak exploité)",
+          "Attaque Slowloris maintenant des connexions ouvertes"
+        ],
+        "countermeasures": [
+          "Rate limiting et throttling",
+          "WAF avec protection DDoS",
+          "Auto-scaling cloud",
+          "Circuit breakers",
+          "Timeout sur toutes les opérations"
+        ],
+        "applies_to": [
+          "Processus",
+          "Dataflows",
+          "Data stores"
+        ]
       },
       {
         "letter": "E",
         "threat": "Elevation of Privilege — Élévation de privilèges",
         "description": "Un utilisateur obtient des droits supérieurs à ceux qui lui sont accordés.",
-        "examples": ["Exploitation d'une injection SQL pour obtenir un accès admin", "Manipulation d'un JWT pour changer son rôle de 'user' à 'admin'", "Sudo exploit local"],
-        "countermeasures": ["Principe du moindre privilège", "Validation des autorisations côté serveur (jamais côté client)", "Sandboxing des processus", "Validation stricte des inputs"],
-        "applies_to": ["Processus", "Utilisateurs externes"]
+        "examples": [
+          "Exploitation d'une injection SQL pour obtenir un accès admin",
+          "Manipulation d'un JWT pour changer son rôle de 'user' à 'admin'",
+          "Sudo exploit local"
+        ],
+        "countermeasures": [
+          "Principe du moindre privilège",
+          "Validation des autorisations côté serveur (jamais côté client)",
+          "Sandboxing des processus",
+          "Validation stricte des inputs"
+        ],
+        "applies_to": [
+          "Processus",
+          "Utilisateurs externes"
+        ]
       }
     ],
     "process": {
@@ -97,14 +210,35 @@
       },
       "step5_mitigate": {
         "name": "Définir les contre-mesures",
-        "options": ["Mitigate : implémenter une contre-mesure technique", "Transfer : transférer le risque (assurance, sous-traitance)", "Accept : accepter formellement le risque résiduel", "Eliminate : supprimer la fonctionnalité à risque"]
+        "options": [
+          "Mitigate : implémenter une contre-mesure technique",
+          "Transfer : transférer le risque (assurance, sous-traitance)",
+          "Accept : accepter formellement le risque résiduel",
+          "Eliminate : supprimer la fonctionnalité à risque"
+        ]
       }
     },
     "tools": [
-      {"tool": "Microsoft Threat Modeling Tool", "type": "Gratuit", "use": "Outil officiel Microsoft — génère automatiquement les menaces STRIDE depuis un DFD"},
-      {"tool": "OWASP Threat Dragon", "type": "Open source", "use": "Alternative web-based à Microsoft TMT"},
-      {"tool": "IriusRisk", "type": "Commercial", "use": "Threat modeling intégré dans le SDLC — enterprise"},
-      {"tool": "Miro / Lucidchart", "type": "Collaboratif", "use": "Pour les ateliers DFD collaboratifs en équipe"}
+      {
+        "tool": "Microsoft Threat Modeling Tool",
+        "type": "Gratuit",
+        "use": "Outil officiel Microsoft — génère automatiquement les menaces STRIDE depuis un DFD"
+      },
+      {
+        "tool": "OWASP Threat Dragon",
+        "type": "Open source",
+        "use": "Alternative web-based à Microsoft TMT"
+      },
+      {
+        "tool": "IriusRisk",
+        "type": "Commercial",
+        "use": "Threat modeling intégré dans le SDLC — enterprise"
+      },
+      {
+        "tool": "Miro / Lucidchart",
+        "type": "Collaboratif",
+        "use": "Pour les ateliers DFD collaboratifs en équipe"
+      }
     ],
     "application_alfred": {
       "alfred_dfd_highlights": [
@@ -133,15 +267,47 @@
     ]
   },
   "retrieval_hints": {
-    "priority_keywords": ["stride", "threat modeling", "modélisation menaces", "spoofing tampering", "dfd", "security by design", "dread", "contre-mesures"],
-    "related_knowledge": ["professional.engineering.cybersecurite.zero_trust_architecture", "professional.cybersecurity.antihacking.penetration_testing_methodology"],
+    "priority_keywords": [
+      "stride",
+      "threat modeling",
+      "modélisation menaces",
+      "spoofing tampering",
+      "dfd",
+      "security by design",
+      "dread",
+      "contre-mesures"
+    ],
+    "related_knowledge": [
+      "professional.engineering.cybersecurite.zero_trust_architecture",
+      "professional.cybersecurity.antihacking.penetration_testing_methodology"
+    ],
     "retrieval_priority": 8
   },
-  "behavior_rules": {"tone": "professional", "response_style": "structured_clear", "max_complexity": "high", "allow_humor": false},
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "high",
+    "allow_humor": false
+  },
   "safety_notes": {
-    "allowed_usage": ["Animer un atelier de threat modeling", "Analyser les risques d'une architecture", "Former les développeurs à Security by Design"],
-    "forbidden_usage": ["Utiliser STRIDE pour planifier une attaque réelle"],
+    "allowed_usage": [
+      "Animer un atelier de threat modeling",
+      "Analyser les risques d'une architecture",
+      "Former les développeurs à Security by Design"
+    ],
+    "forbidden_usage": [
+      "Utiliser STRIDE pour planifier une attaque réelle"
+    ],
     "fallback_behavior": "Recommander un atelier avec un expert sécurité certifié pour les architectures critiques."
   },
-  "metadata": {"author": "Cognitive Products Lab", "creation_date": "03/06/2026", "last_update": "03/06/2026", "review_status": "validated", "source_type": "manual_structured_knowledge", "language": "fr", "retrieval_ready": true, "rag_compatible": true}
+  "status": "validated",
+  "metadata": {
+    "created_at": "2026-06-23",
+    "validated_at": "2026-06-23",
+    "validated_by": "ALFRED enrichment pipeline",
+    "enrichment_version": "day1",
+    "schema_version": "1.2",
+    "review_notes": "migré depuis ancien format",
+    "block": "b18"
+  }
 }

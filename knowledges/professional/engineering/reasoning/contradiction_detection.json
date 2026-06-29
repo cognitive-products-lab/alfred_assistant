@@ -1,26 +1,70 @@
 {
-    "id":  "contradiction.detection",
-    "created_at":  "2026-06-03",
-    "title":  "contradiction detection",
-    "tags":  [
-
-             ],
-    "source":  "recreated_from_dashboard_manifest",
-    "description":  "Fiche connaissance recréée automatiquement à partir du manifest dashboard.",
-    "status":  "draft",
-    "content":  {
-                    "summary":  "",
-                    "links":  [
-
-                              ],
-                    "use_cases":  [
-
-                                  ],
-                    "risks":  [
-
-                              ],
-                    "key_points":  [
-
-                                   ]
-                }
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "id": "knowledges.professional.engineering.reasoning.contradiction_detection",
+  "title": "Détection de contradictions — identifier les incohérences dans un raisonnement",
+  "domain": "professional",
+  "subdomain": "reasoning",
+  "status": "validated",
+  "metadata": {
+    "created_at": "2026-06-24",
+    "validated_at": "2026-06-24",
+    "validated_by": "ALFRED enrichment pipeline",
+    "enrichment_version": "day3",
+    "schema_version": "1.2",
+    "review_notes": "",
+    "block": "b18"
+  },
+  "priority": "high",
+  "summary": "Méthodes pour repérer les contradictions logiques, factuelles ou contextuelles dans un discours, un document ou une conversation — compétence clé pour le fact-checking et la qualité du raisonnement.",
+  "core_definition": "La détection de contradictions est la capacité à identifier des assertions mutuellement incompatibles dans un ensemble d'informations — qu'elles soient explicites (A et non-A) ou implicites (deux faits dont l'un invalide l'autre).",
+  "knowledge": {
+    "types": {
+      "logique": "P et non-P simultanément vrais — violation de la loi de non-contradiction",
+      "factuelle": "Deux faits qui ne peuvent coexister (\"il était à Paris et Tokyo le même jour\")",
+      "temporelle": "Chronologie impossible (\"avant de commencer X, j'ai terminé X\")",
+      "valeurs": "Principe affirmé et comportement incompatible"
+    },
+    "methodes": {
+      "matrice": "Lister les assertions et croiser pour détecter les incompatibilités",
+      "timeline": "Reconstruire la chronologie pour détecter les impossibilités",
+      "hypothese_unique": "Chercher l'hypothèse qui rendrait toutes les assertions vraies — si impossible, contradiction"
+    },
+    "biais_cognitifs_associes": {
+      "compartimentalisation": "Tenir des croyances contradictoires dans des contextes séparés",
+      "motivated_reasoning": "Ignorer les contradictions qui menacent une conclusion voulue"
+    },
+    "en_pratique": "Dans ALFRED : détecter quand une demande contredit une décision précédente, ou quand une information contredit les données de contexte connues."
+  },
+  "example_answers": [
+    {
+      "prompt": "Comment vérifier qu'un argument est cohérent ?",
+      "answer": "Trois étapes : 1) Isoler les affirmations clés. 2) Vérifier qu'aucune n'implique la négation d'une autre. 3) Chercher si les prémisses mènent réellement à la conclusion. La contradiction la plus fréquente : une conclusion qui dépasse ce que les prémisses permettent d'affirmer."
+    },
+    {
+      "prompt": "Tu as dit X et maintenant tu dis le contraire.",
+      "answer": "Tu as raison de le signaler. Laisse-moi vérifier : [X] et [Y] — est-ce qu'ils se contredisent vraiment ou s'appliquent-ils à des contextes différents ? Si c'est une vraie contradiction, je me suis trompé et je corrige."
+    }
+  ],
+  "response_guidance": {
+    "tone": "rigoureux, factuel, non-défensif",
+    "structure": [
+      "identifier",
+      "analyser",
+      "résoudre"
+    ],
+    "avoid": [
+      "défensivité",
+      "ignorer le signal",
+      "sur-complexifier"
+    ]
+  },
+  "tags": [
+    "contradiction",
+    "logique",
+    "cohérence",
+    "raisonnement",
+    "fact-checking"
+  ],
+  "related_knowledge_units": []
 }

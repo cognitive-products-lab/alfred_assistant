@@ -1,0 +1,108 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "geography.continents.europe",
+  "version": "1.0.0",
+  "domain": "geography",
+  "subdomain": "continents",
+  "category": "physical_human_geography",
+  "priority": "high",
+  "safety_level": "normal",
+  "title": "Géographie de l'Europe",
+  "summary": "Géographie physique et humaine de l'Europe : reliefs, fleuves, pays, capitales, Union Européenne, démographie et enjeux contemporains.",
+  "purpose": "Permettre à ALFRED de répondre aux questions géographiques sur l'Europe avec précision et profondeur.",
+  "tags": ["europe", "géographie", "UE", "capitales", "alpes", "méditerranée", "pays", "population", "climat"],
+  "intents": ["explain_europe_geography", "answer_country_capital_questions", "discuss_EU", "explain_european_rivers"],
+  "usage_context": ["Questions géographiques", "Voyage", "Actualité européenne"],
+  "content": {
+    "overview": {
+      "area": "10,5 millions de km² (2e plus petit continent)",
+      "population": "~746 millions d'habitants (2024)",
+      "countries": 44,
+      "eu_members": 27
+    },
+    "physical_geography": {
+      "major_mountain_ranges": [
+        {"range": "Alpes", "highest_peak": "Mont Blanc (4808 m, France/Italie)", "countries": "France, Suisse, Italie, Autriche"},
+        {"range": "Pyrénées", "countries": "France, Espagne", "note": "Frontière naturelle franco-espagnole"},
+        {"range": "Scandinavian Mountains", "countries": "Norvège, Suède"},
+        {"range": "Carpates", "countries": "Roumanie, Pologne, Slovaquie"},
+        {"range": "Apennins", "countries": "Italie"}
+      ],
+      "major_rivers": [
+        {"river": "Volga", "length_km": 3530, "note": "Le plus long fleuve d'Europe (Russie)"},
+        {"river": "Danube", "length_km": 2860, "note": "Traverse 10 pays, se jette dans la mer Noire"},
+        {"river": "Rhin", "length_km": 1230, "note": "Voie commerciale majeure (Suisse → Mer du Nord)"},
+        {"river": "Loire", "length_km": 1012, "note": "Le plus long fleuve de France"},
+        {"river": "Elbe", "length_km": 1091, "note": "Allemagne centrale → Mer du Nord"}
+      ],
+      "major_seas": ["Méditerranée", "Mer du Nord", "Mer Baltique", "Mer Noire", "Mer Adriatique"]
+    },
+    "key_countries": [
+      {"country": "Russie", "capital": "Moscou", "note": "Plus grand pays du monde, s'étend sur l'Asie"},
+      {"country": "Allemagne", "capital": "Berlin", "note": "1ère économie de l'UE"},
+      {"country": "France", "capital": "Paris", "note": "Pays le plus visité au monde (~90M/an)"},
+      {"country": "Italie", "capital": "Rome"},
+      {"country": "Espagne", "capital": "Madrid"},
+      {"country": "Pologne", "capital": "Varsovie", "note": "Plus grand pays d'Europe centrale"},
+      {"country": "Ukraine", "capital": "Kiev", "note": "2e plus grand pays d'Europe (après Russie)"},
+      {"country": "Norvège", "capital": "Oslo", "note": "Fjords, non-membre UE"},
+      {"country": "Suisse", "capital": "Berne", "note": "Non-membre UE, multilinguisme (FR/DE/IT/ROM)"}
+    ],
+    "european_union": {
+      "founded": 1957,
+      "treaty": "Traité de Rome (1957) → Traité de Maastricht (1992) pour l'UE actuelle",
+      "members": 27,
+      "institutions": ["Commission européenne", "Parlement européen", "Conseil de l'UE", "Cour de Justice"],
+      "euro": "Monnaie unique utilisée par 20 États membres (zone euro)",
+      "brexit": "Royaume-Uni a quitté l'UE le 31 janvier 2020."
+    },
+    "climate_zones": [
+      {"zone": "Océanique", "region": "Europe de l'Ouest (France, Benelux, Royaume-Uni)"},
+      {"zone": "Continental", "region": "Europe centrale et orientale"},
+      {"zone": "Méditerranéen", "region": "Sud (Espagne, Italie, Grèce)"},
+      {"zone": "Polaire/Subarctique", "region": "Scandinavie nord, Islande"}
+    ],
+    "examples": [
+      {
+        "situation": "Utilisateur demande quels pays traversent le Danube",
+        "recommended_behavior": "Citer les 10 pays : Allemagne, Autriche, Slovaquie, Hongrie, Croatie, Serbie, Roumanie, Bulgarie, Moldavie, Ukraine.",
+        "avoid": "Inventer des pays ou omettre des pays importants."
+      }
+    ],
+    "best_practices": [
+      "Distinguer Europe géographique (jusqu'à l'Oural) et Europe politique (UE).",
+      "Mentionner les pays non-membres UE importants (Norvège, Suisse, Royaume-Uni, Ukraine).",
+      "Actualiser les informations géopolitiques (frontières, adhésions)."
+    ],
+    "anti_patterns": [
+      "Confondre UE et Europe.",
+      "Oublier la Russie comme nation géographiquement européenne.",
+      "Ignorer les micro-États (Monaco, Liechtenstein, Saint-Marin, Andorre, Vatican)."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["europe", "UE", "Alpes", "Danube", "capitales", "pays européens"],
+    "related_domains": ["geography", "history"],
+    "related_knowledge": ["geography.africa_geography", "history.cold_war"],
+    "retrieval_priority": 7
+  },
+  "behavior_rules": {"tone": "educational", "response_style": "structured_clear", "max_complexity": "low", "allow_humor": false},
+  "safety_notes": {
+    "allowed_usage": ["Questions géographiques et culturelles"],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "Vérifier l'actualité politique pour les informations sur les frontières ou l'UE."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "29/06/2026",
+    "last_update": "29/06/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

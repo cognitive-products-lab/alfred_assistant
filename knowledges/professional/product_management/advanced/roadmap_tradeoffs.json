@@ -1,71 +1,73 @@
 {
-  "_meta": {
-    "project": "ALFRED",
-    "block": "B18",
-    "file": "roadmap_tradeoffs.json",
-    "version": "V1.0",
-    "status": "VALIDATED",
-    "updated": "2026-05-13",
-    "standardized_by": "generate_knowledges.py",
-    "validated_by": "Cognitive Products Lab",
-    "validated_date": "2026-05-13"
-  },
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
   "id": "knowledges.professional.product_management.advanced.roadmap_tradeoffs",
-  "domain": "professional_product",
-  "category": "product_management",
-  "title": "Roadmap Tradeoffs",
-  "description": "Gestion des arbitrages dans une roadmap produit.",
-  "version": "1.0",
-  "status": "active",
-  "tags": [
-    "advanced",
-    "product management",
-    "professional",
-    "professional product",
-    "roadmap tradeoffs"
-  ],
-  "content": {
-    "summary": "Gestion des arbitrages dans une roadmap produit.",
-    "details": [
-      "Éviter la surcharge roadmap",
-      "Maintenir la cohérence produit",
-      "Optimiser les investissements",
-      "Choix V1/V2/V3",
-      "Arbitrage IA locale/cloud",
-      "Gestion priorités CPL"
-    ],
-    "references": []
-  },
+  "title": "Arbitrages de roadmap — naviguer les tensions stratégiques",
+  "domain": "professional",
+  "subdomain": "product_management_advanced",
+  "status": "validated",
   "metadata": {
-    "created": "2026-05-12",
-    "updated": "2026-05-12",
-    "author": "Cognitive Products Lab"
+    "created_at": "2026-06-24",
+    "validated_at": "2026-06-24",
+    "validated_by": "ALFRED enrichment pipeline",
+    "enrichment_version": "day3",
+    "schema_version": "1.2",
+    "review_notes": "",
+    "block": "b18"
   },
-  "tradeoff_dimensions": [
-    "Valeur",
-    "Complexité",
-    "Temps",
-    "Risque",
-    "Ressources"
-  ],
-  "objectives": [
-    "Éviter la surcharge roadmap",
-    "Maintenir la cohérence produit",
-    "Optimiser les investissements"
-  ],
-  "alfred_application": [
-    "Choix V1/V2/V3",
-    "Arbitrage IA locale/cloud",
-    "Gestion priorités CPL"
-  ],
-  "aliases": [],
-  "relationships": {
-    "merged_from": [],
-    "see_also": [],
-    "depends_on": []
+  "priority": "high",
+  "summary": "Comment arbitrer les tensions inévitables d'une roadmap produit : court terme vs long terme, dette technique vs nouvelles features, large vs niche, customer requests vs vision.",
+  "core_definition": "Les arbitrages de roadmap sont les décisions difficiles qui définissent ce qu'on construit (et ce qu'on ne construit pas), en naviguant des tensions structurelles entre des priorités légitimes qui s'excluent mutuellement dans un horizon de temps donné.",
+  "knowledge": {
+    "tensions_classiques": {
+      "court_long_terme": "Quick wins pour les clients actuels vs investissements pour la croissance future",
+      "dette_features": "Rembourser la dette technique vs livrer de nouvelles fonctionnalités",
+      "retention_acquisition": "Améliorer l'expérience des utilisateurs existants vs acquérir de nouveaux",
+      "customer_requests_vision": "Demandes explicites des clients vs direction stratégique de l'équipe",
+      "large_niche": "Servir le cas général vs les besoins spécialisés d'un segment à haute valeur"
+    },
+    "frameworks_arbitrage": {
+      "ICE": "Impact × Confidence × Ease — quick scoring pour filtrer",
+      "RICE": "Reach × Impact × Confidence / Effort — plus rigoureux",
+      "now_next_later": "Horizon temporel simple — réduire la fausse précision du trimestre"
+    },
+    "processus_sain": [
+      "Rendre les arbitrages explicites — les lister, pas les cacher",
+      "Documenter ce qu'on ne fait PAS et pourquoi",
+      "Revisiter les arbitrages quand le contexte change (nouvelles données, churn inattendu)"
+    ],
+    "communication": "Un arbitrage bien communiqué est aussi important que la décision elle-même — les stakeholders acceptent mieux un non expliqué qu'un non opaque"
   },
-  "retrieval": {
-    "priority": "medium",
-    "trigger_queries": []
-  }
+  "example_answers": [
+    {
+      "prompt": "Les clients demandent des features, la direction veut de l'innovation. Comment arbitrer ?",
+      "answer": "Cadre en trois buckets : 30% requests clients (rétention, satisfaction), 30% réduction dette et efficience, 40% innovation et vision. Ajuster selon la phase : early growth → plus de requests pour valider PMF, mature → plus d'innovation pour la différenciation. Le plus important : communiquer explicitement le ratio choisi aux deux parties et le justifier avec des métriques (churn, NPS, pipeline)."
+    },
+    {
+      "prompt": "On accumule de la dette technique mais on n'a jamais le temps de la résorber.",
+      "answer": "Sans budget explicite pour la dette, elle ne sera jamais prioritaire face à de nouvelles features. Solution : réserver un pourcentage fixe du capacity (20% est commun) pour la dette technique chaque sprint — non-négociable. Présenter la dette au business non comme un choix technique mais comme un risque business : \"Sans ce travail, notre vélocité va baisser de X% dans 6 mois et le coût de chaque feature augmentera.\""
+    }
+  ],
+  "response_guidance": {
+    "tone": "stratégique, orienté décision et communication",
+    "structure": [
+      "tensions",
+      "frameworks",
+      "processus",
+      "communication"
+    ],
+    "avoid": [
+      "recettes universelles",
+      "ignorer la dimension stakeholder"
+    ]
+  },
+  "tags": [
+    "roadmap",
+    "arbitrage",
+    "priorisation",
+    "dette technique",
+    "product management",
+    "tension stratégique"
+  ],
+  "related_knowledge_units": []
 }

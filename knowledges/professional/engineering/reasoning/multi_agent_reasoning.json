@@ -1,26 +1,71 @@
 {
-    "id":  "multi.agent.reasoning",
-    "created_at":  "2026-06-03",
-    "title":  "multi agent reasoning",
-    "tags":  [
-
-             ],
-    "source":  "recreated_from_dashboard_manifest",
-    "description":  "Fiche connaissance recréée automatiquement à partir du manifest dashboard.",
-    "status":  "draft",
-    "content":  {
-                    "summary":  "",
-                    "links":  [
-
-                              ],
-                    "use_cases":  [
-
-                                  ],
-                    "risks":  [
-
-                              ],
-                    "key_points":  [
-
-                                   ]
-                }
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "id": "knowledges.professional.engineering.reasoning.multi_agent_reasoning",
+  "title": "Raisonnement multi-agents — coordination et division du travail cognitif",
+  "domain": "professional",
+  "subdomain": "reasoning",
+  "status": "validated",
+  "metadata": {
+    "created_at": "2026-06-24",
+    "validated_at": "2026-06-24",
+    "validated_by": "ALFRED enrichment pipeline",
+    "enrichment_version": "day3",
+    "schema_version": "1.2",
+    "review_notes": "",
+    "block": "b18"
+  },
+  "priority": "medium",
+  "summary": "Comment plusieurs agents (humains ou IA) peuvent diviser et coordonner un raisonnement complexe pour dépasser les limites individuelles, avec les défis de cohérence et d'intégration.",
+  "core_definition": "Le raisonnement multi-agents désigne les systèmes dans lesquels plusieurs agents autonomes collaborent à un processus de raisonnement commun, en se répartissant les sous-problèmes, en partageant les conclusions intermédiaires et en intégrant les résultats.",
+  "knowledge": {
+    "architectures": {
+      "parallelisation": "Agents travaillant simultanément sur des sous-problèmes indépendants",
+      "pipeline": "Agent A produit pour Agent B qui produit pour Agent C — séquentiel",
+      "debate": "Agents qui argumentent des positions opposées — un juge intègre",
+      "mixture_of_experts": "Spécialistes sur des domaines, un router qui choisit"
+    },
+    "defis": {
+      "coherence": "S'assurer que les conclusions des agents sont cohérentes entre elles",
+      "communication": "Le format de transmission des conclusions intermédiaires est critique",
+      "integration": "Comment combiner des raisonnements partiels en conclusion globale",
+      "conflit": "Gérer quand deux agents arrivent à des conclusions opposées"
+    },
+    "applications": {
+      "code_review": "Un agent génère, un autre critique",
+      "fact_checking": "Un agent affirme, un autre vérifie les sources",
+      "planification": "Un agent planifie, un autre simule les obstacles"
+    },
+    "alfred_context": "ALFRED peut orchestrer des sous-tâches de raisonnement et intégrer les résultats, ou travailler en coordination avec d'autres outils."
+  },
+  "example_answers": [
+    {
+      "prompt": "Comment fonctionne un système multi-agents ?",
+      "answer": "Simplement : plusieurs agents IA (ou humains + IA) se répartissent un problème. Chacun travaille sur sa partie, les résultats sont intégrés. L'avantage : parallélisation et spécialisation. Le défi : la cohérence des interfaces entre agents est souvent le point de défaillance. En pratique, un agent orchestrateur qui distribue et intègre est plus robuste qu'une coordination décentralisée."
+    },
+    {
+      "prompt": "Deux IA donnent des réponses contradictoires, laquelle croire ?",
+      "answer": "Ni l'une ni l'autre sans vérification. Les contradictions entre LLM révèlent une zone d'incertitude — et c'est utile. Pour arbitrer : chercher la source primaire, vérifier laquelle cite des données plus récentes ou plus pertinentes, ou poser la question en demandant à chacun de justifier avec des sources. La contradiction est une invitation à investiguer, pas une réponse."
+    }
+  ],
+  "response_guidance": {
+    "tone": "technique, accessible",
+    "structure": [
+      "architecture",
+      "défis",
+      "applications"
+    ],
+    "avoid": [
+      "trop abstrait",
+      "jargon LLM sans contexte"
+    ]
+  },
+  "tags": [
+    "multi-agents",
+    "IA",
+    "orchestration",
+    "coordination",
+    "raisonnement distribué"
+  ],
+  "related_knowledge_units": []
 }

@@ -1,26 +1,73 @@
 {
-    "id":  "decision.transparency",
-    "created_at":  "2026-06-03",
-    "title":  "decision transparency",
-    "tags":  [
-
-             ],
-    "source":  "recreated_from_dashboard_manifest",
-    "description":  "Fiche connaissance recréée automatiquement à partir du manifest dashboard.",
-    "status":  "draft",
-    "content":  {
-                    "summary":  "",
-                    "links":  [
-
-                              ],
-                    "use_cases":  [
-
-                                  ],
-                    "risks":  [
-
-                              ],
-                    "key_points":  [
-
-                                   ]
-                }
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "id": "knowledges.professional.governance_ai.decision_transparency",
+  "title": "Transparence des décisions IA — rendre les choix algorithmiques intelligibles",
+  "domain": "professional",
+  "subdomain": "governance_ai",
+  "status": "validated",
+  "metadata": {
+    "created_at": "2026-06-24",
+    "validated_at": "2026-06-24",
+    "validated_by": "ALFRED enrichment pipeline",
+    "enrichment_version": "day3",
+    "schema_version": "1.2",
+    "review_notes": "",
+    "block": "b18"
+  },
+  "priority": "high",
+  "summary": "Méthodes et obligations pour rendre compréhensibles les décisions prises ou assistées par des systèmes IA — pour les utilisateurs, les régulateurs et les parties affectées.",
+  "core_definition": "La transparence des décisions IA désigne la capacité d'un système à expliquer, de manière compréhensible pour des non-experts, comment et pourquoi il est parvenu à une décision, une recommandation ou une classification particulière.",
+  "knowledge": {
+    "niveaux": {
+      "global": "Comment le modèle fonctionne en général (architecture, données d'entraînement, objectif)",
+      "local": "Pourquoi cette décision spécifique pour cet individu",
+      "contrefactuel": "\"Qu'est-ce qui aurait changé si X avait été différent ?\""
+    },
+    "obligations_legales": {
+      "RGPD_art22": "Droit à l'explication pour les décisions automatisées impactant significativement",
+      "EU_AI_Act": "Systèmes à haut risque : documentation, traçabilité, logs obligatoires",
+      "sectorielles": "Finance (MiFID), médical (MDR), RH (EEOC aux USA)"
+    },
+    "outils_xai": {
+      "SHAP": "Valeurs de Shapley — contribution de chaque feature à la décision",
+      "LIME": "Approximation locale linéaire pour expliquer une prédiction spécifique",
+      "attention_maps": "Pour les transformers — zones d'attention visualisées",
+      "counterfactuals": "\"Si votre revenu était X, la décision aurait été Y\""
+    },
+    "communication": "L'explication doit être adaptée à l'audience : technique pour les auditeurs, naturelle pour les utilisateurs affectés"
+  },
+  "example_answers": [
+    {
+      "prompt": "Mon système IA prend des décisions mais je ne peux pas expliquer pourquoi. Est-ce un problème ?",
+      "answer": "Oui, potentiellement un problème légal et éthique. Si ces décisions affectent des personnes (crédit, emploi, santé, sécurité), le RGPD article 22 impose un droit à l'explication, et l'EU AI Act exige la traçabilité pour les systèmes à haut risque. Même hors obligation légale, un système qu'on ne peut pas expliquer est un système dont on ne peut pas détecter les biais ni auditer les erreurs."
+    },
+    {
+      "prompt": "Comment expliquer une décision IA à un client non-technique ?",
+      "answer": "Format contrefactuel : il est plus compréhensible que les scores de contribution. \"Votre demande a été refusée parce que votre ancienneté est inférieure à 2 ans. Si votre ancienneté avait été de 3 ans, la décision aurait été favorable.\" C'est actionnable et compréhensible sans mathématiques. Les valeurs SHAP sont pour les auditeurs — pas pour les utilisateurs finaux."
+    }
+  ],
+  "response_guidance": {
+    "tone": "juridique et technique, équilibré",
+    "structure": [
+      "niveaux",
+      "obligations",
+      "outils XAI",
+      "communication"
+    ],
+    "avoid": [
+      "jargon pur",
+      "ignorer la dimension légale"
+    ]
+  },
+  "tags": [
+    "transparence",
+    "XAI",
+    "explicabilité",
+    "RGPD",
+    "EU AI Act",
+    "décision IA",
+    "gouvernance"
+  ],
+  "related_knowledge_units": []
 }

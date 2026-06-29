@@ -1,0 +1,102 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "medicine.immunology.immune_system",
+  "version": "1.0.0",
+  "domain": "medicine",
+  "subdomain": "immunology",
+  "category": "basic_medical_sciences",
+  "priority": "high",
+  "safety_level": "sensitive",
+  "title": "Système Immunitaire",
+  "summary": "Fonctionnement du système immunitaire : immunité innée et adaptative, lymphocytes, anticorps, vaccination, allergies et auto-immunité.",
+  "purpose": "Permettre à ALFRED d'expliquer comment le système immunitaire fonctionne, comment les vaccins agissent et les bases des maladies immunitaires.",
+  "tags": ["immunologie", "immunité", "anticorps", "vaccin", "lymphocyte", "allergie", "auto-immunité", "inflammation"],
+  "intents": ["explain_immune_system", "explain_vaccines", "discuss_allergies", "answer_immunology_questions"],
+  "usage_context": ["Santé", "Vaccination", "Allergies", "Covid et maladies infectieuses"],
+  "content": {
+    "definition": "Le système immunitaire est l'ensemble des mécanismes biologiques qui protègent l'organisme contre les agents pathogènes (bactéries, virus, champignons, parasites) et les cellules anormales (cancéreuses).",
+    "two_main_branches": [
+      {
+        "branch": "Immunité innée (non spécifique)",
+        "speed": "Immédiate (minutes-heures)",
+        "components": ["Peau et muqueuses (barrière physique)", "Macrophages", "Neutrophiles", "Cellules NK", "Système du complément"],
+        "function": "Première ligne de défense, non spécifique. Déclenche l'inflammation."
+      },
+      {
+        "branch": "Immunité adaptative (spécifique)",
+        "speed": "Jours à semaines (première exposition)",
+        "components": ["Lymphocytes B (anticorps)", "Lymphocytes T cytotoxiques (CD8+)", "Lymphocytes T auxiliaires (CD4+)", "Cellules mémoire"],
+        "function": "Réponse spécifique à un antigène ; mémorisation pour réponse plus rapide lors de réexpositions."
+      }
+    ],
+    "antibodies": {
+      "definition": "Protéines en Y produites par les lymphocytes B, qui se lient spécifiquement à un antigène.",
+      "classes": ["IgG (mémoire, protection long terme)", "IgM (première réponse)", "IgA (muqueuses, lait maternel)", "IgE (allergies, parasites)"],
+      "mechanisms": ["Neutralisation de l'agent pathogène", "Opsonisation (facilite la phagocytose)", "Activation du complément"]
+    },
+    "vaccination": {
+      "principle": "Exposer le système immunitaire à un antigène (atténué, inactivé ou code ARNm) pour déclencher une réponse immunitaire et créer une mémoire sans maladie.",
+      "vaccine_types": [
+        {"type": "Vaccin vivant atténué", "examples": "ROR (rougeole, oreillons, rubéole), fièvre jaune"},
+        {"type": "Vaccin inactivé", "examples": "Grippe (injectable), polio (Salk)"},
+        {"type": "Sous-unitaire / protéique", "examples": "Hépatite B, HPV (Gardasil)"},
+        {"type": "ARNm", "examples": "Covid-19 (Pfizer-BioNTech, Moderna)"},
+        {"type": "Vecteur viral", "examples": "Covid-19 (AstraZeneca, J&J)"}
+      ],
+      "herd_immunity": "Quand une proportion suffisante d'une population est immune, la transmission cesse même chez les non-vaccinés. Seuil variable : ~95 % pour la rougeole."
+    },
+    "immune_disorders": [
+      {"disorder": "Allergies", "mechanism": "Réponse IgE excessive à des antigènes inoffensifs (pollen, arachides) — activation des mastocytes → histamine."},
+      {"disorder": "Auto-immunité", "mechanism": "Le système immunitaire attaque les cellules propres (ex. : lupus, sclérose en plaques, diabète type 1, polyarthrite rhumatoïde)."},
+      {"disorder": "Immunodéficience", "mechanism": "Système immunitaire défaillant — primaire (génétique : DICS) ou secondaire (VIH, chimiothérapie)."}
+    ],
+    "inflammation": {
+      "definition": "Réponse locale de l'immunité innée à une infection ou lésion.",
+      "signs": ["Rougeur", "Chaleur", "Gonflement", "Douleur", "Perte de fonction"],
+      "function": "Isoler et éliminer l'agent pathogène, recruter les cellules immunitaires, initier la réparation.",
+      "chronic_risks": "Inflammation chronique associée aux maladies cardiovasculaires, diabète, cancers."
+    },
+    "examples": [
+      {
+        "situation": "Utilisateur demande comment fonctionnent les vaccins ARNm",
+        "recommended_behavior": "Expliquer que l'ARNm code la protéine Spike du virus, les cellules la produisent temporairement, le système immunitaire crée des anticorps et une mémoire, puis l'ARNm est dégradé (ne s'intègre pas au génome).",
+        "avoid": "Laisser croire que l'ARNm vaccinal peut modifier l'ADN."
+      }
+    ],
+    "best_practices": [
+      "Expliquer la vaccination avec des analogies claires (entraînement du système immunitaire).",
+      "Distinguer immunité innée (rapide, non spécifique) et adaptative (lente, très spécifique).",
+      "Mentionner l'importance de la mémoire immunitaire pour la durée de protection."
+    ],
+    "anti_patterns": [
+      "Soutenir des affirmations anti-vaccinales non fondées scientifiquement.",
+      "Donner des conseils médicaux sur les traitements immunologiques.",
+      "Minimiser les risques d'automédication affectant l'immunité (excès de suppléments)."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["immunité", "vaccin", "anticorps", "lymphocyte", "allergie", "auto-immunité"],
+    "related_domains": ["medicine", "science"],
+    "related_knowledge": ["medicine.human_anatomy", "science.biology.genetics"],
+    "retrieval_priority": 9
+  },
+  "behavior_rules": {"tone": "educational", "response_style": "structured_clear", "max_complexity": "medium", "allow_humor": false},
+  "safety_notes": {
+    "allowed_usage": ["Éducation immunologique", "Explication des vaccins"],
+    "restricted_usage": ["Conseils médicaux sur les traitements immunologiques"],
+    "forbidden_usage": ["Déconseiller la vaccination", "Conseils sur les immunosuppresseurs"],
+    "fallback_behavior": "Recommander une consultation médicale pour toute question sur les maladies immunitaires personnelles."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "29/06/2026",
+    "last_update": "29/06/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

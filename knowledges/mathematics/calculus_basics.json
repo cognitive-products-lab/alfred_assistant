@@ -1,0 +1,109 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "mathematics.calculus.basics",
+  "version": "1.0.0",
+  "domain": "mathematics",
+  "subdomain": "calculus",
+  "category": "pure_mathematics",
+  "priority": "medium",
+  "safety_level": "normal",
+  "title": "Analyse — Dérivées et Intégrales",
+  "summary": "Fondamentaux de l'analyse mathématique : limites, dérivées, règles de dérivation, intégrales et applications physiques et économiques.",
+  "purpose": "Permettre à ALFRED d'expliquer les concepts de base du calcul différentiel et intégral et leurs applications.",
+  "tags": ["calcul", "dérivée", "intégrale", "limite", "analyse", "optimisation", "physique_mathématique"],
+  "intents": ["explain_derivatives", "explain_integrals", "solve_calculus_problems", "apply_math_to_physics"],
+  "usage_context": ["Mathématiques avancées", "Physique", "Économie", "Ingénierie"],
+  "content": {
+    "definition": "L'analyse mathématique est la branche des mathématiques qui étudie les fonctions continues, leur comportement local (dérivation) et global (intégration).",
+    "limits": {
+      "definition": "La limite de f(x) quand x tend vers a est la valeur que f(x) approche sans nécessairement l'atteindre.",
+      "notation": "lim[x→a] f(x) = L",
+      "continuity": "f est continue en a si lim[x→a] f(x) = f(a)."
+    },
+    "derivatives": {
+      "definition": "La dérivée f'(x) est le taux de variation instantané de f en x = pente de la tangente à la courbe.",
+      "geometric_meaning": "f'(x) = pente de la courbe en x",
+      "physical_meaning": "Si f = position, f' = vitesse, f'' = accélération",
+      "basic_rules": [
+        "Constante : (c)' = 0",
+        "Puissance : (xⁿ)' = n·xⁿ⁻¹",
+        "Somme : (f + g)' = f' + g'",
+        "Produit : (fg)' = f'g + fg'",
+        "Quotient : (f/g)' = (f'g - fg') / g²",
+        "Chaîne : (f∘g)' = f'(g(x)) × g'(x)"
+      ],
+      "key_derivatives": [
+        "(eˣ)' = eˣ",
+        "(ln x)' = 1/x",
+        "(sin x)' = cos x",
+        "(cos x)' = -sin x"
+      ]
+    },
+    "applications_derivatives": [
+      "Optimisation : trouver le maximum/minimum en résolvant f'(x) = 0.",
+      "Étude de courbe : croissance (f' > 0), décroissance (f' < 0), points d'inflexion.",
+      "Physique : vitesse et accélération en cinématique.",
+      "Économie : coût marginal, recette marginale."
+    ],
+    "integrals": {
+      "definition": "L'intégrale de f entre a et b est l'aire algébrique sous la courbe de f sur [a,b].",
+      "notation": "∫ₐᵇ f(x) dx",
+      "ftc": "Théorème fondamental : ∫ₐᵇ f(x) dx = F(b) - F(a) où F' = f (primitive de f).",
+      "basic_primitives": [
+        "∫ xⁿ dx = xⁿ⁺¹/(n+1) + C (n ≠ -1)",
+        "∫ eˣ dx = eˣ + C",
+        "∫ (1/x) dx = ln|x| + C",
+        "∫ cos x dx = sin x + C",
+        "∫ sin x dx = -cos x + C"
+      ]
+    },
+    "applications_integrals": [
+      "Calcul d'aires et de volumes.",
+      "Physique : travail (W = ∫F·dx), énergie potentielle.",
+      "Probabilités : aire sous la courbe de densité = 1.",
+      "Économie : surplus du consommateur."
+    ],
+    "examples": [
+      {
+        "situation": "Utilisateur veut trouver le maximum de profit f(x) = -2x² + 40x - 100",
+        "recommended_behavior": "Dériver : f'(x) = -4x + 40. Résoudre f'(x) = 0 : x = 10. f''(10) = -4 < 0 → maximum. f(10) = -200 + 400 - 100 = 100.",
+        "avoid": "Aller directement à la réponse sans montrer la méthode."
+      }
+    ],
+    "best_practices": [
+      "Toujours vérifier la nature du point critique (f'' pour max/min).",
+      "Interpréter physiquement ou économiquement le résultat trouvé.",
+      "Maîtriser les règles de base avant les techniques avancées (parties, substitution)."
+    ],
+    "anti_patterns": [
+      "Confondre dérivée et primitive.",
+      "Oublier la constante d'intégration C dans les primitives.",
+      "Appliquer la règle des puissances à x⁻¹ (cas du logarithme)."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["dérivée", "intégrale", "analyse", "limite", "optimisation", "calcul"],
+    "related_domains": ["mathematics", "science"],
+    "related_knowledge": ["mathematics.algebra_basics", "mathematics.probability_statistics"],
+    "retrieval_priority": 7
+  },
+  "behavior_rules": {"tone": "educational", "response_style": "step_by_step", "max_complexity": "high", "allow_humor": false},
+  "safety_notes": {
+    "allowed_usage": ["Éducation mathématique"],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "Recommander des ressources de niveau supérieur (Khan Academy, MIT OpenCourseWare) pour aller plus loin."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "29/06/2026",
+    "last_update": "29/06/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

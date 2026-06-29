@@ -1,26 +1,84 @@
 {
-    "id":  "presence.detection",
-    "created_at":  "2026-06-03",
-    "title":  "presence detection",
-    "tags":  [
-
-             ],
-    "source":  "recreated_from_dashboard_manifest",
-    "description":  "Fiche connaissance recréée automatiquement à partir du manifest dashboard.",
-    "status":  "draft",
-    "content":  {
-                    "summary":  "",
-                    "links":  [
-
-                              ],
-                    "use_cases":  [
-
-                                  ],
-                    "risks":  [
-
-                              ],
-                    "key_points":  [
-
-                                   ]
-                }
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "id": "knowledges.professional.iot.presence_detection",
+  "title": "Détection de présence — technologies et cas d'usage domotique",
+  "domain": "professional",
+  "subdomain": "iot",
+  "status": "validated",
+  "metadata": {
+    "created_at": "2026-06-24",
+    "validated_at": "2026-06-24",
+    "validated_by": "ALFRED enrichment pipeline",
+    "enrichment_version": "day3",
+    "schema_version": "1.2",
+    "review_notes": "",
+    "block": "b18"
+  },
+  "priority": "medium",
+  "summary": "Panorama des technologies de détection de présence pour la domotique (PIR, mmWave, WiFi sensing, BLE) avec leurs précisions, délais, coûts et cas d'usage adaptés.",
+  "core_definition": "La détection de présence domotique désigne les technologies permettant de détecter l'occupation d'un espace par une personne, afin de déclencher des automatisations (éclairage, chauffage, sécurité) sans interaction manuelle.",
+  "knowledge": {
+    "technologies": {
+      "pir": {
+        "principe": "Capteur infrarouge passif — détecte le mouvement thermique",
+        "avantages": "Économique (1-5€), simple, fiable pour le mouvement",
+        "limites": "Ne détecte pas quelqu'un d'immobile, faux positifs (animaux)"
+      },
+      "mmwave": {
+        "principe": "Radar millimétrique (24/60 GHz) — détecte respiration et micro-mouvements",
+        "avantages": "Détecte la présence même immobile, très précis",
+        "limites": "Plus cher (20-50€), peut détecter à travers les murs"
+      },
+      "wifi_sensing": {
+        "principe": "Analyse des perturbations du signal WiFi par la présence humaine",
+        "avantages": "Pas de matériel supplémentaire si routeur compatible",
+        "limites": "Précision limitée, dépend du routeur"
+      },
+      "ble_tracking": {
+        "principe": "Détection des appareils Bluetooth (smartphone, beacon)",
+        "avantages": "Identification de la personne spécifique (quel membre du foyer)",
+        "limites": "Nécessite que la personne porte l'appareil, vie privée"
+      }
+    },
+    "cas_usage": {
+      "eclairage": "PIR suffisant — mouvement détecte bien",
+      "hvac": "mmWave recommandé — détecte la présence immobile",
+      "securite": "Combinaison PIR + caméra",
+      "occupancy_desk": "mmWave pour détecter si quelqu'un est assis au bureau"
+    },
+    "alfred_context": "ALFRED peut utiliser la détection de présence pour adapter son comportement (mode actif/veille, réponses proactives) selon la présence de Céline."
+  },
+  "example_answers": [
+    {
+      "prompt": "Quelle technologie de présence choisir pour allumer les lumières automatiquement ?",
+      "answer": "Pour l'éclairage : PIR classique suffit et coûte peu (3-5€ pour un capteur Zigbee). Si tu veux garder la lumière allumée quand tu travailles immobile à ton bureau : mmWave (LD2410 à ~15€ est un excellent rapport qualité/prix). Combinaison optimale : mmWave en zone de travail, PIR dans les couloirs et entrées."
+    },
+    {
+      "prompt": "Comment savoir qui est à la maison avec la domotique ?",
+      "answer": "BLE tracking via smartphone : Home Assistant détecte la présence de chaque téléphone sur le réseau WiFi ou via Bluetooth. Plus fiable avec l'app Home Assistant Companion sur chaque smartphone du foyer. Limites : fonctionne si le téléphone est avec la personne et le Bluetooth activé. Pour une maison partagée, c'est la solution la plus précise sans infrastructure complexe."
+    }
+  ],
+  "response_guidance": {
+    "tone": "technique accessible, orienté choix pratique",
+    "structure": [
+      "technologies",
+      "cas d'usage",
+      "Alfred context"
+    ],
+    "avoid": [
+      "exhaustif sans guide de choix",
+      "négliger le budget"
+    ]
+  },
+  "tags": [
+    "présence",
+    "détection",
+    "PIR",
+    "mmWave",
+    "domotique",
+    "IoT",
+    "ALFRED"
+  ],
+  "related_knowledge_units": []
 }

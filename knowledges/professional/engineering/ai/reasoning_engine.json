@@ -1,5 +1,6 @@
 {
-  "metadata": {"file":"reasoning_engine.json","version":"1.0.0","scope":"reasoning"},
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
   "knowledge_id": "reasoning_engine_v1",
   "title": "Moteur de raisonnement",
   "summary": "Architecture centrale du raisonnement d'ALFRED — pipeline qui transforme une entrée brute en réponse structurée via décomposition, analyse, évaluation et synthèse.",
@@ -42,15 +43,64 @@
     "counterfactual": "Et si… ? Exploration d'alternatives"
   },
   "complexity_thresholds": {
-    "simple": {"max_steps": 2, "mode": "direct_response"},
-    "medium": {"max_steps": 4, "mode": "structured_response"},
-    "complex": {"max_steps": 7, "mode": "full_pipeline"},
-    "critical": {"max_steps": 7, "mode": "full_pipeline + uncertainty_flag"}
+    "simple": {
+      "max_steps": 2,
+      "mode": "direct_response"
+    },
+    "medium": {
+      "max_steps": 4,
+      "mode": "structured_response"
+    },
+    "complex": {
+      "max_steps": 7,
+      "mode": "full_pipeline"
+    },
+    "critical": {
+      "max_steps": 7,
+      "mode": "full_pipeline + uncertainty_flag"
+    }
   },
   "confidence_scoring": {
-    "high": {"range": [0.8, 1.0], "action": "répondre directement"},
-    "medium": {"range": [0.5, 0.79], "action": "répondre avec nuances"},
-    "low": {"range": [0.0, 0.49], "action": "signaler incertitude + demander clarification"}
+    "high": {
+      "range": [
+        0.8,
+        1.0
+      ],
+      "action": "répondre directement"
+    },
+    "medium": {
+      "range": [
+        0.5,
+        0.79
+      ],
+      "action": "répondre avec nuances"
+    },
+    "low": {
+      "range": [
+        0.0,
+        0.49
+      ],
+      "action": "signaler incertitude + demander clarification"
+    }
   },
-  "connections": ["reasoning_advanced","multi_step_reasoning","uncertainty_management","decision_models","memory_system"]
+  "connections": [
+    "reasoning_advanced",
+    "multi_step_reasoning",
+    "uncertainty_management",
+    "decision_models",
+    "memory_system"
+  ],
+  "id": "knowledges.professional.engineering.ai.reasoning_engine",
+  "domain": "professional",
+  "subdomain": "engineering",
+  "status": "validated",
+  "metadata": {
+    "created_at": "2026-06-23",
+    "validated_at": "2026-06-23",
+    "validated_by": "ALFRED enrichment pipeline",
+    "enrichment_version": "day1",
+    "schema_version": "1.2",
+    "review_notes": "migré depuis ancien format",
+    "block": "b18"
+  }
 }

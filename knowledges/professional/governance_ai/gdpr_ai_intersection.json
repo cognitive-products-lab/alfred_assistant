@@ -1,26 +1,70 @@
 {
-    "id":  "gdpr.ai.intersection",
-    "created_at":  "2026-06-03",
-    "title":  "gdpr ai intersection",
-    "tags":  [
-
-             ],
-    "source":  "recreated_from_dashboard_manifest",
-    "description":  "Fiche connaissance recréée automatiquement à partir du manifest dashboard.",
-    "status":  "draft",
-    "content":  {
-                    "summary":  "",
-                    "links":  [
-
-                              ],
-                    "use_cases":  [
-
-                                  ],
-                    "risks":  [
-
-                              ],
-                    "key_points":  [
-
-                                   ]
-                }
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "id": "knowledges.professional.governance_ai.gdpr_ai_intersection",
+  "title": "RGPD et IA — obligations spécifiques à l'intersection des deux",
+  "domain": "professional",
+  "subdomain": "governance_ai",
+  "status": "validated",
+  "metadata": {
+    "created_at": "2026-06-24",
+    "validated_at": "2026-06-24",
+    "validated_by": "ALFRED enrichment pipeline",
+    "enrichment_version": "day3",
+    "schema_version": "1.2",
+    "review_notes": "",
+    "block": "b18"
+  },
+  "priority": "high",
+  "summary": "Points de friction et obligations à l'intersection du RGPD et des systèmes IA : licéité du traitement, minimisation, droit à l'explication, DPIA, et données d'entraînement.",
+  "core_definition": "L'intersection RGPD-IA couvre les obligations légales spécifiques qui émergent quand des systèmes d'IA traitent des données personnelles — en particulier les exigences de licéité, de minimisation, de transparence et de droits des personnes concernées appliquées aux modèles ML.",
+  "knowledge": {
+    "points_cles": {
+      "licéité": "La base légale du traitement doit être définie avant l'entraînement — consentement, intérêt légitime ou contrat",
+      "minimisation": "N'utiliser que les données nécessaires — challenge pour le ML qui performe souvent mieux avec plus de données",
+      "finalité": "Les données collectées pour un usage ne peuvent pas être utilisées pour entraîner un modèle à une autre finalité sans base légale supplémentaire",
+      "droit_explication": "Art. 22 RGPD : droit à ne pas faire l'objet d'une décision automatisée significative sans intervention humaine",
+      "droit_effacement": "Droit à l'oubli : complexe avec les modèles ML qui ont \"mémorisé\" des données d'entraînement"
+    },
+    "DPIA": "Data Protection Impact Assessment obligatoire pour les traitements à risque élevé — notamment les systèmes IA qui profiling à grande échelle ou décisions automatisées",
+    "données_entrainement": {
+      "données_publiques": "Pas nécessairement libres d'utilisation pour l'entraînement — droits d'auteur + RGPD si données personnelles",
+      "données_syntetiques": "Alternative pour préserver la privacy — mais attention aux biais amplifiés",
+      "pseudonymisation": "Réduit le risque mais ne supprime pas les obligations RGPD si re-identification possible"
+    },
+    "droit_a_l_oubli_ml": "Problème ouvert : les modèles ML peuvent avoir mémorisé des données individuelles (membership inference attacks). Machine unlearning = domaine de recherche actif."
+  },
+  "example_answers": [
+    {
+      "prompt": "Peut-on utiliser les données clients pour entraîner un modèle IA ?",
+      "answer": "Ça dépend de la base légale du traitement initial. Si les données ont été collectées pour \"fournir le service X\", les utiliser pour entraîner un modèle est une nouvelle finalité — ce qui nécessite une base légale supplémentaire (nouveau consentement, ou intérêt légitime avec DPIA). Les mentions légales vagues de type \"améliorer nos services\" sont de plus en plus contestées. Consulter un DPO avant de procéder."
+    },
+    {
+      "prompt": "Comment gérer le droit à l'effacement quand des données ont été utilisées pour entraîner un modèle ?",
+      "answer": "C'est l'un des points les plus complexes du RGPD appliqué à l'IA. Le modèle peut avoir \"mémorisé\" les données — la suppression de la donnée source ne suffit pas. Les approches : 1) Differential privacy à l'entraînement (ajoute du bruit pour limiter la mémorisation). 2) Ré-entraînement sans la donnée demandée (coûteux). 3) Machine unlearning (technologie émergente). Documenter le problème et avoir un plan est déjà une bonne pratique RGPD."
+    }
+  ],
+  "response_guidance": {
+    "tone": "juridique accessible, orienté compliance",
+    "structure": [
+      "points clés",
+      "DPIA",
+      "données d'entraînement",
+      "droit à l'oubli"
+    ],
+    "avoid": [
+      "juridique pur inaccessible",
+      "ignorer les cas pratiques"
+    ]
+  },
+  "tags": [
+    "RGPD",
+    "GDPR",
+    "IA",
+    "données personnelles",
+    "droit explication",
+    "DPIA",
+    "conformité"
+  ],
+  "related_knowledge_units": []
 }

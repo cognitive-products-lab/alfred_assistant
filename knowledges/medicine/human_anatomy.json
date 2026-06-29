@@ -1,0 +1,117 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "medicine.anatomy.human_body",
+  "version": "1.0.0",
+  "domain": "medicine",
+  "subdomain": "anatomy",
+  "category": "basic_medical_sciences",
+  "priority": "high",
+  "safety_level": "sensitive",
+  "title": "Anatomie Humaine Fondamentale",
+  "summary": "Organisation du corps humain : systèmes organiques, organes principaux, fonctions vitales et bases physiologiques indispensables.",
+  "purpose": "Permettre à ALFRED de répondre aux questions sur le corps humain avec précision et pédagogie, sans jamais substituer un diagnostic médical.",
+  "tags": ["anatomie", "corps_humain", "organes", "systèmes", "physiologie", "cœur", "cerveau", "poumon", "squelette"],
+  "intents": ["explain_human_anatomy", "describe_organ_functions", "answer_body_questions"],
+  "usage_context": ["Questions médicales générales", "Éducation en santé", "Biologie"],
+  "content": {
+    "definition": "L'anatomie humaine étudie la structure du corps humain ; la physiologie étudie ses fonctions. Le corps humain est organisé en cellules → tissus → organes → systèmes organiques.",
+    "major_systems": [
+      {
+        "system": "Système cardiovasculaire",
+        "organs": ["Cœur", "Artères", "Veines", "Capillaires"],
+        "function": "Transport de l'oxygène, des nutriments et des déchets. Le cœur bat ~70 fois/min, ~2,5 milliards de battements en une vie."
+      },
+      {
+        "system": "Système respiratoire",
+        "organs": ["Poumons", "Trachée", "Bronches", "Alvéoles"],
+        "function": "Échanges gazeux : O₂ → sang, CO₂ → air expiré. Fréquence : ~15 respirations/min."
+      },
+      {
+        "system": "Système nerveux",
+        "organs": ["Cerveau", "Moelle épinière", "Nerfs périphériques"],
+        "function": "Perception, motricité, cognition, régulation autonome (SNA). 86 milliards de neurones."
+      },
+      {
+        "system": "Système digestif",
+        "organs": ["Estomac", "Intestin grêle", "Côlon", "Foie", "Pancréas"],
+        "function": "Dégradation des aliments, absorption des nutriments, élimination des déchets."
+      },
+      {
+        "system": "Système immunitaire",
+        "organs": ["Moelle osseuse", "Rate", "Thymus", "Ganglions lymphatiques"],
+        "function": "Défense contre les agents pathogènes, reconnaissance du soi/non-soi."
+      },
+      {
+        "system": "Système endocrinien",
+        "organs": ["Hypophyse", "Thyroïde", "Pancréas", "Surrénales", "Gonades"],
+        "function": "Régulation hormonale de la croissance, du métabolisme, de la reproduction et du stress."
+      },
+      {
+        "system": "Système musculo-squelettique",
+        "organs": ["206 os", "~640 muscles", "Tendons", "Ligaments", "Articulations"],
+        "function": "Soutien, mouvement, protection des organes, hématopoïèse (production de cellules sanguines)."
+      },
+      {
+        "system": "Système urinaire",
+        "organs": ["Reins", "Uretères", "Vessie", "Urètre"],
+        "function": "Filtration du sang, régulation de l'équilibre hydrique et électrolytique, élimination des déchets."
+      }
+    ],
+    "vital_organs": [
+      {"organ": "Cœur", "weight_g": 300, "note": "4 cavités ; débit de 5L/min au repos."},
+      {"organ": "Poumons", "weight_g": 1300, "note": "Alvéoles : surface d'échange de 70-80 m²."},
+      {"organ": "Cerveau", "weight_g": 1400, "note": "2 % du poids corporel, 20 % de la consommation d'O₂."},
+      {"organ": "Foie", "weight_g": 1500, "note": "Plus de 500 fonctions : détox, synthèse protéique, métabolisme."},
+      {"organ": "Reins", "weight_g": 150, "note": "Filtrent 180L/jour ; produisent 1-2L d'urine."}
+    ],
+    "key_physiological_values": [
+      {"parameter": "Température corporelle", "normal": "37°C ± 0,5°C"},
+      {"parameter": "Fréquence cardiaque", "normal": "60-100 bpm au repos"},
+      {"parameter": "Pression artérielle", "normal": "< 120/80 mmHg"},
+      {"parameter": "Glycémie à jeun", "normal": "0,70 - 1,10 g/L"},
+      {"parameter": "SpO₂", "normal": "> 95 %"}
+    ],
+    "examples": [
+      {
+        "situation": "Utilisateur demande comment le cœur pompe le sang",
+        "recommended_behavior": "Expliquer les 4 cavités, la double circulation (pulmonaire + systémique) et le cycle cardiaque (systole/diastole).",
+        "avoid": "Répondre de façon si complexe que c'est incompréhensible, ou si simpliste que c'est inexact."
+      }
+    ],
+    "best_practices": [
+      "Utiliser des analogies claires (cœur = pompe, reins = filtre).",
+      "Rappeler que les valeurs normales varient selon l'âge, le sexe et l'état de santé.",
+      "Ne jamais interpréter des symptômes comme un diagnostic."
+    ],
+    "anti_patterns": [
+      "Donner des diagnostics ou des conseils médicaux personnalisés.",
+      "Omettre de recommander une consultation médicale pour des symptômes.",
+      "Confondre anatomie (structure) et physiologie (fonction)."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["anatomie", "corps humain", "cœur", "poumons", "cerveau", "organes", "physiologie"],
+    "related_domains": ["medicine", "science"],
+    "related_knowledge": ["medicine.immune_system", "science.biology.neuroscience"],
+    "retrieval_priority": 8
+  },
+  "behavior_rules": {"tone": "educational", "response_style": "structured_clear", "max_complexity": "medium", "allow_humor": false},
+  "safety_notes": {
+    "allowed_usage": ["Éducation anatomique et physiologique"],
+    "restricted_usage": ["Interprétation de symptômes personnels"],
+    "forbidden_usage": ["Diagnostics médicaux", "Recommandations de traitement spécifiques"],
+    "fallback_behavior": "Toujours recommander une consultation médicale pour toute question de santé personnelle."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "29/06/2026",
+    "last_update": "29/06/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

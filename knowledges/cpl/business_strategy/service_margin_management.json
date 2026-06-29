@@ -1,26 +1,69 @@
 {
-    "id":  "service.margin.management",
-    "created_at":  "2026-06-03",
-    "title":  "service margin management",
-    "tags":  [
-
-             ],
-    "source":  "recreated_from_dashboard_manifest",
-    "description":  "Fiche connaissance recréée automatiquement à partir du manifest dashboard.",
-    "status":  "draft",
-    "content":  {
-                    "summary":  "",
-                    "links":  [
-
-                              ],
-                    "use_cases":  [
-
-                                  ],
-                    "risks":  [
-
-                              ],
-                    "key_points":  [
-
-                                   ]
-                }
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "id": "knowledges.cpl.business_strategy.service_margin_management",
+  "title": "Gestion des marges en cabinet de conseil — analyser et améliorer la rentabilité",
+  "domain": "cpl",
+  "subdomain": "business_strategy",
+  "status": "validated",
+  "metadata": {
+    "created_at": "2026-06-24",
+    "validated_at": "2026-06-24",
+    "validated_by": "ALFRED enrichment pipeline",
+    "enrichment_version": "day3",
+    "schema_version": "1.2",
+    "review_notes": "",
+    "block": "b18"
+  },
+  "priority": "high",
+  "summary": "Comment analyser la rentabilité réelle d'une mission ou d'un client, identifier les leviers d'amélioration des marges et prendre des décisions éclairées sur le portefeuille missions.",
+  "core_definition": "La gestion des marges en cabinet de conseil désigne le suivi et l'optimisation de la différence entre les revenus générés par les missions et les coûts directs et indirects associés, avec pour objectif de maintenir une rentabilité suffisante pour financer la croissance et rémunérer les associés.",
+  "knowledge": {
+    "calcul_marge_mission": {
+      "revenus": "Honoraires facturés sur la mission",
+      "cout_direct": "Temps consultant × coût horaire + frais refacturables",
+      "marge_brute": "Revenus - coûts directs",
+      "taux_marge_cible": "En conseil indépendant : 60-75% de marge brute est standard"
+    },
+    "leviers_amelioration": {
+      "prix": "Augmenter le tarif — impact le plus fort mais le plus difficile",
+      "efficience": "Réduire le temps de livraison sans réduire la qualité",
+      "mix_clients": "Arbitrer vers les clients à meilleure marge"
+    },
+    "analyse_par_client": "Calculer régulièrement la marge par client — certains \"bons\" clients sont en réalité les moins rentables (demandes excessives, paiement lent, scope creep)",
+    "danger_sous_estimation": "Les missions forfaitaires à prix fixe sont à risque — chaque heure supplémentaire grignote la marge. Suivi du temps même en forfait."
+  },
+  "example_answers": [
+    {
+      "prompt": "Comment savoir si une mission est vraiment rentable ?",
+      "answer": "En tenant un compte de résultat par mission : honoraires - temps passé × ton coût horaire réel (y compris le temps de commercialisation) - frais. La surprise est souvent là : les missions qui semblent les plus rentables à la signature sont parfois les moins rentables à la livraison (scope creep, révisions non prévues). Tracker le temps même en forfait."
+    },
+    {
+      "prompt": "Un client prend beaucoup de temps mais paie bien. Il est rentable ?",
+      "answer": "Ça dépend du ratio temps/honoraires. Calcul : honoraires ÷ heures totales = taux horaire effectif. Compare à ton TJM cible. Si le taux effectif est inférieur à ton TJM / 8, la mission est sous-rentable malgré les honoraires élevés. Le volume ne compense pas toujours la demande."
+    }
+  ],
+  "response_guidance": {
+    "tone": "financier, concret, orienté décision",
+    "structure": [
+      "calcul",
+      "leviers",
+      "analyse client",
+      "risques"
+    ],
+    "avoid": [
+      "trop comptable",
+      "ignorer la dimension qualitative"
+    ]
+  },
+  "tags": [
+    "marge",
+    "rentabilité",
+    "finances",
+    "conseil",
+    "CPL",
+    "TJM",
+    "mission"
+  ],
+  "related_knowledge_units": []
 }

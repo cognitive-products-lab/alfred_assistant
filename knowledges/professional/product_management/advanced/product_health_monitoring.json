@@ -1,26 +1,72 @@
 {
-    "id":  "product.health.monitoring",
-    "created_at":  "2026-06-03",
-    "title":  "product health monitoring",
-    "tags":  [
-
-             ],
-    "source":  "recreated_from_dashboard_manifest",
-    "description":  "Fiche connaissance recréée automatiquement à partir du manifest dashboard.",
-    "status":  "draft",
-    "content":  {
-                    "summary":  "",
-                    "links":  [
-
-                              ],
-                    "use_cases":  [
-
-                                  ],
-                    "risks":  [
-
-                              ],
-                    "key_points":  [
-
-                                   ]
-                }
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "id": "knowledges.professional.product_management.advanced.product_health_monitoring",
+  "title": "Santé produit — monitorer la vitalité d'un produit en production",
+  "domain": "professional",
+  "subdomain": "product_management_advanced",
+  "status": "validated",
+  "metadata": {
+    "created_at": "2026-06-24",
+    "validated_at": "2026-06-24",
+    "validated_by": "ALFRED enrichment pipeline",
+    "enrichment_version": "day3",
+    "schema_version": "1.2",
+    "review_notes": "",
+    "block": "b18"
+  },
+  "priority": "high",
+  "summary": "Framework pour surveiller la santé globale d'un produit en production : métriques d'usage, technique, satisfaction et économiques — et comment agir sur les signaux faibles.",
+  "core_definition": "Le monitoring de santé produit est le système de métriques et d'alertes permettant de détecter précocement les dégradations de valeur, de performance ou de satisfaction d'un produit, afin d'intervenir avant qu'elles se traduisent par du churn ou des incidents.",
+  "knowledge": {
+    "dimensions": {
+      "usage": "DAU/MAU, rétention J1/J7/J30, feature adoption rate, depth of usage",
+      "technique": "Taux d'erreur, latence P95, disponibilité (uptime), dette technique",
+      "satisfaction": "NPS, CSAT, tickets support (volume et nature), avis app stores",
+      "economique": "MRR, churn rate, LTV, CAC, expansion revenue"
+    },
+    "signaux_alarme": {
+      "leading": "Baisse d'engagement avant le churn (signaux précoces à surveiller)",
+      "lagging": "Churn confirmé (trop tard pour agir sur ces clients)",
+      "correlation": "Augmentation tickets support corrèle souvent avec une feature récente"
+    },
+    "tableau_de_bord": {
+      "frequence": "Daily pour les métriques opérationnelles, weekly pour les métriques produit, monthly pour les économiques",
+      "audience": "Équipe produit voit tout, management voit les résumés, board voit les économiques"
+    },
+    "acting_on_signals": "Un signal n'est pas une décision — investiguer la cause avant d'agir. La rétention J1 baisse : bug ? friction onboarding ? qualité utilisateurs acquis ?"
+  },
+  "example_answers": [
+    {
+      "prompt": "Quelles métriques pour savoir si mon produit est en bonne santé ?",
+      "answer": "Minimum viable dashboard : 1) Engagement — DAU/MAU ratio (> 20% = bon signe). 2) Rétention — J7 et J30 (benchmarks varient par catégorie). 3) NPS ou CSAT — satisfaction perçue. 4) Taux d'erreur et latence — santé technique. 5) Churn MRR si SaaS. Ces cinq métriques donnent une vue 360. Les surveiller ensemble évite les angles morts (bon NPS mais churn technique élevé = problème à venir)."
+    },
+    {
+      "prompt": "Notre NPS est bon mais le churn augmente. Contradiction ?",
+      "answer": "Pas forcément. Le NPS mesure l'intention de recommander — pas l'intention de rester. Un client peut être satisfait mais partir si un concurrent offre plus de valeur pour le même prix, ou si son contexte change. Investiguer le churn directement : exit surveys, appels clients churned, analyse des patterns d'usage avant le départ. Les raisons de churn sont souvent différentes des raisons de satisfaction."
+    }
+  ],
+  "response_guidance": {
+    "tone": "analytique, orienté action",
+    "structure": [
+      "dimensions",
+      "signaux",
+      "dashboard",
+      "acting"
+    ],
+    "avoid": [
+      "liste de métriques sans hiérarchie",
+      "ignorer la dimension investigation"
+    ]
+  },
+  "tags": [
+    "santé produit",
+    "métriques",
+    "monitoring",
+    "churn",
+    "NPS",
+    "rétention",
+    "product management"
+  ],
+  "related_knowledge_units": []
 }

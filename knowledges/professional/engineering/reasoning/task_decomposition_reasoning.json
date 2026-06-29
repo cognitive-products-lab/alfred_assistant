@@ -1,26 +1,72 @@
 {
-    "id":  "task.decomposition.reasoning",
-    "created_at":  "2026-06-03",
-    "title":  "task decomposition reasoning",
-    "tags":  [
-
-             ],
-    "source":  "recreated_from_dashboard_manifest",
-    "description":  "Fiche connaissance recréée automatiquement à partir du manifest dashboard.",
-    "status":  "draft",
-    "content":  {
-                    "summary":  "",
-                    "links":  [
-
-                              ],
-                    "use_cases":  [
-
-                                  ],
-                    "risks":  [
-
-                              ],
-                    "key_points":  [
-
-                                   ]
-                }
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "id": "knowledges.professional.engineering.reasoning.task_decomposition_reasoning",
+  "title": "Décomposition de tâches — diviser pour raisonner",
+  "domain": "professional",
+  "subdomain": "reasoning",
+  "status": "validated",
+  "metadata": {
+    "created_at": "2026-06-24",
+    "validated_at": "2026-06-24",
+    "validated_by": "ALFRED enrichment pipeline",
+    "enrichment_version": "day3",
+    "schema_version": "1.2",
+    "review_notes": "",
+    "block": "b18"
+  },
+  "priority": "high",
+  "summary": "Méthode fondamentale pour rendre les problèmes complexes tractables : décomposer en sous-problèmes indépendants ou séquentiels, résoudre chacun, puis intégrer.",
+  "core_definition": "La décomposition de tâches est la stratégie de résolution de problèmes qui consiste à diviser un problème complexe en sous-problèmes plus simples, indépendants ou séquentiels, dont la résolution combinée permet d'aborder le problème original.",
+  "knowledge": {
+    "methodes": {
+      "WBS": "Work Breakdown Structure — décomposition hiérarchique jusqu'aux tâches atomiques",
+      "MECE": "Mutuellement Exclusif, Collectivement Exhaustif — sous-problèmes sans overlap ni oubli",
+      "depends_graph": "Graphe de dépendances — identifier ce qui doit être résolu avant quoi"
+    },
+    "criteres_bonne_decomposition": [
+      "Chaque sous-problème est plus simple que le tout",
+      "La solution des sous-problèmes permet de résoudre le tout",
+      "Les sous-problèmes sont aussi indépendants que possible"
+    ],
+    "erreurs_frequentes": [
+      "Décomposer trop finement (micro-management du raisonnement)",
+      "Décomposer selon la structure du problème plutôt que selon les compétences disponibles",
+      "Oublier l'étape d'intégration — les sous-solutions doivent se combiner"
+    ],
+    "llm_et_decomposition": "Les LLM bénéficient massivement de la décomposition : \"Résous X\" → plus d'erreurs que \"Décompose X en étapes, résous chaque étape\""
+  },
+  "example_answers": [
+    {
+      "prompt": "Comment attaquer un projet qui me semble énorme ?",
+      "answer": "Décomposer jusqu'à ce que la plus petite unité soit faisable en 30 min ou moins. Si tu ne sais pas par où commencer la décomposition : commencer par la fin (\"qu'est-ce qui doit exister à la fin ?\") et remonter (\"pour ça il faut Y, pour Y il faut X...\"). Une fois que tu as les briques, les ordonner par dépendances — ce qui bloque tout le reste va en premier."
+    },
+    {
+      "prompt": "Mes demandes à une IA donnent des résultats médiocres.",
+      "answer": "Essaie de décomposer ta demande. Au lieu de \"écris-moi un plan de communication\", essaie \"d'abord liste les publics cibles et leurs besoins spécifiques\", puis \"pour chaque public, propose 2-3 messages clés\", puis \"propose un calendrier de diffusion\". Les LLM raisonnent mieux sur des problèmes bornés — la décomposition fait le reste."
+    }
+  ],
+  "response_guidance": {
+    "tone": "structurant, concret, pragmatique",
+    "structure": [
+      "méthode",
+      "critères",
+      "erreurs",
+      "pratique IA"
+    ],
+    "avoid": [
+      "trop théorique",
+      "MECE sans exemple"
+    ]
+  },
+  "tags": [
+    "décomposition",
+    "tâches",
+    "WBS",
+    "MECE",
+    "problème complexe",
+    "planification",
+    "LLM"
+  ],
+  "related_knowledge_units": []
 }

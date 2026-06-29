@@ -1,26 +1,77 @@
 {
-    "id":  "value.based.pricing",
-    "created_at":  "2026-06-03",
-    "title":  "value based pricing",
-    "tags":  [
-
-             ],
-    "source":  "recreated_from_dashboard_manifest",
-    "description":  "Fiche connaissance recréée automatiquement à partir du manifest dashboard.",
-    "status":  "draft",
-    "content":  {
-                    "summary":  "",
-                    "links":  [
-
-                              ],
-                    "use_cases":  [
-
-                                  ],
-                    "risks":  [
-
-                              ],
-                    "key_points":  [
-
-                                   ]
-                }
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "id": "knowledges.cpl.business_strategy.value_based_pricing",
+  "title": "Pricing basé sur la valeur — tarifer selon la valeur créée",
+  "domain": "cpl",
+  "subdomain": "business_strategy",
+  "status": "validated",
+  "metadata": {
+    "created_at": "2026-06-24",
+    "validated_at": "2026-06-24",
+    "validated_by": "ALFRED enrichment pipeline",
+    "enrichment_version": "day3",
+    "schema_version": "1.2",
+    "review_notes": "",
+    "block": "b18"
+  },
+  "priority": "high",
+  "summary": "Passage d'un tarif au temps passé (TJM) à un tarif basé sur la valeur créée pour le client — méthodes, conditions et conversation commerciale.",
+  "core_definition": "Le value-based pricing est une stratégie de tarification dans laquelle le prix est fixé en fonction de la valeur créée pour le client (impact économique, risque évité, gain de temps) plutôt qu'en fonction du coût de production ou du temps passé.",
+  "knowledge": {
+    "fondement": "Si une mission de 5 jours permet au client d'économiser 200K€, le TJM ne reflète pas la valeur — la valeur potentielle justifie un prix bien supérieur",
+    "methodes_calcul_valeur": {
+      "gain_direct": "Chiffre d'affaires additionnel généré, coût évité, productivité gagnée",
+      "risque_evite": "Coût potentiel d'un incident évité × probabilité",
+      "cout_alternative": "Combien ça coûterait de le faire en interne ou avec un concurrent ?"
+    },
+    "conditions": [
+      "Le client doit accepter de partager les données permettant de calculer la valeur",
+      "L'impact doit être mesurable ou estimable",
+      "Il faut une confiance suffisante pour avoir cette conversation"
+    ],
+    "conversation_commerciale": {
+      "question_cle": "\"Si on résout ce problème, quel impact ça aurait pour votre organisation ?\"",
+      "ancrage": "Partir de l'impact chiffré avant de parler du prix",
+      "partage": "\"Notre tarif est X€ — si l'impact est Y, c'est un ROI de Z\""
+    },
+    "risques": [
+      "Surestimer la valeur perçue",
+      "Client qui refuse la transparence sur l'impact",
+      "Relation de confiance insuffisante pour avoir la conversation"
+    ]
+  },
+  "example_answers": [
+    {
+      "prompt": "Comment passer du TJM au value-based pricing ?",
+      "answer": "Progressivement. Commencer par estimer la valeur en interne, sans le dire au client. Puis commencer à poser la question de l'impact dans la phase de cadrage : \"Si on réussit ça, quel effet sur votre business ?\" Ça prépare le terrain. Pour les prochaines propositions : présenter l'impact estimé avant le prix, et formuler le prix en ROI. La transition prend du temps — c'est un changement de posture, pas juste de calcul."
+    },
+    {
+      "prompt": "Mon client ne veut pas parler d'impact, seulement de prix.",
+      "answer": "Souvent signe que la relation de confiance n'est pas encore là, ou que l'acheteur est un purchasing manager sans lien avec la valeur business. Dans ce cas, travailler à faire monter la conversation au niveau du commanditaire réel (DG, DAF), qui lui parle naturellement d'impact. Avec un acheteur pur prix, le value-based pricing est difficile à appliquer."
+    }
+  ],
+  "response_guidance": {
+    "tone": "commercial, stratégique",
+    "structure": [
+      "fondement",
+      "calcul valeur",
+      "conversation",
+      "risques"
+    ],
+    "avoid": [
+      "théorie sans la conversation commerciale",
+      "ignorer les obstacles relationnels"
+    ]
+  },
+  "tags": [
+    "pricing",
+    "valeur",
+    "TJM",
+    "tarification",
+    "ROI",
+    "conseil",
+    "CPL"
+  ],
+  "related_knowledge_units": []
 }

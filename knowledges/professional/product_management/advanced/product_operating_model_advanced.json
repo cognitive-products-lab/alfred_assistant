@@ -1,74 +1,73 @@
 {
-  "_meta": {
-    "project": "ALFRED",
-    "block": "B18",
-    "file": "product_operating_model_advanced.json",
-    "version": "V1.0",
-    "status": "VALIDATED",
-    "updated": "2026-05-13",
-    "standardized_by": "generate_knowledges.py",
-    "validated_by": "Cognitive Products Lab",
-    "validated_date": "2026-05-13"
-  },
-  "id": "knowledges.professional.product_advanced.product_operating_model_advanced",
-  "domain": "professional_product",
-  "category": "product_management",
-  "title": "Advanced Product Operating Model",
-  "description": "Organisation produit orientée valeur et performance.",
-  "version": "1.0",
-  "status": "active",
-  "tags": [
-    "product advanced",
-    "product management",
-    "product operating model advanced",
-    "professional",
-    "professional product"
-  ],
-  "content": {
-    "summary": "Organisation produit orientée valeur et performance.",
-    "details": [
-      "Product teams",
-      "Value streams",
-      "Continuous delivery",
-      "Governance",
-      "Fluidifier la production",
-      "Améliorer la coordination",
-      "Accélérer l’innovation",
-      "Pilotage CPL",
-      "Architecture produit",
-      "Roadmap ALFRED"
-    ],
-    "references": []
-  },
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "id": "knowledges.professional.product_management.advanced.product_operating_model_advanced",
+  "title": "Product Operating Model avancé — structurer une organisation produit",
+  "domain": "professional",
+  "subdomain": "product_management_advanced",
+  "status": "validated",
   "metadata": {
-    "created": "2026-05-12",
-    "updated": "2026-05-12",
-    "author": "Cognitive Products Lab"
+    "created_at": "2026-06-24",
+    "validated_at": "2026-06-24",
+    "validated_by": "ALFRED enrichment pipeline",
+    "enrichment_version": "day3",
+    "schema_version": "1.2",
+    "review_notes": "",
+    "block": "b18"
   },
-  "core_concepts": [
-    "Product teams",
-    "Value streams",
-    "Continuous delivery",
-    "Governance"
-  ],
-  "objectives": [
-    "Fluidifier la production",
-    "Améliorer la coordination",
-    "Accélérer l’innovation"
-  ],
-  "alfred_application": [
-    "Pilotage CPL",
-    "Architecture produit",
-    "Roadmap ALFRED"
-  ],
-  "aliases": [],
-  "relationships": {
-    "merged_from": [],
-    "see_also": [],
-    "depends_on": []
+  "priority": "medium",
+  "summary": "Comment structurer une organisation produit efficace : modèles d'équipe (squads, tribes, guilds), interfaces avec le business, rôles et responsabilités, et évolution selon la taille.",
+  "core_definition": "Le Product Operating Model (POM) avancé désigne le système organisationnel complet qui définit comment une organisation crée de la valeur produit : structure des équipes, interfaces avec les fonctions, processus de décision, rituels de coordination et mécanismes d'alignement stratégique.",
+  "knowledge": {
+    "modeles_equipes": {
+      "squad": "Equipe pluridisciplinaire autonome (PM + design + dev) responsable d'un domaine produit",
+      "tribe": "Regroupement de squads partageant un domaine business (ex : acquisition, rétention)",
+      "chapter": "Regroupement fonctionnel des mêmes métiers à travers les squads (guild design, guild data)",
+      "guild": "Communauté de pratique volontaire et transverse — partage de compétences"
+    },
+    "interfaces_business": {
+      "pm_business": "Le PM traduit les objectifs business en outcomes produit — pas un order taker",
+      "engineering": "Le PM et le tech lead co-propriétaires du backlog technique et produit",
+      "design": "Embedded in squads — pas un service central qui reçoit des tickets"
+    },
+    "evolution_par_taille": {
+      "1_10_personnes": "Pas besoin de structure formelle — une équipe, un PM, communication directe",
+      "10_50": "Squads par domaine fonctionnel, tribe optionnelle, quelques guilds",
+      "50_200": "Tribes + squads + chapters nécessaires pour éviter le chaos de coordination",
+      "200_plus": "POM complet avec stream-aligned teams, platform teams, enabling teams (Team Topologies)"
+    },
+    "reference": "Spotify Model (squads/tribes/chapters/guilds) + Team Topologies (Skelton & Pais)"
   },
-  "retrieval": {
-    "priority": "medium",
-    "trigger_queries": []
-  }
+  "example_answers": [
+    {
+      "prompt": "Comment structurer notre équipe produit qui grossit vite ?",
+      "answer": "La règle de Jeff Bezos : une équipe doit pouvoir être nourrie avec deux pizzas (6-8 personnes). Au-delà, la communication devient trop coûteuse. Structurer par domaine de valeur (pas par composant technique) : une squad responsable de l'acquisition, une de l'activation, une de la rétention. Chaque squad a son PM, son designer, ses devs — et une métrique dont elle est responsable. Les guilds gèrent les bonnes pratiques transverses."
+    },
+    {
+      "prompt": "C'est quoi le Spotify Model et faut-il l'adopter ?",
+      "answer": "Le Spotify Model (squads, tribes, chapters, guilds) a été publié en 2012 — et Spotify lui-même a évolué depuis. C'est une source d'inspiration utile, pas un blueprint à copier. Les principes qui tiennent : autonomie des équipes sur leur domaine, communautés de pratique pour partager l'expertise, ownership clair. Ce qui marche moins bien si copié bêtement : la structure ne remplace pas la culture — l'autonomie sans confiance donne du chaos."
+    }
+  ],
+  "response_guidance": {
+    "tone": "organisationnel, pragmatique, nuancé sur le Spotify Model",
+    "structure": [
+      "modèles d'équipes",
+      "interfaces",
+      "évolution",
+      "références"
+    ],
+    "avoid": [
+      "présenter le Spotify Model comme universel",
+      "ignorer les petites équipes"
+    ]
+  },
+  "tags": [
+    "product operating model",
+    "squads",
+    "tribes",
+    "Spotify Model",
+    "Team Topologies",
+    "organisation produit"
+  ],
+  "related_knowledge_units": []
 }

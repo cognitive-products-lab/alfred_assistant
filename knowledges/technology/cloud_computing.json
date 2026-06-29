@@ -1,0 +1,105 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "technology.computing.cloud",
+  "version": "1.0.0",
+  "domain": "technology",
+  "subdomain": "computing",
+  "category": "infrastructure",
+  "priority": "high",
+  "safety_level": "normal",
+  "title": "Cloud Computing",
+  "summary": "Définition, modèles de service (IaaS, PaaS, SaaS), déploiement (public, privé, hybride), principaux fournisseurs et enjeux stratégiques du cloud.",
+  "purpose": "Permettre à ALFRED d'expliquer le cloud computing, ses avantages, ses risques et de guider dans le choix d'une solution adaptée.",
+  "tags": ["cloud", "AWS", "Azure", "GCP", "IaaS", "PaaS", "SaaS", "virtualisation", "conteneur", "kubernetes"],
+  "intents": ["explain_cloud_computing", "discuss_cloud_services", "compare_cloud_providers", "answer_infrastructure_questions"],
+  "usage_context": ["Architecture technique", "Choix d'infrastructure", "Transformation digitale"],
+  "content": {
+    "definition": "Le cloud computing est la mise à disposition de ressources informatiques (serveurs, stockage, bases de données, logiciels) à la demande via Internet, avec paiement à l'usage.",
+    "service_models": [
+      {
+        "model": "IaaS — Infrastructure as a Service",
+        "description": "Location de l'infrastructure de base (VM, stockage, réseau). Vous gérez OS et applications.",
+        "examples": ["AWS EC2", "Azure VMs", "Google Compute Engine"]
+      },
+      {
+        "model": "PaaS — Platform as a Service",
+        "description": "Plateforme de développement et de déploiement gérée. Vous gérez votre application, pas l'infrastructure.",
+        "examples": ["Heroku", "Google App Engine", "Azure App Service"]
+      },
+      {
+        "model": "SaaS — Software as a Service",
+        "description": "Logiciel prêt à l'emploi via un abonnement. Rien à gérer.",
+        "examples": ["Gmail", "Salesforce", "Microsoft 365", "Slack"]
+      },
+      {
+        "model": "FaaS — Function as a Service (Serverless)",
+        "description": "Exécution de fonctions à la demande sans serveur à gérer.",
+        "examples": ["AWS Lambda", "Google Cloud Functions", "Azure Functions"]
+      }
+    ],
+    "deployment_models": [
+      {"model": "Public Cloud", "description": "Ressources partagées chez AWS, Azure, GCP — économique et scalable."},
+      {"model": "Private Cloud", "description": "Infrastructure dédiée à une organisation — sécurité et conformité maximales."},
+      {"model": "Hybrid Cloud", "description": "Combinaison public + privé — flexibilité et contrôle des données sensibles."},
+      {"model": "Multi-Cloud", "description": "Utilisation de plusieurs fournisseurs cloud — évite le vendor lock-in."}
+    ],
+    "major_providers": [
+      {"provider": "AWS (Amazon)", "market_share": "~32%", "strengths": "Plus grand catalogue de services, mature, global."},
+      {"provider": "Azure (Microsoft)", "market_share": "~22%", "strengths": "Intégration Office 365 et Azure AD, entreprises."},
+      {"provider": "GCP (Google)", "market_share": "~11%", "strengths": "IA/ML (Vertex AI), BigQuery, Kubernetes."},
+      {"provider": "OVHCloud", "market_share": "~2%", "strengths": "Souveraineté européenne, prix compétitifs."}
+    ],
+    "key_technologies": [
+      "Virtualisation : hyperviseurs (VMware, KVM) créent des VMs sur serveurs physiques.",
+      "Conteneurs : Docker isole les applications ; plus léger que les VMs.",
+      "Kubernetes : orchestration de conteneurs à grande échelle.",
+      "CDN : diffusion de contenu depuis serveurs géographiquement proches.",
+      "Object Storage : S3, GCS — stockage scalable de fichiers."
+    ],
+    "advantages": ["Scalabilité à la demande", "Réduction des coûts CAPEX", "Haute disponibilité", "Accès mondial", "Mises à jour automatiques"],
+    "risks": ["Dépendance au fournisseur (vendor lock-in)", "Questions de souveraineté des données", "Coûts imprévisibles à grande échelle", "Sécurité partagée"],
+    "examples": [
+      {
+        "situation": "Startup demande quelle solution cloud choisir",
+        "recommended_behavior": "Recommander de commencer par AWS ou GCP avec PaaS/Serverless pour minimiser la gestion, surveiller les coûts dès le début avec des alertes de budget.",
+        "avoid": "Recommander un datacenter privé pour une startup sans besoins de conformité stricts."
+      }
+    ],
+    "best_practices": [
+      "Adopter le principe de moindre privilège pour les accès IAM.",
+      "Activer le chiffrement au repos et en transit.",
+      "Configurer des alertes de coût pour éviter les surprises.",
+      "Utiliser l'infrastructure as code (Terraform, CDK) pour la reproductibilité."
+    ],
+    "anti_patterns": [
+      "Migrer vers le cloud sans repenser l'architecture (lift-and-shift naïf).",
+      "Laisser des buckets S3 publics sans contrôle d'accès.",
+      "Ignorer les coûts de sortie de données (egress fees)."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["cloud", "AWS", "Azure", "SaaS", "PaaS", "IaaS", "Kubernetes"],
+    "related_domains": ["technology"],
+    "related_knowledge": ["technology.cybersecurity", "technology.artificial_intelligence"],
+    "retrieval_priority": 8
+  },
+  "behavior_rules": {"tone": "professional", "response_style": "structured_clear", "max_complexity": "medium", "allow_humor": false},
+  "safety_notes": {
+    "allowed_usage": ["Architecture technique", "Conseil cloud"],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "Recommander une consultation avec un architecte cloud pour les grandes migrations."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "29/06/2026",
+    "last_update": "29/06/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

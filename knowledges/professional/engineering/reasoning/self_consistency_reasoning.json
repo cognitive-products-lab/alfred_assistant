@@ -1,26 +1,69 @@
 {
-    "id":  "self.consistency.reasoning",
-    "created_at":  "2026-06-03",
-    "title":  "self consistency reasoning",
-    "tags":  [
-
-             ],
-    "source":  "recreated_from_dashboard_manifest",
-    "description":  "Fiche connaissance recréée automatiquement à partir du manifest dashboard.",
-    "status":  "draft",
-    "content":  {
-                    "summary":  "",
-                    "links":  [
-
-                              ],
-                    "use_cases":  [
-
-                                  ],
-                    "risks":  [
-
-                              ],
-                    "key_points":  [
-
-                                   ]
-                }
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "id": "knowledges.professional.engineering.reasoning.self_consistency_reasoning",
+  "title": "Auto-cohérence du raisonnement — vérifier ses propres conclusions",
+  "domain": "professional",
+  "subdomain": "reasoning",
+  "status": "validated",
+  "metadata": {
+    "created_at": "2026-06-24",
+    "validated_at": "2026-06-24",
+    "validated_by": "ALFRED enrichment pipeline",
+    "enrichment_version": "day3",
+    "schema_version": "1.2",
+    "review_notes": "",
+    "block": "b18"
+  },
+  "priority": "high",
+  "summary": "Technique qui génère plusieurs chaînes de raisonnement indépendantes sur le même problème et sélectionne la conclusion la plus fréquente — réduit les erreurs aléatoires du raisonnement.",
+  "core_definition": "L'auto-cohérence (self-consistency) est une technique de raisonnement qui consiste à générer plusieurs trajectoires de raisonnement indépendantes pour le même problème, puis à sélectionner la réponse par vote majoritaire, en s'appuyant sur le principe que les erreurs aléatoires divergent tandis que les réponses correctes convergent.",
+  "knowledge": {
+    "principe": "Les erreurs de raisonnement sont souvent aléatoires (bruit) — si on raisonne plusieurs fois indépendamment, les bonnes réponses convergent et les erreurs s'annulent",
+    "application_llm": {
+      "chain_of_thought_multiple": "Générer N chaînes de raisonnement différentes (temperature > 0)",
+      "vote": "La conclusion la plus fréquente est la plus robuste",
+      "confiance": "La proportion de votes pour la réponse dominante estime la confiance"
+    },
+    "application_humaine": {
+      "deliberation": "Reconsidérer un problème à un autre moment ou sous un autre angle avant de conclure",
+      "peer_review": "Plusieurs personnes raisonnent indépendamment avant de comparer"
+    },
+    "limites": [
+      "Ne corrige pas les biais systématiques — si le modèle est biaisé, toutes les trajectoires seront biaisées",
+      "Coûteux en calcul pour les LLM",
+      "Moins efficace si les trajectoires ne sont pas vraiment indépendantes"
+    ]
+  },
+  "example_answers": [
+    {
+      "prompt": "Comment être plus sûr de mes conclusions ?",
+      "answer": "Raisonne deux fois indépendamment avant de comparer. Après avoir conclu, attends un moment puis reprends le problème à zéro sans relire ta première réponse. Si tu arrives au même endroit, ta confiance est justifiée. Si tu diverges, l'incertitude est réelle et mérite investigation."
+    },
+    {
+      "prompt": "Pourquoi les LLM font parfois des erreurs sur des problèmes simples ?",
+      "answer": "Les LLM génèrent de manière probabiliste — même problème, run différent, résultat parfois différent. La technique self-consistency y répond : générer la réponse plusieurs fois et prendre le vote majoritaire. Pour les problèmes critiques, c'est une bonne pratique de demander au modèle d'aborder le problème sous deux angles différents et de voir si les conclusions convergent."
+    }
+  ],
+  "response_guidance": {
+    "tone": "méthodique, concret",
+    "structure": [
+      "principe",
+      "application",
+      "limites"
+    ],
+    "avoid": [
+      "trop académique",
+      "ignorer les limites"
+    ]
+  },
+  "tags": [
+    "auto-cohérence",
+    "raisonnement",
+    "LLM",
+    "chain-of-thought",
+    "fiabilité",
+    "vote majoritaire"
+  ],
+  "related_knowledge_units": []
 }
