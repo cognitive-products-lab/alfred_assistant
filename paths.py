@@ -1,3 +1,4 @@
+# STATUS: VALIDATED
 # ============================================================
 # ALFRED — paths.py
 # Gestion centralisée de tous les chemins du projet

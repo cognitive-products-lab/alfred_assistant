@@ -291,8 +291,10 @@ def find_test_for_file(relative_path: str) -> list[str]:
 
 def read_meta_status_from_json(text: str) -> str | None:
     """
-    Lit _meta.status directement depuis le JSON parsé.
-    Retourne le statut en minuscules, ou None si absent.
+    Lit le statut depuis le JSON parsé.
+    Priorité :
+      1. _meta.status (fichiers de config ALFRED avec en-tête standard)
+      2. status root-level pour type=knowledge_unit (KU de la knowledge base)
     Mapping :
       VALIDATED / validated / validated_v2 -> "validated"
       STABLE                               -> "validated"
@@ -308,30 +310,38 @@ def read_meta_status_from_json(text: str) -> str | None:
     if not isinstance(data, dict):
         return None
 
+    # Priorité 1 : _meta.status (fichiers de config standard ALFRED)
     meta = data.get("_meta")
-    if not isinstance(meta, dict):
-        return None
+    if isinstance(meta, dict):
+        raw = meta.get("status", "")
+        if isinstance(raw, str) and raw.strip():
+            s = raw.strip().upper()
+            if s in ("VALIDATED", "VALIDATED_V2"):
+                return "validated"
+            if s == "STABLE":
+                return "validated"
+            if s in ("EN_LIGNE", "ONLINE", "DEPLOYED"):
+                return "validated"
+            if s == "TESTED":
+                return "tested"
+            if s in ("ACTIVE", "CREATED", "DRAFT", "CODED"):
+                return "coded"
+            if s == "ARCHIVE":
+                return "archive"
 
-    raw = meta.get("status", "")
-    if not isinstance(raw, str):
-        return None
+    # Priorité 2 : status root-level pour les knowledge_unit
+    if data.get("type") == "knowledge_unit":
+        raw = data.get("status", "")
+        if isinstance(raw, str) and raw.strip():
+            s = raw.strip().lower()
+            if s in ("validated", "validated_v2"):
+                return "validated"
+            if s == "tested":
+                return "tested"
+            if s in ("draft", "coded", "partial"):
+                return "coded"
 
-    s = raw.strip().upper()
-    if s in ("VALIDATED", "VALIDATED_V2"):
-        return "validated"
-    if s == "STABLE":
-        return "validated"
-    if s in ("EN_LIGNE", "ONLINE", "DEPLOYED"):
-        return "validated"
-    if s == "TESTED":
-        return "tested"
-    if s in ("ACTIVE", "CREATED", "DRAFT", "CODED"):
-        return "coded"
-    if s == "ARCHIVE":
-        return "archive"
     return None
-
-
 def read_header_status_from_py(text: str) -> str | None:
     """
     Lit STATUS : xxx depuis l'en-tête d'un fichier Python.

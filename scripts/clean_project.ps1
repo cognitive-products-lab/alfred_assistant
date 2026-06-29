@@ -1,3 +1,4 @@
+# STATUS: VALIDATED
 ﻿$root = "D:\PROJET_ALFRED\ALFRED_PC"
 
 Write-Host "🧹 Nettoyage Alfred..." -ForegroundColor Cyan
