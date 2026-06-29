@@ -1,3 +1,4 @@
+<!-- STATUS: VALIDATED -->
 ﻿# ALFRED — Assistant Cognitif Adaptatif
 
 ## Principes fondamentaux
