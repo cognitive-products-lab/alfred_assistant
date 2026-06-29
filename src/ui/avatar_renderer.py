@@ -232,7 +232,12 @@ class AvatarRendererLogic:
         # Fallback base_normal
         fi = idx % len(_SPEAKING_FRAMES_FALLBACK)
         mouth, eyes = _SPEAKING_FRAMES_FALLBACK[fi]
-        return _sprite_path(mouth, eyes)
+        fallback = _sprite_path(mouth, eyes)
+        if Path(fallback).exists():
+            return fallback
+        # Patch provisoire : image statique en attente des calques eye/mouth
+        static = str(_ASSET_MEDIUM / "alfred_medium_explaining.png")
+        return static
 
     def next_speaking_frame(self) -> str:
         self._speaking_idx = (self._speaking_idx + 1) % len(_SPEAKING_MEDIUM_FRAMES)
@@ -397,6 +402,15 @@ if _KIVY_OK:
                             self._speaking_textures.append(ci.texture)
                     except Exception:
                         pass
+            # Patch provisoire : image statique en attente des calques eye/mouth
+            if not self._speaking_textures:
+                static = str(_ASSET_MEDIUM / "alfred_medium_explaining.png")
+                try:
+                    if Path(static).exists():
+                        ci = CoreImage(static, nocache=True)
+                        self._speaking_textures.append(ci.texture)
+                except Exception:
+                    pass
 
         # --------------------------------------------------------
         # Canvas (calques 1 + 2 + 3)

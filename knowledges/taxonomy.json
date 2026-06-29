@@ -1,8 +1,8 @@
 {
   "taxonomy_id": "alfred_knowledge_taxonomy_v3_0",
-  "version": "3.3.0",
-  "last_update": "2026-06-23",
-  "description": "Taxonomie officielle du Bloc 18 Knowledge & Culture. v3.0 : +7 sous-domaines (interaction, wellbeing, governance_ai, iot, engineering_reasoning, product_management_advanced, business_strategy).",
+  "version": "3.4.0",
+  "last_update": "2026-06-29",
+  "description": "Taxonomie officielle du Bloc 18 Knowledge & Culture. v3.4 : +9 domaines (science, history, technology, geography, philosophy, medicine, arts, mathematics, practical_skills). v3.0 : +7 sous-domaines (interaction, wellbeing, governance_ai, iot, engineering_reasoning, product_management_advanced, business_strategy).",
   "scope": {
     "bloc": "B18",
     "name": "Knowledge & Culture",
@@ -1243,6 +1243,582 @@
           ]
         }
       }
+    },
+    "science": {
+      "label": "Sciences",
+      "description": "Physique, biologie, chimie, astronomie et sciences fondamentales.",
+      "priority": "high",
+      "safety_note": "Pour la génétique et la neuroscience, ne jamais produire de diagnostic médical.",
+      "subdomains": {
+        "physics": {
+          "label": "Physique",
+          "intents": [
+            "explain_quantum_mechanics",
+            "explain_relativity",
+            "explain_thermodynamics",
+            "answer_physics_question"
+          ],
+          "linked_knowledge": [
+            "science.physics.quantum_mechanics",
+            "science.physics.relativity",
+            "science.physics.thermodynamics"
+          ]
+        },
+        "biology": {
+          "label": "Biologie",
+          "intents": [
+            "explain_evolution",
+            "explain_genetics",
+            "explain_neuroscience",
+            "answer_biology_question"
+          ],
+          "linked_knowledge": [
+            "science.biology.evolution",
+            "science.biology.genetics",
+            "science.biology.neuroscience"
+          ]
+        },
+        "astronomy": {
+          "label": "Astronomie et cosmologie",
+          "intents": [
+            "explain_cosmology",
+            "explain_universe_origin",
+            "answer_astronomy_question"
+          ],
+          "linked_knowledge": [
+            "science.astronomy.cosmology"
+          ]
+        },
+        "chemistry": {
+          "label": "Chimie",
+          "intents": [
+            "explain_organic_chemistry",
+            "answer_chemistry_question"
+          ],
+          "linked_knowledge": [
+            "science.chemistry.organic_chemistry"
+          ]
+        }
+      }
+    },
+    "history": {
+      "label": "Histoire",
+      "description": "Histoire mondiale des civilisations anciennes à l'époque contemporaine.",
+      "priority": "high",
+      "safety_note": "Pour les guerres mondiales, maintenir un ton factuel et éducatif.",
+      "subdomains": {
+        "ancient": {
+          "label": "Antiquité",
+          "intents": [
+            "explain_ancient_civilizations",
+            "answer_ancient_history_question"
+          ],
+          "linked_knowledge": [
+            "history.ancient.civilizations"
+          ]
+        },
+        "medieval": {
+          "label": "Moyen Âge",
+          "intents": [
+            "explain_middle_ages",
+            "explain_crusades",
+            "answer_medieval_history_question"
+          ],
+          "linked_knowledge": [
+            "history.medieval.middle_ages"
+          ]
+        },
+        "modern": {
+          "label": "Époque moderne",
+          "intents": [
+            "explain_renaissance",
+            "explain_industrial_revolution",
+            "answer_modern_history_question"
+          ],
+          "linked_knowledge": [
+            "history.modern.renaissance",
+            "history.modern.industrial_revolution"
+          ]
+        },
+        "contemporary": {
+          "label": "Époque contemporaine",
+          "intents": [
+            "explain_world_war_1",
+            "explain_world_war_2",
+            "explain_cold_war",
+            "answer_contemporary_history_question"
+          ],
+          "linked_knowledge": [
+            "history.contemporary.world_war_1",
+            "history.contemporary.world_war_2",
+            "history.contemporary.cold_war"
+          ]
+        }
+      }
+    },
+    "technology": {
+      "label": "Technologie",
+      "description": "Intelligence artificielle, cybersécurité, cloud, blockchain, robotique et histoire d'Internet.",
+      "priority": "high",
+      "safety_note": "Pour la cybersécurité et la cryptographie, ne jamais fournir d'instructions offensives sans contexte éducatif clair.",
+      "subdomains": {
+        "ai": {
+          "label": "Intelligence artificielle",
+          "intents": [
+            "explain_artificial_intelligence",
+            "explain_machine_learning",
+            "explain_deep_learning",
+            "answer_ai_question"
+          ],
+          "linked_knowledge": [
+            "technology.ai.artificial_intelligence"
+          ]
+        },
+        "security": {
+          "label": "Sécurité informatique",
+          "intents": [
+            "explain_cryptography",
+            "explain_cybersecurity",
+            "answer_security_question"
+          ],
+          "linked_knowledge": [
+            "technology.security.cryptography",
+            "technology.security.cybersecurity"
+          ]
+        },
+        "computing": {
+          "label": "Informatique et cloud",
+          "intents": [
+            "explain_cloud_computing",
+            "answer_computing_question"
+          ],
+          "linked_knowledge": [
+            "technology.computing.cloud"
+          ]
+        },
+        "internet": {
+          "label": "Internet",
+          "intents": [
+            "explain_internet_history",
+            "answer_internet_question"
+          ],
+          "linked_knowledge": [
+            "technology.internet.history"
+          ]
+        },
+        "blockchain": {
+          "label": "Blockchain",
+          "intents": [
+            "explain_blockchain",
+            "explain_cryptocurrency",
+            "answer_blockchain_question"
+          ],
+          "linked_knowledge": [
+            "technology.blockchain.fundamentals"
+          ]
+        },
+        "robotics": {
+          "label": "Robotique",
+          "intents": [
+            "explain_robotics",
+            "answer_robotics_question"
+          ],
+          "linked_knowledge": [
+            "technology.robotics.fundamentals"
+          ]
+        }
+      }
+    },
+    "geography": {
+      "label": "Géographie",
+      "description": "Géographie des continents, océans, zones climatiques et géographie physique mondiale.",
+      "priority": "medium",
+      "safety_note": null,
+      "subdomains": {
+        "continents": {
+          "label": "Continents",
+          "intents": [
+            "explain_europe_geography",
+            "explain_asia_geography",
+            "explain_africa_geography",
+            "answer_continent_question"
+          ],
+          "linked_knowledge": [
+            "geography.continents.europe",
+            "geography.continents.asia",
+            "geography.continents.africa"
+          ]
+        },
+        "physical": {
+          "label": "Géographie physique",
+          "intents": [
+            "explain_world_oceans",
+            "explain_climate_zones",
+            "answer_physical_geography_question"
+          ],
+          "linked_knowledge": [
+            "geography.physical.world_oceans",
+            "geography.physical.climate_zones"
+          ]
+        }
+      }
+    },
+    "philosophy": {
+      "label": "Philosophie",
+      "description": "Écoles philosophiques, éthique, logique, épistémologie et philosophie politique.",
+      "priority": "high",
+      "safety_note": "Pour la philosophie politique, maintenir une neutralité stricte.",
+      "subdomains": {
+        "schools": {
+          "label": "Écoles philosophiques",
+          "intents": [
+            "explain_stoicism",
+            "explain_existentialism",
+            "answer_philosophy_school_question"
+          ],
+          "linked_knowledge": [
+            "philosophy.schools.stoicism",
+            "philosophy.schools.existentialism"
+          ]
+        },
+        "ethics": {
+          "label": "Éthique",
+          "intents": [
+            "explain_ethics",
+            "discuss_moral_dilemma",
+            "answer_ethics_question"
+          ],
+          "linked_knowledge": [
+            "philosophy.ethics.foundations"
+          ]
+        },
+        "logic": {
+          "label": "Logique",
+          "intents": [
+            "explain_logic",
+            "identify_fallacy",
+            "answer_logic_question"
+          ],
+          "linked_knowledge": [
+            "philosophy.logic.basics"
+          ]
+        },
+        "epistemology": {
+          "label": "Épistémologie",
+          "intents": [
+            "explain_epistemology",
+            "discuss_knowledge_theory",
+            "answer_epistemology_question"
+          ],
+          "linked_knowledge": [
+            "philosophy.epistemology.basics"
+          ]
+        },
+        "politics": {
+          "label": "Philosophie politique",
+          "intents": [
+            "explain_political_philosophy",
+            "discuss_political_theory",
+            "answer_political_philosophy_question"
+          ],
+          "linked_knowledge": [
+            "philosophy.politics.foundations"
+          ]
+        }
+      }
+    },
+    "medicine": {
+      "label": "Médecine et santé",
+      "description": "Anatomie, immunologie, nutrition, santé mentale, premiers secours et pharmacologie.",
+      "priority": "high",
+      "safety_note": "Ne jamais remplacer un médecin. Toujours recommander une consultation professionnelle pour tout symptôme ou traitement. Niveau de risque élevé pour premiers secours et pharmacologie.",
+      "subdomains": {
+        "anatomy": {
+          "label": "Anatomie",
+          "intents": [
+            "explain_human_anatomy",
+            "answer_anatomy_question"
+          ],
+          "linked_knowledge": [
+            "medicine.anatomy.human_body"
+          ]
+        },
+        "immunology": {
+          "label": "Immunologie",
+          "intents": [
+            "explain_immune_system",
+            "explain_vaccines",
+            "answer_immunology_question"
+          ],
+          "linked_knowledge": [
+            "medicine.immunology.immune_system"
+          ]
+        },
+        "nutrition": {
+          "label": "Nutrition",
+          "intents": [
+            "explain_nutrition",
+            "give_dietary_advice",
+            "answer_nutrition_question"
+          ],
+          "linked_knowledge": [
+            "medicine.nutrition.basics"
+          ]
+        },
+        "psychiatry": {
+          "label": "Santé mentale",
+          "intents": [
+            "explain_mental_health",
+            "discuss_depression_anxiety",
+            "answer_mental_health_question"
+          ],
+          "linked_knowledge": [
+            "medicine.psychiatry.mental_health_basics"
+          ]
+        },
+        "emergency": {
+          "label": "Premiers secours",
+          "intents": [
+            "explain_first_aid",
+            "guide_emergency_response",
+            "answer_first_aid_question"
+          ],
+          "linked_knowledge": [
+            "medicine.emergency.first_aid"
+          ]
+        },
+        "pharmacology": {
+          "label": "Pharmacologie",
+          "intents": [
+            "explain_medication_basics",
+            "explain_drug_interactions",
+            "answer_pharmacology_question"
+          ],
+          "linked_knowledge": [
+            "medicine.pharmacology.basics"
+          ]
+        }
+      }
+    },
+    "arts": {
+      "label": "Arts et culture",
+      "description": "Musique, arts visuels, littérature, cinéma, architecture et photographie.",
+      "priority": "medium",
+      "safety_note": null,
+      "subdomains": {
+        "music": {
+          "label": "Musique",
+          "intents": [
+            "explain_music_theory",
+            "discuss_music_history",
+            "answer_music_question"
+          ],
+          "linked_knowledge": [
+            "arts.music.theory"
+          ]
+        },
+        "visual_arts": {
+          "label": "Arts visuels",
+          "intents": [
+            "explain_painting_history",
+            "discuss_art_movement",
+            "answer_visual_arts_question"
+          ],
+          "linked_knowledge": [
+            "arts.visual_arts.painting_history"
+          ]
+        },
+        "literature": {
+          "label": "Littérature",
+          "intents": [
+            "explain_world_literature",
+            "recommend_book",
+            "discuss_literary_movement",
+            "answer_literature_question"
+          ],
+          "linked_knowledge": [
+            "arts.literature.world_literature"
+          ]
+        },
+        "cinema": {
+          "label": "Cinéma",
+          "intents": [
+            "explain_cinema_history",
+            "discuss_film_movement",
+            "recommend_film",
+            "answer_cinema_question"
+          ],
+          "linked_knowledge": [
+            "arts.cinema.history"
+          ]
+        },
+        "architecture": {
+          "label": "Architecture",
+          "intents": [
+            "explain_architecture_styles",
+            "discuss_architectural_movement",
+            "answer_architecture_question"
+          ],
+          "linked_knowledge": [
+            "arts.architecture.styles"
+          ]
+        },
+        "photography": {
+          "label": "Photographie",
+          "intents": [
+            "explain_photography_basics",
+            "improve_photography_skills",
+            "answer_photography_question"
+          ],
+          "linked_knowledge": [
+            "arts.photography.basics"
+          ]
+        }
+      }
+    },
+    "mathematics": {
+      "label": "Mathématiques",
+      "description": "Algèbre, géométrie, calcul, théorie des nombres, combinatoire et probabilités.",
+      "priority": "high",
+      "safety_note": null,
+      "subdomains": {
+        "algebra": {
+          "label": "Algèbre",
+          "intents": [
+            "explain_algebra",
+            "solve_algebra_problem",
+            "answer_algebra_question"
+          ],
+          "linked_knowledge": [
+            "mathematics.algebra.basics"
+          ]
+        },
+        "geometry": {
+          "label": "Géométrie",
+          "intents": [
+            "explain_geometry",
+            "solve_geometry_problem",
+            "answer_geometry_question"
+          ],
+          "linked_knowledge": [
+            "mathematics.geometry.basics"
+          ]
+        },
+        "calculus": {
+          "label": "Calcul intégral et différentiel",
+          "intents": [
+            "explain_calculus",
+            "solve_calculus_problem",
+            "answer_calculus_question"
+          ],
+          "linked_knowledge": [
+            "mathematics.calculus.basics"
+          ]
+        },
+        "number_theory": {
+          "label": "Théorie des nombres",
+          "intents": [
+            "explain_number_theory",
+            "discuss_prime_numbers",
+            "answer_number_theory_question"
+          ],
+          "linked_knowledge": [
+            "mathematics.number_theory.basics"
+          ]
+        },
+        "combinatorics": {
+          "label": "Combinatoire",
+          "intents": [
+            "explain_combinatorics",
+            "solve_combinatorics_problem",
+            "answer_combinatorics_question"
+          ],
+          "linked_knowledge": [
+            "mathematics.combinatorics.basics"
+          ]
+        },
+        "statistics": {
+          "label": "Probabilités et statistiques",
+          "intents": [
+            "explain_probability",
+            "explain_statistics",
+            "solve_statistics_problem",
+            "answer_statistics_question"
+          ],
+          "linked_knowledge": [
+            "mathematics.statistics.probability"
+          ]
+        }
+      }
+    },
+    "practical_skills": {
+      "label": "Compétences pratiques",
+      "description": "Finance personnelle, gestion du temps, prise de parole, négociation, cuisine et pensée critique.",
+      "priority": "high",
+      "safety_note": "Pour la finance personnelle, ne jamais donner de conseils d'investissement personnalisés sans recommander un conseiller financier.",
+      "subdomains": {
+        "finance": {
+          "label": "Finance personnelle",
+          "intents": [
+            "explain_personal_finance",
+            "help_budget",
+            "explain_investing_basics",
+            "answer_finance_question"
+          ],
+          "linked_knowledge": [
+            "practical_skills.finance.personal_finance"
+          ]
+        },
+        "productivity": {
+          "label": "Productivité",
+          "intents": [
+            "improve_time_management",
+            "fight_procrastination",
+            "explain_productivity_method",
+            "answer_productivity_question"
+          ],
+          "linked_knowledge": [
+            "practical_skills.productivity.time_management"
+          ]
+        },
+        "communication": {
+          "label": "Communication pratique",
+          "intents": [
+            "improve_public_speaking",
+            "prepare_negotiation",
+            "help_salary_negotiation",
+            "answer_communication_question"
+          ],
+          "linked_knowledge": [
+            "practical_skills.communication.public_speaking",
+            "practical_skills.communication.negotiation"
+          ]
+        },
+        "cooking": {
+          "label": "Techniques culinaires",
+          "intents": [
+            "explain_cooking_technique",
+            "explain_maillard_reaction",
+            "improve_cooking_skills",
+            "answer_cooking_question"
+          ],
+          "linked_knowledge": [
+            "practical_skills.cooking.techniques"
+          ]
+        },
+        "thinking": {
+          "label": "Pensée critique",
+          "intents": [
+            "improve_critical_thinking",
+            "evaluate_information_source",
+            "identify_cognitive_bias",
+            "help_fact_checking"
+          ],
+          "linked_knowledge": [
+            "practical_skills.thinking.critical_thinking"
+          ]
+        }
+      }
     }
   },
   "intent_routing_rules": {
@@ -1345,6 +1921,60 @@
       "cuisine.asiatique",
       "cuisine.francaise"
     ],
+    "science_request": [
+      "science.physics",
+      "science.biology",
+      "science.astronomy",
+      "science.chemistry"
+    ],
+    "history_request": [
+      "history.contemporary",
+      "history.modern",
+      "history.medieval",
+      "history.ancient"
+    ],
+    "technology_request": [
+      "technology.ai",
+      "technology.security",
+      "technology.computing",
+      "technology.internet"
+    ],
+    "geography_request": [
+      "geography.continents",
+      "geography.physical"
+    ],
+    "philosophy_request": [
+      "philosophy.ethics",
+      "philosophy.schools",
+      "philosophy.logic",
+      "philosophy.epistemology"
+    ],
+    "medicine_health_request": [
+      "medicine.anatomy",
+      "medicine.nutrition",
+      "medicine.immunology",
+      "medicine.psychiatry",
+      "medicine.emergency",
+      "medicine.pharmacology"
+    ],
+    "arts_culture_request": [
+      "arts.literature",
+      "arts.cinema",
+      "arts.music",
+      "arts.visual_arts"
+    ],
+    "mathematics_request": [
+      "mathematics.algebra",
+      "mathematics.statistics",
+      "mathematics.calculus",
+      "mathematics.geometry"
+    ],
+    "practical_skills_request": [
+      "practical_skills.productivity",
+      "practical_skills.communication",
+      "practical_skills.thinking",
+      "practical_skills.finance"
+    ],
     "manga_anime_culture_request": [
       "culture.manga",
       "culture.general"
@@ -1392,13 +2022,22 @@
       "cognition",
       "cuisine",
       "human",
-      "cpl"
+      "cpl",
+      "science",
+      "history",
+      "technology",
+      "geography",
+      "philosophy",
+      "medicine",
+      "arts",
+      "mathematics",
+      "practical_skills"
     ],
     "planned_domains_behavior": "Les sous-domaines avec status=planned sont conservés dans la taxonomie mais ne doivent pas être chargés tant qu'aucun fichier knowledge n'est associé.",
     "fallback_rule": "Si aucune correspondance claire n'est trouvée, ALFRED doit utiliser core.context_awareness, system.memory.memory_context_linking et human.cognition.uncertainty_management."
   },
-  "last_updated": "2026-06-23",
-  "total_subdomains": 59,
+  "last_updated": "2026-06-29",
+  "total_subdomains": 84,
   "_meta": {
     "status": "VALIDATED"
   }
