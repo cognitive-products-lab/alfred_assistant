@@ -1,0 +1,118 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "geography.continents.asia",
+  "version": "1.0.0",
+  "domain": "geography",
+  "subdomain": "continents",
+  "category": "physical_human_geography",
+  "priority": "high",
+  "safety_level": "normal",
+  "title": "Géographie de l'Asie",
+  "summary": "Géographie de l'Asie : reliefs (Himalaya, Sibérie), fleuves, pays, populations, économies émergentes et diversité culturelle.",
+  "purpose": "Permettre à ALFRED de répondre aux questions géographiques sur l'Asie, le plus grand et le plus peuplé des continents.",
+  "tags": ["asie", "chine", "inde", "japon", "himalaya", "géographie", "population", "ASEAN", "économie"],
+  "intents": ["explain_asia_geography", "answer_country_questions", "discuss_asian_economies", "explain_asian_rivers"],
+  "usage_context": ["Géographie mondiale", "Économie et géopolitique", "Voyage"],
+  "content": {
+    "overview": {
+      "area": "44,6 millions de km² (plus grand continent — 30 % des terres émergées)",
+      "population": "~4,7 milliards d'habitants (60 % de la population mondiale)",
+      "countries": 48,
+      "note": "Inclut la Russie asiatique géographiquement."
+    },
+    "physical_geography": {
+      "mountain_ranges": [
+        {"range": "Himalaya", "highest_peak": "Everest (8848 m) — point culminant de la Terre", "countries": "Népal, Chine, Inde, Bhoutan, Pakistan"},
+        {"range": "Karakoram", "notable": "K2 (8611 m) — 2e plus haute montagne"},
+        {"range": "Altaï", "countries": "Russie, Chine, Kazakhstan, Mongolie"},
+        {"range": "Caucase", "highest": "Elbrouz (5642 m) — point culminant d'Europe selon certaines définitions"}
+      ],
+      "major_rivers": [
+        {"river": "Yangtsé", "length_km": 6300, "country": "Chine", "note": "3e plus long fleuve mondial"},
+        {"river": "Huang He (fleuve Jaune)", "length_km": 5464, "country": "Chine"},
+        {"river": "Gange", "length_km": 2525, "country": "Inde/Bangladesh", "note": "Fleuve sacré hindou"},
+        {"river": "Mékong", "length_km": 4350, "note": "Traverse 6 pays d'Asie du Sud-Est"},
+        {"river": "Ob-Irtysh", "length_km": 5568, "country": "Russie/Kazakhstan — le plus long d'Asie"}
+      ],
+      "deserts": [
+        {"desert": "Gobi", "area_km2": 1300000, "countries": "Chine, Mongolie"},
+        {"desert": "Arabie", "area_km2": 2330000, "note": "Le plus grand désert de sable du monde"}
+      ]
+    },
+    "subregions": [
+      {
+        "region": "Asie de l'Est",
+        "countries": ["Chine", "Japon", "Corée du Sud", "Corée du Nord", "Mongolie", "Taïwan"],
+        "economic_weight": "Chine (2e PIB mondial), Japon (4e PIB mondial)"
+      },
+      {
+        "region": "Asie du Sud",
+        "countries": ["Inde", "Pakistan", "Bangladesh", "Sri Lanka", "Népal"],
+        "note": "Inde : 1ère population mondiale depuis 2023 (1,43 Md)"
+      },
+      {
+        "region": "Asie du Sud-Est",
+        "countries": ["Thaïlande", "Vietnam", "Indonésie", "Malaisie", "Philippines", "Singapour"],
+        "organization": "ASEAN (10 membres)"
+      },
+      {
+        "region": "Asie Centrale",
+        "countries": ["Kazakhstan", "Ouzbékistan", "Turkménistan", "Kirghizstan", "Tadjikistan"],
+        "note": "Ex-républiques soviétiques, ressources énergétiques importantes"
+      },
+      {
+        "region": "Moyen-Orient / Asie occidentale",
+        "countries": ["Arabie Saoudite", "Iran", "Turquie", "Israël", "Émirats Arabes Unis"],
+        "note": "50 % des réserves mondiales de pétrole"
+      }
+    ],
+    "key_facts": [
+      "La Chine possède le plus grand nombre de frontières terrestres au monde (14 pays).",
+      "Le lac Baïkal (Russie) contient 20 % des réserves d'eau douce de surface mondiale.",
+      "L'Indonésie est le 4e pays le plus peuplé et le plus grand archipel (17 000 îles).",
+      "Singapour : ville-État avec l'un des PIB/habitant les plus élevés au monde."
+    ],
+    "examples": [
+      {
+        "situation": "Utilisateur demande quelle est la plus haute montagne du monde",
+        "recommended_behavior": "Everest (8848,86 m selon mesure 2020), Nepal/Chine. Préciser que le Mauna Kea (Hawaii) est plus haut depuis le fond marin.",
+        "avoid": "Donner une altitude imprécise ou oublier de mentionner la frontière Népal-Chine."
+      }
+    ],
+    "best_practices": [
+      "Distinguer les sous-régions asiatiques (Moyen-Orient ≠ Asie du Sud-Est).",
+      "Contextualiser l'Asie dans la géopolitique mondiale (montée en puissance de la Chine, Inde).",
+      "Mentionner la diversité culturelle et religieuse extraordinaire du continent."
+    ],
+    "anti_patterns": [
+      "Traiter l'Asie comme un tout homogène.",
+      "Oublier les géants démographiques (Inde dépassant la Chine en 2023).",
+      "Omettre la Russie asiatique de la géographie physique."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["asie", "Chine", "Inde", "Himalaya", "Everest", "Yangtsé", "ASEAN"],
+    "related_domains": ["geography"],
+    "related_knowledge": ["geography.europe_geography", "geography.africa_geography"],
+    "retrieval_priority": 7
+  },
+  "behavior_rules": {"tone": "educational", "response_style": "structured_clear", "max_complexity": "low", "allow_humor": false},
+  "safety_notes": {
+    "allowed_usage": ["Questions géographiques"],
+    "restricted_usage": ["Sujets politiques sensibles (Taïwan, Cachemire, mer de Chine)"],
+    "forbidden_usage": [],
+    "fallback_behavior": "Présenter les différents points de vue pour les territoires disputés sans prendre position."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "29/06/2026",
+    "last_update": "29/06/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

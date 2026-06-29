@@ -1,0 +1,119 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "geography.physical.world_oceans",
+  "version": "1.0.0",
+  "domain": "geography",
+  "subdomain": "physical_geography",
+  "category": "hydrosphere",
+  "priority": "medium",
+  "safety_level": "normal",
+  "title": "Les Océans du Monde",
+  "summary": "Les cinq océans du monde : superficie, profondeur, courants marins, biodiversité, rôle climatique et enjeux de pollution.",
+  "purpose": "Permettre à ALFRED de répondre aux questions sur les océans, leur rôle écologique et les enjeux environnementaux marins.",
+  "tags": ["océan", "mer", "courant_marin", "biodiversité", "pollution", "Pacifique", "Atlantique", "Arctique", "climat"],
+  "intents": ["explain_oceans", "discuss_ocean_pollution", "answer_geography_questions", "explain_ocean_currents"],
+  "usage_context": ["Géographie physique", "Environnement", "Changement climatique"],
+  "content": {
+    "definition": "Les océans couvrent 71 % de la surface terrestre et contiennent 97 % de l'eau de la planète. Ils jouent un rôle crucial dans la régulation climatique, le cycle de l'eau et la biodiversité.",
+    "five_oceans": [
+      {
+        "name": "Pacifique",
+        "area_km2": 165_250_000,
+        "max_depth_m": 11022,
+        "depth_location": "Fosse des Mariannes (point le plus profond de la Terre)",
+        "notes": "Plus grand océan — couvre 1/3 de la surface terrestre."
+      },
+      {
+        "name": "Atlantique",
+        "area_km2": 106_400_000,
+        "max_depth_m": 8605,
+        "depth_location": "Fosse de Puerto Rico",
+        "notes": "Sépare l'Europe/Afrique des Amériques ; Gulf Stream."
+      },
+      {
+        "name": "Indien",
+        "area_km2": 70_560_000,
+        "max_depth_m": 7258,
+        "depth_location": "Fosse de la Sonde",
+        "notes": "Route commerciale majeure ; mousson en Asie du Sud."
+      },
+      {
+        "name": "Arctique",
+        "area_km2": 14_060_000,
+        "max_depth_m": 5450,
+        "notes": "Le plus petit ; recouvert de glace — fonte rapide liée au réchauffement climatique."
+      },
+      {
+        "name": "Austral (Antarctique)",
+        "area_km2": 20_327_000,
+        "max_depth_m": 7235,
+        "notes": "Reconnu officiellement par la National Geographic Society en 2021."
+      }
+    ],
+    "ocean_currents": [
+      {"current": "Gulf Stream", "description": "Courant chaud de l'Atlantique Nord transportant la chaleur des Caraïbes vers l'Europe — responsable du climat doux d'Europe occidentale."},
+      {"current": "Courant circumpolaire Antarctique", "description": "Plus puissant courant océanique ; circule autour de l'Antarctique."},
+      {"current": "AMOC", "description": "Circulation méridionale de retournement Atlantique — menacée par la fonte des glaces."}
+    ],
+    "biodiversity": [
+      "~230 000 espèces marines identifiées (estimé jusqu'à 1 million).",
+      "Les récifs coralliens couvrent 0,1 % des fonds marins mais abritent 25 % des espèces marines.",
+      "Zones bathypélagiques (>1000 m) : bioluminescence, créatures extrêmes.",
+      "Baleines bleues — plus grand animal ayant jamais existé (jusqu'à 30 m)."
+    ],
+    "climate_role": [
+      "Les océans absorbent ~30 % du CO₂ atmosphérique (acidification océanique).",
+      "Ils absorbent ~90 % de la chaleur excédentaire liée au réchauffement climatique.",
+      "Régulation du cycle de l'eau par évaporation.",
+      "Influence majeure sur les précipitations et les températures mondiales."
+    ],
+    "pollution_challenges": [
+      "7e continent de plastique dans le Pacifique Nord (~1,6 millions de km²).",
+      "Acidification : pH moyen passé de 8,2 à 8,1 depuis l'ère industrielle.",
+      "Zones mortes : manque d'oxygène lié aux nitrates agricoles.",
+      "Surpêche : 1/3 des stocks commerciaux pêchés au-delà de leur capacité."
+    ],
+    "examples": [
+      {
+        "situation": "Utilisateur demande pourquoi l'Europe a un climat doux malgré sa latitude",
+        "recommended_behavior": "Expliquer le rôle du Gulf Stream qui transporte la chaleur tropicale vers l'Europe de l'Ouest.",
+        "avoid": "Répondre vaguement sur 'la géographie' sans mentionner le Gulf Stream."
+      }
+    ],
+    "best_practices": [
+      "Mentionner le rôle climatique des océans dans les discussions sur l'environnement.",
+      "Souligner les menaces (acidification, plastique, réchauffement) avec données chiffrées.",
+      "Distinguer mer (semi-fermée) et océan (ouvert)."
+    ],
+    "anti_patterns": [
+      "Ignorer l'Océan Austral dans les listes (officiellement reconnu depuis 2021).",
+      "Confondre profondeur maximale et profondeur moyenne.",
+      "Minimiser l'impact humain sur les écosystèmes marins."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["océan", "Pacifique", "Atlantique", "Gulf Stream", "pollution marine", "biodiversité marine"],
+    "related_domains": ["geography", "science"],
+    "related_knowledge": ["geography.climate_zones", "science.biology.evolution"],
+    "retrieval_priority": 6
+  },
+  "behavior_rules": {"tone": "educational", "response_style": "structured_clear", "max_complexity": "low", "allow_humor": false},
+  "safety_notes": {
+    "allowed_usage": ["Géographie et environnement"],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "Mentionner les sources scientifiques (IPCC, NOAA) pour les données climatiques marines."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "29/06/2026",
+    "last_update": "29/06/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

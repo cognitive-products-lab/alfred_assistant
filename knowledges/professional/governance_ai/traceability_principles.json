@@ -1,26 +1,71 @@
 {
-    "id":  "traceability.principles",
-    "created_at":  "2026-06-03",
-    "title":  "traceability principles",
-    "tags":  [
-
-             ],
-    "source":  "recreated_from_dashboard_manifest",
-    "description":  "Fiche connaissance recréée automatiquement à partir du manifest dashboard.",
-    "status":  "draft",
-    "content":  {
-                    "summary":  "",
-                    "links":  [
-
-                              ],
-                    "use_cases":  [
-
-                                  ],
-                    "risks":  [
-
-                              ],
-                    "key_points":  [
-
-                                   ]
-                }
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "id": "knowledges.professional.governance_ai.traceability_principles",
+  "title": "Traçabilité des systèmes IA — logs, audits et chaîne de responsabilité",
+  "domain": "professional",
+  "subdomain": "governance_ai",
+  "status": "validated",
+  "metadata": {
+    "created_at": "2026-06-24",
+    "validated_at": "2026-06-24",
+    "validated_by": "ALFRED enrichment pipeline",
+    "enrichment_version": "day3",
+    "schema_version": "1.2",
+    "review_notes": "",
+    "block": "b18"
+  },
+  "priority": "high",
+  "summary": "Principes et pratiques pour assurer la traçabilité complète des systèmes IA : logs des décisions, versioning des modèles, chaîne de responsabilité et auditabilité.",
+  "core_definition": "La traçabilité IA est la capacité à reconstituer a posteriori comment un système IA a pris une décision donnée, quelles données il a utilisées, quelle version du modèle était active, et qui était responsable — exigence réglementaire pour les systèmes à haut risque et bonne pratique universelle.",
+  "knowledge": {
+    "dimensions": {
+      "modele": "Versioning (MLflow, DVC), métadonnées d'entraînement, datasets utilisés",
+      "decisions": "Logs structurés : input, output, timestamp, version modèle, identifiant utilisateur",
+      "donnees": "Data lineage — d'où viennent les données, comment ont-elles été transformées",
+      "humain": "Qui a approuvé le déploiement, qui peut l'arrêter, qui est notifié en cas d'incident"
+    },
+    "exigences_eu_ai_act": "Systèmes haut risque : logs automatiques, conservation minimum 6 mois post-cycle de vie, accès aux autorités de surveillance",
+    "bonnes_pratiques": {
+      "log_minimal": "Pour chaque décision : input hash, output, model_version, timestamp, user_id (anonymisé si besoin)",
+      "versioning": "Toute modification de modèle = nouvelle version immutable avec metadata complète",
+      "rollback": "Capacité à revenir à une version précédente en moins de X heures",
+      "incident_trail": "Chaque incident doit pouvoir être retracé jusqu'à la cause racine"
+    },
+    "chain_responsabilite": "Clarifier : qui est responsable de chaque composant (fournisseur du modèle, développeur de l'application, déployeur, utilisateur final) — surtout critique avec les LLM tiers"
+  },
+  "example_answers": [
+    {
+      "prompt": "Quels logs minimaux dois-je tenir pour un système IA en production ?",
+      "answer": "Pour chaque décision ou output : timestamp, identifiant de la requête, version du modèle, hash de l'input (ou l'input complet si pas de données personnelles), output, durée de traitement, et si applicable l'identifiant utilisateur (pseudonymisé). Pour les systèmes à haut risque EU AI Act : conservation minimum 6 mois, accès possible aux autorités. Stocker dans un système immuable (append-only) pour garantir l'intégrité."
+    },
+    {
+      "prompt": "Comment gérer la traçabilité quand j'utilise un LLM externe (OpenAI, Anthropic) ?",
+      "answer": "La traçabilité s'arrête à la frontière de l'API — tu n'as pas accès aux logs internes du LLM. Ce que tu peux contrôler : logger systématiquement les prompts envoyés et les réponses reçues (attention RGPD si données personnelles dans le prompt), versionner les prompts comme du code, et documenter la chaîne de responsabilité (toi comme déployeur, le fournisseur comme fournisseur de modèle). L'EU AI Act distingue ces responsabilités."
+    }
+  ],
+  "response_guidance": {
+    "tone": "technique, orienté conformité pratique",
+    "structure": [
+      "dimensions",
+      "exigences légales",
+      "bonnes pratiques",
+      "responsabilité"
+    ],
+    "avoid": [
+      "trop abstrait",
+      "ignorer les LLM tiers"
+    ]
+  },
+  "tags": [
+    "traçabilité",
+    "logs",
+    "audit",
+    "IA",
+    "versioning",
+    "EU AI Act",
+    "responsabilité",
+    "gouvernance"
+  ],
+  "related_knowledge_units": []
 }

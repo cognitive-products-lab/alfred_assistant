@@ -1,26 +1,72 @@
 {
-    "id":  "mental.fatigue.detection",
-    "created_at":  "2026-06-03",
-    "title":  "mental fatigue detection",
-    "tags":  [
-
-             ],
-    "source":  "recreated_from_dashboard_manifest",
-    "description":  "Fiche connaissance recréée automatiquement à partir du manifest dashboard.",
-    "status":  "draft",
-    "content":  {
-                    "summary":  "",
-                    "links":  [
-
-                              ],
-                    "use_cases":  [
-
-                                  ],
-                    "risks":  [
-
-                              ],
-                    "key_points":  [
-
-                                   ]
-                }
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "id": "knowledges.human.interaction.mental_fatigue_detection",
+  "title": "Détection de la fatigue mentale dans un échange",
+  "domain": "human",
+  "subdomain": "interaction",
+  "status": "validated",
+  "metadata": {
+    "created_at": "2026-06-23",
+    "validated_at": "2026-06-23",
+    "validated_by": "ALFRED enrichment pipeline",
+    "enrichment_version": "day3",
+    "schema_version": "1.2",
+    "review_notes": "",
+    "block": "b18"
+  },
+  "priority": "high",
+  "summary": "Repérer les signaux que l'interlocuteur est cognitivement saturé ou épuisé, pour ajuster la complexité, le rythme ou faire une pause.",
+  "core_definition": "La détection de la fatigue mentale en interaction consiste à identifier les indicateurs comportementaux et verbaux signalant une surcharge cognitive ou une déplétion des ressources attentionnelles, afin d'adapter l'interaction avant que la qualité de l'échange ne se dégrade.",
+  "knowledge": {
+    "signaux_verbaux": [
+      "Réponses plus courtes et moins précises qu'au début",
+      "\"peu importe\", \"comme tu veux\", \"n'importe\" — abandon décisionnel",
+      "Répétition de ce qui vient d'être dit sans valeur ajoutée",
+      "Erreurs factuelles inhabituelles"
+    ],
+    "signaux_comportementaux": [
+      "Ralentissement du rythme de réponse",
+      "Questions de clarification sur des éléments simples",
+      "Demandes de reformulation fréquentes"
+    ],
+    "reponses_adaptees": {
+      "simplifier": "Réduire à l'essentiel — une seule information à la fois",
+      "proposer_pause": "\"On peut s'arrêter là et reprendre plus tard si tu veux\"",
+      "recapituler": "Faire un résumé court pour soulager la mémoire de travail",
+      "ne_pas_surcharger": "Éviter les nouvelles informations en fin de session"
+    },
+    "lien_handicap": "Particulièrement important avec un handicap invisible (fatigue chronique, TDAH, troubles cognitifs) où la fatigue peut survenir plus vite et sans signe visible."
+  },
+  "example_answers": [
+    {
+      "prompt": "Je commence à ne plus suivre.",
+      "answer": "Pas de problème. On s'arrête là. En une phrase : on a établi [X]. Le reste peut attendre. Tu veux qu'on reprenne maintenant ou plus tard ?"
+    },
+    {
+      "prompt": "Comment savoir si quelqu'un est épuisé mentalement ?",
+      "answer": "Les signaux les plus nets : réponses raccourcies, \"peu importe\" là où avant la personne avait une préférence, erreurs inhabituelles, demandes de répétition. Quand tu les vois apparaître, simplifier et proposer une pause est presque toujours la bonne réponse."
+    }
+  ],
+  "response_guidance": {
+    "tone": "attentif, sans jugement, adaptatif",
+    "structure": [
+      "détecter",
+      "adapter",
+      "proposer espace"
+    ],
+    "avoid": [
+      "continuer comme si de rien",
+      "surcharger",
+      "interpréter comme désintérêt"
+    ]
+  },
+  "tags": [
+    "fatigue cognitive",
+    "surcharge",
+    "handicap invisible",
+    "adaptation",
+    "attention"
+  ],
+  "related_knowledge_units": []
 }

@@ -1,26 +1,71 @@
 {
-    "id":  "conversation.repair",
-    "created_at":  "2026-06-03",
-    "title":  "conversation repair",
-    "tags":  [
-
-             ],
-    "source":  "recreated_from_dashboard_manifest",
-    "description":  "Fiche connaissance recréée automatiquement à partir du manifest dashboard.",
-    "status":  "draft",
-    "content":  {
-                    "summary":  "",
-                    "links":  [
-
-                              ],
-                    "use_cases":  [
-
-                                  ],
-                    "risks":  [
-
-                              ],
-                    "key_points":  [
-
-                                   ]
-                }
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "id": "knowledges.human.interaction.conversation_repair",
+  "title": "Réparation conversationnelle — revenir sur un malentendu",
+  "domain": "human",
+  "subdomain": "interaction",
+  "status": "validated",
+  "metadata": {
+    "created_at": "2026-06-23",
+    "validated_at": "2026-06-23",
+    "validated_by": "ALFRED enrichment pipeline",
+    "enrichment_version": "day3",
+    "schema_version": "1.2",
+    "review_notes": "",
+    "block": "b18"
+  },
+  "priority": "high",
+  "summary": "Techniques pour détecter et corriger les malentendus en cours de conversation sans rompre le lien. Inclut reformulation, clarification et pivot doux.",
+  "core_definition": "La réparation conversationnelle désigne l'ensemble des stratégies permettant de corriger, clarifier ou reformuler un échange qui a dévié, créé de la confusion ou généré une incompréhension, tout en préservant le rapport et la fluidité du dialogue.",
+  "knowledge": {
+    "signaux_de_rupture": [
+      "silence soudain",
+      "réponse hors-sujet",
+      "ton qui change",
+      "\"c'est pas ce que je voulais dire\""
+    ],
+    "techniques": {
+      "reformulation_ouverte": "\"Si je comprends bien, tu veux dire… ?\" — invite la correction sans jugement",
+      "pivot_doux": "\"On a peut-être glissé sur un autre sujet — revenons à…\"",
+      "meta_commentaire": "Nommer l'incompréhension : \"Je crois qu'on ne parle pas de la même chose\"",
+      "backtrack_explicite": "\"Excuse-moi, j'ai mal compris — tu parlais de X ou de Y ?\""
+    },
+    "erreurs_frequentes": [
+      "Insister sur sa propre interprétation sans vérifier",
+      "Ignorer les signaux de confusion",
+      "Corriger de façon abrupte (rupture de rapport)"
+    ],
+    "contexte_alfred": "ALFRED détecte les incohérences entre la demande et la réponse attendue, et propose une reformulation avant de continuer."
+  },
+  "example_answers": [
+    {
+      "prompt": "Je crois que tu n'as pas compris ce que je voulais.",
+      "answer": "Tu as raison, laisse-moi reformuler ce que j'ai compris : [X]. C'est bien ça, ou j'ai raté quelque chose ?"
+    },
+    {
+      "prompt": "On s'est perdus dans la discussion.",
+      "answer": "Oui, on a dérivé. La question centrale était [X] — tu veux qu'on y revienne ou tu préfères continuer sur ce qu'on vient d'aborder ?"
+    }
+  ],
+  "response_guidance": {
+    "tone": "calme, sans dramatiser",
+    "structure": [
+      "nommer",
+      "reformuler",
+      "vérifier"
+    ],
+    "avoid": [
+      "défensivité",
+      "correction brutale"
+    ]
+  },
+  "tags": [
+    "conversation",
+    "malentendu",
+    "reformulation",
+    "communication",
+    "rapport"
+  ],
+  "related_knowledge_units": []
 }

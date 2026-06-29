@@ -1,72 +1,69 @@
 {
-  "_meta": {
-    "project": "ALFRED",
-    "block": "B18",
-    "file": "problem_space_analysis.json",
-    "version": "V1.0",
-    "status": "VALIDATED",
-    "updated": "2026-05-13",
-    "standardized_by": "generate_knowledges.py",
-    "validated_by": "Cognitive Products Lab",
-    "validated_date": "2026-05-13"
-  },
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
   "id": "knowledges.professional.product_management.advanced.problem_space_analysis",
-  "domain": "professional_product",
-  "category": "product_management",
-  "title": "Problem Space Analysis",
-  "description": "Analyse structurée des problèmes utilisateurs.",
-  "version": "1.0",
-  "status": "active",
-  "tags": [
-    "advanced",
-    "problem space analysis",
-    "product management",
-    "professional",
-    "professional product"
-  ],
-  "content": {
-    "summary": "Analyse structurée des problèmes utilisateurs.",
-    "details": [
-      "Root causes",
-      "User frustrations",
-      "Systemic issues",
-      "Problem framing",
-      "Analyse surcharge cognitive",
-      "Organisation personnelle",
-      "Accompagnement émotionnel"
-    ],
-    "references": []
-  },
+  "title": "Analyse de l'espace problème — comprendre avant de résoudre",
+  "domain": "professional",
+  "subdomain": "product_management_advanced",
+  "status": "validated",
   "metadata": {
-    "created": "2026-05-12",
-    "updated": "2026-05-12",
-    "author": "Cognitive Products Lab"
+    "created_at": "2026-06-24",
+    "validated_at": "2026-06-24",
+    "validated_by": "ALFRED enrichment pipeline",
+    "enrichment_version": "day3",
+    "schema_version": "1.2",
+    "review_notes": "",
+    "block": "b18"
   },
-  "core_concepts": [
-    "Root causes",
-    "User frustrations",
-    "Systemic issues",
-    "Problem framing"
-  ],
-  "analysis_dimensions": [
-    "Impact utilisateur",
-    "Fréquence",
-    "Gravité",
-    "Contexte émotionnel"
-  ],
-  "alfred_application": [
-    "Analyse surcharge cognitive",
-    "Organisation personnelle",
-    "Accompagnement émotionnel"
-  ],
-  "aliases": [],
-  "relationships": {
-    "merged_from": [],
-    "see_also": [],
-    "depends_on": []
+  "priority": "high",
+  "summary": "Méthodes pour explorer et structurer l'espace problème avant de générer des solutions : interviews, cartographie des pains, définition du problème central et critères de succès.",
+  "core_definition": "L'analyse de l'espace problème est la phase de compréhension profonde du problème à résoudre avant toute génération de solution, visant à éviter de résoudre le mauvais problème ou une version superficielle du problème réel.",
+  "knowledge": {
+    "outils": {
+      "interviews_utilisateurs": "Comprendre le contexte, les comportements actuels, les frustrations réelles — pas les solutions souhaitées",
+      "5_pourquoi": "Remonter la chaîne causale pour trouver la cause racine du problème",
+      "jobs_to_be_done": "\"Quand [situation], j'essaie de [progression], mais [obstacle]\" — cadrer le vrai job",
+      "problem_statement": "\"[Utilisateur] a du mal à [X] parce que [Y], ce qui entraîne [Z]\" — formaliser le problème"
+    },
+    "questions_a_poser": [
+      "Pour qui est-ce un problème (qui le ressent le plus fort) ?",
+      "Dans quelle situation le problème se manifeste-t-il ?",
+      "Quelles solutions de contournement existent déjà (signal que le problème est réel) ?",
+      "Quel serait l'impact si le problème était résolu ?"
+    ],
+    "separration_problem_solution": "Rester dans l'espace problème le plus longtemps possible avant de générer des solutions — les équipes tendent à sauter aux solutions après 5 minutes de description du problème",
+    "livrable": "Problem brief : définition du problème validée, segment cible, métriques de succès, périmètre hors-scope"
   },
-  "retrieval": {
-    "priority": "medium",
-    "trigger_queries": []
-  }
+  "example_answers": [
+    {
+      "prompt": "Comment s'assurer qu'on résout le bon problème ?",
+      "answer": "Trois disciplines : 1) Interviews sans mention de solutions — demander à l'utilisateur de décrire sa situation, ses comportements actuels, ses workarounds. La solution se cache dans les workarounds. 2) Les 5 pourquoi sur chaque symptôme identifié — descendre jusqu'à la cause racine. 3) Valider le problem statement avec des utilisateurs avant de passer aux solutions : \"Est-ce que cette formulation décrit bien votre problème ?\" Si non, recommencer."
+    },
+    {
+      "prompt": "Qu'est-ce qu'un bon problem statement ?",
+      "answer": "Structure : \"[Segment utilisateur précis] a du mal à [tâche ou objectif spécifique] dans [contexte] parce que [cause racine], ce qui entraîne [impact mesurable].\" Bon indicateur : le problem statement dit ce qu'on cherche à résoudre sans dicter la solution. Si en lisant le problem statement une seule solution vient à l'esprit, il est trop contraint. Il devrait ouvrir plusieurs chemins possibles."
+    }
+  ],
+  "response_guidance": {
+    "tone": "discovery, orienté rigueur méthodologique",
+    "structure": [
+      "outils",
+      "questions",
+      "séparation problem/solution",
+      "livrable"
+    ],
+    "avoid": [
+      "prescrire les solutions",
+      "sous-estimer le temps nécessaire à l'exploration"
+    ]
+  },
+  "tags": [
+    "espace problème",
+    "problem statement",
+    "discovery",
+    "interviews",
+    "5 pourquoi",
+    "JTBD"
+  ],
+  "related_knowledge_units": []
 }

@@ -1,26 +1,74 @@
 {
-    "id":  "iot.threat.basics",
-    "created_at":  "2026-06-03",
-    "title":  "iot threat basics",
-    "tags":  [
-
-             ],
-    "source":  "recreated_from_dashboard_manifest",
-    "description":  "Fiche connaissance recréée automatiquement à partir du manifest dashboard.",
-    "status":  "draft",
-    "content":  {
-                    "summary":  "",
-                    "links":  [
-
-                              ],
-                    "use_cases":  [
-
-                                  ],
-                    "risks":  [
-
-                              ],
-                    "key_points":  [
-
-                                   ]
-                }
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "id": "knowledges.professional.iot.iot_threat_basics",
+  "title": "Menaces IoT — panorama des risques des objets connectés",
+  "domain": "professional",
+  "subdomain": "iot",
+  "status": "validated",
+  "metadata": {
+    "created_at": "2026-06-24",
+    "validated_at": "2026-06-24",
+    "validated_by": "ALFRED enrichment pipeline",
+    "enrichment_version": "day3",
+    "schema_version": "1.2",
+    "review_notes": "",
+    "block": "b18"
+  },
+  "priority": "high",
+  "summary": "Cartographie des principales menaces pesant sur les appareils IoT : attaques de firmware, botnets, interceptions, accès non autorisés et déni de service.",
+  "core_definition": "Les menaces IoT sont les risques de sécurité spécifiques aux objets connectés, aggravés par la diversité des fabricants, la faible mise à jour des firmwares, les ressources limitées pour la sécurité embarquée et la multiplication des points d'entrée sur le réseau.",
+  "knowledge": {
+    "menaces_principales": {
+      "credential_stuffing": "Identifiants par défaut testés automatiquement — vecteur le plus commun",
+      "firmware_vulnerabilities": "CVE sur les firmwares non mis à jour — souvent jamais patchés",
+      "botnet_recrutement": "Appareils compromis recrutés dans des botnets (Mirai, Mozi)",
+      "man_in_the_middle": "Interception des communications non-chiffrées entre l'appareil et le cloud",
+      "physical_access": "Extraction de firmware ou credentials via port série/JTAG",
+      "supply_chain": "Appareils livrés avec malware préinstallé — rare mais documenté"
+    },
+    "facteurs_aggravants": [
+      "Cycle de vie long (10+ ans) avec support fabricant court (2-3 ans)",
+      "Pas de mécanisme de mise à jour automatique fiable sur les appareils bon marché",
+      "Protocoles propriétaires avec chiffrement faible ou absent",
+      "Impossible de déployer un agent de sécurité sur la plupart des appareils"
+    ],
+    "exemples_reels": {
+      "Mirai": "2016 — botnet de caméras IP compromises, DDoS à 620 Gbps",
+      "Verkada": "2021 — 150 000 caméras de surveillance piratées",
+      "Philips_Hue": "2020 — CVE permettant de pivoter vers le réseau via l'ampoule"
+    }
+  },
+  "example_answers": [
+    {
+      "prompt": "Mes appareils domotiques sont-ils un risque de sécurité ?",
+      "answer": "Oui, potentiellement. Les risques concrets : identifiants par défaut non changés (vérifier immédiatement), firmware jamais mis à jour (vérifier les mises à jour disponibles), et appareils sur le même réseau que tes données sensibles (corriger avec la segmentation VLAN). Les appareils bon marché de marques inconnues sont les plus risqués — firmware propriétaire opaque, peu ou pas de CVE patchés."
+    },
+    {
+      "prompt": "Qu'est-ce que le botnet Mirai ?",
+      "answer": "Mirai (2016) est le botnet IoT le plus connu : il a compromis des centaines de milliers de caméras IP et DVRs en testant des identifiants par défaut (admin/admin, root/root, etc.). Ces appareils ont été utilisés pour lancer une attaque DDoS de 620 Gbps contre Dyn (provider DNS) — coupant l'accès à Twitter, Netflix, Reddit pendant des heures. La leçon : des ampoules et caméras non sécurisées peuvent participer à des attaques mondiales."
+    }
+  ],
+  "response_guidance": {
+    "tone": "sécurité, factuel, concret avec exemples réels",
+    "structure": [
+      "menaces",
+      "facteurs aggravants",
+      "exemples"
+    ],
+    "avoid": [
+      "alarmisme sans solutions",
+      "trop technique sans contexte"
+    ]
+  },
+  "tags": [
+    "IoT",
+    "sécurité",
+    "menaces",
+    "botnet",
+    "Mirai",
+    "firmware",
+    "domotique"
+  ],
+  "related_knowledge_units": []
 }

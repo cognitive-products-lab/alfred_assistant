@@ -1,26 +1,84 @@
 {
-    "id":  "product.scaling.strategy",
-    "created_at":  "2026-06-03",
-    "title":  "product scaling strategy",
-    "tags":  [
-
-             ],
-    "source":  "recreated_from_dashboard_manifest",
-    "description":  "Fiche connaissance recréée automatiquement à partir du manifest dashboard.",
-    "status":  "draft",
-    "content":  {
-                    "summary":  "",
-                    "links":  [
-
-                              ],
-                    "use_cases":  [
-
-                                  ],
-                    "risks":  [
-
-                              ],
-                    "key_points":  [
-
-                                   ]
-                }
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "id": "knowledges.professional.product_management.advanced.product_scaling_strategy",
+  "title": "Stratégie de scaling produit — passer de 0 à 1 puis de 1 à N",
+  "domain": "professional",
+  "subdomain": "product_management_advanced",
+  "status": "validated",
+  "metadata": {
+    "created_at": "2026-06-24",
+    "validated_at": "2026-06-24",
+    "validated_by": "ALFRED enrichment pipeline",
+    "enrichment_version": "day3",
+    "schema_version": "1.2",
+    "review_notes": "",
+    "block": "b18"
+  },
+  "priority": "high",
+  "summary": "Comment faire évoluer la stratégie produit selon la phase de maturité : exploration (0→1), croissance (1→10), scale (10→100) — avec les changements d'organisation, de process et de métriques associés.",
+  "core_definition": "La stratégie de scaling produit est l'adaptation continue de l'organisation, des processus et de la stratégie produit aux différentes phases de maturité d'un produit, en reconnaissant que ce qui fonctionne pour valider un MVP ne fonctionne pas pour scaler à des millions d'utilisateurs.",
+  "knowledge": {
+    "phases": {
+      "zero_a_un": {
+        "objectif": "Trouver le product-market fit",
+        "metriques": "Rétention et satisfaction d'un petit groupe de clients cibles",
+        "organisation": "Petite équipe polyvalente, peu de process",
+        "danger": "Scaler trop tôt avant PMF — gaspillage massif"
+      },
+      "un_a_dix": {
+        "objectif": "Répliquer et accélérer ce qui marche",
+        "metriques": "CAC, LTV, churn, NPS",
+        "organisation": "Équipes fonctionnelles qui se forment, process légers",
+        "danger": "Ne pas formaliser assez — perte de qualité à la croissance"
+      },
+      "dix_a_cent": {
+        "objectif": "Efficience, plateformes, gouvernance",
+        "metriques": "Unit economics, margin, market share",
+        "organisation": "Squads autonomes, plateformes partagées, OKR",
+        "danger": "Sur-process qui ralentit l'innovation"
+      }
+    },
+    "signaux_changement_de_phase": [
+      "PMF atteint quand > 40% des utilisateurs seraient très déçus sans le produit (Sean Ellis test)",
+      "Prêt à scaler quand le CAC < LTV / 3 et la rétention est stable"
+    ],
+    "anti_patterns": {
+      "premature_scaling": "Embaucher et investir avant PMF — startup killer #1 selon CB Insights",
+      "process_overload": "Introduire des process d'entreprise à une phase startup",
+      "feature_factory": "Ajouter des features sans mesurer l'impact sur les métriques clés"
+    }
+  },
+  "example_answers": [
+    {
+      "prompt": "On a trouvé notre product-market fit. Comment scaler maintenant ?",
+      "answer": "Avant d'accélérer, vérifier les unit economics : CAC < LTV/3 ? Churn < 5% mensuel (SaaS) ? Rétention stable à J30 ? Si oui, identifier ton levier de croissance prioritaire (acquisition ? activation ? expansion ?) et concentrer les ressources là-dessus — pas sur les features. Le scaling nécessite aussi de commencer à formaliser : documentation, processus de décision, onboarding équipe. Trop tôt pour le process, trop tard c'est le chaos."
+    },
+    {
+      "prompt": "Comment savoir si on a le product-market fit ?",
+      "answer": "Sean Ellis test : envoyer à tes utilisateurs actifs la question \"Comment te sentirais-tu si tu ne pouvais plus utiliser [produit] ?\" — options : Très déçu / Déçu / Pas déçu. Si > 40% répondent \"Très déçu\", tu as probablement le PMF. Autres signaux : les clients reviennent sans qu'on les relance, le bouche à oreille génère des leads, le churn est bas et stable."
+    }
+  ],
+  "response_guidance": {
+    "tone": "stratégique, orienté phase de maturité",
+    "structure": [
+      "phases",
+      "signaux",
+      "anti-patterns"
+    ],
+    "avoid": [
+      "recette universelle",
+      "ignorer le contexte de chaque phase"
+    ]
+  },
+  "tags": [
+    "scaling",
+    "product-market fit",
+    "croissance",
+    "stratégie",
+    "product management",
+    "PMF",
+    "phase"
+  ],
+  "related_knowledge_units": []
 }

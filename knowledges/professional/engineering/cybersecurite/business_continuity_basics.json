@@ -1,15 +1,53 @@
 {
-  "_meta": { "project": "ALFRED", "block": "B18", "file": "business_continuity_basics.json", "version": "V2.0", "status": "VALIDATED", "updated": "2026-06-03", "validated_by": "Cognitive Products Lab" },
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "_meta": {
+    "project": "ALFRED",
+    "block": "B18",
+    "file": "business_continuity_basics.json",
+    "version": "V2.0",
+    "status": "VALIDATED",
+    "updated": "2026-06-03",
+    "validated_by": "Cognitive Products Lab"
+  },
   "knowledge_id": "professional.engineering.cybersecurite.business_continuity_basics",
   "id": "professional.engineering.cybersecurite.business_continuity_basics",
   "title": "Plan de Continuité d'Activité — PCA/PRA & Gestion de Crise",
-  "version": "2.0.0", "status": "active", "domain": "professional", "subdomain": "engineering", "category": "cybersecurite",
+  "version": "2.0.0",
+  "domain": "professional",
+  "subdomain": "engineering",
+  "category": "cybersecurite",
   "summary": "Le PCA (Plan de Continuité d'Activité) et le PRA (Plan de Reprise d'Activité) garantissent la survie de l'organisation en cas de sinistre majeur : cyberattaque, panne, catastrophe naturelle.",
   "purpose": "Permettre à ALFRED de guider l'élaboration d'un PCA/PRA, d'expliquer les concepts BIA, RTO/RPO, et d'aider à structurer la gestion de crise cyber.",
-  "tags": ["pca", "pra", "business continuity", "disaster recovery", "bia", "rto", "rpo", "gestion de crise", "plan de reprise", "cellule de crise", "nist sp 800-34", "iso 22301"],
-  "intents": ["create_business_continuity_plan", "define_disaster_recovery", "conduct_bia", "manage_cyber_crisis", "test_continuity_plan"],
-  "usage_context": ["Élaboration du PCA/PRA", "Préparation à une cyberattaque majeure", "Audit de conformité ISO 22301", "Formation des équipes dirigeantes"],
-  "priority": "high", "safety_level": "normal",
+  "tags": [
+    "pca",
+    "pra",
+    "business continuity",
+    "disaster recovery",
+    "bia",
+    "rto",
+    "rpo",
+    "gestion de crise",
+    "plan de reprise",
+    "cellule de crise",
+    "nist sp 800-34",
+    "iso 22301"
+  ],
+  "intents": [
+    "create_business_continuity_plan",
+    "define_disaster_recovery",
+    "conduct_bia",
+    "manage_cyber_crisis",
+    "test_continuity_plan"
+  ],
+  "usage_context": [
+    "Élaboration du PCA/PRA",
+    "Préparation à une cyberattaque majeure",
+    "Audit de conformité ISO 22301",
+    "Formation des équipes dirigeantes"
+  ],
+  "priority": "high",
+  "safety_level": "normal",
   "content": {
     "definition": "Le PCA garantit la continuité des activités critiques pendant un sinistre. Le PRA définit les procédures pour restaurer les systèmes après un arrêt. Ensemble ils répondent à : comment survivre à une cyberattaque majeure sans cesser totalement d'opérer ?",
     "core_principles": [
@@ -31,19 +69,55 @@
       "output": "Matrice de criticité des processus avec RTO/RPO par processus"
     },
     "recovery_sites": [
-      {"type": "Hot Site", "description": "Site miroir actif en temps réel — bascule en minutes", "rto": "< 1 heure", "cost": "Très élevé"},
-      {"type": "Warm Site", "description": "Infrastructure préconfigurée mais pas en production active — bascule en heures", "rto": "2-8 heures", "cost": "Moyen"},
-      {"type": "Cold Site", "description": "Espace vide avec connexions réseau — tout doit être installé", "rto": "Jours à semaines", "cost": "Faible"},
-      {"type": "Cloud Backup", "description": "Restauration depuis le cloud sur une nouvelle infrastructure", "rto": "2-24 heures selon les données", "cost": "Variable — pay-as-you-go"}
+      {
+        "type": "Hot Site",
+        "description": "Site miroir actif en temps réel — bascule en minutes",
+        "rto": "< 1 heure",
+        "cost": "Très élevé"
+      },
+      {
+        "type": "Warm Site",
+        "description": "Infrastructure préconfigurée mais pas en production active — bascule en heures",
+        "rto": "2-8 heures",
+        "cost": "Moyen"
+      },
+      {
+        "type": "Cold Site",
+        "description": "Espace vide avec connexions réseau — tout doit être installé",
+        "rto": "Jours à semaines",
+        "cost": "Faible"
+      },
+      {
+        "type": "Cloud Backup",
+        "description": "Restauration depuis le cloud sur une nouvelle infrastructure",
+        "rto": "2-24 heures selon les données",
+        "cost": "Variable — pay-as-you-go"
+      }
     ],
     "crisis_management": {
       "crisis_cell": {
-        "roles": ["Directeur de crise (décisions)", "RSSI (technique)", "DRH (personnel)", "Juridique (obligations légales)", "Communication (interne/externe)", "Opérationnel (exécution)"],
+        "roles": [
+          "Directeur de crise (décisions)",
+          "RSSI (technique)",
+          "DRH (personnel)",
+          "Juridique (obligations légales)",
+          "Communication (interne/externe)",
+          "Opérationnel (exécution)"
+        ],
         "activation": "Critères clairs de déclenchement de la cellule de crise (impact > X utilisateurs, système critique down > Y heures)"
       },
       "communication": {
-        "internal": ["Email/SMS d'urgence hors du SI compromis", "Canal de communication alternatif (WhatsApp groupe cadres, téléphone)", "Mise à jour régulière des équipes toutes les 2h"],
-        "external": ["Clients : communication transparente sans détails techniques", "CNIL : notification obligatoire sous 72h si données personnelles affectées (RGPD art. 33)", "ANSSI : signalement si infrastructure critique", "Médias : un seul porte-parole désigné"]
+        "internal": [
+          "Email/SMS d'urgence hors du SI compromis",
+          "Canal de communication alternatif (WhatsApp groupe cadres, téléphone)",
+          "Mise à jour régulière des équipes toutes les 2h"
+        ],
+        "external": [
+          "Clients : communication transparente sans détails techniques",
+          "CNIL : notification obligatoire sous 72h si données personnelles affectées (RGPD art. 33)",
+          "ANSSI : signalement si infrastructure critique",
+          "Médias : un seul porte-parole désigné"
+        ]
       }
     },
     "plan_structure": [
@@ -84,15 +158,46 @@
     ]
   },
   "retrieval_hints": {
-    "priority_keywords": ["pca", "pra", "business continuity", "disaster recovery", "bia", "gestion de crise", "cellule de crise", "plan de reprise", "iso 22301"],
-    "related_knowledge": ["professional.engineering.cybersecurite.backup_recovery_strategy", "professional.engineering.cybersecurite.nist_incident_response"],
+    "priority_keywords": [
+      "pca",
+      "pra",
+      "business continuity",
+      "disaster recovery",
+      "bia",
+      "gestion de crise",
+      "cellule de crise",
+      "plan de reprise",
+      "iso 22301"
+    ],
+    "related_knowledge": [
+      "professional.engineering.cybersecurite.backup_recovery_strategy",
+      "professional.engineering.cybersecurite.nist_incident_response"
+    ],
     "retrieval_priority": 8
   },
-  "behavior_rules": {"tone": "professional", "response_style": "structured_clear", "max_complexity": "high", "allow_humor": false},
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "high",
+    "allow_humor": false
+  },
   "safety_notes": {
-    "allowed_usage": ["Élaborer un PCA/PRA", "Préparer la gestion de crise", "Former les équipes"],
+    "allowed_usage": [
+      "Élaborer un PCA/PRA",
+      "Préparer la gestion de crise",
+      "Former les équipes"
+    ],
     "forbidden_usage": [],
     "fallback_behavior": "En cas de crise active, prioriser la communication et l'isolation avant la restauration."
   },
-  "metadata": {"author": "Cognitive Products Lab", "creation_date": "03/06/2026", "last_update": "03/06/2026", "review_status": "validated", "source_type": "manual_structured_knowledge", "language": "fr", "retrieval_ready": true, "rag_compatible": true}
+  "status": "validated",
+  "metadata": {
+    "created_at": "2026-06-23",
+    "validated_at": "2026-06-23",
+    "validated_by": "ALFRED enrichment pipeline",
+    "enrichment_version": "day1",
+    "schema_version": "1.2",
+    "review_notes": "migré depuis ancien format",
+    "block": "b18"
+  }
 }

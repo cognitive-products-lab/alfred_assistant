@@ -1,0 +1,94 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "technology.security.cryptography",
+  "version": "1.0.0",
+  "domain": "technology",
+  "subdomain": "cybersecurity",
+  "category": "security",
+  "priority": "high",
+  "safety_level": "sensitive",
+  "title": "Cryptographie Fondamentale",
+  "summary": "Bases de la cryptographie : chiffrement symétrique/asymétrique, hachage, signatures numériques, TLS, PKI et applications (HTTPS, Bitcoin).",
+  "purpose": "Permettre à ALFRED d'expliquer comment la cryptographie sécurise les communications numériques et de répondre aux questions sur la sécurité informatique.",
+  "tags": ["cryptographie", "chiffrement", "RSA", "AES", "TLS", "HTTPS", "hachage", "signature_numérique", "sécurité"],
+  "intents": ["explain_cryptography", "discuss_encryption", "explain_TLS_HTTPS", "answer_security_questions"],
+  "usage_context": ["Sécurité informatique", "Questions HTTPS", "Blockchain", "Vie privée en ligne"],
+  "content": {
+    "definition": "La cryptographie est la science de la protection de l'information par transformation (chiffrement) rendant son contenu illisible sans la clé appropriée.",
+    "symmetric_encryption": {
+      "definition": "La même clé sert à chiffrer et déchiffrer.",
+      "algorithms": ["AES (256 bits) — standard actuel", "ChaCha20", "3DES (obsolète)"],
+      "advantages": "Très rapide — utilisé pour chiffrer les données en masse.",
+      "disadvantages": "Problème de distribution sécurisée de la clé partagée."
+    },
+    "asymmetric_encryption": {
+      "definition": "Paire de clés : clé publique (partageable) et clé privée (secrète). Ce qui est chiffré avec l'une ne peut être déchiffré qu'avec l'autre.",
+      "algorithms": ["RSA (2048-4096 bits)", "ECC (Elliptic Curve Cryptography)", "Diffie-Hellman (échange de clé)"],
+      "uses": ["Échange de clé sécurisé", "Signature numérique", "Certificats TLS"],
+      "advantages": "Résout le problème de distribution de clé.",
+      "disadvantages": "Beaucoup plus lent que le symétrique."
+    },
+    "hashing": {
+      "definition": "Fonction à sens unique transformant des données en empreinte (digest) de taille fixe.",
+      "algorithms": ["SHA-256 (Bitcoin, TLS)", "SHA-3", "bcrypt/Argon2 (mots de passe)", "MD5 (obsolète — ne pas utiliser)"],
+      "properties": ["Déterministe", "Rapide à calculer", "Impossible à inverser", "Résistant aux collisions"],
+      "uses": ["Intégrité des fichiers", "Stockage de mots de passe", "Blockchain"]
+    },
+    "tls_https": {
+      "description": "TLS (Transport Layer Security) est le protocole sécurisant les connexions Web (HTTPS = HTTP + TLS).",
+      "handshake_simplified": [
+        "1. Le client contacte le serveur et propose des algorithmes.",
+        "2. Le serveur envoie son certificat (clé publique + identité vérifiée par CA).",
+        "3. Échange de clé de session (Diffie-Hellman).",
+        "4. Toute la session est chiffrée avec AES."
+      ]
+    },
+    "digital_signatures": {
+      "process": "1. Hacher le document. 2. Chiffrer le hash avec la clé privée = signature. 3. Vérifier : déchiffrer avec la clé publique et comparer les hashs.",
+      "uses": ["E-mails signés (S/MIME)", "Code logiciel (APK, .exe)", "Certificats TLS", "Transactions blockchain"]
+    },
+    "blockchain_link": "Bitcoin utilise SHA-256 (hachage des blocs) et ECDSA (signatures des transactions) — la cryptographie est le fondement de la blockchain.",
+    "examples": [
+      {
+        "situation": "Utilisateur demande comment HTTPS protège ses données bancaires",
+        "recommended_behavior": "Expliquer l'échange de clé TLS, le chiffrement AES de la session et la vérification du certificat par une autorité de certification.",
+        "avoid": "Dire seulement 'HTTPS c'est le cadenas vert'."
+      }
+    ],
+    "best_practices": [
+      "Toujours utiliser des algorithmes modernes et maintenus (AES-256, SHA-256, TLS 1.3).",
+      "Ne jamais coder sa propre cryptographie — utiliser des bibliothèques éprouvées.",
+      "Distinguer chiffrement (confidentialité) et hachage (intégrité)."
+    ],
+    "anti_patterns": [
+      "Utiliser MD5 ou SHA-1 pour des applications de sécurité.",
+      "Stocker des mots de passe en clair ou avec un simple hash non salé.",
+      "Confondre encodage (Base64) et chiffrement."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["cryptographie", "chiffrement", "AES", "RSA", "TLS", "HTTPS", "hachage"],
+    "related_domains": ["technology"],
+    "related_knowledge": ["technology.cybersecurity", "technology.blockchain"],
+    "retrieval_priority": 8
+  },
+  "behavior_rules": {"tone": "educational", "response_style": "structured_clear", "max_complexity": "medium", "allow_humor": false},
+  "safety_notes": {
+    "allowed_usage": ["Éducation en sécurité informatique", "Implémentation de sécurité légale"],
+    "restricted_usage": ["Aide au contournement de mesures de sécurité légitimes"],
+    "forbidden_usage": ["Aider à casser le chiffrement de systèmes sans autorisation", "Créer des outils malveillants"],
+    "fallback_behavior": "Refuser toute aide à des activités d'intrusion non autorisées."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "29/06/2026",
+    "last_update": "29/06/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

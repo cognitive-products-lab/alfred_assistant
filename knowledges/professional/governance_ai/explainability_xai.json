@@ -1,26 +1,83 @@
 {
-    "id":  "explainability.xai",
-    "created_at":  "2026-06-03",
-    "title":  "explainability xai",
-    "tags":  [
-
-             ],
-    "source":  "recreated_from_dashboard_manifest",
-    "description":  "Fiche connaissance recréée automatiquement à partir du manifest dashboard.",
-    "status":  "draft",
-    "content":  {
-                    "summary":  "",
-                    "links":  [
-
-                              ],
-                    "use_cases":  [
-
-                                  ],
-                    "risks":  [
-
-                              ],
-                    "key_points":  [
-
-                                   ]
-                }
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "id": "knowledges.professional.governance_ai.explainability_xai",
+  "title": "Explicabilité IA (XAI) — méthodes et mise en pratique",
+  "domain": "professional",
+  "subdomain": "governance_ai",
+  "status": "validated",
+  "metadata": {
+    "created_at": "2026-06-24",
+    "validated_at": "2026-06-24",
+    "validated_by": "ALFRED enrichment pipeline",
+    "enrichment_version": "day3",
+    "schema_version": "1.2",
+    "review_notes": "",
+    "block": "b18"
+  },
+  "priority": "high",
+  "summary": "Tour d'horizon des méthodes d'explicabilité des systèmes IA (SHAP, LIME, attention, counterfactuals) avec leurs cas d'usage, limites et comment les intégrer dans un projet.",
+  "core_definition": "L'explicabilité des systèmes IA (XAI — eXplainable AI) regroupe les méthodes techniques permettant de comprendre, interpréter et communiquer les décisions prises par des modèles d'apprentissage automatique, en réponse aux exigences de transparence des régulateurs, des utilisateurs et des équipes internes.",
+  "knowledge": {
+    "methodes_principales": {
+      "SHAP": {
+        "principe": "Valeurs de Shapley issues de la théorie des jeux — contribution marginale de chaque feature",
+        "avantages": "Cohérent, applicable à tout modèle, global et local",
+        "limites": "Coûteux en calcul pour de grands datasets"
+      },
+      "LIME": {
+        "principe": "Approximation locale par un modèle linéaire interprétable",
+        "avantages": "Intuitif, rapide",
+        "limites": "Instable — deux runs peuvent donner des explications différentes"
+      },
+      "attention": {
+        "principe": "Visualisation des poids d'attention dans les transformers",
+        "avantages": "Natif aux LLM et modèles vision",
+        "limites": "L'attention n'est pas toujours l'explication — corrélation, pas causalité"
+      },
+      "counterfactuals": {
+        "principe": "\"Qu'est-ce qui aurait dû changer pour obtenir un résultat différent ?\"",
+        "avantages": "Très compréhensible pour les non-experts, actionnable",
+        "limites": "Peut trouver des counterfactuals non réalistes"
+      }
+    },
+    "intrinsec_vs_post_hoc": {
+      "intrinsec": "Modèles nativement interprétables : arbres de décision, régression linéaire, règles",
+      "post_hoc": "SHAP, LIME appliqués à un modèle boîte noire après coup"
+    },
+    "choix_methode": "Dépend du contexte : audit réglementaire → SHAP global. Explication individuelle → counterfactual. Débogage → attention maps + SHAP local."
+  },
+  "example_answers": [
+    {
+      "prompt": "Comment savoir quelle méthode XAI utiliser ?",
+      "answer": "Trois questions : 1) Pour qui ? (auditeur, utilisateur final, data scientist) — les niveaux de technicité sont différents. 2) Global ou local ? (comprendre le modèle en général vs expliquer une décision spécifique). 3) Modèle accessible ou boîte noire ? Si le modèle est accessible, SHAP est souvent le meilleur choix. Pour l'explication utilisateur final, les counterfactuals sont les plus compréhensibles."
+    },
+    {
+      "prompt": "L'attention d'un transformeur explique-t-elle vraiment ses décisions ?",
+      "answer": "Pas toujours — c'est un débat actif. Des études (Jain & Wallace 2019) montrent que l'attention n'est pas toujours corrélée à l'importance des inputs pour la décision finale. Elle dit \"sur quoi le modèle a porté son attention\" pas nécessairement \"pourquoi il a décidé ça\". Pour l'explicabilité réglementaire, SHAP post-hoc est plus robuste que l'attention seule."
+    }
+  ],
+  "response_guidance": {
+    "tone": "technique, nuancé sur les limites",
+    "structure": [
+      "méthodes",
+      "intrinsèque vs post-hoc",
+      "guide de choix"
+    ],
+    "avoid": [
+      "présenter XAI comme une solution complète",
+      "ignorer les limites de chaque méthode"
+    ]
+  },
+  "tags": [
+    "XAI",
+    "explicabilité",
+    "SHAP",
+    "LIME",
+    "attention",
+    "counterfactuals",
+    "IA",
+    "gouvernance"
+  ],
+  "related_knowledge_units": []
 }

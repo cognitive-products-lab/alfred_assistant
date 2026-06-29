@@ -1,0 +1,104 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "medicine.pharmacology.basics",
+  "version": "1.0.0",
+  "domain": "medicine",
+  "subdomain": "pharmacology",
+  "category": "basic_medical_sciences",
+  "priority": "high",
+  "safety_level": "high_risk",
+  "title": "Pharmacologie Fondamentale",
+  "summary": "Bases de la pharmacologie : comment fonctionnent les médicaments, pharmacocinétique, interactions médicamenteuses, grandes classes de médicaments et automédication responsable.",
+  "purpose": "Permettre à ALFRED d'expliquer comment les médicaments fonctionnent en général et de promouvoir un usage responsable, sans jamais remplacer le conseil médical.",
+  "tags": ["pharmacologie", "médicament", "interaction", "ISRS", "antibiotique", "AINS", "automédication", "pharmacocinétique"],
+  "intents": ["explain_pharmacology", "discuss_drug_interactions", "explain_medication_classes", "answer_medication_questions"],
+  "usage_context": ["Questions sur les médicaments", "Automédication responsable", "Éducation médicale"],
+  "content": {
+    "definition": "La pharmacologie est la science qui étudie les interactions entre les substances chimiques (médicaments) et les systèmes biologiques — leur mécanisme d'action, absorption, distribution, métabolisme et élimination.",
+    "pharmacokinetics": {
+      "definition": "Ce que le corps fait au médicament (ADME).",
+      "steps": [
+        {"step": "Absorption", "description": "Entrée du médicament dans la circulation sanguine (voie orale, IV, cutanée...)."},
+        {"step": "Distribution", "description": "Répartition dans les compartiments corporels (sang, tissus, cerveau)."},
+        {"step": "Métabolisme", "description": "Transformation par le foie (enzymes CYP450) — produits actifs ou inactifs."},
+        {"step": "Élimination", "description": "Excrétion par les reins (urine) ou le foie (bile). Demi-vie = temps pour éliminer 50 %."}
+      ]
+    },
+    "pharmacodynamics": "Ce que le médicament fait au corps : mécanisme d'action, récepteurs cibles, effets thérapeutiques et indésirables.",
+    "major_drug_classes": [
+      {"class": "Analgésiques (antidouleur)", "examples": "Paracétamol (COX-1/2 faible, central), AINS (ibuprofène — COX-1/2), opioïdes (morphine — récepteurs µ-opioïdes)"},
+      {"class": "Antibiotiques", "examples": "Pénicillines, céphalosporines (paroi bactérienne), fluoroquinolones (ADN bactérien), macrolides (ribosome 50S)"},
+      {"class": "Antihypertenseurs", "examples": "IEC (énalapril), ARA2 (losartan), bêta-bloquants (aténolol), diurétiques"},
+      {"class": "Antidépresseurs ISRS", "examples": "Fluoxétine, sertraline — inhibent la recapture de la sérotonine"},
+      {"class": "Anticoagulants", "examples": "Warfarine (vitamine K antagoniste), héparine, AOD (rivaroxaban, apixaban)"},
+      {"class": "Corticoïdes", "examples": "Prednisone, dexaméthasone — anti-inflammatoires puissants, immunosuppresseurs"}
+    ],
+    "drug_interactions": {
+      "types": [
+        "Pharmacocinétiques : un médicament modifie l'absorption/métabolisme d'un autre (inhibiteurs/inducteurs CYP450).",
+        "Pharmacodynamiques : effets additifs (dangereux) ou antagonistes."
+      ],
+      "important_examples": [
+        "Paracétamol + alcool → risque hépatotoxique majoré.",
+        "Warfarine + AINS → risque hémorragique.",
+        "ISRS + IMAO → syndrome sérotoninergique potentiellement fatal.",
+        "Certains antibiotiques + pilule contraceptive → efficacité réduite possible."
+      ]
+    },
+    "responsible_self_medication": [
+      "Lire la notice attentivement avant toute prise.",
+      "Respecter la dose et la durée recommandées.",
+      "Ne pas combiner plusieurs médicaments sans avis médical.",
+      "Signaler tous les médicaments pris à son médecin (y compris compléments).",
+      "Ne pas dépasser 3 jours d'antidouleurs sans consultation.",
+      "Consulter le pharmacien pour les interactions."
+    ],
+    "antibiotic_resistance": {
+      "cause": "Utilisation excessive et inappropriée des antibiotiques — bactéries résistantes sélectionnées.",
+      "consequences": "11 millions de morts/an prévus d'ici 2050 si rien n'est fait (OMS).",
+      "advice": "Prendre uniquement sur prescription, finir le traitement complet, ne pas partager."
+    },
+    "examples": [
+      {
+        "situation": "Utilisateur demande si l'ibuprofène et le paracétamol peuvent être pris ensemble",
+        "recommended_behavior": "Expliquer que oui, ils peuvent être alternés (mécanismes différents) mais pas dépassé les doses maximales respectives — et recommander de vérifier auprès du pharmacien.",
+        "avoid": "Donner une posologie précise ou encourager la prise sans supervision pour des douleurs prolongées."
+      }
+    ],
+    "best_practices": [
+      "Toujours recommander le conseil du pharmacien ou médecin pour les associations.",
+      "Expliquer le mécanisme d'action pour comprendre pourquoi un médicament agit.",
+      "Mentionner que la demi-vie explique la fréquence des prises."
+    ],
+    "anti_patterns": [
+      "Recommander des posologies précises ou des traitements médicamenteux.",
+      "Sous-estimer les risques d'interactions médicamenteuses.",
+      "Omettre de mentionner les effets indésirables importants."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["médicament", "pharmacologie", "interaction médicamenteuse", "antibiotique", "ISRS", "dosage"],
+    "related_domains": ["medicine"],
+    "related_knowledge": ["medicine.human_anatomy", "medicine.immune_system"],
+    "retrieval_priority": 8
+  },
+  "behavior_rules": {"tone": "professional", "response_style": "structured_clear", "max_complexity": "medium", "allow_humor": false},
+  "safety_notes": {
+    "allowed_usage": ["Information pharmacologique générale", "Éducation thérapeutique"],
+    "restricted_usage": ["Questions de dosage précis ou de prescription"],
+    "forbidden_usage": ["Prescription médicale", "Recommandations de traitement personnalisé"],
+    "fallback_behavior": "Toujours recommander un médecin ou pharmacien pour les questions médicales personnelles."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "29/06/2026",
+    "last_update": "29/06/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

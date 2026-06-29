@@ -1,12 +1,39 @@
 {
-  "_meta": { "project": "ALFRED", "block": "B18", "file": "least_privilege_access.json", "version": "V2.0", "status": "VALIDATED", "updated": "2026-06-03", "validated_by": "Cognitive Products Lab" },
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "_meta": {
+    "project": "ALFRED",
+    "block": "B18",
+    "file": "least_privilege_access.json",
+    "version": "V2.0",
+    "status": "VALIDATED",
+    "updated": "2026-06-03",
+    "validated_by": "Cognitive Products Lab"
+  },
   "knowledge_id": "professional.engineering.cybersecurite.least_privilege_access",
   "id": "professional.engineering.cybersecurite.least_privilege_access",
   "title": "Principe du moindre privilège",
-  "version": "2.0.0", "status": "active", "domain": "professional", "subdomain": "engineering", "category": "cybersecurite",
+  "version": "2.0.0",
+  "domain": "professional",
+  "subdomain": "engineering",
+  "category": "cybersecurite",
   "summary": "Chaque utilisateur, service ou processus ne doit disposer que des permissions strictement nécessaires à sa fonction, ni plus, ni moins.",
   "purpose": "Permettre à ALFRED de conseiller sur la gestion des accès privilégiés, le PAM, les mécanismes JIT, RBAC/ABAC, et les configurations Linux/Windows pour appliquer le moindre privilège.",
-  "tags": ["moindre privilège", "least privilege", "PAM", "JIT", "RBAC", "ABAC", "CyberArk", "BeyondTrust", "sudoers", "GPO", "revue des droits", "privilege escalation", "comptes de service"],
+  "tags": [
+    "moindre privilège",
+    "least privilege",
+    "PAM",
+    "JIT",
+    "RBAC",
+    "ABAC",
+    "CyberArk",
+    "BeyondTrust",
+    "sudoers",
+    "GPO",
+    "revue des droits",
+    "privilege escalation",
+    "comptes de service"
+  ],
   "intents": [
     "appliquer le principe du moindre privilège",
     "configurer le PAM",
@@ -22,7 +49,8 @@
     "réduction de la surface d'attaque après compromission",
     "gouvernance des identités"
   ],
-  "priority": "critical", "safety_level": "sensitive",
+  "priority": "critical",
+  "safety_level": "sensitive",
   "content": {
     "definition": "Le principe du moindre privilège (Least Privilege Principle) stipule que tout sujet (utilisateur, processus, service, application) ne doit disposer que des droits d'accès minimaux nécessaires à l'exécution de sa fonction légitime, pour la durée minimale nécessaire. Toute permission supplémentaire constitue une surface d'attaque inutile.",
     "core_principles": [
@@ -36,21 +64,44 @@
       "RBAC": {
         "description": "Role-Based Access Control — accès basé sur le rôle métier",
         "fonctionnement": "On assigne des permissions à des rôles, puis des rôles aux utilisateurs",
-        "avantages": ["Simple à gérer", "Adapté aux organisations avec des rôles clairs", "Facile à auditer"],
-        "limites": ["Role explosion si trop granulaire", "Pas adapté aux contextes dynamiques", "Difficile pour des accès temporaires ou contextuels"],
+        "avantages": [
+          "Simple à gérer",
+          "Adapté aux organisations avec des rôles clairs",
+          "Facile à auditer"
+        ],
+        "limites": [
+          "Role explosion si trop granulaire",
+          "Pas adapté aux contextes dynamiques",
+          "Difficile pour des accès temporaires ou contextuels"
+        ],
         "exemple": "Rôle 'Analyste SOC' : lecture des logs SIEM, pas d'accès aux consoles serveurs"
       },
       "ABAC": {
         "description": "Attribute-Based Access Control — accès basé sur des attributs contextuels",
         "fonctionnement": "Décision d'accès basée sur attributs du sujet + de la ressource + de l'environnement",
-        "attributs": ["Département", "Niveau de sensibilité des données", "Localisation", "Heure de la journée", "Posture du device"],
-        "avantages": ["Très granulaire et contextuel", "Adapté au Zero Trust", "Politique unifiée multi-ressources"],
+        "attributs": [
+          "Département",
+          "Niveau de sensibilité des données",
+          "Localisation",
+          "Heure de la journée",
+          "Posture du device"
+        ],
+        "avantages": [
+          "Très granulaire et contextuel",
+          "Adapté au Zero Trust",
+          "Politique unifiée multi-ressources"
+        ],
         "exemple": "Accès au fichier RH autorisé SI (département=RH ET device=conforme ET heure=9h-18h)"
       }
     },
     "PAM": {
       "description": "Privileged Access Management — gestion des comptes à privilèges élevés",
-      "perimetre": ["Comptes administrateurs locaux et de domaine", "Comptes root Linux", "Comptes de service avec droits élevés", "Comptes d'accès aux systèmes critiques (BDD, firewall, PKI)"],
+      "perimetre": [
+        "Comptes administrateurs locaux et de domaine",
+        "Comptes root Linux",
+        "Comptes de service avec droits élevés",
+        "Comptes d'accès aux systèmes critiques (BDD, firewall, PKI)"
+      ],
       "fonctionnalites_cles": [
         "Coffre-fort de mots de passe (vault) : stockage chiffré, rotation automatique",
         "Session recording : enregistrement vidéo/texte de toutes les sessions privilégiées",
@@ -73,7 +124,11 @@
         "Compte ephémère : compte créé à la demande et supprimé après usage",
         "Approbation workflow : demande → approbation manager ou lead tech → accès accordé avec TTL"
       ],
-      "benefices": ["Supprime les comptes admin permanents", "Réduit drastiquement la fenêtre d'exposition", "Audit trail complet avec justification de chaque accès"]
+      "benefices": [
+        "Supprime les comptes admin permanents",
+        "Réduit drastiquement la fenêtre d'exposition",
+        "Audit trail complet avec justification de chaque accès"
+      ]
     },
     "configurations_techniques": {
       "linux_sudoers": {
@@ -117,7 +172,12 @@
         "Révocation immédiate des accès non justifiés",
         "Rapport d'audit pour conformité"
       ],
-      "outils": ["SailPoint IdentityNow", "Saviynt", "One Identity Manager", "Microsoft Entra ID Access Reviews"]
+      "outils": [
+        "SailPoint IdentityNow",
+        "Saviynt",
+        "One Identity Manager",
+        "Microsoft Entra ID Access Reviews"
+      ]
     },
     "application_alfred": {
       "exemples": [
@@ -146,15 +206,53 @@
     ]
   },
   "retrieval_hints": {
-    "priority_keywords": ["moindre privilège", "least privilege", "PAM", "JIT", "RBAC", "ABAC", "CyberArk", "sudoers", "comptes privilégiés", "revue des droits"],
-    "related_knowledge": ["identity_access_management", "zero_trust_architecture", "secrets_management", "behavioral_anomaly_detection"],
+    "priority_keywords": [
+      "moindre privilège",
+      "least privilege",
+      "PAM",
+      "JIT",
+      "RBAC",
+      "ABAC",
+      "CyberArk",
+      "sudoers",
+      "comptes privilégiés",
+      "revue des droits"
+    ],
+    "related_knowledge": [
+      "identity_access_management",
+      "zero_trust_architecture",
+      "secrets_management",
+      "behavioral_anomaly_detection"
+    ],
     "retrieval_priority": 9
   },
-  "behavior_rules": { "tone": "professional", "response_style": "structured_clear", "max_complexity": "high", "allow_humor": false },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "high",
+    "allow_humor": false
+  },
   "safety_notes": {
-    "allowed_usage": ["Conseil sur la gestion des accès privilégiés", "Configuration sudoers et GPO", "Mise en place de PAM", "Audit des droits"],
-    "forbidden_usage": ["Aider à escalader des privilèges de manière non autorisée", "Contourner un PAM ou une politique d'accès"],
+    "allowed_usage": [
+      "Conseil sur la gestion des accès privilégiés",
+      "Configuration sudoers et GPO",
+      "Mise en place de PAM",
+      "Audit des droits"
+    ],
+    "forbidden_usage": [
+      "Aider à escalader des privilèges de manière non autorisée",
+      "Contourner un PAM ou une politique d'accès"
+    ],
     "fallback_behavior": "Pour toute configuration PAM en production, recommander un audit par un expert IAM certifié."
   },
-  "metadata": { "author": "Cognitive Products Lab", "creation_date": "03/06/2026", "last_update": "03/06/2026", "review_status": "validated", "source_type": "manual_structured_knowledge", "language": "fr", "retrieval_ready": true, "rag_compatible": true }
+  "status": "validated",
+  "metadata": {
+    "created_at": "2026-06-23",
+    "validated_at": "2026-06-23",
+    "validated_by": "ALFRED enrichment pipeline",
+    "enrichment_version": "day1",
+    "schema_version": "1.2",
+    "review_notes": "migré depuis ancien format",
+    "block": "b18"
+  }
 }

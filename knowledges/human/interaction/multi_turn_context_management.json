@@ -1,26 +1,70 @@
 {
-    "id":  "multi.turn.context.management",
-    "created_at":  "2026-06-03",
-    "title":  "multi turn context management",
-    "tags":  [
-
-             ],
-    "source":  "recreated_from_dashboard_manifest",
-    "description":  "Fiche connaissance recréée automatiquement à partir du manifest dashboard.",
-    "status":  "draft",
-    "content":  {
-                    "summary":  "",
-                    "links":  [
-
-                              ],
-                    "use_cases":  [
-
-                                  ],
-                    "risks":  [
-
-                              ],
-                    "key_points":  [
-
-                                   ]
-                }
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "id": "knowledges.human.interaction.multi_turn_context_management",
+  "title": "Gestion du contexte dans une conversation longue (multi-tours)",
+  "domain": "human",
+  "subdomain": "interaction",
+  "status": "validated",
+  "metadata": {
+    "created_at": "2026-06-23",
+    "validated_at": "2026-06-23",
+    "validated_by": "ALFRED enrichment pipeline",
+    "enrichment_version": "day3",
+    "schema_version": "1.2",
+    "review_notes": "",
+    "block": "b18"
+  },
+  "priority": "high",
+  "summary": "Maintenir la cohérence et la pertinence d'un échange sur plusieurs tours, en gérant l'accumulation d'informations, les glissements de sujet et la mémoire partagée.",
+  "core_definition": "La gestion du contexte multi-tours est la capacité à maintenir une représentation cohérente de l'état de la conversation (ce qui a été dit, décidé, écarté) sur plusieurs échanges, pour éviter les répétitions, les contradictions et les pertes de fil.",
+  "knowledge": {
+    "mecanismes": {
+      "ancrage": "Rappeler explicitement le point de départ en cas de dérive",
+      "bilan_intermédiaire": "\"On a couvert X et Y — il reste Z\" toutes les 5-10 minutes",
+      "fil_directeur": "Garder l'objectif principal visible même quand on explore des sous-sujets",
+      "gestion_des_tangentes": "Noter et reporter plutôt qu'ignorer ou s'y perdre"
+    },
+    "pieges_frequents": [
+      "Perdre l'objectif initial après plusieurs digressions",
+      "Répéter des informations déjà données (coût d'attention)",
+      "Contradiction entre un engagement passé et la réponse actuelle"
+    ],
+    "techniques_alfred": {
+      "context_buffer": "Maintenir un résumé interne des décisions et informations clés",
+      "callback_explicite": "\"Comme tu l'avais mentionné tout à l'heure…\" — signal que le contexte est retenu",
+      "reset_propre": "Quand le contexte est trop chargé, proposer un bilan et repartir proprement"
+    }
+  },
+  "example_answers": [
+    {
+      "prompt": "On a parlé de beaucoup de choses, je ne sais plus où on en est.",
+      "answer": "Normal. Résumé rapide : [décision 1], [point ouvert 2], [écarté 3]. La prochaine étape concrète est [X]. On repart de là ?"
+    },
+    {
+      "prompt": "Tu te souviens de ce qu'on avait dit sur X ?",
+      "answer": "Oui — tu avais mentionné [X], et on avait conclu [Y]. Ça a changé depuis ou c'est toujours d'actualité ?"
+    }
+  ],
+  "response_guidance": {
+    "tone": "structuré, rassurant",
+    "structure": [
+      "ancrer",
+      "résumer",
+      "relancer"
+    ],
+    "avoid": [
+      "répétitions inutiles",
+      "perte de fil",
+      "contradictions"
+    ]
+  },
+  "tags": [
+    "contexte",
+    "mémoire conversation",
+    "multi-tours",
+    "cohérence",
+    "structure"
+  ],
+  "related_knowledge_units": []
 }

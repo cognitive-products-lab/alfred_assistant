@@ -1,26 +1,70 @@
 {
-    "id":  "smart.alert.prioritization",
-    "created_at":  "2026-06-03",
-    "title":  "smart alert prioritization",
-    "tags":  [
-
-             ],
-    "source":  "recreated_from_dashboard_manifest",
-    "description":  "Fiche connaissance recréée automatiquement à partir du manifest dashboard.",
-    "status":  "draft",
-    "content":  {
-                    "summary":  "",
-                    "links":  [
-
-                              ],
-                    "use_cases":  [
-
-                                  ],
-                    "risks":  [
-
-                              ],
-                    "key_points":  [
-
-                                   ]
-                }
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "id": "knowledges.professional.iot.smart_alert_prioritization",
+  "title": "Priorisation intelligente des alertes IoT — réduire le bruit d'alertes",
+  "domain": "professional",
+  "subdomain": "iot",
+  "status": "validated",
+  "metadata": {
+    "created_at": "2026-06-24",
+    "validated_at": "2026-06-24",
+    "validated_by": "ALFRED enrichment pipeline",
+    "enrichment_version": "day3",
+    "schema_version": "1.2",
+    "review_notes": "",
+    "block": "b18"
+  },
+  "priority": "medium",
+  "summary": "Stratégies pour filtrer, prioriser et présenter les alertes domotiques de manière à maximiser la valeur de l'information sans créer de fatigue d'alerte.",
+  "core_definition": "La priorisation des alertes IoT est le processus de filtrage et de classification des événements générés par les appareils connectés selon leur urgence, leur pertinence contextuelle et leur impact, afin de ne présenter à l'utilisateur que les alertes qui méritent son attention.",
+  "knowledge": {
+    "probleme_alert_fatigue": "Un système qui génère trop d'alertes pousse l'utilisateur à les ignorer toutes — y compris les critiques",
+    "criteres_priorisation": {
+      "urgence": "Menace immédiate (incendie, intrusion) > dégradation lente (température haute)",
+      "impact": "Sécurité > confort > information",
+      "contexte": "Alerte différente si à la maison vs absent vs nuit",
+      "frequence": "Première occurrence > répétition du même événement"
+    },
+    "patterns": {
+      "debouncing": "Ne pas alerter sur la même condition pendant X minutes après la première alerte",
+      "correlation": "Regrouper les alertes liées (3 fenêtres ouvertes = 1 alerte, pas 3)",
+      "hysteresis": "La condition doit durer un seuil de temps avant d'alerter — évite les faux positifs",
+      "escalade": "Alerte non acquittée → escalade au canal suivant (push → SMS → appel)"
+    },
+    "alfred_context": "ALFRED filtre les alertes IoT selon le contexte de Céline : en mode focus, seules les alertes critiques passent. En mode disponible, toutes les alertes sont visibles."
+  },
+  "example_answers": [
+    {
+      "prompt": "Mon système domotique m'envoie trop de notifications et je les ignore toutes.",
+      "answer": "C'est de la fatigue d'alerte — un problème de signal/bruit. Solution : 1) Classer tes alertes par catégorie (sécurité, confort, info). 2) Désactiver toutes les alertes \"info\" sur mobile — les rendre visibles uniquement sur tableau de bord. 3) Ajouter un délai de debounce (ex : mouvement détecté pendant 30 secondes avant alerte). 4) Une alerte par événement, pas une par capteur impliqué."
+    },
+    {
+      "prompt": "Comment alerter seulement quand c'est vraiment important ?",
+      "answer": "Définir explicitement ce qui est critique (incendie, intrusion, dégâts des eaux) et le configurer sur tous les canaux (push, SMS). Tout le reste : visible sur tableau de bord uniquement, avec une revue hebdomadaire si besoin. La règle : si l'alerte n'exige pas d'action dans l'heure, elle ne devrait pas couper le fil de ta journée."
+    }
+  ],
+  "response_guidance": {
+    "tone": "pratique, orienté expérience utilisateur",
+    "structure": [
+      "problème",
+      "critères",
+      "patterns",
+      "ALFRED"
+    ],
+    "avoid": [
+      "technique pure",
+      "ignorer l'aspect humain de la fatigue d'alerte"
+    ]
+  },
+  "tags": [
+    "alertes",
+    "IoT",
+    "priorisation",
+    "fatigue alerte",
+    "domotique",
+    "notification",
+    "ALFRED"
+  ],
+  "related_knowledge_units": []
 }

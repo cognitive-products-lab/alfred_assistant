@@ -1,0 +1,113 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "practical_skills.finance.personal_finance",
+  "version": "1.0.0",
+  "domain": "practical_skills",
+  "subdomain": "finance",
+  "category": "life_skills",
+  "priority": "high",
+  "safety_level": "sensitive",
+  "title": "Finances Personnelles Fondamentales",
+  "summary": "Bases des finances personnelles : budget, épargne, dette, investissement, retraite, assurances et pièges à éviter.",
+  "purpose": "Permettre à ALFRED d'expliquer les principes de la gestion financière personnelle de manière éducative et sans conseil financier personnalisé.",
+  "tags": ["finances", "budget", "épargne", "investissement", "dette", "retraite", "assurance", "patrimoine"],
+  "intents": ["explain_personal_finance", "discuss_budgeting", "explain_investments", "answer_money_questions"],
+  "usage_context": ["Gestion budgétaire", "Épargne et investissement", "Planification financière"],
+  "content": {
+    "definition": "Les finances personnelles englobent la gestion des revenus, dépenses, épargne, investissements et dettes d'un individu pour atteindre ses objectifs financiers.",
+    "budgeting": {
+      "50_30_20_rule": {
+        "description": "Règle de budgétisation populaire :",
+        "breakdown": [
+          "50 % pour les besoins essentiels (loyer, nourriture, transport).",
+          "30 % pour les envies (loisirs, restaurants, abonnements).",
+          "20 % pour l'épargne et le remboursement de dettes."
+        ]
+      },
+      "steps": [
+        "Lister tous les revenus nets.",
+        "Lister toutes les dépenses fixes et variables.",
+        "Identifier les fuites budgétaires.",
+        "Fixer des objectifs d'épargne chiffrés."
+      ]
+    },
+    "savings": {
+      "emergency_fund": "Fonds d'urgence recommandé : 3-6 mois de dépenses sur un compte liquide (Livret A en France : taux garanti).",
+      "savings_vehicles_france": [
+        {"vehicle": "Livret A", "rate": "3 % (jan. 2025, peut varier)", "note": "Défiscalisé, garanti"},
+        {"vehicle": "LDDS", "rate": "3 %", "note": "Développement durable"},
+        {"vehicle": "Assurance-vie", "note": "Fonds euros (garanti) + UC (risqué) ; fiscalité avantageuse après 8 ans"},
+        {"vehicle": "PEA", "note": "Investissement en actions européennes ; exonération d'impôt après 5 ans"},
+        {"vehicle": "PER", "note": "Plan Épargne Retraite — déduction fiscale sur les versements"}
+      ]
+    },
+    "debt_management": {
+      "good_vs_bad": "Bonne dette : investissement (immobilier, études). Mauvaise dette : consommation à taux élevé (crédit revolving).",
+      "repayment_strategies": [
+        "Avalanche : payer d'abord la dette au taux le plus élevé (économise le plus).",
+        "Boule de neige : payer d'abord la plus petite dette (motivation psychologique)."
+      ],
+      "warning_signs": ["Rembourser une dette avec une autre", "Dépenser plus que ses revenus chaque mois", "Peur d'ouvrir ses relevés bancaires"]
+    },
+    "investing_basics": {
+      "compound_interest": "Les intérêts génèrent des intérêts — la magie des intérêts composés. 1000 € à 7 %/an = ~2000 € en 10 ans, ~8000 € en 30 ans.",
+      "diversification": "Ne pas mettre tous ses œufs dans le même panier — répartir entre actions, obligations, immobilier.",
+      "time_horizon": "Investissements long terme (actions) : volatilité à court terme, croissance à long terme. Court terme : livrets.",
+      "common_instruments": [
+        "Actions : part de propriété d'une entreprise",
+        "Obligations : prêt à l'État ou entreprise avec intérêts",
+        "ETF/trackers : paniers d'actions répliquant un indice (CAC40, S&P500)",
+        "SCPI : investissement immobilier collectif"
+      ]
+    },
+    "financial_pitfalls": [
+      "Frais de gestion élevés sur les fonds actifs (préférer les ETF à faibles frais).",
+      "FOMO (Fear of Missing Out) sur les cryptomonnaies ou les actions en vogue.",
+      "Ne pas avoir de fonds d'urgence avant d'investir.",
+      "Ignorer l'inflation : l'argent inactif perd de la valeur (~2-3 %/an).",
+      "Crédits revolving à 20 % de taux."
+    ],
+    "examples": [
+      {
+        "situation": "Utilisateur a 1000 € d'économies et demande quoi en faire",
+        "recommended_behavior": "Vérifier d'abord qu'il a un fonds d'urgence (3-6 mois). Si non, Livret A. Si oui, présenter les options selon son horizon (PEA pour long terme, assurance-vie) sans donner de conseil personnalisé.",
+        "avoid": "Recommander des actions ou cryptomonnaies spécifiques."
+      }
+    ],
+    "best_practices": [
+      "Automatiser l'épargne (virement automatique le jour du salaire).",
+      "Commencer à épargner tôt — les intérêts composés travaillent sur le long terme.",
+      "Se former avant d'investir — comprendre ce dans quoi on investit."
+    ],
+    "anti_patterns": [
+      "Donner des conseils financiers personnalisés (non habilité).",
+      "Recommander des investissements spécifiques.",
+      "Promettre des rendements garantis pour les investissements risqués."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["finances", "budget", "épargne", "investissement", "livret", "PEA", "dette"],
+    "related_domains": ["practical_skills"],
+    "related_knowledge": ["practical_skills.negotiation", "mathematics.probability_statistics"],
+    "retrieval_priority": 9
+  },
+  "behavior_rules": {"tone": "professional_supportive", "response_style": "structured_clear", "max_complexity": "medium", "allow_humor": false},
+  "safety_notes": {
+    "allowed_usage": ["Éducation financière générale"],
+    "restricted_usage": ["Conseils financiers personnalisés"],
+    "forbidden_usage": ["Conseil en investissement sans agrément AMF"],
+    "fallback_behavior": "Recommander un conseiller financier certifié (CGP) pour les décisions personnelles importantes."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "29/06/2026",
+    "last_update": "29/06/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

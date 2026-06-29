@@ -1,5 +1,6 @@
 {
-  "metadata": {"file":"root_cause_analysis.json","version":"1.0.0","scope":"reasoning"},
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
   "knowledge_id": "root_cause_analysis_v1",
   "title": "Analyse des causes racines",
   "summary": "Capacité à remonter des symptômes aux causes profondes d'un problème — pour traiter la source, pas les manifestations superficielles.",
@@ -20,7 +21,14 @@
     },
     "fishbone": {
       "desc": "Diagramme d'Ishikawa — explorer les causes selon 6 catégories",
-      "categories": ["Personnes", "Processus", "Environnement", "Outils", "Données", "Management"],
+      "categories": [
+        "Personnes",
+        "Processus",
+        "Environnement",
+        "Outils",
+        "Données",
+        "Management"
+      ],
       "best_for": "Problèmes multi-factoriels avec plusieurs équipes"
     },
     "fault_tree": {
@@ -29,17 +37,58 @@
     },
     "symptom_vs_cause": {
       "examples": [
-        {"symptom": "Je procrastine", "likely_cause": "Peur de l'échec ou tâche trop floue ou dépassement des capacités"},
-        {"symptom": "Réunions inefficaces", "likely_cause": "Absence d'agenda clair ou mauvaises personnes invitées"},
-        {"symptom": "Conflits récurrents", "likely_cause": "Attentes non dites ou rôles flous ou manque de feedback"}
+        {
+          "symptom": "Je procrastine",
+          "likely_cause": "Peur de l'échec ou tâche trop floue ou dépassement des capacités"
+        },
+        {
+          "symptom": "Réunions inefficaces",
+          "likely_cause": "Absence d'agenda clair ou mauvaises personnes invitées"
+        },
+        {
+          "symptom": "Conflits récurrents",
+          "likely_cause": "Attentes non dites ou rôles flous ou manque de feedback"
+        }
       ]
     }
   },
   "alfred_approach": {
-    "detect_signals": ["ça revient tout le temps", "j'ai beau essayer ça change pas", "je comprends pas pourquoi"],
+    "detect_signals": [
+      "ça revient tout le temps",
+      "j'ai beau essayer ça change pas",
+      "je comprends pas pourquoi"
+    ],
     "response_strategy": "Ne pas proposer de solution avant d'avoir identifié la cause — utiliser les 5 pourquoi avec l'utilisateur",
-    "question_chain": ["Qu'est-ce qui se passe exactement ?", "Depuis quand ?", "Dans quelles conditions ?", "Qu'est-ce qui a changé ?", "Pourquoi maintenant ?"],
-    "forbidden": ["Proposer une solution au premier symptôme", "Supposer la cause sans explorer"]
+    "question_chain": [
+      "Qu'est-ce qui se passe exactement ?",
+      "Depuis quand ?",
+      "Dans quelles conditions ?",
+      "Qu'est-ce qui a changé ?",
+      "Pourquoi maintenant ?"
+    ],
+    "forbidden": [
+      "Proposer une solution au premier symptôme",
+      "Supposer la cause sans explorer"
+    ]
   },
-  "connections": ["reasoning_engine","multi_step_reasoning","problem_solving","decision_models","tradeoff_analysis"]
+  "connections": [
+    "reasoning_engine",
+    "multi_step_reasoning",
+    "problem_solving",
+    "decision_models",
+    "tradeoff_analysis"
+  ],
+  "id": "knowledges.professional.decision.root_cause_analysis",
+  "domain": "professional",
+  "subdomain": "decision",
+  "status": "validated",
+  "metadata": {
+    "created_at": "2026-06-23",
+    "validated_at": "2026-06-23",
+    "validated_by": "ALFRED enrichment pipeline",
+    "enrichment_version": "day1",
+    "schema_version": "1.2",
+    "review_notes": "migré depuis ancien format",
+    "block": "b18"
+  }
 }

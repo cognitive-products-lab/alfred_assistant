@@ -1,12 +1,40 @@
 {
-  "_meta": { "project": "ALFRED", "block": "B18", "file": "security_logging_strategy.json", "version": "V2.0", "status": "VALIDATED", "updated": "2026-06-03", "validated_by": "Cognitive Products Lab" },
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "_meta": {
+    "project": "ALFRED",
+    "block": "B18",
+    "file": "security_logging_strategy.json",
+    "version": "V2.0",
+    "status": "VALIDATED",
+    "updated": "2026-06-03",
+    "validated_by": "Cognitive Products Lab"
+  },
   "knowledge_id": "professional.engineering.cybersecurite.security_logging_strategy",
   "id": "professional.engineering.cybersecurite.security_logging_strategy",
   "title": "Stratégie de journalisation sécurité",
-  "version": "2.0.0", "status": "active", "domain": "professional", "subdomain": "engineering", "category": "cybersecurite",
+  "version": "2.0.0",
+  "domain": "professional",
+  "subdomain": "engineering",
+  "category": "cybersecurite",
   "summary": "Quoi logger, comment (CEF/JSON), où centraliser (Elastic/Splunk), combien de temps conserver (12-24 mois), comment protéger les logs (intégrité, chiffrement), Sysmon et niveaux de log.",
   "purpose": "Permettre à ALFRED de définir et auditer une stratégie de journalisation sécurité complète, depuis les sources de logs jusqu'à la rétention et la protection des données de logs.",
-  "tags": ["logs sécurité", "logging", "SIEM", "CEF", "JSON", "Sysmon", "auditd", "rétention logs", "Elastic", "Splunk", "intégrité des logs", "centralisation logs", "log level", "forensique"],
+  "tags": [
+    "logs sécurité",
+    "logging",
+    "SIEM",
+    "CEF",
+    "JSON",
+    "Sysmon",
+    "auditd",
+    "rétention logs",
+    "Elastic",
+    "Splunk",
+    "intégrité des logs",
+    "centralisation logs",
+    "log level",
+    "forensique"
+  ],
   "intents": [
     "définir une stratégie de logs sécurité",
     "configurer Sysmon sous Windows",
@@ -21,7 +49,8 @@
     "déploiement d'un agent de collecte de logs",
     "hardening des serveurs"
   ],
-  "priority": "high", "safety_level": "sensitive",
+  "priority": "high",
+  "safety_level": "sensitive",
   "content": {
     "definition": "La stratégie de journalisation sécurité définit quelles sources de données doivent être collectées, dans quel format, vers quelle destination, avec quelle rétention et quelles protections. Des logs complets, intègres et correctement centralisés sont la base de toute investigation forensique et de toute détection d'incident.",
     "core_principles": [
@@ -87,12 +116,19 @@
     "formats": {
       "JSON": {
         "description": "Format structuré, natif dans la plupart des outils modernes",
-        "avantages": ["Facile à parser automatiquement", "Champs typés (string, int, boolean)", "Compatible avec Elastic, Splunk, Sentinel"],
+        "avantages": [
+          "Facile à parser automatiquement",
+          "Champs typés (string, int, boolean)",
+          "Compatible avec Elastic, Splunk, Sentinel"
+        ],
         "exemple": "{\"timestamp\":\"2026-06-03T10:00:00Z\",\"event\":\"auth.login.failed\",\"user\":\"john.doe\",\"ip\":\"192.168.1.100\",\"reason\":\"bad_password\"}"
       },
       "CEF": {
         "description": "Common Event Format — standard ArcSight/Micro Focus",
-        "avantages": ["Standard d'interopérabilité SIEM", "Champs normalisés"],
+        "avantages": [
+          "Standard d'interopérabilité SIEM",
+          "Champs normalisés"
+        ],
         "exemple": "CEF:0|Vendor|Product|1.0|AUTH_FAIL|Failed login|High|src=192.168.1.100 duser=john.doe"
       },
       "Syslog": {
@@ -103,9 +139,20 @@
     },
     "centralisation": {
       "architecture": {
-        "agents": ["Filebeat (Elastic)", "Fluentd / Fluent Bit", "Splunk Universal Forwarder", "NXLog", "Windows Event Forwarding (WEF) natif"],
+        "agents": [
+          "Filebeat (Elastic)",
+          "Fluentd / Fluent Bit",
+          "Splunk Universal Forwarder",
+          "NXLog",
+          "Windows Event Forwarding (WEF) natif"
+        ],
         "aggregateur": "Logstash, syslog-ng, ou directement vers le SIEM",
-        "SIEM": ["Elasticsearch + Kibana (ELK Stack)", "Splunk Enterprise", "Microsoft Sentinel", "IBM QRadar"]
+        "SIEM": [
+          "Elasticsearch + Kibana (ELK Stack)",
+          "Splunk Enterprise",
+          "Microsoft Sentinel",
+          "IBM QRadar"
+        ]
       },
       "flux_recommande": "Source (serveur) → Agent (Filebeat/NXLog) → Aggregateur (Logstash) → SIEM (Elastic/Splunk) → Archivage long terme (S3/Azure Blob)"
     },
@@ -186,15 +233,54 @@
     ]
   },
   "retrieval_hints": {
-    "priority_keywords": ["logs sécurité", "Sysmon", "CEF", "JSON logs", "centralisation logs", "rétention logs", "intégrité logs", "Filebeat", "Elastic", "Splunk", "auditd"],
-    "related_knowledge": ["security_monitoring_basics", "intrusion_detection_basics", "incident_classification", "nist_incident_response"],
+    "priority_keywords": [
+      "logs sécurité",
+      "Sysmon",
+      "CEF",
+      "JSON logs",
+      "centralisation logs",
+      "rétention logs",
+      "intégrité logs",
+      "Filebeat",
+      "Elastic",
+      "Splunk",
+      "auditd"
+    ],
+    "related_knowledge": [
+      "security_monitoring_basics",
+      "intrusion_detection_basics",
+      "incident_classification",
+      "nist_incident_response"
+    ],
     "retrieval_priority": 8
   },
-  "behavior_rules": { "tone": "professional", "response_style": "structured_clear", "max_complexity": "high", "allow_humor": false },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "high",
+    "allow_humor": false
+  },
   "safety_notes": {
-    "allowed_usage": ["Définition de stratégie de logging", "Configuration Sysmon et auditd", "Intégration SIEM", "Audit de conformité des logs"],
-    "forbidden_usage": ["Effacer ou modifier des logs d'audit", "Identifier des lacunes de logging pour contourner la détection"],
+    "allowed_usage": [
+      "Définition de stratégie de logging",
+      "Configuration Sysmon et auditd",
+      "Intégration SIEM",
+      "Audit de conformité des logs"
+    ],
+    "forbidden_usage": [
+      "Effacer ou modifier des logs d'audit",
+      "Identifier des lacunes de logging pour contourner la détection"
+    ],
     "fallback_behavior": "Pour les logs contenant des données personnelles, vérifier la conformité RGPD avec le DPO avant déploiement."
   },
-  "metadata": { "author": "Cognitive Products Lab", "creation_date": "03/06/2026", "last_update": "03/06/2026", "review_status": "validated", "source_type": "manual_structured_knowledge", "language": "fr", "retrieval_ready": true, "rag_compatible": true }
+  "status": "validated",
+  "metadata": {
+    "created_at": "2026-06-23",
+    "validated_at": "2026-06-23",
+    "validated_by": "ALFRED enrichment pipeline",
+    "enrichment_version": "day1",
+    "schema_version": "1.2",
+    "review_notes": "migré depuis ancien format",
+    "block": "b18"
+  }
 }

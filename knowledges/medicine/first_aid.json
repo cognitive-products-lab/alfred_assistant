@@ -1,0 +1,112 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "medicine.emergency.first_aid",
+  "version": "1.0.0",
+  "domain": "medicine",
+  "subdomain": "emergency_medicine",
+  "category": "practical_health",
+  "priority": "critical",
+  "safety_level": "high_risk",
+  "title": "Premiers Secours Fondamentaux",
+  "summary": "Protocoles de premiers secours : RCP, position latérale de sécurité, Heimlich, arrêt d'hémorragie, brûlures, malaises — et numéros d'urgence.",
+  "purpose": "Permettre à ALFRED de guider rapidement lors d'urgences médicales avec les gestes de premiers secours établis, tout en insistant pour appeler les secours.",
+  "tags": ["premiers_secours", "urgence", "RCP", "heimlich", "défibrillateur", "hémorragie", "SAMU", "15", "secours"],
+  "intents": ["guide_first_aid", "explain_CPR", "help_in_emergency", "explain_heimlich_maneuver"],
+  "usage_context": ["Urgence médicale", "Formation aux premiers secours", "Accidents et blessures"],
+  "content": {
+    "critical_rule": "TOUJOURS appeler les secours en premier (15 SAMU, 18 Pompiers, 112 Europe) avant d'effectuer des gestes.",
+    "emergency_numbers": {
+      "france": {"SAMU": "15", "Pompiers": "18", "Police": "17", "Européen": "112", "Crise suicidaire": "3114"},
+      "international": "112 fonctionne depuis tout téléphone mobile dans l'UE"
+    },
+    "cardiac_arrest_cpr": {
+      "recognition": ["Personne inconsciente", "Ne répond pas", "Respiration absente ou agonale (gasps)"],
+      "protocol": [
+        "1. Appeler le 15 ou faire appeler.",
+        "2. Allonger sur surface dure.",
+        "3. Compressions thoraciques : 30 compressions (5-6 cm de profondeur, 100-120/min).",
+        "4. 2 insufflations (si formé) ou compressions seules (acceptable).",
+        "5. Continuer 30:2 jusqu'à l'arrivée des secours ou reprise de conscience.",
+        "6. Utiliser un DEA (défibrillateur) dès disponible — suivre les instructions vocales."
+      ],
+      "note": "Le RCP seul sans DEA peut tripler les chances de survie."
+    },
+    "choking_heimlich": {
+      "conscious_adult": [
+        "1. Pencher légèrement la personne en avant.",
+        "2. 5 coups secs dans le dos entre les omoplates.",
+        "3. Si inefficace : 5 compressions abdominales (poings au creux épigastrique, compression vers le haut).",
+        "4. Alterner 5 coups dos / 5 compressions jusqu'à désobstruction ou perte de conscience."
+      ],
+      "infant": "Pas de Heimlich — 5 claques dos + 5 compressions sternales.",
+      "if_unconscious": "RCP immédiat + 15."
+    },
+    "severe_hemorrhage": [
+      "1. Compression directe avec tissu propre — appuyer FORT sans relâcher.",
+      "2. Garrot si membre : 5-7 cm au-dessus de la plaie, noter l'heure.",
+      "3. Ne pas retirer un objet empalé.",
+      "4. Allonger la personne, élever le membre si possible.",
+      "5. Appeler le 15."
+    ],
+    "burns": {
+      "protocol": "Refroidir immédiatement avec eau fraîche (15°C) pendant 15-20 minutes. Ne pas utiliser glace, beurre ou dentifrice.",
+      "when_to_call": "Brûlures > 10 % surface corporelle, visage, mains, voies respiratoires, électriques ou chimiques → 15."
+    },
+    "loss_of_consciousness": {
+      "pls": "Position Latérale de Sécurité : coucher la personne sur le côté, bras supérieur en équerre, jambe en crochet — prévient l'asphyxie par vomissement.",
+      "when_to_apply": "Personne inconsciente mais qui respire normalement."
+    },
+    "stroke_fast": {
+      "acronym": "FAST (Face, Arms, Speech, Time)",
+      "signs": [
+        "F — Face : asymétrie du visage (demander de sourire)",
+        "A — Arm : impossibilité de lever les deux bras",
+        "S — Speech : discours inintelligible ou absent",
+        "T — Time : appeler le 15 immédiatement"
+      ],
+      "note": "Chaque minute compte : 1,9 millions de neurones meurent par minute sans traitement."
+    },
+    "examples": [
+      {
+        "situation": "Utilisateur dit que quelqu'un a perdu connaissance devant lui",
+        "recommended_behavior": "Guider immédiatement : vérifier la conscience et la respiration, appeler le 15, démarrer le RCP si nécessaire ou PLS si respiration présente.",
+        "avoid": "Donner des informations trop complexes dans l'urgence — aller à l'essentiel."
+      }
+    ],
+    "best_practices": [
+      "Toujours commencer par 'appelez le 15' avant tout geste.",
+      "Être direct, simple et calme dans les instructions d'urgence.",
+      "Rappeler que même une RCP imparfaite est meilleure qu'aucune RCP."
+    ],
+    "anti_patterns": [
+      "Donner des informations complexes ou hésitantes lors d'une vraie urgence.",
+      "Omettre d'insister sur l'appel des secours.",
+      "Recommander des gestes non validés médicalement (mettre en croix, etc.)."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["premiers secours", "RCP", "arrêt cardiaque", "Heimlich", "15", "urgence", "défibrillateur"],
+    "related_domains": ["medicine"],
+    "related_knowledge": ["medicine.human_anatomy", "medicine.immune_system"],
+    "retrieval_priority": 10
+  },
+  "behavior_rules": {"tone": "professional", "response_style": "step_by_step", "max_complexity": "low", "allow_humor": false},
+  "safety_notes": {
+    "allowed_usage": ["Guidage en urgence", "Formation aux premiers secours"],
+    "restricted_usage": [],
+    "forbidden_usage": ["Remplacer les secours professionnels"],
+    "fallback_behavior": "Insister systématiquement pour appeler le 15 (France) ou le 112 (UE) lors de toute urgence médicale."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "29/06/2026",
+    "last_update": "29/06/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

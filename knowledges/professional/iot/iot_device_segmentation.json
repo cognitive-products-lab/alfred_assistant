@@ -1,26 +1,67 @@
 {
-    "id":  "iot.device.segmentation",
-    "created_at":  "2026-06-03",
-    "title":  "iot device segmentation",
-    "tags":  [
-
-             ],
-    "source":  "recreated_from_dashboard_manifest",
-    "description":  "Fiche connaissance recréée automatiquement à partir du manifest dashboard.",
-    "status":  "draft",
-    "content":  {
-                    "summary":  "",
-                    "links":  [
-
-                              ],
-                    "use_cases":  [
-
-                                  ],
-                    "risks":  [
-
-                              ],
-                    "key_points":  [
-
-                                   ]
-                }
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "id": "knowledges.professional.iot.iot_device_segmentation",
+  "title": "Segmentation réseau IoT — isoler les objets connectés",
+  "domain": "professional",
+  "subdomain": "iot",
+  "status": "validated",
+  "metadata": {
+    "created_at": "2026-06-24",
+    "validated_at": "2026-06-24",
+    "validated_by": "ALFRED enrichment pipeline",
+    "enrichment_version": "day3",
+    "schema_version": "1.2",
+    "review_notes": "",
+    "block": "b18"
+  },
+  "priority": "high",
+  "summary": "Pourquoi et comment isoler les appareils IoT sur des segments réseau dédiés pour limiter la surface d'attaque et protéger le réseau principal.",
+  "core_definition": "La segmentation réseau IoT est la pratique de placer les appareils connectés sur des segments réseau (VLAN) séparés du réseau principal, limitant leur capacité à communiquer avec d'autres systèmes et contenant les compromissions éventuelles.",
+  "knowledge": {
+    "pourquoi": {
+      "surface_attaque": "Un appareil IoT compromis sur le réseau principal peut atteindre tous les systèmes",
+      "firmware_non_maintenu": "Beaucoup d'appareils IoT ont des firmware non mis à jour avec des vulnérabilités connues",
+      "credentials_par_defaut": "Identifiants d'usine souvent non changés — vecteur d'attaque trivial"
+    },
+    "architecture": {
+      "vlan_iot": "VLAN dédié IoT — accès internet autorisé, accès au réseau principal bloqué",
+      "vlan_management": "VLAN séparé pour la gestion des équipements réseau",
+      "dmz": "Pour les appareils nécessitant un accès entrant depuis internet",
+      "firewall_rules": "Whitelist : n'autoriser que les flux IoT strictement nécessaires"
+    },
+    "alfred_context": "ALFRED recommande une segmentation VLAN pour tous les appareils domotiques (Tuya, Google Home, caméras) — séparés du PC ALFRED et du réseau professionnel.",
+    "mise_en_oeuvre": "Switch manageable (ex : SG108E) + routeur VLAN-capable (ex : ER605) — configuration minimum pour un usage domestique ou PME"
+  },
+  "example_answers": [
+    {
+      "prompt": "Pourquoi mettre les appareils IoT sur un VLAN séparé ?",
+      "answer": "Principe de confinement : si une ampoule connectée ou une caméra est compromise (firmware vulnérable, mot de passe par défaut), elle ne doit pas pouvoir atteindre ton NAS, ton PC ou ton réseau professionnel. Sur un VLAN IoT isolé, la compromission reste dans le segment IoT. C'est le même principe que les zones réseau en entreprise — appliquer à la maison."
+    },
+    {
+      "prompt": "Comment segmenter mon réseau domotique sans être expert réseau ?",
+      "answer": "Avec un routeur moderne (Unifi, TP-Link ER605, Firewalla) : créer un VLAN IoT, y connecter tous les appareils domotiques (WiFi IoT séparé du WiFi principal), et configurer une règle firewall : IoT → Internet oui, IoT → réseau principal non. Les interfaces graphiques des routeurs modernes rendent ça faisable en 30-60 minutes sans ligne de commande."
+    }
+  ],
+  "response_guidance": {
+    "tone": "technique accessible, contextualisé ALFRED",
+    "structure": [
+      "pourquoi",
+      "architecture",
+      "mise en oeuvre"
+    ],
+    "avoid": [
+      "trop expert",
+      "ignorer le contexte domestique"
+    ]
+  },
+  "tags": [
+    "IoT",
+    "VLAN",
+    "segmentation réseau",
+    "sécurité",
+    "domotique",
+    "ALFRED"
+  ],
+  "related_knowledge_units": []
 }

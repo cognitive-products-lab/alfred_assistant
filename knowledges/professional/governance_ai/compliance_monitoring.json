@@ -1,26 +1,75 @@
 {
-    "id":  "compliance.monitoring",
-    "created_at":  "2026-06-03",
-    "title":  "compliance monitoring",
-    "tags":  [
-
-             ],
-    "source":  "recreated_from_dashboard_manifest",
-    "description":  "Fiche connaissance recréée automatiquement à partir du manifest dashboard.",
-    "status":  "draft",
-    "content":  {
-                    "summary":  "",
-                    "links":  [
-
-                              ],
-                    "use_cases":  [
-
-                                  ],
-                    "risks":  [
-
-                              ],
-                    "key_points":  [
-
-                                   ]
-                }
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "id": "knowledges.professional.governance_ai.compliance_monitoring",
+  "title": "Monitoring de conformité IA — surveiller l'alignement continu des systèmes",
+  "domain": "professional",
+  "subdomain": "governance_ai",
+  "status": "validated",
+  "metadata": {
+    "created_at": "2026-06-24",
+    "validated_at": "2026-06-24",
+    "validated_by": "ALFRED enrichment pipeline",
+    "enrichment_version": "day3",
+    "schema_version": "1.2",
+    "review_notes": "",
+    "block": "b18"
+  },
+  "priority": "high",
+  "summary": "Comment mettre en place une surveillance continue de la conformité des systèmes IA aux réglementations, aux politiques internes et aux engagements éthiques — au-delà de l'audit ponctuel.",
+  "core_definition": "Le monitoring de conformité IA est le processus continu de surveillance des systèmes d'intelligence artificielle pour vérifier qu'ils respectent les exigences réglementaires (EU AI Act, RGPD), les politiques internes et les principes éthiques définis lors de leur conception, en détectant les dérives avant qu'elles causent des dommages.",
+  "knowledge": {
+    "dimensions": {
+      "technique": "Performance, biais, dérive des données (data drift), robustesse",
+      "reglementaire": "Conformité EU AI Act, RGPD, sectorielles (médical, finance)",
+      "ethique": "Équité, transparence, non-discrimination",
+      "operationnel": "Disponibilité, latence, taux d'erreur"
+    },
+    "metriques_cles": {
+      "biais": "Mesure de l'équité selon différents groupes démographiques",
+      "derive": "Écart entre la distribution des données d'entraînement et les données de production",
+      "explicabilite": "Capacité à expliquer les décisions aux parties prenantes",
+      "incidents": "Taux et gravité des incidents IA détectés"
+    },
+    "outils": [
+      "Tableaux de bord de monitoring ML (MLflow, Evidently, WhyLogs)",
+      "Alertes automatiques sur seuils",
+      "Rapports de conformité périodiques",
+      "Registre d'incidents"
+    ],
+    "frequence": "Monitoring en continu pour les systèmes critiques, revue mensuelle pour les systèmes à risque moyen, audit annuel minimum pour tous"
+  },
+  "example_answers": [
+    {
+      "prompt": "Comment surveiller qu'un système IA reste conforme dans le temps ?",
+      "answer": "Trois niveaux : 1) Monitoring automatisé en temps réel sur les métriques techniques (performance, dérive des données, taux d'erreur). 2) Revue périodique humaine sur les métriques éthiques et réglementaires (biais, équité, conformité RGPD). 3) Audit indépendant annuel. Sans monitoring continu, la conformité initiale ne garantit rien — les modèles dérivent, les usages évoluent, les réglementations changent."
+    },
+    {
+      "prompt": "Qu'est-ce que la dérive de données dans un système IA ?",
+      "answer": "La dérive (data drift) se produit quand la distribution des données en production s'éloigne de celle utilisée pour l'entraînement. Exemple : un modèle entraîné sur des données 2022 voit arriver des comportements utilisateurs 2024 différents — ses prédictions se dégradent progressivement. La détection nécessite de comparer régulièrement la distribution des entrées actuelles à la distribution de référence, et de ré-entraîner ou recalibrer quand l'écart dépasse un seuil."
+    }
+  ],
+  "response_guidance": {
+    "tone": "technique, orienté mise en pratique",
+    "structure": [
+      "dimensions",
+      "métriques",
+      "outils",
+      "fréquence"
+    ],
+    "avoid": [
+      "trop théorique",
+      "ignorer les systèmes en production"
+    ]
+  },
+  "tags": [
+    "conformité",
+    "monitoring",
+    "IA",
+    "data drift",
+    "biais",
+    "EU AI Act",
+    "gouvernance"
+  ],
+  "related_knowledge_units": []
 }

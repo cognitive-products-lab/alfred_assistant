@@ -1,74 +1,74 @@
 {
-  "_meta": {
-    "project": "ALFRED",
-    "block": "B18",
-    "file": "product_discovery_advanced.json",
-    "version": "V1.0",
-    "status": "VALIDATED",
-    "updated": "2026-05-13",
-    "standardized_by": "generate_knowledges.py",
-    "validated_by": "Cognitive Products Lab",
-    "validated_date": "2026-05-13"
-  },
-  "id": "knowledges.professional.product_advanced.product_discovery_advanced",
-  "domain": "professional_product",
-  "category": "product_management",
-  "title": "Advanced Product Discovery",
-  "description": "Processus d’identification et validation des besoins produit.",
-  "version": "1.0",
-  "status": "active",
-  "tags": [
-    "product advanced",
-    "product discovery advanced",
-    "product management",
-    "professional",
-    "professional product"
-  ],
-  "content": {
-    "summary": "Processus d’identification et validation des besoins produit.",
-    "details": [
-      "Problem framing",
-      "Hypothesis validation",
-      "Experimentation",
-      "User research",
-      "Réduire les risques produit",
-      "Valider les hypothèses",
-      "Optimiser la pertinence",
-      "VOC ALFRED",
-      "Tests utilisateurs",
-      "Validation roadmap"
-    ],
-    "references": []
-  },
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "id": "knowledges.professional.product_management.advanced.product_discovery_advanced",
+  "title": "Product Discovery avancée — techniques et cadences de découverte continue",
+  "domain": "professional",
+  "subdomain": "product_management_advanced",
+  "status": "validated",
   "metadata": {
-    "created": "2026-05-12",
-    "updated": "2026-05-12",
-    "author": "Cognitive Products Lab"
+    "created_at": "2026-06-24",
+    "validated_at": "2026-06-24",
+    "validated_by": "ALFRED enrichment pipeline",
+    "enrichment_version": "day3",
+    "schema_version": "1.2",
+    "review_notes": "",
+    "block": "b18"
   },
-  "core_concepts": [
-    "Problem framing",
-    "Hypothesis validation",
-    "Experimentation",
-    "User research"
-  ],
-  "objectives": [
-    "Réduire les risques produit",
-    "Valider les hypothèses",
-    "Optimiser la pertinence"
-  ],
-  "alfred_application": [
-    "VOC ALFRED",
-    "Tests utilisateurs",
-    "Validation roadmap"
-  ],
-  "aliases": [],
-  "relationships": {
-    "merged_from": [],
-    "see_also": [],
-    "depends_on": []
+  "priority": "high",
+  "summary": "Pratiques avancées de discovery produit : continuous discovery, tests d'hypothèses, prototype testing, assumption mapping et integration dans les sprints agiles.",
+  "core_definition": "La product discovery avancée désigne les pratiques structurées qui permettent à une équipe de réduire systématiquement l'incertitude sur ce qu'il faut construire — en testant des hypothèses avec de vraies données utilisateurs avant d'investir en développement.",
+  "knowledge": {
+    "cadence": {
+      "weekly_interviews": "Au moins un entretien utilisateur par semaine — Teresa Torres recommande 1 par PM par semaine",
+      "assumption_mapping": "Cartographier les hypothèses selon leur importance et leur incertitude",
+      "experiment_backlog": "Backlog d'expériences parallèle au backlog de développement",
+      "learning_review": "Rituel hebdomadaire ou bi-mensuel : qu'a-t-on appris, comment ça change nos priorités"
+    },
+    "techniques": {
+      "prototype_papier": "Tester une idée en 2h avec un prototype basse fidélité avant de coder",
+      "fake_door": "Tester la demande avec un bouton ou une page qui n'existe pas encore",
+      "concierge": "Simuler manuellement la feature pour valider avant d'automatiser",
+      "smoke_test": "Landing page + pré-inscription pour mesurer l'intérêt avant développement"
+    },
+    "integration_agile": {
+      "dual_track": "Track discovery (validation) parallèle au track delivery (développement)",
+      "sprint_0": "Sprint dédié discovery avant chaque cycle de delivery",
+      "story_hypothesis": "Chaque user story inclut l'hypothèse qu'elle teste et la métrique de validation"
+    },
+    "metriques_discovery": "Vélocité discovery : nombre d'hypothèses testées par semaine. Taux d'invalidation cible : 50-70% — si toutes les hypothèses sont validées, les tests ne sont pas assez challengeants"
   },
-  "retrieval": {
-    "priority": "medium",
-    "trigger_queries": []
-  }
+  "example_answers": [
+    {
+      "prompt": "Comment faire de la continuous discovery sans dédier une équipe entière à la recherche ?",
+      "answer": "Commencer petit : un entretien utilisateur de 30 min par semaine par PM. C'est faisable même dans une petite équipe. Rituel : noter les insights dans un outil partagé (Notion, FigJam), partager le top 3 learnings de la semaine lors du daily ou standup. L'objectif n'est pas la recherche exhaustive — c'est de maintenir un contact régulier avec les utilisateurs réels pour éviter de construire dans le vide."
+    },
+    {
+      "prompt": "Comment tester une idée de feature sans la développer ?",
+      "answer": "Par ordre de coût croissant : 1) Prototype papier ou Figma cliquable — 2h de travail, testé avec 5 utilisateurs. 2) Wizard of Oz — simuler manuellement ce que la feature ferait. 3) Fake door — ajouter le bouton dans l'interface et mesurer les clics avant de construire la page. 4) Smoke test — landing page dédiée avec CTA \"intéressé\" pour mesurer la demande. La règle : valider avec le test le moins cher possible."
+    }
+  ],
+  "response_guidance": {
+    "tone": "pratique, Teresa Torres, Marty Cagan",
+    "structure": [
+      "cadence",
+      "techniques",
+      "intégration agile",
+      "métriques"
+    ],
+    "avoid": [
+      "confondre discovery et research académique",
+      "présenter comme nécessitant un budget énorme"
+    ]
+  },
+  "tags": [
+    "continuous discovery",
+    "product discovery",
+    "hypothèses",
+    "prototype",
+    "Teresa Torres",
+    "agile",
+    "dual track"
+  ],
+  "related_knowledge_units": []
 }

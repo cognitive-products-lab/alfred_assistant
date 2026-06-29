@@ -1,12 +1,37 @@
 {
-  "_meta": { "project": "ALFRED", "block": "B18", "file": "network_segmentation.json", "version": "V2.0", "status": "VALIDATED", "updated": "2026-06-03", "validated_by": "Cognitive Products Lab" },
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "_meta": {
+    "project": "ALFRED",
+    "block": "B18",
+    "file": "network_segmentation.json",
+    "version": "V2.0",
+    "status": "VALIDATED",
+    "updated": "2026-06-03",
+    "validated_by": "Cognitive Products Lab"
+  },
   "knowledge_id": "professional.engineering.cybersecurite.network_segmentation",
   "id": "professional.engineering.cybersecurite.network_segmentation",
   "title": "Segmentation réseau",
-  "version": "2.0.0", "status": "active", "domain": "professional", "subdomain": "engineering", "category": "cybersecurite",
+  "version": "2.0.0",
+  "domain": "professional",
+  "subdomain": "engineering",
+  "category": "cybersecurite",
   "summary": "Techniques de segmentation réseau (VLAN, DMZ, microsegmentation, air gap) pour limiter la propagation des attaques et isoler les zones critiques.",
   "purpose": "Permettre à ALFRED de conseiller sur l'architecture réseau sécurisée, la création de zones d'isolation, et la définition de règles de filtrage pour contenir les compromissions.",
-  "tags": ["segmentation réseau", "VLAN", "DMZ", "microsegmentation", "air gap", "firewall", "zones réseau", "network security", "lateral movement", "filtrage", "default deny"],
+  "tags": [
+    "segmentation réseau",
+    "VLAN",
+    "DMZ",
+    "microsegmentation",
+    "air gap",
+    "firewall",
+    "zones réseau",
+    "network security",
+    "lateral movement",
+    "filtrage",
+    "default deny"
+  ],
   "intents": [
     "segmenter un réseau en zones sécurisées",
     "créer une DMZ",
@@ -21,7 +46,8 @@
     "réponse à incident avec mouvement latéral détecté",
     "conformité PCI-DSS, ISO 27001"
   ],
-  "priority": "high", "safety_level": "sensitive",
+  "priority": "high",
+  "safety_level": "sensitive",
   "content": {
     "definition": "La segmentation réseau consiste à diviser un réseau informatique en sous-réseaux isolés (segments) afin de limiter la propagation des attaques, de réduire la surface d'exposition et de contrôler précisément les flux entre zones. Elle est complémentaire du Zero Trust et fondamentale dans toute architecture de défense en profondeur.",
     "core_principles": [
@@ -35,35 +61,97 @@
       "VLAN": {
         "description": "Virtual LAN — segmentation logique au niveau de la couche 2 (switching)",
         "usage": "Séparer les postes utilisateurs, serveurs, imprimantes, IoT sur le même switch physique",
-        "configuration": ["Trunk ports entre switchs", "Access ports par appareil", "Inter-VLAN routing via firewall layer 3 uniquement", "VLAN management dédié (ex: VLAN 999) jamais utilisé pour du trafic utilisateur"],
-        "risques": ["VLAN hopping si double-tagging non bloqué", "Mauvaise configuration des trunks", "Native VLAN 1 non changé"]
+        "configuration": [
+          "Trunk ports entre switchs",
+          "Access ports par appareil",
+          "Inter-VLAN routing via firewall layer 3 uniquement",
+          "VLAN management dédié (ex: VLAN 999) jamais utilisé pour du trafic utilisateur"
+        ],
+        "risques": [
+          "VLAN hopping si double-tagging non bloqué",
+          "Mauvaise configuration des trunks",
+          "Native VLAN 1 non changé"
+        ]
       },
       "DMZ": {
         "description": "Zone démilitarisée — segment réseau exposé à Internet, isolé du réseau interne",
         "usage": "Héberger les serveurs accessibles de l'extérieur (web, mail, DNS, reverse proxy)",
         "architecture": "Internet → Firewall externe → DMZ → Firewall interne → Réseau interne",
-        "regles": ["Le trafic entrant Internet atteint la DMZ uniquement", "La DMZ ne peut jamais initier de connexion vers le réseau interne", "Connexions DMZ→Interne uniquement via API gateway ou proxy dédié"]
+        "regles": [
+          "Le trafic entrant Internet atteint la DMZ uniquement",
+          "La DMZ ne peut jamais initier de connexion vers le réseau interne",
+          "Connexions DMZ→Interne uniquement via API gateway ou proxy dédié"
+        ]
       },
       "microsegmentation": {
         "description": "Segmentation granulaire au niveau des workloads/VMs/containers, indépendante de la topologie réseau",
         "usage": "Environnements cloud, datacenters, microservices",
-        "outils": ["Illumio Core", "Akamai Guardicore", "VMware NSX", "Cisco Tetration", "Calico Network Policies (Kubernetes)"],
-        "avantages": ["Contrôle East-West (serveur à serveur)", "Politique basée sur l'identité du workload, pas l'IP", "Adaptée aux environnements dynamiques (containers, VMs éphémères)"]
+        "outils": [
+          "Illumio Core",
+          "Akamai Guardicore",
+          "VMware NSX",
+          "Cisco Tetration",
+          "Calico Network Policies (Kubernetes)"
+        ],
+        "avantages": [
+          "Contrôle East-West (serveur à serveur)",
+          "Politique basée sur l'identité du workload, pas l'IP",
+          "Adaptée aux environnements dynamiques (containers, VMs éphémères)"
+        ]
       },
       "air_gap": {
         "description": "Isolation physique totale : aucune connexion réseau avec des systèmes non-isolés",
         "usage": "Systèmes ultra-critiques (SCADA industriel, systèmes de vote, CA racine, backups offline)",
-        "contraintes": ["Mises à jour via media physique contrôlé", "Risque clé USB malveillant (Stuxnet)", "Coût opérationnel élevé"]
+        "contraintes": [
+          "Mises à jour via media physique contrôlé",
+          "Risque clé USB malveillant (Stuxnet)",
+          "Coût opérationnel élevé"
+        ]
       }
     },
     "zones_recommandees": [
-      { "zone": "Untrusted / Internet", "niveau_confiance": 0, "description": "Internet, zones non maîtrisées", "regles_entrant": "Bloqué par défaut, exceptions explicites uniquement" },
-      { "zone": "DMZ", "niveau_confiance": 1, "description": "Serveurs exposés (web, mail, API publique, reverse proxy)", "regles_entrant": "HTTP/HTTPS/SMTP depuis Internet, bloqué vers réseau interne" },
-      { "zone": "Users / Postes de travail", "niveau_confiance": 2, "description": "Workstations des employés", "regles_entrant": "Depuis management uniquement, pas d'accès direct aux serveurs de données" },
-      { "zone": "Servers / Application", "niveau_confiance": 3, "description": "Serveurs applicatifs internes", "regles_entrant": "Depuis Users sur ports applicatifs spécifiques, depuis DMZ sur ports API définis" },
-      { "zone": "Data / Bases de données", "niveau_confiance": 4, "description": "Bases de données, stockage sensible", "regles_entrant": "Depuis Servers uniquement, jamais depuis Users directement" },
-      { "zone": "Management / OOB", "niveau_confiance": 5, "description": "Accès administration (SSH, RDP, IPMI, console)", "regles_entrant": "Depuis bastion host uniquement, authentification forte" },
-      { "zone": "IoT / OT", "niveau_confiance": 1, "description": "Appareils connectés, domotique, capteurs", "regles_entrant": "Totalement isolé — connexion uniquement vers un broker MQTT/API gateway dédié, jamais vers réseau principal" }
+      {
+        "zone": "Untrusted / Internet",
+        "niveau_confiance": 0,
+        "description": "Internet, zones non maîtrisées",
+        "regles_entrant": "Bloqué par défaut, exceptions explicites uniquement"
+      },
+      {
+        "zone": "DMZ",
+        "niveau_confiance": 1,
+        "description": "Serveurs exposés (web, mail, API publique, reverse proxy)",
+        "regles_entrant": "HTTP/HTTPS/SMTP depuis Internet, bloqué vers réseau interne"
+      },
+      {
+        "zone": "Users / Postes de travail",
+        "niveau_confiance": 2,
+        "description": "Workstations des employés",
+        "regles_entrant": "Depuis management uniquement, pas d'accès direct aux serveurs de données"
+      },
+      {
+        "zone": "Servers / Application",
+        "niveau_confiance": 3,
+        "description": "Serveurs applicatifs internes",
+        "regles_entrant": "Depuis Users sur ports applicatifs spécifiques, depuis DMZ sur ports API définis"
+      },
+      {
+        "zone": "Data / Bases de données",
+        "niveau_confiance": 4,
+        "description": "Bases de données, stockage sensible",
+        "regles_entrant": "Depuis Servers uniquement, jamais depuis Users directement"
+      },
+      {
+        "zone": "Management / OOB",
+        "niveau_confiance": 5,
+        "description": "Accès administration (SSH, RDP, IPMI, console)",
+        "regles_entrant": "Depuis bastion host uniquement, authentification forte"
+      },
+      {
+        "zone": "IoT / OT",
+        "niveau_confiance": 1,
+        "description": "Appareils connectés, domotique, capteurs",
+        "regles_entrant": "Totalement isolé — connexion uniquement vers un broker MQTT/API gateway dédié, jamais vers réseau principal"
+      }
     ],
     "matrice_flux_exemple": {
       "description": "Exemple de matrice de flux (source → destination : protocole/port autorisé)",
@@ -123,15 +211,50 @@
     ]
   },
   "retrieval_hints": {
-    "priority_keywords": ["segmentation réseau", "VLAN", "DMZ", "microsegmentation", "air gap", "zones réseau", "firewall default deny", "mouvement latéral"],
-    "related_knowledge": ["zero_trust_architecture", "intrusion_detection_basics", "security_monitoring_basics", "least_privilege_access"],
+    "priority_keywords": [
+      "segmentation réseau",
+      "VLAN",
+      "DMZ",
+      "microsegmentation",
+      "air gap",
+      "zones réseau",
+      "firewall default deny",
+      "mouvement latéral"
+    ],
+    "related_knowledge": [
+      "zero_trust_architecture",
+      "intrusion_detection_basics",
+      "security_monitoring_basics",
+      "least_privilege_access"
+    ],
     "retrieval_priority": 8
   },
-  "behavior_rules": { "tone": "professional", "response_style": "structured_clear", "max_complexity": "high", "allow_humor": false },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "high",
+    "allow_humor": false
+  },
   "safety_notes": {
-    "allowed_usage": ["Conception d'architecture réseau sécurisée", "Audit et recommandations de segmentation", "Formation équipes réseau et sécurité"],
-    "forbidden_usage": ["Aider à contourner une segmentation réseau existante", "Identifier des failles de segmentation sans mandat explicite"],
+    "allowed_usage": [
+      "Conception d'architecture réseau sécurisée",
+      "Audit et recommandations de segmentation",
+      "Formation équipes réseau et sécurité"
+    ],
+    "forbidden_usage": [
+      "Aider à contourner une segmentation réseau existante",
+      "Identifier des failles de segmentation sans mandat explicite"
+    ],
     "fallback_behavior": "En cas de doute sur la configuration firewall, recommander un audit par un expert réseau certifié (CCNP Security, CISSP)."
   },
-  "metadata": { "author": "Cognitive Products Lab", "creation_date": "03/06/2026", "last_update": "03/06/2026", "review_status": "validated", "source_type": "manual_structured_knowledge", "language": "fr", "retrieval_ready": true, "rag_compatible": true }
+  "status": "validated",
+  "metadata": {
+    "created_at": "2026-06-23",
+    "validated_at": "2026-06-23",
+    "validated_by": "ALFRED enrichment pipeline",
+    "enrichment_version": "day1",
+    "schema_version": "1.2",
+    "review_notes": "migré depuis ancien format",
+    "block": "b18"
+  }
 }

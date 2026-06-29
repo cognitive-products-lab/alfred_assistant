@@ -1,15 +1,52 @@
 {
-  "_meta": { "project": "ALFRED", "block": "B18", "file": "cybersecurity_core.json", "version": "V2.0", "status": "VALIDATED", "updated": "2026-06-03", "validated_by": "Cognitive Products Lab" },
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "_meta": {
+    "project": "ALFRED",
+    "block": "B18",
+    "file": "cybersecurity_core.json",
+    "version": "V2.0",
+    "status": "VALIDATED",
+    "updated": "2026-06-03",
+    "validated_by": "Cognitive Products Lab"
+  },
   "knowledge_id": "professional.engineering.cybersecurite.cybersecurity_core",
   "id": "professional.engineering.cybersecurite.cybersecurity_core",
   "title": "Cybersécurité — Principes Fondamentaux CIA, Défense en Profondeur",
-  "version": "2.0.0", "status": "active", "domain": "professional", "subdomain": "engineering", "category": "cybersecurite",
+  "version": "2.0.0",
+  "domain": "professional",
+  "subdomain": "engineering",
+  "category": "cybersecurite",
   "summary": "Les principes fondamentaux de la cybersécurité : triade CIA (Confidentialité, Intégrité, Disponibilité), défense en profondeur, Privacy by Design et application au projet ALFRED.",
   "purpose": "Fournir à ALFRED le socle conceptuel de la cybersécurité pour accompagner l'utilisateur sur les bonnes pratiques, évaluer des architectures et expliquer les risques simplement.",
-  "tags": ["cybersécurité", "cia triad", "confidentialité", "intégrité", "disponibilité", "défense en profondeur", "privacy by design", "moindre privilège", "sécurité", "security by design"],
-  "intents": ["explain_cybersecurity_fundamentals", "apply_cia_triad", "evaluate_security_posture", "implement_defense_in_depth", "secure_ai_project"],
-  "usage_context": ["Introduction à la cybersécurité", "Évaluation d'une architecture", "Formation équipes", "Conseils sécurité projet ALFRED", "Audit de base"],
-  "priority": "critical", "safety_level": "normal",
+  "tags": [
+    "cybersécurité",
+    "cia triad",
+    "confidentialité",
+    "intégrité",
+    "disponibilité",
+    "défense en profondeur",
+    "privacy by design",
+    "moindre privilège",
+    "sécurité",
+    "security by design"
+  ],
+  "intents": [
+    "explain_cybersecurity_fundamentals",
+    "apply_cia_triad",
+    "evaluate_security_posture",
+    "implement_defense_in_depth",
+    "secure_ai_project"
+  ],
+  "usage_context": [
+    "Introduction à la cybersécurité",
+    "Évaluation d'une architecture",
+    "Formation équipes",
+    "Conseils sécurité projet ALFRED",
+    "Audit de base"
+  ],
+  "priority": "critical",
+  "safety_level": "normal",
   "content": {
     "definition": "La cybersécurité protège les systèmes informatiques, les réseaux et les données contre les accès non autorisés, les attaques, les fuites et les destructions. Elle repose sur trois piliers fondamentaux — la triade CIA — et un ensemble de principes architecturaux.",
     "core_principles": [
@@ -24,18 +61,48 @@
     "cia_triad": {
       "confidentiality": {
         "definition": "Garantir que l'information n'est accessible qu'aux personnes, processus et systèmes autorisés.",
-        "mechanisms": ["Chiffrement des données (AES-256, RSA)", "Contrôle d'accès (RBAC, ABAC)", "MFA", "Classification des données (Public/Interne/Confidentiel/Secret)"],
-        "threats": ["Interception réseau (sniffing)", "Accès non autorisé", "Fuite par email/cloud", "Ingénierie sociale"]
+        "mechanisms": [
+          "Chiffrement des données (AES-256, RSA)",
+          "Contrôle d'accès (RBAC, ABAC)",
+          "MFA",
+          "Classification des données (Public/Interne/Confidentiel/Secret)"
+        ],
+        "threats": [
+          "Interception réseau (sniffing)",
+          "Accès non autorisé",
+          "Fuite par email/cloud",
+          "Ingénierie sociale"
+        ]
       },
       "integrity": {
         "definition": "Garantir que les données sont exactes, complètes et n'ont pas été modifiées par des acteurs non autorisés.",
-        "mechanisms": ["Hachage cryptographique (SHA-256)", "Signatures numériques", "Contrôle de version", "Audit trail immuable"],
-        "threats": ["Man-in-the-middle", "Injection SQL", "Corruption de données", "Malware modifiant des fichiers"]
+        "mechanisms": [
+          "Hachage cryptographique (SHA-256)",
+          "Signatures numériques",
+          "Contrôle de version",
+          "Audit trail immuable"
+        ],
+        "threats": [
+          "Man-in-the-middle",
+          "Injection SQL",
+          "Corruption de données",
+          "Malware modifiant des fichiers"
+        ]
       },
       "availability": {
         "definition": "Garantir que les systèmes et données sont accessibles aux utilisateurs légitimes quand ils en ont besoin.",
-        "mechanisms": ["Redondance et haute disponibilité (HA)", "Sauvegardes testées", "Protection DDoS", "Plan de continuité (PCA/PRA)"],
-        "threats": ["DDoS", "Ransomware", "Panne matérielle", "Erreur humaine"]
+        "mechanisms": [
+          "Redondance et haute disponibilité (HA)",
+          "Sauvegardes testées",
+          "Protection DDoS",
+          "Plan de continuité (PCA/PRA)"
+        ],
+        "threats": [
+          "DDoS",
+          "Ransomware",
+          "Panne matérielle",
+          "Erreur humaine"
+        ]
       }
     },
     "defense_in_depth": {
@@ -53,12 +120,30 @@
       "principle": "La compromission d'une couche ne doit pas entraîner la compromission de l'ensemble du système."
     },
     "common_risks": [
-      {"risk": "Fuite de données personnelles", "vector": "Mauvais contrôle d'accès, erreur de configuration cloud"},
-      {"risk": "Accès non autorisé", "vector": "Mots de passe faibles, absence de MFA, phishing"},
-      {"risk": "Injection", "vector": "SQL injection, prompt injection, command injection — entrées non validées"},
-      {"risk": "Exposition de secrets", "vector": "API keys dans le code, .env commité, logs verbeux"},
-      {"risk": "Ransomware", "vector": "Phishing + exécution de malware + backups insuffisants"},
-      {"risk": "Erreur humaine", "vector": "Mauvaise configuration, déploiement sans test, suppression accidentelle"}
+      {
+        "risk": "Fuite de données personnelles",
+        "vector": "Mauvais contrôle d'accès, erreur de configuration cloud"
+      },
+      {
+        "risk": "Accès non autorisé",
+        "vector": "Mots de passe faibles, absence de MFA, phishing"
+      },
+      {
+        "risk": "Injection",
+        "vector": "SQL injection, prompt injection, command injection — entrées non validées"
+      },
+      {
+        "risk": "Exposition de secrets",
+        "vector": "API keys dans le code, .env commité, logs verbeux"
+      },
+      {
+        "risk": "Ransomware",
+        "vector": "Phishing + exécution de malware + backups insuffisants"
+      },
+      {
+        "risk": "Erreur humaine",
+        "vector": "Mauvaise configuration, déploiement sans test, suppression accidentelle"
+      }
     ],
     "application_alfred": {
       "confidentiality": [
@@ -107,15 +192,46 @@
     ]
   },
   "retrieval_hints": {
-    "priority_keywords": ["cybersécurité", "cia triad", "confidentialité intégrité disponibilité", "défense en profondeur", "moindre privilège", "security by design", "privacy by design"],
-    "related_knowledge": ["professional.engineering.cybersecurite.zero_trust_architecture", "professional.engineering.cybersecurite.threat_modeling_stride"],
+    "priority_keywords": [
+      "cybersécurité",
+      "cia triad",
+      "confidentialité intégrité disponibilité",
+      "défense en profondeur",
+      "moindre privilège",
+      "security by design",
+      "privacy by design"
+    ],
+    "related_knowledge": [
+      "professional.engineering.cybersecurite.zero_trust_architecture",
+      "professional.engineering.cybersecurite.threat_modeling_stride"
+    ],
     "retrieval_priority": 9
   },
-  "behavior_rules": {"tone": "professional", "response_style": "structured_clear", "max_complexity": "medium", "allow_humor": false},
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
   "safety_notes": {
-    "allowed_usage": ["Expliquer les fondamentaux", "Évaluer une posture sécurité", "Former des équipes"],
-    "forbidden_usage": ["Donner des conseils offensifs"],
+    "allowed_usage": [
+      "Expliquer les fondamentaux",
+      "Évaluer une posture sécurité",
+      "Former des équipes"
+    ],
+    "forbidden_usage": [
+      "Donner des conseils offensifs"
+    ],
     "fallback_behavior": "En cas de doute, recommander une évaluation par un expert certifié CISSP/CISM."
   },
-  "metadata": {"author": "Cognitive Products Lab", "creation_date": "03/06/2026", "last_update": "03/06/2026", "review_status": "validated", "source_type": "manual_structured_knowledge", "language": "fr", "retrieval_ready": true, "rag_compatible": true}
+  "status": "validated",
+  "metadata": {
+    "created_at": "2026-06-23",
+    "validated_at": "2026-06-23",
+    "validated_by": "ALFRED enrichment pipeline",
+    "enrichment_version": "day1",
+    "schema_version": "1.2",
+    "review_notes": "migré depuis ancien format",
+    "block": "b18"
+  }
 }

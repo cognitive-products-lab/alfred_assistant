@@ -1,0 +1,92 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "mathematics.statistics.probability",
+  "version": "1.0.0",
+  "domain": "mathematics",
+  "subdomain": "statistics",
+  "category": "applied_mathematics",
+  "priority": "high",
+  "safety_level": "normal",
+  "title": "Probabilités et Statistiques Fondamentales",
+  "summary": "Bases des probabilités et statistiques : espérance, variance, distributions, tests statistiques, corrélation et erreurs d'interprétation fréquentes.",
+  "purpose": "Permettre à ALFRED d'expliquer les concepts probabilistes et statistiques, et d'identifier les erreurs d'interprétation fréquentes dans les données.",
+  "tags": ["probabilités", "statistiques", "moyenne", "variance", "distribution_normale", "corrélation", "test", "biais"],
+  "intents": ["explain_probability", "explain_statistics", "interpret_data", "answer_math_questions"],
+  "usage_context": ["Mathématiques", "Analyse de données", "Interprétation d'études", "IA et machine learning"],
+  "content": {
+    "definition": "Les probabilités étudient les phénomènes aléatoires ; les statistiques collectent, analysent et interprètent des données pour en tirer des conclusions.",
+    "probability_basics": {
+      "definition": "Probabilité d'un événement A = nombre de cas favorables / nombre de cas possibles (loi de Laplace).",
+      "properties": ["0 ≤ P(A) ≤ 1", "P(certain) = 1", "P(impossible) = 0", "P(A ou B) = P(A) + P(B) - P(A et B)"],
+      "conditional": "P(A|B) = P(A et B) / P(B) — probabilité de A sachant B.",
+      "bayes_theorem": "P(A|B) = P(B|A) × P(A) / P(B) — mise à jour de probabilité selon une observation."
+    },
+    "descriptive_statistics": [
+      {"measure": "Moyenne (μ)", "description": "Somme des valeurs / nombre de valeurs. Sensible aux valeurs extrêmes."},
+      {"measure": "Médiane", "description": "Valeur centrale classée — robuste aux valeurs extrêmes."},
+      {"measure": "Mode", "description": "Valeur la plus fréquente."},
+      {"measure": "Variance (σ²)", "description": "Moyenne des carrés des écarts à la moyenne."},
+      {"measure": "Écart-type (σ)", "description": "Racine carrée de la variance — même unité que la variable."},
+      {"measure": "Corrélation (r)", "description": "Mesure la force du lien linéaire entre deux variables (-1 à +1). Corrélation ≠ causalité !"}
+    ],
+    "normal_distribution": {
+      "definition": "Distribution en cloche symétrique — la plus fréquente en nature (taille, QI, erreurs de mesure).",
+      "rule_68_95_99": "68 % des données dans ±1σ, 95 % dans ±2σ, 99,7 % dans ±3σ.",
+      "importance": "Base du TCL (théorème central limite) : la moyenne d'un grand échantillon suit une loi normale même si la population ne la suit pas."
+    },
+    "hypothesis_testing": {
+      "principle": "On formule une hypothèse nulle (H₀ : 'pas d'effet') et on teste si les données la rejettent.",
+      "p_value": "Probabilité d'obtenir ces résultats si H₀ est vraie. p < 0,05 = résultat statistiquement significatif (convention).",
+      "caveats": ["p < 0,05 ne signifie pas 'prouvé' mais 'improbable sous H₀'", "La puissance statistique dépend de la taille de l'échantillon", "Significatif statistiquement ≠ significatif pratiquement"]
+    },
+    "common_misconceptions": [
+      "Corrélation ≠ causalité : la consommation de crème glacée corrèle avec les noyades (été = les deux augmentent).",
+      "La moyenne ne représente pas toujours bien une distribution asymétrique.",
+      "Un échantillon de taille 1000 peut être biaisé même si grand.",
+      "p < 0,05 peut être atteint par hasard en testant 20 hypothèses (p-hacking).",
+      "Les sondages à 3 % de marge d'erreur supposent un échantillon aléatoire parfait."
+    ],
+    "examples": [
+      {
+        "situation": "Utilisateur voit une étude disant 'X cause Y' avec une corrélation de 0,6",
+        "recommended_behavior": "Expliquer que la corrélation montre un lien mais pas la causalité — vérifier s'il y a une variable confondante, une étude longitudinale, un essai randomisé.",
+        "avoid": "Accepter la causalité basée sur la corrélation seule."
+      }
+    ],
+    "best_practices": [
+      "Toujours distinguer corrélation et causalité.",
+      "Vérifier la taille de l'échantillon et la méthode d'échantillonnage.",
+      "Interpréter la p-value dans son contexte complet (intervalle de confiance, taille d'effet)."
+    ],
+    "anti_patterns": [
+      "Affirmer une causalité à partir d'une seule corrélation.",
+      "Utiliser la moyenne sans mentionner l'écart-type.",
+      "Ignorer les biais de sélection dans les études."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["probabilités", "statistiques", "corrélation", "moyenne", "distribution normale", "p-value"],
+    "related_domains": ["mathematics", "science"],
+    "related_knowledge": ["mathematics.calculus_basics", "technology.artificial_intelligence"],
+    "retrieval_priority": 8
+  },
+  "behavior_rules": {"tone": "educational", "response_style": "structured_clear", "max_complexity": "medium", "allow_humor": false},
+  "safety_notes": {
+    "allowed_usage": ["Éducation mathématique", "Analyse de données"],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "Recommander un statisticien pour les analyses de données critiques (médicale, juridique)."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "29/06/2026",
+    "last_update": "29/06/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

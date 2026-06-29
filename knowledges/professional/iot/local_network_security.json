@@ -1,26 +1,69 @@
 {
-    "id":  "local.network.security",
-    "created_at":  "2026-06-03",
-    "title":  "local network security",
-    "tags":  [
-
-             ],
-    "source":  "recreated_from_dashboard_manifest",
-    "description":  "Fiche connaissance recréée automatiquement à partir du manifest dashboard.",
-    "status":  "draft",
-    "content":  {
-                    "summary":  "",
-                    "links":  [
-
-                              ],
-                    "use_cases":  [
-
-                                  ],
-                    "risks":  [
-
-                              ],
-                    "key_points":  [
-
-                                   ]
-                }
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "id": "knowledges.professional.iot.local_network_security",
+  "title": "Sécurité du réseau local — défense en profondeur à domicile et PME",
+  "domain": "professional",
+  "subdomain": "iot",
+  "status": "validated",
+  "metadata": {
+    "created_at": "2026-06-24",
+    "validated_at": "2026-06-24",
+    "validated_by": "ALFRED enrichment pipeline",
+    "enrichment_version": "day3",
+    "schema_version": "1.2",
+    "review_notes": "",
+    "block": "b18"
+  },
+  "priority": "high",
+  "summary": "Mesures de sécurité pour protéger un réseau local contre les intrusions, les compromissions internes et les fuites de données — applicable au domicile comme en petite structure.",
+  "core_definition": "La sécurité du réseau local désigne l'ensemble des mesures architecturales et de configuration qui protègent les systèmes et données d'un réseau privé contre les accès non autorisés, qu'ils proviennent d'internet, d'appareils compromis sur le réseau ou d'acteurs internes.",
+  "knowledge": {
+    "couches_defense": {
+      "perimetre": "Firewall, NAT, IDS/IPS — filtrer le trafic entrant et sortant",
+      "segmentation": "VLAN par type d'usage — IoT, invité, pro, serveurs",
+      "acces": "WPA3, VPN pour accès distants, désactivation des services inutiles",
+      "monitoring": "Logs réseau, alertes sur comportements anormaux, inventaire des appareils"
+    },
+    "bonnes_pratiques": {
+      "wifi": "WPA3 ou WPA2-AES minimum, SSID non révélateur, réseau invité séparé",
+      "routeur": "Firmware à jour, interface admin sur port non-standard, accès admin désactivé depuis WAN",
+      "dns": "DNS filtrant (Pi-hole, NextDNS) — bloque pub, tracking, domaines malveillants",
+      "upnp": "Désactiver UPnP — ouvre des ports automatiquement, source de vulnérabilités",
+      "inventaire": "Connaître chaque appareil sur le réseau — les inconnus sont des signaux d'alerte"
+    },
+    "alfred_hardware_context": "Réseau ALFRED : ER605 (routeur) + SG108E (switch manageable) — architecture permettant VLAN IoT et isolation PC ALFRED. Configuration recommandée : VLAN 10 (Pro/ALFRED), VLAN 20 (IoT), VLAN 30 (Invité)."
+  },
+  "example_answers": [
+    {
+      "prompt": "Par où commencer pour sécuriser mon réseau à la maison ?",
+      "answer": "Priorités par ordre d'impact : 1) Mot de passe admin du routeur — changer dès maintenant (pas admin/admin). 2) WiFi — WPA3 ou WPA2-AES, mot de passe fort. 3) Désactiver UPnP. 4) Firmware routeur — vérifier et mettre à jour. 5) Réseau invité séparé pour les visiteurs et les appareils IoT. Ces cinq points éliminent 80% des vecteurs d'attaque courants sur un réseau domestique."
+    },
+    {
+      "prompt": "Comment détecter si quelqu'un est sur mon réseau WiFi ?",
+      "answer": "Depuis l'interface admin du routeur (souvent 192.168.1.1 ou 192.168.0.1) : liste des appareils connectés (DHCP leases). Comparer à l'inventaire de tes appareils connus. Tout appareil inconnu mérite investigation. Pour une détection continue : Fing (app mobile) ou un Raspberry Pi avec nmap ou Angry IP Scanner peuvent monitorer le réseau et alerter sur les nouveaux appareils."
+    }
+  ],
+  "response_guidance": {
+    "tone": "pratique, sécurité, contextualisé ALFRED",
+    "structure": [
+      "couches",
+      "bonnes pratiques",
+      "contexte ALFRED"
+    ],
+    "avoid": [
+      "expert pur",
+      "négliger le contexte domestique"
+    ]
+  },
+  "tags": [
+    "réseau local",
+    "sécurité",
+    "WiFi",
+    "routeur",
+    "VLAN",
+    "firewall",
+    "ALFRED"
+  ],
+  "related_knowledge_units": []
 }

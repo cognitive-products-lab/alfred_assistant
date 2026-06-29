@@ -1,26 +1,65 @@
 {
-    "id":  "goal.alignment.reasoning",
-    "created_at":  "2026-06-03",
-    "title":  "goal alignment reasoning",
-    "tags":  [
-
-             ],
-    "source":  "recreated_from_dashboard_manifest",
-    "description":  "Fiche connaissance recréée automatiquement à partir du manifest dashboard.",
-    "status":  "draft",
-    "content":  {
-                    "summary":  "",
-                    "links":  [
-
-                              ],
-                    "use_cases":  [
-
-                                  ],
-                    "risks":  [
-
-                              ],
-                    "key_points":  [
-
-                                   ]
-                }
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "id": "knowledges.professional.engineering.reasoning.goal_alignment_reasoning",
+  "title": "Raisonnement d'alignement des objectifs — vérifier la cohérence moyens-fins",
+  "domain": "professional",
+  "subdomain": "reasoning",
+  "status": "validated",
+  "metadata": {
+    "created_at": "2026-06-24",
+    "validated_at": "2026-06-24",
+    "validated_by": "ALFRED enrichment pipeline",
+    "enrichment_version": "day3",
+    "schema_version": "1.2",
+    "review_notes": "",
+    "block": "b18"
+  },
+  "priority": "high",
+  "summary": "Méthode pour s'assurer que les actions choisies mènent réellement aux objectifs visés — et détecter quand les moyens dérivient de la fin.",
+  "core_definition": "Le raisonnement d'alignement des objectifs est le processus de vérification continue que les actions, ressources et décisions d'un système ou d'un acteur restent cohérentes avec les objectifs déclarés, en détectant les dérives et les substitutions d'objectifs (goal displacement).",
+  "knowledge": {
+    "concepts_cles": {
+      "goal_displacement": "Quand le moyen devient la fin (optimiser le KPI au lieu de l'objectif réel)",
+      "proximal_vs_distal": "Objectif immédiat (proximal) vs objectif final (distal) — aligner les deux",
+      "criteria_drift": "Les critères de succès changent sans que l'objectif change — signal d'alarme"
+    },
+    "verification": {
+      "backward_chaining": "\"Cet objectif proximal mène-t-il vraiment à l'objectif distal ?\"",
+      "stakeholder_check": "Demander à chaque partie si elle comprend l'objectif de la même manière",
+      "result_vs_activity": "Mesurer les résultats, pas seulement les activités"
+    },
+    "en_pratique_alfred": "Quand une demande arrive, vérifier si l'action demandée mène vraiment au besoin réel — pas juste à la formulation de la demande."
+  },
+  "example_answers": [
+    {
+      "prompt": "On fait beaucoup de réunions mais rien n'avance.",
+      "answer": "C'est un signal classique de goal displacement : les réunions sont devenues la fin plutôt que le moyen. Question clé : chaque réunion produit-elle une décision, une action ou une information qui n'existait pas avant ? Si non, la réunion est une activité sans résultat. On peut refaire le design : moins de réunions, plus de livrables clairs avec owners et deadlines."
+    },
+    {
+      "prompt": "Comment savoir si ce qu'on fait mène vraiment où on veut aller ?",
+      "answer": "Backward chaining : partir de l'objectif final et remonter. \"Pour atteindre Z, il faut Y. Pour Y, il faut X. Est-ce qu'on fait vraiment X ?\" Souvent on découvre qu'on fait X' qui ressemble à X mais ne produit pas vraiment Y."
+    }
+  ],
+  "response_guidance": {
+    "tone": "stratégique, orienté résultats",
+    "structure": [
+      "concept",
+      "vérification",
+      "application"
+    ],
+    "avoid": [
+      "théorie sans exemple",
+      "liste sans structure"
+    ]
+  },
+  "tags": [
+    "objectifs",
+    "alignement",
+    "goal displacement",
+    "stratégie",
+    "KPI",
+    "cohérence"
+  ],
+  "related_knowledge_units": []
 }

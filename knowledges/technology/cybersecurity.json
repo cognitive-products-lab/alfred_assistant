@@ -1,0 +1,95 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "technology.security.cybersecurity",
+  "version": "1.0.0",
+  "domain": "technology",
+  "subdomain": "cybersecurity",
+  "category": "security",
+  "priority": "high",
+  "safety_level": "sensitive",
+  "title": "Cybersécurité Fondamentale",
+  "summary": "Principes de la cybersécurité, principales menaces (malware, phishing, ransomware), cadres de sécurité et bonnes pratiques de protection.",
+  "purpose": "Permettre à ALFRED d'expliquer les enjeux de cybersécurité, d'aider à comprendre les menaces et de promouvoir les bonnes pratiques sans faciliter les attaques.",
+  "tags": ["cybersécurité", "malware", "phishing", "ransomware", "pare-feu", "MFA", "RGPD", "SOC", "zero_trust"],
+  "intents": ["explain_cybersecurity", "help_with_security_practices", "explain_cyber_threats", "answer_privacy_questions"],
+  "usage_context": ["Protection numérique personnelle", "Sécurité entreprise", "Vie privée en ligne"],
+  "content": {
+    "definition": "La cybersécurité est l'ensemble des pratiques, technologies et processus visant à protéger les systèmes informatiques, les réseaux et les données contre les accès non autorisés, les dommages et les attaques.",
+    "cia_triad": [
+      {"principle": "Confidentialité", "description": "Seules les personnes autorisées accèdent à l'information."},
+      {"principle": "Intégrité", "description": "L'information n'est pas modifiée de manière non autorisée."},
+      {"principle": "Disponibilité", "description": "L'information est accessible quand les utilisateurs autorisés en ont besoin."}
+    ],
+    "major_threats": [
+      {"threat": "Phishing", "description": "E-mails frauduleux imitant des entités légitimes pour voler des identifiants.", "prevention": "Formation, filtres anti-spam, vérification des URLs."},
+      {"threat": "Ransomware", "description": "Logiciel chiffrant les données de la victime puis exigeant une rançon.", "prevention": "Sauvegardes 3-2-1, mise à jour, MFA."},
+      {"threat": "Injection SQL", "description": "Insertion de code malveillant dans des requêtes SQL via des champs non sécurisés.", "prevention": "Requêtes préparées, validation des entrées."},
+      {"threat": "Man-in-the-Middle", "description": "Interception des communications entre deux parties.", "prevention": "TLS/HTTPS, certificats valides."},
+      {"threat": "DDoS", "description": "Saturation d'un serveur par un déluge de requêtes.", "prevention": "CDN, WAF, rate limiting."},
+      {"threat": "Social Engineering", "description": "Manipulation psychologique pour obtenir accès ou informations.", "prevention": "Formation, politique de vérification stricte."}
+    ],
+    "security_frameworks": [
+      {"framework": "NIST CSF", "description": "Cadre de cybersécurité américain : Identifier, Protéger, Détecter, Répondre, Récupérer."},
+      {"framework": "ISO 27001", "description": "Standard international de gestion de la sécurité de l'information."},
+      {"framework": "Zero Trust", "description": "Principe : ne jamais faire confiance, toujours vérifier — même en interne."},
+      {"framework": "OWASP Top 10", "description": "Les 10 principales vulnérabilités des applications web."}
+    ],
+    "personal_best_practices": [
+      "Utiliser un gestionnaire de mots de passe (Bitwarden, 1Password).",
+      "Activer l'authentification multifacteur (MFA) partout.",
+      "Mettre à jour régulièrement les logiciels et systèmes d'exploitation.",
+      "Utiliser un VPN sur les réseaux Wi-Fi publics.",
+      "Sauvegarder ses données (règle 3-2-1 : 3 copies, 2 supports, 1 hors site).",
+      "Vérifier les URLs avant de cliquer (phishing)."
+    ],
+    "enterprise_practices": [
+      "Segmentation réseau et micro-segmentation.",
+      "Gestion des identités (IAM, PAM).",
+      "SIEM / SOC pour la détection des incidents.",
+      "Tests de pénétration réguliers.",
+      "Plan de réponse aux incidents (IR plan)."
+    ],
+    "examples": [
+      {
+        "situation": "Utilisateur a reçu un e-mail suspect demandant ses identifiants bancaires",
+        "recommended_behavior": "Identifier les signes de phishing (expéditeur, URL, urgence), conseiller de ne jamais cliquer et de signaler à sa banque directement.",
+        "avoid": "Minimiser la menace ou donner des instructions génériques inutilisables."
+      }
+    ],
+    "best_practices": [
+      "Commencer par les mesures à fort impact / faible effort (MFA, mises à jour, mots de passe).",
+      "La cybersécurité est une culture autant qu'une technologie.",
+      "Souligner que 90 % des incidents impliquent une erreur humaine."
+    ],
+    "anti_patterns": [
+      "Fournir des instructions d'attaque ou d'exploitation.",
+      "Minimiser les risques de sécurité pour rassurer faussement.",
+      "Recommander des outils de sécurité non maintenus."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["cybersécurité", "phishing", "ransomware", "MFA", "malware", "RGPD"],
+    "related_domains": ["technology"],
+    "related_knowledge": ["technology.cryptography", "technology.cloud_computing"],
+    "retrieval_priority": 9
+  },
+  "behavior_rules": {"tone": "professional", "response_style": "structured_clear", "max_complexity": "medium", "allow_humor": false},
+  "safety_notes": {
+    "allowed_usage": ["Éducation à la sécurité", "Défense et protection"],
+    "restricted_usage": ["Questions d'audit de sécurité sans contexte d'autorisation"],
+    "forbidden_usage": ["Aide à des attaques informatiques", "Création de malware", "Exploitation de vulnérabilités non autorisée"],
+    "fallback_behavior": "Refuser et orienter vers des ressources légales de sécurité."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "29/06/2026",
+    "last_update": "29/06/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}
