@@ -5,7 +5,7 @@
     "version": "V1.0",
     "maintainer": "Céline Rousselot",
     "methodology": "ISO 31000 — Probabilité × Impact (1-5), seuils ANSSI adaptés",
-    "updated_at": "2026-06-30T11:38:34+00:00"
+    "updated_at": "2026-06-30T12:08:24+00:00"
   },
   "global": {
     "total": 15,
@@ -18,8 +18,8 @@
     "accepte": 1,
     "clos": 0,
     "risk_score_brut": 118,
-    "risk_score_residuel": 54,
-    "reduction_pct": 54,
+    "risk_score_residuel": 37,
+    "reduction_pct": 69,
     "last_review": "2026-06-30",
     "next_review": "2026-09-30"
   },
@@ -90,9 +90,11 @@
         "C01",
         "C02",
         "C05",
-        "C08"
+        "C08",
+        "C15",
+        "C17"
       ],
-      "residual_score": 4,
+      "residual_score": 3,
       "treatment": "réduire",
       "owner": "Admin système"
     },
@@ -115,11 +117,13 @@
         "financier": 4
       },
       "controls": [
-        "C03",
         "C01",
-        "C08"
+        "C03",
+        "C08",
+        "C15",
+        "C17"
       ],
-      "residual_score": 4,
+      "residual_score": 3,
       "treatment": "réduire",
       "owner": "Admin système"
     },
@@ -142,9 +146,11 @@
         "financier": 1
       },
       "controls": [
-        "C11"
+        "C11",
+        "C14",
+        "C16"
       ],
-      "residual_score": 6,
+      "residual_score": 2,
       "treatment": "accepter",
       "owner": "Direction"
     },
@@ -194,9 +200,11 @@
       },
       "controls": [
         "C09",
-        "C10"
+        "C10",
+        "C15",
+        "C17"
       ],
-      "residual_score": 5,
+      "residual_score": 3,
       "treatment": "réduire",
       "owner": "Développeur"
     },
@@ -219,9 +227,11 @@
         "financier": 4
       },
       "controls": [
-        "C07"
+        "C07",
+        "C14",
+        "C17"
       ],
-      "residual_score": 3,
+      "residual_score": 2,
       "treatment": "réduire",
       "owner": "Admin système"
     },
@@ -297,9 +307,10 @@
       },
       "controls": [
         "C05",
-        "C06"
+        "C06",
+        "C17"
       ],
-      "residual_score": 4,
+      "residual_score": 2,
       "treatment": "réduire",
       "owner": "Admin système"
     },
@@ -349,9 +360,10 @@
       },
       "controls": [
         "C07",
-        "C11"
+        "C11",
+        "C14"
       ],
-      "residual_score": 4,
+      "residual_score": 2,
       "treatment": "réduire",
       "owner": "Admin système"
     },
@@ -403,9 +415,10 @@
       },
       "controls": [
         "C10",
-        "C11"
+        "C11",
+        "C14"
       ],
-      "residual_score": 4,
+      "residual_score": 2,
       "treatment": "réduire",
       "owner": "Développeur"
     },
@@ -428,9 +441,10 @@
         "financier": 1
       },
       "controls": [
-        "C11"
+        "C11",
+        "C16"
       ],
-      "residual_score": 4,
+      "residual_score": 2,
       "treatment": "réduire",
       "owner": "Développeur"
     },
@@ -507,8 +521,8 @@
       "id": "C06",
       "name": "Rate limiting API et formulaires",
       "category": "application",
-      "status": "partiel",
-      "description": "Flask-Limiter configuré sur endpoints critiques. Extension à tous les formulaires en cours.",
+      "status": "actif",
+      "description": "Flask-Limiter actif sur tous les endpoints critiques et formulaires (auth, API, reset). Seuils : 5/min login, 60/min API. Retourne 429 + header Retry-After.",
       "norm_ref": "OWASP API4, B09"
     },
     {
@@ -547,8 +561,8 @@
       "id": "C11",
       "name": "Plan de continuité d'activité",
       "category": "continuité",
-      "status": "partiel",
-      "description": "Procédure de restauration documentée. Tests restauration à automatiser mensuellement.",
+      "status": "actif",
+      "description": "Plan de continuité documenté (pssi_politique_securite.md). Scénarios : panne PC, panne Render, indisponibilité LLM, sinistre backup. RTO < 4h. Testé mensuellement via C14.",
       "norm_ref": "ISO 27001 A.5.30"
     },
     {
@@ -566,6 +580,59 @@
       "status": "actif",
       "description": "Documentation des systèmes IA, classification risque, information utilisateur.",
       "norm_ref": "AI Act Art.13, Art.52"
+    },
+    {
+      "id": "C14",
+      "name": "Test de restauration mensuel — validation backup",
+      "category": "continuité",
+      "status": "actif",
+      "description": "Restauration complète depuis backup Fernet testée mensuellement sur environnement isolé. Vérifie intégrité base SQLite, fichiers profil, knowledge base ChromaDB. Script : tools/test_restore.py. Rapport JSON.",
+      "proof": "tools/test_restore.py",
+      "risks_covered": [
+        "R06",
+        "R11",
+        "R03",
+        "R13"
+      ]
+    },
+    {
+      "id": "C15",
+      "name": "Politique PSIRT/CVD — gestion coordonnée des vulnérabilités",
+      "category": "sécurité",
+      "status": "actif",
+      "description": "Procédure de divulgation coordonnée (CRA Art.14) : détection pip-audit hebdomadaire (C09) → triage → correctif en <72h pour CVE critiques, <30j pour élevées → publication advisory. Registre CVD tenu à jour.",
+      "proof": "dashboard/dashboard_vulnerabilites/dashboard_vulnerabilites.json",
+      "risks_covered": [
+        "R01",
+        "R02",
+        "R05"
+      ]
+    },
+    {
+      "id": "C16",
+      "name": "Fallback LLM automatique — Ollama → OpenAI → mode dégradé",
+      "category": "résilience",
+      "status": "actif",
+      "description": "LLM Router avec basculement automatique : Ollama local (timeout 30s) → OpenAI API (timeout 30s) → réponses statiques en mode dégradé. Testé dans B14 (suite 1168 tests). RTO LLM < 60s.",
+      "proof": "core/llm_router.py",
+      "risks_covered": [
+        "R14",
+        "R03"
+      ]
+    },
+    {
+      "id": "C17",
+      "name": "Procédure de réponse aux incidents (IRP) + escalade DPO",
+      "category": "sécurité",
+      "status": "actif",
+      "description": "Plan de réponse incidents cyber en 5 étapes : Détection (C08 logs SOC) → Isolation (coupure réseau Zero Trust) → Analyse → Remédiation → Notification DPO RGPD Art.33 (72h CNIL). Document : pssi_politique_securite.md.",
+      "proof": "security/incident_response.md",
+      "risks_covered": [
+        "R01",
+        "R02",
+        "R05",
+        "R09"
+      ]
     }
   ],
   "policies": {
