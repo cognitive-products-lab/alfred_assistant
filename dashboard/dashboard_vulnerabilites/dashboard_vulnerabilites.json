@@ -11,7 +11,7 @@
       "cron": "0 2 * * 0",
       "human": "Chaque dimanche à 02h00",
       "next": "2026-07-06T02:00:00",
-      "last": "2026-06-29T02:00:00"
+      "last": "2026-06-30"
     },
     "tests": {
       "rhythm": "mensuel",
@@ -21,17 +21,27 @@
       "last": "2026-06-01T03:00:00"
     },
     "notification_thresholds": {
-      "critique":   "immédiat (< 1h)",
-      "eleve":      "24h",
-      "moyen":      "rapport hebdomadaire",
-      "faible":     "rapport mensuel",
+      "critique": "immédiat (< 1h)",
+      "eleve": "24h",
+      "moyen": "rapport hebdomadaire",
+      "faible": "rapport mensuel",
       "informatif": "aucune"
     },
     "channels": {
-      "email":     { "active": true,  "address": "admin@cognitive-products-lab.fr" },
-      "dashboard": { "active": true },
-      "log":       { "active": true,  "path": "logs/security/vuln_alerts.log" },
-      "sms":       { "active": false }
+      "email": {
+        "active": true,
+        "address": "admin@cognitive-products-lab.fr"
+      },
+      "dashboard": {
+        "active": true
+      },
+      "log": {
+        "active": true,
+        "path": "logs/security/vuln_alerts.log"
+      },
+      "sms": {
+        "active": false
+      }
     },
     "retention_logs_days": 365,
     "report_format": "PDF + JSON",
@@ -39,8 +49,20 @@
   },
   "summary": {
     "total": 15,
-    "by_severity": { "critique": 0, "eleve": 2, "moyen": 6, "faible": 7 },
-    "by_status":   { "ouvert": 3, "en_cours": 3, "contrôlé": 7, "résolu": 1, "accepté": 1 }
+    "by_severity": {
+      "critique": 0,
+      "eleve": 2,
+      "moyen": 6,
+      "faible": 7
+    },
+    "by_status": {
+      "ouvert": 2,
+      "en_cours": 0,
+      "contrôlé": 8,
+      "résolu": 1,
+      "accepté": 1,
+      "en cours": 3
+    }
   },
   "vulnerabilities": [
     {
@@ -292,7 +314,10 @@
       "cron": "0 2 * * 0",
       "human": "Dimanche 02h00",
       "command": "pip-audit --output json > logs/security/pip_audit_$(date +%Y%m%d).json",
-      "notify_on": ["critique", "eleve"],
+      "notify_on": [
+        "critique",
+        "eleve"
+      ],
       "notify_always": false,
       "active": true,
       "last_run": "2026-06-29",
@@ -305,7 +330,11 @@
       "cron": "0 3 1 * *",
       "human": "1er du mois 03h00",
       "command": "python3 -m pytest tests/security/ -v > logs/tests/security_$(date +%Y%m%d).log 2>&1",
-      "notify_on": ["critique", "eleve", "moyen"],
+      "notify_on": [
+        "critique",
+        "eleve",
+        "moyen"
+      ],
       "notify_always": true,
       "active": true,
       "last_run": "2026-06-01",
@@ -318,7 +347,10 @@
       "cron": "0 4 * * 0",
       "human": "Dimanche 04h00",
       "command": "python3 scripts/verify_backup.py --checksum --alert-on-fail",
-      "notify_on": ["critique", "eleve"],
+      "notify_on": [
+        "critique",
+        "eleve"
+      ],
       "notify_always": false,
       "active": true,
       "last_run": "2026-06-29",
@@ -331,7 +363,10 @@
       "cron": "0 1 1 * *",
       "human": "1er du mois 01h00",
       "command": "docker run -t owasp/zap2docker-stable zap-baseline.py -t https://cognitive-products-lab.fr -r zap_$(date +%Y%m%d).html",
-      "notify_on": ["critique", "eleve"],
+      "notify_on": [
+        "critique",
+        "eleve"
+      ],
       "notify_always": false,
       "active": false,
       "last_run": null,
@@ -345,7 +380,12 @@
       "cron": "0 8 1 * *",
       "human": "1er du mois 08h00",
       "command": "python3 scripts/security_report.py --month --pdf --send-email-admin",
-      "notify_on": ["critique", "eleve", "moyen", "faible"],
+      "notify_on": [
+        "critique",
+        "eleve",
+        "moyen",
+        "faible"
+      ],
       "notify_always": true,
       "active": true,
       "last_run": "2026-06-01",
@@ -353,13 +393,85 @@
     }
   ],
   "scan_history": [
-    { "date": "2026-06-29", "type": "pip-audit",       "result": "ok", "vulns_found": 0, "duration_s": 45,  "report": "pip_audit_20260629.json" },
-    { "date": "2026-06-22", "type": "pip-audit",       "result": "ok", "vulns_found": 0, "duration_s": 42,  "report": "pip_audit_20260622.json" },
-    { "date": "2026-06-15", "type": "pip-audit",       "result": "ok", "vulns_found": 0, "duration_s": 43,  "report": "pip_audit_20260615.json" },
-    { "date": "2026-06-08", "type": "pip-audit",       "result": "ok", "vulns_found": 0, "duration_s": 41,  "report": "pip_audit_20260608.json" },
-    { "date": "2026-06-01", "type": "audit complet",   "result": "ok", "vulns_found": 15, "duration_s": 320, "report": "audit_complet_20260601.json" },
-    { "date": "2026-06-01", "type": "tests B20",       "result": "ok", "vulns_found": 0, "duration_s": 182, "report": "security_20260601.log" },
-    { "date": "2026-06-01", "type": "backup verify",   "result": "ok", "vulns_found": 0, "duration_s": 12,  "report": null },
-    { "date": "2026-05-04", "type": "tests B20",       "result": "ok", "vulns_found": 0, "duration_s": 175, "report": "security_20260504.log" }
+    {
+      "date": "2026-06-30",
+      "type": "pip-audit",
+      "result": "error",
+      "vulns_found": 0,
+      "duration_s": null,
+      "report": null
+    },
+    {
+      "date": "2026-06-30",
+      "type": "pip-audit",
+      "result": "error",
+      "vulns_found": 0,
+      "duration_s": null,
+      "report": null
+    },
+    {
+      "date": "2026-06-29",
+      "type": "pip-audit",
+      "result": "ok",
+      "vulns_found": 0,
+      "duration_s": 45,
+      "report": "pip_audit_20260629.json"
+    },
+    {
+      "date": "2026-06-22",
+      "type": "pip-audit",
+      "result": "ok",
+      "vulns_found": 0,
+      "duration_s": 42,
+      "report": "pip_audit_20260622.json"
+    },
+    {
+      "date": "2026-06-15",
+      "type": "pip-audit",
+      "result": "ok",
+      "vulns_found": 0,
+      "duration_s": 43,
+      "report": "pip_audit_20260615.json"
+    },
+    {
+      "date": "2026-06-08",
+      "type": "pip-audit",
+      "result": "ok",
+      "vulns_found": 0,
+      "duration_s": 41,
+      "report": "pip_audit_20260608.json"
+    },
+    {
+      "date": "2026-06-01",
+      "type": "audit complet",
+      "result": "ok",
+      "vulns_found": 15,
+      "duration_s": 320,
+      "report": "audit_complet_20260601.json"
+    },
+    {
+      "date": "2026-06-01",
+      "type": "tests B20",
+      "result": "ok",
+      "vulns_found": 0,
+      "duration_s": 182,
+      "report": "security_20260601.log"
+    },
+    {
+      "date": "2026-06-01",
+      "type": "backup verify",
+      "result": "ok",
+      "vulns_found": 0,
+      "duration_s": 12,
+      "report": null
+    },
+    {
+      "date": "2026-05-04",
+      "type": "tests B20",
+      "result": "ok",
+      "vulns_found": 0,
+      "duration_s": 175,
+      "report": "security_20260504.log"
+    }
   ]
 }
