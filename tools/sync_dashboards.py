@@ -24,6 +24,9 @@ SRC_TESTS             = ALFRED_PC / "dashboard/dashboard_tests/dashboard_tests.j
 SRC_GOUVERNANCE       = ALFRED_PC / "dashboard/dashboard_gouvernance/dashboard_gouvernance.json"
 SRC_GOUVERNANCE_DATA  = ALFRED_PC / "dashboard/dashboard_gouvernance/dashboard_gouvernance_data.json"
 SRC_KNOWLEDGE_DATA    = ALFRED_PC / "dashboard/dashboard_knowledges_tool/knowledge_dashboard_data.json"
+SRC_CONFORMITE        = ALFRED_PC / "dashboard/dashboard_conformite/dashboard_conformite.json"
+SRC_VULNERABILITES    = ALFRED_PC / "dashboard/dashboard_vulnerabilites/dashboard_vulnerabilites.json"
+SRC_RISK_IMPACT       = ALFRED_PC / "dashboard/dashboard_risk_impact/dashboard_risk_impact.json"
 
 WEB_ROOT = ROOT / "ALFRED_WEB"
 DEST_DIR = WEB_ROOT / "static/dashboard"
@@ -34,10 +37,16 @@ DEST_TESTS             = DEST_DIR / "dashboard_test.json"
 DEST_GOUVERNANCE       = DEST_DIR / "dashboard_gouvernance.json"
 DEST_GOUVERNANCE_DATA  = DEST_DIR / "dashboard_gouvernance_data.json"
 DEST_KNOWLEDGE_DATA    = DEST_DIR / "knowledge_dashboard_data.json"
+DEST_CONFORMITE        = DEST_DIR / "dashboard_conformite.json"
+DEST_VULNERABILITES    = DEST_DIR / "dashboard_vulnerabilites.json"
+DEST_RISK_IMPACT       = DEST_DIR / "dashboard_risk_impact.json"
 LOG_FILE               = DEST_DIR / "sync_log.json"
 
-UPDATE_GOUVERNANCE   = ALFRED_PC / "tools/dashboard_tools/dashboard_gouvernance/update_gouvernance_data.py"
-GEN_KNOWLEDGE        = ALFRED_PC / "dashboard/dashboard_knowledges_tool/generate_knowledge_dashboard.py"
+UPDATE_GOUVERNANCE    = ALFRED_PC / "tools/dashboard_tools/dashboard_gouvernance/update_gouvernance_data.py"
+UPDATE_CONFORMITE     = ALFRED_PC / "tools/dashboard_tools/dashboard_conformite/update_conformite_data.py"
+UPDATE_VULNERABILITES = ALFRED_PC / "tools/dashboard_tools/dashboard_vulnerabilites/update_vulnerabilites_data.py"
+UPDATE_RISK_IMPACT    = ALFRED_PC / "tools/dashboard_tools/dashboard_risk_impact/update_risk_impact_data.py"
+GEN_KNOWLEDGE         = ALFRED_PC / "dashboard/dashboard_knowledges_tool/generate_knowledge_dashboard.py"
 
 # Patterns sensibles a anonymiser avant publication web
 _SENSITIVE_PATTERNS = {
@@ -110,6 +119,9 @@ def git_push(ts: str) -> dict:
         "static/dashboard/dashboard_gouvernance.json",
         "static/dashboard/dashboard_gouvernance_data.json",
         "static/dashboard/knowledge_dashboard_data.json",
+        "static/dashboard/dashboard_conformite.json",
+        "static/dashboard/dashboard_vulnerabilites.json",
+        "static/dashboard/dashboard_risk_impact.json",
         "static/dashboard/sync_log.json",
     ])
 
@@ -140,12 +152,12 @@ def regenerate_knowledge_dashboard() -> dict:
     return {"status": "OK"}
 
 
-def regenerate_gouvernance() -> dict:
-    """Exécute update_gouvernance_data.py pour recalculer les scores avant sync."""
-    if not UPDATE_GOUVERNANCE.exists():
-        return {"status": "SKIP", "reason": "update_gouvernance_data.py introuvable"}
+def _run_update_script(script: Path, label: str) -> dict:
+    """Lance un script update_*.py et retourne le statut."""
+    if not script.exists():
+        return {"status": "SKIP", "reason": f"{script.name} introuvable"}
     result = subprocess.run(
-        ["python", str(UPDATE_GOUVERNANCE)],
+        ["python", str(script)],
         cwd=str(ALFRED_PC),
         capture_output=True,
         text=True,
@@ -153,6 +165,22 @@ def regenerate_gouvernance() -> dict:
     if result.returncode != 0:
         return {"status": "ERROR", "reason": result.stderr.strip()[:200]}
     return {"status": "OK"}
+
+
+def regenerate_gouvernance() -> dict:
+    return _run_update_script(UPDATE_GOUVERNANCE, "Gouvernance")
+
+
+def regenerate_conformite() -> dict:
+    return _run_update_script(UPDATE_CONFORMITE, "Conformité")
+
+
+def regenerate_vulnerabilites() -> dict:
+    return _run_update_script(UPDATE_VULNERABILITES, "Vulnérabilités")
+
+
+def regenerate_risk_impact() -> dict:
+    return _run_update_script(UPDATE_RISK_IMPACT, "Risques & Impact")
 
 
 def main() -> None:
@@ -163,11 +191,15 @@ def main() -> None:
     regen_k = regenerate_knowledge_dashboard()
     print(f"  [{regen_k['status']}]  generate_knowledge_dashboard.py  {regen_k.get('reason', '')}\n")
 
-    print("  Régénération dashboard_gouvernance_data.json...")
-    regen = regenerate_gouvernance()
-    tag = regen["status"]
-    detail = regen.get("reason", "")
-    print(f"  [{tag}]  update_gouvernance_data.py  {detail}\n")
+    for label, fn in [
+        ("dashboard_gouvernance_data.json", regenerate_gouvernance),
+        ("dashboard_conformite.json",       regenerate_conformite),
+        ("dashboard_vulnerabilites.json",   regenerate_vulnerabilites),
+        ("dashboard_risk_impact.json",      regenerate_risk_impact),
+    ]:
+        print(f"  Régénération {label}...")
+        r = fn()
+        print(f"  [{r['status']}]  {label}  {r.get('reason', '')}\n")
 
     results = [
         sync_file(SRC_DATA,             DEST_DATA,             "dashboard_data.json"),
@@ -176,6 +208,9 @@ def main() -> None:
         sync_file(SRC_GOUVERNANCE,      DEST_GOUVERNANCE,      "dashboard_gouvernance.json"),
         sync_file(SRC_GOUVERNANCE_DATA, DEST_GOUVERNANCE_DATA, "dashboard_gouvernance_data.json"),
         sync_file(SRC_KNOWLEDGE_DATA,   DEST_KNOWLEDGE_DATA,   "knowledge_dashboard_data.json"),
+        sync_file(SRC_CONFORMITE,       DEST_CONFORMITE,       "dashboard_conformite.json"),
+        sync_file(SRC_VULNERABILITES,   DEST_VULNERABILITES,   "dashboard_vulnerabilites.json"),
+        sync_file(SRC_RISK_IMPACT,      DEST_RISK_IMPACT,      "dashboard_risk_impact.json"),
     ]
 
     all_ok = all(r["status"].startswith("OK") for r in results)
