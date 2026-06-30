@@ -1,0 +1,895 @@
+{
+  "_meta": {
+    "project": "ALFRED / Cognitive Products Lab",
+    "file": "dashboard_conformite.json",
+    "generated_at": "2026-06-30T00:00:00+00:00",
+    "version": "V1.1",
+    "updated_at": "2026-06-30T00:00:00+00:00",
+    "description": "Dashboard conformité réglementaire — 70 exigences · 9 normes (RGPD, LIL, AI Act, NIS2, ISO 27001, HDS, SecNumCloud, PASSI, CRA)"
+  },
+  "norms": [
+    {
+      "id": "RGPD",
+      "label": "RGPD / GDPR",
+      "subtitle": "Règlement (UE) 2016/679",
+      "color": "#00d4ff",
+      "status": "active",
+      "scope": "applicable",
+      "requirements": [
+        {
+          "id": "RGPD-01",
+          "article": "Art. 30",
+          "label": "Registre des activités de traitement",
+          "domain": "Accountability",
+          "status": "conforme",
+          "criticite": "haute",
+          "proof": "ropa_registre_traitements.md",
+          "note": ""
+        },
+        {
+          "id": "RGPD-02",
+          "article": "Art. 6 + 9",
+          "label": "Bases légales documentées — données sensibles",
+          "domain": "Accountability",
+          "status": "conforme",
+          "criticite": "critique",
+          "proof": "procedure_consentement.md",
+          "note": "Données psychologiques art.9 — consentement explicite"
+        },
+        {
+          "id": "RGPD-03",
+          "article": "Art. 13-14",
+          "label": "Information et transparence à la collecte",
+          "domain": "Droits personnes",
+          "status": "conforme",
+          "criticite": "eleve",
+          "proof": "politique_confidentialite.md",
+          "note": ""
+        },
+        {
+          "id": "RGPD-04",
+          "article": "Art. 15",
+          "label": "Droit d'accès — export_command.py",
+          "domain": "Droits personnes",
+          "status": "conforme",
+          "criticite": "haute",
+          "proof": "procedure_acces.md",
+          "note": ""
+        },
+        {
+          "id": "RGPD-05",
+          "article": "Art. 16",
+          "label": "Droit de rectification — édition profil",
+          "domain": "Droits personnes",
+          "status": "conforme",
+          "criticite": "moyenne",
+          "proof": "procedure_rectification.md",
+          "note": ""
+        },
+        {
+          "id": "RGPD-06",
+          "article": "Art. 17",
+          "label": "Droit à l'effacement — commandes /forget",
+          "domain": "Droits personnes",
+          "status": "conforme",
+          "criticite": "haute",
+          "proof": "procedure_effacement.md",
+          "note": ""
+        },
+        {
+          "id": "RGPD-07",
+          "article": "Art. 20",
+          "label": "Portabilité — export + réimportation complète",
+          "domain": "Droits personnes",
+          "status": "conforme",
+          "criticite": "moyenne",
+          "proof": "export_command.py",
+          "note": ""
+        },
+        {
+          "id": "RGPD-08",
+          "article": "Art. 21",
+          "label": "Droit d'opposition — config/features.json",
+          "domain": "Droits personnes",
+          "status": "conforme",
+          "criticite": "haute",
+          "proof": "procedure_opposition.md",
+          "note": ""
+        },
+        {
+          "id": "RGPD-09",
+          "article": "Art. 28",
+          "label": "DPA formelle avec sous-traitants (OpenAI API)",
+          "domain": "Accountability",
+          "status": "conforme",
+          "criticite": "eleve",
+          "proof": "dpa_openai.md",
+          "note": ""
+        },
+        {
+          "id": "RGPD-10",
+          "article": "Art. 33-34",
+          "label": "Procédure notification violation 72h CNIL",
+          "domain": "Incidents",
+          "status": "conforme",
+          "criticite": "eleve",
+          "proof": "registre_violations.md",
+          "note": ""
+        },
+        {
+          "id": "RGPD-11",
+          "article": "Art. 35",
+          "label": "AIPD obligatoire — données psychologiques art.9",
+          "domain": "Données sensibles",
+          "status": "conforme",
+          "criticite": "critique",
+          "proof": "aipd_T001, aipd_T004",
+          "note": "Deux AIPD réalisées"
+        }
+      ],
+      "stats": {
+        "score_pct": 100,
+        "total": 11,
+        "applicable": 11,
+        "conforme": 11,
+        "en_cours": 0,
+        "todo": 0,
+        "non_concerne": 0
+      }
+    },
+    {
+      "id": "LIL",
+      "label": "LIL — Loi Informatique et Libertés",
+      "subtitle": "Loi n°78-17 modifiée",
+      "color": "#60a5fa",
+      "status": "active",
+      "scope": "applicable",
+      "requirements": [
+        {
+          "id": "LIL-01",
+          "article": "Art. 96",
+          "label": "Traitement données sensibles en France",
+          "domain": "Données sensibles",
+          "status": "conforme",
+          "criticite": "critique",
+          "proof": "ropa_registre_traitements.md",
+          "note": "Complémentaire RGPD art.9"
+        },
+        {
+          "id": "LIL-02",
+          "article": "Art. 121",
+          "label": "Déclaration/autorisation CNIL si applicable",
+          "domain": "Accountability",
+          "status": "conforme",
+          "criticite": "haute",
+          "proof": "procedure_consentement.md",
+          "note": "Régime post-RGPD — registre interne suffisant"
+        }
+      ],
+      "stats": {
+        "score_pct": 100,
+        "total": 2,
+        "applicable": 2,
+        "conforme": 2,
+        "en_cours": 0,
+        "todo": 0,
+        "non_concerne": 0
+      }
+    },
+    {
+      "id": "AIACT",
+      "label": "EU AI Act",
+      "subtitle": "Règlement (UE) 2024/1689",
+      "color": "#a78bfa",
+      "status": "active",
+      "scope": "applicable",
+      "requirements": [
+        {
+          "id": "AIACT-01",
+          "article": "Art. 6 + Annexe III",
+          "label": "Classification et documentation du niveau de risque",
+          "domain": "Risk Management",
+          "status": "conforme",
+          "criticite": "critique",
+          "proof": "classification_risque_systeme.md",
+          "note": "Risque limité — système adaptatif non IA générale"
+        },
+        {
+          "id": "AIACT-02",
+          "article": "Art. 13",
+          "label": "Transparence envers l'utilisateur",
+          "domain": "Transparence",
+          "status": "conforme",
+          "criticite": "eleve",
+          "proof": "notice_transparence_ia.md",
+          "note": ""
+        },
+        {
+          "id": "AIACT-03",
+          "article": "Art. 14",
+          "label": "Supervision humaine — Human in the Loop",
+          "domain": "Contrôle humain",
+          "status": "conforme",
+          "criticite": "eleve",
+          "proof": "pssi_politique_securite.md",
+          "note": ""
+        },
+        {
+          "id": "AIACT-04",
+          "article": "Art. 9",
+          "label": "Système de gestion des risques IA documenté",
+          "domain": "Risk Management",
+          "status": "conforme",
+          "criticite": "critique",
+          "proof": "ethical_ai_framework.json",
+          "note": ""
+        },
+        {
+          "id": "AIACT-05",
+          "article": "Art. 10",
+          "label": "Gouvernance des données d'entraînement",
+          "domain": "Données",
+          "status": "conforme",
+          "criticite": "haute",
+          "proof": "data_governance.md",
+          "note": "Local-first, pas d'entraînement tiers"
+        },
+        {
+          "id": "AIACT-06",
+          "article": "Art. 49",
+          "label": "Enregistrement au registre UE IA (si requis)",
+          "domain": "Conformité",
+          "status": "en_cours",
+          "criticite": "moyenne",
+          "proof": "",
+          "note": "Veille active — seuil d'obligation non atteint actuellement"
+        }
+      ],
+      "stats": {
+        "score_pct": 92,
+        "total": 6,
+        "applicable": 6,
+        "conforme": 5,
+        "en_cours": 1,
+        "todo": 0,
+        "non_concerne": 0
+      }
+    },
+    {
+      "id": "NIS2",
+      "label": "NIS2",
+      "subtitle": "Directive (UE) 2022/2555",
+      "color": "#f97316",
+      "status": "active",
+      "scope": "applicable",
+      "requirements": [
+        {
+          "id": "NIS2-01",
+          "article": "Art. 21",
+          "label": "Mesures de sécurité des réseaux et SI",
+          "domain": "Sécurité technique",
+          "status": "conforme",
+          "criticite": "eleve",
+          "proof": "pssi_politique_securite.md",
+          "note": ""
+        },
+        {
+          "id": "NIS2-02",
+          "article": "Art. 21 §2d",
+          "label": "Sécurité de la chaîne d'approvisionnement",
+          "domain": "Supply chain",
+          "status": "conforme",
+          "criticite": "haute",
+          "proof": "dpa_openai.md",
+          "note": "DPA + évaluation fournisseurs"
+        },
+        {
+          "id": "NIS2-03",
+          "article": "Art. 21 §2j",
+          "label": "Authentification multifacteur (MFA) obligatoire",
+          "domain": "Contrôle d'accès",
+          "status": "conforme",
+          "criticite": "eleve",
+          "proof": "mfa_totp.py",
+          "note": "MFA TOTP implémenté B20"
+        },
+        {
+          "id": "NIS2-04",
+          "article": "Art. 23",
+          "label": "Signalement incidents à l'autorité compétente",
+          "domain": "Incidents",
+          "status": "conforme",
+          "criticite": "eleve",
+          "proof": "registre_violations.md",
+          "note": "Procédure 72h CNIL + ANSSI"
+        }
+      ],
+      "stats": {
+        "score_pct": 100,
+        "total": 4,
+        "applicable": 4,
+        "conforme": 4,
+        "en_cours": 0,
+        "todo": 0,
+        "non_concerne": 0
+      }
+    },
+    {
+      "id": "ISO27001",
+      "label": "ISO 27001:2022",
+      "subtitle": "Système de Management de la Sécurité de l'Information",
+      "color": "#3fb950",
+      "status": "active",
+      "scope": "applicable",
+      "requirements": [
+        {
+          "id": "ISO-01",
+          "article": "A.5.1",
+          "label": "Politique SMSI formelle approuvée",
+          "domain": "Politiques",
+          "status": "conforme",
+          "criticite": "critique",
+          "proof": "pssi_politique_securite.md",
+          "note": ""
+        },
+        {
+          "id": "ISO-02",
+          "article": "A.5.2",
+          "label": "Rôles et responsabilités sécurité documentés",
+          "domain": "Organisation",
+          "status": "conforme",
+          "criticite": "haute",
+          "proof": "ropa_registre_traitements.md",
+          "note": "DPO + RSSI : Céline Rousselot"
+        },
+        {
+          "id": "ISO-03",
+          "article": "A.5.9",
+          "label": "Inventaire des actifs informationnels",
+          "domain": "Actifs",
+          "status": "conforme",
+          "criticite": "haute",
+          "proof": "soa_iso27001_2022.md",
+          "note": ""
+        },
+        {
+          "id": "ISO-04",
+          "article": "A.5.12",
+          "label": "Classification de l'information C1→C4",
+          "domain": "Actifs",
+          "status": "conforme",
+          "criticite": "haute",
+          "proof": "soa_iso27001_2022.md",
+          "note": ""
+        },
+        {
+          "id": "ISO-05",
+          "article": "A.5.15",
+          "label": "Politique de contrôle d'accès",
+          "domain": "Contrôle d'accès",
+          "status": "conforme",
+          "criticite": "eleve",
+          "proof": "pssi_politique_securite.md",
+          "note": ""
+        },
+        {
+          "id": "ISO-06",
+          "article": "A.5.16",
+          "label": "Gestion des identités et droits d'accès",
+          "domain": "Contrôle d'accès",
+          "status": "conforme",
+          "criticite": "eleve",
+          "proof": "rbac.py",
+          "note": ""
+        },
+        {
+          "id": "ISO-07",
+          "article": "A.5.17",
+          "label": "Authentification sécurisée — MFA TOTP",
+          "domain": "Contrôle d'accès",
+          "status": "conforme",
+          "criticite": "eleve",
+          "proof": "mfa_totp.py",
+          "note": "651 tests B20"
+        },
+        {
+          "id": "ISO-08",
+          "article": "A.5.33",
+          "label": "Politique cryptographique — Fernet AES-256",
+          "domain": "Cryptographie",
+          "status": "conforme",
+          "criticite": "critique",
+          "proof": "encryption.py",
+          "note": ""
+        },
+        {
+          "id": "ISO-09",
+          "article": "A.5.34",
+          "label": "Gestion et rotation des clés cryptographiques",
+          "domain": "Cryptographie",
+          "status": "conforme",
+          "criticite": "eleve",
+          "proof": "vault.py",
+          "note": ""
+        },
+        {
+          "id": "ISO-10",
+          "article": "A.7.1",
+          "label": "Sécurité physique — zones sécurisées documentées",
+          "domain": "Physique",
+          "status": "conforme",
+          "criticite": "haute",
+          "proof": "pssi_politique_securite.md",
+          "note": ""
+        },
+        {
+          "id": "ISO-11",
+          "article": "A.7.8",
+          "label": "Chiffrement intégral des disques",
+          "domain": "Physique",
+          "status": "conforme",
+          "criticite": "haute",
+          "proof": "pssi_politique_securite.md",
+          "note": ""
+        },
+        {
+          "id": "ISO-12",
+          "article": "A.8.15",
+          "label": "Journalisation sécurisée des activités",
+          "domain": "Surveillance",
+          "status": "conforme",
+          "criticite": "eleve",
+          "proof": "audit_logger.py",
+          "note": ""
+        },
+        {
+          "id": "ISO-13",
+          "article": "A.8.16",
+          "label": "Surveillance et détection des anomalies",
+          "domain": "Surveillance",
+          "status": "conforme",
+          "criticite": "eleve",
+          "proof": "behavioral_detection.py",
+          "note": ""
+        },
+        {
+          "id": "ISO-14",
+          "article": "A.8.8",
+          "label": "Gestion des vulnérabilités et patching",
+          "domain": "Opérations",
+          "status": "conforme",
+          "criticite": "eleve",
+          "proof": "soa_iso27001_2022.md",
+          "note": ""
+        },
+        {
+          "id": "ISO-15",
+          "article": "A.8.9",
+          "label": "Gestion de configuration sécurisée — baseline",
+          "domain": "Opérations",
+          "status": "conforme",
+          "criticite": "haute",
+          "proof": "config/security_baseline.json",
+          "note": ""
+        },
+        {
+          "id": "ISO-16",
+          "article": "A.8.12",
+          "label": "Prévention des fuites de données — DLP",
+          "domain": "Opérations",
+          "status": "conforme",
+          "criticite": "eleve",
+          "proof": "data_loss_prevention.py",
+          "note": ""
+        },
+        {
+          "id": "ISO-17",
+          "article": "A.8.13",
+          "label": "Sauvegarde et plan de restauration testés",
+          "domain": "Continuité",
+          "status": "conforme",
+          "criticite": "haute",
+          "proof": "backup_manager.py",
+          "note": ""
+        },
+        {
+          "id": "ISO-18",
+          "article": "A.8.29",
+          "label": "Tests de sécurité automatisés — 651 tests",
+          "domain": "Développement",
+          "status": "conforme",
+          "criticite": "haute",
+          "proof": "tests/security/",
+          "note": ""
+        },
+        {
+          "id": "ISO-19",
+          "article": "A.8.20",
+          "label": "Sécurité des réseaux — firewall, règles documentées",
+          "domain": "Réseau",
+          "status": "conforme",
+          "criticite": "eleve",
+          "proof": "network_config.md",
+          "note": ""
+        },
+        {
+          "id": "ISO-20",
+          "article": "A.8.22",
+          "label": "Micro-segmentation réseau — VLAN isolation",
+          "domain": "Réseau",
+          "status": "en_cours",
+          "criticite": "eleve",
+          "proof": "",
+          "note": "Prévu Q3 2026 — ER605 configuré WireGuard uniquement"
+        },
+        {
+          "id": "ISO-21",
+          "article": "A.8.25",
+          "label": "Cycle de développement sécurisé — SSDLC",
+          "domain": "Développement",
+          "status": "conforme",
+          "criticite": "haute",
+          "proof": "CONTRIBUTING.md",
+          "note": ""
+        },
+        {
+          "id": "ISO-22",
+          "article": "A.8.28",
+          "label": "Revue de code et audit sécurité applicative",
+          "domain": "Développement",
+          "status": "conforme",
+          "criticite": "haute",
+          "proof": "tests/security/",
+          "note": ""
+        },
+        {
+          "id": "ISO-23",
+          "article": "A.8.7",
+          "label": "Protection contre les logiciels malveillants",
+          "domain": "Opérations",
+          "status": "conforme",
+          "criticite": "haute",
+          "proof": "pssi_politique_securite.md",
+          "note": ""
+        },
+        {
+          "id": "ISO-24",
+          "article": "A.5.24",
+          "label": "Procédure formelle de gestion des incidents",
+          "domain": "Incidents",
+          "status": "conforme",
+          "criticite": "eleve",
+          "proof": "plan_reponse_incidents.md",
+          "note": ""
+        },
+        {
+          "id": "ISO-25",
+          "article": "A.5.27",
+          "label": "Analyse post-incident et leçons apprises",
+          "domain": "Incidents",
+          "status": "conforme",
+          "criticite": "haute",
+          "proof": "plan_reponse_incidents.md",
+          "note": ""
+        },
+        {
+          "id": "ISO-26",
+          "article": "A.5.30",
+          "label": "Plan de continuité d'activité PCA documenté",
+          "domain": "Continuité",
+          "status": "conforme",
+          "criticite": "haute",
+          "proof": "doc_backup.md",
+          "note": ""
+        },
+        {
+          "id": "ISO-27",
+          "article": "A.8.14",
+          "label": "Tests PCA et exercices de reprise",
+          "domain": "Continuité",
+          "status": "conforme",
+          "criticite": "haute",
+          "proof": "backup_manager.py",
+          "note": ""
+        },
+        {
+          "id": "ISO-28",
+          "article": "A.9.3",
+          "label": "Revue de direction et revue SMSI annuelle",
+          "domain": "Amélioration",
+          "status": "conforme",
+          "criticite": "haute",
+          "proof": "soa_iso27001_2022.md",
+          "note": ""
+        },
+        {
+          "id": "ISO-29",
+          "article": "A.9.2",
+          "label": "Audits internes SMSI planifiés",
+          "domain": "Amélioration",
+          "status": "conforme",
+          "criticite": "haute",
+          "proof": "soa_iso27001_2022.md",
+          "note": ""
+        },
+        {
+          "id": "ISO-30",
+          "article": "A.10.2",
+          "label": "Gestion des non-conformités et actions correctives",
+          "domain": "Amélioration",
+          "status": "conforme",
+          "criticite": "moyenne",
+          "proof": "soa_iso27001_2022.md",
+          "note": ""
+        },
+        {
+          "id": "ISO-31",
+          "article": "A.5.36",
+          "label": "Déclaration d'Applicabilité (DdA) — 93 contrôles",
+          "domain": "Conformité",
+          "status": "conforme",
+          "criticite": "critique",
+          "proof": "soa_iso27001_2022.md",
+          "note": "SoA complet, 93 contrôles analysés"
+        }
+      ],
+      "stats": {
+        "score_pct": 98,
+        "total": 31,
+        "applicable": 31,
+        "conforme": 30,
+        "en_cours": 1,
+        "todo": 0,
+        "non_concerne": 0
+      }
+    },
+    {
+      "id": "HDS",
+      "label": "HDS — Hébergeur Données de Santé",
+      "subtitle": "Certification ASIP Santé / ANS",
+      "color": "#ec4899",
+      "status": "non_concerne",
+      "scope": "non_applicable",
+      "requirements": [
+        {
+          "id": "HDS-01",
+          "article": "HDS §1",
+          "label": "Certification hébergeur données de santé",
+          "domain": "Certification",
+          "status": "non_concerne",
+          "criticite": "non_concerne",
+          "proof": "",
+          "note": "ALFRED ne traite pas de données de santé au sens HDS"
+        },
+        {
+          "id": "HDS-02",
+          "article": "HDS §2",
+          "label": "Contrat d'hébergement conforme HDS",
+          "domain": "Contractuel",
+          "status": "non_concerne",
+          "criticite": "non_concerne",
+          "proof": "",
+          "note": ""
+        },
+        {
+          "id": "HDS-03",
+          "article": "HDS §3",
+          "label": "Séparation logique des données de santé",
+          "domain": "Architecture",
+          "status": "non_concerne",
+          "criticite": "non_concerne",
+          "proof": "",
+          "note": ""
+        },
+        {
+          "id": "HDS-04",
+          "article": "HDS §4",
+          "label": "Traçabilité et audits accès données santé",
+          "domain": "Audit",
+          "status": "non_concerne",
+          "criticite": "non_concerne",
+          "proof": "",
+          "note": ""
+        },
+        {
+          "id": "HDS-05",
+          "article": "HDS §5",
+          "label": "Plan de sauvegarde données de santé",
+          "domain": "Continuité",
+          "status": "non_concerne",
+          "criticite": "non_concerne",
+          "proof": "",
+          "note": ""
+        }
+      ],
+      "stats": {
+        "score_pct": 0,
+        "total": 5,
+        "applicable": 0,
+        "conforme": 0,
+        "en_cours": 0,
+        "todo": 0,
+        "non_concerne": 5
+      }
+    },
+    {
+      "id": "SECNUMCLOUD",
+      "label": "SecNumCloud",
+      "subtitle": "Qualification ANSSI cloud souverain",
+      "color": "#6b7280",
+      "status": "non_concerne",
+      "scope": "non_applicable",
+      "requirements": [
+        {
+          "id": "SNC-01",
+          "article": "SecNumCloud §1",
+          "label": "Hébergement infrastructure souveraine (UE)",
+          "domain": "Souveraineté",
+          "status": "non_concerne",
+          "criticite": "non_concerne",
+          "proof": "",
+          "note": "ALFRED est local-first — pas de cloud provider tiers"
+        },
+        {
+          "id": "SNC-02",
+          "article": "SecNumCloud §2",
+          "label": "Isolation des données clients (multitenancy)",
+          "domain": "Architecture",
+          "status": "non_concerne",
+          "criticite": "non_concerne",
+          "proof": "",
+          "note": ""
+        },
+        {
+          "id": "SNC-03",
+          "article": "SecNumCloud §3",
+          "label": "Audit de qualification ANSSI",
+          "domain": "Certification",
+          "status": "non_concerne",
+          "criticite": "non_concerne",
+          "proof": "",
+          "note": ""
+        }
+      ],
+      "stats": {
+        "score_pct": 0,
+        "total": 3,
+        "applicable": 0,
+        "conforme": 0,
+        "en_cours": 0,
+        "todo": 0,
+        "non_concerne": 3
+      }
+    },
+    {
+      "id": "PASSI",
+      "label": "PASSI — Pentest ANSSI",
+      "subtitle": "Prestataire d'Audit de Sécurité des SI",
+      "color": "#f59e0b",
+      "status": "planned",
+      "scope": "applicable",
+      "requirements": [
+        {
+          "id": "PASSI-01",
+          "article": "Phase 20",
+          "label": "Audit pentest par prestataire qualifié PASSI",
+          "domain": "Audit",
+          "status": "todo",
+          "criticite": "eleve",
+          "proof": "",
+          "note": "Planifié Phase 20 — post-certification ISO 27001"
+        },
+        {
+          "id": "PASSI-02",
+          "article": "Phase 20",
+          "label": "Rapport d'audit — synthèse et plan de remédiation",
+          "domain": "Audit",
+          "status": "todo",
+          "criticite": "haute",
+          "proof": "",
+          "note": ""
+        },
+        {
+          "id": "PASSI-03",
+          "article": "Phase 20",
+          "label": "Vérification annuelle par auditeur externe",
+          "domain": "Amélioration",
+          "status": "todo",
+          "criticite": "moyenne",
+          "proof": "",
+          "note": ""
+        }
+      ],
+      "stats": {
+        "score_pct": 0,
+        "total": 3,
+        "applicable": 3,
+        "conforme": 0,
+        "en_cours": 0,
+        "todo": 3,
+        "non_concerne": 0
+      }
+    }
+  ],
+    {
+      "id": "CRA",
+      "label": "Cyber Resilience Act",
+      "subtitle": "Règlement (UE) 2024/2847 — applicable août 2026",
+      "color": "#dc2626",
+      "status": "active",
+      "scope": "applicable",
+      "note": "Applicable aux produits numériques commercialisés dans l'UE. Prototype actuel en exemption FOSS. ALFRED CPL (B2B) sera pleinement soumis au CRA dès commercialisation.",
+      "requirements": [
+        {
+          "id": "CRA-01",
+          "article": "Art. 13 + Annexe I",
+          "label": "Sécurité by design — conception et développement sécurisés",
+          "domain": "Sécurité",
+          "status": "conforme",
+          "criticite": "critique",
+          "proof": "B20 — 43 modules sécurité · 651 tests · Zero Trust",
+          "note": "Architecture Zero Trust, Fernet AES-256, MFA TOTP, CSRF, injection SQL mitigée"
+        },
+        {
+          "id": "CRA-02",
+          "article": "Art. 13 §6 + Annexe I §3",
+          "label": "Politique de gestion des vulnérabilités — PSIRT/CVD",
+          "domain": "Vulnérabilités",
+          "status": "en_cours",
+          "criticite": "eleve",
+          "proof": "pip-audit log hebdomadaire",
+          "note": "Scan pip-audit actif. Politique CVD formelle et processus de divulgation coordonnée à documenter."
+        },
+        {
+          "id": "CRA-03",
+          "article": "Art. 13 §8 + Art. 14",
+          "label": "Mises à jour de sécurité — durée de vie du produit",
+          "domain": "Maintenance",
+          "status": "en_cours",
+          "criticite": "eleve",
+          "proof": "requirements.txt versionné + patching documenté",
+          "note": "Politique de support et durée de vie à formaliser (délai de patch : critique < 48h, élevé < 7j)"
+        },
+        {
+          "id": "CRA-04",
+          "article": "Art. 13 + Annexe I §2(d)",
+          "label": "SBOM — Software Bill of Materials",
+          "domain": "Transparence",
+          "status": "todo",
+          "criticite": "haute",
+          "proof": "",
+          "note": "Génération SBOM automatique à mettre en place (ex : syft ou pip-licenses). Cible : Q3 2026."
+        },
+        {
+          "id": "CRA-05",
+          "article": "Art. 13 §6 + Art. 15",
+          "label": "Déclaration de conformité UE (DoC) + marquage CE",
+          "domain": "Conformité",
+          "status": "todo",
+          "criticite": "haute",
+          "proof": "",
+          "note": "Requis avant commercialisation. Non requis en phase prototype/recherche. Cible : avant lancement ALFRED CPL."
+        }
+      ],
+      "stats": {
+        "score_pct": 50,
+        "total": 5,
+        "applicable": 5,
+        "conforme": 1,
+        "en_cours": 2,
+        "todo": 2,
+        "non_concerne": 0
+      }
+    }
+  ],
+  "global": {
+    "score_pct": 88,
+    "grade": "B+",
+    "total_requirements": 70,
+    "applicable": 62,
+    "conforme": 53,
+    "en_cours": 4,
+    "todo": 5,
+    "non_concerne": 8
+  }
+}
