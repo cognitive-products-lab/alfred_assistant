@@ -1,0 +1,503 @@
+{
+  "_meta": {
+    "generated": "2026-06-30",
+    "source": "ALFRED Risk Management — Cognitive Products Lab",
+    "version": "V1.0",
+    "maintainer": "Céline Rousselot",
+    "methodology": "ISO 31000 — Probabilité × Impact (1-5), seuils ANSSI adaptés"
+  },
+  "global": {
+    "total": 15,
+    "critique": 0,
+    "eleve": 4,
+    "moyen": 8,
+    "faible": 3,
+    "ouvert": 2,
+    "controle": 11,
+    "accepte": 2,
+    "clos": 0,
+    "risk_score_residuel": 32,
+    "risk_score_brut": 110,
+    "reduction_pct": 71,
+    "last_review": "2026-06-30",
+    "next_review": "2026-09-30"
+  },
+  "matrix_config": {
+    "x_label": "Impact",
+    "x_levels": ["Négligeable", "Mineur", "Modéré", "Majeur", "Catastrophique"],
+    "y_label": "Probabilité",
+    "y_levels": ["Rare", "Improbable", "Possible", "Probable", "Quasi-certain"],
+    "thresholds": {
+      "faible":   { "min": 1,  "max": 4,  "color": "#22c55e", "label": "Faible" },
+      "moyen":    { "min": 5,  "max": 9,  "color": "#eab308", "label": "Modéré" },
+      "eleve":    { "min": 10, "max": 14, "color": "#f97316", "label": "Élevé" },
+      "critique": { "min": 15, "max": 25, "color": "#ef4444", "label": "Critique" }
+    }
+  },
+  "risks": [
+    {
+      "id": "R01",
+      "name": "Intrusion réseau externe",
+      "category": "sécurité",
+      "likelihood": 2,
+      "impact": 5,
+      "score": 10,
+      "level": "eleve",
+      "status": "contrôlé",
+      "description": "Tentative d'accès non autorisé au système ALFRED via le réseau (web, LAN, attaque distante).",
+      "impact_analysis": {
+        "confidentialite": 5,
+        "integrite": 4,
+        "disponibilite": 3,
+        "conformite": 4,
+        "reputation": 5,
+        "financier": 3
+      },
+      "controls": ["C01", "C02", "C05", "C08"],
+      "residual_score": 4,
+      "treatment": "réduire",
+      "owner": "Admin système"
+    },
+    {
+      "id": "R02",
+      "name": "Vol ou fuite de données utilisateur",
+      "category": "données",
+      "likelihood": 2,
+      "impact": 5,
+      "score": 10,
+      "level": "eleve",
+      "status": "contrôlé",
+      "description": "Exfiltration de données personnelles (profil, historique conversationnel, mémoire épisodique).",
+      "impact_analysis": {
+        "confidentialite": 5,
+        "integrite": 3,
+        "disponibilite": 2,
+        "conformite": 5,
+        "reputation": 5,
+        "financier": 4
+      },
+      "controls": ["C03", "C01", "C08"],
+      "residual_score": 4,
+      "treatment": "réduire",
+      "owner": "Admin système"
+    },
+    {
+      "id": "R03",
+      "name": "Indisponibilité hébergeur Render.com",
+      "category": "infrastructure",
+      "likelihood": 2,
+      "impact": 3,
+      "score": 6,
+      "level": "moyen",
+      "status": "accepté",
+      "description": "Panne ou maintenance de la plateforme Render.com entraînant l'indisponibilité du site vitrine.",
+      "impact_analysis": {
+        "confidentialite": 1,
+        "integrite": 1,
+        "disponibilite": 5,
+        "conformite": 1,
+        "reputation": 3,
+        "financier": 1
+      },
+      "controls": ["C11"],
+      "residual_score": 6,
+      "treatment": "accepter",
+      "owner": "Direction"
+    },
+    {
+      "id": "R04",
+      "name": "Corruption base de données SQLite",
+      "category": "données",
+      "likelihood": 2,
+      "impact": 4,
+      "score": 8,
+      "level": "moyen",
+      "status": "contrôlé",
+      "description": "Corruption accidentelle ou intentionnelle des bases SQLite (mémoire, profil, logs).",
+      "impact_analysis": {
+        "confidentialite": 2,
+        "integrite": 5,
+        "disponibilite": 4,
+        "conformite": 3,
+        "reputation": 3,
+        "financier": 2
+      },
+      "controls": ["C07", "C08"],
+      "residual_score": 3,
+      "treatment": "réduire",
+      "owner": "Admin système"
+    },
+    {
+      "id": "R05",
+      "name": "CVE critique dans une dépendance Python",
+      "category": "dépendances",
+      "likelihood": 3,
+      "impact": 4,
+      "score": 12,
+      "level": "eleve",
+      "status": "contrôlé",
+      "description": "Découverte d'une vulnérabilité critique (CVSS ≥ 9.0) dans Flask, Jinja2, Cryptography ou autre dépendance clé.",
+      "impact_analysis": {
+        "confidentialite": 4,
+        "integrite": 4,
+        "disponibilite": 3,
+        "conformite": 3,
+        "reputation": 3,
+        "financier": 2
+      },
+      "controls": ["C09", "C10"],
+      "residual_score": 5,
+      "treatment": "réduire",
+      "owner": "Développeur"
+    },
+    {
+      "id": "R06",
+      "name": "Perte de données locale (panne matérielle)",
+      "category": "infrastructure",
+      "likelihood": 2,
+      "impact": 5,
+      "score": 10,
+      "level": "eleve",
+      "status": "contrôlé",
+      "description": "Panne disque dur ou SSD principal entraînant la perte irréversible des données ALFRED PC.",
+      "impact_analysis": {
+        "confidentialite": 1,
+        "integrite": 5,
+        "disponibilite": 5,
+        "conformite": 3,
+        "reputation": 3,
+        "financier": 4
+      },
+      "controls": ["C07"],
+      "residual_score": 3,
+      "treatment": "réduire",
+      "owner": "Admin système"
+    },
+    {
+      "id": "R07",
+      "name": "Non-conformité RGPD — traitement illicite",
+      "category": "conformité",
+      "likelihood": 2,
+      "impact": 4,
+      "score": 8,
+      "level": "moyen",
+      "status": "contrôlé",
+      "description": "Traitement de données personnelles sans base légale valide, défaut d'information ou violation des droits des personnes.",
+      "impact_analysis": {
+        "confidentialite": 4,
+        "integrite": 2,
+        "disponibilite": 1,
+        "conformite": 5,
+        "reputation": 4,
+        "financier": 5
+      },
+      "controls": ["C12", "C13"],
+      "residual_score": 3,
+      "treatment": "réduire",
+      "owner": "Direction"
+    },
+    {
+      "id": "R08",
+      "name": "Non-conformité AI Act — obligation manquée",
+      "category": "conformité",
+      "likelihood": 2,
+      "impact": 3,
+      "score": 6,
+      "level": "moyen",
+      "status": "contrôlé",
+      "description": "Manquement aux obligations AI Act (transparency, documentation, risk classification) pour ALFRED (risque limité IA).",
+      "impact_analysis": {
+        "confidentialite": 1,
+        "integrite": 1,
+        "disponibilite": 1,
+        "conformite": 5,
+        "reputation": 3,
+        "financier": 3
+      },
+      "controls": ["C12", "C13"],
+      "residual_score": 3,
+      "treatment": "réduire",
+      "owner": "Direction"
+    },
+    {
+      "id": "R09",
+      "name": "Déni de service (DoS/DDoS) — site web",
+      "category": "sécurité",
+      "likelihood": 2,
+      "impact": 3,
+      "score": 6,
+      "level": "moyen",
+      "status": "contrôlé",
+      "description": "Attaque par saturation ciblant le site public cognitive-products-lab.fr sur Render.com.",
+      "impact_analysis": {
+        "confidentialite": 1,
+        "integrite": 1,
+        "disponibilite": 5,
+        "conformite": 1,
+        "reputation": 3,
+        "financier": 2
+      },
+      "controls": ["C05", "C06"],
+      "residual_score": 4,
+      "treatment": "réduire",
+      "owner": "Admin système"
+    },
+    {
+      "id": "R10",
+      "name": "Compromission des clés cryptographiques",
+      "category": "cryptographie",
+      "likelihood": 1,
+      "impact": 5,
+      "score": 5,
+      "level": "moyen",
+      "status": "contrôlé",
+      "description": "Vol ou exposition de la clé Fernet AES-256, secret JWT ou clés bcrypt rendant le chiffrement inutile.",
+      "impact_analysis": {
+        "confidentialite": 5,
+        "integrite": 4,
+        "disponibilite": 2,
+        "conformite": 5,
+        "reputation": 5,
+        "financier": 4
+      },
+      "controls": ["C03", "C04"],
+      "residual_score": 2,
+      "treatment": "réduire",
+      "owner": "Admin système"
+    },
+    {
+      "id": "R11",
+      "name": "Panne matérielle ALFRED PC",
+      "category": "infrastructure",
+      "likelihood": 2,
+      "impact": 4,
+      "score": 8,
+      "level": "moyen",
+      "status": "contrôlé",
+      "description": "Défaillance du PC hébergeant ALFRED (CPU, RAM, alimentation) entraînant une interruption de service.",
+      "impact_analysis": {
+        "confidentialite": 1,
+        "integrite": 2,
+        "disponibilite": 5,
+        "conformite": 1,
+        "reputation": 2,
+        "financier": 3
+      },
+      "controls": ["C07", "C11"],
+      "residual_score": 4,
+      "treatment": "réduire",
+      "owner": "Admin système"
+    },
+    {
+      "id": "R12",
+      "name": "Violation de la vie privée utilisateur",
+      "category": "données",
+      "likelihood": 2,
+      "impact": 5,
+      "score": 10,
+      "level": "eleve",
+      "status": "contrôlé",
+      "description": "Accès illégitime aux données conversationnelles intimes, au profil psychométrique ou à l'historique émotionnel.",
+      "impact_analysis": {
+        "confidentialite": 5,
+        "integrite": 2,
+        "disponibilite": 1,
+        "conformite": 5,
+        "reputation": 5,
+        "financier": 4
+      },
+      "controls": ["C01", "C02", "C03", "C12"],
+      "residual_score": 3,
+      "treatment": "réduire",
+      "owner": "Direction"
+    },
+    {
+      "id": "R13",
+      "name": "Erreur de déploiement production",
+      "category": "opérationnel",
+      "likelihood": 3,
+      "impact": 3,
+      "score": 9,
+      "level": "moyen",
+      "status": "contrôlé",
+      "description": "Déploiement d'une version instable sur Render.com entraînant erreurs 500 ou régression fonctionnelle.",
+      "impact_analysis": {
+        "confidentialite": 1,
+        "integrite": 3,
+        "disponibilite": 4,
+        "conformite": 1,
+        "reputation": 3,
+        "financier": 1
+      },
+      "controls": ["C10", "C11"],
+      "residual_score": 4,
+      "treatment": "réduire",
+      "owner": "Développeur"
+    },
+    {
+      "id": "R14",
+      "name": "Indisponibilité LLM (Ollama / OpenAI)",
+      "category": "opérationnel",
+      "likelihood": 3,
+      "impact": 2,
+      "score": 6,
+      "level": "moyen",
+      "status": "contrôlé",
+      "description": "Panne d'Ollama local ou dépassement quota OpenAI empêchant ALFRED de générer des réponses.",
+      "impact_analysis": {
+        "confidentialite": 1,
+        "integrite": 1,
+        "disponibilite": 4,
+        "conformite": 1,
+        "reputation": 2,
+        "financier": 1
+      },
+      "controls": ["C11"],
+      "residual_score": 4,
+      "treatment": "réduire",
+      "owner": "Développeur"
+    },
+    {
+      "id": "R15",
+      "name": "Accès non autorisé aux interfaces d'administration",
+      "category": "authentification",
+      "likelihood": 1,
+      "impact": 4,
+      "score": 4,
+      "level": "faible",
+      "status": "contrôlé",
+      "description": "Accès illégitime aux dashboards de suivi, APIs internes ou interface d'administration Flask.",
+      "impact_analysis": {
+        "confidentialite": 4,
+        "integrite": 3,
+        "disponibilite": 2,
+        "conformite": 3,
+        "reputation": 3,
+        "financier": 2
+      },
+      "controls": ["C02", "C04", "C08"],
+      "residual_score": 2,
+      "treatment": "réduire",
+      "owner": "Développeur"
+    }
+  ],
+  "controls": [
+    { "id": "C01", "name": "Architecture Zero Trust",        "category": "réseau",          "status": "actif", "description": "Micro-segmentation, principe du moindre privilège, vérification systématique de chaque accès.", "norm_ref": "ISO 27001 A.8.20, B20" },
+    { "id": "C02", "name": "MFA TOTP — double authentification", "category": "authentification", "status": "actif", "description": "Authentification à deux facteurs TOTP pour tous les accès sensibles ALFRED.", "norm_ref": "ISO 27001 A.8.5, B20" },
+    { "id": "C03", "name": "Chiffrement Fernet AES-256",    "category": "cryptographie",    "status": "actif", "description": "Toutes les données sensibles au repos chiffrées avec Fernet (Python cryptography library).", "norm_ref": "ISO 27001 A.8.24, RGPD Art.32" },
+    { "id": "C04", "name": "JWT expiration stricte + blacklist", "category": "authentification", "status": "actif", "description": "Tokens JWT expiration 24h, blacklist des tokens révoqués en base SQLite.", "norm_ref": "ISO 27001 A.8.5, B20" },
+    { "id": "C05", "name": "WAF + protection Render.com",   "category": "réseau",          "status": "actif", "description": "Protection DDoS et filtrage applicatif natifs de l'infrastructure Render.com.", "norm_ref": "ISO 27001 A.8.20" },
+    { "id": "C06", "name": "Rate limiting API et formulaires", "category": "application",    "status": "partiel", "description": "Flask-Limiter configuré sur endpoints critiques. Extension à tous les formulaires en cours.", "norm_ref": "OWASP API4, B09" },
+    { "id": "C07", "name": "Backup chiffré quotidien (3-2-1)", "category": "continuité",     "status": "actif", "description": "Sauvegarde quotidienne Fernet sur disque F + copie hors-site planifiée. Vérification intégrité hebdo.", "norm_ref": "ISO 27001 A.8.13" },
+    { "id": "C08", "name": "Logging sécurité + monitoring", "category": "supervision",     "status": "actif", "description": "Logs Flask + SOC watchdog B19. Alertes sur événements anormaux. Rétention 365 jours.", "norm_ref": "ISO 27001 A.8.15, B19" },
+    { "id": "C09", "name": "Audit pip-audit hebdomadaire",  "category": "dépendances",     "status": "actif", "description": "Scan automatique des dépendances Python chaque dimanche. Alerte immédiate sur CVE critique.", "norm_ref": "ISO 27001 A.8.8" },
+    { "id": "C10", "name": "Suite de tests B20 — 651 tests", "category": "qualité",         "status": "actif", "description": "651 tests automatisés sécurité couvrant authentification, chiffrement, injection, CSRF, XSS.", "norm_ref": "ISO 27001 A.8.29, B20" },
+    { "id": "C11", "name": "Plan de continuité d'activité", "category": "continuité",     "status": "partiel", "description": "Procédure de restauration documentée. Tests restauration à automatiser mensuellement.", "norm_ref": "ISO 27001 A.5.30" },
+    { "id": "C12", "name": "RGPD — registre et politiques", "category": "conformité",      "status": "actif", "description": "Registre des traitements, mentions légales, politique de confidentialité publiées.", "norm_ref": "RGPD Art.30, Art.13" },
+    { "id": "C13", "name": "AI Act — documentation et transparence", "category": "conformité", "status": "actif", "description": "Documentation des systèmes IA, classification risque, information utilisateur.", "norm_ref": "AI Act Art.13, Art.52" }
+  ],
+  "policies": {
+    "data_processing": {
+      "title": "Politique de traitement des données",
+      "subtitle": "RGPD — Règlement (UE) 2016/679",
+      "version": "V1.0",
+      "date": "2026-06-30",
+      "icon": "🗄️",
+      "color": "#388bfd",
+      "sections": [
+        {
+          "title": "Principes fondamentaux",
+          "content": "Les données personnelles sont traitées de manière licite, loyale et transparente (Art. 5). La collecte est limitée au strict nécessaire (minimisation). La conservation est bornée dans le temps (limitation). Les données sont exactes et tenues à jour."
+        },
+        {
+          "title": "Bases légales (Art. 6)",
+          "content": "Exécution du contrat / service (Art. 6-1-b) pour le traitement conversationnel. Intérêt légitime (Art. 6-1-f) pour la sécurité et les logs. Consentement explicite (Art. 6-1-a) pour les fonctionnalités optionnelles (profil émotionnel, mémoire longue durée)."
+        },
+        {
+          "title": "Droits des personnes (Art. 12-22)",
+          "content": "Droit d'accès, de rectification, d'effacement, de portabilité, d'opposition et de limitation du traitement. Délai de réponse : 1 mois. Contact : contact@cognitive-products-lab.fr. Export JSON disponible via interface ALFRED."
+        },
+        {
+          "title": "Durées de conservation",
+          "content": "Données conversationnelles : 12 mois glissants. Profil utilisateur : durée de vie du compte. Logs de sécurité : 90 jours (anonymisés après 30 jours). Données de sauvegarde : 1 an."
+        },
+        {
+          "title": "Sous-traitants et transferts",
+          "content": "OpenAI (fallback LLM, hors EU) — DPA signé, clause standard contractuelle. Render.com (hébergement web, USA) — Standard Contractual Clauses. Aucun autre transfert hors UE sans garantie adéquate."
+        },
+        {
+          "title": "Violation de données (Art. 33-34)",
+          "content": "En cas de violation : notification CNIL sous 72h si risque pour les personnes. Notification individuelle si risque élevé. Registre des violations maintenu. Procédure d'incident documentée."
+        }
+      ]
+    },
+    "security": {
+      "title": "Politique de sécurité",
+      "subtitle": "Zero Trust — ISO 27001 — B20",
+      "version": "V1.0",
+      "date": "2026-06-30",
+      "icon": "🔐",
+      "color": "#3fb950",
+      "sections": [
+        {
+          "title": "Principes directeurs",
+          "content": "Architecture Zero Trust : ne jamais faire confiance, toujours vérifier. Moindre privilège sur tous les accès. Défense en profondeur avec contrôles à chaque couche. Sécurité by design et by default dès la conception."
+        },
+        {
+          "title": "Authentification et accès",
+          "content": "MFA TOTP obligatoire pour tous les accès administrateur. Authentification bcrypt pour les mots de passe. JWT avec expiration 24h et blacklist des tokens révoqués. Sessions sécurisées avec rotation des secrets."
+        },
+        {
+          "title": "Chiffrement",
+          "content": "Données au repos : Fernet AES-256 (Python cryptography). Transit : TLS 1.3 (HTTPS obligatoire, HSTS activé). Clés : rotation planifiée trimestrielle. Aucune donnée sensible en clair dans les logs ou bases de données."
+        },
+        {
+          "title": "Gestion des vulnérabilités",
+          "content": "Scan pip-audit hebdomadaire. Patching sous 48h pour vulnérabilités critiques, 7 jours pour élevées. Suite de tests B20 (651 tests) exécutée mensuellement. Pentest PASSI planifié Q4 2026."
+        },
+        {
+          "title": "Sauvegarde et continuité",
+          "content": "Règle 3-2-1 : 3 copies, 2 supports différents, 1 hors-site. Backup quotidien chiffré Fernet. Vérification intégrité hebdomadaire. RTO cible : 4h. RPO cible : 24h."
+        },
+        {
+          "title": "Réponse aux incidents",
+          "content": "Procédure en 5 étapes : Détection → Confinement → Éradication → Restauration → Analyse post-incident. SOC watchdog B19 en surveillance continue. Escalade immédiate pour incidents critiques."
+        }
+      ]
+    },
+    "rse": {
+      "title": "Politique RSE & Numérique Responsable",
+      "subtitle": "Local-first · Éco-conception · Accessibilité · Éthique IA",
+      "version": "V1.0",
+      "date": "2026-06-30",
+      "icon": "🌱",
+      "color": "#00a6a6",
+      "sections": [
+        {
+          "title": "Numérique responsable — empreinte carbone",
+          "content": "Architecture local-first : 95% des traitements IA réalisés en local (Ollama), supprimant les allers-retours cloud. Modèles LLM légers (Llama 3.2 3B) optimisés pour CPU faible consommation. Hébergement Render.com avec engagement énergie renouvelable."
+        },
+        {
+          "title": "Éco-conception logicielle",
+          "content": "Pas de framework JavaScript lourd. CSS natif sans bibliothèque tierce. Images optimisées (WebP, lazy-loading). Pas de tracking tiers, pas de cookies non essentiels. Score performance Lighthouse cible ≥ 90."
+        },
+        {
+          "title": "Accessibilité cognitive (WCAG 2.2)",
+          "content": "ALFRED est conçu pour les utilisateurs neuro-atypiques, personnes en situation de handicap cognitif ou avec fatigue chronique. Modes de lecture simplifiée, contrastes élevés, police OpenDyslexic disponible, navigation clavier complète."
+        },
+        {
+          "title": "Éthique de l'IA",
+          "content": "Transparence totale : l'utilisateur sait toujours qu'il interagit avec une IA. Aucun dark pattern. Données psychométriques jamais utilisées à des fins commerciales. Droit à l'explication et à l'oubli garanti. Modèles IA documentés et auditables."
+        },
+        {
+          "title": "Inclusion et diversité",
+          "content": "Tarification éthique planifiée (freemium accessible). Internationalisation FR/EN (cible multilingue). Conception inclusive intégrant les retours d'utilisateurs en situation de handicap. Partenariats associatifs planifiés (accessibilité, ESS)."
+        },
+        {
+          "title": "Gouvernance et redevabilité",
+          "content": "Audit RSE annuel. Publication du bilan numérique (Scope 1-3). Rapport de transparence publié annuellement. Thèse professionnelle publiée en open access. Code source auditable. Engagement zéro vente de données."
+        }
+      ]
+    }
+  }
+}
