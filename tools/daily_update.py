@@ -25,6 +25,18 @@ STEPS = [
         "script": ALFRED_PC / "tools/dashboard_tools/dashboard_gouvernance/update_gouvernance_data.py",
     },
     {
+        "label": "Conformité réglementaire data",
+        "script": ALFRED_PC / "tools/dashboard_tools/dashboard_conformite/update_conformite_data.py",
+    },
+    {
+        "label": "Vulnérabilités data",
+        "script": ALFRED_PC / "tools/dashboard_tools/dashboard_vulnerabilites/update_vulnerabilites_data.py",
+    },
+    {
+        "label": "Risques & Impact data",
+        "script": ALFRED_PC / "tools/dashboard_tools/dashboard_risk_impact/update_risk_impact_data.py",
+    },
+    {
         "label": "Knowledge dashboard",
         "script": ALFRED_PC / "dashboard/dashboard_knowledges_tool/generate_knowledge_dashboard.py",
     },
