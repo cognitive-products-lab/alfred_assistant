@@ -5,6 +5,12 @@ FILE         : interface/companion_api.py
 ROLE         : API locale FastAPI consommée par l'app Android compagnon —
                statut ALFRED + rappels actifs, en lecture seule.
 
+AUTHOR       : Cognitive Products Lab
+CREATED      : 2026-07-02
+UPDATED      : 2026-07-02
+VERSION      : V1.1
+STATUS       : TESTED — 5/5 tests pytest, bandit + pip-audit clean
+
 DEPENDENCIES : fastapi, uvicorn
 
 SÉCURITÉ :
