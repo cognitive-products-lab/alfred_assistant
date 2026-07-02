@@ -1,8 +1,8 @@
 # ALFRED — BACKLOG & RÉFÉRENTIEL FICHIERS
 
-> Généré le 02/07/2026 13:41 depuis `dashboard_data.json` (mis à jour le 02/07/2026 13:41:24)
+> Généré le 02/07/2026 13:54 depuis `dashboard_data.json` (mis à jour le 02/07/2026 13:54:18)
 > Progression technique : **76.2%** · Full projet : **68.8%**
-> 1114 fichiers détectés / 1471 cible full
+> 1115 fichiers détectés / 1471 cible full
 
 ## Synthèse globale
 
@@ -11,7 +11,7 @@
 | 🟡 Partiel | 78 | 7.0% | 🟡 Sprint |
 | 🟦 Codé — à tester | 139 | 12.5% | 🟡 Sprint |
 | 🧪 Testé — à valider | 4 | 0.4% | 🧪 Tests |
-| ✅ Validé ✅ | 837 | 75.1% | ✅ Done |
+| ✅ Validé ✅ | 838 | 75.2% | ✅ Done |
 | ⚙️ Structurel | 56 | 5.0% | ✅ Done |
 
 ## Backlog par bloc
@@ -517,7 +517,7 @@
 
 | KPI | Valeur |
 |-----|--------|
-| Validés | 40 |
+| Validés | 41 |
 | Testés | 0 |
 | Codés (à tester) | 4 |
 | Partiels | 0 |
