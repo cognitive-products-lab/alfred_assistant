@@ -73,6 +73,7 @@ import math
 import os
 import random
 import re
+import subprocess
 import sys
 import textwrap
 from pathlib import Path
@@ -166,8 +167,13 @@ _FS_AVATAR   = "14sp"     # Label état avatar   (inchangé)
 
 
 # ============================================================
-# Palette ALFRED
+# Palette ALFRED — thèmes perso (bleu) / pro (violet, ALFRED CPL)
 # ============================================================
+# Cf. ALFRED_CONTEXT.md "ÉCOSYSTÈME ALFRED" : ALFRED = halo bleu,
+# ALFRED CPL = halo violet. _apply_theme() réécrit ces globals avant
+# build() — toutes les classes UI les lisent au moment de la construction
+# des widgets (pendant build()), donc le changement se propage sans
+# dupliquer les classes.
 
 _FG_TEXT  = (0.88, 0.88, 0.92, 1)
 _FG_DIM   = (0.55, 0.55, 0.62, 1)
@@ -177,6 +183,31 @@ _CLR_ALF  = (0.88, 0.88, 0.92, 1)
 _CLR_BTN  = (0.10, 0.12, 0.20, 1)
 _CLR_BTN_ON = (0.18, 0.34, 0.22, 1)   # bouton actif (vert sombre)
 _CLR_BTN_OFF= (0.30, 0.12, 0.12, 1)   # bouton muet/off (rouge sombre)
+_CLR_SEND   = (0.28, 0.36, 0.58, 1)   # bouton envoyer / curseur saisie
+
+THEMES = {
+    "perso": {
+        "title":  "ALFRED",
+        "accent": (0.54, 0.62, 0.83, 1),   # bleu
+        "send":   (0.28, 0.36, 0.58, 1),
+    },
+    "pro": {
+        "title":  "ALFRED CPL",
+        "accent": (0.62, 0.46, 0.88, 1),   # violet
+        "send":   (0.46, 0.32, 0.62, 1),
+    },
+}
+
+
+def _apply_theme(ui_mode: str) -> None:
+    """Réécrit les couleurs d'accent du module selon le mode (perso/pro).
+    Doit être appelé avant AlfredApp.build() — les classes UI lisent ces
+    globals au moment de l'instanciation de leurs widgets, pas à l'import.
+    """
+    global _ACCENT, _CLR_SEND
+    theme = THEMES.get(ui_mode, THEMES["perso"])
+    _ACCENT   = theme["accent"]
+    _CLR_SEND = theme["send"]
 
 
 # ============================================================
@@ -309,7 +340,7 @@ class ControlBar(BoxLayout):
     Les commandes son/vocal sont envoyees au pipeline via ui_bridge.
     """
 
-    def __init__(self, on_command=None, **kwargs: object) -> None:
+    def __init__(self, on_command=None, show_pro_launcher: bool = False, **kwargs: object) -> None:
         kwargs.setdefault("orientation", "horizontal")
         kwargs.setdefault("size_hint",   (1, 1))
         kwargs.setdefault("padding",     [6, 2])
@@ -319,27 +350,37 @@ class ControlBar(BoxLayout):
         self._on_cmd      = on_command
         self._sound_muted = False
         self._mic_active  = False
+        self._pro_launched = False
 
         with self.canvas.before:
             Color(0.03, 0.03, 0.07, 0.97)
             self._bg = Rectangle(pos=self.pos, size=self.size)
         self.bind(pos=self._upd_bg, size=self._upd_bg)
 
-        self._btn_son = self._make_btn("🔊", "Son",     self._toggle_son)
-        self._btn_mic = self._make_btn("🎤", "Micro",   self._toggle_mic)
-        self._btn_cam = self._make_btn("📷", "Caméra",  self._toggle_cam)
-        self._btn_cfg = self._make_btn("⚙️", "Réglages", self._toggle_cfg)
+        n_btn = 5 if show_pro_launcher else 4
+        w = 1 / n_btn
 
-        for b in [self._btn_son, self._btn_mic, self._btn_cam, self._btn_cfg]:
+        self._btn_son = self._make_btn("🔊", "Son",     self._toggle_son, w)
+        self._btn_mic = self._make_btn("🎤", "Micro",   self._toggle_mic, w)
+        self._btn_cam = self._make_btn("📷", "Caméra",  self._toggle_cam, w)
+        self._btn_cfg = self._make_btn("⚙️", "Réglages", self._toggle_cfg, w)
+
+        btns = [self._btn_son, self._btn_mic, self._btn_cam, self._btn_cfg]
+
+        if show_pro_launcher:
+            self._btn_pro = self._make_btn("💼", "Mode Pro", self._launch_pro, w)
+            btns.append(self._btn_pro)
+
+        for b in btns:
             self.add_widget(b)
 
-    def _make_btn(self, icon: str, label: str, cb) -> Button:
+    def _make_btn(self, icon: str, label: str, cb, width: float = 0.25) -> Button:
         b = Button(
             text=_icon_label(icon, label),
             markup=True,
             font_size=_FS_MENU,
             font_name=_FONT,
-            size_hint=(0.25, 1),
+            size_hint=(width, 1),
             background_color=_CLR_BTN,
             color=_FG_TEXT,
             bold=False,
@@ -361,6 +402,42 @@ class ControlBar(BoxLayout):
             self._btn_son.background_color = _CLR_BTN
         if self._on_cmd:
             self._on_cmd("son")
+
+    def _launch_pro(self) -> None:
+        """
+        Ouvre une seconde fenêtre ALFRED indépendante en mode pro (violet,
+        collaboration_mode actif). Kivy ne gère pas le multi-fenêtre dans un
+        même process : on lance un second processus Python isolé, qui
+        partage les mêmes bases locales (mémoire, projets) via paths.PATHS.
+        """
+        if self._pro_launched:
+            return
+        self._pro_launched = True
+        self._btn_pro.text             = _icon_label("💼", "Pro ouvert")
+        self._btn_pro.background_color = _CLR_BTN_ON
+
+        launcher = ROOT / "src" / "alfred_with_ui.py"
+        try:
+            proc = subprocess.Popen(
+                [sys.executable, str(launcher), "--mode", "pro"],
+                cwd=str(ROOT),
+            )
+        except Exception as exc:
+            print(f"  [AVERT mode pro] Impossible de lancer la fenêtre pro : {exc}")
+            self._pro_launched = False
+            self._btn_pro.text             = _icon_label("💼", "Mode Pro")
+            self._btn_pro.background_color = _CLR_BTN
+            return
+
+        def _watch(dt: float) -> None:
+            if proc.poll() is not None:
+                self._pro_launched = False
+                self._btn_pro.text             = _icon_label("💼", "Mode Pro")
+                self._btn_pro.background_color = _CLR_BTN
+                return
+            Clock.schedule_once(_watch, 2.0)
+
+        Clock.schedule_once(_watch, 2.0)
 
     def _toggle_mic(self) -> None:
         self._mic_active = not self._mic_active
@@ -644,7 +721,7 @@ class InputRow(BoxLayout):
             font_size=_FS_SEND,
             font_name=_FONT_ICON,
             size_hint=(0.18, 1),
-            background_color=(0.28, 0.36, 0.58, 1),
+            background_color=_CLR_SEND,
             color=_FG_TEXT,
             bold=True,
         )
@@ -674,7 +751,7 @@ class InputRow(BoxLayout):
         # d'arret), meme si enabled=False (ALFRED en cours de reponse).
         self._btn_mic.disabled = (not enabled) and (not self._recording)
         self._btn.background_color = (
-            (0.28, 0.36, 0.58, 1) if enabled else (0.14, 0.14, 0.22, 1)
+            _CLR_SEND if enabled else (0.14, 0.14, 0.22, 1)
         )
 
     def focus_input(self) -> None:
@@ -783,11 +860,11 @@ class AlfredLayout(BoxLayout):
       StatusBar        (6%) -- mode | émotion | état
     """
 
-    def __init__(self, on_user_input=None, on_command=None, **kwargs: object) -> None:
+    def __init__(self, on_user_input=None, on_command=None, show_pro_launcher: bool = False, **kwargs: object) -> None:
         kwargs.setdefault("orientation", "vertical")
         super().__init__(**kwargs)
 
-        self.ctrl_bar   = ControlBar(on_command=on_command, size_hint=(1, 0.06))
+        self.ctrl_bar   = ControlBar(on_command=on_command, show_pro_launcher=show_pro_launcher, size_hint=(1, 0.06))
         self.renderer   = AvatarRenderer(size_hint=(1, 1))
         self.avatar_area = WebcamOverlay(renderer=self.renderer, size_hint=(1, 0.47))
         self.wave        = SoundWaveWidget(size_hint=(1, 0.07))
@@ -838,17 +915,22 @@ class AlfredApp(App):
     - InputRow intégré (plus besoin du terminal)
     """
 
-    title = "ALFRED — V1"
-
     _BG_REFRESH_INTERVAL = 600
 
     def __init__(
         self,
         demo_mode: bool = True,
         location:  str  = "salon",
+        ui_mode: str = "perso",
+        show_pro_launcher: bool = False,
         **kwargs: object,
     ) -> None:
         global _app_instance
+        self.ui_mode = ui_mode if ui_mode in THEMES else "perso"
+        _apply_theme(self.ui_mode)
+        self.title = THEMES[self.ui_mode]["title"]
+        self._show_pro_launcher = show_pro_launcher and self.ui_mode == "perso"
+
         super().__init__(**kwargs)
         self._demo        = demo_mode
         self._demo_idx    = 0
@@ -866,6 +948,7 @@ class AlfredApp(App):
         self._layout = AlfredLayout(
             on_user_input=self._handle_user_input,
             on_command=self._handle_command,
+            show_pro_launcher=self._show_pro_launcher,
         )
 
         engine = get_avatar_engine(headless=False)

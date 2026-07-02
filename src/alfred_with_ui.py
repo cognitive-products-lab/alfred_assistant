@@ -36,18 +36,43 @@ Communication pipeline -> UI :
   set_ui_listening(bool)    -> SoundWaveWidget.set_listening() via Clock
 
 Usage :
-  python src/alfred_with_ui.py
+  python src/alfred_with_ui.py                    # produit ALFRED (perso)
+  python src/alfred_with_ui.py --mode pro          # produit ALFRED CPL (pro only)
+  python src/alfred_with_ui.py --hybrid            # perso + bouton "Mode Pro"
+                                                    # (ouvre une 2e fenêtre pro en parallèle)
 
 Le champ TextInput dans la fenêtre Kivy remplace la saisie terminal.
 La fenêtre Kivy affiche l'avatar, la conversation et les contrôles.
+
+Modes UI (Bloc 12 / dashboard B10, cf. ALFRED_CONTEXT.md "ÉCOSYSTÈME ALFRED") :
+  --mode perso (défaut) : produit ALFRED — halo bleu, collaboration_mode OFF
+  --mode pro             : produit ALFRED CPL — halo violet, collaboration_mode ON
+  --hybrid                : (avec --mode perso) ajoute un bouton "Mode Pro" qui
+                             lance une 2e fenêtre --mode pro en parallèle (process séparé,
+                             Kivy ne supportant pas nativement le multi-fenêtre)
 """
 
 from __future__ import annotations
 
+import argparse
+import os
 import sys
 import threading
 import time
 from pathlib import Path
+
+
+def _parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description="Lance ALFRED avec interface Kivy.")
+    parser.add_argument(
+        "--mode", choices=["perso", "pro"], default="perso",
+        help="perso = produit ALFRED (défaut) ; pro = produit ALFRED CPL",
+    )
+    parser.add_argument(
+        "--hybrid", action="store_true",
+        help="Mode perso avec bouton 'Mode Pro' pour ouvrir une 2e fenêtre pro en parallèle",
+    )
+    return parser.parse_args()
 
 # ── Fix encodage console Windows ──────────────────────────────────────────────
 # reconfigure() modifie l'encoding de l'objet TextIOWrapper existant sans
@@ -128,6 +153,13 @@ def _run_pipeline() -> None:
 # ============================================================
 
 if __name__ == "__main__":
+    _args = _parse_args()
+    _ui_mode = _args.mode
+
+    # Signal cross-process pour main.py (initialise collaboration_mode B10/12.04
+    # au démarrage du pipeline — lu une seule fois, dans le process courant).
+    os.environ["ALFRED_UI_MODE"] = _ui_mode
+
     # ── Silence logs Kivy pendant l'auth PIN ─────────────────────────────────
     import os as _os
     _os.environ.setdefault("KIVY_LOG_LEVEL", "warning")
@@ -179,4 +211,9 @@ if __name__ == "__main__":
 
     # Interface Kivy dans le thread principal (obligatoire sur Windows/macOS)
     from src.ui.alfred_app import AlfredApp
-    AlfredApp(demo_mode=False, location="salon").run()
+    AlfredApp(
+        demo_mode=False,
+        location="salon",
+        ui_mode=_ui_mode,
+        show_pro_launcher=_args.hybrid,
+    ).run()

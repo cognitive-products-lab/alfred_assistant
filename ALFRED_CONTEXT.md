@@ -1,6 +1,6 @@
 ﻿# ALFRED — Fichier de contexte collaborateur
 # À coller en début de chaque nouvelle conversation avec Claude
-# Dernière mise à jour : 18 Juin 2026 — Session 7
+# Dernière mise à jour : 29 Juin 2026 — Session 8
 # ============================================================
 
 ## 🎯 QUI JE SUIS
@@ -114,8 +114,11 @@ head_base → eyes → eyebrows → mouth → hair → effects(halo)
 ### Principes fondamentaux (NON NÉGOCIABLES)
 Local-first | Security by Design | Zero Trust | Scalabilité progressive
 
-### Hardware actuel (V1 — PC développement)
-HP EliteBook — Intel i7 — 32 Go RAM
+### Hardware actuel — PC Alfred Core ✅ OPÉRATIONNEL (29/06/2026)
+**DESKTOP-THFV312** — Nouveau PC puissant dédié ALFRED (reçu et configuré le 29/06/2026)
+- Environnement complet installé : Python 3.13.14, Node.js 24.18.0, Docker Desktop 4.78.0, Ollama 0.30.11, Claude Code v2.1.195
+- Plus de contrainte mémoire/CPU — modèles LLM lourds accessibles (llama3.1:8b minimum, montée en charge mercredi)
+- Ancien HP EliteBook → rôle secondaire / poste de développement web
 
 ### ✅ Hardware cible validé — Serveur local CPL (Juin 2026)
 
@@ -322,8 +325,8 @@ Box Bouygues ↔ CPL ↔ CPL ↔ ER605 (192.168.1.120) → SG108E (192.168.0.101
 - **GUI** : Kivy (desktop Windows + Android)
 - **Stockage projet** : D:\PROJET_ALFRED\ALFRED_PC\
 - **Sécurité** : Fernet + JWT + bcrypt + Zero Trust (Bloc 20)
-- **STT** : Whisper local — plus tard
-- **TTS** : Piper/Coqui local — plus tard
+- **STT** : faster-whisper ✅ installé (whisper medium/large-v3 accessible sur nouveau PC)
+- **TTS** : piper-tts 1.4.2 ✅ opérationnel (voix fr_FR-upmc-medium, speaker Pierre)
 - **LLM** : Ollama (remplace llama-cpp) — MS-S1 MAX
 - **RAG** : ChromaDB local — V3+
 
@@ -477,22 +480,24 @@ Tous à placer dans : D:\PROJET_ALFRED\
     Obsbot Tiny 2 pour AI tracking)
 
 ### En attente 🕐
-- Réception MS-S1 MAX (upgrade hardware) — setup bureau CPL complet prévu juillet 2026
-- Vérifier en live si le grésillement TTS a disparu avec le fondu + le streaming réel
-  (sinon : envisager un `sd.OutputStream` persistant au lieu de `sd.play()` par phrase)
-- Vérifier en live que le tutoiement (INT-007) est bien respecté par le LLM
-- Décision finale Docker Desktop sur ce PC (désinstallation actée, pas encore exécutée)
+- Remplissage Q01→Q09 (profil psychométrique complet) — en attente douleur mains
+- AIPD T001 (RGPD art.35) — fichier cible `docs/audits/rgpd/` — obligatoire avant prod
+- PSSI formelle — `docs/gouvernance/PSSI_formelle.md`
+- Réconciliation `src/core/profile_analyzer.py` vs `src/profile/profile_analyzer.py` (doublon)
+- Page "tous les articles" ALFRED_WEB
+- MS-S1 MAX — setup bureau CPL complet prévu Q3 2026 (DESKTOP-THFV312 = PC transitoire)
 
 ### Prochaines étapes 🎯
-1. Relancer `start_alfred.bat` / `main.py` pour vérifier : lecture phrase par phrase,
-   tutoiement cohérent, absence de crash webcam, plus d'AVERT pipeline B03/B13
-2. Investiguer le grésillement audio TTS si toujours présent avec le streaming réel
-3. Décider du périmètre du Bloc 23 "Gouvernance & pilotage du projet" pour les dashboards
-4. Committer la restauration (B20 + B03/13 + B05 + B11 + B15 avatar + pipeline_bridge +
-   llm_client_ollama streaming + fixes ton/apostrophe + fixes cwd sécurité + nettoyage
-   scripts/contexte)
-5. À réception du MS-S1 MAX : lancer `setup_minisforum_ms_s1_max.ps1`, migration +
-   benchmark des profils LLM lourds (70B-120B), câblage bureau CPL
+**Mercredi 02/07** :
+1. Merge feature branch → dev (pipeline complet Kivy + modules B)
+2. Activer SpeechManager (STT faster-whisper + TTS piper) → test end-to-end voix
+3. Monter modèle Ollama : llama3.2 → llama3.1:8b ou mistral-nemo:12b (nouveau PC)
+4. Relancer suite tests complète après merge — maintenir 14/14 OK
+
+**Vendredi 04/07** :
+5. Valider B02 Mémoire & RAG (ChromaDB, rag_engine, indexation knowledges)
+6. Créer calques eye/mouth définitifs → remplacer patch provisoire avatar
+7. Mettre à jour dashboard + BACKLOG (cible : 72.5% → ~78% technique)
 
 ### Ordre de développement
 ```
@@ -630,5 +635,28 @@ Respecte séparation public / privé expérimental.
 Intègre toujours : max 6 calques, PNG optimisés, Kivy, local-first.
 
 ---
-*Session 5 — 13 Juin 2026*
-*Prochaine mise à jour : après réception MS-S1 MAX + correctif TTS streaming validé en live*
+
+## ✅ SESSION 8 — 29/06/2026 — Récapitulatif
+
+**Migration & Installation PC Alfred Core (DESKTOP-THFV312)**
+
+- Python 3.13.14, Node.js 24.18.0, Docker 4.78.0, Ollama 0.30.11, Claude Code v2.1.195 installés
+- Dépendances Python ALFRED complètes (anthropic, openai, kivy, chromadb, faster-whisper, piper-tts, sounddevice, soundfile, bcrypt, cryptography…)
+- `.env` configuré : ANTHROPIC_API_KEY, OPENAI_API_KEY, SECRET_KEY, PIN_SALT, FERNET_KEY
+- Permissions réparées (icacls/takeown — SID mismatch migration PC) — suite tests : **14/14 OK** (Grade A)
+- Git safe.directory configuré pour D:/PROJET_ALFRED (ownership SID mismatch)
+
+**Patches fonctionnels :**
+- `src/ui/avatar_renderer.py` — patch provisoire image statique `alfred_medium_explaining.png` (calques eye/mouth en attente)
+- `src/core/response_generator.py` — RÈGLE ABSOLUE TUTOIEMENT ajoutée (INTERDIT "vous/votre/vos")
+- `knowledges/geography/world_oceans.json` — 5 underscores numériques Python corrigés (JSON valide)
+- `data/profile/personality_celine.json` — créé (fichier minimal, onboarding complet à faire)
+- `data/security/pins.json` — supprimé (PIN_SALT régénéré, forcer ré-enregistrement)
+- TTS stack : piper-tts, sounddevice, soundfile installés et opérationnels
+
+**Backlog confirmé prochaines sessions :**
+Q01→Q09 · AIPD T001 · PSSI formelle · doublon profile_analyzer · page articles ALFRED_WEB
+
+---
+*Session 8 — 29 Juin 2026*
+*Prochaine mise à jour : mercredi 02/07 après merge feature branch + tests voix*

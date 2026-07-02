@@ -61,6 +61,7 @@ DATA_V2PP       = DATA_DIR / "v2pp"
 DATA_V3         = DATA_DIR / "v3"
 DATA_V4         = DATA_DIR / "v4"
 DATA_HEALTH     = DATA_DIR / "health"
+DATA_COLLABORATION = DATA_DIR / "collaboration"
 
 
 # ── Knowledges ────────────────────────────────────────────
@@ -93,8 +94,10 @@ TESTS_DIR       = BASE_DIR / "tests"
 
 
 # ── Dashboard ─────────────────────────────────────────────
+# NOTE : dashboard_manifest.json (ancien manifeste, non lu par le pipeline actif)
+# a été archivé le 02/07/2026 -> archive_obsolete/dashboard_manifest.json.
+# Source réelle : dashboard/dashboard_data/dashboard_data_manifest.json.
 DASHBOARD_DIR         = BASE_DIR / "dashboard"
-DASHBOARD_MANIFEST    = DASHBOARD_DIR / "dashboard_manifest.json"
 DASHBOARD_DATA        = DASHBOARD_DIR / "dashboard_data.json"
 DASHBOARD_HTML        = DASHBOARD_DIR / "ALFRED_DASHBOARD.html"
 
@@ -165,6 +168,7 @@ class _Paths:
     data_profile    = DATA_PROFILE
     data_actions    = DATA_ACTIONS
     data_context    = DATA_CONTEXT
+    data_collaboration = DATA_COLLABORATION
 
     # Knowledges
     knowledge_human         = KNOWLEDGE_HUMAN
@@ -186,7 +190,6 @@ class _Paths:
 
     # Dashboard
     dashboard           = DASHBOARD_DIR
-    dashboard_manifest  = DASHBOARD_MANIFEST
     dashboard_data      = DASHBOARD_DATA
     dashboard_html      = DASHBOARD_HTML
 
@@ -223,7 +226,7 @@ def ensure_dirs():
         CONFIG_SECURITY, CONFIG_V1, CONFIG_V2, CONFIG_V2PP, CONFIG_V3, CONFIG_V4,
         CONFIG_REGULATION, CONFIG_HEALTH, CONFIG_QUESTIONNAIRE,
         DATA_SECURITY, DATA_MEMORY, DATA_PROFILE, DATA_ACTIONS, DATA_CONTEXT,
-        DATA_V1, DATA_V2, DATA_V2PP, DATA_V3, DATA_V4, DATA_HEALTH,
+        DATA_V1, DATA_V2, DATA_V2PP, DATA_V3, DATA_V4, DATA_HEALTH, DATA_COLLABORATION,
         KNOWLEDGE_HUMAN, KNOWLEDGE_PROFESSIONAL, KNOWLEDGE_LIFESTYLE,
         LOGS_DIR, ASSETS_AVATAR, ASSETS_AUDIO,
         AUTH_DIR, SPEECH_DIR, TESTS_DIR,
@@ -243,7 +246,6 @@ if __name__ == "__main__":
     print(f"DATA_V3           : {PATHS.data_v3}")
     print(f"SRC_SECURITY      : {PATHS.src_security}")
     print(f"DASHBOARD_DIR     : {PATHS.dashboard}")
-    print(f"DASHBOARD_MANIFEST: {PATHS.dashboard_manifest}")
     print(f"MANIFEST_TARGET   : {PATHS.manifest_target}")
     print(f"TARGET_REPORT_MD  : {PATHS.target_report_md}")
     print()
