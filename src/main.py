@@ -47,6 +47,7 @@ Usage :
   python src/main.py
 """
 
+import os
 import sys
 import time
 from datetime import datetime
@@ -394,6 +395,15 @@ def print_help() -> None:
     print("    son                           → activer/désactiver le son (TTS)")
     print("    ecoute                        → dicter un message une seule fois")
     print("    rappels                       → afficher les rappels actifs")
+    print("    projets                       → lister les projets (B10)")
+    print("    projet                        → résumé du projet actif (B10)")
+    print("    nouveau projet : <nom>        → créer et activer un projet")
+    print("    activer projet : <nom>        → changer de projet actif")
+    print("    nouvelle tâche : <titre>      → ajouter une tâche au projet actif")
+    print("    tâche terminée : <titre>      → marquer une tâche terminée")
+    print("    tâche bloquée : <titre> - <raison>  → marquer une tâche bloquée")
+    print("    rapport                       → compte-rendu d'avancement du projet actif")
+    print("    mode pro / mode perso         → activer/désactiver le registre collaboration pro (12.04)")
     print("─" * 58)
     print("")
 
@@ -405,6 +415,8 @@ def print_status(components: dict[str, Any]) -> None:
     print(f"  KnowledgeLoader    : {'OK' if components.get('loader') else 'NON'}")
     print(f"  MemoryEngine       : {'OK' if components.get('memory') else 'NON'}")
     print(f"  LongTermMemory     : {'OK' if components.get('ltm_ok') else 'NON / optionnelle'}")
+    print(f"  GestionProjet B10  : {'OK' if components.get('pm_ok') else 'NON / optionnelle'}")
+    print(f"  Mode collab. pro   : {'ACTIF' if components.get('collaboration_mode') else 'inactif'}")
 
     llm = components.get("llm")
 
@@ -526,6 +538,9 @@ def init_components() -> dict[str, Any]:
         "user_name": USER_FALLBACK_NAME,
         "tts": None,
         "voice_enabled": False,   # vocal OFF au démarrage → taper "vocal" pour l'activer
+        # mode pro (B10 12.04) : ON si lancé via alfred_with_ui.py --mode pro
+        # (ALFRED_UI_MODE défini avant le thread pipeline), sinon "mode pro" en commande.
+        "collaboration_mode": os.environ.get("ALFRED_UI_MODE") == "pro",
         "retrieval_engine": None,
         "security_ok": False,
         "security_session_id": "",
@@ -555,6 +570,17 @@ def init_components() -> dict[str, Any]:
         print(f"  [AVERT] LongTermMemory indisponible : {exc}")
         components["ltm"] = None
         components["ltm_ok"] = False
+
+    # Gestion de projet B10 (SQLite : objectifs/tâches/jalons/dépendances)
+    try:
+        from src.collaboration.project import project_manager
+        project_manager.init_db()
+        components["project_manager"] = project_manager
+        components["pm_ok"] = True
+    except Exception as exc:
+        print(f"  [AVERT] ProjectManager (B10) indisponible : {exc}")
+        components["project_manager"] = None
+        components["pm_ok"] = False
 
     # PersonalityAdapter
     try:
@@ -1123,6 +1149,129 @@ def handle_command(command: str, components: dict[str, Any]) -> bool:
             print("\n  ModeManager non disponible.\n")
         return True
 
+    # ── Bloc 12 — Collaboration professionnelle (dashboard : B10) ────────
+    pm = components.get("project_manager")
+    pm_ok = bool(components.get("pm_ok") and pm)
+    cmd_noaccent = (
+        cmd.replace("â", "a").replace("ê", "e").replace("é", "e").replace("è", "e")
+        .replace(" :", ":")
+    )
+
+    if cmd in {"projets", "mes projets", "liste projets"}:
+        if not pm_ok:
+            print("\n  Gestion de projet (B10) non disponible dans cette exécution.\n")
+            return True
+        projects = pm.list_projects()
+        if not projects:
+            print('\n  Aucun projet enregistré. Dis "nouveau projet : <nom>" pour en créer un.\n')
+            return True
+        print("\n  ── Projets ──")
+        for p in projects:
+            deadline = f" — échéance {p['deadline']}" if p.get("deadline") else ""
+            print(f"  [{p['status']}] {p['name']}{deadline}")
+        print("")
+        return True
+
+    if cmd == "projet":
+        if not pm_ok:
+            print("\n  Gestion de projet (B10) non disponible dans cette exécution.\n")
+            return True
+        ctx = pm.format_context_for_prompt()
+        if ctx:
+            print("\n" + ctx + "\n")
+        else:
+            print('\n  Aucun projet actif. Dis "nouveau projet : <nom>" ou "activer projet : <nom>".\n')
+        return True
+
+    if cmd_noaccent.startswith("nouveau projet:"):
+        if not pm_ok:
+            print("\n  Gestion de projet (B10) non disponible dans cette exécution.\n")
+            return True
+        name = command.split(":", 1)[1].strip() if ":" in command else ""
+        if not name:
+            print('\n  Précise un nom : "nouveau projet : Mon Projet"\n')
+            return True
+        try:
+            pm.create_project(name)
+            print(f'\n  Projet "{name}" créé et activé.\n')
+        except Exception as exc:
+            print(f"\n  [ERREUR] Création projet impossible (nom déjà pris ?) : {exc}\n")
+        return True
+
+    if cmd_noaccent.startswith("activer projet:"):
+        if not pm_ok:
+            print("\n  Gestion de projet (B10) non disponible dans cette exécution.\n")
+            return True
+        name = command.split(":", 1)[1].strip() if ":" in command else ""
+        project = pm.set_active_project(name) if name else None
+        if project:
+            print(f'\n  Projet actif : "{project["name"]}".\n')
+        else:
+            print(f'\n  Projet "{name}" introuvable. Tape "projets" pour voir la liste.\n')
+        return True
+
+    if cmd_noaccent.startswith("nouvelle tache:"):
+        if not pm_ok:
+            print("\n  Gestion de projet (B10) non disponible dans cette exécution.\n")
+            return True
+        title = command.split(":", 1)[1].strip() if ":" in command else ""
+        if not title:
+            print('\n  Précise un titre : "nouvelle tâche : Rédiger le cadrage"\n')
+            return True
+        task_id = pm.add_task(None, title)
+        if task_id:
+            print(f'\n  Tâche "{title}" ajoutée au projet actif.\n')
+        else:
+            print('\n  Aucun projet actif. Dis "nouveau projet : <nom>" ou "activer projet : <nom>" d\'abord.\n')
+        return True
+
+    if cmd_noaccent.startswith("tache terminee:"):
+        if not pm_ok:
+            print("\n  Gestion de projet (B10) non disponible dans cette exécution.\n")
+            return True
+        fragment = command.split(":", 1)[1].strip() if ":" in command else ""
+        task = pm.update_task_status(None, fragment, "done") if fragment else None
+        if task:
+            print(f'\n  Tâche "{task["title"]}" marquée terminée.\n')
+        else:
+            print(f'\n  Aucune tâche correspondant à "{fragment}" trouvée dans le projet actif.\n')
+        return True
+
+    if cmd_noaccent.startswith("tache bloquee:"):
+        if not pm_ok:
+            print("\n  Gestion de projet (B10) non disponible dans cette exécution.\n")
+            return True
+        remainder = command.split(":", 1)[1].strip() if ":" in command else ""
+        fragment, _, reason = remainder.partition(" - ")
+        fragment = fragment.strip()
+        task = pm.update_task_status(None, fragment, "blocked", blocked_reason=reason.strip()) if fragment else None
+        if task:
+            print(f'\n  Tâche "{task["title"]}" marquée bloquée.\n')
+        else:
+            print(f'\n  Aucune tâche correspondant à "{fragment}" trouvée dans le projet actif.\n')
+        return True
+
+    if cmd == "mode pro":
+        components["collaboration_mode"] = True
+        print("\n  Mode collaboration professionnelle activé (Bloc 12.04).\n")
+        return True
+
+    if cmd == "mode perso":
+        components["collaboration_mode"] = False
+        print("\n  Mode collaboration professionnelle désactivé.\n")
+        return True
+
+    if cmd == "rapport":
+        if not pm_ok:
+            print("\n  Gestion de projet (B10) non disponible dans cette exécution.\n")
+            return True
+        report = pm.generate_status_report()
+        if report:
+            print("\n" + report + "\n")
+        else:
+            print('\n  Aucun projet actif. Dis "nouveau projet : <nom>" ou "activer projet : <nom>".\n')
+        return True
+
     if cmd == "stats":
         try:
             if memory:
@@ -1499,6 +1648,18 @@ def build_response(
             context["user_preferences"] = ""
     except Exception:
         context["user_preferences"] = ""
+
+    # -------------------------------------------------------------------------
+    # 3c. Gestion de projet B10 (état projet actif : objectifs/tâches/jalons)
+    # -------------------------------------------------------------------------
+    try:
+        pm = components.get("project_manager")
+        context["pm_context"] = pm.format_context_for_prompt() if components.get("pm_ok") and pm else ""
+    except Exception as exc:
+        context["pm_context"] = ""
+        print(f"  [AVERT B10] contexte projet non injecté : {exc}")
+
+    context["collaboration_mode"] = components.get("collaboration_mode", False)
 
     # -------------------------------------------------------------------------
     # 4. Knowledge Retrieval Engine B18

@@ -3,14 +3,15 @@
     "project": "ALFRED",
     "block": "GLOBAL",
     "file": "dashboard_data_manifest.json",
-    "version": "V1.2",
+    "version": "V2.0",
     "status": "ACTIVE",
-    "updated": "2026-05-22",
-    "standardized_by": "json_metadata_standardizer.py"
+    "updated": "2026-07-02",
+    "standardized_by": "json_metadata_standardizer.py",
+    "remapping_note": "Réconciliation 02/07/2026 : clés b01-b22 remappées de la numérotation 'Dashboard ancien' vers la structure 'Bloc officiel' (docs/ALFRED_BLOCS_REFERENCE.md). Fusion b06+b10(ancien) -> b12(nouveau) 'Collaboration professionnelle'. Champ _legacy_dashboard_key ajouté par bloc pour traçabilité. Bloc 04 'Interaction vocale' créé vide (aucun équivalent ancien) — voir son roadmap_note."
   },
   "blocks": {
     "b01": {
-      "label": "Interaction conversationnelle intelligente",
+      "label": "Noyau conversationnel & orchestration",
       "target_full_files_count": 25,
       "target_full_label": "Cible complète V1/V2/V3",
       "expected_files": [
@@ -48,10 +49,11 @@
         "src/v2/decision/decision_engine.py",
         "tests/b01_tests/test_fusion_engine.py",
         "tests/integration_tests/test_v2_pipeline.py"
-      ]
+      ],
+      "_legacy_dashboard_key": "b01"
     },
     "b02": {
-      "label": "Mémoire & RAG",
+      "label": "Mémoire & contexte",
       "target_full_files_count": 25,
       "target_full_label": "Cible complète V1/V2/V3",
       "expected_files": [
@@ -80,10 +82,11 @@
         "src/memory/rag_stub.py",
         "src/rag/rag_engine.py",
         "src/rag/__init__.py"
-      ]
+      ],
+      "_legacy_dashboard_key": "b02"
     },
     "b03": {
-      "label": "Émotions & Régulation",
+      "label": "Émotions & adaptation comportementale",
       "target_full_files_count": 30,
       "target_full_label": "Cible complète V1/V2/V3",
       "expected_files": [
@@ -113,73 +116,18 @@
         "src/regulation/wellbeing_tracker.py",
         "src/v3/emotion/__init__.py",
         "tests/test_b02_b03.py"
-      ]
+      ],
+      "_legacy_dashboard_key": "b03"
     },
     "b04": {
-      "label": "Sécurité & Protection",
+      "label": "Interaction vocale",
       "target_full_files_count": 25,
       "target_full_label": "Cible complète V1/V2/V3",
-      "expected_files": [
-        ".env.example",
-        ".gitignore",
-        "config/ethics_rules.json",
-        "config/quality_thresholds.json",
-        "config/settings.json",
-        "knowledges/cpl/ethics_governance/accessibility_principles.json",
-        "knowledges/cpl/ethics_governance/ethical_ai_framework.json",
-        "knowledges/cpl/ethics_governance/governance_model.json",
-        "knowledges/system/ethics/ethical_framework.json",
-        "pyproject.toml"
-      ]
+      "expected_files": [],
+      "roadmap_note": "⚠️ Aucun bloc 'Dashboard ancien' ne correspondait à ce Bloc officiel 04 lors de la réconciliation du 02/07/2026 — les fichiers STT/TTS (src/conversation/input/, src/conversation/output/) sont actuellement comptés sous Bloc 01. Décision à prendre : les extraire vers Bloc 04 ou laisser Bloc 04 vide."
     },
     "b05": {
-      "label": "Organisation & Assistance",
-      "target_full_files_count": 25,
-      "target_full_label": "Cible complète V1/V2/V3",
-      "expected_files": [
-        "data/actions/tasks.json",
-        "data/v2/scenarios/daily_organization.json",
-        "knowledges/cpl/execution/decision_making_framework.json",
-        "knowledges/cpl/execution/project_management_core.json",
-        "knowledges/cpl/execution/risk_management.json",
-        "knowledges/cpl/execution/task_prioritization.json",
-        "knowledges/cpl/human_organization/energy_management.json",
-        "knowledges/human/skills/softskills/organization.json",
-        "knowledges/lifestyle/daily_life/organization_basics.json",
-        "knowledges/lifestyle/daily_life/time_management.json",
-        "src/assistant_actions/__init__.py",
-        "src/auth/auth_manager.py",
-        "src/auth/login_handler.py",
-        "src/auth/user_session.py"
-      ]
-    },
-    "b06": {
-      "label": "Communication & Lien social",
-      "target_full_files_count": 25,
-      "target_full_label": "Cible complète V1/V2/V3",
-      "expected_files": [
-        "knowledges/cpl/human_communication/client_interaction.json",
-        "knowledges/cpl/human_communication/communication_principles.json",
-        "knowledges/human/skills/softskills/argumentation_frameworks.json",
-        "knowledges/human/skills/softskills/assertiveness.json",
-        "knowledges/human/skills/softskills/communication.json",
-        "knowledges/human/skills/softskills/communication_clarity.json",
-        "knowledges/human/skills/softskills/conflict_management.json",
-        "knowledges/human/skills/softskills/leadership_personal.json",
-        "knowledges/human/skills/softskills/negotiation.json"
-      ]
-    },
-    "b07": {
-      "label": "Mobilité & Contexte externe",
-      "target_full_files_count": 25,
-      "target_full_label": "Cible complète V1/V2/V3",
-      "expected_files": [
-        "data/context/user_context.json"
-      ],
-      "roadmap_note": "🟪 Roadmap V2 — ALFRED Android : client mobile léger connecté au core ALFRED_PC (LLM + mémoire + knowledge). Accès distant via API REST/WebSocket sécurisé + tunnel WireGuard (ER605). Auth JWT + TLS mutuel. UI conversationnelle Android (Kotlin ou Flutter à trancher)."
-    },
-    "b08": {
-      "label": "Personnalisation utilisateur",
+      "label": "Gestion utilisateur",
       "target_full_files_count": 35,
       "target_full_label": "Cible complète V1/V2/V3",
       "expected_files": [
@@ -210,10 +158,61 @@
         "src/core/__init__.py",
         "src/core/alfred_behavior_engine.py",
         "src/core/personality_adapter.py"
-      ]
+      ],
+      "_legacy_dashboard_key": "b08"
+    },
+    "b06": {
+      "label": "Assistance quotidienne",
+      "target_full_files_count": 25,
+      "target_full_label": "Cible complète V1/V2/V3",
+      "expected_files": [
+        "data/actions/tasks.json",
+        "data/v2/scenarios/daily_organization.json",
+        "knowledges/cpl/execution/decision_making_framework.json",
+        "knowledges/cpl/execution/project_management_core.json",
+        "knowledges/cpl/execution/risk_management.json",
+        "knowledges/cpl/execution/task_prioritization.json",
+        "knowledges/cpl/human_organization/energy_management.json",
+        "knowledges/human/skills/softskills/organization.json",
+        "knowledges/lifestyle/daily_life/organization_basics.json",
+        "knowledges/lifestyle/daily_life/time_management.json",
+        "src/assistant_actions/__init__.py",
+        "src/auth/auth_manager.py",
+        "src/auth/login_handler.py",
+        "src/auth/user_session.py"
+      ],
+      "_legacy_dashboard_key": "b05"
+    },
+    "b07": {
+      "label": "Apprentissage & routines",
+      "target_full_files_count": 25,
+      "target_full_label": "Cible complète V1/V2/V3",
+      "expected_files": [
+        "data/context/user_context.json"
+      ],
+      "roadmap_note": "🟪 Roadmap V2 — ALFRED Android : client mobile léger connecté au core ALFRED_PC (LLM + mémoire + knowledge). Accès distant via API REST/WebSocket sécurisé + tunnel WireGuard (ER605). Auth JWT + TLS mutuel. UI conversationnelle Android (Kotlin ou Flutter à trancher).",
+      "_legacy_dashboard_key": "b07"
+    },
+    "b08": {
+      "label": "Supervision système",
+      "target_full_files_count": 25,
+      "target_full_label": "Cible complète V1/V2/V3",
+      "expected_files": [
+        ".env.example",
+        ".gitignore",
+        "config/ethics_rules.json",
+        "config/quality_thresholds.json",
+        "config/settings.json",
+        "knowledges/cpl/ethics_governance/accessibility_principles.json",
+        "knowledges/cpl/ethics_governance/ethical_ai_framework.json",
+        "knowledges/cpl/ethics_governance/governance_model.json",
+        "knowledges/system/ethics/ethical_framework.json",
+        "pyproject.toml"
+      ],
+      "_legacy_dashboard_key": "b04"
     },
     "b09": {
-      "label": "Productivité & Copilote pro",
+      "label": "API & microservices",
       "target_full_files_count": 25,
       "target_full_label": "Cible complète V1/V2/V3",
       "expected_files": [
@@ -230,17 +229,11 @@
         "knowledges/professional/decision/root_cause_analysis.json",
         "knowledges/professional/decision/tradeoff_analysis.json",
         "knowledges/professional/engineering/systeme_design/ai_system_design.json"
-      ]
+      ],
+      "_legacy_dashboard_key": "b09"
     },
     "b10": {
-      "label": "Collaboration & Coordination",
-      "target_full_files_count": 25,
-      "target_full_label": "Cible complète V1/V2/V3",
-      "expected_files": [],
-      "roadmap_note": "🟪 Roadmap V2 — ALFRED CPL : collaborateur professionnel interactif. Interface mode pro (brainstorming, revue docs, suivi projets), knowledges métier CPL (IA, cybersécurité, entrepreneuriat, droit numérique), co-rédaction, mémoire des décisions. Module src/collaboration/ + knowledges/professional/cpl/ à créer."
-    },
-    "b11": {
-      "label": "Intelligence cognitive avancée",
+      "label": "Intelligence artificielle avancée",
       "target_full_files_count": 25,
       "target_full_label": "Cible complète V1/V2/V3",
       "expected_files": [
@@ -263,10 +256,11 @@
         "src/v3/proactive/proactive_engine.py",
         "src/v3/proactive/reminder_detector.py",
         "src/v3/proactive/reminder_engine.py"
-      ]
+      ],
+      "_legacy_dashboard_key": "b11"
     },
-    "b12": {
-      "label": "Pilotage business & Stratégie",
+    "b11": {
+      "label": "Data & pilotage",
       "target_full_files_count": 25,
       "target_full_label": "Cible complète V1/V2/V3",
       "expected_files": [
@@ -286,10 +280,35 @@
         "knowledges/professional/strategy/product_strategy/problem_framing.json",
         "knowledges/professional/strategy/product_strategy/roadmap_prioritization.json",
         "knowledges/professional/strategy/product_strategy/value_proposition.json"
-      ]
+      ],
+      "_legacy_dashboard_key": "b12"
+    },
+    "b12": {
+      "label": "Collaboration professionnelle",
+      "target_full_files_count": 50,
+      "target_full_label": "Cible complète V1/V2/V3",
+      "expected_files": [
+        "knowledges/cpl/human_communication/client_interaction.json",
+        "knowledges/cpl/human_communication/communication_principles.json",
+        "knowledges/human/skills/softskills/argumentation_frameworks.json",
+        "knowledges/human/skills/softskills/assertiveness.json",
+        "knowledges/human/skills/softskills/communication.json",
+        "knowledges/human/skills/softskills/communication_clarity.json",
+        "knowledges/human/skills/softskills/conflict_management.json",
+        "knowledges/human/skills/softskills/leadership_personal.json",
+        "knowledges/human/skills/softskills/negotiation.json",
+        "src/collaboration/__init__.py",
+        "src/collaboration/project/__init__.py",
+        "src/collaboration/project/project_store.py",
+        "src/collaboration/project/project_manager.py",
+        "src/start_alfred_cpl.bat",
+        "src/start_alfred_hybride.bat"
+      ],
+      "_legacy_dashboard_key": "b06+b10",
+      "roadmap_note": "🟪 Roadmap V2 — ALFRED CPL : collaborateur professionnel interactif. Interface mode pro (brainstorming, revue docs, suivi projets), knowledges métier CPL (IA, cybersécurité, entrepreneuriat, droit numérique), co-rédaction, mémoire des décisions. Module src/collaboration/ créé (12.01-12.05 : projet, coordination, décisions, documents, rapport co-rédigé) — reste : brainstorming assisté, knowledges/professional/cpl/."
     },
     "b13": {
-      "label": "Compagnon pédiatrique / ARTHUR",
+      "label": "Santé & soutien émotionnel",
       "target_full_files_count": 25,
       "target_full_label": "Cible complète V1/V2/V3",
       "expected_files": [
@@ -299,19 +318,21 @@
         "src/health/interaction_adapter.py",
         "src/health/onboarding.py",
         "src/health/profile_loader.py"
-      ]
+      ],
+      "_legacy_dashboard_key": "b13"
     },
     "b14": {
-      "label": "IoT & Intégrations",
+      "label": "IoT & environnement connecté",
       "target_full_files_count": 25,
       "target_full_label": "Cible complète V1/V2/V3",
       "expected_files": [
         "src/v4/integration/__init__.py"
       ],
-      "roadmap_note": "🟪 Roadmap V2 — Architecture IoT esquissée (src/v4/). Systèmes disponibles : Google Home + Tuya. Implémenter : tinytuya (accès local/cloud) + Google Home API, pattern Adapter (tuya_adapter.py + google_home_adapter.py)."
+      "roadmap_note": "🟪 Roadmap V2 — Architecture IoT esquissée (src/v4/). Systèmes disponibles : Google Home + Tuya. Implémenter : tinytuya (accès local/cloud) + Google Home API, pattern Adapter (tuya_adapter.py + google_home_adapter.py).",
+      "_legacy_dashboard_key": "b14"
     },
     "b15": {
-      "label": "Présence visuelle & Avatar",
+      "label": "Présence visuelle & avatar",
       "target_full_files_count": 25,
       "target_full_label": "Cible complète V1/V2/V3",
       "expected_files": [
@@ -370,10 +391,11 @@
         "assets/models/tts/fr_FR/fr_FR-upmc-medium.onnx",
         "assets/models/tts/fr_FR/fr_FR-upmc-medium.onnx.json",
         "src/ui/__init__.py"
-      ]
+      ],
+      "_legacy_dashboard_key": "b15"
     },
     "b16": {
-      "label": "Démonstration & Scénarisation",
+      "label": "Démonstration & Scénarisation (réservé — Bloc 16 non assigné officiellement, docs/ALFRED_BLOCS_REFERENCE.md)",
       "target_full_files_count": 25,
       "target_full_label": "Cible complète V1/V2/V3",
       "expected_files": [
@@ -383,10 +405,11 @@
         "data/v2/scenarios/isolation_support.json",
         "data/v2/scenarios/mental_overload.json",
         "tests/test_pipeline.py"
-      ]
+      ],
+      "_legacy_dashboard_key": "b16"
     },
     "b17": {
-      "label": "Visual Generation contextuelle",
+      "label": "Génération multimédia",
       "target_full_files_count": 225,
       "target_full_label": "Cible complète V1/V2/V3",
       "sub_targets": {
@@ -478,10 +501,11 @@
         "assets/backgrounds/mode_portrait/orientation portrait/specifique/Transport/Background_portrait_exterieur_transport_nuit.png",
         "assets/backgrounds/mode_portrait/orientation portrait/specifique/Transport/background_portrait_exterieur_transport_debut fin journee.jpg",
         "assets/backgrounds/mode_portrait/orientation portrait/specifique/Transport/background_portrait_exterieur_transport_jour.png"
-      ]
+      ],
+      "_legacy_dashboard_key": "b17"
     },
     "b18": {
-      "label": "Knowledge & Intelligence System",
+      "label": "Base de connaissances & culture",
       "target_full_files_count": 632,
       "sub_targets": {
         "runtime_code_config": 44,
@@ -1121,10 +1145,11 @@
         "knowledges/professional/strategy/transformation_numerique.json",
         "knowledges/cpl/creative/profil_auteure_celine.json"
       ],
-      "expected_count": 632
+      "expected_count": 632,
+      "_legacy_dashboard_key": "b18"
     },
     "b19": {
-      "label": "Domotique Intelligente",
+      "label": "Infrastructure & extensions",
       "target_full_files_count": 25,
       "target_full_label": "Cible complète V1/V2/V3",
       "expected_files": [
@@ -1144,10 +1169,11 @@
         "src/v4/scenarios/__init__.py",
         "src/v4/triggers/__init__.py"
       ],
-      "roadmap_note": "🟪 Roadmap V2 — Providers domotiques confirmés : Google Home + Tuya (tinytuya). Intégration à brancher sur src/v4/ lors de l'implémentation B14."
+      "roadmap_note": "🟪 Roadmap V2 — Providers domotiques confirmés : Google Home + Tuya (tinytuya). Intégration à brancher sur src/v4/ lors de l'implémentation B14.",
+      "_legacy_dashboard_key": "b19"
     },
     "b20": {
-      "label": "Cybersécurité Zero Trust",
+      "label": "Cybersécurité, Zero Trust & conformité",
       "target_full_files_count": 75,
       "sub_targets": {
         "security_runtime": 45,
@@ -1205,10 +1231,11 @@
         "src/security/rate_limiter.py",
         "src/security/security_dashboard.py",
         "src/security/security_governance.py"
-      ]
+      ],
+      "_legacy_dashboard_key": "b20"
     },
     "b21": {
-      "label": "ALFRED Web Platform",
+      "label": "ALFRED WEB PLATFORM",
       "target_full_files_count": 39,
       "target_full_label": "Cible complète V1/V2/V3",
       "sub_targets": {
@@ -1257,7 +1284,8 @@
         "ALFRED_WEB/templates/_article_comments.html",
         "ALFRED_WEB/templates/_construction.html",
         "ALFRED_WEB/templates/_template_article.html"
-      ]
+      ],
+      "_legacy_dashboard_key": "b21"
     },
     "b22": {
       "label": "Accessibility & Cognitive Assistance",
@@ -1293,7 +1321,8 @@
         "src/accessibility/ui/web_a11y.py",
         "tests/b15_tests/test_b22_accessibility.py",
         "tests/b15_tests/test_voice_output_manager.py"
-      ]
+      ],
+      "_legacy_dashboard_key": "b22"
     }
   }
 }

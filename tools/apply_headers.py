@@ -7,14 +7,22 @@ ROLE         : Applique les en-tetes standard ALFRED sur les fichiers Python man
 
 AUTHOR       : Cognitive Products Lab
 CREATED      : 2026-06-03
-UPDATED      : 2026-06-03
-VERSION      : V2.0
+UPDATED      : 2026-07-02
+VERSION      : V2.1
 STATUS       : ACTIVE
 
 DESCRIPTION :
 Parcourt src/, tests/, tools/ et ajoute un header standard sur tout fichier
 Python n'en ayant pas encore. Ne modifie pas les fichiers deja headeres.
 Genere un rapport JSON + affichage console.
+
+MAJ 02/07/2026 : BLOCK_MAP realigne sur la numerotation "Bloc officiel"
+(docs/ALFRED_BLOCS_REFERENCE.md) — l'ancienne table utilisait un 6e systeme
+de numerotation independant et contradictoire avec les autres (ex. B04
+valait "LLM Router" ici mais "Securite" dans le dashboard ancien ; B10
+valait "Wellbeing" ici mais "Collaboration/IA avancee" ailleurs). Ne plus
+utiliser de labels "BXX" bruts — toujours "Bloc XX" + verifier le fichier
+de reference avant d'ajouter une nouvelle entree.
 """
 
 from __future__ import annotations
@@ -40,39 +48,66 @@ EXCLUDED_DIRS = {
 
 # ---------------------------------------------------------------------------
 # Détection de bloc selon le chemin ALFRED_PC
+# Numérotation "Bloc officiel" — docs/ALFRED_BLOCS_REFERENCE.md.
+# Ordre important : les règles les plus spécifiques d'abord (ex. src/conversation/input
+# avant src/conversation générique), premier match gagnant.
 # ---------------------------------------------------------------------------
 BLOCK_MAP = [
-    # Security first (priorité haute)
-    (("src/security",),                              "B20", "Cybersecurite Zero Trust"),
-    # Conversation / Audio
-    (("src/conversation/input",),                    "B01", "Interaction conversationnelle"),
-    (("src/conversation/nlp",),                      "B01", "NLP & Traitement langage"),
-    (("src/conversation/output",),                   "B07", "TTS & Synthese vocale"),
-    (("src/conversation",),                          "B01", "Pipeline conversationnel"),
-    # LLM
-    (("src/llm",),                                   "B04", "LLM Router Ollama/OpenAI"),
-    # Memory
-    (("src/memory",),                                "B02", "Memoire & RAG"),
-    # AI / Cognitive
-    (("src/ai",),                                    "B11", "Intelligence cognitive"),
-    # Avatar / UI
-    (("src/ui", "src/avatar"),                       "B15", "Avatar & Interface visuelle"),
-    # Core / Orchestration
-    (("src/core",),                                  "B19", "Integration main.py"),
-    # Commands / Modes
-    (("src/commands",),                              "B09", "Commandes & modes"),
-    # Wellbeing
-    (("src/wellbeing",),                             "B10", "Wellbeing & regulation"),
-    # Config / Security network
-    (("src/network", "config/network"),              "B18", "Config reseau Zero Trust"),
-    # Tests
-    (("tests/security",),                            "B20", "Tests securite B20"),
-    (("tests",),                                     "TESTS", "Suite de tests"),
-    # Tools / Dashboard
-    (("tools/dashboard_tools",),                     "B20", "Dashboard outils"),
-    (("tools",),                                     "TOOLS", "Outils projet"),
-    (("dashboard",),                                 "DASHBOARD", "Dashboard"),
-    (("scripts",),                                   "SCRIPTS", "Scripts maintenance"),
+    # Sécurité, Zero Trust & conformité (Bloc 20)
+    (("src/security",),                                   "Bloc 20", "Cybersécurité, Zero Trust & conformité"),
+    (("tests/security",),                                 "Bloc 20", "Tests sécurité"),
+    (("tools/dashboard_tools/dashboard_security",),       "Bloc 20", "Dashboard sécurité"),
+
+    # Collaboration professionnelle (Bloc 12) — src/collaboration créé 02/07/2026 (dashboard B10/B06 fusionnés)
+    (("src/collaboration",),                              "Bloc 12", "Collaboration professionnelle"),
+
+    # Accessibilité (Bloc 22)
+    (("src/accessibility",),                              "Bloc 22", "Accessibility & Cognitive Assistance"),
+
+    # Santé & soutien émotionnel / ARTHUR (Bloc 13)
+    (("src/health",),                                     "Bloc 13", "Santé & soutien émotionnel"),
+
+    # Émotions & adaptation comportementale (Bloc 03)
+    (("src/regulation",),                                 "Bloc 03", "Émotions & adaptation comportementale"),
+
+    # Interaction vocale — STT/TTS (Bloc 04), avant la règle générique src/conversation
+    (("src/conversation/input", "src/conversation/output", "src/output"), "Bloc 04", "Interaction vocale"),
+
+    # Noyau conversationnel & orchestration (Bloc 01)
+    (("src/conversation",),                               "Bloc 01", "Noyau conversationnel & orchestration"),
+    (("src/core",),                                       "Bloc 01", "Noyau conversationnel & orchestration"),
+    (("src/llm",),                                        "Bloc 01", "Noyau conversationnel & orchestration"),
+
+    # Mémoire & contexte (Bloc 02)
+    (("src/memory", "src/rag"),                           "Bloc 02", "Mémoire & contexte"),
+
+    # Gestion utilisateur (Bloc 05)
+    (("src/auth",),                                       "Bloc 05", "Gestion utilisateur"),
+
+    # Assistance quotidienne (Bloc 06)
+    (("src/assistant_actions",),                          "Bloc 06", "Assistance quotidienne"),
+
+    # Apprentissage & routines (Bloc 07)
+    (("src/v3/learning",),                                "Bloc 07", "Apprentissage & routines"),
+
+    # Intelligence artificielle avancée (Bloc 10)
+    (("src/v3/reasoning", "src/v3/fusion", "src/v3/proactive", "src/knowledge"), "Bloc 10", "Intelligence artificielle avancée"),
+
+    # Présence visuelle & avatar (Bloc 15)
+    (("src/ui",),                                         "Bloc 15", "Présence visuelle & avatar"),
+
+    # IoT & environnement connecté (Bloc 14) vs Infrastructure & extensions (Bloc 19)
+    (("src/v4/integration", "src/v4/home_state"),         "Bloc 14", "IoT & environnement connecté"),
+    (("src/v4",),                                         "Bloc 19", "Infrastructure & extensions"),
+
+    # Tests génériques (hors numérotation 01-22)
+    (("tests",),                                          "TESTS", "Suite de tests"),
+
+    # Outils / dashboard / scripts (méta, hors numérotation 01-22)
+    (("tools/dashboard_tools",),                          "DASHBOARD", "Outils dashboard"),
+    (("tools",),                                          "TOOLS", "Outils projet"),
+    (("dashboard",),                                      "DASHBOARD", "Dashboard"),
+    (("scripts",),                                        "SCRIPTS", "Scripts maintenance"),
 ]
 
 

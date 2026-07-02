@@ -1,6 +1,6 @@
 # ALFRED Roadmap
 
-Dernière mise à jour : 2026-06-18
+Dernière mise à jour : 2026-07-02
 
 ---
 
@@ -42,12 +42,17 @@ Dernière mise à jour : 2026-06-18
 ## V1.4 — Profil IA Adaptative (en cours — branche feature)
 
 - [x] Module `personality_adapter.py` — lecture profil → paramètres comportementaux
-- [x] Module `response_generator.py` V2.3 — prompts adaptatifs + post-processing
+- [x] Module `response_generator.py` V2.3 — prompts adaptatifs + post-processing + règle tutoiement absolu
 - [x] Client `llm_client_anthropic.py` — fallback Anthropic Claude
 - [x] Mode recherche `recherche_on` / `recherche_off` — console commande runtime
 - [x] Arborescence documentation reworkée (dossier_cadrage.html v1.1)
-- [ ] Q01→Q09 — remplissage des réponses utilisateur (en attente)
-- [ ] Fusion branche feature → dev (pipeline complet Kivy + Avatar)
+- [x] Upgrade hardware PC Alfred Core — Miniforum MS-S1 Max 64Go/2To + disques CORE 4To/BACKUP 5To (27/06/2026, 3127€) — nécessaire pour avancer le dev LLM local + RAG sans contrainte matérielle. Détail : `/hardware`
+- [x] Migration PC Alfred Core (DESKTOP-THFV312) — environnement complet opérationnel 29/06/2026
+- [x] TTS stack opérationnelle : piper-tts 1.4.2, sounddevice, soundfile, faster-whisper
+- [x] `personality_celine.json` créé (minimal — onboarding complet à faire)
+- [ ] Q01→Q09 — remplissage des réponses utilisateur (en attente douleur mains)
+- [ ] Fusion branche feature → dev (pipeline complet Kivy + Avatar) — **prévu mercredi 02/07**
+- [ ] Calques eye/mouth définitifs — patch provisoire actif (prévu vendredi 04/07)
 
 ---
 
@@ -59,16 +64,33 @@ Dernière mise à jour : 2026-06-18
 - [ ] Système d'expression avatar amélioré
 - [ ] États d'animation simples
 - [ ] Lisibilité dashboard améliorée
-- [ ] Exploration interface Android
+- [x] Exploration interface Android — PoC client compagnon (02/07/2026)
 - [ ] Amélioration du flux d'interaction vocale
 - [ ] Modes d'accessibilité
 - [ ] Documentation des parcours utilisateurs
 - [ ] Agent Arthur V2 (mémoire contextuelle avancée)
 
+### Android — du PoC compagnon au produit complet
+
+- [x] PoC v1 — API compagnon locale FastAPI (`interface/companion_api.py`,
+      lecture seule : statut + rappels, jeton partagé `COMPANION_API_TOKEN`)
+- [x] PoC v1 — app Android native Kotlin (`ALFRED_ANDROID/`, Jetpack Compose +
+      MVVM + Retrofit, écran statut/rappels)
+- [ ] Authentification compagnon alignée Bloc 20 (remplacer le jeton partagé
+      statique par un appairage PIN/QR code, cohérent avec `src/auth/`)
+- [ ] Notifications push réelles (au-delà du polling manuel du PoC)
+- [ ] Mode hors-ligne / cache local (Room) pour les rappels déjà synchronisés
+- [ ] Réutilisation du moteur avatar (halo/animations, cf. `src/ui/avatar_engine.py`)
+      sur Android — écran avatar au lieu du simple écran statut/rappels
+- [ ] Parité fonctionnelle progressive avec ALFRED desktop (conversation,
+      mémoire, profil adaptatif) — dépend de l'avancement V3/V4 desktop
+- [ ] Build signé + distribution interne (hors store dans un premier temps)
+
 ---
 
 ## V3 — Multi-Device & Assistant Avancé
 
+- [ ] Upgrade hardware — Serveur Threadripper (TR 7960X 24C, 256Go DDR5 ECC, 8To NVMe) — orchestration multi-agents ALFRED V4+, hébergement CPL production Docker. Détail : `/hardware` Phase 2
 - [ ] Architecture multi-appareils
 - [ ] Stratégie de synchronisation locale
 - [ ] Animation avatar avancée
@@ -86,10 +108,17 @@ Dernière mise à jour : 2026-06-18
 
 | Priorité | Item | Contexte |
 |----------|------|---------|
-| P1 | Remplissage Q01→Q09 utilisateur | Main bloquée par douleur mains |
+| Priorité | Item | Contexte |
+|----------|------|---------|
+| P1 | Merge feature branch → dev | **Mercredi 02/07** — pipeline complet Kivy + modules B |
+| P1 | Pipeline voix end-to-end (STT + TTS) | **Mercredi 02/07** — faster-whisper + piper activés |
+| P1 | Monter modèle Ollama (llama3.1:8b+) | **Mercredi 02/07** — nouveau PC sans contrainte |
+| P1 | B02 Mémoire & RAG (ChromaDB) | **Vendredi 04/07** |
+| P1 | Calques eye/mouth définitifs | **Vendredi 04/07** — patch provisoire actif |
+| P1 | Remplissage Q01→Q09 utilisateur | En attente douleur mains |
 | P1 | AIPD T001 (RGPD art.35) | Obligatoire avant production |
 | P1 | PSSI formelle | docs/gouvernance/PSSI_formelle.md |
+| ✅ | ~~Page "tous les articles" ALFRED_WEB~~ | Fait 02/07/2026 — `/articles/tous-les-articles`, persistance MongoDB (`data/articles_repository.py`) |
 | P2 | Reconcilier profile_analyzer (src/core vs src/profile) | Doublon à nettoyer |
-| P2 | Merge feature branch → dev | Pipeline complet Kivy + modules B |
 | P3 | Compléter gouvernance 360° (soa_iso27001, smsi) | Chantier audit certification |
 | P3 | Mode démo public ALFRED | Après nettoyage données sensibles |

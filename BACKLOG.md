@@ -1,22 +1,22 @@
 # ALFRED — BACKLOG & RÉFÉRENTIEL FICHIERS
 
-> Généré le 23/06/2026 16:28 depuis `dashboard_data.json` (mis à jour le 23/06/2026 16:28:16)
-> Progression technique : **72.5%** · Full projet : **54.4%**
-> 729 fichiers détectés / 1068 cible full
+> Généré le 02/07/2026 11:48 depuis `dashboard_data.json` (mis à jour le 02/07/2026 11:48:01)
+> Progression technique : **76.6%** · Full projet : **68.4%**
+> 1107 fichiers détectés / 1471 cible full
 
 ## Synthèse globale
 
 | Statut | Nb | % | Priorité |
 |--------|---:|--:|----------|
-| 🟡 Partiel | 79 | 10.8% | 🟡 Sprint |
-| 🟦 Codé — à tester | 252 | 34.6% | 🟡 Sprint |
-| 🧪 Testé — à valider | 3 | 0.4% | 🧪 Tests |
-| ✅ Validé ✅ | 341 | 46.8% | ✅ Done |
-| ⚙️ Structurel | 54 | 7.4% | ✅ Done |
+| 🟡 Partiel | 78 | 7.0% | 🟡 Sprint |
+| 🟦 Codé — à tester | 134 | 12.1% | 🟡 Sprint |
+| 🧪 Testé — à valider | 3 | 0.3% | 🧪 Tests |
+| ✅ Validé ✅ | 836 | 75.5% | ✅ Done |
+| ⚙️ Structurel | 56 | 5.1% | ✅ Done |
 
 ## Backlog par bloc
 
-### 🟡 B01 — Interaction conversationnelle intelligente `71.2%`
+### 🟡 B01 — Noyau conversationnel & orchestration `71.2%`
 
 | KPI | Valeur |
 |-----|--------|
@@ -54,13 +54,13 @@
 | `tests/b01_tests/test_fusion_engine.py` | 🟦 Codé — à tester | Tester |
 | `tests/integration_tests/test_v2_pipeline.py` | 🟦 Codé — à tester | Tester |
 
-### 🟡 B02 — Mémoire & RAG `69.6%`
+### 🟢 B02 — Mémoire & contexte `80.8%`
 
 | KPI | Valeur |
 |-----|--------|
-| Validés | 6 |
+| Validés | 13 |
 | Testés | 0 |
-| Codés (à tester) | 13 |
+| Codés (à tester) | 6 |
 | Partiels | 4 |
 | Structurels | 2 |
 | Manquants | 0 |
@@ -74,26 +74,19 @@
 | `data/v3/memory_patterns.json` | 🟡 Partiel | Compléter |
 | `src/memory/memory_manager.py` | 🟡 Partiel | Compléter |
 | `data/user_memory.json` | 🟦 Codé — à tester | Tester |
-| `knowledges/professional/engineering/ai/semantic_memory.json` | 🟦 Codé — à tester | Tester |
-| `knowledges/system/memory/episodic_memory.json` | 🟦 Codé — à tester | Tester |
-| `knowledges/system/memory/memory_context_linking.json` | 🟦 Codé — à tester | Tester |
-| `knowledges/system/memory/memory_decay_rules.json` | 🟦 Codé — à tester | Tester |
-| `knowledges/system/memory/memory_learning_rules.json` | 🟦 Codé — à tester | Tester |
-| `knowledges/system/memory/memory_prioritization.json` | 🟦 Codé — à tester | Tester |
-| `knowledges/system/memory/memory_system.json` | 🟦 Codé — à tester | Tester |
 | `src/memory/episodic_memory.py` | 🟦 Codé — à tester | Tester |
 | `src/memory/long_term_memory.py` | 🟦 Codé — à tester | Tester |
 | `src/memory/memory_indexer.py` | 🟦 Codé — à tester | Tester |
 | `src/memory/rag_stub.py` | 🟦 Codé — à tester | Tester |
 | `src/rag/rag_engine.py` | 🟦 Codé — à tester | Tester |
 
-### 🟡 B03 — Émotions & Régulation `77.7%`
+### 🟢 B03 — Émotions & adaptation comportementale `86.9%`
 
 | KPI | Valeur |
 |-----|--------|
-| Validés | 12 |
+| Validés | 18 |
 | Testés | 0 |
-| Codés (à tester) | 7 |
+| Codés (à tester) | 1 |
 | Partiels | 5 |
 | Structurels | 2 |
 | Manquants | 0 |
@@ -107,15 +100,93 @@
 | `config/v3/tone_profiles.json` | 🟡 Partiel | Compléter |
 | `data/v3/emotion_state.json` | 🟡 Partiel | Compléter |
 | `data/v3/relational_state.json` | 🟡 Partiel | Compléter |
-| `knowledges/human/cognition/decision_fatigue.json` | 🟦 Codé — à tester | Tester |
-| `knowledges/human/emotional_intelligence/active_listening.json` | 🟦 Codé — à tester | Tester |
-| `knowledges/human/emotional_intelligence/emotional_management.json` | 🟦 Codé — à tester | Tester |
-| `knowledges/human/emotional_intelligence/emotional_patterns.json` | 🟦 Codé — à tester | Tester |
-| `knowledges/human/psychology/burnout_prevention.json` | 🟦 Codé — à tester | Tester |
-| `knowledges/human/psychology/resilience.json` | 🟦 Codé — à tester | Tester |
 | `tests/test_b02_b03.py` | 🟦 Codé — à tester | Tester |
 
-### 🟡 B04 — Sécurité & Protection `76.0%`
+### ❌ B04 — Interaction vocale `0.0%`
+
+| KPI | Valeur |
+|-----|--------|
+| Validés | 0 |
+| Testés | 0 |
+| Codés (à tester) | 0 |
+| Partiels | 0 |
+| Structurels | 0 |
+| Manquants | 0 |
+
+> ⚠️ Aucun bloc 'Dashboard ancien' ne correspondait à ce Bloc officiel 04 lors de la réconciliation du 02/07/2026 — les fichiers STT/TTS (src/conversation/input/, src/conversation/output/) sont actuellement comptés sous Bloc 01. Décision à prendre : les extraire vers Bloc 04 ou laisser Bloc 04 vide.
+
+### 🟡 B05 — Gestion utilisateur `72.6%`
+
+| KPI | Valeur |
+|-----|--------|
+| Validés | 8 |
+| Testés | 0 |
+| Codés (à tester) | 17 |
+| Partiels | 1 |
+| Structurels | 1 |
+| Manquants | 0 |
+
+**Fichiers à traiter :**
+
+| Fichier | Statut | Action |
+|---------|--------|--------|
+| `data/personality.json` | 🟡 Partiel | Compléter |
+| `config/personality_core.json` | 🟦 Codé — à tester | Tester |
+| `config/user_adaptation_profile.json` | 🟦 Codé — à tester | Tester |
+| `data/personality/instances/personality_core_instance.json` | 🟦 Codé — à tester | Tester |
+| `data/personality/templates/personality_core.json` | 🟦 Codé — à tester | Tester |
+| `data/personality/templates/personality_core_template_public.json` | 🟦 Codé — à tester | Tester |
+| `data/preferences_profile.json` | 🟦 Codé — à tester | Tester |
+| `data/profile/user_profile.json` | 🟦 Codé — à tester | Tester |
+| `data/users/instances/user_celine_instance.json` | 🟦 Codé — à tester | Tester |
+| `data/users/templates/user_adaptation_profile.json` | 🟦 Codé — à tester | Tester |
+| `data/users/templates/user_profile_template_public.json` | 🟦 Codé — à tester | Tester |
+| `knowledges/core/behavioral_modes.json` | 🟦 Codé — à tester | Tester |
+| `knowledges/core/context_awareness.json` | 🟦 Codé — à tester | Tester |
+| `knowledges/core/personalization_engine.json` | 🟦 Codé — à tester | Tester |
+| `knowledges/core/system_rules.json` | 🟦 Codé — à tester | Tester |
+| `knowledges/core/user_adaptation.json` | 🟦 Codé — à tester | Tester |
+| `knowledges/human/self_alignment/routines/feedback_loop.json` | 🟦 Codé — à tester | Tester |
+| `src/core/alfred_behavior_engine.py` | 🟦 Codé — à tester | Tester |
+
+### 🟢 B06 — Assistance quotidienne `91.4%`
+
+| KPI | Valeur |
+|-----|--------|
+| Validés | 11 |
+| Testés | 0 |
+| Codés (à tester) | 0 |
+| Partiels | 2 |
+| Structurels | 1 |
+| Manquants | 0 |
+
+**Fichiers à traiter :**
+
+| Fichier | Statut | Action |
+|---------|--------|--------|
+| `data/actions/tasks.json` | 🟡 Partiel | Compléter |
+| `data/v2/scenarios/daily_organization.json` | 🟡 Partiel | Compléter |
+
+### 🟠 B07 — Apprentissage & routines `40.0%`
+
+| KPI | Valeur |
+|-----|--------|
+| Validés | 0 |
+| Testés | 0 |
+| Codés (à tester) | 0 |
+| Partiels | 1 |
+| Structurels | 0 |
+| Manquants | 0 |
+
+> 🟪 Roadmap V2 — ALFRED Android : client mobile léger connecté au core ALFRED_PC (LLM + mémoire + knowledge). Accès distant via API REST/WebSocket sécurisé + tunnel WireGuard (ER605). Auth JWT + TLS mutuel. UI conversationnelle Android (Kotlin ou Flutter à trancher).
+
+**Fichiers à traiter :**
+
+| Fichier | Statut | Action |
+|---------|--------|--------|
+| `data/context/user_context.json` | 🟡 Partiel | Compléter |
+
+### 🟡 B08 — Supervision système `76.0%`
 
 | KPI | Valeur |
 |-----|--------|
@@ -137,142 +208,24 @@
 | `knowledges/system/ethics/ethical_framework.json` | 🟦 Codé — à tester | Tester |
 | `pyproject.toml` | 🟦 Codé — à tester | Tester |
 
-### 🟢 B05 — Organisation & Assistance `88.6%`
+### ✅ B09 — API & microservices `100.0%`
 
 | KPI | Valeur |
 |-----|--------|
-| Validés | 10 |
-| Testés | 0 |
-| Codés (à tester) | 1 |
-| Partiels | 2 |
-| Structurels | 1 |
-| Manquants | 0 |
-
-**Fichiers à traiter :**
-
-| Fichier | Statut | Action |
-|---------|--------|--------|
-| `data/actions/tasks.json` | 🟡 Partiel | Compléter |
-| `data/v2/scenarios/daily_organization.json` | 🟡 Partiel | Compléter |
-| `knowledges/human/skills/softskills/organization.json` | 🟦 Codé — à tester | Tester |
-
-### 🟡 B06 — Communication & Lien social `73.3%`
-
-| KPI | Valeur |
-|-----|--------|
-| Validés | 3 |
-| Testés | 0 |
-| Codés (à tester) | 6 |
-| Partiels | 0 |
-| Structurels | 0 |
-| Manquants | 0 |
-
-**Fichiers à traiter :**
-
-| Fichier | Statut | Action |
-|---------|--------|--------|
-| `knowledges/human/skills/softskills/argumentation_frameworks.json` | 🟦 Codé — à tester | Tester |
-| `knowledges/human/skills/softskills/assertiveness.json` | 🟦 Codé — à tester | Tester |
-| `knowledges/human/skills/softskills/communication_clarity.json` | 🟦 Codé — à tester | Tester |
-| `knowledges/human/skills/softskills/conflict_management.json` | 🟦 Codé — à tester | Tester |
-| `knowledges/human/skills/softskills/leadership_personal.json` | 🟦 Codé — à tester | Tester |
-| `knowledges/human/skills/softskills/negotiation.json` | 🟦 Codé — à tester | Tester |
-
-### 🟠 B07 — Mobilité & Contexte externe `40.0%`
-
-| KPI | Valeur |
-|-----|--------|
-| Validés | 0 |
-| Testés | 0 |
-| Codés (à tester) | 0 |
-| Partiels | 1 |
-| Structurels | 0 |
-| Manquants | 0 |
-
-> 🟪 Roadmap V2 — ALFRED Android : client mobile léger connecté au core ALFRED_PC (LLM + mémoire + knowledge). Accès distant via API REST/WebSocket sécurisé + tunnel WireGuard (ER605). Auth JWT + TLS mutuel. UI conversationnelle Android (Kotlin ou Flutter à trancher).
-
-**Fichiers à traiter :**
-
-| Fichier | Statut | Action |
-|---------|--------|--------|
-| `data/context/user_context.json` | 🟡 Partiel | Compléter |
-
-### 🟡 B08 — Personnalisation utilisateur `70.4%`
-
-| KPI | Valeur |
-|-----|--------|
-| Validés | 7 |
-| Testés | 0 |
-| Codés (à tester) | 17 |
-| Partiels | 2 |
-| Structurels | 1 |
-| Manquants | 0 |
-
-**Fichiers à traiter :**
-
-| Fichier | Statut | Action |
-|---------|--------|--------|
-| `data/personality.json` | 🟡 Partiel | Compléter |
-| `data/preferences_profile.json` | 🟡 Partiel | Compléter |
-| `config/personality_core.json` | 🟦 Codé — à tester | Tester |
-| `config/user_adaptation_profile.json` | 🟦 Codé — à tester | Tester |
-| `data/personality/instances/personality_core_instance.json` | 🟦 Codé — à tester | Tester |
-| `data/personality/templates/personality_core.json` | 🟦 Codé — à tester | Tester |
-| `data/personality/templates/personality_core_template_public.json` | 🟦 Codé — à tester | Tester |
-| `data/profile/user_profile.json` | 🟦 Codé — à tester | Tester |
-| `data/users/instances/user_celine_instance.json` | 🟦 Codé — à tester | Tester |
-| `data/users/templates/user_adaptation_profile.json` | 🟦 Codé — à tester | Tester |
-| `data/users/templates/user_profile_template_public.json` | 🟦 Codé — à tester | Tester |
-| `knowledges/core/behavioral_modes.json` | 🟦 Codé — à tester | Tester |
-| `knowledges/core/context_awareness.json` | 🟦 Codé — à tester | Tester |
-| `knowledges/core/personalization_engine.json` | 🟦 Codé — à tester | Tester |
-| `knowledges/core/system_rules.json` | 🟦 Codé — à tester | Tester |
-| `knowledges/core/user_adaptation.json` | 🟦 Codé — à tester | Tester |
-| `knowledges/human/self_alignment/habits/discipline.json` | 🟦 Codé — à tester | Tester |
-| `knowledges/human/self_alignment/routines/feedback_loop.json` | 🟦 Codé — à tester | Tester |
-| `src/core/alfred_behavior_engine.py` | 🟦 Codé — à tester | Tester |
-
-### 🟢 B09 — Productivité & Copilote pro `84.6%`
-
-| KPI | Valeur |
-|-----|--------|
-| Validés | 8 |
-| Testés | 0 |
-| Codés (à tester) | 5 |
-| Partiels | 0 |
-| Structurels | 0 |
-| Manquants | 0 |
-
-**Fichiers à traiter :**
-
-| Fichier | Statut | Action |
-|---------|--------|--------|
-| `knowledges/human/skills/softskills/problem_solving.json` | 🟦 Codé — à tester | Tester |
-| `knowledges/professional/decision/decision_models.json` | 🟦 Codé — à tester | Tester |
-| `knowledges/professional/decision/decision_support.json` | 🟦 Codé — à tester | Tester |
-| `knowledges/professional/decision/root_cause_analysis.json` | 🟦 Codé — à tester | Tester |
-| `knowledges/professional/decision/tradeoff_analysis.json` | 🟦 Codé — à tester | Tester |
-
-### ❌ B10 — Collaboration & Coordination `0.0%`
-
-| KPI | Valeur |
-|-----|--------|
-| Validés | 0 |
+| Validés | 13 |
 | Testés | 0 |
 | Codés (à tester) | 0 |
 | Partiels | 0 |
 | Structurels | 0 |
 | Manquants | 0 |
 
-> 🟪 Roadmap V2 — ALFRED CPL : collaborateur professionnel interactif. Interface mode pro (brainstorming, revue docs, suivi projets), knowledges métier CPL (IA, cybersécurité, entrepreneuriat, droit numérique), co-rédaction, mémoire des décisions. Module src/collaboration/ + knowledges/professional/cpl/ à créer.
-
-### 🟢 B11 — Intelligence cognitive avancée `82.1%`
+### 🟢 B10 — Intelligence artificielle avancée `96.8%`
 
 | KPI | Valeur |
 |-----|--------|
-| Validés | 9 |
+| Validés | 16 |
 | Testés | 0 |
-| Codés (à tester) | 7 |
+| Codés (à tester) | 0 |
 | Partiels | 1 |
 | Structurels | 2 |
 | Manquants | 0 |
@@ -282,15 +235,8 @@
 | Fichier | Statut | Action |
 |---------|--------|--------|
 | `src/knowledge/knowledge_router.py` | 🟡 Partiel | Compléter |
-| `knowledges/human/cognition/cognitive_load.json` | 🟦 Codé — à tester | Tester |
-| `knowledges/human/cognition/critical_thinking.json` | 🟦 Codé — à tester | Tester |
-| `knowledges/human/cognition/focus_management.json` | 🟦 Codé — à tester | Tester |
-| `knowledges/human/cognition/multi_step_reasoning.json` | 🟦 Codé — à tester | Tester |
-| `knowledges/human/cognition/uncertainty_management.json` | 🟦 Codé — à tester | Tester |
-| `knowledges/professional/engineering/ai/reasoning_advanced.json` | 🟦 Codé — à tester | Tester |
-| `knowledges/professional/engineering/ai/reasoning_engine.json` | 🟦 Codé — à tester | Tester |
 
-### 🟢 B12 — Pilotage business & Stratégie `88.8%`
+### 🟢 B11 — Data & pilotage `88.8%`
 
 | KPI | Valeur |
 |-----|--------|
@@ -309,7 +255,29 @@
 | `config/v2/product_roadmap.json` | 🟡 Partiel | Compléter |
 | `data/v2/product_state.json` | 🟡 Partiel | Compléter |
 
-### 🟡 B13 — Compagnon pédiatrique / ARTHUR `66.7%`
+### 🟢 B12 — Collaboration professionnelle `89.3%`
+
+| KPI | Valeur |
+|-----|--------|
+| Validés | 9 |
+| Testés | 0 |
+| Codés (à tester) | 4 |
+| Partiels | 0 |
+| Structurels | 2 |
+| Manquants | 0 |
+
+> 🟪 Roadmap V2 — ALFRED CPL : collaborateur professionnel interactif. Interface mode pro (brainstorming, revue docs, suivi projets), knowledges métier CPL (IA, cybersécurité, entrepreneuriat, droit numérique), co-rédaction, mémoire des décisions. Module src/collaboration/ créé (12.01-12.05 : projet, coordination, décisions, documents, rapport co-rédigé) — reste : brainstorming assisté, knowledges/professional/cpl/.
+
+**Fichiers à traiter :**
+
+| Fichier | Statut | Action |
+|---------|--------|--------|
+| `src/collaboration/project/project_store.py` | 🟦 Codé — à tester | Tester |
+| `src/collaboration/project/project_manager.py` | 🟦 Codé — à tester | Tester |
+| `src/start_alfred_cpl.bat` | 🟦 Codé — à tester | Tester |
+| `src/start_alfred_hybride.bat` | 🟦 Codé — à tester | Tester |
+
+### 🟡 B13 — Santé & soutien émotionnel `66.7%`
 
 | KPI | Valeur |
 |-----|--------|
@@ -330,7 +298,7 @@
 | `src/health/onboarding.py` | 🟦 Codé — à tester | Tester |
 | `src/health/profile_loader.py` | 🟦 Codé — à tester | Tester |
 
-### ✅ B14 — IoT & Intégrations `100.0%`
+### ✅ B14 — IoT & environnement connecté `100.0%`
 
 | KPI | Valeur |
 |-----|--------|
@@ -343,7 +311,7 @@
 
 > 🟪 Roadmap V2 — Architecture IoT esquissée (src/v4/). Systèmes disponibles : Google Home + Tuya. Implémenter : tinytuya (accès local/cloud) + Google Home API, pattern Adapter (tuya_adapter.py + google_home_adapter.py).
 
-### 🟡 B15 — Présence visuelle & Avatar `66.9%`
+### 🟡 B15 — Présence visuelle & avatar `66.9%`
 
 | KPI | Valeur |
 |-----|--------|
@@ -390,7 +358,7 @@
 | `assets/avatars/avatar_medium/base_medium/alfred_medium_excited.png` | 🟦 Codé — à tester | Tester |
 | *... 15 autres* | | |
 
-### 🟠 B16 — Démonstration & Scénarisation `43.3%`
+### 🟠 B16 — Démonstration & Scénarisation (réservé — Bloc 16 non assigné officiellement, docs/ALFRED_BLOCS_REFERENCE.md) `43.3%`
 
 | KPI | Valeur |
 |-----|--------|
@@ -412,7 +380,7 @@
 | `data/v2/scenarios/mental_overload.json` | 🟡 Partiel | Compléter |
 | `tests/test_pipeline.py` | 🟦 Codé — à tester | Tester |
 
-### 🟢 B17 — Visual Generation contextuelle `94.3%`
+### 🟢 B17 — Génération multimédia `94.3%`
 
 | KPI | Valeur |
 |-----|--------|
@@ -440,13 +408,13 @@
 | `assets/backgrounds/mode_portrait/interieur/specifique/sport/background_portrait_interieur_sport.png` | 🟦 Codé — à tester | Tester |
 | `assets/backgrounds/mode_portrait/orientation portrait/specifique/Transport/background_portrait_exterieur_transport_debut fin journee.jpg` | 🟦 Codé — à tester | Tester |
 
-### 🟡 B18 — Knowledge & Intelligence System `77.4%`
+### 🟢 B18 — Base de connaissances & culture `96.4%`
 
 | KPI | Valeur |
 |-----|--------|
-| Validés | 104 |
+| Validés | 566 |
 | Testés | 1 |
-| Codés (à tester) | 90 |
+| Codés (à tester) | 0 |
 | Partiels | 38 |
 | Structurels | 27 |
 | Manquants | 0 |
@@ -485,9 +453,9 @@
 | `data/v3/conversation_state.json` | 🟡 Partiel | Compléter |
 | `data/v3/feedback_log_v3.json` | 🟡 Partiel | Compléter |
 | `data/v3/fusion_results.json` | 🟡 Partiel | Compléter |
-| *... 98 autres* | | |
+| *... 8 autres* | | |
 
-### 🟡 B19 — Domotique Intelligente `60.0%`
+### 🟡 B19 — Infrastructure & extensions `60.0%`
 
 | KPI | Valeur |
 |-----|--------|
@@ -515,7 +483,7 @@
 | `data/v4/sensor_state.json` | 🟡 Partiel | Compléter |
 | `data/v4/trigger_log.json` | 🟡 Partiel | Compléter |
 
-### 🟢 B20 — Cybersécurité Zero Trust `92.2%`
+### 🟢 B20 — Cybersécurité, Zero Trust & conformité `92.2%`
 
 | KPI | Valeur |
 |-----|--------|
@@ -539,7 +507,7 @@
 | `data/security/incident_register.json` | 🟦 Codé — à tester | Tester |
 | `logs/security/security.log` | 🟦 Codé — à tester | Tester |
 
-### ✅ B21 — ALFRED Web Platform `100.0%`
+### ✅ B21 — ALFRED WEB PLATFORM `100.0%`
 
 | KPI | Valeur |
 |-----|--------|
@@ -581,7 +549,7 @@
 | `tests/b15_tests/test_b22_accessibility.py` | 🟦 Codé — à tester | Tester |
 | `tests/b15_tests/test_voice_output_manager.py` | 🟦 Codé — à tester | Tester |
 
-## 🟦 Sprint — Fichiers codés à tester (252)
+## 🟦 Sprint — Fichiers codés à tester (134)
 
 Ces fichiers sont implémentés mais n'ont pas encore de tests.
 
@@ -606,48 +574,20 @@ Ces fichiers sont implémentés mais n'ont pas encore de tests.
 - `tests/test_pipeline_llm.py`
 **B02**
 - `data/user_memory.json`
-- `knowledges/professional/engineering/ai/semantic_memory.json`
-- `knowledges/system/memory/episodic_memory.json`
-- `knowledges/system/memory/memory_context_linking.json`
-- `knowledges/system/memory/memory_decay_rules.json`
-- `knowledges/system/memory/memory_learning_rules.json`
-- `knowledges/system/memory/memory_prioritization.json`
-- `knowledges/system/memory/memory_system.json`
 - `src/memory/episodic_memory.py`
 - `src/memory/long_term_memory.py`
 - `src/memory/memory_indexer.py`
 - `src/memory/rag_stub.py`
 - `src/rag/rag_engine.py`
 **B03**
-- `knowledges/human/cognition/decision_fatigue.json`
-- `knowledges/human/emotional_intelligence/active_listening.json`
-- `knowledges/human/emotional_intelligence/emotional_management.json`
-- `knowledges/human/emotional_intelligence/emotional_patterns.json`
-- `knowledges/human/psychology/burnout_prevention.json`
-- `knowledges/human/psychology/resilience.json`
 - `tests/test_b02_b03.py`
-**B04**
-- `.env.example`
-- `.gitignore`
-- `config/ethics_rules.json`
-- `config/settings.json`
-- `knowledges/system/ethics/ethical_framework.json`
-- `pyproject.toml`
 **B05**
-- `knowledges/human/skills/softskills/organization.json`
-**B06**
-- `knowledges/human/skills/softskills/argumentation_frameworks.json`
-- `knowledges/human/skills/softskills/assertiveness.json`
-- `knowledges/human/skills/softskills/communication_clarity.json`
-- `knowledges/human/skills/softskills/conflict_management.json`
-- `knowledges/human/skills/softskills/leadership_personal.json`
-- `knowledges/human/skills/softskills/negotiation.json`
-**B08**
 - `config/personality_core.json`
 - `config/user_adaptation_profile.json`
 - `data/personality/instances/personality_core_instance.json`
 - `data/personality/templates/personality_core.json`
 - `data/personality/templates/personality_core_template_public.json`
+- `data/preferences_profile.json`
 - `data/profile/user_profile.json`
 - `data/users/instances/user_celine_instance.json`
 - `data/users/templates/user_adaptation_profile.json`
@@ -657,23 +597,20 @@ Ces fichiers sont implémentés mais n'ont pas encore de tests.
 - `knowledges/core/personalization_engine.json`
 - `knowledges/core/system_rules.json`
 - `knowledges/core/user_adaptation.json`
-- `knowledges/human/self_alignment/habits/discipline.json`
 - `knowledges/human/self_alignment/routines/feedback_loop.json`
 - `src/core/alfred_behavior_engine.py`
-**B09**
-- `knowledges/human/skills/softskills/problem_solving.json`
-- `knowledges/professional/decision/decision_models.json`
-- `knowledges/professional/decision/decision_support.json`
-- `knowledges/professional/decision/root_cause_analysis.json`
-- `knowledges/professional/decision/tradeoff_analysis.json`
-**B11**
-- `knowledges/human/cognition/cognitive_load.json`
-- `knowledges/human/cognition/critical_thinking.json`
-- `knowledges/human/cognition/focus_management.json`
-- `knowledges/human/cognition/multi_step_reasoning.json`
-- `knowledges/human/cognition/uncertainty_management.json`
-- `knowledges/professional/engineering/ai/reasoning_advanced.json`
-- `knowledges/professional/engineering/ai/reasoning_engine.json`
+**B08**
+- `.env.example`
+- `.gitignore`
+- `config/ethics_rules.json`
+- `config/settings.json`
+- `knowledges/system/ethics/ethical_framework.json`
+- `pyproject.toml`
+**B12**
+- `src/collaboration/project/project_manager.py`
+- `src/collaboration/project/project_store.py`
+- `src/start_alfred_cpl.bat`
+- `src/start_alfred_hybride.bat`
 **B13**
 - `src/health/chronic_support.py`
 - `src/health/health_profile.py`
@@ -740,97 +677,6 @@ Ces fichiers sont implémentés mais n'ont pas encore de tests.
 - `assets/backgrounds/mode_portrait/interieur/chambre/background_portrait_interieur_chambre_nuit.jpg`
 - `assets/backgrounds/mode_portrait/interieur/specifique/sport/background_portrait_interieur_sport.png`
 - `assets/backgrounds/mode_portrait/orientation portrait/specifique/Transport/background_portrait_exterieur_transport_debut fin journee.jpg`
-**B18**
-- `.env`
-- `README.md`
-- `config/alfred_project.json`
-- `config/router_rules.json`
-- `config/v2/module_mapping.json`
-- `knowledges/cpl/business_strategy/consulting_governance.json`
-- `knowledges/cpl/business_strategy/customer_persona_business.json`
-- `knowledges/cpl/business_strategy/customer_retention.json`
-- `knowledges/cpl/business_strategy/delivery_quality_framework.json`
-- `knowledges/cpl/business_strategy/go_to_market_advanced.json`
-- `knowledges/cpl/business_strategy/innovation_portfolio_management.json`
-- `knowledges/cpl/business_strategy/market_segmentation_strategy.json`
-- `knowledges/cpl/business_strategy/pricing_psychology.json`
-- `knowledges/cpl/business_strategy/product_service_hybrid_model.json`
-- `knowledges/cpl/business_strategy/recurring_revenue_models.json`
-- `knowledges/cpl/business_strategy/resource_optimization.json`
-- `knowledges/cpl/business_strategy/saas_transition_strategy.json`
-- `knowledges/cpl/business_strategy/service_margin_management.json`
-- `knowledges/cpl/business_strategy/strategic_decision_framework.json`
-- `knowledges/cpl/business_strategy/value_based_pricing.json`
-- `knowledges/human/interaction/conversation_repair.json`
-- `knowledges/human/interaction/decision_support_under_stress.json`
-- `knowledges/human/interaction/emotion_transition_detection.json`
-- `knowledges/human/interaction/frustration_management.json`
-- `knowledges/human/interaction/mental_fatigue_detection.json`
-- `knowledges/human/interaction/multi_turn_context_management.json`
-- `knowledges/human/interaction/psychological_safety.json`
-- `knowledges/human/interaction/relational_balance.json`
-- `knowledges/human/interaction/silence_and_pause_management.json`
-- `knowledges/human/interaction/social_energy_management.json`
-- `knowledges/human/interaction/stress_response_patterns.json`
-- `knowledges/human/interaction/supportive_language.json`
-- `knowledges/human/psychology/behavioral_patterns.json`
-- `knowledges/human/psychology/motivation.json`
-- `knowledges/human/skills/softskills/adaptability.json`
-- `knowledges/human/skills/softskills/creativity.json`
-- `knowledges/human/wellbeing/decision_energy_conservation.json`
-- `knowledges/human/wellbeing/energy_budgeting.json`
-- `knowledges/human/wellbeing/executive_dysfunction.json`
-- `knowledges/human/wellbeing/fatigue_patterns.json`
-- `knowledges/human/wellbeing/focus_recovery_balance.json`
-- `knowledges/human/wellbeing/medical_boundary_rules.json`
-- `knowledges/human/wellbeing/mental_overload_patterns.json`
-- `knowledges/human/wellbeing/motivation_fluctuation_patterns.json`
-- `knowledges/human/wellbeing/recovery_cycles.json`
-- `knowledges/human/wellbeing/recovery_management.json`
-- `knowledges/human/wellbeing/sleep_hygiene_basics.json`
-- `knowledges/human/wellbeing/stress_reduction_support.json`
-- `knowledges/human/wellbeing/stress_signals.json`
-- `knowledges/human/wellbeing/support_without_diagnosis.json`
-- `knowledges/human/wellbeing/wellbeing_non_medical_support.json`
-- `knowledges/manifest.json`
-- `knowledges/professional/engineering/reasoning/contradiction_detection.json`
-- `knowledges/professional/engineering/reasoning/fallback_reasoning.json`
-- `knowledges/professional/engineering/reasoning/goal_alignment_reasoning.json`
-- `knowledges/professional/engineering/reasoning/hallucination_detection.json`
-- `knowledges/professional/engineering/reasoning/memory_reasoning_links.json`
-- `knowledges/professional/engineering/reasoning/meta_reasoning_basics.json`
-- `knowledges/professional/engineering/reasoning/multi_agent_reasoning.json`
-- `knowledges/professional/engineering/reasoning/probabilistic_reasoning_basics.json`
-- `knowledges/professional/engineering/reasoning/reasoning_failure_patterns.json`
-- `knowledges/professional/engineering/reasoning/reasoning_orchestration.json`
-- `knowledges/professional/engineering/reasoning/retrieval_augmented_reasoning.json`
-- `knowledges/professional/engineering/reasoning/self_consistency_reasoning.json`
-- `knowledges/professional/engineering/reasoning/task_decomposition_reasoning.json`
-- `knowledges/professional/engineering/reasoning/tree_of_thoughts.json`
-- `knowledges/professional/engineering/reasoning/uncertainty_reasoning.json`
-- `knowledges/professional/governance_ai/compliance_monitoring.json`
-- `knowledges/professional/governance_ai/decision_transparency.json`
-- `knowledges/professional/governance_ai/eu_ai_act_basics.json`
-- `knowledges/professional/governance_ai/explainability_xai.json`
-- `knowledges/professional/governance_ai/gdpr_ai_intersection.json`
-- `knowledges/professional/governance_ai/traceability_principles.json`
-- `knowledges/professional/iot/iot_device_segmentation.json`
-- `knowledges/professional/iot/iot_threat_basics.json`
-- `knowledges/professional/iot/local_network_security.json`
-- `knowledges/professional/iot/offline_first_home_automation.json`
-- `knowledges/professional/iot/presence_detection.json`
-- `knowledges/professional/iot/room_state_modeling.json`
-- `knowledges/professional/iot/smart_alert_prioritization.json`
-- `knowledges/professional/iot/smart_home_basics.json`
-- `knowledges/professional/product_management/advanced/product_governance.json`
-- `knowledges/professional/product_management/advanced/product_health_monitoring.json`
-- `knowledges/professional/product_management/advanced/product_kpi_frameworks.json`
-- `knowledges/professional/product_management/advanced/product_scaling_strategy.json`
-- `knowledges/taxonomy.json`
-- `paths.py`
-- `requirements.txt`
-- `scripts/clean_project.ps1`
-- `tests/test_b18_knowledge.py`
 **B20**
 - `config/safety_rules.json`
 - `config/security/audit_retention_policy.json`
