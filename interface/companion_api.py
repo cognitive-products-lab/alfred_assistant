@@ -8,10 +8,14 @@ ROLE         : API locale FastAPI consommée par l'app Android compagnon —
 DEPENDENCIES : fastapi, uvicorn
 
 SÉCURITÉ :
-Local-first — écoute sur 127.0.0.1 par défaut. Authentification par jeton
-partagé (COMPANION_API_TOKEN dans .env), même logique que le reste du
-Bloc 20 (pas d'accès anonyme aux données ALFRED), journalisée via
-src.security.security_logger.
+Local-first — écoute sur 0.0.0.0 (nécessaire pour être joignable depuis
+l'émulateur Android via 10.0.2.2, ou un téléphone physique sur le même
+réseau Wi-Fi), donc accessible à tout appareil du réseau local, pas
+seulement à la machine elle-même. Authentification par jeton partagé
+(COMPANION_API_TOKEN dans .env), même logique que le reste du Bloc 20
+(pas d'accès anonyme aux données ALFRED), journalisée via
+src.security.security_logger. Ne pas exposer ce port au-delà du réseau
+local (pas de redirection de port sur la box/routeur).
 
 Lancement :
     python interface/companion_api.py
@@ -78,5 +82,5 @@ def get_notifications(authorization: str | None = Header(default=None)):
 if __name__ == "__main__":
     import uvicorn
 
-    log_event("companion_api: démarrage sur 127.0.0.1", level="INFO")
-    uvicorn.run(app, host="127.0.0.1", port=COMPANION_API_PORT)
+    log_event("companion_api: démarrage sur 0.0.0.0 (réseau local)", level="INFO")
+    uvicorn.run(app, host="0.0.0.0", port=COMPANION_API_PORT)
