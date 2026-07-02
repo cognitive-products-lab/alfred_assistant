@@ -581,6 +581,57 @@
       "test_level": "manual",
       "tests": ["gabarit article FR/EN OK"],
       "notes": "Gabarit article Jinja2 réutilisable — validé en production (session 12/06)."
+    },
+    {
+      "path": "interface/companion_api.py",
+      "module": "B09",
+      "status": "tested",
+      "last_test": "2026-07-02",
+      "test_level": "automated",
+      "tests": [
+        "tests/test_companion_api.py::test_status_without_token_is_rejected",
+        "tests/test_companion_api.py::test_status_with_wrong_token_is_rejected",
+        "tests/test_companion_api.py::test_status_with_valid_token_returns_online",
+        "tests/test_companion_api.py::test_notifications_requires_token",
+        "tests/test_companion_api.py::test_notifications_returns_active_reminders"
+      ],
+      "notes": "API compagnon locale FastAPI pour le PoC client Android (ALFRED_ANDROID). 5/5 tests pytest OK, bandit + pip-audit sans issue medium/high (reports/bandit_scan_companion_android_mongo_20260702.txt). PoC v1 : jeton partagé statique, pas encore aligné sur l'auth PIN/bcrypt du Bloc 20 — voir ROADMAP.md section Android."
+    },
+    {
+      "path": "ALFRED_WEB/data/mongo.py",
+      "module": "B21",
+      "status": "tested",
+      "last_test": "2026-07-02",
+      "test_level": "manual",
+      "tests": ["connexion Mongo réelle via docker compose (mongo:7) OK", "repli gracieux vérifié (Mongo injoignable -> fallback statique)"],
+      "notes": "Connexion MongoDB tolérante (persistance articles/commentaires ALFRED_WEB)."
+    },
+    {
+      "path": "ALFRED_WEB/data/articles_repository.py",
+      "module": "B21",
+      "status": "tested",
+      "last_test": "2026-07-02",
+      "test_level": "manual",
+      "tests": ["11 articles migrés et relus depuis Mongo (db.articles.count_documents == 11)", "/articles/tous-les-articles retourne 200 avec 11 cartes"],
+      "notes": "Repository articles/commentaires — source Mongo avec repli sur SEED_ARTICLES si base injoignable."
+    },
+    {
+      "path": "ALFRED_WEB/scripts/migrate_articles_to_mongo.py",
+      "module": "B21",
+      "status": "tested",
+      "last_test": "2026-07-02",
+      "test_level": "manual",
+      "tests": ["exécution réelle : 11 articles migrés/synchronisés, 0 commentaires (aucun commentaire existant)"],
+      "notes": "Script de migration idempotent (upsert par slug) JSON/statique -> MongoDB."
+    },
+    {
+      "path": "ALFRED_WEB/templates/articles_tous.html",
+      "module": "B21",
+      "status": "validated",
+      "last_test": "2026-07-02",
+      "test_level": "manual",
+      "tests": ["page tous les articles OK — backlog item clos"],
+      "notes": "Nouvelle page /articles/tous-les-articles — clôt l'item backlog en attente depuis plusieurs sessions."
     }
   ]
 }

@@ -660,3 +660,46 @@ Q01→Q09 · AIPD T001 · PSSI formelle · doublon profile_analyzer · page arti
 ---
 *Session 8 — 29 Juin 2026*
 *Prochaine mise à jour : mercredi 02/07 après merge feature branch + tests voix*
+
+---
+
+## ✅ SESSION 9 — 02/07/2026 — Récapitulatif
+
+**Contexte : justification d'expérience professionnelle Mastère 1 (référentiel FEDE)**
+
+Mapping du référentiel de compétences Mastère 1 vs stack réel ALFRED — deux
+gaps identifiés (Java/Kotlin Android, MongoDB/NoSQL). Décision : combler ces
+gaps directement dans ALFRED plutôt que documenter une expérience externe.
+
+**Brique MongoDB (ALFRED_WEB) :**
+- `data/mongo.py` (connexion tolérante — repli gracieux si Mongo injoignable)
+- `data/articles_repository.py` (repository articles/commentaires, remplace
+  l'ancien dict Python statique + JSON de commentaires)
+- `scripts/migrate_articles_to_mongo.py`, `docker-compose.yml` (service `mongo:7`)
+- Nouvelle route `/articles/tous-les-articles` — clôt le backlog item "page
+  tous les articles" en attente depuis plusieurs sessions
+- **Vérifié en conditions réelles** (Docker Desktop reconfiguré avec WSL2 en
+  cours de session) : 11 articles migrés et relus depuis MongoDB, `/articles/tous-les-articles` → 200
+
+**Client compagnon Android (PoC v1) :**
+- `interface/companion_api.py` — API locale FastAPI (statut + rappels,
+  lecture seule, jeton `COMPANION_API_TOKEN` dans `.env`), 5/5 tests pytest
+  (`tests/test_companion_api.py`)
+- `ALFRED_ANDROID/` — app Kotlin native (Jetpack Compose, MVVM, Retrofit),
+  repo publié : **https://github.com/cognitive-products-lab/ALFRED_ANDROID**
+- Scan sécurité (bandit + pip-audit) sur tous les nouveaux fichiers Python :
+  0 issue medium/high, 0 vulnérabilité connue —
+  `reports/bandit_scan_companion_android_mongo_20260702.txt`
+- **Non vérifié** : build réel dans Android Studio (pas de SDK Android dans
+  l'environnement Claude Code) — à valider avant de considérer le PoC comme
+  un livrable fiable
+
+**Suivi :**
+- Fichiers enregistrés dans `dashboard_data_manifest.json` (blocs B09, B21),
+  `dashboard_tests_manifest.json` et `validation_registry.json`
+- `ROADMAP.md` : item "Exploration interface Android" coché + nouvelle
+  section "Android — du PoC compagnon au produit complet"
+- `BACKLOG.md` : item "Page tous les articles ALFRED_WEB" marqué fait
+
+---
+*Session 9 — 02 Juillet 2026*
