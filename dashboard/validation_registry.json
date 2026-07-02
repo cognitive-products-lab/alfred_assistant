@@ -585,17 +585,18 @@
     {
       "path": "interface/companion_api.py",
       "module": "B09",
-      "status": "tested",
+      "status": "validated",
       "last_test": "2026-07-02",
-      "test_level": "automated",
+      "test_level": "automated + manuel",
       "tests": [
         "tests/test_companion_api.py::test_status_without_token_is_rejected",
         "tests/test_companion_api.py::test_status_with_wrong_token_is_rejected",
         "tests/test_companion_api.py::test_status_with_valid_token_returns_online",
         "tests/test_companion_api.py::test_notifications_requires_token",
-        "tests/test_companion_api.py::test_notifications_returns_active_reminders"
+        "tests/test_companion_api.py::test_notifications_returns_active_reminders",
+        "validation manuelle bout-en-bout : app Android (émulateur Pixel 6) connectée via 10.0.2.2:8420, statut ALFRED + rappels réels affichés"
       ],
-      "notes": "API compagnon locale FastAPI pour le PoC client Android (ALFRED_ANDROID). 5/5 tests pytest OK, bandit + pip-audit sans issue medium/high (reports/bandit_scan_companion_android_mongo_20260702.txt). PoC v1 : jeton partagé statique, pas encore aligné sur l'auth PIN/bcrypt du Bloc 20 — voir ROADMAP.md section Android."
+      "notes": "API compagnon locale FastAPI pour le PoC client Android (ALFRED_ANDROID). 5/5 tests pytest OK, bandit + pip-audit sans issue medium/high (reports/bandit_scan_companion_android_mongo_20260702.txt). Connexion réelle validée le 02/07/2026 (bind 0.0.0.0, 127.0.0.1 ne fonctionnait pas depuis l'émulateur). PoC v1 : jeton partagé statique, pas encore aligné sur l'auth PIN/bcrypt du Bloc 20 — voir ROADMAP.md section Android."
     },
     {
       "path": "ALFRED_WEB/data/mongo.py",

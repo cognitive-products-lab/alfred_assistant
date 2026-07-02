@@ -1,7 +1,7 @@
 # ALFRED — BACKLOG & RÉFÉRENTIEL FICHIERS
 
-> Généré le 02/07/2026 13:54 depuis `dashboard_data.json` (mis à jour le 02/07/2026 13:54:18)
-> Progression technique : **76.2%** · Full projet : **68.8%**
+> Généré le 02/07/2026 17:00 depuis `dashboard_data.json` (mis à jour le 02/07/2026 17:00:19)
+> Progression technique : **76.6%** · Full projet : **69.0%**
 > 1115 fichiers détectés / 1471 cible full
 
 ## Synthèse globale
@@ -9,9 +9,9 @@
 | Statut | Nb | % | Priorité |
 |--------|---:|--:|----------|
 | 🟡 Partiel | 78 | 7.0% | 🟡 Sprint |
-| 🟦 Codé — à tester | 139 | 12.5% | 🟡 Sprint |
-| 🧪 Testé — à valider | 4 | 0.4% | 🧪 Tests |
-| ✅ Validé ✅ | 838 | 75.2% | ✅ Done |
+| 🟦 Codé — à tester | 134 | 12.0% | 🟡 Sprint |
+| 🧪 Testé — à valider | 3 | 0.3% | 🧪 Tests |
+| ✅ Validé ✅ | 844 | 75.7% | ✅ Done |
 | ⚙️ Structurel | 56 | 5.0% | ✅ Done |
 
 ## Backlog par bloc
@@ -208,22 +208,16 @@
 | `knowledges/system/ethics/ethical_framework.json` | 🟦 Codé — à tester | Tester |
 | `pyproject.toml` | 🟦 Codé — à tester | Tester |
 
-### 🟢 B09 — API & microservices `96.0%`
+### ✅ B09 — API & microservices `100.0%`
 
 | KPI | Valeur |
 |-----|--------|
-| Validés | 13 |
-| Testés | 1 |
-| Codés (à tester) | 1 |
+| Validés | 15 |
+| Testés | 0 |
+| Codés (à tester) | 0 |
 | Partiels | 0 |
 | Structurels | 0 |
 | Manquants | 0 |
-
-**Fichiers à traiter :**
-
-| Fichier | Statut | Action |
-|---------|--------|--------|
-| `tests/test_companion_api.py` | 🟦 Codé — à tester | Tester |
 
 ### 🟢 B10 — Intelligence artificielle avancée `96.8%`
 
@@ -513,25 +507,16 @@
 | `data/security/incident_register.json` | 🟦 Codé — à tester | Tester |
 | `logs/security/security.log` | 🟦 Codé — à tester | Tester |
 
-### 🟢 B21 — ALFRED WEB PLATFORM `96.4%`
+### ✅ B21 — ALFRED WEB PLATFORM `100.0%`
 
 | KPI | Valeur |
 |-----|--------|
-| Validés | 41 |
+| Validés | 45 |
 | Testés | 0 |
-| Codés (à tester) | 4 |
+| Codés (à tester) | 0 |
 | Partiels | 0 |
 | Structurels | 0 |
 | Manquants | 0 |
-
-**Fichiers à traiter :**
-
-| Fichier | Statut | Action |
-|---------|--------|--------|
-| `ALFRED_WEB/data/mongo.py` | 🟦 Codé — à tester | Tester |
-| `ALFRED_WEB/data/articles_repository.py` | 🟦 Codé — à tester | Tester |
-| `ALFRED_WEB/scripts/migrate_articles_to_mongo.py` | 🟦 Codé — à tester | Tester |
-| `ALFRED_WEB/docker-compose.yml` | 🟦 Codé — à tester | Tester |
 
 ### 🟡 B22 — Accessibility & Cognitive Assistance `71.0%`
 
@@ -564,7 +549,7 @@
 | `tests/b15_tests/test_b22_accessibility.py` | 🟦 Codé — à tester | Tester |
 | `tests/b15_tests/test_voice_output_manager.py` | 🟦 Codé — à tester | Tester |
 
-## 🟦 Sprint — Fichiers codés à tester (139)
+## 🟦 Sprint — Fichiers codés à tester (134)
 
 Ces fichiers sont implémentés mais n'ont pas encore de tests.
 
@@ -621,8 +606,6 @@ Ces fichiers sont implémentés mais n'ont pas encore de tests.
 - `config/settings.json`
 - `knowledges/system/ethics/ethical_framework.json`
 - `pyproject.toml`
-**B09**
-- `tests/test_companion_api.py`
 **B12**
 - `src/collaboration/project/project_manager.py`
 - `src/collaboration/project/project_store.py`
@@ -700,11 +683,6 @@ Ces fichiers sont implémentés mais n'ont pas encore de tests.
 - `config/security/trusted_devices.json`
 - `data/security/incident_register.json`
 - `logs/security/security.log`
-**B21**
-- `ALFRED_WEB/data/articles_repository.py`
-- `ALFRED_WEB/data/mongo.py`
-- `ALFRED_WEB/docker-compose.yml`
-- `ALFRED_WEB/scripts/migrate_articles_to_mongo.py`
 **B22**
 - `docs/accessibility/ALFRED_Accessibility_Policy.pdf`
 - `src/accessibility/accessibility_manager.py`
