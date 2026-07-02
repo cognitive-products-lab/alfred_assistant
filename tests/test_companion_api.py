@@ -1,9 +1,17 @@
 """
-PROJECT : ALFRED
-BLOCK   : Client compagnon Android (PoC)
-FILE    : tests/test_companion_api.py
-ROLE    : Tests de l'API compagnon locale (interface/companion_api.py)
-          consommée par ALFRED_ANDROID.
+PROJECT      : ALFRED
+BLOCK        : Client compagnon Android (PoC)
+FILE         : tests/test_companion_api.py
+ROLE         : Tests de l'API compagnon locale (interface/companion_api.py)
+               consommée par ALFRED_ANDROID.
+
+AUTHOR       : Cognitive Products Lab
+CREATED      : 2026-07-02
+UPDATED      : 2026-07-02
+VERSION      : V1.0
+STATUS       : VALIDATED — 5/5 tests OK
+
+DEPENDENCIES : pytest, fastapi
 """
 
 from __future__ import annotations
