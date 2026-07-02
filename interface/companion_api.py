@@ -9,7 +9,8 @@ AUTHOR       : Cognitive Products Lab
 CREATED      : 2026-07-02
 UPDATED      : 2026-07-02
 VERSION      : V1.1
-STATUS       : TESTED — 5/5 tests pytest, bandit + pip-audit clean
+STATUS       : VALIDATED — 5/5 tests pytest, bandit + pip-audit clean, connexion
+               réelle confirmée depuis l'app Android (émulateur, 02/07/2026)
 
 DEPENDENCIES : fastapi, uvicorn
 

@@ -76,6 +76,10 @@ Dernière mise à jour : 2026-07-02
       lecture seule : statut + rappels, jeton partagé `COMPANION_API_TOKEN`)
 - [x] PoC v1 — app Android native Kotlin (`ALFRED_ANDROID/`, Jetpack Compose +
       MVVM + Retrofit, écran statut/rappels)
+- [x] PoC v1 — validation de bout en bout (02/07/2026) : build compilé dans
+      Android Studio (`BUILD SUCCESSFUL`), app lancée sur émulateur Pixel 6
+      (Android 14), connexion réelle à l'API compagnon confirmée (statut
+      ALFRED + rappels réels affichés)
 - [ ] Authentification compagnon alignée Bloc 20 (remplacer le jeton partagé
       statique par un appairage PIN/QR code, cohérent avec `src/auth/`)
 - [ ] Notifications push réelles (au-delà du polling manuel du PoC)
