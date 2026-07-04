@@ -1,0 +1,91 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "practical_skills.management.project_management",
+  "version": "1.0.0",
+  "domain": "practical_skills",
+  "subdomain": "management",
+  "category": "professional_skills",
+  "priority": "high",
+  "safety_level": "normal",
+  "title": "Gestion de Projet Fondamentale",
+  "summary": "Gestion de projet : triangle de fer (coût/délai/qualité), méthodes classiques (Waterfall) et agiles (Scrum, Kanban), outils, risques et communication.",
+  "purpose": "Permettre à ALFRED d'aider à planifier, structurer et suivre des projets grâce aux méthodes et outils éprouvés.",
+  "tags": ["gestion_projet", "Scrum", "Agile", "Waterfall", "Kanban", "risque", "planning", "livrables", "sprint"],
+  "intents": ["explain_project_management", "help_plan_project", "choose_project_methodology", "manage_project_risks"],
+  "usage_context": ["Gestion de projet", "Management", "Développement produit"],
+  "content": {
+    "definition": "La gestion de projet est l'application de connaissances, compétences, outils et techniques pour planifier, exécuter et contrôler des activités afin d'atteindre des objectifs définis dans des contraintes de temps, coût et qualité.",
+    "iron_triangle": {
+      "description": "Tout projet est contraint par 3 variables interdépendantes.",
+      "constraints": ["Scope (périmètre)", "Cost (budget)", "Time (délais)"],
+      "rule": "Modifier l'un impacte au moins un autre. 'Fast, Good, Cheap — pick two.'"
+    },
+    "methodologies": {
+      "waterfall": {
+        "description": "Méthode séquentielle classique : chaque phase doit être complétée avant la suivante.",
+        "phases": ["Analyse des besoins", "Conception", "Développement", "Test", "Déploiement", "Maintenance"],
+        "best_for": "Projets avec besoins bien définis dès le départ (construction, pharma).",
+        "limits": "Peu flexible au changement, retours tardifs du client."
+      },
+      "agile": {
+        "description": "Approche itérative et incrémentale : livraisons fréquentes, adaptation continue.",
+        "manifesto_values": ["Individus et interactions > processus et outils", "Logiciel fonctionnel > documentation exhaustive", "Collaboration client > négociation contractuelle", "Adaptation > suivi d'un plan"],
+        "best_for": "Projets logiciels, startups, environnements incertains."
+      },
+      "scrum": {
+        "description": "Framework Agile le plus utilisé.",
+        "roles": ["Product Owner : priorise le backlog, voix du client", "Scrum Master : facilitateur, garde les pratiques Scrum", "Dev Team : auto-organisée, pluridisciplinaire"],
+        "artifacts": ["Product Backlog : liste priorisée de toutes les fonctionnalités", "Sprint Backlog : tâches du sprint en cours", "Increment : version livrable à la fin du sprint"],
+        "ceremonies": ["Sprint Planning (1 jour)", "Daily Scrum (15 min/jour)", "Sprint Review (démonstration)", "Sprint Retrospective (amélioration continue)"],
+        "sprint": "Itération de 1-4 semaines produisant un incrément potentiellement livrable."
+      },
+      "kanban": {
+        "description": "Méthode visuelle de gestion du flux de travail.",
+        "columns": "À faire → En cours → En test → Terminé",
+        "wip_limit": "Limiter le 'Work In Progress' pour éviter les goulots d'étranglement.",
+        "best_for": "Maintenance, support, équipes opérationnelles."
+      }
+    },
+    "project_lifecycle": ["Initiation (charte projet, parties prenantes)", "Planification (WBS, planning, budget, risques)", "Exécution (réalisation, communication)", "Surveillance & Contrôle (KPIs, écarts)", "Clôture (retex, archivage)"],
+    "risk_management": {
+      "process": ["Identifier les risques", "Analyser (probabilité × impact)", "Prioriser (matrice des risques)", "Répondre (éviter/réduire/transférer/accepter)", "Surveiller"],
+      "risk_matrix": "Probabilité (faible/moyen/élevé) × Impact (faible/moyen/élevé) = Criticité."
+    },
+    "essential_tools": [
+      "Gantt (planning visuel), WBS (Work Breakdown Structure, décomposition des livrables)",
+      "RACI (Responsible/Accountable/Consulted/Informed), Jira, Trello, Notion, Monday.com"
+    ],
+    "examples": [
+      {
+        "situation": "Utilisateur doit lancer un projet de refonte de site web",
+        "recommended_behavior": "Recommander Scrum si l'équipe est petite et les besoins évoluent, ou Waterfall si les specs sont figées. Commencer par une charte projet (objectifs, budget, délai, parties prenantes), puis un product backlog priorisé.",
+        "avoid": "Proposer une seule méthode sans analyser le contexte."
+      }
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["gestion de projet", "Scrum", "Agile", "Kanban", "sprint", "risque projet", "planning"],
+    "related_domains": ["practical_skills", "professional"],
+    "related_knowledge": ["practical_skills.productivity.time_management", "practical_skills.communication.negotiation"],
+    "retrieval_priority": 9
+  },
+  "behavior_rules": {"tone": "professional", "response_style": "structured_clear", "max_complexity": "medium", "allow_humor": false},
+  "safety_notes": {
+    "allowed_usage": ["Gestion de projet professionnelle"],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "Adapter les recommandations à la taille et au contexte du projet."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "03/07/2026",
+    "last_update": "03/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

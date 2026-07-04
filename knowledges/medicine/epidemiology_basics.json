@@ -1,0 +1,65 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "medicine.public_health.epidemiology",
+  "version": "1.0.0",
+  "domain": "medicine",
+  "subdomain": "public_health",
+  "category": "public_health",
+  "priority": "high",
+  "safety_level": "sensitive",
+  "title": "Épidémiologie Fondamentale",
+  "summary": "Épidémiologie : incidence, prévalence, taux de mortalité, reproduction virale (R0), études épidémiologiques, pandémies et santé publique.",
+  "purpose": "Permettre à ALFRED d'expliquer les concepts épidémiologiques fondamentaux et d'analyser les informations de santé publique.",
+  "tags": ["épidémiologie", "pandémie", "R0", "incidence", "prévalence", "mortalité", "santé_publique", "quarantaine", "vaccination"],
+  "intents": ["explain_epidemiology", "discuss_pandemic", "explain_r0", "answer_public_health_question"],
+  "usage_context": ["Santé publique", "Culture scientifique", "Actualité santé"],
+  "content": {
+    "definition": "L'épidémiologie est la science qui étudie la distribution, les déterminants et la fréquence des maladies et événements de santé dans les populations.",
+    "key_metrics": {
+      "incidence": "Nombre de nouveaux cas dans une population donnée sur une période donnée. Mesure le risque de contracter la maladie.",
+      "prevalence": "Proportion de cas existants (nouveaux + anciens) à un moment donné. Mesure la charge de la maladie.",
+      "case_fatality_rate": "CFR = décès / cas confirmés × 100. Dépend du dépistage.",
+      "infection_fatality_rate": "IFR = décès / cas réels (y compris non diagnostiqués). Plus précis.",
+      "r0": {
+        "definition": "R0 (nombre de reproduction de base) : nombre moyen de personnes contaminées par un cas index dans une population entièrement susceptible.",
+        "interpretation": ["R0 < 1 : épidémie s'éteint", "R0 = 1 : endémie stable", "R0 > 1 : épidémie en expansion"],
+        "examples": ["Rougeole : R0 = 12-18 (très contagieuse)", "COVID-19 Wuhan : R0 ≈ 2-3", "Ebola : R0 ≈ 1.5-2", "Grippe saisonnière : R0 ≈ 1.2-1.4"]
+      },
+      "herd_immunity": "Seuil d'immunité collective = 1 - 1/R0. Pour R0=4 : 75 % immunisés suffisent."
+    },
+    "study_types": [
+      {"type": "Étude transversale", "description": "Snapshot à un moment donné. Mesure la prévalence. Rapide mais ne prouve pas la causalité."},
+      {"type": "Étude de cohorte", "description": "Suit une population dans le temps. Mesure l'incidence et les facteurs de risque. Coûteuse mais robuste."},
+      {"type": "Étude cas-témoins", "description": "Compare malades (cas) et non-malades (témoins) pour trouver l'exposition passée. Rapide pour maladies rares."},
+      {"type": "Essai contrôlé randomisé (ECR)", "description": "Gold standard : assignation aléatoire intervention/placebo. Prouve la causalité."}
+    ],
+    "pandemic_history": [
+      {"pandemic": "Grippe espagnole (1918-1920)", "deaths": "~50 millions. Touche surtout les 20-40 ans. Avant vaccins."},
+      {"pandemic": "VIH/SIDA (1980+)", "deaths": "~40 millions depuis le début. Pandémie persistante."},
+      {"pandemic": "COVID-19 (2019+)", "deaths": ">7 millions officiels (sous-estimation probable). Vaccins en 1 an."}
+    ],
+    "public_health_interventions": [
+      "Quarantaine (personnes exposées) et isolement (cas confirmés).",
+      "Vaccination — seul moyen d'obtenir l'immunité collective sans mortalité massive.",
+      "Surveillance épidémiologique (sentinelles, sewage surveillance).",
+      "Communication de crise (information claire, lutte contre l'infodémie)."
+    ],
+    "examples": [
+      {
+        "situation": "Utilisateur demande ce que signifie R0 > 1 pour une épidémie",
+        "recommended_behavior": "Expliquer que R0 > 1 signifie que chaque malade en contamine en moyenne plus d'un, donc l'épidémie croît exponentiellement. Illustrer avec l'exemple COVID vs grippe saisonnière.",
+        "avoid": "Confondre R0 (valeur théorique) et Rt (valeur effective en temps réel)."
+      }
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["épidémiologie", "R0", "pandémie", "incidence", "prévalence", "immunité collective"],
+    "related_domains": ["medicine", "science"],
+    "related_knowledge": ["medicine.immunology.immune_system", "mathematics.statistics.probability"],
+    "retrieval_priority": 8
+  },
+  "behavior_rules": {"tone": "educational", "response_style": "structured_clear", "max_complexity": "medium", "allow_humor": false},
+  "safety_notes": {"allowed_usage": ["Éducation en santé publique"], "restricted_usage": [], "forbidden_usage": [], "fallback_behavior": "Orienter vers les autorités de santé publique (OMS, HAS) pour les recommandations actuelles."},
+  "metadata": {"author": "ALFRED_SYSTEM", "creation_date": "03/07/2026", "last_update": "03/07/2026", "review_status": "active", "reviewed_by": "ALFRED_CORE", "source_type": "manual_structured_knowledge", "language": "fr", "retrieval_ready": true, "rag_compatible": true}
+}

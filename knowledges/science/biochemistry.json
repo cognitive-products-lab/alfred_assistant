@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "science.biology.biochemistry",
+  "version": "1.0.0",
+  "domain": "science",
+  "subdomain": "biology",
+  "category": "molecular_biology",
+  "priority": "high",
+  "safety_level": "normal",
+  "title": "Biochimie Fondamentale",
+  "summary": "Biochimie : molécules du vivant (glucides, lipides, protéines, acides nucléiques), métabolisme, enzymes, ADN/ARN, synthèse protéique et régulation cellulaire.",
+  "purpose": "Permettre à ALFRED d'expliquer les bases biochimiques du vivant, des macromolécules et des processus métaboliques.",
+  "tags": ["biochimie", "protéines", "ADN", "ARN", "métabolisme", "enzymes", "glucides", "lipides", "ATP", "synthèse_protéique"],
+  "intents": ["explain_biochemistry", "explain_metabolism", "explain_dna_rna", "answer_biology_question"],
+  "usage_context": ["Biologie", "Médecine", "Nutrition"],
+  "content": {
+    "definition": "La biochimie étudie les processus chimiques au sein des organismes vivants et les molécules qui les constituent.",
+    "biomolecules": {
+      "carbohydrates": {
+        "role": "Énergie principale (glucose) et structure (cellulose, chitin).",
+        "types": ["Monosaccharides (glucose, fructose)", "Disaccharides (saccharose, lactose)", "Polysaccharides (amidon, glycogène, cellulose)"],
+        "key_fact": "Glycémie : taux de glucose sanguin normal = 0.7–1.1 g/L. Insuline régule."
+      },
+      "lipids": {
+        "role": "Réserve énergétique, membrane cellulaire, signalisation hormonale.",
+        "types": ["Triglycérides (stockage)", "Phospholipides (bicouche membranaire)", "Stérols (cholestérol, hormones stéroïdiennes)"],
+        "key_fact": "Cholestérol : précurseur hormones (cortisol, œstrogènes, testostérone) et vitamine D."
+      },
+      "proteins": {
+        "role": "Enzymes, structure, transport (hémoglobine), immunité (anticorps), signalisation.",
+        "structure_levels": ["Primaire : séquence d'acides aminés", "Secondaire : hélice α, feuillet β", "Tertiaire : repliement 3D", "Quaternaire : assemblage multi-sous-unités"],
+        "amino_acids": "20 acides aminés standard. 9 essentiels (non synthétisés, apportés par alimentation).",
+        "key_fact": "La forme (conformation) détermine la fonction. Dénaturation = perte de forme = perte de fonction."
+      },
+      "nucleic_acids": {
+        "dna": "ADN (acide désoxyribonucléique) : double hélice, base A-T et G-C. Support de l'information génétique.",
+        "rna": "ARN (acide ribonucléique) : simple brin. ARNm (messager), ARNt (transfert), ARNr (ribosomique).",
+        "key_fact": "ADN humain : ~3 milliards de paires de bases, 20 000–25 000 gènes, 46 chromosomes."
+      }
+    },
+    "metabolism": {
+      "definition": "Ensemble des réactions chimiques cellulaires. Catabolisme (dégradation → énergie) + Anabolisme (synthèse → structure).",
+      "atp": "ATP (adénosine triphosphate) : monnaie énergétique universelle du vivant. Produit par la respiration cellulaire.",
+      "glycolysis": "Glycolyse : dégradation du glucose en pyruvate (cytoplasme). 2 ATP nets.",
+      "krebs": "Cycle de Krebs : oxydation complète du pyruvate (mitochondrie). Produit NADH, FADH₂.",
+      "oxidative_phosphorylation": "Phosphorylation oxydative (chaîne respiratoire) : 34 ATP. O₂ requis."
+    },
+    "enzymes": {
+      "definition": "Protéines catalysant des réactions biochimiques. Spécifiques (clé-serrure ou fit induit).",
+      "regulation": ["Inhibition compétitive (analogue du substrat)", "Inhibition allostérique (site régulateur)", "Phosphorylation/déphosphorylation"],
+      "examples": ["Amylase (digestion amidon)", "ADN polymérase (réplication)", "ATP synthase (production ATP)", "Lactase (digestion lactose)"]
+    },
+    "protein_synthesis": {
+      "central_dogma": "ADN → ARNm (transcription) → Protéine (traduction). 'Dogme central' de la biologie moléculaire (Crick, 1957).",
+      "transcription": "Dans le noyau. ARN polymérase copie l'ADN en ARNm.",
+      "translation": "Dans le cytoplasme, sur les ribosomes. ARNt apportent les acides aminés selon le code génétique (codons de 3 nucléotides)."
+    }
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["biochimie", "ADN", "ARN", "protéines", "enzymes", "métabolisme", "ATP", "acides aminés"],
+    "related_domains": ["science", "medicine"],
+    "related_knowledge": ["science.biology.cellular_biology", "science.biology.ecology"],
+    "retrieval_priority": 8
+  },
+  "behavior_rules": {"tone": "educational", "response_style": "structured_clear", "max_complexity": "medium", "allow_humor": false},
+  "safety_notes": {"allowed_usage": ["Éducation scientifique"], "restricted_usage": [], "forbidden_usage": [], "fallback_behavior": "Adapter la complexité au niveau de l'interlocuteur."},
+  "metadata": {"author": "ALFRED_SYSTEM", "creation_date": "03/07/2026", "last_update": "03/07/2026", "review_status": "active", "reviewed_by": "ALFRED_CORE", "source_type": "manual_structured_knowledge", "language": "fr", "retrieval_ready": true, "rag_compatible": true}
+}

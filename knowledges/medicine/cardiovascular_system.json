@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "medicine.anatomy.cardiovascular_system",
+  "version": "1.0.0",
+  "domain": "medicine",
+  "subdomain": "anatomy",
+  "category": "human_physiology",
+  "priority": "high",
+  "safety_level": "sensitive",
+  "title": "Système Cardiovasculaire",
+  "summary": "Système cardiovasculaire : cœur, circulation sanguine, artères/veines, pression artérielle, maladies cardiaques fréquentes et facteurs de risque.",
+  "purpose": "Permettre à ALFRED d'expliquer le fonctionnement du cœur et du système circulatoire, et de donner des informations éducatives sur la santé cardiovasculaire.",
+  "tags": ["cœur", "circulation_sanguine", "artère", "veine", "pression_artérielle", "infarctus", "hypertension", "cardiovasculaire"],
+  "intents": ["explain_cardiovascular_system", "explain_heart_function", "discuss_blood_pressure", "answer_cardiology_question"],
+  "usage_context": ["Anatomie", "Santé cardiovasculaire", "Éducation médicale"],
+  "content": {
+    "definition": "Le système cardiovasculaire est l'ensemble formé par le cœur et les vaisseaux sanguins (artères, veines, capillaires), assurant la circulation du sang pour oxygéner et nourrir les tissus.",
+    "heart_structure": {
+      "chambers": "4 cavités : 2 oreillettes (reçoivent le sang) + 2 ventricules (pompent le sang).",
+      "right_side": "Reçoit le sang désoxygéné du corps → l'envoie aux poumons (circulation pulmonaire).",
+      "left_side": "Reçoit le sang oxygéné des poumons → l'envoie au corps (circulation systémique).",
+      "valves": "4 valves (mitrale, tricuspide, aortique, pulmonaire) empêchent le reflux du sang.",
+      "cardiac_cycle": "Systole (contraction) + Diastole (relâchement). Fréquence normale : 60-100 battements/min."
+    },
+    "blood_circulation": {
+      "systemic": "Cœur gauche → aorte → artères → capillaires (échange O₂/CO₂) → veines → veine cave → cœur droit.",
+      "pulmonary": "Cœur droit → artère pulmonaire → poumons (oxygénation) → veines pulmonaires → cœur gauche.",
+      "blood_components": {
+        "red_cells": "Globules rouges : transportent l'O₂ via l'hémoglobine.",
+        "white_cells": "Globules blancs : défense immunitaire.",
+        "platelets": "Plaquettes : coagulation sanguine.",
+        "plasma": "Liquide transportant nutriments, hormones, déchets."
+      }
+    },
+    "blood_pressure": {
+      "definition": "Force exercée par le sang sur les parois artérielles. Mesurée en mmHg : systolique/diastolique.",
+      "normal": "< 120/80 mmHg",
+      "hypertension": "> 140/90 mmHg — facteur de risque majeur d'AVC et d'infarctus.",
+      "hypotension": "< 90/60 mmHg — peut causer vertiges et syncopes.",
+      "monitoring": "Mesure recommandée régulièrement après 40 ans."
+    },
+    "common_diseases": [
+      {"disease": "Infarctus du myocarde", "description": "Obstruction d'une artère coronaire → nécrose du tissu cardiaque. Signes : douleur thoracique irradiant dans le bras gauche, sueurs. Urgence vitale."},
+      {"disease": "Hypertension artérielle", "description": "Pression trop élevée — 'tueur silencieux'. Traitement : médicaments + hygiène de vie."},
+      {"disease": "Insuffisance cardiaque", "description": "Le cœur ne pompe pas assez efficacement. Signes : essoufflement, œdèmes."},
+      {"disease": "AVC (Accident Vasculaire Cérébral)", "description": "Obstruction ou rupture d'un vaisseau cérébral. Signes FAST : Face/Arm/Speech/Time. Urgence vitale."},
+      {"disease": "Arythmie", "description": "Troubles du rythme cardiaque (tachycardie, fibrillation auriculaire)."}
+    ],
+    "risk_factors": {
+      "modifiable": ["Hypertension", "Tabac", "Diabète", "Obésité", "Sédentarité", "Hypercholestérolémie", "Stress chronique"],
+      "non_modifiable": ["Âge (> 45 ans H, > 55 ans F)", "Antécédents familiaux", "Sexe masculin"],
+      "prevention": ["Exercice régulier (150 min/semaine modéré)", "Alimentation méditerranéenne", "Arrêt du tabac", "Contrôle de la pression artérielle"]
+    },
+    "examples": [
+      {
+        "situation": "Utilisateur demande les signes d'un infarctus",
+        "recommended_behavior": "Décrire les signes typiques (douleur thoracique, irradiation bras/mâchoire, sueurs, nausées) et INSISTER sur l'appel immédiat du 15/SAMU — ne jamais attendre.",
+        "avoid": "Diagnostiquer ou minimiser les symptômes."
+      }
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["cœur", "cardiovasculaire", "infarctus", "pression artérielle", "circulation sanguine", "AVC"],
+    "related_domains": ["medicine"],
+    "related_knowledge": ["medicine.anatomy.human_body", "medicine.emergency.first_aid"],
+    "retrieval_priority": 8
+  },
+  "behavior_rules": {"tone": "educational", "response_style": "structured_clear", "max_complexity": "medium", "allow_humor": false},
+  "safety_notes": {
+    "allowed_usage": ["Éducation sur la santé cardiovasculaire"],
+    "restricted_usage": ["Ne pas donner de diagnostic médical"],
+    "forbidden_usage": ["Remplacer une consultation cardiologique"],
+    "fallback_behavior": "Recommander systématiquement un médecin pour tout symptôme cardiovasculaire."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "03/07/2026",
+    "last_update": "03/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

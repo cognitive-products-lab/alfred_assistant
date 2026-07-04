@@ -1,0 +1,64 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "science.biology.cellular_biology",
+  "version": "1.0.0",
+  "domain": "science",
+  "subdomain": "biology",
+  "category": "fundamental_biology",
+  "priority": "high",
+  "safety_level": "normal",
+  "title": "Biologie Cellulaire",
+  "summary": "Biologie cellulaire : cellules procaryotes et eucaryotes, organites, division cellulaire (mitose/méiose), cycle cellulaire et signalisation.",
+  "purpose": "Permettre à ALFRED d'expliquer la structure et le fonctionnement de la cellule, unité de base du vivant.",
+  "tags": ["cellule", "eucaryote", "procaryote", "mitochondrie", "ADN", "mitose", "méiose", "organite", "membrane"],
+  "intents": ["explain_cell_biology", "explain_cell_division", "explain_organelles", "answer_biology_question"],
+  "usage_context": ["Biologie fondamentale", "Sciences de la vie", "Médecine"],
+  "content": {
+    "definition": "La biologie cellulaire étudie la structure, la fonction et le comportement des cellules — unités fondamentales du vivant. Toute vie est composée d'une ou plusieurs cellules (théorie cellulaire, 1839).",
+    "cell_types": {
+      "prokaryotic": "Sans noyau délimité. ADN circulaire dans le cytoplasme. Ex : bactéries. Taille : 1-10 μm.",
+      "eukaryotic": "Avec noyau délimité par une membrane. Organites membranaires. Ex : cellules animales, végétales, champignons. Taille : 10-100 μm."
+    },
+    "key_organelles": [
+      {"organelle": "Noyau", "function": "Contient l'ADN (génome), centre de contrôle génétique. Entouré d'une double membrane percée de pores."},
+      {"organelle": "Mitochondrie", "function": "Centrale énergétique : produit l'ATP par respiration cellulaire. Possède son propre ADN (origine bactérienne — endosymbiose)."},
+      {"organelle": "Réticulum endoplasmique", "function": "RE rugueux : synthèse des protéines (ribosomes). RE lisse : lipides et détoxification."},
+      {"organelle": "Appareil de Golgi", "function": "Trie, modifie et expédie les protéines synthétisées."},
+      {"organelle": "Ribosome", "function": "Synthèse des protéines (traduction de l'ARNm). Présent chez tous les êtres vivants."},
+      {"organelle": "Lysosome", "function": "Dégradation des déchets cellulaires et agents pathogènes (enzymes digestives)."},
+      {"organelle": "Chloroplaste (végétaux)", "function": "Photosynthèse : CO₂ + H₂O + lumière → glucose + O₂. Aussi d'origine endosymbiotique."}
+    ],
+    "cell_membrane": {
+      "structure": "Bicouche phospholipidique avec protéines intégrées (modèle mosaïque fluide, Singer & Nicolson, 1972).",
+      "functions": ["Sélectivité des échanges (perméabilité sélective)", "Communication cellulaire (récepteurs)", "Adhésion cellulaire"]
+    },
+    "cell_division": {
+      "mitosis": {
+        "purpose": "Reproduction cellulaire (croissance, réparation). Produit 2 cellules génétiquement identiques.",
+        "phases": "Prophase → Métaphase → Anaphase → Télophase → Cytocinèse."
+      },
+      "meiosis": {
+        "purpose": "Formation des gamètes (spermatozoïdes, ovules). Produit 4 cellules haploïdes génétiquement uniques.",
+        "key": "2 divisions (méiose I et II). Crossing-over = brassage génétique → diversité."
+      }
+    },
+    "atp_energy": "ATP (adénosine triphosphate) = monnaie énergétique universelle de la cellule. Produit par la glycolyse, le cycle de Krebs et la chaîne respiratoire mitochondriale.",
+    "examples": [
+      {
+        "situation": "Utilisateur demande pourquoi les mitochondries sont 'les centrales énergétiques'",
+        "recommended_behavior": "Expliquer la respiration cellulaire : glucose + O₂ → CO₂ + H₂O + ATP (énergie). La mitochondrie produit ~32 ATP par molécule de glucose via la phosphorylation oxydative.",
+        "avoid": "Réduire à une phrase sans expliquer le processus."
+      }
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["cellule", "mitochondrie", "ADN", "mitose", "méiose", "organite", "eucaryote"],
+    "related_domains": ["science", "medicine"],
+    "related_knowledge": ["science.biology.genetics", "medicine.anatomy.human_body"],
+    "retrieval_priority": 8
+  },
+  "behavior_rules": {"tone": "educational", "response_style": "structured_clear", "max_complexity": "medium", "allow_humor": false},
+  "safety_notes": {"allowed_usage": ["Éducation biologique"], "restricted_usage": [], "forbidden_usage": [], "fallback_behavior": "Adapter la complexité au niveau scolaire de l'utilisateur."},
+  "metadata": {"author": "ALFRED_SYSTEM", "creation_date": "03/07/2026", "last_update": "03/07/2026", "review_status": "active", "reviewed_by": "ALFRED_CORE", "source_type": "manual_structured_knowledge", "language": "fr", "retrieval_ready": true, "rag_compatible": true}
+}

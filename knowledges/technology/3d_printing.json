@@ -1,0 +1,76 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "technology.manufacturing.3d_printing",
+  "version": "1.0.0",
+  "domain": "technology",
+  "subdomain": "manufacturing",
+  "category": "fabrication_technology",
+  "priority": "medium",
+  "safety_level": "normal",
+  "title": "Impression 3D",
+  "summary": "Impression 3D : technologies (FDM, SLA, SLS), matériaux, applications industrielles et médicales (prothèses, organes bioimprimés), fabrication additive et impact sur la chaîne de valeur.",
+  "purpose": "Permettre à ALFRED d'expliquer l'impression 3D, ses technologies, ses usages et son impact industriel.",
+  "tags": ["impression_3D", "FDM", "SLA", "fabrication_additive", "prototypage", "prothèse", "bioimpression", "plastique", "métal"],
+  "intents": ["explain_3d_printing", "recommend_3d_printing_technology", "explain_additive_manufacturing", "answer_tech_question"],
+  "usage_context": ["Technologie", "Fabrication", "Médecine", "Éducation"],
+  "content": {
+    "definition": "L'impression 3D (fabrication additive) est le processus de création d'objets tridimensionnels par dépôt successif de couches de matière, à partir d'un fichier numérique (STL, OBJ).",
+    "history": "Inventée en 1983 par Chuck Hull (stéréolithographie). Brevet FDM (Scott Crump, Stratasys, 1988). Démocratisation avec RepRap (open-source, 2005) et Makerbot.",
+    "technologies": [
+      {
+        "name": "FDM (Fused Deposition Modeling)",
+        "principle": "Filament plastique fondu extrudé par une buse. Dépôt couche par couche.",
+        "materials": ["PLA (biodégradable, facile)", "ABS (solide)", "PETG (résistant, flexible)", "TPU (élastomère)", "nylon"],
+        "applications": "Prototypage, pièces mécaniques légères, maquettes, éducation.",
+        "entry_price": "Imprimante grand public : 200-500€ (Bambu Lab, Prusa, Creality)."
+      },
+      {
+        "name": "SLA (Stéréolithographie)",
+        "principle": "Résine photosensible polymérisée par laser UV.",
+        "materials": "Résines rigides, flexibles, castables (bijouterie), dentaires.",
+        "applications": "Bijouterie, dentisterie, figurines haute précision, prototypes détaillés.",
+        "entry_price": "1 000-5 000€. Formlabs Form 4."
+      },
+      {
+        "name": "SLS (Selective Laser Sintering)",
+        "principle": "Poudre de nylon ou métal frittée par laser.",
+        "materials": "Nylon, polyamide, titane, acier inoxydable, aluminium.",
+        "applications": "Pièces fonctionnelles complexes, aéronautique, médical.",
+        "cost": "Machines industrielles : 100 000€+."
+      },
+      {
+        "name": "DMLS / SLM (métal)",
+        "principle": "Frittage ou fusion laser de poudres métalliques.",
+        "applications": "Aéronautique (réducteurs moteurs GE), médical (implants titane), joaillerie.",
+        "advantages": "Géométries impossibles à usiner, poids réduit, personnalisation."
+      }
+    ],
+    "applications": {
+      "medical": {
+        "prosthetics": "Prothèses personnalisées imprimées en quelques heures pour 10 € vs 10 000 € pour une prothèse classique.",
+        "implants": "Implants crâniens, vertébraux et dentaires en titane. Personnalisés sur mesure.",
+        "bioprinting": "Bioimpression : cellules vivantes imprimées sur scaffold. Peau, cartilage, vaisseaux. Objectif : organes complets.",
+        "pharma": "Impression de médicaments à dosage personnalisé."
+      },
+      "aerospace": "Airbus A350 : >1000 pièces imprimées en 3D. GE : injecteurs de carburant LEAP (20 pièces → 1, -25 % carburant).",
+      "construction": "Maisons imprimées en béton (Mighty Buildings, ICON). 100 m² en 24h pour 10 000$.",
+      "food": "Chocolat, pâtes, viande cultivée. Personnalisation nutritionnelle.",
+      "education": "Maquettes anatomiques, modèles moléculaires, pièces archéologiques répliques."
+    },
+    "impact": {
+      "supply_chain": "Impression locale à la demande → réduction stocks, transport, délais.",
+      "ip_concerns": "Reproduction d'objets protégés par brevet ou droits d'auteur.",
+      "firearms": "Impression d'armes à feu — débat réglementaire. Mostly illegal in EU."
+    }
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["impression 3D", "FDM", "SLA", "fabrication additive", "prothèse", "bioimpression", "prototypage"],
+    "related_domains": ["technology"],
+    "related_knowledge": ["technology.computing.quantum_computing", "technology.ai.machine_learning"],
+    "retrieval_priority": 7
+  },
+  "behavior_rules": {"tone": "educational", "response_style": "structured_clear", "max_complexity": "medium", "allow_humor": false},
+  "safety_notes": {"allowed_usage": ["Éducation technologique"], "restricted_usage": ["Ne pas aider à imprimer des armes"], "forbidden_usage": ["Instructions pour fabriquer des armes à feu ou objets illégaux"], "fallback_behavior": "Orienter vers les applications légales et créatives."},
+  "metadata": {"author": "ALFRED_SYSTEM", "creation_date": "03/07/2026", "last_update": "03/07/2026", "review_status": "active", "reviewed_by": "ALFRED_CORE", "source_type": "manual_structured_knowledge", "language": "fr", "retrieval_ready": true, "rag_compatible": true}
+}

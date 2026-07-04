@@ -1,0 +1,62 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "science.physics.electromagnetism",
+  "version": "1.0.0",
+  "domain": "science",
+  "subdomain": "physics",
+  "category": "fundamental_physics",
+  "priority": "high",
+  "safety_level": "normal",
+  "title": "Électromagnétisme",
+  "summary": "Électromagnétisme : champs électriques et magnétiques, équations de Maxwell, ondes électromagnétiques, spectre EM et applications (électricité, radio, laser, IRM).",
+  "purpose": "Permettre à ALFRED d'expliquer les lois de l'électromagnétisme et leurs applications technologiques quotidiennes.",
+  "tags": ["électromagnétisme", "Maxwell", "champ_électrique", "champ_magnétique", "onde_EM", "spectre", "électricité", "photon"],
+  "intents": ["explain_electromagnetism", "explain_electromagnetic_waves", "answer_physics_question"],
+  "usage_context": ["Physique fondamentale", "Technologie", "Sciences appliquées"],
+  "content": {
+    "definition": "L'électromagnétisme est la branche de la physique étudiant les interactions entre charges électriques, courants et leurs effets sur les champs électriques et magnétiques.",
+    "fundamental_forces": "L'électromagnétisme est l'une des 4 forces fondamentales de la nature (avec la gravité, la force nucléaire faible et forte).",
+    "key_laws": [
+      {"law": "Loi de Coulomb", "description": "Force entre deux charges électriques : F = k·q₁q₂/r². Force attractive (charges opposées) ou répulsive (charges similaires)."},
+      {"law": "Loi d'Ohm", "description": "U = R·I. Tension = Résistance × Intensité. Base des circuits électriques."},
+      {"law": "Loi de Faraday", "description": "Un champ magnétique variable induit une force électromotrice → principe des générateurs et transformateurs."},
+      {"law": "Équations de Maxwell (1865)", "description": "4 équations unifiant électricité et magnétisme, prédisant l'existence des ondes EM voyageant à c = 3×10⁸ m/s."}
+    ],
+    "electromagnetic_waves": {
+      "nature": "Oscillations couplées des champs E et B se propageant dans le vide à c = 299 792 458 m/s.",
+      "spectrum": [
+        {"type": "Ondes radio", "wavelength": "> 1 mm", "applications": "Radio FM, WiFi, Bluetooth, GSM"},
+        {"type": "Micro-ondes", "wavelength": "1mm - 1m", "applications": "Four micro-ondes, radar, 5G"},
+        {"type": "Infrarouge", "wavelength": "700nm - 1mm", "applications": "Télécommandes, vision nocturne, chauffage"},
+        {"type": "Lumière visible", "wavelength": "400-700 nm", "applications": "Vision, photographie, lasers"},
+        {"type": "Ultraviolet", "wavelength": "10-400 nm", "applications": "Stérilisation, bronzage, détection billets"},
+        {"type": "Rayons X", "wavelength": "0.01-10 nm", "applications": "Imagerie médicale, sécurité aéroport"},
+        {"type": "Rayons gamma", "wavelength": "< 0.01 nm", "applications": "Radiothérapie, astronomie gamma"}
+      ]
+    },
+    "applications": [
+      {"domain": "Électricité domestique", "principle": "Générateurs (loi de Faraday), transformateurs, moteurs électriques."},
+      {"domain": "Télécommunications", "principle": "Modulation d'ondes radio pour transporter l'information."},
+      {"domain": "Imagerie médicale", "principle": "IRM (résonance magnétique), radiographie (rayons X), échographie."},
+      {"domain": "Lasers", "principle": "Émission stimulée de lumière cohérente. Applications : chirurgie, communication optique, codes-barres."},
+      {"domain": "Énergie solaire", "principle": "Effet photoélectrique (Einstein, prix Nobel 1921) : photons → électrons dans les panneaux solaires."}
+    ],
+    "examples": [
+      {
+        "situation": "Utilisateur demande comment fonctionne le WiFi",
+        "recommended_behavior": "Expliquer que le WiFi utilise des ondes radio (2.4 GHz ou 5 GHz), des oscillations EM qui se propagent dans l'air, transportant des données via la modulation de la fréquence ou de l'amplitude.",
+        "avoid": "Répondre sans lier à la physique sous-jacente."
+      }
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["électromagnétisme", "Maxwell", "ondes électromagnétiques", "spectre EM", "champ magnétique"],
+    "related_domains": ["science", "technology"],
+    "related_knowledge": ["science.physics.quantum_mechanics", "technology.security.cryptography"],
+    "retrieval_priority": 7
+  },
+  "behavior_rules": {"tone": "educational", "response_style": "structured_clear", "max_complexity": "medium", "allow_humor": false},
+  "safety_notes": {"allowed_usage": ["Éducation scientifique"], "restricted_usage": [], "forbidden_usage": [], "fallback_behavior": "Adapter la complexité au niveau de l'utilisateur."},
+  "metadata": {"author": "ALFRED_SYSTEM", "creation_date": "03/07/2026", "last_update": "03/07/2026", "review_status": "active", "reviewed_by": "ALFRED_CORE", "source_type": "manual_structured_knowledge", "language": "fr", "retrieval_ready": true, "rag_compatible": true}
+}

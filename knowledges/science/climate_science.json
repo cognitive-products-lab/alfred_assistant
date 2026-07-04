@@ -1,0 +1,75 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "science.earth_science.climate_science",
+  "version": "1.0.0",
+  "domain": "science",
+  "subdomain": "earth_science",
+  "category": "environmental_science",
+  "priority": "high",
+  "safety_level": "normal",
+  "title": "Science du Climat",
+  "summary": "Science du climat : effet de serre, bilan énergétique terrestre, changement climatique anthropique, gaz à effet de serre, points de basculement et solutions.",
+  "purpose": "Permettre à ALFRED d'expliquer le fonctionnement du climat terrestre et les bases scientifiques du changement climatique.",
+  "tags": ["climat", "effet_de_serre", "CO2", "réchauffement_climatique", "GIEC", "bilan_carbone", "énergies_renouvelables", "tipping_points"],
+  "intents": ["explain_climate_science", "discuss_climate_change", "explain_greenhouse_effect", "answer_climate_question"],
+  "usage_context": ["Sciences naturelles", "Environnement", "Actualité"],
+  "content": {
+    "definition": "La science du climat étudie les composantes du système climatique (atmosphère, océans, glaces, sol, biosphère) et leurs interactions, à l'échelle de décennies à millénaires.",
+    "greenhouse_effect": {
+      "natural": "Des gaz (CO₂, H₂O, CH₄, N₂O) piègent une partie du rayonnement infrarouge terrestre → la Terre est ~33°C plus chaude qu'elle ne serait sans cet effet. Essentiel à la vie.",
+      "enhanced": "L'accumulation de GES anthropiques amplifie l'effet → réchauffement additionnel.",
+      "key_gases": [
+        {"gas": "CO₂", "source": "Combustibles fossiles, déforestation", "persistence": "~100-300 ans"},
+        {"gas": "CH₄ (méthane)", "source": "Élevage, rizières, gaz naturel", "gwp": "86× plus puissant que CO₂ sur 20 ans"},
+        {"gas": "N₂O", "source": "Agriculture, engrais azotés", "gwp": "265× CO₂"},
+        {"gas": "HFC", "source": "Climatiseurs, réfrigérants", "gwp": "Très élevé"}
+      ]
+    },
+    "observed_changes": {
+      "temperature": "+1.2°C de réchauffement moyen depuis l'ère pré-industrielle (GIEC AR6, 2021).",
+      "sea_level": "+20 cm depuis 1900, accélération : +3.7 mm/an actuellement.",
+      "ice": "Arctique perd ~13 % de sa glace estivale par décennie. Glaciers en recul mondial.",
+      "extreme_events": "Fréquence et intensité accrue des canicules, crues, sécheresses, cyclones."
+    },
+    "tipping_points": {
+      "description": "Seuils au-delà desquels des changements s'emballent de façon irréversible.",
+      "examples": [
+        "Fonte du pergélisol sibérien → libération massive de CH₄",
+        "Effondrement de la calotte Antarctique occidentale",
+        "Dépérissement de l'Amazonie (déforestation + sécheresse)",
+        "Ralentissement/arrêt de l'AMOC (courant Atlantique)"
+      ]
+    },
+    "ipcc_scenarios": {
+      "description": "Le GIEC définit des trajectoires (SSP) selon les émissions futures.",
+      "scenarios": [
+        "SSP1 (optimiste) : neutralité carbone 2050 → +1.5°C",
+        "SSP2 (médian) : réductions modérées → +2.7°C",
+        "SSP3 (pessimiste) : statu quo → +3.6°C",
+        "SSP5 (très pessimiste) : forte dépendance fossile → +4.4°C"
+      ]
+    },
+    "solutions": {
+      "mitigation": ["Énergies renouvelables (solaire, éolien)", "Efficacité énergétique", "Électrification des transports", "Arrêt de la déforestation", "Alimentation bas-carbone"],
+      "carbon_capture": ["Reforestation", "BECCS (bioénergie + capture CO₂)", "DAC (direct air capture)"],
+      "adaptation": ["Digues et protection côtières", "Agriculture résiliente", "Gestion de l'eau"]
+    },
+    "examples": [
+      {
+        "situation": "Utilisateur demande si le changement climatique est vraiment causé par l'homme",
+        "recommended_behavior": "Confirmer le consensus scientifique (97 % des climatologues, GIEC, NASANoaa) : l'origine anthropique est établie avec une probabilité > 95 %. Citer les signatures isotopiques du CO₂, la corrélation temporelle avec les émissions industrielles.",
+        "avoid": "Mettre en balance le consensus scientifique et les positions de déni."
+      }
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["changement climatique", "effet de serre", "CO2", "GIEC", "réchauffement", "tipping points"],
+    "related_domains": ["science", "geography"],
+    "related_knowledge": ["science.biology.ecology", "geography.physical.climate_zones"],
+    "retrieval_priority": 9
+  },
+  "behavior_rules": {"tone": "educational", "response_style": "structured_clear", "max_complexity": "medium", "allow_humor": false},
+  "safety_notes": {"allowed_usage": ["Éducation climatique"], "restricted_usage": [], "forbidden_usage": [], "fallback_behavior": "Rester factuel et ancré dans le consensus scientifique (GIEC)."},
+  "metadata": {"author": "ALFRED_SYSTEM", "creation_date": "03/07/2026", "last_update": "03/07/2026", "review_status": "active", "reviewed_by": "ALFRED_CORE", "source_type": "manual_structured_knowledge", "language": "fr", "retrieval_ready": true, "rag_compatible": true}
+}

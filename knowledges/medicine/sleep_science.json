@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "medicine.neurology.sleep_science",
+  "version": "1.0.0",
+  "domain": "medicine",
+  "subdomain": "neurology",
+  "category": "health_science",
+  "priority": "high",
+  "safety_level": "sensitive",
+  "title": "Science du Sommeil",
+  "summary": "Science du sommeil : cycles, stades (NREM/REM), rôle du sommeil, conséquences du manque, hygièn du sommeil et troubles fréquents (insomnie, apnée).",
+  "purpose": "Permettre à ALFRED d'expliquer la physiologie du sommeil et d'aider à améliorer la qualité du sommeil.",
+  "tags": ["sommeil", "REM", "NREM", "insomnie", "mélatonine", "cycles_sommeil", "hygiène_sommeil", "apnée", "chronotype"],
+  "intents": ["explain_sleep_science", "help_improve_sleep", "explain_sleep_cycles", "answer_sleep_question"],
+  "usage_context": ["Santé", "Productivité", "Bien-être"],
+  "content": {
+    "definition": "Le sommeil est un état physiologique actif essentiel à la récupération physique et mentale, à la consolidation mémorielle et à la régulation émotionnelle. Non pas absence d'activité mais activité cérébrale différente.",
+    "sleep_architecture": {
+      "cycle_duration": "Un cycle complet dure ~90 minutes. 4-6 cycles par nuit.",
+      "nrem_stages": [
+        {"stage": "N1 (5 %)", "description": "Transition éveil/sommeil. Hypnagogiques possibles. Facile à réveiller."},
+        {"stage": "N2 (45 %)", "description": "Sommeil léger. Spindles et K-complexes. Consolidation mémorielle déclarative."},
+        {"stage": "N3 (25 %)", "description": "Sommeil profond (ondes delta). Récupération physique, hormones de croissance, immunité. Difficile à réveiller."}
+      ],
+      "rem_stage": {"stage": "REM (25 %)", "description": "Sommeil paradoxal. Rêves intenses. Consolidation mémoire émotionnelle et procédurale. Paralysie musculaire (protection). Plus fréquent en fin de nuit."},
+      "first_half": "Dominé par le sommeil profond N3.",
+      "second_half": "Dominé par le sommeil REM."
+    },
+    "sleep_functions": [
+      "Récupération physique et réparation cellulaire.",
+      "Consolidation mémorielle : transfert hippocampe → cortex pendant N3.",
+      "Régulation émotionnelle : traitement des souvenirs émotionnels en REM.",
+      "Élimination des déchets métaboliques cérébraux (système glymphatique).",
+      "Régulation hormonale : mélatonine, ghréline, leptine (faim/satiété).",
+      "Renforcement immunitaire."
+    ],
+    "sleep_needs": {
+      "adults": "7-9 heures/nuit (recommandation OMS).",
+      "teenagers": "8-10 heures. Décalage circadien physiologique (chronotype tardif).",
+      "children": "9-12 heures. Essentiel pour le développement cérébral.",
+      "note": "La dette de sommeil n'est pas entièrement récupérable."
+    },
+    "sleep_deprivation_effects": [
+      "Déficits cognitifs (attention, mémoire de travail, prise de décision).",
+      "Irritabilité, instabilité émotionnelle.",
+      "Risque accru de maladies cardiovasculaires, diabète de type 2, obésité.",
+      "Effets sur le système immunitaire (vulnérabilité aux infections).",
+      "Au-delà de 24h sans sommeil : effets similaires à un taux d'alcoolémie de 0.1 g/L."
+    ],
+    "sleep_hygiene": [
+      "Horaires réguliers (même le week-end) — synchronise l'horloge circadienne.",
+      "Chambre fraîche (18-20°C), sombre et silencieuse.",
+      "Éviter les écrans 1h avant le coucher (lumière bleue → suppression mélatonine).",
+      "Pas de caféine après 14h (demi-vie ~6h).",
+      "Exposition à la lumière naturelle le matin → ancrage du rythme circadien.",
+      "Éviter les siestes > 20 min en journée."
+    ],
+    "common_disorders": [
+      {"disorder": "Insomnie", "description": "Difficulté à s'endormir ou à maintenir le sommeil > 3 nuits/semaine pendant > 3 mois. Traitement : TCC-I (thérapie cognitive comportementale) en premier recours."},
+      {"disorder": "Apnée du sommeil", "description": "Obstructions respiratoires nocturnes → micro-réveils. Ronflements, fatigue diurne. Traitement : PPC (pression positive continue)."},
+      {"disorder": "Narcolepsie", "description": "Somnolence diurne excessive, cataplexie. Maladie neurologique."},
+      {"disorder": "Syndrome des jambes sans repos", "description": "Besoin irrésistible de bouger les jambes au repos."}
+    ],
+    "examples": [
+      {
+        "situation": "Utilisateur dit qu'il dorme seulement 5-6h et se sent bien",
+        "recommended_behavior": "Expliquer que les 'petits dormeurs' (<1 % de la population avec une mutation rare) existent mais que la plupart des gens se trompent sur leurs besoins. La dette de sommeil chronique est associée à de graves risques. Recommander de tester 7-8h pendant 2 semaines.",
+        "avoid": "Valider la privation de sommeil sans nuance."
+      }
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["sommeil", "REM", "insomnie", "cycles du sommeil", "mélatonine", "hygiène du sommeil"],
+    "related_domains": ["medicine", "practical_skills"],
+    "related_knowledge": ["medicine.psychiatry.mental_health_basics", "practical_skills.productivity.time_management"],
+    "retrieval_priority": 9
+  },
+  "behavior_rules": {"tone": "educational", "response_style": "structured_clear", "max_complexity": "medium", "allow_humor": false},
+  "safety_notes": {"allowed_usage": ["Éducation sur le sommeil"], "restricted_usage": [], "forbidden_usage": [], "fallback_behavior": "Pour les troubles du sommeil sévères, recommander une consultation médicale (médecin généraliste ou somnologue)."},
+  "metadata": {"author": "ALFRED_SYSTEM", "creation_date": "03/07/2026", "last_update": "03/07/2026", "review_status": "active", "reviewed_by": "ALFRED_CORE", "source_type": "manual_structured_knowledge", "language": "fr", "retrieval_ready": true, "rag_compatible": true}
+}

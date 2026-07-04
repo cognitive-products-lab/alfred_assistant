@@ -1,0 +1,62 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "technology.computing.quantum_computing",
+  "version": "1.0.0",
+  "domain": "technology",
+  "subdomain": "computing",
+  "category": "emerging_technology",
+  "priority": "high",
+  "safety_level": "normal",
+  "title": "Informatique Quantique",
+  "summary": "Informatique quantique : qubits, superposition, intrication, portes quantiques, algorithmes (Shor, Grover), état actuel et risques pour la cryptographie.",
+  "purpose": "Permettre à ALFRED d'expliquer l'informatique quantique, ses promesses et ses implications technologiques.",
+  "tags": ["quantique", "qubit", "superposition", "intrication", "algorithme_Shor", "cryptographie_quantique", "IBM_Q", "avantage_quantique"],
+  "intents": ["explain_quantum_computing", "discuss_quantum_vs_classical", "explain_quantum_cryptography", "answer_technology_question"],
+  "usage_context": ["Technologie émergente", "Cryptographie", "Science des données"],
+  "content": {
+    "definition": "L'informatique quantique exploite les propriétés de la mécanique quantique (superposition, intrication) pour effectuer certains calculs exponentiellement plus rapides qu'un ordinateur classique.",
+    "classical_vs_quantum": {
+      "classical": "Bits = 0 ou 1. Calcul déterministe séquentiel.",
+      "quantum": "Qubits = 0, 1, ou superposition de 0 et 1 simultanément. Calcul probabiliste massivement parallèle."
+    },
+    "key_principles": {
+      "superposition": "Un qubit peut être dans un état superposé de 0 et 1 jusqu'à sa mesure. N qubits → 2ᴺ états simultanément.",
+      "entanglement": "Intrication : deux qubits corrélés quantiquement, même séparés à distance. Mesurer l'un détermine instantanément l'autre (non-localité).",
+      "interference": "L'interférence amplifie les 'bons' chemins de calcul et annule les mauvais.",
+      "decoherence": "L'interaction avec l'environnement détruit la superposition. Principal défi technique — nécessite un refroidissement à ~0.015 K."
+    },
+    "quantum_algorithms": [
+      {"algorithm": "Algorithme de Shor (1994)", "description": "Factorisation d'entiers en temps polynomial (exponentiel sur classique). Menace RSA et la plupart des systèmes cryptographiques actuels."},
+      {"algorithm": "Algorithme de Grover (1996)", "description": "Recherche dans une base non triée en O(√N) vs O(N) classique. Accélération quadratique."},
+      {"algorithm": "Simulation quantique", "description": "Simuler des systèmes chimiques/moléculaires quantiques. Applications : découverte de médicaments, matériaux."}
+    ],
+    "current_state": {
+      "players": "IBM (Quantum Eagle 127 qubits), Google (Sycamore), IonQ, Quantinuum, startups françaises (Pasqal, Alice&Bob).",
+      "quantum_advantage": "Google (2019) : 'Quantum supremacy' sur un calcul spécifique en 200s vs 10 000 ans classique. Contesté.",
+      "nisq_era": "NISQ (Noisy Intermediate-Scale Quantum) : ère actuelle — qubits bruités, < 1000 qubits. Pas encore d'avantage pratique général.",
+      "fault_tolerant": "Horizon : ordinateurs quantiques tolérants aux fautes → rupture technologique. Estimé à 10-20 ans."
+    },
+    "cryptographic_threat": {
+      "risk": "RSA-2048 et courbes elliptiques → vulnérables à Shor. Si un ordinateur quantique suffisamment puissant existe, toute la cryptographie actuelle est compromise.",
+      "post_quantum": "NIST (2022-2024) standardise des algorithmes post-quantiques résistants : CRYSTALS-Kyber, CRYSTALS-Dilithium (lattice cryptography).",
+      "harvest_now_decrypt_later": "Risque actuel : attaquants stockent des communications chiffrées aujourd'hui pour les déchiffrer quand le quantum sera mature."
+    },
+    "examples": [
+      {
+        "situation": "Utilisateur demande si l'informatique quantique va casser Internet",
+        "recommended_behavior": "Expliquer que oui, la cryptographie actuelle (RSA) serait vulnérable à un ordinateur quantique suffisamment puissant, mais que (1) cela prendra 10-20+ ans, (2) la transition vers la cryptographie post-quantique est en cours (NIST), (3) il ne faut pas paniquer mais agir maintenant.",
+        "avoid": "Dramatiser ou minimiser."
+      }
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["informatique quantique", "qubit", "superposition", "algorithme de Shor", "cryptographie post-quantique"],
+    "related_domains": ["technology", "mathematics"],
+    "related_knowledge": ["technology.security.cryptography", "mathematics.algebra.linear_algebra"],
+    "retrieval_priority": 8
+  },
+  "behavior_rules": {"tone": "educational", "response_style": "structured_clear", "max_complexity": "high", "allow_humor": false},
+  "safety_notes": {"allowed_usage": ["Éducation technologique"], "restricted_usage": [], "forbidden_usage": [], "fallback_behavior": "Clarifier la différence entre capacités actuelles et projections futures."},
+  "metadata": {"author": "ALFRED_SYSTEM", "creation_date": "03/07/2026", "last_update": "03/07/2026", "review_status": "active", "reviewed_by": "ALFRED_CORE", "source_type": "manual_structured_knowledge", "language": "fr", "retrieval_ready": true, "rag_compatible": true}
+}

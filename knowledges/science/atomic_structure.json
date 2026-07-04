@@ -1,0 +1,89 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "science.chemistry.atomic_structure",
+  "version": "1.0.0",
+  "domain": "science",
+  "subdomain": "chemistry",
+  "category": "fundamental_science",
+  "priority": "high",
+  "safety_level": "normal",
+  "title": "Structure de l'Atome",
+  "summary": "Structure atomique : protons, neutrons, électrons, modèles atomiques (Bohr, mécanique quantique), tableau périodique et liaisons chimiques.",
+  "purpose": "Permettre à ALFRED d'expliquer la structure de la matière, les éléments chimiques et les bases de la chimie atomique.",
+  "tags": ["atome", "proton", "électron", "neutron", "tableau_périodique", "liaison_chimique", "orbitale", "Bohr"],
+  "intents": ["explain_atomic_structure", "explain_periodic_table", "answer_chemistry_question", "explain_chemical_bonds"],
+  "usage_context": ["Chimie générale", "Physique atomique", "Science fondamentale"],
+  "content": {
+    "definition": "Un atome est la plus petite unité constitutive de la matière ordinaire, composée d'un noyau (protons + neutrons) entouré d'électrons en mouvement.",
+    "atomic_components": {
+      "proton": {"charge": "+1", "masse": "1 uma", "location": "Noyau", "note": "Détermine le numéro atomique Z et l'identité de l'élément."},
+      "neutron": {"charge": "0", "masse": "1 uma", "location": "Noyau", "note": "Avec les protons, forme la masse atomique. Les isotopes diffèrent par le nombre de neutrons."},
+      "electron": {"charge": "-1", "masse": "0.00055 uma", "location": "Orbitales autour du noyau", "note": "Responsable des liaisons chimiques et des propriétés chimiques."}
+    },
+    "atomic_models_history": [
+      {"model": "Dalton (1803)", "description": "Atomes comme sphères pleines indivisibles. Premier modèle scientifique."},
+      {"model": "Thomson (1897)", "description": "Modèle 'pudding aux raisins' : électrons négatifs dans une masse positive diffuse."},
+      {"model": "Rutherford (1911)", "description": "Noyau dense positif entouré d'électrons en orbite — expérience de la feuille d'or."},
+      {"model": "Bohr (1913)", "description": "Électrons sur des orbites circulaires fixes de niveaux d'énergie quantifiés. Explique le spectre de l'hydrogène."},
+      {"model": "Mécanique quantique (1926+)", "description": "Orbitales = régions de probabilité de présence électronique (Schrödinger). Modèle actuel."}
+    ],
+    "periodic_table": {
+      "organization": "118 éléments classés par Z croissant, en périodes (lignes) et groupes (colonnes).",
+      "periods": "Chaque période correspond à un niveau d'énergie électronique supplémentaire.",
+      "groups": "Les éléments d'un même groupe ont les mêmes électrons de valence → propriétés chimiques similaires.",
+      "key_groups": [
+        "Groupe 1 (alcalins) : réactifs, donnent 1 e⁻",
+        "Groupe 17 (halogènes) : captent 1 e⁻, très réactifs",
+        "Groupe 18 (gaz nobles) : stables, ne réagissent presque pas"
+      ]
+    },
+    "chemical_bonds": [
+      {"type": "Liaison covalente", "description": "Partage d'électrons entre atomes. Ex : H₂O, CO₂. Plus forte et directionnelle."},
+      {"type": "Liaison ionique", "description": "Transfert d'électrons → ions + et −. Ex : NaCl. Se forme entre métal et non-métal."},
+      {"type": "Liaison métallique", "description": "Électrons délocalisés dans un réseau d'ions positifs. Explique la conductivité des métaux."},
+      {"type": "Liaisons faibles (H, Van der Waals)", "description": "Interactions électrostatiques faibles. Cruciales en biologie (ADN, protéines)."}
+    ],
+    "isotopes": {
+      "definition": "Atomes d'un même élément (même Z) avec des nombres de neutrons différents.",
+      "examples": ["Carbone-12 (6p+6n) et Carbone-14 (6p+8n) — utilisé en datation radiocarbone", "Uranium-235 et Uranium-238 — usages nucléaires"],
+      "radioactivity": "Les isotopes instables se désintègrent en émettant des rayonnements (α, β, γ) → radioactivité."
+    },
+    "examples": [
+      {
+        "situation": "Utilisateur demande pourquoi le carbone peut former autant de molécules",
+        "recommended_behavior": "Expliquer la tétravalence du carbone (4 électrons de valence), sa capacité à former des chaînes et des cycles, base de la chimie organique.",
+        "avoid": "Répondre sans expliquer la configuration électronique."
+      }
+    ],
+    "best_practices": [
+      "Toujours partir du numéro atomique Z pour identifier un élément.",
+      "Distinguer nombre atomique (protons) de nombre de masse (protons + neutrons).",
+      "Les propriétés chimiques sont déterminées par les électrons de valence, pas par le noyau."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["atome", "proton", "électron", "tableau périodique", "liaison chimique", "orbitale"],
+    "related_domains": ["science", "mathematics"],
+    "related_knowledge": ["science.chemistry.organic_chemistry", "science.physics.quantum_mechanics"],
+    "retrieval_priority": 7
+  },
+  "behavior_rules": {"tone": "educational", "response_style": "structured_clear", "max_complexity": "medium", "allow_humor": false},
+  "safety_notes": {
+    "allowed_usage": ["Éducation scientifique"],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "Adapter le niveau de complexité selon le profil de l'utilisateur."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "03/07/2026",
+    "last_update": "03/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

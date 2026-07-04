@@ -1,0 +1,197 @@
+{
+  "_meta": {
+    "file": "project_status.json",
+    "description": "Fichier de pilotage projet ALFRED — état courant, avancement par domaine, backlog actif et jalons.",
+    "version": "1.0.0",
+    "last_update": "2026-07-03",
+    "updated_by": "ALFRED_SYSTEM"
+  },
+
+  "project": {
+    "name": "ALFRED",
+    "products": ["ALFRED PC", "ALFRED CPL", "ALFRED WEB", "ALFRED ANDROID"],
+    "owner": "Céline",
+    "phase": "V2 — Enrichissement & Consolidation",
+    "started": "2026-01-01",
+    "hardware": "Miniforum MS-S1 Max (3127€, acquis 02/07/2026)"
+  },
+
+  "knowledge_base": {
+    "status": "ENRICHISSEMENT_ACTIF",
+    "registry_version": "3.4.0",
+    "taxonomy_version": "3.4.0",
+    "manifest_version": "2.2.0",
+    "total_knowledge_files": 443,
+    "total_domains": 19,
+    "manual_structured_files": 120,
+    "filesystem_scan_files": 323,
+    "batches": [
+      {
+        "batch_id": "LOT1",
+        "date": "2026-06-29",
+        "files_created": 60,
+        "domains_added": 9,
+        "new_domains": ["science", "history", "technology", "geography", "philosophy", "medicine", "arts", "mathematics", "practical_skills"],
+        "registry_updated": true,
+        "taxonomy_updated": true,
+        "alfred_web_updated": true,
+        "status": "COMPLET"
+      },
+      {
+        "batch_id": "LOT2",
+        "date": "2026-07-03",
+        "files_created": 60,
+        "domains_added": 0,
+        "highlights": [
+          "science: nuclear_physics, biochemistry, astrophysics",
+          "history: ancient_egypt, decolonization, age_of_exploration, fall_of_berlin_wall",
+          "technology: web_development, mobile_technology, 3d_printing, social_media_evolution",
+          "geography: oceania, world_rivers, world_mountains",
+          "philosophy: rationalism_empiricism, buddhist_philosophy, metaphysics_basics",
+          "medicine: genetics_medicine, oncology_basics, rehabilitation_medicine",
+          "arts: theater_history, graphic_design_basics, contemporary_art",
+          "mathematics: mathematical_logic, topology_basics, differential_equations, cryptography_math",
+          "practical_skills: leadership, stress_management, gardening, diy_home, writing, emotional_intelligence"
+        ],
+        "registry_updated": true,
+        "taxonomy_updated": false,
+        "alfred_web_updated": false,
+        "status": "COMPLET",
+        "note": "taxonomy.json et knowledge_dashboard_data.json (Alfred Web) à mettre à jour pour refléter les nouveaux sous-domaines du lot 2."
+      }
+    ],
+    "next_batch": {
+      "batch_id": "LOT3",
+      "planned_date": "2026-07-04",
+      "target_files": 60,
+      "candidate_topics": [
+        "economics_basics, microeconomics, macroeconomics",
+        "law_basics, constitutional_law, digital_law",
+        "linguistics_basics, cognitive_linguistics",
+        "environmental_science, renewable_energy",
+        "sociology_basics, anthropology_basics",
+        "nutrition_science, sports_science",
+        "architecture_history, urban_planning",
+        "film_history, photography_basics",
+        "statistics_basics, probability_theory",
+        "personal_finance, investment_basics"
+      ]
+    }
+  },
+
+  "backlog": {
+    "priorities": [
+      {
+        "id": "B001",
+        "title": "Mettre à jour taxonomy.json avec les sous-domaines du LOT2",
+        "priority": "high",
+        "domain": "knowledge_base",
+        "status": "TODO",
+        "details": "Ajouter epistemology, world_traditions, metaphysics, genetics, oncology, rehabilitation, performing_arts, design, topology, applied_math, contemporary dans taxonomy.json v3.4.0"
+      },
+      {
+        "id": "B002",
+        "title": "Mettre à jour knowledge_dashboard_data.json (Alfred Web) avec stats LOT2",
+        "priority": "high",
+        "domain": "alfred_web",
+        "status": "TODO",
+        "details": "Mettre à jour total_knowledges: 383→443, enrichir les 9 blocs domaines avec les nouveaux fichiers du lot 2."
+      },
+      {
+        "id": "B003",
+        "title": "Créer LOT3 — 60 fichiers de connaissance (04/07/2026)",
+        "priority": "high",
+        "domain": "knowledge_base",
+        "status": "PLANNED",
+        "planned_date": "2026-07-04"
+      },
+      {
+        "id": "B004",
+        "title": "Compléter onboarding Céline",
+        "priority": "medium",
+        "domain": "personalization",
+        "status": "TODO",
+        "details": "Questionnaires personnalité/émotionnel/santé via run_full_onboarding('celine')"
+      },
+      {
+        "id": "B005",
+        "title": "Relancer Docker et vérifier build Android",
+        "priority": "medium",
+        "domain": "infra",
+        "status": "TODO",
+        "details": "Docker à relancer après mise à jour hardware. Build Android (ALFRED_ANDROID) à vérifier."
+      },
+      {
+        "id": "B006",
+        "title": "Résoudre doublon profile_analyzer",
+        "priority": "low",
+        "domain": "code",
+        "status": "TODO"
+      },
+      {
+        "id": "B007",
+        "title": "AIPD T001 — Analyse d'Impact Vie Privée initiale",
+        "priority": "medium",
+        "domain": "conformite",
+        "status": "TODO"
+      },
+      {
+        "id": "B008",
+        "title": "PSSI Formelle — Politique de Sécurité des SI",
+        "priority": "medium",
+        "domain": "securite",
+        "status": "TODO"
+      },
+      {
+        "id": "B009",
+        "title": "domain_links.json — Liens transverses science↔medicine↔mathematics",
+        "priority": "low",
+        "domain": "knowledge_base",
+        "status": "TODO"
+      }
+    ]
+  },
+
+  "infra": {
+    "hardware": {
+      "device": "Miniforum MS-S1 Max",
+      "acquisition_date": "2026-07-02",
+      "cost_eur": 3127,
+      "replaces": "UM890 + RTX5080 setup",
+      "status": "ACTIVE"
+    },
+    "software": {
+      "python": "3.13",
+      "node": "LTS",
+      "docker": "installed",
+      "ollama": "installed",
+      "claude_code": "v2.1.195",
+      "api_keys": "configured"
+    },
+    "deployment": {
+      "alfred_web": "Render (auto-deploy via sync_dashboards.py)",
+      "alfred_pc": "local",
+      "alfred_android": "build local"
+    }
+  },
+
+  "sessions_log": [
+    {
+      "date": "2026-06-29",
+      "work": "Création LOT1 (60 fichiers), mise à jour registry v3.3.0, taxonomy v3.4.0, Alfred Web dashboard_data.",
+      "status": "DONE"
+    },
+    {
+      "date": "2026-07-02",
+      "work": "Mise à jour hardware.html (MS-S1 Max), réconciliation dashboard_data_manifest.json v2.0.",
+      "status": "DONE"
+    },
+    {
+      "date": "2026-07-03",
+      "work": "Création LOT2 (60 fichiers), registry v3.4.0 (443 entrées), manifest.json v2.2.0, project_status.json créé.",
+      "status": "DONE"
+    }
+  ],
+
+  "_meta_status": "VALIDATED"
+}

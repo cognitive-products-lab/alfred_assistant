@@ -1,0 +1,65 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "mathematics.foundations.mathematical_logic",
+  "version": "1.0.0",
+  "domain": "mathematics",
+  "subdomain": "foundations",
+  "category": "logic",
+  "priority": "high",
+  "safety_level": "normal",
+  "title": "Logique Mathématique",
+  "summary": "Logique mathématique : propositions, connecteurs logiques, tables de vérité, logique des prédicats, théorème de Gödel, calculabilité et fondements des mathématiques.",
+  "purpose": "Permettre à ALFRED d'expliquer la logique mathématique, ses symboles et ses implications fondamentales.",
+  "tags": ["logique", "proposition", "prédicat", "Gödel", "tautologie", "connecteurs_logiques", "démonstration", "calculabilité"],
+  "intents": ["explain_mathematical_logic", "explain_truth_tables", "discuss_godel_theorem", "answer_mathematics_question"],
+  "usage_context": ["Mathématiques", "Informatique théorique", "Philosophie"],
+  "content": {
+    "definition": "La logique mathématique est la branche qui formalise le raisonnement déductif en utilisant des symboles et des règles précises. Elle fonde les mathématiques et l'informatique théorique.",
+    "propositional_logic": {
+      "definition": "Étudie les propositions (vraies ou fausses) et leurs combinaisons via des connecteurs logiques.",
+      "connectors": [
+        {"symbol": "¬", "name": "Négation (NON)", "example": "¬P = 'non P'"},
+        {"symbol": "∧", "name": "Conjonction (ET)", "example": "P ∧ Q = 'P et Q'"},
+        {"symbol": "∨", "name": "Disjonction (OU)", "example": "P ∨ Q = 'P ou Q'"},
+        {"symbol": "→", "name": "Implication", "example": "P → Q = 'si P alors Q'"},
+        {"symbol": "↔", "name": "Équivalence (SIVEL)", "example": "P ↔ Q = 'P si et seulement si Q'"}
+      ],
+      "tautology": "Tautologie : toujours vraie (ex: P ∨ ¬P). Contradiction : toujours fausse (ex: P ∧ ¬P).",
+      "example_truth_table": "P=V, Q=F → P∧Q=F, P∨Q=V, P→Q=F, ¬P=F."
+    },
+    "predicate_logic": {
+      "definition": "Étend la logique propositionnelle avec des quantificateurs et des prédicats.",
+      "quantifiers": [
+        {"symbol": "∀", "meaning": "Pour tout (universel). ∀x P(x) : 'tout x vérifie P'"},
+        {"symbol": "∃", "meaning": "Il existe (existentiel). ∃x P(x) : 'au moins un x vérifie P'"}
+      ],
+      "example": "∀x∈ℝ, x² ≥ 0. (tout réel, son carré est ≥ 0)"
+    },
+    "proof_methods": {
+      "direct": "Démonstration directe : P → Q, on suppose P et on démontre Q.",
+      "contrapositive": "Par contraposée : ¬Q → ¬P (équivalent logique à P → Q).",
+      "contradiction": "Par l'absurde (reductio ad absurdum) : supposer ¬Q, montrer contradiction → Q est vrai.",
+      "induction": "Récurrence : base (n=0 ou 1) + hérédité (si vrai au rang n, vrai au rang n+1)."
+    },
+    "godel_theorems": {
+      "incompleteness_1": "1er Théorème d'incomplétude (Gödel, 1931) : Tout système formel cohérent et assez puissant contient des propositions vraies mais indémontrables en son sein.",
+      "incompleteness_2": "2e Théorème d'incomplétude : Un tel système ne peut pas démontrer sa propre cohérence.",
+      "impact": "Révolution : les mathématiques ne peuvent pas être complètement formalisées. Fin du programme de Hilbert. Influence sur la philosophie des mathématiques et l'IA."
+    },
+    "computability": {
+      "turing": "Alan Turing (1936) : Machine de Turing — modèle théorique de calcul. 'Problème de l'arrêt' : indécidable.",
+      "church_turing": "Thèse de Church-Turing : tout ce qui est 'calculable' peut être calculé par une Machine de Turing.",
+      "complexity": "P vs NP : problème ouvert le plus célèbre en informatique. 1 million $ de prix Clay."
+    }
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["logique mathématique", "propositions", "Gödel", "quantificateurs", "démonstration", "tautologie", "calculabilité"],
+    "related_domains": ["mathematics", "technology"],
+    "related_knowledge": ["mathematics.discrete_math.graph_theory", "technology.computing.quantum_computing"],
+    "retrieval_priority": 8
+  },
+  "behavior_rules": {"tone": "educational", "response_style": "structured_clear", "max_complexity": "medium", "allow_humor": false},
+  "safety_notes": {"allowed_usage": ["Mathématiques éducatives"], "restricted_usage": [], "forbidden_usage": [], "fallback_behavior": "Adapter la formalisation au niveau de l'interlocuteur."},
+  "metadata": {"author": "ALFRED_SYSTEM", "creation_date": "03/07/2026", "last_update": "03/07/2026", "review_status": "active", "reviewed_by": "ALFRED_CORE", "source_type": "manual_structured_knowledge", "language": "fr", "retrieval_ready": true, "rag_compatible": true}
+}

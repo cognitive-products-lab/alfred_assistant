@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "mathematics.calculus.differential_equations",
+  "version": "1.0.0",
+  "domain": "mathematics",
+  "subdomain": "calculus",
+  "category": "applied_mathematics",
+  "priority": "high",
+  "safety_level": "normal",
+  "title": "Équations Différentielles",
+  "summary": "Équations différentielles ordinaires (EDO) et aux dérivées partielles (EDP) : définitions, méthodes de résolution, modèles (croissance, oscillateurs, diffusion, Maxwell) et applications.",
+  "purpose": "Permettre à ALFRED d'expliquer les équations différentielles, leurs types et leurs applications en physique, biologie et ingénierie.",
+  "tags": ["équations_différentielles", "EDO", "EDP", "Newton", "croissance_exponentielle", "oscillateur", "Maxwell", "modélisation"],
+  "intents": ["explain_differential_equations", "explain_ode", "explain_modeling", "answer_mathematics_question"],
+  "usage_context": ["Mathématiques", "Physique", "Ingénierie", "Biologie"],
+  "content": {
+    "definition": "Une équation différentielle est une équation reliant une fonction et ses dérivées. Elle modélise l'évolution de quantités qui varient dans le temps ou l'espace.",
+    "classifications": {
+      "ode_vs_pde": {
+        "ode": "EDO : fonctions d'une seule variable. dy/dx = f(x, y). Modèles en temps.",
+        "pde": "EDP : fonctions de plusieurs variables. ∂u/∂t = c² ∂²u/∂x². Modèles spatio-temporels."
+      },
+      "order": "Ordre = dérivée la plus haute. Ordre 1 : dy/dx = f. Ordre 2 : d²y/dx² + ... = 0.",
+      "linearity": "Linéaire : la fonction et ses dérivées apparaissent au degré 1. Non-linéaire : chaos possible."
+    },
+    "important_models": [
+      {
+        "model": "Croissance exponentielle / décroissance",
+        "equation": "dy/dt = ky",
+        "solution": "y(t) = y₀ eᵏᵗ",
+        "applications": ["Croissance bactérienne", "Désintégration radioactive (k<0)", "Intérêts composés", "Propagation épidémique (phase initiale)"]
+      },
+      {
+        "model": "Croissance logistique (Verhulst)",
+        "equation": "dy/dt = ky(1 - y/K)",
+        "solution": "Courbe en S (sigmoïde). y → K (capacité limite)",
+        "applications": ["Populations biologiques", "Saturation des marchés", "Diffusion des innovations (Rogers)"]
+      },
+      {
+        "model": "Oscillateur harmonique",
+        "equation": "d²x/dt² + ω²x = 0",
+        "solution": "x(t) = A cos(ωt + φ)",
+        "applications": ["Pendule simple (petits angles)", "Circuit LC électrique", "Vibrations mécaniques"]
+      },
+      {
+        "model": "Équation de la chaleur (Fourier)",
+        "equation": "∂u/∂t = α ∂²u/∂x²",
+        "applications": ["Diffusion de température", "Diffusion de particules", "Finance (Black-Scholes)"]
+      },
+      {
+        "model": "Équations de Maxwell",
+        "description": "4 EDPs vectorielles décrivant le champ électromagnétique. ∇×E = -∂B/∂t, etc.",
+        "applications": "Prédisent les ondes électromagnétiques. Fondement de toute l'électronique moderne."
+      }
+    ],
+    "resolution_methods": {
+      "separation": "Séparation des variables : dy/dx = g(x)h(y) → ∫dy/h(y) = ∫g(x)dx.",
+      "integrating_factor": "Facteur intégrant pour EDO linéaire d'ordre 1 : μ(x) = e^(∫P(x)dx).",
+      "characteristic_equation": "EDO linéaire à coefficients constants : chercher solutions e^(rx) → équation caractéristique.",
+      "numerical": "Méthodes numériques : Euler, Runge-Kutta (RK4). Indispensables pour équations non intégrables analytiquement (simulations)."
+    },
+    "applications": [
+      "Physique : mécanique (Newton), électromagnétisme (Maxwell), quantique (Schrödinger Hψ = Eψ).",
+      "Ingénierie : systèmes de contrôle, circuits, mécanique des fluides (Navier-Stokes).",
+      "Biologie : épidémiologie (SIR), pharmacocinétique, réseaux neuronaux (Hodgkin-Huxley).",
+      "Finance : Black-Scholes pour les options (PDE parabolique)."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["équations différentielles", "EDO", "EDP", "croissance exponentielle", "oscillateur", "modélisation", "Runge-Kutta"],
+    "related_domains": ["mathematics"],
+    "related_knowledge": ["mathematics.algebra.linear_algebra", "mathematics.foundations.mathematical_logic"],
+    "retrieval_priority": 8
+  },
+  "behavior_rules": {"tone": "educational", "response_style": "structured_clear", "max_complexity": "high", "allow_humor": false},
+  "safety_notes": {"allowed_usage": ["Mathématiques éducatives"], "restricted_usage": [], "forbidden_usage": [], "fallback_behavior": "Partir des applications concrètes avant les formalismes."},
+  "metadata": {"author": "ALFRED_SYSTEM", "creation_date": "03/07/2026", "last_update": "03/07/2026", "review_status": "active", "reviewed_by": "ALFRED_CORE", "source_type": "manual_structured_knowledge", "language": "fr", "retrieval_ready": true, "rag_compatible": true}
+}

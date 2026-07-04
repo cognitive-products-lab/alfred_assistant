@@ -1,0 +1,63 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "medicine.oncology.oncology_basics",
+  "version": "1.0.0",
+  "domain": "medicine",
+  "subdomain": "oncology",
+  "category": "diseases",
+  "priority": "high",
+  "safety_level": "sensitive",
+  "title": "Oncologie — Bases du Cancer",
+  "summary": "Bases de l'oncologie : mécanismes du cancer (mutations, oncogènes, prolifération), types de cancer, traitements (chirurgie, chimio, radiothérapie, immunothérapie), prévention et dépistage.",
+  "purpose": "Permettre à ALFRED d'expliquer les bases du cancer et des traitements oncologiques, avec sensibilité et précision.",
+  "tags": ["cancer", "oncologie", "tumeur", "chimiothérapie", "immunothérapie", "métastase", "dépistage", "oncogène", "radiothérapie"],
+  "intents": ["explain_cancer_basics", "explain_cancer_treatments", "discuss_cancer_prevention", "answer_oncology_question"],
+  "usage_context": ["Médecine", "Santé", "Prévention"],
+  "content": {
+    "definition": "Le cancer est un ensemble de maladies caractérisées par une prolifération cellulaire anormale, incontrôlée et potentiellement invasive ou métastatique.",
+    "mechanisms": {
+      "normal_cell_division": "Les cellules normales se divisent de manière contrôlée et meurent par apoptose (mort cellulaire programmée).",
+      "mutations": "Mutations dans des gènes régulateurs entraînent une division incontrôlée.",
+      "oncogenes": "Oncogènes : gènes normalement impliqués dans la croissance, mutés en 'accélérateurs' permanents (ex: KRAS, HER2).",
+      "tumor_suppressors": "Gènes suppresseurs de tumeur : 'freins'. Mutation → perte de contrôle (ex: TP53 — muté dans >50 % des cancers, BRCA1/2).",
+      "hallmarks": "Hallmarks of Cancer (Hanahan & Weinberg) : autosuffisance en signaux croissance, insensibilité aux inhibiteurs, échappement à l'apoptose, potentiel réplicatif illimité, angiogenèse, invasion/métastase, reprogrammation métabolique, échappement immunitaire."
+    },
+    "classification": {
+      "by_origin": [
+        "Carcinomes : épithélium (80 % des cancers). Sein, poumon, côlon, prostate.",
+        "Sarcomes : tissu conjonctif (os, muscle).",
+        "Leucémies : cellules sanguines (moelle osseuse).",
+        "Lymphomes : lymphocytes (ganglions, rate). Hodgkin, non-Hodgkin.",
+        "Gliomes : tissu nerveux (cerveau)."
+      ],
+      "staging": "TNM : Taille tumeur (T0-T4), Nœuds lymphatiques (N0-N3), Métastases (M0-M1). Stade I-IV."
+    },
+    "treatments": {
+      "surgery": "Exérèse de la tumeur. Curatif si localise. Peut inclure ganglions sentinelles.",
+      "radiotherapy": "Rayonnements ionisants pour détruire les cellules cancéreuses. Externe ou interne (curiethérapie).",
+      "chemotherapy": "Médicaments cytotoxiques tuant cellules à division rapide. Effets secondaires systémiques (nausées, alopécie, immunosuppression).",
+      "immunotherapy": {
+        "description": "Stimule ou restaure la capacité du système immunitaire à reconnaître et détruire le cancer.",
+        "checkpoint_inhibitors": "Inhibiteurs de points de contrôle : anti-PD1 (pembrolizumab), anti-CTLA4 (ipilimumab). Révolution en mélanome, CBNPC, etc.",
+        "car_t": "CAR-T cells : lymphocytes reprogrammés par génie génétique pour cibler le cancer. Leucémies et lymphomes. Coût : ~400 000 €."
+      },
+      "targeted_therapy": "Médicaments ciblant des mutations spécifiques (imatinib/Glivec pour LMC — révolutionnaire).",
+      "hormone_therapy": "Cancer hormono-dépendants (sein, prostate) : blocage des hormones."
+    },
+    "prevention_screening": {
+      "prevention": ["Non-tabagisme (cause 30 % des cancers)", "Alimentation (fruits/légumes, limiter viandes transformées)", "Activité physique", "Protection UV", "Vaccins (HPV, hépatite B)"],
+      "screening": ["Mammographie (sein, 50-74 ans)", "Coloscopie / test hémoccult (côlon)", "Frottis cervico-vaginal (col)", "PSA (prostate, controversé)", "Scanner faible dose (poumon, ex-fumeurs)"]
+    },
+    "epidemiology": "Cancer : 2e cause de mort mondiale (~10 M décès/an). 1 Français sur 2 développera un cancer dans sa vie. Survie à 5 ans en amélioration constante (taux global ~65 %)."
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["cancer", "oncologie", "tumeur", "chimiothérapie", "immunothérapie", "dépistage", "métastase", "BRCA"],
+    "related_domains": ["medicine"],
+    "related_knowledge": ["medicine.genetics.genetics_medicine", "medicine.public_health.epidemiology"],
+    "retrieval_priority": 8
+  },
+  "behavior_rules": {"tone": "empathetic_educational", "response_style": "structured_clear", "max_complexity": "medium", "allow_humor": false},
+  "safety_notes": {"allowed_usage": ["Éducation médicale sur le cancer", "Explication de traitements"], "restricted_usage": ["Ne pas diagnostiquer", "Ne pas remplacer l'oncologiste"], "forbidden_usage": ["Thérapies alternatives non prouvées présentées comme curatifs"], "fallback_behavior": "Toujours recommander de consulter un oncologue pour les décisions de traitement. Faire preuve d'empathie avec les personnes touchées par le cancer."},
+  "metadata": {"author": "ALFRED_SYSTEM", "creation_date": "03/07/2026", "last_update": "03/07/2026", "review_status": "active", "reviewed_by": "ALFRED_CORE", "source_type": "manual_structured_knowledge", "language": "fr", "retrieval_ready": true, "rag_compatible": true}
+}
