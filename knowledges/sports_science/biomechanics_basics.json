@@ -1,0 +1,57 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "sports_science.biomechanics.biomechanics_basics",
+  "version": "1.0.0",
+  "domain": "sports_science",
+  "subdomain": "biomechanics",
+  "category": "movement_science",
+  "priority": "medium",
+  "safety_level": "normal",
+  "title": "Biomécanique du Sport",
+  "summary": "Biomécanique sportive : analyse du mouvement, lois de Newton appliquées au sport, cinématique (vitesse, accélération), cinétique (forces, moments), levier musculaire, course à pied, natation, saut — optimisation de la technique.",
+  "purpose": "Permettre à ALFRED d'expliquer les principes biomécaniques qui sous-tendent la performance sportive et la prévention des blessures.",
+  "tags": ["biomécanique", "sport", "analyse_mouvement", "Newton", "forces", "levier", "course_à_pied", "technique_sportive", "prévention_blessures"],
+  "intents": ["explain_biomechanics", "explain_sports_technique", "help_injury_prevention", "answer_sports_science_question"],
+  "usage_context": ["Sport", "Sciences du mouvement", "Kinésithérapie"],
+  "content": {
+    "definition": "La biomécanique sportive applique les principes mécaniques (cinématique, dynamique) à l'étude des mouvements humains pour optimiser la performance et réduire les risques de blessures.",
+    "newton_laws": {
+      "first": "1ère loi (inertie) : un corps reste au repos ou en mouvement uniforme tant qu'aucune force extérieure ne s'exerce sur lui. Application : le sprinter en accélération doit vaincre son inertie initiale.",
+      "second": "2ème loi (F=ma) : l'accélération est proportionnelle à la force et inversement proportionnelle à la masse. Plus on est léger et puissant, plus on accélère vite. Optimisation rapport puissance/poids.",
+      "third": "3ème loi (action-réaction) : à toute force exercée correspond une force égale et opposée. La foulée du coureur pousse le sol → le sol le propulse vers l'avant."
+    },
+    "kinematics": {
+      "definition": "Cinématique : description du mouvement sans considération des causes (forces). Paramètres : position, vitesse, accélération, angle articulaire.",
+      "capture": "Capture du mouvement (Motion Capture) : marqueurs réfléchissants + caméras infrarouge → reconstruction 3D. Standard en recherche et dans le sport de haut niveau.",
+      "running": {
+        "stride": "Foulée : phase d'appui (contact sol ~200ms en sprint) + phase aérienne. Cadence : 180 pas/min en running (optimale). Longueur de foulée vs cadence.",
+        "foot_strike": "Attaque du pied : talon (rearfoot strike — amortissement) vs médio-pied (midfoot) vs avant-pied (forefoot — explosif). Débat sur la blessure selon le type.",
+        "economy": "Économie de course : O₂ consommé pour un km donné. Améliorée par la technique, la raideur tendineuse (utilisation énergie élastique)."
+      }
+    },
+    "kinetics": {
+      "ground_reaction": "Force de réaction du sol (GRF) : force exercée par le sol sur le pied. ~2-3× le poids du corps en course. Mesurée par plateforme de force.",
+      "levers": "Leviers musculaires : os + articulation + muscle = système de levier. La plupart des leviers humains sont de 3ème genre (peu favorables mécaniquement mais rapides). Ex. : biceps brachial.",
+      "torque": "Moment de force (torque) = force × bras de levier. Optimiser la position pour maximiser le torque ou le minimiser selon l'objectif."
+    },
+    "swimming": {
+      "drag": "En natation : traîne (drag) = résistance de l'eau. Proportionnelle au carré de la vitesse. Importance du profil hydrodynamique (corps plat, faible rotation des hanches excessive).",
+      "propulsion": "Propulsion : force de portance + traîne sur la main (Bernoulli). Technique de nage optimisée pour maximiser la propulsion, minimiser la traîne."
+    },
+    "injury_prevention": {
+      "overuse": "Blessures de surutilisation (overuse) : résultat d'une contrainte répétée dépassant la capacité de récupération. Syndrome rotulien, fasciite plantaire, périostites.",
+      "analysis": "Analyse biomécanique pour prévention : identifier les compensations et déséquilibres. Ex. : valgus dynamique du genou au squat → renforcement fessiers.",
+      "load_management": "Gestion de la charge : ratio charge aiguë/charge chronique (ACWR). Risque élevé si ACWR > 1.5 (surcharge soudaine)."
+    }
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["biomécanique", "analyse du mouvement", "course à pied", "forces", "cinématique", "levier musculaire", "prévention blessures", "technique sportive"],
+    "related_domains": ["sports_science"],
+    "related_knowledge": ["sports_science.physiology.sports_physiology", "sports_science.training.training_principles"],
+    "retrieval_priority": 7
+  },
+  "behavior_rules": {"tone": "educational", "response_style": "structured_clear", "max_complexity": "medium", "allow_humor": false},
+  "safety_notes": {"allowed_usage": ["Éducation en biomécanique sportive"], "restricted_usage": [], "forbidden_usage": [], "fallback_behavior": "Pour la prise en charge de blessures, orienter vers kinésithérapeute ou médecin du sport."},
+  "metadata": {"author": "ALFRED_SYSTEM", "creation_date": "04/07/2026", "last_update": "04/07/2026", "review_status": "active", "reviewed_by": "ALFRED_CORE", "source_type": "manual_structured_knowledge", "language": "fr", "retrieval_ready": true, "rag_compatible": true}
+}
