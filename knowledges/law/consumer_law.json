@@ -1,0 +1,54 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "law.consumer.consumer_law",
+  "version": "1.0.0",
+  "domain": "law",
+  "subdomain": "consumer",
+  "category": "civil_law",
+  "priority": "high",
+  "safety_level": "sensitive",
+  "title": "Droit de la Consommation",
+  "summary": "Droit de la consommation : droit de rétractation (14j), garanties légales (conformité, vices cachés), clauses abusives, crédit à la consommation (Lagarde), pratiques commerciales trompeuses, e-commerce, DGCCRF.",
+  "purpose": "Permettre à ALFRED d'expliquer les droits des consommateurs en France et les recours disponibles en cas de litige.",
+  "tags": ["droit_consommation", "droit_rétractation", "garanties", "clauses_abusives", "crédit_consommation", "e-commerce", "DGCCRF", "pratiques_trompeuses"],
+  "intents": ["explain_consumer_rights", "help_with_consumer_dispute", "explain_warranty_rights", "answer_legal_question"],
+  "usage_context": ["Droit", "Consommation", "Quotidien", "E-commerce"],
+  "content": {
+    "definition": "Le droit de la consommation protège le consommateur (personne physique agissant hors profession) face aux professionnels, en rééquilibrant une relation structurellement déséquilibrée.",
+    "withdrawal_right": {
+      "duration": "Droit de rétractation : 14 jours calendaires après réception (vente à distance, démarchage). Sans motif, sans pénalité (frais de retour peuvent être à la charge du consommateur si prévu).",
+      "exclusions": "Exclusions : biens personnalisés, denrées périssables, contenus numériques téléchargés, services pleinement exécutés avec accord.",
+      "refund": "Remboursement : professionnel dispose de 14 jours après rétractation. Même moyen de paiement par défaut."
+    },
+    "guarantees": {
+      "conformity": "Garantie légale de conformité (Code de la consommation) : 2 ans (biens neufs), 1 an (occasion). Bien conforme = correspond à la description, adapté à l'usage, qualité normale. Réparation ou remplacement d'abord.",
+      "hidden_defects": "Garantie des vices cachés (Code civil, art. 1641) : défaut antérieur à la vente, non apparent lors de l'achat, rendant le bien impropre ou diminuant son usage. 2 ans à partir de la découverte du vice. Action en justice possible.",
+      "commercial": "Garantie commerciale (constructeur) : s'ajoute aux garanties légales. Doit mentionner qu'elle ne prive pas le consommateur des garanties légales."
+    },
+    "unfair_terms": {
+      "definition": "Clauses abusives (art. L212-1) : créent un déséquilibre significatif au détriment du consommateur. Liste noire (irréfragablement abusives) et liste grise (présumées abusives).",
+      "examples": ["Clause excluant toute responsabilité du professionnel", "Clause modifiant unilatéralement les caractéristiques du bien/service", "Clause imposant au consommateur des obligations excessives"],
+      "effects": "Clauses abusives : réputées non écrites. Reste du contrat valide."
+    },
+    "credit": {
+      "lagarde": "Loi Lagarde (2010) : réforme du crédit à la consommation. Étude de solvabilité obligatoire, délai de réflexion 14j, fiche de dialogue.",
+      "teg": "TAEG (Taux Annuel Effectif Global) : doit être mentionné dans toute publicité de crédit. Inclut tous les frais. Facilite la comparaison.",
+      "revolving": "Crédit revolving : taux élevé (15-20 %). Obligation de proposer un crédit amortissable alternatif au-delà d'un seuil (1 000 €)."
+    },
+    "e_commerce": {
+      "obligations": "E-commerce : informations précontractuelles obligatoires (prix TTC, identité vendeur, caractéristiques essentielles), confirmation écrite, délai de livraison.",
+      "marketplace": "Marketplace : plateformes comme Amazon doivent informer si vendeur est professionnel ou particulier (garanties différentes).",
+      "dgccrf": "DGCCRF (Direction Générale de la Concurrence, Consommation et Répression des Fraudes) : enquêtes, sanctions (jusqu'à 5 % CA), médiation."
+    }
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["droit consommation", "droit de rétractation", "garanties légales", "clauses abusives", "crédit consommation", "e-commerce", "DGCCRF"],
+    "related_domains": ["law"],
+    "related_knowledge": ["law.foundations.law_basics", "law.digital.digital_law"],
+    "retrieval_priority": 9
+  },
+  "behavior_rules": {"tone": "educational", "response_style": "structured_clear", "max_complexity": "medium", "allow_humor": false},
+  "safety_notes": {"allowed_usage": ["Information sur les droits des consommateurs"], "restricted_usage": [], "forbidden_usage": [], "fallback_behavior": "Pour litiges complexes, orienter vers la DGCCRF, une association de consommateurs (UFC-Que Choisir, CLCV) ou un avocat."},
+  "metadata": {"author": "ALFRED_SYSTEM", "creation_date": "04/07/2026", "last_update": "04/07/2026", "review_status": "active", "reviewed_by": "ALFRED_CORE", "source_type": "manual_structured_knowledge", "language": "fr", "retrieval_ready": true, "rag_compatible": true}
+}

@@ -1,0 +1,67 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "nutrition.micronutrients.micronutrients_vitamins",
+  "version": "1.0.0",
+  "domain": "nutrition",
+  "subdomain": "micronutrients",
+  "category": "nutritional_science",
+  "priority": "high",
+  "safety_level": "sensitive",
+  "title": "Micronutriments — Vitamines et Minéraux",
+  "summary": "Micronutriments : vitamines liposolubles (A, D, E, K) et hydrosolubles (B1-B12, C), minéraux essentiels (calcium, fer, magnésium, zinc, iode), carence et toxicité, sources alimentaires.",
+  "purpose": "Permettre à ALFRED de répondre aux questions sur les vitamines, les minéraux, leurs rôles biologiques et les sources alimentaires.",
+  "tags": ["micronutriments", "vitamines", "minéraux", "vitamine_D", "vitamine_C", "calcium", "fer", "magnésium", "zinc", "carence"],
+  "intents": ["explain_vitamins_minerals", "explain_micronutrients", "answer_nutrition_question", "help_dietary_choices"],
+  "usage_context": ["Nutrition", "Santé", "Alimentation"],
+  "content": {
+    "definition": "Les micronutriments (vitamines et minéraux) sont nécessaires en petites quantités mais essentiels aux fonctions biologiques. Pas d'apport énergétique.",
+    "fat_soluble_vitamins": {
+      "vitamin_a": {
+        "role": "Vitamine A (rétinol) : vision (pigments rétiniens), immunité, différenciation cellulaire, peau.",
+        "sources": "Foie, œufs, produits laitiers. Provitamine A (bêta-carotène) : carottes, patates douces, mangues.",
+        "deficiency": "Carence : xérophtalmie, cécité nocturne. 1ère cause de cécité évitable mondialement.",
+        "toxicity": "Toxicité possible (hypervitaminose A) si supplémentation excessive — surtout pendant grossesse."
+      },
+      "vitamin_d": {
+        "role": "Vitamine D (calciférol) : absorption calcium et phosphore, santé osseuse, immunité, neurologie. Rôle probable dans cancer, diabète, maladies auto-immunes.",
+        "synthesis": "Synthèse cutanée sous UVB (source principale ~80 %). Sources alimentaires : poissons gras, champignons UVB.",
+        "deficiency": "Carence très répandue (~1 milliard de personnes). Risque élevé : peau foncée, faible ensoleillement, personnes âgées, voile. Seuil : 25-OH-D <30 nmol/L.",
+        "supplementation": "Supplémentation recommandée : 800-2000 UI/j en France (Novembre-Avril minimum)."
+      },
+      "vitamin_e": "Vitamine E (tocophérol) : antioxydant majeur. Protège les membranes cellulaires contre l'oxydation. Sources : huiles végétales, noix, amandes.",
+      "vitamin_k": "Vitamine K1 (phylloquinone, légumes verts) : coagulation sanguine. Vitamine K2 (ménaquinone, fermentation) : santé osseuse, cardiovasculaire."
+    },
+    "water_soluble_vitamins": {
+      "vitamin_c": {
+        "role": "Vitamine C (acide ascorbique) : synthèse collagène, antioxydant, absorption du fer non-hémique, immunité.",
+        "sources": "Poivrons, kiwis, agrumes, fraises, brocolis. Détruite par la chaleur.",
+        "deficiency": "Carence → scorbut (historiquement fréquent chez marins). Apport recommandé : 110 mg/j (France)."
+      },
+      "b_vitamins": {
+        "b1": "B1 (thiamine) : métabolisme glucides, fonctions nerveuses. Déficit → béribéri, syndrome de Wernicke (alcoolisme).",
+        "b9": "B9 (folates/acide folique) : synthèse ADN, division cellulaire. Critique pendant grossesse (prévention spina bifida). Sources : légumes à feuilles vertes, légumineuses.",
+        "b12": "B12 (cobalamine) : myéline, globules rouges, ADN. Sources UNIQUEMENT animales → supplémentation indispensable chez végans. Déficit → anémie pernicieuse, neuropathies."
+      }
+    },
+    "minerals": {
+      "calcium": "Calcium : santé osseuse, contraction musculaire, signal nerveux. Sources : produits laitiers, sardines (arêtes), légumes verts, fortifiés. Absorption favorisée par vitamine D.",
+      "iron": {
+        "role": "Fer : transport de l'oxygène (hémoglobine), métabolisme énergétique. Déficit = anémie ferriprive (plus fréquente au monde).",
+        "types": "Fer héminique (viande, poisson) = mieux absorbé (25 %). Fer non-héminique (légumineuses, épinards) = 5-10 %. Vitamine C améliore l'absorption."
+      },
+      "magnesium": "Magnésium : >300 réactions enzymatiques, neurotransmission, glycémie, tension artérielle. Sources : chocolat noir, légumineuses, noix, céréales complètes. Carence fréquente (stress).",
+      "zinc": "Zinc : immunité, cicatrisation, goût, olfaction, reproduction. Sources : huîtres (++), viande rouge, noix, légumineuses.",
+      "iodine": "Iode : synthèse des hormones thyroïdiennes (T3, T4). Sources : poissons, fruits de mer, sel iodé. Carence → goitre, crétinisme (hypothyroïdie congénitale)."
+    }
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["vitamines", "minéraux", "micronutriments", "vitamine D", "vitamine B12", "calcium", "fer", "magnésium", "carence"],
+    "related_domains": ["nutrition", "medicine"],
+    "related_knowledge": ["nutrition.foundations.fundamentals", "nutrition.macronutrients.macronutrients_deep"],
+    "retrieval_priority": 9
+  },
+  "behavior_rules": {"tone": "educational", "response_style": "structured_clear", "max_complexity": "medium", "allow_humor": false},
+  "safety_notes": {"allowed_usage": ["Éducation nutritionnelle sur les micronutriments"], "restricted_usage": ["Ne pas prescrire de suppléments sans bilan biologique"], "forbidden_usage": [], "fallback_behavior": "En cas de suspicion de carence, recommander un bilan sanguin chez le médecin."},
+  "metadata": {"author": "ALFRED_SYSTEM", "creation_date": "04/07/2026", "last_update": "04/07/2026", "review_status": "active", "reviewed_by": "ALFRED_CORE", "source_type": "manual_structured_knowledge", "language": "fr", "retrieval_ready": true, "rag_compatible": true}
+}

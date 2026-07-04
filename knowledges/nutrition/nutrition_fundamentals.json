@@ -1,0 +1,66 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "nutrition.foundations.fundamentals",
+  "version": "1.0.0",
+  "domain": "nutrition",
+  "subdomain": "foundations",
+  "category": "food_science",
+  "priority": "high",
+  "safety_level": "sensitive",
+  "title": "Nutrition — Fondements",
+  "summary": "Nutrition fondamentale : macronutriments, micronutriments, besoins énergétiques (TMB, TDEE), équilibre alimentaire, digestion, index glycémique et principes d'une alimentation saine.",
+  "purpose": "Permettre à ALFRED d'expliquer les bases scientifiques de la nutrition et d'orienter vers de bonnes habitudes alimentaires.",
+  "tags": ["nutrition", "macronutriments", "calories", "protéines", "glucides", "lipides", "vitamines", "minéraux", "alimentation_équilibrée"],
+  "intents": ["explain_nutrition", "explain_macronutrients", "help_with_diet", "answer_food_science_question"],
+  "usage_context": ["Santé", "Alimentation", "Bien-être"],
+  "content": {
+    "definition": "La nutrition est la science qui étudie les nutriments, leur rôle dans l'organisme et les effets de l'alimentation sur la santé.",
+    "energy": {
+      "calories": "Calorie (kcal) : unité d'énergie alimentaire. 1 kcal = énergie pour élever 1 kg d'eau de 1°C.",
+      "tmb": "Taux Métabolique de Base (TMB) : énergie au repos. Formule Mifflin-St Jeor : ♂ 10×P + 6.25×T - 5×A + 5. ♀ 10×P + 6.25×T - 5×A - 161.",
+      "tdee": "TDEE (Total Daily Energy Expenditure) = TMB × coefficient d'activité (1.2 sédentaire → 1.9 très actif).",
+      "balance": "Bilan énergétique : apports = dépenses → maintien. Surplus → prise de masse. Déficit → perte de poids."
+    },
+    "macronutrients": {
+      "carbohydrates": {
+        "calories": "4 kcal/g",
+        "role": "Source d'énergie principale (cerveau, muscles). Glucose → glycogène → lipides.",
+        "types": ["Simples : sucres rapides (saccharose, fructose)", "Complexes : amidon, fibres (céréales, légumineuses)"],
+        "gi": "Index glycémique (IG) : vitesse d'élévation de la glycémie. Haut IG (pain blanc, 70+) → pic insuline. Bas IG (<55 : légumineuses, avoine).",
+        "recommendation": "45-65 % des calories. Privilégier IG bas et fibres."
+      },
+      "proteins": {
+        "calories": "4 kcal/g",
+        "role": "Construction et réparation des tissus, enzymes, hormones, immunité, transport (hémoglobine).",
+        "sources": ["Animales : viande, poisson, œufs, lait (protéines complètes — 9 acides aminés essentiels)", "Végétales : légumineuses, tofu, seitan (complémentation nécessaire sauf quinoa, soja)"],
+        "recommendation": "0.8 g/kg/j (sédentaire) → 1.6-2.2 g/kg/j (sport intensif)."
+      },
+      "lipids": {
+        "calories": "9 kcal/g",
+        "role": "Énergie de réserve, hormones stéroïdiennes, absorption vitamines liposolubles (A, D, E, K), membranes cellulaires.",
+        "types": ["Saturés (beurre, fromage) : limiter", "Insaturés monoinsaturés (huile olive, avocat) : bénéfiques", "Insaturés polyinsaturés : Oméga-3 (poisson gras, lin — anti-inflammatoires), Oméga-6", "Trans (industriels) : éviter"],
+        "recommendation": "30-35 % des calories. Privilégier insaturés. Ratio Ω6/Ω3 < 5:1 (actuel occidental ~15:1)."
+      }
+    },
+    "micronutrients": {
+      "vitamins": "Liposolubles (A, D, E, K) — stockées dans les graisses. Hydrosolubles (C, B1-B12) — éliminées dans les urines, apport régulier nécessaire.",
+      "key_vitamins": ["D : os, immunité. Carence fréquente (ensoleillement insuffisant). Supplémentation recommandée en hiver.", "B12 : neurones, globules rouges. Absente des végétaux → supplémentation obligatoire vegans.", "C : antioxydant, immunité, collagène."],
+      "minerals": ["Calcium (os, dents) : lait, fromage, sardines, tofu", "Fer (hémoglobine) : viande rouge, lentilles, épinards — mieux absorbé avec vitamine C", "Magnésium (muscles, nerfs) : oléagineux, légumineuses, chocolat noir", "Zinc (immunité, peau) : viande, huîtres, noix"]
+    },
+    "dietary_patterns": {
+      "mediterranean": "Régime méditerranéen : référence scientifique. Huile d'olive, légumes, légumineuses, poissons gras, fruits. Réduction MCV -30 % (étude PREDIMED).",
+      "whole_food": "Alimentation à base d'aliments complets (whole food) : limiter les ultra-transformés (NOVA classification).",
+      "hydration": "Eau : 1.5-2 L/j minimum. Plus si chaleur ou activité physique."
+    }
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["nutrition", "protéines", "glucides", "lipides", "calories", "macronutriments", "vitamines", "alimentation équilibrée"],
+    "related_domains": ["nutrition", "medicine"],
+    "related_knowledge": ["nutrition.macronutrients", "nutrition.gut_microbiome"],
+    "retrieval_priority": 9
+  },
+  "behavior_rules": {"tone": "educational", "response_style": "structured_clear", "max_complexity": "medium", "allow_humor": false},
+  "safety_notes": {"allowed_usage": ["Éducation nutritionnelle générale"], "restricted_usage": ["Ne pas prescrire de régime médical"], "forbidden_usage": ["Conseils nutritionnels pour troubles alimentaires (anorexie, boulimie)"], "fallback_behavior": "Recommander un diététicien-nutritionniste pour tout projet nutritionnel personnalisé."},
+  "metadata": {"author": "ALFRED_SYSTEM", "creation_date": "04/07/2026", "last_update": "04/07/2026", "review_status": "active", "reviewed_by": "ALFRED_CORE", "source_type": "manual_structured_knowledge", "language": "fr", "retrieval_ready": true, "rag_compatible": true}
+}
