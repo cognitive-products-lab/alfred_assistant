@@ -1,0 +1,68 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "nutrition.macronutrients.macronutrients_deep",
+  "version": "1.0.0",
+  "domain": "nutrition",
+  "subdomain": "macronutrients",
+  "category": "nutritional_science",
+  "priority": "high",
+  "safety_level": "sensitive",
+  "title": "Macronutriments — Approfondissement",
+  "summary": "Macronutriments en détail : glucides (index glycémique, fibres), protéines (acides aminés essentiels, qualité protéique), lipides (acides gras saturés/insaturés/trans, oméga-3/6), alcool.",
+  "purpose": "Permettre à ALFRED de donner des explications précises sur la composition et les rôles des macronutriments dans l'alimentation.",
+  "tags": ["macronutriments", "glucides", "protéines", "lipides", "index_glycémique", "acides_aminés", "oméga3", "acides_gras", "fibres"],
+  "intents": ["explain_macronutrients", "explain_carbs_proteins_fats", "answer_nutrition_question", "help_diet_planning"],
+  "usage_context": ["Nutrition", "Santé", "Sport", "Alimentation"],
+  "content": {
+    "carbohydrates": {
+      "role": "Principale source d'énergie (4 kcal/g). Carburant préféré du cerveau et des muscles en activité intense.",
+      "types": {
+        "simple": "Sucres simples : monosaccharides (glucose, fructose, galactose) et disaccharides (saccharose, lactose, maltose). Absorption rapide.",
+        "complex": "Polysaccharides : amidon (céréales, légumineuses), glycogène (stockage animal). Digestion lente.",
+        "fiber": "Fibres alimentaires : non digestibles → fermentation colique. Solubles (pectine → régule glycémie, cholestérol) vs insolubles (cellulose → transit). Apport recommandé : 25-30g/j."
+      },
+      "glycemic_index": {
+        "definition": "Index Glycémique (IG) : vitesse de hausse de la glycémie par rapport au glucose pur (référence 100). Charge Glycémique (CG) = IG × quantité de glucides / 100.",
+        "categories": "IG bas (<55) : légumineuses, fruits, céréales complètes. IG moyen (55-70). IG élevé (>70) : pain blanc, riz blanc, pomme de terre. IG ≠ valeur absolue : matrice alimentaire compte.",
+        "critique": "Critiques du concept : varie selon la cuisson, la maturité du fruit, l'individu. Plus utile pour diabétiques que pour personnes saines."
+      }
+    },
+    "proteins": {
+      "role": "Construction et réparation tissulaire, enzymes, hormones, anticorps, transport (hémoglobine). 4 kcal/g.",
+      "amino_acids": {
+        "total": "20 acides aminés protéinogènes. 9 essentiels (ne peuvent être synthétisés) : leucine, isoleucine, valine (BCAA), lysine, méthionine, phénylalanine, thréonine, tryptophane, histidine.",
+        "sources": "Protéines complètes (tous les AA essentiels) : viandes, poissons, œufs, lait. Protéines incomplètes : légumineuses (pauvres en méthionine), céréales (pauvres en lysine). Combinaison céréales+légumineuses = complet."
+      },
+      "quality": {
+        "pdcaas": "PDCAAS (Protein Digestibility Corrected Amino Acid Score) : score de qualité protéique. Whey = 1.0 (maximum). Blanc d'œuf = 1.0. Soja = 0.91. Blé = 0.42.",
+        "diaas": "DIAAS (plus récent, FAO 2013) : prend en compte la digestibilité iléale vraie.",
+        "needs": "Apports recommandés : 0.8 g/kg/j (sédentaire). 1.2-1.6 g/kg/j (endurance). 1.6-2.2 g/kg/j (force). 2.0-2.5 g/kg/j (régime hypocalorique, préservation musculaire)."
+      }
+    },
+    "lipids": {
+      "role": "9 kcal/g. Stockage d'énergie, membranes cellulaires, vitamines liposolubles (A/D/E/K), hormones stéroïdes, protection organes.",
+      "types": {
+        "saturated": "Acides gras saturés (AGS) : pas de double liaison. Solides à température ambiante (beurre, graisses animales). Effets cardiovasculaires nuancés — importance du type (palmitique vs stéarique).",
+        "unsaturated": "Acides gras insaturés (AGMI mono : oléique dans l'huile d'olive → MUFA. AGPI poly : oméga-3 et oméga-6).",
+        "omega3": "Oméga-3 : ALA (végétal — lin, chia) → EPA + DHA (poissons gras, algues). Anti-inflammatoires. EPA/DHA : cœur, cerveau, inflammation. Apport recommandé DHA : 250-500 mg/j.",
+        "omega6": "Oméga-6 : acide linoléique (huiles végétales). Pro-inflammatoires à excès. Ratio oméga-6/oméga-3 idéal : 4:1. Alimentation occidentale : 15-20:1.",
+        "trans": "Acides gras trans industriels (hydrogénation partielle) : augmentent LDL, diminuent HDL. Interdits dans l'UE depuis 2021. Trans naturels (viandes ruminants) : neutres ou bénéfiques."
+      },
+      "cholesterol": "Cholestérol alimentaire (œufs, abats) : impact moindre que les AGS sur le cholestérol sanguin. Distinction LDL ('mauvais') / HDL ('bon')."
+    },
+    "alcohol": {
+      "calories": "Alcool : 7 kcal/g. N'est pas un macronutriment (pas de rôle nutritionnel essentiel). Métabolisé en priorité par le foie (compétition avec les lipides → stéatose).",
+      "effects": "Effets négatifs nutritionnels : inhibition absorption zinc, folates, vitamines B1/B6. Augmentation du catabolisme musculaire."
+    }
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["macronutriments", "glucides", "protéines", "lipides", "index glycémique", "acides aminés", "oméga-3", "acides gras"],
+    "related_domains": ["nutrition", "medicine"],
+    "related_knowledge": ["nutrition.foundations.fundamentals", "nutrition.sports_nutrition"],
+    "retrieval_priority": 8
+  },
+  "behavior_rules": {"tone": "educational", "response_style": "structured_clear", "max_complexity": "medium", "allow_humor": false},
+  "safety_notes": {"allowed_usage": ["Éducation nutritionnelle générale"], "restricted_usage": ["Ne pas prescrire de régime sans encadrement médical"], "forbidden_usage": ["Conseils pour troubles alimentaires"], "fallback_behavior": "Pour pathologies ou régimes stricts, recommander un diététicien-nutritionniste."},
+  "metadata": {"author": "ALFRED_SYSTEM", "creation_date": "04/07/2026", "last_update": "04/07/2026", "review_status": "active", "reviewed_by": "ALFRED_CORE", "source_type": "manual_structured_knowledge", "language": "fr", "retrieval_ready": true, "rag_compatible": true}
+}

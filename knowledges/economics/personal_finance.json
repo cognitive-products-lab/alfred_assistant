@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "economics.finance.personal_finance",
+  "version": "1.0.0",
+  "domain": "economics",
+  "subdomain": "finance",
+  "category": "personal_finance",
+  "priority": "high",
+  "safety_level": "sensitive",
+  "title": "Finances Personnelles",
+  "summary": "Finances personnelles : budget, épargne, investissement (actions, obligations, immobilier), retraite, assurance vie, fiscalité de l'épargne, PEA, PER, assurance décès, gestion de la dette.",
+  "purpose": "Permettre à ALFRED d'accompagner les questions sur la gestion personnelle de l'argent, l'épargne et l'investissement en France.",
+  "tags": ["finances_personnelles", "budget", "épargne", "investissement", "PEA", "assurance_vie", "retraite", "immobilier", "fiscalité"],
+  "intents": ["explain_personal_finance", "help_budget", "explain_savings_products", "answer_finance_question"],
+  "usage_context": ["Finance", "Épargne", "Quotidien", "Planification"],
+  "content": {
+    "budget": {
+      "definition": "Budget personnel : suivi des revenus et dépenses pour équilibrer les comptes et dégager une capacité d'épargne.",
+      "rule_50_30_20": "Règle 50/30/20 : 50 % besoins essentiels, 30 % envies, 20 % épargne. Simple point de départ, à adapter.",
+      "tools": "Outils : tableur, applications (Bankin, Linxo, YNAB). Enveloppes budgétaires.",
+      "debt": "Dettes à prioriser : d'abord les plus coûteuses (cartes revolving ~20 %). Méthode avalanche (taux décroissant) vs boule de neige (solde croissant — motivation)."
+    },
+    "savings_products_fr": {
+      "livret_a": "Livret A : 3 % (2024), plafond 22 950 €. Défiscalisé, liquidité totale. Idéal pour épargne de précaution (3-6 mois de charges).",
+      "ldds": "LDDS (Livret Développement Durable et Solidaire) : même taux, plafond 12 000 €. Complémentaire au Livret A.",
+      "pea": "PEA (Plan d'Épargne en Actions) : investissements en actions européennes. Exonération d'impôt après 5 ans (prélèvements sociaux 17.2 % subsistent). Plafond 150 000 €.",
+      "assurance_vie": "Assurance vie : enveloppe fiscale polyvalente. Fonds euros (capital garanti ~2-3 %) + unités de compte (actions, immobilier — risque). Fiscalité avantageuse après 8 ans. Succession facilitée hors succession.",
+      "per": "PER (Plan d'Épargne Retraite, 2019) : déduction des versements du revenu imposable. Bloqué jusqu'à la retraite (sauf accidents de vie). Remplace le Perp et Madelin."
+    },
+    "investment": {
+      "stocks": "Actions : part du capital d'une entreprise. Rendement historique long terme des marchés actions (~7-9 % annuels). Risque en capital. Diversification (ETF index) recommandée.",
+      "bonds": "Obligations : dette d'État ou d'entreprise. Rendement inférieur aux actions, risque moindre. Taux inverse aux prix (si taux montent → valeur obligataire baisse).",
+      "real_estate": "Immobilier : location nue (revenus fonciers), meublé (BIC/LMNP — plus avantageux fiscalement), SCPI (immobilier mutualisé sans gestion). Effet de levier via crédit.",
+      "etf": "ETF (Exchange Traded Fund) : fonds indiciel coté, réplique un indice (CAC40, MSCI World). Frais très bas (0.1-0.3 %). Recommandé pour investisseur passif long terme.",
+      "compound": "Intérêts composés : 'la huitième merveille du monde' (Einstein apocryphe). 10 000 € à 7 % = 38 000 € en 20 ans. Importance du temps et de la régularité."
+    },
+    "tax_optimization": {
+      "pfu": "PFU (Flat Tax 30 %) : 12.8 % IR + 17.2 % PS sur les revenus du capital. Option barème possible si TMI < 11 %.",
+      "imputation": "Abattement 40 % sur dividendes si option barème. PEA exonéré d'IR (seulement PS). Enveloppes fiscales à maximiser en priorité."
+    }
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["finances personnelles", "épargne", "PEA", "assurance vie", "budget", "investissement", "retraite", "ETF"],
+    "related_domains": ["economics"],
+    "related_knowledge": ["economics.foundations.macroeconomics", "economics.finance.financial_markets"],
+    "retrieval_priority": 9
+  },
+  "behavior_rules": {"tone": "educational", "response_style": "structured_clear", "max_complexity": "medium", "allow_humor": false},
+  "safety_notes": {"allowed_usage": ["Éducation financière personnelle"], "restricted_usage": ["Ne pas donner de conseils financiers personnalisés"], "forbidden_usage": [], "fallback_behavior": "Pour des décisions importantes (retraite, gros investissements), recommander un conseiller financier (CGPI) ou banquier."},
+  "metadata": {"author": "ALFRED_SYSTEM", "creation_date": "04/07/2026", "last_update": "04/07/2026", "review_status": "active", "reviewed_by": "ALFRED_CORE", "source_type": "manual_structured_knowledge", "language": "fr", "retrieval_ready": true, "rag_compatible": true}
+}
