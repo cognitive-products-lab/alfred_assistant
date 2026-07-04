@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "mathematics.applied_math.cryptography_math",
+  "version": "1.0.0",
+  "domain": "mathematics",
+  "subdomain": "applied_math",
+  "category": "cryptography",
+  "priority": "high",
+  "safety_level": "sensitive",
+  "title": "Mathématiques de la Cryptographie",
+  "summary": "Bases mathématiques de la cryptographie : arithmétique modulaire, algorithme RSA, courbes elliptiques, cryptographie symétrique (AES), hachage (SHA) et menace quantique.",
+  "purpose": "Permettre à ALFRED d'expliquer les fondements mathématiques de la cryptographie moderne sans fournir d'outils pour des attaques.",
+  "tags": ["cryptographie", "RSA", "AES", "arithmétique_modulaire", "courbes_elliptiques", "SHA", "chiffrement", "sécurité"],
+  "intents": ["explain_cryptography_math", "explain_rsa", "explain_encryption", "answer_security_question"],
+  "usage_context": ["Mathématiques", "Sécurité informatique", "Informatique"],
+  "content": {
+    "definition": "La cryptographie est la science de la communication sécurisée. Elle repose sur des problèmes mathématiques difficiles à résoudre dans un sens mais faciles à vérifier.",
+    "modular_arithmetic": {
+      "definition": "Arithmétique modulaire (Gauss, XIXe) : calculs sur les restes de la division. Notation : a ≡ b (mod n).",
+      "examples": ["17 ≡ 2 (mod 5) car 17 = 3×5 + 2", "Horloge : 13h ≡ 1h (mod 12)"],
+      "key_theorems": ["Théorème de Fermat : aᵖ⁻¹ ≡ 1 (mod p) si p premier, gcd(a,p)=1", "Théorème chinois des restes : résoudre systèmes de congruences"]
+    },
+    "symmetric_cryptography": {
+      "definition": "Clé secrète unique pour chiffrer et déchiffrer.",
+      "aes": {
+        "name": "AES (Advanced Encryption Standard)",
+        "keys": "128, 192 ou 256 bits. Standard mondial depuis 2001.",
+        "principle": "Substitutions (S-box) et permutations en 10-14 tours. Résistant à ce jour.",
+        "usage": "HTTPS, VPN, disques chiffrés, WiFi (WPA3)."
+      },
+      "limitation": "Problème de distribution de clé : comment partager la clé secrète en sécurité ?"
+    },
+    "asymmetric_cryptography": {
+      "rsa": {
+        "inventors": "Rivest, Shamir, Adleman — RSA, 1977. Décrit aussi par Clifford Cocks (GCHQ, 1973, secret défense).",
+        "math_basis": "Difficulté de factoriser de grands entiers (semipremiers). N = p × q : facile. Retrouver p et q depuis N : extrêmement difficile.",
+        "key_generation": [
+          "1. Choisir p, q premiers",
+          "2. N = p × q (module public)",
+          "3. φ(N) = (p-1)(q-1) (fonction d'Euler)",
+          "4. Choisir e copremier avec φ(N) → clé publique (e, N)",
+          "5. d = e⁻¹ mod φ(N) → clé privée (d, N)"
+        ],
+        "usage": "Chiffrement : C = Mᵉ mod N. Déchiffrement : M = Cᵈ mod N."
+      },
+      "ecc": {
+        "name": "Courbes elliptiques (ECC)",
+        "definition": "Cryptographie sur courbes elliptiques : mêmes niveaux de sécurité que RSA avec des clés 10× plus courtes.",
+        "equation": "y² = x³ + ax + b (sur un corps fini)",
+        "usage": "Bitcoin, HTTPS moderne (ECDSA), Signal, WhatsApp."
+      }
+    },
+    "hash_functions": {
+      "definition": "Fonction de hachage : prend une entrée de longueur arbitraire, produit un digest de taille fixe. Irréversible.",
+      "properties": ["Déterministe", "Rapide à calculer", "Résistance à la préimage", "Résistance aux collisions"],
+      "examples": [
+        "SHA-256 : 256 bits. Standard Bitcoin, TLS. Sécurisé.",
+        "SHA-3 : keccak. Standard NIST 2015.",
+        "MD5, SHA-1 : OBSOLÈTES (collisions trouvées)."
+      ],
+      "usage": "Intégrité des fichiers, stockage de mots de passe (bcrypt, Argon2 recommandés), blockchain."
+    },
+    "quantum_threat": {
+      "shor_algorithm": "Algorithme de Shor : sur un ordinateur quantique suffisamment puissant, factorise en temps polynomial. Rend RSA et ECC obsolètes.",
+      "grover_algorithm": "Algorithme de Grover : réduit la sécurité des clés symétriques de moitié (AES-256 → sécurité ~128 bits). Solutions : doubler la taille des clés.",
+      "post_quantum": "NIST Post-Quantum Cryptography (2022-2024) : nouveaux standards résistants aux ordinateurs quantiques. CRYSTALS-Kyber, CRYSTALS-Dilithium, FALCON."
+    }
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["cryptographie", "RSA", "AES", "arithmétique modulaire", "chiffrement", "SHA", "courbes elliptiques", "quantum"],
+    "related_domains": ["mathematics", "technology"],
+    "related_knowledge": ["mathematics.foundations.mathematical_logic", "technology.computing.quantum_computing"],
+    "retrieval_priority": 8
+  },
+  "behavior_rules": {"tone": "educational", "response_style": "structured_clear", "max_complexity": "high", "allow_humor": false},
+  "safety_notes": {"allowed_usage": ["Éducation cryptographique"], "restricted_usage": ["Ne pas fournir de code d'attaque cryptographique ou de bypass de sécurité"], "forbidden_usage": ["Aide au déchiffrement non autorisé, à la compromission de systèmes"], "fallback_behavior": "Rester dans le cadre éducatif et théorique. Orienter vers les ressources légitimes."},
+  "metadata": {"author": "ALFRED_SYSTEM", "creation_date": "03/07/2026", "last_update": "03/07/2026", "review_status": "active", "reviewed_by": "ALFRED_CORE", "source_type": "manual_structured_knowledge", "language": "fr", "retrieval_ready": true, "rag_compatible": true}
+}

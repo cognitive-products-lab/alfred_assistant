@@ -1,0 +1,75 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "technology.computing.web_development",
+  "version": "1.0.0",
+  "domain": "technology",
+  "subdomain": "computing",
+  "category": "software_development",
+  "priority": "high",
+  "safety_level": "normal",
+  "title": "Développement Web Fondamental",
+  "summary": "Développement web : HTML/CSS/JavaScript, frontend vs backend, frameworks modernes (React, Vue, Django, Node.js), API REST, et bonnes pratiques.",
+  "purpose": "Permettre à ALFRED d'expliquer les bases du développement web, ses technologies et d'orienter vers les bons choix techniques.",
+  "tags": ["web", "HTML", "CSS", "JavaScript", "React", "Node.js", "API_REST", "frontend", "backend", "fullstack"],
+  "intents": ["explain_web_development", "explain_html_css_js", "recommend_web_framework", "answer_development_question"],
+  "usage_context": ["Développement web", "Formation technique", "Création de site"],
+  "content": {
+    "definition": "Le développement web est la création de sites et d'applications web, impliquant des compétences frontend (ce que l'utilisateur voit) et backend (logique serveur et données).",
+    "holy_trinity": {
+      "html": "HTML (HyperText Markup Language) : structure et contenu. '<h1>Titre</h1>'. Sémantique.",
+      "css": "CSS (Cascading Style Sheets) : apparence et mise en page. 'color: blue; font-size: 16px;'. Box model, flexbox, grid.",
+      "javascript": "JavaScript : comportement et interactivité. Manipule le DOM, gère les événements, envoie des requêtes AJAX."
+    },
+    "frontend": {
+      "description": "Ce que l'utilisateur voit dans son navigateur.",
+      "modern_frameworks": [
+        {"framework": "React (Meta)", "description": "Bibliothèque UI composant-based. La plus populaire. Écosystème énorme. Next.js pour le SSR."},
+        {"framework": "Vue.js", "description": "Progressive, accessible. Bonne courbe d'apprentissage. Nuxt.js pour le SSR."},
+        {"framework": "Angular (Google)", "description": "Framework complet, opinioné. TypeScript natif. Grandes applications d'entreprise."},
+        {"framework": "Svelte", "description": "Compilateur — performance maximale. Montée en popularité."}
+      ],
+      "tools": ["npm/yarn (gestion de paquets)", "Vite/Webpack (bundler)", "TypeScript (JS typé)"]
+    },
+    "backend": {
+      "description": "Logique serveur, base de données, authentification.",
+      "languages_frameworks": [
+        {"stack": "Node.js + Express / Fastify", "language": "JavaScript", "note": "Fullstack JS possible."},
+        {"stack": "Python + Django / FastAPI / Flask", "language": "Python", "note": "Django = batteries incluses, FastAPI = API modernes ultra-rapides."},
+        {"stack": "PHP + Laravel", "language": "PHP", "note": "80 % du web. Laravel = framework moderne."},
+        {"stack": "Java + Spring Boot", "language": "Java", "note": "Entreprise, robuste."},
+        {"stack": "Go (Golang)", "language": "Go", "note": "Performance, microservices."}
+      ],
+      "databases": ["SQL : PostgreSQL (robuste), MySQL", "NoSQL : MongoDB (documents), Redis (cache)"]
+    },
+    "api_rest": {
+      "definition": "API REST : interface standardisée de communication entre frontend et backend via HTTP.",
+      "methods": ["GET (lire)", "POST (créer)", "PUT/PATCH (mettre à jour)", "DELETE (supprimer)"],
+      "format": "JSON est le format dominant. Réponses avec codes HTTP (200 OK, 404 Not Found, 500 Server Error).",
+      "alternatives": "GraphQL (requêtes flexibles), gRPC (haute performance)."
+    },
+    "best_practices": [
+      "Mobile-first : concevoir pour mobile, puis adapter pour desktop.",
+      "Accessibilité (WCAG) : balises sémantiques, contraste, lecteurs d'écran.",
+      "Performance : Lighthouse score, lazy loading, compression images.",
+      "Sécurité : HTTPS, protection CSRF, XSS, injection SQL.",
+      "CI/CD : automatiser les tests et déploiements (GitHub Actions)."
+    ],
+    "learning_path": [
+      "1. HTML + CSS : bases (1-2 mois)",
+      "2. JavaScript fondamental (2-3 mois)",
+      "3. React ou Vue (2-3 mois)",
+      "4. Backend (Node.js ou Python) + SQL (2-3 mois)",
+      "5. Projets pratiques et contribution open source"
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["développement web", "HTML", "CSS", "JavaScript", "React", "API REST", "backend", "frontend"],
+    "related_domains": ["technology"],
+    "related_knowledge": ["technology.computing.cloud", "technology.security.cybersecurity"],
+    "retrieval_priority": 9
+  },
+  "behavior_rules": {"tone": "educational", "response_style": "structured_clear", "max_complexity": "medium", "allow_humor": false},
+  "safety_notes": {"allowed_usage": ["Éducation au développement web"], "restricted_usage": [], "forbidden_usage": [], "fallback_behavior": "Adapter les recommandations de framework au niveau et au contexte du projet."},
+  "metadata": {"author": "ALFRED_SYSTEM", "creation_date": "03/07/2026", "last_update": "03/07/2026", "review_status": "active", "reviewed_by": "ALFRED_CORE", "source_type": "manual_structured_knowledge", "language": "fr", "retrieval_ready": true, "rag_compatible": true}
+}

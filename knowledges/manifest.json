@@ -1,7 +1,7 @@
 {
   "manifest_id": "alfred_knowledge_manifest_v2_0",
-  "version": "2.0.0",
-  "last_update": "2026-05-10",
+  "version": "2.2.0",
+  "last_update": "2026-07-03",
   "status": "active",
   "description": "Manifest global du socle de connaissances ALFRED. Il décrit les domaines, sous-domaines, usages et règles générales de chargement du dossier knowledges.",
   "scope": {
@@ -103,6 +103,79 @@
       "description": "Registres secondaires et fichiers d’indexation technique.",
       "priority": "technical",
       "path": "knowledges/index/"
+    },
+    "science": {
+      "label": "Sciences",
+      "description": "Physique, biologie, chimie, sciences de la Terre, astrophysique. Connaissances générales et culture scientifique.",
+      "priority": "high",
+      "path": "knowledges/science/",
+      "subdomains": ["physics", "biology", "chemistry", "earth_science"],
+      "added": "2026-06-29"
+    },
+    "history": {
+      "label": "Histoire",
+      "description": "Histoire ancienne, moderne et contemporaine du monde. Civilisations, révolutions, guerres et transitions politiques.",
+      "priority": "high",
+      "path": "knowledges/history/",
+      "subdomains": ["ancient", "modern", "contemporary"],
+      "added": "2026-06-29"
+    },
+    "technology": {
+      "label": "Technologies",
+      "description": "IA/ML, informatique, développement logiciel, mobile, fabrication additive et culture numérique.",
+      "priority": "high",
+      "path": "knowledges/technology/",
+      "subdomains": ["ai", "computing", "manufacturing"],
+      "added": "2026-06-29"
+    },
+    "geography": {
+      "label": "Géographie",
+      "description": "Géographie physique et humaine : continents, fleuves, montagnes, océans et enjeux géopolitiques.",
+      "priority": "medium",
+      "path": "knowledges/geography/",
+      "subdomains": ["continents", "physical"],
+      "added": "2026-06-29"
+    },
+    "philosophy": {
+      "label": "Philosophie",
+      "description": "Éthique, épistémologie, philosophie de l’esprit, politique, traditions orientales et métaphysique.",
+      "priority": "high",
+      "path": "knowledges/philosophy/",
+      "subdomains": ["ethics", "epistemology", "mind", "politics", "metaphysics", "world_traditions"],
+      "added": "2026-06-29"
+    },
+    "medicine": {
+      "label": "Médecine & Santé",
+      "description": "Anatomie, neurologie, génétique, oncologie, épidémiologie, santé publique et réhabilitation. Niveau éducatif.",
+      "priority": "high",
+      "path": "knowledges/medicine/",
+      "safety_note": "Domaine sensible — éducatif uniquement. Ne jamais diagnostiquer ni remplacer un professionnel de santé.",
+      "subdomains": ["anatomy", "neurology", "genetics", "oncology", "public_health", "rehabilitation"],
+      "added": "2026-06-29"
+    },
+    "arts": {
+      "label": "Arts & Culture",
+      "description": "Musique, arts visuels, sculpture, théâtre, design graphique et art contemporain.",
+      "priority": "medium",
+      "path": "knowledges/arts/",
+      "subdomains": ["music", "visual_arts", "performing_arts", "design"],
+      "added": "2026-06-29"
+    },
+    "mathematics": {
+      "label": "Mathématiques",
+      "description": "Algèbre linéaire, théorie des graphes, logique, topologie, équations différentielles et cryptographie.",
+      "priority": "high",
+      "path": "knowledges/mathematics/",
+      "subdomains": ["algebra", "discrete_math", "foundations", "topology", "calculus", "applied_math"],
+      "added": "2026-06-29"
+    },
+    "practical_skills": {
+      "label": "Compétences Pratiques",
+      "description": "Gestion de projet, apprentissage, littératie numérique, leadership, bien-être, jardinage, bricolage, rédaction et intelligence émotionnelle.",
+      "priority": "high",
+      "path": "knowledges/practical_skills/",
+      "subdomains": ["management", "education", "technology", "wellbeing", "lifestyle", "communication"],
+      "added": "2026-06-29"
     }
   },
   "recently_added_lots": {
@@ -193,6 +266,31 @@
         "llm_orchestration.json",
         "prompt_engineering.json"
       ]
+    },
+    "knowledge_expansion_lot1_29062026": {
+      "date": "2026-06-29",
+      "description": "Premier lot d'enrichissement massif — 60 fichiers sur 9 nouveaux domaines (science, history, technology, geography, philosophy, medicine, arts, mathematics, practical_skills).",
+      "total_files": 60,
+      "domains": ["science", "history", "technology", "geography", "philosophy", "medicine", "arts", "mathematics", "practical_skills"],
+      "registry_version_at_creation": "3.3.0"
+    },
+    "knowledge_expansion_lot2_03072026": {
+      "date": "2026-07-03",
+      "description": "Deuxième lot d'enrichissement — 60 fichiers complémentaires sur les mêmes 9 domaines. Approfondissement thématique.",
+      "total_files": 60,
+      "domains": ["science", "history", "technology", "geography", "philosophy", "medicine", "arts", "mathematics", "practical_skills"],
+      "highlights": [
+        "science: nuclear_physics, biochemistry, astrophysics",
+        "history: ancient_egypt, decolonization, age_of_exploration, fall_of_berlin_wall",
+        "technology: web_development, mobile_technology, 3d_printing, social_media_evolution",
+        "geography: oceania, world_rivers, world_mountains",
+        "philosophy: rationalism_empiricism, buddhist_philosophy, metaphysics_basics",
+        "medicine: genetics_medicine, oncology_basics, rehabilitation_medicine",
+        "arts: theater_history, graphic_design_basics, contemporary_art",
+        "mathematics: mathematical_logic, topology_basics, differential_equations, cryptography_math",
+        "practical_skills: leadership, stress_management, gardening, diy_home, writing, emotional_intelligence"
+      ],
+      "registry_version_at_creation": "3.4.0"
     }
   },
   "loading_policy": {
@@ -205,7 +303,16 @@
     ],
     "optional_domains": [
       "culture",
-      "lifestyle"
+      "lifestyle",
+      "science",
+      "history",
+      "technology",
+      "geography",
+      "philosophy",
+      "medicine",
+      "arts",
+      "mathematics",
+      "practical_skills"
     ],
     "technical_files_not_loaded_as_knowledge": [
       "manifest.json",
@@ -217,12 +324,22 @@
       "knowledge_registry.json"
     ]
   },
+  "knowledge_stats": {
+    "total_knowledge_files": 443,
+    "total_domains": 19,
+    "registry_version": "3.4.0",
+    "taxonomy_version": "3.4.0",
+    "last_batch_date": "2026-07-03",
+    "batches_completed": 2,
+    "total_files_added_manual": 120
+  },
   "future_planning": {
     "next_updates": [
-      "Mettre à jour knowledge_registry.json avec les nouveaux fichiers.",
-      "Mettre à jour taxonomy.json avec culture.general, human.social_behavior, professional.frameworks, professional.standards_iso et engineering.systeme_design.",
-      "Mettre à jour domain_links.json pour créer les liens cognitifs transverses.",
-      "Tester retrieval_engine.py sur des requêtes multi-domaines."
+      "Lot 3 (04/07/2026) : 60 nouveaux fichiers sur domaines existants ou nouveaux.",
+      "Mettre à jour domain_links.json pour créer les liens cognitifs transverses (science↔medicine↔mathematics).",
+      "Tester retrieval_engine.py sur des requêtes multi-domaines avec les nouveaux fichiers.",
+      "Envisager sous-domaine 'economics' et 'law_basics' pour les prochains lots.",
+      "Compléter reviewed_by avec une revue qualité des fichiers manual_structured."
     ]
   },
   "_meta": {

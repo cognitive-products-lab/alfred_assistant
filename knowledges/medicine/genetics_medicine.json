@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "medicine.genetics.genetics_medicine",
+  "version": "1.0.0",
+  "domain": "medicine",
+  "subdomain": "genetics",
+  "category": "molecular_medicine",
+  "priority": "high",
+  "safety_level": "sensitive",
+  "title": "Génétique Médicale",
+  "summary": "Génétique médicale : chromosomes, hérédité mendélienne, maladies génétiques, CRISPR, génomique, tests génétiques et enjeux éthiques.",
+  "purpose": "Permettre à ALFRED d'expliquer la génétique médicale, ses applications et ses limites éthiques.",
+  "tags": ["génétique", "ADN", "chromosomes", "CRISPR", "maladies_génétiques", "hérédité", "génomique", "test_génétique"],
+  "intents": ["explain_medical_genetics", "explain_heredity", "explain_crispr", "answer_genetics_question"],
+  "usage_context": ["Médecine", "Biologie", "Éthique"],
+  "content": {
+    "definition": "La génétique médicale étudie le rôle des gènes dans les maladies et le développement humain, avec des applications en diagnostic, thérapie et prévention.",
+    "basics": {
+      "chromosomes": "Humains : 46 chromosomes (23 paires). XX = femme, XY = homme. Chaque chromosome = ADN condensé + protéines.",
+      "genes": "~20 000-25 000 gènes codants. Un gène = séquence ADN codant une protéine ou ARN fonctionnel.",
+      "alleles": "Allèles : variants d'un même gène. Dominant (s'exprime sur 1 allèle) vs récessif (nécessite 2 allèles).",
+      "mendelian": "Lois de Mendel : ségrégation, assortiment indépendant. Base de la génétique classique."
+    },
+    "genetic_diseases": {
+      "monogenic": {
+        "dominant": ["Maladie de Huntington (dégénérescence neuronale, mortelle)", "Achondroplasie (nanisme)"],
+        "recessive": ["Mucoviscidose (gène CFTR, poumons)", "Drépanocytose (hémoglobine — fréquente en Afrique sub-saharienne)", "Phénylcétonurie (PKU)"],
+        "x_linked": ["Hémophilie A/B (coagulation)", "Daltonisme", "Dystrophie musculaire de Duchenne"]
+      },
+      "chromosomal": ["Trisomie 21 (syndrome de Down) : 3 exemplaires du chr 21", "Syndrome de Turner (45,X0)", "Syndrome de Klinefelter (47,XXY)"],
+      "multifactorial": "Cancer, diabète type 2, maladies cardio-vasculaires : interactions gènes + environnement."
+    },
+    "genomics": {
+      "human_genome_project": "Projet Génome Humain (1990-2003) : séquençage complet des 3 milliards de paires de bases. Révolution.",
+      "next_gen_sequencing": "NGS : séquençage rapide et abordable. Exome (~200$) ou génome complet (~500$).",
+      "gwas": "GWAS (Genome-Wide Association Studies) : identifier variants génétiques associés aux maladies."
+    },
+    "crispr": {
+      "definition": "CRISPR-Cas9 : 'ciseaux moléculaires' permettant de couper et modifier précisément l'ADN.",
+      "discovery": "Jennifer Doudna et Emmanuelle Charpentier — Prix Nobel de Chimie 2020.",
+      "applications": ["Thérapies géniques (β-thalassémie, drépanocytose — déjà approuvées 2023)", "Modèles cellulaires et animaux de maladie", "Agriculture (cultures résistantes)"],
+      "ethical_concerns": "Bébés OGM (He Jiankui, 2018 — scandale international). Risques hors cible. Inégalités d'accès. Designer babies."
+    },
+    "genetic_testing": {
+      "types": ["Test diagnostic (confirmer maladie)", "Test prédictif (BRCA1/2 — risque cancer sein)", "Test préimplantatoire (PGT)", "Test prénatal (amniocentèse, ADN fœtal libre)"],
+      "ethics": "Droit à ne pas savoir. Discriminations (assurances, emploi). Consentement éclairé. Impact familial.",
+      "direct_to_consumer": "23andMe, MyHeritage DNA : tests génétiques grand public. Limites scientifiques importantes."
+    }
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["génétique", "ADN", "CRISPR", "maladies génétiques", "chromosomes", "test génétique", "hérédité"],
+    "related_domains": ["medicine", "science"],
+    "related_knowledge": ["science.biology.biochemistry", "medicine.anatomy.cardiovascular_system"],
+    "retrieval_priority": 8
+  },
+  "behavior_rules": {"tone": "educational", "response_style": "structured_clear", "max_complexity": "medium", "allow_humor": false},
+  "safety_notes": {"allowed_usage": ["Éducation médicale", "Conseil sur les tests génétiques grand public"], "restricted_usage": ["Ne pas diagnostiquer ou interpréter des résultats génétiques personnels"], "forbidden_usage": ["Instructions de modification génétique humaine non médicale"], "fallback_behavior": "Recommander un conseil génétique professionnel pour les décisions médicales."},
+  "metadata": {"author": "ALFRED_SYSTEM", "creation_date": "03/07/2026", "last_update": "03/07/2026", "review_status": "active", "reviewed_by": "ALFRED_CORE", "source_type": "manual_structured_knowledge", "language": "fr", "retrieval_ready": true, "rag_compatible": true}
+}

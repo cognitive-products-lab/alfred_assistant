@@ -1,0 +1,67 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "technology.computing.data_science",
+  "version": "1.0.0",
+  "domain": "technology",
+  "subdomain": "computing",
+  "category": "data_science",
+  "priority": "high",
+  "safety_level": "normal",
+  "title": "Data Science Fondamentale",
+  "summary": "Data science : pipeline de données, exploration (EDA), visualisation, feature engineering, Python/pandas/sklearn, éthique des données et métiers.",
+  "purpose": "Permettre à ALFRED d'expliquer la data science, ses outils et son processus, et d'orienter vers les bonnes pratiques.",
+  "tags": ["data_science", "pandas", "Python", "EDA", "visualisation", "feature_engineering", "pipeline", "données"],
+  "intents": ["explain_data_science", "explain_data_pipeline", "discuss_data_tools", "answer_data_question"],
+  "usage_context": ["Data science", "Analyse de données", "Intelligence artificielle"],
+  "content": {
+    "definition": "La data science est un domaine interdisciplinaire combinant statistiques, informatique et expertise métier pour extraire des connaissances et de la valeur à partir de données.",
+    "data_science_pipeline": [
+      {"step": "1. Définition du problème", "description": "Traduire le besoin métier en question analytique. Définir les KPIs et critères de succès."},
+      {"step": "2. Collecte des données", "description": "Bases de données SQL/NoSQL, APIs, web scraping, fichiers CSV/JSON, données temps réel."},
+      {"step": "3. Nettoyage (Data Cleaning)", "description": "Traiter les valeurs manquantes, doublons, outliers, erreurs de type. Étape la plus chronophage (60-80 % du temps)."},
+      {"step": "4. Exploration (EDA)", "description": "Analyse Exploratoire des Données : distributions, corrélations, visualisations, hypothèses. Comprendre le dataset."},
+      {"step": "5. Feature Engineering", "description": "Créer, transformer et sélectionner les variables les plus informatives pour le modèle."},
+      {"step": "6. Modélisation", "description": "Entraîner et évaluer des modèles ML. Sélection algorithmique, cross-validation, optimisation."},
+      {"step": "7. Déploiement", "description": "Intégrer le modèle en production (API, pipeline automatisé). Monitoring continu."},
+      {"step": "8. Communication", "description": "Présenter les résultats aux décideurs avec des visualisations claires et un storytelling data."}
+    ],
+    "essential_tools": {
+      "python_ecosystem": ["pandas (manipulation de données)", "numpy (calcul numérique)", "scikit-learn (ML)", "matplotlib/seaborn (visualisation)", "jupyter notebook (exploration interactive)"],
+      "big_data": ["Apache Spark (traitement distribué)", "Hadoop", "Apache Kafka (streaming)"],
+      "cloud": ["AWS S3/SageMaker", "Google BigQuery/Vertex AI", "Azure ML"],
+      "databases": ["SQL (PostgreSQL, MySQL)", "NoSQL (MongoDB, Cassandra)", "Data warehouses (Snowflake, Redshift)"]
+    },
+    "data_types": [
+      "Structurées (SQL, tableurs)", "Semi-structurées (JSON, XML)", "Non structurées (texte, images, audio)"
+    ],
+    "key_concepts": {
+      "distribution": "Comprendre la forme des données (normale, bimodale, asymétrique) guide le choix des algorithmes.",
+      "correlation_vs_causation": "Deux variables corrélées ne sont pas nécessairement dans une relation causale.",
+      "data_leakage": "Utiliser des informations futures dans l'entraînement — erreur fréquente qui gonfle artificiellement les performances.",
+      "class_imbalance": "Dataset avec classes très déséquilibrées → techniques : oversampling (SMOTE), undersampling, class weights."
+    },
+    "data_ethics": [
+      "Consentement et vie privée : RGPD, anonymisation.",
+      "Biais algorithmiques : données non représentatives → modèles discriminatoires.",
+      "Transparence et explicabilité (XAI).",
+      "Usage responsable des données personnelles."
+    ],
+    "examples": [
+      {
+        "situation": "Utilisateur veut analyser les ventes de son entreprise",
+        "recommended_behavior": "Proposer un pipeline : 1) Exporter les données de vente en CSV, 2) Python/pandas pour nettoyer et agréger, 3) Visualiser tendances avec seaborn, 4) Identifier les produits les plus performants et les saisonnalités.",
+        "avoid": "Sauter directement à la modélisation sans exploration préalable."
+      }
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["data science", "pandas", "EDA", "pipeline données", "Python", "feature engineering"],
+    "related_domains": ["technology", "mathematics"],
+    "related_knowledge": ["technology.ai.machine_learning", "mathematics.statistics.probability"],
+    "retrieval_priority": 9
+  },
+  "behavior_rules": {"tone": "educational", "response_style": "structured_clear", "max_complexity": "medium", "allow_humor": false},
+  "safety_notes": {"allowed_usage": ["Data science éducative"], "restricted_usage": [], "forbidden_usage": ["Aider à utiliser des données personnelles sans consentement"], "fallback_behavior": "Mentionner les enjeux RGPD pour toute collecte de données personnelles."},
+  "metadata": {"author": "ALFRED_SYSTEM", "creation_date": "03/07/2026", "last_update": "03/07/2026", "review_status": "active", "reviewed_by": "ALFRED_CORE", "source_type": "manual_structured_knowledge", "language": "fr", "retrieval_ready": true, "rag_compatible": true}
+}

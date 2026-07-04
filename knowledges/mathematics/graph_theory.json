@@ -1,0 +1,64 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "mathematics.discrete_math.graph_theory",
+  "version": "1.0.0",
+  "domain": "mathematics",
+  "subdomain": "discrete_math",
+  "category": "discrete_mathematics",
+  "priority": "medium",
+  "safety_level": "normal",
+  "title": "Théorie des Graphes",
+  "summary": "Théorie des graphes : nœuds, arêtes, graphes orientés/non orientés, arbres, algorithmes (Dijkstra, BFS, DFS) et applications (réseaux, IA, GPS).",
+  "purpose": "Permettre à ALFRED d'expliquer la théorie des graphes et ses applications en informatique et en optimisation.",
+  "tags": ["graphe", "nœud", "arête", "Dijkstra", "BFS", "DFS", "arbre", "réseau", "chemin"],
+  "intents": ["explain_graph_theory", "explain_graph_algorithms", "answer_mathematics_question"],
+  "usage_context": ["Mathématiques discrètes", "Informatique", "Optimisation"],
+  "content": {
+    "definition": "Un graphe G = (V, E) est un ensemble de sommets V (nœuds) reliés par des arêtes E. La théorie des graphes modélise les relations et connexions dans de nombreux domaines.",
+    "types_of_graphs": [
+      {"type": "Non orienté", "description": "Les arêtes n'ont pas de direction. Ex : réseau d'amis Facebook."},
+      {"type": "Orienté (digraphe)", "description": "Les arêtes ont une direction. Ex : citations académiques, web."},
+      {"type": "Pondéré", "description": "Chaque arête a un poids (distance, coût). Ex : GPS, réseaux routiers."},
+      {"type": "Arbre", "description": "Graphe connexe sans cycle. n sommets → n-1 arêtes."},
+      {"type": "Complet (Kₙ)", "description": "Chaque sommet connecté à tous les autres. n(n-1)/2 arêtes."},
+      {"type": "Biparti", "description": "Sommets divisés en 2 groupes, arêtes uniquement entre groupes. Ex : utilisateurs ↔ films."}
+    ],
+    "key_concepts": {
+      "degree": "Nombre d'arêtes d'un sommet. Dans un graphe orienté : degré entrant et sortant.",
+      "path": "Suite de sommets reliés par des arêtes. Chemin simple : sans répétition.",
+      "cycle": "Chemin fermé revenant au sommet de départ.",
+      "connectivity": "Graphe connexe : chemin entre toute paire de sommets.",
+      "spanning_tree": "Arbre couvrant tous les sommets d'un graphe connexe."
+    },
+    "key_algorithms": [
+      {"algorithm": "BFS (Breadth-First Search)", "use": "Explorer le graphe niveau par niveau. Trouver le plus court chemin (non pondéré). Complexité : O(V+E)."},
+      {"algorithm": "DFS (Depth-First Search)", "use": "Explorer en profondeur. Détection de cycles, tri topologique. Complexité : O(V+E)."},
+      {"algorithm": "Dijkstra", "use": "Plus court chemin depuis un source (graphe pondéré positif). Base du GPS. Complexité : O((V+E)logV)."},
+      {"algorithm": "Bellman-Ford", "use": "Plus court chemin avec poids négatifs possibles. Complexité : O(V·E)."},
+      {"algorithm": "Kruskal / Prim", "use": "Arbre couvrant de poids minimum (MST). Utilisé en réseaux."}
+    ],
+    "applications": [
+      "GPS et navigation (Dijkstra sur graphe routier pondéré).",
+      "Réseaux sociaux (BFS pour degrés de séparation, communautés).",
+      "Internet (routage de paquets, PageRank de Google).",
+      "Bioinformatique (réseaux de protéines, séquençage).",
+      "Logistique (problème du voyageur de commerce — NP-difficile).",
+      "IA (arbres de décision, réseaux de neurones = graphes orientés acycliques)."
+    ],
+    "famous_problems": [
+      {"problem": "Problème des ponts de Königsberg (Euler, 1736)", "description": "Peut-on traverser chaque pont une seule fois ? Naissance de la théorie des graphes."},
+      {"problem": "Problème du voyageur de commerce (TSP)", "description": "Trouver le plus court circuit passant par toutes les villes — NP-difficile."},
+      {"problem": "Coloration de graphe", "description": "Colorier les sommets avec k couleurs sans que deux voisins aient la même. Application : assignation de fréquences radio."}
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["graphe", "Dijkstra", "BFS", "DFS", "réseau", "théorie des graphes", "chemin"],
+    "related_domains": ["mathematics", "technology"],
+    "related_knowledge": ["mathematics.combinatorics.basics", "technology.ai.machine_learning"],
+    "retrieval_priority": 7
+  },
+  "behavior_rules": {"tone": "educational", "response_style": "structured_clear", "max_complexity": "medium", "allow_humor": false},
+  "safety_notes": {"allowed_usage": ["Éducation mathématique"], "restricted_usage": [], "forbidden_usage": [], "fallback_behavior": "Utiliser des exemples visuels (réseaux, GPS) pour concrétiser les concepts."},
+  "metadata": {"author": "ALFRED_SYSTEM", "creation_date": "03/07/2026", "last_update": "03/07/2026", "review_status": "active", "reviewed_by": "ALFRED_CORE", "source_type": "manual_structured_knowledge", "language": "fr", "retrieval_ready": true, "rag_compatible": true}
+}

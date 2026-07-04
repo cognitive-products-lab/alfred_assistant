@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "mathematics.algebra.linear_algebra",
+  "version": "1.0.0",
+  "domain": "mathematics",
+  "subdomain": "algebra",
+  "category": "applied_mathematics",
+  "priority": "high",
+  "safety_level": "normal",
+  "title": "Algèbre Linéaire",
+  "summary": "Algèbre linéaire : vecteurs, matrices, transformations linéaires, déterminants, valeurs propres et applications en IA, physique et infographie.",
+  "purpose": "Permettre à ALFRED d'expliquer l'algèbre linéaire et ses applications fondamentales en sciences et en intelligence artificielle.",
+  "tags": ["algèbre_linéaire", "vecteur", "matrice", "transformation_linéaire", "valeurs_propres", "déterminant", "espace_vectoriel", "ML"],
+  "intents": ["explain_linear_algebra", "explain_matrices", "explain_vectors", "answer_mathematics_question"],
+  "usage_context": ["Mathématiques appliquées", "Intelligence artificielle", "Physique", "Infographie"],
+  "content": {
+    "definition": "L'algèbre linéaire est la branche des mathématiques étudiant les espaces vectoriels et les transformations linéaires entre ces espaces. Fondamentale pour l'IA, la physique et l'informatique.",
+    "vectors": {
+      "definition": "Un vecteur est un objet mathématique ayant une magnitude et une direction. Représenté par ses composantes : v = (v₁, v₂, ..., vₙ).",
+      "operations": ["Addition : v + w = (v₁+w₁, v₂+w₂)", "Multiplication scalaire : λv = (λv₁, λv₂)", "Produit scalaire (dot product) : v·w = Σvᵢwᵢ → donne un scalaire", "Produit vectoriel (cross product) : v×w → donne un vecteur perpendiculaire aux deux (3D)"],
+      "norm": "||v|| = √(v₁² + v₂² + ...) — longueur du vecteur.",
+      "applications": "Représentation des données en ML, forces en physique, directions en infographie."
+    },
+    "matrices": {
+      "definition": "Une matrice est un tableau rectangulaire de nombres. A est m×n si elle a m lignes et n colonnes.",
+      "operations": ["Addition : A + B (même dimensions)", "Multiplication : A·B — (m×n)·(n×p) = (m×p). Attention : AB ≠ BA en général.", "Transposée : Aᵀ — lignes deviennent colonnes."],
+      "special_matrices": [
+        "Identité (I) : comme le '1' pour les matrices. A·I = A.",
+        "Diagonale : valeurs non nulles uniquement sur la diagonale.",
+        "Orthogonale : Qᵀ = Q⁻¹. Préserve les longueurs et angles."
+      ]
+    },
+    "linear_transformations": {
+      "definition": "Une transformation linéaire T: Rⁿ→Rᵐ préserve l'addition et la multiplication scalaire. Toute transformation linéaire peut être représentée par une matrice.",
+      "geometric_operations": ["Rotation", "Réflexion", "Mise à l'échelle", "Cisaillement", "Projection"],
+      "composition": "Appliquer T₂ après T₁ ↔ multiplier leurs matrices : M₂·M₁."
+    },
+    "determinant_and_inverse": {
+      "determinant": "det(A) = scalaire donnant le 'volume' de la transformation. Si det(A) = 0, la matrice n'est pas inversible (transformation qui écrase l'espace).",
+      "inverse": "A⁻¹ : A·A⁻¹ = I. Existe uniquement si det(A) ≠ 0. Permet de résoudre Ax = b → x = A⁻¹b."
+    },
+    "eigenvalues_eigenvectors": {
+      "definition": "Pour une matrice A, un vecteur propre v et valeur propre λ vérifient : Av = λv. Le vecteur ne change pas de direction, seulement d'échelle.",
+      "importance": "Clés pour comprendre le comportement des transformations. Utilisés en PCA (réduction de dimensionnalité en ML), en mécanique quantique, en PageRank de Google.",
+      "computation": "Résoudre det(A - λI) = 0 pour trouver λ, puis (A - λI)v = 0 pour v."
+    },
+    "applications_ml": [
+      "Représentation des données : chaque exemple = vecteur, dataset = matrice.",
+      "Régression linéaire : résolution de systèmes Ax = b.",
+      "PCA : utilise les valeurs propres pour réduire les dimensions.",
+      "Réseaux de neurones : multiplication de matrices à chaque couche.",
+      "Transformers : attention mécanisme = produits scalaires de matrices."
+    ],
+    "examples": [
+      {
+        "situation": "Utilisateur demande pourquoi l'algèbre linéaire est importante pour l'IA",
+        "recommended_behavior": "Expliquer que les données sont des matrices, les opérations des réseaux de neurones sont des multiplications matricielles, et les transformers utilisent des produits scalaires — l'algèbre linéaire est le langage de l'IA moderne.",
+        "avoid": "Rester dans l'abstrait sans applications concrètes."
+      }
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["algèbre linéaire", "matrice", "vecteur", "valeurs propres", "transformation linéaire", "PCA"],
+    "related_domains": ["mathematics", "technology"],
+    "related_knowledge": ["mathematics.algebra.basics", "technology.ai.machine_learning"],
+    "retrieval_priority": 9
+  },
+  "behavior_rules": {"tone": "educational", "response_style": "structured_clear", "max_complexity": "high", "allow_humor": false},
+  "safety_notes": {
+    "allowed_usage": ["Éducation mathématique"],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "Adapter le niveau d'abstraction selon le profil de l'utilisateur."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "03/07/2026",
+    "last_update": "03/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

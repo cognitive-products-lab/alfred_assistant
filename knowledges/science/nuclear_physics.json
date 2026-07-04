@@ -1,0 +1,63 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "science.physics.nuclear_physics",
+  "version": "1.0.0",
+  "domain": "science",
+  "subdomain": "physics",
+  "category": "fundamental_physics",
+  "priority": "high",
+  "safety_level": "sensitive",
+  "title": "Physique Nucléaire",
+  "summary": "Physique nucléaire : fission, fusion, radioactivité, réacteurs nucléaires, armes nucléaires, énergie nucléaire civile et gestion des déchets.",
+  "purpose": "Permettre à ALFRED d'expliquer la physique nucléaire, l'énergie nucléaire et de contextualiser le débat énergétique.",
+  "tags": ["nucléaire", "fission", "fusion", "radioactivité", "réacteur", "uranium", "énergie_nucléaire", "Tchernobyl", "Fukushima"],
+  "intents": ["explain_nuclear_physics", "discuss_nuclear_energy", "explain_radioactivity", "answer_physics_question"],
+  "usage_context": ["Physique", "Énergie", "Politique énergétique"],
+  "content": {
+    "definition": "La physique nucléaire étudie le noyau atomique, ses constituants, ses transformations et les énergies libérées lors de ces transformations.",
+    "radioactivity": {
+      "definition": "Désintégration spontanée d'un noyau instable avec émission de rayonnements.",
+      "types": [
+        {"type": "Alpha (α)", "description": "Émission d'un noyau d'hélium (2p+2n). Peu pénétrant (arrêté par papier), très ionisant."},
+        {"type": "Bêta (β)", "description": "Émission d'un électron (β⁻) ou positron (β⁺). Arrêté par aluminium."},
+        {"type": "Gamma (γ)", "description": "Rayonnement électromagnétique de haute énergie. Pénétrant (plomb requis). Utilisé en radiothérapie."}
+      ],
+      "half_life": "Demi-vie : temps pour que la moitié des noyaux se désintègrent. Carbone-14 : 5 730 ans. Uranium-235 : 703 millions d'années.",
+      "applications": ["Datation radiocarbone (archéologie)", "Médecine nucléaire (TEP, scintigraphie)", "Détecteurs de fumée (Américium-241)"]
+    },
+    "fission": {
+      "definition": "Division d'un noyau lourd (U-235, Pu-239) en deux noyaux plus légers + neutrons + énergie.",
+      "chain_reaction": "Les neutrons émis provoquent de nouvelles fissions → réaction en chaîne. Contrôlée : réacteur. Non contrôlée : bombe atomique.",
+      "energy": "1 kg d'uranium-235 = énergie équivalente à 2 000 tonnes de charbon."
+    },
+    "fusion": {
+      "definition": "Fusion de noyaux légers (deutérium + tritium → hélium + neutron + énergie). Processus du Soleil.",
+      "advantages": "Combustible abondant (eau de mer), pas de déchets radioactifs à longue vie, pas de risque d'emballement.",
+      "challenge": "Nécessite T > 100 millions °C et confinement (magnétique : ITER, ou inertiel : NIF).",
+      "status": "ITER (France) : réacteur de fusion expérimental en construction. Premier plasma prévu 2035."
+    },
+    "nuclear_power": {
+      "how_it_works": "Chaleur de fission → vapeur → turbine → électricité. Réacteur à eau pressurisée (REP) = technologie dominante.",
+      "advantages": ["Faible empreinte carbone (cycle de vie)", "Densité énergétique très élevée", "Production stable (base load)"],
+      "disadvantages": ["Déchets radioactifs (stockage 100 000 ans)", "Risque d'accident grave (Tchernobyl 1986, Fukushima 2011)", "Coûts et délais de construction élevés"],
+      "france": "75 % de l'électricité française est d'origine nucléaire (56 réacteurs, EDF). Objectif : 50 % d'ici 2035."
+    },
+    "examples": [
+      {
+        "situation": "Utilisateur demande si le nucléaire est dangereux pour le climat",
+        "recommended_behavior": "Expliquer que le nucléaire est l'une des énergies avec la plus faible empreinte carbone (12 gCO₂/kWh vs 820 pour le charbon), mais que les risques portent sur les accidents et les déchets. Le débat est légitime — présenter les deux côtés objectivement.",
+        "avoid": "Prendre position pro- ou anti-nucléaire sans nuance."
+      }
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["nucléaire", "fission", "fusion", "radioactivité", "réacteur", "énergie nucléaire", "ITER"],
+    "related_domains": ["science", "technology"],
+    "related_knowledge": ["science.chemistry.atomic_structure", "science.earth_science.climate_science"],
+    "retrieval_priority": 8
+  },
+  "behavior_rules": {"tone": "educational", "response_style": "structured_clear", "max_complexity": "medium", "allow_humor": false},
+  "safety_notes": {"allowed_usage": ["Éducation scientifique sur le nucléaire"], "restricted_usage": ["Ne jamais expliquer la construction de dispositifs nucléaires"], "forbidden_usage": ["Informations sur la fabrication d'armes nucléaires"], "fallback_behavior": "Rester dans le cadre éducatif, civile et scientifique."},
+  "metadata": {"author": "ALFRED_SYSTEM", "creation_date": "03/07/2026", "last_update": "03/07/2026", "review_status": "active", "reviewed_by": "ALFRED_CORE", "source_type": "manual_structured_knowledge", "language": "fr", "retrieval_ready": true, "rag_compatible": true}
+}

@@ -1,0 +1,96 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "technology.ai.machine_learning",
+  "version": "1.0.0",
+  "domain": "technology",
+  "subdomain": "ai",
+  "category": "artificial_intelligence",
+  "priority": "critical",
+  "safety_level": "normal",
+  "title": "Machine Learning Fondamental",
+  "summary": "Machine learning : apprentissage supervisé/non supervisé/par renforcement, algorithmes clés, overfitting, évaluation de modèles et applications.",
+  "purpose": "Permettre à ALFRED d'expliquer le machine learning, ses types et algorithmes principaux, et d'aider à comprendre les bases de l'IA.",
+  "tags": ["machine_learning", "apprentissage_automatique", "supervisé", "non_supervisé", "réseau_de_neurones", "overfitting", "gradient", "classification"],
+  "intents": ["explain_machine_learning", "explain_ml_algorithms", "discuss_overfitting", "answer_ai_question"],
+  "usage_context": ["Intelligence artificielle", "Data science", "Développement IA"],
+  "content": {
+    "definition": "Le machine learning (apprentissage automatique) est une branche de l'IA permettant aux systèmes d'apprendre à partir de données pour faire des prédictions ou prendre des décisions, sans être explicitement programmés pour chaque tâche.",
+    "learning_types": {
+      "supervised": {
+        "description": "L'algorithme apprend à partir de données labellisées (input → output connus).",
+        "tasks": ["Classification (spam vs non-spam)", "Régression (prédire un prix)"],
+        "algorithms": ["Régression linéaire/logistique", "Arbres de décision", "Random Forest", "SVM", "Réseaux de neurones"]
+      },
+      "unsupervised": {
+        "description": "L'algorithme trouve des structures cachées dans des données non labellisées.",
+        "tasks": ["Clustering (regroupement)", "Réduction de dimensionnalité", "Détection d'anomalies"],
+        "algorithms": ["K-means", "DBSCAN", "PCA", "Autoencodeurs"]
+      },
+      "reinforcement": {
+        "description": "Un agent apprend par essais-erreurs en recevant des récompenses ou pénalités.",
+        "applications": ["Jeux (AlphaGo, OpenAI Five)", "Robotique", "Trading automatique"],
+        "key_concepts": ["Agent, Environnement, État, Action, Récompense, Politique"]
+      }
+    },
+    "key_concepts": {
+      "training_validation_test": "Diviser les données en 3 ensembles : entraînement (70 %), validation (15 %), test (15 %).",
+      "overfitting": "Le modèle mémorise les données d'entraînement mais généralise mal. Solution : régularisation, dropout, plus de données.",
+      "underfitting": "Le modèle est trop simple pour capturer les patterns. Solution : modèle plus complexe.",
+      "gradient_descent": "Algorithme d'optimisation qui minimise la fonction de perte en ajustant itérativement les paramètres.",
+      "hyperparameters": "Paramètres à régler avant l'entraînement : taux d'apprentissage, nombre de couches, taille des batches."
+    },
+    "neural_networks": {
+      "basics": "Réseaux de neurones artificiels inspirés du cerveau : neurones (nœuds) connectés par des poids (synapses).",
+      "deep_learning": "Réseaux profonds (> 2 couches cachées) capables d'apprendre des représentations complexes.",
+      "architectures": [
+        "CNN (Convolutional Neural Networks) : vision par ordinateur",
+        "RNN/LSTM : séquences temporelles, texte",
+        "Transformers : NLP, LLMs (GPT, BERT)",
+        "GAN : génération d'images"
+      ]
+    },
+    "evaluation_metrics": [
+      {"metric": "Accuracy", "use": "Classification équilibrée. (TP+TN)/(Total)"},
+      {"metric": "Precision / Recall / F1", "use": "Classes déséquilibrées. Précision = TP/(TP+FP), Rappel = TP/(TP+FN)."},
+      {"metric": "AUC-ROC", "use": "Capacité discriminante globale du modèle."},
+      {"metric": "RMSE/MAE", "use": "Régression — écart entre valeurs prédites et réelles."}
+    ],
+    "examples": [
+      {
+        "situation": "Utilisateur demande la différence entre ML et IA",
+        "recommended_behavior": "Expliquer que l'IA est le domaine général (simuler l'intelligence), le ML est une approche de l'IA (apprentissage par les données), et le deep learning est un sous-ensemble du ML (réseaux profonds).",
+        "avoid": "Utiliser les termes de façon interchangeable."
+      }
+    ],
+    "best_practices": [
+      "Commencer par un modèle simple (baseline) avant d'augmenter la complexité.",
+      "Toujours séparer les données de test avant tout prétraitement.",
+      "Analyser les erreurs du modèle pour comprendre ses limites."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["machine learning", "apprentissage automatique", "deep learning", "réseau de neurones", "overfitting", "gradient"],
+    "related_domains": ["technology", "mathematics"],
+    "related_knowledge": ["technology.ai.artificial_intelligence", "mathematics.statistics.probability"],
+    "retrieval_priority": 10
+  },
+  "behavior_rules": {"tone": "educational", "response_style": "structured_clear", "max_complexity": "high", "allow_humor": false},
+  "safety_notes": {
+    "allowed_usage": ["Éducation en IA et ML"],
+    "restricted_usage": [],
+    "forbidden_usage": ["Aider à créer des systèmes de surveillance ou de manipulation sans consentement"],
+    "fallback_behavior": "Mentionner les implications éthiques des systèmes ML (biais, transparence, responsabilité)."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "03/07/2026",
+    "last_update": "03/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}
