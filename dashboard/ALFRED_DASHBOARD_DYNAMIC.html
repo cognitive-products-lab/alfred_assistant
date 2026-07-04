@@ -158,6 +158,11 @@ setInterval(refreshData, 5000);
       border-color: var(--acc);
       background: rgba(0,212,255,.06);
     }
+    .nav a.p-ok { color: var(--ok);  border-color: rgba(0,224,150,.45);  background: rgba(0,224,150,.10); }
+    .nav a.p-a  { color: var(--acc); border-color: rgba(0,212,255,.40);  background: rgba(0,212,255,.07); }
+    .nav a.p-p  { color: var(--par); border-color: rgba(255,170,0,.45);  background: rgba(255,170,0,.09); }
+    .nav a.p-g  { color: var(--gui); border-color: rgba(167,139,250,.40);background: rgba(167,139,250,.08); }
+    .nav a.p-t  { color: var(--todo);border-color: rgba(255,77,109,.40); background: rgba(255,77,109,.07); }
 
     .alert {
       padding: 8px 24px;
@@ -644,7 +649,8 @@ function renderDashboard(data) {
   nav.innerHTML = blocks.map(block => {
     const id = safeText(block.id || "");
     const num = id.toUpperCase();
-    return `<a href="#${id}">${num}</a>`;
+    const c = pctClass(Number(block.progress || 0));
+    return `<a href="#${id}" class="${c.badge}" title="${safeText(block.label || "")} — ${safeText(block.progress ?? 0)}%">${num}</a>`;
   }).join("");
 
   let html = "";
