@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "law.labor.labor_law_basics",
+  "version": "1.0.0",
+  "domain": "law",
+  "subdomain": "labor",
+  "category": "employment_law",
+  "priority": "high",
+  "safety_level": "sensitive",
+  "title": "Droit du Travail — Fondements",
+  "summary": "Droit du travail français : contrat de travail (CDI, CDD, intérim), durée légale (35h), congés (5 semaines), licenciement (motif réel et sérieux, indemnités), prud'hommes, harcèlement, discrimination, syndicats, négociation collective.",
+  "purpose": "Permettre à ALFRED d'expliquer les droits et obligations des salariés et employeurs dans le cadre du droit du travail français.",
+  "tags": ["droit_travail", "CDI", "CDD", "licenciement", "prud'hommes", "35_heures", "harcèlement_moral", "congés", "syndicats", "discrimination"],
+  "intents": ["explain_labor_law", "explain_employee_rights", "help_with_employment_issue", "answer_legal_question"],
+  "usage_context": ["Droit", "Travail", "Emploi", "Quotidien"],
+  "content": {
+    "definition": "Le droit du travail régit les relations individuelles (contrat de travail) et collectives (syndicats, négociation) entre employeurs et salariés. Code du travail + conventions collectives + accords d'entreprise.",
+    "contracts": {
+      "cdi": "CDI (Contrat à Durée Indéterminée) : droit commun, contrat standard. Pas d'obligation d'écrit (recommandé), mais bonne pratique. Peut être rompu par démission, licenciement, rupture conventionnelle.",
+      "cdd": "CDD (Contrat à Durée Déterminée) : encadré strictement. Motifs légaux limités (remplacement, surcroît temporaire, contrat saisonnier). Durée max 18 mois. Requalification en CDI si abus.",
+      "interim": "Intérim : salarié chez une ETT (Entreprise de Travail Temporaire). Mêmes causes que CDD. Prime de précarité 10 % en fin de mission.",
+      "trial": "Période d'essai : CDI — 2 mois ouvriers/employés, 3 mois techniciens/agents de maîtrise, 4 mois cadres. Renouvelable une fois."
+    },
+    "working_time": {
+      "legal": "Durée légale : 35h/semaine. Heures supplémentaires majorées (25 % pour les 8 premières, 50 % au-delà). Contingent annuel conventionnel.",
+      "leave": "Congés payés : 5 semaines (30 jours ouvrables) par an. Acquis : 2.5 jours/mois travaillé.",
+      "rest": "Repos minimum : 11h consécutives entre 2 journées. 35h hebdomadaires. Dimanche = repos dominical (sauf dérogations)."
+    },
+    "dismissal": {
+      "justified": "Licenciement pour motif personnel : motif réel et sérieux requis. Insuffisance professionnelle, faute simple, grave ou lourde. Procédure : entretien préalable + lettre motivée.",
+      "economic": "Licenciement économique : suppression de poste, transformation de l'emploi. Plan de sauvegarde de l'emploi (PSE) si ≥ 10 licenciements sur 30j.",
+      "indemnities": "Indemnités : légales (1/4 mois/année ancienneté jusqu'à 10 ans, 1/3 au-delà). Barème Macron (plafonnement indemnitaire aux prud'hommes — contesté).",
+      "conventional_break": "Rupture conventionnelle : accord amiable. Indemnités au moins égales aux légales. Permet de s'inscrire au chômage."
+    },
+    "harassment_discrimination": {
+      "moral_harassment": "Harcèlement moral : agissements répétés dégradant les conditions de travail (art. L1152-1). Peine : 2 ans prison + 30 000 € amende.",
+      "sexual_harassment": "Harcèlement sexuel : propos à connotation sexuelle imposés, répétés. Peine : 3 ans + 45 000 €.",
+      "discrimination": "Discrimination à l'embauche : interdite sur 25 critères (origine, sexe, âge, handicap, religion, orientation sexuelle, etc.). Testing judiciaire."
+    },
+    "collective": {
+      "unions": "Syndicats représentatifs : CGT, CFDT, FO, CFTC, CFE-CGC. Délégués syndicaux, comité social et économique (CSE).",
+      "collective_bargaining": "Négociation collective : accords de branche + accords d'entreprise. Le dialogue social est la source de nombreuses dispositions dérogatoires."
+    }
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["droit du travail", "CDI", "CDD", "licenciement", "prud'hommes", "35 heures", "congés payés", "harcèlement moral", "rupture conventionnelle"],
+    "related_domains": ["law"],
+    "related_knowledge": ["law.foundations.law_basics", "law.human_rights.human_rights_law"],
+    "retrieval_priority": 9
+  },
+  "behavior_rules": {"tone": "educational", "response_style": "structured_clear", "max_complexity": "medium", "allow_humor": false},
+  "safety_notes": {"allowed_usage": ["Information sur les droits du travail"], "restricted_usage": ["Ne pas se substituer à un conseil juridique personnalisé"], "forbidden_usage": [], "fallback_behavior": "Pour conflits prud'homaux, orienter vers un syndicat, un avocat en droit du travail ou le Défenseur des droits."},
+  "metadata": {"author": "ALFRED_SYSTEM", "creation_date": "04/07/2026", "last_update": "04/07/2026", "review_status": "active", "reviewed_by": "ALFRED_CORE", "source_type": "manual_structured_knowledge", "language": "fr", "retrieval_ready": true, "rag_compatible": true}
+}

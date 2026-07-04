@@ -1,0 +1,59 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "nutrition.sports.sports_nutrition",
+  "version": "1.0.0",
+  "domain": "nutrition",
+  "subdomain": "sports",
+  "category": "performance_nutrition",
+  "priority": "high",
+  "safety_level": "sensitive",
+  "title": "Nutrition Sportive",
+  "summary": "Nutrition sportive : besoins caloriques de l'athlète, timing nutritionnel (avant/pendant/après effort), glucides de l'endurance, protéines de la force, hydratation, suppléments légaux (créatine, caféine, bêta-alanine), récupération nutritionnelle.",
+  "purpose": "Permettre à ALFRED de répondre aux questions sur l'alimentation adaptée à la pratique sportive et l'optimisation des performances.",
+  "tags": ["nutrition_sportive", "performance", "créatine", "caféine", "timing_nutritionnel", "hydratation", "glucides", "protéines_sport", "récupération"],
+  "intents": ["explain_sports_nutrition", "help_athletic_diet", "explain_supplements", "answer_nutrition_question"],
+  "usage_context": ["Sport", "Nutrition", "Performance"],
+  "content": {
+    "caloric_needs": {
+      "general": "Les besoins caloriques d'un athlète dépendent du sport, du volume d'entraînement, du sexe, du poids. Courir 10 km = ~600-700 kcal. Cycliste professionnel : 6 000-8 000 kcal/j.",
+      "fat_adaptation": "RED-S (Relative Energy Deficiency in Sport) : syndrome de déficit énergétique relatif. Fréquent chez athlètes (surtout femmes, sports d'endurance/esthétiques). Conséquences : blessures, fractures de stress, troubles hormonaux."
+    },
+    "timing": {
+      "pre_workout": "Avant l'effort (2-3h avant) : repas riche en glucides, protéines modérées, peu de lipides et fibres (digestion). Ex. : pâtes + viande maigre + légumes cuits.",
+      "intra_workout": "Pendant l'effort (>60-90 min) : glucides 30-90g/h (gel, boisson isotonique). Hydratation : 400-800 ml/h selon la chaleur et la transpiration.",
+      "post_workout": "Après l'effort (fenêtre anabolique 0-2h) : protéines 20-40g + glucides (ratio 1:3 en endurance). Whey + banane, ou riz + blanc de poulet. Réhydratation."
+    },
+    "macros_for_sport": {
+      "carbs_endurance": "Glucides pour endurance : 5-10g/kg/j selon le volume. Charge glucidique (carbo-loading) avant marathon : 8-12g/kg/j 3 jours avant. Glycogène musculaire et hépatique = carburant principal.",
+      "protein_strength": "Protéines pour force/musculation : 1.6-2.2g/kg/j. Répartition en 4-5 prises. Leucine seuil : 2-3g/repas pour déclencher la synthèse protéique musculaire.",
+      "fat": "Lipides : minimum 20 % des calories. Rôle hormonal (testostérone). Pas à éliminer même en phase de sèche."
+    },
+    "supplements": {
+      "creatine": {
+        "evidence": "Créatine monohydrate : supplément le plus étudié et efficace. Augmente le stock de phosphocréatine → améliore performances explosives/répétées (+5-15 %). Safe à long terme.",
+        "protocol": "Charge : 20g/j × 5j puis 3-5g/j. Ou 3-5g/j d'emblée (sert à long terme). Avec glucides pour absorption."
+      },
+      "caffeine": {
+        "evidence": "Caféine : performance en endurance (+3-5 %), puissance, résistance à la fatigue. Mécanisme : antagoniste de l'adénosine (bloque la fatigue perçue).",
+        "dose": "Dose efficace : 3-6 mg/kg (60-90 min avant). Plus bénéfique pour non-consommateurs habituels. Effets : tremblements, anxiété, GI si abus."
+      },
+      "beta_alanine": "Bêta-alanine : précurseur de la carnosine (tampon du lactate). Améliore les efforts 1-4 min. Paresthésies (fourmillements) normales.",
+      "others": "Nitrates (betterave) : efficaces pour endurance. Bicarbonate de sodium : tampon. HMB, BCAA — moins de preuves robustes."
+    },
+    "hydration": {
+      "importance": "Déshydratation de 2 % du poids corporel → -20 % de performance. 3 % → risque de blessure musculaire et thermique.",
+      "monitoring": "Monitoring : couleur des urines (jaune pâle = hydraté). Pesée avant/après effort.",
+      "electrolytes": "Électrolytes : sodium (rétention hydrique), potassium, magnésium. Indispensables lors d'efforts > 2h ou chaleur."
+    }
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["nutrition sportive", "créatine", "caféine", "protéines sport", "glucides endurance", "timing nutritionnel", "hydratation", "performance"],
+    "related_domains": ["nutrition", "sports_science"],
+    "related_knowledge": ["nutrition.macronutrients.macronutrients_deep", "sports_science.physiology.sports_physiology"],
+    "retrieval_priority": 8
+  },
+  "behavior_rules": {"tone": "educational", "response_style": "structured_clear", "max_complexity": "medium", "allow_humor": false},
+  "safety_notes": {"allowed_usage": ["Éducation en nutrition sportive"], "restricted_usage": ["Distinguer clairement suppléments légaux et produits dopants"], "forbidden_usage": ["Aucune information sur les substances dopantes"], "fallback_behavior": "Pour un plan nutritionnel personnalisé pour athlète de haut niveau, recommander un diététicien du sport."},
+  "metadata": {"author": "ALFRED_SYSTEM", "creation_date": "04/07/2026", "last_update": "04/07/2026", "review_status": "active", "reviewed_by": "ALFRED_CORE", "source_type": "manual_structured_knowledge", "language": "fr", "retrieval_ready": true, "rag_compatible": true}
+}

@@ -1,0 +1,61 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "nutrition.dietary_patterns.dietary_patterns",
+  "version": "1.0.0",
+  "domain": "nutrition",
+  "subdomain": "dietary_patterns",
+  "category": "nutritional_epidemiology",
+  "priority": "high",
+  "safety_level": "sensitive",
+  "title": "Régimes et Modes Alimentaires",
+  "summary": "Modes alimentaires : régime méditerranéen (meilleure preuve scientifique), DASH, végétarien/vegan, jeûne intermittent, cétogène, régime MIND, alimentation intuitive, scores alimentaires (HealthyEating Index, NOVA classification).",
+  "purpose": "Permettre à ALFRED d'expliquer les différents modes alimentaires, leurs bénéfices et limites selon les preuves scientifiques disponibles.",
+  "tags": ["régime_alimentaire", "régime_méditerranéen", "vegan", "végétarien", "jeûne_intermittent", "cétogène", "NOVA", "alimentation_intuitive", "DASH"],
+  "intents": ["explain_dietary_patterns", "compare_diets", "explain_mediterranean_diet", "answer_nutrition_question"],
+  "usage_context": ["Nutrition", "Santé", "Alimentation", "Bien-être"],
+  "content": {
+    "definition": "Un mode alimentaire (dietary pattern) est l'ensemble des habitudes alimentaires d'un individu ou d'une population. La recherche montre que c'est le pattern global qui compte plus que les aliments isolés.",
+    "evidence_based": {
+      "mediterranean": {
+        "description": "Régime méditerranéen : abondance de légumes, fruits, légumineuses, céréales complètes, huile d'olive, poissons. Viande rouge occasionnelle. Vin rouge modéré (controversé).",
+        "evidence": "Meilleur niveau de preuve global. Étude PREDIMED (2013) : -30 % événements cardiovasculaires vs régime faible en graisses. Longévité, santé cognitive, anti-inflammatoire.",
+        "adherence_score": "Score d'adhérence : MedDiet Score (0-14). Chaque point = réduction du risque."
+      },
+      "dash": "DASH (Dietary Approaches to Stop Hypertension) : riche en potassium, calcium, magnésium, fibres. Pauvre en sodium, graisses saturées. -10-15 mmHg TA systolique. Recommandé par toutes les sociétés cardiologiques.",
+      "mind": "MIND (Mediterranean-DASH Intervention for Neurodegenerative Delay) : combinaison des 2. Réduit le risque d'Alzheimer de ~53 % (forte adhérence). Berry (myrtilles) et légumes verts feuillus clés."
+    },
+    "plant_based": {
+      "vegetarian": "Végétarien : exclut la viande et le poisson. Lacto-ovo végétarien le plus commun. Bien planifié → sain et durable.",
+      "vegan": "Vegan : exclut tout produit animal. Bénéfices : cholestérol, masse corporelle. Risques : B12 (supplémentation indispensable), D3, oméga-3 DHA/EPA, zinc, fer, calcium. Supplémentation ou aliments fortifiés nécessaires.",
+      "flexitarian": "Flexitarien : principalement végétal, viande occasionnelle. Meilleur compromis santé/environnement/social."
+    },
+    "popular_diets": {
+      "intermittent_fasting": {
+        "protocols": "16:8 (jeûner 16h, manger sur 8h), 5:2 (5 jours normal, 2 jours 500 kcal), OMAD (1 repas/jour), Ramadan-style.",
+        "evidence": "Preuves : comparable à la restriction calorique continue pour la perte de poids. Bénéfices métaboliques (insuline, autophagie). Pas de supériorité démontrée vs CR classique.",
+        "for_whom": "Adapté aux personnes qui tolèrent bien le jeûne. Déconseillé chez femmes enceintes/allaitantes, troubles alimentaires, diabétiques sous insuline."
+      },
+      "ketogenic": {
+        "description": "Cétogène (<50g glucides/j) : l'organisme entre en cétose, brûle les graisses. 70-80 % lipides, 20-25 % protéines, 5 % glucides.",
+        "evidence": "Efficace à court terme : perte de poids, épilepsie réfractaire (usage médical). Long terme : adhérence difficile, restrictif, effets sur cholestérol LDL variables. Données insuffisantes >1 an.",
+        "risks": "Risques : rein si prédisposition, os (acidose légère), microbiome (fibres insuffisantes)."
+      }
+    },
+    "nova": {
+      "definition": "Classification NOVA (Monteiro, Brésil) : classifie les aliments selon leur degré de transformation. Groupe 4 (ultra-transformés) : formulations industrielles avec additifs, peu de nutriments.",
+      "evidence": "Études épidémiologiques : UPF (Ultra-Processed Food) → +62 % risque dépression, +58 % obésité, mortalité accrue. Causalité vs corrélation débattue.",
+      "ultratransformed": "UPF = 50-60 % des calories dans les pays occidentaux. Sodas, snacks, plats préparés, viennoiseries industrielles, charcuteries reconstituées."
+    },
+    "intuitive_eating": "Alimentation intuitive (Tribole & Resch, 1995) : reconnecter aux signaux de faim et satiété. Abandon de la restriction cognitive. Evidence pour le bien-être psychologique et la relation à l'alimentation plutôt que pour la perte de poids."
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["régime méditerranéen", "vegan", "jeûne intermittent", "cétogène", "NOVA", "alimentation intuitive", "DASH", "modes alimentaires"],
+    "related_domains": ["nutrition", "medicine"],
+    "related_knowledge": ["nutrition.foundations.fundamentals", "nutrition.macronutrients.macronutrients_deep"],
+    "retrieval_priority": 9
+  },
+  "behavior_rules": {"tone": "educational", "response_style": "structured_clear", "max_complexity": "medium", "allow_humor": false},
+  "safety_notes": {"allowed_usage": ["Éducation sur les modes alimentaires"], "restricted_usage": ["Troubles alimentaires : ne pas donner de conseils de restriction"], "forbidden_usage": [], "fallback_behavior": "Pour pathologies ou objectifs thérapeutiques, recommander un diététicien-nutritionniste."},
+  "metadata": {"author": "ALFRED_SYSTEM", "creation_date": "04/07/2026", "last_update": "04/07/2026", "review_status": "active", "reviewed_by": "ALFRED_CORE", "source_type": "manual_structured_knowledge", "language": "fr", "retrieval_ready": true, "rag_compatible": true}
+}
