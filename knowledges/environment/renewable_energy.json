@@ -1,0 +1,59 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "environment.energy.renewable_energy",
+  "version": "1.0.0",
+  "domain": "environment",
+  "subdomain": "energy",
+  "category": "sustainability",
+  "priority": "critical",
+  "safety_level": "normal",
+  "title": "Énergies Renouvelables",
+  "summary": "Énergies renouvelables : solaire (PV, thermique), éolien (terrestre, offshore), hydraulique, géothermie, biomasse, stockage d'énergie, transition énergétique et défis de l'intermittence.",
+  "purpose": "Permettre à ALFRED d'expliquer les technologies d'énergies renouvelables, leur état de déploiement et les défis de la transition énergétique.",
+  "tags": ["énergies_renouvelables", "solaire", "éolien", "hydraulique", "transition_énergétique", "stockage", "intermittence", "réseau_électrique"],
+  "intents": ["explain_renewable_energy", "discuss_energy_transition", "explain_solar_wind", "answer_environment_question"],
+  "usage_context": ["Énergie", "Environnement", "Politique", "Technologie"],
+  "content": {
+    "definition": "Les énergies renouvelables sont issues de sources naturelles réapprovisionnées naturellement (soleil, vent, eau, chaleur terrestre, biomasse) — par opposition aux combustibles fossiles finis.",
+    "technologies": {
+      "solar_pv": {
+        "principle": "Effet photovoltaïque : photons → électrons libres dans une cellule semi-conductrice (silicium).",
+        "efficiency": "Cellules commerciales : 20-23 %. Recordes : ~47 % (concentrateur multi-jonction, labo).",
+        "cost_evolution": "Coût divisé par 100 depuis 1977. Parmi les moins chers kWh produit aujourd'hui (~30 €/MWh en 2024).",
+        "global": "1 500 GW installés mondialement (2023). Chine leader (760 GW)."
+      },
+      "solar_thermal": "Solaire thermique : chauffe-eau solaire (résidentiel), centrales CSP (concentré — miroirs → vapeur → turbine). Cf. centrale NOOR (Maroc).",
+      "wind": {
+        "onshore": "Éolien terrestre : mâts 80-120m, puissance 2-6 MW/turbine. Coût ~45 €/MWh.",
+        "offshore": "Éolien offshore : turbines 10-15 MW (Haliade-X, 260m de diamètre de rotor). Vents plus forts et réguliers. Coût plus élevé mais taux de charge supérieur (45-60%).",
+        "global": "2 100 GW installés (2023). Chine, USA, Allemagne, Inde leaders."
+      },
+      "hydro": "Hydraulique : énergie cinétique de l'eau → turbine → électricité. 1 300 GW mondiaux. La plus grande : Trois Gorges (Chine, 22.5 GW). Flexible (stockage par pompage-turbinage).",
+      "geothermal": "Géothermie : chaleur de la Terre. Haute enthalpie (volcanique — Islande : 66 % électricité). Basse enthalpie : pompe à chaleur géothermique.",
+      "biomass": "Biomasse : combustion de matière organique. Biogaz (méthanisation), biocarburants. Controverse : déforestation, compétition alimentaire."
+    },
+    "storage": {
+      "challenge": "Intermittence des ENR (pas de soleil la nuit, pas de vent par temps calme) → besoin de stockage ou de flexibilité du réseau.",
+      "batteries": "Batteries lithium-ion : coût divisé par 10 en 10 ans. Tesla Megapack, installations de stockage à grande échelle.",
+      "pumped_hydro": "STEP (Station de Transfert d'Énergie par Pompage) : 95 % du stockage mondial. Eau pompée en hauteur = batterie gigantesque.",
+      "hydrogen": "Hydrogène vert (électrolyse via ENR) : porteur d'énergie décarbonée pour industrie lourde et transport longue distance. Coût encore élevé.",
+      "other": "Batteries flux, air comprimé, gravité (Gravitricity), condensateurs supercapacitifs — R&D active."
+    },
+    "energy_transition": {
+      "status": "ENR = 30 % de l'électricité mondiale (2023). Objectif IEA : 80 % d'ici 2050.",
+      "france": "France : 25 % ENR (majoritairement hydraulique). Objectif 40 % en 2030. Débat nucléaire vs ENR.",
+      "challenges": ["Intermittence et gestion du réseau", "Besoins en matériaux critiques (lithium, cobalt, terres rares)", "Financement des infrastructures", "Acceptabilité sociale (éolien, lignes THT)"],
+      "jobs": "Secteur ENR : 13 millions d'emplois mondiaux (IRENA, 2023). En forte croissance."
+    }
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["énergies renouvelables", "solaire", "éolien", "transition énergétique", "stockage", "hydraulique", "hydrogène vert"],
+    "related_domains": ["environment", "technology"],
+    "related_knowledge": ["environment.climate_change_solutions", "science.earth_science.climate_science"],
+    "retrieval_priority": 9
+  },
+  "behavior_rules": {"tone": "educational", "response_style": "structured_clear", "max_complexity": "medium", "allow_humor": false},
+  "safety_notes": {"allowed_usage": ["Éducation énergétique et environnementale"], "restricted_usage": [], "forbidden_usage": [], "fallback_behavior": "Présenter la transition énergétique dans sa complexité réelle sans dogmatisme pro- ou anti-nucléaire."},
+  "metadata": {"author": "ALFRED_SYSTEM", "creation_date": "04/07/2026", "last_update": "04/07/2026", "review_status": "active", "reviewed_by": "ALFRED_CORE", "source_type": "manual_structured_knowledge", "language": "fr", "retrieval_ready": true, "rag_compatible": true}
+}
