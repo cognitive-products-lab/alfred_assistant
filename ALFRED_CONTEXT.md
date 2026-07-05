@@ -1,6 +1,6 @@
 ﻿# ALFRED — Fichier de contexte collaborateur
 # À coller en début de chaque nouvelle conversation avec Claude
-# Dernière mise à jour : 18 Juin 2026 — Session 7
+# Dernière mise à jour : 5 Juillet 2026 — Session 8
 # ============================================================
 
 ## 🎯 QUI JE SUIS
@@ -117,7 +117,13 @@ Local-first | Security by Design | Zero Trust | Scalabilité progressive
 ### Hardware actuel (V1 — PC développement)
 HP EliteBook — Intel i7 — 32 Go RAM
 
-### ✅ Hardware cible validé — Serveur local CPL (Juin 2026)
+### ✅ Hardware cible — Serveur local CPL — INSTALLÉ ET OPÉRATIONNEL (depuis fin Juin 2026)
+
+⚠️ Ce PC (Miniforum MS-S1 Max, hostname `ALFRED-CORE`) est le poste sur lequel
+tourne effectivement ALFRED depuis fin juin 2026 — ce n'est plus une décision
+en attente, mais l'environnement de développement/production actuel. Voir
+`docs/architecture/reseau_alfred.svg` pour le schéma réseau à jour (VLAN,
+switch, routeur).
 
 **Minisforum MS-S1 MAX** — Décision d'achat validée ✅
 - CPU : AMD Ryzen AI Max+ 395 (16C/32T, 5.1 GHz)
@@ -268,23 +274,41 @@ Specs cibles :
 - USB-C | OpenCV compatible | SDK Python
 - Candidats : Logitech Brio 4K (~200€) / Insta360 Link 2 (~180€)
 
-#### Réseau TP-Link — ✅ Configuré (14/06/2026)
+#### Réseau TP-Link — ✅ Segmentation VLAN opérationnelle (05/07/2026)
+
 | Équipement | Modèle | Rôle | Statut |
 |-----------|--------|------|--------|
-| Routeur | ER605 (Omada) | Routeur, sans WiFi (volontaire) | IP WAN dynamique `192.168.1.120` (réservée côté Bbox), compte admin créé |
-| Switch | SG108E | 8 ports Gigabit manageable | IP statique `192.168.0.101`, DHCP désactivé, mdp admin changé |
+| Box FAI | Bbox Must (Bouygues) | Modem — pas de vrai mode bridge sur ce modèle | `192.168.1.254`, DMZ active → ER605 |
+| Routeur | ER605 (Omada) | Routeur + VLAN + pare-feu, sans WiFi (volontaire) | WAN `192.168.1.120` (réservé DHCP côté Bbox), LAN `192.168.0.1` |
+| Switch | SG108E | 8 ports Gigabit manageable, 802.1Q | IP `192.168.0.101`, mdp admin changé |
 
 ```
-Box Bouygues ↔ CPL ↔ CPL ↔ ER605 (192.168.1.120) → SG108E (192.168.0.101)
-                                                          └── PC (P1: MS-S1 MAX / P2: EliteBook / P3: PC Pro)
+Box Bouygues (192.168.1.254, DMZ→.120) ↔ CPL ↔ CPL ↔ ER605 (WAN .120 / LAN 192.168.0.1)
+                                                          └── SG108E (192.168.0.101)
+                                                                ├── Port 2 (PVID 20/ADMIN) : poste Dell
+                                                                └── Port 3 (PVID 10/PC_ALFRED) : MS-S1 MAX — 192.168.10.100
 ```
 ⚠️ Ne pas empiler ER605 et SG108E — chaleur + vibrations. Poser côte à côte.
 
-- Mots de passe admin différents pour ER605/SG108E, sauvegardés sur clé USB hors ligne.
-- EAP650 jugé **non nécessaire** (WiFi déjà couvert par répéteur existant + Bbox).
-- Pas de DMZ configuré (objectif = **protéger** PC Alfred/futur serveur, pas les exposer).
-- À faire plus tard : segmentation **VLAN** pour isoler PC Alfred (+ futur serveur) du reste
-  du réseau, avec règles pare-feu ER605 limitant les accès entrants vers ce VLAN.
+**Segmentation VLAN — réalisée et testée le 05/07/2026 :**
+- VLAN 10 `PC_ALFRED` (`192.168.10.0/24`) — PC Alfred isolé, Internet + dashboard local validés
+- VLAN 20 `ADMIN` (`192.168.20.0/24`) — poste Dell, accès SSH/RDP prévu vers VLAN10
+- VLAN 30 `IOT` (`192.168.30.0/24`) — créé, aucun équipement branché pour l'instant
+- **Double NAT résolu** via DMZ côté Bbox (le modèle Bbox Must n'a pas de vrai mode
+  bridge total, seul le mode DMZ est disponible) → SSH externe validé fonctionnel
+- **Pare-feu WAN ER605 vérifié conforme** : mdp admin changé, UPnP désactivé, gestion
+  à distance WAN vide, aucune redirection de port superflue
+- **Faille trouvée et corrigée** : l'adaptateur Wi-Fi du PC Alfred était actif et
+  connecté directement à la Bbox (hors VLAN), contournant toute la segmentation —
+  désactivé (`Disable-NetAdapter`)
+- **Restant à faire** (reporté explicitement, ne pas relancer sans demande) : règles
+  ACL inter-VLAN (actuellement tous les VLAN se joignent librement — la segmentation
+  existe mais l'isolation n'est pas active), test d'isolation VLAN_DEFAULT, VPN
+  OpenVPN scopé à VLAN_ADMIN, vérifs WAN restantes (ping ICMP, SPI, logs)
+- **Point d'accès Wi-Fi Omada EAP610** — achat prévu **août 2026**, le Wi-Fi reste
+  sur la Bbox en attendant (à couper une fois l'AP en place)
+- Doc complète : `docs/smsi/vlan_config.md`, `docs/smsi/acces_distant_durcissement_wan.md`,
+  schéma `docs/architecture/reseau_alfred.svg`
 
 #### Alimentation
 - Multiprise parafoudre 16A obligatoire
@@ -477,11 +501,13 @@ Tous à placer dans : D:\PROJET_ALFRED\
     Obsbot Tiny 2 pour AI tracking)
 
 ### En attente 🕐
-- Réception MS-S1 MAX (upgrade hardware) — setup bureau CPL complet prévu juillet 2026
+- MS-S1 MAX reçu et installé (fin juin 2026) — setup bureau CPL en cours d'affinage
 - Vérifier en live si le grésillement TTS a disparu avec le fondu + le streaming réel
   (sinon : envisager un `sd.OutputStream` persistant au lieu de `sd.play()` par phrase)
 - Vérifier en live que le tutoiement (INT-007) est bien respecté par le LLM
 - Décision finale Docker Desktop sur ce PC (désinstallation actée, pas encore exécutée)
+- ACL inter-VLAN, VPN VLAN_ADMIN, achat AP Wi-Fi Omada EAP610 (août 2026) — cf. section
+  Réseau TP-Link ci-dessus, reportés explicitement par Céline
 
 ### Prochaines étapes 🎯
 1. Relancer `start_alfred.bat` / `main.py` pour vérifier : lecture phrase par phrase,
@@ -501,6 +527,35 @@ Bloc 20 → V1 pipeline → personality_adapter.py
 → V3 orchestration → STT/TTS → V4 domotique → Android
 ```
 *(toutes ces briques sont désormais codées et testées — V1.4 stable, 63.6% avancement global)*
+
+---
+
+## ✅ SESSION 8 — 05/07/2026 — Récapitulatif
+
+**Nettoyage dashboards + sécurisation réseau physique (Bloc 20)**
+
+**Dashboards & git :**
+- Sync ALFRED_PC/ALFRED_WEB nettoyé (doublons rapports gouvernance supprimés,
+  ~30 anciens rapports fantômes purgés de git, fast-forward propre)
+- Commits : ALFRED_PC `91981d2` puis `16333a5`, ALFRED_WEB `c6b60ce` puis `fe3c774`
+
+**Réseau physique — VLAN 10/20/30 opérationnels :**
+- Double NAT (Bbox Must ↔ ER605) résolu via DMZ côté Bbox — SSH externe validé
+- Pare-feu WAN de l'ER605 vérifié conforme (mdp, UPnP, remote management, port
+  forwarding — tous OK)
+- Switch TL-SG108E et ER605 configurés en 802.1Q : VLAN 10 `PC_ALFRED`
+  (`192.168.10.0/24`), VLAN 20 `ADMIN` (`192.168.20.0/24`), VLAN 30 `IOT`
+  (`192.168.30.0/24`) — PC Alfred confirmé isolé sur `192.168.10.100`, Internet
+  et dashboard local validés
+- Faille de sécurité trouvée et corrigée en cours de test : adaptateur Wi-Fi de
+  PC Alfred actif hors VLAN (connecté directement à la Bbox), désactivé
+- Nouveaux docs SMSI : `docs/smsi/acces_distant_durcissement_wan.md` (VPN +
+  durcissement WAN), `vlan_config.md` mis à jour (v1.2, procédure détaillée +
+  réalisation), schéma `docs/architecture/reseau_alfred.svg` + section
+  "Architecture réseau" simplifiée sur `hardware.html` (public)
+- **Restant, reporté explicitement par Céline** ("un autre jour") : règles ACL
+  inter-VLAN — ne pas relancer sans qu'elle le demande
+- Achat point d'accès Wi-Fi Omada **EAP610** prévu **août 2026**
 
 ---
 
@@ -591,7 +646,7 @@ Traitement exhaustif de toutes les priorités HAUTE et MOYENNE de l'audit gouver
 
 **Gouvernance (résiduel) :**
 1. **DPA OpenAI (RGPD-09)** — Se connecter platform.openai.com → Settings → Data Processing Addendum → accepter → passer RGPD-09 `status: done` dans `_manifest.json` → relancer `update_gouvernance_data.py` → score ~98%
-2. **VLAN PC Alfred (ISO-20)** — Implémentation matérielle Q3 2026 (SG108E + ER605). Architecture dans `docs/smsi/vlan_config.md`
+2. **VLAN PC Alfred (ISO-20)** — ✅ Segmentation réalisée et testée le 05/07/2026 (VLAN 10/20/30 actifs). Restant : règles ACL inter-VLAN (reportées, ne pas relancer sans demande). Détails dans `docs/smsi/vlan_config.md`
 
 **Développement :**
 3. **Test réel `python main.py`** — valider mémoire, tutoiement, français, streaming TTS + sync avatar/amplitude
@@ -630,5 +685,5 @@ Respecte séparation public / privé expérimental.
 Intègre toujours : max 6 calques, PNG optimisés, Kivy, local-first.
 
 ---
-*Session 5 — 13 Juin 2026*
-*Prochaine mise à jour : après réception MS-S1 MAX + correctif TTS streaming validé en live*
+*Session 8 — 5 Juillet 2026*
+*Prochaine mise à jour : après ACL inter-VLAN, VPN VLAN_ADMIN, ou achat AP Wi-Fi Omada (août 2026)*
