@@ -70,8 +70,9 @@ Le SMSI couvre :
 | A.8.14 | Tests reprise | ✅ Oui | `tests_pca.md` | ✅ Atteint |
 | A.8.15 | Journalisation | ✅ Oui | `audit_trail.py` | ✅ Atteint |
 | A.8.16 | Surveillance anomalies | ✅ Oui | `behavioral_detector.py` | ✅ Atteint |
-| A.8.20 | Sécurité réseau | ✅ Oui | ER605 + policy | ✅ Atteint |
-| A.8.22 | Micro-segmentation | ✅ Oui | VLAN planifié Q3 2026 | ⚠️ Partiel |
+| A.6.7 | Travail à distance | ✅ Oui | VPN planifié — `acces_distant_durcissement_wan.md` | ⚠️ Partiel |
+| A.8.20 | Sécurité réseau | ✅ Oui | ER605 + policy + `acces_distant_durcissement_wan.md` | ✅ Atteint |
+| A.8.22 | Micro-segmentation | ✅ Oui | VLAN planifié Juillet 2026 — `vlan_config.md` v1.1 | ⚠️ Partiel |
 | A.8.25 | SSDLC | ✅ Oui | Procédure documentée | ✅ Atteint |
 | A.8.28 | Revue de code | ✅ Oui | Checklist + historique | ✅ Atteint |
 | A.8.29 | Tests sécurité | ✅ Oui | 651 tests A+ | ✅ Atteint |

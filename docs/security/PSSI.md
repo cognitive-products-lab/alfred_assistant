@@ -30,7 +30,8 @@ détaillés présents dans ce dossier (`docs/security/`) :
 | `baseline_config.md` | A.8.9 — Configuration sécurisée |
 | `plan_sauvegarde.md` | A.8.13 — Sauvegarde 3-2-1 |
 | `tests_pca.md` | A.8.14 — Tests PCA |
-| `vlan_config.md` | A.8.22 — VLAN isolation (Q3 2026) |
+| `vlan_config.md` | A.8.22 — VLAN isolation (Juillet 2026) |
+| `acces_distant_durcissement_wan.md` | A.8.20/A.6.7 — VPN accès distant + durcissement WAN (Juillet 2026) |
 | `ssdlc_procedure.md` | A.8.25 — SSDLC |
 | `revue_code.md` | A.8.28 — Revue de code |
 | `audit_interne.md` | A.9.2 — Audits internes |
