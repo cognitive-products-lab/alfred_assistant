@@ -1,7 +1,7 @@
 # Rapport d'Audit Gouvernance — ALFRED / Cognitive Products Lab
 
-> **Date d'audit :** 2026-06-20 12:07 UTC
-> **Données générées le :** 2026-06-20 12:07:33 UTC
+> **Date d'audit :** 2026-07-05 07:25 UTC
+> **Données générées le :** 2026-07-05 07:25:05 UTC
 > **Manifest version :** V1.1
 > **Généré par :** generate_audit_report.py
 
@@ -208,7 +208,7 @@ _Prestataire d'Audit SSI — qualification ANSSI_
 
 | Champ | Valeur |
 |---|---|
-| Date du rapport | 2026-06-20 12:07 UTC |
+| Date du rapport | 2026-07-05 07:25 UTC |
 | Méthode d'évaluation | Vérification automatique des fichiers de preuve sur disque |
 | Scoring | done = 1.0 · partial = 0.5 · todo = 0.0 |
 | Pondération | Proportionnelle au nombre d'exigences par norme |

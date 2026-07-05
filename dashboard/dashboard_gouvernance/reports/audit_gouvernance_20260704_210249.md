@@ -1,7 +1,7 @@
 # Rapport d'Audit Gouvernance — ALFRED / Cognitive Products Lab
 
-> **Date d'audit :** 2026-06-18 12:43 UTC
-> **Données générées le :** 2026-06-18 12:43:22 UTC
+> **Date d'audit :** 2026-07-04 21:02 UTC
+> **Données générées le :** 2026-07-04 21:02:49 UTC
 > **Manifest version :** V1.1
 > **Généré par :** generate_audit_report.py
 
@@ -11,21 +11,21 @@
 
 | Indicateur | Valeur |
 |---|---|
-| **Score CPL global** | **97.0%** |
+| **Score CPL global** | **98.0%** |
 | **Grade** | **A+** — Excellence — conformité totale |
 | Normes actives évaluées | 4 |
 | Normes planifiées | 3 |
 | Exigences totales (normes actives) | 50 |
 
 ```
-Score global  [███████████████████░]  97.0%
+Score global  [████████████████████]  98.0%
 ```
 
 ## 2. Scores par norme
 
 | Norme | Score | Grade | OK | Partial | À faire | Total |
 |---|---|---|---|---|---|---|
-| **RGPD** | `[███████████░]` 95.5% | A+ | 10 | 1 | 0 | 11 |
+| **RGPD** | `[████████████]` 100.0% | A+ | 11 | 0 | 0 | 11 |
 | **ISO27001** | `[████████████]` 98.4% | A+ | 30 | 1 | 0 | 31 |
 | **AIACT** | `[███████████░]` 91.7% | A+ | 5 | 1 | 0 | 6 |
 | **NIS2** | `[████████████]` 100.0% | A+ | 2 | 0 | 0 | 2 |
@@ -37,8 +37,8 @@ Score global  [███████████████████░]  97
 
 ### RGPD — RGPD / GDPR
 _Règlement (UE) 2016/679_  
-**Score : 95.5%** `[███████████████████░]`  
-10 atteints · 1 partiels · 0 à faire
+**Score : 100.0%** `[████████████████████]`  
+11 atteints · 0 partiels · 0 à faire
 
 | ID | Exigence | Domaine | Statut | Preuve | Priorité |
 |---|---|---|---|---|---|
@@ -50,7 +50,7 @@ _Règlement (UE) 2016/679_
 | RGPD-06 | Consentement renforcé données sensibles Art. 9 _Procédure de consentement formel Art. 9 documentée_ | Données sensibles | ✅ Atteint | ✓ |  |
 | RGPD-07 | Portabilité Art. 20 — export + réimportation complète | Droits personnes | ✅ Atteint | ✓ |  |
 | RGPD-08 | Analyse d'impact AIPD données de santé | Données sensibles | ✅ Atteint | ✓ |  |
-| RGPD-09 | DPA formelle avec sous-traitants (OpenAI API…) _DPA documentée, acceptation formelle OpenAI en attente_ | Accountability | ⚠️ Partiel | ✓ | 🔴 HAUTE |
+| RGPD-09 | DPA formelle avec sous-traitants (OpenAI API…) _DPA OpenAI acceptée formellement le 2026-06-18_ | Accountability | ✅ Atteint | ✓ |  |
 | RGPD-10 | Procédure notification violation 72h (CNIL) | Incidents | ✅ Atteint | ✓ |  |
 | RGPD-11 | Opposition Art. 21 — config/features.json fonctionnalités désactivables | Droits personnes | ✅ Atteint | ✓ |  |
 
@@ -81,7 +81,7 @@ _Système de Management de la Sécurité de l'Information_
 | ISO-17 | Sauvegarde et plan de restauration testés (A.8.13) _Plan 3-2-1 documenté + test de restauration 2026-06-18_ | Continuité | ✅ Atteint | ✓ |  |
 | ISO-18 | Tests de sécurité automatisés — 651 tests (A.8.29) | Développement | ✅ Atteint | ✓ |  |
 | ISO-19 | Sécurité des réseaux — firewall, règles documentées (A.8.20) _Politique réseau complète avec règles firewall ER605_ | Réseau | ✅ Atteint | ✓ |  |
-| ISO-20 | Micro-segmentation réseau — VLAN isolation (A.8.22) _Architecture VLAN documentée, implémentation planifiée Q3 2026_ | Réseau | ⚠️ Partiel | ✓ | 🟡 MOYENNE |
+| ISO-20 | Micro-segmentation réseau — VLAN isolation (A.8.22) _Architecture VLAN documentée — implémentation physique Q3 2026 (2026-06-18)_ | Réseau | ⚠️ Partiel | ✓ | 🟡 MOYENNE |
 | ISO-21 | Cycle de développement sécurisé — SSDLC (A.8.25) | Développement | ✅ Atteint | ✓ |  |
 | ISO-22 | Revue de code et audit sécurité applicative (A.8.28) | Développement | ✅ Atteint | ✓ |  |
 | ISO-23 | Protection contre les logiciels malveillants (A.8.7) | Opérations | ✅ Atteint | ✓ |  |
@@ -126,15 +126,10 @@ _Directive (UE) 2022/2555 — Sécurité réseaux et SI_
 
 ## 4. Plan d'action — Exigences à traiter
 
-### 4.1 Priorité HAUTE
-
-- **[RGPD]** `RGPD-09` — DPA formelle avec sous-traitants (OpenAI API…) ⚠️
-  > _DPA documentée, acceptation formelle OpenAI en attente_
-
 ### 4.2 Priorité MOYENNE
 
 - **[ISO27001]** `ISO-20` — Micro-segmentation réseau — VLAN isolation (A.8.22) ⚠️
-  > _Architecture VLAN documentée, implémentation planifiée Q3 2026_
+  > _Architecture VLAN documentée — implémentation physique Q3 2026 (2026-06-18)_
 - **[AIACT]** `AIACT-06` — Enregistrement au registre UE IA haute priorité (Art. 49) ⚠️
   > _Évaluation documentée — risque limité, obligation non applicable. Veille active._
 
@@ -191,7 +186,7 @@ _Prestataire d'Audit SSI — qualification ANSSI_
 | ✅ Terminé | ISO 27001 — SMSI complet : PCA, RACI, revue direction, vulnérabilités, SSDLC (97%) | Juin 2026 |
 | ✅ Terminé | AI Act — HITL, registre risques IA, gouvernance données entraînement | Juin 2026 |
 | ✅ Terminé | NIS2 — procédure signalement incidents (ANSSI/CERT-FR) | Juin 2026 |
-| 🔵 En cours | DPA formelle OpenAI — acceptation portail (RGPD-09) | V2 2026 |
+| ✅ Terminé | DPA formelle OpenAI — acceptation portail (RGPD-09) | Juin 2026 |
 | 🟡 Planifié | VLAN isolation PC Alfred · micro-segmentation réseau (ISO A.8.20) | Q3 2026 |
 | 🔮 Futur | HDS — hébergement données santé ARTHUR (Décret 2018-137) | V2 2027 |
 | 🔮 Futur | SecNumCloud — infrastructure souveraine + audit ANSSI | V3 2027 |
@@ -213,7 +208,7 @@ _Prestataire d'Audit SSI — qualification ANSSI_
 
 | Champ | Valeur |
 |---|---|
-| Date du rapport | 2026-06-18 12:43 UTC |
+| Date du rapport | 2026-07-04 21:02 UTC |
 | Méthode d'évaluation | Vérification automatique des fichiers de preuve sur disque |
 | Scoring | done = 1.0 · partial = 0.5 · todo = 0.0 |
 | Pondération | Proportionnelle au nombre d'exigences par norme |
