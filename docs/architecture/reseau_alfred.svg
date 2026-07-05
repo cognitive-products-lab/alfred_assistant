@@ -1,0 +1,112 @@
+<svg viewBox="0 0 900 900" xmlns="http://www.w3.org/2000/svg" role="img">
+<title>Architecture réseau ALFRED — segmentation VLAN</title>
+<desc>Schéma du réseau domestique ALFRED : Internet vers Bbox Must, puis routeur ER605 segmenté en VLAN 10/20/30, switch TL-SG108E, et postes finaux.</desc>
+<style>
+  .bg{fill:#07090f}
+  .surf{fill:#0d1117;stroke:#21262d;stroke-width:1}
+  .surf2{fill:#161b22;stroke:#21262d;stroke-width:1}
+  .txt{fill:#e6edf3;font-family:'Segoe UI',Arial,sans-serif}
+  .dim{fill:#8b949e;font-family:'Segoe UI',Arial,sans-serif}
+  .accent{fill:#00d4ff}
+  .ok{fill:#3fb950}
+  .warn{fill:#d29922}
+  .future{fill:#8957e5;opacity:.7}
+  .line{stroke:#388bfd;stroke-width:2;fill:none}
+  .line-dash{stroke:#8957e5;stroke-width:2;stroke-dasharray:5,4;fill:none;opacity:.6}
+  .lbl{font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
+  .sub{font-size:10.5px}
+  .tiny{font-size:9.5px}
+  .badge{font-size:9px;font-weight:700}
+</style>
+<rect class="bg" x="0" y="0" width="900" height="900"/>
+
+<!-- Internet -->
+<rect class="surf" x="370" y="16" width="160" height="46" rx="10"/>
+<text class="txt lbl" x="450" y="36" text-anchor="middle">Internet</text>
+<text class="dim tiny" x="450" y="52" text-anchor="middle">FAI Bouygues</text>
+<line class="line" x1="450" y1="62" x2="450" y2="100"/>
+
+<!-- Bbox -->
+<rect class="surf" x="330" y="100" width="240" height="70" rx="10"/>
+<text class="txt lbl" x="450" y="122" text-anchor="middle">Bbox Must</text>
+<text class="dim sub" x="450" y="139" text-anchor="middle">192.168.1.254</text>
+<text class="ok tiny" x="450" y="155" text-anchor="middle">✓ DMZ → 192.168.1.120</text>
+<line class="line" x1="450" y1="170" x2="450" y2="200"/>
+<text class="dim tiny" x="465" y="190">CPL ×2</text>
+
+<!-- ER605 -->
+<rect class="surf" x="300" y="200" width="300" height="86" rx="10"/>
+<text class="txt lbl" x="450" y="222" text-anchor="middle">Routeur ER605 (Omada)</text>
+<text class="dim sub" x="450" y="239" text-anchor="middle">WAN 192.168.1.120 · LAN 192.168.0.1</text>
+<text class="ok tiny" x="450" y="255" text-anchor="middle">✓ Pare-feu WAN vérifié</text>
+<text class="warn tiny" x="450" y="270" text-anchor="middle">⚠ ACL inter-VLAN à faire</text>
+<line class="line" x1="450" y1="286" x2="450" y2="316"/>
+
+<!-- VLAN row -->
+<rect class="surf2" x="60" y="316" width="240" height="60" rx="8"/>
+<text class="txt sub" x="180" y="338" text-anchor="middle" font-weight="700">VLAN 10 · PC_ALFRED</text>
+<text class="dim tiny" x="180" y="354" text-anchor="middle">192.168.10.0/24</text>
+<text class="dim tiny" x="180" y="368" text-anchor="middle">Port 3 · PVID 10</text>
+
+<rect class="surf2" x="330" y="316" width="240" height="60" rx="8"/>
+<text class="txt sub" x="450" y="338" text-anchor="middle" font-weight="700">VLAN 20 · ADMIN</text>
+<text class="dim tiny" x="450" y="354" text-anchor="middle">192.168.20.0/24</text>
+<text class="dim tiny" x="450" y="368" text-anchor="middle">Port 2 · PVID 20</text>
+
+<rect class="surf2" x="600" y="316" width="240" height="60" rx="8" stroke-dasharray="4,3"/>
+<text class="dim sub" x="720" y="338" text-anchor="middle" font-weight="700">VLAN 30 · IOT</text>
+<text class="dim tiny" x="720" y="354" text-anchor="middle">192.168.30.0/24</text>
+<text class="future tiny" x="720" y="368" text-anchor="middle">Planifié — aucun port assigné</text>
+
+<line class="line" x1="180" y1="376" x2="180" y2="410"/>
+<line class="line" x1="450" y1="376" x2="450" y2="410"/>
+<line class="line-dash" x1="720" y1="376" x2="720" y2="410"/>
+<line class="line" x1="180" y1="410" x2="720" y2="410"/>
+<line class="line" x1="450" y1="410" x2="450" y2="440"/>
+
+<!-- Switch -->
+<rect class="surf" x="330" y="440" width="240" height="66" rx="10"/>
+<text class="txt lbl" x="450" y="462" text-anchor="middle">Switch TL-SG108E</text>
+<text class="dim sub" x="450" y="479" text-anchor="middle">192.168.0.101</text>
+<text class="dim tiny" x="450" y="494" text-anchor="middle">802.1Q trunk — port 1 (uplink)</text>
+
+<!-- ports down to devices -->
+<line class="line" x1="380" y1="506" x2="380" y2="540"/>
+<line class="line" x1="500" y1="506" x2="500" y2="540"/>
+<line class="line-dash" x1="600" y1="506" x2="600" y2="540"/>
+<line class="line-dash" x1="720" y1="506" x2="720" y2="540"/>
+<line class="dim" x1="330" y1="522" x2="740" y2="522" stroke="#21262d"/>
+
+<!-- Devices row -->
+<rect class="surf2" x="310" y="540" width="140" height="90" rx="8"/>
+<text class="txt sub" x="380" y="562" text-anchor="middle" font-weight="700">PC Alfred</text>
+<text class="dim tiny" x="380" y="578" text-anchor="middle">192.168.10.100</text>
+<text class="dim tiny" x="380" y="592" text-anchor="middle">Port 3</text>
+<text class="ok tiny" x="380" y="608" text-anchor="middle">✓ Wi-Fi désactivé</text>
+
+<rect class="surf2" x="460" y="540" width="140" height="90" rx="8"/>
+<text class="txt sub" x="530" y="562" text-anchor="middle" font-weight="700">Poste Admin</text>
+<text class="dim tiny" x="530" y="578" text-anchor="middle">Dell — 192.168.20.x</text>
+<text class="dim tiny" x="530" y="592" text-anchor="middle">Port 2</text>
+<text class="dim tiny" x="530" y="608" text-anchor="middle">SSH/RDP → VLAN10</text>
+
+<rect class="surf2" x="610" y="540" width="130" height="90" rx="8" stroke-dasharray="4,3"/>
+<text class="dim sub" x="675" y="566" text-anchor="middle" font-weight="700">Équipement IoT</text>
+<text class="future tiny" x="675" y="584" text-anchor="middle">Planifié</text>
+<text class="future tiny" x="675" y="600" text-anchor="middle">VLAN 30</text>
+
+<rect class="surf2" x="750" y="540" width="130" height="90" rx="8" stroke-dasharray="4,3"/>
+<text class="dim sub" x="815" y="562" text-anchor="middle" font-weight="700">AP Omada</text>
+<text class="future tiny" x="815" y="578" text-anchor="middle">EAP610</text>
+<text class="future tiny" x="815" y="594" text-anchor="middle">Prévu Août 2026</text>
+<text class="future tiny" x="815" y="610" text-anchor="middle">SSID / VLAN</text>
+
+<!-- Legend -->
+<rect class="surf" x="60" y="660" width="820" height="90" rx="10"/>
+<text class="txt lbl" x="80" y="684">Légende</text>
+<circle cx="90" cy="702" r="4" class="ok"/><text class="dim tiny" x="102" y="706">Réalisé et testé</text>
+<circle cx="240" cy="702" r="4" class="warn"/><text class="dim tiny" x="252" y="706">Restant à faire</text>
+<circle cx="380" cy="702" r="4" class="future"/><text class="dim tiny" x="392" y="706">Planifié (futur)</text>
+<text class="dim tiny" x="80" y="726">Wi-Fi actuel : diffusé par la Bbox (hors VLAN) — sera coupé à l'installation de l'AP Omada</text>
+<text class="dim tiny" x="80" y="742">Réf. : docs/smsi/vlan_config.md · docs/smsi/acces_distant_durcissement_wan.md</text>
+</svg>
