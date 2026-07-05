@@ -1,6 +1,6 @@
 # ALFRED Roadmap
 
-Dernière mise à jour : 2026-06-18
+Dernière mise à jour : 2026-07-05
 
 ---
 
@@ -36,6 +36,19 @@ Dernière mise à jour : 2026-06-18
 - [x] NIS2 — procédure signalement ANSSI/CERT-FR (H+24/H+72/J+30)
 - [x] ALFRED Web — dossier cadrage intégré `/projet/cadrage` (sous-onglet)
 - [x] Add accessibility modes (B22 — voice_output_manager, text_reader, WCAG checker)
+
+---
+
+## V1.4 — Sécurité réseau physique (session 05/07)
+
+- [x] Résolution double NAT Bbox Must ↔ ER605 (DMZ, SSH externe validé)
+- [x] Pare-feu WAN ER605 vérifié conforme (mdp, UPnP, remote management, port forwarding)
+- [x] Micro-segmentation VLAN 10/20/30 opérationnelle (switch TL-SG108E + ER605) — Internet et dashboard local validés depuis VLAN10
+- [x] Faille Wi-Fi PC Alfred (hors VLAN) trouvée et corrigée
+- [x] Schéma réseau `docs/architecture/reseau_alfred.svg` + section publique `hardware.html`
+- [ ] Règles ACL inter-VLAN — reporté explicitement, ne pas relancer sans demande
+- [ ] VPN OpenVPN scopé VLAN_ADMIN
+- [ ] Point d'accès Wi-Fi Omada EAP610 — achat prévu août 2026
 
 ---
 
