@@ -508,6 +508,17 @@ Tous à placer dans : D:\PROJET_ALFRED\
 - Décision finale Docker Desktop sur ce PC (désinstallation actée, pas encore exécutée)
 - ACL inter-VLAN, VPN VLAN_ADMIN, achat AP Wi-Fi Omada EAP610 (août 2026) — cf. section
   Réseau TP-Link ci-dessus, reportés explicitement par Céline
+- ⚠️ **Trou de périmètre dashboards/manifest découvert le 08/07/2026** : `dashboard_data.json`
+  (manifest 1362 fichiers, blocs `b01`→`b22`) et `dashboard_test.json` (généré par
+  `ALFRED_PC/tests/run_all_tests.py`) sont scopés **exclusivement à ALFRED_PC**
+  (`SCAN_DIRS = ["src", "tests", "tools", "scripts", "dashboard"]` dans
+  `tools/apply_headers.py`, `TEST_GROUPS` fixes dans `run_all_tests.py`). Ils ne
+  détecteront jamais les fichiers d'**ALFRED_WEB** (ex : `auth/`, `models/`,
+  `data/postgres.py`, `migrations/` ajoutés ce jour pour les comptes utilisateurs
+  PostgreSQL, Bloc 21.23) même une fois régénérés à jour. ALFRED_WEB a sa propre
+  suite pytest (`ALFRED_WEB/tests/`) mais aucun système de manifest/statut fichier
+  équivalent. Pas de correctif appliqué — juste consigné pour éviter de supposer à
+  tort qu'un dashboard "à jour" couvre aussi ALFRED_WEB.
 
 ### Prochaines étapes 🎯
 1. Relancer `start_alfred.bat` / `main.py` pour vérifier : lecture phrase par phrase,
