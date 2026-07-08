@@ -3,6 +3,7 @@ PROJECT : ALFRED
 BLOCK   : B01 / RGPD
 FILE    : src/conversation/commands/export_command.py
 ROLE    : Droit d'accès Art. 15 RGPD — export lisible des données personnelles
+STATUS  : VALIDATED
 
 Produit un rapport JSON horodaté contenant toutes les données
 accessibles à l'utilisateur en lecture : profil, mémoire, préférences,

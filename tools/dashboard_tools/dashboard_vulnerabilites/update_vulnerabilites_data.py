@@ -29,6 +29,9 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+
 ROOT = Path(__file__).resolve().parents[3]
 DATA_FILE  = ROOT / "dashboard" / "dashboard_vulnerabilites" / "dashboard_vulnerabilites.json"
 LOGS_DIR   = ROOT / "logs" / "security"
