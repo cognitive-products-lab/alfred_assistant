@@ -11,6 +11,8 @@
 #
 # 🏗️ DOMAINE :
 #   Interaction vocale — façade d'écoute, mode simulation pour tests
+#
+# STATUS  : TESTED
 # ============================================================
 
 from typing import Optional

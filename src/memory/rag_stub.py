@@ -11,6 +11,8 @@
 #
 # 🏗️ DOMAINE :
 #   Mémoire & contexte — RAG local-first, ChromaDB V3+, zéro cloud
+#
+# STATUS  : VALIDATED
 # ============================================================
 
 class RAGNotAvailable(Exception):

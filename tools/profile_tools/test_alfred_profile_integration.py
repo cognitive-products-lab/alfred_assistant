@@ -3,27 +3,21 @@ PROJECT      : ALFRED
 BLOCK        : TOOLS
 FUNCTION     : XX.XX
 FILE         : tools/profile_tools/test_alfred_profile_integration.py
-ROLE         : TO_DEFINE
+ROLE         : Smoke test autonome — intégration profil psychométrique → ALFRED
 
 AUTHOR       : Cognitive Products Lab
 CREATED      : 2026-06-22
-UPDATED      : 2026-06-22
-VERSION      : V1.0
-STATUS       : DRAFT
+UPDATED      : 2026-07-05
+VERSION      : V1.1
+STATUS       : TESTED
 
 DESCRIPTION :
-Outils projet — description a completer.
-"""
-
-"""
-test_alfred_profile_integration.py — Smoke test : profil psychométrique → ALFRED
-
 Vérifie que :
-  1. user_profile.json est valide et complet
-  2. alfred_behavioral_params.json existe et est cohérent
-  3. user_celine_instance.json est à jour et chargeable
-  4. PersonalityAdapter charge correctement les paramètres dérivés
-  5. build_response_context() produit un contexte adapté pour chaque scénario type
+1. user_profile.json est valide et complet
+2. alfred_behavioral_params.json existe et est cohérent
+3. user_celine_instance.json est à jour et chargeable
+4. PersonalityAdapter charge correctement les paramètres dérivés
+5. build_response_context() produit un contexte adapté pour chaque scénario type
 
 Usage :
   python tools/profile_tools/test_alfred_profile_integration.py
@@ -35,6 +29,9 @@ import importlib.util
 import json
 import sys
 from pathlib import Path
+
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "src"))

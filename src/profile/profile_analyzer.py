@@ -3,21 +3,16 @@ PROJECT      : ALFRED
 BLOCK        : GLOBAL
 FUNCTION     : XX.XX
 FILE         : src/profile/profile_analyzer.py
-ROLE         : TO_DEFINE
+ROLE         : Analyseur de profil psychométrique — passation conversationnelle
+               des questionnaires Q00-Q09 et calcul des scores
 
 AUTHOR       : Cognitive Products Lab
 CREATED      : 2026-06-22
-UPDATED      : 2026-06-22
-VERSION      : V1.0
-STATUS       : DRAFT
+UPDATED      : 2026-07-05
+VERSION      : V1.1
+STATUS       : TESTED
 
 DESCRIPTION :
-Module ALFRED — description a completer.
-"""
-
-"""
-profile_analyzer.py — Analyseur de profil psychométrique pour ALFRED
-
 Ce module gère la passation conversationnelle des questionnaires psychométriques :
   - Q01 : Bien-être subjectif (SWLS + PANAS-SF)
   - Q02 : Style cognitif (Analytique/Intuitif + Verbal/Visuel)

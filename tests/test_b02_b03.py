@@ -6,6 +6,8 @@
 #   cd D:\PROJET_ALFRED\ALFRED_PC
 #   .venv\Scripts\Activate.ps1
 #   pytest tests/test_b02_b03.py -v
+#
+# STATUS  : TESTED
 # ============================================================
 
 import pytest

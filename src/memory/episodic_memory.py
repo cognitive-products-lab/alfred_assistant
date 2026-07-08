@@ -13,7 +13,7 @@
 #   Mémoire & contexte — épisodique, différent de la mémoire ordinaire
 #
 # UPDATED : 2026-06-10 — chemin _EPISODE_FILE ancré sur paths.PATHS
-# STATUS  : TO_TEST (fix bug cwd-relatif, à revalider en conditions réelles)
+# STATUS  : TESTED (auto: tests/test_b02_b03.py OK le 2026-07-05 ; cwd réel encore à reconfirmer)
 # ============================================================
 
 import json

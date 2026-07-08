@@ -8,7 +8,7 @@ ROLE         : Orchestrateur des questionnaires d'onboarding et écriture des pr
 AUTHOR       : Cognitive Products Lab
 CREATED      : 2026-05-26
 VERSION      : V1.0
-STATUS       : ACTIVE
+STATUS       : TESTED
 
 DESCRIPTION :
 Module gérant les trois questionnaires d'onboarding (santé, personnalité, émotionnel).

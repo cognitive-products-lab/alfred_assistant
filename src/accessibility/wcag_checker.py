@@ -10,7 +10,7 @@ AUTHOR       : Cognitive Products Lab
 CREATED      : 2026-05-23
 UPDATED      : 2026-05-23
 VERSION      : V1.0
-STATUS       : ACTIVE
+STATUS       : TESTED
 
 DEPENDENCIES :
 - dataclasses
@@ -28,7 +28,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Any
 
-from .web_a11y import check_contrast, check_dashboard_contrasts
+from .ui.web_a11y import WebA11y
 
 
 @dataclass
@@ -51,7 +51,7 @@ def check_wcag(component_data: dict[str, Any]) -> list[WcagIssue]:
 
     # 1.4.3 — Contraste minimum (AA)
     if "fg" in component_data and "bg" in component_data:
-        result = check_contrast(component_data["fg"], component_data["bg"])
+        result = WebA11y().check_contrast(component_data["fg"], component_data["bg"])
         issues.append(WcagIssue(
             criterion="1.4.3",
             level="AA",
@@ -144,15 +144,4 @@ def wcag_report(component_data: dict[str, Any]) -> dict[str, Any]:
 
 def audit_dashboard() -> dict[str, Any]:
     """Audit rapide des contrastes du dashboard ALFRED."""
-    contrasts = check_dashboard_contrasts()
-    failed = {name: data for name, data in contrasts.items() if not data["passe_AA"]}
-    return {
-        "total_colors": len(contrasts),
-        "passing_AA": len(contrasts) - len(failed),
-        "failing_AA": len(failed),
-        "details": contrasts,
-        "recommendations": [
-            f"Couleur {name} : ratio {data['ratio']}:1 — insuffisant (min 4.5:1)"
-            for name, data in failed.items()
-        ],
-    }
+    return WebA11y().audit_dashboard()

@@ -11,6 +11,8 @@
 #
 # 🏗️ DOMAINE :
 #   Noyau conversationnel — interface texte V1, hotpath clavier
+#
+# STATUS  : TESTED
 # ============================================================
 
 import html
@@ -49,7 +51,8 @@ def read_user_input(prompt: str = "Vous : ") -> str:
         log_event("Session interrompue par l'utilisateur", "INFO")
         return ":exit_signal:"
 
-    cleaned = sanitize_input(raw, max_length=MAX_INPUT_LENGTH)
+    result = sanitize_input(raw, max_length=MAX_INPUT_LENGTH)
+    cleaned = result["cleaned_input"] if result["valid"] else ""
 
     if cleaned != raw.strip():
         log_event("Input nettoyé par le validateur de sécurité", "WARNING")

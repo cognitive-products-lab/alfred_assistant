@@ -9,7 +9,7 @@ AUTHOR       : Cognitive Products Lab
 CREATED      : 2026-06-03
 UPDATED      : 2026-06-13
 VERSION      : V2.0
-STATUS       : ACTIVE
+STATUS       : TESTED
 
 DESCRIPTION :
 Verifie que le modele Whisper se charge et transcrit un signal audio

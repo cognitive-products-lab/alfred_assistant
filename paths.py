@@ -11,6 +11,8 @@
 #   from paths import PATHS
 #   with open(PATHS.config_v2 / "signal_weights.json") as f:
 #       ...
+#
+# STATUS : VALIDATED
 # ============================================================
 
 from pathlib import Path

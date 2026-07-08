@@ -14,6 +14,8 @@ Usage :
     mgr.record_consent("celine", "health_data", method="explicit_form")
     mgr.is_consent_valid("celine", "health_data")   # True / False
     mgr.revoke_consent("celine", "health_data")
+
+STATUS : VALIDATED
 """
 
 from __future__ import annotations

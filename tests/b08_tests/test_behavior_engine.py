@@ -10,7 +10,7 @@ AUTHOR       : Cognitive Products Lab
 CREATED      : 2026-05-23
 UPDATED      : 2026-05-23
 VERSION      : V1.0
-STATUS       : ACTIVE
+STATUS       : TESTED
 
 DESCRIPTION :
 Tests B08 — AlfredBehaviorEngine : validation du moteur de comportement,

@@ -14,6 +14,8 @@
 #
 # 🏗️ DOMAINE :
 #   Noyau conversationnel — générateur de réponses LLM-ready V2.3
+#
+# STATUS  : VALIDATED
 # ============================================================
 
 import json
@@ -545,6 +547,47 @@ Réponds maintenant.""".strip()
         "contrairement à un humain",
     ]
 
+    @staticmethod
+    def _strip_markdown(text: str) -> str:
+        """Neutralise la syntaxe Markdown résiduelle avant TTS/affichage.
+
+        Les LLM locaux (llama3.2) ignorent parfois la consigne "pas de
+        Markdown" ; cette étape retire la syntaxe tout en conservant le
+        contenu lisible (ex: liens -> texte visible seulement).
+        """
+        # Blocs de code ```lang\n...\n``` -> contenu brut
+        text = re.sub(r"```[^\n]*\n([\s\S]*?)```", r"\1", text)
+        text = text.replace("```", "")
+
+        # Code inline `xxx` -> xxx
+        text = re.sub(r"`([^`\n]+)`", r"\1", text)
+
+        # Liens [texte](url) -> texte
+        text = re.sub(r"\[([^\]]+)\]\([^)]+\)", r"\1", text)
+
+        # Gras **texte** -> texte
+        text = re.sub(r"\*\*([^*\n]+)\*\*", r"\1", text)
+
+        # Barré ~~texte~~ -> texte
+        text = re.sub(r"~~([^~\n]+)~~", r"\1", text)
+
+        # Italique _texte_ -> texte (pas les underscores internes type noms_de_var)
+        text = re.sub(r"(?<!\w)_([^_\n]+)_(?!\w)", r"\1", text)
+
+        # Titres ## Titre -> Titre
+        text = re.sub(r"^#{1,6}\s*", "", text, flags=re.MULTILINE)
+
+        # Citations > texte -> texte
+        text = re.sub(r"^>\s?", "", text, flags=re.MULTILINE)
+
+        # Règles horizontales --- (ligne entière) -> supprimée
+        text = re.sub(r"^-{3,}\s*$\n?", "", text, flags=re.MULTILINE)
+
+        # Puces * item -> - item
+        text = re.sub(r"^\* ", "- ", text, flags=re.MULTILINE)
+
+        return text
+
     def _post_process(self, response: str, context: Dict[str, Any]) -> str:
         """Nettoie la réponse finale."""
         if not response or not response.strip():
@@ -590,6 +633,8 @@ Réponds maintenant.""".strip()
         # Nettoyage des espaces en trop
         response_clean = re.sub(r"[ \t]{2,}", " ", response_clean)
         response_clean = response_clean.strip(" \n\t:-")
+
+        response_clean = self._strip_markdown(response_clean)
 
         mode = context.get("adaptation", {}).get("mode", "")
         if mode in ("support", "low_energy_mode") and len(response_clean) > 1500:

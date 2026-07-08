@@ -3,28 +3,21 @@ PROJECT      : ALFRED
 BLOCK        : TOOLS
 FUNCTION     : XX.XX
 FILE         : tools/profile_tools/generate_alfred_params.py
-ROLE         : TO_DEFINE
+ROLE         : Mapping psychométrie → paramètres comportementaux ALFRED
 
 AUTHOR       : Cognitive Products Lab
 CREATED      : 2026-06-22
-UPDATED      : 2026-06-22
-VERSION      : V1.0
-STATUS       : DRAFT
+UPDATED      : 2026-07-05
+VERSION      : V1.1
+STATUS       : TESTED
 
 DESCRIPTION :
-Outils projet — description a completer.
-"""
+Lit data/profile/user_profile.json (données brutes des évaluations psychométriques)
+et dérive les paramètres comportementaux d'ALFRED pour Céline.
 
-"""
-generate_alfred_params.py — Mapping psychométrie → paramètres comportementaux ALFRED
-
-Rôle :
-  Lit data/profile/user_profile.json (données brutes des évaluations psychométriques)
-  et dérive les paramètres comportementaux d'ALFRED pour Céline.
-
-  Produit deux sorties :
-  1. data/profile/alfred_behavioral_params.json  — paramètres dérivés documentés
-  2. Mise à jour de data/users/instances/user_celine_instance.json
+Produit deux sorties :
+1. data/profile/alfred_behavioral_params.json  — paramètres dérivés documentés
+2. Mise à jour de data/users/instances/user_celine_instance.json
 
 Usage :
   python tools/profile_tools/generate_alfred_params.py

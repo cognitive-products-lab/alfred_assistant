@@ -9,6 +9,8 @@
 #
 # DOMAINE :
 #   Profilage psychologique — pipeline de scoring et adaptation comportementale
+#
+# STATUS  : TESTED
 # ============================================================
 
 from __future__ import annotations

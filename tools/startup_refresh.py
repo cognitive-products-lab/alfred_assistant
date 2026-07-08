@@ -7,6 +7,8 @@ ROLE     : Lance generate_knowledge_dashboard.py dans un thread daemon au démar
 Usage :
     from tools.startup_refresh import refresh_knowledge_dashboard_async
     refresh_knowledge_dashboard_async()
+
+STATUS : TESTED
 """
 
 from __future__ import annotations
