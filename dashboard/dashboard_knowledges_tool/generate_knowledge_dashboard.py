@@ -6,6 +6,8 @@ ROLE     : Génère knowledge_dashboard_data.json à partir du registry, de la t
            Exécuté quotidiennement par sync_dashboards.py avant la copie vers ALFRED_WEB.
 USAGE    : python dashboard/dashboard_knowledges_tool/generate_knowledge_dashboard.py
 OUTPUT   : dashboard/dashboard_knowledges_tool/knowledge_dashboard_data.json
+
+STATUS   : VALIDATED
 """
 
 from __future__ import annotations

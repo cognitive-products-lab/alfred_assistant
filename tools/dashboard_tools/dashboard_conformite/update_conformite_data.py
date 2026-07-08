@@ -25,8 +25,12 @@ SCHEDULE : Intégré à sync_dashboards.py ou lancé manuellement
 from __future__ import annotations
 
 import json
+import sys
 from datetime import datetime, timezone
 from pathlib import Path
+
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
 ROOT = Path(__file__).resolve().parents[3]
 DATA_FILE = ROOT / "dashboard" / "dashboard_conformite" / "dashboard_conformite.json"

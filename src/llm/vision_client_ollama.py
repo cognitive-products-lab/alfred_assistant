@@ -9,7 +9,7 @@ AUTHOR       : Cognitive Products Lab
 CREATED      : 2026-06-13
 UPDATED      : 2026-06-20
 VERSION      : V1.0
-STATUS       : ACTIVE
+STATUS       : TESTED
 
 DESCRIPTION :
 Client minimal pour interroger un modèle vision Ollama (llava) avec une

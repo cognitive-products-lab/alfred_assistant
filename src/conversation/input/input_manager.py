@@ -15,6 +15,8 @@
 # UPDATED 2026-06-15 : suppression de get_voice_nowait() (non utilisée
 # après le fix du bug "ALFRED ne réagit pas en mode vocal" — main.py
 # consomme désormais get_input() en bloquant pour clavier ET voix).
+#
+# STATUS  : TESTED
 # ============================================================
 
 from __future__ import annotations

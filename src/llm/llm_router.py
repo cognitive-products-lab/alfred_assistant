@@ -11,6 +11,8 @@
 #
 # 🏗️ DOMAINE :
 #   Noyau conversationnel — local-first LLM, pas de fallback silencieux
+#
+# STATUS  : TESTED
 # ============================================================
 
 from __future__ import annotations

@@ -13,6 +13,8 @@
 #
 # 🏗️ DOMAINE :
 #   Noyau conversationnel — LLM cloud tertiary
+#
+# STATUS  : TESTED
 # ============================================================
 
 import os

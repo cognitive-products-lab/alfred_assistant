@@ -11,6 +11,8 @@
 #
 # 🏗️ DOMAINE :
 #   Noyau conversationnel — contexte temps réel, device-aware
+#
+# STATUS  : VALIDATED
 # ============================================================
 
 import platform
