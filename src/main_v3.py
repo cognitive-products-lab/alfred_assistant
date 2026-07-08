@@ -11,6 +11,9 @@
 #
 # 🏗️ DOMAINE :
 #   Noyau conversationnel & orchestration — pipeline vocal V3
+#
+# STATUS  : TESTED (fonctions pures uniquement : sanitize_input/clean_for_tts/
+#           safe_getattr ; init_components/build_response/main() non couverts)
 # ============================================================
 
 from __future__ import annotations

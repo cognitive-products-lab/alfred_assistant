@@ -11,6 +11,8 @@
 #
 # 🏗️ DOMAINE :
 #   Mémoire & contexte — indexation unifiée, RAG-ready
+#
+# STATUS  : VALIDATED
 # ============================================================
 
 from datetime import datetime

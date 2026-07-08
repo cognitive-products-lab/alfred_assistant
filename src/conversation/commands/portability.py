@@ -3,6 +3,7 @@ PROJECT : ALFRED
 BLOCK   : B01 / RGPD
 FILE    : src/conversation/commands/portability.py
 ROLE    : Droit de portabilité Art. 20 RGPD — export + réimportation complète
+STATUS  : VALIDATED
 
 L'export produit un fichier JSON structuré, lisible par tout système
 tiers, contenant l'intégralité des données fournies par l'utilisateur

@@ -8,7 +8,7 @@ AUTHOR       : Cognitive Products Lab
 CREATED      : 2026-06-20
 UPDATED      : 2026-06-20
 VERSION      : V1.0
-STATUS       : ACTIVE
+STATUS       : TESTED
 TESTS        : 43/43 unitaires (mocks) — Grade A+
                Test réel caméra + llava : À FAIRE (session ultérieure)
 
