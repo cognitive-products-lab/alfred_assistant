@@ -134,19 +134,28 @@ sans provisionner cinq conteneurs, sans cluster à maintenir, sans la
 complexité opérationnelle (formatage HDFS, réplication, gestion YARN) que
 requiert Hadoop même en mode pseudo-distribué single-node.
 
-**Conclusion assumée pour la thèse** : la compétence Big Data/distribué
-est démontrée par ce PoC isolé, documenté et **exécuté avec succès sur un
-cluster réel** (cf. section précédente), mais la décision de production
-responsable pour ALFRED à son échelle actuelle est de **ne pas** déployer
-Hadoop — un choix cohérent avec le principe local-first et le volet RSE
-(sobriété numérique) du projet. Les deux incidents rencontrés en cours de
-route (deadlock de ressources, dépendance Python absente d'une image
-communautaire non maintenue) ne sont pas des détails d'implémentation
-anecdotiques : ils illustrent concrètement le coût opérationnel réel d'un
-empilement Hadoop, même réduit à l'essentiel, pour un volume qui aurait
-pu être traité en une requête SQL. Réévaluer uniquement si le volume de
-logs change d'ordre de grandeur (multi-utilisateurs à grande échelle,
-télémétrie produit à volume réel).
+**Conclusion assumée pour la thèse** : le sur-dimensionnement apparent du
+PoC (cluster complet à 5 conteneurs pour ~300 Ko de données) n'est **pas
+une erreur de proportion mais un choix délibéré**, motivé par deux besoins
+distincts de nature différente : démontrer la compétence Big Data/
+distribué attendue par le référentiel du Mastère (construire et faire
+tourner un vrai cluster Hadoop, avec ses vrais incidents, pas seulement en
+documenter la théorie), et poser dès maintenant les bases techniques
+(anonymisation, mapper/reducer, configuration cluster) pour une
+utilisation **réelle mais bien ultérieure**, à l'échelle où Hadoop
+redeviendra pertinent (déploiement public à grande échelle, télémétrie
+produit à volume réel, multi-utilisateurs).
+
+La sobriété numérique ne se traduit donc pas ici par un rejet de Hadoop,
+mais par un **débranchement délibéré entre deux usages** : l'infrastructure
+et le code sont prêts, testés et documentés (cette annexe en fait foi),
+mais volontairement désactivés (`docker compose down -v`, exécuté après
+le PoC) tant que le volume actuel d'ALFRED ne les justifie pas. Les deux
+incidents rencontrés en cours de route (deadlock de ressources, dépendance
+Python absente d'une image communautaire non maintenue) restent une
+donnée utile pour cette réactivation future : ils documentent par avance
+les pièges opérationnels réels à anticiper le jour où ce PoC deviendra un
+composant de production.
 
 ## Points de vigilance RGPD
 
