@@ -541,6 +541,58 @@ Bloc 20 → V1 pipeline → personality_adapter.py
 
 ---
 
+## ✅ SESSION 9 — 08-09/07/2026 — Récapitulatif
+
+**Extension architecture données (relationnel avancé + NoSQL + Big Data PoC) — demande référent thèse D52**
+
+Séquence complète implémentée et testée sur ALFRED_WEB + ALFRED_PC (voir mémoire projet
+`project_bdd_extension_deploiement_public` pour le détail complet) :
+
+1. **PostgreSQL — comptes utilisateurs (Bloc 21.23, ALFRED_WEB)** : `data/postgres.py`,
+   `models/user.py` (SQLAlchemy), Alembic (migrations versionnées), `auth/routes.py`
+   (register/login/logout, bcrypt, CSRF). 11 tests pytest, tous verts contre PostgreSQL
+   réel (Docker). Aucun système de comptes n'existait avant — ce n'était pas une
+   "migration" SQLite→Postgres mais une création nette.
+
+2. **MongoDB — préférences (Bloc 21.24) puis conversations (Bloc 21.25), ALFRED_WEB** :
+   préférences (langue, police OpenDyslexic — les 2 seules préférences réellement
+   existantes dans le code, vérifié avant de coder), consentement séparé de celui du
+   compte (décision explicite de Céline). Scaffolding `conversations/` anticipatoire
+   (aucun chat web n'existe encore), isolation stricte par `user_id`, index TTL 90 jours
+   marqué placeholder (à confirmer via AIPD T001). 20 tests pytest supplémentaires.
+
+3. **PoC Hadoop ciblé (Bloc B29, ALFRED_PC)** : anonymisation des vrais logs de
+   sécurité (`scripts/anonymize_logs_for_hadoop.py`, 1399 lignes/~300 Ko réels),
+   job MapReduce classique (`hadoop_poc/mapper.py`+`reducer.py`, validé en local avant
+   toute infra), cluster Hadoop pseudo-distribué réel (`docker-compose.hadoop.yml`,
+   5 conteneurs, référentiel communautaire big-data-europe/docker-hadoop, RAM/vCPU
+   réduits). Bilan critique assumé (sobriété numérique) : `docs/hadoop_poc_bilan.md`.
+
+**Tests & dashboards — trou de périmètre trouvé et partiellement comblé** :
+- `tests/b29_tests/` créé (1 script = 1 test), intégré à `tests/run_all_tests.py`
+  (nouveau groupe `b29`). Suite complète hors tests vocaux lents : **1289/1289, Grade A**.
+- ⚠️ Découverte du 08/07/2026 (toujours vraie) : `dashboard_data.json`/`dashboard_tests.json`
+  sont scopés à ALFRED_PC — les fichiers ALFRED_WEB n'y apparaissent que si explicitement
+  listés dans `dashboard_data_manifest.json` (mécanisme `EXTERNAL_ROOTS` déjà présent mais
+  jusque-là inutilisé pour les nouveaux fichiers). Comblé le 09/07/2026 : les 16 fichiers
+  Phase 1/2 ALFRED_WEB ajoutés au bloc `b21` du manifest (tous `validated`). Nouveau bloc
+  `b29` créé pour le PoC Hadoop (13 fichiers).
+- `dashboard_security_manifest.json` / `dashboard_conformite/_manifest.json` /
+  `dashboard_gouvernance/_manifest.json` : vérifiés — ce sont des référentiels d'exigences
+  réglementaires (RGPD/ISO/AI Act) ou de modules sécurité Bloc 20, pas des registres de
+  fichiers de code. Volontairement non modifiés (pas la même nature que
+  `dashboard_data_manifest.json`) — à décider explicitement si une ligne de conformité
+  doit être ajoutée pour l'anonymisation Hadoop.
+- `sync_dashboards.py` **volontairement pas relancé** (auto-push GitHub + déploiement
+  Render — toujours prévenir avant, cf. mémoire `feedback` dédiée).
+
+**Rappel gate RGPD inchangé** : ne pas ouvrir d'inscription publique réelle avant que
+l'AIPD T001 (backlog, toujours pas commencée) couvre le traitement des comptes/préférences/
+conversations. Durée de rétention TTL des conversations (90j) et du Hadoop PoC restent
+des placeholders à valider avec une vraie politique de rétention.
+
+---
+
 ## ✅ SESSION 8 — 05/07/2026 — Récapitulatif
 
 **Nettoyage dashboards + sécurisation réseau physique (Bloc 20)**
@@ -696,5 +748,5 @@ Respecte séparation public / privé expérimental.
 Intègre toujours : max 6 calques, PNG optimisés, Kivy, local-first.
 
 ---
-*Session 8 — 5 Juillet 2026*
-*Prochaine mise à jour : après ACL inter-VLAN, VPN VLAN_ADMIN, ou achat AP Wi-Fi Omada (août 2026)*
+*Session 9 — 9 Juillet 2026*
+*Prochaine mise à jour : après finalisation du bilan PoC Hadoop (résultat job réel), AIPD T001, ou ACL inter-VLAN/VPN VLAN_ADMIN/achat AP Wi-Fi Omada (août 2026)*

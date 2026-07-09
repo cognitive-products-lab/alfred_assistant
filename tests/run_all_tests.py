@@ -7,8 +7,8 @@ ROLE         : Runner global — lance tous les tests ALFRED et met a jour dashb
 
 AUTHOR       : Cognitive Products Lab
 CREATED      : 2026-06-05
-UPDATED      : 2026-06-05
-VERSION      : V1.1
+UPDATED      : 2026-07-09
+VERSION      : V1.2
 STATUS       : TESTED
 
 DESCRIPTION :
@@ -40,6 +40,7 @@ DASHBOARD_JSON = ROOT / "dashboard" / "dashboard_tests" / "dashboard_tests.json"
 TEST_GROUPS = {
     "security":    ["tests/security_tests"],
     "b15":         ["tests/b15_tests"],
+    "b29":         ["tests/b29_tests"],
     "integration": ["tests/integration_tests"],
     "root":        [
         "tests/test_b01_speech.py",
