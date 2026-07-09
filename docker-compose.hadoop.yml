@@ -1,0 +1,74 @@
+# PROJECT : ALFRED
+# BLOCK   : B29 — Démonstrateur Big Data Hadoop (PoC ciblé)
+# FILE    : docker-compose.hadoop.yml
+# ROLE    : Cluster Hadoop pseudo-distribué (HDFS + YARN) pour le PoC
+#           d'analyse de logs anonymisés — jamais couplé au stack de
+#           prod ALFRED (aucun docker-compose.yml de prod n'existe côté
+#           ALFRED_PC à ce jour). Basé sur le référentiel communautaire
+#           big-data-europe/docker-hadoop.
+# CREATED : 2026-07-09
+# STATUS  : VALIDATED — exécuté avec succès le 09/07/2026
+#
+# Usage :
+#   docker compose -f docker-compose.hadoop.yml up -d
+#   python scripts/run_hadoop_poc.py
+#   docker compose -f docker-compose.hadoop.yml down -v   # nettoyage complet
+services:
+  namenode:
+    image: bde2020/hadoop-namenode:2.0.0-hadoop3.2.1-java8
+    container_name: alfred_hadoop_namenode
+    restart: "no"
+    ports:
+      - "9870:9870"
+      - "9000:9000"
+    volumes:
+      - hadoop_namenode:/hadoop/dfs/name
+    environment:
+      - CLUSTER_NAME=alfred_poc
+    env_file:
+      - ./hadoop.env
+
+  datanode:
+    image: bde2020/hadoop-datanode:2.0.0-hadoop3.2.1-java8
+    container_name: alfred_hadoop_datanode
+    restart: "no"
+    volumes:
+      - hadoop_datanode:/hadoop/dfs/data
+    environment:
+      SERVICE_PRECONDITION: "namenode:9870"
+    env_file:
+      - ./hadoop.env
+
+  resourcemanager:
+    image: bde2020/hadoop-resourcemanager:2.0.0-hadoop3.2.1-java8
+    container_name: alfred_hadoop_resourcemanager
+    restart: "no"
+    environment:
+      SERVICE_PRECONDITION: "namenode:9000 namenode:9870 datanode:9864"
+    env_file:
+      - ./hadoop.env
+
+  nodemanager:
+    image: bde2020/hadoop-nodemanager:2.0.0-hadoop3.2.1-java8
+    container_name: alfred_hadoop_nodemanager
+    restart: "no"
+    environment:
+      SERVICE_PRECONDITION: "namenode:9000 namenode:9870 datanode:9864 resourcemanager:8088"
+    env_file:
+      - ./hadoop.env
+
+  historyserver:
+    image: bde2020/hadoop-historyserver:2.0.0-hadoop3.2.1-java8
+    container_name: alfred_hadoop_historyserver
+    restart: "no"
+    environment:
+      SERVICE_PRECONDITION: "namenode:9000 namenode:9870 datanode:9864 resourcemanager:8088"
+    volumes:
+      - hadoop_historyserver:/hadoop/yarn/timeline
+    env_file:
+      - ./hadoop.env
+
+volumes:
+  hadoop_namenode:
+  hadoop_datanode:
+  hadoop_historyserver:
