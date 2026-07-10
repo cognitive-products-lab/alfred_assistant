@@ -9,7 +9,8 @@
 **Responsable du traitement :** Cognitive Products Lab — Céline (fondatrice)
 **Délégué à la protection des données (DPD) :** Fondatrice (auto-DPD, entité de moins de 250 personnes)
 **Base légale :** Art. 6 §1.a RGPD — Consentement explicite
-**Référentiel CNIL :** Lignes directrices AIPD CNIL (2018)
+**Référentiel CNIL :** Lignes directrices AIPD CNIL (2018), texte du règlement :
+https://www.cnil.fr/fr/reglement-europeen-protection-donnees
 **Document lié :** `docs/rgpd/aipd_donnees_sante.md` (AIPD-ALFRED-001, périmètre ALFRED_PC local mono-utilisateur — traitement distinct, non couvert ici)
 
 ---
