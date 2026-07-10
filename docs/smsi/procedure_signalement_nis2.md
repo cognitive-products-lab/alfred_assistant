@@ -5,18 +5,19 @@ BLOCK    : B20 — Sécurité, Gouvernance & Conformité
 DOCUMENT : Procédure Signalement Incidents NIS2 — Art. 23
 TYPE     : Documentation SMSI
 REF      : Directive (UE) 2022/2555 — NIS2
-VERSION  : V1.0
+VERSION  : V1.1
 CREATED  : 2026-06-18
-UPDATED  : 2026-06-18
+UPDATED  : 2026-07-10
 AUTHOR   : Céline Darras — Cognitive Products Lab
 STATUS   : Approuvé
 ============================================================
 -->
 # Procédure de Signalement d'Incidents — NIS2 Art. 23
 
-> **Référence :** Directive (UE) 2022/2555 — NIS2 Art. 23  
-> **Version :** 1.0 — 2026-06-18  
-> **Propriétaire :** Cognitive Products Lab — Céline Darras  
+> **Référence :** Directive (UE) 2022/2555 — NIS2 Art. 23, texte consolidé :
+> https://eur-lex.europa.eu/legal-content/FR/TXT/HTML/?uri=CELEX:32022L2555
+> **Version :** 1.1 — 2026-07-10
+> **Propriétaire :** Cognitive Products Lab — Céline Darras
 > **Statut :** Approuvé
 
 ---
@@ -25,7 +26,24 @@ STATUS   : Approuvé
 
 La Directive NIS2 impose aux entités essentielles et importantes de signaler les incidents significatifs à l'autorité nationale compétente (en France : **ANSSI** et **CERT-FR**).
 
-**Statut CPL :** En phase V1, CPL n'est pas encore formellement qualifiée entité NIS2. Cette procédure est établie en anticipation de la croissance et par principe de conformité proactive.
+### 1.1 Analyse du champ d'application — CPL est hors champ légal
+
+Vérification faite le 10/07/2026 sur le texte consolidé de la directive (référence ci-dessus), pas sur une estimation :
+
+**Critère de taille (considérant 7, renvoyant à la recommandation 2003/361/CE, art. 2)** : NIS2 s'applique par principe aux entités qui constituent des **entreprises moyennes ou plus grandes** (≥ 50 salariés ou > 10 M€ de chiffre d'affaires/bilan annuel), sauf exceptions listées pour les micro/petites entreprises jouant "un rôle essentiel" pour un secteur donné. Cognitive Products Lab est une **micro-entreprise** (fondatrice seule).
+
+**Critère sectoriel (Annexes I et II)** : le champ d'application est une liste fermée de secteurs — énergie, transport, banque, infrastructures des marchés financiers, santé, eau potable/eaux usées, **infrastructure numérique** (points d'échange internet, DNS, cloud, centres de données, CDN, prestataires de confiance, réseaux de communications électroniques), gestion TIC interentreprises, administration publique, espace, services postaux, gestion des déchets, chimie, agroalimentaire, fabrication (dispositifs médicaux, électronique, machines, véhicules), et **fournisseurs numériques** (places de marché en ligne, moteurs de recherche en ligne, plateformes de réseaux sociaux). ALFRED_WEB (site vitrine + comptes utilisateurs en développement) et ALFRED_PC (assistant local-first) ne correspondent à aucune de ces catégories.
+
+**Conclusion :** CPL/ALFRED **ne relève pas du champ d'application légal de NIS2**, ni par la taille ni par le secteur, à la date de cette analyse.
+
+### 1.2 Pourquoi cette procédure existe quand même — conformité volontaire
+
+Cette procédure reste maintenue et appliquée **volontairement**, indépendamment de l'obligation légale — la même logique que l'approche retenue pour d'autres textes hors champ actuel (ex. DORA pour le secteur financier) : se mettre en conformité sur des référentiels reconnus, même sans y être contraint, sert deux objectifs concrets pour un projet en préparation de déploiement public :
+
+1. **Crédibilité** — démontrer, preuves à l'appui (cette procédure, `docs/smsi/`, dashboard conformité), une maturité de gouvernance alignée sur les standards européens actuels, utile face à un jury, des utilisateurs, ou de futurs partenaires/investisseurs.
+2. **Anticipation** — si ALFRED_WEB grandit (déploiement public réel, hébergement cloud tiers pouvant le faire basculer dans la catégorie "fournisseur numérique"), la procédure est déjà opérationnelle plutôt qu'à improviser sous contrainte de délai légal.
+
+**Seuil de réexamen :** revalider ce statut si CPL dépasse le seuil de micro-entreprise, ou si ALFRED_WEB devient un service d'informatique en nuage, un hébergeur de données/DNS, ou toute autre catégorie de l'Annexe I/II.
 
 ---
 
@@ -82,5 +100,6 @@ Cette procédure s'articule avec :
 | Version | Date | Auteur | Modification |
 |---|---|---|---|
 | 1.0 | 2026-06-18 | Céline Darras | Création — conformité NIS2 Art. 23 |
+| 1.1 | 2026-07-10 | Claude (assistant) | Vérification du champ d'application sur le texte consolidé (§1.1) — hors champ confirmé (taille + secteur). Reformulation en conformité volontaire assumée (§1.2), même logique que DORA. |
 
 > **Cognitive Products Lab — Confidentiel interne**

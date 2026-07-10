@@ -4,8 +4,8 @@
     "file": "dashboard_conformite.json",
     "generated_at": "2026-06-30T00:00:00+00:00",
     "version": "V1.1",
-    "updated_at": "2026-07-06T16:42:31+00:00",
-    "description": "Dashboard conformité réglementaire — 70 exigences · 9 normes (RGPD, LIL, AI Act, NIS2, ISO 27001, HDS, SecNumCloud, PASSI, CRA)"
+    "updated_at": "2026-07-10T07:36:48+00:00",
+    "description": "Dashboard conformité réglementaire — 71 exigences · 9 normes (RGPD, LIL, AI Act, NIS2, ISO 27001, HDS, SecNumCloud, PASSI, CRA)"
   },
   "norms": [
     {
@@ -123,16 +123,26 @@
           "domain": "Données sensibles",
           "status": "conforme",
           "criticite": "critique",
-          "proof": "aipd_T001, aipd_T004",
-          "note": "Deux AIPD réalisées"
+          "proof": "docs/rgpd/aipd_donnees_sante.md",
+          "note": "AIPD-ALFRED-001 — périmètre ALFRED_PC local mono-utilisateur, données de santé/bien-être"
+        },
+        {
+          "id": "RGPD-12",
+          "article": "Art. 35",
+          "label": "AIPD — comptes utilisateurs, préférences, conversations, PoC Hadoop (déploiement public)",
+          "domain": "Accountability",
+          "status": "en_cours",
+          "criticite": "haute",
+          "proof": "docs/rgpd/aipd_comptes_deploiement_public.md",
+          "note": "AIPD-ALFRED-002, rédigée 10/07/2026 — gaps réels identifiés (droits des personnes non implémentés côté ALFRED_WEB, pas de purge cascade PostgreSQL->MongoDB, pas de rate limiting). En attente de validation Céline avant ouverture publique de l'inscription."
         }
       ],
       "stats": {
-        "score_pct": 100,
-        "total": 11,
-        "applicable": 11,
+        "score_pct": 92,
+        "total": 12,
+        "applicable": 12,
         "conforme": 11,
-        "en_cours": 0,
+        "en_cours": 1,
         "todo": 0,
         "non_concerne": 0
       }
@@ -258,10 +268,10 @@
     {
       "id": "NIS2",
       "label": "NIS2",
-      "subtitle": "Directive (UE) 2022/2555",
+      "subtitle": "Directive (UE) 2022/2555 — hors champ légal (micro-entreprise, hors Annexes I/II), conformité volontaire",
       "color": "#f97316",
       "status": "active",
-      "scope": "applicable",
+      "scope": "hors_champ_volontaire",
       "requirements": [
         {
           "id": "NIS2-01",
@@ -882,12 +892,12 @@
     }
   ],
   "global": {
-    "score_pct": 85,
-    "grade": "B+",
-    "total_requirements": 70,
-    "applicable": 62,
+    "score_pct": 84,
+    "grade": "B",
+    "total_requirements": 71,
+    "applicable": 63,
     "conforme": 53,
-    "en_cours": 4,
+    "en_cours": 5,
     "todo": 5,
     "non_concerne": 8
   }
