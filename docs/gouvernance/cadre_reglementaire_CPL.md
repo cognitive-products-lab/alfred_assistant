@@ -1,9 +1,10 @@
 # Cadre réglementaire — Cognitive Products Lab
 ## Référentiel de conformité données, gouvernance & cybersécurité
 
-> Version 1.0 — 2026-06-16  
-> Statut : Document de référence — mise à jour annuelle obligatoire  
+> Version 1.1 — 2026-07-10
+> Statut : Document de référence — mise à jour annuelle obligatoire
 > Ce document s'applique à **tous** les produits CPL : ALFRED, ALFRED CPL, ARTHUR
+> Voir aussi : `docs/gouvernance/politique_gouvernance.md` (comment ce référentiel est appliqué et révisé)
 
 ---
 
@@ -67,7 +68,7 @@ En vigueur depuis août 2024. Calendrier d'application :
 
 | Produit | Cas d'usage | Niveau de risque AI Act | Obligations |
 |---------|------------|------------------------|-------------|
-| ALFRED | Assistant personnel adaptatif | Risque limité | Transparence, mentions légales IA |
+| ALFRED | Assistant personnel adaptatif | Risque limité | Transparence Art. 50 (et non Art. 52, corrigé le 10/07/2026 — vérifié sur texte consolidé, cf. `docs/smsi/enregistrement_registre_ue_ia.md` §2) — informer l'utilisateur qu'il interagit avec une IA |
 | ALFRED CPL | Aide à la décision RH/managériale | **Risque élevé potentiel** (annexe III) | AIPD IA, logging, supervision humaine, notice conformité |
 | ARTHUR | Assistance éducative/santé enfants | **Risque élevé** (art. 6 + annexe III) | Toutes obligations haut risque |
 
@@ -87,8 +88,10 @@ En vigueur depuis août 2024. Calendrier d'application :
 
 #### Directive NIS2 — Directive (UE) 2022/2555
 Transposée en droit français par loi n° 2023-703 du 1er août 2023.
-CPL évaluer si elle entre dans le périmètre (entités essentielles/importantes).
-Obligations en cas d'applicabilité :
+
+**Vérifié le 10/07/2026 sur le texte consolidé** (https://eur-lex.europa.eu/legal-content/FR/TXT/HTML/?uri=CELEX:32022L2555) : CPL **ne relève pas du champ d'application légal** de NIS2, ni par la taille (micro-entreprise, sous le seuil "moyenne entreprise" des Annexes de la recommandation 2003/361/CE) ni par le secteur (aucune des catégories des Annexes I/II — énergie, santé, infrastructure numérique, fournisseurs numériques, etc. — ne correspond à ALFRED). Détail complet : `docs/smsi/procedure_signalement_nis2.md` §1.1.
+
+CPL maintient néanmoins volontairement les mesures et la procédure de signalement alignées sur NIS2 (même logique que DORA hors champ) — voir `docs/gouvernance/politique_gouvernance.md` §4 :
 - Mesures de gestion des risques cybersécurité (art. 21)
 - Notification des incidents sous 24h (alerte initiale) puis 72h (rapport détaillé) à l'ANSSI
 - Responsabilité des organes dirigeants sur la cybersécurité
@@ -163,6 +166,12 @@ Complémentaire à l'Accessibility Policy déjà dans `docs/gouvernance/`.
 
 ---
 
+### 2.6 Extension d'architecture de données (juillet 2026)
+
+Préparation au déploiement public d'ALFRED_WEB (08-09/07/2026) : premier système de comptes utilisateurs (PostgreSQL), extension MongoDB (préférences, scaffolding conversations), PoC Hadoop ciblé sur logs anonymisés. Détail technique et bilan critique (sobriété numérique) : mémoire projet `project_bdd_extension_deploiement_public`, `docs/hadoop_poc_bilan.md`. Couverture RGPD : AIPD-ALFRED-002 (`docs/rgpd/aipd_comptes_deploiement_public.md`), pas encore validée — gate actif tant que les droits des personnes ne sont pas implémentés côté ALFRED_WEB.
+
+---
+
 ## 3. Matrice de conformité par produit
 
 | Réglementation | ALFRED | ALFRED CPL | ARTHUR |
@@ -198,13 +207,15 @@ Complémentaire à l'Accessibility Policy déjà dans `docs/gouvernance/`.
 | Document | Statut | Révision |
 |----------|--------|----------|
 | Registre des activités de traitement (art. 30 RGPD) | `registre_traitements_CPL.md` | Annuelle + à chaque nouveau traitement |
-| Politique de protection des données | `politique_collecte_CPL.md` | Annuelle |
+| Politique de gestion des données | `docs/gouvernance/politique_gestion_donnees.md` | Annuelle |
+| Politique de gouvernance | `docs/gouvernance/politique_gouvernance.md` | Annuelle |
 | Schéma de traçabilité | `schema_tracabilite_donnees.json` | Annuelle |
-| AIPD (si requise) | À créer par traitement | À chaque modification significative |
-| Politique de sécurité (PSSI) | `docs/gouvernance/blueprint_gouvernance_complet.md` | Annuelle |
-| Plan de gestion des violations | À créer | Annuelle |
+| AIPD données de santé | `docs/rgpd/aipd_donnees_sante.md` (AIPD-ALFRED-001) | À chaque modification significative |
+| AIPD comptes/déploiement public | `docs/rgpd/aipd_comptes_deploiement_public.md` (AIPD-ALFRED-002) — en attente de validation | À chaque modification significative |
+| Politique de sécurité (SMSI) | `docs/smsi/politique_securite.md` | Annuelle |
+| Procédure notification violation | `docs/smsi/procedure_notification_violation_72h.md` | Annuelle |
 | Registre des violations | À créer | Tenu en continu |
-| Procédure exercice des droits | À créer | Annuelle |
+| Procédure exercice des droits | À créer côté ALFRED_WEB (existe côté ALFRED_PC local, cf. AIPD-002 §5) | Annuelle |
 
 ### Calendrier de conformité
 
@@ -245,6 +256,12 @@ Ce document doit être révisé :
 - **Après tout incident de sécurité**
 
 Prochaine révision prévue : **juin 2027**
+
+**Historique des révisions :**
+| Version | Date | Modification |
+|---|---|---|
+| 1.0 | 2026-06-16 | Création |
+| 1.1 | 2026-07-10 | NIS2 reformulé hors champ légal/conformité volontaire (vérifié sur texte consolidé) ; correction Art. 52→Art. 50 AI Act ; ajout §2.6 extension architecture données (comptes PostgreSQL, MongoDB, PoC Hadoop) ; mise à jour table documents de gouvernance (AIPD-002, nouvelles politiques) |
 
 ---
 
