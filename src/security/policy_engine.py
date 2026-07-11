@@ -25,13 +25,24 @@ _SENSITIVITY_LEVEL = {"LOW": 0, "MEDIUM": 1, "HIGH": 2, "CRITICAL": 3}
 
 # Accès maximal autorisé par rôle (sensibilité max inclusif)
 _ROLE_MAX_SENSITIVITY = {
-    "OWNER":     3,  # CRITICAL
-    "ADMIN":     3,  # CRITICAL
-    "USER":      1,  # MEDIUM
-    "SERVICE":   1,  # MEDIUM
-    "AI_MODULE": 1,  # MEDIUM
-    "EMERGENCY": 0,  # LOW
-    "GUEST":     0,  # LOW
+    "OWNER":           3,  # CRITICAL
+    "ADMIN":           3,  # CRITICAL
+    "USER":            1,  # MEDIUM
+    "SERVICE":         1,  # MEDIUM
+    "AI_MODULE":       1,  # MEDIUM
+    "EMERGENCY":       0,  # LOW
+    "GUEST":           0,  # LOW
+    "CHEF_DE_PROJET":  1,  # MEDIUM — rôle métier ALFRED CPL
+    "RH":              1,  # MEDIUM — rôle métier ALFRED CPL
+}
+
+# Actions qui exigent toujours une revue humaine avant exécution, quel que soit
+# le score de risque — traduit le principe "autonomie progressive" (niveau 3 :
+# préparer) de la spec ALFRED CPL : un livrable ou une action sensible reste en
+# mode brouillon tant qu'un humain ne l'a pas validé.
+_ALWAYS_REVIEW_ACTIONS = {
+    "GENERATE_DELIVERABLE",
+    "PREPARE_DRAFT",
 }
 
 # Actions restreintes : {action → liste des rôles autorisés}
@@ -57,6 +68,12 @@ def evaluate_policy(
     """
     role = role.upper()
     resource_sensitivity = resource_sensitivity.upper()
+    action_upper_early = (action or "").upper()
+
+    # 0. Action systématiquement soumise à validation humaine (ex. génération de
+    # livrable, brouillon) — indépendant du score de risque calculé.
+    if action_upper_early in _ALWAYS_REVIEW_ACTIONS:
+        return "REVIEW"
 
     # 1. Risque élevé → rejet immédiat
     if risk_score >= 80:

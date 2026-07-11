@@ -1,0 +1,96 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "finance_controle.analyse.analyse_financiere",
+  "version": "1.0.0",
+  "domain": "finance_controle",
+  "subdomain": "analyse",
+  "category": "analyse_financière",
+  "priority": "high",
+  "safety_level": "normal",
+  "title": "Analyse Financière",
+  "summary": "Analyse financière : bilan (actif/passif), compte de résultat (produits/charges), tableau de flux de trésorerie (operating/investing/financing), ratios financiers (liquidité, solvabilité, rentabilité, endettement), BFR (Besoin en Fonds de Roulement), fonds de roulement, analyse de la trésorerie, diagnostic financier, lecture d'un rapport annuel, signaux de difficultés financières.",
+  "purpose": "Permettre à ALFRED CPL d'expliquer les outils d'analyse financière et d'interpréter les indicateurs clés.",
+  "tags": [
+    "analyse_financière",
+    "bilan",
+    "compte_résultat",
+    "flux_trésorerie",
+    "ratios_financiers",
+    "BFR",
+    "fonds_roulement",
+    "diagnostic_financier",
+    "rapport_annuel"
+  ],
+  "intents": [
+    "explain_financial_analysis",
+    "explain_balance_sheet",
+    "explain_working_capital",
+    "explain_financial_ratios"
+  ],
+  "usage_context": [
+    "Finance",
+    "Direction",
+    "Investisseurs"
+  ],
+  "content": {
+    "etats_financiers": {
+      "bilan": "Bilan : photographie à une date donnée. Actif = ce que possède l'entreprise (immobilisations, stocks, créances, trésorerie). Passif = comment c'est financé (capitaux propres, dettes LT, dettes CT). Actif = Passif (équilibre comptable).",
+      "cr": "Compte de résultat : flux sur une période. CA - Coûts variables = Marge sur coûts variables. CA - Coûts d'exploitation = EBITDA. EBITDA - D&A = EBIT (Résultat opérationnel). EBIT - Charges financières + Produits financiers - Impôt = Résultat net.",
+      "flux": "Tableau de flux de trésorerie : opérations d'exploitation (cash généré par l'activité), d'investissement (acquisitions/cessions), de financement (emprunts, dividendes, augmentations de capital). Variation de trésorerie = somme des trois."
+    },
+    "ratios": {
+      "liquidite": "Liquidité courante = Actif courant / Passif courant. > 1 = l'entreprise peut faire face à ses dettes CT. Quick ratio = (Actif courant - Stocks) / Passif courant. BFR = Stocks + Créances clients - Dettes fournisseurs. BFR élevé = besoin de financement.",
+      "endettement": "Endettement : Gearing = Dette nette / Capitaux propres. < 1 : faiblement endetté. DSCR (Debt Service Coverage Ratio) = EBITDA / Service de la dette. > 1.2 : capacité de remboursement satisfaisante.",
+      "signaux_alerte": "Signaux de difficultés financières : BFR qui s'accroît, marge qui se dégrade, trésorerie négative, recours croissant à la dette CT pour financer des actifs LT, retards de paiement fournisseurs."
+    }
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "analyse financière",
+      "bilan",
+      "compte de résultat",
+      "flux de trésorerie",
+      "ratios financiers",
+      "BFR",
+      "fonds de roulement",
+      "diagnostic financier"
+    ],
+    "related_domains": [
+      "finance_controle",
+      "controle_interne"
+    ],
+    "related_knowledge": [
+      "finance_controle.fondamentaux.finance_controle_fondamentaux",
+      "finance_controle.controle_gestion.controle_gestion_operationnel"
+    ],
+    "retrieval_priority": 8
+  },
+  "behavior_rules": {
+    "tone": "practical",
+    "response_style": "structured_clear",
+    "max_complexity": "high",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "Analyse financière générale"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [
+      "Ne pas conseiller sur des décisions d'investissement spécifiques"
+    ],
+    "fallback_behavior": "Pour des analyses financières à enjeux (valorisation, levée de fonds, fusion-acquisition), recommander un expert-comptable ou un conseil financier."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "11/07/2026",
+    "last_update": "11/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

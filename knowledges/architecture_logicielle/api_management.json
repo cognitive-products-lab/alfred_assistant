@@ -1,0 +1,98 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "architecture_logicielle.api.api_management",
+  "version": "1.0.0",
+  "domain": "architecture_logicielle",
+  "subdomain": "api",
+  "category": "API_management",
+  "priority": "high",
+  "safety_level": "normal",
+  "title": "API Management",
+  "summary": "API Management : définition, gateway API (authentification, rate limiting, routing, logging), API REST (méthodes HTTP, codes de statut, versioning), GraphQL vs REST vs gRPC, OpenAPI/Swagger (documentation), contrat d'API (backward compatibility, deprecation), API-first design, sécurité API (OAuth2, JWT, API key, mTLS), métriques API (latence, taux d'erreur, throughput), portail développeur.",
+  "purpose": "Permettre à ALFRED CPL d'expliquer les concepts d'API management et les bonnes pratiques de conception d'API.",
+  "tags": [
+    "API_management",
+    "API_gateway",
+    "REST",
+    "GraphQL",
+    "gRPC",
+    "OpenAPI",
+    "OAuth2",
+    "JWT",
+    "versioning_API",
+    "API_first"
+  ],
+  "intents": [
+    "explain_api_management",
+    "explain_api_gateway",
+    "explain_rest_api",
+    "explain_api_security"
+  ],
+  "usage_context": [
+    "Architecture",
+    "Développeurs",
+    "DSI"
+  ],
+  "content": {
+    "api_gateway": {
+      "role": "API Gateway : composant central qui reçoit toutes les requêtes API et les route vers les services backend. Fonctions : authentification/autorisation, rate limiting (protection contre les abus), load balancing, transformation des requêtes/réponses, logging/monitoring, cache. Exemples : Kong, AWS API Gateway, Apigee, Azure APIM.",
+      "patterns": "Patterns d'API gateway : gateway par service (microservices), BFF (Backend for Frontend — gateway spécifique par type de client mobile/web), sidecar proxy (Envoy dans les service meshes)."
+    },
+    "conception_api": {
+      "rest": "REST best practices : noms de ressources en noms pluriels (/users, /orders), verbes HTTP sémantiques (GET=lecture, POST=création, PUT/PATCH=mise à jour, DELETE=suppression), codes HTTP corrects (200/201/204/400/401/403/404/409/500), pagination, filtres via query params.",
+      "versioning": "Versioning API : URL versioning (/v1/users — simple et explicite), header versioning (Accept: application/vnd.api.v2+json — propre mais moins visible), query param versioning (?version=2). Politique de dépréciation : annoncer avec préavis, maintenir N-1 en parallèle.",
+      "api_first": "API-first : concevoir et documenter l'API (contrat OpenAPI) avant d'implémenter. Permet aux équipes frontend et backend de travailler en parallèle. Le contrat fait foi en cas de désaccord."
+    },
+    "securite_api": {
+      "oauth2_jwt": "OAuth2 + OIDC : standard pour l'autorisation déléguée. JWT (JSON Web Token) : token auto-porteur encodé en base64, signé. Valider la signature, l'expiration (exp), l'audience (aud) et l'émetteur (iss). Ne pas stocker de données sensibles dans le payload (non chiffré en JWS).",
+      "rate_limiting": "Rate limiting : par IP, par utilisateur, par clé API. Réponse 429 (Too Many Requests) avec Retry-After header. Protection contre les DDoS, les scrapers, les brute force."
+    }
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "API management",
+      "API gateway",
+      "REST API",
+      "GraphQL",
+      "versioning API",
+      "OAuth2 JWT",
+      "API-first",
+      "OpenAPI"
+    ],
+    "related_domains": [
+      "architecture_logicielle",
+      "gouvernance_si",
+      "information_security"
+    ],
+    "related_knowledge": [
+      "architecture_logicielle.fondamentaux.architecture_logicielle_fondamentaux"
+    ],
+    "retrieval_priority": 8
+  },
+  "behavior_rules": {
+    "tone": "technical",
+    "response_style": "structured_clear",
+    "max_complexity": "high",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "Architecture API"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": ""
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "11/07/2026",
+    "last_update": "11/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

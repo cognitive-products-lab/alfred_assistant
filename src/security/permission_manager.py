@@ -50,6 +50,15 @@ PERMISSIONS = {
         "SEND_ALERT",
         "READ_EMERGENCY_CONTEXT",
     ],
+    # Rôles métier ALFRED CPL (filtrage de connaissances : src/security/cpl_role_access.py)
+    "CHEF_DE_PROJET": [
+        "READ_MEMORY",
+        "RUN_AI_MODULE",
+    ],
+    "RH": [
+        "READ_MEMORY",
+        "RUN_AI_MODULE",
+    ],
 }
 
 def get_permissions(role: str) -> list[str]:

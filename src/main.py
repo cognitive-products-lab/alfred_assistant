@@ -1515,6 +1515,8 @@ def build_response(
                     "emotion": emotion_label,
                     "energy": energy_level,
                 },
+                user_id=USER_ID,
+                role="OWNER",
             )
 
             knowledge_context = retrieval_result.prompt_block
@@ -1522,6 +1524,8 @@ def build_response(
             context["knowledge_context"] = knowledge_context
             context["knowledge_ids"] = retrieval_result.knowledge_ids
             context["knowledge_domains"] = retrieval_result.domains
+            context["knowledge_citations"] = retrieval_result.citations
+            context["knowledge_contradictions"] = retrieval_result.contradictions
 
             # Debug retrieval — affiche les knowledges chargés
             if retrieval_result.knowledge_ids:
