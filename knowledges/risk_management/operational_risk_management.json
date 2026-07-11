@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "risk_management.operational.operational_risk_management",
+  "version": "1.0.0",
+  "domain": "risk_management",
+  "subdomain": "operational",
+  "category": "operational_risk",
+  "priority": "high",
+  "safety_level": "normal",
+  "title": "Gestion du Risque Opérationnel",
+  "summary": "Risque opérationnel (Bâle II/III définition), taxonomie (processus, personnes, systèmes, événements externes), pertes opérationnelles, AMA (Advanced Measurement Approach), collecte de données de pertes, indicateurs de risque (KRI), contrôles internes.",
+  "purpose": "Permettre à ALFRED d'expliquer le risque opérationnel, sa gestion dans les entreprises et dans les banques (cadre Bâle).",
+  "tags": ["risque_opérationnel", "Bâle_II", "Bâle_III", "KRI", "pertes_opérationnelles", "contrôle_interne", "AMA", "RCSA", "fraude", "erreur_humaine"],
+  "intents": ["explain_operational_risk", "explain_kri", "explain_rcsa", "answer_risk_management_question"],
+  "usage_context": ["Risk Management", "Banque", "Audit", "Contrôle Interne"],
+  "content": {
+    "definition": "Risque opérationnel (Bâle II) : risque de pertes résultant de carences ou défaillances dans les processus, personnes, systèmes internes ou d'événements extérieurs. Inclut le risque juridique, exclut les risques stratégiques et de réputation.",
+    "taxonomy": {
+      "processes": "Processus défaillants : erreurs de traitement, documentation insuffisante, contrôles inadéquats, procédures non respectées.",
+      "people": "Personnes : erreurs humaines, fraude interne, pratiques de ressources humaines (harcèlement, discrimination), compétences insuffisantes.",
+      "systems": "Systèmes : pannes informatiques, cyberattaques, défaillances de logiciels, problèmes de données.",
+      "external": "Événements externes : catastrophes naturelles, fraude externe, attaques terroristes, changements réglementaires, défaillances de fournisseurs.",
+      "event_types": "7 types d'événements Bâle : fraude interne, fraude externe, pratiques RH, clients/produits/pratiques commerciales, dommages aux actifs physiques, interruptions et pannes systèmes, exécution/livraison/gestion des processus."
+    },
+    "management_tools": {
+      "rcsa": "RCSA (Risk and Control Self-Assessment) : processus par lequel les opérationnels identifient, évaluent leurs risques et contrôles. Résultat : heatmap des risques résiduels par unité. Base du programme de contrôle.",
+      "kri": "KRI (Key Risk Indicators) : indicateurs de surveillance des facteurs de risque opérationnel. Exemples : taux d'erreur de saisie, nombre d'incidents systèmes, taux de rotation du personnel, délai de traitement. Seuils d'alerte définis.",
+      "loss_collection": "Collecte des pertes : base de données des événements de perte. Minimum 5 ans d'historique pour l'AMA. Seuil de collecte (ex : 10 000 €). Catégorisation par type et ligne de métier.",
+      "scenario_analysis": "Analyse de scénarios : estimation de pertes de basse fréquence / haute sévérité (queue de distribution). Complète la collecte de pertes internes."
+    },
+    "regulatory_framework": {
+      "basel_ii": "Bâle II (2004) : introduction du risque opérationnel dans le calcul des fonds propres réglementaires. 3 méthodes : indicateur de base (BIA), standard (SA), avancée (AMA).",
+      "basel_iii": "Bâle III/Basel IV (2023) : remplacement des méthodes BIA/SA/AMA par une méthode standardisée unique (SMA — Standardised Measurement Approach). Simplification.",
+      "orx": "ORX (Operational Riskdata eXchange) : consortium de 100+ banques pour partager des données de pertes opérationnelles. Benchmarking sectoriel.",
+      "iif": "IIF (Institute of International Finance) publie des guides de bonnes pratiques pour la gestion du risque opérationnel."
+    }
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["risque opérationnel", "RCSA", "KRI", "pertes opérationnelles", "Bâle II", "contrôle interne", "fraude interne"],
+    "related_domains": ["risk_management", "governance"],
+    "related_knowledge": ["risk_management.foundations.risk_management_fundamentals", "risk_management.cyber.cyber_risk_management"],
+    "retrieval_priority": 9
+  },
+  "behavior_rules": {"tone": "educational", "response_style": "structured_clear", "max_complexity": "medium", "allow_humor": false},
+  "safety_notes": {"allowed_usage": ["Éducation sur le risque opérationnel"], "restricted_usage": [], "forbidden_usage": [], "fallback_behavior": ""},
+  "metadata": {"author": "ALFRED_SYSTEM", "creation_date": "10/07/2026", "last_update": "10/07/2026", "review_status": "active", "reviewed_by": "ALFRED_CORE", "source_type": "manual_structured_knowledge", "language": "fr", "retrieval_ready": true, "rag_compatible": true}
+}

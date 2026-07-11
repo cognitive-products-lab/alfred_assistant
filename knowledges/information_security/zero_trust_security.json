@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "information_security.zero_trust.zero_trust_security",
+  "version": "1.0.0",
+  "domain": "information_security",
+  "subdomain": "zero_trust",
+  "category": "security_architecture",
+  "priority": "high",
+  "safety_level": "normal",
+  "title": "Zero Trust — Architecture de Sécurité Moderne",
+  "summary": "Zero Trust : principes (never trust, always verify), histoire (John Kindervag, 2010), composantes techniques (microsegmentation, IAM, MFA, SASE, ZTNA), adoption (NIST SP 800-207), différence avec sécurité périmétrique, cas d'usage cloud.",
+  "purpose": "Permettre à ALFRED d'expliquer le paradigme Zero Trust, ses fondements et son implémentation pratique.",
+  "tags": ["zero_trust", "ZTA", "microsegmentation", "SASE", "ZTNA", "IAM", "NIST_800-207", "sécurité_périmétrique", "cloud_security"],
+  "intents": ["explain_zero_trust", "explain_zero_trust_components", "answer_security_architecture_question"],
+  "usage_context": ["Cybersécurité", "RSSI", "Architecture", "Cloud"],
+  "content": {
+    "definition": "Zero Trust est un modèle de sécurité basé sur le principe 'ne jamais faire confiance, toujours vérifier'. Aucun utilisateur, appareil ou réseau n'est considéré comme fiable par défaut, qu'il soit à l'intérieur ou à l'extérieur du périmètre.",
+    "history": "John Kindervag (Forrester Research, 2010) : formalise le concept Zero Trust. NIST SP 800-207 (2020) : guide de référence ZTA (Zero Trust Architecture). Mandats gouvernementaux USA (Executive Order 2021), UE (ENISA, NIS2 aligné).",
+    "principles": {
+      "verify_explicitly": "Vérifier explicitement : toujours authentifier et autoriser en utilisant tous les signaux disponibles (identité, localisation, appareil, service, workload, comportement).",
+      "least_privilege": "Utiliser le moindre privilège : limiter les droits d'accès just-in-time et just-enough-access, politiques adaptatives basées sur les risques.",
+      "assume_breach": "Partir du principe d'une violation : minimiser le rayon d'explosion, segmenter les accès, chiffrer de bout en bout, analyser pour détecter et améliorer."
+    },
+    "components": {
+      "iam": "IAM/MFA forte : authentication multi-facteurs, accès conditionnel, PAM. Identité = nouveau périmètre.",
+      "microsegmentation": "Microsegmentation : diviser le réseau en micro-périmètres autour de chaque workload. Isoler les actifs critiques. Limiter les mouvements latéraux post-compromise.",
+      "ztna": "ZTNA (Zero Trust Network Access) : remplace le VPN. Accès applicatif granulaire, basé sur l'identité et le contexte. Pas d'accès réseau large. Ex : Zscaler ZPA, Cloudflare Access, Palo Alto Prisma Access.",
+      "sase": "SASE (Secure Access Service Edge, Gartner) : convergence réseau (SD-WAN) et sécurité (ZTNA, SWG, CASB, FWaaS) dans un service cloud unifié. Adapté aux environnements distribués.",
+      "xdr": "XDR (Extended Detection and Response) : corrélation des signaux de sécurité (endpoint, réseau, identité, cloud) pour détecter les menaces avancées. Complément opérationnel du Zero Trust."
+    },
+    "vs_perimeter": "Sécurité périmétrique (château fort) : confiance implicite à l'intérieur du réseau. Limites : inadaptée au cloud, BYOD, télétravail, attaques latérales. Zero Trust : confiance explicitement accordée à chaque demande d'accès individuelle.",
+    "adoption": "Maturité Zero Trust : graduelle. Commencer par l'IAM et MFA → microsegmentation réseau → ZTNA → full ZTA. Roadmap 3-5 ans pour les grandes organisations."
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["zero trust", "never trust always verify", "microsegmentation", "ZTNA", "SASE", "ZTA", "NIST 800-207"],
+    "related_domains": ["information_security"],
+    "related_knowledge": ["information_security.iam.identity_access_management", "information_security.foundations.information_security_basics"],
+    "retrieval_priority": 9
+  },
+  "behavior_rules": {"tone": "educational", "response_style": "structured_clear", "max_complexity": "medium", "allow_humor": false},
+  "safety_notes": {"allowed_usage": ["Éducation sur Zero Trust"], "restricted_usage": [], "forbidden_usage": [], "fallback_behavior": ""},
+  "metadata": {"author": "ALFRED_SYSTEM", "creation_date": "10/07/2026", "last_update": "10/07/2026", "review_status": "active", "reviewed_by": "ALFRED_CORE", "source_type": "manual_structured_knowledge", "language": "fr", "retrieval_ready": true, "rag_compatible": true}
+}

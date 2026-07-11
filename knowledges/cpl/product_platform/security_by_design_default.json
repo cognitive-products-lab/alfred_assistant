@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "id": "knowledges.cpl.product_platform.security_by_design_default",
+  "title": "Security by Design et Secure by Default pour un assistant IA d'entreprise",
+  "domain": "cpl",
+  "subdomain": "product_platform",
+  "status": "active",
+  "summary": "La sécurité d'un assistant IA d'entreprise doit être intégrée dès la conception (Security by Design) et ses réglages par défaut doivent être les plus restrictifs possibles (Secure by Default), plutôt qu'ajoutée après coup.",
+  "core_definition": "Security by Design signifie que chaque composant est conçu en anticipant les risques (chiffrement, segmentation, gestion des secrets) plutôt que de corriger après incident. Secure by Default signifie que la configuration initiale d'un système est toujours la plus sûre possible : accès limités, fonctions sensibles désactivées, journalisation active, sans action de durcissement supplémentaire requise de l'utilisateur.",
+  "knowledge": {
+    "security_by_design_elements": [
+      "Sécurité intégrée dès la conception, pas ajoutée après coup",
+      "Chiffrement des données au repos et en transit",
+      "Gestion sécurisée des secrets (pas de secrets en dur)",
+      "Protection des API exposées",
+      "Segmentation réseau entre composants",
+      "Cloisonnement des environnements (dev, test, production, par client)",
+      "Réduction de la surface d'attaque",
+      "Mise à jour régulière des dépendances",
+      "Contrôle des composants tiers intégrés",
+      "Sauvegardes chiffrées et testées régulièrement",
+      "Procédure documentée de retour à un état sûr après incident"
+    ],
+    "secure_by_default_elements": [
+      "Accès limités par défaut, extension seulement sur demande justifiée",
+      "Fonctions sensibles désactivées tant qu'elles ne sont pas explicitement activées",
+      "Journalisation activée par défaut, jamais optionnelle",
+      "Flux externes bloqués sauf autorisation explicite",
+      "Conservation minimale des données par défaut",
+      "Interdiction des identifiants génériques ou partagés",
+      "Validation obligatoire avant toute action sensible"
+    ],
+    "design_principle": "Un utilisateur qui ne configure rien doit se retrouver dans l'état le plus sûr possible, pas dans l'état le plus permissif."
+  },
+  "example_answers": [
+    {
+      "prompt": "Quelle est la différence entre Security by Design et Secure by Default ?",
+      "answer": "Security by Design concerne l'architecture : la sécurité est pensée dès la conception du système (chiffrement, segmentation, gestion des secrets), pas ajoutée en rustine. Secure by Default concerne la configuration : dès l'installation, les réglages les plus sûrs sont actifs sans action de l'utilisateur — accès restreints, journalisation active, flux externes bloqués. Les deux sont complémentaires : l'un porte sur la structure, l'autre sur l'état initial."
+    },
+    {
+      "prompt": "Quels réflexes Secure by Default appliquer en priorité sur un assistant IA connecté à des documents internes sensibles ?",
+      "answer": "Désactiver par défaut toute fonction de sortie de données vers l'extérieur, activer la journalisation dès le premier déploiement, limiter l'accès documentaire au strict périmètre du rôle de l'utilisateur, et exiger une validation humaine avant toute action qui modifie ou diffuse une information sensible."
+    }
+  ],
+  "response_guidance": {
+    "tone": "technique, factuel, orienté prévention",
+    "structure": [
+      "distinguer conception (design) et configuration initiale (default)",
+      "lister les mesures concrètes applicables",
+      "relier au contexte du client si connu"
+    ],
+    "avoid": [
+      "présenter ces principes comme une checklist cosmétique",
+      "recommander un réglage permissif par défaut au nom de la simplicité"
+    ]
+  },
+  "tags": [
+    "security by design",
+    "secure by default",
+    "chiffrement",
+    "sécurité",
+    "cpl",
+    "alfred_cpl"
+  ],
+  "related_knowledge_units": [
+    "knowledges.cpl.product_platform.identity_access_zero_trust",
+    "knowledges.cpl.product_platform.data_protection_hosting",
+    "knowledges.cpl.product_platform.progressive_autonomy_ai_risk"
+  ]
+}

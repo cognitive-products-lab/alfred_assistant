@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "ethique_ia.risques.ethique_ia_fondamentaux",
+  "version": "1.0.0",
+  "domain": "ethique_ia",
+  "subdomain": "risques",
+  "category": "éthique_IA",
+  "priority": "critical",
+  "safety_level": "sensitive",
+  "title": "Éthique de l'Intelligence Artificielle",
+  "summary": "Éthique IA : équité, biais, discrimination, transparence, explicabilité, responsabilité, autonomie, supervision humaine, proportionnalité, loyauté, contestabilité, réversibilité, non-manipulation, prévention de la dépendance, impact social et environnemental, limites de l'automatisation.",
+  "purpose": "Permettre à ALFRED CPL d'expliquer les principes éthiques fondamentaux applicables aux systèmes IA et d'identifier les risques éthiques d'un projet IA.",
+  "tags": ["éthique_IA", "équité", "biais", "transparence", "explicabilité", "responsabilité_IA", "supervision_humaine", "non_manipulation", "contestabilité", "AI_Act", "droits_fondamentaux"],
+  "intents": ["explain_ai_ethics", "explain_ai_bias", "explain_transparency_ia", "explain_human_oversight", "assess_ethical_risk_ia"],
+  "usage_context": ["Direction", "Product Management", "DSI", "Conformité", "RSE"],
+  "content": {
+    "principes_fondamentaux": {
+      "equite": "Équité : un système IA ne doit pas discriminer sur des critères protégés (origine, genre, âge, handicap, religion). L'équité peut être mesurée de plusieurs façons incompatibles (parité statistique, égalité des chances, calibration). Choisir le critère d'équité adapté au contexte.",
+      "transparence": "Transparence : les utilisateurs doivent savoir qu'ils interagissent avec un système IA, comprendre ses capacités et limitations, et avoir accès à une explication de ses décisions. AI Act art. 50 : obligation de disclosure pour les IA génératives et les deepfakes.",
+      "explicabilite": "Explicabilité (XAI) : capacité à fournir une explication compréhensible des décisions du système. Locale (pourquoi cette décision pour cet individu) vs globale (comment fonctionne le modèle en général). Techniques : SHAP, LIME, attention maps.",
+      "responsabilite": "Responsabilité (accountability) : les décisions prises par ou avec l'aide d'un système IA doivent être imputables à une personne ou une organisation. L'IA ne peut pas être juridiquement responsable. Chaîne de responsabilité : développeur → déployeur → utilisateur."
+    },
+    "droits_individus": {
+      "autonomie": "Autonomie des individus : un système IA ne doit pas réduire la capacité des individus à prendre leurs propres décisions. Danger : systèmes de recommandation qui enferment dans des bulles (filter bubble), assistants qui créent une dépendance excessive.",
+      "consentement": "Consentement : les personnes doivent être informées de l'utilisation de l'IA dans des décisions les concernant. Droit d'opposition (RGPD art. 22) aux décisions entièrement automatisées à effets significatifs.",
+      "contestabilite": "Contestabilité : les individus doivent pouvoir contester une décision prise par un système IA. Exige : traçabilité, explication, point de contact humain. Exigence de l'AI Act pour les systèmes à haut risque.",
+      "reversibilite": "Réversibilité : les décisions prises avec l'aide de l'IA doivent pouvoir être annulées ou corrigées si elles s'avèrent erronées. Important pour les décisions à fort impact (santé, crédit, emploi)."
+    },
+    "risques_ethiques": {
+      "manipulation": "Non-manipulation : un système IA ne doit pas utiliser des techniques psychologiques trompeuses pour influencer les comportements (dark patterns, urgence artificielle, exploitation de biais cognitifs). Interdit par l'AI Act pour les IA à risque inacceptable.",
+      "surveillance": "Non-surveillance abusive : utilisation de l'IA pour surveiller les individus à leur insu ou de manière disproportionnée. Reconnaissance faciale dans les espaces publics : interdite par l'AI Act sauf exceptions étroites (sécurité nationale, enlèvements).",
+      "dependance": "Prévention de la dépendance : un assistant IA doit maintenir l'autonomie de l'utilisateur et l'orienter vers ses propres capacités, pas uniquement vers l'IA. ALFRED doit encourager l'apprentissage et la prise d'autonomie.",
+      "biais_discrimination": "Biais et discrimination : les modèles héritent des biais de leurs données d'entraînement. Tests d'équité obligatoires avant déploiement. Surveillance continue en production. Obligation de rapport sous l'AI Act pour les systèmes à haut risque."
+    },
+    "supervision_humaine": "Supervision humaine : principe central de l'AI Act. Les systèmes à haut risque doivent permettre à des humains de comprendre, surveiller, corriger et désactiver le système. Human-in-the-loop (décision humaine requise), human-on-the-loop (humain peut intervenir), human-in-command (contrôle global).",
+    "impact_societal": {
+      "social": "Impact social : concentration du pouvoir économique, automatisation et emploi, amplification des inégalités existantes, manipulation de l'opinion publique à grande échelle.",
+      "environnemental": "Impact environnemental : entraînement des grands modèles (GPT-4 : estimé à 10-15 GWh), inférence continue, refroidissement des datacenters. Obligation de transparence sur la consommation énergétique sous l'AI Act pour les GPAI."
+    },
+    "limites_automatisation": "Limites de l'automatisation : certaines décisions ne devraient pas être entièrement automatisées même si techniquement possible. Décisions médicales graves, décisions judiciaires, licenciements, accès au crédit : supervision humaine impérative. Principe de proportionnalité : l'IA doit être un outil d'aide, pas un substitut au jugement humain dans ces domaines."
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["éthique IA", "biais IA", "équité", "transparence", "explicabilité", "supervision humaine", "contestabilité", "manipulation IA", "dépendance IA"],
+    "related_domains": ["ethique_ia", "securite_ia"],
+    "related_knowledge": ["securite_ia.fondamentaux.securite_ia_fondamentaux", "regulation.ai.ai_act_regulation"],
+    "retrieval_priority": 10
+  },
+  "behavior_rules": {"tone": "educational", "response_style": "structured_clear", "max_complexity": "medium", "allow_humor": false},
+  "safety_notes": {"allowed_usage": ["Éducation sur l'éthique IA", "Évaluation éthique de projets IA"], "restricted_usage": [], "forbidden_usage": [], "fallback_behavior": "Pour les décisions éthiques complexes, orienter vers un comité d'éthique ou un expert."},
+  "metadata": {"author": "ALFRED_SYSTEM", "creation_date": "10/07/2026", "last_update": "10/07/2026", "review_status": "active", "reviewed_by": "ALFRED_CORE", "source_type": "manual_structured_knowledge", "language": "fr", "retrieval_ready": true, "rag_compatible": true}
+}

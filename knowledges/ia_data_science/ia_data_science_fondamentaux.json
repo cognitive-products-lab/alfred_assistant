@@ -1,0 +1,53 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "ia_data_science.fondamentaux.ia_data_science_fondamentaux",
+  "version": "1.0.0",
+  "domain": "ia_data_science",
+  "subdomain": "fondamentaux",
+  "category": "IA_data_science",
+  "priority": "critical",
+  "safety_level": "normal",
+  "title": "Intelligence Artificielle et Data Science — Fondamentaux",
+  "summary": "IA, machine learning, deep learning, apprentissages (supervisé/non supervisé/renforcement), LLM, NLP, vision par ordinateur, embeddings, RAG, agents IA, MLOps, cycle de vie des modèles, explicabilité, biais, supervision humaine.",
+  "purpose": "Permettre à ALFRED CPL d'expliquer les concepts fondamentaux de l'IA et de la data science à un public professionnel non spécialiste.",
+  "tags": ["intelligence_artificielle", "machine_learning", "deep_learning", "LLM", "NLP", "RAG", "embeddings", "agent_IA", "MLOps", "explicabilité", "biais", "supervision_humaine"],
+  "intents": ["explain_ai_basics", "explain_llm", "explain_rag", "explain_mlops", "explain_bias_ia", "explain_ai_agent"],
+  "usage_context": ["Direction", "Product Management", "DSI", "Métier", "Formation"],
+  "content": {
+    "definition_ia": "L'intelligence artificielle (IA) est l'ensemble des techniques permettant à des machines d'exécuter des tâches qui requièrent normalement l'intelligence humaine : perception, raisonnement, apprentissage, décision, génération de langage.",
+    "branches": {
+      "ml": "Machine learning (apprentissage automatique) : les modèles apprennent à partir de données sans être explicitement programmés. Algorithmes classiques : régression, arbre de décision, forêt aléatoire, SVM, k-means.",
+      "dl": "Deep learning (apprentissage profond) : sous-ensemble du ML utilisant des réseaux de neurones profonds. Excellente performance sur données non structurées (images, texte, audio). Nécessite beaucoup de données et de puissance de calcul.",
+      "apprentissages": "Apprentissage supervisé : données étiquetées (entrée → sortie attendue). Apprentissage non supervisé : données non étiquetées, découverte de structures. Apprentissage par renforcement : agent qui apprend par essai-erreur en maximisant une récompense."
+    },
+    "llm_nlp": {
+      "llm": "LLM (Large Language Model) : modèle de langage à grande échelle, pré-entraîné sur de vastes corpus de texte. Capacités : génération de texte, résumé, traduction, question-réponse, code. Exemples : Claude, GPT-4, Gemini, Llama.",
+      "nlp": "NLP (Natural Language Processing / Traitement Automatique du Langage) : domaine de l'IA qui traite le langage humain. Applications : analyse de sentiment, extraction d'entités (NER), classification de texte, traduction.",
+      "tokens": "Token : unité de base traitée par un LLM (sous-mot, mot ou caractère). Fenêtre de contexte : quantité maximale de tokens traitables en une fois. Claude Sonnet : 200 000 tokens environ."
+    },
+    "rag_embeddings": {
+      "embeddings": "Embeddings : représentations vectorielles denses de textes (ou d'images, d'audio) dans un espace multidimensionnel. Les textes sémantiquement proches ont des embeddings proches (cosine similarity).",
+      "rag": "RAG (Retrieval-Augmented Generation) : architecture combinant un LLM avec une base de connaissances externe. Étapes : (1) Embed et indexer les documents, (2) Sur requête utilisateur, retriever les chunks pertinents, (3) Injecter dans le prompt, (4) Générer la réponse. Avantage : réponses sourcées, actualisées, réductrice d'hallucinations.",
+      "base_vectorielle": "Base vectorielle (vector database) : base de données optimisée pour stocker et rechercher des embeddings. Exemples : Pinecone, Weaviate, Chroma, pgvector (PostgreSQL). Recherche par similarité sémantique."
+    },
+    "agents_ia": "Agent IA : système IA autonome capable d'utiliser des outils (API, bases de données, code) pour accomplir des tâches multi-étapes. Composants : LLM central, outils/fonctions, mémoire, planificateur. Exemples d'outils : recherche web, exécution de code, envoi d'emails.",
+    "evaluation_modeles": "Métriques de performance : classification (précision, rappel, F1-score, AUC-ROC), régression (RMSE, MAE), NLP (BLEU, ROUGE, BERTScore). Pour les LLM : benchmarks humains, LLM-as-judge, RAGAS (pour le RAG).",
+    "biais_derive": {
+      "biais": "Biais dans les modèles : héritent des biais présents dans les données d'entraînement. Types : biais de représentation (sous-représentation de certains groupes), biais de mesure, biais historique. Détection : tests sur des groupes protégés, analyse des erreurs.",
+      "derive": "Dérive (drift) : dégradation des performances d'un modèle en production car la distribution des données évolue. Data drift : changement des entrées. Concept drift : changement de la relation entrées/sorties. Surveillance continue obligatoire."
+    },
+    "mlops": "MLOps (Machine Learning Operations) : pratiques d'industrialisation des modèles ML. Cycle de vie : développement → validation → déploiement → monitoring → retrait. Versionnement des modèles et des données (MLflow, DVC), CI/CD ML, surveillance des dérives, reproductibilité.",
+    "explicabilite": "Explicabilité (XAI — Explainable AI) : capacité à comprendre et expliquer les décisions d'un modèle. Techniques : SHAP (importance des features), LIME (approximation locale), attention maps. Exigée par l'AI Act pour les systèmes à haut risque.",
+    "supervision_humaine": "La supervision humaine est une exigence de l'AI Act et un principe éthique fondamental. Elle implique : mécanismes d'arrêt d'urgence, révision humaine des décisions à impact élevé, traçabilité des décisions automatisées, possibilité de contester."
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["intelligence artificielle", "machine learning", "LLM", "RAG", "embeddings", "agents IA", "MLOps", "biais IA", "explicabilité", "supervision humaine"],
+    "related_domains": ["ia_data_science", "securite_ia"],
+    "related_knowledge": ["securite_ia.fondamentaux.securite_ia_fondamentaux", "ethique_ia.risques.ethique_ia_fondamentaux"],
+    "retrieval_priority": 9
+  },
+  "behavior_rules": {"tone": "educational", "response_style": "structured_clear", "max_complexity": "medium", "allow_humor": false},
+  "safety_notes": {"allowed_usage": ["Éducation sur l'IA et la data science"], "restricted_usage": [], "forbidden_usage": [], "fallback_behavior": ""},
+  "metadata": {"author": "ALFRED_SYSTEM", "creation_date": "10/07/2026", "last_update": "10/07/2026", "review_status": "active", "reviewed_by": "ALFRED_CORE", "source_type": "manual_structured_knowledge", "language": "fr", "retrieval_ready": true, "rag_compatible": true}
+}

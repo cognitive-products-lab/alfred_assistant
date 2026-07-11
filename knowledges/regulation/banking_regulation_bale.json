@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "regulation.banking.banking_regulation_bale",
+  "version": "1.0.0",
+  "domain": "regulation",
+  "subdomain": "banking",
+  "category": "sector_regulation",
+  "priority": "high",
+  "safety_level": "sensitive",
+  "title": "Réglementation Bancaire — Accords de Bâle",
+  "summary": "Accords de Bâle I/II/III/IV (BCBS) : évolution de la réglementation prudentielle bancaire, fonds propres réglementaires (Tier 1, CET1, Tier 2), RWA, LCR, NSFR, ratio de levier, output floor, résolution bancaire (MREL).",
+  "purpose": "Permettre à ALFRED d'expliquer l'évolution de la réglementation bancaire internationale depuis Bâle I jusqu'à Bâle IV.",
+  "tags": ["Bâle", "réglementation_bancaire", "BCBS", "fonds_propres", "CET1", "RWA", "LCR", "NSFR", "ratio_levier", "résolution_bancaire", "MREL"],
+  "intents": ["explain_basel_accords", "explain_bank_capital_requirements", "explain_liquidity_ratios", "answer_banking_regulation_question"],
+  "usage_context": ["Finance", "Banque", "Conformité", "Risk Management"],
+  "content": {
+    "bcbs": "BCBS (Basel Committee on Banking Supervision) : comité du BRI (Banque des Règlements Internationaux, Bâle) fixant les standards prudentiels bancaires internationaux. Standards transposés en droit UE par CRD/CRR.",
+    "evolution": {
+      "basel_i": "Bâle I (1988) : premier accord international. Ratio Cooke = fonds propres / actifs pondérés ≥ 8 %. Pondérations simples (OCDE vs non-OCDE). Limites : ne couvre que le risque de crédit.",
+      "basel_ii": "Bâle II (2004, effectif 2008) : 3 piliers. Pilier 1 (exigences minimales : crédit + marché + opérationnel), Pilier 2 (SREP, processus de surveillance), Pilier 3 (discipline de marché, transparence).",
+      "basel_iii": "Bâle III (2010, post-GFC) : renforcement capital (CET1 ≥ 4,5 % + coussins), nouveau ratio levier (≥ 3 %), ratios liquidité (LCR 2015, NSFR 2018). Réponse à la crise 2008.",
+      "basel_iv": "Bâle IV / CRR3 (implémentation UE jan 2025) : output floor (modèles internes ≥ 72,5 % approche standard), révision FRTB (risque de marché), CSR/CVA réforme, risques ESG."
+    },
+    "capital_structure": {
+      "cet1": "CET1 (Common Equity Tier 1) : actions ordinaires + réserves. Noyau dur des fonds propres. Exigence minimale : 4,5 % des RWA.",
+      "at1": "AT1 (Additional Tier 1) : instruments hybrides (CoCos — Contingent Convertible). Absorbent les pertes en continuité d'exploitation. Affaire Credit Suisse (mars 2023) : 16 Mds CHF effacés.",
+      "tier2": "Tier 2 : dettes subordonnées à longue maturité. Absorbent les pertes en cas de résolution.",
+      "buffers": "Coussins de capital : conservation (+2,5 %), contracyclique (0-2,5 %), systémique (0-3 %), G-SII (+1-3,5 % pour banques systémiques mondiales)."
+    },
+    "liquidity": {
+      "lcr": "LCR (Liquidity Coverage Ratio) ≥ 100 % : stock d'actifs liquides de haute qualité (HQLA) couvrant les sorties de trésorerie nettes sur 30 jours en scénario de stress.",
+      "nsfr": "NSFR (Net Stable Funding Ratio) ≥ 100 % : financement stable disponible ≥ financement stable requis. Horizon 1 an. Limite la dépendance au financement court terme.",
+      "leverage": "Ratio de levier ≥ 3 % : Tier 1 / exposition totale. Filet de sécurité non pondéré par les risques."
+    },
+    "resolution": "Résolution bancaire (BRRD, SRM) : bail-in des créanciers (actionnaires, AT1, T2, créanciers seniors) avant tout recours public. MREL = exigence minimale de dette bail-inable."
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["Bâle III", "CET1", "ratio de levier", "LCR", "NSFR", "fonds propres bancaires", "RWA", "MREL", "résolution bancaire"],
+    "related_domains": ["regulation", "risk_management"],
+    "related_knowledge": ["regulation.financial.financial_regulation_basics", "risk_management.financial.financial_risk_management"],
+    "retrieval_priority": 9
+  },
+  "behavior_rules": {"tone": "educational", "response_style": "structured_clear", "max_complexity": "high", "allow_humor": false},
+  "safety_notes": {"allowed_usage": ["Éducation sur la réglementation bancaire"], "restricted_usage": [], "forbidden_usage": [], "fallback_behavior": ""},
+  "metadata": {"author": "ALFRED_SYSTEM", "creation_date": "10/07/2026", "last_update": "10/07/2026", "review_status": "active", "reviewed_by": "ALFRED_CORE", "source_type": "manual_structured_knowledge", "language": "fr", "retrieval_ready": true, "rag_compatible": true}
+}

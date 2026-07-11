@@ -1,0 +1,49 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "compliance.financial.financial_compliance_mifid",
+  "version": "1.0.0",
+  "domain": "compliance",
+  "subdomain": "financial",
+  "category": "regulatory_compliance",
+  "priority": "high",
+  "safety_level": "sensitive",
+  "title": "Conformité MiFID II et Services d'Investissement",
+  "summary": "MiFID II : classification des clients (détail, professionnel, contrepartie éligible), profilage investisseur (appropriateness, suitability), best execution, product governance (POG), reporting transactions (trade reporting), rémunération des conseillers.",
+  "purpose": "Permettre à ALFRED d'expliquer les obligations de conformité MiFID II pour les prestataires de services d'investissement.",
+  "tags": ["MiFID_II", "PSI", "classification_clients", "suitability", "best_execution", "POG", "trade_reporting", "rémunération_conseillers", "inducements"],
+  "intents": ["explain_mifid2_compliance", "explain_suitability", "explain_product_governance", "answer_mifid_question"],
+  "usage_context": ["Finance", "Conformité", "Banque", "Gestion d'actifs"],
+  "content": {
+    "overview": "MiFID II (Markets in Financial Instruments Directive II, 2018) renforce la protection des investisseurs, la transparence des marchés et la surveillance des prestataires de services d'investissement (PSI).",
+    "client_classification": {
+      "retail": "Client de détail (non professionnel) : niveau de protection maximum. Information renforcée, test d'adéquation (suitability) obligatoire pour les conseils.",
+      "professional": "Client professionnel (par nature ou sur demande) : banques, compagnies d'assurance, grandes entreprises. Protection réduite, test de connaissance (appropriateness) seulement.",
+      "eligible_counterparty": "Contrepartie éligible : établissements financiers en transactions entre professionnels. Moins d'obligations d'information."
+    },
+    "investor_protection": {
+      "suitability": "Test de Suitability (adéquation) : obligatoire avant conseil d'investissement. Évalue connaissances/expérience, situation financière, objectifs d'investissement, tolérance au risque. Rapport d'adéquation délivré au client.",
+      "appropriateness": "Test d'Appropriateness : pour les services d'exécution pure (sans conseil). Évalue seulement connaissances/expérience. Si test négatif → avertissement au client.",
+      "information": "Information client : KID (Key Information Document) pour les PRIIPS, KIID pour les UCITS. Coûts et charges obligatoirement divulgués (ex ante et ex post).",
+      "best_execution": "Best Execution : obligation d'exécuter les ordres aux meilleures conditions possibles (prix, coût, rapidité, probabilité d'exécution). Politique d'exécution publiée."
+    },
+    "product_governance": {
+      "pog": "POG (Product Oversight and Governance) : le producteur de produits financiers doit définir un marché cible, tester le produit, le distribuer aux clients appropriés. Le distributeur vérifie l'adéquation.",
+      "complex_products": "Produits complexes : ESMA liste les produits non complexes (OPCVM, obligations standard). Les produits complexes nécessitent des tests renforcés.",
+      "inducements": "Inducements (rétrocessions) : restrictions sur les commissions reçues de tiers. Conseil indépendant = interdiction de recevoir des commissions. Conseil non indépendant = possible mais dévoilement obligatoire."
+    },
+    "reporting": {
+      "trade_reporting": "Reporting des transactions (art. 26) : toutes les transactions sur instruments financiers doivent être reportées à l'autorité compétente (AMF). Format FIX/ESMA. Délai J+1.",
+      "best_execution_report": "Rapport d'exécution annuel (art. 27) : rapport public sur les 5 principales places d'exécution pour chaque classe d'instruments."
+    }
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["MiFID II", "suitability", "appropriateness", "best execution", "POG", "trade reporting", "client de détail", "inducements"],
+    "related_domains": ["compliance", "regulation"],
+    "related_knowledge": ["regulation.financial.financial_regulation_basics", "compliance.financial.aml_kyc_compliance"],
+    "retrieval_priority": 8
+  },
+  "behavior_rules": {"tone": "educational", "response_style": "structured_clear", "max_complexity": "high", "allow_humor": false},
+  "safety_notes": {"allowed_usage": ["Éducation sur MiFID II"], "restricted_usage": ["Ne pas conseiller sur des décisions d'investissement spécifiques"], "forbidden_usage": [], "fallback_behavior": "Pour des questions de conformité MiFID II spécifiques, orienter vers un responsable conformité PSI."},
+  "metadata": {"author": "ALFRED_SYSTEM", "creation_date": "10/07/2026", "last_update": "10/07/2026", "review_status": "active", "reviewed_by": "ALFRED_CORE", "source_type": "manual_structured_knowledge", "language": "fr", "retrieval_ready": true, "rag_compatible": true}
+}

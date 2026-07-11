@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "risk_management.third_party.third_party_risk",
+  "version": "1.0.0",
+  "domain": "risk_management",
+  "subdomain": "third_party",
+  "category": "vendor_risk",
+  "priority": "high",
+  "safety_level": "normal",
+  "title": "Gestion du Risque Tiers (Third-Party Risk Management)",
+  "summary": "TPRM (Third-Party Risk Management) : risques liés aux fournisseurs, sous-traitants et partenaires, due diligence fournisseurs, questionnaires de sécurité (SIG, CAIQ), concentration ICT (DORA), cartographie des dépendances critiques.",
+  "purpose": "Permettre à ALFRED d'expliquer la gestion des risques liés aux tiers, ses méthodes et les obligations réglementaires (DORA).",
+  "tags": ["TPRM", "risque_tiers", "due_diligence_fournisseurs", "concentration_ICT", "DORA", "SIG", "outsourcing", "supply_chain_risk", "fournisseurs_critiques"],
+  "intents": ["explain_tprm", "explain_vendor_risk", "explain_dora_third_party", "answer_third_party_risk_question"],
+  "usage_context": ["Risk Management", "Achats", "DSI", "Conformité"],
+  "content": {
+    "definition": "Le TPRM (Third-Party Risk Management) est le processus d'identification, d'évaluation et de gestion des risques introduits dans l'organisation par ses fournisseurs, sous-traitants, partenaires et autres tiers.",
+    "risk_types": {
+      "operational": "Risque opérationnel : défaillance d'un fournisseur critique interrompant l'activité. Ex : panne AWS, faillite d'un fournisseur logiciel.",
+      "security": "Risque cybersécurité : compromission d'un fournisseur permettant d'accéder à l'organisation cliente (attaque supply chain). Ex : SolarWinds, MOVEit.",
+      "compliance": "Risque de conformité : le fournisseur ne respecte pas les obligations réglementaires (RGPD — sous-traitant). Responsabilité du responsable de traitement.",
+      "concentration": "Risque de concentration : dépendance excessive à un seul fournisseur (ex : hyperscaler cloud unique). Critique sous DORA pour le secteur financier.",
+      "reputational": "Risque réputationnel : pratiques du fournisseur (travail forcé, corruption, violations environnementales) rejaillissant sur l'organisation cliente. Due diligence ESG."
+    },
+    "process": {
+      "onboarding": "Onboarding : classification du tiers (critique, majeur, standard), due diligence préalable (questionnaire, revue financière, audit si critique).",
+      "assessment": "Évaluation : questionnaires standardisés (SIG — Standardised Information Gathering, CAIQ — Cloud Security Alliance). Scoring de risque. Revue des certifications (ISO 27001, SOC 2).",
+      "contractual": "Clauses contractuelles : DPA (Data Processing Agreement) pour RGPD, clauses de sécurité et audit, clauses de continuité (plans de secours), SLA, notifications d'incidents.",
+      "monitoring": "Surveillance continue : réévaluation annuelle ou sur événement déclencheur (incident, changement de contrôle, dégradation financière). Veille sur les incidents tiers (SecurityScorecard, BitSight).",
+      "offboarding": "Offboarding : récupération des données, révocation des accès, destruction certifiée des données."
+    },
+    "regulatory": {
+      "dora": "DORA (art. 28-44) : registre des arrangements ICT (contrats avec prestataires IT), évaluation du risque de concentration, droit d'audit, exigences contractuelles minimales, notification des incidents impliquant des tiers.",
+      "eba_guidelines": "Guidelines EBA sur l'externalisation (2019) : classification interne/externalisé, activités critiques ou importantes, plan de sortie (exit strategy).",
+      "rgpd": "RGPD : contrat de sous-traitance (art. 28) obligatoire avec tout sous-traitant traitant des données personnelles. Responsabilité du responsable de traitement même en cas de manquement du sous-traitant."
+    }
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["TPRM", "risque tiers", "due diligence fournisseurs", "concentration ICT", "DORA tiers", "supply chain risk", "sous-traitant", "outsourcing"],
+    "related_domains": ["risk_management", "compliance"],
+    "related_knowledge": ["risk_management.cyber.cyber_risk_management", "compliance.data_protection.rgpd_compliance_operationnel"],
+    "retrieval_priority": 9
+  },
+  "behavior_rules": {"tone": "educational", "response_style": "structured_clear", "max_complexity": "medium", "allow_humor": false},
+  "safety_notes": {"allowed_usage": ["Éducation sur le TPRM"], "restricted_usage": [], "forbidden_usage": [], "fallback_behavior": ""},
+  "metadata": {"author": "ALFRED_SYSTEM", "creation_date": "10/07/2026", "last_update": "10/07/2026", "review_status": "active", "reviewed_by": "ALFRED_CORE", "source_type": "manual_structured_knowledge", "language": "fr", "retrieval_ready": true, "rag_compatible": true}
+}

@@ -1,0 +1,53 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "risk_management.foundations.risk_management_fundamentals",
+  "version": "1.0.0",
+  "domain": "risk_management",
+  "subdomain": "foundations",
+  "category": "enterprise_risk",
+  "priority": "critical",
+  "safety_level": "normal",
+  "title": "Gestion des Risques — Fondements",
+  "summary": "Gestion des risques : définition (ISO 31000), processus (identification, évaluation, traitement, surveillance), matrices de risques, appétit et tolérance au risque, ERM (Enterprise Risk Management), COSO ERM, types de risques.",
+  "purpose": "Permettre à ALFRED d'expliquer les concepts fondamentaux de la gestion des risques et les référentiels internationaux.",
+  "tags": ["gestion_risques", "ISO_31000", "COSO_ERM", "matrice_risques", "appétit_risque", "ERM", "risque_résiduel", "identification_risques", "traitement_risques"],
+  "intents": ["explain_risk_management", "explain_risk_matrix", "explain_iso_31000", "answer_risk_management_question"],
+  "usage_context": ["Risk Management", "Gouvernance", "Audit", "Direction"],
+  "content": {
+    "definition": "Le risque est l'effet de l'incertitude sur les objectifs (ISO 31000). La gestion des risques vise à identifier, évaluer et traiter les risques pour les maintenir dans l'appétit défini par l'organisation.",
+    "iso_31000": {
+      "framework": "ISO 31000:2018 — Principes, cadre organisationnel et processus de management du risque. Standard international de référence.",
+      "principles": ["Intégré (dans la gouvernance)", "Structuré et global", "Adapté au contexte", "Inclusif (parties prenantes)", "Dynamique (évolutif)", "S'appuie sur la meilleure information disponible", "Tient compte des facteurs humains", "Amélioration continue"],
+      "process": "Processus : Communication → Établissement du contexte → Identification → Analyse → Évaluation → Traitement → Surveillance et révision."
+    },
+    "risk_identification": {
+      "methods": ["Brainstorming", "SWOT", "Analyse des causes profondes (5 Pourquoi, Ishikawa)", "Checklist sectorielles", "Interviews d'experts", "Analyse de scénarios", "AMDEC/FMEA"],
+      "risk_register": "Registre des risques : document central listant tous les risques identifiés avec leur description, causes, impacts potentiels, probabilité, niveau, propriétaire, mesures."
+    },
+    "risk_assessment": {
+      "qualitative": "Évaluation qualitative : matrice Probabilité × Impact (ex : 5×5). Niveaux : faible, modéré, élevé, critique. Simple mais subjectif.",
+      "quantitative": "Évaluation quantitative : VaR (Value at Risk), Monte Carlo, Expected Loss = Probabilité × Impact × Exposition. Objectif mais nécessite des données.",
+      "risk_matrix": "Matrice des risques : outil de visualisation et de priorisation. Axe X = probabilité (1-5), Axe Y = impact (1-5). Score = P × I. Codification couleur : vert (1-4), orange (5-9), rouge (10-25).",
+      "inherent_vs_residual": "Risque inhérent (avant contrôles) → Risque résiduel (après contrôles). Gap = efficacité des contrôles existants."
+    },
+    "risk_treatment": {
+      "strategies": ["Éviter (supprimer l'activité source)", "Réduire (contrôles préventifs et détectifs)", "Transférer (assurance, sous-traitance)", "Accepter (si dans l'appétit au risque)"],
+      "action_plan": "Plan de traitement : pour chaque risque au-dessus du seuil → action corrective, responsable, délai, budget, indicateur de suivi."
+    },
+    "erm": {
+      "coso": "COSO ERM (2017) : cadre de management intégré des risques d'entreprise. 5 composantes : Gouvernance & Culture, Stratégie & Fixation d'objectifs, Performance, Revue & Révision, Information & Communication.",
+      "risk_appetite": "Appétit au risque : niveau de risque qu'une organisation est prête à accepter pour atteindre ses objectifs. Défini par le Conseil d'Administration. Distinct de la tolérance (écart acceptable).",
+      "three_lines": "Modèle des 3 lignes de défense (IIA) : 1ère ligne (opérations — contrôles internes), 2ème ligne (fonctions de contrôle — risk management, conformité), 3ème ligne (audit interne)."
+    }
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["gestion des risques", "ISO 31000", "COSO ERM", "matrice risques", "appétit au risque", "registre des risques", "risque résiduel", "trois lignes de défense"],
+    "related_domains": ["risk_management", "governance"],
+    "related_knowledge": ["governance.corporate.corporate_governance_basics", "risk_management.operational.operational_risk_management"],
+    "retrieval_priority": 10
+  },
+  "behavior_rules": {"tone": "educational", "response_style": "structured_clear", "max_complexity": "medium", "allow_humor": false},
+  "safety_notes": {"allowed_usage": ["Éducation en gestion des risques"], "restricted_usage": [], "forbidden_usage": [], "fallback_behavior": ""},
+  "metadata": {"author": "ALFRED_SYSTEM", "creation_date": "10/07/2026", "last_update": "10/07/2026", "review_status": "active", "reviewed_by": "ALFRED_CORE", "source_type": "manual_structured_knowledge", "language": "fr", "retrieval_ready": true, "rag_compatible": true}
+}

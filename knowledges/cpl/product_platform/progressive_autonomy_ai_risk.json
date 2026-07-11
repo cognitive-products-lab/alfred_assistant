@@ -1,0 +1,68 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "id": "knowledges.cpl.product_platform.progressive_autonomy_ai_risk",
+  "title": "Autonomie progressive et prévention des risques propres à l'IA",
+  "domain": "cpl",
+  "subdomain": "product_platform",
+  "status": "active",
+  "summary": "L'autonomie d'un assistant IA doit être graduée par niveaux explicites — informer, suggérer, préparer, exécuter une action limitée, intervention humaine obligatoire — et chaque fonctionnalité protégée contre les risques spécifiques à l'IA (injection de prompt, hallucination, empoisonnement de la base).",
+  "core_definition": "L'autonomie progressive attribue à chaque fonctionnalité un niveau de risque, un niveau d'habilitation et un mécanisme de retour arrière, plutôt que d'accorder une autonomie uniforme à tout le système. La prévention des risques IA regroupe les protections techniques spécifiques contre les attaques et défaillances propres aux systèmes IA.",
+  "knowledge": {
+    "progressive_autonomy_levels": [
+      "Niveau 1 : informer",
+      "Niveau 2 : suggérer",
+      "Niveau 3 : préparer",
+      "Niveau 4 : exécuter une action limitée",
+      "Niveau 5 : intervention humaine obligatoire"
+    ],
+    "progressive_autonomy_principle": "Chaque fonctionnalité doit être associée à un niveau de risque, un niveau d'habilitation et un mécanisme de retour arrière.",
+    "ai_risk_prevention_elements": [
+      "Protection contre les injections de prompt",
+      "Contrôle des documents ingérés avant indexation",
+      "Détection de contenus malveillants",
+      "Protection contre la fuite de contexte entre sessions ou utilisateurs",
+      "Limitation des outils accessibles au modèle",
+      "Filtrage des réponses sensibles avant restitution",
+      "Détection d'anomalies de comportement",
+      "Tests réguliers de robustesse",
+      "Gestion active des hallucinations",
+      "Protection contre l'empoisonnement de la base de connaissances"
+    ],
+    "design_principle": "Plus le niveau d'autonomie accordé à une fonctionnalité est élevé, plus les protections contre les risques IA associés doivent être strictes."
+  },
+  "example_answers": [
+    {
+      "prompt": "Pourquoi graduer l'autonomie d'un assistant IA plutôt que de choisir un seul niveau global ?",
+      "answer": "Parce que le risque n'est pas le même selon la tâche : informer sur une procédure publique n'a pas le même impact qu'exécuter une action sur un système RH. Graduer l'autonomie par fonctionnalité — informer, suggérer, préparer, exécuter une action limitée, ou exiger une intervention humaine obligatoire — permet d'accorder juste l'autonomie nécessaire à chaque cas, avec un mécanisme de retour arrière si besoin."
+    },
+    {
+      "prompt": "Qu'est-ce qu'une injection de prompt et comment un assistant IA d'entreprise doit-il s'en protéger ?",
+      "answer": "Une injection de prompt est une tentative de manipuler le comportement du modèle via un contenu malveillant caché dans un document ou une requête, pour lui faire ignorer ses règles ou révéler des informations non autorisées. La protection passe par le contrôle des documents ingérés, la limitation des outils accessibles au modèle, et le filtrage des réponses avant restitution."
+    }
+  ],
+  "response_guidance": {
+    "tone": "technique, orienté maîtrise du risque",
+    "structure": [
+      "situer le niveau d'autonomie concerné",
+      "rappeler le mécanisme de retour arrière associé",
+      "citer la protection technique pertinente si le risque IA est en jeu"
+    ],
+    "avoid": [
+      "présenter l'autonomie complète comme un objectif en soi plutôt qu'un niveau parmi d'autres, à justifier"
+    ]
+  },
+  "tags": [
+    "autonomie progressive",
+    "human in the loop",
+    "risques IA",
+    "injection de prompt",
+    "hallucinations",
+    "cpl",
+    "alfred_cpl"
+  ],
+  "related_knowledge_units": [
+    "knowledges.cpl.product_platform.logging_audit_human_control",
+    "knowledges.cpl.product_platform.ai_governance_accessibility"
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "id": "knowledges.cpl.product_platform.document_management",
+  "title": "Gestion documentaire pour un assistant IA d'entreprise",
+  "domain": "cpl",
+  "subdomain": "product_platform",
+  "status": "active",
+  "summary": "Un assistant IA qui exploite des documents internes doit gérer leur cycle de vie complet : import contrôlé, indexation, versions, propriétaires, obsolescence et sensibilité — sinon il finit par citer des documents périmés ou en doublon.",
+  "core_definition": "La gestion documentaire couvre l'ensemble des règles et mécanismes qui garantissent que les documents ingérés par l'assistant restent identifiables, à jour, uniques et correctement classés selon leur sensibilité.",
+  "knowledge": {
+    "document_management_elements": [
+      "Import limité aux documents explicitement autorisés",
+      "Indexation automatique à l'ingestion",
+      "Détection des doublons",
+      "Gestion des versions successives d'un même document",
+      "Identification des documents obsolètes",
+      "Archivage et suppression contrôlés",
+      "Attribution d'un propriétaire à chaque document",
+      "Gestion des dates de validation et de révision",
+      "Classification des documents selon leur niveau de sensibilité"
+    ],
+    "design_principle": "Un document sans propriétaire, sans date de validation et sans statut de version est une source de réponse non fiable, quelle que soit la qualité du modèle qui l'exploite."
+  },
+  "example_answers": [
+    {
+      "prompt": "Comment éviter qu'un assistant IA cite une procédure interne obsolète ?",
+      "answer": "En imposant à chaque document une date de validation et de révision, un statut de version explicite, et un mécanisme qui marque automatiquement un document comme obsolète quand une version plus récente est validée. L'assistant doit toujours citer la version et la date, et signaler si deux versions coexistent encore dans la base."
+    },
+    {
+      "prompt": "Pourquoi attribuer un propriétaire à chaque document ingéré par l'assistant ?",
+      "answer": "Parce que sans propriétaire identifié, personne n'est responsable de la validité du contenu dans le temps : pas de validation en cas de doute, pas de mise à jour en cas de changement de procédure, pas de contact pour trancher une contradiction détectée par l'assistant."
+    }
+  ],
+  "response_guidance": {
+    "tone": "pragmatique, orienté fiabilité documentaire",
+    "structure": [
+      "rappeler le cycle de vie du document (import, version, obsolescence, archivage)",
+      "relier chaque règle à un risque concret évité"
+    ],
+    "avoid": [
+      "traiter la gestion documentaire comme un détail technique sans impact sur la fiabilité des réponses"
+    ]
+  },
+  "tags": [
+    "gestion documentaire",
+    "versions",
+    "obsolescence",
+    "propriétaire de document",
+    "cpl",
+    "alfred_cpl"
+  ],
+  "related_knowledge_units": [
+    "knowledges.cpl.product_platform.business_knowledge_base_governance",
+    "knowledges.cpl.product_platform.sourced_answers_business_assistant"
+  ]
+}

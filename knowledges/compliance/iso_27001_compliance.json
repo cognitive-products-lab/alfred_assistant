@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "compliance.security.iso_27001_compliance",
+  "version": "1.0.0",
+  "domain": "compliance",
+  "subdomain": "security",
+  "category": "regulatory_compliance",
+  "priority": "high",
+  "safety_level": "normal",
+  "title": "ISO 27001 — Système de Management de la Sécurité de l'Information",
+  "summary": "ISO 27001:2022 : SMSI (Système de Management de la Sécurité de l'Information), 93 contrôles de sécurité (Annexe A), processus de certification, analyse de risques ISO 27005, relation avec NIS2, SOC 2, RGPD.",
+  "purpose": "Permettre à ALFRED d'expliquer la norme ISO 27001, son périmètre et le processus de certification.",
+  "tags": ["ISO_27001", "SMSI", "sécurité_information", "certification", "contrôles_sécurité", "analyse_risques", "ISO_27005", "NIS2", "SOC2"],
+  "intents": ["explain_iso27001", "explain_isms", "help_iso27001_implementation", "answer_security_compliance_question"],
+  "usage_context": ["Conformité", "Sécurité", "DSI", "RSSI"],
+  "content": {
+    "definition": "ISO 27001 est la norme internationale spécifiant les exigences d'un SMSI (Système de Management de la Sécurité de l'Information). Certifiable. Version actuelle : ISO/IEC 27001:2022.",
+    "isms_structure": {
+      "pdca": "Approche PDCA : Plan (établir le SMSI) → Do (implémenter et opérer) → Check (surveiller et réviser) → Act (améliorer).",
+      "scope": "Périmètre : l'organisation définit le périmètre du SMSI (toute l'organisation ou une partie). Périmètre documenté et justifié.",
+      "clauses": "Structure normative : Clauses 4 à 10 (obligatoires). Clause 4 : contexte. 5 : leadership. 6 : planification. 7 : support. 8 : réalisation. 9 : évaluation. 10 : amélioration.",
+      "annex_a": "Annexe A (2022) : 93 contrôles organisés en 4 thèmes. Organisationnels (37), Ressources humaines (8), Physiques (14), Technologiques (34). Nouveaux contrôles 2022 : threat intelligence, cloud security, data masking, ICT supply chain security."
+    },
+    "risk_management": {
+      "iso_27005": "ISO 27005 : norme de gestion des risques SSI. Processus : établir le contexte → identifier les actifs → identifier les menaces et vulnérabilités → évaluer la vraisemblance et l'impact → traiter.",
+      "assets": "Inventaire des actifs : matériels, logiciels, données, services. Propriétaire défini pour chaque actif.",
+      "risk_treatment": "Traitement : réduire (contrôles), accepter (si dans l'appétit), éviter, transférer (assurance cyber).",
+      "soa": "SOA (Statement of Applicability) : document listant tous les contrôles Annexe A, leur applicabilité (applicable/non applicable), leur état d'implémentation et leur justification. Obligatoire pour la certification."
+    },
+    "certification": {
+      "process": "Certification par organisme accrédité (AFNOR, Bureau Veritas, TÜV, BSI) : (1) Audit de documentation (Stage 1) — revue du SMSI et de sa documentation. (2) Audit sur site (Stage 2) — vérification de l'implémentation. Cycle de 3 ans : certification initiale + 2 audits de surveillance annuels.",
+      "duration": "Durée de préparation : 12-24 mois pour une première certification. Dépend de la maturité de départ.",
+      "cost": "Coût : variable selon la taille. PME < 50 pers : 15-30 K€ (consultant + audit). Grande entreprise : 100-500 K€."
+    },
+    "related_frameworks": {
+      "nis2": "NIS2 (Directive UE 2022/2555) : oblige les entités essentielles et importantes à des mesures de cybersécurité. ISO 27001 est une bonne base pour la conformité NIS2.",
+      "soc2": "SOC 2 (AICPA) : standard américain pour les prestataires de services (SaaS, cloud). Complémentaire ISO 27001. Critères : sécurité, disponibilité, intégrité de traitement, confidentialité, vie privée.",
+      "rgpd": "RGPD : art. 32 impose des mesures de sécurité appropriées. ISO 27001 contribue à démontrer la conformité art. 32. Complémentaire mais pas suffisant seul."
+    }
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["ISO 27001", "SMSI", "certification sécurité", "contrôles sécurité", "Annexe A", "SOA", "ISO 27005", "NIS2"],
+    "related_domains": ["compliance", "information_security"],
+    "related_knowledge": ["information_security.foundations.information_security_basics", "compliance.data_protection.rgpd_compliance_operationnel"],
+    "retrieval_priority": 9
+  },
+  "behavior_rules": {"tone": "educational", "response_style": "structured_clear", "max_complexity": "high", "allow_humor": false},
+  "safety_notes": {"allowed_usage": ["Éducation sur ISO 27001"], "restricted_usage": [], "forbidden_usage": [], "fallback_behavior": ""},
+  "metadata": {"author": "ALFRED_SYSTEM", "creation_date": "10/07/2026", "last_update": "10/07/2026", "review_status": "active", "reviewed_by": "ALFRED_CORE", "source_type": "manual_structured_knowledge", "language": "fr", "retrieval_ready": true, "rag_compatible": true}
+}

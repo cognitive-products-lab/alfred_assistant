@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "compliance.financial.sox_compliance",
+  "version": "1.0.0",
+  "domain": "compliance",
+  "subdomain": "financial",
+  "category": "regulatory_compliance",
+  "priority": "high",
+  "safety_level": "sensitive",
+  "title": "SOX — Sarbanes-Oxley Act Compliance",
+  "summary": "Sarbanes-Oxley Act (SOX, 2002) : sections clés (302, 404, 906), contrôle interne sur le reporting financier (ICFR), certification CEO/CFO, PCAOB, documentation des contrôles, tests d'efficacité opérationnelle, équivalent français (LSF).",
+  "purpose": "Permettre à ALFRED d'expliquer la conformité SOX, ses obligations et son impact sur les contrôles internes des entreprises cotées.",
+  "tags": ["SOX", "Sarbanes-Oxley", "ICFR", "contrôle_interne", "section_404", "PCAOB", "CEO_certification", "reporting_financier", "LSF"],
+  "intents": ["explain_sox", "explain_icfr", "explain_sox_controls", "answer_sox_compliance_question"],
+  "usage_context": ["Conformité", "Finance", "Audit", "DSI"],
+  "content": {
+    "context": "SOX (Sarbanes-Oxley Act) a été adopté en 2002 aux USA en réponse aux scandales financiers Enron, WorldCom, Tyco. Applicable aux entreprises cotées aux USA (NYSE, NASDAQ) et leurs filiales consolidées, y compris étrangères.",
+    "key_sections": {
+      "section_302": "Section 302 : le CEO et le CFO doivent certifier personnellement sous serment l'exactitude des états financiers dans les rapports trimestriels (10-Q) et annuels (10-K). Responsabilité pénale en cas de fausse déclaration.",
+      "section_404": "Section 404 : la direction doit produire un rapport sur l'efficacité du contrôle interne sur le reporting financier (ICFR). L'auditeur externe atteste indépendamment l'évaluation de la direction. Coûteux mais structurant.",
+      "section_906": "Section 906 : renforce les sanctions pénales pour falsification des rapports financiers. Jusqu'à 20 ans d'emprisonnement."
+    },
+    "icfr": {
+      "definition": "ICFR (Internal Control over Financial Reporting) : processus de contrôle interne visant à garantir la fiabilité du reporting financier et la conformité aux GAAP/IFRS.",
+      "coso": "Référentiel COSO (1992, révisé 2013) : standard de référence pour l'ICFR. 5 composantes : Environnement de contrôle, Évaluation des risques, Activités de contrôle, Information et communication, Surveillance.",
+      "controls": "Types de contrôles : contrôles préventifs (empêchent les erreurs), détectifs (détectent les erreurs après coup), manuels (humains), automatiques (IT General Controls + Application Controls).",
+      "itgc": "IT General Controls (ITGC) : contrôles des systèmes IT supportant le reporting financier. Domaines : accès logiques, gestion des changements, opérations informatiques. Critiques pour SOX."
+    },
+    "process": {
+      "scoping": "Scoping : identification des processus financiers significatifs (revenue, procure-to-pay, payroll, clôture) et des comptes matériels.",
+      "documentation": "Documentation : narratifs et flowcharts des processus, matrices de contrôles (RCM — Risk and Control Matrix). Référencement des preuves (evidence).",
+      "testing": "Tests d'efficacité opérationnelle : échantillonnage des contrôles, revue des preuves. Fréquence selon la nature du contrôle (journalier, mensuel, annuel).",
+      "deficiencies": "Déficiences : significative (significant deficiency) vs. matérielle (material weakness). Une material weakness = opinion défavorable de l'auditeur externe sur l'ICFR."
+    },
+    "france": "LSF (Loi de Sécurité Financière, 2003) : équivalent français partiel de SOX pour les sociétés cotées en France. Obligation de rapport du Président sur le contrôle interne. Moins prescriptif que SOX."
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["SOX", "Sarbanes-Oxley", "ICFR", "section 404", "contrôle interne financier", "COSO", "ITGC", "material weakness"],
+    "related_domains": ["compliance", "governance"],
+    "related_knowledge": ["regulation.financial.financial_regulation_basics", "governance.audit.audit_internal_basics"],
+    "retrieval_priority": 8
+  },
+  "behavior_rules": {"tone": "educational", "response_style": "structured_clear", "max_complexity": "high", "allow_humor": false},
+  "safety_notes": {"allowed_usage": ["Éducation sur SOX"], "restricted_usage": [], "forbidden_usage": [], "fallback_behavior": "Pour des questions de conformité SOX spécifiques, orienter vers un auditeur ou responsable conformité."},
+  "metadata": {"author": "ALFRED_SYSTEM", "creation_date": "10/07/2026", "last_update": "10/07/2026", "review_status": "active", "reviewed_by": "ALFRED_CORE", "source_type": "manual_structured_knowledge", "language": "fr", "retrieval_ready": true, "rag_compatible": true}
+}

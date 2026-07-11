@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "id": "knowledges.cpl.product_platform.logging_audit_human_control",
+  "title": "Journalisation, audit et contrôle humain sur un assistant IA d'entreprise",
+  "domain": "cpl",
+  "subdomain": "product_platform",
+  "status": "active",
+  "summary": "Chaque interaction significative avec l'assistant doit laisser une trace exploitable, et chaque action sensible doit rester soumise à une validation humaine explicite — c'est ce qui rend le système auditable et responsabilisable.",
+  "core_definition": "La journalisation et l'audit consistent à enregistrer de façon fiable et inaltérable les événements significatifs du système. Le contrôle humain garantit qu'une personne peut valider, corriger, refuser ou interrompre une action avant qu'elle ne produise un effet, et que la décision finale reste traçable.",
+  "knowledge": {
+    "logging_audit_elements": [
+      "Historique des connexions",
+      "Historique des recherches",
+      "Documents consultés",
+      "Réponses produites",
+      "Actions autorisées ou refusées",
+      "Validations humaines enregistrées",
+      "Modifications de la base de connaissances tracées",
+      "Export des journaux pour audit externe",
+      "Protection contre l'altération des traces (intégrité des logs)",
+      "Tableau de bord de supervision"
+    ],
+    "human_control_elements": [
+      "Validation humaine avant toute action sensible",
+      "Possibilité de corriger une réponse",
+      "Possibilité de refuser une proposition",
+      "Possibilité d'interrompre une action en cours",
+      "Affichage clair des limites du système",
+      "Distinction explicite entre information, recommandation et décision",
+      "Mécanisme d'escalade vers un humain",
+      "Traçabilité de la décision finale, y compris qui a validé et quand"
+    ],
+    "design_principle": "Un système qui agit sans laisser de trace, ou qui agit sans validation humaine sur les actions sensibles, ne peut pas être audité ni tenu responsable — la traçabilité et le contrôle humain sont les deux faces d'une même exigence."
+  },
+  "example_answers": [
+    {
+      "prompt": "Que doit contenir au minimum un journal d'audit pour un assistant IA d'entreprise ?",
+      "answer": "Pour chaque interaction importante : l'utilisateur, la date et l'heure, le document consulté, le type d'action réalisée, le résultat obtenu, un éventuel refus et la mention d'une validation humaine si elle a eu lieu. Le journal doit lui-même être protégé contre l'altération pour rester une preuve fiable."
+    },
+    {
+      "prompt": "Comment distinguer information, recommandation et décision dans les réponses d'un assistant IA ?",
+      "answer": "Une information restitue un fait vérifiable sans jugement. Une recommandation propose une orientation à partir de cette information, mais laisse le choix ouvert. Une décision engage une action ou un effet concret — c'est précisément ce niveau qui doit toujours rester soumis à validation humaine explicite, l'assistant ne devant jamais décider seul à la place de l'utilisateur."
+    }
+  ],
+  "response_guidance": {
+    "tone": "factuel, orienté responsabilité et gouvernance",
+    "structure": [
+      "rappeler ce qui doit être journalisé",
+      "rappeler à quel moment une validation humaine est requise",
+      "relier les deux à la notion de traçabilité de la décision finale"
+    ],
+    "avoid": [
+      "présenter la validation humaine comme un frein plutôt qu'une garantie de confiance"
+    ]
+  },
+  "tags": [
+    "journalisation",
+    "audit",
+    "human in the loop",
+    "traçabilité",
+    "contrôle humain",
+    "cpl",
+    "alfred_cpl"
+  ],
+  "related_knowledge_units": [
+    "knowledges.cpl.product_platform.progressive_autonomy_ai_risk",
+    "knowledges.cpl.product_platform.identity_access_zero_trust",
+    "knowledges.cpl.ethics_governance.governance_model"
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "compliance.financial.aml_kyc_compliance",
+  "version": "1.0.0",
+  "domain": "compliance",
+  "subdomain": "financial",
+  "category": "regulatory_compliance",
+  "priority": "high",
+  "safety_level": "sensitive",
+  "title": "LCB-FT — Anti-Blanchiment et KYC",
+  "summary": "Lutte contre le blanchiment de capitaux et financement du terrorisme (LCB-FT) : obligations KYC (Know Your Customer), CDD/EDD, bénéficiaires effectifs, déclaration de soupçon (Tracfin), 6ème directive AML, sanctions, FATF/GAFI.",
+  "purpose": "Permettre à ALFRED d'expliquer les obligations LCB-FT, les processus KYC et le cadre réglementaire du GAFI dans le secteur financier.",
+  "tags": ["LCB-FT", "AML", "KYC", "CDD", "EDD", "Tracfin", "FATF", "GAFI", "blanchiment", "bénéficiaires_effectifs", "déclaration_soupçon"],
+  "intents": ["explain_aml", "explain_kyc_process", "explain_tracfin", "answer_compliance_financial_question"],
+  "usage_context": ["Conformité", "Finance", "Banque", "Assurance"],
+  "content": {
+    "definition": "La LCB-FT (Lutte contre le Blanchiment de Capitaux et le Financement du Terrorisme) désigne l'ensemble des dispositifs réglementaires visant à prévenir l'utilisation du système financier à des fins criminelles.",
+    "fatf_gafi": {
+      "definition": "FATF/GAFI (Financial Action Task Force on Money Laundering) : organisme intergouvernemental fondé en 1989. Établit les standards internationaux de LCB-FT. 40 recommandations.",
+      "lists": "Listes : pays sous surveillance renforcée ('grey list'), pays à haut risque ('black list'). Conséquences pour correspondants bancaires.",
+      "aml_directive": "Directives AML UE : 1ère (1991) → 6ème (2021). Transposition en droit français. 6AMLD : élargissement des infractions prédicats (22 catégories), criminalisation de l'aide au blanchiment."
+    },
+    "kyc": {
+      "definition": "KYC (Know Your Customer) : obligation d'identifier et de vérifier l'identité des clients avant d'établir une relation d'affaires et pendant sa durée.",
+      "cdd": "CDD (Customer Due Diligence) : diligence standard. Collecte : identité, adresse, nature de l'activité, objet de la relation. Mise à jour régulière du profil client.",
+      "sdd": "SDD (Simplified Due Diligence) : allégée pour les clients à faible risque (ex : collectivités publiques, entreprises cotées).",
+      "edd": "EDD (Enhanced Due Diligence) : renforcée pour clients à risque élevé : PPE (Personnes Politiquement Exposées), pays à risque, opérations complexes inhabituelles. Vérification source des fonds.",
+      "ppe": "PPE (Personnes Politiquement Exposées) : dirigeants politiques, hauts fonctionnaires, membres de leur famille et proches. Surveillance accrue, approbation de la direction.",
+      "beneficial_owner": "Bénéficiaire effectif : personne physique détenant ou contrôlant in fine une personne morale (seuil > 25 % ou contrôle de fait). Obligation d'identification et vérification. Registre national des bénéficiaires effectifs (RBE)."
+    },
+    "suspicious_activity": {
+      "tracfin": "Tracfin (Traitement du Renseignement et Action contre les Circuits Financiers Clandestins) : cellule de renseignement financier française. Déclarations de soupçon obligatoires par les entités assujetties.",
+      "reporting": "Déclaration de soupçon (DS) : obligatoire dès que sommes ou opérations semblent provenir d'une infraction ou destinées au financement du terrorisme. Pas de seuil. Strictement confidentielle.",
+      "assujettis": "Entités assujetties : établissements de crédit, assureurs, notaires, avocats (en partie), experts-comptables, agents immobiliers, casinos, prestataires de crypto-actifs (PSAN).",
+      "red_flags": "Signaux d'alerte : opérations inhabituelles (montant, fréquence), incohérence avec le profil client, anonymisation des transactions, recours excessif au cash, structures opaques."
+    },
+    "sanctions": {
+      "eu_sanctions": "Sanctions UE : gel d'avoirs, interdiction de mise à disposition de fonds. Mise en œuvre par règlements du Conseil. Listes OFAC (USA), ONU, UE à vérifier systématiquement.",
+      "screening": "Screening : vérification des listes de sanctions lors de l'entrée en relation et en continu. Outils : LexisNexis, Refinitiv World-Check, Dow Jones RiskCenter.",
+      "penalties": "Sanctions en cas de manquement : pour personnes morales jusqu'à 10 % du CA consolidé ou 5 M€ (secteur bancaire). ACPR supervise en France."
+    }
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["LCB-FT", "AML", "KYC", "blanchiment", "Tracfin", "bénéficiaire effectif", "PPE", "CDD", "EDD", "GAFI"],
+    "related_domains": ["compliance", "law"],
+    "related_knowledge": ["compliance.financial.sox_compliance", "law.digital.digital_law"],
+    "retrieval_priority": 9
+  },
+  "behavior_rules": {"tone": "educational", "response_style": "structured_clear", "max_complexity": "high", "allow_humor": false},
+  "safety_notes": {"allowed_usage": ["Éducation sur la LCB-FT"], "restricted_usage": [], "forbidden_usage": ["Ne jamais conseiller des moyens de contourner la LCB-FT"], "fallback_behavior": "Pour des questions de conformité spécifiques, orienter vers un responsable conformité ou juriste."},
+  "metadata": {"author": "ALFRED_SYSTEM", "creation_date": "10/07/2026", "last_update": "10/07/2026", "review_status": "active", "reviewed_by": "ALFRED_CORE", "source_type": "manual_structured_knowledge", "language": "fr", "retrieval_ready": true, "rag_compatible": true}
+}

@@ -1,0 +1,68 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "id": "knowledges.cpl.product_platform.identity_access_zero_trust",
+  "title": "Gestion des identités et sécurité Zero Trust pour un assistant IA d'entreprise",
+  "domain": "cpl",
+  "subdomain": "product_platform",
+  "status": "active",
+  "summary": "Un assistant IA déployé en entreprise doit vérifier systématiquement l'identité et les droits de chaque utilisateur avant de donner accès à une connaissance, plutôt que de faire confiance à la présence sur le réseau interne.",
+  "core_definition": "La gestion des identités définit qui est l'utilisateur, quel rôle il occupe et quelles habilitations lui sont associées. La sécurité Zero Trust applique le principe « ne jamais faire confiance, toujours vérifier » : chaque demande d'accès est contrôlée selon l'identité, le rôle, le terminal et le contexte, sans accès implicite lié au réseau.",
+  "knowledge": {
+    "identity_management_elements": [
+      "Authentification sécurisée de chaque utilisateur",
+      "Gestion des rôles et profils métier",
+      "Habilitations définies par utilisateur, service et fonction",
+      "Authentification multifacteur pour les accès sensibles",
+      "Gestion des sessions, révocation et déconnexion automatique",
+      "Principe du moindre privilège : accès strictement nécessaire à la fonction"
+    ],
+    "zero_trust_elements": [
+      "Vérification systématique de chaque demande d'accès, même en interne",
+      "Contrôle combiné identité + rôle + terminal + contexte",
+      "Aucun accès implicite lié à la seule présence sur le réseau interne",
+      "Segmentation des composants applicatifs",
+      "Isolation stricte des bases de connaissances entre clients",
+      "Autorisations temporaires accordées uniquement lorsque nécessaire",
+      "Révocation rapide des droits en cas de changement de contexte",
+      "Contrôle des accès à chaque ressource, pas seulement au périmètre global"
+    ],
+    "design_principle": "Le système ne doit jamais répondre avant d'avoir vérifié qui pose la question, avec quel rôle et pour quel usage."
+  },
+  "example_answers": [
+    {
+      "prompt": "Pourquoi un assistant IA interne a-t-il besoin d'une architecture Zero Trust plutôt qu'une simple authentification ?",
+      "answer": "Parce que l'authentification prouve qui vous êtes, mais pas ce que vous avez le droit de voir à cet instant précis. Le Zero Trust ajoute une vérification continue — rôle, terminal, contexte — à chaque demande d'accès, ce qui empêche qu'un compte compromis ou un accès réseau interne suffise à obtenir des informations sensibles."
+    },
+    {
+      "prompt": "Comment isoler proprement les bases de connaissances de plusieurs clients dans un même assistant ?",
+      "answer": "Trois leviers combinés : une segmentation technique stricte (bases séparées, pas de mélange logique), des habilitations par client et par rôle appliquées à chaque requête, et une revue régulière des droits pour éviter les accès résiduels après un changement de mission."
+    }
+  ],
+  "response_guidance": {
+    "tone": "précis, orienté sécurité opérationnelle",
+    "structure": [
+      "rappeler le principe (vérifier systématiquement, ne jamais faire confiance par défaut)",
+      "détailler les contrôles concrets applicables au cas posé",
+      "signaler les risques si le contrôle est absent"
+    ],
+    "avoid": [
+      "présenter la sécurité comme une option secondaire",
+      "confondre authentification (qui je suis) et autorisation (ce que j'ai le droit de faire)"
+    ]
+  },
+  "tags": [
+    "zero trust",
+    "authentification",
+    "habilitations",
+    "moindre privilège",
+    "sécurité",
+    "cpl",
+    "alfred_cpl"
+  ],
+  "related_knowledge_units": [
+    "knowledges.cpl.product_platform.security_by_design_default",
+    "knowledges.cpl.product_platform.logging_audit_human_control",
+    "knowledges.cpl.ethics_governance.governance_model"
+  ]
+}

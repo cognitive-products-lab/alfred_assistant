@@ -1,0 +1,49 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "achats_fournisseurs.fondamentaux.achats_fournisseurs_fondamentaux",
+  "version": "1.0.0",
+  "domain": "achats_fournisseurs",
+  "subdomain": "fondamentaux",
+  "category": "achats",
+  "priority": "high",
+  "safety_level": "normal",
+  "title": "Achats et Gestion des Fournisseurs",
+  "summary": "Processus achat, expression de besoin, appel d'offres, sélection fournisseur, contrat, négociation, SLA, dépendance fournisseur, réversibilité, sous-traitance, évaluation et audit fournisseur, risque tiers, due diligence, clauses de confidentialité et de protection des données, gestion des licences.",
+  "purpose": "Permettre à ALFRED CPL d'expliquer le processus achat et la gestion des risques fournisseurs, notamment pour les achats IT et cloud.",
+  "tags": ["achats", "fournisseurs", "appel_offres", "SLA", "dépendance_fournisseur", "réversibilité", "due_diligence", "risque_tiers", "sous_traitance", "clauses_données", "gestion_licences"],
+  "intents": ["explain_procurement", "evaluate_supplier", "explain_vendor_risk", "explain_sla", "explain_vendor_lock_in"],
+  "usage_context": ["Direction", "DSI", "Juridique", "Achats", "Conformité"],
+  "content": {
+    "processus_achat": {
+      "expression_besoin": "L'expression du besoin définit ce qui est nécessaire (fonctionnel, technique, de service) sans présupposer la solution. Elle précède l'appel d'offres et conditionne sa qualité.",
+      "apo": "Appel d'offres : RFI (Request for Information — exploration du marché), RFP (Request for Proposal — demande de proposition détaillée), RFQ (Request for Quotation — demande de prix). Critères de sélection : prix, qualité, délais, références, solidité financière, sécurité.",
+      "selection": "Sélection fournisseur : grille de critères pondérés, audits, démos, références clients, vérification financière. Décision documentée, traçable (notamment dans les marchés publics ou grands groupes)."
+    },
+    "contrats_sla": {
+      "contrat": "Contrat fournisseur : clauses essentielles — périmètre de la prestation, prix et modalités de révision, durée et résiliation, propriété intellectuelle, confidentialité, protection des données (DPA — Data Processing Agreement), responsabilités, garanties, pénalités, réversibilité.",
+      "sla": "SLA (Service Level Agreement) : niveaux de service contractuels. Métriques : disponibilité (ex : 99,9 %), temps de résolution des incidents (P1 < 4h), temps de réponse. Pénalités en cas de non-respect (malus contractuels). Revue SLA mensuelle/trimestrielle.",
+      "dpa": "DPA (Data Processing Agreement / DPA) : contrat de sous-traitance RGPD obligatoire lorsque le fournisseur traite des données personnelles pour votre compte. Art. 28 RGPD : liste les clauses obligatoires."
+    },
+    "risque_fournisseur": {
+      "dependance": "Dépendance fournisseur (vendor lock-in) : risque de ne plus pouvoir changer de fournisseur sans coûts prohibitifs (migration de données, réécriture applicative). Contre-mesures : standards ouverts, export des données, architecture modulaire, clause contractuelle de réversibilité.",
+      "concentration": "Concentration ICT : avoir trop de services critiques chez un même fournisseur cloud. Réglementé par DORA pour le secteur financier. Stratégie multi-cloud ou multi-vendor.",
+      "due_diligence": "Due diligence fournisseur : évaluation approfondie avant signature — solidité financière, pratiques de sécurité (questionnaire SIG/CAIQ, certifications ISO 27001/SOC 2), conformité RGPD, continuité d'activité, sous-traitance de 4ème rang.",
+      "audit": "Droit d'audit : clause contractuelle permettant de vérifier que le fournisseur respecte ses engagements (sécurité, conformité RGPD). Audit sur pièces ou sur site. Fréquence : annuelle ou sur incident."
+    },
+    "licences_gestion": {
+      "types": "Licences logicielles : perpétuelle (achat unique), abonnement (SaaS annuel/mensuel), par utilisateur/par cœur/par usage. Licences open source : voir règles de conformité (copyleft vs permissif).",
+      "sam": "SAM (Software Asset Management) : gestion du parc de licences logicielles. Objectif : éviter la sous-licence (risque de conformité) et la sur-licence (gaspillage). Audit de licences : Microsoft, Oracle, SAP ont des programmes d'audit actifs.",
+      "cloud_usage": "Cloud : modèle à la consommation. Attention au shadow IT (usage non contrôlé de services cloud par les équipes). Politique BYOC (Bring Your Own Cloud) à encadrer. FinOps pour optimiser les coûts."
+    }
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["achats", "SLA", "DPA", "due diligence fournisseur", "dépendance fournisseur", "réversibilité", "gestion des licences", "appel d'offres", "risque tiers"],
+    "related_domains": ["achats_fournisseurs", "risk_management"],
+    "related_knowledge": ["risk_management.third_party.third_party_risk", "donnees_personnelles.fondamentaux.donnees_personnelles_fondamentaux"],
+    "retrieval_priority": 8
+  },
+  "behavior_rules": {"tone": "educational", "response_style": "structured_clear", "max_complexity": "medium", "allow_humor": false},
+  "safety_notes": {"allowed_usage": ["Éducation sur les achats et la gestion des fournisseurs"], "restricted_usage": ["Ne pas donner d'avis juridique sur un contrat spécifique"], "forbidden_usage": [], "fallback_behavior": "Orienter vers un juriste ou le département achats pour les cas concrets."},
+  "metadata": {"author": "ALFRED_SYSTEM", "creation_date": "10/07/2026", "last_update": "10/07/2026", "review_status": "active", "reviewed_by": "ALFRED_CORE", "source_type": "manual_structured_knowledge", "language": "fr", "retrieval_ready": true, "rag_compatible": true}
+}
