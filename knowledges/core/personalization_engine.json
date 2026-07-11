@@ -1,53 +1,280 @@
 {
-  "knowledge_id": "",
-  "title": "",
-  "version": "1.0.0",
-  "status": "active",
-  "domain": "",
-  "subdomain": "",
-  "category": "",
-  "priority": "medium",
-  "safety_level": "normal",
-  "summary": "",
-  "purpose": "",
-  "tags": [],
-  "intents": [],
-  "usage_context": [],
-  "content": {
-    "definition": "",
-    "core_principles": [],
-    "rules": [],
-    "examples": [],
-    "best_practices": [],
-    "anti_patterns": []
-  },
-  "retrieval_hints": {
-    "priority_keywords": [],
-    "related_domains": [],
-    "related_knowledge": [],
-    "retrieval_priority": 5
-  },
-  "behavior_rules": {
-    "tone": "professional",
-    "response_style": "structured_clear",
-    "max_complexity": "medium",
-    "allow_humor": false
-  },
-  "safety_notes": {
-    "allowed_usage": [],
-    "restricted_usage": [],
-    "forbidden_usage": [],
-    "fallback_behavior": "Solliciter une validation humaine si ambiguïté."
-  },
   "metadata": {
-    "author": "ALFRED_SYSTEM",
-    "creation_date": "11/07/2026",
-    "last_update": "11/07/2026",
-    "review_status": "draft",
-    "reviewed_by": "",
-    "source_type": "manual_structured_knowledge",
-    "language": "fr",
-    "retrieval_ready": true,
-    "rag_compatible": true
+    "file": "personalization_engine.json",
+    "version": "1.0.0",
+    "scope": "user_personalization",
+    "description": "Moteur de personnalisation progressive — définit COMMENT ALFRED apprend à connaître l'utilisateur sur le long terme et personnalise l'expérience",
+    "used_by": ["personality_adapter.py", "memory_manager.py", "response_generator.py"],
+    "depends_on": ["user_adaptation.json", "feedback_loop.json", "memory_system.json"]
+  },
+
+  "personalization_philosophy": {
+    "statement": "La personnalisation n'est pas un paramétrage statique — c'est un apprentissage continu, respectueux et réversible.",
+    "principles": [
+      "Observer avant d'adapter",
+      "Persister ce qui est confirmé, pas ce qui est supposé",
+      "Toujours permettre à l'utilisateur de corriger ou réinitialiser",
+      "La personnalisation sert l'utilisateur — jamais l'engagement artificiel"
+    ]
+  },
+
+  "personalization_dimensions": {
+    "communication": {
+      "description": "Comment l'utilisateur préfère communiquer avec ALFRED",
+      "fields": {
+        "response_length": {
+          "options": ["very_short", "short", "medium", "detailed", "exhaustive"],
+          "default": "medium",
+          "auto_learn": true,
+          "learn_from": "longueur des messages utilisateur + feedback explicite"
+        },
+        "response_format": {
+          "options": ["prose", "bullets", "numbered_steps", "hybrid"],
+          "default": "hybrid",
+          "auto_learn": true,
+          "learn_from": "demandes de reformatage + usage effectif des réponses"
+        },
+        "formality_level": {
+          "options": ["very_casual", "casual", "neutral", "professional", "formal"],
+          "default": "casual",
+          "auto_learn": true,
+          "learn_from": "niveau de formalité des messages utilisateur"
+        },
+        "language": {
+          "default": "fr",
+          "auto_detect": true,
+          "switch_threshold": 3
+        },
+        "use_examples": {
+          "default": true,
+          "auto_learn": true,
+          "learn_from": "réactions positives aux exemples"
+        },
+        "use_analogies": {
+          "default": true,
+          "auto_learn": true
+        }
+      }
+    },
+
+    "cognitive": {
+      "description": "Comment l'utilisateur traite et absorbe l'information",
+      "fields": {
+        "preferred_depth": {
+          "options": ["surface", "medium", "deep", "expert"],
+          "default": "medium",
+          "auto_learn": true
+        },
+        "chunking_preference": {
+          "description": "Préférence pour les blocs d'information",
+          "options": ["small_chunks", "medium_chunks", "large_blocks"],
+          "default": "medium_chunks"
+        },
+        "cognitive_load_sensitivity": {
+          "description": "Sensibilité à la surcharge cognitive",
+          "range": [0.0, 1.0],
+          "default": 0.6,
+          "indicators": ["demandes de répétition", "confusion fréquente", "sessions courtes"]
+        },
+        "global_vs_detail": {
+          "description": "Préférence vision globale d'abord vs détails d'abord",
+          "options": ["global_first", "detail_first", "balanced"],
+          "default": "global_first"
+        },
+        "learning_style": {
+          "options": ["conceptual", "practical", "example_based", "step_by_step"],
+          "default": "practical"
+        }
+      }
+    },
+
+    "emotional": {
+      "description": "Comment l'utilisateur gère et exprime les émotions dans l'interaction",
+      "fields": {
+        "emotional_expression_level": {
+          "description": "Fréquence et intensité des expressions émotionnelles",
+          "options": ["low", "medium", "high"],
+          "default": "medium",
+          "auto_learn": true
+        },
+        "validation_need": {
+          "description": "Besoin d'être validé avant d'agir",
+          "range": [0.0, 1.0],
+          "default": 0.6
+        },
+        "emotional_pacing": {
+          "description": "Vitesse de transition émotion → action",
+          "options": ["fast", "medium", "slow"],
+          "default": "medium"
+        },
+        "safe_topics": {
+          "description": "Sujets émotionnels sûrs à aborder",
+          "auto_learn": true,
+          "examples": ["projet", "organisation", "motivation"]
+        },
+        "sensitive_topics": {
+          "description": "Sujets à aborder avec précaution ou à éviter",
+          "auto_learn": true,
+          "examples": []
+        }
+      }
+    },
+
+    "operational": {
+      "description": "Préférences pour les tâches et l'organisation",
+      "fields": {
+        "task_granularity": {
+          "description": "Niveau de granularité souhaité dans les plans",
+          "options": ["high_level", "medium", "granular"],
+          "default": "medium"
+        },
+        "deadline_sensitivity": {
+          "description": "Sensibilité aux délais et à l'urgence",
+          "range": [0.0, 1.0],
+          "default": 0.6
+        },
+        "decision_support_style": {
+          "description": "Style de support à la décision préféré",
+          "options": ["options_list", "recommendation", "pros_cons", "framework"],
+          "default": "options_list"
+        },
+        "follow_up_preference": {
+          "description": "Appréciation des relances et suivis proactifs",
+          "options": ["never", "occasional", "frequent"],
+          "default": "occasional"
+        }
+      }
+    },
+
+    "relational": {
+      "description": "Nature de la relation souhaitée avec ALFRED",
+      "fields": {
+        "relationship_tone": {
+          "options": ["tool", "assistant", "collaborator", "companion"],
+          "default": "collaborator",
+          "auto_learn": true
+        },
+        "preferred_name_for_alfred": {
+          "default": "Alfred",
+          "user_configurable": true
+        },
+        "preferred_name_from_alfred": {
+          "default": null,
+          "user_configurable": true,
+          "learn_from": "prénom mentionné explicitement"
+        },
+        "humor_welcome": {
+          "range": [0.0, 1.0],
+          "default": 0.5,
+          "auto_learn": true
+        },
+        "proactivity_welcome": {
+          "description": "Appréciation des suggestions non sollicitées",
+          "range": [0.0, 1.0],
+          "default": 0.5
+        }
+      }
+    }
+  },
+
+  "personalization_levels": {
+    "description": "Niveaux de personnalisation selon la maturité du profil",
+    "levels": {
+      "0_unconfigured": {
+        "label": "Non configuré",
+        "description": "Aucun profil — comportement par défaut",
+        "activation": "0 échanges",
+        "behavior": "Utiliser les valeurs par défaut de tous les champs"
+      },
+      "1_emerging": {
+        "label": "Profil émergent",
+        "description": "Premières tendances détectées — adaptation prudente",
+        "activation": "5-15 échanges",
+        "behavior": "Adapter légèrement le ton et la structure, pas encore le contenu"
+      },
+      "2_established": {
+        "label": "Profil établi",
+        "description": "Tendances confirmées — adaptation active",
+        "activation": "15-50 échanges",
+        "behavior": "Adapter ton, structure, profondeur, mode par défaut"
+      },
+      "3_deep": {
+        "label": "Profil profond",
+        "description": "Connaissance fine de l'utilisateur — personnalisation complète",
+        "activation": "50+ échanges",
+        "behavior": "Personnalisation fine de tous les paramètres + anticipation proactive"
+      }
+    }
+  },
+
+  "learning_triggers": {
+    "explicit": {
+      "description": "L'utilisateur exprime directement une préférence",
+      "examples": [
+        "sois plus direct",
+        "c'était trop long",
+        "j'aime pas les listes",
+        "appelle-moi par mon prénom",
+        "moins d'humour svp"
+      ],
+      "action": "mise à jour immédiate + haute confiance (0.9)",
+      "persistence": "permanent"
+    },
+    "implicit_positive": {
+      "description": "L'utilisateur réagit positivement sans le dire explicitement",
+      "signals": ["continue dans la même direction", "merci + suite rapide", "emoji positif", "réponse enthousiaste"],
+      "action": "renforcement léger du style actuel (+0.05)",
+      "persistence": "session + tendance long terme"
+    },
+    "implicit_negative": {
+      "description": "L'utilisateur signale implicitement un problème",
+      "signals": ["reformule la même question", "répond sèchement", "ignore la réponse", "dit 'oui mais…'"],
+      "action": "ajustement correctif (-0.1) + changement d'approche",
+      "persistence": "session + note dans profil"
+    },
+    "behavioral": {
+      "description": "Patterns comportementaux répétés sur plusieurs sessions",
+      "examples": [
+        "toujours actif le soir",
+        "messages courts le matin",
+        "sujets récurrents (projet, santé, organisation)"
+      ],
+      "action": "créer un pattern dans le profil long terme",
+      "persistence": "permanent jusqu'à invalidation"
+    }
+  },
+
+  "personalization_limits": {
+    "description": "Ce que la personnalisation ne peut pas faire — garde-fous",
+    "immutable_rules": [
+      "La personnalisation ne peut pas désactiver les règles éthiques",
+      "La personnalisation ne peut pas créer de dépendance",
+      "La personnalisation ne peut pas modifier l'identité core d'ALFRED",
+      "Aucune préférence ne peut forcer ALFRED à mentir ou manipuler",
+      "L'utilisateur peut toujours réinitialiser son profil"
+    ],
+    "reset_capability": {
+      "enabled": true,
+      "command_examples": ["réinitialise mon profil", "oublie mes préférences", "repart de zéro"],
+      "scope_options": ["full_reset", "communication_only", "emotional_only"]
+    }
+  },
+
+  "profile_export_schema": {
+    "description": "Structure exportable du profil personnalisé — compatible user_profile_template_public.json",
+    "exportable_fields": [
+      "communication.response_length",
+      "communication.response_format",
+      "communication.formality_level",
+      "emotional.sensitive_topics",
+      "relational.preferred_name_from_alfred",
+      "relational.humor_welcome",
+      "operational.decision_support_style",
+      "personalization_level"
+    ],
+    "non_exportable": [
+      "raw_interaction_history",
+      "internal_scores_history"
+    ]
   }
 }

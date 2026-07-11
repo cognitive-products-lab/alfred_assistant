@@ -1,53 +1,51 @@
 {
+  "metadata": {"file":"memory_context_linking.json","version":"1.0.0","scope":"memory"},
   "knowledge_id": "memory_context_linking_v1",
   "title": "Liens contextuels mémoriels",
-  "version": "1.0.0",
-  "status": "active",
-  "domain": "",
-  "subdomain": "",
-  "category": "",
-  "priority": "medium",
-  "safety_level": "normal",
   "summary": "Système de connexions entre souvenirs — ce qui permet à ALFRED de faire des associations pertinentes, de détecter des patterns et de retrouver des informations par proximité thématique.",
-  "purpose": "",
-  "tags": [],
-  "intents": [],
-  "usage_context": [],
-  "content": {
-    "definition": "",
-    "core_principles": [],
-    "rules": [],
-    "examples": [],
-    "best_practices": [],
-    "anti_patterns": []
+  "link_types": {
+    "causal": {
+      "desc": "A a causé B",
+      "example": "Décision de changer de projet → épisode de soulagement",
+      "use": "Comprendre les chaînes cause/effet dans l'histoire de l'utilisateur"
+    },
+    "temporal": {
+      "desc": "A s'est passé avant/après B",
+      "example": "Période de stress → suivi d'une période de clarté",
+      "use": "Timeline de l'évolution de l'utilisateur"
+    },
+    "thematic": {
+      "desc": "A et B concernent le même sujet",
+      "example": "Toutes les mémoires liées au projet ALFRED",
+      "use": "Retrouver tout ce qui touche un sujet donné"
+    },
+    "emotional": {
+      "desc": "A et B partagent la même émotion dominante",
+      "example": "Tous les épisodes de doute profond",
+      "use": "Identifier les patterns émotionnels récurrents"
+    },
+    "contextual": {
+      "desc": "A et B se passent dans des contextes similaires",
+      "example": "Stress récurrent le lundi matin",
+      "use": "Détecter les triggers situationnels"
+    }
   },
-  "retrieval_hints": {
-    "priority_keywords": [],
-    "related_domains": [],
-    "related_knowledge": [],
-    "retrieval_priority": 5
+  "linking_rules": {
+    "auto_link": "Si 2 mémoires partagent 2+ tags ou la même émotion forte → lien automatique suggéré",
+    "user_link": "L'utilisateur peut demander explicitement à relier des mémoires",
+    "link_strength": "0.0 (faible connexion) → 1.0 (lien fort confirmé)",
+    "max_links_per_memory": 10
   },
-  "behavior_rules": {
-    "tone": "professional",
-    "response_style": "structured_clear",
-    "max_complexity": "medium",
-    "allow_humor": false
+  "pattern_detection": {
+    "frequency_pattern": "Même émotion/sujet détecté > 3 fois → pattern signalé",
+    "cyclical_pattern": "Même état revient régulièrement (hebdo, mensuel) → pattern cyclique",
+    "progression_pattern": "L'état évolue dans une direction (amélioration / dégradation)",
+    "use": "Aider l'utilisateur à voir des patterns qu'il ne voit pas lui-même"
   },
-  "safety_notes": {
-    "allowed_usage": [],
-    "restricted_usage": [],
-    "forbidden_usage": [],
-    "fallback_behavior": "Solliciter une validation humaine si ambiguïté."
+  "retrieval_by_association": {
+    "trigger": "Contexte courant partage des tags avec une mémoire liée",
+    "method": "Graph traversal léger — depth max 2",
+    "output": "Mémoires directement liées + une couche de mémoires indirectement liées"
   },
-  "metadata": {
-    "author": "ALFRED_SYSTEM",
-    "creation_date": "11/07/2026",
-    "last_update": "11/07/2026",
-    "review_status": "draft",
-    "reviewed_by": "",
-    "source_type": "manual_structured_knowledge",
-    "language": "fr",
-    "retrieval_ready": true,
-    "rag_compatible": true
-  }
+  "connections": ["memory_system","episodic_memory","semantic_memory","memory_prioritization","memory_learning_rules"]
 }

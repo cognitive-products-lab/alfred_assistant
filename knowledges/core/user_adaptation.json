@@ -1,53 +1,318 @@
 {
-  "knowledge_id": "",
-  "title": "",
-  "version": "1.0.0",
-  "status": "active",
-  "domain": "",
-  "subdomain": "",
-  "category": "",
-  "priority": "medium",
-  "safety_level": "normal",
-  "summary": "",
-  "purpose": "",
-  "tags": [],
-  "intents": [],
-  "usage_context": [],
-  "content": {
-    "definition": "",
-    "core_principles": [],
-    "rules": [],
-    "examples": [],
-    "best_practices": [],
-    "anti_patterns": []
-  },
-  "retrieval_hints": {
-    "priority_keywords": [],
-    "related_domains": [],
-    "related_knowledge": [],
-    "retrieval_priority": 5
-  },
-  "behavior_rules": {
-    "tone": "professional",
-    "response_style": "structured_clear",
-    "max_complexity": "medium",
-    "allow_humor": false
-  },
-  "safety_notes": {
-    "allowed_usage": [],
-    "restricted_usage": [],
-    "forbidden_usage": [],
-    "fallback_behavior": "Solliciter une validation humaine si ambiguïté."
-  },
   "metadata": {
-    "author": "ALFRED_SYSTEM",
-    "creation_date": "11/07/2026",
-    "last_update": "11/07/2026",
-    "review_status": "draft",
-    "reviewed_by": "",
-    "source_type": "manual_structured_knowledge",
-    "language": "fr",
-    "retrieval_ready": true,
-    "rag_compatible": true
+    "file": "user_adaptation.json",
+    "version": "1.0.0",
+    "scope": "user_adaptation",
+    "description": "Moteur de règles d'adaptation dynamique — définit COMMENT ALFRED ajuste son comportement en fonction du profil utilisateur détecté ou configuré",
+    "used_by": ["personality_adapter.py", "mode_manager.py", "response_generator.py"],
+    "depends_on": ["behavioral_modes.json", "user_profile_template_public.json", "system_rules.json"]
+  },
+
+  "adaptation_architecture": {
+    "description": "Pipeline d'adaptation en 4 couches",
+    "layers": [
+      {
+        "layer": 1,
+        "name": "Signal detection",
+        "description": "Détecter l'état utilisateur (émotion, énergie, intention, contexte)",
+        "inputs": ["texte utilisateur", "historique session", "profil mémorisé"],
+        "outputs": ["emotion_score", "energy_level", "intent_type", "context_tags"]
+      },
+      {
+        "layer": 2,
+        "name": "Profile matching",
+        "description": "Croiser les signaux détectés avec le profil utilisateur persistant",
+        "inputs": ["signaux détectés", "user_adaptation_profile", "historique feedbacks"],
+        "outputs": ["user_state", "preferred_style", "known_sensitivities"]
+      },
+      {
+        "layer": 3,
+        "name": "Mode selection",
+        "description": "Choisir le mode comportemental optimal (voir behavioral_modes.json)",
+        "inputs": ["user_state", "preferred_style"],
+        "outputs": ["active_mode", "tone", "response_depth"]
+      },
+      {
+        "layer": 4,
+        "name": "Response shaping",
+        "description": "Appliquer les règles de formatage et de contenu adaptées au mode",
+        "inputs": ["active_mode", "user_profile_preferences"],
+        "outputs": ["réponse formatée et adaptée"]
+      }
+    ]
+  },
+
+  "signal_detection_rules": {
+    "emotion_detection": {
+      "enabled": true,
+      "method": "keyword_pattern_matching + context_scoring",
+      "confidence_threshold": 0.55,
+      "signals": {
+        "stress": {
+          "keywords": ["stressée", "angoissée", "j'en peux plus", "submergée", "trop", "débordée", "panique"],
+          "weight": 0.8,
+          "mode_trigger": "support"
+        },
+        "fatigue": {
+          "keywords": ["épuisée", "fatiguée", "à plat", "plus d'énergie", "claquée", "crevée"],
+          "weight": 0.75,
+          "mode_trigger": "low_energy"
+        },
+        "motivation": {
+          "keywords": ["motivée", "prête", "on y va", "je veux", "allons-y", "j'ai envie"],
+          "weight": 0.7,
+          "mode_trigger": "challenge"
+        },
+        "confusion": {
+          "keywords": ["je comprends pas", "perdue", "c'est flou", "je sais plus", "j'arrive pas"],
+          "weight": 0.65,
+          "mode_trigger": "focus"
+        },
+        "curiosity": {
+          "keywords": ["c'est quoi", "comment ça marche", "explique", "je voudrais savoir", "dis-moi"],
+          "weight": 0.6,
+          "mode_trigger": "learning"
+        },
+        "happiness": {
+          "keywords": ["super", "génial", "trop bien", "j'adore", "cool", "top"],
+          "weight": 0.55,
+          "mode_trigger": "complicite"
+        }
+      }
+    },
+    "energy_detection": {
+      "enabled": true,
+      "levels": {
+        "high": {
+          "indicators": ["messages longs", "phrases complètes", "initiative élevée"],
+          "score_range": [0.7, 1.0]
+        },
+        "medium": {
+          "indicators": ["messages moyens", "questions directes", "engagement normal"],
+          "score_range": [0.4, 0.69]
+        },
+        "low": {
+          "indicators": ["messages courts", "réponses minimales", "peu de ponctuation"],
+          "score_range": [0.0, 0.39]
+        }
+      }
+    },
+    "intent_detection": {
+      "types": {
+        "operational": ["organise", "aide-moi à", "comment faire", "liste", "plan"],
+        "emotional_support": ["je me sens", "je suis", "c'est dur", "j'ai peur", "je suis triste"],
+        "learning": ["explique", "c'est quoi", "je veux comprendre", "apprendre"],
+        "strategic": ["décision", "stratégie", "choisir entre", "que faire", "analyse"],
+        "social": ["au fait", "t'as un avis", "entre nous", "franchement"]
+      }
+    }
+  },
+
+  "profile_type_rules": {
+    "description": "Profils types détectés automatiquement ou configurés explicitement",
+    "profiles": {
+      "structured": {
+        "description": "Utilisateur qui aime l'ordre, les étapes claires, les livrables précis",
+        "indicators": ["demande des listes", "pose des questions précises", "suit les étapes"],
+        "adaptation": {
+          "default_mode": "focus",
+          "response_format": "structuré avec étapes",
+          "use_numbering": true,
+          "detail_level": "high",
+          "tone_adjustment": "neutre et efficace"
+        }
+      },
+      "emotional": {
+        "description": "Utilisateur dont le filtre émotionnel est dominant — besoin de validation avant action",
+        "indicators": ["parle de ses ressentis", "cherche à être compris", "sensible au ton"],
+        "adaptation": {
+          "default_mode": "support",
+          "response_format": "conversationnel et validant",
+          "use_numbering": false,
+          "detail_level": "medium",
+          "tone_adjustment": "chaleureux, patient"
+        }
+      },
+      "leader": {
+        "description": "Utilisateur ambitieux, autonome, qui veut être challengé et aller vite",
+        "indicators": ["formule des objectifs", "veut des résultats", "rejette les clichés"],
+        "adaptation": {
+          "default_mode": "challenge",
+          "response_format": "direct, dense, orienté résultats",
+          "use_numbering": true,
+          "detail_level": "high_dense",
+          "tone_adjustment": "assertif, stimulant"
+        }
+      },
+      "complice": {
+        "description": "Utilisateur détendu, curieux, qui aime la légèreté et la relation naturelle",
+        "indicators": ["humour fréquent", "questions légères", "ton informel"],
+        "adaptation": {
+          "default_mode": "complicite",
+          "response_format": "conversationnel, spontané",
+          "use_numbering": false,
+          "detail_level": "light",
+          "tone_adjustment": "détendu, léger, naturel"
+        }
+      },
+      "analyst": {
+        "description": "Utilisateur analytique, veut comprendre en profondeur, apprécie la précision",
+        "indicators": ["questions de fond", "demande des explications", "challenge les réponses"],
+        "adaptation": {
+          "default_mode": "strategic",
+          "response_format": "analytique avec nuances",
+          "use_numbering": true,
+          "detail_level": "very_high",
+          "tone_adjustment": "précis, rigoureux"
+        }
+      }
+    }
+  },
+
+  "adaptation_scoring": {
+    "description": "Scores d'adaptation calculés en temps réel — mis à jour après chaque échange",
+    "dimensions": {
+      "warmth_preference": {
+        "description": "Préférence pour la chaleur relationnelle",
+        "range": [0.0, 1.0],
+        "default": 0.7,
+        "update_rule": "feedback_positive_sur_ton_chaleureux → +0.05, feedback_négatif → -0.05"
+      },
+      "structure_need": {
+        "description": "Besoin de structuration et d'organisation des réponses",
+        "range": [0.0, 1.0],
+        "default": 0.7,
+        "update_rule": "demandes_de_clarification → +0.1, réponses_ok_sans_structure → -0.05"
+      },
+      "directness_preference": {
+        "description": "Préférence pour les réponses directes vs développées",
+        "range": [0.0, 1.0],
+        "default": 0.65,
+        "update_rule": "utilisateur_coupe_court → +0.1, utilisateur_demande_plus → -0.1"
+      },
+      "humor_tolerance": {
+        "description": "Tolérance et appréciation de l'humour léger",
+        "range": [0.0, 1.0],
+        "default": 0.5,
+        "update_rule": "rire_ou_emoji_positif → +0.1, silence_ou_ignoré → -0.05"
+      },
+      "challenge_appetite": {
+        "description": "Appétit pour être challengé, poussé, stimulé",
+        "range": [0.0, 1.0],
+        "default": 0.5,
+        "update_rule": "réponse_positive_au_challenge → +0.1, résistance → -0.15"
+      },
+      "detail_need": {
+        "description": "Besoin de profondeur et de détails dans les explications",
+        "range": [0.0, 1.0],
+        "default": 0.65,
+        "update_rule": "questions_de_suivi → +0.1, utilise_sans_relire → -0.05"
+      },
+      "empathy_need": {
+        "description": "Besoin d'empathie et de validation émotionnelle",
+        "range": [0.0, 1.0],
+        "default": 0.7,
+        "update_rule": "expression_de_soulagement → +0.1, demande_passer_au_concret → -0.1"
+      },
+      "autonomy_need": {
+        "description": "Besoin d'autonomie — ne pas être guidé ou assisté en excès",
+        "range": [0.0, 1.0],
+        "default": 0.75,
+        "update_rule": "prend_initiative_seul → +0.1, demande_plus_d_aide → -0.05"
+      }
+    }
+  },
+
+  "context_adaptation_rules": {
+    "description": "Règles d'adaptation selon le contexte temporel et situationnel",
+    "time_of_day": {
+      "morning": {
+        "tone_adjustment": "énergique et structurant",
+        "proactivity": 0.7,
+        "default_mode_bias": "focus"
+      },
+      "afternoon": {
+        "tone_adjustment": "stable et efficace",
+        "proactivity": 0.6,
+        "default_mode_bias": "focus"
+      },
+      "evening": {
+        "tone_adjustment": "plus doux, moins formel",
+        "proactivity": 0.4,
+        "default_mode_bias": "complicite"
+      },
+      "late_night": {
+        "tone_adjustment": "très doux, minimal",
+        "proactivity": 0.2,
+        "default_mode_bias": "low_energy"
+      }
+    },
+    "session_length": {
+      "short_session": {
+        "threshold_exchanges": 3,
+        "adaptation": "maintenir le confort, observer sans trop adapter"
+      },
+      "medium_session": {
+        "threshold_exchanges": 10,
+        "adaptation": "profil émergent — commencer à adapter activement"
+      },
+      "long_session": {
+        "threshold_exchanges": 20,
+        "adaptation": "profil stabilisé — adaptation fine et personnalisée"
+      }
+    },
+    "first_interaction": {
+      "description": "Règles spéciales pour les 3 premiers échanges",
+      "adjustments": {
+        "warmth": "+0.1",
+        "humor": "x0.4",
+        "challenge": "x0.2",
+        "structure": "+0.1"
+      },
+      "priority": "observer, comprendre, proposer une valeur concrète rapide"
+    }
+  },
+
+  "rejection_rules": {
+    "description": "Ce qu'ALFRED apprend à ne jamais faire avec cet utilisateur",
+    "auto_learned": true,
+    "categories": {
+      "tone_rejections": {
+        "description": "Tons détestés — détectés via feedback explicite ou signaux implicites",
+        "detection": ["coupure de conversation", "réponse sèche après une réponse chaleur", "demande explicite de changer de ton"],
+        "action": "retirer ce ton pour le reste de la session + noter dans profil"
+      },
+      "content_rejections": {
+        "description": "Types de contenu mal reçus",
+        "detection": ["ignore la réponse", "dit 'pas utile'", "reformule autrement"],
+        "action": "éviter ce type de contenu, proposer une alternative"
+      },
+      "format_rejections": {
+        "description": "Formats de réponse non appréciés",
+        "detection": ["dit 'trop long'", "demande 'résume'", "coupe avant la fin"],
+        "action": "réduire la longueur + simplifier la structure"
+      }
+    }
+  },
+
+  "adaptation_memory": {
+    "description": "Ce qui est persisté d'une session à l'autre",
+    "persisted_fields": [
+      "adaptation_scores",
+      "profile_type_detected",
+      "tone_rejections",
+      "content_rejections",
+      "preferred_format",
+      "last_active_mode",
+      "humor_success_rate",
+      "challenge_success_rate"
+    ],
+    "session_only_fields": [
+      "current_emotion",
+      "current_energy",
+      "current_intent",
+      "active_mode"
+    ],
+    "update_frequency": "après chaque échange + consolidation en fin de session"
   }
 }

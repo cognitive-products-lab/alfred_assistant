@@ -1,17 +1,64 @@
 {
   "schema_version": "1.2",
   "type": "knowledge_unit",
-  "knowledge_id": "",
+  "id": "knowledges.professional.engineering.rag",
   "title": "RAG — Retrieval-Augmented Generation",
-  "version": "1.0.0",
-  "status": "validated",
   "domain": "professional",
   "subdomain": "engineering",
-  "category": "",
-  "priority": "medium",
-  "safety_level": "normal",
+  "status": "validated",
   "summary": "Le RAG (Retrieval-Augmented Generation) augmente les LLMs avec des sources de donnees externes — resolvant les problemes de knowledge cutoff et d'hallucination sur des faits specifiques. Il combine une recherche vectorielle et la generation LLM.",
-  "purpose": "",
+  "core_definition": "Le RAG (Retrieval-Augmented Generation) est une technique d'architecture IA qui ameliore les LLMs en les augmentant d'un mecanisme de retrieval : avant de generer une reponse, le systeme recherche dans une base de connaissances externe les passages les plus pertinents, et les injecte dans le contexte du LLM pour ancrer la generation dans des faits verifies.",
+  "knowledge": {
+    "rag_architecture": [
+      {
+        "step": "1. Indexation",
+        "description": "Les documents sont decoupes en chunks, transformes en embeddings (vecteurs) et stockes dans une vector database"
+      },
+      {
+        "step": "2. Retrieval",
+        "description": "La question utilisateur est transformee en embedding, recherche de similarite dans la vector DB, les K chunks les plus pertinents sont recuperes"
+      },
+      {
+        "step": "3. Generation",
+        "description": "Les chunks recuperes sont injectes dans le contexte du LLM comme 'sources', le LLM genere une reponse ancree sur ces sources"
+      }
+    ],
+    "rag_benefits": [
+      "Reduction des hallucinations sur les faits specifiques",
+      "Acces a des connaissances non incluses dans l'entrainement",
+      "Sources citables et verifiables",
+      "Mise a jour des connaissances sans re-entrainement du modele"
+    ],
+    "rag_challenges": [
+      "Qualite du chunking (trop petit = contexte insuffisant, trop grand = bruit)",
+      "Qualite des embeddings (les bons modeles d'embedding sont critiques)",
+      "Pertinence du retrieval (parfois les mauvais chunks sont recuperes)",
+      "Coherence de la generation (le LLM peut ignorer les sources)"
+    ],
+    "alfred_rag": "ALFRED utilise le RAG sur sa knowledge base pour ancrer ses reponses dans des connaissances structurees — plutot que de se fier uniquement a ses connaissances d'entrainement."
+  },
+  "example_answers": [
+    {
+      "prompt": "Comment implemente-t-on un RAG en Python ?",
+      "answer": "Stack minimale : (1) Chunking et embedding : LangChain ou LlamaIndex pour le pipeline, sentence-transformers pour les embeddings (all-MiniLM-L6-v2 est un bon debut), (2) Vector DB : ChromaDB (local, simple) ou Qdrant (plus scalable), (3) LLM : Ollama local ou API OpenAI/Anthropic. Pipeline : documents → chunks (500-1000 tokens) → embeddings → vector DB. Au moment de la requete : question → embedding → similarity search (top 3-5 chunks) → prompt = system + chunks + question → LLM → reponse. LangChain a des pipelines RAG ready-to-use pour le prototypage rapide."
+    },
+    {
+      "prompt": "RAG ou fine-tuning — quand choisir l'un plutot que l'autre ?",
+      "answer": "RAG : pour acces a des connaissances specifiques et changeantes (docs internes, base de connaissances, actualite). Avantage : mise a jour facile, sources citables. Fine-tuning : pour changer le style, le comportement ou incorporer des competences de domaine tres specifiques dans les poids du modele. Avantage : plus rapide a l'inference (pas de retrieval), style plus coherent. Dans la pratique : commencer par le RAG (moins cher, plus flexible), envisager le fine-tuning uniquement si le RAG ne suffit pas apres optimisation."
+    }
+  ],
+  "response_guidance": {
+    "tone": "strategique, ancre dans la pratique",
+    "structure": [
+      "contextualiser",
+      "expliquer le concept",
+      "proposer un angle actionnable"
+    ],
+    "avoid": [
+      "trop theorique",
+      "ignorer le contexte"
+    ]
+  },
   "tags": [
     "RAG",
     "retrieval",
@@ -19,43 +66,5 @@
     "vector database",
     "LangChain"
   ],
-  "intents": [],
-  "usage_context": [],
-  "content": {
-    "definition": "",
-    "core_principles": [],
-    "rules": [],
-    "examples": [],
-    "best_practices": [],
-    "anti_patterns": []
-  },
-  "retrieval_hints": {
-    "priority_keywords": [],
-    "related_domains": [],
-    "related_knowledge": [],
-    "retrieval_priority": 5
-  },
-  "behavior_rules": {
-    "tone": "professional",
-    "response_style": "structured_clear",
-    "max_complexity": "medium",
-    "allow_humor": false
-  },
-  "safety_notes": {
-    "allowed_usage": [],
-    "restricted_usage": [],
-    "forbidden_usage": [],
-    "fallback_behavior": "Solliciter une validation humaine si ambiguïté."
-  },
-  "metadata": {
-    "author": "ALFRED_SYSTEM",
-    "creation_date": "11/07/2026",
-    "last_update": "11/07/2026",
-    "review_status": "draft",
-    "reviewed_by": "",
-    "source_type": "manual_structured_knowledge",
-    "language": "fr",
-    "retrieval_ready": true,
-    "rag_compatible": true
-  }
+  "related_knowledge_units": []
 }

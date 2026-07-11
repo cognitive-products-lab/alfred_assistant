@@ -1,0 +1,89 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "sciences.physique.mecanique_classique",
+  "title": "Mécanique classique : lois de Newton et dynamique",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "sciences",
+  "subdomain": "physique",
+  "category": "physique fondamentale",
+  "summary": "La mécanique classique décrit le mouvement des corps macroscopiques sous l'effet des forces, à partir des trois lois de Newton formulées en 1687. Elle relie position, vitesse, accélération et force via des équations différentielles, et introduit les notions de travail, énergie et puissance pour analyser les transformations mécaniques. C'est le socle de l'ingénierie mécanique, de l'automobile à l'aérospatiale.",
+  "purpose": "Permettre à ALFRED d'expliquer les phénomènes de mouvement et de force du quotidien (freinage, chute, machines) avec rigueur physique et des ordres de grandeur corrects, sans confondre les régimes newtoniens et relativistes/quantiques.",
+  "tags": ["mecanique", "newton", "force", "cinematique", "dynamique", "energie", "puissance", "physique"],
+  "intents": ["explain_physics_concept", "explain_force_and_motion", "solve_mechanics_problem", "give_everyday_physics_example"],
+  "usage_context": ["question scolaire ou de culture générale sur le mouvement", "explication d'un phénomène mécanique observé au quotidien", "aide aux devoirs de physique niveau lycée/prépa", "vulgarisation scientifique"],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "La mécanique classique, ou mécanique newtonienne, est la branche de la physique qui étudie le mouvement des objets macroscopiques et les forces qui le causent, dans le cadre où les vitesses sont petites devant celle de la lumière et où les échelles sont grandes devant l'échelle quantique. Elle repose sur les trois lois du mouvement énoncées par Isaac Newton dans les Principia Mathematica (1687) : principe d'inertie, principe fondamental de la dynamique (F=ma) et principe des actions réciproques. Elle est complétée par les notions de travail, d'énergie cinétique et potentielle, et de quantité de mouvement, qui offrent des méthodes alternatives et souvent plus puissantes pour résoudre les problèmes de mouvement. Elle reste le cadre de référence pour l'ingénierie, la balistique, l'astronomie du système solaire et la vie quotidienne.",
+    "core_principles": [
+      "Première loi de Newton (inertie) : un corps reste au repos ou en mouvement rectiligne uniforme si la somme des forces qui s'exercent sur lui est nulle.",
+      "Deuxième loi de Newton (dynamique) : la somme vectorielle des forces appliquées à un corps est égale au produit de sa masse par son accélération, F = m·a.",
+      "Troisième loi de Newton (actions réciproques) : à toute force exercée par un corps A sur un corps B correspond une force de même intensité, de même direction et de sens opposé exercée par B sur A.",
+      "La cinématique décrit le mouvement (position x(t), vitesse v=dx/dt, accélération a=dv/dt) sans référence aux causes, tandis que la dynamique relie ce mouvement aux forces.",
+      "Le théorème de l'énergie cinétique relie le travail des forces à la variation d'énergie cinétique : ΔEc = W(forces), avec Ec = ½mv².",
+      "La puissance est le taux de travail dans le temps, P = W/t = F·v, exprimée en watts.",
+      "La quantité de mouvement p = m·v se conserve dans un système isolé (choc, explosion) en l'absence de force extérieure résultante.",
+      "La gravitation universelle de Newton (F = G·m1·m2/r²) explique la chute des corps et les orbites planétaires dans ce même cadre théorique."
+    ],
+    "rules": [
+      "Toujours définir un système et un référentiel avant d'appliquer les lois de Newton : les forces et accélérations dépendent du référentiel choisi.",
+      "Distinguer masse (quantité de matière, en kg, invariante) et poids (force gravitationnelle, en newtons, dépend du lieu).",
+      "Pour un problème d'équilibre statique, la somme des forces ET la somme des moments doivent être nulles.",
+      "La mécanique classique cesse d'être valide à des vitesses proches de c (relativité restreinte) ou à l'échelle atomique (mécanique quantique)."
+    ],
+    "examples": [
+      {
+        "situation": "Un utilisateur demande pourquoi on est projeté vers l'avant quand une voiture freine brusquement.",
+        "recommended_behavior": "Expliquer via le principe d'inertie : le corps du passager tend à garder son mouvement rectiligne uniforme tant qu'aucune force ne s'y oppose (d'où l'utilité de la ceinture de sécurité qui applique cette force).",
+        "avoid": "Invoquer une 'force centrifuge' inexistante dans ce contexte ou une explication vague non reliée aux lois de Newton."
+      },
+      {
+        "situation": "Question sur la distance de freinage d'un véhicule.",
+        "recommended_behavior": "Utiliser le théorème de l'énergie cinétique (½mv² = force de freinage × distance) pour montrer que la distance croît avec le carré de la vitesse.",
+        "avoid": "Donner une relation linéaire entre vitesse et distance de freinage, qui est physiquement incorrecte."
+      }
+    ],
+    "best_practices": [
+      "Toujours préciser les unités du Système International (kg, m, s, N, J, W) dans les explications chiffrées.",
+      "Utiliser des ordres de grandeur concrets et vérifiables pour ancrer les explications (ex. g ≈ 9,81 m/s² sur Terre).",
+      "Choisir entre approche par les forces (Newton) et approche énergétique selon ce qui simplifie le problème posé.",
+      "Illustrer les concepts abstraits par des exemples technique ou quotidien (freinage, ascenseur, sport, machines)."
+    ],
+    "anti_patterns": [
+      "Confondre poids et masse, ou mélanger kilogrammes et newtons.",
+      "Invoquer des forces fictives (force centrifuge, force d'inertie) sans préciser qu'elles n'existent que dans un référentiel non galiléen.",
+      "Appliquer les lois de Newton à des vitesses relativistes sans mentionner les limites du modèle."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["loi de newton", "force", "acceleration", "mecanique", "cinematique", "energie cinetique", "gravitation", "dynamique"],
+    "related_domains": ["mathematiques", "cognition", "education"],
+    "related_knowledge": ["sciences.physique.energie_et_thermodynamique", "sciences.methode_scientifique.demarche_scientifique"],
+    "retrieval_priority": 5
+  },
+  "behavior_rules": {
+    "tone": "educational",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["explications pédagogiques de physique", "aide aux devoirs", "vulgarisation scientifique"],
+    "restricted_usage": ["calculs d'ingénierie critique nécessitant validation par un professionnel"],
+    "forbidden_usage": ["utilisation pour concevoir des dispositifs dangereux ou des armes"],
+    "fallback_behavior": "En cas d'ambiguïté sur le niveau attendu (collège, lycée, prépa), demander une clarification ou proposer une explication progressive du plus simple au plus détaillé."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "11/07/2026",
+    "last_update": "11/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

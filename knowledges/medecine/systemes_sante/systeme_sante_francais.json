@@ -1,0 +1,132 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "medecine.systemes_sante.systeme_sante_francais",
+  "title": "Organisation du système de santé français",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "medecine",
+  "subdomain": "systemes_sante",
+  "category": "système de santé",
+  "summary": "Vue d'ensemble de l'organisation du système de santé en France : Sécurité sociale, parcours de soins coordonnés, rôle du médecin traitant, complémentaire santé (mutuelle), Agences régionales de santé (ARS) et Haute Autorité de Santé (HAS). Contenu strictement informatif sur le fonctionnement institutionnel, sans conseil individualisé sur les démarches personnelles de l'utilisateur.",
+  "purpose": "Permettre à ALFRED d'expliquer le fonctionnement général du système de santé français afin d'aider l'utilisateur à comprendre les acteurs et les démarches administratives usuelles, sans jamais se substituer à un conseil administratif ou médical personnalisé.",
+  "tags": [
+    "systeme_sante",
+    "securite_sociale",
+    "parcours_de_soins",
+    "medecin_traitant",
+    "mutuelle",
+    "ARS",
+    "HAS",
+    "assurance_maladie"
+  ],
+  "intents": [
+    "comprendre_systeme_sante",
+    "expliquer_parcours_de_soins",
+    "comprendre_role_medecin_traitant",
+    "expliquer_remboursement_sante"
+  ],
+  "usage_context": [
+    "question générale sur le fonctionnement de la Sécurité sociale ou de l'Assurance Maladie",
+    "compréhension du rôle du médecin traitant et du parcours de soins coordonnés",
+    "question sur les institutions de santé publique en France (ARS, HAS)"
+  ],
+  "priority": "medium",
+  "safety_level": "sensitive",
+  "content": {
+    "definition": "Le système de santé français repose sur un financement solidaire via la Sécurité sociale (Assurance Maladie), complété par des organismes complémentaires (mutuelles, assurances santé). Il s'organise autour d'un parcours de soins coordonnés, dans lequel le médecin traitant joue un rôle central d'orientation vers les spécialistes. Des institutions publiques comme les Agences Régionales de Santé (ARS) organisent l'offre de soins au niveau régional, tandis que la Haute Autorité de Santé (HAS) élabore des recommandations de bonnes pratiques à destination des professionnels de santé.",
+    "core_principles": [
+      "La Sécurité sociale, via l'Assurance Maladie, rembourse une partie des frais de santé (consultations, médicaments, hospitalisation) selon des taux fixés réglementairement.",
+      "Le parcours de soins coordonnés repose sur la déclaration d'un médecin traitant, qui oriente si besoin vers des médecins spécialistes ; ne pas le respecter entraîne généralement un remboursement réduit.",
+      "La complémentaire santé (mutuelle) prend en charge tout ou partie du reste à charge non couvert par l'Assurance Maladie obligatoire.",
+      "Les Agences Régionales de Santé (ARS) sont chargées de piloter la politique de santé publique au niveau régional (organisation de l'offre de soins, gestion des crises sanitaires, autorisations d'établissements).",
+      "La Haute Autorité de Santé (HAS) est une institution indépendante qui évalue les produits de santé et publie des recommandations de bonnes pratiques cliniques à destination des professionnels, sans intervenir directement dans les soins.",
+      "Le système distingue la médecine de ville (cabinets libéraux), l'hôpital public et les établissements privés, chacun ayant un rôle complémentaire dans l'offre de soins.",
+      "La carte Vitale est l'outil qui permet la transmission dématérialisée des informations nécessaires au remboursement des soins par l'Assurance Maladie.",
+      "Certaines prises en charge spécifiques (affections de longue durée, maternité) bénéficient de dispositifs de remboursement à taux renforcé, encadrés par la réglementation."
+    ],
+    "rules": [
+      "Présenter le fonctionnement du système de santé de manière institutionnelle et générale, sans indiquer à l'utilisateur quelle démarche entreprendre pour son cas personnel.",
+      "Ne jamais évaluer si une prise en charge, un remboursement ou une orientation médicale spécifique s'applique à la situation personnelle de l'utilisateur.",
+      "Renvoyer vers les organismes compétents (Assurance Maladie, mutuelle, médecin traitant, ameli.fr) pour toute question administrative individuelle.",
+      "Rappeler que les taux de remboursement et dispositifs peuvent évoluer et qu'il convient de vérifier les informations à jour auprès des organismes officiels."
+    ],
+    "examples": [
+      {
+        "situation": "L'utilisateur demande à quoi sert un médecin traitant.",
+        "recommended_behavior": "Expliquer le rôle du médecin traitant dans le parcours de soins coordonnés et les conséquences générales de son absence sur le remboursement.",
+        "avoid": "Indiquer si l'utilisateur devrait changer de médecin traitant ou commenter son dossier médical personnel."
+      },
+      {
+        "situation": "L'utilisateur demande la différence entre Sécurité sociale et mutuelle.",
+        "recommended_behavior": "Expliquer que la Sécurité sociale assure une couverture de base et que la mutuelle complète le remboursement, avec des exemples génériques.",
+        "avoid": "Recommander une mutuelle ou un contrat en particulier."
+      }
+    ],
+    "best_practices": [
+      "Structurer les réponses par acteur (Assurance Maladie, mutuelle, médecin traitant, ARS, HAS) pour la clarté.",
+      "Employer des exemples génériques (consultation classique, ordonnance) plutôt que des cas personnalisés.",
+      "Renvoyer vers des sources officielles (ameli.fr, service-public.fr) pour les démarches précises et à jour.",
+      "Rappeler que les taux et dispositifs réglementaires évoluent et peuvent varier selon les situations."
+    ],
+    "anti_patterns": [
+      "Donner un montant de remboursement précis comme s'il s'appliquait certainement à la situation de l'utilisateur.",
+      "Conseiller un choix de mutuelle, de médecin ou d'établissement de santé en particulier.",
+      "Confondre le rôle de la HAS (recommandations aux professionnels) avec un service de conseil médical direct au public."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "sécurité sociale",
+      "assurance maladie",
+      "parcours de soins",
+      "médecin traitant",
+      "mutuelle",
+      "ARS",
+      "HAS",
+      "système de santé français"
+    ],
+    "related_domains": [
+      "compliance",
+      "human",
+      "lifestyle"
+    ],
+    "related_knowledge": [
+      "medecine.prevention.prevention_sante_publique",
+      "medecine.limites_alfred.limites_reponse_medicale_alfred"
+    ],
+    "retrieval_priority": 4
+  },
+  "behavior_rules": {
+    "tone": "educational",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "Information générale et préventive",
+      "Explication institutionnelle du fonctionnement du système de santé français"
+    ],
+    "restricted_usage": [
+      "Explication générale d'un dispositif de remboursement ou d'une démarche administrative, sans application au cas personnel de l'utilisateur"
+    ],
+    "forbidden_usage": [
+      "Diagnostic médical",
+      "Remplacement d'un avis médical professionnel",
+      "Conseil administratif individualisé (choix de mutuelle, montant de remboursement personnel)"
+    ],
+    "fallback_behavior": "Toujours recommander de consulter un professionnel de santé ou les organismes officiels compétents (Assurance Maladie, mutuelle) pour toute situation individuelle ou en cas de doute."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "11/07/2026",
+    "last_update": "11/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

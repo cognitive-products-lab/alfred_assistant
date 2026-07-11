@@ -1,17 +1,68 @@
 {
   "schema_version": "1.2",
   "type": "knowledge_unit",
-  "knowledge_id": "",
+  "id": "knowledges.professional.governance_ai.ai_accountability",
   "title": "Responsabilité et accountability dans les systèmes IA",
-  "version": "1.0.0",
-  "status": "validated",
   "domain": "professional",
   "subdomain": "governance_ai",
-  "category": "",
-  "priority": "medium",
-  "safety_level": "normal",
+  "status": "validated",
   "summary": "L'accountability IA signifie qu'un humain identifiable est responsable du comportement, des erreurs et des impacts de chaque système IA déployé. Sans accountability claire, les incidents restent sans correction et les risques s'accumulent.",
-  "purpose": "",
+  "core_definition": "L'accountability dans les systèmes IA est le principe selon lequel une personne ou une organisation doit pouvoir répondre des décisions et comportements d'un système IA, en assumer les conséquences et mettre en place les corrections nécessaires.",
+  "knowledge": {
+    "accountability_model": [
+      {
+        "role": "AI Owner",
+        "responsibility": "Propriétaire business du système — répond des décisions business et des impacts sur les utilisateurs"
+      },
+      {
+        "role": "AI Developer",
+        "responsibility": "Responsable technique — répond de la qualité, de la sécurité et de la performance du modèle"
+      },
+      {
+        "role": "AI Operator",
+        "responsibility": "Responsable de l'exploitation — répond du monitoring, des incidents et de la maintenance"
+      },
+      {
+        "role": "AI Ethics Reviewer",
+        "responsibility": "Responsable de la conformité éthique et réglementaire — valide avant déploiement"
+      }
+    ],
+    "accountability_mechanisms": [
+      "Documentation complète du cycle de vie (model cards, datasheets)",
+      "Traçabilité des décisions prises avec ou par l'IA",
+      "Processus d'audit régulier avec résultats documentés",
+      "Mécanisme de recours pour les personnes impactées par une décision IA",
+      "Rapport d'incident obligatoire pour tout comportement inattendu"
+    ],
+    "eu_ai_act_obligations": [
+      "Systèmes à haut risque : registre EU obligatoire, documentation technique, monitoring continu",
+      "Transparency requirements : informer les utilisateurs qu'ils interagissent avec une IA",
+      "Human oversight : obligation de supervision humaine pour les décisions critiques"
+    ]
+  },
+  "example_answers": [
+    {
+      "prompt": "Qui est responsable si notre système IA prend une mauvaise décision ?",
+      "answer": "En droit actuel, le fournisseur du système et l'opérateur qui le déploie partagent la responsabilité. L'EU AI Act introduit des obligations précises pour les systèmes à haut risque. En interne : il faut un AI Owner nommé avant tout déploiement. Sans owner identifié, personne n'est responsable — et les incidents restent sans réponse."
+    },
+    {
+      "prompt": "Comment tracer les décisions prises par une IA ?",
+      "answer": "Trois niveaux : journalisation des inputs/outputs (ce qui entre et ce qui sort), contexte de la décision (qui a demandé quoi, quand, avec quel prompt), et résultat business (quelle décision a été prise sur la base de la recommandation IA). Pour les systèmes à fort impact, la traçabilité est une obligation réglementaire, pas une option."
+    }
+  ],
+  "response_guidance": {
+    "tone": "rigoureux, orienté conformité et opérationnalité",
+    "structure": [
+      "identifier le principe de gouvernance en jeu",
+      "expliquer l'application concrète",
+      "pointer les risques de non-conformité"
+    ],
+    "avoid": [
+      "trop théorique sans ancrage opérationnel",
+      "ignorer le contexte réglementaire EU",
+      "confondre gouvernance et éthique abstraite"
+    ]
+  },
   "tags": [
     "accountability",
     "responsabilité",
@@ -22,43 +73,8 @@
     "AI governance",
     "conformité"
   ],
-  "intents": [],
-  "usage_context": [],
-  "content": {
-    "definition": "",
-    "core_principles": [],
-    "rules": [],
-    "examples": [],
-    "best_practices": [],
-    "anti_patterns": []
-  },
-  "retrieval_hints": {
-    "priority_keywords": [],
-    "related_domains": [],
-    "related_knowledge": [],
-    "retrieval_priority": 5
-  },
-  "behavior_rules": {
-    "tone": "professional",
-    "response_style": "structured_clear",
-    "max_complexity": "medium",
-    "allow_humor": false
-  },
-  "safety_notes": {
-    "allowed_usage": [],
-    "restricted_usage": [],
-    "forbidden_usage": [],
-    "fallback_behavior": "Solliciter une validation humaine si ambiguïté."
-  },
-  "metadata": {
-    "author": "ALFRED_SYSTEM",
-    "creation_date": "11/07/2026",
-    "last_update": "11/07/2026",
-    "review_status": "draft",
-    "reviewed_by": "",
-    "source_type": "manual_structured_knowledge",
-    "language": "fr",
-    "retrieval_ready": true,
-    "rag_compatible": true
-  }
+  "related_knowledge_units": [
+    "knowledges.professional.standards_iso.iso_42001_ai_management_system",
+    "knowledges.cpl.ethics_governance.ethical_ai_framework"
+  ]
 }
