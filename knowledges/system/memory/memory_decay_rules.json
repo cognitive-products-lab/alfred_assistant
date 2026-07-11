@@ -1,44 +1,53 @@
 {
-  "metadata": {"file":"memory_decay_rules.json","version":"1.0.0","scope":"memory"},
   "knowledge_id": "memory_decay_rules_v1",
   "title": "Règles de déclin mémoriel",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "",
+  "subdomain": "",
+  "category": "",
+  "priority": "medium",
+  "safety_level": "normal",
   "summary": "Comment les informations stockées perdent progressivement de leur poids ou sont effacées — pour garder une mémoire saine, pertinente et non envahissante.",
-  "decay_philosophy": "La mémoire parfaite n'est pas un objectif — une mémoire pertinente et actualisée l'est. Oublier bien est aussi important que mémoriser bien.",
-  "decay_models": {
-    "exponential_decay": {
-      "desc": "Déclin progressif du poids en fonction du temps",
-      "formula": "weight = base_weight * e^(-λt)",
-      "lambda_by_type": {
-        "daily_info": 0.1,
-        "preference": 0.02,
-        "project_context": 0.03,
-        "important_decision": 0.005,
-        "emotional_episode": 0.01
-      }
-    },
-    "reinforcement": {
-      "desc": "Chaque réutilisation d'une mémoire réinitialise son compteur de déclin",
-      "rule": "Si une info est réutilisée → reset du timer + bonus de confiance +0.1"
-    },
-    "contradiction_decay": {
-      "desc": "Si une nouvelle info contredit l'ancienne, l'ancienne perd du poids immédiatement",
-      "rule": "Ancienne info → weight * 0.3 + marquée 'potentially_outdated'"
-    }
+  "purpose": "",
+  "tags": [],
+  "intents": [],
+  "usage_context": [],
+  "content": {
+    "definition": "",
+    "core_principles": [],
+    "rules": [],
+    "examples": [],
+    "best_practices": [],
+    "anti_patterns": []
   },
-  "forced_forgetting": {
-    "user_request": {"trigger": "commande explicite", "scope": "partielle ou totale", "delay": "immédiat"},
-    "auto_cleanup": {"trigger": "score < 0.15 depuis 90 jours", "action": "archivage ou suppression"},
-    "privacy_expiry": {"trigger": "données sensibles non confirmées > 60 jours", "action": "anonymisation"}
+  "retrieval_hints": {
+    "priority_keywords": [],
+    "related_domains": [],
+    "related_knowledge": [],
+    "retrieval_priority": 5
   },
-  "never_decay": [
-    "Préférences déclarées explicitement et confirmées",
-    "Informations de sécurité critique (allergies, conditions médicales connues)",
-    "Épisodes à importance > 0.8",
-    "Paramètres de personnalisation core"
-  ],
-  "memory_hygiene_check": {
-    "frequency": "Toutes les 30 sessions ou sur demande",
-    "actions": ["Supprimer les mémoires contradictoires", "Consolider les doublons", "Archiver les mémoires > 90 jours sans réutilisation", "Signaler les mémoires 'potentially_outdated'"]
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
   },
-  "connections": ["memory_system","memory_prioritization","semantic_memory","episodic_memory","memory_learning_rules"]
+  "safety_notes": {
+    "allowed_usage": [],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "Solliciter une validation humaine si ambiguïté."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "11/07/2026",
+    "last_update": "11/07/2026",
+    "review_status": "draft",
+    "reviewed_by": "",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
 }

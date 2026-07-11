@@ -1,76 +1,17 @@
 {
   "schema_version": "1.2",
   "type": "knowledge_unit",
-  "id": "knowledges.professional.governance_ai.ai_incident_management",
+  "knowledge_id": "",
   "title": "Gestion des incidents IA",
+  "version": "1.0.0",
+  "status": "validated",
   "domain": "professional",
   "subdomain": "governance_ai",
-  "status": "validated",
+  "category": "",
+  "priority": "medium",
+  "safety_level": "normal",
   "summary": "Les incidents IA (comportements inattendus, biais détectés, erreurs systématiques) doivent être gérés comme des incidents critiques : signalement rapide, analyse de cause racine, correction et communication transparente.",
-  "core_definition": "La gestion des incidents IA est le processus structuré de détection, classification, investigation, correction et communication autour des comportements inattendus ou problématiques d'un système IA en production.",
-  "knowledge": {
-    "incident_classification": [
-      {
-        "severity": "Critique (P1)",
-        "examples": "Décision IA qui cause un préjudice réel, fuite de données via le LLM, comportement discriminatoire systématique",
-        "SLA": "Correction ou arrêt sous 4h"
-      },
-      {
-        "severity": "Élevé (P2)",
-        "examples": "Dégradation significative des performances, réponses incorrectes sur des cas importants",
-        "SLA": "Investigation sous 24h, correction sous 72h"
-      },
-      {
-        "severity": "Modéré (P3)",
-        "examples": "Anomalie détectée, réponse inattendue isolée",
-        "SLA": "Investigation sous 1 semaine"
-      },
-      {
-        "severity": "Faible (P4)",
-        "examples": "Amélioration souhaitée, cas limite non critique",
-        "SLA": "Backlog d'amélioration"
-      }
-    ],
-    "incident_process": [
-      "Détection (monitoring automatique ou signalement humain)",
-      "Triage et classification en P1-P4",
-      "Notification de l'AI Owner et des parties prenantes",
-      "Investigation de la cause racine",
-      "Correction (patch modèle, règle de filtrage, rollback)",
-      "Post-mortem documenté",
-      "Communication aux utilisateurs impactés si P1/P2"
-    ],
-    "post_mortem_template": [
-      "Qu'est-il arrivé exactement ?",
-      "Quel a été l'impact ?",
-      "Pourquoi est-ce arrivé (cause racine) ?",
-      "Que fait-on pour éviter que ça se reproduise ?",
-      "Quelles mesures de détection améliorons-nous ?"
-    ]
-  },
-  "example_answers": [
-    {
-      "prompt": "Notre IA a donné des réponses bizarres toute la matinée — que faire ?",
-      "answer": "Protocole d'incident : documenter les cas (inputs + outputs), déterminer la sévérité (utilisateurs impactés, type d'erreur), notifier l'AI Owner et activer l'investigation. Si le comportement est potentiellement dangereux ou discriminatoire, passer en P1 et envisager la suspension du service pendant l'investigation. Ne pas attendre que ça 'se corrige tout seul'."
-    },
-    {
-      "prompt": "Comment éviter de cacher un incident IA pour protéger l'image de l'entreprise ?",
-      "answer": "Deux arguments pour la transparence : légal (l'EU AI Act impose la notification des incidents graves aux autorités) et réputationnel (la découverte post-couvrement est systématiquement plus destructrice que la déclaration proactive). Un post-mortem public bien géré renforce souvent la confiance plutôt que de la détruire."
-    }
-  ],
-  "response_guidance": {
-    "tone": "rigoureux, orienté conformité et opérationnalité",
-    "structure": [
-      "identifier le principe de gouvernance en jeu",
-      "expliquer l'application concrète",
-      "pointer les risques de non-conformité"
-    ],
-    "avoid": [
-      "trop théorique sans ancrage opérationnel",
-      "ignorer le contexte réglementaire EU",
-      "confondre gouvernance et éthique abstraite"
-    ]
-  },
+  "purpose": "",
   "tags": [
     "incident",
     "gestion de crise",
@@ -81,8 +22,43 @@
     "AI governance",
     "conformité"
   ],
-  "related_knowledge_units": [
-    "knowledges.professional.standards_iso.iso_42001_ai_management_system",
-    "knowledges.cpl.ethics_governance.ethical_ai_framework"
-  ]
+  "intents": [],
+  "usage_context": [],
+  "content": {
+    "definition": "",
+    "core_principles": [],
+    "rules": [],
+    "examples": [],
+    "best_practices": [],
+    "anti_patterns": []
+  },
+  "retrieval_hints": {
+    "priority_keywords": [],
+    "related_domains": [],
+    "related_knowledge": [],
+    "retrieval_priority": 5
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "Solliciter une validation humaine si ambiguïté."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "11/07/2026",
+    "last_update": "11/07/2026",
+    "review_status": "draft",
+    "reviewed_by": "",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
 }

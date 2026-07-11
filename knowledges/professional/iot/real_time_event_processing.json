@@ -1,79 +1,17 @@
 {
   "schema_version": "1.2",
   "type": "knowledge_unit",
-  "id": "knowledges.professional.iot.real_time_event_processing",
+  "knowledge_id": "",
   "title": "Traitement d'événements en temps réel",
+  "version": "1.0.0",
+  "status": "validated",
   "domain": "professional",
   "subdomain": "iot",
-  "status": "validated",
+  "category": "",
+  "priority": "medium",
+  "safety_level": "normal",
   "summary": "Le traitement d'événements en temps réel permet de réagir aux données IoT avec une latence minimale — quelques millisecondes — en appliquant des règles, des agrégations et des alertes sans stocker d'abord dans une base de données.",
-  "core_definition": "Le traitement d'événements en temps réel (Real-time Event Processing ou Stream Processing) est l'analyse et le traitement des données au fur et à mesure qu'elles sont générées, permettant des réponses immédiates sans attendre leur stockage et leur traitement différé.",
-  "knowledge": {
-    "stream_processing_concepts": [
-      {
-        "concept": "Event stream",
-        "description": "Flux continu d'événements ordonnés dans le temps (ex: lectures capteur toutes les secondes)"
-      },
-      {
-        "concept": "Windowing",
-        "description": "Regrouper les événements en fenêtres temporelles pour calculer des agrégats (moyenne 5 min, max heure)"
-      },
-      {
-        "concept": "Filtering",
-        "description": "Sélectionner uniquement les événements qui remplissent certains critères"
-      },
-      {
-        "concept": "Joining",
-        "description": "Combiner deux streams en temps réel (ex: température + humidité)"
-      },
-      {
-        "concept": "CEP (Complex Event Processing)",
-        "description": "Détecter des patterns complexes dans un stream (3 alertes en 5 min → incident)"
-      }
-    ],
-    "local_tools": [
-      {
-        "tool": "Node-RED",
-        "description": "Visual flow editor pour le traitement d'événements IoT — très accessible, nombreux plugins"
-      },
-      {
-        "tool": "Home Assistant automations",
-        "description": "Règles d'automatisation intégrées — templates Jinja2 pour la logique complexe"
-      },
-      {
-        "tool": "Python + asyncio",
-        "description": "Pour le traitement custom en temps réel — paho-mqtt + asyncio"
-      },
-      {
-        "tool": "SQLite avec triggers",
-        "description": "Déclencheurs sur les insertions pour les traitements immédiats"
-      }
-    ]
-  },
-  "example_answers": [
-    {
-      "prompt": "Comment détecter en temps réel si quelqu'un entre dans la pièce ?",
-      "answer": "Capteur PIR → MQTT → Node-RED (ou Home Assistant). Le flux : capteur publie 'mouvement: détecté' → Node-RED filtre sur ce topic → si contexte = correct (heure, mode) → déclenche l'action (notification, lumière, alerte ALFRED). La latence totale < 200ms avec une architecture locale."
-    },
-    {
-      "prompt": "Comment agréger des données capteurs en temps réel pour un dashboard ?",
-      "answer": "Stack recommandée : capteurs → MQTT → Telegraf (collecte) → InfluxDB (stockage timeseries) → Grafana (visualisation). Tout local. Telegraf s'abonne aux topics MQTT et insère dans InfluxDB automatiquement. Grafana rafraîchit en temps réel (5-30s selon le besoin). Cette stack est gratuite, performante et standard en domotique avancée."
-    }
-  ],
-  "response_guidance": {
-    "tone": "technique, pragmatique, sensible à la confidentialité et à la sécurité",
-    "structure": [
-      "identifier le composant ou problème IoT",
-      "expliquer le mécanisme",
-      "pointer les risques",
-      "proposer la solution"
-    ],
-    "avoid": [
-      "ignorer la sécurité",
-      "négliger la contrainte de ressources",
-      "trop générique"
-    ]
-  },
+  "purpose": "",
   "tags": [
     "temps réel",
     "stream processing",
@@ -83,8 +21,43 @@
     "IoT",
     "système ambiant"
   ],
-  "related_knowledge_units": [
-    "knowledges.professional.engineering.systeme_design.local_first_architecture",
-    "knowledges.cpl.ethics_governance.ethical_ai_framework"
-  ]
+  "intents": [],
+  "usage_context": [],
+  "content": {
+    "definition": "",
+    "core_principles": [],
+    "rules": [],
+    "examples": [],
+    "best_practices": [],
+    "anti_patterns": []
+  },
+  "retrieval_hints": {
+    "priority_keywords": [],
+    "related_domains": [],
+    "related_knowledge": [],
+    "retrieval_priority": 5
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "Solliciter une validation humaine si ambiguïté."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "11/07/2026",
+    "last_update": "11/07/2026",
+    "review_status": "draft",
+    "reviewed_by": "",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
 }

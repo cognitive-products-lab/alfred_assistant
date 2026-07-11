@@ -1,70 +1,17 @@
 {
   "schema_version": "1.2",
   "type": "knowledge_unit",
-  "id": "knowledges.professional.engineering.ai_system_design",
+  "knowledge_id": "",
   "title": "Design de systemes IA",
+  "version": "1.0.0",
+  "status": "validated",
   "domain": "professional",
   "subdomain": "engineering",
-  "status": "validated",
+  "category": "",
+  "priority": "medium",
+  "safety_level": "normal",
   "summary": "Le design de systemes IA integre les patterns specifiques a l'IA (pipelines de donnees, inference, monitoring de modele, drift detection) dans une architecture systeme robuste, deployable et maintenable.",
-  "core_definition": "Le design de systemes IA est la discipline qui consiste a concevoir des architectures logicielles capables d'integrer des modeles d'intelligence artificielle en production de facon fiable, scalable et maintenable, en adressant les defis specifiques aux systemes IA (non-determinisme, derive des modeles, couts d'inference, ethique).",
-  "knowledge": {
-    "ai_system_components": [
-      {
-        "component": "Data pipeline",
-        "description": "Ingestion, validation, transformation et stockage des donnees d'entrainement et d'inference"
-      },
-      {
-        "component": "Feature store",
-        "description": "Stockage et service des features partagees entre les modeles (online + offline)"
-      },
-      {
-        "component": "Model serving",
-        "description": "API d'inference rapide et scalable (REST, gRPC, streaming)"
-      },
-      {
-        "component": "Model registry",
-        "description": "Versioning et tracking des modeles (MLflow, Weights & Biases)"
-      },
-      {
-        "component": "Monitoring",
-        "description": "Performance du modele en production (precision, latence, drift des donnees, drift du modele)"
-      },
-      {
-        "component": "Feedback loop",
-        "description": "Collecte des labels des utilisateurs pour le retrainement continu"
-      }
-    ],
-    "ai_specific_challenges": [
-      "Non-determinisme : le meme input peut produire des outputs differents (temperature > 0)",
-      "Derive du modele (model drift) : les performances se degradent quand la distribution des donnees change",
-      "Couts d'inference : les LLMs sont chers a executer en production (latence, tokens, GPU)",
-      "Explainabilite : les decisions doivent etre justifiables (reglementation, confiance utilisateur)",
-      "Biais et equite : monitorer les disparites de performance entre groupes"
-    ]
-  },
-  "example_answers": [
-    {
-      "prompt": "Comment structurer l'architecture d'un produit IA en production ?",
-      "answer": "Architecture minimale viable : (1) API Layer : FastAPI pour exposer l'inference, avec rate limiting et authentification, (2) Inference : modele LLM via Ollama (local) ou API OpenAI/Anthropic (cloud), avec cache (Redis) pour les requetes frequentes, (3) RAG : vector DB (ChromaDB ou Qdrant) + pipeline de retrieval, (4) Logging : logger toutes les requetes avec inputs/outputs/latence/cout, (5) Monitoring : alertes si le temps de reponse depasse X ou si le cout/jour depasse Y. Cette architecture couvre 80% des cas pour un MVP IA."
-    },
-    {
-      "prompt": "Comment monitorer un LLM en production ?",
-      "answer": "Quatre dimensions : (1) Latence : temps de reponse par requete — alerter si P95 > seuil, (2) Cout : tokens consommes par requete et par jour — eviter les surprises de facturation, (3) Qualite : un panel d'evaluations periodiques (Golden set de Q&A avec evaluation automatique ou humaine), (4) Utilisateur : taux de regeneration, feedback negatif, taux d'abandon. Outils : LangSmith (LangChain ecosystem), Langfuse (open source), ou un pipeline custom avec des logs structurees dans InfluxDB/Grafana."
-    }
-  ],
-  "response_guidance": {
-    "tone": "strategique, ancre dans la pratique",
-    "structure": [
-      "contextualiser",
-      "expliquer le concept",
-      "proposer un angle actionnable"
-    ],
-    "avoid": [
-      "trop theorique",
-      "ignorer le contexte"
-    ]
-  },
+  "purpose": "",
   "tags": [
     "architecture IA",
     "MLOps",
@@ -72,5 +19,43 @@
     "production",
     "monitoring"
   ],
-  "related_knowledge_units": []
+  "intents": [],
+  "usage_context": [],
+  "content": {
+    "definition": "",
+    "core_principles": [],
+    "rules": [],
+    "examples": [],
+    "best_practices": [],
+    "anti_patterns": []
+  },
+  "retrieval_hints": {
+    "priority_keywords": [],
+    "related_domains": [],
+    "related_knowledge": [],
+    "retrieval_priority": 5
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "Solliciter une validation humaine si ambiguïté."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "11/07/2026",
+    "last_update": "11/07/2026",
+    "review_status": "draft",
+    "reviewed_by": "",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
 }

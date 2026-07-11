@@ -1,69 +1,17 @@
 {
   "schema_version": "1.2",
   "type": "knowledge_unit",
-  "id": "knowledges.professional.engineering.vector_database",
+  "knowledge_id": "",
   "title": "Bases de donnees vectorielles",
+  "version": "1.0.0",
+  "status": "validated",
   "domain": "professional",
   "subdomain": "engineering",
-  "status": "validated",
+  "category": "",
+  "priority": "medium",
+  "safety_level": "normal",
   "summary": "Les bases de donnees vectorielles stockent des embeddings (representations numeriques de texte, images, etc.) et permettent la recherche de similarite par proximite dans un espace vectoriel — fondamentales pour le RAG et la recherche semantique.",
-  "core_definition": "Une base de donnees vectorielle est un systeme de stockage specialise qui indexe et interroge des vecteurs de haute dimension (embeddings) en utilisant la distance geometrique (cosinus, euclidienne) pour trouver les elements les plus similaires a une requete, permettant la recherche semantique plutot que la correspondance exacte.",
-  "knowledge": {
-    "vector_search_concept": {
-      "embedding": "Representation numerique d'un texte ou d'une image dans un espace vectoriel de haute dimension — les textes semantiquement similaires ont des vecteurs proches",
-      "similarity_search": "Trouver les N vecteurs les plus proches d'un vecteur requete — souvent par similarite cosinus ou distance euclidienne",
-      "approximate_nearest_neighbor": "ANN (HNSW, IVF) — algorithmes qui approchent la recherche exacte en echange de vitesse beaucoup plus elevee"
-    },
-    "vector_db_comparison": [
-      {
-        "db": "ChromaDB",
-        "type": "Open source, embarquable",
-        "use": "Prototype, usage local, integration Python simple"
-      },
-      {
-        "db": "Qdrant",
-        "type": "Open source, haute performance",
-        "use": "Production, recherche vectorielle avancee"
-      },
-      {
-        "db": "Pinecone",
-        "type": "SaaS managé",
-        "use": "Production managee, pas d'infra a gerer"
-      },
-      {
-        "db": "Weaviate",
-        "type": "Open source, GraphQL",
-        "use": "Recherche semantique + filtrage avance"
-      },
-      {
-        "db": "pgvector",
-        "type": "Extension PostgreSQL",
-        "use": "Si deja sur PostgreSQL — integrer la recherche vectorielle sans infra supplementaire"
-      }
-    ]
-  },
-  "example_answers": [
-    {
-      "prompt": "Comment choisir une vector database pour mon projet RAG ?",
-      "answer": "Pour commencer (prototype) : ChromaDB — installation en pip, zero infra, API Python simple. Pour la production locale : Qdrant — tres performant, Docker image disponible, API REST+gRPC. Pour la production managee : Pinecone si tu ne veux pas gerer l'infra. Si tu es deja sur PostgreSQL : pgvector — ajoute la recherche vectorielle sans une nouvelle DB. En 2025, les benchmarks montrent que Qdrant et Weaviate ont les meilleures performances sur les grands volumes."
-    },
-    {
-      "prompt": "C'est quoi un embedding et comment ca marche ?",
-      "answer": "Un embedding est la transformation d'un texte (ou d'une image, d'un son) en un vecteur numerique — par exemple 384 ou 1536 nombres. Les modeles d'embedding (sentence-transformers, OpenAI ada-002, Cohere) sont entraines pour que des textes semantiquement proches aient des vecteurs geometriquement proches. Exemple : 'chien' et 'animal de compagnie' ont des vecteurs plus proches que 'chien' et 'table'. La vector DB stocke ces vecteurs et les compare geometriquement pour trouver les textes similaires."
-    }
-  ],
-  "response_guidance": {
-    "tone": "strategique, ancre dans la pratique",
-    "structure": [
-      "contextualiser",
-      "expliquer le concept",
-      "proposer un angle actionnable"
-    ],
-    "avoid": [
-      "trop theorique",
-      "ignorer le contexte"
-    ]
-  },
+  "purpose": "",
   "tags": [
     "vector database",
     "embeddings",
@@ -72,5 +20,43 @@
     "RAG",
     "recherche semantique"
   ],
-  "related_knowledge_units": []
+  "intents": [],
+  "usage_context": [],
+  "content": {
+    "definition": "",
+    "core_principles": [],
+    "rules": [],
+    "examples": [],
+    "best_practices": [],
+    "anti_patterns": []
+  },
+  "retrieval_hints": {
+    "priority_keywords": [],
+    "related_domains": [],
+    "related_knowledge": [],
+    "retrieval_priority": 5
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "Solliciter une validation humaine si ambiguïté."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "11/07/2026",
+    "last_update": "11/07/2026",
+    "review_status": "draft",
+    "reviewed_by": "",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
 }

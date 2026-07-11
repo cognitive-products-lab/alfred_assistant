@@ -2,18 +2,40 @@
   "schema_version": "1.2",
   "type": "knowledge_unit",
   "knowledge_id": "data_management.quality.data_quality_fundamentals",
+  "title": "Qualité des Données — Fondements",
   "version": "1.0.0",
+  "status": "active",
   "domain": "data_management",
   "subdomain": "quality",
   "category": "data_quality",
   "priority": "critical",
   "safety_level": "normal",
-  "title": "Qualité des Données — Fondements",
   "summary": "Qualité des données : 6 dimensions (exactitude, complétude, cohérence, actualité, unicité, validité), coût de la mauvaise qualité (TIQM), mesure (data profiling, scorecard), règles de qualité, Data Quality Management (DQM), référentiels DAMA.",
   "purpose": "Permettre à ALFRED d'expliquer les concepts fondamentaux de la qualité des données, ses dimensions et les méthodes de mesure et d'amélioration.",
-  "tags": ["qualité_données", "data_quality", "dimensions_qualité", "data_profiling", "DQM", "DAMA", "exactitude", "complétude", "cohérence", "data_steward"],
-  "intents": ["explain_data_quality", "explain_data_quality_dimensions", "help_data_quality_program", "answer_data_management_question"],
-  "usage_context": ["Data Management", "DSI", "Data Governance", "BI"],
+  "tags": [
+    "qualité_données",
+    "data_quality",
+    "dimensions_qualité",
+    "data_profiling",
+    "DQM",
+    "DAMA",
+    "exactitude",
+    "complétude",
+    "cohérence",
+    "data_steward"
+  ],
+  "intents": [
+    "explain_data_quality",
+    "explain_data_quality_dimensions",
+    "help_data_quality_program",
+    "answer_data_management_question"
+  ],
+  "usage_context": [
+    "Data Management",
+    "DSI",
+    "Data Governance",
+    "BI"
+  ],
   "content": {
     "definition": "La qualité des données est l'aptitude des données à satisfaire les besoins des utilisateurs pour un usage donné. La qualité n'est pas absolue — elle est contextuelle et relative à un usage.",
     "dimensions": {
@@ -57,26 +79,87 @@
     "cost_of_poor_quality": {
       "tiqm": "TIQM (Total Information Quality Management, Larry English) : coût de la mauvaise qualité = coûts de correction + coûts de décision erronée + coûts d'opportunité perdus.",
       "statistics": "Gartner : la mauvaise qualité des données coûte en moyenne 12.9 M$ par an aux organisations (2021). IBM : 3 100 Mds$ de pertes annuelles aux USA.",
-      "examples": ["Campagnes marketing envoyées à des adresses invalides", "Facturation erronée entraînant des litiges clients", "Décisions stratégiques basées sur des KPIs faux", "Migrations de données échouées (60 % des projets data)"]
+      "examples": [
+        "Campagnes marketing envoyées à des adresses invalides",
+        "Facturation erronée entraînant des litiges clients",
+        "Décisions stratégiques basées sur des KPIs faux",
+        "Migrations de données échouées (60 % des projets data)"
+      ]
     },
     "data_profiling": {
       "definition": "Data profiling : analyse statistique automatique des données pour identifier les problèmes de qualité.",
-      "techniques": ["Distribution des valeurs (histogrammes)", "Détection des valeurs nulles/manquantes", "Identification des outliers", "Patterns des valeurs (format, longueur)", "Détection de doublons (matching)", "Analyse des dépendances fonctionnelles"],
+      "techniques": [
+        "Distribution des valeurs (histogrammes)",
+        "Détection des valeurs nulles/manquantes",
+        "Identification des outliers",
+        "Patterns des valeurs (format, longueur)",
+        "Détection de doublons (matching)",
+        "Analyse des dépendances fonctionnelles"
+      ],
       "tools": "Outils : Talend Data Quality, Ataccama, IBM DataStage, Great Expectations (open-source), Pandas (Python), SQL profiling."
     },
     "dqm_process": {
-      "steps": ["1. Définir les règles métier (data rules)", "2. Profiler les données", "3. Identifier et prioriser les anomalies", "4. Corriger (curative) et prévenir (préventive)", "5. Monitorer en continu (data quality scorecard)", "6. Gouverner (data stewards, ownership)"],
+      "steps": [
+        "1. Définir les règles métier (data rules)",
+        "2. Profiler les données",
+        "3. Identifier et prioriser les anomalies",
+        "4. Corriger (curative) et prévenir (préventive)",
+        "5. Monitorer en continu (data quality scorecard)",
+        "6. Gouverner (data stewards, ownership)"
+      ],
       "dama": "DAMA-DMBOK (Data Management Body of Knowledge) : référentiel de référence pour la gestion des données. 11 domaines dont la qualité, gouvernance, architecture, MDM.",
       "data_steward": "Data Steward : responsable opérationnel de la qualité d'un domaine de données. Intermédiaire entre IT et métier. Définit les règles, valide les corrections."
-    }
+    },
+    "core_principles": [],
+    "rules": [],
+    "examples": [],
+    "best_practices": [],
+    "anti_patterns": []
   },
   "retrieval_hints": {
-    "priority_keywords": ["qualité des données", "data quality", "complétude", "exactitude", "cohérence", "data profiling", "data steward", "DAMA"],
-    "related_domains": ["data_management", "governance"],
-    "related_knowledge": ["data_management.governance.data_governance_framework", "data_management.mdm.master_data_management"],
+    "priority_keywords": [
+      "qualité des données",
+      "data quality",
+      "complétude",
+      "exactitude",
+      "cohérence",
+      "data profiling",
+      "data steward",
+      "DAMA"
+    ],
+    "related_domains": [
+      "data_management",
+      "governance"
+    ],
+    "related_knowledge": [
+      "data_management.governance.data_governance_framework",
+      "data_management.mdm.master_data_management"
+    ],
     "retrieval_priority": 10
   },
-  "behavior_rules": {"tone": "educational", "response_style": "structured_clear", "max_complexity": "medium", "allow_humor": false},
-  "safety_notes": {"allowed_usage": ["Éducation sur la qualité des données"], "restricted_usage": [], "forbidden_usage": [], "fallback_behavior": ""},
-  "metadata": {"author": "ALFRED_SYSTEM", "creation_date": "10/07/2026", "last_update": "10/07/2026", "review_status": "active", "reviewed_by": "ALFRED_CORE", "source_type": "manual_structured_knowledge", "language": "fr", "retrieval_ready": true, "rag_compatible": true}
+  "behavior_rules": {
+    "tone": "educational",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "Éducation sur la qualité des données"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": ""
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "10/07/2026",
+    "last_update": "11/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
 }
