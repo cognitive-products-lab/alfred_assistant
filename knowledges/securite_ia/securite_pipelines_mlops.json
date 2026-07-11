@@ -1,0 +1,96 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "securite_ia.mlops.securite_pipelines_mlops",
+  "version": "1.0.0",
+  "domain": "securite_ia",
+  "subdomain": "mlops",
+  "category": "MLOps_securite",
+  "priority": "high",
+  "safety_level": "sensitive",
+  "title": "Sécurité des Pipelines MLOps",
+  "summary": "Sécurisation du cycle de vie ML : empoisonnement de données (data poisoning), attaques sur le modèle (model poisoning, backdoor attack), sécurité des API d'inférence, contrôle d'accès aux données d'entraînement, intégrité des artefacts (checksums, signing), sandboxing des environnements d'entraînement, secrets management dans les pipelines, conformité RGPD dans les pipelines ML, audit trail MLOps.",
+  "purpose": "Permettre à ALFRED CPL d'expliquer les enjeux de sécurité spécifiques aux pipelines MLOps.",
+  "tags": [
+    "sécurité_MLOps",
+    "data_poisoning",
+    "model_poisoning",
+    "API_inférence",
+    "intégrité_artefacts",
+    "secrets_management",
+    "pipeline_ML",
+    "audit_trail"
+  ],
+  "intents": [
+    "explain_mlops_security",
+    "explain_data_poisoning",
+    "explain_model_backdoor",
+    "explain_ml_pipeline_security"
+  ],
+  "usage_context": [
+    "IA/Data",
+    "RSSI",
+    "DevSecOps"
+  ],
+  "content": {
+    "menaces_pipeline": {
+      "data_poisoning": "Empoisonnement de données (data poisoning) : injection de données malveillantes dans le dataset d'entraînement pour dégrader les performances ou introduire un comportement indésirable. Contre-mesures : validation statistique des données, contrôle d'accès strict aux sources de données, versioning des datasets.",
+      "model_poisoning": "Empoisonnement de modèle : modification des poids d'un modèle pré-entraîné pour introduire un comportement caché (backdoor). Risque élevé lors de l'utilisation de modèles open-source non audités. Contre-mesures : vérifier les checksums des modèles, évaluer les comportements sur des exemples adversariaux.",
+      "api_inference": "Sécurité des API d'inférence : authentification forte (OAuth2/API key), rate limiting, monitoring des requêtes anormales, isolation des tenants, pas d'exposition directe du modèle via des API publiques non sécurisées, protection contre les attaques d'extraction de modèle."
+    },
+    "bonnes_pratiques": {
+      "secrets": "Secrets management : ne jamais hardcoder les clés API, tokens ou credentials dans le code ou les notebooks. Utiliser un gestionnaire de secrets (HashiCorp Vault, AWS Secrets Manager, Azure Key Vault). Scan automatique de secrets dans les pipelines CI/CD.",
+      "integrite": "Intégrité des artefacts : signer les modèles (checksums SHA256), versionner les datasets (DVC), tracer les transformations de données (lineage). Tout artefact en production doit être traçable jusqu'à sa source.",
+      "sandboxing": "Sandboxing : exécuter les entraînements dans des environnements isolés (containers, VM dédiées) sans accès réseau non nécessaire. Séparation des environnements dev/staging/prod."
+    },
+    "rgpd_ml": {
+      "minimisation": "Minimisation des données pour l'entraînement ML : n'utiliser que les données nécessaires, pseudonymiser les données personnelles, obtenir une base légale pour chaque traitement.",
+      "droit_oubli": "Droit à l'effacement dans les modèles ML : problème technique — les données d'entraînement sont 'encodées' dans les poids. Solutions : machine unlearning (technique émergente), réentraînement sans les données concernées, mitigations contractuelles."
+    }
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "sécurité MLOps",
+      "data poisoning",
+      "model poisoning",
+      "API inférence sécurisée",
+      "secrets management ML",
+      "intégrité modèle"
+    ],
+    "related_domains": [
+      "securite_ia",
+      "ia_data_science",
+      "information_security"
+    ],
+    "related_knowledge": [
+      "securite_ia.fondamentaux.securite_ia_fondamentaux",
+      "ia_data_science.fondamentaux.ia_data_science_fondamentaux"
+    ],
+    "retrieval_priority": 8
+  },
+  "behavior_rules": {
+    "tone": "technical",
+    "response_style": "structured_clear",
+    "max_complexity": "high",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "Sécurité MLOps"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "Pour les incidents de sécurité ML actifs, orienter vers le RSSI."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "11/07/2026",
+    "last_update": "11/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

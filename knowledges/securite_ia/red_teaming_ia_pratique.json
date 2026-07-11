@@ -1,0 +1,99 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "securite_ia.red_team.red_teaming_ia_pratique",
+  "version": "1.0.0",
+  "domain": "securite_ia",
+  "subdomain": "red_team",
+  "category": "red_teaming_IA",
+  "priority": "high",
+  "safety_level": "sensitive",
+  "title": "Red Teaming IA en Pratique",
+  "summary": "Red teaming IA : définition, objectifs, méthodologie, différence avec le red teaming cybersécurité classique, types d'attaques testées (prompt injection, jailbreak, extraction de données, désinformation, manipulation), composition d'une équipe red team IA, outils (Garak, PyRIT, Promptfoo), résultats et remédiation, obligations AI Act pour les modèles à usage général.",
+  "purpose": "Permettre à ALFRED CPL d'expliquer la démarche de red teaming IA et sa mise en œuvre pratique.",
+  "tags": [
+    "red_teaming_IA",
+    "tests_adversariaux",
+    "prompt_injection_test",
+    "jailbreak_test",
+    "Garak",
+    "PyRIT",
+    "AI_Act_GPAI",
+    "sécurité_offensive_IA"
+  ],
+  "intents": [
+    "explain_ai_red_teaming",
+    "explain_adversarial_testing",
+    "explain_ai_security_testing"
+  ],
+  "usage_context": [
+    "RSSI",
+    "IA/Data",
+    "Conformité"
+  ],
+  "content": {
+    "definition_methode": {
+      "definition": "Red teaming IA : démarche structurée de test offensif visant à identifier les failles de sécurité, les comportements indésirables et les biais d'un système IA avant ou après son déploiement. Inspiré du red teaming militaire et cyber, adapté aux spécificités des LLM.",
+      "difference_cyber": "Différence avec le red teaming cyber classique : l'IA red teaming cherche des comportements indésirables du modèle lui-même (pas seulement des vulnérabilités d'infrastructure). Les attaques sont souvent sémantiques (manipulation du langage) plutôt que techniques.",
+      "objectifs": "Objectifs : identifier les vecteurs d'injection de prompts, les contournements de garde-fous (jailbreaks), les risques de génération de contenus nuisibles, les fuites d'informations (système prompt, données d'entraînement), les comportements biaisés."
+    },
+    "types_attaques": {
+      "prompt_injection": "Prompt injection directe : modifier le comportement du modèle via l'input utilisateur. Indirecte : données externes (docs, emails) contiennent des instructions malveillantes que le modèle exécute.",
+      "jailbreak": "Jailbreaks : contournement des règles de sécurité via des formulations détournées (roleplay, hypothétique, codage, instructions contradictoires). Évolue constamment — ce qui est patché aujourd'hui peut être recontourné demain.",
+      "extraction": "Extraction : obtenir le contenu du system prompt, des données d'entraînement (membership inference), ou des informations confidentielles d'autres utilisateurs (dans un système multi-tenant)."
+    },
+    "mise_en_oeuvre": {
+      "equipe": "Équipe red team IA : profils mixtes — experts sécurité, experts domaine (pour tester les comportements métier), experts éthique (pour tester les biais), utilisateurs représentatifs.",
+      "outils": "Outils : Garak (open-source, tests automatisés LLM), PyRIT (Microsoft, red teaming LLM), Promptfoo (tests de prompts), LLM-Guard (détection d'attaques en production). Les outils automatisés complètent mais ne remplacent pas les tests manuels.",
+      "ai_act_gpai": "Obligations AI Act pour les modèles à usage général (GPAI) à risque systémique : red teaming obligatoire avant déploiement, rapport à la Commission européenne, processus de signalement des incidents."
+    }
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "red teaming IA",
+      "tests adversariaux LLM",
+      "jailbreak test",
+      "prompt injection test",
+      "Garak PyRIT",
+      "AI Act GPAI",
+      "sécurité offensive IA"
+    ],
+    "related_domains": [
+      "securite_ia",
+      "reglementation_numerique",
+      "ethique_ia"
+    ],
+    "related_knowledge": [
+      "securite_ia.fondamentaux.securite_ia_fondamentaux",
+      "securite_ia.gouvernance.gouvernance_modeles_ia"
+    ],
+    "retrieval_priority": 8
+  },
+  "behavior_rules": {
+    "tone": "technical",
+    "response_style": "structured_clear",
+    "max_complexity": "high",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "Red teaming IA dans un cadre de test autorisé"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [
+      "Ne pas fournir d'instructions détaillées pour attaquer des systèmes IA tiers sans autorisation"
+    ],
+    "fallback_behavior": "Rappeler que le red teaming doit être réalisé sur des systèmes dont on est propriétaire ou avec autorisation explicite."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "11/07/2026",
+    "last_update": "11/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

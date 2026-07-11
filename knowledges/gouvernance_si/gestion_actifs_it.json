@@ -1,0 +1,92 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "gouvernance_si.actifs.gestion_actifs_it",
+  "version": "1.0.0",
+  "domain": "gouvernance_si",
+  "subdomain": "actifs",
+  "category": "gestion_actifs_IT",
+  "priority": "medium",
+  "safety_level": "normal",
+  "title": "Gestion des Actifs IT (ITAM/SAM)",
+  "summary": "ITAM (IT Asset Management) : inventaire matériel et logiciel, cycle de vie des actifs (acquisition, déploiement, maintenance, fin de vie), SAM (Software Asset Management), gestion des licences logicielles, conformité licences (audit éditeur), CMDB (Configuration Management Database), gestion de la fin de vie (EOL/EOS), TCO des actifs IT.",
+  "purpose": "Permettre à ALFRED CPL d'expliquer les bonnes pratiques de gestion des actifs IT.",
+  "tags": [
+    "ITAM",
+    "SAM",
+    "gestion_licences",
+    "CMDB",
+    "cycle_vie_actifs",
+    "EOL_EOS",
+    "audit_éditeur",
+    "TCO_IT"
+  ],
+  "intents": [
+    "explain_it_asset_management",
+    "explain_software_license_management",
+    "explain_cmdb"
+  ],
+  "usage_context": [
+    "DSI",
+    "Achats",
+    "Conformité"
+  ],
+  "content": {
+    "itam_sam": {
+      "itam": "ITAM (IT Asset Management) : gestion des actifs matériels (postes, serveurs, réseaux, imprimantes) et logiciels tout au long de leur cycle de vie. Objectifs : maîtriser les coûts, assurer la conformité, réduire les risques.",
+      "sam": "SAM (Software Asset Management) : sous-ensemble ITAM focalisé sur les licences logicielles. Processus : inventaire des logiciels installés, droits d'utilisation (licences achetées), analyse d'écart, remédiation. Enjeu : audit éditeur (Microsoft, Oracle, IBM...) pouvant engendrer des coûts très élevés.",
+      "audit_editeur": "Audit éditeur : l'éditeur vérifie que les licences achetées correspondent aux usages réels. Droits fréquemment audités : Oracle Database (processeur vs. named user), Microsoft (CAL, SQL Server), SAP (utilisateurs nommés). Préparation : maintenir un inventaire à jour et rapprocher régulièrement droits/usages."
+    },
+    "cmdb": {
+      "definition": "CMDB (Configuration Management Database) : base de données qui centralise les informations sur les composants IT (configuration items) et leurs relations. Socle du change management, incident management et problem management ITIL.",
+      "perimetre": "Contenu : serveurs, VM, applications, bases de données, équipements réseau, postes de travail, services. Relations : 'hébergé sur', 'utilisé par', 'dépend de'. Maintien : découverte automatique + processus de mise à jour manuelle.",
+      "eol_eos": "Fin de vie (EOL : End of Life, EOS : End of Support) : logiciel ou matériel pour lequel l'éditeur ne fournit plus de mises à jour de sécurité. Risque critique : vulnérabilités non corrigées. Plan de migration obligatoire avant EOL. Windows Server 2012 EOL = oct 2023 : exemple de migration urgente."
+    }
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "ITAM",
+      "SAM",
+      "gestion licences",
+      "CMDB",
+      "audit éditeur",
+      "EOL EOS",
+      "cycle vie actifs IT"
+    ],
+    "related_domains": [
+      "gouvernance_si",
+      "achats_fournisseurs",
+      "information_security"
+    ],
+    "related_knowledge": [
+      "gouvernance_si.fondamentaux.gouvernance_si_fondamentaux",
+      "achats_fournisseurs.fondamentaux.achats_fournisseurs_fondamentaux"
+    ],
+    "retrieval_priority": 7
+  },
+  "behavior_rules": {
+    "tone": "practical",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "Gestion des actifs IT"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": ""
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "11/07/2026",
+    "last_update": "11/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

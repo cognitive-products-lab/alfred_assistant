@@ -1,0 +1,98 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "ia_data_science.evaluation.evaluation_modeles_llm",
+  "version": "1.0.0",
+  "domain": "ia_data_science",
+  "subdomain": "evaluation",
+  "category": "évaluation_LLM",
+  "priority": "high",
+  "safety_level": "normal",
+  "title": "Évaluation des Modèles LLM",
+  "summary": "Évaluation des LLM : benchmarks standard (MMLU, HellaSwag, GSM8K, HumanEval, TruthfulQA), métriques (BLEU, ROUGE, BERTScore, perplexité), évaluation humaine, LLM-as-a-judge, évaluation RAG (faithfulness, relevance, context recall), ragas, évaluation de la sécurité (hallucinations, biais, toxicité), évaluation end-to-end (task success rate), A/B testing en production.",
+  "purpose": "Permettre à ALFRED CPL d'expliquer comment évaluer rigoureusement un modèle LLM pour une application professionnelle.",
+  "tags": [
+    "évaluation_LLM",
+    "benchmarks",
+    "MMLU",
+    "LLM_as_judge",
+    "RAG_evaluation",
+    "RAGAS",
+    "hallucination_detection",
+    "BLEU_ROUGE",
+    "A/B_testing_IA"
+  ],
+  "intents": [
+    "explain_llm_evaluation",
+    "explain_rag_evaluation",
+    "explain_llm_benchmarks",
+    "explain_llm_as_judge"
+  ],
+  "usage_context": [
+    "IA/Data",
+    "Product Management",
+    "Conformité"
+  ],
+  "content": {
+    "benchmarks": {
+      "standards": "Benchmarks standards : MMLU (connaissances multi-domaines), HellaSwag (compréhension du langage commun), GSM8K (raisonnement mathématique), HumanEval (code), TruthfulQA (véracité), MBPP (problèmes Python). Limite : les modèles peuvent être 'entraînés sur les benchmarks' — ils ne reflètent pas forcément les performances réelles.",
+      "metriques_generation": "Métriques de génération de texte : BLEU (précision des n-grammes vs référence), ROUGE (rappel), BERTScore (similarité sémantique via embeddings). Limitation : mesurent la similarité avec une référence, pas la qualité intrinsèque."
+    },
+    "evaluation_specifique": {
+      "llm_judge": "LLM-as-a-judge : utiliser un LLM puissant (GPT-4, Claude) pour évaluer les réponses d'un autre LLM. Critères : pertinence, factualité, cohérence, sécurité. Avantage : scalable. Limite : biais de self-préférence (un modèle préfère ses propres outputs).",
+      "rag_eval": "Évaluation RAG (RAGAS) : Faithfulness (la réponse est-elle fidèle aux documents récupérés ?), Answer Relevance (la réponse répond-elle à la question ?), Context Recall (les documents récupérés contiennent-ils l'information nécessaire ?), Context Precision. Framework RAGAS permet l'évaluation automatisée.",
+      "securite_eval": "Évaluation sécurité : taux d'hallucination (sur un dataset gold standard), détection de biais (performances sur sous-groupes), toxicité (API Perspective), refus appropriés (refuser les requêtes nuisibles)."
+    },
+    "production": {
+      "ab_testing": "A/B testing en production : comparer deux versions du système (ex : modèle v1 vs v2) sur un échantillon d'utilisateurs réels. Métriques : satisfaction utilisateur, taux de tâche réussie, taux d'escalade humaine.",
+      "monitoring": "Monitoring continu : surveiller la qualité des réponses en production via des évaluateurs automatiques, échantillonnage et annotation humaine, feedback utilisateur, alertes sur dégradation."
+    }
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "évaluation LLM",
+      "benchmarks IA",
+      "LLM as judge",
+      "RAGAS",
+      "évaluation RAG",
+      "faithfulness",
+      "hallucination rate",
+      "BLEU ROUGE"
+    ],
+    "related_domains": [
+      "ia_data_science",
+      "securite_ia",
+      "gouvernance_alfred_cpl"
+    ],
+    "related_knowledge": [
+      "ia_data_science.fondamentaux.ia_data_science_fondamentaux",
+      "ia_data_science.prompt.prompt_engineering"
+    ],
+    "retrieval_priority": 8
+  },
+  "behavior_rules": {
+    "tone": "technical",
+    "response_style": "structured_clear",
+    "max_complexity": "high",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "Évaluation de modèles IA"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": ""
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "11/07/2026",
+    "last_update": "11/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

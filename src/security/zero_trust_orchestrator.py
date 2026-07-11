@@ -28,6 +28,7 @@ from src.security.audit_trail import write_audit_event
 from src.security.security_logger import log_event
 from src.security.mfa_manager import is_mfa_required, is_verified as mfa_is_verified, evaluate_mfa
 from src.security.session_manager import register_failed_attempt, reset_failed_attempts
+from src.security.human_validation import submit_for_review
 
 # Alias pour monkeypatch dans les tests
 record_failed_attempt = register_failed_attempt
@@ -42,6 +43,8 @@ def authorize_request(
     device_id: str,
     user_input: str,
     session_id: str | None = None,
+    payload: dict | None = None,
+    request_id: str = "",
 ) -> dict:
     """
     Orchestrateur Zero Trust V1 :
@@ -51,6 +54,10 @@ def authorize_request(
     - vérifie les permissions
     - applique les politiques
     - trace la décision
+
+    Si la politique renvoie REVIEW (ex. action GENERATE_DELIVERABLE), la requête
+    n'est ni autorisée ni refusée : elle est mise en file d'attente de validation
+    humaine (src.security.human_validation) et l'approval_id est retourné.
     """
     _sanitized = sanitize_input(user_input)
     cleaned_input = _sanitized["cleaned_input"]
@@ -83,6 +90,24 @@ def authorize_request(
         return {"authorized": False, "decision": "DENY_PERMISSION", "reason": "Permission refusée"}
 
     decision = decide_access(role, resource_sensitivity, action)
+
+    if decision == "REVIEW":
+        entry = submit_for_review(
+            user_id=user_id,
+            role=role,
+            action=action,
+            resource=resource,
+            resource_sensitivity=resource_sensitivity,
+            payload=payload,
+            request_id=request_id,
+        )
+        return {
+            "authorized": False,
+            "decision": "REVIEW",
+            "pending": True,
+            "approval_id": entry["approval_id"],
+            "reason": explain_decision(decision),
+        }
 
     if not enforce_decision(decision):
         write_audit_event(user_id, action, resource, decision)

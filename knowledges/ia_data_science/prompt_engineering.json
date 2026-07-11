@@ -1,0 +1,99 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "ia_data_science.prompt.prompt_engineering",
+  "version": "1.0.0",
+  "domain": "ia_data_science",
+  "subdomain": "prompt",
+  "category": "prompt_engineering",
+  "priority": "critical",
+  "safety_level": "normal",
+  "title": "Prompt Engineering — Fondamentaux et Techniques",
+  "summary": "Prompt engineering : structuration des prompts (rôle, contexte, tâche, format, contraintes), techniques avancées (zero-shot, few-shot, chain-of-thought, tree-of-thought, ReAct, RAG), system prompt vs user prompt, paramètres de génération (température, top-p, max tokens), prompts pour agents IA, méta-prompts, évaluation de la qualité des prompts, itération et débogage, bonnes pratiques de sécurité (prompt injection).",
+  "purpose": "Permettre à ALFRED CPL d'expliquer et d'appliquer les techniques de prompt engineering pour optimiser les interactions avec les LLM.",
+  "tags": [
+    "prompt_engineering",
+    "few-shot",
+    "chain-of-thought",
+    "ReAct",
+    "system_prompt",
+    "température",
+    "RAG_prompt",
+    "agent_prompt",
+    "itération_prompt"
+  ],
+  "intents": [
+    "explain_prompt_engineering",
+    "optimize_prompt",
+    "explain_chain_of_thought",
+    "explain_few_shot"
+  ],
+  "usage_context": [
+    "IA/Data",
+    "Développeurs",
+    "Product Management"
+  ],
+  "content": {
+    "structure_prompt": {
+      "elements": "Éléments d'un bon prompt : (1) Rôle (Tu es un expert en...). (2) Contexte (Voici la situation...). (3) Tâche (Je veux que tu...). (4) Format de sortie attendu (Réponds en JSON / en liste / en tableau). (5) Contraintes (En moins de 200 mots / sans jargon technique). (6) Exemples si nécessaire.",
+      "system_vs_user": "System prompt : instructions persistantes qui définissent le comportement du modèle pour toute la conversation (rôle, règles, ton, limites). User prompt : requête spécifique de l'utilisateur. Le system prompt a plus d'autorité mais peut être contourné par une injection indirecte."
+    },
+    "techniques": {
+      "zero_few_shot": "Zero-shot : demander directement sans exemple. Few-shot : fournir des exemples de la transformation attendue (input → output). Few-shot améliore significativement la qualité pour les tâches structurées ou peu communes.",
+      "cot": "Chain-of-thought (CoT) : demander au modèle de 'réfléchir étape par étape' avant de répondre. Améliore les performances sur les tâches de raisonnement. 'Réfléchissons étape par étape' est souvent suffisant.",
+      "react": "ReAct (Reasoning + Acting) : le modèle alterne raisonnement (Thought), action (Action) et observation (Observation) pour résoudre des tâches complexes nécessitant des outils externes. Base des architectures agentiques.",
+      "parametres": "Paramètres clés : température (0 = déterministe/factuel, 1 = créatif/varié), top-p (nucleus sampling), max_tokens (longueur max de la réponse), stop_sequences (arrêter la génération à un token précis)."
+    },
+    "iteration_securite": {
+      "iteration": "Itération : tester le prompt sur des cas nominaux ET des cas limites. Identifier les comportements indésirables. Modifier une variable à la fois. Évaluer sur un ensemble de tests représentatif.",
+      "securite": "Sécurité des prompts : ne pas exposer le system prompt dans les user prompts. Valider les inputs avant d'injecter dans un prompt (injection). Ne pas injecter directement des données externes non filtrées dans le contexte d'un agent."
+    }
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "prompt engineering",
+      "few-shot",
+      "chain of thought",
+      "system prompt",
+      "température LLM",
+      "ReAct",
+      "agent prompt",
+      "itération prompt"
+    ],
+    "related_domains": [
+      "ia_data_science",
+      "securite_ia",
+      "gouvernance_alfred_cpl"
+    ],
+    "related_knowledge": [
+      "ia_data_science.fondamentaux.ia_data_science_fondamentaux",
+      "securite_ia.fondamentaux.securite_ia_fondamentaux"
+    ],
+    "retrieval_priority": 9
+  },
+  "behavior_rules": {
+    "tone": "practical",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "Prompt engineering"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": ""
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "11/07/2026",
+    "last_update": "11/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

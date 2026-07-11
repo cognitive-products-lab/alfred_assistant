@@ -37,6 +37,8 @@ class MergedKnowledgeContext:
     safety_notes: list[str] = field(default_factory=list)
     prompt_block: str = ""
     metadata: dict[str, Any] = field(default_factory=dict)
+    citations: list[dict[str, Any]] = field(default_factory=list)
+    contradictions: list[dict[str, Any]] = field(default_factory=list)
 
 
 class ContextMerger:
@@ -57,6 +59,7 @@ class ContextMerger:
         sources: list[str] = []
         safety_notes: list[str] = []
         blocks: list[str] = []
+        citations: list[dict[str, Any]] = []
 
         for item in ranked_knowledge:
             knowledge_ids.append(item.knowledge_id)
@@ -79,11 +82,19 @@ class ContextMerger:
                 if note not in safety_notes:
                     safety_notes.append(note)
 
+            citation = self._extract_citation(item)
+            if citation:
+                citations.append(citation)
+
+        contradictions = self._detect_contradictions(citations)
+
         prompt_block = self._build_prompt_block(
             query=query,
             blocks=blocks,
             safety_notes=safety_notes,
-            conversation_context=conversation_context
+            conversation_context=conversation_context,
+            citations=citations,
+            contradictions=contradictions
         )
 
         return MergedKnowledgeContext(
@@ -93,14 +104,78 @@ class ContextMerger:
             sources=sources,
             safety_notes=safety_notes,
             prompt_block=prompt_block,
+            citations=citations,
+            contradictions=contradictions,
             metadata={
                 "knowledge_count": len(knowledge_ids),
                 "domain_count": len(domains),
                 "source_count": len(sources),
                 "has_safety_notes": bool(safety_notes),
+                "citation_count": len(citations),
+                "contradiction_count": len(contradictions),
                 "conversation_context_keys": list(conversation_context.keys())
             }
         )
+
+    def _extract_citation(self, item: RankedKnowledge) -> dict[str, Any] | None:
+        """Extrait les métadonnées de source (document/version/date) d'une connaissance, si présentes."""
+        if not item.data:
+            return None
+
+        data = item.data.get("data", {})
+        source_document = data.get("source_document")
+
+        if not isinstance(source_document, dict) or not source_document:
+            return None
+
+        return {
+            "knowledge_id": item.knowledge_id,
+            "reference": source_document.get("reference", ""),
+            "name": source_document.get("name", ""),
+            "version": source_document.get("version", ""),
+            "validated_date": source_document.get("validated_date", ""),
+            "owner": source_document.get("owner", ""),
+            "document_status": source_document.get("document_status", ""),
+            "still_referenced_in": source_document.get("still_referenced_in") or [],
+        }
+
+    def _detect_contradictions(self, citations: list[dict[str, Any]]) -> list[dict[str, Any]]:
+        """Détecte les cas où deux sources citées partagent la même référence documentaire
+        mais des versions ou statuts différents — signal de contradiction à signaler à l'utilisateur."""
+        by_reference: dict[str, list[dict[str, Any]]] = {}
+
+        for citation in citations:
+            reference = citation.get("reference")
+            if not reference:
+                continue
+            by_reference.setdefault(reference, []).append(citation)
+
+        contradictions: list[dict[str, Any]] = []
+
+        for reference, group in by_reference.items():
+            versions = {c.get("version") for c in group if c.get("version")}
+            if len(group) < 2 or len(versions) < 2:
+                continue
+
+            current = next((c for c in group if c.get("document_status") == "current"), None)
+            superseded = [c for c in group if c.get("document_status") != "current"]
+
+            contradictions.append({
+                "reference": reference,
+                "versions_found": sorted(versions),
+                "current_version": current.get("version") if current else None,
+                "current_validated_date": current.get("validated_date") if current else None,
+                "superseded_versions": [
+                    {
+                        "version": c.get("version"),
+                        "validated_date": c.get("validated_date"),
+                        "still_referenced_in": c.get("still_referenced_in"),
+                    }
+                    for c in superseded
+                ],
+            })
+
+        return contradictions
 
     def _build_knowledge_block(self, item: RankedKnowledge) -> str:
         if not item.data:
@@ -128,12 +203,30 @@ class ContextMerger:
 
         tags = data.get("tags", [])
         intents = data.get("intents", [])
+        source_document = data.get("source_document")
 
         parts = [
             f"KNOWLEDGE_ID: {item.knowledge_id}",
             f"SCORE: {item.score:.1f}",
             f"TITLE: {title}"
         ]
+
+        if isinstance(source_document, dict) and source_document:
+            reference = source_document.get("reference", "")
+            version = source_document.get("version", "")
+            validated_date = source_document.get("validated_date", "")
+            owner = source_document.get("owner", "")
+            document_status = source_document.get("document_status", "")
+            still_referenced_in = source_document.get("still_referenced_in") or []
+
+            parts.append(
+                f"SOURCE: {reference} — version {version}, validée le {validated_date}"
+                f" (propriétaire : {owner or 'non renseigné'}, statut : {document_status or 'non renseigné'})"
+            )
+            if still_referenced_in:
+                parts.append(
+                    "ENCORE RÉFÉRENCÉ DANS : " + "; ".join(str(v) for v in still_referenced_in)
+                )
 
         if summary:
             parts.append(f"SUMMARY: {summary}")
@@ -189,8 +282,13 @@ class ContextMerger:
         query: str,
         blocks: list[str],
         safety_notes: list[str],
-        conversation_context: dict[str, Any]
+        conversation_context: dict[str, Any],
+        citations: list[dict[str, Any]] | None = None,
+        contradictions: list[dict[str, Any]] | None = None
     ) -> str:
+
+        citations = citations or []
+        contradictions = contradictions or []
 
         sections: list[str] = []
 
@@ -209,17 +307,51 @@ class ContextMerger:
             sections.append("\n--- SELECTED KNOWLEDGE ---")
             sections.append("No relevant knowledge found.")
 
+        if citations:
+            sections.append("\n--- SOURCES ---")
+            for citation in citations:
+                sections.append(
+                    f"- {citation.get('reference')} — version {citation.get('version')}, "
+                    f"validée le {citation.get('validated_date')} "
+                    f"(propriétaire : {citation.get('owner') or 'non renseigné'})"
+                )
+
+        if contradictions:
+            sections.append("\n--- CONTRADICTIONS DETECTED ---")
+            for contradiction in contradictions:
+                superseded_desc = ", ".join(
+                    f"v{s.get('version')} (validée le {s.get('validated_date')}, "
+                    f"encore référencée dans : {', '.join(s.get('still_referenced_in') or []) or 'non précisé'})"
+                    for s in contradiction.get("superseded_versions", [])
+                )
+                sections.append(
+                    f"- {contradiction.get('reference')} : version actuelle "
+                    f"{contradiction.get('current_version')} (validée le {contradiction.get('current_validated_date')}), "
+                    f"mais version(s) antérieure(s) encore référencée(s) : {superseded_desc}"
+                )
+
         if safety_notes:
             sections.append("\n--- SAFETY NOTES ---")
             for note in safety_notes[:8]:
                 sections.append(f"- {note}")
 
         sections.append("\n--- RESPONSE INSTRUCTION ---")
-        sections.append(
+        instruction = (
             "Use the selected knowledge to answer clearly, safely and contextually. "
             "Do not invent knowledge that is not present. "
             "If the topic is medical, legal, financial or high-risk, stay cautious."
         )
+        if citations:
+            instruction += (
+                " If a SOURCES section is present, cite the document reference, its version "
+                "and its validation date explicitly in your answer."
+            )
+        if contradictions:
+            instruction += (
+                " If a CONTRADICTIONS DETECTED section is present, explicitly flag the conflict "
+                "to the user and recommend validation by the document owner instead of picking a version yourself."
+            )
+        sections.append(instruction)
 
         return "\n".join(sections)
 

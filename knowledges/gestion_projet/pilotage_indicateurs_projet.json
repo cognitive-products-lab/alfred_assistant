@@ -1,0 +1,100 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "gestion_projet.pilotage.pilotage_indicateurs_projet",
+  "version": "1.0.0",
+  "domain": "gestion_projet",
+  "subdomain": "pilotage",
+  "category": "pilotage_projet",
+  "priority": "high",
+  "safety_level": "normal",
+  "title": "Pilotage par les Indicateurs Projet",
+  "summary": "Tableau de bord projet, KPIs de pilotage (délais, coûts, qualité, risques, satisfaction), earned value management (CPI, SPI, EAC, ETC, TCPI), indicateurs d'avancement physique (% travaux réalisés vs % temps consommé), reporting projet (hebdo, mensuel, jalons), RAG status (Red/Amber/Green), comité de pilotage.",
+  "purpose": "Permettre à ALFRED CPL d'aider à mettre en place et interpréter le tableau de bord d'un projet.",
+  "tags": [
+    "tableau_bord_projet",
+    "KPI_projet",
+    "earned_value",
+    "CPI",
+    "SPI",
+    "EAC",
+    "RAG_status",
+    "reporting_projet",
+    "comité_pilotage"
+  ],
+  "intents": [
+    "explain_project_dashboard",
+    "explain_evm",
+    "create_project_status_report"
+  ],
+  "usage_context": [
+    "Gestion de projet",
+    "PMO",
+    "Direction"
+  ],
+  "content": {
+    "kpis_pilotage": {
+      "delais": "Délais : taux de respect des jalons (jalons tenus / jalons prévus), retard cumulé en jours, SPI (Schedule Performance Index = EV/PV). SPI > 1 : en avance. SPI < 1 : en retard.",
+      "couts": "Coûts : taux de consommation budgétaire (dépenses réelles / budget), CPI (Cost Performance Index = EV/AC). CPI > 1 : sous budget. CPI < 1 : dépassement.",
+      "qualite": "Qualité : taux de défauts, taux de retest, nombre de non-conformités, satisfaction client intermédiaire.",
+      "risques": "Risques : nombre de risques rouges actifs, taux de réalisation des actions de mitigation, risques émergents.",
+      "rag": "RAG Status : Green (projet dans les clous), Amber (déviation notable mais gérée), Red (déviation critique, escalade nécessaire). Décision de passage Red → escalade automatique au comité de pilotage."
+    },
+    "evm_detail": {
+      "eac": "EAC (Estimate at Completion) = BAC/CPI. Projection du coût total si la tendance actuelle se maintient. Comparer à l'EAC initiale pour mesurer la dérive.",
+      "etc": "ETC (Estimate to Complete) = EAC - AC. Ce qu'il reste à dépenser.",
+      "tcpi": "TCPI (To Complete Performance Index) = (BAC - EV) / (BAC - AC). Performance que doit atteindre le projet pour tenir le budget. TCPI > 1 : il faut faire mieux qu'actuellement."
+    },
+    "reporting_gouvernance": {
+      "rapport_statut": "Rapport de statut projet : résumé exécutif (1 page), RAG global et par axe (délais/coûts/qualité/risques), avancement vs plan, actions en cours, décisions requises, prochaines étapes.",
+      "copil": "Comité de pilotage (COPIL) : instance de gouvernance réunissant sponsor, chef de projet, principales parties prenantes. Fréquence : mensuelle ou aux jalons. Rôle : valider les orientations, débloquer les ressources, arbitrer les conflits."
+    }
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "tableau de bord projet",
+      "KPI projet",
+      "EVM",
+      "CPI",
+      "SPI",
+      "EAC",
+      "RAG status",
+      "comité de pilotage",
+      "reporting projet"
+    ],
+    "related_domains": [
+      "gestion_projet",
+      "finance_controle"
+    ],
+    "related_knowledge": [
+      "gestion_projet.fondamentaux.gestion_projet_fondamentaux",
+      "gestion_projet.risques.gestion_risques_projet"
+    ],
+    "retrieval_priority": 8
+  },
+  "behavior_rules": {
+    "tone": "practical",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "Pilotage de projet"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": ""
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "11/07/2026",
+    "last_update": "11/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

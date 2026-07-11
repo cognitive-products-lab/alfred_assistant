@@ -1,0 +1,95 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "donnees_personnelles.violations.gestion_violations_donnees",
+  "version": "1.0.0",
+  "domain": "donnees_personnelles",
+  "subdomain": "violations",
+  "category": "violations_données",
+  "priority": "critical",
+  "safety_level": "sensitive",
+  "title": "Gestion des Violations de Données Personnelles (RGPD Art. 33-34)",
+  "summary": "Violation de données RGPD (art. 33-34) : définition, processus de détection et qualification, obligation de notification à la CNIL (72h), notification aux personnes concernées, contenu des notifications, registre des violations, critères de risque/risque élevé, exemples de violations courantes, plan de réponse, liens avec NIS2 et DORA.",
+  "purpose": "Permettre à ALFRED CPL d'expliquer la procédure de gestion des violations de données et les obligations RGPD associées.",
+  "tags": [
+    "violation_données",
+    "RGPD_art33",
+    "notification_CNIL",
+    "notification_personnes",
+    "72h",
+    "risque_élevé",
+    "registre_violations",
+    "incident_données"
+  ],
+  "intents": [
+    "explain_data_breach_management",
+    "explain_gdpr_breach_notification",
+    "explain_cnil_notification_process"
+  ],
+  "usage_context": [
+    "DPO",
+    "RSSI",
+    "Conformité",
+    "Juridique"
+  ],
+  "content": {
+    "definition_qualification": {
+      "definition": "Violation de données (art. 4§12 RGPD) : toute violation de la sécurité entraînant, de manière accidentelle ou illicite, la destruction, la perte, l'altération, la divulgation non autorisée ou l'accès non autorisé à des données personnelles. Pas seulement les cyberattaques : perte d'un ordinateur non chiffré, email envoyé au mauvais destinataire, accès interne non autorisé.",
+      "qualification": "Qualification du risque : (1) Pas de risque → documenter dans le registre interne uniquement. (2) Risque probable → notifier la CNIL dans les 72h. (3) Risque élevé → notifier la CNIL ET les personnes concernées. Critères de risque : nature des données (sensibles = risque élevé), nombre de personnes, probabilité d'utilisation malveillante, facilité d'identification."
+    },
+    "notification": {
+      "cnil_72h": "Notification CNIL (art. 33) : dans les 72h après avoir pris connaissance de la violation. Contenu : nature de la violation, catégories et nombre de personnes concernées, catégories et nombre de données, coordonnées DPO, conséquences probables, mesures prises. Notification possible en deux temps (initiale rapide + complément).",
+      "personnes": "Notification aux personnes concernées (art. 34) : si risque élevé. Sans délai. Contenu : description claire de la violation, coordonnées DPO, conséquences probables, mesures prises. Exemptions : données chiffrées, mesures rendant les données incompréhensibles, contact disproportionné (dans ce cas : communication publique).",
+      "registre_violations": "Registre interne des violations : obligatoire (art. 33§5). Toutes les violations, même sans notification. Contenu : date, description, catégories de données, nombre de personnes, mesures prises, décision de notification (ou non) et justification."
+    },
+    "nis2_dora": {
+      "nis2": "NIS2 (directive) : obligation de notification des incidents significatifs à l'ANSSI dans les 24h (alerte précoce), 72h (notification), 1 mois (rapport final). Périmètre : entités essentielles et importantes.",
+      "dora": "DORA (règlement financier) : notification des incidents TIC majeurs à l'autorité compétente (ACPR/AMF) dans des délais stricts. Lien avec les plans de continuité."
+    }
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "violation données RGPD",
+      "notification CNIL 72h",
+      "art. 33 RGPD",
+      "risque élevé violation",
+      "registre violations",
+      "incident données personnelles"
+    ],
+    "related_domains": [
+      "donnees_personnelles",
+      "information_security",
+      "reglementation_numerique"
+    ],
+    "related_knowledge": [
+      "donnees_personnelles.fondamentaux.donnees_personnelles_fondamentaux",
+      "reglementation_numerique.fondamentaux.reglementation_numerique_fondamentaux"
+    ],
+    "retrieval_priority": 9
+  },
+  "behavior_rules": {
+    "tone": "formal",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "Gestion des violations de données"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "En cas de violation active, orienter immédiatement vers le DPO et le RSSI. Délais légaux stricts — ne pas tarder."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "11/07/2026",
+    "last_update": "11/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

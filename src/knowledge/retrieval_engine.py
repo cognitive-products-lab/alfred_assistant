@@ -30,6 +30,9 @@ from src.knowledge.domain_matcher import DomainMatcher
 from src.knowledge.taxonomy_router import TaxonomyRouter
 from src.knowledge.knowledge_ranker import KnowledgeRanker, RankedKnowledge
 from src.knowledge.context_merger import ContextMerger, MergedKnowledgeContext
+from src.security.audit_trail import write_audit_event
+from src.security.cpl_role_access import filter_by_role_access
+from src.security.cpl_client_isolation import filter_by_client_access
 
 @dataclass
 class RetrievalResult:
@@ -55,6 +58,26 @@ class RetrievalResult:
         if not self.merged_context:
             return []
         return self.merged_context.domains
+
+    @property
+    def citations(self) -> list[dict[str, Any]]:
+        if not self.merged_context:
+            return []
+        return self.merged_context.citations
+
+    @property
+    def contradictions(self) -> list[dict[str, Any]]:
+        if not self.merged_context:
+            return []
+        return self.merged_context.contradictions
+
+    @property
+    def blocked_knowledge_ids(self) -> list[str]:
+        return self.metadata.get("blocked_by_role", [])
+
+    @property
+    def blocked_by_client_ids(self) -> list[str]:
+        return self.metadata.get("blocked_by_client", [])
 
 
 class KnowledgeRetrievalEngine:
@@ -85,17 +108,49 @@ class KnowledgeRetrievalEngine:
     def retrieve(
         self,
         query: str,
-        conversation_context: dict[str, Any] | None = None
+        conversation_context: dict[str, Any] | None = None,
+        user_id: str = "",
+        role: str = "",
+        request_id: str = "",
+        client_id: str = ""
     ) -> RetrievalResult:
         conversation_context = conversation_context or {}
 
         ranked = self.ranker.rank(query)
+
+        ranked, blocked_by_role = filter_by_role_access(ranked, role)
+        ranked, blocked_by_client = filter_by_client_access(ranked, client_id)
 
         merged = self.merger.merge(
             query=query,
             ranked_knowledge=ranked,
             conversation_context=conversation_context
         )
+
+        if user_id and merged.knowledge_ids:
+            self._log_knowledge_consultation(
+                knowledge_ids=merged.knowledge_ids,
+                user_id=user_id,
+                role=role,
+                request_id=request_id
+            )
+
+        if user_id and blocked_by_role:
+            self._log_blocked_by_role(
+                blocked_items=blocked_by_role,
+                user_id=user_id,
+                role=role,
+                request_id=request_id
+            )
+
+        if user_id and blocked_by_client:
+            self._log_blocked_by_client(
+                blocked_items=blocked_by_client,
+                user_id=user_id,
+                role=role,
+                client_id=client_id,
+                request_id=request_id
+            )
 
         return RetrievalResult(
             query=query,
@@ -107,18 +162,97 @@ class KnowledgeRetrievalEngine:
                 "selected_knowledge_ids": merged.knowledge_ids,
                 "selected_domains": merged.domains,
                 "sources": merged.sources,
-                "has_safety_notes": bool(merged.safety_notes)
+                "blocked_by_role": [item.knowledge_id for item in blocked_by_role],
+                "blocked_by_client": [item.knowledge_id for item in blocked_by_client],
+                "client_id": client_id,
+                "has_safety_notes": bool(merged.safety_notes),
+                "citations": merged.citations,
+                "contradictions": merged.contradictions
             }
         )
+
+    def _log_knowledge_consultation(
+        self,
+        knowledge_ids: list[str],
+        user_id: str,
+        role: str,
+        request_id: str
+    ) -> None:
+        """Trace chaque connaissance consultée dans la piste d'audit sécurité (B20)."""
+        try:
+            for knowledge_id in knowledge_ids:
+                write_audit_event(
+                    user_id=user_id,
+                    action="consult_knowledge",
+                    resource=knowledge_id,
+                    decision="ALLOW",
+                    request_id=request_id,
+                    role=role
+                )
+        except Exception:
+            # La journalisation ne doit jamais bloquer une réponse à l'utilisateur.
+            pass
+
+    def _log_blocked_by_role(
+        self,
+        blocked_items: list[RankedKnowledge],
+        user_id: str,
+        role: str,
+        request_id: str
+    ) -> None:
+        """Trace les connaissances écartées faute d'habilitation (rôle métier CPL) — B10/B20."""
+        try:
+            for item in blocked_items:
+                write_audit_event(
+                    user_id=user_id,
+                    action="consult_knowledge",
+                    resource=item.knowledge_id,
+                    decision="DENY_PERMISSION",
+                    request_id=request_id,
+                    role=role
+                )
+        except Exception:
+            pass
+
+    def _log_blocked_by_client(
+        self,
+        blocked_items: list[RankedKnowledge],
+        user_id: str,
+        role: str,
+        client_id: str,
+        request_id: str
+    ) -> None:
+        """Trace les connaissances écartées faute d'appartenance au bon client (isolation multi-tenant) — B10/B20."""
+        try:
+            for item in blocked_items:
+                write_audit_event(
+                    user_id=user_id,
+                    action="consult_knowledge",
+                    resource=item.knowledge_id,
+                    decision="DENY_CLIENT_ISOLATION",
+                    request_id=request_id,
+                    role=role,
+                    device_id=f"requested_client:{client_id or 'none'}"
+                )
+        except Exception:
+            pass
 
     def retrieve_prompt(
         self,
         query: str,
-        conversation_context: dict[str, Any] | None = None
+        conversation_context: dict[str, Any] | None = None,
+        user_id: str = "",
+        role: str = "",
+        request_id: str = "",
+        client_id: str = ""
     ) -> str:
         result = self.retrieve(
             query=query,
-            conversation_context=conversation_context
+            conversation_context=conversation_context,
+            user_id=user_id,
+            role=role,
+            request_id=request_id,
+            client_id=client_id
         )
         return result.prompt_block
 

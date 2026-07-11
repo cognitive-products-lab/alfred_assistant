@@ -89,7 +89,10 @@ class ResponseGenerator:
         else:
             response = self._fallback_response(user_message, response_context)
 
-        return self._post_process(response, response_context)
+        response = self._post_process(response, response_context)
+        response = self._ensure_source_citations(response, response_context)
+
+        return response
 
     # =========================================================
     # PROMPT SYSTÈME
@@ -225,6 +228,8 @@ RÈGLE MÉMOIRE PRIORITAIRE :
 - Tu n’écris jamais "je ne vois pas d’informations spécifiques" si une information pertinente existe dans la mémoire.
 """
 
+        knowledge_block = self._build_knowledge_block(context)
+
         history_block = ""
         if history_text and history_text.strip() != "[Début de conversation]":
             history_block = f"""
@@ -320,6 +325,7 @@ SÉCURITÉ :
 {history_block}
 {session_block}
 {memory_block}
+{knowledge_block}
 
 INSTRUCTIONS IMPÉRATIVES :
 - Tu t’adresses à {user_name}.
@@ -332,6 +338,23 @@ INSTRUCTIONS IMPÉRATIVES :
 - Pour une question technique, la vérité prime toujours sur l’envie d’aider.
 - Si tu n’as pas accès au code réel, tu le dis clairement.
 """.strip()
+
+    def _build_knowledge_block(self, context: Dict[str, Any]) -> str:
+        """Construit le bloc de contexte connaissances (B18) injecté dans le prompt système,
+        avec instruction explicite de citation de sources et de signalement de contradictions."""
+        knowledge_context = context.get("knowledge_context", "") or ""
+        if not knowledge_context.strip():
+            return ""
+
+        return f"""
+CONTEXTE CONNAISSANCES ALFRED :
+{knowledge_context}
+
+RÈGLE DE CITATION DES SOURCES :
+- Si une connaissance sélectionnée ci-dessus contient une ligne SOURCE (référence, version, date de validation), tu cites explicitement cette référence, sa version et sa date dans ta réponse.
+- Si une section CONTRADICTIONS DETECTED est présente, tu signales clairement la contradiction à l'utilisateur et tu recommandes une validation par le propriétaire du document, sans trancher toi-même entre les versions.
+- Si aucune connaissance pertinente n'est disponible pour répondre, tu le dis clairement plutôt que d'inventer une réponse.
+"""
 
     def _build_research_system_prompt(
         self,
@@ -641,6 +664,57 @@ Réponds maintenant.""".strip()
             response_clean = response_clean[:1500].rstrip() + "\n\n[...]"
 
         return response_clean if response_clean else "Je n’ai pas de réponse fiable pour le moment."
+
+    # =========================================================
+    # CITATION DES SOURCES (filet de sécurité déterministe)
+    # =========================================================
+
+    def _ensure_source_citations(self, response: str, context: Dict[str, Any]) -> str:
+        """Garantit l'affichage des sources et des contradictions détectées,
+        indépendamment de la conformité du LLM à l'instruction de citation.
+        Évite de dupliquer une citation déjà mentionnée explicitement par le LLM."""
+        citations = context.get("knowledge_citations") or []
+        contradictions = context.get("knowledge_contradictions") or []
+
+        if not citations and not contradictions:
+            return response
+
+        footer_lines: list[str] = []
+
+        if contradictions:
+            for contradiction in contradictions:
+                reference = contradiction.get("reference", "")
+                if reference and reference in response:
+                    continue
+                superseded = contradiction.get("superseded_versions") or []
+                superseded_desc = ", ".join(
+                    f"v{s.get('version')} (validée le {s.get('validated_date')})"
+                    for s in superseded
+                )
+                footer_lines.append(
+                    f"⚠️ Deux versions de {reference} semblent disponibles : la version "
+                    f"{contradiction.get('current_version')} est la plus récente "
+                    f"(validée le {contradiction.get('current_validated_date')}), mais {superseded_desc} "
+                    f"reste référencée ailleurs. Une validation par le propriétaire du document est recommandée."
+                )
+
+        contradiction_references = {c.get("reference") for c in contradictions}
+
+        for citation in citations:
+            reference = citation.get("reference", "")
+            if not reference or reference in contradiction_references:
+                continue
+            if reference in response:
+                continue
+            footer_lines.append(
+                f"— Source : {reference}, version {citation.get('version')}, "
+                f"validée le {citation.get('validated_date')}."
+            )
+
+        if not footer_lines:
+            return response
+
+        return response.rstrip() + "\n\n" + "\n".join(footer_lines)
 
     # =========================================================
     # CONFIDENCE SCORING

@@ -1,0 +1,99 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "securite_ia.gouvernance.gouvernance_modeles_ia",
+  "version": "1.0.0",
+  "domain": "securite_ia",
+  "subdomain": "gouvernance",
+  "category": "gouvernance_IA",
+  "priority": "critical",
+  "safety_level": "sensitive",
+  "title": "Gouvernance des Modèles IA en Entreprise",
+  "summary": "Gouvernance des modèles IA : registre des modèles, fiches modèle (model card), cycle de vie (développement, validation, déploiement, surveillance, retrait), validation avant déploiement (tests de performance, biais, robustesse), surveillance post-déploiement (data drift, concept drift), retrait sécurisé, traçabilité des décisions automatisées, documentation des limites, gouvernance des modèles tiers (API LLM).",
+  "purpose": "Permettre à ALFRED CPL d'expliquer comment gouverner les modèles IA dans une entreprise conforme à l'AI Act.",
+  "tags": [
+    "gouvernance_IA",
+    "registre_modèles",
+    "model_card",
+    "cycle_vie_IA",
+    "data_drift",
+    "concept_drift",
+    "validation_modèle",
+    "AI_Act",
+    "traçabilité_décisions"
+  ],
+  "intents": [
+    "explain_ai_model_governance",
+    "explain_model_lifecycle",
+    "explain_model_card",
+    "explain_model_monitoring"
+  ],
+  "usage_context": [
+    "DSI",
+    "Conformité",
+    "IA/Data",
+    "Direction"
+  ],
+  "content": {
+    "registre_modeles": {
+      "contenu": "Registre des modèles IA : inventaire de tous les modèles en production. Pour chaque modèle : identifiant, version, propriétaire métier, propriétaire technique, cas d'usage, données d'entraînement, performance (métriques), date de déploiement, statut, niveau de risque AI Act, date de prochaine revue.",
+      "model_card": "Model Card (fiche modèle) : document standard décrivant un modèle IA. Contenu : purpose (à quoi sert-il), performance (métriques sur différents sous-groupes), limitations (ce qu'il ne sait pas faire), biais identifiés, données d'entraînement, exemples d'utilisation prévue et déconseillée. Standard Google (2018), adopté par Hugging Face."
+    },
+    "cycle_vie": {
+      "validation": "Validation avant déploiement : tests de performance (précision, rappel, F1), tests de biais (performances équivalentes sur sous-groupes démographiques), tests de robustesse (perturbations des inputs), tests adversariaux, validation métier (le modèle répond-il au besoin ?), validation conformité (AI Act, RGPD).",
+      "surveillance": "Surveillance post-déploiement : data drift (les données d'entrée changent de distribution), concept drift (la relation input→output change dans le monde réel), dégradation des performances, alertes automatiques, revue périodique. Outils : Evidently AI, WhyLabs, MLflow.",
+      "retrait": "Retrait sécurisé : procédure de désactivation progressive (shadow mode, canary release inverse), communication aux utilisateurs, archivage de la documentation, RETEX."
+    },
+    "modeles_tiers": {
+      "api_llm": "Gouvernance des modèles tiers (API LLM) : identifier les modèles utilisés (OpenAI, Anthropic, Mistral...), les données transmises (anonymisation ?), les conditions d'utilisation, les SLA, les risques de dépendance, la politique de rétention des données de l'éditeur.",
+      "ai_act_obligations": "Obligations AI Act pour les déployeurs de haut risque : registre des modèles, documentation technique, surveillance, plan de gestion des risques, journalisation, mécanisme de supervision humaine."
+    }
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "gouvernance modèles IA",
+      "registre IA",
+      "model card",
+      "data drift",
+      "validation modèle IA",
+      "AI Act déployeur",
+      "cycle de vie IA"
+    ],
+    "related_domains": [
+      "securite_ia",
+      "ia_data_science",
+      "reglementation_numerique",
+      "ethique_ia"
+    ],
+    "related_knowledge": [
+      "securite_ia.fondamentaux.securite_ia_fondamentaux",
+      "reglementation_numerique.fondamentaux.reglementation_numerique_fondamentaux"
+    ],
+    "retrieval_priority": 9
+  },
+  "behavior_rules": {
+    "tone": "formal",
+    "response_style": "structured_clear",
+    "max_complexity": "high",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "Gouvernance IA entreprise"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "Pour la classification AI Act d'un système spécifique, recommander un juriste spécialisé."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "11/07/2026",
+    "last_update": "11/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

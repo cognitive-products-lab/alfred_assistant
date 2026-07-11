@@ -1,0 +1,103 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "controle_interne.pca.plan_continuite_activite",
+  "version": "1.0.0",
+  "domain": "controle_interne",
+  "subdomain": "pca",
+  "category": "continuité_activité",
+  "priority": "high",
+  "safety_level": "normal",
+  "title": "Plan de Continuité d'Activité (PCA/PRA/PCO)",
+  "summary": "PCA (Plan de Continuité d'Activité) : définition, BIA (Business Impact Analysis — RTO, RPO, MTPD), PRA (Plan de Reprise d'Activité informatique), PCO (Plan de Continuité Opérationnelle), scénarios (panne SI, incendie, pandémie, cyberattaque), procédures de continuité, cellule de crise, tests et exercices, lien NIS2/ISO 22301/DORA, documentation et maintien.",
+  "purpose": "Permettre à ALFRED CPL d'expliquer comment élaborer et maintenir un plan de continuité d'activité.",
+  "tags": [
+    "PCA",
+    "PRA",
+    "PCO",
+    "BIA",
+    "RTO",
+    "RPO",
+    "MTPD",
+    "cellule_de_crise",
+    "exercice_PCA",
+    "ISO_22301",
+    "continuité_activité"
+  ],
+  "intents": [
+    "explain_business_continuity_plan",
+    "explain_bia",
+    "explain_rto_rpo",
+    "explain_disaster_recovery"
+  ],
+  "usage_context": [
+    "DSI",
+    "Conformité",
+    "Direction",
+    "Risk Management"
+  ],
+  "content": {
+    "bia": {
+      "definition": "BIA (Business Impact Analysis) : analyse des impacts d'une interruption sur les processus métier. Pour chaque processus : RTO (Recovery Time Objective — durée maximale tolérée d'interruption), RPO (Recovery Point Objective — perte de données maximale tolérée), MTPD (Maximum Tolerable Period of Disruption), ressources minimales requises pour la reprise.",
+      "priorites": "Priorisation des processus : critique (RTO < 4h — ex : paiements, sécurité), important (RTO 4-24h), non-critique (RTO > 24h). Les ressources de reprise sont allouées selon cette priorité."
+    },
+    "pca_pra": {
+      "pca": "PCA : ensemble des mesures organisationnelles et techniques pour maintenir ou rétablir les activités critiques lors d'une crise. Inclut les procédures de travail dégradé (sans SI), l'organisation de crise, les relations fournisseurs de crise.",
+      "pra": "PRA (Plan de Reprise d'Activité) : volet informatique du PCA. Solutions techniques : backup et restauration, site de repli, cloud DR (Disaster Recovery as a Service), clustering haute disponibilité. Test de reprise : simuler la restauration depuis les sauvegardes.",
+      "scenarios": "Scénarios à couvrir : indisponibilité SI (cyberattaque/panne), indisponibilité des locaux (incendie, inondation), indisponibilité des personnes clés (pandémie, accident), défaillance fournisseur critique."
+    },
+    "tests_gouvernance": {
+      "tests": "Tests et exercices : test de restauration (vérifier que les sauvegardes sont exploitables), exercice sur table (simulation sans action réelle), exercice grandeur nature (activation partielle ou totale du PCA). Fréquence : annuelle minimum. Obligation NIS2 pour les entités essentielles.",
+      "iso22301": "ISO 22301 : norme internationale SMCA (Système de Management de la Continuité d'Activité). Structure similaire ISO HLS. Certification possible. Recommandée pour les organisations ayant des obligations contractuelles de continuité."
+    }
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "PCA",
+      "plan de continuité",
+      "PRA",
+      "BIA",
+      "RTO RPO",
+      "MTPD",
+      "cellule de crise",
+      "exercice PCA",
+      "ISO 22301"
+    ],
+    "related_domains": [
+      "controle_interne",
+      "risk_management",
+      "information_security",
+      "reglementation_numerique"
+    ],
+    "related_knowledge": [
+      "controle_interne.fondamentaux.controle_interne_fondamentaux",
+      "risk_management.business_continuity_management"
+    ],
+    "retrieval_priority": 9
+  },
+  "behavior_rules": {
+    "tone": "formal",
+    "response_style": "structured_clear",
+    "max_complexity": "high",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "Planification de la continuité d'activité"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": ""
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "11/07/2026",
+    "last_update": "11/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

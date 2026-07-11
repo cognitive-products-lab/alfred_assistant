@@ -1,0 +1,98 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "ia_data_science.rag.rag_avance_fine_tuning",
+  "version": "1.0.0",
+  "domain": "ia_data_science",
+  "subdomain": "rag",
+  "category": "RAG_fine_tuning",
+  "priority": "high",
+  "safety_level": "normal",
+  "title": "RAG Avancé et Fine-Tuning",
+  "summary": "RAG avancé : chunking strategies, reranking, hybrid search (dense + sparse), HyDE (Hypothetical Document Embeddings), self-RAG, corrective RAG, GraphRAG, évaluation de la qualité du retrieval. Fine-tuning : quand fine-tuner vs RAG, fine-tuning supervisé (SFT), RLHF, PEFT (LoRA, QLoRA), adapter les instructions (instruction tuning), risques du fine-tuning (catastrophic forgetting, alignment tax).",
+  "purpose": "Permettre à ALFRED CPL d'expliquer les techniques avancées de RAG et de fine-tuning pour construire des applications LLM robustes.",
+  "tags": [
+    "RAG_avancé",
+    "reranking",
+    "hybrid_search",
+    "HyDE",
+    "GraphRAG",
+    "fine_tuning",
+    "LoRA",
+    "QLoRA",
+    "SFT",
+    "RLHF",
+    "catastrophic_forgetting"
+  ],
+  "intents": [
+    "explain_advanced_rag",
+    "explain_fine_tuning",
+    "explain_lora",
+    "explain_rag_vs_fine_tuning"
+  ],
+  "usage_context": [
+    "IA/Data",
+    "Architecture",
+    "DevOps"
+  ],
+  "content": {
+    "rag_avance": {
+      "chunking": "Chunking stratégique : la taille et la méthode de découpage des documents impacte directement la qualité du retrieval. Fixed-size chunking (simple mais perd le contexte), sentence/paragraph splitting (plus sémantique), hierarchical chunking (chunks parent/enfants pour la précision ET le contexte). Règle : chunks ~ 512 tokens avec 10-20% de chevauchement.",
+      "reranking": "Reranking : après le retrieval initial (top-k), utiliser un modèle de reranking (cross-encoder, Cohere Rerank, ColBERT) pour trier les documents par pertinence réelle. Améliore significativement la précision au coût d'une latence supplémentaire.",
+      "hybrid_search": "Recherche hybride : combiner la recherche dense (embeddings vectoriels = sémantique) et sparse (BM25 = mots-clés). Fusion via Reciprocal Rank Fusion (RRF). Meilleure couverture : la recherche dense rate les termes exacts, la recherche sparse rate la sémantique.",
+      "graphrag": "GraphRAG (Microsoft) : enrichir le RAG avec un knowledge graph extrait des documents. Permet de répondre aux questions nécessitant une compréhension globale du corpus (pas juste une correspondance locale). Plus coûteux mais plus puissant pour les documents inter-reliés."
+    },
+    "fine_tuning": {
+      "quand": "RAG vs Fine-tuning : RAG pour injecter des connaissances récentes/spécifiques et maintenir la source traçable. Fine-tuning pour changer le style, le ton, le format de réponse ou encoder des connaissances stables à long terme. Les deux sont complémentaires.",
+      "lora_qlora": "LoRA (Low-Rank Adaptation) : technique PEFT qui ajoute des matrices de faible rang aux couches du modèle plutôt que de modifier tous les poids. Réduit les paramètres entraînables de 90%+. QLoRA : combine LoRA + quantification 4-bit pour fine-tuner sur GPU grand public.",
+      "risques": "Risques du fine-tuning : catastrophic forgetting (le modèle oublie ses connaissances générales), alignment tax (le fine-tuning peut éroder la sécurité du modèle), surapprentissage sur le dataset d'entraînement."
+    }
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "RAG avancé",
+      "chunking",
+      "reranking",
+      "hybrid search",
+      "GraphRAG",
+      "fine-tuning",
+      "LoRA",
+      "QLoRA",
+      "RAG vs fine-tuning"
+    ],
+    "related_domains": [
+      "ia_data_science",
+      "architecture_logicielle"
+    ],
+    "related_knowledge": [
+      "ia_data_science.fondamentaux.ia_data_science_fondamentaux",
+      "ia_data_science.prompt.prompt_engineering"
+    ],
+    "retrieval_priority": 8
+  },
+  "behavior_rules": {
+    "tone": "technical",
+    "response_style": "structured_clear",
+    "max_complexity": "high",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "Architecture RAG et fine-tuning"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": ""
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "11/07/2026",
+    "last_update": "11/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

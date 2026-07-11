@@ -1,0 +1,95 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "juridique_contrats.numerique.contrats_numeriques_saas",
+  "version": "1.0.0",
+  "domain": "juridique_contrats",
+  "subdomain": "numerique",
+  "category": "contrats_numériques",
+  "priority": "high",
+  "safety_level": "sensitive",
+  "title": "Contrats Numériques et SaaS",
+  "summary": "Contrats SaaS et numériques : structure (CGU, CGV, DPA, SLA, MSA), clauses clés (périmètre du service, SLA et pénalités, limitation de responsabilité, confidentialité, DPA RGPD, propriété des données, portabilité, réversibilité, résiliation, force majeure), négociation avec les éditeurs, contrats IA (utilisation des données d'entraînement), cloud souverain vs hyperscaler, enjeux des APIs.",
+  "purpose": "Permettre à ALFRED CPL d'expliquer la structure et les enjeux des contrats numériques et SaaS.",
+  "tags": [
+    "contrats_SaaS",
+    "DPA_RGPD",
+    "SLA_contrat",
+    "réversibilité_données",
+    "propriété_données",
+    "portabilité",
+    "limitation_responsabilité",
+    "cloud_souverain",
+    "contrats_IA"
+  ],
+  "intents": [
+    "explain_saas_contracts",
+    "explain_dpa_contract",
+    "explain_data_portability_clause",
+    "explain_cloud_contract"
+  ],
+  "usage_context": [
+    "Juridique",
+    "DSI",
+    "Achats",
+    "Conformité"
+  ],
+  "content": {
+    "structure_contrats": {
+      "cgv_msa": "Structure type : CGU/CGV (conditions générales d'utilisation/vente), MSA (Master Service Agreement — cadre), SOW/DPA/SLA en annexes. Pour les entreprises : le MSA prime sur les CGU si correctement négocié.",
+      "clauses_cles": "Clauses critiques à négocier : (1) Périmètre exact du service. (2) SLA (disponibilité, temps de réponse, pénalités — souvent des crédits de service, pas des remboursements réels). (3) Limitation de responsabilité (souvent plafonnée à 12 mois de facturation — à revoir pour les données critiques). (4) DPA conforme RGPD (art. 28 RGPD). (5) Propriété des données (les données clients restent la propriété du client). (6) Portabilité et réversibilité. (7) Conditions de résiliation (préavis, frais, export des données)."
+    },
+    "specifiques": {
+      "dpa": "DPA (Data Processing Agreement / Accord de traitement des données) : obligatoire sous-traitant RGPD (art. 28). Doit préciser : nature et finalités du traitement, mesures de sécurité, sous-traitants ultérieurs, modalités d'exercice des droits, transferts hors UE (Clauses Contractuelles Types si applicable).",
+      "contrats_ia": "Contrats IA : vérifier si les données transmises à l'API sont utilisées pour entraîner les modèles. Certains éditeurs utilisent les données pour l'entraînement par défaut (vérifier les paramètres). Enjeux : confidentialité des données, propriété des outputs générés, biais introduits.",
+      "cloud_souverain": "Cloud souverain vs hyperscaler : AWS/Azure/Google = loi CLOUD Act US (accès possible par les autorités US). Alternatives souveraines : OVHCloud, Outscale, Scaleway. Pour les données sensibles de l'État français : SecNumCloud (certification ANSSI) requis."
+    }
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "contrats SaaS",
+      "DPA RGPD",
+      "SLA contrat",
+      "réversibilité données",
+      "cloud souverain",
+      "CLOUD Act",
+      "portabilité données",
+      "limitation responsabilité"
+    ],
+    "related_domains": [
+      "juridique_contrats",
+      "donnees_personnelles",
+      "achats_fournisseurs"
+    ],
+    "related_knowledge": [
+      "juridique_contrats.fondamentaux.juridique_contrats_fondamentaux",
+      "donnees_personnelles.fondamentaux.donnees_personnelles_fondamentaux"
+    ],
+    "retrieval_priority": 9
+  },
+  "behavior_rules": {
+    "tone": "formal",
+    "response_style": "structured_clear",
+    "max_complexity": "high",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "Explication des contrats numériques"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "Pour la négociation contractuelle à fort enjeux, recommander un avocat spécialisé en droit du numérique."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "11/07/2026",
+    "last_update": "11/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

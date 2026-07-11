@@ -1,13 +1,13 @@
 # Rapport Conformité ALFRED — 2026-07-11
 
-**Score global** : 84% — Grade B
+**Score global** : 83% — Grade B
 
 | Métrique | Valeur |
 |---|---|
 | Total exigences | 71 |
 | Applicables | 63 |
-| Conformes | 53 |
-| En cours | 5 |
+| Conformes | 52 |
+| En cours | 6 |
 | À faire | 5 |
 | Non concerné | 8 |
 
@@ -52,7 +52,7 @@ Score : 100% (4/4 conformes)
 - ✅ `NIS2-04` Signalement incidents à l'autorité compétente — *conforme*
 
 ## ISO27001 — ISO 27001:2022
-Score : 97% (30/31 conformes)
+Score : 94% (29/31 conformes)
 
 - ✅ `ISO-01` Politique SMSI formelle approuvée — *conforme*
 - ✅ `ISO-02` Rôles et responsabilités sécurité documentés — *conforme*
@@ -68,7 +68,7 @@ Score : 97% (30/31 conformes)
 - ✅ `ISO-12` Journalisation sécurisée des activités — *conforme*
 - ✅ `ISO-13` Surveillance et détection des anomalies — *conforme*
 - ✅ `ISO-14` Gestion des vulnérabilités et patching — *conforme*
-- ✅ `ISO-15` Gestion de configuration sécurisée — baseline — *conforme*
+- ⏳ `ISO-15` Gestion de configuration sécurisée — baseline — *en_cours*
 - ✅ `ISO-16` Prévention des fuites de données — DLP — *conforme*
 - ✅ `ISO-17` Sauvegarde et plan de restauration testés — *conforme*
 - ✅ `ISO-18` Tests de sécurité automatisés — 651 tests — *conforme*
