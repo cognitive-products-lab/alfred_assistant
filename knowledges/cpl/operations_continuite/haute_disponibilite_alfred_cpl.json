@@ -1,0 +1,90 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.operations_continuite.haute_disponibilite_alfred_cpl",
+  "title": "Haute disponibilité d'ALFRED CPL en déploiement local-first",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "operations_continuite",
+  "category": "continuité opérationnelle",
+  "summary": "ALFRED CPL est conçu local-first et offline-first : sa disponibilité ne dépend donc pas d'un data center distant mais de la robustesse des composants installés chez le client (poste ou serveur local). La haute disponibilité vise ici la résilience du poste hôte, la dégradation gracieuse quand le cloud optionnel est injoignable, et la reprise rapide après un incident local plutôt qu'un objectif de disponibilité multi-datacenter type SaaS pur.",
+  "purpose": "Cadrer ce qu'ALFRED doit recommander ou expliquer en matière de disponibilité pour un déploiement ALFRED CPL, afin d'éviter de plaquer des standards SaaS cloud (SLA 99,99 % multi-région) inadaptés à une architecture locale, et de proposer des objectifs réalistes et vérifiables.",
+  "tags": ["haute_disponibilite", "local_first", "offline_first", "resilience", "degradation_gracieuse", "continuite_activite", "architecture_hybride", "alfred_cpl"],
+  "intents": ["evaluer_disponibilite_alfred_cpl", "expliquer_degradation_gracieuse", "definir_objectifs_disponibilite", "diagnostiquer_indisponibilite_locale"],
+  "usage_context": ["question client PME sur le SLA d'ALFRED CPL", "conception de l'architecture de déploiement chez un client", "diagnostic après un incident de disponibilité", "comparaison avec des solutions SaaS cloud concurrentes"],
+  "priority": "high",
+  "safety_level": "normal",
+  "content": {
+    "definition": "La haute disponibilité (HA) d'ALFRED CPL désigne la capacité du système à rester utilisable pour l'utilisateur final malgré la panne d'un composant, une coupure réseau, ou l'indisponibilité du cloud optionnel. Contrairement à un SaaS pur hébergé en data center, ALFRED CPL s'exécute majoritairement sur l'infrastructure du client (poste local ou petit serveur d'organisation), ce qui déplace la question de la HA : il ne s'agit plus de répartir la charge entre plusieurs data centers, mais de garantir que le moteur local continue de fonctionner seul, sans dépendance bloquante au cloud, et qu'il retrouve un état cohérent après redémarrage. La disponibilité se mesure donc au niveau du poste ou du petit cluster local, avec un objectif de continuité fonctionnelle en mode dégradé plutôt qu'un taux de disponibilité réseau global.",
+    "core_principles": [
+      "Local-first : les fonctions cœur (dialogue, accès à la base de connaissances, mémoire) doivent rester opérationnelles sans connexion internet.",
+      "Dégradation gracieuse : si un composant cloud optionnel (modèle distant, synchronisation) est indisponible, ALFRED CPL bascule automatiquement sur ses capacités locales plutôt que de tomber en panne totale.",
+      "Isolation des pannes : une défaillance d'un module non critique (ex. un connecteur externe) ne doit pas interrompre le cœur conversationnel ni l'accès à la base de connaissances.",
+      "Redondance proportionnée : la redondance matérielle (disque, alimentation) est recommandée pour les déploiements organisation mais reste optionnelle pour un usage particulier mono-poste, où le principal levier de résilience est la sauvegarde plutôt que le doublement d'infrastructure.",
+      "Reprise après redémarrage : le système doit retrouver son dernier état cohérent (mémoire, configuration, index de connaissances) après un arrêt brutal, sans intervention manuelle complexe.",
+      "Supervision locale légère : la détection d'un composant en panne doit se faire sur le poste lui-même, sans dépendre d'un service cloud pour être alertée d'une panne locale.",
+      "Objectifs de disponibilité différenciés par profil : un usage particulier tolère des interruptions ponctuelles liées au poste (mise en veille, redémarrage), un déploiement PME/organisation vise une continuité plus stricte sur les heures ouvrées."
+    ],
+    "rules": [
+      "Ne jamais présenter ALFRED CPL comme ayant un SLA de type SaaS multi-datacenter (ex. 99,99 %) : la disponibilité dépend de l'infrastructure du client, elle doit être formulée en termes de robustesse locale et de mode dégradé.",
+      "Toute fonctionnalité qui dépend du cloud optionnel doit avoir un comportement de repli local documenté ; si aucun repli n'existe, cela doit être signalé comme une limite connue et non contournée silencieusement.",
+      "Un incident de disponibilité doit systématiquement générer une entrée de log locale horodatée, même si l'utilisateur n'est pas notifié en temps réel.",
+      "Pour les déploiements organisation avec plusieurs postes ou un petit serveur, recommander une architecture avec au minimum un composant de secours pour les éléments jugés critiques par le client (ex. base de connaissances partagée)."
+    ],
+    "examples": [
+      {
+        "situation": "L'utilisateur perd sa connexion internet alors qu'il interroge ALFRED CPL sur une procédure interne stockée localement.",
+        "recommended_behavior": "ALFRED CPL continue de répondre en utilisant le moteur local et la base de connaissances locale, sans interruption perceptible ; seules les fonctions explicitement cloud (ex. modèle distant plus puissant, synchronisation multi-appareils) sont temporairement indisponibles et signalées comme telles.",
+        "avoid": "Faire échouer toute la session ou afficher une erreur générique bloquante alors que les fonctions locales restent utilisables."
+      },
+      {
+        "situation": "Un client PME demande un engagement de disponibilité contractuel pour ALFRED CPL comme il en aurait un avec un SaaS cloud.",
+        "recommended_behavior": "Expliquer que la disponibilité dépend en grande partie de l'infrastructure locale du client, proposer des objectifs de continuité réalistes (ex. reprise en moins de X minutes après redémarrage, fonctions cœur disponibles hors ligne) et recommander les mesures de résilience adaptées à sa taille.",
+        "avoid": "Promettre un taux de disponibilité chiffré sans tenir compte de l'infrastructure réelle du client."
+      }
+    ],
+    "best_practices": [
+      "Documenter clairement, module par module, lesquels sont strictement locaux, lesquels ont une dépendance cloud optionnelle, et quel est le comportement de repli de chacun.",
+      "Prévoir un mode dégradé explicite et visible pour l'utilisateur (indicateur d'état) plutôt qu'un échec silencieux des fonctions cloud.",
+      "Tester périodiquement le redémarrage à froid du poste ou serveur ALFRED CPL pour vérifier la reprise automatique de l'état.",
+      "Pour les déploiements multi-utilisateurs en organisation, prévoir un composant local de secours (ex. seconde instance ou snapshot prêt à restaurer) plutôt que de reporter la résilience uniquement sur des sauvegardes froides.",
+      "Aligner le niveau de résilience recommandé sur la criticité réelle de l'usage déclarée par le client, pas sur un standard générique."
+    ],
+    "anti_patterns": [
+      "Vendre ou présenter une disponibilité de type cloud multi-région alors que l'architecture est mono-poste local-first.",
+      "Concevoir des fonctions cœur qui dépendent silencieusement d'un appel cloud sans mode local de repli.",
+      "Ignorer la nécessité de tests de redémarrage réguliers en considérant la HA comme acquise dès la conception.",
+      "Confondre haute disponibilité et sauvegarde : la HA vise à éviter l'interruption, la sauvegarde vise à permettre la restauration après perte de données ; les deux sont complémentaires mais non substituables."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["haute disponibilité", "disponibilité", "offline", "mode dégradé", "resilience locale", "SLA", "reprise après panne", "local-first"],
+    "related_domains": ["information_security", "risk_management", "enterprise_architecture"],
+    "related_knowledge": ["cpl.operations_continuite.sauvegarde_restauration_alfred_cpl", "cpl.operations_continuite.supervision_systeme_alfred_cpl", "cpl.product_platform.data_protection_hosting"],
+    "retrieval_priority": 7
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["expliquer les principes de disponibilité d'ALFRED CPL à un client ou un utilisateur", "aider à concevoir une architecture de déploiement adaptée à la criticité de l'usage"],
+    "restricted_usage": ["formuler un engagement de disponibilité chiffré et contractuel sans validation par un responsable habilité de Cognitive Products Lab"],
+    "forbidden_usage": ["garantir une disponibilité de type SLA cloud pour un déploiement strictement local sans redondance réelle"],
+    "fallback_behavior": "En cas d'incertitude sur la criticité attendue par le client ou sur l'architecture réellement déployée, poser une question de clarification avant de proposer un objectif de disponibilité chiffré."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "11/07/2026",
+    "last_update": "11/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

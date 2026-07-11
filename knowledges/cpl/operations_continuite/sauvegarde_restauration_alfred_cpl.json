@@ -1,0 +1,93 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.operations_continuite.sauvegarde_restauration_alfred_cpl",
+  "title": "Sauvegarde et restauration des données d'ALFRED CPL",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "operations_continuite",
+  "category": "continuité opérationnelle",
+  "summary": "ALFRED CPL stocke localement trois catégories de données critiques — mémoire conversationnelle, base de connaissances, configuration utilisateur/organisation — qui doivent être sauvegardées régulièrement, chiffrées, et dont la restauration doit être testée périodiquement. La stratégie doit rester adaptée à un usage local (poste ou petit serveur), sans supposer une infrastructure de sauvegarde d'entreprise centralisée par défaut.",
+  "purpose": "Fournir à ALFRED des repères concrets et vérifiables pour conseiller un utilisateur ou une organisation sur la sauvegarde et la restauration de ses données ALFRED CPL, et pour qu'ALFRED applique les mêmes principes à ses propres données lorsqu'il en a la capacité technique.",
+  "tags": ["sauvegarde", "restauration", "backup", "rpo", "rto", "chiffrement", "memoire_alfred", "base_de_connaissances", "continuite_activite"],
+  "intents": ["definir_strategie_sauvegarde", "estimer_rpo_rto", "verifier_restauration", "expliquer_chiffrement_sauvegarde"],
+  "usage_context": ["mise en place initiale d'ALFRED CPL chez un client", "audit de conformité ou de sécurité", "après un incident de perte de données", "revue périodique de la continuité d'activité"],
+  "priority": "high",
+  "safety_level": "elevated",
+  "content": {
+    "definition": "La sauvegarde d'ALFRED CPL consiste à dupliquer, à intervalle défini, les données qui ne peuvent pas être régénérées automatiquement : la mémoire conversationnelle et contextuelle de l'utilisateur, la base de connaissances locale (fichiers JSON structurés et index associés), et la configuration (profils, préférences, paramètres d'intégration). La restauration est le processus inverse, qui doit permettre de reconstituer un état fonctionnel d'ALFRED CPL à partir d'une sauvegarde, dans un délai et avec une perte de données maîtrisés. Deux indicateurs cadrent cette stratégie : le RPO (Recovery Point Objective, quantité de données qu'on accepte de perdre, mesurée en temps depuis la dernière sauvegarde) et le RTO (Recovery Time Objective, délai maximal acceptable pour revenir à un état opérationnel). Pour un déploiement local-first, ces objectifs doivent rester réalistes au regard des moyens du client, sans reproduire les exigences d'un data center d'entreprise.",
+    "core_principles": [
+      "Trois catégories de données à sauvegarder distinctement : mémoire utilisateur, base de connaissances locale, configuration système/organisation — chacune avec sa propre fréquence selon sa volatilité.",
+      "La mémoire conversationnelle change en continu : une sauvegarde incrémentale quotidienne est un minimum recommandé pour un usage actif.",
+      "La base de connaissances évolue par lots (ajout de fiches, mises à jour) : une sauvegarde après chaque modification significative ou au minimum hebdomadaire est adaptée.",
+      "La configuration change rarement mais son impact en cas de perte est élevé (reconfiguration longue) : une sauvegarde à chaque modification de configuration est recommandée, en plus d'une sauvegarde périodique.",
+      "Toute sauvegarde contenant des données personnelles ou sensibles doit être chiffrée au repos, avec une clé distincte de celle utilisée pour les données en production lorsque c'est possible.",
+      "Une sauvegarde non testée n'est pas une sauvegarde fiable : un test de restauration doit être effectué à intervalle régulier, pas seulement au moment d'un incident réel.",
+      "Le lieu de stockage de la sauvegarde doit être physiquement ou logiquement distinct du poste principal (autre disque, autre volume, support externe) pour éviter qu'une panne unique détruise à la fois les données et leur sauvegarde.",
+      "RPO et RTO doivent être définis explicitement avec le client ou l'utilisateur avant la mise en production, pas déduits implicitement après un incident."
+    ],
+    "rules": [
+      "RPO recommandé par défaut pour un usage particulier : 24 heures (sauvegarde quotidienne automatique) ; pour une organisation avec usage intensif, viser un RPO de quelques heures via sauvegarde incrémentale plus fréquente.",
+      "RTO recommandé par défaut : restauration complète en moins de 2 heures pour un poste individuel, moins de 4 heures pour un déploiement organisation multi-utilisateurs, hors contrainte matérielle externe (ex. remplacement physique du poste).",
+      "Toute sauvegarde doit être chiffrée avec un algorithme reconnu (ex. AES-256) et la clé ne doit jamais être stockée dans le même emplacement que la sauvegarde chiffrée elle-même.",
+      "Un test de restauration complet (pas seulement une vérification d'intégrité de fichier) doit être réalisé au minimum une fois par trimestre pour les déploiements organisation, une fois par semestre pour un usage particulier.",
+      "Conserver au moins deux générations de sauvegarde (avant-dernière et dernière) pour permettre un retour en arrière en cas de sauvegarde corrompue ou de corruption de données propagée avant détection."
+    ],
+    "examples": [
+      {
+        "situation": "Le disque du poste hébergeant ALFRED CPL tombe en panne et l'utilisateur doit être réinstallé sur un nouveau poste.",
+        "recommended_behavior": "Restaurer dans l'ordre : configuration système, puis base de connaissances, puis mémoire utilisateur ; vérifier après restauration que l'index de la base de connaissances est cohérent et que la dernière sauvegarde de mémoire correspond bien à l'horodatage attendu, en informant l'utilisateur de la fenêtre de données potentiellement perdue depuis la dernière sauvegarde.",
+        "avoid": "Restaurer sans vérifier la cohérence de l'index, ou annoncer une restauration 'complète' sans préciser la perte de données réelle correspondant au RPO."
+      },
+      {
+        "situation": "Un client demande si ses sauvegardes ALFRED CPL sont exploitables par un tiers en cas de vol du support de sauvegarde.",
+        "recommended_behavior": "Confirmer que les sauvegardes sont chiffrées au repos et que la clé de déchiffrement n'est pas co-localisée avec le support ; recommander un stockage de la clé dans un coffre-fort séparé (gestionnaire de secrets ou support physique distinct).",
+        "avoid": "Répondre que le chiffrement du disque suffit sans vérifier que la sauvegarde elle-même est chiffrée indépendamment."
+      }
+    ],
+    "best_practices": [
+      "Automatiser la sauvegarde plutôt que de la rendre dépendante d'une action manuelle régulière de l'utilisateur.",
+      "Notifier l'utilisateur en cas d'échec d'une sauvegarde planifiée plutôt que d'échouer silencieusement.",
+      "Documenter par écrit la procédure de restauration étape par étape, testable par une personne autre que celle qui l'a écrite.",
+      "Séparer la sauvegarde de la base de connaissances (données largement partagées et peu sensibles) de la sauvegarde de la mémoire utilisateur (données personnelles, sensibilité plus élevée), avec des politiques de rétention différenciées.",
+      "Purger les sauvegardes au-delà de la politique de rétention définie, pour limiter l'exposition en cas de compromission d'un ancien support.",
+      "Vérifier l'intégrité cryptographique de chaque sauvegarde (somme de contrôle ou signature) avant de la considérer comme valide."
+    ],
+    "anti_patterns": [
+      "Se reposer uniquement sur la synchronisation cloud optionnelle comme unique mécanisme de sauvegarde, sans copie locale indépendante.",
+      "Ne jamais tester la restauration et découvrir une sauvegarde corrompue au moment d'un incident réel.",
+      "Stocker la sauvegarde chiffrée et sa clé de déchiffrement au même endroit.",
+      "Définir un RPO/RTO théorique sans jamais le confronter à un test réel de restauration chronométré."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["sauvegarde", "backup", "restauration", "RPO", "RTO", "chiffrement sauvegarde", "test de restauration", "perte de données"],
+    "related_domains": ["information_security", "risk_management", "data_governance"],
+    "related_knowledge": ["cpl.operations_continuite.haute_disponibilite_alfred_cpl", "cpl.operations_continuite.gestion_incidents_alfred_cpl", "cpl.product_platform.data_protection_hosting"],
+    "retrieval_priority": 8
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["expliquer la stratégie de sauvegarde et restauration d'ALFRED CPL", "aider à définir un RPO/RTO adapté au contexte du client"],
+    "restricted_usage": ["accéder ou manipuler des sauvegardes réelles contenant des données personnelles sans autorisation explicite du responsable des données"],
+    "forbidden_usage": ["divulguer le contenu d'une sauvegarde ou d'une clé de chiffrement", "désactiver un mécanisme de sauvegarde automatique sans confirmation explicite de l'utilisateur habilité"],
+    "fallback_behavior": "Si la criticité des données ou le contexte réglementaire du client n'est pas connu, recommander les valeurs par défaut prudentes (RPO 24h, chiffrement systématique) et inviter à consulter un responsable sécurité pour tout cas sensible."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "11/07/2026",
+    "last_update": "11/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

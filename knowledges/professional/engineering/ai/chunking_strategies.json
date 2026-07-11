@@ -1,17 +1,88 @@
 {
   "schema_version": "1.2",
   "type": "knowledge_unit",
-  "knowledge_id": "",
+  "id": "knowledges.professional.engineering.chunking_strategies",
   "title": "Strategies de chunking pour le RAG",
-  "version": "1.0.0",
-  "status": "validated",
   "domain": "professional",
   "subdomain": "engineering",
-  "category": "",
-  "priority": "medium",
-  "safety_level": "normal",
+  "status": "validated",
   "summary": "Le chunking (decoupage des documents en fragments) est une etape critique du pipeline RAG — des chunks trop petits perdent le contexte, trop grands introduisent du bruit. Les strategies avancees (semantique, hierarchique) ameliorent significativement la qualite du retrieval.",
-  "purpose": "",
+  "core_definition": "Le chunking est la strategie de decoupage des documents sources en fragments (chunks) optimaux pour l'indexation vectorielle dans un systeme RAG, equilibrant la granularite (contexte suffisant par chunk) et la precision (pas de bruit irrelevant par chunk).",
+  "knowledge": {
+    "chunking_strategies": [
+      {
+        "strategy": "Fixed-size",
+        "description": "Chunks de N tokens, avec overlap de M tokens entre chunks",
+        "pros": [
+          "Simple",
+          "Reproductible"
+        ],
+        "cons": [
+          "Coupe parfois au milieu d'une idee"
+        ],
+        "default": "500-1000 tokens, 100-200 tokens d'overlap"
+      },
+      {
+        "strategy": "Sentence-based",
+        "description": "Un chunk = N phrases",
+        "pros": [
+          "Preserve les unites de sens"
+        ],
+        "cons": [
+          "Taille variable, peut etre trop petit"
+        ]
+      },
+      {
+        "strategy": "Recursive character splitting",
+        "description": "Decoupe selon les separateurs semantiques (paragraphes, phrases, mots) dans cet ordre",
+        "pros": [
+          "Respect de la structure"
+        ],
+        "use": "LangChain RecursiveCharacterTextSplitter — defaut recommande"
+      },
+      {
+        "strategy": "Semantic chunking",
+        "description": "Regroupe les phrases semantiquement similaires — utilise les embeddings pour trouver les frontieres",
+        "pros": [
+          "Meilleure coherence semantique"
+        ],
+        "cons": [
+          "Plus lent et couteux a calculer"
+        ]
+      },
+      {
+        "strategy": "Hierarchical (parent-child)",
+        "description": "Petits chunks pour le retrieval, grands chunks pour le contexte (Small-to-Big)",
+        "pros": [
+          "Precision + contexte"
+        ],
+        "use": "LlamaIndex ParentDocumentRetriever"
+      }
+    ],
+    "evaluation": "Evaluer la qualite du chunking via la qualite des reponses RAG (RAGAS framework : faithfulness, relevancy, context precision) plutot que par inspection manuelle."
+  },
+  "example_answers": [
+    {
+      "prompt": "Quelle taille de chunk utiliser pour mon RAG sur des documents techniques ?",
+      "answer": "Point de depart : 512-1024 tokens avec 100-200 tokens d'overlap (RecursiveCharacterTextSplitter de LangChain). Pour des documents techniques avec beaucoup de formules ou de tables : plutot 256-512 tokens (les sections techniques sont denses). Pour des documents narratifs (articles, rapports) : 1024-2048 tokens pour garder le contexte. Et faire un test A/B : comparer la qualite des reponses RAG avec plusieurs tailles de chunk sur ton corpus specifique — le corpus dict le bon chunking."
+    },
+    {
+      "prompt": "Comment ameliorer les reponses de mon RAG qui sont parfois hors sujet ?",
+      "answer": "Diagnostic etape par etape : (1) Afficher les chunks recuperes pour chaque requete — les mauvaises reponses viennent souvent de mauvais chunks recuperes, (2) Si les chunks sont pertinents mais la reponse est mauvaise : le probleme est dans le prompt LLM ou la longueur du contexte, (3) Si les chunks recuperes sont irrelevants : ameliorer le chunking (plus petit pour plus de precision) ou l'embedding model (essayer des modeles specialises domaine), (4) Ajouter un re-ranking (cross-encoder) apres le retrieval initial pour re-classer les chunks par pertinence avant de les injecter dans le prompt."
+    }
+  ],
+  "response_guidance": {
+    "tone": "strategique, ancre dans la pratique",
+    "structure": [
+      "contextualiser",
+      "expliquer le concept",
+      "proposer un angle actionnable"
+    ],
+    "avoid": [
+      "trop theorique",
+      "ignorer le contexte"
+    ]
+  },
   "tags": [
     "chunking",
     "RAG",
@@ -19,43 +90,5 @@
     "embeddings",
     "tokenisation"
   ],
-  "intents": [],
-  "usage_context": [],
-  "content": {
-    "definition": "",
-    "core_principles": [],
-    "rules": [],
-    "examples": [],
-    "best_practices": [],
-    "anti_patterns": []
-  },
-  "retrieval_hints": {
-    "priority_keywords": [],
-    "related_domains": [],
-    "related_knowledge": [],
-    "retrieval_priority": 5
-  },
-  "behavior_rules": {
-    "tone": "professional",
-    "response_style": "structured_clear",
-    "max_complexity": "medium",
-    "allow_humor": false
-  },
-  "safety_notes": {
-    "allowed_usage": [],
-    "restricted_usage": [],
-    "forbidden_usage": [],
-    "fallback_behavior": "Solliciter une validation humaine si ambiguïté."
-  },
-  "metadata": {
-    "author": "ALFRED_SYSTEM",
-    "creation_date": "11/07/2026",
-    "last_update": "11/07/2026",
-    "review_status": "draft",
-    "reviewed_by": "",
-    "source_type": "manual_structured_knowledge",
-    "language": "fr",
-    "retrieval_ready": true,
-    "rag_compatible": true
-  }
+  "related_knowledge_units": []
 }

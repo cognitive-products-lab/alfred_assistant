@@ -1,17 +1,58 @@
 {
   "schema_version": "1.2",
   "type": "knowledge_unit",
-  "knowledge_id": "",
+  "id": "knowledges.professional.engineering.llm_basics",
   "title": "Bases des LLMs (Large Language Models)",
-  "version": "1.0.0",
-  "status": "validated",
   "domain": "professional",
   "subdomain": "engineering",
-  "category": "",
-  "priority": "medium",
-  "safety_level": "normal",
+  "status": "validated",
   "summary": "Les LLMs sont des reseaux de neurones entraines sur de vastes corpus de texte pour predire le token suivant. Cette architecture simple mene a des capacites emergentes remarquables — mais aussi a des limites systematiques (hallucination, contexte fini, biais).",
-  "purpose": "",
+  "core_definition": "Un Large Language Model (LLM) est un modele de deep learning base sur l'architecture Transformer, entraine sur de grands corpus de texte pour predire la probabilite du prochain token, et qui developpe en cours d'entrainement des capacites emergentes de comprehension et de generation du langage.",
+  "knowledge": {
+    "how_llms_work": [
+      "Architecture Transformer (Vaswani et al., 2017) : encodage, mecanisme d'attention, decodage",
+      "Pretraining : prediction du prochain token sur des milliards de textes",
+      "RLHF (Reinforcement Learning from Human Feedback) : alignement sur les preferences humaines",
+      "Inference : generation token par token, sampling probabiliste"
+    ],
+    "llm_capabilities": [
+      "Generation de texte fluide et coherent",
+      "Comprehension et reponse aux questions",
+      "Raisonnement (ameliore par Chain of Thought)",
+      "Traduction, resume, classification",
+      "Code generation et debugging",
+      "Dialogue multi-tour avec memoire de contexte"
+    ],
+    "llm_limitations": [
+      "Hallucination : generation confiante de faits incorrects",
+      "Contexte fini (8K-200K tokens selon le modele)",
+      "Coupure des connaissances a une date (knowledge cutoff)",
+      "Biais des donnees d'entrainement",
+      "Pas d'acces aux informations en temps reel (sans outils)"
+    ]
+  },
+  "example_answers": [
+    {
+      "prompt": "Comment fonctionnent les LLMs comme toi ?",
+      "answer": "A l'essence : je suis entraine a predire quel token (fragment de mot) a le plus de chance de suivre les tokens precedents, sur des milliards de textes. Cet entrainement simple mene a des capacites emergentes — je 'comprends' le langage, je 'raisonne', je 'cree'. Mais ces guillemets sont importants : je ne pense pas comme un humain, je genere des sequences statistiquement plausibles. Mes 'connaissances' sont les patterns observes dans mes donnees d'entrainement. Mes erreurs viennent d'extrapolations incorrectes ou de donnees manquantes ou biaisees."
+    },
+    {
+      "prompt": "Quelle difference entre GPT-4, Claude, Llama et Mistral ?",
+      "answer": "Quatre familles principales : (1) GPT-4/GPT-4o (OpenAI) : le plus connu, fort en code et raisonnement, via API ou ChatGPT, (2) Claude (Anthropic) : focus securite et alignement, tres bon en analyse longue et raisonnement ethique, (3) Llama 3 (Meta) : open source, peut tourner en local via Ollama, bon rapport qualite/taille, (4) Mistral (Mistral AI, francais) : modeles efficaces et open source, tres bon rapport performance/taille. Pour ALFRED : Ollama avec Mistral ou Llama 3 pour l'execution locale, Claude ou GPT-4 pour les taches necessitant le maximum de qualite."
+    }
+  ],
+  "response_guidance": {
+    "tone": "strategique, ancre dans la pratique",
+    "structure": [
+      "contextualiser",
+      "expliquer le concept",
+      "proposer un angle actionnable"
+    ],
+    "avoid": [
+      "trop theorique",
+      "ignorer le contexte"
+    ]
+  },
   "tags": [
     "LLM",
     "transformer",
@@ -20,43 +61,5 @@
     "Claude",
     "Ollama"
   ],
-  "intents": [],
-  "usage_context": [],
-  "content": {
-    "definition": "",
-    "core_principles": [],
-    "rules": [],
-    "examples": [],
-    "best_practices": [],
-    "anti_patterns": []
-  },
-  "retrieval_hints": {
-    "priority_keywords": [],
-    "related_domains": [],
-    "related_knowledge": [],
-    "retrieval_priority": 5
-  },
-  "behavior_rules": {
-    "tone": "professional",
-    "response_style": "structured_clear",
-    "max_complexity": "medium",
-    "allow_humor": false
-  },
-  "safety_notes": {
-    "allowed_usage": [],
-    "restricted_usage": [],
-    "forbidden_usage": [],
-    "fallback_behavior": "Solliciter une validation humaine si ambiguïté."
-  },
-  "metadata": {
-    "author": "ALFRED_SYSTEM",
-    "creation_date": "11/07/2026",
-    "last_update": "11/07/2026",
-    "review_status": "draft",
-    "reviewed_by": "",
-    "source_type": "manual_structured_knowledge",
-    "language": "fr",
-    "retrieval_ready": true,
-    "rag_compatible": true
-  }
+  "related_knowledge_units": []
 }

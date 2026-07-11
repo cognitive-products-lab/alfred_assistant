@@ -1,0 +1,89 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "sciences.physique.energie_et_thermodynamique",
+  "title": "Énergie et thermodynamique : principes et applications",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "sciences",
+  "subdomain": "physique",
+  "category": "physique fondamentale",
+  "summary": "La thermodynamique étudie l'énergie, ses transformations et les échanges de chaleur entre systèmes, à travers quatre principes fondamentaux dont la conservation de l'énergie et l'augmentation de l'entropie. Ces lois expliquent le fonctionnement des moteurs, réfrigérateurs, pompes à chaleur et fixent des limites théoriques universelles au rendement énergétique. Elles sont essentielles pour comprendre les enjeux de transition énergétique et d'efficacité des systèmes techniques.",
+  "purpose": "Permettre à ALFRED d'expliquer correctement les notions d'énergie, de chaleur et de rendement, et de contextualiser des choix techniques (chauffage, climatisation, isolation) avec des repères physiques exacts plutôt que des approximations.",
+  "tags": ["energie", "thermodynamique", "entropie", "chaleur", "rendement", "conservation_energie", "moteur", "physique"],
+  "intents": ["explain_energy_concept", "explain_thermodynamics", "compare_energy_efficiency", "give_everyday_physics_example"],
+  "usage_context": ["question sur le fonctionnement d'un moteur ou d'une pompe à chaleur", "explication du rendement énergétique d'un appareil", "culture scientifique générale", "aide aux devoirs de physique-chimie"],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "La thermodynamique est la branche de la physique qui étudie l'énergie sous toutes ses formes (mécanique, thermique, chimique, électrique) et les lois régissant ses transformations et ses échanges entre systèmes. Elle a été formalisée au XIXe siècle par Carnot, Clausius et Kelvin, initialement pour comprendre et optimiser les machines à vapeur. Elle repose sur des grandeurs d'état (énergie interne, entropie, température, pression) et sur des principes universels valables pour tout système physique, de la cellule biologique au moteur thermique en passant par l'univers entier. Elle établit notamment des limites théoriques infranchissables au rendement de conversion de la chaleur en travail.",
+    "core_principles": [
+      "Premier principe (conservation de l'énergie) : l'énergie totale d'un système isolé est constante ; elle ne se crée ni ne se détruit, elle se transforme (ΔU = Q + W).",
+      "Deuxième principe (entropie) : dans un système isolé, l'entropie ne peut que croître ou rester constante ; elle mesure le désordre et le sens irréversible des transformations spontanées.",
+      "Troisième principe : l'entropie d'un cristal parfait tend vers zéro quand la température tend vers le zéro absolu (0 K = -273,15°C).",
+      "Le rendement de Carnot fixe la limite théorique maximale de conversion de chaleur en travail pour un moteur thermique fonctionnant entre deux températures : η_max = 1 - Tfroide/Tchaude.",
+      "La chaleur se propage naturellement du corps chaud vers le corps froid ; l'inverse (réfrigérateur, pompe à chaleur) nécessite un apport de travail extérieur.",
+      "Une pompe à chaleur peut restituer plus d'énergie thermique que l'énergie électrique consommée car elle déplace de la chaleur au lieu de la créer (coefficient de performance COP souvent > 3).",
+      "L'énergie existe sous plusieurs formes interconvertibles : cinétique, potentielle, thermique, chimique, électrique, nucléaire, rayonnante.",
+      "Aucune machine ne peut avoir un rendement de 100% dès lors qu'elle implique un échange de chaleur, à cause de l'irréversibilité imposée par le second principe."
+    ],
+    "rules": [
+      "Ne jamais présenter un rendement supérieur à 100% comme physiquement possible, même pour une pompe à chaleur (le COP n'est pas un rendement au sens strict).",
+      "Distinguer chaleur (transfert d'énergie thermique) et température (mesure de l'agitation moléculaire) : ce ne sont pas des synonymes.",
+      "Toujours situer une transformation par rapport au second principe pour expliquer pourquoi elle est spontanée ou nécessite un apport d'énergie.",
+      "Utiliser le kelvin pour les calculs thermodynamiques rigoureux, pas seulement le degré Celsius."
+    ],
+    "examples": [
+      {
+        "situation": "Un utilisateur demande pourquoi une pompe à chaleur consomme moins d'énergie qu'un radiateur électrique pour chauffer une pièce.",
+        "recommended_behavior": "Expliquer que la pompe à chaleur ne crée pas de chaleur mais la déplace depuis l'extérieur, avec un COP typique de 3 à 4 : pour 1 kWh électrique consommé, elle restitue 3 à 4 kWh de chaleur.",
+        "avoid": "Dire que la pompe à chaleur produit de l'énergie 'gratuite' ou viole la conservation de l'énergie."
+      },
+      {
+        "situation": "Question sur pourquoi un glaçon fond dans un verre d'eau tiède et jamais l'inverse spontanément.",
+        "recommended_behavior": "Relier ce phénomène au second principe : la chaleur passe naturellement du chaud vers le froid, augmentant l'entropie globale du système.",
+        "avoid": "Une explication purement qualitative sans référence à l'irréversibilité thermodynamique."
+      }
+    ],
+    "best_practices": [
+      "Relier systématiquement les explications théoriques à des applications concrètes (moteur à combustion, climatisation, isolation thermique du logement).",
+      "Mentionner les ordres de grandeur réels de rendement (moteur essence ~25-35%, centrale thermique ~35-45%, moteur électrique >90%).",
+      "Clarifier la différence entre énergie renouvelable/non renouvelable et rendement thermodynamique, deux notions souvent confondues.",
+      "Employer les unités correctes (joule, watt, kelvin) et rappeler les équivalences usuelles (1 kWh = 3,6 MJ)."
+    ],
+    "anti_patterns": [
+      "Présenter le mouvement perpétuel ou un rendement de 100%+ comme envisageable techniquement.",
+      "Confondre énergie et puissance dans les explications.",
+      "Ignorer le second principe en ne parlant que de conservation de l'énergie, ce qui laisse croire que toute transformation est réversible."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["thermodynamique", "energie", "entropie", "rendement", "chaleur", "pompe a chaleur", "moteur thermique", "carnot"],
+    "related_domains": ["mathematiques", "environment", "education"],
+    "related_knowledge": ["sciences.physique.mecanique_classique", "sciences.physique.electromagnetisme_bases"],
+    "retrieval_priority": 5
+  },
+  "behavior_rules": {
+    "tone": "educational",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["explications pédagogiques", "vulgarisation scientifique", "comparaison de systèmes de chauffage"],
+    "restricted_usage": ["dimensionnement technique précis d'installations, à confirmer par un professionnel qualifié"],
+    "forbidden_usage": ["validation de dispositifs prétendant produire de l'énergie sans consommation (mouvement perpétuel)"],
+    "fallback_behavior": "Si une affirmation semble violer les principes de la thermodynamique (rendement >100%, énergie libre), signaler l'incohérence physique plutôt que de la valider."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "11/07/2026",
+    "last_update": "11/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

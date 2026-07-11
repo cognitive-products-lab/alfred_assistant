@@ -1,17 +1,82 @@
 {
   "schema_version": "1.2",
   "type": "knowledge_unit",
-  "knowledge_id": "",
+  "id": "knowledges.professional.iot.device_failover_management",
   "title": "Gestion des pannes et fallback IoT",
-  "version": "1.0.0",
-  "status": "validated",
   "domain": "professional",
   "subdomain": "iot",
-  "category": "",
-  "priority": "medium",
-  "safety_level": "normal",
+  "status": "validated",
   "summary": "Les dispositifs IoT tombent en panne, se déconnectent ou perdent leur alimentation. Un système résilient prévoit des stratégies de fallback, de dégradation gracieuse et de récupération automatique pour maintenir le service.",
-  "purpose": "",
+  "core_definition": "La gestion des pannes et du fallback dans les systèmes IoT est l'ensemble des stratégies permettant de maintenir la disponibilité et la sécurité d'un système lorsqu'un ou plusieurs composants (capteur, réseau, serveur, alimentation) tombent en panne ou deviennent indisponibles.",
+  "knowledge": {
+    "failure_types": [
+      {
+        "type": "Panne matérielle",
+        "examples": "Capteur défaillant, caméra déconnectée, disque plein"
+      },
+      {
+        "type": "Panne réseau",
+        "examples": "Coupure Wi-Fi, timeout API, latence excessive"
+      },
+      {
+        "type": "Panne logicielle",
+        "examples": "Crash du processus, deadlock, fuite mémoire"
+      },
+      {
+        "type": "Panne alimentation",
+        "examples": "Coupure secteur, batterie vide"
+      },
+      {
+        "type": "Dégradation de performance",
+        "examples": "Latence élevée, qualité réduite, erreurs intermittentes"
+      }
+    ],
+    "resilience_strategies": [
+      {
+        "strategy": "Fallback gracieux",
+        "description": "Si le composant principal échoue, basculer sur une alternative de moindre qualité plutôt qu'échouer complètement",
+        "alfred_example": "Si llava échoue pour l'analyse caméra, répondre 'Je ne peux pas analyser l'image en ce moment' au lieu de planter"
+      },
+      {
+        "strategy": "Circuit breaker",
+        "description": "Arrêter d'appeler un service défaillant et basculer en mode dégradé pendant un délai",
+        "alfred_example": "Si l'API OpenAI timeout 3 fois de suite, basculer sur Ollama local"
+      },
+      {
+        "strategy": "Retry avec backoff",
+        "description": "Réessayer avec des délais croissants plutôt qu'en boucle rapide",
+        "pattern": "1s, 2s, 4s, 8s — arrêt après N tentatives"
+      },
+      {
+        "strategy": "État local persistant",
+        "description": "Sauvegarder l'état localement pour permettre la reprise après panne",
+        "alfred_example": "Mémoire SQLite — persiste après redémarrage"
+      }
+    ]
+  },
+  "example_answers": [
+    {
+      "prompt": "ALFRED plante quand la caméra est débranchée — comment corriger ?",
+      "answer": "Implémenter un fallback gracieux : détecter l'absence de caméra au démarrage et désactiver les fonctionnalités visuelles sans planter. Pattern : try/except autour de l'initialisation de la caméra, avec un état 'caméra indisponible' qui désactive les commandes visuelles et informe l'utilisateur. Un composant défaillant ne doit jamais faire tomber le système entier."
+    },
+    {
+      "prompt": "Comment gérer les timeouts quand l'API LLM est lente ?",
+      "answer": "Circuit breaker + fallback : définir un timeout (ex: 30s), si dépassé : réessayer une fois, puis basculer sur le modèle local Ollama. Informer l'utilisateur du délai. Pour les timeouts récurrents : monitorer et alerter. La règle : l'utilisateur préfère une réponse plus lente sur le modèle local plutôt qu'un silence ou une erreur."
+    }
+  ],
+  "response_guidance": {
+    "tone": "technique, pragmatique, sensible à la confidentialité",
+    "structure": [
+      "identifier le composant IoT concerné",
+      "expliquer le flux de données ou le mécanisme",
+      "pointer les risques de sécurité/confidentialité"
+    ],
+    "avoid": [
+      "ignorer les contraintes de latence et de ressources limitées",
+      "négliger la sécurité IoT",
+      "trop générique"
+    ]
+  },
   "tags": [
     "failover",
     "résilience",
@@ -22,43 +87,7 @@
     "système ambiant",
     "capteurs"
   ],
-  "intents": [],
-  "usage_context": [],
-  "content": {
-    "definition": "",
-    "core_principles": [],
-    "rules": [],
-    "examples": [],
-    "best_practices": [],
-    "anti_patterns": []
-  },
-  "retrieval_hints": {
-    "priority_keywords": [],
-    "related_domains": [],
-    "related_knowledge": [],
-    "retrieval_priority": 5
-  },
-  "behavior_rules": {
-    "tone": "professional",
-    "response_style": "structured_clear",
-    "max_complexity": "medium",
-    "allow_humor": false
-  },
-  "safety_notes": {
-    "allowed_usage": [],
-    "restricted_usage": [],
-    "forbidden_usage": [],
-    "fallback_behavior": "Solliciter une validation humaine si ambiguïté."
-  },
-  "metadata": {
-    "author": "ALFRED_SYSTEM",
-    "creation_date": "11/07/2026",
-    "last_update": "11/07/2026",
-    "review_status": "draft",
-    "reviewed_by": "",
-    "source_type": "manual_structured_knowledge",
-    "language": "fr",
-    "retrieval_ready": true,
-    "rag_compatible": true
-  }
+  "related_knowledge_units": [
+    "knowledges.professional.engineering.systeme_design.local_first_architecture"
+  ]
 }

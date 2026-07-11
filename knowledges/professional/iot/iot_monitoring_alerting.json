@@ -1,17 +1,91 @@
 {
   "schema_version": "1.2",
   "type": "knowledge_unit",
-  "knowledge_id": "",
+  "id": "knowledges.professional.iot.iot_monitoring_alerting",
   "title": "Monitoring et alerting IoT",
-  "version": "1.0.0",
-  "status": "validated",
   "domain": "professional",
   "subdomain": "iot",
-  "category": "",
-  "priority": "medium",
-  "safety_level": "normal",
+  "status": "validated",
   "summary": "Un système IoT sans monitoring est un système aveugle — on ne sait pas qu'un capteur est mort, que les données dérivent ou qu'une intrusion a eu lieu jusqu'à ce que les conséquences arrivent. Le monitoring préventif évite les surprises.",
-  "purpose": "",
+  "core_definition": "Le monitoring IoT est la surveillance continue des dispositifs, des flux de données et des métriques systèmes pour détecter les anomalies, les pannes et les dérives avant qu'elles n'impactent le service. L'alerting déclenche des notifications selon des seuils définis.",
+  "knowledge": {
+    "monitoring_dimensions": [
+      {
+        "dimension": "Disponibilité des dispositifs",
+        "metrics": [
+          "Last seen timestamp",
+          "Heartbeat manqués",
+          "Taux de perte de paquets"
+        ]
+      },
+      {
+        "dimension": "Qualité des données",
+        "metrics": [
+          "Valeurs hors plage",
+          "Taux de valeurs manquantes",
+          "Drift de calibration"
+        ]
+      },
+      {
+        "dimension": "Performance système",
+        "metrics": [
+          "Latence MQTT",
+          "CPU/RAM du hub",
+          "Espace disque"
+        ]
+      },
+      {
+        "dimension": "Sécurité",
+        "metrics": [
+          "Connexions inattendues",
+          "Tentatives d'authentification échouées",
+          "Trafic réseau anormal"
+        ]
+      }
+    ],
+    "alerting_tools": [
+      {
+        "tool": "Grafana Alerting",
+        "description": "Alertes basées sur les métriques InfluxDB — email, Slack, PushOver"
+      },
+      {
+        "tool": "Home Assistant notifications",
+        "description": "Notifications mobiles sur des conditions domotiques"
+      },
+      {
+        "tool": "Watchdog scripts",
+        "description": "Scripts cron qui vérifient la fraîcheur des données et alertent si trop vieux"
+      },
+      {
+        "tool": "MQTT watchdog",
+        "description": "Monitorer les topics de heartbeat — si silence > X min → alerte"
+      }
+    ]
+  },
+  "example_answers": [
+    {
+      "prompt": "Comment savoir si un capteur IoT est mort ou hors ligne ?",
+      "answer": "Heartbeat pattern : chaque capteur publie un message sur son topic toutes les N minutes. Un script de monitoring vérifie la fraîcheur (last_seen). Si > 2× la période → alerte. En domotique : Home Assistant a un mécanisme d'unavailability natif pour les dispositifs Zigbee/Z-Wave. Pour les capteurs MQTT custom, ajouter un timestamp à chaque publication et monitorer."
+    },
+    {
+      "prompt": "Comment recevoir une alerte si ALFRED ne répond plus ?",
+      "answer": "Watchdog process : un script externe (cron ou service systemd) vérifie régulièrement qu'ALFRED est actif (ping sur l'API locale, vérification du processus). Si silence → notification PushOver ou SMS. Et réciproquement : ALFRED peut lui-même envoyer un heartbeat régulier vers un service de monitoring (UptimeRobot en mode 'push') — si le heartbeat cesse, UptimeRobot alerte."
+    }
+  ],
+  "response_guidance": {
+    "tone": "technique, pragmatique, sensible à la confidentialité et à la sécurité",
+    "structure": [
+      "identifier le composant ou problème IoT",
+      "expliquer le mécanisme",
+      "pointer les risques",
+      "proposer la solution"
+    ],
+    "avoid": [
+      "ignorer la sécurité",
+      "négliger la contrainte de ressources",
+      "trop générique"
+    ]
+  },
   "tags": [
     "monitoring",
     "alerting",
@@ -21,43 +95,8 @@
     "IoT",
     "système ambiant"
   ],
-  "intents": [],
-  "usage_context": [],
-  "content": {
-    "definition": "",
-    "core_principles": [],
-    "rules": [],
-    "examples": [],
-    "best_practices": [],
-    "anti_patterns": []
-  },
-  "retrieval_hints": {
-    "priority_keywords": [],
-    "related_domains": [],
-    "related_knowledge": [],
-    "retrieval_priority": 5
-  },
-  "behavior_rules": {
-    "tone": "professional",
-    "response_style": "structured_clear",
-    "max_complexity": "medium",
-    "allow_humor": false
-  },
-  "safety_notes": {
-    "allowed_usage": [],
-    "restricted_usage": [],
-    "forbidden_usage": [],
-    "fallback_behavior": "Solliciter une validation humaine si ambiguïté."
-  },
-  "metadata": {
-    "author": "ALFRED_SYSTEM",
-    "creation_date": "11/07/2026",
-    "last_update": "11/07/2026",
-    "review_status": "draft",
-    "reviewed_by": "",
-    "source_type": "manual_structured_knowledge",
-    "language": "fr",
-    "retrieval_ready": true,
-    "rag_compatible": true
-  }
+  "related_knowledge_units": [
+    "knowledges.professional.engineering.systeme_design.local_first_architecture",
+    "knowledges.cpl.ethics_governance.ethical_ai_framework"
+  ]
 }

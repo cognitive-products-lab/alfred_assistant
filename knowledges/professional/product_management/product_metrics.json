@@ -1,17 +1,90 @@
 {
   "schema_version": "1.2",
   "type": "knowledge_unit",
-  "knowledge_id": "",
+  "id": "knowledges.professional.product_management.product_metrics",
   "title": "Metriques produit fondamentales",
-  "version": "1.0.0",
-  "status": "validated",
   "domain": "professional",
   "subdomain": "product_management",
-  "category": "",
-  "priority": "medium",
-  "safety_level": "normal",
+  "status": "validated",
   "summary": "Les metriques produit mesurent la sante et la performance d'un produit selon plusieurs dimensions : acquisition, activation, retention, revenue, referral (AARRR). Les bonnes metriques sont actionables, fiables et alignees avec la valeur utilisateur reelle.",
-  "purpose": "",
+  "core_definition": "Les metriques produit sont les indicateurs quantitatifs qui permettent de mesurer la performance d'un produit, d'identifier les opportunites d'amelioration et de prendre des decisions eclairees — en distinguant les metriques de sante (vanity metrics) des metriques qui revelent la valeur reelle pour les utilisateurs.",
+  "knowledge": {
+    "aarrr_framework": [
+      {
+        "metric": "Acquisition",
+        "description": "Comment les utilisateurs decouvrent le produit",
+        "examples": [
+          "CAC",
+          "Canaux d'acquisition",
+          "Trafic par source"
+        ]
+      },
+      {
+        "metric": "Activation",
+        "description": "Premier moment de valeur pour l'utilisateur",
+        "examples": [
+          "Taux d'activation",
+          "Time-to-value",
+          "Completion onboarding"
+        ]
+      },
+      {
+        "metric": "Retention",
+        "description": "Les utilisateurs reviennent-ils ?",
+        "examples": [
+          "D1/D7/D30 retention",
+          "DAU/MAU ratio",
+          "Churn rate"
+        ]
+      },
+      {
+        "metric": "Revenue",
+        "description": "Le produit genere-t-il du revenu ?",
+        "examples": [
+          "MRR/ARR",
+          "ARPU",
+          "LTV",
+          "Expansion MRR"
+        ]
+      },
+      {
+        "metric": "Referral",
+        "description": "Les utilisateurs recommandent-ils ?",
+        "examples": [
+          "NPS",
+          "Taux de referral",
+          "Coefficient viral K"
+        ]
+      }
+    ],
+    "vanity_vs_actionable": {
+      "vanity": "Impressionnant mais non actionnable — total d'inscriptions, pageviews, followers",
+      "actionable": "Revele une action a prendre — taux d'activation J7, churn par cohorte, conversion par canal"
+    },
+    "metric_hierarchy": "North Star Metric (une seule) → Input metrics (3-5, les leviers de la NSM) → Guardrail metrics (a ne pas degrader) → Operational metrics (sante systeme)"
+  },
+  "example_answers": [
+    {
+      "prompt": "Quelles metriques suivre pour un nouveau SaaS B2B ?",
+      "answer": "Phase early : (1) MRR et croissance MoM (vitale de base), (2) Churn MRR (> 3% mensuel = alarme), (3) Nombre de clients actifs et usage (est-ce qu'ils utilisent vraiment ?), (4) NPS ou CSAT (satisfaction), (5) Runway (mois de cash). Eviter de suivre trop de metriques trop tot — l'enjeu est de comprendre le comportement utilisateur, pas d'optimiser des KPIs. Les metriques se multiplient avec la maturite."
+    },
+    {
+      "prompt": "Comment savoir si une metrique est bonne ou si c'est une vanity metric ?",
+      "answer": "Test en 3 questions : (1) Est-ce que cette metrique change si le produit cree plus ou moins de valeur pour les utilisateurs ? (Si oui : bonne metrique. Si non : vanity.) (2) Est-ce qu'une action specifique peut ameliorer cette metrique ? (Les metriques actionnables ont des leviers clairs.) (3) Est-ce que l'amelioration de cette metrique se traduit en resultats business ? (NPS est bonne parce qu'il predit la retention et les referrals. Pageviews peuvent etre vides de sens.)"
+    }
+  ],
+  "response_guidance": {
+    "tone": "strategique, ancre dans la pratique",
+    "structure": [
+      "contextualiser",
+      "expliquer le concept",
+      "proposer un angle actionnable"
+    ],
+    "avoid": [
+      "trop theorique",
+      "ignorer le contexte"
+    ]
+  },
   "tags": [
     "metriques",
     "AARRR",
@@ -20,43 +93,5 @@
     "retention",
     "KPI"
   ],
-  "intents": [],
-  "usage_context": [],
-  "content": {
-    "definition": "",
-    "core_principles": [],
-    "rules": [],
-    "examples": [],
-    "best_practices": [],
-    "anti_patterns": []
-  },
-  "retrieval_hints": {
-    "priority_keywords": [],
-    "related_domains": [],
-    "related_knowledge": [],
-    "retrieval_priority": 5
-  },
-  "behavior_rules": {
-    "tone": "professional",
-    "response_style": "structured_clear",
-    "max_complexity": "medium",
-    "allow_humor": false
-  },
-  "safety_notes": {
-    "allowed_usage": [],
-    "restricted_usage": [],
-    "forbidden_usage": [],
-    "fallback_behavior": "Solliciter une validation humaine si ambiguïté."
-  },
-  "metadata": {
-    "author": "ALFRED_SYSTEM",
-    "creation_date": "11/07/2026",
-    "last_update": "11/07/2026",
-    "review_status": "draft",
-    "reviewed_by": "",
-    "source_type": "manual_structured_knowledge",
-    "language": "fr",
-    "retrieval_ready": true,
-    "rag_compatible": true
-  }
+  "related_knowledge_units": []
 }

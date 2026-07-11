@@ -1,0 +1,89 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "philosophie.logique_philosophique.raisonnement_et_argumentation",
+  "title": "Raisonnement et argumentation : structure logique et sophismes",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "philosophie",
+  "subdomain": "logique_philosophique",
+  "category": "logique_argumentation",
+  "summary": "Cette fiche présente la structure d'un argument logiquement valide, la distinction entre validité formelle et vérité des prémisses, ainsi que les sophismes (erreurs de raisonnement) les plus fréquents : ad hominem, homme de paille, pente glissante, faux dilemme. Elle permet d'analyser la solidité d'un raisonnement indépendamment de l'adhésion à sa conclusion.",
+  "purpose": "Donner à ALFRED des outils factuels pour identifier et expliquer la structure d'un argument, repérer les sophismes courants dans un raisonnement, et aider l'utilisateur à distinguer un raisonnement rigoureux d'un raisonnement fallacieux, sans jamais l'utiliser pour disqualifier une opinion de façon déloyale.",
+  "tags": ["logique", "argumentation", "sophisme", "raisonnement_valide", "ad_hominem", "homme_de_paille", "pente_glissante", "faux_dilemme", "syllogisme", "esprit_critique"],
+  "intents": ["explain_logical_argument", "identify_fallacy", "evaluate_reasoning_validity", "distinguish_valid_true", "improve_critical_thinking"],
+  "usage_context": ["Analyse d'un débat ou d'une discussion", "Aide à la rédaction d'un argumentaire", "Détection de manipulation rhétorique dans un texte", "Développement de l'esprit critique de l'utilisateur"],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "Un argument, au sens logique, est un ensemble de propositions appelées prémisses censées soutenir une conclusion. La logique formelle étudie la structure de ces enchaînements indépendamment de leur contenu concret, afin de déterminer si la conclusion découle nécessairement (ou probablement) des prémisses. Un raisonnement peut être formellement valide (la structure est correcte) sans que ses prémisses soient vraies, et inversement une conclusion vraie peut découler d'un raisonnement invalide : la logique évalue la cohérence de l'enchaînement, pas la vérité du contenu de départ.",
+    "core_principles": [
+      "Validité formelle : un argument déductif est valide si, à supposer que toutes les prémisses soient vraies, la conclusion est nécessairement vraie également, en vertu de sa seule structure logique (ex. syllogisme aristotélicien : tous les hommes sont mortels, Socrate est un homme, donc Socrate est mortel).",
+      "Solidité (soundness) : un argument est solide s'il est à la fois formellement valide ET si ses prémisses sont effectivement vraies ; un argument peut être valide mais non solide si une prémisse est fausse.",
+      "Distinction validité / vérité : un raisonnement peut être parfaitement valide dans sa forme tout en partant de prémisses fausses, produisant une conclusion fausse mais logiquement cohérente ; à l'inverse, une conclusion vraie peut résulter d'un enchaînement logiquement invalide (non-séquitur).",
+      "Raisonnement inductif vs déductif : la déduction garantit la conclusion si les prémisses sont vraies ; l'induction (généraliser à partir de cas observés) ne fournit qu'une probabilité, jamais une certitude absolue.",
+      "Sophisme ad hominem : attaquer la personne qui formule un argument (sa crédibilité, son caractère, ses intérêts) plutôt que d'examiner le contenu de son argument lui-même.",
+      "Sophisme de l'homme de paille (straw man) : déformer ou caricaturer la position d'un interlocuteur pour la rendre plus facile à attaquer, puis réfuter cette version déformée plutôt que la position réelle.",
+      "Sophisme de la pente glissante : affirmer qu'une action mènera inévitablement, par une chaîne de conséquences non démontrées, à un résultat extrême et indésirable, sans établir que chaque maillon de la chaîne est réellement probable.",
+      "Sophisme du faux dilemme : présenter une situation comme n'offrant que deux options possibles et mutuellement exclusives, alors que d'autres alternatives existent."
+    ],
+    "rules": [
+      "Toujours distinguer explicitement la validité formelle d'un raisonnement de la vérité de ses prémisses lorsqu'on analyse un argument.",
+      "Identifier un sophisme sans pour autant invalider automatiquement la conclusion défendue : un argument fallacieux peut accidentellement soutenir une conclusion vraie, et une conclusion défendue par un mauvais argument n'est pas nécessairement fausse pour autant.",
+      "Ne jamais utiliser l'identification d'un sophisme comme une arme rhétorique déloyale contre l'utilisateur, mais comme un outil pédagogique neutre.",
+      "Préciser le nom technique du sophisme identifié pour aider l'utilisateur à le reconnaître dans d'autres contextes."
+    ],
+    "examples": [
+      {
+        "situation": "Un texte affirme : 'Cette personne n'a jamais fait d'études d'économie, donc son analyse économique est forcément fausse.'",
+        "recommended_behavior": "Identifier qu'il s'agit potentiellement d'un ad hominem circonstanciel (ou d'un raccourci) si l'argument attaque la qualification de la personne plutôt que le contenu de son analyse, tout en notant que l'expertise peut légitimement être un facteur de crédibilité à nuancer selon le contexte.",
+        "avoid": "Valider ou rejeter l'analyse économique elle-même sans l'examiner sur le fond."
+      },
+      {
+        "situation": "L'utilisateur demande d'évaluer un raisonnement du type 'soit on interdit totalement X, soit on autorise tout sans limite'.",
+        "recommended_behavior": "Signaler qu'il s'agit d'un faux dilemme si d'autres options intermédiaires existent (régulation partielle, encadrement conditionnel), et les mentionner.",
+        "avoid": "Accepter implicitement qu'il n'existe que ces deux options sans les questionner."
+      }
+    ],
+    "best_practices": [
+      "Nommer précisément le type de sophisme identifié (ad hominem, homme de paille, pente glissante, faux dilemme, etc.) avec une brève définition.",
+      "Illustrer chaque sophisme par un exemple simple et neutre, non lié à un sujet politique clivant sauf si l'utilisateur le demande explicitement.",
+      "Toujours vérifier si un argument apparemment fallacieux ne serait pas en réalité un raisonnement légitime mal formulé (ex. citer l'expertise d'un auteur n'est pas toujours un sophisme d'autorité s'il s'agit d'un facteur de preuve pertinent).",
+      "Encourager l'utilisateur à appliquer ces outils à ses propres raisonnements autant qu'à ceux des autres."
+    ],
+    "anti_patterns": [
+      "Qualifier systématiquement de 'sophisme' tout argument avec lequel on n'est pas d'accord, sans analyse rigoureuse de sa structure.",
+      "Confondre l'invalidité logique d'un argument avec la fausseté de sa conclusion.",
+      "Utiliser le vocabulaire de la logique pour clore un débat au lieu d'éclairer le raisonnement de l'utilisateur."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["logique", "argumentation", "sophisme", "raisonnement valide", "ad hominem", "homme de paille", "pente glissante", "faux dilemme", "esprit critique"],
+    "related_domains": ["cognition", "philosophie", "communication"],
+    "related_knowledge": ["philosophie.epistemologie.epistemologie_bases", "aide_decision"],
+    "retrieval_priority": 6
+  },
+  "behavior_rules": {
+    "tone": "educational",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["Analyse pédagogique de la structure d'arguments", "Identification neutre de sophismes dans un texte ou un raisonnement"],
+    "restricted_usage": ["Analyse de raisonnements portant sur des sujets politiques ou sociétaux clivants, à traiter avec neutralité stricte"],
+    "forbidden_usage": ["Utiliser l'identification de sophismes pour disqualifier une opinion légitime de l'utilisateur ou d'un tiers de façon déloyale"],
+    "fallback_behavior": "En cas d'ambiguïté sur la présence d'un sophisme, rester factuel, présenter l'analyse logique de façon neutre et signaler l'incertitude plutôt que de trancher abusivement."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "11/07/2026",
+    "last_update": "11/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

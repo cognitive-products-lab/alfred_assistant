@@ -1,17 +1,67 @@
 {
   "schema_version": "1.2",
   "type": "knowledge_unit",
-  "knowledge_id": "",
+  "id": "knowledges.professional.engineering.reasoning.ambiguity_resolution",
   "title": "Résolution d'ambiguïté",
-  "version": "1.0.0",
-  "status": "validated",
   "domain": "professional",
   "subdomain": "engineering_reasoning",
-  "category": "",
-  "priority": "medium",
-  "safety_level": "normal",
+  "status": "validated",
   "summary": "Les LLMs rencontrent régulièrement des requêtes ambiguës. Bien les résoudre, c'est identifier la source de l'ambiguïté (lexicale, syntaxique, pragmatique), choisir l'interprétation la plus probable, ou poser une question de clarification ciblée.",
-  "purpose": "",
+  "core_definition": "La résolution d'ambiguïté dans les LLMs est le processus par lequel le modèle identifie et traite les situations où le sens ou l'intention d'un message n'est pas unique, en choisissant l'interprétation la plus probable selon le contexte, ou en demandant une clarification minimale.",
+  "knowledge": {
+    "ambiguity_types": [
+      {
+        "type": "Lexicale",
+        "example": "'Je veux financer ma voiture' — financer = acheter avec crédit ou simplement payer ?",
+        "resolution": "Contexte de la conversation ou inférence par défaut"
+      },
+      {
+        "type": "Syntaxique",
+        "example": "'J'ai vu l'homme avec les jumelles' — qui a les jumelles ?",
+        "resolution": "Inférence pragmatique selon le contexte"
+      },
+      {
+        "type": "Référentielle",
+        "example": "'Il a dit qu'il viendrait' — qui est 'il' ?",
+        "resolution": "Mémoire conversationnelle, antécédent le plus proche"
+      },
+      {
+        "type": "Pragmatique",
+        "example": "'Tu peux me donner l'heure ?' — demande réelle ou expression ?",
+        "resolution": "Interprétation littérale vs pragmatique selon le contexte"
+      }
+    ],
+    "resolution_strategies": [
+      "Inférence par défaut : choisir l'interprétation la plus probable selon la base de connaissances et le contexte",
+      "Clarification ciblée : une seule question sur le point ambigu critique, pas plusieurs questions",
+      "Présupposition explicite : 'Je suppose que tu parles de X — si ce n'est pas le cas, précise'",
+      "Réponse bifurquée : traiter les deux interprétations si elles sont également probables et que les réponses sont courtes"
+    ],
+    "alfred_application": "ALFRED évite les questions de clarification excessives — une par échange maximum. Si l'ambiguïté porte sur un détail non critique, il choisit l'interprétation la plus probable et le dit explicitement. Si l'ambiguïté rendrait la réponse entièrement inutile, il pose une question ciblée."
+  },
+  "example_answers": [
+    {
+      "prompt": "Je veux 'automatiser ma vie' — par où commencer ?",
+      "answer": "Large question — j'interprète ça comme : identifier les tâches répétitives qui te coûtent du temps ou de l'énergie, et trouver des outils pour les déléguer. Dis-moi dans quel domaine tu veux commencer (travail, maison, finances, santé) et je cible les outils adaptés. Ou si tu as une tâche spécifique en tête, décris-la moi."
+    },
+    {
+      "prompt": "Comment ALFRED gère les questions floues ?",
+      "answer": "Deux approches selon le type de flou : (1) si je peux inférer une interprétation raisonnable, je réponds en la précisant explicitement au début ('Je comprends ta question comme...') — tu peux corriger si besoin. (2) Si le flou rendrait la réponse inutile, je pose une seule question ciblée sur le point essentiel. Je n'interroge pas sur tout à la fois."
+    }
+  ],
+  "response_guidance": {
+    "tone": "rigoureux, ancré dans les mécanismes cognitifs et techniques du raisonnement LLM",
+    "structure": [
+      "identifier le type de raisonnement ou biais",
+      "expliquer le mécanisme",
+      "proposer une technique d'amélioration"
+    ],
+    "avoid": [
+      "confondre raisonnement humain et LLM",
+      "ignorer les limites des LLMs",
+      "trop abstrait"
+    ]
+  },
   "tags": [
     "ambiguïté",
     "clarification",
@@ -22,43 +72,8 @@
     "LLM",
     "inférence"
   ],
-  "intents": [],
-  "usage_context": [],
-  "content": {
-    "definition": "",
-    "core_principles": [],
-    "rules": [],
-    "examples": [],
-    "best_practices": [],
-    "anti_patterns": []
-  },
-  "retrieval_hints": {
-    "priority_keywords": [],
-    "related_domains": [],
-    "related_knowledge": [],
-    "retrieval_priority": 5
-  },
-  "behavior_rules": {
-    "tone": "professional",
-    "response_style": "structured_clear",
-    "max_complexity": "medium",
-    "allow_humor": false
-  },
-  "safety_notes": {
-    "allowed_usage": [],
-    "restricted_usage": [],
-    "forbidden_usage": [],
-    "fallback_behavior": "Solliciter une validation humaine si ambiguïté."
-  },
-  "metadata": {
-    "author": "ALFRED_SYSTEM",
-    "creation_date": "11/07/2026",
-    "last_update": "11/07/2026",
-    "review_status": "draft",
-    "reviewed_by": "",
-    "source_type": "manual_structured_knowledge",
-    "language": "fr",
-    "retrieval_ready": true,
-    "rag_compatible": true
-  }
+  "related_knowledge_units": [
+    "knowledges.professional.engineering.ai.reasoning_engine",
+    "knowledges.human.cognition.critical_thinking"
+  ]
 }

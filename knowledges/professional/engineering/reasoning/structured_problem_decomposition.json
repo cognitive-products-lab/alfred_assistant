@@ -1,17 +1,70 @@
 {
   "schema_version": "1.2",
   "type": "knowledge_unit",
-  "knowledge_id": "",
+  "id": "knowledges.professional.engineering.reasoning.structured_problem_decomposition",
   "title": "Décomposition structurée des problèmes",
-  "version": "1.0.0",
-  "status": "validated",
   "domain": "professional",
   "subdomain": "engineering_reasoning",
-  "category": "",
-  "priority": "medium",
-  "safety_level": "normal",
+  "status": "validated",
   "summary": "Décomposer un problème complexe en sous-problèmes indépendants (ou MECE) permet de le rendre traçable, de paralléliser le travail et de ne rien oublier. La décomposition est la première étape de tout raisonnement structuré.",
-  "purpose": "",
+  "core_definition": "La décomposition structurée des problèmes est la technique analytique qui consiste à diviser un problème complexe en parties plus petites, exhaustives et mutuellement exclusives (principe MECE), permettant une analyse systématique et une résolution progressive.",
+  "knowledge": {
+    "mece_principle": {
+      "M": "Mutually Exclusive — les catégories ne se recoupent pas",
+      "CE": "Collectively Exhaustive — toutes les catégories ensemble couvrent l'ensemble du problème",
+      "value": "Un découpage MECE évite les doublons dans l'analyse et garantit qu'aucun aspect n'est oublié"
+    },
+    "decomposition_methods": [
+      {
+        "method": "Issue tree",
+        "description": "Arbre de décomposition hiérarchique — chaque nœud se décompose en sous-questions MECE",
+        "use": "Consulting, analyse stratégique"
+      },
+      {
+        "method": "5 Pourquoi",
+        "description": "Décomposition causale — suivre la chaîne causale jusqu'à la cause racine",
+        "use": "RCA (Root Cause Analysis), debugging"
+      },
+      {
+        "method": "Fishbone / Ishikawa",
+        "description": "Décomposition par catégories de causes (Homme, Méthode, Machine, Matière, Milieu, Mesure)",
+        "use": "Qualité, manufacturing, incidents"
+      },
+      {
+        "method": "Divide and conquer algorithmique",
+        "description": "Décomposer jusqu'aux cas de base résoluble, combiner les solutions",
+        "use": "Algorithmique, coding"
+      },
+      {
+        "method": "Jobs To Be Done",
+        "description": "Décomposer le besoin utilisateur en jobs fonctionnels, émotionnels, sociaux",
+        "use": "Product management"
+      }
+    ]
+  },
+  "example_answers": [
+    {
+      "prompt": "Comment décomposer le problème 'notre taux de churn est trop élevé' ?",
+      "answer": "Issue tree MECE : (1) Par moment du churn (onboarding J0-J30 vs long-terme J30+), (2) Par segment (B2B vs B2C, ou taille entreprise), (3) Par raison déclarée (qualité produit vs prix vs concurrent vs manque d'utilisation). Pour chaque branche : quelle est la métrique et quelle est la donnée disponible pour la mesurer ? On résout en identifiant le segment qui contribue le plus au churn total — l'itération qui a le plus d'impact."
+    },
+    {
+      "prompt": "Quelle méthode utiliser pour décomposer un bug difficile ?",
+      "answer": "Les 5 Pourquoi pour la cause racine : 'Le service est lent' → Pourquoi ? → 'Les requêtes DB prennent 10s' → Pourquoi ? → 'Index manquant' → Pourquoi ? → 'Pas de process de review de migration' → Pourquoi ? → 'Pas de checklist de déploiement'. La cause racine est souvent un manque de process, pas un bug technique isolé. Fix sur la cause racine (checklist) plutôt que seulement sur le symptôme (ajouter l'index)."
+    }
+  ],
+  "response_guidance": {
+    "tone": "rigoureux, ancré dans les mécanismes cognitifs et techniques du raisonnement LLM",
+    "structure": [
+      "identifier le type de raisonnement ou biais",
+      "expliquer le mécanisme",
+      "proposer une technique d'amélioration"
+    ],
+    "avoid": [
+      "confondre raisonnement humain et LLM",
+      "ignorer les limites des LLMs",
+      "trop abstrait"
+    ]
+  },
   "tags": [
     "décomposition",
     "MECE",
@@ -22,43 +75,7 @@
     "LLM",
     "inférence"
   ],
-  "intents": [],
-  "usage_context": [],
-  "content": {
-    "definition": "",
-    "core_principles": [],
-    "rules": [],
-    "examples": [],
-    "best_practices": [],
-    "anti_patterns": []
-  },
-  "retrieval_hints": {
-    "priority_keywords": [],
-    "related_domains": [],
-    "related_knowledge": [],
-    "retrieval_priority": 5
-  },
-  "behavior_rules": {
-    "tone": "professional",
-    "response_style": "structured_clear",
-    "max_complexity": "medium",
-    "allow_humor": false
-  },
-  "safety_notes": {
-    "allowed_usage": [],
-    "restricted_usage": [],
-    "forbidden_usage": [],
-    "fallback_behavior": "Solliciter une validation humaine si ambiguïté."
-  },
-  "metadata": {
-    "author": "ALFRED_SYSTEM",
-    "creation_date": "11/07/2026",
-    "last_update": "11/07/2026",
-    "review_status": "draft",
-    "reviewed_by": "",
-    "source_type": "manual_structured_knowledge",
-    "language": "fr",
-    "retrieval_ready": true,
-    "rag_compatible": true
-  }
+  "related_knowledge_units": [
+    "knowledges.professional.engineering.ai.reasoning_engine"
+  ]
 }

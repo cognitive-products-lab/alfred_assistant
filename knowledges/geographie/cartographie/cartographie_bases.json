@@ -1,0 +1,89 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "geographie.cartographie.cartographie_bases",
+  "title": "Bases de la cartographie",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "geographie",
+  "subdomain": "cartographie",
+  "category": "cartographie",
+  "summary": "La cartographie est la science et la technique de représentation graphique de la surface terrestre ou de données spatiales sur un support plan. Elle repose sur des notions fondamentales comme la projection, l'échelle et les systèmes de coordonnées géographiques (latitude, longitude, GPS). Cette fiche couvre les principes classiques de la cartographie ainsi que les usages modernes liés aux systèmes d'information géographique (SIG) et à la cartographie numérique.",
+  "purpose": "Fournir à ALFRED les notions techniques de base pour expliquer les principes cartographiques, les systèmes de coordonnées et les usages contemporains des données géospatiales.",
+  "tags": ["cartographie", "projection_cartographique", "echelle", "coordonnees_gps", "sig", "cartographie_numerique", "geolocalisation"],
+  "intents": ["explain_map_projections", "clarify_gps_coordinates", "understand_gis_systems", "describe_digital_mapping_uses"],
+  "usage_context": ["Culture générale géographique", "Support technique pour des projets géospatiaux", "Compréhension d'outils de navigation ou de cartographie numérique", "Éducation scientifique"],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "La cartographie est la discipline qui conçoit et produit des cartes, c'est-à-dire des représentations graphiques simplifiées et normalisées d'un espace géographique ou de données associées à ce territoire. Une projection cartographique est une méthode mathématique permettant de représenter la surface courbe de la Terre sur un plan, ce qui introduit nécessairement des déformations (de forme, de surface, de distance ou de direction) qu'aucune projection ne peut totalement éviter. L'échelle d'une carte exprime le rapport entre une distance mesurée sur la carte et la distance réelle correspondante sur le terrain, déterminant le niveau de détail représentable. Les coordonnées géographiques (latitude et longitude) localisent un point à la surface terrestre dans un système de référence angulaire, exploité notamment par le système de positionnement par satellites GPS.",
+    "core_principles": [
+      "La latitude mesure la position angulaire nord-sud par rapport à l'équateur (0°) jusqu'aux pôles (90°) ; la longitude mesure la position angulaire est-ouest par rapport au méridien de référence (méridien de Greenwich, 0°).",
+      "Toute projection cartographique déforme au moins une propriété géométrique de la Terre : les projections conformes préservent les angles et les formes locales, les projections équivalentes préservent les surfaces, aucune ne préserve tout à la fois.",
+      "La projection de Mercator, très utilisée historiquement pour la navigation, conserve les angles mais déforme fortement les surfaces aux hautes latitudes, ce qui explique pourquoi le Groenland y paraît disproportionné.",
+      "L'échelle se note sous forme de fraction (ex. 1:25 000, où 1 cm sur la carte représente 25 000 cm soit 250 m sur le terrain) ; plus le dénominateur est petit, plus la carte est détaillée mais couvre un espace restreint.",
+      "Le GPS (Global Positioning System) et les systèmes équivalents (Galileo, GLONASS, BeiDou) déterminent une position au sol par triangulation des signaux émis par des satellites, avec une précision de l'ordre de quelques mètres en usage courant.",
+      "Un système d'information géographique (SIG) est un outil informatique permettant de saisir, stocker, analyser et représenter des données localisées géographiquement, en superposant plusieurs couches d'information (relief, routes, population, usage des sols).",
+      "La cartographie numérique moderne repose sur des données ouvertes ou propriétaires (OpenStreetMap, données satellitaires) et des services web permettant la navigation, la géolocalisation en temps réel et l'analyse spatiale à grande échelle."
+    ],
+    "rules": [
+      "Toujours préciser qu'une projection cartographique implique un compromis, sans projection parfaite universelle.",
+      "Distinguer clairement l'échelle graphique (rapport de réduction) de la notion d'échelle géographique (locale, régionale, mondiale) utilisée en analyse spatiale.",
+      "Rappeler que la précision d'une géolocalisation GPS dépend des conditions de réception et de la technologie utilisée.",
+      "Ne pas présenter une carte comme une représentation neutre et objective sans rappeler les choix de représentation qu'elle implique."
+    ],
+    "examples": [
+      {
+        "situation": "Un utilisateur demande pourquoi certains pays paraissent plus grands sur une carte du monde qu'en réalité.",
+        "recommended_behavior": "Expliquer le principe de déformation lié à la projection utilisée (souvent Mercator) et citer des alternatives (projection de Robinson, projection équivalente).",
+        "avoid": "Répondre uniquement par une comparaison de surfaces sans expliquer le mécanisme de projection en cause."
+      },
+      {
+        "situation": "Un utilisateur veut comprendre comment fonctionne la géolocalisation de son téléphone.",
+        "recommended_behavior": "Expliquer le principe de triangulation satellite du GPS et la combinaison possible avec d'autres sources (réseaux mobiles, Wi-Fi) pour améliorer la précision.",
+        "avoid": "Donner une explication vague ne mentionnant pas les satellites ni la notion de triangulation."
+      }
+    ],
+    "best_practices": [
+      "Illustrer les notions de projection et d'échelle par des exemples concrets et vérifiables.",
+      "Relier la cartographie classique aux usages numériques actuels (SIG, applications de navigation, données ouvertes).",
+      "Rappeler les limites techniques de la géolocalisation lorsque la précision est un enjeu.",
+      "Adapter le niveau de technicité de l'explication à la question posée."
+    ],
+    "anti_patterns": [
+      "Présenter une carte ou une projection comme totalement fidèle à la réalité sans déformation.",
+      "Confondre échelle cartographique (rapport de réduction) et échelle d'analyse géographique (locale/mondiale).",
+      "Décrire le GPS sans mentionner le principe de triangulation satellitaire.",
+      "Ignorer l'existence de systèmes de positionnement alternatifs au GPS américain."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["cartographie", "projection cartographique", "echelle", "coordonnees gps", "latitude longitude", "sig", "cartographie numerique"],
+    "related_domains": ["culture", "environment"],
+    "related_knowledge": [],
+    "retrieval_priority": 5
+  },
+  "behavior_rules": {
+    "tone": "educational",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["Explication pédagogique des principes cartographiques", "Aide à la compréhension d'outils de géolocalisation et de SIG", "Support de culture générale technique"],
+    "restricted_usage": ["Analyse de données géospatiales spécifiques nécessitant des outils dédiés"],
+    "forbidden_usage": ["Utilisation pour de la géolocalisation non consentie de personnes"],
+    "fallback_behavior": "Rester factuel et neutre sur les sujets géopolitiques sensibles, présenter plusieurs perspectives."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "11/07/2026",
+    "last_update": "11/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

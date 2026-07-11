@@ -1,0 +1,91 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "education.elearning.elearning_et_formation_digitale",
+  "title": "E-learning et formation digitale : MOOC, classe inversée, microlearning, SCORM/xAPI",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "education",
+  "subdomain": "elearning",
+  "category": "formation digitale",
+  "summary": "Présente les grands formats de la formation à distance et digitale (e-learning, MOOC, classe inversée, microlearning), ainsi que les normes techniques SCORM et xAPI qui régissent l'interopérabilité des contenus entre plateformes. Analyse les avantages (flexibilité, coût, scalabilité) et les limites (isolement, taux d'abandon, exigence d'autodiscipline) de ces modalités.",
+  "purpose": "Permettre à ALFRED de conseiller sur le choix et la conception de dispositifs de formation digitale adaptés aux besoins et contraintes de l'utilisateur, en connaissance des standards techniques et des limites pédagogiques de chaque format.",
+  "tags": ["elearning", "mooc", "classe_inversee", "microlearning", "scorm", "xapi", "formation_a_distance", "lms"],
+  "intents": ["choisir_format_formation_digitale", "comprendre_normes_elearning", "concevoir_mooc_ou_module_elearning", "evaluer_limites_formation_distance"],
+  "usage_context": ["conception d'un module de formation en ligne", "choix d'une plateforme LMS", "élaboration d'une stratégie de formation à distance en entreprise", "comparaison de formats pédagogiques digitaux"],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "L'e-learning désigne l'ensemble des dispositifs d'apprentissage qui s'appuient sur des technologies numériques pour délivrer un contenu pédagogique à distance, de manière synchrone ou asynchrone. Le MOOC (Massive Open Online Course) est un cours en ligne ouvert à un très grand nombre de participants, généralement gratuit ou à faible coût, structuré en modules avec vidéos, quiz et forums de discussion. La classe inversée (flipped classroom) est une modalité hybride où l'apprenant découvre le contenu théorique en autonomie avant la session (vidéos, lectures), le temps de présentiel ou synchrone étant réservé à la pratique, aux exercices et aux échanges. Le microlearning consiste à découper l'apprentissage en unités très courtes (quelques minutes), ciblées sur un objectif précis, adaptées à un usage mobile et à une attention limitée. Les normes SCORM (Sharable Content Object Reference Model) et xAPI (Experience API, ou Tin Can API) sont des standards techniques permettant à un contenu pédagogique numérique d'être importé, suivi et évalué de manière interopérable sur différentes plateformes LMS (Learning Management System), SCORM étant plus ancien et limité au suivi dans un LMS, xAPI étant plus récent et capable de tracer des apprentissages informels hors plateforme (mobile, simulation, terrain).",
+    "core_principles": [
+      "L'e-learning peut être synchrone (classe virtuelle en direct) ou asynchrone (contenu disponible à tout moment)",
+      "Le MOOC repose sur un modèle massif et ouvert, mais présente historiquement un taux d'achèvement faible, souvent inférieur à 10 % des inscrits",
+      "La classe inversée déplace le temps de transmission de contenu en autonomie et réserve le temps collectif à l'application et à l'interaction",
+      "Le microlearning s'appuie sur les principes cognitifs de la charge cognitive limitée et de l'effet d'espacement (spaced repetition) pour favoriser la rétention",
+      "SCORM structure le contenu en package (SCO) et communique avec le LMS pour suivre la progression et le score, mais reste limité aux interactions dans le LMS",
+      "xAPI utilise des instructions au format 'sujet-verbe-objet' (ex : 'Jean a terminé le module 3') et peut tracer des apprentissages variés y compris hors ligne",
+      "Le blended learning (formation mixte) combine présentiel et distanciel pour cumuler les avantages des deux modalités",
+      "Le taux d'engagement en e-learning dépend fortement de l'interactivité du contenu, de l'accompagnement humain et de la régularité des relances"
+    ],
+    "rules": [
+      "Choisir SCORM pour un besoin simple de suivi dans un LMS unique ; choisir xAPI pour tracer des parcours d'apprentissage multi-supports ou informels",
+      "Réserver le microlearning à des objectifs d'apprentissage ciblés et autonomes, pas à des compétences complexes nécessitant une progression longue",
+      "Prévoir un accompagnement humain (tuteur, forum animé, feedback) pour limiter le taux d'abandon caractéristique du e-learning non accompagné",
+      "Adapter le format à l'objectif pédagogique : la classe inversée convient à l'acquisition de compétences pratiques nécessitant un temps collectif de mise en application"
+    ],
+    "examples": [
+      {
+        "situation": "Une entreprise veut former rapidement ses équipes à une nouvelle procédure de sécurité",
+        "recommended_behavior": "Concevoir des modules de microlearning courts et ciblés, accessibles sur mobile, avec suivi xAPI pour tracer la complétion",
+        "avoid": "Créer un module e-learning unique de deux heures sans découpage ni suivi de progression"
+      },
+      {
+        "situation": "Un enseignant veut que ses étudiants pratiquent davantage en cours au lieu d'écouter des exposés magistraux",
+        "recommended_behavior": "Mettre en place une classe inversée : contenu théorique en vidéo à consulter avant le cours, temps de classe consacré aux exercices et cas pratiques",
+        "avoid": "Garder un format magistral classique tout en ajoutant du contenu vidéo en supplément sans réorganiser le temps de classe"
+      }
+    ],
+    "best_practices": [
+      "Découper les contenus e-learning en séquences courtes avec objectifs explicites pour limiter la charge cognitive",
+      "Intégrer des évaluations formatives régulières (quiz) pour maintenir l'engagement et vérifier la compréhension",
+      "Prévoir des interactions humaines (tutorat, forums modérés, sessions live) pour contrer l'isolement propre au distanciel",
+      "Vérifier la compatibilité SCORM/xAPI du LMS cible avant de produire des contenus, pour garantir leur réutilisabilité",
+      "Mesurer le taux de complétion et d'engagement pour ajuster le dispositif en continu"
+    ],
+    "anti_patterns": [
+      "Transposer un cours présentiel long tel quel en vidéo sans adapter le format au distanciel (effet 'PowerPoint filmé')",
+      "Lancer un MOOC ou module e-learning sans aucun accompagnement humain, favorisant l'abandon",
+      "Utiliser le microlearning pour des compétences complexes nécessitant une progression structurée et longue",
+      "Ignorer les normes d'interopérabilité (SCORM/xAPI) et produire des contenus non réutilisables sur d'autres plateformes"
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["e-learning", "MOOC", "classe inversée", "microlearning", "SCORM", "xAPI", "LMS", "formation à distance", "blended learning"],
+    "related_domains": ["professional", "data_management", "cognition"],
+    "related_knowledge": ["education.numerique_educatif.outils_numeriques_apprentissage", "education.andragogie.andragogie_formation_adultes", "education.evaluation_apprentissages.evaluation_apprentissages_bases"],
+    "retrieval_priority": 5
+  },
+  "behavior_rules": {
+    "tone": "educational",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["conseiller sur le choix de format de formation digitale", "expliquer les normes SCORM et xAPI", "aider à concevoir un module e-learning"],
+    "restricted_usage": ["recommander un LMS ou éditeur commercial précis sans connaître le contexte budgétaire et technique de l'utilisateur"],
+    "forbidden_usage": ["garantir des taux de réussite ou d'engagement précis sans données réelles"],
+    "fallback_behavior": "En l'absence d'information sur le contexte technique ou budgétaire, présenter plusieurs options génériques plutôt qu'une recommandation unique et engageante."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "11/07/2026",
+    "last_update": "11/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

@@ -1,17 +1,58 @@
 {
   "schema_version": "1.2",
   "type": "knowledge_unit",
-  "knowledge_id": "",
+  "id": "knowledges.professional.iot.camera_privacy_management",
   "title": "Gestion de la confidentialité caméra",
-  "version": "1.0.0",
-  "status": "validated",
   "domain": "professional",
   "subdomain": "iot",
-  "category": "",
-  "priority": "medium",
-  "safety_level": "normal",
+  "status": "validated",
   "summary": "Une caméra dans un système IA personnel pose des questions critiques de confidentialité : qui accède aux données, où sont-elles traitées, comment sont-elles protégées. Un design privacy-first traite les images localement et ne les partage jamais sans consentement.",
-  "purpose": "",
+  "core_definition": "La gestion de la confidentialité caméra dans les systèmes IA est l'ensemble des pratiques techniques et organisationnelles permettant d'utiliser des données visuelles (flux vidéo, images) de façon sécurisée, minimale et conforme aux droits des personnes filmées.",
+  "knowledge": {
+    "privacy_principles": [
+      "Traitement local : les images sont analysées sur le device, jamais envoyées dans le cloud sans consentement",
+      "Minimisation : ne capturer et traiter que ce qui est nécessaire (pas stocker les flux bruts)",
+      "Consentement : informer explicitement quand la caméra est active",
+      "Contrôle : l'utilisateur peut désactiver la caméra à tout moment",
+      "Transparence : signal visuel quand la caméra est en cours d'utilisation"
+    ],
+    "technical_safeguards": [
+      "Traitement on-device avec des modèles embarqués (TensorFlow Lite, ONNX Runtime)",
+      "Pas de persistance des images — traitement en flux, résultat seul conservé",
+      "Chiffrement si les images doivent être transmises",
+      "Indicateur hardware de caméra active (LED non désactivable par software)",
+      "Permissions OS granulaires avec révocation possible à tout moment"
+    ],
+    "alfred_camera_design": {
+      "mode_active": "La caméra n'est active que sur demande explicite ('regarde', 'mon expression')",
+      "processing": "Analyse par llava:7b en local — aucune image envoyée dans le cloud",
+      "storage": "Aucune image stockée — seul le résultat de l'analyse est conservé en mémoire de session",
+      "indicator": "Indication claire dans l'interface quand la caméra est active"
+    }
+  },
+  "example_answers": [
+    {
+      "prompt": "Est-ce qu'ALFRED filme en permanence ?",
+      "answer": "Non — la caméra n'est activée que sur demande explicite. Quand tu dis 'regarde' ou 'analyse mon expression', ALFRED active la caméra, capture, analyse localement (sans envoyer l'image dans le cloud), puis te répond. Aucune image n'est stockée après l'analyse. Tu peux désactiver la fonctionnalité caméra entièrement dans les paramètres."
+    },
+    {
+      "prompt": "Comment savoir si ma caméra est utilisée par ALFRED ?",
+      "answer": "L'interface affiche un indicateur visuel quand la caméra est active. Et techniquement : la caméra n'est pas accessible sans que tu aies initié une commande visuelle. La permission caméra peut aussi être retirée au niveau du système d'exploitation — ALFRED fonctionnera normalement pour toutes les fonctionnalités non-visuelles."
+    }
+  ],
+  "response_guidance": {
+    "tone": "technique, pragmatique, sensible à la confidentialité",
+    "structure": [
+      "identifier le composant IoT concerné",
+      "expliquer le flux de données ou le mécanisme",
+      "pointer les risques de sécurité/confidentialité"
+    ],
+    "avoid": [
+      "ignorer les contraintes de latence et de ressources limitées",
+      "négliger la sécurité IoT",
+      "trop générique"
+    ]
+  },
   "tags": [
     "caméra",
     "confidentialité",
@@ -22,43 +63,7 @@
     "système ambiant",
     "capteurs"
   ],
-  "intents": [],
-  "usage_context": [],
-  "content": {
-    "definition": "",
-    "core_principles": [],
-    "rules": [],
-    "examples": [],
-    "best_practices": [],
-    "anti_patterns": []
-  },
-  "retrieval_hints": {
-    "priority_keywords": [],
-    "related_domains": [],
-    "related_knowledge": [],
-    "retrieval_priority": 5
-  },
-  "behavior_rules": {
-    "tone": "professional",
-    "response_style": "structured_clear",
-    "max_complexity": "medium",
-    "allow_humor": false
-  },
-  "safety_notes": {
-    "allowed_usage": [],
-    "restricted_usage": [],
-    "forbidden_usage": [],
-    "fallback_behavior": "Solliciter une validation humaine si ambiguïté."
-  },
-  "metadata": {
-    "author": "ALFRED_SYSTEM",
-    "creation_date": "11/07/2026",
-    "last_update": "11/07/2026",
-    "review_status": "draft",
-    "reviewed_by": "",
-    "source_type": "manual_structured_knowledge",
-    "language": "fr",
-    "retrieval_ready": true,
-    "rag_compatible": true
-  }
+  "related_knowledge_units": [
+    "knowledges.professional.engineering.systeme_design.local_first_architecture"
+  ]
 }

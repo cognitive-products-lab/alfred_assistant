@@ -1,0 +1,92 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "mathematiques.mathematiques_appliquees_ia.algebre_lineaire_pour_ia",
+  "title": "Algèbre linéaire appliquée à l'IA : vecteurs, matrices, produit scalaire, embeddings",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "mathematiques",
+  "subdomain": "mathematiques_appliquees_ia",
+  "category": "algebre_lineaire_ia",
+  "summary": "L'algèbre linéaire — vecteurs, matrices, produit scalaire, espaces vectoriels — est le langage mathématique sous-jacent aux modèles d'intelligence artificielle modernes, notamment aux réseaux de neurones et aux embeddings utilisés en traitement du langage. Comprendre ces notions permet d'expliquer comment un modèle représente et compare des données (mots, images, documents) sous forme de vecteurs numériques dans un espace de grande dimension. C'est un prérequis conceptuel pour saisir le fonctionnement interne des systèmes comme ceux utilisés par ALFRED (recherche sémantique, RAG, similarité).",
+  "purpose": "Donner à ALFRED les bases pour expliquer de façon accessible comment les données sont représentées et manipulées mathématiquement dans les systèmes d'IA (embeddings, similarité cosinus, transformations matricielles), et pour relier ces notions à l'architecture technique du projet ALFRED lui-même (recherche vectorielle, RAG).",
+  "tags": ["algebre_lineaire", "vecteurs", "matrices", "produit_scalaire", "embeddings", "espace_vectoriel", "intelligence_artificielle", "similarite_cosinus"],
+  "intents": ["explain_vector_math_for_ai", "explain_embedding_concept", "explain_matrix_operation", "understand_ai_internals", "support_rag_architecture_understanding"],
+  "usage_context": ["explication du fonctionnement interne d'un modèle d'IA ou d'un système RAG", "compréhension de la notion d'embedding pour la recherche sémantique", "vulgarisation technique de l'algèbre linéaire pour un public non spécialiste"],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "L'algèbre linéaire est la branche des mathématiques qui étudie les vecteurs (listes ordonnées de nombres représentant une position ou une direction dans un espace à n dimensions), les matrices (tableaux de nombres qui représentent des transformations linéaires appliquées aux vecteurs) et les opérations qui les relient. Un vecteur v = (v1, v2, ..., vn) peut représenter n'importe quelle donnée numérisée ; en IA, un embedding est un vecteur de nombres réels (souvent des centaines ou milliers de dimensions) qui représente le sens ou les caractéristiques d'un objet (mot, phrase, image) de telle sorte que des objets sémantiquement proches ont des vecteurs proches dans cet espace. Une matrice peut transformer un vecteur (rotation, projection, changement d'échelle) via le produit matriciel, et c'est exactement ce mécanisme, répété à travers de nombreuses couches, qui constitue un réseau de neurones.",
+    "core_principles": [
+      "Le produit scalaire (dot product) de deux vecteurs u et v de même dimension est u·v = Σ ui×vi ; il mesure à quel point deux vecteurs pointent dans la même direction.",
+      "La similarité cosinus entre deux vecteurs, cos(θ) = (u·v)/(‖u‖×‖v‖), varie de -1 (opposés) à 1 (identiques en direction) et est la mesure standard de proximité sémantique entre deux embeddings, indépendamment de leur norme (longueur).",
+      "Un espace vectoriel est un ensemble de vecteurs muni de deux opérations (addition de vecteurs, multiplication par un scalaire) qui respectent des propriétés de cohérence (associativité, distributivité, existence d'un vecteur nul).",
+      "Une matrice de dimension m×n multipliée par un vecteur de dimension n produit un vecteur de dimension m : c'est l'opération de base de chaque couche d'un réseau de neurones (transformation linéaire suivie d'une fonction d'activation non linéaire).",
+      "Un embedding transforme une donnée discrète (mot, token, image) en un vecteur dense continu, appris de telle sorte que la distance ou l'angle entre vecteurs reflète une proximité sémantique ou visuelle (ex. le vecteur de « roi » moins « homme » plus « femme » est proche du vecteur de « reine »).",
+      "Dans un système RAG (Retrieval-Augmented Generation), les documents et la requête utilisateur sont convertis en embeddings, puis comparés par similarité cosinus pour retrouver les documents les plus pertinents avant de générer une réponse.",
+      "La norme (longueur) d'un vecteur v est ‖v‖ = √(Σ vi²) ; elle mesure l'amplitude du vecteur indépendamment de sa direction.",
+      "Une matrice identité I laisse tout vecteur inchangé (I×v = v) ; l'inverse d'une matrice A (notée A⁻¹, si elle existe) permet d'« annuler » la transformation qu'elle représente."
+    ],
+    "rules": [
+      "Toujours préciser que la dimension des vecteurs comparés doit être identique pour effectuer un produit scalaire ou une similarité cosinus.",
+      "Distinguer clairement similarité cosinus (angle, indépendante de la norme) et distance euclidienne (dépend de la norme) — deux embeddings peuvent être proches en cosinus mais éloignés en distance euclidienne si leurs normes diffèrent.",
+      "Rappeler qu'un embedding n'a de sens interprétable que relativement à d'autres embeddings du même espace vectoriel (produits par le même modèle) — comparer des embeddings issus de modèles différents n'est pas valide.",
+      "Ne pas confondre la dimension d'un embedding (nombre de composantes du vecteur, souvent 384, 768, 1536...) avec la taille du vocabulaire ou du corpus source.",
+      "Présenter les matrices et transformations linéaires de façon progressive (d'abord le vecteur, puis le produit scalaire, puis la matrice) plutôt que de partir directement de la notation matricielle générale."
+    ],
+    "examples": [
+      {
+        "situation": "L'utilisateur demande comment ALFRED retrouve la connaissance la plus pertinente dans sa base JSON pour répondre à une question.",
+        "recommended_behavior": "Expliquer que la question et chaque fiche de connaissance sont converties en vecteurs (embeddings) par un modèle d'encodage, puis comparées par similarité cosinus ; les fiches dont le vecteur est le plus proche de celui de la question sont sélectionnées comme contexte pertinent (mécanisme RAG).",
+        "avoid": "Décrire la recherche comme une simple recherche de mots-clés, ce qui ne correspond pas au fonctionnement réel d'une recherche vectorielle sémantique."
+      },
+      {
+        "situation": "L'utilisateur demande pourquoi les modèles de langage 'comprennent' des relations comme roi-homme+femme=reine.",
+        "recommended_behavior": "Expliquer que ces relations sémantiques émergent car les embeddings sont appris de sorte que les directions dans l'espace vectoriel encodent des régularités sémantiques (ex. la direction 'genre'), et que l'opération d'addition/soustraction de vecteurs peut donc approximer des relations analogiques.",
+        "avoid": "Présenter ce phénomène comme une preuve que le modèle 'comprend' le sens comme un humain, en anthropomorphisant le mécanisme purement géométrique/statistique."
+      }
+    ],
+    "best_practices": [
+      "Utiliser des analogies géométriques simples (points/flèches dans un espace 2D ou 3D) avant de généraliser à des espaces à des centaines de dimensions.",
+      "Relier systématiquement les notions abstraites (vecteur, matrice) à leur usage concret dans l'architecture d'ALFRED (RAG, recherche vectorielle) quand le contexte le permet.",
+      "Clarifier la différence entre les opérations mathématiques exactes (produit scalaire, norme) et leur interprétation heuristique (proximité sémantique), qui reste une approximation statistique.",
+      "Mentionner les ordres de grandeur réalistes des dimensions d'embeddings utilisés en pratique (quelques centaines à quelques milliers).",
+      "Éviter le jargon inutile quand une explication intuitive suffit au niveau de la question posée."
+    ],
+    "anti_patterns": [
+      "Expliquer les embeddings uniquement par la formule mathématique sans jamais donner d'intuition géométrique ou d'exemple concret.",
+      "Affirmer qu'un modèle d'IA 'comprend' le sens des mots au sens humain du terme, en confondant proximité vectorielle statistique et compréhension sémantique réelle.",
+      "Comparer des embeddings produits par des modèles différents comme s'ils vivaient dans le même espace vectoriel.",
+      "Confondre similarité cosinus et distance euclidienne dans une explication de recherche de similarité."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["vecteur", "matrice", "embedding", "produit_scalaire", "similarite_cosinus", "espace_vectoriel", "RAG", "reseau_de_neurones"],
+    "related_domains": ["ia_data_science", "architecture", "mathematiques"],
+    "related_knowledge": ["mathematiques.mathematiques_appliquees_ia.optimisation_et_calcul_differentiel_bases", "mathematiques.algebre.algebre_bases"],
+    "retrieval_priority": 5
+  },
+  "behavior_rules": {
+    "tone": "educational",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["vulgarisation pédagogique du fonctionnement mathématique des modèles d'IA", "explication de l'architecture technique interne d'ALFRED (RAG, embeddings)"],
+    "restricted_usage": ["explications techniques poussées nécessitant une vérification par la documentation officielle du modèle ou de la librairie réellement utilisée"],
+    "forbidden_usage": ["aucun usage dangereux identifié pour ce domaine"],
+    "fallback_behavior": "Si la question porte sur des détails d'implémentation spécifiques au modèle d'embedding réellement déployé dans ALFRED (dimension exacte, architecture précise), vérifier la configuration réelle du projet plutôt que de généraliser depuis cette fiche théorique."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "11/07/2026",
+    "last_update": "11/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

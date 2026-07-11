@@ -1,17 +1,92 @@
 {
   "schema_version": "1.2",
   "type": "knowledge_unit",
-  "knowledge_id": "",
+  "id": "knowledges.professional.iot.voice_wake_word",
   "title": "Détection du mot de réveil (wake word)",
-  "version": "1.0.0",
-  "status": "validated",
   "domain": "professional",
   "subdomain": "iot",
-  "category": "",
-  "priority": "medium",
-  "safety_level": "normal",
+  "status": "validated",
   "summary": "Le wake word est le déclencheur vocal du mode écoute — 'Hey ALFRED', 'OK Google', 'Alexa'. Sa détection locale, en temps réel et hors ligne est une fonctionnalité sensible : faux positifs = intrusion non souhaitée dans la vie privée.",
-  "purpose": "",
+  "core_definition": "La détection de wake word est la reconnaissance en temps réel d'un mot ou d'une phrase déclencheur qui active le mode d'écoute d'un assistant vocal. Elle doit fonctionner en local, avec une faible empreinte CPU, une haute précision et un taux de faux positifs minimal.",
+  "knowledge": {
+    "wake_word_solutions": [
+      {
+        "solution": "Porcupine (Picovoice)",
+        "type": "Local, propriétaire freemium",
+        "pros": [
+          "Très précis",
+          "Faible CPU",
+          "Multi-plateforme"
+        ],
+        "cons": [
+          "Licence commerciale payante",
+          "Mots de réveil limités en tier gratuit"
+        ]
+      },
+      {
+        "solution": "OpenWakeWord",
+        "type": "Local, open source",
+        "pros": [
+          "100% gratuit",
+          "Personnalisable",
+          "Python-friendly"
+        ],
+        "cons": [
+          "Moins précis que Porcupine",
+          "Plus de CPU"
+        ]
+      },
+      {
+        "solution": "Snowboy",
+        "type": "Local, open source (déprécié)",
+        "pros": [
+          "Historiquement populaire"
+        ],
+        "cons": [
+          "N'est plus maintenu — ne pas utiliser pour nouveau projet"
+        ]
+      },
+      {
+        "solution": "Whisper VAD",
+        "type": "Transcription avec détection d'activité vocale",
+        "pros": [
+          "Déjà intégré si Whisper utilisé pour STT"
+        ],
+        "cons": [
+          "Plus lent pour le réveil que les solutions dédiées"
+        ]
+      }
+    ],
+    "alfred_wake_word": {
+      "current": "Mode push-to-talk (bouton ou raccourci) — privé et sans faux positifs",
+      "planned": "OpenWakeWord pour 'Hey Alfred' en mode mains-libres optionnel",
+      "recommendation": "Le push-to-talk est recommandé par défaut pour la confidentialité — le wake word toujours-actif = microphone toujours-actif"
+    }
+  },
+  "example_answers": [
+    {
+      "prompt": "Comment ajouter 'Hey Alfred' à ALFRED ?",
+      "answer": "Deux options : OpenWakeWord (open source, Python, fonctionne en local) ou Porcupine (plus précis, freemium). OpenWakeWord se configure avec un modèle pré-entraîné ou un modèle custom entraîné avec tes propres exemples. À intégrer dans main.py : boucle d'écoute continue en thread daemon qui déclenche le pipeline STT quand le wake word est détecté."
+    },
+    {
+      "prompt": "Le mode wake word est-il sûr pour la vie privée ?",
+      "answer": "Moins que le push-to-talk. Le wake word require un microphone actif en permanence — avec traitement local si bien implémenté. Les risques : faux positifs (activation non souhaitée), accès au micro par d'autres applications. Pour ALFRED : le mode ecoute (push-to-talk) est le défaut recommandé. Le mode wake word est opt-in pour les usages mains-libres."
+    }
+  ],
+  "response_guidance": {
+    "tone": "technique, pragmatique, sensible à la confidentialité et à la sécurité",
+    "structure": [
+      "identifier le composant ou problème IoT",
+      "expliquer le mécanisme",
+      "pointer les risques",
+      "proposer la solution"
+    ],
+    "avoid": [
+      "ignorer la sécurité",
+      "négliger la contrainte de ressources",
+      "trop générique"
+    ]
+  },
   "tags": [
     "wake word",
     "microphone",
@@ -21,43 +96,8 @@
     "IoT",
     "système ambiant"
   ],
-  "intents": [],
-  "usage_context": [],
-  "content": {
-    "definition": "",
-    "core_principles": [],
-    "rules": [],
-    "examples": [],
-    "best_practices": [],
-    "anti_patterns": []
-  },
-  "retrieval_hints": {
-    "priority_keywords": [],
-    "related_domains": [],
-    "related_knowledge": [],
-    "retrieval_priority": 5
-  },
-  "behavior_rules": {
-    "tone": "professional",
-    "response_style": "structured_clear",
-    "max_complexity": "medium",
-    "allow_humor": false
-  },
-  "safety_notes": {
-    "allowed_usage": [],
-    "restricted_usage": [],
-    "forbidden_usage": [],
-    "fallback_behavior": "Solliciter une validation humaine si ambiguïté."
-  },
-  "metadata": {
-    "author": "ALFRED_SYSTEM",
-    "creation_date": "11/07/2026",
-    "last_update": "11/07/2026",
-    "review_status": "draft",
-    "reviewed_by": "",
-    "source_type": "manual_structured_knowledge",
-    "language": "fr",
-    "retrieval_ready": true,
-    "rag_compatible": true
-  }
+  "related_knowledge_units": [
+    "knowledges.professional.engineering.systeme_design.local_first_architecture",
+    "knowledges.cpl.ethics_governance.ethical_ai_framework"
+  ]
 }

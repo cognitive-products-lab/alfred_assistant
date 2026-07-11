@@ -1,0 +1,91 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.operations_continuite.gestion_incidents_alfred_cpl",
+  "title": "Gestion des incidents spécifique à ALFRED CPL",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "operations_continuite",
+  "category": "continuité opérationnelle",
+  "summary": "Le processus de gestion des incidents d'ALFRED CPL couvre la détection locale, la classification de sévérité adaptée à un déploiement local-first, l'escalade vers Cognitive Products Lab quand le support de premier niveau ne suffit pas, la communication à l'utilisateur, et le post-mortem. Il se distingue des frameworks génériques d'entreprise (ITIL, etc.) en ce qu'une part significative des incidents se produit sur l'infrastructure du client, hors visibilité directe de l'éditeur.",
+  "purpose": "Donner à ALFRED une procédure concrète et actionnable pour réagir à un incident le concernant lui-même ou le composant qu'il supervise, savoir quand alerter l'utilisateur, quand escalader vers Cognitive Products Lab, et comment documenter l'incident pour capitaliser dessus.",
+  "tags": ["gestion_incidents", "severite", "escalade", "post_mortem", "support", "cognitive_products_lab", "communication_utilisateur", "alfred_cpl"],
+  "intents": ["classifier_incident", "escalader_incident", "communiquer_incident_utilisateur", "produire_post_mortem"],
+  "usage_context": ["détection d'une anomalie de fonctionnement par ALFRED", "signalement d'un dysfonctionnement par l'utilisateur", "incident de sécurité ou de perte de données", "revue d'incident après résolution"],
+  "priority": "high",
+  "safety_level": "elevated",
+  "content": {
+    "definition": "La gestion des incidents d'ALFRED CPL est le processus structuré par lequel un dysfonctionnement (interruption de service, comportement anormal, erreur applicative, incident de sécurité) est détecté, qualifié, traité et documenté. Elle se déroule en cinq étapes : détection (locale sur le poste du client ou remontée par l'utilisateur), classification de sévérité, traitement de premier niveau ou escalade vers Cognitive Products Lab, communication à l'utilisateur concerné, et post-mortem une fois l'incident clos. Ce processus diffère des cadres génériques de gestion des incidents IT en ce que le périmètre d'observation est en partie limité au poste local du client : Cognitive Products Lab ne dispose pas d'une visibilité télémétrique constante sur chaque déploiement, sauf si l'utilisateur consent explicitement à la remontée de diagnostics.",
+    "core_principles": [
+      "Détection en deux sources : automatique via la supervision locale d'ALFRED CPL (voir cpl.operations_continuite.supervision_systeme_alfred_cpl), ou manuelle via un signalement de l'utilisateur.",
+      "Classification de sévérité à 4 niveaux adaptée au contexte local-first : Critique (perte de données ou d'accès total, incident de sécurité avéré), Majeur (fonction cœur indisponible mais contournement possible), Mineur (fonction secondaire ou cloud optionnelle indisponible), Cosmétique (anomalie sans impact fonctionnel).",
+      "L'escalade vers Cognitive Products Lab n'est ni automatique ni systématique : elle dépend du consentement de l'utilisateur à la remontée de diagnostics et du niveau de sévérité — un incident Critique ou Majeur doit toujours proposer l'escalade, un incident Mineur ou Cosmétique reste local par défaut.",
+      "La communication à l'utilisateur doit être proportionnée et honnête : un incident Critique impose une notification immédiate et claire, y compris sur les limites de ce qu'ALFRED CPL sait encore faire en attendant la résolution.",
+      "Aucune donnée personnelle ou contenu de la base de connaissances du client ne doit être transmise à Cognitive Products Lab lors d'une escalade sans consentement explicite ; seules les métadonnées techniques de diagnostic (logs d'erreur, version, type d'incident) sont transmissibles par défaut.",
+      "Le post-mortem est systématique pour tout incident Critique ou Majeur, recommandé pour un incident Mineur récurrent, facultatif pour un incident Cosmétique isolé.",
+      "Un post-mortem vise l'amélioration du système, jamais la sanction d'un utilisateur ou d'un opérateur ; il documente la cause racine, la chronologie, et les actions correctives."
+    ],
+    "rules": [
+      "Tout incident classé Critique doit être journalisé localement avec horodatage précis avant toute autre action, y compris avant notification à l'utilisateur.",
+      "L'escalade vers Cognitive Products Lab pour un incident Critique doit être proposée à l'utilisateur dans un délai de quelques minutes après détection, jamais différée sans justification.",
+      "Un incident lié à une possible fuite ou compromission de données doit toujours être classé au minimum Majeur, et Critique si des données personnelles sont concernées, indépendamment de son impact fonctionnel apparent.",
+      "La communication à l'utilisateur doit toujours indiquer : ce qui s'est passé (dans la mesure du connu), ce qui reste fonctionnel, ce qui est en cours de résolution, et une estimation prudente de délai si elle est disponible.",
+      "Ne jamais minimiser ou requalifier à la baisse un incident pour éviter une escalade ; en cas de doute sur la sévérité, retenir le niveau le plus élevé plausible."
+    ],
+    "examples": [
+      {
+        "situation": "ALFRED CPL détecte que l'index de la base de connaissances locale est corrompu et que plusieurs requêtes échouent.",
+        "recommended_behavior": "Classer l'incident Majeur (fonction cœur dégradée), journaliser localement, informer l'utilisateur du dysfonctionnement et du contournement possible (recherche en mode dégradé ou restauration depuis la dernière sauvegarde), proposer l'escalade vers le support Cognitive Products Lab si le problème persiste après tentative de réparation automatique.",
+        "avoid": "Continuer à répondre aux requêtes sans signaler la corruption détectée, laissant l'utilisateur avec des réponses potentiellement incomplètes sans le savoir."
+      },
+      {
+        "situation": "Un utilisateur signale qu'une réponse d'ALFRED CPL semble avoir intégré un fragment de configuration d'un autre profil que le sien.",
+        "recommended_behavior": "Classer immédiatement l'incident Critique (potentielle fuite de données inter-profils), journaliser en détail, isoler la fonctionnalité concernée si possible, notifier l'utilisateur sans délai, et proposer l'escalade vers Cognitive Products Lab en fournissant uniquement les métadonnées techniques nécessaires au diagnostic.",
+        "avoid": "Traiter l'incident comme un simple bug d'affichage sans considérer l'hypothèse de fuite de données entre profils."
+      }
+    ],
+    "best_practices": [
+      "Tenir un journal d'incidents structuré (date, sévérité, description, actions, statut) consultable par l'utilisateur ou l'administrateur du déploiement.",
+      "Distinguer clairement dans la communication ce qui relève d'un incident confirmé de ce qui relève d'une anomalie encore en cours de qualification.",
+      "Proposer systématiquement un contournement temporaire quand il existe, plutôt que de laisser l'utilisateur sans alternative pendant la résolution.",
+      "Après résolution d'un incident Critique ou Majeur, informer explicitement l'utilisateur de la clôture et du résultat du post-mortem si celui-ci a donné lieu à une action corrective.",
+      "Capitaliser les post-mortems dans la base de connaissances pour permettre une détection ou une résolution plus rapide d'incidents similaires à l'avenir."
+    ],
+    "anti_patterns": [
+      "Escalader systématiquement tout incident vers Cognitive Products Lab, y compris les incidents Mineurs, ce qui dilue l'attention sur les cas réellement critiques.",
+      "Transmettre des données sensibles ou personnelles du client lors d'une escalade sans son consentement explicite.",
+      "Fermer un incident sans post-mortem alors qu'il a eu un impact Critique ou Majeur.",
+      "Communiquer un délai de résolution optimiste non fondé pour rassurer l'utilisateur, au risque de perdre sa confiance si le délai n'est pas tenu."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["incident", "sévérité", "escalade", "post-mortem", "support", "panne", "signalement", "communication de crise"],
+    "related_domains": ["risk_management", "information_security", "customer_support"],
+    "related_knowledge": ["cpl.operations_continuite.supervision_systeme_alfred_cpl", "cpl.operations_continuite.haute_disponibilite_alfred_cpl", "cpl.business_strategy.crisis_management"],
+    "retrieval_priority": 8
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["classifier un incident et proposer une réponse adaptée", "rédiger une communication d'incident à destination de l'utilisateur", "structurer un post-mortem"],
+    "restricted_usage": ["transmettre des métadonnées techniques de diagnostic à Cognitive Products Lab sans confirmation explicite de l'utilisateur"],
+    "forbidden_usage": ["transmettre des données personnelles ou le contenu de la base de connaissances du client lors d'une escalade sans consentement explicite", "minimiser volontairement la sévérité d'un incident pour éviter une escalade"],
+    "fallback_behavior": "En cas de doute sur la sévérité réelle d'un incident, retenir le niveau de classification le plus élevé plausible et proposer l'escalade plutôt que de la reporter."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "11/07/2026",
+    "last_update": "11/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

@@ -1,0 +1,92 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "mathematiques.statistiques_probabilites.probabilites_bases",
+  "title": "Probabilités : conditionnelle, théorème de Bayes, loi normale, espérance",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "mathematiques",
+  "subdomain": "statistiques_probabilites",
+  "category": "probabilites",
+  "summary": "Les probabilités fournissent un cadre formel pour quantifier l'incertitude et raisonner sur des événements aléatoires. Les notions de probabilité conditionnelle et le théorème de Bayes permettent de mettre à jour une croyance à la lumière d'une nouvelle information, tandis que l'espérance et la loi normale décrivent respectivement la valeur moyenne attendue et la répartition typique de phénomènes continus. Ces outils sont au cœur de la prise de décision rationnelle sous incertitude, du diagnostic médical au filtrage anti-spam.",
+  "purpose": "Permettre à ALFRED d'expliquer et d'appliquer les notions probabilistes fondamentales pour aider l'utilisateur à raisonner correctement sous incertitude, notamment à éviter les erreurs classiques d'interprétation d'un test ou d'une probabilité conditionnelle.",
+  "tags": ["probabilites", "bayes", "probabilite_conditionnelle", "loi_normale", "esperance", "incertitude", "prise_de_decision", "statistiques"],
+  "intents": ["explain_probability_concept", "compute_conditional_probability", "apply_bayes_theorem", "interpret_uncertainty", "support_decision_under_uncertainty"],
+  "usage_context": ["interprétation d'un résultat de test (médical, technique, statistique)", "évaluation d'un risque ou d'une décision incertaine", "explication pédagogique d'un concept probabiliste"],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "Une probabilité est un nombre entre 0 et 1 qui quantifie la vraisemblance d'un événement, 0 signifiant impossible et 1 certain. La probabilité conditionnelle P(A|B) mesure la probabilité que l'événement A se produise sachant que l'événement B s'est déjà produit, et se calcule par P(A|B) = P(A∩B) / P(B). Le théorème de Bayes, P(A|B) = P(B|A)×P(A) / P(B), permet d'inverser une probabilité conditionnelle pour mettre à jour la probabilité d'une hypothèse (A) à la lumière d'une preuve observée (B). L'espérance mathématique E(X) est la valeur moyenne théorique d'une variable aléatoire pondérée par ses probabilités, et la loi normale (courbe en cloche, définie par sa moyenne μ et son écart-type σ) modélise de nombreux phénomènes naturels et mesures continues.",
+    "core_principles": [
+      "Axiomes de base : P(événement certain)=1, P(∅)=0, et pour des événements incompatibles P(A∪B)=P(A)+P(B).",
+      "Deux événements A et B sont indépendants si P(A∩B) = P(A)×P(B), c'est-à-dire que la réalisation de l'un n'influence pas la probabilité de l'autre.",
+      "Le théorème de Bayes s'écrit P(A|B) = [P(B|A) × P(A)] / P(B), où P(A) est la probabilité a priori, P(B|A) la vraisemblance, et P(A|B) la probabilité a posteriori.",
+      "L'espérance d'une variable aléatoire discrète X est E(X) = Σ xi × P(X=xi) ; elle représente la moyenne pondérée à long terme sur de nombreuses répétitions.",
+      "La loi normale N(μ, σ²) est symétrique autour de sa moyenne μ ; environ 68% des valeurs sont dans [μ-σ, μ+σ], 95% dans [μ-2σ, μ+2σ], et 99,7% dans [μ-3σ, μ+3σ] (règle des 68-95-99,7).",
+      "Le paradoxe du taux de base (base rate fallacy) : pour un événement rare, même un test très fiable produit souvent plus de faux positifs que de vrais positifs en valeur absolue — c'est l'erreur d'interprétation la plus fréquente en probabilité conditionnelle.",
+      "La loi des grands nombres indique que la fréquence observée d'un événement converge vers sa probabilité théorique quand le nombre d'essais augmente.",
+      "La variance d'une variable aléatoire mesure la dispersion des résultats possibles autour de l'espérance ; Var(X) = E(X²) - [E(X)]²."
+    ],
+    "rules": [
+      "Ne jamais confondre P(A|B) avec P(B|A) — ce sont deux quantités généralement différentes (erreur dite « du procureur »).",
+      "Pour appliquer Bayes correctement sur un diagnostic ou un test, toujours identifier explicitement la prévalence (probabilité a priori) de l'événement recherché dans la population concernée.",
+      "Vérifier l'indépendance des événements avant de multiplier simplement leurs probabilités.",
+      "Rappeler qu'une probabilité proche de 0 ou 1 n'est pas une certitude absolue, sauf cas limites (0 et 1 stricts).",
+      "Distinguer clairement probabilité (mesure théorique) et fréquence observée (mesure empirique sur un échantillon fini)."
+    ],
+    "examples": [
+      {
+        "situation": "Un test médical fiable à 99% (sensibilité et spécificité) est positif pour une maladie touchant 0,1% de la population, et l'utilisateur demande la probabilité réelle d'être malade.",
+        "recommended_behavior": "Appliquer Bayes : avec prévalence 0,1%, sur 100 000 personnes, 100 sont malades (99 vrais positifs) et 99 900 saines (environ 999 faux positifs) ; P(malade|positif) ≈ 99/(99+999) ≈ 9%, bien plus faible que 99%.",
+        "avoid": "Répondre directement que la probabilité d'être malade est de 99% en confondant la fiabilité du test avec la probabilité a posteriori."
+      },
+      {
+        "situation": "L'utilisateur demande d'expliquer pourquoi les tailles humaines suivent « à peu près » une courbe en cloche.",
+        "recommended_behavior": "Expliquer que la loi normale apparaît quand une mesure résulte de la somme de nombreux facteurs indépendants (génétique, nutrition, environnement), conformément au théorème central limite, et illustrer avec la règle des 68-95-99,7.",
+        "avoid": "Affirmer sans nuance que toute donnée réelle suit une loi normale, ce qui est faux pour de nombreuses distributions (revenus, tailles de fichiers, etc.)."
+      }
+    ],
+    "best_practices": [
+      "Systématiquement expliciter la probabilité a priori (base rate) avant d'interpréter un résultat de test ou une probabilité conditionnelle.",
+      "Utiliser des exemples chiffrés concrets (tableaux de fréquences sur une population de référence) plutôt que des formules abstraites pour rendre Bayes intuitif.",
+      "Rappeler la différence entre corrélation observée et probabilité causale.",
+      "Quand la distribution des données n'est pas connue, ne pas supposer par défaut qu'elle est normale.",
+      "Formuler les résultats probabilistes avec des intervalles de confiance ou des marges d'incertitude plutôt que des chiffres uniques trompeurs de précision."
+    ],
+    "anti_patterns": [
+      "Confondre P(A|B) et P(B|A) (erreur du procureur / de l'accusé).",
+      "Ignorer la prévalence de base et interpréter la fiabilité d'un test comme la probabilité finale.",
+      "Supposer l'indépendance de deux événements sans justification.",
+      "Traiter une probabilité comme une certitude dans une communication à l'utilisateur."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["probabilite", "bayes", "probabilite_conditionnelle", "loi_normale", "esperance", "variance", "base_rate", "incertitude"],
+    "related_domains": ["ia_data_science", "aide_decision", "cognition"],
+    "related_knowledge": ["mathematiques.statistiques_probabilites.statistiques_descriptives", "cognition.systeme_pensee.decision_making_cognitive"],
+    "retrieval_priority": 5
+  },
+  "behavior_rules": {
+    "tone": "educational",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["explication pédagogique de concepts probabilistes", "aide à l'interprétation de résultats de tests ou d'estimations de risque à but informatif"],
+    "restricted_usage": ["interprétation de résultats médicaux ou juridiques individuels sans rappeler qu'un professionnel qualifié doit trancher"],
+    "forbidden_usage": ["utilisation des probabilités pour fournir un diagnostic médical définitif ou un conseil financier personnalisé"],
+    "fallback_behavior": "Si les données nécessaires (prévalence, sensibilité, spécificité) manquent pour un calcul de Bayes, le signaler explicitement et proposer une estimation qualitative plutôt qu'un chiffre non fondé."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "11/07/2026",
+    "last_update": "11/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

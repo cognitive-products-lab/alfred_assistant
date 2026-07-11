@@ -1,17 +1,66 @@
 {
   "schema_version": "1.2",
   "type": "knowledge_unit",
-  "knowledge_id": "",
+  "id": "knowledges.professional.product_management.advanced.jobs_to_be_done",
   "title": "Jobs To Be Done (JTBD)",
-  "version": "1.0.0",
-  "status": "validated",
   "domain": "professional",
   "subdomain": "product_management_advanced",
-  "category": "",
-  "priority": "medium",
-  "safety_level": "normal",
+  "status": "validated",
   "summary": "Le framework Jobs To Be Done dit que les utilisateurs 'embauchent' un produit pour accomplir un 'job' (fonctionnel, émotionnel ou social). Comprendre le vrai job évite de construire des features inutiles et révèle les vrais concurrents.",
-  "purpose": "",
+  "core_definition": "Le framework Jobs To Be Done (JTBD) est une théorie de l'innovation produit qui postule que les utilisateurs n'achètent pas des produits mais 'embauchent' des produits pour accomplir des jobs spécifiques — des progrès qu'ils cherchent à réaliser dans leur vie. Comprendre le job (fonctionnel, émotionnel et social) permet de concevoir des solutions véritablement centrées sur l'utilisateur.",
+  "knowledge": {
+    "job_dimensions": [
+      {
+        "dimension": "Fonctionnel",
+        "description": "La tâche pratique à accomplir",
+        "example": "Aller du point A au point B (Uber)"
+      },
+      {
+        "dimension": "Émotionnel",
+        "description": "Le ressenti que l'utilisateur veut avoir (ou éviter)",
+        "example": "Se sentir autonome et non-dépendant des transports en commun"
+      },
+      {
+        "dimension": "Social",
+        "description": "Comment l'utilisateur veut être perçu par les autres",
+        "example": "Paraître professionnel en arrivant en voiture plutôt qu'à pied"
+      }
+    ],
+    "jtbd_interview_technique": {
+      "goal": "Comprendre la situation qui a déclenché l'achat ou l'utilisation",
+      "questions": [
+        "Raconte-moi la journée où tu as décidé d'utiliser/acheter [produit]",
+        "Qu'est-ce qui te frustrait avant ? Qu'est-ce que tu essayais d'accomplir ?",
+        "Qu'est-ce qui t'a poussé à chercher une solution ce jour-là spécifiquement ?",
+        "Qu'est-ce que tu as essayé avant ? Pourquoi ce n'était pas suffisant ?"
+      ]
+    },
+    "jtbd_vs_features": "Feature thinking : 'Les utilisateurs veulent une meilleure batterie.' JTBD thinking : 'Les utilisateurs veulent rester connectés tout au long de leur journée sans anxiété.' La solution peut être une meilleure batterie, un mode économie, des notifications de batterie, ou des chargeurs accessibles — le JTBD ouvre l'espace de solutions.",
+    "competitive_insight": "Le vrai concurrent d'un produit JTBD n'est pas toujours le concurrent évident : le concurrent de Snickers est un autre snack, pas une autre barre chocolatée. Le concurrent de Zoom réunion est parfois un email bien rédigé."
+  },
+  "example_answers": [
+    {
+      "prompt": "Comment appliquer JTBD à la conception d'ALFRED ?",
+      "answer": "Le job d'ALFRED n'est pas 'avoir un assistant IA' — c'est 'accomplir plus de ce qui compte pour moi sans me perdre dans la complexité ou l'énergie cognitive.' Fonctionnel : accéder à la bonne information au bon moment. Émotionnel : se sentir moins seul dans les décisions complexes, moins débordé. Social : être perçu comme quelqu'un d'organisé et de réfléchi. Chaque feature d'ALFRED devrait servir un de ces jobs."
+    },
+    {
+      "prompt": "Comment conduire une interview JTBD avec un utilisateur ?",
+      "answer": "Structure en 4 temps : (1) Contexte — 'Raconte-moi la situation qui t'a poussé à utiliser [produit] pour la première fois', (2) Struggle — 'Qu'est-ce que tu essayais d'accomplir ? Qu'est-ce qui te bloquait ?', (3) Search — 'Comment tu as trouvé [produit] ? Qu'est-ce que tu avais essayé avant ?', (4) Outcome — 'Maintenant que tu l'utilises, qu'est-ce qui a changé ?'. Ne pas poser de questions sur les features souhaitées — creuser les jobs et les frustrations."
+    }
+  ],
+  "response_guidance": {
+    "tone": "stratégique, ancré dans les métriques et la réalité des utilisateurs",
+    "structure": [
+      "identifier le contexte produit",
+      "expliquer le framework",
+      "proposer une application concrète"
+    ],
+    "avoid": [
+      "trop théorique",
+      "ignorer les contraintes business",
+      "recommander sans contexte"
+    ]
+  },
   "tags": [
     "JTBD",
     "user research",
@@ -21,43 +70,8 @@
     "product management",
     "produit"
   ],
-  "intents": [],
-  "usage_context": [],
-  "content": {
-    "definition": "",
-    "core_principles": [],
-    "rules": [],
-    "examples": [],
-    "best_practices": [],
-    "anti_patterns": []
-  },
-  "retrieval_hints": {
-    "priority_keywords": [],
-    "related_domains": [],
-    "related_knowledge": [],
-    "retrieval_priority": 5
-  },
-  "behavior_rules": {
-    "tone": "professional",
-    "response_style": "structured_clear",
-    "max_complexity": "medium",
-    "allow_humor": false
-  },
-  "safety_notes": {
-    "allowed_usage": [],
-    "restricted_usage": [],
-    "forbidden_usage": [],
-    "fallback_behavior": "Solliciter une validation humaine si ambiguïté."
-  },
-  "metadata": {
-    "author": "ALFRED_SYSTEM",
-    "creation_date": "11/07/2026",
-    "last_update": "11/07/2026",
-    "review_status": "draft",
-    "reviewed_by": "",
-    "source_type": "manual_structured_knowledge",
-    "language": "fr",
-    "retrieval_ready": true,
-    "rag_compatible": true
-  }
+  "related_knowledge_units": [
+    "knowledges.cpl.strategy.strategy_fundamentals",
+    "knowledges.cpl.product_ia.user_needs_analysis"
+  ]
 }

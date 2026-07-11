@@ -1,0 +1,92 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "mathematiques.statistiques_probabilites.statistiques_descriptives",
+  "title": "Statistiques descriptives : mesures de tendance, dispersion et pièges d'interprétation",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "mathematiques",
+  "subdomain": "statistiques_probabilites",
+  "category": "statistiques_descriptives",
+  "summary": "Les statistiques descriptives résument un ensemble de données par des indicateurs de tendance centrale (moyenne, médiane, mode) et de dispersion (variance, écart-type, quartiles). Elles permettent de synthétiser et de comparer des données mais peuvent aussi induire en erreur si les indicateurs sont mal choisis ou mal interprétés (valeurs aberrantes, distributions asymétriques). Comprendre ces notions est indispensable pour lire correctement un rapport, un sondage ou un tableau de bord.",
+  "purpose": "Donner à ALFRED les repères nécessaires pour calculer, expliquer et interpréter correctement des statistiques descriptives, et pour alerter l'utilisateur sur les pièges classiques de lecture ou de communication de données chiffrées.",
+  "tags": ["statistiques", "moyenne", "mediane", "ecart_type", "variance", "quartiles", "donnees", "interpretation_donnees"],
+  "intents": ["compute_descriptive_statistics", "interpret_dataset", "explain_statistical_concept", "detect_misleading_statistics", "compare_data_distributions"],
+  "usage_context": ["analyse d'un jeu de données ou d'un tableau de bord", "lecture critique d'un sondage ou d'une étude", "préparation de rapports ou de synthèses chiffrées"],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "Les statistiques descriptives sont un ensemble de méthodes permettant de résumer, organiser et présenter les caractéristiques essentielles d'un jeu de données sans en tirer de conclusion inférentielle sur une population plus large. Elles se divisent en deux familles principales : les mesures de tendance centrale (moyenne, médiane, mode), qui indiquent où se situe le « centre » des données, et les mesures de dispersion (variance, écart-type, étendue, quartiles), qui indiquent à quel point les données sont regroupées ou étalées autour de ce centre. Ces mesures sont complétées par des représentations graphiques (histogramme, boîte à moustaches, nuage de points) qui rendent la structure des données visuellement lisible.",
+    "core_principles": [
+      "La moyenne arithmétique = somme des valeurs / nombre de valeurs ; elle est sensible aux valeurs extrêmes (outliers).",
+      "La médiane est la valeur qui sépare les données triées en deux moitiés égales ; elle est robuste aux valeurs extrêmes et préférable pour des distributions asymétriques (ex. revenus).",
+      "Le mode est la valeur la plus fréquente ; utile pour des données catégorielles ou multimodales.",
+      "La variance mesure la moyenne des carrés des écarts à la moyenne : Var(X) = (1/n)Σ(xi - x̄)² (population) ou avec n-1 au dénominateur pour un estimateur non biaisé sur un échantillon.",
+      "L'écart-type est la racine carrée de la variance ; il s'exprime dans la même unité que les données, ce qui le rend plus interprétable que la variance.",
+      "Les quartiles (Q1, Q2=médiane, Q3) découpent les données triées en quatre parties égales ; l'écart interquartile (Q3-Q1) mesure la dispersion centrale en ignorant les valeurs extrêmes.",
+      "Une boîte à moustaches (boxplot) visualise en un coup d'œil médiane, quartiles et valeurs aberrantes potentielles (au-delà de 1,5×IQR des quartiles).",
+      "Corrélation n'est pas causalité : deux variables corrélées statistiquement ne prouvent pas qu'une variable cause l'autre."
+    ],
+    "rules": [
+      "Toujours préciser quel indicateur de tendance centrale est utilisé (moyenne vs médiane), car le choix change radicalement l'interprétation en présence d'asymétrie ou d'outliers.",
+      "Ne jamais présenter une moyenne seule sans indication de dispersion (écart-type ou étendue) : deux jeux de données peuvent avoir la même moyenne avec des réalités très différentes.",
+      "Vérifier la taille de l'échantillon avant de tirer une conclusion : un petit échantillon rend les statistiques peu fiables et sensibles au hasard.",
+      "Se méfier des graphiques dont l'axe ne commence pas à zéro ou dont l'échelle est manipulée, car ils exagèrent visuellement les écarts.",
+      "Distinguer clairement statistique descriptive (décrire les données observées) et inférence statistique (généraliser à une population, hors du périmètre de cette fiche)."
+    ],
+    "examples": [
+      {
+        "situation": "L'utilisateur donne les salaires d'une équipe de 9 personnes dont un dirigeant très bien payé, et demande le salaire « moyen ».",
+        "recommended_behavior": "Calculer la moyenne mais signaler qu'elle est tirée vers le haut par le salaire du dirigeant (outlier), et proposer la médiane comme indicateur plus représentatif du salaire typique de l'équipe.",
+        "avoid": "Communiquer uniquement la moyenne comme si elle représentait fidèlement le salaire d'une personne « typique » de l'équipe."
+      },
+      {
+        "situation": "L'utilisateur montre un graphique en barres où l'axe Y commence à 90 sur une échelle de 0 à 100, exagérant une différence de 2 points.",
+        "recommended_behavior": "Signaler que la troncature de l'axe amplifie visuellement une différence en réalité faible, et recalculer l'écart réel en pourcentage.",
+        "avoid": "Commenter le graphique sans relever le biais visuel introduit par l'échelle tronquée."
+      }
+    ],
+    "best_practices": [
+      "Toujours accompagner un indicateur central d'un indicateur de dispersion pour donner une image complète des données.",
+      "Signaler la présence de valeurs aberrantes avant de calculer une moyenne, et proposer une alternative robuste si nécessaire.",
+      "Utiliser des visualisations adaptées (boxplot pour comparer des groupes, histogramme pour une distribution) plutôt que du texte seul quand c'est pertinent.",
+      "Préciser la taille de l'échantillon (n) à chaque fois qu'un résultat statistique est communiqué.",
+      "Reformuler les résultats statistiques en langage clair pour un public non spécialiste, sans perdre la rigueur du calcul sous-jacent."
+    ],
+    "anti_patterns": [
+      "Utiliser la moyenne comme unique résumé d'une distribution fortement asymétrique.",
+      "Confondre corrélation et causalité dans l'interprétation d'un lien entre deux variables.",
+      "Ignorer les valeurs aberrantes ou, à l'inverse, les supprimer sans justification méthodologique explicite.",
+      "Présenter un pourcentage ou une statistique sans indiquer la taille de l'échantillon sous-jacent."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["moyenne", "mediane", "mode", "ecart_type", "variance", "quartile", "boxplot", "statistiques", "donnees_aberrantes"],
+    "related_domains": ["ia_data_science", "sciences", "aide_decision"],
+    "related_knowledge": ["mathematiques.statistiques_probabilites.probabilites_bases"],
+    "retrieval_priority": 5
+  },
+  "behavior_rules": {
+    "tone": "educational",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["analyse pédagogique ou professionnelle de jeux de données", "aide à la lecture critique de statistiques publiées"],
+    "restricted_usage": ["conclusions statistiques présentées comme certaines sur des échantillons très petits ou non représentatifs"],
+    "forbidden_usage": ["manipulation délibérée de statistiques pour tromper un tiers"],
+    "fallback_behavior": "Si les données fournies sont insuffisantes ou ambiguës (unités, taille d'échantillon manquante), demander une précision avant de produire une statistique définitive."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "11/07/2026",
+    "last_update": "11/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

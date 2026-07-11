@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "mathematiques.mathematiques_appliquees_ia.optimisation_et_calcul_differentiel_bases",
+  "title": "Optimisation et calcul différentiel appliqués à l'IA",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "mathematiques",
+  "subdomain": "mathematiques_appliquees_ia",
+  "category": "mathematiques_pour_ia",
+  "summary": "Notions de dérivée, gradient, descente de gradient et fonction de coût, pour comprendre intuitivement comment un modèle d'intelligence artificielle 'apprend' par optimisation.",
+  "purpose": "Donner à ALFRED les bases mathématiques nécessaires pour expliquer de façon intuitive et correcte le principe d'apprentissage des modèles d'IA par optimisation.",
+  "tags": ["derivee", "gradient", "descente_de_gradient", "fonction_de_cout", "optimisation", "apprentissage_automatique"],
+  "intents": ["explain_gradient_descent", "explain_cost_function", "explain_how_ai_learns"],
+  "usage_context": ["Explication du fonctionnement de l'IA", "Support pédagogique technique", "Vulgarisation du machine learning"],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "Le calcul différentiel étudie la façon dont une fonction varie localement, via la notion de dérivée. En intelligence artificielle, l'apprentissage d'un modèle consiste à ajuster ses paramètres internes pour minimiser une fonction de coût (ou fonction de perte), qui mesure l'écart entre les prédictions du modèle et les résultats attendus. Cet ajustement se fait généralement par un algorithme d'optimisation appelé descente de gradient.",
+    "core_principles": [
+      "La dérivée d'une fonction en un point mesure sa pente locale, c'est-à-dire la direction et l'intensité de sa variation.",
+      "Le gradient généralise la dérivée à une fonction de plusieurs variables : c'est un vecteur indiquant la direction de plus forte croissance de la fonction.",
+      "La fonction de coût (ou loss function) quantifie l'erreur entre les prédictions d'un modèle et les valeurs réelles attendues.",
+      "La descente de gradient ajuste itérativement les paramètres du modèle dans la direction opposée au gradient, afin de minimiser la fonction de coût.",
+      "Le taux d'apprentissage (learning rate) contrôle l'amplitude de chaque ajustement : trop élevé, il peut empêcher la convergence ; trop faible, l'apprentissage est trop lent.",
+      "L'entraînement d'un réseau de neurones repose sur la rétropropagation du gradient (backpropagation), qui calcule efficacement le gradient de la fonction de coût pour chaque paramètre du réseau."
+    ],
+    "rules": [
+      "Ne jamais présenter la descente de gradient comme garantissant systématiquement le meilleur résultat possible (minimum global) : elle peut converger vers un minimum local.",
+      "Distinguer clairement fonction de coût (à minimiser pendant l'entraînement) et métrique d'évaluation (utilisée pour juger la performance finale du modèle)."
+    ],
+    "examples": [
+      {
+        "situation": "Un utilisateur demande comment un modèle d'IA 'apprend' concrètement.",
+        "recommended_behavior": "Expliquer avec une analogie simple (descendre une pente les yeux fermés en suivant la plus forte inclinaison) le principe de la descente de gradient qui ajuste progressivement les paramètres pour réduire l'erreur du modèle.",
+        "avoid": "Utiliser un vocabulaire mathématique complexe sans analogie, ou donner une explication anthropomorphisant excessivement le modèle ('il comprend', 'il réfléchit')."
+      }
+    ],
+    "best_practices": [
+      "Toujours relier la notion abstraite de gradient à son rôle concret : indiquer dans quelle direction ajuster les paramètres pour réduire l'erreur.",
+      "Utiliser une analogie visuelle (paysage, vallée, pente) pour rendre la descente de gradient intuitive.",
+      "Rappeler que l'apprentissage automatique repose sur l'optimisation mathématique, pas sur une compréhension au sens humain du terme."
+    ],
+    "anti_patterns": [
+      "Présenter l'apprentissage d'un modèle d'IA comme un processus de 'compréhension' consciente.",
+      "Omettre la possibilité de minima locaux ou de plateaux d'apprentissage lors de l'explication de la descente de gradient."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["gradient", "descente de gradient", "fonction de coût", "dérivée", "apprentissage automatique", "backpropagation"],
+    "related_domains": ["mathematiques", "ia_data_science"],
+    "related_knowledge": ["mathematiques.mathematiques_appliquees_ia.algebre_lineaire_pour_ia", "ia_data_science.ia_data_science_fondamentaux"],
+    "retrieval_priority": 6
+  },
+  "behavior_rules": {
+    "tone": "educational",
+    "response_style": "structured_clear",
+    "max_complexity": "high",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["Vulgarisation technique du fonctionnement mathématique de l'IA"],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "Adapter le niveau de détail mathématique au niveau de connaissance exprimé par l'utilisateur."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "11/07/2026",
+    "last_update": "11/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

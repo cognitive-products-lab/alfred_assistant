@@ -1,17 +1,82 @@
 {
   "schema_version": "1.2",
   "type": "knowledge_unit",
-  "knowledge_id": "",
+  "id": "knowledges.professional.governance_ai.ai_procurement_governance",
   "title": "Gouvernance de l'achat de systèmes IA",
-  "version": "1.0.0",
-  "status": "validated",
   "domain": "professional",
   "subdomain": "governance_ai",
-  "category": "",
-  "priority": "medium",
-  "safety_level": "normal",
+  "status": "validated",
   "summary": "Acheter une solution IA sans gouvernance de l'achat expose l'organisation à des risques de conformité, de dépendance fournisseur et de misalignment éthique. Un cadre d'évaluation et de contractualisation rigoureux est indispensable.",
-  "purpose": "",
+  "core_definition": "La gouvernance de l'achat IA (AI procurement governance) est l'ensemble des processus et critères permettant d'évaluer, sélectionner et contractualiser des solutions IA tierces, en assurant leur conformité réglementaire, leur alignement éthique et les conditions de sortie et de réversibilité.",
+  "knowledge": {
+    "evaluation_criteria": [
+      {
+        "criterion": "Conformité réglementaire",
+        "questions": [
+          "Le fournisseur est-il conforme EU AI Act pour les systèmes concernés ?",
+          "Existe-t-il une documentation technique accessible ?"
+        ]
+      },
+      {
+        "criterion": "Transparence et explicabilité",
+        "questions": [
+          "Le fournisseur peut-il expliquer comment les décisions sont prises ?",
+          "Existe-t-il une model card ou équivalent ?"
+        ]
+      },
+      {
+        "criterion": "Sécurité des données",
+        "questions": [
+          "Où sont traitées les données ? Dans l'UE ?",
+          "Quelles données le fournisseur peut-il utiliser pour son propre entraînement ?"
+        ]
+      },
+      {
+        "criterion": "Réversibilité",
+        "questions": [
+          "Peut-on facilement migrer vers un autre fournisseur ?",
+          "Peut-on exporter nos données et nos configurations ?"
+        ]
+      },
+      {
+        "criterion": "Qualité et performance",
+        "questions": [
+          "Comment sont mesurées les performances ?",
+          "Existe-t-il un SLA de disponibilité et de qualité ?"
+        ]
+      }
+    ],
+    "contract_clauses": [
+      "Clause d'usage des données : le fournisseur ne peut pas utiliser vos données pour entraîner ses propres modèles sans consentement",
+      "Clause de réversibilité : garantie d'export des données et des configurations",
+      "Clause de notification d'incident : délai de notification obligatoire en cas de problème",
+      "Clause de mise en conformité : obligation de mise à jour pour respecter la réglementation en vigueur",
+      "Clause d'audit : droit d'audit sur les pratiques du fournisseur"
+    ]
+  },
+  "example_answers": [
+    {
+      "prompt": "Comment évaluer un fournisseur IA avant de signer ?",
+      "answer": "Cinq questions non négociables : Où vont nos données ? Peut-on sortir facilement (réversibilité) ? Le fournisseur est-il conforme EU AI Act pour notre usage ? Quelle SLA de qualité est contractualisée ? Y a-t-il un mécanisme de notification en cas d'incident ? Les réponses à ces cinq questions révèlent la maturité du fournisseur en gouvernance IA."
+    },
+    {
+      "prompt": "Notre fournisseur IA veut utiliser nos données pour entraîner ses modèles — est-ce acceptable ?",
+      "answer": "Pas sans clause contractuelle explicite et consentement de vos utilisateurs si les données sont personnelles. C'est une question critique : demander une clause d'exclusion explicite dans le contrat. Si le fournisseur refuse, c'est un signal fort — soit ils ne peuvent pas garantir l'exclusion, soit les données sont fondamentales à leur modèle business."
+    }
+  ],
+  "response_guidance": {
+    "tone": "rigoureux, orienté conformité et opérationnalité",
+    "structure": [
+      "identifier le principe en jeu",
+      "expliquer l'application concrète",
+      "pointer les obligations réglementaires"
+    ],
+    "avoid": [
+      "trop théorique",
+      "ignorer le contexte EU",
+      "confondre principes et obligations"
+    ]
+  },
   "tags": [
     "achat IA",
     "procurement",
@@ -21,43 +86,7 @@
     "gouvernance IA",
     "conformité"
   ],
-  "intents": [],
-  "usage_context": [],
-  "content": {
-    "definition": "",
-    "core_principles": [],
-    "rules": [],
-    "examples": [],
-    "best_practices": [],
-    "anti_patterns": []
-  },
-  "retrieval_hints": {
-    "priority_keywords": [],
-    "related_domains": [],
-    "related_knowledge": [],
-    "retrieval_priority": 5
-  },
-  "behavior_rules": {
-    "tone": "professional",
-    "response_style": "structured_clear",
-    "max_complexity": "medium",
-    "allow_humor": false
-  },
-  "safety_notes": {
-    "allowed_usage": [],
-    "restricted_usage": [],
-    "forbidden_usage": [],
-    "fallback_behavior": "Solliciter une validation humaine si ambiguïté."
-  },
-  "metadata": {
-    "author": "ALFRED_SYSTEM",
-    "creation_date": "11/07/2026",
-    "last_update": "11/07/2026",
-    "review_status": "draft",
-    "reviewed_by": "",
-    "source_type": "manual_structured_knowledge",
-    "language": "fr",
-    "retrieval_ready": true,
-    "rag_compatible": true
-  }
+  "related_knowledge_units": [
+    "knowledges.professional.standards_iso.iso_42001_ai_management_system"
+  ]
 }

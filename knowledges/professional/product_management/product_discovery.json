@@ -1,17 +1,77 @@
 {
   "schema_version": "1.2",
   "type": "knowledge_unit",
-  "knowledge_id": "",
+  "id": "knowledges.professional.product_management.product_discovery",
   "title": "Product Discovery",
-  "version": "1.0.0",
-  "status": "validated",
   "domain": "professional",
   "subdomain": "product_management",
-  "category": "",
-  "priority": "medium",
-  "safety_level": "normal",
+  "status": "validated",
   "summary": "La product discovery est l'ensemble des activites qui permettent de valider qu'on construit la bonne chose avant de la construire — en testant les hypotheses sur les problemes utilisateurs et les solutions potentielles avec un investissement minimal.",
-  "purpose": "",
+  "core_definition": "La product discovery est la phase d'un processus de developpement produit dans laquelle l'equipe valide que les problemes identifies sont reels et importants pour les utilisateurs, que les solutions envisagees les resolvent effectivement, et que les solutions sont techniquement faisables et viables pour le business.",
+  "knowledge": {
+    "discovery_questions": [
+      "Le probleme est-il reel ? (interviews, donnees quantitatives)",
+      "Le probleme est-il suffisamment important pour que les utilisateurs cherchent une solution ? (willingness to pay, comportement actuel)",
+      "Notre solution resout-elle effectivement le probleme ? (prototype, test utilisateur)",
+      "Les utilisateurs peuvent-ils utiliser la solution ? (tests d'usabilite)",
+      "La solution est-elle techniquement faisable ? (spike technique)",
+      "La solution est-elle viable pour le business ? (model economique, competence requise)"
+    ],
+    "discovery_techniques": [
+      {
+        "technique": "Interviews utilisateurs",
+        "question": "Probleme reel ? Important ?",
+        "cost": "Faible"
+      },
+      {
+        "technique": "Prototype papier",
+        "question": "La solution est-elle comprehensible ?",
+        "cost": "Tres faible"
+      },
+      {
+        "technique": "Prototype cliquable (Figma)",
+        "question": "L'UX fonctionne-t-elle ?",
+        "cost": "Moyen"
+      },
+      {
+        "technique": "Smoke test / Landing page",
+        "question": "Y a-t-il de l'interet ?",
+        "cost": "Faible"
+      },
+      {
+        "technique": "Wizard of Oz",
+        "question": "La solution cree-t-elle de la valeur ?",
+        "cost": "Moyen (manual)"
+      },
+      {
+        "technique": "A/B test",
+        "question": "Quelle option performe mieux ?",
+        "cost": "Eleve (dev requis)"
+      }
+    ]
+  },
+  "example_answers": [
+    {
+      "prompt": "Comment valider mon idee produit avant de developper ?",
+      "answer": "Sequence par hypotheses : (1) Hypothese probleme — est-ce un vrai probleme ? Interviews de 5-10 personnes de ton segment cible, ecoute sans pitcher. Si 7/10 decrivent activement ce probleme et cherchent une solution : valide. (2) Hypothese solution — est-ce qu'ils paient / s'inscrivent ? Landing page avec CTA (liste d'attente, pre-commande). 200 visiteurs, > 5% de conversion : signal positif. (3) Hypothese UX — peuvent-ils utiliser la solution ? Prototype Figma avec 5 utilisateurs en test d'usabilite. Ces 3 etapes coutent quelques jours et valident ou invalident avant d'investir dans le developpement."
+    },
+    {
+      "prompt": "Pourquoi mes features ne sont-elles pas utilisees une fois livrees ?",
+      "answer": "Symptome d'un probleme de discovery. Causes frequentes : (1) Le probleme est reel mais mineur — les utilisateurs ne changent pas leur comportement pour des ameliorations marginales, (2) La solution ne correspond pas a la facon dont les utilisateurs pensent au probleme — on a resolu le probleme 'tel qu'on le comprend', pas tel qu'ils le vivent, (3) L'onboarding de la feature est insuffisant — les utilisateurs ne savent pas qu'elle existe ou comment l'utiliser. Remediation : interviews utilisateurs sur les features non-utilisees (pas 'pourquoi vous n'utilisez pas X ?' mais 'racontez-moi comment vous gerez Y aujourd'hui ?')."
+    }
+  ],
+  "response_guidance": {
+    "tone": "strategique, ancre dans la pratique",
+    "structure": [
+      "contextualiser",
+      "expliquer le concept",
+      "proposer un angle actionnable"
+    ],
+    "avoid": [
+      "trop theorique",
+      "ignorer le contexte"
+    ]
+  },
   "tags": [
     "discovery",
     "validation",
@@ -19,43 +79,5 @@
     "interviews",
     "hypotheses"
   ],
-  "intents": [],
-  "usage_context": [],
-  "content": {
-    "definition": "",
-    "core_principles": [],
-    "rules": [],
-    "examples": [],
-    "best_practices": [],
-    "anti_patterns": []
-  },
-  "retrieval_hints": {
-    "priority_keywords": [],
-    "related_domains": [],
-    "related_knowledge": [],
-    "retrieval_priority": 5
-  },
-  "behavior_rules": {
-    "tone": "professional",
-    "response_style": "structured_clear",
-    "max_complexity": "medium",
-    "allow_humor": false
-  },
-  "safety_notes": {
-    "allowed_usage": [],
-    "restricted_usage": [],
-    "forbidden_usage": [],
-    "fallback_behavior": "Solliciter une validation humaine si ambiguïté."
-  },
-  "metadata": {
-    "author": "ALFRED_SYSTEM",
-    "creation_date": "11/07/2026",
-    "last_update": "11/07/2026",
-    "review_status": "draft",
-    "reviewed_by": "",
-    "source_type": "manual_structured_knowledge",
-    "language": "fr",
-    "retrieval_ready": true,
-    "rag_compatible": true
-  }
+  "related_knowledge_units": []
 }

@@ -1,0 +1,92 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "mathematiques.logique.logique_formelle_bases",
+  "title": "Logique formelle : propositions, connecteurs, tables de vérité, quantificateurs",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "mathematiques",
+  "subdomain": "logique",
+  "category": "logique_formelle",
+  "summary": "La logique formelle étudie les propositions, leur combinaison via des connecteurs (ET, OU, NON, implication, équivalence) et leur validité à l'aide de tables de vérité. Les quantificateurs (« pour tout », « il existe ») permettent d'exprimer des affirmations générales ou d'existence, et les règles de syllogisme structurent le raisonnement déductif valide. C'est le socle théorique commun aux mathématiques, à l'informatique (algèbre booléenne, circuits, programmation) et à l'argumentation rigoureuse.",
+  "purpose": "Fournir à ALFRED les outils pour analyser la validité d'un raisonnement, construire ou vérifier des tables de vérité, détecter des sophismes logiques, et faire le lien entre logique mathématique et logique de programmation (conditions booléennes).",
+  "tags": ["logique", "propositions", "connecteurs_logiques", "table_de_verite", "quantificateurs", "syllogisme", "raisonnement_deductif", "algebre_booleenne"],
+  "intents": ["evaluate_logical_argument", "build_truth_table", "explain_logical_connector", "detect_logical_fallacy", "translate_logic_to_code"],
+  "usage_context": ["vérification de la validité d'un raisonnement ou d'un argument", "aide à la conception de conditions dans un programme informatique", "apprentissage ou révision de logique mathématique"],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "La logique formelle (ou propositionnelle et des prédicats) est l'étude des structures de raisonnement valides indépendamment du contenu concret des affirmations. Une proposition est un énoncé qui est soit vrai, soit faux (jamais les deux), et les connecteurs logiques (négation NON/¬, conjonction ET/∧, disjonction OU/∨, implication →, équivalence ↔) permettent de combiner des propositions simples en propositions composées. Une table de vérité liste systématiquement toutes les combinaisons possibles de valeurs de vérité des propositions élémentaires et la valeur résultante de la proposition composée, ce qui permet de vérifier si une formule est une tautologie (toujours vraie), une contradiction (toujours fausse) ou contingente. Les quantificateurs universel (∀, « pour tout ») et existentiel (∃, « il existe ») étendent ce cadre pour raisonner sur des ensembles d'éléments plutôt que sur des propositions isolées.",
+    "core_principles": [
+      "Table de vérité de l'implication A→B : elle n'est fausse que dans le cas où A est vrai et B est faux ; dans tous les autres cas (y compris A faux), elle est vraie.",
+      "L'implication A→B est logiquement équivalente à sa contraposée ¬B→¬A, mais n'est PAS équivalente à sa réciproque B→A ni à son inverse ¬A→¬B.",
+      "Lois de De Morgan : ¬(A∧B) ≡ (¬A∨¬B) et ¬(A∨B) ≡ (¬A∧¬B) — essentielles pour simplifier des conditions logiques ou du code.",
+      "Un syllogisme valide (ex. modus ponens : si A→B est vrai et A est vrai, alors B est vrai) garantit une conclusion vraie à partir de prémisses vraies ; la validité porte sur la structure, pas sur le contenu.",
+      "Le modus tollens (si A→B est vrai et ¬B est vrai, alors ¬A est vrai) est une autre règle d'inférence valide fondamentale.",
+      "Une tautologie est une formule vraie pour toute combinaison de valeurs de vérité des variables (ex. A∨¬A) ; une contradiction est fausse pour toute combinaison (ex. A∧¬A).",
+      "La négation d'un quantificateur universel donne un quantificateur existentiel et inversement : ¬(∀x, P(x)) ≡ ∃x, ¬P(x).",
+      "En algèbre booléenne (informatique), ET/OU/NON correspondent respectivement aux opérateurs AND/OR/NOT et aux portes logiques des circuits numériques ; le raisonnement propositionnel est directement transposable au code (if/else, conditions composées)."
+    ],
+    "rules": [
+      "Ne jamais confondre une implication A→B avec sa réciproque B→A : elles n'ont pas la même valeur de vérité en général.",
+      "Pour vérifier la validité d'un raisonnement, construire systématiquement la table de vérité complète plutôt que de se fier à l'intuition.",
+      "Distinguer clairement validité formelle (la structure logique est correcte) et vérité des prémisses (le contenu factuel est exact) — un raisonnement peut être valide avec des prémisses fausses, produisant une conclusion fausse mais logiquement cohérente.",
+      "Pour une formule avec n propositions élémentaires, une table de vérité complète comporte 2^n lignes.",
+      "Traduire les quantificateurs avec précision : « tous les A sont B » (∀) diffère fondamentalement de « certains A sont B » (∃)."
+    ],
+    "examples": [
+      {
+        "situation": "L'utilisateur affirme : « S'il pleut, la route est mouillée. La route est mouillée, donc il pleut. » et demande si c'est valide.",
+        "recommended_behavior": "Identifier le sophisme de l'affirmation du conséquent : de A→B et B, on ne peut PAS déduire A (la route peut être mouillée pour d'autres raisons, comme un arrosage). Expliquer que seul le modus ponens (A→B, A ⊢ B) ou le modus tollens (A→B, ¬B ⊢ ¬A) sont valides.",
+        "avoid": "Valider ce raisonnement comme correct simplement parce que les deux affirmations semblent liées intuitivement."
+      },
+      {
+        "situation": "L'utilisateur veut simplifier la condition de code `if not (a and b):` en langage naturel ou en code équivalent.",
+        "recommended_behavior": "Appliquer la loi de De Morgan : ¬(a∧b) ≡ (¬a∨¬b), donc la condition équivaut à `if (not a) or (not b):`.",
+        "avoid": "Simplifier incorrectement en `if not a and not b:` qui correspond à ¬a∧¬b, une expression logiquement différente."
+      }
+    ],
+    "best_practices": [
+      "Construire une table de vérité explicite dès qu'un raisonnement composé (plusieurs connecteurs) doit être vérifié rigoureusement.",
+      "Nommer explicitement le sophisme identifié (affirmation du conséquent, négation de l'antécédent, etc.) pour aider l'utilisateur à le reconnaître à l'avenir.",
+      "Faire le pont entre logique mathématique et syntaxe de programmation quand le contexte est technique (conditions, opérateurs booléens).",
+      "Utiliser des exemples concrets et familiers pour illustrer les connecteurs et quantificateurs avant de généraliser à la notation symbolique.",
+      "Vérifier la portée exacte des quantificateurs dans un énoncé ambigu avant de le formaliser."
+    ],
+    "anti_patterns": [
+      "Confondre implication et équivalence (A→B traité comme A↔B).",
+      "Commettre le sophisme de l'affirmation du conséquent ou de la négation de l'antécédent.",
+      "Mal appliquer les lois de De Morgan en oubliant d'inverser le connecteur central (∧ devient ∨ et vice versa).",
+      "Traiter une conclusion issue de prémisses fausses comme automatiquement fausse, alors que la validité logique et la vérité factuelle sont deux questions distinctes."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["logique", "proposition", "connecteur_logique", "table_de_verite", "implication", "quantificateur", "syllogisme", "sophisme", "modus_ponens"],
+    "related_domains": ["cognition", "ia_data_science", "mathematiques"],
+    "related_knowledge": ["cognition.systeme_pensee.critical_thinking", "mathematiques.algebre.algebre_bases"],
+    "retrieval_priority": 5
+  },
+  "behavior_rules": {
+    "tone": "educational",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["analyse pédagogique de raisonnements et d'arguments", "aide à la conception de conditions logiques en programmation"],
+    "restricted_usage": ["évaluation de la validité logique d'arguments à forte charge émotionnelle ou politique sans neutralité affichée"],
+    "forbidden_usage": ["utilisation de la logique formelle pour construire délibérément un argument fallacieux destiné à tromper un tiers"],
+    "fallback_behavior": "Si un énoncé en langage naturel est ambigu quant à sa structure logique (portée des quantificateurs, connecteur implicite), demander une reformulation avant de le formaliser."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "11/07/2026",
+    "last_update": "11/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

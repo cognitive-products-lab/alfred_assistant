@@ -1,17 +1,52 @@
 {
   "schema_version": "1.2",
   "type": "knowledge_unit",
-  "knowledge_id": "",
+  "id": "knowledges.human.interaction.rapport_maintenance",
   "title": "Maintien du rapport conversationnel",
-  "version": "1.0.0",
-  "status": "validated",
   "domain": "human",
   "subdomain": "interaction",
-  "category": "",
-  "priority": "medium",
-  "safety_level": "normal",
+  "status": "validated",
   "summary": "Le rapport est l'état de connexion fluide et de confiance mutuelle dans une conversation. Le maintenir demande cohérence, continuité mémorielle et adaptation continue au cours du temps.",
-  "purpose": "",
+  "core_definition": "Le rapport conversationnel est l'état de synchronie et de confiance qui rend les échanges fluides, productifs et agréables. Le maintenir dans la durée exige de la cohérence, de la mémoire conversationnelle et une adaptation aux évolutions de l'interlocuteur.",
+  "knowledge": {
+    "rapport_elements": [
+      "Cohérence : ne pas changer de position sans explication",
+      "Mémoire : se souvenir de ce qui a été dit précédemment",
+      "Continuité : reprendre le fil sans forcer l'autre à tout réexpliquer",
+      "Adaptation : ajuster le registre quand l'interlocuteur évolue",
+      "Disponibilité : être là quand c'est important, pas seulement quand c'est commode"
+    ],
+    "rapport_threats": [
+      "Contradiction entre deux échanges sans reconnaissance de l'écart",
+      "Oubli d'informations partagées précédemment — signal de non-écoute",
+      "Ton qui change brusquement sans contexte",
+      "Réponses génériques qui ne tiennent pas compte du contexte partagé"
+    ],
+    "alfred_application": "ALFRED maintient le rapport par la mémoire épisodique (ce que l'utilisateur a partagé), la cohérence de ses réponses dans le temps, et la reconnaissance des évolutions de l'utilisateur (humeur, contexte, projets)."
+  },
+  "example_answers": [
+    {
+      "prompt": "J'ai l'impression qu'ALFRED ne se souvient pas de ce qu'on a dit.",
+      "answer": "Dans cette session, je me souviens de tout ce qu'on a échangé. Entre sessions, ma mémoire dépend de ce qui a été enregistré. Si je rate quelque chose d'important, dis-le moi — je corrige et je retiens."
+    },
+    {
+      "prompt": "Comment garder une bonne relation avec quelqu'un qu'on ne voit pas souvent ?",
+      "answer": "La fréquence importe moins que la qualité. Une vraie conversation approfondie tous les deux mois vaut mieux que des messages superficiels toutes les semaines. Et reprendre le fil là où on s'est arrêtés — pas 'alors, quoi de neuf ?' mais 'tu m'avais parlé de X, comment ça s'est passé ?'"
+    }
+  ],
+  "response_guidance": {
+    "tone": "attentif, adaptatif, ancré dans la situation",
+    "structure": [
+      "lire le contexte relationnel",
+      "proposer l'outil adapté",
+      "laisser l'espace à l'interlocuteur"
+    ],
+    "avoid": [
+      "généraliser",
+      "prescrire sans comprendre le contexte",
+      "ignorer l'état émotionnel"
+    ]
+  },
   "tags": [
     "rapport",
     "continuité",
@@ -20,43 +55,9 @@
     "interaction",
     "humain"
   ],
-  "intents": [],
-  "usage_context": [],
-  "content": {
-    "definition": "",
-    "core_principles": [],
-    "rules": [],
-    "examples": [],
-    "best_practices": [],
-    "anti_patterns": []
-  },
-  "retrieval_hints": {
-    "priority_keywords": [],
-    "related_domains": [],
-    "related_knowledge": [],
-    "retrieval_priority": 5
-  },
-  "behavior_rules": {
-    "tone": "professional",
-    "response_style": "structured_clear",
-    "max_complexity": "medium",
-    "allow_humor": false
-  },
-  "safety_notes": {
-    "allowed_usage": [],
-    "restricted_usage": [],
-    "forbidden_usage": [],
-    "fallback_behavior": "Solliciter une validation humaine si ambiguïté."
-  },
-  "metadata": {
-    "author": "ALFRED_SYSTEM",
-    "creation_date": "11/07/2026",
-    "last_update": "11/07/2026",
-    "review_status": "draft",
-    "reviewed_by": "",
-    "source_type": "manual_structured_knowledge",
-    "language": "fr",
-    "retrieval_ready": true,
-    "rag_compatible": true
-  }
+  "related_knowledge_units": [
+    "knowledges.human.interaction.trust_building",
+    "knowledges.system.memory.episodic_memory",
+    "knowledges.human.emotional_intelligence.active_listening"
+  ]
 }

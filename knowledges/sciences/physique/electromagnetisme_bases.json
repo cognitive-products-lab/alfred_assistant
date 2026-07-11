@@ -1,0 +1,89 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "sciences.physique.electromagnetisme_bases",
+  "title": "Électromagnétisme : charges, champs et ondes",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "sciences",
+  "subdomain": "physique",
+  "category": "physique fondamentale",
+  "summary": "L'électromagnétisme unifie électricité et magnétisme en un seul cadre théorique, formalisé par les équations de Maxwell au XIXe siècle. Il explique la force entre charges électriques (loi de Coulomb), la création de champs magnétiques par les courants, l'induction électromagnétique et la propagation des ondes électromagnétiques dont la lumière fait partie. C'est le fondement théorique de l'électricité domestique, des télécommunications et de l'électronique moderne.",
+  "purpose": "Permettre à ALFRED d'expliquer les phénomènes électriques et magnétiques du quotidien (prises électriques, wifi, aimants, moteurs) avec exactitude physique et vigilance sur les risques électriques réels.",
+  "tags": ["electromagnetisme", "champ_electrique", "champ_magnetique", "induction", "ondes", "coulomb", "maxwell", "physique"],
+  "intents": ["explain_physics_concept", "explain_electricity", "explain_electromagnetic_waves", "give_everyday_physics_example"],
+  "usage_context": ["question sur le fonctionnement de l'électricité domestique ou du wifi", "explication d'un phénomène magnétique observé", "aide aux devoirs de physique", "culture scientifique générale"],
+  "priority": "medium",
+  "safety_level": "sensitive",
+  "content": {
+    "definition": "L'électromagnétisme est la branche de la physique qui décrit les interactions entre particules chargées électriquement, à travers deux champs interdépendants : le champ électrique, produit par les charges, et le champ magnétique, produit par les charges en mouvement (courants). James Clerk Maxwell a unifié ces phénomènes en 1865 dans quatre équations qui prédisent également l'existence des ondes électromagnétiques, dont la lumière visible n'est qu'une portion du spectre. Cette théorie explique aussi bien l'attraction d'un aimant que le fonctionnement d'une antenne radio ou la vision humaine. Elle constitue, avec la mécanique, l'un des deux piliers de la physique classique et reste directement exploitée dans l'électrotechnique et les télécommunications.",
+    "core_principles": [
+      "La loi de Coulomb décrit la force entre deux charges électriques ponctuelles : F = k·q1·q2/r², attractive si charges opposées, répulsive si charges de même signe.",
+      "Le champ électrique E représente la force par unité de charge en un point de l'espace ; le champ magnétique B décrit l'effet des charges en mouvement (courants électriques, aimants).",
+      "La loi de Faraday (induction électromagnétique) : une variation de flux magnétique à travers un circuit y induit une force électromotrice, principe fondamental des générateurs et transformateurs électriques.",
+      "Les équations de Maxwell unifient électricité et magnétisme et prédisent que tout champ électromagnétique variable se propage sous forme d'onde à la vitesse de la lumière (c ≈ 300 000 km/s) dans le vide.",
+      "Le spectre électromagnétique inclut, par longueur d'onde croissante, rayons gamma, rayons X, ultraviolets, lumière visible, infrarouges, micro-ondes et ondes radio.",
+      "Un courant électrique circulant dans un conducteur crée un champ magnétique autour de lui (loi d'Ampère), principe utilisé dans les électro-aimants et moteurs électriques.",
+      "La tension (en volts) est la différence de potentiel électrique qui met les charges en mouvement ; l'intensité (en ampères) mesure le débit de charges ; la loi d'Ohm relie U = R·I dans un conducteur ohmique.",
+      "Les ondes wifi, radio, et de téléphonie mobile sont des ondes électromagnétiques non ionisantes, de fréquence bien inférieure à celle de la lumière visible ou des UV."
+    ],
+    "rules": [
+      "Toujours rappeler que le courant électrique domestique (220V en France) est potentiellement mortel : ne jamais minimiser les risques d'électrocution dans les explications.",
+      "Distinguer clairement rayonnement ionisant (UV, X, gamma — capable d'endommager l'ADN) et non ionisant (radio, wifi, micro-ondes — énergie insuffisante pour ioniser la matière).",
+      "Ne pas confondre tension (volts), intensité (ampères) et puissance (watts = volts × ampères) dans les explications.",
+      "Préciser que le champ magnétique terrestre, les aimants et l'électricité statique relèvent tous du même cadre théorique électromagnétique."
+    ],
+    "examples": [
+      {
+        "situation": "Un utilisateur demande si le wifi ou la 5G sont dangereux pour la santé car ce sont des 'ondes'.",
+        "recommended_behavior": "Expliquer que ce sont des ondes électromagnétiques non ionisantes, de fréquence et d'énergie très inférieures aux rayonnements ionisants (UV, X), et que le consensus scientifique actuel (OMS, ANSES) ne montre pas d'effet sanitaire prouvé aux niveaux d'exposition réglementaires.",
+        "avoid": "Affirmer catégoriquement une innocuité totale sans nuance, ou au contraire alimenter une inquiétude non étayée scientifiquement."
+      },
+      {
+        "situation": "Question sur le fonctionnement d'un moteur électrique.",
+        "recommended_behavior": "Expliquer que le courant dans une bobine crée un champ magnétique qui interagit avec des aimants fixes, produisant une force de rotation (principe de Laplace/Lorentz).",
+        "avoid": "Une explication vague type 'l'électricité fait tourner le moteur' sans mécanisme physique."
+      }
+    ],
+    "best_practices": [
+      "Utiliser des analogies pédagogiques prudentes (ex. tension = différence de pression, intensité = débit) tout en signalant leurs limites.",
+      "Toujours relier les phénomènes électromagnétiques à des applications concrètes reconnaissables (prise électrique, aimant, wifi, IRM, panneau solaire).",
+      "Citer les ordres de grandeur des fréquences et longueurs d'onde pour situer un phénomène dans le spectre électromagnétique.",
+      "Rappeler les règles de sécurité électrique de base quand le sujet s'y prête (ne pas toucher un appareil électrique avec les mains mouillées, etc.)."
+    ],
+    "anti_patterns": [
+      "Mélanger les notions de tension, courant et puissance sans les définir clairement.",
+      "Présenter tous les rayonnements électromagnétiques comme équivalents en dangerosité, indépendamment de leur fréquence.",
+      "Donner des conseils de bricolage électrique précis qui pourraient exposer l'utilisateur à un risque d'électrocution sans rappeler la nécessité de couper le courant et de faire appel à un professionnel si besoin."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["electromagnetisme", "champ electrique", "champ magnetique", "induction", "onde electromagnetique", "coulomb", "maxwell", "tension", "courant"],
+    "related_domains": ["mathematiques", "education", "environment"],
+    "related_knowledge": ["sciences.physique.mecanique_classique", "sciences.physique.energie_et_thermodynamique"],
+    "retrieval_priority": 5
+  },
+  "behavior_rules": {
+    "tone": "educational",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["explications pédagogiques de physique", "vulgarisation scientifique", "culture générale sur l'électricité et les ondes"],
+    "restricted_usage": ["conseils de bricolage électrique domestique, à formuler avec rappel des risques et recommandation de recourir à un électricien qualifié pour toute intervention sur une installation"],
+    "forbidden_usage": ["instructions permettant de modifier ou contourner des dispositifs de sécurité électrique"],
+    "fallback_behavior": "En cas de question touchant à un risque électrique réel (installation, réparation), rappeler les précautions de sécurité de base et orienter vers un professionnel qualifié plutôt que de détailler une manipulation risquée."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "11/07/2026",
+    "last_update": "11/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

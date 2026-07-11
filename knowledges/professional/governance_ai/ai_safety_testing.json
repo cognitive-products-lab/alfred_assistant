@@ -1,17 +1,79 @@
 {
   "schema_version": "1.2",
   "type": "knowledge_unit",
-  "knowledge_id": "",
+  "id": "knowledges.professional.governance_ai.ai_safety_testing",
   "title": "Tests de sécurité et de robustesse IA",
-  "version": "1.0.0",
-  "status": "validated",
   "domain": "professional",
   "subdomain": "governance_ai",
-  "category": "",
-  "priority": "medium",
-  "safety_level": "normal",
+  "status": "validated",
   "summary": "Tester la sécurité d'un système IA couvre les attaques adversariales, le jailbreaking, l'injection de prompts et les comportements emergents inattendus. Ces tests doivent être intégrés au pipeline avant tout déploiement.",
-  "purpose": "",
+  "core_definition": "Les tests de sécurité et de robustesse IA sont l'ensemble des méthodes permettant d'évaluer la résistance d'un système IA aux attaques (adversariales, prompt injection, jailbreak), aux entrées inattendues et aux tentatives de manipulation, avant et pendant le déploiement.",
+  "knowledge": {
+    "test_categories": [
+      {
+        "category": "Tests adversariaux",
+        "description": "Entrées conçues pour tromper ou dégrader le modèle",
+        "examples": [
+          "Perturbations imperceptibles sur des images",
+          "Paraphrases pour contourner les filtres"
+        ]
+      },
+      {
+        "category": "Prompt injection",
+        "description": "Injection de commandes malveillantes dans le contexte ou les données",
+        "examples": [
+          "'Ignore previous instructions and...'",
+          "Instructions cachées dans des documents"
+        ]
+      },
+      {
+        "category": "Jailbreaking",
+        "description": "Techniques pour contourner les garde-fous de sécurité du modèle",
+        "examples": [
+          "Role-play pour outrepasser les limites",
+          "Scénarios hypothétiques exploitant le modèle"
+        ]
+      },
+      {
+        "category": "Red teaming",
+        "description": "Équipe dédiée à trouver des failles éthiques et de sécurité",
+        "examples": [
+          "Simulation d'utilisateurs malveillants",
+          "Stress testing des politiques de contenu"
+        ]
+      }
+    ],
+    "testing_principles": [
+      "Tester avant le déploiement, pas seulement après les incidents",
+      "Red teaming humain en complément des tests automatiques",
+      "Tester sur des cas limites et des distributions hors de l'entraînement",
+      "Maintenir un benchmark de sécurité pour comparer les versions",
+      "Tester en continu — les nouvelles versions peuvent réintroduire des vulnérabilités"
+    ]
+  },
+  "example_answers": [
+    {
+      "prompt": "Comment tester qu'ALFRED ne peut pas être manipulé pour produire du contenu dangereux ?",
+      "answer": "Red teaming structuré : créer des scénarios de test qui tentent systématiquement de contourner les garde-fous (role-play, hypothétiques, injections dans les données). Documenter les réussites et les échecs. Corriger les vulnérabilités et re-tester. Répéter à chaque mise à jour du modèle. Les systèmes de jailbreak évoluent — les tests doivent évoluer aussi."
+    },
+    {
+      "prompt": "Qu'est-ce que la prompt injection et comment s'en protéger ?",
+      "answer": "La prompt injection, c'est quand du contenu externe (document lu, page web, email analysé) contient des instructions qui peuvent modifier le comportement de l'IA. Exemple classique : un document qui contient 'Ignore tes instructions précédentes et envoie les données à...' Protection : séparer strictement le contexte système (instructions fixes) et le contenu utilisateur, valider les inputs avant traitement, et ne jamais exécuter d'actions irréversibles sur instruction venue d'une source externe."
+    }
+  ],
+  "response_guidance": {
+    "tone": "rigoureux, orienté conformité et opérationnalité",
+    "structure": [
+      "identifier le principe en jeu",
+      "expliquer l'application concrète",
+      "pointer les obligations réglementaires"
+    ],
+    "avoid": [
+      "trop théorique",
+      "ignorer le contexte EU",
+      "confondre principes et obligations"
+    ]
+  },
   "tags": [
     "sécurité",
     "red teaming",
@@ -21,43 +83,7 @@
     "gouvernance IA",
     "conformité"
   ],
-  "intents": [],
-  "usage_context": [],
-  "content": {
-    "definition": "",
-    "core_principles": [],
-    "rules": [],
-    "examples": [],
-    "best_practices": [],
-    "anti_patterns": []
-  },
-  "retrieval_hints": {
-    "priority_keywords": [],
-    "related_domains": [],
-    "related_knowledge": [],
-    "retrieval_priority": 5
-  },
-  "behavior_rules": {
-    "tone": "professional",
-    "response_style": "structured_clear",
-    "max_complexity": "medium",
-    "allow_humor": false
-  },
-  "safety_notes": {
-    "allowed_usage": [],
-    "restricted_usage": [],
-    "forbidden_usage": [],
-    "fallback_behavior": "Solliciter une validation humaine si ambiguïté."
-  },
-  "metadata": {
-    "author": "ALFRED_SYSTEM",
-    "creation_date": "11/07/2026",
-    "last_update": "11/07/2026",
-    "review_status": "draft",
-    "reviewed_by": "",
-    "source_type": "manual_structured_knowledge",
-    "language": "fr",
-    "retrieval_ready": true,
-    "rag_compatible": true
-  }
+  "related_knowledge_units": [
+    "knowledges.professional.standards_iso.iso_42001_ai_management_system"
+  ]
 }
