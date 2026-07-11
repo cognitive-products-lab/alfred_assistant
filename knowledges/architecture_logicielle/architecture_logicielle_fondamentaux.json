@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "architecture_logicielle.fondamentaux.architecture_logicielle_fondamentaux",
+  "version": "1.0.0",
+  "domain": "architecture_logicielle",
+  "subdomain": "fondamentaux",
+  "category": "architecture_technique",
+  "priority": "high",
+  "safety_level": "normal",
+  "title": "Architecture Informatique et Développement Logiciel — Fondamentaux",
+  "summary": "Architecture monolithique, microservices, événementielle, API REST, bases de données (relationnelles, NoSQL, vectorielles), cloud (privé/public/hybride), local-first, haute disponibilité, CI/CD, DevSecOps, observabilité, tests, gestion des dépendances.",
+  "purpose": "Permettre à ALFRED CPL d'expliquer les patterns d'architecture informatique et les pratiques de développement logiciel modernes.",
+  "tags": ["architecture_logicielle", "microservices", "API_REST", "cloud", "CI_CD", "DevSecOps", "local_first", "haute_disponibilité", "observabilité", "NoSQL", "conteneurisation"],
+  "intents": ["explain_software_architecture", "explain_microservices", "explain_api_rest", "explain_cloud", "explain_cicd", "explain_observability"],
+  "usage_context": ["Architecture", "DSI", "Développement", "Product Management"],
+  "content": {
+    "patterns_architecture": {
+      "monolithique": "Architecture monolithique : application déployée comme un seul bloc. Simple à développer et à tester au départ. Difficile à scaler et à faire évoluer indépendamment. Adapté aux petites applications ou aux débuts de projet.",
+      "microservices": "Microservices : décomposition en services indépendants, chacun responsable d'un domaine fonctionnel. Avantages : scalabilité indépendante, déploiements indépendants, résilience (panne isolée). Inconvénients : complexité opérationnelle, latence réseau, gestion des transactions distribuées.",
+      "evenementielle": "Architecture événementielle (EDA) : les composants communiquent via des événements asynchrones (message broker : Kafka, RabbitMQ). Faible couplage, excellente scalabilité. Adapté aux systèmes distribués.",
+      "client_serveur": "Architecture client-serveur : client (UI) communique avec un serveur via API. Modèle dominant du web. Déclinaisons : MVC, REST, GraphQL, gRPC."
+    },
+    "api": {
+      "rest": "API REST : interface de programmation basée sur HTTP. Ressources identifiées par des URLs, opérations via verbes HTTP (GET, POST, PUT, DELETE). Stateless. Format JSON/XML. Standard de facto pour les APIs web.",
+      "auth": "Authentification par jeton : OAuth 2.0 (délégation d'autorisation), JWT (JSON Web Token), API Key. OIDC (OpenID Connect) pour l'authentification. Meilleures pratiques : HTTPS obligatoire, expiration des tokens, rotation."
+    },
+    "bases_donnees": {
+      "relationnelle": "Base de données relationnelle (SQL) : données structurées en tables avec relations. ACID (Atomicité, Cohérence, Isolation, Durabilité). Exemples : PostgreSQL, MySQL, Oracle, SQL Server. Adapté aux données structurées avec relations complexes.",
+      "nosql": "Base NoSQL : non relationnelle, adaptée aux données non structurées, au volume et à la scalabilité. Types : document (MongoDB), clé-valeur (Redis), colonne large (Cassandra), graphe (Neo4j).",
+      "vectorielle": "Base vectorielle : stockage et recherche par similarité sémantique d'embeddings. Centrale dans les architectures RAG."
+    },
+    "cloud": {
+      "modeles": "IaaS (Infrastructure as a Service) : VMs, stockage, réseau. PaaS (Platform as a Service) : plateforme d'exécution. SaaS (Software as a Service) : application clés en main. Serverless/FaaS : fonctions à la demande.",
+      "types": "Cloud public (AWS, Azure, GCP) : mutualisation, élasticité. Cloud privé : infrastructure dédiée, contrôle maximal. Cloud hybride : combinaison. Multi-cloud : plusieurs fournisseurs pour éviter le lock-in.",
+      "local_first": "Local-first : données stockées localement, synchronisées avec le cloud quand disponible. Priorité à la disponibilité offline et à la confidentialité. Adapté aux applications nécessitant une faible latence ou une souveraineté des données.",
+      "edge": "Edge computing : traitement des données près de leur source (IoT, caméras, capteurs). Réduit la latence et la bande passante. Adapté aux traitements temps réel."
+    },
+    "ha_resilience": "Haute disponibilité (HA) : architecture assurant une continuité de service minimisant les interruptions. Patterns : redondance active/passive, load balancing, failover automatique, circuit breaker. SLA : 99,9 % = 8,7 h d'arrêt/an, 99,99 % = 52 min/an.",
+    "cicd_devsecops": {
+      "cicd": "CI/CD (Continuous Integration / Continuous Delivery) : automatisation du cycle de build, test et déploiement. CI : intégration et tests automatisés à chaque commit. CD : déploiement automatisé en staging voire production.",
+      "devsecops": "DevSecOps : intégration de la sécurité dans le cycle CI/CD (shift left). SAST (analyse statique), DAST (analyse dynamique), SCA (analyse des dépendances), secrets management, IaC security."
+    },
+    "observabilite": "Observabilité = métriques + logs + traces. Métriques : agrégations numériques (CPU, latence, erreurs). Logs : enregistrements horodatés d'événements. Traces distribuées : suivi d'une requête à travers plusieurs microservices (OpenTelemetry). Outils : Prometheus, Grafana, ELK, Datadog.",
+    "tests": "Pyramide des tests : tests unitaires (rapides, nombreux), tests d'intégration (vérifient les interactions), tests end-to-end (scénarios utilisateurs complets), tests de sécurité (SAST, DAST, pentest), tests de charge. Règle : 70 % unitaires, 20 % intégration, 10 % E2E."
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["architecture logicielle", "microservices", "API REST", "cloud", "CI/CD", "DevSecOps", "observabilité", "local-first", "haute disponibilité"],
+    "related_domains": ["architecture_logicielle", "gouvernance_si"],
+    "related_knowledge": ["enterprise_architecture.devsecops.devsecops_basics", "enterprise_architecture.cloud.cloud_governance"],
+    "retrieval_priority": 8
+  },
+  "behavior_rules": {"tone": "educational", "response_style": "structured_clear", "max_complexity": "medium", "allow_humor": false},
+  "safety_notes": {"allowed_usage": ["Éducation sur l'architecture logicielle"], "restricted_usage": [], "forbidden_usage": [], "fallback_behavior": ""},
+  "metadata": {"author": "ALFRED_SYSTEM", "creation_date": "10/07/2026", "last_update": "10/07/2026", "review_status": "active", "reviewed_by": "ALFRED_CORE", "source_type": "manual_structured_knowledge", "language": "fr", "retrieval_ready": true, "rag_compatible": true}
+}

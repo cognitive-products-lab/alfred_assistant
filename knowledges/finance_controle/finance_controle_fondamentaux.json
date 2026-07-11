@@ -1,0 +1,49 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "finance_controle.fondamentaux.finance_controle_fondamentaux",
+  "version": "1.0.0",
+  "domain": "finance_controle",
+  "subdomain": "fondamentaux",
+  "category": "finance",
+  "priority": "high",
+  "safety_level": "normal",
+  "title": "Finance et Contrôle de Gestion — Fondamentaux",
+  "summary": "Chiffre d'affaires, marge, coût, budget, investissement, trésorerie, rentabilité, ROI, TCO, CAPEX/OPEX, seuil de rentabilité, business case, contrôle de gestion, indicateurs financiers, coût du risque, coût d'un incident, analyse coûts-bénéfices.",
+  "purpose": "Permettre à ALFRED CPL d'expliquer les concepts financiers fondamentaux et d'aider à construire un business case ou à analyser la rentabilité d'un projet.",
+  "tags": ["finance", "contrôle_gestion", "ROI", "TCO", "CAPEX", "OPEX", "business_case", "budget", "trésorerie", "rentabilité", "coût_incident", "analyse_coûts_bénéfices"],
+  "intents": ["explain_finance_basics", "build_business_case", "calculate_roi", "explain_capex_opex", "explain_cost_of_incident"],
+  "usage_context": ["Direction", "Finance", "Gestion de projet", "DSI"],
+  "content": {
+    "concepts_base": {
+      "ca_marge": "Chiffre d'affaires (CA) : montant total des ventes sur une période. Marge brute = CA - Coût des ventes. Marge opérationnelle (EBIT) = CA - Charges opérationnelles. EBITDA = EBIT + amortissements et dépréciations. Résultat net = Résultat avant impôts - IS.",
+      "tresorerie": "Trésorerie : liquidités disponibles pour honorer les engagements. Cash flow opérationnel, d'investissement et de financement. BFR (Besoin en Fonds de Roulement) : décalage entre encaissements et décaissements. Risque de cessation de paiement si BFR non maîtrisé.",
+      "budget": "Budget prévisionnel : estimation des revenus et des coûts pour une période (généralement annuelle). Budget vs réalisé : suivi des écarts. Budget base zéro (BBZ) : repartir de zéro chaque année, justifier chaque dépense."
+    },
+    "investissement": {
+      "capex_opex": "CAPEX (Capital Expenditure) : dépenses d'investissement immobilisées (achat de matériels, licences pluriannuelles, développements logiciels). Amorties sur la durée de vie. OPEX (Operating Expenditure) : charges d'exploitation courantes (abonnements SaaS, maintenance, salaires).",
+      "roi": "ROI (Return on Investment) : (Gains - Coûts) / Coûts × 100. Mesure la rentabilité d'un investissement. Doit être calculé sur une durée définie.",
+      "tco": "TCO (Total Cost of Ownership) : coût total de possession incluant achat, installation, formation, maintenance, mises à jour et décommissionnement. Essentiel pour comparer des solutions (ne pas regarder que le prix d'achat).",
+      "seuil_rentabilite": "Seuil de rentabilité (point mort) : niveau de CA à partir duquel l'entreprise couvre ses charges fixes. CA seuil = Charges fixes / (Taux de marge sur coût variable)."
+    },
+    "business_case": {
+      "structure": "Structure d'un business case : (1) Contexte et problème, (2) Options étudiées, (3) Solution recommandée, (4) Bénéfices quantifiés (économies, gains de productivité, revenus supplémentaires), (5) Coûts et investissements, (6) ROI et délai de retour, (7) Risques, (8) Recommandation.",
+      "benefices": "Types de bénéfices : directs (économies mesurables), indirects (réduction du risque, amélioration de la qualité), stratégiques (positionnement, conformité). Bénéfices intangibles : difficiles à quantifier mais réels (image de marque, satisfaction collaborateurs).",
+      "vna": "VAN (Valeur Actualisée Nette) : valeur actuelle des flux de trésorerie futurs moins l'investissement initial. VAN > 0 = projet rentable. TIR (Taux Interne de Rentabilité) : taux pour lequel la VAN = 0. À comparer au coût du capital."
+    },
+    "cout_risque_incident": {
+      "cout_incident": "Coût d'un incident cyber ou d'un projet raté : coûts directs (remédiation, amendes, frais juridiques), coûts indirects (perte de productivité, atteinte à la réputation, perte de clients). Règle : prévention moins coûteuse que remédiation.",
+      "cout_non_conformite": "Coût de la non-conformité : amendes réglementaires (ex : jusqu'à 4 % du CA mondial pour une violation RGPD majeure), coûts de remédiation, pertes clients, impact boursier.",
+      "analyse_cout_benefice": "Analyse coûts-bénéfices : pour justifier un investissement en sécurité ou conformité. ALE (Annual Loss Expectancy) = SLE (Single Loss Expectancy) × ARO (Annual Rate of Occurrence). Si coût de la mesure < ALE → investir."
+    }
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["ROI", "TCO", "CAPEX", "OPEX", "business case", "VAN", "TIR", "seuil de rentabilité", "coût de l'incident", "contrôle de gestion"],
+    "related_domains": ["finance_controle", "gestion_projet"],
+    "related_knowledge": ["gestion_projet.fondamentaux.gestion_projet_fondamentaux"],
+    "retrieval_priority": 8
+  },
+  "behavior_rules": {"tone": "educational", "response_style": "structured_clear", "max_complexity": "medium", "allow_humor": false},
+  "safety_notes": {"allowed_usage": ["Éducation sur les concepts financiers"], "restricted_usage": ["Ne pas donner de conseils financiers personnalisés"], "forbidden_usage": [], "fallback_behavior": "Orienter vers un DAF ou un expert-comptable pour les cas concrets."},
+  "metadata": {"author": "ALFRED_SYSTEM", "creation_date": "10/07/2026", "last_update": "10/07/2026", "review_status": "active", "reviewed_by": "ALFRED_CORE", "source_type": "manual_structured_knowledge", "language": "fr", "retrieval_ready": true, "rag_compatible": true}
+}

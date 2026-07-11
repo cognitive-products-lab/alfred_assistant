@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "regulation.health.health_regulation",
+  "version": "1.0.0",
+  "domain": "regulation",
+  "subdomain": "health",
+  "category": "sector_regulation",
+  "priority": "high",
+  "safety_level": "sensitive",
+  "title": "Réglementation Santé — Médicament, Dispositifs Médicaux et HDS",
+  "summary": "Réglementation santé : AMM médicaments (ANSM, EMA), MDR/IVDR (dispositifs médicaux UE), HDS (Hébergement de Données de Santé), certification HAS, essais cliniques, pharmacovigilance, données de santé (SNDS, entrepôts).",
+  "purpose": "Permettre à ALFRED d'expliquer le cadre réglementaire de la santé, notamment la réglementation des médicaments, DM et données de santé.",
+  "tags": ["réglementation_santé", "AMM", "ANSM", "EMA", "MDR", "IVDR", "HDS", "HAS", "données_santé", "pharmacovigilance", "dispositif_médical"],
+  "intents": ["explain_health_regulation", "explain_hds", "explain_mdr", "answer_health_regulation_question"],
+  "usage_context": ["Santé", "Conformité", "Pharma", "Digital santé"],
+  "content": {
+    "drug_regulation": {
+      "amm": "AMM (Autorisation de Mise sur le Marché) : autorisation préalable obligatoire pour commercialiser un médicament. Procédures : nationale (ANSM), centralisée (EMA pour toute l'UE), décentralisée, reconnaissance mutuelle.",
+      "ema": "EMA (European Medicines Agency) : évalue les médicaments complexes/innovants (anticancéreux, biologiques). AMM centralisée valable dans tout l'EEA.",
+      "ansm": "ANSM (Agence Nationale de Sécurité du Médicament) : France. Surveille la sécurité des produits de santé, gère les retraits de lots, conduit les enquêtes de pharmacovigilance.",
+      "pharmacovigilance": "Pharmacovigilance : surveillance des effets indésirables médicamenteux après AMM. Obligation déclarative des professionnels de santé et des industriels. Base Eudravigilance (EMA)."
+    },
+    "medical_devices": {
+      "mdr": "MDR (Medical Device Regulation, UE 2017/745) : applicable depuis 2021. Remplace la directive MDD. Classes de risques I, IIa, IIb, III. Exigences renforcées sur les preuves cliniques, la traçabilité (UDI), la surveillance post-marché.",
+      "ivdr": "IVDR (In Vitro Diagnostic Regulation, UE 2017/746) : applicable depuis 2022. Diagnostics in vitro (tests, analyseurs). Classification A, B, C, D.",
+      "sofware_as_md": "MDSW (Software as a Medical Device) : les logiciels médicaux sont réglementés comme dispositifs médicaux. Qualification ANSM/MDR. SaMD (Software as Medical Device) : guide FDA + IMDRF."
+    },
+    "health_data": {
+      "hds": "HDS (Hébergement de Données de Santé) : certification obligatoire pour tout organisme hébergeant des données de santé à caractère personnel pour le compte de tiers. Périmètre : 6 activités. Certification ISO 27001 + référentiel HDS.",
+      "snds": "SNDS (Système National des Données de Santé) : base de données de 99 % de la population française (remboursements, hospitalisations). Accès réglementé (CNOM, CNIL). Valorisation données de santé.",
+      "health_data_hub": "Health Data Hub : plateforme nationale pour faciliter l'accès aux données de santé pour la recherche. Opérateur désigné. Controversé (hébergement Microsoft Azure).",
+      "rgpd_health": "Données de santé = catégorie spéciale RGPD (art. 9). Interdiction de principe sauf dérogations. AIPD obligatoire pour les traitements de données de santé à grande échelle."
+    }
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["réglementation santé", "AMM", "ANSM", "EMA", "MDR", "HDS", "données de santé", "dispositif médical", "pharmacovigilance"],
+    "related_domains": ["regulation", "compliance"],
+    "related_knowledge": ["compliance.data_protection.rgpd_compliance_operationnel", "regulation.financial.financial_regulation_basics"],
+    "retrieval_priority": 8
+  },
+  "behavior_rules": {"tone": "educational", "response_style": "structured_clear", "max_complexity": "high", "allow_humor": false},
+  "safety_notes": {"allowed_usage": ["Éducation sur la réglementation santé"], "restricted_usage": ["Ne pas conseiller sur des cas médicaux spécifiques"], "forbidden_usage": [], "fallback_behavior": "Pour des questions réglementaires santé spécifiques, orienter vers un professionnel de santé ou un juriste spécialisé."},
+  "metadata": {"author": "ALFRED_SYSTEM", "creation_date": "10/07/2026", "last_update": "10/07/2026", "review_status": "active", "reviewed_by": "ALFRED_CORE", "source_type": "manual_structured_knowledge", "language": "fr", "retrieval_ready": true, "rag_compatible": true}
+}

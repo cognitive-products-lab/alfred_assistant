@@ -1,0 +1,57 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "agile_produit.scrum.scrum_fondamentaux",
+  "version": "1.0.0",
+  "domain": "agile_produit",
+  "subdomain": "scrum",
+  "category": "méthodes_agiles",
+  "priority": "critical",
+  "safety_level": "normal",
+  "title": "Scrum et Méthodes Agiles — Fondamentaux",
+  "summary": "Manifeste Agile, Scrum, Kanban, SAFe, Product Ownership, backlog, epic, feature, user story, critères d'acceptation, Definition of Ready/Done, sprint, cérémonies, vélocité, priorisation MoSCoW/WSJF/Kano, MVP, PoC, roadmap produit.",
+  "purpose": "Permettre à ALFRED CPL d'expliquer et de guider l'application des méthodes agiles, de Scrum à la gestion de produit.",
+  "tags": ["agile", "Scrum", "Kanban", "SAFe", "user_story", "backlog", "sprint", "MVP", "Definition_of_Done", "WSJF", "MoSCoW", "vélocité", "Product_Owner"],
+  "intents": ["explain_scrum", "explain_agile", "explain_user_story", "explain_backlog", "apply_moscow", "explain_mvp"],
+  "usage_context": ["Product Management", "IT", "Gestion de projet", "Direction"],
+  "content": {
+    "manifeste_agile": {
+      "valeurs": "4 valeurs du Manifeste Agile (2001) : (1) Les individus et leurs interactions > les processus et les outils. (2) Un logiciel fonctionnel > une documentation exhaustive. (3) La collaboration avec les clients > la négociation contractuelle. (4) L'adaptation au changement > le suivi d'un plan.",
+      "principes": "12 principes : satisfaction du client en priorité, accepter les changements, livraisons fréquentes, collaboration quotidienne, projets autour de personnes motivées, communication en face à face, logiciel fonctionnel = principale mesure d'avancement, rythme soutenable, attention continue à l'excellence technique, simplicité, équipes auto-organisées, réflexion régulière sur comment être plus efficaces."
+    },
+    "scrum": {
+      "roles": "Product Owner (PO) : responsable du backlog et de la valeur produit. Scrum Master (SM) : garant de la méthode et facilitateur. Équipe de développement : réalise le travail. 3-9 personnes idéalement.",
+      "artefacts": "Backlog produit (liste priorisée des besoins), Backlog de sprint (sous-ensemble sélectionné pour le sprint), Incrément (produit potentiellement livrable à la fin du sprint).",
+      "sprint": "Itération de 1 à 4 semaines (2 semaines recommandé). Objectif de sprint = engagement de l'équipe.",
+      "ceremonies": "Cérémonies Scrum : Sprint Planning (planification du sprint), Daily Scrum (15 min quotidien : hier/aujourd'hui/blocages), Sprint Review (démo et feedback parties prenantes), Rétrospective (amélioration des pratiques). + Refinement (affinage du backlog, pas de sprint formel)."
+    },
+    "backlog_stories": {
+      "epic": "Epic : grande fonctionnalité ne pouvant pas être livrée en un sprint. Se décompose en features puis en user stories.",
+      "user_story": "User story : 'En tant que [qui], je veux [quoi] afin de [pourquoi].' Ex : 'En tant que manager, je veux voir les absences de mon équipe en temps réel afin d'anticiper les pics de charge.'",
+      "criteres_acceptation": "Critères d'acceptation : conditions vérifiables permettant de valider qu'une user story est accomplie. Format 'Étant donné... Quand... Alors...' (BDD/Gherkin).",
+      "dod": "Definition of Done (DoD) : liste des critères que tout incrément doit respecter pour être considéré comme terminé. Ex : code revu, tests passés, documenté, déployé en staging.",
+      "dor": "Definition of Ready (DoR) : critères qu'une user story doit remplir pour entrer dans un sprint. Ex : critères d'acceptation définis, effort estimé, maquette validée."
+    },
+    "priorisation": {
+      "moscow": "MoSCoW : Must have (indispensable), Should have (important), Could have (souhaitable), Won't have (pas cette fois). Permet de définir le MVP.",
+      "wsjf": "WSJF (Weighted Shortest Job First / SAFe) : (Valeur Métier + Criticité Temps + Réduction Risque) / Effort. Priorise ce qui apporte la plus grande valeur le plus rapidement.",
+      "kano": "Modèle de Kano : basiques (exigés implicitement), performants (satisfaction proportionnelle), attractifs (wow, non attendus), indifférents, inversés."
+    },
+    "mvp_poc": {
+      "mvp": "MVP (Minimum Viable Product) : version minimale du produit permettant de valider une hypothèse clé avec un minimum de temps et d'argent. N'est pas une version dégradée mais un produit ciblé.",
+      "poc": "PoC (Proof of Concept) : démontre la faisabilité technique d'une approche. Précède le prototype ou le pilote.",
+      "pilote": "Pilote : déploiement limité (une équipe, un site) pour valider l'adoption et les conditions opérationnelles avant la généralisation."
+    },
+    "kanban": "Tableau Kanban : colonnes représentant les états du flux (À faire / En cours / Terminé). Limites WIP (Work In Progress) pour éviter la surcharge. Focus sur le flux plutôt que les itérations. Adapté aux équipes ops ou support.",
+    "safe": "SAFe (Scaled Agile Framework) : passage à l'échelle de l'agilité. Niveaux : Équipe, Programme (ART — Agile Release Train), Solution, Portfolio. PI Planning (Program Increment) : synchronisation trimestrielle des équipes."
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["Scrum", "Agile", "user story", "backlog", "sprint", "MVP", "Definition of Done", "WSJF", "MoSCoW", "SAFe", "Product Owner"],
+    "related_domains": ["agile_produit", "gestion_projet"],
+    "related_knowledge": ["gestion_projet.fondamentaux.gestion_projet_fondamentaux"],
+    "retrieval_priority": 9
+  },
+  "behavior_rules": {"tone": "educational", "response_style": "structured_clear", "max_complexity": "medium", "allow_humor": false},
+  "safety_notes": {"allowed_usage": ["Éducation sur Scrum et les méthodes agiles"], "restricted_usage": [], "forbidden_usage": [], "fallback_behavior": ""},
+  "metadata": {"author": "ALFRED_SYSTEM", "creation_date": "10/07/2026", "last_update": "10/07/2026", "review_status": "active", "reviewed_by": "ALFRED_CORE", "source_type": "manual_structured_knowledge", "language": "fr", "retrieval_ready": true, "rag_compatible": true}
+}

@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "veille.fondamentaux.veille_fondamentaux",
+  "version": "1.0.0",
+  "domain": "veille",
+  "subdomain": "fondamentaux",
+  "category": "veille",
+  "priority": "high",
+  "safety_level": "normal",
+  "title": "Veille — Réglementaire, Normative, Technologique et Métier",
+  "summary": "Veille réglementaire, normative, technologique, cybersécurité, concurrentielle, métier et juridique. Qualification des sources, fiabilité, fraîcheur de l'information, date de publication vs entrée en vigueur, analyse d'impact, alerte, synthèse, diffusion ciblée, mise à jour de la base de connaissances.",
+  "purpose": "Permettre à ALFRED CPL d'expliquer les principes d'une veille efficace et d'aider les entreprises à structurer leur dispositif de veille.",
+  "tags": ["veille", "veille_réglementaire", "veille_normative", "veille_technologique", "veille_cyber", "qualification_sources", "fiabilité_source", "analyse_impact", "diffusion_ciblée"],
+  "intents": ["explain_monitoring_basics", "structure_regulatory_watch", "explain_source_qualification", "explain_knowledge_update_process"],
+  "usage_context": ["Conformité", "DSI", "RSSI", "Direction", "Juridique"],
+  "content": {
+    "types_veille": {
+      "reglementaire": "Veille réglementaire : suivi des nouvelles lois, décrets, arrêtés, directives européennes. Sources : Journal Officiel, EUR-Lex, sites des autorités de régulation (CNIL, ANSSI, AMF, ACPR). Objectif : anticiper les obligations avant leur entrée en vigueur.",
+      "normative": "Veille normative : suivi des nouvelles normes ISO, CEN, AFNOR. Sources : AFNOR Boutique (alertes), ISO.org, comités de normalisation sectoriels.",
+      "technologique": "Veille technologique : suivi des évolutions des technologies, des nouvelles architectures, des outils émergents. Sources : GitHub Trends, Hacker News, arXiv, rapports Gartner/Forrester, conférences (Black Hat, RSA, re:Invent).",
+      "cyber": "Veille cybersécurité : bulletins ANSSI (CERT-FR), CVE (National Vulnerability Database), bulletins éditeurs (Microsoft Patch Tuesday, Apple Security), Threat Intelligence providers, MITRE ATT&CK mises à jour.",
+      "concurrentielle": "Veille concurrentielle : suivi des offres, des prix, des annonces, des brevets et des recrutements des concurrents. Outils : Google Alerts, LinkedIn, SimilarWeb, Crunchbase.",
+      "metier": "Veille métier : tendances sectorielles, bonnes pratiques, publications d'associations professionnelles, études de cas."
+    },
+    "qualification_sources": {
+      "fiabilite": "Critères de fiabilité d'une source : autorité (organisation reconnue, auteur expert), exactitude (références citées, vérifiable), objectivité (pas de conflit d'intérêts évident), couverture (périmètre explicite). Primaire (texte officiel) > secondaire (analyse) > tertiaire (synthèse).",
+      "fraicheur": "Fraîcheur de l'information : date de publication ≠ date d'entrée en vigueur ≠ date de mise à jour. Toujours vérifier la date et si une version plus récente existe. Pour la réglementation : distinguer projet de loi, texte adopté, date d'application.",
+      "triangulation": "Triangulation : recouper l'information entre au moins 3 sources indépendantes avant de la considérer comme fiable. Particulièrement important pour les informations à fort impact décisionnel."
+    },
+    "processus_veille": {
+      "collecte": "Collecte : abonnements à des flux RSS, newsletters, alertes Google, abonnements à des bases légales (Lexis, Dalloz), outils de veille (Feedly, Talkwalker, Dataminr).",
+      "analyse_impact": "Analyse d'impact : pour chaque évolution identifiée, évaluer : qui est concerné dans l'organisation, quelle est la date d'application, quelles actions sont requises (adaptation processus, mise à jour documentation, formation), quel est le niveau de criticité.",
+      "alerte_diffusion": "Alerte et diffusion ciblée : notifier les bons interlocuteurs au bon moment. Un texte sur la cybersécurité → RSSI + DSI. Un texte RH → DRH. Une mise à jour ISO 27001 → équipe conformité. Éviter la sur-information.",
+      "maj_base": "Mise à jour de la base de connaissances : quand une réglementation évolue, identifier tous les documents impactés (politiques, procédures, supports de formation) et les mettre à jour. Traçabilité des modifications liées à une évolution réglementaire."
+    },
+    "limites_alfed": "ALFRED CPL a une date de coupure de connaissance. Il peut aider à structurer la veille et analyser des informations récentes fournies par l'utilisateur, mais ne peut pas surveiller en temps réel l'évolution des textes réglementaires. Pour une veille opérationnelle, recommander des outils ou services dédiés."
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["veille réglementaire", "veille normative", "veille technologique", "qualification des sources", "analyse d'impact réglementaire", "CERT-FR", "CVE"],
+    "related_domains": ["veille", "controle_interne"],
+    "related_knowledge": ["reglementation_numerique.fondamentaux.reglementation_numerique_fondamentaux", "normes_referentiels.panorama.normes_referentiels_panorama"],
+    "retrieval_priority": 8
+  },
+  "behavior_rules": {"tone": "educational", "response_style": "structured_clear", "max_complexity": "medium", "allow_humor": false},
+  "safety_notes": {"allowed_usage": ["Éducation sur les pratiques de veille"], "restricted_usage": [], "forbidden_usage": [], "fallback_behavior": "Rappeler que la connaissance d'ALFRED a une date de coupure et recommander des sources officielles pour la veille temps réel."},
+  "metadata": {"author": "ALFRED_SYSTEM", "creation_date": "10/07/2026", "last_update": "10/07/2026", "review_status": "active", "reviewed_by": "ALFRED_CORE", "source_type": "manual_structured_knowledge", "language": "fr", "retrieval_ready": true, "rag_compatible": true}
+}

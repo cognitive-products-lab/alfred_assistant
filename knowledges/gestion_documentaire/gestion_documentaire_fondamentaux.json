@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "gestion_documentaire.fondamentaux.gestion_documentaire_fondamentaux",
+  "version": "1.0.0",
+  "domain": "gestion_documentaire",
+  "subdomain": "fondamentaux",
+  "category": "gestion_connaissances",
+  "priority": "high",
+  "safety_level": "normal",
+  "title": "Gestion Documentaire et des Connaissances",
+  "summary": "Document, version, propriétaire, approbateur, cycle de vie documentaire, classement, indexation, taxonomie, métadonnées, archivage, recherche sémantique, doublon, obsolescence, capitalisation, retour d'expérience, transfert de connaissances, connaissances tacites et explicites.",
+  "purpose": "Permettre à ALFRED CPL d'expliquer les principes de la gestion documentaire et d'aider à structurer un système de gestion des connaissances.",
+  "tags": ["gestion_documentaire", "cycle_vie_documentaire", "taxonomie", "métadonnées", "archivage", "capitalisation", "RETEX", "connaissances_tacites", "connaissances_explicites", "recherche_sémantique"],
+  "intents": ["explain_document_management", "structure_knowledge_base", "explain_taxonomy", "explain_knowledge_transfer", "explain_retex"],
+  "usage_context": ["DSI", "Qualité", "Direction", "Knowledge Management"],
+  "content": {
+    "document_version": {
+      "document": "Un document est une unité d'information formalisée, identifiable, avec un auteur, une date, un périmètre et un statut. Types : politique, procédure, guide, formulaire, rapport, compte rendu, charte, mode opératoire.",
+      "cycle_vie": "Cycle de vie documentaire : rédaction (brouillon) → relecture → validation (approbateur désigné) → publication (document actif) → révision (à échéance ou sur événement) → archivage ou suppression.",
+      "propriete": "Propriétaire du document : responsable du contenu, de sa mise à jour et de sa validité. Auteur : rédacteur du contenu. Approbateur : valide avant publication. Date d'entrée en vigueur et date de prochaine révision obligatoires."
+    },
+    "classement_indexation": {
+      "taxonomie": "Taxonomie : système de classification hiérarchique des documents (ex : Domaine > Sous-domaine > Catégorie > Document). Permet une navigation cohérente et une recherche structurée.",
+      "ontologie": "Ontologie : représentation des relations entre les concepts d'un domaine. Plus riche que la taxonomie car exprime les liens sémantiques entre entités.",
+      "metadonnees": "Métadonnées documentaires : titre, auteur, date de création/modification, version, statut, mots-clés, langue, périmètre, confidentialité, lien avec d'autres documents. Essentielles pour la recherche et la gouvernance.",
+      "recherche": "Recherche full-text vs recherche sémantique : le full-text cherche les occurrences exactes. La recherche sémantique (embeddings + RAG) comprend le sens et retrouve des documents pertinents même sans correspondance exacte de mots."
+    },
+    "qualite_documentaire": {
+      "doublons": "Doublons : plusieurs documents décrivant la même chose créent la confusion sur la version de référence. Processus de déduplication obligatoire lors d'une migration ou d'une mise en place de GED.",
+      "obsolescence": "Obsolescence : document dont le contenu n'est plus valide (réglementation changée, processus évolué). Indicateurs : documents non révisés depuis > 2 ans, contenant des références à des systèmes décommissionnés.",
+      "contradiction": "Contradiction : deux documents actifs avec des instructions incompatibles. Audit documentaire périodique pour détecter et résoudre les contradictions."
+    },
+    "archivage": {
+      "conservation": "Durées de conservation légales : contrats (5 ans après fin), documents comptables (10 ans), données personnelles (durée de la finalité), dossiers RH (5 ans après départ). L'archivage doit garantir intégrité, authenticité et lisibilité dans le temps.",
+      "coffre_fort": "Coffre-fort numérique : service d'archivage à valeur probante. Garantit l'intégrité et l'horodatage. Nécessaire pour les documents avec enjeux juridiques ou de conformité.",
+      "suppression": "Suppression : à l'issue de la durée de conservation légale ou contractuelle. Traçable. Pour les données personnelles : obligation de supprimer ou d'anonymiser."
+    },
+    "gestion_connaissances": {
+      "tacites_explicites": "Connaissances tacites : savoir-faire, expérience, intuition — difficiles à formaliser (Polanyi). Connaissances explicites : documentées, formalisées, partageables. Le KM (Knowledge Management) vise à convertir les connaissances tacites en explicites (Nonaka-Takeuchi : spirale SECI).",
+      "capitalisation": "Capitalisation des connaissances : recueil et documentation des apprentissages issus des projets, des incidents, des expériences. Outils : RETEX structuré, base de cas, wikis internes.",
+      "retex": "RETEX (Retour d'Expérience) : analyse post-événement (projet, incident, crise). Structure : contexte, chronologie, points positifs, points d'amélioration, recommandations, plan d'action. Partagé avec les équipes concernées. Condition du RETEX utile : culture bienveillante, pas de recherche de bouc émissaire.",
+      "transfert": "Transfert de connaissances : essentiel avant les départs (retraite, démission). Méthodes : binômage (tutoring), shadowing, documentation des processus, entretiens de départ, tutorat inversé (juniors formant les seniors sur le numérique)."
+    }
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["gestion documentaire", "taxonomie", "cycle de vie documentaire", "RETEX", "connaissances tacites", "archivage", "capitalisation des connaissances"],
+    "related_domains": ["gestion_documentaire", "amelioration_continue"],
+    "related_knowledge": ["amelioration_continue.fondamentaux.amelioration_continue_fondamentaux"],
+    "retrieval_priority": 8
+  },
+  "behavior_rules": {"tone": "educational", "response_style": "structured_clear", "max_complexity": "medium", "allow_humor": false},
+  "safety_notes": {"allowed_usage": ["Éducation sur la gestion documentaire"], "restricted_usage": [], "forbidden_usage": [], "fallback_behavior": ""},
+  "metadata": {"author": "ALFRED_SYSTEM", "creation_date": "10/07/2026", "last_update": "10/07/2026", "review_status": "active", "reviewed_by": "ALFRED_CORE", "source_type": "manual_structured_knowledge", "language": "fr", "retrieval_ready": true, "rag_compatible": true}
+}
