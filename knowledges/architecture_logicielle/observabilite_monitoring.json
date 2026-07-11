@@ -1,0 +1,99 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "architecture_logicielle.observabilite.observabilite_monitoring",
+  "version": "1.0.0",
+  "domain": "architecture_logicielle",
+  "subdomain": "observabilite",
+  "category": "observabilité",
+  "priority": "high",
+  "safety_level": "normal",
+  "title": "Observabilité et Monitoring des Systèmes",
+  "summary": "Observabilité vs monitoring, 3 piliers (logs, métriques, traces), centralisation des logs (ELK, Loki), métriques système et applicatives (Prometheus, Grafana), tracing distribué (Jaeger, Zipkin, OpenTelemetry), SLI/SLO/SLA/error budget, alerting (PagerDuty, OpsGenie), runbook, tableau de bord opérationnel, observabilité des LLM.",
+  "purpose": "Permettre à ALFRED CPL d'expliquer les concepts d'observabilité et comment mettre en place un système de monitoring efficace.",
+  "tags": [
+    "observabilité",
+    "monitoring",
+    "logs",
+    "métriques",
+    "traces",
+    "OpenTelemetry",
+    "Prometheus",
+    "Grafana",
+    "SLI_SLO",
+    "error_budget",
+    "alerting"
+  ],
+  "intents": [
+    "explain_observability",
+    "explain_monitoring",
+    "explain_sli_slo",
+    "explain_distributed_tracing"
+  ],
+  "usage_context": [
+    "DevOps",
+    "Architecture",
+    "DSI"
+  ],
+  "content": {
+    "trois_piliers": {
+      "logs": "Logs : enregistrements d'événements horodatés. Structurés (JSON) de préférence. Niveaux : DEBUG/INFO/WARN/ERROR/FATAL. Centralisation : ELK Stack (Elasticsearch + Logstash + Kibana), Grafana Loki, Datadog. Rétention : 30 jours actifs, 12 mois archivage (NIS2/RGPD).",
+      "metriques": "Métriques : mesures numériques agrégées sur le temps. Types : Counter (incrémental), Gauge (valeur instantanée), Histogram (distribution). Golden Signals Google SRE : Latency, Traffic, Errors, Saturation (LETS). Stack : Prometheus (scraping) + Grafana (visualisation).",
+      "traces": "Traces distribuées : suivre une requête à travers plusieurs microservices. Span = unité de travail. Trace = arbre de spans. Outils : Jaeger, Zipkin. Standard : OpenTelemetry (CNCF) — instrumentation portable entre outils."
+    },
+    "sli_slo": {
+      "definitions": "SLI (Service Level Indicator) : métrique mesurée (ex : % requêtes < 200ms). SLO (Service Level Objective) : cible sur le SLI (ex : SLO = 99.9% des requêtes < 200ms sur 30 jours). SLA (Service Level Agreement) : engagement contractuel externe. Error Budget = 100% - SLO. Si l'error budget est épuisé : stopper les déploiements.",
+      "alerting": "Alerting : alerte = état anormal nécessitant une action humaine. Éviter l'alert fatigue (trop d'alertes = ignorer toutes). Règle : une alerte = un runbook (procédure de résolution documentée). Sévérité : page (critique, 24/7), ticket (à traiter dans la journée), info (FYI)."
+    },
+    "llm_observabilite": {
+      "specifique": "Observabilité LLM : métriques spécifiques à instrumenter — latence (TTFT : Time to First Token, latence totale), coût par requête (tokens input/output), taux de refus/escalade, qualité des réponses (via LLM-as-judge automatisé), taux d'utilisation RAG. Outils : LangSmith (LangChain), Langfuse, Weights & Biases."
+    }
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "observabilité",
+      "monitoring",
+      "logs métriques traces",
+      "Prometheus Grafana",
+      "SLI SLO SLA",
+      "error budget",
+      "OpenTelemetry",
+      "alerting runbook"
+    ],
+    "related_domains": [
+      "architecture_logicielle",
+      "gouvernance_si",
+      "ia_data_science"
+    ],
+    "related_knowledge": [
+      "architecture_logicielle.fondamentaux.architecture_logicielle_fondamentaux",
+      "architecture_logicielle.api.api_management"
+    ],
+    "retrieval_priority": 8
+  },
+  "behavior_rules": {
+    "tone": "technical",
+    "response_style": "structured_clear",
+    "max_complexity": "high",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "Observabilité et monitoring"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": ""
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "11/07/2026",
+    "last_update": "11/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

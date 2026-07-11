@@ -1,0 +1,102 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "architecture_logicielle.patterns.patterns_conception_logicielle",
+  "version": "1.0.0",
+  "domain": "architecture_logicielle",
+  "subdomain": "patterns",
+  "category": "design_patterns",
+  "priority": "medium",
+  "safety_level": "normal",
+  "title": "Patterns de Conception Logicielle",
+  "summary": "Design patterns (GoF) : création (Singleton, Factory, Builder, Prototype), structure (Adapter, Decorator, Facade, Proxy, Composite), comportement (Observer, Strategy, Command, Template Method, Iterator). Patterns architecturaux : Repository, CQRS, Event Sourcing, Saga (microservices). Principes SOLID. Anti-patterns courants. Quand utiliser un pattern vs quand éviter la sur-ingénierie.",
+  "purpose": "Permettre à ALFRED CPL d'expliquer les patterns de conception et les principes SOLID aux équipes de développement.",
+  "tags": [
+    "design_patterns",
+    "GoF",
+    "SOLID",
+    "Factory",
+    "Observer",
+    "CQRS",
+    "Event_Sourcing",
+    "Repository",
+    "anti_patterns",
+    "sur_ingénierie"
+  ],
+  "intents": [
+    "explain_design_patterns",
+    "explain_solid_principles",
+    "explain_cqrs",
+    "explain_factory_pattern"
+  ],
+  "usage_content": [
+    "Développeurs",
+    "Architecture",
+    "Product Management"
+  ],
+  "usage_context": [
+    "Développeurs",
+    "Architecture",
+    "Product Management"
+  ],
+  "content": {
+    "patterns_gof": {
+      "creation": "Création : Factory Method (déléguer la création à des sous-classes), Abstract Factory (familles d'objets liés), Builder (construire un objet complexe étape par étape), Singleton (une seule instance — à utiliser avec parcimonie), Prototype (copier des objets existants).",
+      "structure": "Structure : Adapter (rendre compatibles des interfaces incompatibles), Decorator (ajouter des comportements dynamiquement), Facade (interface simplifiée sur un sous-système complexe), Proxy (intermédiaire contrôlant l'accès à un objet), Composite (traiter uniformément objets individuels et compositions).",
+      "comportement": "Comportement : Observer (notification automatique des abonnés — base des systèmes événementiels), Strategy (interchanger des algorithmes), Command (encapsuler une requête comme objet — pour undo/redo, queues), Template Method (définir le squelette d'un algorithme en laissant les sous-classes remplir les étapes)."
+    },
+    "solid": {
+      "principles": "SOLID : S = Single Responsibility (une classe = une raison de changer). O = Open/Closed (ouvert à l'extension, fermé à la modification). L = Liskov Substitution (les sous-types doivent remplacer leurs types parents). I = Interface Segregation (interfaces spécifiques plutôt qu'une interface générale). D = Dependency Inversion (dépendre des abstractions, pas des implémentations)."
+    },
+    "patterns_archi": {
+      "cqrs": "CQRS (Command Query Responsibility Segregation) : séparer les opérations de lecture (Query) et d'écriture (Command) en modèles distincts. Avantages : scalabilité asymétrique (souvent plus de lectures que d'écritures), optimisation séparée. Complexité accrue.",
+      "event_sourcing": "Event Sourcing : stocker l'état de l'application comme une séquence d'événements immuables plutôt que l'état courant. Avantages : audit trail complet, possibilité de rejouer l'historique. Souvent combiné avec CQRS.",
+      "anti_patterns": "Anti-patterns courants : God Object (une classe qui fait tout), Spaghetti Code (couplage excessif), Golden Hammer (appliquer le même pattern à tout), Premature Optimization, over-engineering (utiliser des patterns pour des problèmes simples)."
+    }
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "design patterns",
+      "SOLID",
+      "Factory",
+      "Observer",
+      "CQRS",
+      "Event Sourcing",
+      "Repository",
+      "anti-patterns"
+    ],
+    "related_domains": [
+      "architecture_logicielle",
+      "gouvernance_si"
+    ],
+    "related_knowledge": [
+      "architecture_logicielle.fondamentaux.architecture_logicielle_fondamentaux"
+    ],
+    "retrieval_priority": 7
+  },
+  "behavior_rules": {
+    "tone": "technical",
+    "response_style": "structured_clear",
+    "max_complexity": "high",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "Architecture logicielle"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": ""
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "11/07/2026",
+    "last_update": "11/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}
