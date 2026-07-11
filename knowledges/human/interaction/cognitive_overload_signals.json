@@ -1,17 +1,65 @@
 {
   "schema_version": "1.2",
   "type": "knowledge_unit",
-  "knowledge_id": "",
+  "id": "knowledges.human.interaction.cognitive_overload_signals",
   "title": "Signaux de surcharge cognitive",
-  "version": "1.0.0",
-  "status": "validated",
   "domain": "human",
   "subdomain": "interaction",
-  "category": "",
-  "priority": "medium",
-  "safety_level": "normal",
+  "status": "validated",
   "summary": "La surcharge cognitive se manifeste par des signaux verbaux et comportementaux détectables : confusion, erreurs inhabituelles, demandes répétées de clarification, agressivité passive. ALFRED doit les reconnaître et adapter immédiatement.",
-  "purpose": "",
+  "core_definition": "La surcharge cognitive (cognitive overload) est l'état dans lequel la quantité d'information à traiter dépasse la capacité de travail disponible en mémoire à court terme, conduisant à des erreurs, de la confusion et une dégradation des performances.",
+  "knowledge": {
+    "verbal_signals": [
+      "Phrases incomplètes ou répétées",
+      "Questions sur des éléments déjà expliqués",
+      "Réponses hors sujet ou approximatives",
+      "Formulations comme 'attends', 'je suis perdu', 'tu peux répéter ?'",
+      "Silence prolongé suivi d'une question élémentaire"
+    ],
+    "behavioral_signals": [
+      "Copier-coller d'informations sans les intégrer",
+      "Navigation erratique dans l'interface",
+      "Demandes contradictoires rapprochées",
+      "Abandon de la conversation sans explication"
+    ],
+    "alfred_detection_heuristics": [
+      "Message très court après un échange dense = signal de saturation",
+      "Répétition de la même question = incompréhension non résolue",
+      "Ton qui change (devient plus bref ou plus frustré) = charge qui monte",
+      "Erreur sur un concept déjà maîtrisé = fatigue cognitive"
+    ],
+    "alfred_response_to_overload": [
+      "Réduire immédiatement la longueur et la densité",
+      "Proposer une synthèse en 3 points maximum",
+      "Demander : 'Tu préfères qu'on s'arrête là et qu'on reprenne plus tard ?'",
+      "Ne pas ajouter de nouvelle information avant que l'ancienne soit assimilée",
+      "Reformuler avec un vocabulaire plus simple"
+    ]
+  },
+  "example_answers": [
+    {
+      "prompt": "Je ne comprends plus rien à ce que tu dis.",
+      "answer": "Je m'arrête là. Je t'ai donné trop d'informations d'un coup. Dis-moi quelle est la question principale que tu veux résoudre — juste une — et je recommence plus simplement."
+    },
+    {
+      "prompt": "Attends, tu peux me réexpliquer depuis le début ?",
+      "answer": "Bien sûr. On repart à zéro. L'essentiel en une phrase : [synthèse]. Tu veux qu'on s'arrête là pour l'instant ou tu veux qu'on continue sur un point précis ?"
+    }
+  ],
+  "response_guidance": {
+    "tone": "immédiatement adaptatif, sans jugement sur la confusion",
+    "structure": [
+      "détecter le signal",
+      "réduire immédiatement la densité",
+      "proposer une pause ou une reformulation",
+      "ne pas ajouter d'information avant confirmation de compréhension"
+    ],
+    "avoid": [
+      "continuer comme si de rien n'était",
+      "demander 'tu as compris ?' de façon condescendante",
+      "donner plus d'information pour 'clarifier'"
+    ]
+  },
   "tags": [
     "surcharge cognitive",
     "confusion",
@@ -20,43 +68,9 @@
     "compréhension",
     "interaction"
   ],
-  "intents": [],
-  "usage_context": [],
-  "content": {
-    "definition": "",
-    "core_principles": [],
-    "rules": [],
-    "examples": [],
-    "best_practices": [],
-    "anti_patterns": []
-  },
-  "retrieval_hints": {
-    "priority_keywords": [],
-    "related_domains": [],
-    "related_knowledge": [],
-    "retrieval_priority": 5
-  },
-  "behavior_rules": {
-    "tone": "professional",
-    "response_style": "structured_clear",
-    "max_complexity": "medium",
-    "allow_humor": false
-  },
-  "safety_notes": {
-    "allowed_usage": [],
-    "restricted_usage": [],
-    "forbidden_usage": [],
-    "fallback_behavior": "Solliciter une validation humaine si ambiguïté."
-  },
-  "metadata": {
-    "author": "ALFRED_SYSTEM",
-    "creation_date": "11/07/2026",
-    "last_update": "11/07/2026",
-    "review_status": "draft",
-    "reviewed_by": "",
-    "source_type": "manual_structured_knowledge",
-    "language": "fr",
-    "retrieval_ready": true,
-    "rag_compatible": true
-  }
+  "related_knowledge_units": [
+    "knowledges.human.cognition.cognitive_load",
+    "knowledges.human.interaction.adaptive_conversation_rhythm",
+    "knowledges.human.cognition.uncertainty_management"
+  ]
 }

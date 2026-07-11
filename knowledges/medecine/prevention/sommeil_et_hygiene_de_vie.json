@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "medecine.prevention.sommeil_et_hygiene_de_vie",
+  "title": "Sommeil et hygiène de vie (prévention non médicale)",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "medecine",
+  "subdomain": "prevention",
+  "category": "prevention",
+  "summary": "Bases physiologiques du sommeil (cycles, stades, rôle réparateur) et principes généraux d'hygiène de vie (sommeil, activité physique, alimentation, gestion du stress) à visée préventive et non médicale.",
+  "purpose": "Permettre à ALFRED de donner des repères généraux d'hygiène de vie factuels, sans jamais poser de diagnostic ni remplacer un avis médical individualisé.",
+  "tags": ["sommeil", "hygiene_de_vie", "prevention", "cycle_du_sommeil", "bien_etre", "rythme_circadien"],
+  "intents": ["explain_sleep_cycles", "give_general_lifestyle_advice", "explain_circadian_rhythm"],
+  "usage_context": ["Question générale sur le sommeil", "Conseil d'hygiène de vie non médical", "Support de prévention santé"],
+  "priority": "medium",
+  "safety_level": "sensitive",
+  "content": {
+    "definition": "Le sommeil est un état physiologique cyclique essentiel à la récupération physique et cognitive, organisé en cycles successifs d'environ 90 minutes comprenant du sommeil lent léger, du sommeil lent profond et du sommeil paradoxal (associé aux rêves). L'hygiène de vie désigne l'ensemble des habitudes quotidiennes (sommeil, alimentation, activité physique, gestion du stress) qui influencent favorablement l'état de santé général, sans constituer un traitement médical.",
+    "core_principles": [
+      "Un cycle de sommeil dure environ 90 minutes et se répète 4 à 6 fois par nuit chez l'adulte.",
+      "Le sommeil lent profond est majoritairement associé à la récupération physique, le sommeil paradoxal à la consolidation de la mémoire et à la régulation émotionnelle.",
+      "Le rythme circadien est régulé par l'horloge biologique interne, fortement influencée par l'exposition à la lumière naturelle.",
+      "Les besoins de sommeil varient selon l'âge : environ 7 à 9 heures pour un adulte, davantage pour les adolescents et les enfants.",
+      "Une activité physique régulière, une alimentation équilibrée et une gestion du stress contribuent, de façon générale, à une meilleure qualité de sommeil et de santé perçue.",
+      "La dette de sommeil chronique est associée statistiquement à une baisse de vigilance et de bien-être perçu, sans que cela constitue un diagnostic médical individuel."
+    ],
+    "rules": [
+      "Ne jamais interpréter les symptômes de sommeil d'un utilisateur (insomnie, apnée suspectée, fatigue chronique) comme un diagnostic.",
+      "Toujours orienter vers un professionnel de santé en cas de trouble du sommeil persistant ou invalidant."
+    ],
+    "examples": [
+      {
+        "situation": "Un utilisateur demande des conseils généraux pour mieux dormir.",
+        "recommended_behavior": "Donner des repères généraux d'hygiène du sommeil (régularité des horaires, limitation des écrans le soir, exposition à la lumière naturelle le matin, activité physique régulière) en précisant que ce sont des repères généraux, pas un avis médical personnalisé.",
+        "avoid": "Suggérer un diagnostic (ex : 'vous avez probablement de l'apnée du sommeil') ou recommander un traitement, y compris en vente libre, de façon personnalisée."
+      }
+    ],
+    "best_practices": [
+      "Toujours formuler les conseils comme des repères généraux et non comme une prescription individuelle.",
+      "Rappeler l'importance de la régularité des horaires de sommeil plutôt que la seule durée totale.",
+      "Encourager la consultation d'un professionnel de santé en cas de trouble persistant (insomnie chronique, fatigue diurne excessive, ronflements avec pauses respiratoires)."
+    ],
+    "anti_patterns": [
+      "Donner un conseil de sommeil comme s'il s'agissait d'un traitement médical validé pour un cas individuel.",
+      "Minimiser des signaux d'alerte (fatigue extrême persistante, troubles respiratoires nocturnes) qui nécessitent un avis médical."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["sommeil", "cycle du sommeil", "rythme circadien", "hygiène de vie", "récupération"],
+    "related_domains": ["lifestyle", "medecine"],
+    "related_knowledge": ["medecine.limites_alfred.limites_reponse_medicale_alfred", "lifestyle.health.fatigue_management"],
+    "retrieval_priority": 6
+  },
+  "behavior_rules": {
+    "tone": "educational",
+    "response_style": "structured_clear",
+    "max_complexity": "low",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["Information générale et préventive sur le sommeil et l'hygiène de vie"],
+    "restricted_usage": ["Analyse de symptômes de sommeil rapportés par l'utilisateur"],
+    "forbidden_usage": ["Diagnostic médical", "Remplacement d'un avis médical professionnel"],
+    "fallback_behavior": "Toujours recommander de consulter un professionnel de santé pour toute situation individuelle de trouble du sommeil."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "11/07/2026",
+    "last_update": "11/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

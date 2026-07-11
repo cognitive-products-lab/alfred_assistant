@@ -1,17 +1,53 @@
 {
   "schema_version": "1.2",
   "type": "knowledge_unit",
-  "knowledge_id": "",
+  "id": "knowledges.professional.engineering.reasoning.hypothesis_testing",
   "title": "Test d'hypothèses (raisonnement scientifique)",
-  "version": "1.0.0",
-  "status": "validated",
   "domain": "professional",
   "subdomain": "engineering_reasoning",
-  "category": "",
-  "priority": "medium",
-  "safety_level": "normal",
+  "status": "validated",
   "summary": "Le test d'hypothèses est la méthode scientifique appliquée aux décisions : formuler une hypothèse falsifiable, prédire ce qu'on devrait observer si elle est vraie, tester, et mettre à jour selon les résultats.",
-  "purpose": "",
+  "core_definition": "Le test d'hypothèses est une méthode de raisonnement empirique dans laquelle une hypothèse explicative est formulée de façon falsifiable, puis testée contre des données ou des expériences. La méthode permet de distinguer les croyances fondées sur des preuves de celles fondées sur des intuitions.",
+  "knowledge": {
+    "hypothesis_testing_cycle": [
+      "1. Observer un phénomène ou identifier une question",
+      "2. Formuler une hypothèse H1 (et son alternative nulle H0)",
+      "3. Identifier ce qu'on devrait observer SI H1 est vraie",
+      "4. Concevoir le test minimal qui distinguerait H1 de H0",
+      "5. Collecter les données ou réaliser l'expérience",
+      "6. Évaluer : les résultats supportent-ils H1 ou H0 ?",
+      "7. Mettre à jour les croyances et formuler de nouvelles hypothèses"
+    ],
+    "product_application": {
+      "A/B_testing": "H0 : la variante B ne change pas la conversion. H1 : B augmente la conversion. Test : exposer 50% des utilisateurs à B, mesurer la différence avec significance statistique (p < 0.05).",
+      "feature_validation": "Avant de développer une feature : 'Nous croyons que [feature] pour [users] résultera en [outcome]. Nous le saurons si [metric] change de X%.'",
+      "bug_hypothesis": "Bug suspect : 'Je crois que le bug est causé par X. Si oui, le comportement Y devrait changer en Z quand X est isolé.'"
+    },
+    "falsifiability": "Une bonne hypothèse doit être falsifiable : il doit exister un résultat possible qui la réfuterait. 'Notre produit est bon' n'est pas falsifiable. 'Notre NPS dépasse 40 d'ici Q2' l'est."
+  },
+  "example_answers": [
+    {
+      "prompt": "Comment structurer une hypothèse avant de lancer un A/B test ?",
+      "answer": "Template : 'Nous croyons que [changer X] pour [segment Y] résultera en [amélioration de métrique Z], parce que [raison]. Nous le saurons si [métrique principale] change de [seuil minimum] avec [taille d'échantillon et durée prévues].' La partie 'parce que' est cruciale : tester sans hypothèse causale, c'est du tâtonnement. La partie 'nous le saurons si' définit le critère de succès avant d'analyser, évitant le biais de confirmation."
+    },
+    {
+      "prompt": "Comment ALFRED peut m'aider à tester mes hypothèses business ?",
+      "answer": "Je peux t'aider à : (1) formuler l'hypothèse précisément — souvent les hypothèses business sont vagues ou non falsifiables, (2) identifier le test minimal — quelle est l'expérience la plus simple et rapide qui validerait ou invaliderait l'hypothèse ?, (3) anticiper les biais — quels résultats pourraient faussement confirmer l'hypothèse ?, (4) interpréter les résultats — distinguer signal et bruit. Dis-moi l'hypothèse sur laquelle tu travailles."
+    }
+  ],
+  "response_guidance": {
+    "tone": "rigoureux, ancré dans les mécanismes cognitifs et techniques du raisonnement LLM",
+    "structure": [
+      "identifier le type de raisonnement ou biais",
+      "expliquer le mécanisme",
+      "proposer une technique d'amélioration"
+    ],
+    "avoid": [
+      "confondre raisonnement humain et LLM",
+      "ignorer les limites des LLMs",
+      "trop abstrait"
+    ]
+  },
   "tags": [
     "hypothèse",
     "test",
@@ -22,43 +58,7 @@
     "LLM",
     "inférence"
   ],
-  "intents": [],
-  "usage_context": [],
-  "content": {
-    "definition": "",
-    "core_principles": [],
-    "rules": [],
-    "examples": [],
-    "best_practices": [],
-    "anti_patterns": []
-  },
-  "retrieval_hints": {
-    "priority_keywords": [],
-    "related_domains": [],
-    "related_knowledge": [],
-    "retrieval_priority": 5
-  },
-  "behavior_rules": {
-    "tone": "professional",
-    "response_style": "structured_clear",
-    "max_complexity": "medium",
-    "allow_humor": false
-  },
-  "safety_notes": {
-    "allowed_usage": [],
-    "restricted_usage": [],
-    "forbidden_usage": [],
-    "fallback_behavior": "Solliciter une validation humaine si ambiguïté."
-  },
-  "metadata": {
-    "author": "ALFRED_SYSTEM",
-    "creation_date": "11/07/2026",
-    "last_update": "11/07/2026",
-    "review_status": "draft",
-    "reviewed_by": "",
-    "source_type": "manual_structured_knowledge",
-    "language": "fr",
-    "retrieval_ready": true,
-    "rag_compatible": true
-  }
+  "related_knowledge_units": [
+    "knowledges.professional.engineering.ai.reasoning_engine"
+  ]
 }

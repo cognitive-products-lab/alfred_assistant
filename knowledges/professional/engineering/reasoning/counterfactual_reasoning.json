@@ -1,17 +1,58 @@
 {
   "schema_version": "1.2",
   "type": "knowledge_unit",
-  "knowledge_id": "",
+  "id": "knowledges.professional.engineering.reasoning.counterfactual_reasoning",
   "title": "Raisonnement contrefactuel",
-  "version": "1.0.0",
-  "status": "validated",
   "domain": "professional",
   "subdomain": "engineering_reasoning",
-  "category": "",
-  "priority": "medium",
-  "safety_level": "normal",
+  "status": "validated",
   "summary": "Le raisonnement contrefactuel explore ce qui aurait pu se passer si les conditions avaient été différentes — 'Et si...?' C'est un outil puissant pour l'analyse causale, la prise de décision rétrospective et l'anticipation de scénarios alternatifs.",
-  "purpose": "",
+  "core_definition": "Le raisonnement contrefactuel est une forme de pensée hypothétique qui considère des alternatives à ce qui s'est réellement passé ('si X n'avait pas eu lieu, alors Y ne serait pas arrivé'). Il est central à l'analyse causale, à la responsabilité morale et à l'apprentissage par l'expérience.",
+  "knowledge": {
+    "counterfactual_applications": [
+      {
+        "application": "Analyse post-mortem",
+        "example": "Si on avait ajouté des tests de charge, l'incident de production aurait été détecté en staging"
+      },
+      {
+        "application": "XAI (Explainable AI)",
+        "example": "'Votre crédit a été refusé. Si votre revenu avait été 10% plus élevé, il aurait été accordé' — contrefactuel explicatif"
+      },
+      {
+        "application": "Décision stratégique",
+        "example": "Si on avait pivotéen 2022, où en serions-nous aujourd'hui ?"
+      },
+      {
+        "application": "Apprentissage",
+        "example": "Qu'est-ce qui aurait dû être différent pour obtenir un meilleur résultat ?"
+      }
+    ],
+    "causal_analysis": "Un contrefactuel causal fort : 'Si X n'avait pas eu lieu, Y n'aurait pas eu lieu.' Cela requiert un modèle causal (graphe DAG) pour raisonner correctement — sans modèle, on peut attribuer à tort une cause à une corrélation.",
+    "xai_counterfactuals": "Les contrefactuels sont une des meilleures techniques d'explicabilité IA : ils montrent la 'distance minimale' entre la décision réelle et une décision alternative, rendant la décision IA actionnable pour l'utilisateur."
+  },
+  "example_answers": [
+    {
+      "prompt": "Comment faire une analyse post-mortem efficace avec le raisonnement contrefactuel ?",
+      "answer": "Structure : pour chaque facteur contributeur à l'incident, demander 'si ce facteur avait été absent ou différent, l'incident se serait-il produit ?' Les facteurs dont l'absence aurait empêché l'incident sont les causes nécessaires. Les facteurs qui l'auraient atténué sont les facteurs aggravants. Cette décomposition évite le biais de 'blâmer la cause la plus visible' et identifie les interventions systémiques."
+    },
+    {
+      "prompt": "Peut-on utiliser les contrefactuels pour expliquer une décision d'ALFRED ?",
+      "answer": "Oui — c'est une des techniques d'XAI les plus utiles. Plutôt que 'ALFRED a recommandé X parce que...', ALFRED peut dire 'Si tu m'avais donné le contexte Y, j'aurais recommandé Z à la place.' Cela rend la décision compréhensible et actionnable : l'utilisateur sait quoi changer pour obtenir une réponse différente."
+    }
+  ],
+  "response_guidance": {
+    "tone": "rigoureux, ancré dans les mécanismes cognitifs et techniques du raisonnement LLM",
+    "structure": [
+      "identifier le type de raisonnement ou biais",
+      "expliquer le mécanisme",
+      "proposer une technique d'amélioration"
+    ],
+    "avoid": [
+      "confondre raisonnement humain et LLM",
+      "ignorer les limites des LLMs",
+      "trop abstrait"
+    ]
+  },
   "tags": [
     "contrefactuel",
     "causalité",
@@ -22,43 +63,7 @@
     "LLM",
     "inférence"
   ],
-  "intents": [],
-  "usage_context": [],
-  "content": {
-    "definition": "",
-    "core_principles": [],
-    "rules": [],
-    "examples": [],
-    "best_practices": [],
-    "anti_patterns": []
-  },
-  "retrieval_hints": {
-    "priority_keywords": [],
-    "related_domains": [],
-    "related_knowledge": [],
-    "retrieval_priority": 5
-  },
-  "behavior_rules": {
-    "tone": "professional",
-    "response_style": "structured_clear",
-    "max_complexity": "medium",
-    "allow_humor": false
-  },
-  "safety_notes": {
-    "allowed_usage": [],
-    "restricted_usage": [],
-    "forbidden_usage": [],
-    "fallback_behavior": "Solliciter une validation humaine si ambiguïté."
-  },
-  "metadata": {
-    "author": "ALFRED_SYSTEM",
-    "creation_date": "11/07/2026",
-    "last_update": "11/07/2026",
-    "review_status": "draft",
-    "reviewed_by": "",
-    "source_type": "manual_structured_knowledge",
-    "language": "fr",
-    "retrieval_ready": true,
-    "rag_compatible": true
-  }
+  "related_knowledge_units": [
+    "knowledges.professional.engineering.ai.reasoning_engine"
+  ]
 }

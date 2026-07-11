@@ -1,17 +1,68 @@
 {
   "schema_version": "1.2",
   "type": "knowledge_unit",
-  "knowledge_id": "",
+  "id": "knowledges.professional.product_management.advanced.north_star_metric",
   "title": "North Star Metric",
-  "version": "1.0.0",
-  "status": "validated",
   "domain": "professional",
   "subdomain": "product_management_advanced",
-  "category": "",
-  "priority": "medium",
-  "safety_level": "normal",
+  "status": "validated",
   "summary": "La North Star Metric (NSM) est la métrique unique qui capture le mieux la valeur créée pour les utilisateurs ET le succès business à long terme. Elle aligne toute l'équipe sur un objectif commun et guide les décisions de priorité.",
-  "purpose": "",
+  "core_definition": "La North Star Metric est l'indicateur unique qui représente le mieux la valeur centrale qu'un produit crée pour ses utilisateurs et qui est le plus prédictif de la croissance long terme du business. Elle sert d'étoile polaire pour l'alignement des équipes et la priorisation.",
+  "knowledge": {
+    "nsm_criteria": [
+      "Elle mesure la valeur pour l'utilisateur (pas juste le revenu)",
+      "Elle est actionnable par les équipes produit et engineering",
+      "Elle est prédictive du revenu long terme",
+      "Elle est compréhensible par toute l'équipe",
+      "Elle n'est pas gameable sans créer de vraie valeur"
+    ],
+    "nsm_examples": [
+      {
+        "company": "Spotify",
+        "nsm": "Temps écouté par utilisateur actif"
+      },
+      {
+        "company": "Airbnb",
+        "nsm": "Nuits réservées"
+      },
+      {
+        "company": "Slack",
+        "nsm": "Messages envoyés dans les workspaces"
+      },
+      {
+        "company": "Facebook (2008)",
+        "nsm": "DAU (Daily Active Users)"
+      },
+      {
+        "company": "Notion",
+        "nsm": "Teams collaborant activement"
+      }
+    ],
+    "nsm_vs_vanity_metrics": "Les vanity metrics gonflent bien (téléchargements, inscriptions, pageviews) mais ne corrèlent pas avec la valeur réelle. La NSM est difficile à gonfler : tu ne peux pas augmenter les 'nuits réservées' Airbnb sans que des utilisateurs trouvent réellement une valeur dans le service."
+  },
+  "example_answers": [
+    {
+      "prompt": "Comment trouver la North Star Metric de mon produit IA ?",
+      "answer": "Pour un assistant IA : la NSM doit capturer l'engagement de valeur, pas juste l'usage. Questions à poser : 'Quel comportement utilisateur montre qu'ALFRED leur a vraiment créé de la valeur ?' Des candidats : nombre de sessions où l'utilisateur a pris une action concrète suite à une réponse, ou % de réponses notées 'utiles'. Éviter : nombre de messages envoyés (gameable, ne reflète pas la valeur), nombre de connexions (vanity)."
+    },
+    {
+      "prompt": "Peut-on avoir plusieurs North Star Metrics ?",
+      "answer": "Non — c'est contradictoire avec le concept. Si tu as plusieurs métriques 'north star', aucune ne joue vraiment ce rôle. En revanche, la NSM est souvent accompagnée de 2-4 'input metrics' (les leviers qui l'alimentent) et de 'guardrail metrics' (les indicateurs à ne pas dégrader). Structure : NSM au sommet, input metrics au milieu (chacune actionnable par une équipe), guardrails en surveillance continue."
+    }
+  ],
+  "response_guidance": {
+    "tone": "stratégique, ancré dans les métriques et la réalité des utilisateurs",
+    "structure": [
+      "identifier le contexte produit",
+      "expliquer le framework",
+      "proposer une application concrète"
+    ],
+    "avoid": [
+      "trop théorique",
+      "ignorer les contraintes business",
+      "recommander sans contexte"
+    ]
+  },
   "tags": [
     "North Star",
     "métriques",
@@ -21,43 +72,8 @@
     "product management",
     "produit"
   ],
-  "intents": [],
-  "usage_context": [],
-  "content": {
-    "definition": "",
-    "core_principles": [],
-    "rules": [],
-    "examples": [],
-    "best_practices": [],
-    "anti_patterns": []
-  },
-  "retrieval_hints": {
-    "priority_keywords": [],
-    "related_domains": [],
-    "related_knowledge": [],
-    "retrieval_priority": 5
-  },
-  "behavior_rules": {
-    "tone": "professional",
-    "response_style": "structured_clear",
-    "max_complexity": "medium",
-    "allow_humor": false
-  },
-  "safety_notes": {
-    "allowed_usage": [],
-    "restricted_usage": [],
-    "forbidden_usage": [],
-    "fallback_behavior": "Solliciter une validation humaine si ambiguïté."
-  },
-  "metadata": {
-    "author": "ALFRED_SYSTEM",
-    "creation_date": "11/07/2026",
-    "last_update": "11/07/2026",
-    "review_status": "draft",
-    "reviewed_by": "",
-    "source_type": "manual_structured_knowledge",
-    "language": "fr",
-    "retrieval_ready": true,
-    "rag_compatible": true
-  }
+  "related_knowledge_units": [
+    "knowledges.cpl.strategy.strategy_fundamentals",
+    "knowledges.cpl.product_ia.user_needs_analysis"
+  ]
 }

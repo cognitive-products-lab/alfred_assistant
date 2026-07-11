@@ -1,17 +1,56 @@
 {
   "schema_version": "1.2",
   "type": "knowledge_unit",
-  "knowledge_id": "",
+  "id": "knowledges.professional.product_management.advanced.discovery_vs_delivery",
   "title": "Discovery vs Delivery — équilibre en product management",
-  "version": "1.0.0",
-  "status": "validated",
   "domain": "professional",
   "subdomain": "product_management_advanced",
-  "category": "",
-  "priority": "medium",
-  "safety_level": "normal",
+  "status": "validated",
   "summary": "Le Double Diamond du product management distingue la discovery (comprendre le problème et valider l'opportunité) de la delivery (construire la solution). L'erreur la plus coûteuse est de trop investir en delivery avant d'avoir validé la discovery.",
-  "purpose": "",
+  "core_definition": "La distinction discovery/delivery en product management sépare les activités de compréhension des problèmes et de validation des opportunités (discovery) des activités de construction et de déploiement des solutions (delivery). Un équilibre sain entre les deux évite de construire des solutions à des problèmes non validés.",
+  "knowledge": {
+    "discovery_activities": [
+      "Interviews utilisateurs (comprendre les jobs et les frustrations)",
+      "Analyse de données comportementales",
+      "Tests d'hypothèses (prototypes, smoke tests, landing pages)",
+      "Mapping des opportunités",
+      "Exploration des solutions possibles"
+    ],
+    "delivery_activities": [
+      "Définition des user stories",
+      "Développement et tests",
+      "Déploiement et monitoring",
+      "Itérations sur le produit livré"
+    ],
+    "common_trap": "Squads 100% en delivery : on construit vite mais on construit les mauvaises choses. Squads 100% en discovery : on apprend mais on ne livre jamais. L'objectif : dual-track où la discovery alimente la delivery en continu.",
+    "dual_track": {
+      "description": "Two tracks en parallèle : l'équipe développe les features validées (delivery) pendant que le PM/designer valide les prochaines opportunités (discovery)",
+      "benefit": "La discovery toujours un pas devant la delivery — plus de moments où l'équipe attend quoi construire"
+    }
+  },
+  "example_answers": [
+    {
+      "prompt": "Comment savoir si mon équipe passe trop de temps en delivery vs discovery ?",
+      "answer": "Signe de trop de delivery : l'équipe livre des features régulièrement mais les métriques produit ne bougent pas. Les features livrées ne sont pas ou peu utilisées. Signe de trop de discovery : l'équipe génère des insights mais ne livre pas. Idéal : au moins 20% du temps PM en discovery active. Pour mesurer : combien d'interviews utilisateurs par semaine ? Combien d'hypothèses testées par sprint ? Si la réponse est 'zéro', il faut rééquilibrer."
+    },
+    {
+      "prompt": "Comment tester une hypothèse produit sans développer la feature ?",
+      "answer": "Techniques de discovery légère : (1) Smoke test (landing page décrivant la feature avec un CTA 'rejoindre la liste d'attente' — mesurer le % qui s'inscrivent), (2) Wizard of Oz (simuler manuellement la feature pour 5-10 utilisateurs avant de la développer), (3) Prototype cliquable (InVision/Figma — tester l'UX sans code), (4) Fake door (menu ou bouton pour la feature inexistante — mesurer les clics et afficher 'bientôt disponible'). Ces tests coûtent 10x moins qu'un développement."
+    }
+  ],
+  "response_guidance": {
+    "tone": "stratégique, ancré dans les métriques et la réalité des utilisateurs",
+    "structure": [
+      "identifier le contexte produit",
+      "expliquer le framework",
+      "proposer une application concrète"
+    ],
+    "avoid": [
+      "trop théorique",
+      "ignorer les contraintes business",
+      "recommander sans contexte"
+    ]
+  },
   "tags": [
     "discovery",
     "delivery",
@@ -21,43 +60,8 @@
     "product management",
     "produit"
   ],
-  "intents": [],
-  "usage_context": [],
-  "content": {
-    "definition": "",
-    "core_principles": [],
-    "rules": [],
-    "examples": [],
-    "best_practices": [],
-    "anti_patterns": []
-  },
-  "retrieval_hints": {
-    "priority_keywords": [],
-    "related_domains": [],
-    "related_knowledge": [],
-    "retrieval_priority": 5
-  },
-  "behavior_rules": {
-    "tone": "professional",
-    "response_style": "structured_clear",
-    "max_complexity": "medium",
-    "allow_humor": false
-  },
-  "safety_notes": {
-    "allowed_usage": [],
-    "restricted_usage": [],
-    "forbidden_usage": [],
-    "fallback_behavior": "Solliciter une validation humaine si ambiguïté."
-  },
-  "metadata": {
-    "author": "ALFRED_SYSTEM",
-    "creation_date": "11/07/2026",
-    "last_update": "11/07/2026",
-    "review_status": "draft",
-    "reviewed_by": "",
-    "source_type": "manual_structured_knowledge",
-    "language": "fr",
-    "retrieval_ready": true,
-    "rag_compatible": true
-  }
+  "related_knowledge_units": [
+    "knowledges.cpl.strategy.strategy_fundamentals",
+    "knowledges.cpl.product_ia.user_needs_analysis"
+  ]
 }

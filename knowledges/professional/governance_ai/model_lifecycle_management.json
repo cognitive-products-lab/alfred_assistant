@@ -1,17 +1,87 @@
 {
   "schema_version": "1.2",
   "type": "knowledge_unit",
-  "knowledge_id": "",
+  "id": "knowledges.professional.governance_ai.model_lifecycle_management",
   "title": "Gestion du cycle de vie des modèles IA",
-  "version": "1.0.0",
-  "status": "validated",
   "domain": "professional",
   "subdomain": "governance_ai",
-  "category": "",
-  "priority": "medium",
-  "safety_level": "normal",
+  "status": "validated",
   "summary": "Un modèle IA n'est pas un logiciel statique — il se dégrade dans le temps (model drift), doit être mis à jour, versionné et éventuellement retiré. La gestion du cycle de vie structure ces étapes de façon contrôlée.",
-  "purpose": "",
+  "core_definition": "La gestion du cycle de vie des modèles IA (MLOps) est l'ensemble des pratiques permettant de développer, déployer, monitorer, mettre à jour et retirer les modèles IA de façon contrôlée, reproductible et conforme aux exigences opérationnelles et réglementaires.",
+  "knowledge": {
+    "lifecycle_phases": [
+      {
+        "phase": "Développement",
+        "activities": [
+          "Collecte et préparation des données",
+          "Entraînement et validation",
+          "Tests de performance et d'équité"
+        ]
+      },
+      {
+        "phase": "Déploiement",
+        "activities": [
+          "Validation formelle pré-déploiement",
+          "Déploiement progressif (canary, blue-green)",
+          "Documentation technique complète"
+        ]
+      },
+      {
+        "phase": "Production",
+        "activities": [
+          "Monitoring continu des métriques",
+          "Détection de dérive (data drift, model drift)",
+          "Gestion des incidents"
+        ]
+      },
+      {
+        "phase": "Mise à jour",
+        "activities": [
+          "Retrain avec nouvelles données",
+          "Tests de régression sur comportements clés",
+          "Versioning et changelog"
+        ]
+      },
+      {
+        "phase": "Retrait",
+        "activities": [
+          "Archivage documenté",
+          "Migration des utilisateurs",
+          "Conformité avec obligations de conservation des données"
+        ]
+      }
+    ],
+    "mlops_key_practices": [
+      "Versioning systématique des modèles, des données et des configurations",
+      "Pipeline de CI/CD pour les modèles (tests automatiques avant déploiement)",
+      "Feature store partagé pour la cohérence entre entraînement et inférence",
+      "A/B testing contrôlé pour les nouvelles versions",
+      "Rollback automatique si métriques de qualité chutent en dessous du seuil"
+    ]
+  },
+  "example_answers": [
+    {
+      "prompt": "Notre modèle IA fonctionne moins bien qu'il y a 6 mois — que faire ?",
+      "answer": "Model drift. Vérifier d'abord : data drift (les données d'entrée ont-elles changé de distribution ?) ou model drift (le monde réel a changé mais le modèle est resté figé). Solution court terme : identifier les cas où le modèle échoue le plus, analyser pourquoi, retrain ciblé si possible. Solution long terme : pipeline de monitoring continu avec alertes automatiques."
+    },
+    {
+      "prompt": "Comment gérer le déploiement d'une nouvelle version du modèle sans risque ?",
+      "answer": "Déploiement progressif (canary release) : commencer par 5-10% du trafic sur la nouvelle version, monitorer les métriques clés en comparaison avec l'ancienne version pendant 24-48h, puis augmenter progressivement. Plan de rollback automatique si les métriques passent en dessous du seuil défini. Ne jamais déployer une nouvelle version sans définir au préalable les critères de succès et d'échec."
+    }
+  ],
+  "response_guidance": {
+    "tone": "rigoureux, orienté conformité et opérationnalité",
+    "structure": [
+      "identifier le principe de gouvernance en jeu",
+      "expliquer l'application concrète",
+      "pointer les risques de non-conformité"
+    ],
+    "avoid": [
+      "trop théorique sans ancrage opérationnel",
+      "ignorer le contexte réglementaire EU",
+      "confondre gouvernance et éthique abstraite"
+    ]
+  },
   "tags": [
     "MLOps",
     "cycle de vie",
@@ -22,43 +92,8 @@
     "AI governance",
     "conformité"
   ],
-  "intents": [],
-  "usage_context": [],
-  "content": {
-    "definition": "",
-    "core_principles": [],
-    "rules": [],
-    "examples": [],
-    "best_practices": [],
-    "anti_patterns": []
-  },
-  "retrieval_hints": {
-    "priority_keywords": [],
-    "related_domains": [],
-    "related_knowledge": [],
-    "retrieval_priority": 5
-  },
-  "behavior_rules": {
-    "tone": "professional",
-    "response_style": "structured_clear",
-    "max_complexity": "medium",
-    "allow_humor": false
-  },
-  "safety_notes": {
-    "allowed_usage": [],
-    "restricted_usage": [],
-    "forbidden_usage": [],
-    "fallback_behavior": "Solliciter une validation humaine si ambiguïté."
-  },
-  "metadata": {
-    "author": "ALFRED_SYSTEM",
-    "creation_date": "11/07/2026",
-    "last_update": "11/07/2026",
-    "review_status": "draft",
-    "reviewed_by": "",
-    "source_type": "manual_structured_knowledge",
-    "language": "fr",
-    "retrieval_ready": true,
-    "rag_compatible": true
-  }
+  "related_knowledge_units": [
+    "knowledges.professional.standards_iso.iso_42001_ai_management_system",
+    "knowledges.cpl.ethics_governance.ethical_ai_framework"
+  ]
 }

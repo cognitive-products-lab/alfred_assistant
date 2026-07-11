@@ -1,17 +1,78 @@
 {
   "schema_version": "1.2",
   "type": "knowledge_unit",
-  "knowledge_id": "",
+  "id": "knowledges.professional.iot.energy_optimization_home",
   "title": "Optimisation énergétique domestique",
-  "version": "1.0.0",
-  "status": "validated",
   "domain": "professional",
   "subdomain": "iot",
-  "category": "",
-  "priority": "medium",
-  "safety_level": "normal",
+  "status": "validated",
   "summary": "L'optimisation énergétique domestique utilise les capteurs IoT et la domotique pour réduire la consommation sans dégrader le confort. Les gains moyens sont de 20-30% sur le chauffage et l'éclairage avec des dispositifs simples.",
-  "purpose": "",
+  "core_definition": "L'optimisation énergétique domestique est l'utilisation de capteurs, d'actionneurs et d'algorithmes de contrôle pour maximiser l'efficacité énergétique d'un logement, en adaptant la consommation aux besoins réels des occupants et aux contraintes tarifaires.",
+  "knowledge": {
+    "optimization_levers": [
+      {
+        "lever": "Chauffage/climatisation",
+        "savings": "15-30%",
+        "methods": [
+          "Programmation horaire",
+          "Détection de présence",
+          "Mode éco automatique en absence",
+          "Apprentissage des préférences"
+        ]
+      },
+      {
+        "lever": "Éclairage",
+        "savings": "10-20%",
+        "methods": [
+          "Extinction automatique en absence",
+          "Adaptation selon la lumière naturelle",
+          "LED connectées avec scenes"
+        ]
+      },
+      {
+        "lever": "Appareils en veille",
+        "savings": "5-10%",
+        "methods": [
+          "Prises connectées avec coupure automatique",
+          "Détection de veille prolongée"
+        ]
+      },
+      {
+        "lever": "Optimisation tarifaire",
+        "savings": "10-20%",
+        "methods": [
+          "Décalage des consommations aux heures creuses",
+          "Intégration tarifs dynamiques (Tempo EDF)"
+        ]
+      }
+    ],
+    "presence_detection": "La détection de présence fiable est la clé de l'optimisation : chauffer uniquement quand quelqu'un est là. Capteurs PIR classiques + règle 'absent depuis > 20 min → mode éco'. Amélioration avec BLE (trackers de téléphone) ou reconnaissance d'appareils sur le réseau Wi-Fi (nmap/Fing).",
+    "alfred_energy_awareness": "ALFRED peut intégrer le contexte énergétique : suggérer de lancer le lave-vaisselle la nuit (heures creuses), rappeler d'éteindre les veilles avant une longue absence, ou anticiper la recharge des batteries selon les tarifs."
+  },
+  "example_answers": [
+    {
+      "prompt": "Comment démarrer l'optimisation énergétique avec la domotique ?",
+      "answer": "Par ordre d'impact : (1) Prises connectées sur les gros consommateurs en veille (TV, box, PC de salon) avec coupure automatique, (2) Thermostat connecté avec programmation horaire et détection de présence, (3) Éclairage LED avec extinction automatique par capteur de présence. Ces trois investissements ont le meilleur ROI (< 2 ans d'amortissement pour le thermostat)."
+    },
+    {
+      "prompt": "Comment ALFRED peut aider à réduire ma consommation électrique ?",
+      "answer": "ALFRED peut agir comme coordinateur : rappeler les habitudes de consommation ('tu laisses souvent la box allumée la nuit'), suggérer des optimisations selon les tarifs heure creuse, et intégrer des alertes domotiques ('la clim est restée allumée pendant ton absence'). L'IA contextuelle transforme des données de consommation en recommandations actionnables."
+    }
+  ],
+  "response_guidance": {
+    "tone": "technique, pragmatique, sensible à la confidentialité et à la sécurité",
+    "structure": [
+      "identifier le composant ou problème IoT",
+      "expliquer le mécanisme",
+      "pointer les risques",
+      "proposer la solution"
+    ],
+    "avoid": [
+      "ignorer la sécurité",
+      "négliger la contrainte de ressources",
+      "trop générique"
+    ]
+  },
   "tags": [
     "énergie",
     "optimisation",
@@ -21,43 +82,8 @@
     "IoT",
     "système ambiant"
   ],
-  "intents": [],
-  "usage_context": [],
-  "content": {
-    "definition": "",
-    "core_principles": [],
-    "rules": [],
-    "examples": [],
-    "best_practices": [],
-    "anti_patterns": []
-  },
-  "retrieval_hints": {
-    "priority_keywords": [],
-    "related_domains": [],
-    "related_knowledge": [],
-    "retrieval_priority": 5
-  },
-  "behavior_rules": {
-    "tone": "professional",
-    "response_style": "structured_clear",
-    "max_complexity": "medium",
-    "allow_humor": false
-  },
-  "safety_notes": {
-    "allowed_usage": [],
-    "restricted_usage": [],
-    "forbidden_usage": [],
-    "fallback_behavior": "Solliciter une validation humaine si ambiguïté."
-  },
-  "metadata": {
-    "author": "ALFRED_SYSTEM",
-    "creation_date": "11/07/2026",
-    "last_update": "11/07/2026",
-    "review_status": "draft",
-    "reviewed_by": "",
-    "source_type": "manual_structured_knowledge",
-    "language": "fr",
-    "retrieval_ready": true,
-    "rag_compatible": true
-  }
+  "related_knowledge_units": [
+    "knowledges.professional.engineering.systeme_design.local_first_architecture",
+    "knowledges.cpl.ethics_governance.ethical_ai_framework"
+  ]
 }

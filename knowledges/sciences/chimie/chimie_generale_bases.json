@@ -1,0 +1,89 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "sciences.chimie.chimie_generale_bases",
+  "title": "Chimie générale : atomes, liaisons et réactions",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "sciences",
+  "subdomain": "chimie",
+  "category": "chimie fondamentale",
+  "summary": "La chimie générale étudie la structure de l'atome, son organisation dans le tableau périodique, les liaisons qui unissent les atomes en molécules, et les transformations chimiques qui les font réagir. Elle introduit les notions de stœchiométrie pour quantifier les réactions et de pH pour caractériser l'acidité ou la basicité d'une solution. C'est le socle nécessaire pour comprendre la chimie organique, la biochimie et la plupart des phénomènes matériels du quotidien.",
+  "purpose": "Permettre à ALFRED d'expliquer les bases de la chimie (atomes, réactions, pH) avec exactitude et de contextualiser des questions pratiques (produits ménagers, cuisine, environnement) sans jamais fournir d'instructions dangereuses.",
+  "tags": ["chimie", "atome", "tableau_periodique", "liaison_chimique", "reaction_chimique", "stoechiometrie", "ph", "molecule"],
+  "intents": ["explain_chemistry_concept", "explain_chemical_reaction", "explain_ph_acidity", "give_everyday_chemistry_example"],
+  "usage_context": ["aide aux devoirs de chimie", "explication d'un phénomène chimique du quotidien", "culture scientifique générale", "question sur l'acidité d'un produit"],
+  "priority": "medium",
+  "safety_level": "sensitive",
+  "content": {
+    "definition": "La chimie générale est la science qui étudie la composition, la structure et les propriétés de la matière à l'échelle atomique et moléculaire, ainsi que les transformations qu'elle subit lors des réactions chimiques. L'atome, unité de base, est composé d'un noyau (protons chargés positivement, neutrons neutres) entouré d'électrons chargés négativement, organisés en couches selon des règles quantiques. Le tableau périodique de Mendeleïev (1869), organisé par numéro atomique croissant, classe les éléments selon leurs propriétés chimiques récurrentes en colonnes (familles) et lignes (périodes). Les atomes se lient entre eux par liaisons covalentes (partage d'électrons), ioniques (transfert d'électrons créant des ions) ou métalliques, formant les molécules et matériaux qui composent le monde.",
+    "core_principles": [
+      "Un atome est électriquement neutre car il possède autant de protons (numéro atomique Z) que d'électrons ; un ion résulte d'un gain ou d'une perte d'électrons.",
+      "Le tableau périodique classe les éléments par numéro atomique croissant ; les éléments d'une même colonne (famille chimique) partagent des propriétés similaires car ils ont le même nombre d'électrons de valence.",
+      "La liaison covalente résulte du partage d'une ou plusieurs paires d'électrons entre deux atomes (ex. molécule H2O, CO2) ; la liaison ionique résulte du transfert d'électrons entre atomes de électronégativités très différentes (ex. NaCl).",
+      "Une réaction chimique transforme des réactifs en produits en conservant la masse totale et le nombre d'atomes de chaque élément (loi de conservation de la masse de Lavoisier, 1789).",
+      "La stœchiométrie utilise les coefficients d'une équation chimique équilibrée pour calculer les proportions de matière (moles) consommées et produites lors d'une réaction.",
+      "Les trois états classiques de la matière (solide, liquide, gaz) diffèrent par l'organisation et l'énergie cinétique des particules ; les changements d'état (fusion, vaporisation, etc.) se font à température et pression constantes pour un corps pur.",
+      "Le pH mesure l'acidité ou la basicité d'une solution aqueuse sur une échelle de 0 à 14 : pH < 7 acide, pH = 7 neutre, pH > 7 basique, correspondant à la concentration en ions H3O+.",
+      "Une réaction acido-basique transfère un proton (H+) d'un acide vers une base (théorie de Brønsted-Lowry)."
+    ],
+    "rules": [
+      "Ne jamais fournir d'instructions permettant de synthétiser des substances dangereuses, toxiques ou explosives, même dans un cadre présenté comme éducatif.",
+      "Toujours rappeler qu'un mélange de produits ménagers courants (eau de Javel + produit acide, par exemple) peut produire des gaz toxiques (dichlore) et présente un danger réel.",
+      "Distinguer clairement mélange (physique, composants séparables) et réaction chimique (transformation avec nouvelles substances).",
+      "Vérifier l'équilibrage (mêmes atomes des deux côtés) avant de présenter une équation chimique comme correcte."
+    ],
+    "examples": [
+      {
+        "situation": "Un utilisateur demande pourquoi le vinaigre fait mousser le bicarbonate de soude.",
+        "recommended_behavior": "Expliquer la réaction acido-basique entre l'acide acétique du vinaigre et le bicarbonate (base faible), produisant du dioxyde de carbone gazeux (la mousse), de l'eau et de l'acétate de sodium.",
+        "avoid": "Une réponse vague ne mentionnant pas la nature acido-basique de la réaction ni le dégagement gazeux."
+      },
+      {
+        "situation": "Un utilisateur demande s'il peut mélanger de l'eau de Javel et un détartrant acide pour nettoyer plus efficacement.",
+        "recommended_behavior": "Avertir clairement que ce mélange produit du dichlore, un gaz toxique dangereux, et déconseiller formellement cette pratique.",
+        "avoid": "Répondre uniquement sur l'efficacité de nettoyage sans mentionner le danger toxique réel."
+      }
+    ],
+    "best_practices": [
+      "Toujours équilibrer et vérifier une équation chimique avant de la présenter.",
+      "Relier les concepts abstraits à des exemples du quotidien reconnaissables (cuisine, produits ménagers, corrosion, combustion).",
+      "Utiliser les unités correctes (mole, gramme, pH sans unité) et rappeler les ordres de grandeur usuels.",
+      "Signaler systématiquement les risques réels quand la question touche à des produits chimiques manipulables au quotidien."
+    ],
+    "anti_patterns": [
+      "Fournir des protocoles de synthèse de substances dangereuses sous couvert de pédagogie.",
+      "Minimiser les risques de mélanges chimiques domestiques dangereux.",
+      "Confondre pH et concentration, ou présenter le pH comme une échelle linéaire alors qu'elle est logarithmique."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["chimie", "atome", "tableau periodique", "liaison chimique", "reaction chimique", "stoechiometrie", "ph", "acide", "base"],
+    "related_domains": ["mathematiques", "education", "cuisine"],
+    "related_knowledge": ["sciences.chimie.chimie_organique_bases", "sciences.biologie.biologie_cellulaire_bases"],
+    "retrieval_priority": 5
+  },
+  "behavior_rules": {
+    "tone": "educational",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["explications pédagogiques de chimie", "vulgarisation scientifique", "sécurité domestique liée aux produits chimiques courants"],
+    "restricted_usage": ["explications de réactions impliquant des produits dangereux, limitées au niveau de sécurité et de prévention"],
+    "forbidden_usage": ["fourniture de protocoles de synthèse de substances toxiques, explosives, stupéfiantes ou d'armes chimiques"],
+    "fallback_behavior": "Si une question laisse suspecter une intention de fabriquer une substance dangereuse, refuser de fournir le protocole et rediriger vers une information de sécurité générale."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "11/07/2026",
+    "last_update": "11/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}
