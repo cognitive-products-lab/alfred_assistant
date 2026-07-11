@@ -1,55 +1,17 @@
 {
   "schema_version": "1.2",
   "type": "knowledge_unit",
-  "id": "knowledges.professional.iot.iot_security_fundamentals",
+  "knowledge_id": "",
   "title": "Sécurité IoT — fondamentaux",
+  "version": "1.0.0",
+  "status": "validated",
   "domain": "professional",
   "subdomain": "iot",
-  "status": "validated",
+  "category": "",
+  "priority": "medium",
+  "safety_level": "normal",
   "summary": "Les dispositifs IoT sont parmi les vecteurs d'attaque les plus exploités : firmware non mis à jour, credentials par défaut, communications non chiffrées. La sécurité IoT doit être intégrée dès la conception, pas après.",
-  "core_definition": "La sécurité IoT est l'ensemble des pratiques techniques et organisationnelles permettant de protéger les dispositifs connectés, leurs communications et les données qu'ils traitent contre les accès non autorisés, les manipulations et les compromissions.",
-  "knowledge": {
-    "iot_attack_vectors": [
-      "Credentials par défaut non changés (admin/admin) — première cible des botnets",
-      "Firmware non mis à jour — vulnérabilités connues non patchées",
-      "Communications non chiffrées — interception de trafic en clair",
-      "API ouvertes sans authentification",
-      "Composants tiers non maintenus avec des dépendances vulnérables"
-    ],
-    "security_baseline": [
-      "Changer les identifiants par défaut immédiatement",
-      "Activer les mises à jour automatiques du firmware",
-      "Isoler les dispositifs IoT sur un VLAN dédié",
-      "Chiffrer toutes les communications (TLS 1.3 minimum)",
-      "Désactiver les services inutilisés (UPnP, Telnet)",
-      "Monitorer le trafic réseau des dispositifs IoT pour détecter les anomalies"
-    ],
-    "network_segmentation": "VLAN IoT séparé du réseau principal : si un dispositif est compromis, l'attaquant ne peut pas latéraliser vers le réseau personnel ou professionnel. Règle de base : les dispositifs IoT n'ont jamais besoin d'accéder aux PC ou NAS du réseau principal."
-  },
-  "example_answers": [
-    {
-      "prompt": "Comment sécuriser mes dispositifs IoT à la maison ?",
-      "answer": "Quatre actions prioritaires : (1) VLAN IoT séparé sur le routeur (les IoT ne voient pas le réseau PC), (2) mots de passe uniques sur chaque dispositif, (3) mises à jour firmware activées automatiquement, (4) désactiver l'accès depuis internet si pas nécessaire (UPnP désactivé). Ça couvre 80% des vecteurs d'attaque courants."
-    },
-    {
-      "prompt": "Est-ce que les dispositifs IoT autour d'ALFRED posent un risque de sécurité ?",
-      "answer": "Potentiellement oui — particulièrement la caméra et le micro. Pour ALFRED : caméra activée uniquement sur demande, traitement local sans cloud, micro en mode push-to-talk plutôt que toujours-actif. Et le réseau : PC ALFRED sur un VLAN isolé est la configuration recommandée (cf. setup réseau ER605+SG108E). Un dispositif IoT compromis sur le même réseau pourrait écouter les échanges avec ALFRED."
-    }
-  ],
-  "response_guidance": {
-    "tone": "technique, pragmatique, sensible à la confidentialité et à la sécurité",
-    "structure": [
-      "identifier le composant ou problème IoT",
-      "expliquer le mécanisme",
-      "pointer les risques",
-      "proposer la solution"
-    ],
-    "avoid": [
-      "ignorer la sécurité",
-      "négliger la contrainte de ressources",
-      "trop générique"
-    ]
-  },
+  "purpose": "",
   "tags": [
     "sécurité IoT",
     "VLAN",
@@ -59,8 +21,43 @@
     "IoT",
     "système ambiant"
   ],
-  "related_knowledge_units": [
-    "knowledges.professional.engineering.systeme_design.local_first_architecture",
-    "knowledges.cpl.ethics_governance.ethical_ai_framework"
-  ]
+  "intents": [],
+  "usage_context": [],
+  "content": {
+    "definition": "",
+    "core_principles": [],
+    "rules": [],
+    "examples": [],
+    "best_practices": [],
+    "anti_patterns": []
+  },
+  "retrieval_hints": {
+    "priority_keywords": [],
+    "related_domains": [],
+    "related_knowledge": [],
+    "retrieval_priority": 5
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "Solliciter une validation humaine si ambiguïté."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "11/07/2026",
+    "last_update": "11/07/2026",
+    "review_status": "draft",
+    "reviewed_by": "",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
 }

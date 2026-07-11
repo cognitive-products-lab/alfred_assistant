@@ -1,12 +1,34 @@
 {
-  "_meta": { "project": "ALFRED", "block": "B18", "file": "identity_access_management.json", "version": "V2.0", "status": "VALIDATED", "updated": "2026-06-03", "validated_by": "Cognitive Products Lab" },
   "knowledge_id": "professional.engineering.cybersecurite.identity_access_management",
-  "id": "professional.engineering.cybersecurite.identity_access_management",
   "title": "Gestion des identités et des accès (IAM)",
-  "version": "2.0.0", "status": "active", "domain": "professional", "subdomain": "engineering", "category": "cybersecurite",
+  "version": "2.0.0",
+  "status": "active",
+  "domain": "professional",
+  "subdomain": "engineering",
+  "category": "cybersecurite",
+  "priority": "critical",
+  "safety_level": "sensitive",
   "summary": "IAM complet : SSO, MFA, annuaires, provisioning/deprovisioning, SCIM, lifecycle management, PAM et outils (Okta, Entra ID, CyberArk).",
   "purpose": "Permettre à ALFRED de conseiller sur la gestion complète du cycle de vie des identités, des mécanismes d'authentification forte et de fédération d'identités dans des environnements hybrides.",
-  "tags": ["IAM", "identité", "SSO", "MFA", "TOTP", "FIDO2", "passkeys", "Active Directory", "LDAP", "Entra ID", "Okta", "provisioning", "SCIM", "lifecycle", "PAM", "authentification", "autorisation"],
+  "tags": [
+    "IAM",
+    "identité",
+    "SSO",
+    "MFA",
+    "TOTP",
+    "FIDO2",
+    "passkeys",
+    "Active Directory",
+    "LDAP",
+    "Entra ID",
+    "Okta",
+    "provisioning",
+    "SCIM",
+    "lifecycle",
+    "PAM",
+    "authentification",
+    "autorisation"
+  ],
   "intents": [
     "mettre en place le SSO",
     "configurer le MFA",
@@ -22,7 +44,6 @@
     "onboarding/offboarding employés",
     "sécurisation d'une application ALFRED"
   ],
-  "priority": "critical", "safety_level": "sensitive",
   "content": {
     "definition": "L'Identity and Access Management (IAM) est l'ensemble des processus, politiques et technologies permettant de gérer les identités numériques et de contrôler leur accès aux ressources. Un IAM mature couvre l'authentification, l'autorisation, le provisioning, le cycle de vie des comptes, et la traçabilité de tous les accès.",
     "core_principles": [
@@ -48,13 +69,24 @@
         "FIDO2_WebAuthn": {
           "description": "Standard d'authentification forte basé sur cryptographie asymétrique",
           "securite": "Très élevé — résistant au phishing par design (lié à l'origine du site)",
-          "implementations": ["YubiKey (Yubico)", "Google Titan Key", "Windows Hello", "Touch ID / Face ID"],
+          "implementations": [
+            "YubiKey (Yubico)",
+            "Google Titan Key",
+            "Windows Hello",
+            "Touch ID / Face ID"
+          ],
           "norme": "W3C WebAuthn + CTAP2"
         },
         "passkeys": {
           "description": "Evolution FIDO2 : clé cryptographique stockée sur l'appareil ou dans un gestionnaire de mots de passe",
           "securite": "Très élevé — phishing-resistant, passwordless",
-          "support": ["Apple (iCloud Keychain)", "Google Password Manager", "Windows Hello", "1Password", "Bitwarden"]
+          "support": [
+            "Apple (iCloud Keychain)",
+            "Google Password Manager",
+            "Windows Hello",
+            "1Password",
+            "Bitwarden"
+          ]
         },
         "SMS_OTP": {
           "description": "Code envoyé par SMS",
@@ -70,27 +102,62 @@
         "OIDC": "OpenID Connect — basé sur OAuth 2.0, moderne, adapté aux apps web/mobile, JSON/JWT",
         "OAuth_2_0": "Protocole d'autorisation (delegation d'accès), pas d'authentification à lui seul"
       },
-      "benefices": ["Une seule expérience d'authentification pour l'utilisateur", "MFA appliqué une fois, bénéfice partout", "Revocation centralisée (désactiver le compte = couper tous les accès)", "Audit centralisé des connexions"]
+      "benefices": [
+        "Une seule expérience d'authentification pour l'utilisateur",
+        "MFA appliqué une fois, bénéfice partout",
+        "Revocation centralisée (désactiver le compte = couper tous les accès)",
+        "Audit centralisé des connexions"
+      ]
     },
     "annuaires": {
       "Active_Directory": {
         "description": "Annuaire Microsoft — référence pour les environnements Windows on-premise",
-        "fonctions": ["Authentification Kerberos", "GPO (Group Policy)", "DNS interne", "Gestion des objets (users, computers, groups, OUs)"],
-        "securite": ["Activer le Protected Users group pour comptes VIP", "Activer Credential Guard", "Auditer les changements AD (Gold copy régulier)", "Séparer les tiers (Tier 0/1/2 model)"]
+        "fonctions": [
+          "Authentification Kerberos",
+          "GPO (Group Policy)",
+          "DNS interne",
+          "Gestion des objets (users, computers, groups, OUs)"
+        ],
+        "securite": [
+          "Activer le Protected Users group pour comptes VIP",
+          "Activer Credential Guard",
+          "Auditer les changements AD (Gold copy régulier)",
+          "Séparer les tiers (Tier 0/1/2 model)"
+        ]
       },
       "Entra_ID": {
         "description": "Azure Active Directory (renommé Microsoft Entra ID) — IAM cloud Microsoft",
-        "fonctions": ["SSO pour apps SaaS", "Conditional Access", "MFA", "B2B/B2C", "Privileged Identity Management (PIM)"],
-        "avantages": ["Intégration native Microsoft 365", "Conditional Access très granulaire", "Passwordless natif"]
+        "fonctions": [
+          "SSO pour apps SaaS",
+          "Conditional Access",
+          "MFA",
+          "B2B/B2C",
+          "Privileged Identity Management (PIM)"
+        ],
+        "avantages": [
+          "Intégration native Microsoft 365",
+          "Conditional Access très granulaire",
+          "Passwordless natif"
+        ]
       },
       "LDAP": {
         "description": "Lightweight Directory Access Protocol — protocole d'annuaire, pas un produit",
-        "implementations": ["OpenLDAP (open source)", "Active Directory (compatible LDAP)", "389 Directory Server"],
+        "implementations": [
+          "OpenLDAP (open source)",
+          "Active Directory (compatible LDAP)",
+          "389 Directory Server"
+        ],
         "securite": "Toujours utiliser LDAPS (LDAP over TLS, port 636) — jamais LDAP en clair (port 389)"
       },
       "Okta": {
         "description": "IdP cloud-first, leader du marché IAM",
-        "fonctions": ["Universal Directory", "SSO", "MFA adaptatif", "Lifecycle Management", "API Access Management"],
+        "fonctions": [
+          "Universal Directory",
+          "SSO",
+          "MFA adaptatif",
+          "Lifecycle Management",
+          "API Access Management"
+        ],
         "integration": "Connecteurs natifs pour 7000+ applications"
       }
     },
@@ -107,7 +174,11 @@
           "Mover : modification des droits lors d'un changement de poste (sans accumulation de privilèges)",
           "Leaver : révocation complète de tous les accès dans les 2h suivant le départ"
         ],
-        "risques_si_absent": ["Comptes orphelins (anciens employés avec accès actifs)", "Ghost accounts utilisés par des attaquants", "Non-conformité RGPD / SOX"]
+        "risques_si_absent": [
+          "Comptes orphelins (anciens employés avec accès actifs)",
+          "Ghost accounts utilisés par des attaquants",
+          "Non-conformité RGPD / SOX"
+        ]
       }
     },
     "application_alfred": {
@@ -135,18 +206,63 @@
       "Utiliser le même annuaire AD pour Tier 0 (contrôleurs de domaine) et les postes utilisateurs",
       "Stocker les hashes de mots de passe sans salage fort (bcrypt/Argon2 minimum)",
       "LDAP non chiffré (port 389) encore actif en production"
-    ]
+    ],
+    "rules": [],
+    "examples": []
   },
   "retrieval_hints": {
-    "priority_keywords": ["IAM", "SSO", "MFA", "FIDO2", "passkeys", "TOTP", "Active Directory", "Entra ID", "Okta", "SCIM", "provisioning", "identité"],
-    "related_knowledge": ["least_privilege_access", "zero_trust_architecture", "device_trust_validation", "behavioral_anomaly_detection"],
+    "priority_keywords": [
+      "IAM",
+      "SSO",
+      "MFA",
+      "FIDO2",
+      "passkeys",
+      "TOTP",
+      "Active Directory",
+      "Entra ID",
+      "Okta",
+      "SCIM",
+      "provisioning",
+      "identité"
+    ],
+    "related_domains": [],
+    "related_knowledge": [
+      "least_privilege_access",
+      "zero_trust_architecture",
+      "device_trust_validation",
+      "behavioral_anomaly_detection"
+    ],
     "retrieval_priority": 9
   },
-  "behavior_rules": { "tone": "professional", "response_style": "structured_clear", "max_complexity": "high", "allow_humor": false },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "high",
+    "allow_humor": false
+  },
   "safety_notes": {
-    "allowed_usage": ["Conseil IAM et fédération d'identités", "Configuration SSO/MFA", "Gouvernance des identités", "Choix d'outils IAM"],
-    "forbidden_usage": ["Contourner une authentification MFA", "Accéder à un annuaire sans autorisation"],
+    "allowed_usage": [
+      "Conseil IAM et fédération d'identités",
+      "Configuration SSO/MFA",
+      "Gouvernance des identités",
+      "Choix d'outils IAM"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [
+      "Contourner une authentification MFA",
+      "Accéder à un annuaire sans autorisation"
+    ],
     "fallback_behavior": "Pour des configurations IAM critiques, recommander l'expertise d'un architecte IAM certifié."
   },
-  "metadata": { "author": "Cognitive Products Lab", "creation_date": "03/06/2026", "last_update": "03/06/2026", "review_status": "validated", "source_type": "manual_structured_knowledge", "language": "fr", "retrieval_ready": true, "rag_compatible": true }
+  "metadata": {
+    "author": "Cognitive Products Lab",
+    "creation_date": "03/06/2026",
+    "last_update": "11/07/2026",
+    "review_status": "validated",
+    "reviewed_by": "",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
 }

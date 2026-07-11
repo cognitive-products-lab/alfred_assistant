@@ -1,75 +1,17 @@
 {
   "schema_version": "1.2",
   "type": "knowledge_unit",
-  "id": "knowledges.professional.iot.edge_ai_processing",
+  "knowledge_id": "",
   "title": "Traitement IA en edge (Edge AI)",
+  "version": "1.0.0",
+  "status": "validated",
   "domain": "professional",
   "subdomain": "iot",
-  "status": "validated",
+  "category": "",
+  "priority": "medium",
+  "safety_level": "normal",
   "summary": "L'edge AI déplace l'inférence IA du cloud vers le dispositif local — réduisant la latence, préservant la confidentialité et réduisant les coûts de bande passante au prix d'une puissance de calcul plus limitée.",
-  "core_definition": "L'Edge AI est l'exécution de modèles d'intelligence artificielle directement sur des dispositifs edge (PC, Raspberry Pi, smartphone, microcontrôleur) plutôt que dans le cloud, permettant l'inférence locale avec des avantages en termes de latence, confidentialité et résilience.",
-  "knowledge": {
-    "edge_ai_advantages": [
-      "Latence : inférence en ms plutôt qu'en centaines de ms (pas de round-trip réseau)",
-      "Confidentialité : les données ne quittent jamais le device",
-      "Résilience : fonctionne sans connexion internet",
-      "Coût : pas de coûts de bande passante ni d'API à la requête",
-      "Compliance : données traitées localement — simplifie la conformité RGPD"
-    ],
-    "edge_ai_constraints": [
-      "Puissance de calcul limitée — modèles plus petits ou quantisés",
-      "Mémoire réduite — pas de grands modèles sans quantisation",
-      "Gestion thermique — inférence intensive génère de la chaleur",
-      "Mise à jour des modèles plus complexe que le cloud"
-    ],
-    "optimization_techniques": [
-      {
-        "technique": "Quantisation",
-        "description": "Réduire la précision des poids (32-bit → 8-bit → 4-bit) — réduit la taille et accélère l'inférence",
-        "trade_off": "Légère perte de qualité"
-      },
-      {
-        "technique": "Pruning",
-        "description": "Supprimer les poids les moins importants du réseau",
-        "trade_off": "Nécessite un réentraînement"
-      },
-      {
-        "technique": "Knowledge distillation",
-        "description": "Entraîner un petit modèle (student) à imiter un grand modèle (teacher)",
-        "trade_off": "Qualité réduite mais inférence beaucoup plus rapide"
-      },
-      {
-        "technique": "ONNX Runtime",
-        "description": "Format d'optimisation cross-platform pour l'inférence",
-        "use": "Convertir et optimiser des modèles PyTorch/TensorFlow pour l'inférence edge"
-      }
-    ],
-    "alfred_edge_ai": "ALFRED utilise Ollama en local pour les LLMs et llava:7b pour la vision — edge AI sur PC Windows. Les modèles 7B quantisés (Q4_K_M) offrent un bon compromis qualité/vitesse sur du matériel grand public."
-  },
-  "example_answers": [
-    {
-      "prompt": "Pourquoi utiliser un modèle local plutôt que l'API GPT-4 ?",
-      "answer": "Trois raisons principales : confidentialité (les données ne sortent pas de ton PC), résilience (fonctionne sans internet), coût (pas de facturation par token). La contrepartie : qualité légèrement inférieure et inférence plus lente. Pour ALFRED, le choix est pragmatique : données personnelles sensibles → local first, avec fallback API optionnel si la qualité est insuffisante."
-    },
-    {
-      "prompt": "Quels modèles peuvent tourner sur un PC standard pour l'IA locale ?",
-      "answer": "Avec 16Go de RAM : Mistral 7B, Llama 3 8B, Gemma 2 9B — confortables en Q4/Q5. Avec 32Go : Mixtral 8x7B, Llama 3 70B en Q4. Pour la vision : llava 7B et 13B. Piper pour la TTS. Whisper pour la STT. La stack locale complète (STT + LLM + TTS) fonctionne très bien sur un bon PC, et le Minisforum MS-S1 Max (64Go) permettra les modèles 70B."
-    }
-  ],
-  "response_guidance": {
-    "tone": "technique, pragmatique, sensible à la confidentialité et à la sécurité",
-    "structure": [
-      "identifier le composant ou problème IoT",
-      "expliquer le mécanisme",
-      "pointer les risques",
-      "proposer la solution"
-    ],
-    "avoid": [
-      "ignorer la sécurité",
-      "négliger la contrainte de ressources",
-      "trop générique"
-    ]
-  },
+  "purpose": "",
   "tags": [
     "edge AI",
     "local",
@@ -79,8 +21,43 @@
     "IoT",
     "système ambiant"
   ],
-  "related_knowledge_units": [
-    "knowledges.professional.engineering.systeme_design.local_first_architecture",
-    "knowledges.cpl.ethics_governance.ethical_ai_framework"
-  ]
+  "intents": [],
+  "usage_context": [],
+  "content": {
+    "definition": "",
+    "core_principles": [],
+    "rules": [],
+    "examples": [],
+    "best_practices": [],
+    "anti_patterns": []
+  },
+  "retrieval_hints": {
+    "priority_keywords": [],
+    "related_domains": [],
+    "related_knowledge": [],
+    "retrieval_priority": 5
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "Solliciter une validation humaine si ambiguïté."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "11/07/2026",
+    "last_update": "11/07/2026",
+    "review_status": "draft",
+    "reviewed_by": "",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
 }
