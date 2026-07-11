@@ -5,9 +5,9 @@ BLOCK    : B20 — Sécurité, Gouvernance & Conformité
 DOCUMENT : Politique de Gestion des Données (RGPD)
 TYPE     : Documentation gouvernance — document destiné à publication publique
 REF      : Règlement (UE) 2016/679 — RGPD
-VERSION  : V1.1
+VERSION  : V1.2
 CREATED  : 2026-05 (V1.0, docs/security/politique_donnees_rgpd_alfred.pdf)
-UPDATED  : 2026-07-10
+UPDATED  : 2026-07-11
 AUTHOR   : Cognitive Products Lab — Céline Rousselot (rédaction assistée Claude)
 STATUS   : Approuvé (version interne) — version publique site web en attente de mise à jour, cf. §12
 ============================================================
@@ -17,7 +17,7 @@ STATUS   : Approuvé (version interne) — version publique site web en attente 
 
 > **Référence :** Règlement (UE) 2016/679 (RGPD), texte consolidé :
 > https://www.cnil.fr/fr/reglement-europeen-protection-donnees
-> **Version :** 1.1 — 2026-07-10
+> **Version :** 1.2 — 2026-07-11
 > **Responsable du traitement :** Cognitive Products Lab — Céline Rousselot
 > **Statut :** Approuvé (usage interne) — voir §12 pour la publication web
 
@@ -118,7 +118,7 @@ Nous ne collectons pas : données bancaires, numéros de sécurité sociale, don
 |---|---|---|
 | Accès (Art. 15) | ✅ Export JSON disponible | ❌ Non implémenté |
 | Rectification (Art. 16) | ✅ Modification directe dans l'interface | ❌ Non implémenté |
-| Effacement (Art. 17) | ✅ Suppression complète disponible | ❌ Non implémenté — pas de route de suppression de compte, pas de purge cascade PostgreSQL→MongoDB |
+| Effacement (Art. 17) | ✅ `src/conversation/commands/erasure_command.py` — suppression fichiers sensibles + purge mémoire long terme, confirmation obligatoire (créé 11/07/2026 ; les fonctions sous-jacentes existaient et étaient testées depuis mai 2026 mais n'avaient aucun point d'entrée utilisateur avant cette date) | ❌ Non implémenté — pas de route de suppression de compte, pas de purge cascade PostgreSQL→MongoDB |
 | Portabilité (Art. 20) | ✅ Export JSON structuré | ❌ Non implémenté |
 | Opposition (Art. 21) | ✅ Désactivation par catégorie | ⚠️ Partiel — refuser la connexion évite toute nouvelle donnée, pas de mécanisme actif |
 | Retrait du consentement (Art. 7.3) | ✅ Paramètres → Confidentialité | ❌ Non implémenté |
