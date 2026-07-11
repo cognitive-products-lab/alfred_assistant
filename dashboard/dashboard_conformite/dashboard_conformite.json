@@ -4,7 +4,7 @@
     "file": "dashboard_conformite.json",
     "generated_at": "2026-06-30T00:00:00+00:00",
     "version": "V1.1",
-    "updated_at": "2026-07-10T07:36:48+00:00",
+    "updated_at": "2026-07-11T07:09:09+00:00",
     "description": "Dashboard conformité réglementaire — 71 exigences · 9 normes (RGPD, LIL, AI Act, NIS2, ISO 27001, HDS, SecNumCloud, PASSI, CRA)"
   },
   "norms": [
@@ -43,8 +43,8 @@
           "domain": "Droits personnes",
           "status": "conforme",
           "criticite": "eleve",
-          "proof": "politique_confidentialite.md",
-          "note": ""
+          "proof": "docs/gouvernance/politique_gestion_donnees.md",
+          "note": "Vérifié 11/07/2026 — couvre finalités, base légale, durées, droits (§1-8). Périmètre ALFRED local ; le §6 précise ce qui n'est pas encore couvert côté ALFRED_WEB (suivi séparé sous RGPD-12)"
         },
         {
           "id": "RGPD-04",
@@ -69,12 +69,12 @@
         {
           "id": "RGPD-06",
           "article": "Art. 17",
-          "label": "Droit à l'effacement — commandes /forget",
+          "label": "Droit à l'effacement — erasure_command.py",
           "domain": "Droits personnes",
           "status": "conforme",
           "criticite": "haute",
-          "proof": "procedure_effacement.md",
-          "note": ""
+          "proof": "src/conversation/commands/erasure_command.py",
+          "note": "Créé et testé le 11/07/2026. Les fonctions delete_user_data (compliance_manager.py) et delete_all_memories (long_term_memory.py) existaient et étaient testées depuis mai 2026, mais sans aucun point d'entrée utilisateur réel — constat fait en croisant cette page avec le code"
         },
         {
           "id": "RGPD-07",
