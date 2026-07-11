@@ -1,17 +1,69 @@
 {
   "schema_version": "1.2",
   "type": "knowledge_unit",
-  "knowledge_id": "",
+  "id": "knowledges.professional.iot.home_automation_rules",
   "title": "Règles d'automatisation domotique",
-  "version": "1.0.0",
-  "status": "validated",
   "domain": "professional",
   "subdomain": "iot",
-  "category": "",
-  "priority": "medium",
-  "safety_level": "normal",
+  "status": "validated",
   "summary": "Les règles d'automatisation domotique définissent les réponses automatiques aux événements capteurs — si-alors-sinon avec conditions temporelles, de contexte et de priorité. La bonne architecture évite les conflits de règles et les boucles.",
-  "purpose": "",
+  "core_definition": "Les règles d'automatisation domotique sont des logiques conditionnelles (SI événement ET conditions ALORS action) qui permettent à un système de maison intelligente de répondre automatiquement aux changements d'état des capteurs et dispositifs, selon des critères de temps, de contexte et de priorité.",
+  "knowledge": {
+    "rule_structure": {
+      "trigger": "L'événement qui déclenche l'évaluation (capteur, heure, état d'un autre dispositif)",
+      "condition": "Critère supplémentaire pour que l'action soit exécutée (heure, mode, état utilisateur)",
+      "action": "Ce qui se passe (allumer une lumière, envoyer une notification, activer un mode)"
+    },
+    "rule_types": [
+      {
+        "type": "Temporelle",
+        "example": "À 22h30 → réduire luminosité à 20%"
+      },
+      {
+        "type": "Événementielle",
+        "example": "Mouvement détecté dans l'entrée → allumer lumière entrée"
+      },
+      {
+        "type": "Conditionnelle",
+        "example": "Si mouvement ET heure > 23h ET mode nuit actif → notification"
+      },
+      {
+        "type": "Contextuelle",
+        "example": "Si ALFRED en conversation → réduire volume TV"
+      }
+    ],
+    "common_pitfalls": [
+      "Conflits de règles : deux règles s'annulent mutuellement en boucle",
+      "Règles trop sensibles : déclenchement intempestif (faux positifs capteur mouvement)",
+      "Absence de priorité : règles de même niveau sans ordre d'exécution défini",
+      "Règles temporelles sans exception : boulversées par des cas edge (vacances, invités)"
+    ],
+    "alfred_integration": "ALFRED peut être un déclencheur ou une condition dans les règles domotiques : 'Si ALFRED détecte que l'utilisateur travaille intensément → ne pas interrompre avec les notifications non critiques'."
+  },
+  "example_answers": [
+    {
+      "prompt": "Comment structurer les règles domotiques pour éviter les conflits ?",
+      "answer": "Trois principes : hiérarchie (règles de sécurité > confort > énergie), mutex (deux règles sur le même dispositif avec une condition exclusive), et mode maître (un état global qui conditionne toutes les règles — 'mode absence' désactive les règles de confort). Et tester systématiquement les interactions entre règles avant activation."
+    },
+    {
+      "prompt": "Comment intégrer ALFRED dans ma domotique ?",
+      "answer": "ALFRED peut écouter les événements domotiques (via MQTT, Home Assistant API) et prendre des décisions contextuelles. Exemple : ALFRED détecte que tu travailles → envoie un événement à Home Assistant → baisse la musique, active 'Ne pas déranger'. Ou inversement : ALFRED reçoit des alertes domotiques et les synthétise pour toi. L'API webhook est le point d'intégration le plus simple."
+    }
+  ],
+  "response_guidance": {
+    "tone": "technique, pragmatique, sensible à la confidentialité et à la sécurité",
+    "structure": [
+      "identifier le composant ou problème IoT",
+      "expliquer le mécanisme",
+      "pointer les risques",
+      "proposer la solution"
+    ],
+    "avoid": [
+      "ignorer la sécurité",
+      "négliger la contrainte de ressources",
+      "trop générique"
+    ]
+  },
   "tags": [
     "domotique",
     "règles",
@@ -21,43 +73,8 @@
     "IoT",
     "système ambiant"
   ],
-  "intents": [],
-  "usage_context": [],
-  "content": {
-    "definition": "",
-    "core_principles": [],
-    "rules": [],
-    "examples": [],
-    "best_practices": [],
-    "anti_patterns": []
-  },
-  "retrieval_hints": {
-    "priority_keywords": [],
-    "related_domains": [],
-    "related_knowledge": [],
-    "retrieval_priority": 5
-  },
-  "behavior_rules": {
-    "tone": "professional",
-    "response_style": "structured_clear",
-    "max_complexity": "medium",
-    "allow_humor": false
-  },
-  "safety_notes": {
-    "allowed_usage": [],
-    "restricted_usage": [],
-    "forbidden_usage": [],
-    "fallback_behavior": "Solliciter une validation humaine si ambiguïté."
-  },
-  "metadata": {
-    "author": "ALFRED_SYSTEM",
-    "creation_date": "11/07/2026",
-    "last_update": "11/07/2026",
-    "review_status": "draft",
-    "reviewed_by": "",
-    "source_type": "manual_structured_knowledge",
-    "language": "fr",
-    "retrieval_ready": true,
-    "rag_compatible": true
-  }
+  "related_knowledge_units": [
+    "knowledges.professional.engineering.systeme_design.local_first_architecture",
+    "knowledges.cpl.ethics_governance.ethical_ai_framework"
+  ]
 }

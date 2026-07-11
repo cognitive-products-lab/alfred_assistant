@@ -207,7 +207,9 @@
 - Article de positionnement pour le forum : [docs/roadmap/ALFRED_CPL_ARTICLE_POSITIONNEMENT.md](docs/roadmap/ALFRED_CPL_ARTICLE_POSITIONNEMENT.md)
 - Fiches knowledge associées : `knowledges/cpl/product_platform/`
 
-**Socle minimum crédible pour le prototype — statuts mis à jour au 11/07/2026 (chantiers 1-7 exécutés) :**
+> ⚠️ **Incident résolu le 11/07/2026** — les 70 fichiers de `knowledges/cpl/` (préexistants + nouveaux) ont été écrasés en stubs vides par un processus externe non identifié (probablement une autre session travaillant en parallèle sur ce dépôt). Restaurés sans perte via git (contenu déjà commité). Détail dans la mémoire projet — vigilance recommandée : committer fréquemment pendant les prochaines sessions CPL.
+
+**Socle minimum crédible pour le prototype — statuts mis à jour au 11/07/2026 (chantiers 1-8 exécutés) :**
 
 | Fonction MVP | Statut | Constat |
 |---|---|---|
@@ -216,7 +218,7 @@
 | Personnalisation client | ✅ Démontrable | **Isolation multi-client ajoutée le 11/07** (`src/security/cpl_client_isolation.py`) : 2 clients de démo (Nova Ingénierie, Atlas Conseil) avec bases strictement séparées, testé en combinaison avec le filtrage par rôle |
 | Recherche documentaire | ✅ Démontrable | Pipeline mot-clé/taxonomie testé ; fiches dédiées au scénario de démo (PMO-07 v3.2, procédure incidents v4.1/v3.8) vérifiées retrouvables sur les requêtes exactes du script |
 | Réponses sourcées | ✅ Démontrable | Citation document/version/date injectée dans le prompt LLM **et** filet de sécurité déterministe (footer de citation même sans LLM) ; détection de contradiction automatique entre versions d'un même document |
-| Génération de livrables métier | ⬜ À faire (août) | `src/dialogue/` et `src/assistant_actions/` toujours vides |
+| Génération de livrables métier | ✅ Démontrable | **`src/assistant_actions/deliverable_generator.py` + `deliverable_templates.py` ajoutés le 11/07** : 2 gabarits (fiche de cadrage, registre de risques) remplis à partir de connaissances sourcées, toujours soumis au workflow de validation humaine (chantier 6) |
 | Refus d'accès selon les habilitations | ✅ Implémenté | Pipeline Zero Trust complet (PDP/PEP) **+ filtrage par domaine de connaissance selon le rôle métier** (11/07), refus tracés dans l'audit |
 | Journalisation | ✅ Implémenté | Consultations et refus de connaissances désormais tracés dans `audit_trail.jsonl` (`consult_knowledge` ALLOW/DENY_PERMISSION) |
 | Validation humaine | ✅ Démontrable | **File d'approbation persistante ajoutée le 11/07** (`src/security/human_validation.py`) : actions sensibles (ex. `GENERATE_DELIVERABLE`) mises en attente (REVIEW) avec `approval_id`, approuvables/rejetables, tracées dans l'audit |
@@ -224,10 +226,11 @@
 | Tableau de bord sécurité | ✅ Implémenté | Score de conformité ISO 27001/RGPD/OWASP calculé en direct |
 | Gestion des versions documentaires | ✅ Démontrable | Fiches PROC-INC v4.1 (actuelle) / v3.8 (obsolète, encore référencée) avec métadonnées version/date/propriétaire/statut, contradiction détectée automatiquement |
 
-**Chantiers 1-7 : terminés le 11/07/2026** (voir détail des fichiers modifiés dans la session du 11/07, boucle autonome). Reste à faire :
+**Chantiers 1-8 : tous terminés le 11/07/2026** (session en boucle autonome `/loop`). Reste uniquement :
 
-8. Génération de livrables métier — module avec 2-3 templates (note de cadrage, registre de risques), branché sur le workflow de validation humaine (chantier 6). *~5-8 j.*
-9. Écran de démo « 5 zones » (profil, question, réponse, sources, statut sécurité) assemblant les données déjà produites par le backend (auth, refus d'accès, dashboard sécurité). *~3-5 j., en fin de cycle.*
+9. Écran de démo « 5 zones » (profil, question, réponse, sources, statut sécurité) assemblant les données déjà produites par le backend (auth, refus d'accès, dashboard sécurité). *~3-5 j., non prioritaire, à faire si le temps le permet avant le 01/10.*
+
+**Tests ajoutés le 11/07/2026** : `tests/security_tests/test_cpl_role_access.py`, `test_cpl_client_isolation.py`, `test_human_validation.py` + `tests/b10_tests/` (nouveau, `test_deliverable_templates.py`, `test_deliverable_generator.py`) — 49 tests, intégrés au runner global (`python tests/run_all_tests.py`, groupe `b10`) et à `dashboard/dashboard_tests/dashboard_tests.json`. Isolation des fichiers d'audit/validation vis-à-vis des tests corrigée (`tests/conftest.py`) — 1344 tests passent, aucune pollution des fichiers de production.
 
 **Fichiers à traiter :**
 

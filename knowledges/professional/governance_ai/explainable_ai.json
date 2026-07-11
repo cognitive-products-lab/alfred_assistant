@@ -1,17 +1,76 @@
 {
   "schema_version": "1.2",
   "type": "knowledge_unit",
-  "knowledge_id": "",
+  "id": "knowledges.professional.governance_ai.explainable_ai",
   "title": "IA explicable (XAI)",
-  "version": "1.0.0",
-  "status": "validated",
   "domain": "professional",
   "subdomain": "governance_ai",
-  "category": "",
-  "priority": "medium",
-  "safety_level": "normal",
+  "status": "validated",
   "summary": "L'IA explicable (XAI) permet de comprendre pourquoi un modèle a pris une décision. Elle est essentielle pour la confiance, la conformité réglementaire et le débogage des systèmes IA en production.",
-  "purpose": "",
+  "core_definition": "L'IA explicable (Explainable AI, XAI) est le domaine qui développe des méthodes permettant de rendre les décisions et prédictions des modèles IA compréhensibles aux humains — qu'ils soient utilisateurs finaux, développeurs, régulateurs ou personnes impactées par ces décisions.",
+  "knowledge": {
+    "xai_methods": [
+      {
+        "method": "LIME",
+        "type": "Locale",
+        "description": "Explique des prédictions individuelles en créant un modèle simple localement",
+        "best_for": "Cas individuels, explications pour les utilisateurs"
+      },
+      {
+        "method": "SHAP",
+        "type": "Globale et locale",
+        "description": "Valeurs Shapley — contribution de chaque feature à la prédiction",
+        "best_for": "Analyse de l'importance des features, audit de biais"
+      },
+      {
+        "method": "Attention visualization",
+        "type": "Spécifique LLM",
+        "description": "Visualise quels tokens ont le plus influencé la réponse",
+        "best_for": "Débogage de modèles de langage"
+      },
+      {
+        "method": "Counterfactual explanations",
+        "type": "Orientée utilisateur",
+        "description": "'Si X avait été différent, la décision aurait changé'",
+        "best_for": "Recours utilisateurs, droit à l'explication RGPD"
+      },
+      {
+        "method": "Concept activation vectors (TCAV)",
+        "type": "Globale",
+        "description": "Identifie quels concepts humains influencent les prédictions",
+        "best_for": "Audit de biais conceptuels"
+      }
+    ],
+    "xai_in_practice": [
+      "Pour les utilisateurs : explication simple en langage naturel ('cette décision est basée sur X et Y')",
+      "Pour les opérateurs : dashboard de features d'importance et de drift",
+      "Pour les régulateurs : documentation complète des méthodes et résultats",
+      "Pour les développeurs : outils de débogage (SHAP, LIME) intégrés au pipeline ML"
+    ]
+  },
+  "example_answers": [
+    {
+      "prompt": "Notre banque doit expliquer pourquoi l'IA a refusé un crédit — comment faire ?",
+      "answer": "C'est le droit à l'explication du RGPD (Article 22) — applicable aux décisions automatisées significatives. Approche : SHAP pour identifier les features les plus importantes dans la décision de refus, puis traduction en langage compréhensible pour le client. La counterfactual explanation est particulièrement utile : 'Si votre revenu avait été X ou votre historique Y, la décision aurait été différente.'"
+    },
+    {
+      "prompt": "Comment expliquer pourquoi un LLM a donné une certaine réponse ?",
+      "answer": "C'est plus difficile que pour un modèle classique. Trois approches : l'attention visualization (quels tokens ont le plus influencé), les prompts d'auto-explication ('explique ton raisonnement étape par étape'), et la comparaison de versions (comment la réponse change si on modifie le prompt). Les LLMs sont moins transparents par nature — la RAG avec sources citées est la solution pratique la plus efficace."
+    }
+  ],
+  "response_guidance": {
+    "tone": "rigoureux, orienté conformité et opérationnalité",
+    "structure": [
+      "identifier le principe en jeu",
+      "expliquer l'application concrète",
+      "pointer les obligations réglementaires"
+    ],
+    "avoid": [
+      "trop théorique",
+      "ignorer le contexte EU",
+      "confondre principes et obligations"
+    ]
+  },
   "tags": [
     "XAI",
     "explicabilité",
@@ -21,43 +80,7 @@
     "gouvernance IA",
     "conformité"
   ],
-  "intents": [],
-  "usage_context": [],
-  "content": {
-    "definition": "",
-    "core_principles": [],
-    "rules": [],
-    "examples": [],
-    "best_practices": [],
-    "anti_patterns": []
-  },
-  "retrieval_hints": {
-    "priority_keywords": [],
-    "related_domains": [],
-    "related_knowledge": [],
-    "retrieval_priority": 5
-  },
-  "behavior_rules": {
-    "tone": "professional",
-    "response_style": "structured_clear",
-    "max_complexity": "medium",
-    "allow_humor": false
-  },
-  "safety_notes": {
-    "allowed_usage": [],
-    "restricted_usage": [],
-    "forbidden_usage": [],
-    "fallback_behavior": "Solliciter une validation humaine si ambiguïté."
-  },
-  "metadata": {
-    "author": "ALFRED_SYSTEM",
-    "creation_date": "11/07/2026",
-    "last_update": "11/07/2026",
-    "review_status": "draft",
-    "reviewed_by": "",
-    "source_type": "manual_structured_knowledge",
-    "language": "fr",
-    "retrieval_ready": true,
-    "rag_compatible": true
-  }
+  "related_knowledge_units": [
+    "knowledges.professional.standards_iso.iso_42001_ai_management_system"
+  ]
 }

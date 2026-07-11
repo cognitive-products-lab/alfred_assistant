@@ -1,53 +1,45 @@
 {
+  "metadata": {"file":"root_cause_analysis.json","version":"1.0.0","scope":"reasoning"},
   "knowledge_id": "root_cause_analysis_v1",
   "title": "Analyse des causes racines",
-  "version": "1.0.0",
-  "status": "active",
-  "domain": "",
-  "subdomain": "",
-  "category": "",
-  "priority": "medium",
-  "safety_level": "normal",
   "summary": "Capacité à remonter des symptômes aux causes profondes d'un problème — pour traiter la source, pas les manifestations superficielles.",
-  "purpose": "",
-  "tags": [],
-  "intents": [],
-  "usage_context": [],
-  "content": {
-    "definition": "",
-    "core_principles": [],
-    "rules": [],
-    "examples": [],
-    "best_practices": [],
-    "anti_patterns": []
+  "core_insight": "La plupart des problèmes résolus au niveau des symptômes reviennent. Trouver la cause racine est ce qui change durablement les choses.",
+  "frameworks": {
+    "five_whys": {
+      "desc": "Demander 'pourquoi' 5 fois de suite",
+      "process": [
+        "P: Je suis toujours en retard sur mes tâches",
+        "W1: Pourquoi ? → Je sous-estime le temps nécessaire",
+        "W2: Pourquoi ? → Je planifie sans tenir compte des interruptions",
+        "W3: Pourquoi ? → Je pense que je contrôle mieux mon temps que je ne le fais",
+        "W4: Pourquoi ? → Je n'ai jamais mesuré mes temps réels vs estimés",
+        "W5: Pourquoi ? → Je n'ai pas de système de feedback sur ma planification",
+        "CAUSE RACINE: Absence de boucle de feedback sur la planification"
+      ],
+      "trap": "S'arrêter au premier 'pourquoi' — c'est rarement la cause racine"
+    },
+    "fishbone": {
+      "desc": "Diagramme d'Ishikawa — explorer les causes selon 6 catégories",
+      "categories": ["Personnes", "Processus", "Environnement", "Outils", "Données", "Management"],
+      "best_for": "Problèmes multi-factoriels avec plusieurs équipes"
+    },
+    "fault_tree": {
+      "desc": "Arbre déductif — partir de l'événement indésirable et remonter les causes",
+      "best_for": "Analyse de sécurité, incidents, failures"
+    },
+    "symptom_vs_cause": {
+      "examples": [
+        {"symptom": "Je procrastine", "likely_cause": "Peur de l'échec ou tâche trop floue ou dépassement des capacités"},
+        {"symptom": "Réunions inefficaces", "likely_cause": "Absence d'agenda clair ou mauvaises personnes invitées"},
+        {"symptom": "Conflits récurrents", "likely_cause": "Attentes non dites ou rôles flous ou manque de feedback"}
+      ]
+    }
   },
-  "retrieval_hints": {
-    "priority_keywords": [],
-    "related_domains": [],
-    "related_knowledge": [],
-    "retrieval_priority": 5
+  "alfred_approach": {
+    "detect_signals": ["ça revient tout le temps", "j'ai beau essayer ça change pas", "je comprends pas pourquoi"],
+    "response_strategy": "Ne pas proposer de solution avant d'avoir identifié la cause — utiliser les 5 pourquoi avec l'utilisateur",
+    "question_chain": ["Qu'est-ce qui se passe exactement ?", "Depuis quand ?", "Dans quelles conditions ?", "Qu'est-ce qui a changé ?", "Pourquoi maintenant ?"],
+    "forbidden": ["Proposer une solution au premier symptôme", "Supposer la cause sans explorer"]
   },
-  "behavior_rules": {
-    "tone": "professional",
-    "response_style": "structured_clear",
-    "max_complexity": "medium",
-    "allow_humor": false
-  },
-  "safety_notes": {
-    "allowed_usage": [],
-    "restricted_usage": [],
-    "forbidden_usage": [],
-    "fallback_behavior": "Solliciter une validation humaine si ambiguïté."
-  },
-  "metadata": {
-    "author": "ALFRED_SYSTEM",
-    "creation_date": "11/07/2026",
-    "last_update": "11/07/2026",
-    "review_status": "draft",
-    "reviewed_by": "",
-    "source_type": "manual_structured_knowledge",
-    "language": "fr",
-    "retrieval_ready": true,
-    "rag_compatible": true
-  }
+  "connections": ["reasoning_engine","multi_step_reasoning","problem_solving","decision_models","tradeoff_analysis"]
 }

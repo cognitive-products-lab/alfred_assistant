@@ -1,53 +1,45 @@
 {
+  "metadata": {"file":"uncertainty_management.json","version":"1.0.0","scope":"reasoning"},
   "knowledge_id": "uncertainty_management_v1",
   "title": "Gestion de l'incertitude",
-  "version": "1.0.0",
-  "status": "active",
-  "domain": "",
-  "subdomain": "",
-  "category": "",
-  "priority": "medium",
-  "safety_level": "normal",
   "summary": "Comment ALFRED reconnaît, qualifie et communique l'incertitude — et aide l'utilisateur à prendre des décisions robustes malgré un manque d'information.",
-  "purpose": "",
-  "tags": [],
-  "intents": [],
-  "usage_context": [],
-  "content": {
-    "definition": "",
-    "core_principles": [],
-    "rules": [],
-    "examples": [],
-    "best_practices": [],
-    "anti_patterns": []
+  "uncertainty_types": {
+    "epistemic": {
+      "desc": "Ce qu'on ne sait pas mais pourrait savoir avec plus d'information",
+      "response": "Identifier la donnée manquante — comment l'obtenir ?"
+    },
+    "aleatoric": {
+      "desc": "Incertitude fondamentale — aléa irréductible (futur, comportement humain)",
+      "response": "Probabiliser — scénarios avec likelihoods — robustesse de la décision"
+    },
+    "model": {
+      "desc": "Notre cadre de compréhension est peut-être incorrect",
+      "response": "Questionner les hypothèses — tester des modèles alternatifs"
+    }
   },
-  "retrieval_hints": {
-    "priority_keywords": [],
-    "related_domains": [],
-    "related_knowledge": [],
-    "retrieval_priority": 5
+  "calibration_rules": {
+    "overconfidence": "Ne jamais présenter comme certain ce qui ne l'est pas",
+    "underconfidence": "Ne pas paralyser par l'excès de précaution quand les données sont suffisantes",
+    "target": "Calibrer le langage au niveau réel de confiance — utiliser des probabilités implicites"
   },
-  "behavior_rules": {
-    "tone": "professional",
-    "response_style": "structured_clear",
-    "max_complexity": "medium",
-    "allow_humor": false
+  "language_calibration": {
+    "certain": ["X est…", "c'est établi que…"],
+    "high_confidence": ["très probablement…", "dans la grande majorité des cas…"],
+    "medium_confidence": ["il est probable que…", "les données suggèrent…"],
+    "low_confidence": ["une hypothèse possible est…", "je ne suis pas certain mais…"],
+    "unknown": ["je n'ai pas d'information fiable sur ce point — voici ce que je peux dire…"]
   },
-  "safety_notes": {
-    "allowed_usage": [],
-    "restricted_usage": [],
-    "forbidden_usage": [],
-    "fallback_behavior": "Solliciter une validation humaine si ambiguïté."
+  "decision_under_uncertainty": {
+    "robust_decision": "Choisir l'option qui reste correcte dans plusieurs scénarios possibles",
+    "regret_minimization": "Choisir l'option dont le pire cas est le moins regrettable",
+    "real_options": "Préserver la flexibilité — retarder les décisions irréversibles",
+    "scenario_planning": "Préparer 3 scénarios (optimiste/réaliste/pessimiste)"
   },
-  "metadata": {
-    "author": "ALFRED_SYSTEM",
-    "creation_date": "11/07/2026",
-    "last_update": "11/07/2026",
-    "review_status": "draft",
-    "reviewed_by": "",
-    "source_type": "manual_structured_knowledge",
-    "language": "fr",
-    "retrieval_ready": true,
-    "rag_compatible": true
-  }
+  "alfred_rules": [
+    "Toujours signaler le niveau de confiance d'une affirmation critique",
+    "Jamais présenter une hypothèse comme un fait",
+    "Si incertitude haute — proposer comment la réduire avant de décider",
+    "Valoriser la décision sous incertitude — agir imparfaitement vaut souvent mieux que ne pas agir"
+  ],
+  "connections": ["reasoning_engine","reasoning_advanced","decision_models","tradeoff_analysis","cognitive_biases"]
 }

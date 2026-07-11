@@ -1,17 +1,76 @@
 {
   "schema_version": "1.2",
   "type": "knowledge_unit",
-  "knowledge_id": "",
+  "id": "knowledges.professional.governance_ai.human_ai_collaboration",
   "title": "Collaboration humain-IA",
-  "version": "1.0.0",
-  "status": "validated",
   "domain": "professional",
   "subdomain": "governance_ai",
-  "category": "",
-  "priority": "medium",
-  "safety_level": "normal",
+  "status": "validated",
   "summary": "L'IA performante n'est pas celle qui remplace l'humain, mais celle qui augmente ses capacités là où elle excelle tout en laissant les décisions à fort enjeu au jugement humain. Concevoir la bonne allocation humain-IA est une compétence de gouvernance.",
-  "purpose": "",
+  "core_definition": "La collaboration humain-IA est le design de la répartition optimale des tâches entre l'humain et le système IA, en tirant parti des forces de chacun — l'IA pour la vitesse, le volume et la cohérence ; l'humain pour le jugement, l'éthique et les situations hors normes.",
+  "knowledge": {
+    "allocation_framework": [
+      {
+        "task_type": "Volume + répétition + cohérence requise",
+        "recommendation": "IA en autonomie avec supervision humaine par échantillonnage"
+      },
+      {
+        "task_type": "Création, nuance, jugement contextuel",
+        "recommendation": "Humain avec assistance IA (suggestion + vérification)"
+      },
+      {
+        "task_type": "Décisions à fort impact irréversible",
+        "recommendation": "Humain décide, IA informe et documente"
+      },
+      {
+        "task_type": "Situations hors distribution (inédites)",
+        "recommendation": "Humain en premier — l'IA n'est pas fiable sur ce qu'elle n'a pas vu"
+      }
+    ],
+    "human_oversight_levels": [
+      {
+        "level": "Humain dans la boucle (HITL)",
+        "description": "L'humain valide chaque décision IA avant exécution — sécurité maximale, scalabilité minimale"
+      },
+      {
+        "level": "Humain sur la boucle (HOTL)",
+        "description": "L'IA agit, l'humain surveille et peut intervenir — bon équilibre pour les systèmes à risque limité"
+      },
+      {
+        "level": "Humain hors de la boucle",
+        "description": "L'IA agit en autonomie complète — acceptable uniquement pour les risques minimaux et avec monitoring automatisé robuste"
+      }
+    ],
+    "collaboration_design_principles": [
+      "Rendre visible ce que l'IA ne sait pas (incertitude, cas limites)",
+      "Faciliter l'overriding humain sans friction",
+      "Former les utilisateurs aux forces ET aux limites du système",
+      "Éviter l'automation bias : tendance à faire confiance à l'IA même quand elle a tort"
+    ]
+  },
+  "example_answers": [
+    {
+      "prompt": "Comment décider ce qu'ALFRED peut faire seul vs ce qui nécessite ma validation ?",
+      "answer": "La règle : plus la conséquence est irréversible et à fort impact, plus tu dois valider. ALFRED peut gérer en autonomie les informations, les synthèses, les suggestions de structuration. Pour les décisions qui t'engagent (actions, communications importantes, choix financiers) — ALFRED propose, tu décides. Et si tu n'es pas sûr : demande à ALFRED d'expliquer son raisonnement avant de valider."
+    },
+    {
+      "prompt": "Comment éviter de trop faire confiance à l'IA et de ne plus exercer son propre jugement ?",
+      "answer": "L'automation bias est un risque réel — documenté dans les études sur les copilotes d'avion et les médecins assistés par IA. Deux pratiques : challenger systématiquement les suggestions IA ('pourquoi ?', 'qu'est-ce qui pourrait contredire ça ?') et maintenir une pratique autonome régulière pour ne pas perdre ses compétences propres. L'IA est un miroir de ta pensée — pas un substitut."
+    }
+  ],
+  "response_guidance": {
+    "tone": "rigoureux, orienté conformité et opérationnalité",
+    "structure": [
+      "identifier le principe de gouvernance en jeu",
+      "expliquer l'application concrète",
+      "pointer les risques de non-conformité"
+    ],
+    "avoid": [
+      "trop théorique sans ancrage opérationnel",
+      "ignorer le contexte réglementaire EU",
+      "confondre gouvernance et éthique abstraite"
+    ]
+  },
   "tags": [
     "collaboration",
     "human in the loop",
@@ -22,43 +81,8 @@
     "AI governance",
     "conformité"
   ],
-  "intents": [],
-  "usage_context": [],
-  "content": {
-    "definition": "",
-    "core_principles": [],
-    "rules": [],
-    "examples": [],
-    "best_practices": [],
-    "anti_patterns": []
-  },
-  "retrieval_hints": {
-    "priority_keywords": [],
-    "related_domains": [],
-    "related_knowledge": [],
-    "retrieval_priority": 5
-  },
-  "behavior_rules": {
-    "tone": "professional",
-    "response_style": "structured_clear",
-    "max_complexity": "medium",
-    "allow_humor": false
-  },
-  "safety_notes": {
-    "allowed_usage": [],
-    "restricted_usage": [],
-    "forbidden_usage": [],
-    "fallback_behavior": "Solliciter une validation humaine si ambiguïté."
-  },
-  "metadata": {
-    "author": "ALFRED_SYSTEM",
-    "creation_date": "11/07/2026",
-    "last_update": "11/07/2026",
-    "review_status": "draft",
-    "reviewed_by": "",
-    "source_type": "manual_structured_knowledge",
-    "language": "fr",
-    "retrieval_ready": true,
-    "rag_compatible": true
-  }
+  "related_knowledge_units": [
+    "knowledges.professional.standards_iso.iso_42001_ai_management_system",
+    "knowledges.cpl.ethics_governance.ethical_ai_framework"
+  ]
 }

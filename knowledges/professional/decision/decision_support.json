@@ -1,53 +1,92 @@
 {
+  "metadata": { "file": "decision_support.json", "version": "1.0.0", "scope": "softskills" },
   "knowledge_id": "decision_support_v1",
   "title": "Aide à la décision",
-  "version": "1.0.0",
-  "status": "active",
-  "domain": "",
-  "subdomain": "",
-  "category": "",
-  "priority": "medium",
-  "safety_level": "normal",
   "summary": "Capacité à structurer et faciliter les processus de décision — des plus simples aux plus complexes — en réduisant les biais, la procrastination et la fatigue décisionnelle.",
-  "purpose": "",
-  "tags": [],
-  "intents": [],
-  "usage_context": [],
-  "content": {
-    "definition": "",
-    "core_principles": [],
-    "rules": [],
-    "examples": [],
-    "best_practices": [],
-    "anti_patterns": []
+  "core_concepts": [
+    "Clarté de l'enjeu — définir précisément ce qui est en jeu avant de décider",
+    "Inventaire des options — ne jamais décider entre 2 options sans en chercher d'autres",
+    "Critères explicites — savoir sur quelle base on va choisir",
+    "Gestion des biais — identifier ses distorsions cognitives dans la décision",
+    "Décision assumée — choisir, s'y tenir et assumer les conséquences"
+  ],
+  "alfred_approach": {
+    "detect_signals": ["je sais pas quoi choisir", "j'arrive pas à décider", "j'hésite entre", "j'ai peur de me tromper", "je tourne en rond"],
+    "response_strategy": "Clarifier l'enjeu réel — inventorier les options — proposer un cadre adapté à la décision — nommer les biais détectés — accompagner sans décider",
+    "frameworks_to_use": ["matrice critères pondérés", "test du regret (Bezos)", "arbre de décision", "pré-mortem", "règle des 10/10/10"],
+    "forbidden": ["décider à la place de l'utilisateur", "simplifier excessivement une décision complexe", "minimiser la peur de se tromper"]
   },
-  "retrieval_hints": {
-    "priority_keywords": [],
-    "related_domains": [],
-    "related_knowledge": [],
-    "retrieval_priority": 5
+  "decision_types": {
+    "reversible_low_stakes": {
+      "desc": "Décision facile à défaire, faibles enjeux",
+      "approach": "Décider vite avec 70% d'info — expérimenter — ajuster",
+      "trap": "Over-analyser une décision qui ne le mérite pas"
+    },
+    "reversible_high_stakes": {
+      "desc": "Enjeux importants mais correction possible",
+      "approach": "Analyser les options avec critères — décider — monitorer",
+      "trap": "Procrastiner par peur du regret"
+    },
+    "irreversible_low_stakes": {
+      "desc": "Pas de retour arrière mais peu d'enjeux",
+      "approach": "Choisir et avancer — ne pas sur-investir",
+      "trap": "Y accorder trop d'énergie"
+    },
+    "irreversible_high_stakes": {
+      "desc": "Décision majeure et définitive",
+      "approach": "Pré-mortem, critères explicites, conseil externe, temps de réflexion",
+      "trap": "Décider sous pression émotionnelle ou temporelle"
+    }
   },
-  "behavior_rules": {
-    "tone": "professional",
-    "response_style": "structured_clear",
-    "max_complexity": "medium",
-    "allow_humor": false
+  "decision_frameworks": {
+    "weighted_criteria": {
+      "desc": "Lister les critères, les pondérer, scorer chaque option",
+      "best_for": "Décisions complexes avec plusieurs options",
+      "steps": ["Lister les critères importants", "Attribuer un poids à chacun (total = 100)", "Scorer chaque option sur chaque critère (1-10)", "Multiplier et additionner"]
+    },
+    "regret_minimization": {
+      "desc": "Se projeter à 80 ans : de quoi regretterais-je de NE PAS avoir fait ?",
+      "best_for": "Décisions de vie importantes — sépare l'essentiel de l'urgent",
+      "author": "Jeff Bezos"
+    },
+    "10_10_10": {
+      "desc": "Comment je me sentirai par rapport à cette décision dans 10 min / 10 mois / 10 ans ?",
+      "best_for": "Décisions émotionnellement chargées"
+    },
+    "premortem": {
+      "desc": "Imaginer que la décision a échoué — pourquoi ? Quelles étaient les causes ?",
+      "best_for": "Identifier les risques cachés avant de décider"
+    },
+    "two_way_door": {
+      "desc": "Cette décision est-elle une porte à sens unique (irréversible) ou à double sens (réversible) ?",
+      "best_for": "Calibrer l'effort d'analyse nécessaire"
+    }
   },
-  "safety_notes": {
-    "allowed_usage": [],
-    "restricted_usage": [],
-    "forbidden_usage": [],
-    "fallback_behavior": "Solliciter une validation humaine si ambiguïté."
+  "decision_biases": {
+    "status_quo_bias": "Préférer l'inaction par confort — 'mieux vaut le mal connu'",
+    "sunk_cost": "Continuer à cause de ce qu'on a déjà investi, pas des perspectives futures",
+    "overconfidence": "Surestimer sa capacité à prédire les résultats",
+    "anchoring": "Se fixer sur le premier chiffre ou la première option vue",
+    "social_proof": "Choisir ce que les autres choisissent sans évaluer soi-même",
+    "present_bias": "Surestimer les avantages immédiats vs futurs"
   },
-  "metadata": {
-    "author": "ALFRED_SYSTEM",
-    "creation_date": "11/07/2026",
-    "last_update": "11/07/2026",
-    "review_status": "draft",
-    "reviewed_by": "",
-    "source_type": "manual_structured_knowledge",
-    "language": "fr",
-    "retrieval_ready": true,
-    "rag_compatible": true
-  }
+  "decision_paralysis": {
+    "causes": ["trop d'options", "peur du regret", "perfectionnisme", "manque d'informations clés", "enjeux flous"],
+    "solutions": [
+      "Réduire à 3 options maximum",
+      "Fixer une deadline de décision",
+      "Accepter que 'bon' est mieux que 'parfait'",
+      "Identifier la seule information vraiment manquante",
+      "Clarifier l'enjeu réel : qu'est-ce qui change vraiment si je décide X ou Y ?"
+    ]
+  },
+  "alfred_decision_prompts": [
+    "Quel est l'enjeu réel ici — qu'est-ce qui change vraiment selon le choix ?",
+    "Quelles sont toutes tes options (pas seulement les 2 que tu vois) ?",
+    "Sur quels critères vas-tu choisir ?",
+    "Quelle peur est derrière cette hésitation ?",
+    "Si tu décides X et que ça ne marche pas, que se passe-t-il ?",
+    "Dans 1 an, laquelle de ces options regretteras-tu le moins ?"
+  ],
+  "connections": ["problem_solving", "critical_thinking", "reasoning_engine", "cognitive_biases", "assertiveness", "negotiation"]
 }

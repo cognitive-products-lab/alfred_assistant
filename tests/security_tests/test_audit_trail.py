@@ -15,20 +15,24 @@ STATUS       : ACTIVE
 
 import json
 import pytest
+from src.security import audit_trail
 from src.security.audit_trail import (
     write_audit_event, read_audit_events,
     read_audit_events_since, read_audit_events_by_user,
     list_audit_events_by_decision, clear_audit_trail,
-    summarize_audit_events, AUDIT_FILE,
+    summarize_audit_events,
 )
+
+# NOTE : AUDIT_FILE est déjà redirigé vers un répertoire temporaire par le
+# fixture autouse isolate_security_state_files (tests/conftest.py). Ce fixture
+# local ne sert donc plus qu'à garantir un fichier vide en début de test dans
+# ce même répertoire temporaire — il n'agit plus jamais sur le vrai fichier.
 
 
 @pytest.fixture(autouse=True)
 def clean_audit():
-    backup = AUDIT_FILE.read_text(encoding="utf-8") if AUDIT_FILE.exists() else ""
-    AUDIT_FILE.write_text("", encoding="utf-8")
+    audit_trail.AUDIT_FILE.write_text("", encoding="utf-8")
     yield
-    AUDIT_FILE.write_text(backup, encoding="utf-8")
 
 
 # ─── write / read ────────────────────────────────────────────────────────────
@@ -39,7 +43,7 @@ def test_write_returns_dict():
 
 def test_write_jsonl():
     write_audit_event("u", "a", "r", "ALLOW")
-    lines = AUDIT_FILE.read_text(encoding="utf-8").strip().splitlines()
+    lines = audit_trail.AUDIT_FILE.read_text(encoding="utf-8").strip().splitlines()
     assert len(lines) == 1 and json.loads(lines[0])["decision"] == "ALLOW"
 
 def test_read_empty():

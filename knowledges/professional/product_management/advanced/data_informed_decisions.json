@@ -1,17 +1,76 @@
 {
   "schema_version": "1.2",
   "type": "knowledge_unit",
-  "knowledge_id": "",
+  "id": "knowledges.professional.product_management.advanced.data_informed_decisions",
   "title": "Décisions data-informed en product management",
-  "version": "1.0.0",
-  "status": "validated",
   "domain": "professional",
   "subdomain": "product_management_advanced",
-  "category": "",
-  "priority": "medium",
-  "safety_level": "normal",
+  "status": "validated",
   "summary": "Les décisions data-informed combinent les données quantitatives (métriques, cohortes, A/B tests) et qualitatives (interviews, feedback) pour décider, plutôt que de dépendre de l'intuition seule ou des données seules. 'Data-informed' n'est pas 'data-driven' — les données éclairent, le jugement humain décide.",
-  "purpose": "",
+  "core_definition": "Les décisions data-informed en product management sont des décisions qui intègrent de façon délibérée et rigoureuse les données disponibles (quantitatives et qualitatives) comme input au jugement humain, sans que les données remplacent ce jugement — distinguant l'approche data-informed (les données informent) de l'approche data-driven (les données décident).",
+  "knowledge": {
+    "data_types": [
+      {
+        "type": "Quanti",
+        "examples": [
+          "Métriques d'usage",
+          "Taux de conversion",
+          "Rétention",
+          "A/B tests"
+        ],
+        "strength": "Mesure l'ampleur et la significativité des phénomènes",
+        "weakness": "Explique le 'quoi' mais rarement le 'pourquoi'"
+      },
+      {
+        "type": "Quali",
+        "examples": [
+          "Interviews utilisateurs",
+          "Tests utilisateurs",
+          "NPS verbatims",
+          "Support tickets"
+        ],
+        "strength": "Explique le 'pourquoi' et révèle les motivations profondes",
+        "weakness": "Biais de sélection, difficile à généraliser"
+      }
+    ],
+    "data_pitfalls": [
+      "Fausse précision : donner plus de confiance aux chiffres qu'ils ne méritent",
+      "Corrélation ≠ causalité : un dashboard ne dit pas pourquoi une métrique bouge",
+      "Biais de survivant : les utilisateurs qui répondent aux enquêtes ne sont pas représentatifs des churners",
+      "HiPPO effect (Highest Paid Person's Opinion) : les données sont ignorées au profit de l'opinion du dirigeant",
+      "Data paralysis : attendre les données parfaites avant de décider"
+    ],
+    "decision_process": [
+      "Définir la question de décision précisément",
+      "Identifier les données disponibles et leurs limites",
+      "Formuler des hypothèses basées sur les données quanti",
+      "Valider ou invalider avec les données quali",
+      "Décider en combinant les signaux et le jugement sur le contexte non capturé"
+    ]
+  },
+  "example_answers": [
+    {
+      "prompt": "Comment combiner les données quantitatives et qualitatives pour une décision produit ?",
+      "answer": "Cycle en deux temps : (1) Quanti → identifier le 'quoi' (quelle métrique baisse, quel segment churne, quelle feature n'est pas utilisée), (2) Quali → comprendre le 'pourquoi' (interviews des utilisateurs de ce segment, review des verbatims support). L'erreur courante : décider sur les données quanti seules (on optimise sur une corrélation, pas sur une cause réelle) ou sur les données quali seules (on se laisse influencer par les cas vivants en interview, non représentatifs de l'ensemble)."
+    },
+    {
+      "prompt": "Nos données montrent que les utilisateurs utilisent peu la feature X — faut-il la supprimer ?",
+      "answer": "Pas directement. D'abord : identifier quel segment l'utilise, même peu. Si 5% des utilisateurs contribuent à 30% du revenu et utilisent X → la supprimer est risqué. Ensuite : comprendre pourquoi l'adoption est faible (discoverability ? complexité ? pas le bon cas d'usage ?). Puis : tester une amélioration ciblée avant de supprimer. La suppression d'une feature est irréversible du point de vue des utilisateurs — vérifier que ce n'est pas une question d'activation avant de conclure qu'il n'y a pas de valeur."
+    }
+  ],
+  "response_guidance": {
+    "tone": "stratégique, ancré dans les métriques et la réalité des utilisateurs",
+    "structure": [
+      "identifier le contexte produit",
+      "expliquer le framework",
+      "proposer une application concrète"
+    ],
+    "avoid": [
+      "trop théorique",
+      "ignorer les contraintes business",
+      "recommander sans contexte"
+    ]
+  },
   "tags": [
     "data-informed",
     "décisions",
@@ -21,43 +80,8 @@
     "product management",
     "produit"
   ],
-  "intents": [],
-  "usage_context": [],
-  "content": {
-    "definition": "",
-    "core_principles": [],
-    "rules": [],
-    "examples": [],
-    "best_practices": [],
-    "anti_patterns": []
-  },
-  "retrieval_hints": {
-    "priority_keywords": [],
-    "related_domains": [],
-    "related_knowledge": [],
-    "retrieval_priority": 5
-  },
-  "behavior_rules": {
-    "tone": "professional",
-    "response_style": "structured_clear",
-    "max_complexity": "medium",
-    "allow_humor": false
-  },
-  "safety_notes": {
-    "allowed_usage": [],
-    "restricted_usage": [],
-    "forbidden_usage": [],
-    "fallback_behavior": "Solliciter une validation humaine si ambiguïté."
-  },
-  "metadata": {
-    "author": "ALFRED_SYSTEM",
-    "creation_date": "11/07/2026",
-    "last_update": "11/07/2026",
-    "review_status": "draft",
-    "reviewed_by": "",
-    "source_type": "manual_structured_knowledge",
-    "language": "fr",
-    "retrieval_ready": true,
-    "rag_compatible": true
-  }
+  "related_knowledge_units": [
+    "knowledges.cpl.strategy.strategy_fundamentals",
+    "knowledges.cpl.product_ia.user_needs_analysis"
+  ]
 }

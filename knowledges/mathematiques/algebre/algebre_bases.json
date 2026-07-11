@@ -1,0 +1,92 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "mathematiques.algebre.algebre_bases",
+  "title": "Algèbre : bases (équations, fonctions, polynômes, systèmes linéaires)",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "mathematiques",
+  "subdomain": "algebre",
+  "category": "algebre_generale",
+  "summary": "L'algèbre de base regroupe la manipulation d'équations et d'inéquations, l'étude des fonctions et de leurs représentations, la factorisation des polynômes et la résolution de systèmes d'équations linéaires. Ces outils servent à modéliser des relations quantitatives et à résoudre des problèmes concrets (finances, physique, informatique). C'est le socle sur lequel reposent la plupart des raisonnements mathématiques et algorithmiques utilisés au quotidien.",
+  "purpose": "Permettre à ALFRED d'expliquer, vérifier ou résoudre des problèmes algébriques courants (résolution d'équations, étude de fonctions, systèmes linéaires) avec rigueur, en montrant les étapes de calcul et en reliant les notions à des usages pratiques (budget, dimensionnement, programmation).",
+  "tags": ["algebre", "equations", "inequations", "fonctions", "polynomes", "systemes_lineaires", "mathematiques", "resolution_probleme"],
+  "intents": ["solve_equation", "explain_algebra_concept", "analyze_function", "solve_linear_system", "check_math_reasoning"],
+  "usage_context": ["aide aux devoirs ou révisions scolaires", "modélisation d'un problème quotidien (budget, mélange, vitesse)", "vérification de calculs avant un usage en programmation ou en sciences"],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "L'algèbre est la branche des mathématiques qui étudie les structures, les relations et les quantités à l'aide de symboles et de règles de manipulation. Une équation est une égalité contenant une ou plusieurs inconnues (ex. 2x + 3 = 7), et la résoudre consiste à trouver les valeurs qui la vérifient. Une inéquation est une inégalité (avec <, >, ≤, ≥) dont l'ensemble de solutions est généralement un intervalle. Une fonction f associe à chaque élément x d'un ensemble de départ (domaine) un unique élément f(x) d'un ensemble d'arrivée ; un polynôme est une expression du type a_n x^n + ... + a_1 x + a_0, et un système d'équations linéaires est un ensemble d'équations du premier degré à résoudre simultanément.",
+    "core_principles": [
+      "Une équation reste équivalente si on applique la même opération (addition, soustraction, multiplication par un nombre non nul) aux deux membres.",
+      "Pour une inéquation, multiplier ou diviser par un nombre négatif inverse le sens de l'inégalité.",
+      "Une équation du second degré ax² + bx + c = 0 (a≠0) se résout via le discriminant Δ = b² - 4ac : si Δ>0 deux solutions réelles x = (-b±√Δ)/2a, si Δ=0 une solution double x = -b/2a, si Δ<0 pas de solution réelle (solutions complexes).",
+      "Une fonction affine f(x) = ax + b a pour représentation une droite de pente a et d'ordonnée à l'origine b ; a est le taux de variation.",
+      "Factoriser un polynôme consiste à l'écrire comme produit de facteurs plus simples, ce qui facilite la résolution d'équations (produit nul : un produit de facteurs est nul si et seulement si l'un des facteurs est nul).",
+      "Un système de n équations linéaires à n inconnues peut être résolu par substitution, par combinaison linéaire, ou par méthode matricielle (élimination de Gauss, règle de Cramer si le déterminant est non nul).",
+      "Un système linéaire admet soit une unique solution (déterminant non nul), soit aucune solution (droites parallèles distinctes), soit une infinité de solutions (droites confondues).",
+      "Le domaine de définition d'une fonction est l'ensemble des valeurs de x pour lesquelles f(x) est calculable (attention aux divisions par zéro et aux racines de nombres négatifs)."
+    ],
+    "rules": [
+      "Toujours vérifier le domaine de définition avant de résoudre une équation contenant une fraction, une racine carrée ou un logarithme.",
+      "Après résolution, réinjecter les solutions trouvées dans l'équation d'origine pour valider (éviter les solutions parasites, notamment lors d'élévations au carré).",
+      "Pour un système linéaire, vérifier la cohérence du nombre d'équations par rapport au nombre d'inconnues avant de choisir la méthode de résolution.",
+      "Présenter les étapes de résolution de façon structurée (une opération par ligne) pour que le raisonnement soit vérifiable.",
+      "Distinguer clairement l'ensemble de solutions d'une équation (points isolés) de celui d'une inéquation (intervalle)."
+    ],
+    "examples": [
+      {
+        "situation": "L'utilisateur demande de résoudre 3x - 5 = 2x + 4.",
+        "recommended_behavior": "Isoler x étape par étape : 3x - 2x = 4 + 5, donc x = 9. Vérifier : 3(9)-5=22 et 2(9)+4=22, l'égalité est confirmée.",
+        "avoid": "Donner uniquement la réponse finale sans montrer les étapes intermédiaires, ce qui empêche l'utilisateur de comprendre ou de vérifier le raisonnement."
+      },
+      {
+        "situation": "L'utilisateur veut résoudre le système {x + y = 10 ; 2x - y = 2}.",
+        "recommended_behavior": "Additionner les deux équations pour éliminer y : 3x = 12 donc x = 4, puis y = 6. Vérifier dans les deux équations d'origine.",
+        "avoid": "Utiliser une méthode matricielle complexe pour un système simple 2x2 alors qu'une substitution directe est plus claire et plus rapide à expliquer."
+      }
+    ],
+    "best_practices": [
+      "Adapter le niveau d'explication (collège, lycée, adulte en reprise d'études) en fonction du contexte donné par l'utilisateur.",
+      "Illustrer les fonctions par une description de leur courbe (croissante, décroissante, parabole, asymptote) quand c'est pertinent.",
+      "Relier les notions algébriques à des cas d'usage concrets (taux d'intérêt, mélange de solutions, dimensionnement) pour ancrer la compréhension.",
+      "Proposer une vérification systématique des solutions trouvées.",
+      "Signaler explicitement quand un problème n'a pas de solution réelle ou en a une infinité, plutôt que de forcer un résultat."
+    ],
+    "anti_patterns": [
+      "Diviser par une expression contenant l'inconnue sans vérifier qu'elle ne peut pas être nulle.",
+      "Oublier d'inverser le sens d'une inéquation lors d'une multiplication par un nombre négatif.",
+      "Confondre l'ordonnée à l'origine et la pente dans une fonction affine.",
+      "Donner un système linéaire comme résolu sans vérifier que le déterminant est non nul (risque de système sans solution ou indéterminé)."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["equation", "inequation", "fonction affine", "polynome", "discriminant", "systeme lineaire", "factorisation", "algebre"],
+    "related_domains": ["sciences", "mathematiques", "cognition"],
+    "related_knowledge": ["mathematiques.mathematiques_appliquees_ia.algebre_lineaire_pour_ia", "mathematiques.logique.logique_formelle_bases"],
+    "retrieval_priority": 5
+  },
+  "behavior_rules": {
+    "tone": "educational",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["aide pédagogique à la résolution d'exercices d'algèbre", "vérification de calculs pour un usage pratique ou professionnel"],
+    "restricted_usage": ["résolution d'examens ou de devoirs notés sans mention explicite d'un contexte d'apprentissage"],
+    "forbidden_usage": ["aucun usage dangereux identifié pour ce domaine"],
+    "fallback_behavior": "Si l'énoncé est ambigu (variables non définies, unités manquantes), demander une clarification avant de résoudre plutôt que de supposer une interprétation."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "11/07/2026",
+    "last_update": "11/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

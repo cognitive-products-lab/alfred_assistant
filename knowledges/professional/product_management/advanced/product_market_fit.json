@@ -1,17 +1,54 @@
 {
   "schema_version": "1.2",
   "type": "knowledge_unit",
-  "knowledge_id": "",
+  "id": "knowledges.professional.product_management.advanced.product_market_fit",
   "title": "Product-Market Fit (PMF)",
-  "version": "1.0.0",
-  "status": "validated",
   "domain": "professional",
   "subdomain": "product_management_advanced",
-  "category": "",
-  "priority": "medium",
-  "safety_level": "normal",
+  "status": "validated",
   "summary": "Le Product-Market Fit est le moment où un produit répond suffisamment bien à un besoin de marché pour générer une rétention organique et une croissance par bouche-à-oreille. L'atteindre est la priorité absolue avant de scaler.",
-  "purpose": "",
+  "core_definition": "Le Product-Market Fit (PMF) est l'état dans lequel un produit satisfait suffisamment bien un besoin de marché réel pour que les utilisateurs l'adoptent massivement, restent actifs et le recommandent naturellement, générant une croissance organique.",
+  "knowledge": {
+    "pmf_signals": [
+      "Rétention qui s'aplatit sur un plateau stable (> 20-40% selon le secteur)",
+      "Croissance organique significative (bouche-à-oreille, referrals)",
+      "Utilisateurs frustrés à l'idée de ne plus avoir le produit (Rahul Vohra test : > 40% diraient 'très déçus' si le produit disparaissait)",
+      "NPS > 40-50",
+      "Churn faible et cohérent avec la valeur perçue"
+    ],
+    "pmf_measurement": {
+      "sean_ellis_test": "Demander aux utilisateurs actifs : 'Comment vous sentiriez-vous si vous ne pouviez plus utiliser ce produit ?' > 40% répondent 'très déçu' → PMF probable",
+      "retention_curve": "Si la rétention s'aplatit (ne descend pas à zéro), un sous-ensemble d'utilisateurs a trouvé la valeur — creuser ce segment",
+      "nps": "Net Promoter Score > 40 = fort signal de PMF"
+    },
+    "before_after_pmf": {
+      "avant": "Chaque utilisateur est convaincu difficilement, les churns sont nombreux et inexpliqués, la croissance dépend de l'acquisition payante",
+      "apres": "Les utilisateurs reviennent sans friction, recommandent naturellement, et certains sont des 'power users' qui utilisent le produit quotidiennement"
+    }
+  },
+  "example_answers": [
+    {
+      "prompt": "Comment savoir si j'ai atteint le product-market fit ?",
+      "answer": "Test pragmatique : (1) Lance le Sean Ellis Test auprès de tes utilisateurs actifs — si > 40% sont 'très déçus' à l'idée de perdre le produit, signal fort. (2) Regarde ta courbe de rétention à D30/D90 — si elle s'aplatit (ne descend pas à zéro), un segment trouve de la valeur réelle. (3) Observe la croissance organique — si les nouveaux utilisateurs viennent sans acquisition payante, le PMF fait son travail. Le feeling qualitatif : les utilisateurs te demandent des features, pas de l'aide pour comprendre le produit."
+    },
+    {
+      "prompt": "Comment scaler avant d'avoir le PMF ?",
+      "answer": "Bonne question — la réponse est : ne pas scaler avant le PMF. Scaler sans PMF amplifie une machine qui fuit : chaque utilisateur acquis churne rapidement, le CAC augmente sans LTV pour le justifier, et l'équipe est épuisée à acquérir pour voir partir. La priorité pré-PMF : réduire le cycle d'apprentissage (interviews rapides, iterations courtes), aller vers les utilisateurs les plus engagés pour comprendre pourquoi ils restent, et doubler sur ce qui génère de la rétention."
+    }
+  ],
+  "response_guidance": {
+    "tone": "stratégique, ancré dans les métriques et la réalité des utilisateurs",
+    "structure": [
+      "identifier le contexte produit",
+      "expliquer le framework",
+      "proposer une application concrète"
+    ],
+    "avoid": [
+      "trop théorique",
+      "ignorer les contraintes business",
+      "recommander sans contexte"
+    ]
+  },
   "tags": [
     "PMF",
     "product-market fit",
@@ -21,43 +58,8 @@
     "product management",
     "produit"
   ],
-  "intents": [],
-  "usage_context": [],
-  "content": {
-    "definition": "",
-    "core_principles": [],
-    "rules": [],
-    "examples": [],
-    "best_practices": [],
-    "anti_patterns": []
-  },
-  "retrieval_hints": {
-    "priority_keywords": [],
-    "related_domains": [],
-    "related_knowledge": [],
-    "retrieval_priority": 5
-  },
-  "behavior_rules": {
-    "tone": "professional",
-    "response_style": "structured_clear",
-    "max_complexity": "medium",
-    "allow_humor": false
-  },
-  "safety_notes": {
-    "allowed_usage": [],
-    "restricted_usage": [],
-    "forbidden_usage": [],
-    "fallback_behavior": "Solliciter une validation humaine si ambiguïté."
-  },
-  "metadata": {
-    "author": "ALFRED_SYSTEM",
-    "creation_date": "11/07/2026",
-    "last_update": "11/07/2026",
-    "review_status": "draft",
-    "reviewed_by": "",
-    "source_type": "manual_structured_knowledge",
-    "language": "fr",
-    "retrieval_ready": true,
-    "rag_compatible": true
-  }
+  "related_knowledge_units": [
+    "knowledges.cpl.strategy.strategy_fundamentals",
+    "knowledges.cpl.product_ia.user_needs_analysis"
+  ]
 }
