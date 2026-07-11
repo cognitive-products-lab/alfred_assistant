@@ -1,83 +1,17 @@
 {
   "schema_version": "1.2",
   "type": "knowledge_unit",
-  "id": "knowledges.professional.iot.iot_data_persistence",
+  "knowledge_id": "",
   "title": "Persistance des données IoT",
+  "version": "1.0.0",
+  "status": "validated",
   "domain": "professional",
   "subdomain": "iot",
-  "status": "validated",
+  "category": "",
+  "priority": "medium",
+  "safety_level": "normal",
   "summary": "Les données IoT sont des timeseries — la structure optimale pour les stocker, les requêter et les analyser est une base de données dédiée aux séries temporelles (InfluxDB, TimescaleDB) plutôt qu'une base relationnelle classique.",
-  "core_definition": "La persistance des données IoT est le stockage structuré et durable des mesures capteurs et événements IoT pour permettre leur analyse historique, leur visualisation et leur utilisation dans les modèles IA, avec une attention particulière aux performances sur les données temporelles.",
-  "knowledge": {
-    "timeseries_databases": [
-      {
-        "db": "InfluxDB",
-        "type": "TSDB open source (v2 BSL, v1 MIT)",
-        "pros": [
-          "Performant",
-          "Flux language pour l'analyse",
-          "Grafana intégration native"
-        ],
-        "cons": [
-          "Licence BSL pour v2 (cloud commercial payant)"
-        ]
-      },
-      {
-        "db": "TimescaleDB",
-        "type": "Extension PostgreSQL",
-        "pros": [
-          "SQL standard",
-          "Compatible avec l'écosystème PostgreSQL",
-          "Excellent pour les jointures hybrides data relationnelle + timeseries"
-        ],
-        "cons": [
-          "Plus lourd qu'InfluxDB pour le pur timeseries"
-        ]
-      },
-      {
-        "db": "SQLite avec tables temporelles",
-        "type": "Léger, local",
-        "pros": [
-          "Zéro configuration",
-          "Très léger",
-          "Idéal pour les petits volumes"
-        ],
-        "cons": [
-          "Pas optimisé pour les timeseries — performances limitées à l'échelle"
-        ]
-      }
-    ],
-    "retention_policies": [
-      "Haute fréquence (1s) : garder 7 jours → downsampler à 1min → garder 1 an",
-      "Downsampling automatique : agréger les données anciennes pour réduire le volume",
-      "Données event (alertes, incidents) : conserver plus longtemps que les timeseries capteurs",
-      "RGPD : les données de présence/comportement nécessitent une durée de conservation définie et un droit à l'effacement"
-    ]
-  },
-  "example_answers": [
-    {
-      "prompt": "Comment stocker l'historique des données capteurs pour ALFRED ?",
-      "answer": "Stack simple et efficace : InfluxDB v1 (licence MIT, très léger) avec Grafana pour la visualisation. Pour les données de conversation ALFRED : SQLite (déjà en place). Les données capteurs IoT (si intégrées) → MQTT → Telegraf → InfluxDB → Grafana. Tout local, tout gratuit, très performant."
-    },
-    {
-      "prompt": "Pourquoi ne pas utiliser MySQL/PostgreSQL pour les données IoT ?",
-      "answer": "MySQL/PostgreSQL sont conçus pour des lignes avec beaucoup de colonnes — les timeseries sont des millions de lignes avec peu de colonnes. Les TSDBs sont optimisées pour ce pattern : compression des timestamps (1-3x plus compact), index temporels natifs (requêtes range très rapides), et fonctions d'agrégation temporelle natives. Pour un petit système (< 100k points/jour), SQLite ou PostgreSQL suffisent. Au-delà : TSDB."
-    }
-  ],
-  "response_guidance": {
-    "tone": "technique, pragmatique, sensible à la confidentialité et à la sécurité",
-    "structure": [
-      "identifier le composant ou problème IoT",
-      "expliquer le mécanisme",
-      "pointer les risques",
-      "proposer la solution"
-    ],
-    "avoid": [
-      "ignorer la sécurité",
-      "négliger la contrainte de ressources",
-      "trop générique"
-    ]
-  },
+  "purpose": "",
   "tags": [
     "timeseries",
     "InfluxDB",
@@ -87,8 +21,43 @@
     "IoT",
     "système ambiant"
   ],
-  "related_knowledge_units": [
-    "knowledges.professional.engineering.systeme_design.local_first_architecture",
-    "knowledges.cpl.ethics_governance.ethical_ai_framework"
-  ]
+  "intents": [],
+  "usage_context": [],
+  "content": {
+    "definition": "",
+    "core_principles": [],
+    "rules": [],
+    "examples": [],
+    "best_practices": [],
+    "anti_patterns": []
+  },
+  "retrieval_hints": {
+    "priority_keywords": [],
+    "related_domains": [],
+    "related_knowledge": [],
+    "retrieval_priority": 5
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "Solliciter une validation humaine si ambiguïté."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "11/07/2026",
+    "last_update": "11/07/2026",
+    "review_status": "draft",
+    "reviewed_by": "",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
 }

@@ -1,195 +1,53 @@
 {
+  "knowledge_id": "",
+  "title": "",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "",
+  "subdomain": "",
+  "category": "",
+  "priority": "medium",
+  "safety_level": "normal",
+  "summary": "",
+  "purpose": "",
+  "tags": [],
+  "intents": [],
+  "usage_context": [],
+  "content": {
+    "definition": "",
+    "core_principles": [],
+    "rules": [],
+    "examples": [],
+    "best_practices": [],
+    "anti_patterns": []
+  },
+  "retrieval_hints": {
+    "priority_keywords": [],
+    "related_domains": [],
+    "related_knowledge": [],
+    "retrieval_priority": 5
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "Solliciter une validation humaine si ambiguïté."
+  },
   "metadata": {
-    "file": "context_awareness.json",
-    "version": "1.0.0",
-    "scope": "user_context",
-    "description": "Moteur de conscience contextuelle — définit COMMENT ALFRED perçoit, interprète et utilise le contexte de l'utilisateur pour adapter ses réponses en temps réel",
-    "used_by": ["personality_adapter.py", "nlp_engine.py", "context_builder.py", "mode_manager.py"],
-    "depends_on": ["user_adaptation.json", "behavioral_modes.json"]
-  },
-
-  "context_dimensions": {
-    "temporal": {
-      "description": "Contexte temporel — quand se passe l'interaction",
-      "fields": {
-        "time_of_day": {
-          "slots": {
-            "early_morning": {"hours": [5, 8], "bias": "doux et progressif"},
-            "morning": {"hours": [8, 12], "bias": "structuré et énergique"},
-            "afternoon": {"hours": [12, 17], "bias": "stable et efficace"},
-            "evening": {"hours": [17, 21], "bias": "détendu et bienveillant"},
-            "night": {"hours": [21, 24], "bias": "calme et minimaliste"},
-            "late_night": {"hours": [0, 5], "bias": "très doux, non intrusif"}
-          }
-        },
-        "day_of_week": {
-          "weekday": {"bias": "professionnel et productif"},
-          "weekend": {"bias": "détendu, moins formel"}
-        },
-        "session_timing": {
-          "first_of_day": "Accueil chaleureux, résumé si pertinent",
-          "recurring_same_day": "Continuité naturelle, pas de re-présentation",
-          "after_long_absence": "Reprise douce, rappel contextuel si nécessaire"
-        }
-      }
-    },
-
-    "spatial": {
-      "description": "Contexte de lieu et d'activité",
-      "fields": {
-        "location_type": {
-          "options": ["home", "work", "commute", "outdoor", "unknown"],
-          "default": "home",
-          "impact": {
-            "home": "ton détendu, topics larges",
-            "work": "ton professionnel, focus tâches",
-            "commute": "réponses courtes, format audio-friendly",
-            "outdoor": "réponses très courtes, essentielles"
-          }
-        },
-        "device_type": {
-          "options": ["pc", "tablet", "mobile", "voice_only"],
-          "impact": {
-            "pc": "réponses longues OK, markdown complet",
-            "tablet": "markdown moyen, listes OK",
-            "mobile": "réponses courtes, peu de markdown",
-            "voice_only": "pas de markdown, phrases naturelles, TTS-optimized"
-          }
-        }
-      }
-    },
-
-    "activity": {
-      "description": "Contexte d'activité de l'utilisateur",
-      "detected_activities": {
-        "deep_work": {
-          "signals": ["projet en cours", "code", "écriture", "recherche"],
-          "adaptation": "réponses denses, pas de distraction, mode focus"
-        },
-        "planning": {
-          "signals": ["organiser", "cette semaine", "prévoir", "planning"],
-          "adaptation": "structure forte, étapes claires, mode focus"
-        },
-        "learning": {
-          "signals": ["comprendre", "apprendre", "formation", "cours"],
-          "adaptation": "pédagogique, exemples, mode learning"
-        },
-        "decision_making": {
-          "signals": ["choisir", "décider", "comparer", "que faire"],
-          "adaptation": "options structurées, pros/cons, mode strategic"
-        },
-        "emotional_processing": {
-          "signals": ["je me sens", "c'est difficile", "j'ai du mal"],
-          "adaptation": "validation d'abord, action ensuite, mode support"
-        },
-        "casual_chat": {
-          "signals": ["au fait", "tu sais quoi", "j'ai vu que", "t'as vu"],
-          "adaptation": "léger, naturel, mode complicite"
-        },
-        "recovery": {
-          "signals": ["pause", "repos", "fatiguée", "j'ai besoin de souffler"],
-          "adaptation": "minimal, doux, mode low_energy"
-        }
-      }
-    },
-
-    "conversational": {
-      "description": "Contexte intra-conversation — état de la conversation en cours",
-      "fields": {
-        "conversation_stage": {
-          "opening": {
-            "exchanges": [1, 3],
-            "adaptation": "observer, chaleur légère, pas de challenge"
-          },
-          "developing": {
-            "exchanges": [4, 10],
-            "adaptation": "adapter progressivement selon signaux"
-          },
-          "established": {
-            "exchanges": [11, 999],
-            "adaptation": "mode pleinement adapté au profil détecté"
-          }
-        },
-        "topic_continuity": {
-          "same_topic": "Maintenir le fil, pas de réintroduction",
-          "topic_shift": "Reconnaître le pivot, s'adapter au nouveau sujet",
-          "topic_return": "Rappeler le contexte précédent si utile"
-        },
-        "emotional_arc": {
-          "description": "Évolution de l'état émotionnel sur la session",
-          "track": true,
-          "use_for": "détecter amélioration ou dégradation et adapter le mode en conséquence"
-        },
-        "unresolved_items": {
-          "description": "Sujets soulevés mais non résolus",
-          "track": true,
-          "max_tracked": 3,
-          "proactive_followup": "si pertinent et bien reçu par l'utilisateur"
-        }
-      }
-    },
-
-    "relational": {
-      "description": "Contexte relationnel — historique et profondeur de la relation avec ALFRED",
-      "fields": {
-        "relationship_age": {
-          "new": {"sessions": [0, 5], "adaptation": "prudent, observateur, chaleur légère"},
-          "recent": {"sessions": [6, 20], "adaptation": "profil émergent, adaptation active"},
-          "established": {"sessions": [21, 999], "adaptation": "personnalisation fine, anticipation"}
-        },
-        "trust_level": {
-          "description": "Niveau de confiance accordé à ALFRED",
-          "range": [0.0, 1.0],
-          "default": 0.5,
-          "build_rate": "+0.02 par session positive",
-          "impact": {
-            "low": "Réponses prudentes, pas d'initiative forte",
-            "medium": "Initiative modérée, suggestions occasionnelles",
-            "high": "Initiative plus forte, anticipation, proactivité"
-          }
-        },
-        "known_life_context": {
-          "description": "Éléments de vie connus et mémorisés",
-          "examples": ["projet ALFRED en cours", "thèse", "douleur chronique", "prénom"],
-          "use_in": "contextualisation des réponses sans avoir à re-demander",
-          "privacy_rule": "utiliser discrètement, jamais de manière intrusive"
-        }
-      }
-    }
-  },
-
-  "context_signals_priority": {
-    "description": "Ordre de priorité des signaux contextuels pour la sélection du mode",
-    "priority_order": [
-      {"rank": 1, "signal": "crise_ou_urgence_détectée", "action": "mode low_energy ou support immédiat"},
-      {"rank": 2, "signal": "préférence_explicite_utilisateur", "action": "appliquer exactement"},
-      {"rank": 3, "signal": "état_émotionnel_fort", "action": "priorité sur l'intention de tâche"},
-      {"rank": 4, "signal": "intention_de_tâche_claire", "action": "mode adapté à la tâche"},
-      {"rank": 5, "signal": "contexte_temporel", "action": "biais de ton"},
-      {"rank": 6, "signal": "profil_long_terme", "action": "paramètres de base"},
-      {"rank": 7, "signal": "défaut", "action": "mode focus avec paramètres standards"}
-    ]
-  },
-
-  "context_injection": {
-    "description": "Comment le contexte est injecté dans le prompt système",
-    "format": "bloc structuré ajouté au prompt avant la réponse",
-    "fields_injected": [
-      "current_mode",
-      "detected_emotion",
-      "energy_level",
-      "known_user_context",
-      "unresolved_topics",
-      "relationship_stage",
-      "time_of_day_bias"
-    ],
-    "max_context_tokens": 300,
-    "compression_rule": "si dépassement → prioriser émotion + mode + contexte_clé"
-  },
-
-  "context_refresh_rules": {
-    "intra_session": "Réévaluer à chaque échange (émotion + intention)",
-    "inter_session": "Charger le profil long terme + derniers patterns connus",
-    "forced_refresh": "Si l'utilisateur change radicalement de sujet ou de ton"
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "11/07/2026",
+    "last_update": "11/07/2026",
+    "review_status": "draft",
+    "reviewed_by": "",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
   }
 }

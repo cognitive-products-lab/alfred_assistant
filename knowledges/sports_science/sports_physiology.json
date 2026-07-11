@@ -2,18 +2,37 @@
   "schema_version": "1.2",
   "type": "knowledge_unit",
   "knowledge_id": "sports_science.physiology.sports_physiology",
+  "title": "Physiologie Sportive",
   "version": "1.0.0",
+  "status": "active",
   "domain": "sports_science",
   "subdomain": "physiology",
   "category": "exercise_science",
   "priority": "high",
   "safety_level": "normal",
-  "title": "Physiologie Sportive",
   "summary": "Physiologie sportive : systèmes énergétiques (ATP-CP, glycolytique, aérobie), VO2max, adaptation cardiovasculaire et musculaire à l'entraînement, zones d'intensité, surentraînement.",
   "purpose": "Permettre à ALFRED d'expliquer les bases physiologiques de l'exercice physique et de l'entraînement sportif.",
-  "tags": ["physiologie_sportive", "VO2max", "systèmes_énergétiques", "aérobie", "anaérobie", "fréquence_cardiaque", "entraînement", "récupération"],
-  "intents": ["explain_sports_physiology", "explain_energy_systems", "help_with_training", "answer_sports_science_question"],
-  "usage_context": ["Sport", "Santé", "Entraînement"],
+  "tags": [
+    "physiologie_sportive",
+    "VO2max",
+    "systèmes_énergétiques",
+    "aérobie",
+    "anaérobie",
+    "fréquence_cardiaque",
+    "entraînement",
+    "récupération"
+  ],
+  "intents": [
+    "explain_sports_physiology",
+    "explain_energy_systems",
+    "help_with_training",
+    "answer_sports_science_question"
+  ],
+  "usage_context": [
+    "Sport",
+    "Santé",
+    "Entraînement"
+  ],
   "content": {
     "definition": "La physiologie sportive étudie les réponses et adaptations de l'organisme à l'exercice physique, pour optimiser la performance et la santé.",
     "energy_systems": {
@@ -44,26 +63,96 @@
     "heart_rate": {
       "max_hr": "FCmax ≈ 220 - âge (formule simple) ou 208 - 0.7×âge (Tanaka, plus précise).",
       "zones": [
-        {"zone": "Z1 — Récupération", "pct": "50-60%", "effect": "Récupération active, lipolyse de base"},
-        {"zone": "Z2 — Endurance", "pct": "60-70%", "effect": "Développe la base aérobie, adaptation mitochondriale"},
-        {"zone": "Z3 — Tempo", "pct": "70-80%", "effect": "Améliore le seuil lactate"},
-        {"zone": "Z4 — Seuil", "pct": "80-90%", "effect": "Seuil anaérobie, perfomance race pace"},
-        {"zone": "Z5 — VO2max", "pct": "90-100%", "effect": "VO2max, puissance maximale aérobie"}
+        {
+          "zone": "Z1 — Récupération",
+          "pct": "50-60%",
+          "effect": "Récupération active, lipolyse de base"
+        },
+        {
+          "zone": "Z2 — Endurance",
+          "pct": "60-70%",
+          "effect": "Développe la base aérobie, adaptation mitochondriale"
+        },
+        {
+          "zone": "Z3 — Tempo",
+          "pct": "70-80%",
+          "effect": "Améliore le seuil lactate"
+        },
+        {
+          "zone": "Z4 — Seuil",
+          "pct": "80-90%",
+          "effect": "Seuil anaérobie, perfomance race pace"
+        },
+        {
+          "zone": "Z5 — VO2max",
+          "pct": "90-100%",
+          "effect": "VO2max, puissance maximale aérobie"
+        }
       ]
     },
     "adaptations": {
-      "cardiovascular": ["Augmentation du volume d'éjection systolique", "Diminution de la FCr (cœur d'athlète)", "Augmentation du réseau capillaire musculaire", "Augmentation du volume sanguin"],
-      "muscular": ["Hypertrophie sarcomérique (force) ou mitochondriale (endurance)", "Augmentation des enzymes oxydatives", "Amélioration de la sensibilité à l'insuline"],
+      "cardiovascular": [
+        "Augmentation du volume d'éjection systolique",
+        "Diminution de la FCr (cœur d'athlète)",
+        "Augmentation du réseau capillaire musculaire",
+        "Augmentation du volume sanguin"
+      ],
+      "muscular": [
+        "Hypertrophie sarcomérique (force) ou mitochondriale (endurance)",
+        "Augmentation des enzymes oxydatives",
+        "Amélioration de la sensibilité à l'insuline"
+      ],
       "overtraining": "Surentraînement : accumulation de fatigue non compensée. Signes : performance en baisse, fatigue persistante, irritabilité, infections fréquentes. Traitement : repos, nutrition, gestion du stress."
-    }
+    },
+    "core_principles": [],
+    "rules": [],
+    "examples": [],
+    "best_practices": [],
+    "anti_patterns": []
   },
   "retrieval_hints": {
-    "priority_keywords": ["physiologie sportive", "VO2max", "systèmes énergétiques", "fréquence cardiaque", "zones d'intensité", "entraînement"],
-    "related_domains": ["sports_science", "nutrition", "medicine"],
-    "related_knowledge": ["sports_science.training_principles", "nutrition.sports_nutrition"],
+    "priority_keywords": [
+      "physiologie sportive",
+      "VO2max",
+      "systèmes énergétiques",
+      "fréquence cardiaque",
+      "zones d'intensité",
+      "entraînement"
+    ],
+    "related_domains": [
+      "sports_science",
+      "nutrition",
+      "medicine"
+    ],
+    "related_knowledge": [
+      "sports_science.training_principles",
+      "nutrition.sports_nutrition"
+    ],
     "retrieval_priority": 8
   },
-  "behavior_rules": {"tone": "educational", "response_style": "structured_clear", "max_complexity": "medium", "allow_humor": false},
-  "safety_notes": {"allowed_usage": ["Éducation en sciences du sport"], "restricted_usage": [], "forbidden_usage": [], "fallback_behavior": "Pour tout programme d'entraînement intensif, recommander un coach certifié ou médecin du sport."},
-  "metadata": {"author": "ALFRED_SYSTEM", "creation_date": "04/07/2026", "last_update": "04/07/2026", "review_status": "active", "reviewed_by": "ALFRED_CORE", "source_type": "manual_structured_knowledge", "language": "fr", "retrieval_ready": true, "rag_compatible": true}
+  "behavior_rules": {
+    "tone": "educational",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "Éducation en sciences du sport"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "Pour tout programme d'entraînement intensif, recommander un coach certifié ou médecin du sport."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "04/07/2026",
+    "last_update": "11/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
 }

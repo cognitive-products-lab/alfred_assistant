@@ -1,71 +1,17 @@
 {
   "schema_version": "1.2",
   "type": "knowledge_unit",
-  "id": "knowledges.professional.iot.contextual_sensor_analysis",
+  "knowledge_id": "",
   "title": "Analyse contextuelle des capteurs",
+  "version": "1.0.0",
+  "status": "validated",
   "domain": "professional",
   "subdomain": "iot",
-  "status": "validated",
+  "category": "",
+  "priority": "medium",
+  "safety_level": "normal",
   "summary": "Un capteur seul donne une donnée brute — la valeur émerge de la mise en contexte : fusionner les signaux de plusieurs capteurs, les corréler avec l'historique et l'heure, pour inférer une situation ou un état.",
-  "core_definition": "L'analyse contextuelle des capteurs est le processus de fusion et d'interprétation des données de plusieurs capteurs (température, mouvement, audio, image) en tenant compte du contexte temporel, spatial et historique pour produire une compréhension utile de la situation.",
-  "knowledge": {
-    "sensor_fusion_approaches": [
-      {
-        "approach": "Fusion bas niveau (raw data)",
-        "description": "Combiner les données brutes avant traitement — utile pour les signaux redondants (ex: moyenne de plusieurs capteurs de température)"
-      },
-      {
-        "approach": "Fusion niveau feature",
-        "description": "Extraire des features de chaque capteur puis les combiner — utile pour des capteurs de types différents"
-      },
-      {
-        "approach": "Fusion niveau décision",
-        "description": "Chaque capteur produit une décision, les décisions sont combinées — utile pour l'inférence d'état"
-      }
-    ],
-    "contextual_factors": [
-      "Temporel : heure de la journée, jour de semaine, saison",
-      "Historique : patterns antérieurs de l'utilisateur",
-      "Spatial : localisation, pièce, environnement",
-      "Activité : ce que l'utilisateur fait/vient de faire",
-      "État connu : préférences, agenda, projets en cours"
-    ],
-    "alfred_context_model": {
-      "sources": [
-        "Heure et date",
-        "Historique conversationnel",
-        "Paramètres utilisateur (MBTI, préférences)",
-        "Mémoire épisodique"
-      ],
-      "inference_examples": [
-        "18h + messages courts + semaine chargée mentionnée → fatigue probable → réponses plus concises",
-        "Matin + message détaillé sur un projet → mode concentration → aide structurée"
-      ]
-    }
-  },
-  "example_answers": [
-    {
-      "prompt": "Comment ALFRED devine mon état sans que je le dise ?",
-      "answer": "ALFRED ne 'devine' pas — il infère à partir des signaux disponibles : l'heure (fatigue en soirée probable), la longueur et le ton de tes messages (courts et hâtifs = probablement occupé), et ce que tu as dit précédemment dans la session. Ce n'est pas de la lecture dans les pensées — c'est de la mise en contexte. Et si l'inférence est fausse, tu peux le corriger : je m'adapte immédiatement."
-    },
-    {
-      "prompt": "Comment fusionner les données de plusieurs capteurs IoT pour un usage IA ?",
-      "answer": "Approche recommandée pour un assistant personnel : fusion au niveau décision. Chaque capteur produit une interprétation ('luminosité faible → probablement soir', 'pas de mouvement depuis 10 min → peut-être en pause'), et l'IA combine ces interprétations avec le contexte historique pour construire un modèle de situation. Plus simple à maintenir que la fusion bas niveau et plus robuste aux pannes d'un capteur individuel."
-    }
-  ],
-  "response_guidance": {
-    "tone": "technique, pragmatique, sensible à la confidentialité",
-    "structure": [
-      "identifier le composant IoT concerné",
-      "expliquer le flux de données ou le mécanisme",
-      "pointer les risques de sécurité/confidentialité"
-    ],
-    "avoid": [
-      "ignorer les contraintes de latence et de ressources limitées",
-      "négliger la sécurité IoT",
-      "trop générique"
-    ]
-  },
+  "purpose": "",
   "tags": [
     "fusion capteurs",
     "contexte",
@@ -76,7 +22,43 @@
     "système ambiant",
     "capteurs"
   ],
-  "related_knowledge_units": [
-    "knowledges.professional.engineering.systeme_design.local_first_architecture"
-  ]
+  "intents": [],
+  "usage_context": [],
+  "content": {
+    "definition": "",
+    "core_principles": [],
+    "rules": [],
+    "examples": [],
+    "best_practices": [],
+    "anti_patterns": []
+  },
+  "retrieval_hints": {
+    "priority_keywords": [],
+    "related_domains": [],
+    "related_knowledge": [],
+    "retrieval_priority": 5
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "Solliciter une validation humaine si ambiguïté."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "11/07/2026",
+    "last_update": "11/07/2026",
+    "review_status": "draft",
+    "reviewed_by": "",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
 }

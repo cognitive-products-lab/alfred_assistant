@@ -1,70 +1,17 @@
 {
   "schema_version": "1.2",
   "type": "knowledge_unit",
-  "id": "knowledges.professional.engineering.reasoning.confidence_estimation",
+  "knowledge_id": "",
   "title": "Estimation de la confiance dans les réponses IA",
+  "version": "1.0.0",
+  "status": "validated",
   "domain": "professional",
   "subdomain": "engineering_reasoning",
-  "status": "validated",
+  "category": "",
+  "priority": "medium",
+  "safety_level": "normal",
   "summary": "Un LLM ne sait pas naturellement 'ce qu'il ne sait pas'. L'estimation de la confiance consiste à évaluer la fiabilité d'une réponse et à le communiquer à l'utilisateur — via des phrases de hedge, des sources citées ou des scores explicites.",
-  "core_definition": "L'estimation de la confiance dans les réponses IA est la capacité à évaluer et communiquer le niveau de certitude ou de fiabilité d'une réponse générée, permettant à l'utilisateur de calibrer son niveau de confiance et de prendre des décisions éclairées.",
-  "knowledge": {
-    "confidence_signals": [
-      {
-        "signal": "Cohérence interne",
-        "description": "Le modèle produit la même réponse sur des formulations différentes de la même question — signe de forte représentation interne"
-      },
-      {
-        "signal": "Couverture dans les données d'entraînement",
-        "description": "Sujets rares ou très récents → confiance plus faible"
-      },
-      {
-        "signal": "Consensus de self-consistency",
-        "description": "Si plusieurs chemins de raisonnement convergent → plus fiable"
-      },
-      {
-        "signal": "Présence de sources accessibles",
-        "description": "RAG sur des sources vérifiées → confiance dans les faits plus haute"
-      }
-    ],
-    "hedge_phrases": [
-      "Haute confiance : réponse directe sans hedge",
-      "Moyenne confiance : 'À ma connaissance...', 'Il me semble que...', 'Dans la plupart des cas...'",
-      "Faible confiance : 'Je ne suis pas certain, mais...', 'Tu devrais vérifier, mais je pense que...'",
-      "Hors compétence : 'C'est en dehors de ce que je maîtrise bien — consulte [source spécialisée]'"
-    ],
-    "alfred_confidence_system": {
-      "description": "ALFRED utilise un ConfidenceScorer qui évalue la couverture mémorielle et la couverture knowledge avant de décider d'ajouter une phrase de hedge",
-      "thresholds": {
-        "high": 0.7,
-        "medium": 0.4
-      },
-      "hedge_trigger": "Score < 0.4 → phrase de hedge automatique"
-    }
-  },
-  "example_answers": [
-    {
-      "prompt": "Comment savoir si ALFRED est sûr de sa réponse ?",
-      "answer": "Deux signaux : (1) ALFRED utilise des phrases de hedge explicites ('je pense que', 'à ma connaissance') quand sa confiance est plus faible, (2) quand ALFRED cite une source ou fait référence à sa base de connaissance, la réponse est plus fiable. Pour les informations critiques (santé, légal, financier) : toujours vérifier indépendamment, quelle que soit la confiance d'ALFRED."
-    },
-    {
-      "prompt": "Pourquoi les LLMs sont-ils confiants même quand ils se trompent ?",
-      "answer": "Les LLMs génèrent des réponses fluentes par construction — le modèle est entraîné à produire des réponses plausibles, pas à évaluer leur exactitude. L'hallucination confiante est une conséquence de cet entraînement. Solutions : RAG (ancrer les réponses sur des sources vérifiées), self-consistency (comparer plusieurs générations), et hedge explicite quand la confiance interne est faible."
-    }
-  ],
-  "response_guidance": {
-    "tone": "rigoureux, ancré dans les mécanismes cognitifs et techniques du raisonnement LLM",
-    "structure": [
-      "identifier le type de raisonnement ou biais",
-      "expliquer le mécanisme",
-      "proposer une technique d'amélioration"
-    ],
-    "avoid": [
-      "confondre raisonnement humain et LLM",
-      "ignorer les limites des LLMs",
-      "trop abstrait"
-    ]
-  },
+  "purpose": "",
   "tags": [
     "confiance",
     "hedge",
@@ -75,8 +22,43 @@
     "LLM",
     "inférence"
   ],
-  "related_knowledge_units": [
-    "knowledges.professional.engineering.ai.reasoning_engine",
-    "knowledges.human.cognition.critical_thinking"
-  ]
+  "intents": [],
+  "usage_context": [],
+  "content": {
+    "definition": "",
+    "core_principles": [],
+    "rules": [],
+    "examples": [],
+    "best_practices": [],
+    "anti_patterns": []
+  },
+  "retrieval_hints": {
+    "priority_keywords": [],
+    "related_domains": [],
+    "related_knowledge": [],
+    "retrieval_priority": 5
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "Solliciter une validation humaine si ambiguïté."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "11/07/2026",
+    "last_update": "11/07/2026",
+    "review_status": "draft",
+    "reviewed_by": "",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
 }

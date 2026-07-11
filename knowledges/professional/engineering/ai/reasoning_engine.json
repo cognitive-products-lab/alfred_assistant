@@ -1,56 +1,53 @@
 {
-  "metadata": {"file":"reasoning_engine.json","version":"1.0.0","scope":"reasoning"},
   "knowledge_id": "reasoning_engine_v1",
   "title": "Moteur de raisonnement",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "",
+  "subdomain": "",
+  "category": "",
+  "priority": "medium",
+  "safety_level": "normal",
   "summary": "Architecture centrale du raisonnement d'ALFRED — pipeline qui transforme une entrée brute en réponse structurée via décomposition, analyse, évaluation et synthèse.",
-  "pipeline": {
-    "step_1_intake": {
-      "action": "Recevoir l'entrée utilisateur + contexte mémoire + état émotionnel",
-      "output": "entrée enrichie et normalisée"
-    },
-    "step_2_classify": {
-      "action": "Classifier le type de demande (question, problème, décision, émotion, tâche, exploration)",
-      "output": "type + complexité estimée"
-    },
-    "step_3_decompose": {
-      "action": "Décomposer en sous-problèmes si complexe",
-      "output": "arbre de sous-questions"
-    },
-    "step_4_retrieve": {
-      "action": "Chercher dans mémoire + knowledge base les éléments pertinents",
-      "output": "contexte enrichi + faits disponibles"
-    },
-    "step_5_reason": {
-      "action": "Appliquer le mode de raisonnement adapté (déductif, inductif, abductif, analogique)",
-      "output": "conclusions intermédiaires"
-    },
-    "step_6_evaluate": {
-      "action": "Évaluer les options ou conclusions : pertinence, fiabilité, utilité",
-      "output": "options scorées"
-    },
-    "step_7_synthesize": {
-      "action": "Assembler la réponse finale avec niveau de confiance",
-      "output": "réponse structurée + confidence_score"
-    }
+  "purpose": "",
+  "tags": [],
+  "intents": [],
+  "usage_context": [],
+  "content": {
+    "definition": "",
+    "core_principles": [],
+    "rules": [],
+    "examples": [],
+    "best_practices": [],
+    "anti_patterns": []
   },
-  "reasoning_modes": {
-    "deductive": "De règles générales vers cas particuliers — si A alors B",
-    "inductive": "De cas particuliers vers généralisation",
-    "abductive": "De l'observation vers l'explication la plus probable",
-    "analogical": "Par analogie avec une situation connue",
-    "causal": "Identifier causes et effets dans une chaîne",
-    "counterfactual": "Et si… ? Exploration d'alternatives"
+  "retrieval_hints": {
+    "priority_keywords": [],
+    "related_domains": [],
+    "related_knowledge": [],
+    "retrieval_priority": 5
   },
-  "complexity_thresholds": {
-    "simple": {"max_steps": 2, "mode": "direct_response"},
-    "medium": {"max_steps": 4, "mode": "structured_response"},
-    "complex": {"max_steps": 7, "mode": "full_pipeline"},
-    "critical": {"max_steps": 7, "mode": "full_pipeline + uncertainty_flag"}
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
   },
-  "confidence_scoring": {
-    "high": {"range": [0.8, 1.0], "action": "répondre directement"},
-    "medium": {"range": [0.5, 0.79], "action": "répondre avec nuances"},
-    "low": {"range": [0.0, 0.49], "action": "signaler incertitude + demander clarification"}
+  "safety_notes": {
+    "allowed_usage": [],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "Solliciter une validation humaine si ambiguïté."
   },
-  "connections": ["reasoning_advanced","multi_step_reasoning","uncertainty_management","decision_models","memory_system"]
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "11/07/2026",
+    "last_update": "11/07/2026",
+    "review_status": "draft",
+    "reviewed_by": "",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
 }

@@ -1,12 +1,27 @@
 {
-  "_meta": { "project": "ALFRED", "block": "B18", "file": "secure_ai_pipeline.json", "version": "V2.0", "status": "VALIDATED", "updated": "2026-06-03", "validated_by": "Cognitive Products Lab" },
   "knowledge_id": "professional.engineering.cybersecurite.secure_ai_pipeline",
-  "id": "professional.engineering.cybersecurite.secure_ai_pipeline",
   "title": "Pipeline IA sécurisé",
-  "version": "2.0.0", "status": "active", "domain": "professional", "subdomain": "engineering", "category": "cybersecurite",
+  "version": "2.0.0",
+  "status": "active",
+  "domain": "professional",
+  "subdomain": "engineering",
+  "category": "cybersecurite",
+  "priority": "high",
+  "safety_level": "sensitive",
   "summary": "Sécurisation bout-en-bout d'un pipeline IA : données d'entraînement, validation de modèles, SBOM ML, signature des modèles, monitoring de dérive, robustesse adversariale et MLOps sécurisé.",
   "purpose": "Permettre à ALFRED de concevoir et auditer un pipeline IA sécurisé de la donnée d'entraînement jusqu'à la production, en appliquant les principes de sécurité à chaque étape.",
-  "tags": ["pipeline IA sécurisé", "MLSecOps", "SBOM ML", "model signing", "data validation", "drift monitoring", "adversarial robustness", "MLOps sécurité", "entraînement sécurisé", "déploiement modèle"],
+  "tags": [
+    "pipeline IA sécurisé",
+    "MLSecOps",
+    "SBOM ML",
+    "model signing",
+    "data validation",
+    "drift monitoring",
+    "adversarial robustness",
+    "MLOps sécurité",
+    "entraînement sécurisé",
+    "déploiement modèle"
+  ],
   "intents": [
     "sécuriser un pipeline ML/LLM",
     "valider l'intégrité d'un modèle IA",
@@ -21,7 +36,6 @@
     "gouvernance des modèles IA en entreprise",
     "MLOps en environnement réglementé"
   ],
-  "priority": "high", "safety_level": "sensitive",
   "content": {
     "definition": "Un pipeline IA sécurisé applique les principes de sécurité (shift left, defense in depth, least privilege) à chaque étape du cycle de vie d'un modèle IA : collecte et validation des données, entraînement, validation du modèle, déploiement, monitoring en production et maintien. L'approche MLSecOps intègre la sécurité dès la conception du pipeline.",
     "core_principles": [
@@ -34,7 +48,11 @@
     "etapes_pipeline": {
       "etape_1_donnees": {
         "nom": "Collecte et validation des données",
-        "risques": ["Données empoisonnées (data poisoning)", "Données personnelles sans consentement", "Données biaisées créant des discriminations"],
+        "risques": [
+          "Données empoisonnées (data poisoning)",
+          "Données personnelles sans consentement",
+          "Données biaisées créant des discriminations"
+        ],
         "controles": [
           "Audit de provenance : documenter l'origine de chaque dataset (licence, conditions d'utilisation)",
           "Validation statistique : détecter les distributions anormales, valeurs aberrantes, patterns suspects",
@@ -45,7 +63,11 @@
       },
       "etape_2_entrainement": {
         "nom": "Entraînement sécurisé",
-        "risques": ["Accès non autorisé aux données d'entraînement", "Exfiltration des gradients (gradient leakage)", "Environnement d'entraînement compromis"],
+        "risques": [
+          "Accès non autorisé aux données d'entraînement",
+          "Exfiltration des gradients (gradient leakage)",
+          "Environnement d'entraînement compromis"
+        ],
         "controles": [
           "Environnement isolé et contrôlé pour l'entraînement (pas d'accès Internet depuis le cluster GPU)",
           "Differential Privacy (DP-SGD) pour réduire la mémorisation de données personnelles",
@@ -56,7 +78,11 @@
       },
       "etape_3_validation": {
         "nom": "Validation et évaluation du modèle",
-        "risques": ["Modèle avec backdoor non détecté", "Performances dégradées sur des sous-groupes (biais)", "Mémorisation de données d'entraînement"],
+        "risques": [
+          "Modèle avec backdoor non détecté",
+          "Performances dégradées sur des sous-groupes (biais)",
+          "Mémorisation de données d'entraînement"
+        ],
         "controles": [
           "Évaluation sur des jeux de tests adversariaux (robustesse aux perturbations)",
           "Tests de fairness : performances équivalentes sur tous les sous-groupes définis",
@@ -67,7 +93,11 @@
       },
       "etape_4_deploiement": {
         "nom": "Déploiement sécurisé",
-        "risques": ["Modèle non-signé substitué par un modèle malveillant", "Secrets dans l'image Docker", "Accès non autorisé à l'endpoint d'inférence"],
+        "risques": [
+          "Modèle non-signé substitué par un modèle malveillant",
+          "Secrets dans l'image Docker",
+          "Accès non autorisé à l'endpoint d'inférence"
+        ],
         "controles": [
           "Signature cryptographique du modèle (cosign, Sigstore, MLflow model signing)",
           "Vérification du hash du modèle à chaque démarrage du service",
@@ -79,7 +109,11 @@
       },
       "etape_5_monitoring": {
         "nom": "Monitoring en production",
-        "risques": ["Dérive du modèle non détectée (distribution shift)", "Attaques adversariales en production", "Dégradation silencieuse des performances"],
+        "risques": [
+          "Dérive du modèle non détectée (distribution shift)",
+          "Attaques adversariales en production",
+          "Dégradation silencieuse des performances"
+        ],
         "controles": [
           "Data drift monitoring : comparer la distribution des inputs en production avec le dataset d'entraînement (KS test, PSI)",
           "Model performance monitoring : métriques de précision sur un échantillon annoté en continu",
@@ -99,7 +133,13 @@
         "Hyperparamètres : valeurs exactes utilisées",
         "Métriques d'évaluation : résultats sur les jeux de test"
       ],
-      "formats": ["CycloneDX (supporte ML)", "SPDX", "Model Cards (Hugging Face)", "ML Metadata (MLMD)", "MLflow Model Registry"],
+      "formats": [
+        "CycloneDX (supporte ML)",
+        "SPDX",
+        "Model Cards (Hugging Face)",
+        "ML Metadata (MLMD)",
+        "MLflow Model Registry"
+      ],
       "valeur": "Traçabilité complète pour l'audit, la reproduction et la détection de compromission supply chain"
     },
     "adversarial_robustness": {
@@ -116,7 +156,12 @@
         "Input preprocessing : denoising, filtering avant l'inférence",
         "Ensemble methods : plusieurs modèles — plus difficile d'attaquer tous simultanément"
       ],
-      "outils": ["Adversarial Robustness Toolbox (IBM ART)", "CleverHans", "Foolbox", "TextAttack (NLP)"]
+      "outils": [
+        "Adversarial Robustness Toolbox (IBM ART)",
+        "CleverHans",
+        "Foolbox",
+        "TextAttack (NLP)"
+      ]
     },
     "application_alfred": {
       "pipeline_alfred": [
@@ -140,18 +185,57 @@
       "Ne pas monitorer la dérive en production : le modèle se dégrade silencieusement",
       "Notebooks Jupyter en production (non reproductibles, pas de versioning, pas de contrôle d'accès)",
       "API d'inférence sans authentification ni rate limiting"
-    ]
+    ],
+    "rules": [],
+    "examples": []
   },
   "retrieval_hints": {
-    "priority_keywords": ["pipeline IA sécurisé", "MLSecOps", "SBOM ML", "signature modèle", "drift monitoring", "adversarial robustness", "déploiement modèle sécurisé"],
-    "related_knowledge": ["model_supply_chain_security", "llm_security_risks", "prompt_injection_defense", "secrets_management"],
+    "priority_keywords": [
+      "pipeline IA sécurisé",
+      "MLSecOps",
+      "SBOM ML",
+      "signature modèle",
+      "drift monitoring",
+      "adversarial robustness",
+      "déploiement modèle sécurisé"
+    ],
+    "related_domains": [],
+    "related_knowledge": [
+      "model_supply_chain_security",
+      "llm_security_risks",
+      "prompt_injection_defense",
+      "secrets_management"
+    ],
     "retrieval_priority": 8
   },
-  "behavior_rules": { "tone": "professional", "response_style": "structured_clear", "max_complexity": "high", "allow_humor": false },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "high",
+    "allow_humor": false
+  },
   "safety_notes": {
-    "allowed_usage": ["Conception de pipeline IA sécurisé", "Audit de sécurité ML", "Formation MLSecOps", "Gouvernance des modèles IA"],
-    "forbidden_usage": ["Utiliser les techniques adversariales pour attaquer des systèmes IA sans autorisation"],
+    "allowed_usage": [
+      "Conception de pipeline IA sécurisé",
+      "Audit de sécurité ML",
+      "Formation MLSecOps",
+      "Gouvernance des modèles IA"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [
+      "Utiliser les techniques adversariales pour attaquer des systèmes IA sans autorisation"
+    ],
     "fallback_behavior": "Pour les systèmes IA à usage critique, un audit de conformité NIST AI RMF est recommandé avant déploiement."
   },
-  "metadata": { "author": "Cognitive Products Lab", "creation_date": "03/06/2026", "last_update": "03/06/2026", "review_status": "validated", "source_type": "manual_structured_knowledge", "language": "fr", "retrieval_ready": true, "rag_compatible": true }
+  "metadata": {
+    "author": "Cognitive Products Lab",
+    "creation_date": "03/06/2026",
+    "last_update": "11/07/2026",
+    "review_status": "validated",
+    "reviewed_by": "",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
 }

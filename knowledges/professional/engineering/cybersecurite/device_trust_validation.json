@@ -1,12 +1,31 @@
 {
-  "_meta": { "project": "ALFRED", "block": "B18", "file": "device_trust_validation.json", "version": "V2.0", "status": "VALIDATED", "updated": "2026-06-03", "validated_by": "Cognitive Products Lab" },
   "knowledge_id": "professional.engineering.cybersecurite.device_trust_validation",
-  "id": "professional.engineering.cybersecurite.device_trust_validation",
   "title": "Validation de la confiance des appareils (Device Trust)",
-  "version": "2.0.0", "status": "active", "domain": "professional", "subdomain": "engineering", "category": "cybersecurite",
+  "version": "2.0.0",
+  "status": "active",
+  "domain": "professional",
+  "subdomain": "engineering",
+  "category": "cybersecurite",
+  "priority": "high",
+  "safety_level": "sensitive",
   "summary": "MDM, EDR compliance, posture check, NAC, MAM et gestion BYOD/COPE pour valider qu'un appareil est sain avant de lui accorder l'accès aux ressources.",
   "purpose": "Permettre à ALFRED de vérifier, conseiller et configurer la validation de la posture des appareils (posture check) comme condition d'accès aux ressources — pilier Device du Zero Trust.",
-  "tags": ["device trust", "MDM", "EDR", "posture check", "NAC", "MAM", "BYOD", "COPE", "Intune", "Jamf", "CrowdStrike", "compliance", "certificate device", "conformité appareil"],
+  "tags": [
+    "device trust",
+    "MDM",
+    "EDR",
+    "posture check",
+    "NAC",
+    "MAM",
+    "BYOD",
+    "COPE",
+    "Intune",
+    "Jamf",
+    "CrowdStrike",
+    "compliance",
+    "certificate device",
+    "conformité appareil"
+  ],
   "intents": [
     "valider la posture d'un appareil",
     "configurer un MDM",
@@ -21,7 +40,6 @@
     "conformité CIS Benchmarks / NIST 800-124",
     "accès conditionnel basé sur la posture device"
   ],
-  "priority": "high", "safety_level": "sensitive",
   "content": {
     "definition": "La validation de confiance des appareils (Device Trust) est le processus par lequel on vérifie qu'un appareil qui cherche à accéder à une ressource respecte un ensemble de critères de sécurité (patch level, chiffrement actif, EDR fonctionnel, etc.) avant de lui accorder l'accès. C'est un pilier fondamental du Zero Trust : l'identité seule ne suffit pas — l'appareil doit également être sain.",
     "core_principles": [
@@ -75,27 +93,57 @@
     },
     "EDR": {
       "description": "Endpoint Detection and Response — surveillance et réponse sur les endpoints",
-      "fonctions": ["Détection de menaces comportementale (pas seulement signatures)", "Investigation forensique des incidents", "Réponse automatisée (isolation réseau, kill process)", "Threat hunting proactif"],
-      "outils": ["CrowdStrike Falcon", "SentinelOne Singularity", "Microsoft Defender for Endpoint", "Carbon Black", "Sophos Intercept X"],
+      "fonctions": [
+        "Détection de menaces comportementale (pas seulement signatures)",
+        "Investigation forensique des incidents",
+        "Réponse automatisée (isolation réseau, kill process)",
+        "Threat hunting proactif"
+      ],
+      "outils": [
+        "CrowdStrike Falcon",
+        "SentinelOne Singularity",
+        "Microsoft Defender for Endpoint",
+        "Carbon Black",
+        "Sophos Intercept X"
+      ],
       "role_device_trust": "Le score de risque EDR est un signal clé pour le Conditional Access : un device avec une alerte active est automatiquement mis en quarantaine réseau"
     },
     "NAC": {
       "description": "Network Access Control — contrôle d'admission réseau basé sur la conformité de l'appareil",
       "fonctionnement": "L'appareil se connecte → le NAC vérifie sa conformité (certificat, posture) → accès accordé au VLAN approprié ou refusé",
-      "technologies": ["802.1X (authentification par certificat au niveau de la prise réseau)", "RADIUS (serveur d'authentification réseau)", "Cisco ISE", "Aruba ClearPass", "Forescout"],
+      "technologies": [
+        "802.1X (authentification par certificat au niveau de la prise réseau)",
+        "RADIUS (serveur d'authentification réseau)",
+        "Cisco ISE",
+        "Aruba ClearPass",
+        "Forescout"
+      ],
       "cas_usage": "Sécuriser les connexions filaires en open space, salles de réunion, contrôler les appareils BYOD sur le Wi-Fi"
     },
     "MAM": {
       "description": "Mobile Application Management — gestion au niveau applicatif sans contrôler tout l'appareil",
       "usage": "Ideal pour le BYOD : conteneurisation des apps d'entreprise, sans accès aux données personnelles",
-      "fonctions": ["Wipe sélectif des données d'entreprise uniquement", "Chiffrement du conteneur applicatif", "Copier-coller bloqué entre apps d'entreprise et personnelles", "Accès conditionnel par application"],
+      "fonctions": [
+        "Wipe sélectif des données d'entreprise uniquement",
+        "Chiffrement du conteneur applicatif",
+        "Copier-coller bloqué entre apps d'entreprise et personnelles",
+        "Accès conditionnel par application"
+      ],
       "exemple": "Microsoft Intune MAM + Outlook : l'IT peut effacer les emails d'entreprise sur un iPhone personnel sans toucher aux photos personnelles"
     },
     "certificate_device": {
       "description": "Certificat cryptographique attribué à chaque appareil pour prouver son identité",
       "emission": "PKI interne (Microsoft ADCS, EJBCA) ou cloud (SCEP/EST via Intune)",
-      "usage": ["Authentification 802.1X (NAC)", "mTLS pour les connexions services", "Signal d'identité dans le Conditional Access"],
-      "avantages": ["Non-phishable (contrairement aux mots de passe)", "Lié à l'appareil physique (stocké dans TPM si possible)", "Révocable instantanément via CRL/OCSP"]
+      "usage": [
+        "Authentification 802.1X (NAC)",
+        "mTLS pour les connexions services",
+        "Signal d'identité dans le Conditional Access"
+      ],
+      "avantages": [
+        "Non-phishable (contrairement aux mots de passe)",
+        "Lié à l'appareil physique (stocké dans TPM si possible)",
+        "Révocable instantanément via CRL/OCSP"
+      ]
     },
     "BYOD_policy": {
       "elements_cles": [
@@ -128,18 +176,62 @@
       "Certificats device stockés dans le système de fichiers (exportables et volables)",
       "Posture check effectué une seule fois à l'enrollment mais jamais réévalué",
       "Ignorer les appareils IoT dans la politique de device trust"
-    ]
+    ],
+    "rules": [],
+    "examples": []
   },
   "retrieval_hints": {
-    "priority_keywords": ["MDM", "device trust", "posture check", "EDR", "NAC", "BYOD", "Intune", "Jamf", "CrowdStrike", "conformité appareil", "802.1X"],
-    "related_knowledge": ["identity_access_management", "zero_trust_architecture", "behavioral_anomaly_detection", "network_segmentation"],
+    "priority_keywords": [
+      "MDM",
+      "device trust",
+      "posture check",
+      "EDR",
+      "NAC",
+      "BYOD",
+      "Intune",
+      "Jamf",
+      "CrowdStrike",
+      "conformité appareil",
+      "802.1X"
+    ],
+    "related_domains": [],
+    "related_knowledge": [
+      "identity_access_management",
+      "zero_trust_architecture",
+      "behavioral_anomaly_detection",
+      "network_segmentation"
+    ],
     "retrieval_priority": 8
   },
-  "behavior_rules": { "tone": "professional", "response_style": "structured_clear", "max_complexity": "high", "allow_humor": false },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "high",
+    "allow_humor": false
+  },
   "safety_notes": {
-    "allowed_usage": ["Configuration MDM", "Politique BYOD", "Posture check et Conditional Access", "NAC et 802.1X"],
-    "forbidden_usage": ["Contourner un MDM ou posture check", "Accéder à des données d'entreprise depuis un appareil non-managé sans autorisation"],
+    "allowed_usage": [
+      "Configuration MDM",
+      "Politique BYOD",
+      "Posture check et Conditional Access",
+      "NAC et 802.1X"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [
+      "Contourner un MDM ou posture check",
+      "Accéder à des données d'entreprise depuis un appareil non-managé sans autorisation"
+    ],
     "fallback_behavior": "Pour les déploiements MDM complexes, recommander l'assistance d'un partenaire Microsoft/Jamf certifié."
   },
-  "metadata": { "author": "Cognitive Products Lab", "creation_date": "03/06/2026", "last_update": "03/06/2026", "review_status": "validated", "source_type": "manual_structured_knowledge", "language": "fr", "retrieval_ready": true, "rag_compatible": true }
+  "metadata": {
+    "author": "Cognitive Products Lab",
+    "creation_date": "03/06/2026",
+    "last_update": "11/07/2026",
+    "review_status": "validated",
+    "reviewed_by": "",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
 }

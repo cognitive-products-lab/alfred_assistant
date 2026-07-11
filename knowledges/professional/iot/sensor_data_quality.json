@@ -1,73 +1,17 @@
 {
   "schema_version": "1.2",
   "type": "knowledge_unit",
-  "id": "knowledges.professional.iot.sensor_data_quality",
+  "knowledge_id": "",
   "title": "Qualité des données capteurs",
+  "version": "1.0.0",
+  "status": "validated",
   "domain": "professional",
   "subdomain": "iot",
-  "status": "validated",
+  "category": "",
+  "priority": "medium",
+  "safety_level": "normal",
   "summary": "Les données capteurs sont intrinsèquement bruitées, incomplètes et parfois erronées. La qualité des données IoT s'évalue et s'améliore par le filtrage, la détection d'anomalies, la calibration et la fusion multi-capteurs.",
-  "core_definition": "La qualité des données capteurs est l'évaluation et l'amélioration de la précision, de la complétude, de la cohérence et de la fraîcheur des données collectées par les dispositifs IoT, pour permettre une inférence fiable par les systèmes IA en aval.",
-  "knowledge": {
-    "quality_dimensions": [
-      {
-        "dimension": "Précision",
-        "description": "La valeur mesurée correspond à la valeur réelle"
-      },
-      {
-        "dimension": "Complétude",
-        "description": "Pas de valeurs manquantes sur la période d'observation"
-      },
-      {
-        "dimension": "Cohérence",
-        "description": "Les valeurs sont dans les plages attendues et cohérentes entre capteurs"
-      },
-      {
-        "dimension": "Fraîcheur",
-        "description": "La mesure est suffisamment récente pour être utile"
-      },
-      {
-        "dimension": "Résolution",
-        "description": "La granularité temporelle correspond au besoin (1s, 1min, 1h)"
-      }
-    ],
-    "noise_handling": [
-      "Filtre moyenne mobile (rolling average) — lisse les pics sans éliminer les tendances",
-      "Filtre de Kalman — optimal pour les signaux dynamiques bruités",
-      "Seuillage par percentile — éliminer les valeurs en dehors du P2-P98",
-      "Interpolation — remplir les valeurs manquantes par régression ou interpolation temporelle"
-    ],
-    "anomaly_detection": [
-      "Seuils statiques : valeur hors plage → anomalie",
-      "Seuils dynamiques : 3σ au-dessus de la moyenne mobile → anomalie",
-      "Pattern matching : comportement attendu vs observé",
-      "Cross-capteur : un capteur dévie alors que les autres sont stables → problème matériel"
-    ]
-  },
-  "example_answers": [
-    {
-      "prompt": "Mon capteur de température donne parfois des valeurs aberrantes — comment filtrer ?",
-      "answer": "Trois niveaux : (1) Filtre seuil absolu (temp hors [-10°C, 50°C] = invalide → ignorer), (2) Filtre zscore (3 déviations standard au-dessus de la moyenne des 10 dernières valeurs → spike → remplacer par la moyenne), (3) Filtre Kalman si tu veux le maximum de finesse. En pratique, le filtre seuil + zscore couvre 95% des cas."
-    },
-    {
-      "prompt": "Comment savoir si un capteur IoT a besoin d'être recalibré ?",
-      "answer": "Comparaison multi-capteurs (si tu as plusieurs capteurs du même type) : déviation systématique d'un capteur = dérive → recalibration. Sinon : comparaison avec une mesure de référence (thermomètre calibré, station météo externe). La plupart des capteurs grand public dérivent après 1-2 ans d'utilisation intensive."
-    }
-  ],
-  "response_guidance": {
-    "tone": "technique, pragmatique, sensible à la confidentialité et à la sécurité",
-    "structure": [
-      "identifier le composant ou problème IoT",
-      "expliquer le mécanisme",
-      "pointer les risques",
-      "proposer la solution"
-    ],
-    "avoid": [
-      "ignorer la sécurité",
-      "négliger la contrainte de ressources",
-      "trop générique"
-    ]
-  },
+  "purpose": "",
   "tags": [
     "qualité données",
     "bruit",
@@ -77,8 +21,43 @@
     "IoT",
     "système ambiant"
   ],
-  "related_knowledge_units": [
-    "knowledges.professional.engineering.systeme_design.local_first_architecture",
-    "knowledges.cpl.ethics_governance.ethical_ai_framework"
-  ]
+  "intents": [],
+  "usage_context": [],
+  "content": {
+    "definition": "",
+    "core_principles": [],
+    "rules": [],
+    "examples": [],
+    "best_practices": [],
+    "anti_patterns": []
+  },
+  "retrieval_hints": {
+    "priority_keywords": [],
+    "related_domains": [],
+    "related_knowledge": [],
+    "retrieval_priority": 5
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "Solliciter une validation humaine si ambiguïté."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "11/07/2026",
+    "last_update": "11/07/2026",
+    "review_status": "draft",
+    "reviewed_by": "",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
 }

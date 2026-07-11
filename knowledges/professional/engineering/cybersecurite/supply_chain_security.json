@@ -1,15 +1,43 @@
 {
-  "_meta": { "project": "ALFRED", "block": "B18", "file": "supply_chain_security.json", "version": "V2.0", "status": "VALIDATED", "updated": "2026-06-03", "validated_by": "Cognitive Products Lab" },
   "knowledge_id": "professional.engineering.cybersecurite.supply_chain_security",
-  "id": "professional.engineering.cybersecurite.supply_chain_security",
   "title": "Sécurité de la Chaîne d'Approvisionnement Logicielle",
-  "version": "2.0.0", "status": "active", "domain": "professional", "subdomain": "engineering", "category": "cybersecurite",
+  "version": "2.0.0",
+  "status": "active",
+  "domain": "professional",
+  "subdomain": "engineering",
+  "category": "cybersecurite",
+  "priority": "high",
+  "safety_level": "sensitive",
   "summary": "Les attaques supply chain compromettent des logiciels légitimes pour infecter leurs utilisateurs. Défenses : SBOM, SCA, vérification des signatures, politique stricte de dépendances.",
   "purpose": "Permettre à ALFRED d'expliquer les risques supply chain logicielle, les cas réels (SolarWinds, XZ Utils), et de guider la mise en place de défenses DevSecOps.",
-  "tags": ["supply chain", "solarwinds", "xz utils", "sbom", "sca", "dépendances", "npm", "pypi", "sigstore", "slsa", "typosquatting", "dependabot", "snyk"],
-  "intents": ["secure_software_supply_chain", "implement_sbom", "detect_compromised_dependencies", "verify_package_integrity", "prevent_typosquatting"],
-  "usage_context": ["Sécurisation d'un pipeline DevSecOps", "Audit des dépendances logicielles", "Conformité SLSA", "Post-incident supply chain"],
-  "priority": "high", "safety_level": "sensitive",
+  "tags": [
+    "supply chain",
+    "solarwinds",
+    "xz utils",
+    "sbom",
+    "sca",
+    "dépendances",
+    "npm",
+    "pypi",
+    "sigstore",
+    "slsa",
+    "typosquatting",
+    "dependabot",
+    "snyk"
+  ],
+  "intents": [
+    "secure_software_supply_chain",
+    "implement_sbom",
+    "detect_compromised_dependencies",
+    "verify_package_integrity",
+    "prevent_typosquatting"
+  ],
+  "usage_context": [
+    "Sécurisation d'un pipeline DevSecOps",
+    "Audit des dépendances logicielles",
+    "Conformité SLSA",
+    "Post-incident supply chain"
+  ],
   "content": {
     "definition": "Une attaque supply chain logicielle compromet un composant en amont (bibliothèque, outil de build, pipeline CI/CD) pour infecter tous ses utilisateurs aval. C'est l'une des menaces les plus difficiles à détecter car le code malveillant arrive via des canaux de confiance.",
     "core_principles": [
@@ -45,19 +73,38 @@
       {
         "defense": "SBOM — Software Bill of Materials",
         "description": "Inventaire exhaustif de toutes les dépendances (directes + transitives) avec versions et hashes.",
-        "formats": ["SPDX (standard Linux Foundation)", "CycloneDX (OWASP)"],
-        "tools": ["Syft (Anchore)", "cdxgen", "FOSSA", "Black Duck"]
+        "formats": [
+          "SPDX (standard Linux Foundation)",
+          "CycloneDX (OWASP)"
+        ],
+        "tools": [
+          "Syft (Anchore)",
+          "cdxgen",
+          "FOSSA",
+          "Black Duck"
+        ]
       },
       {
         "defense": "SCA — Software Composition Analysis",
         "description": "Scan automatique des dépendances pour détecter les CVE connues, les licences problématiques, les packages abandonnés.",
-        "tools": ["Snyk", "Dependabot (GitHub)", "OWASP Dependency-Check", "Trivy", "Grype"],
+        "tools": [
+          "Snyk",
+          "Dependabot (GitHub)",
+          "OWASP Dependency-Check",
+          "Trivy",
+          "Grype"
+        ],
         "ci_integration": "Bloquer le build si CVE critique détectée dans les dépendances"
       },
       {
         "defense": "Vérification des signatures et hashes",
         "description": "Vérifier l'intégrité cryptographique des packages avant installation.",
-        "tools": ["Sigstore / cosign (signature d'artefacts)", "pip --require-hashes", "npm lock files", "poetry.lock avec hashes"],
+        "tools": [
+          "Sigstore / cosign (signature d'artefacts)",
+          "pip --require-hashes",
+          "npm lock files",
+          "poetry.lock avec hashes"
+        ],
         "slsa": "SLSA (Supply chain Levels for Software Artifacts) — framework de niveaux de sécurité du build (SLSA 1 à 4)"
       },
       {
@@ -100,18 +147,57 @@
       "Ne jamais auditer les dépendances transitives (ce que tes dépendances importent)",
       "CI/CD avec des credentials admin stockés en clair",
       "Ignorer les alertes Dependabot en les marquant 'dismissed'"
-    ]
+    ],
+    "rules": [],
+    "examples": []
   },
   "retrieval_hints": {
-    "priority_keywords": ["supply chain", "sbom", "sca", "dépendances", "solarwinds", "xz utils", "typosquatting", "sigstore", "dependabot", "snyk"],
-    "related_knowledge": ["professional.engineering.cybersecurite.model_supply_chain_security", "professional.engineering.cybersecurite.secrets_management"],
+    "priority_keywords": [
+      "supply chain",
+      "sbom",
+      "sca",
+      "dépendances",
+      "solarwinds",
+      "xz utils",
+      "typosquatting",
+      "sigstore",
+      "dependabot",
+      "snyk"
+    ],
+    "related_domains": [],
+    "related_knowledge": [
+      "professional.engineering.cybersecurite.model_supply_chain_security",
+      "professional.engineering.cybersecurite.secrets_management"
+    ],
     "retrieval_priority": 8
   },
-  "behavior_rules": {"tone": "professional", "response_style": "structured_clear", "max_complexity": "high", "allow_humor": false},
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "high",
+    "allow_humor": false
+  },
   "safety_notes": {
-    "allowed_usage": ["Sécuriser sa chaîne d'approvisionnement", "Auditer ses dépendances", "Mettre en place un SBOM"],
-    "forbidden_usage": ["Aider à compromettre une chaîne d'approvisionnement tierce"],
+    "allowed_usage": [
+      "Sécuriser sa chaîne d'approvisionnement",
+      "Auditer ses dépendances",
+      "Mettre en place un SBOM"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [
+      "Aider à compromettre une chaîne d'approvisionnement tierce"
+    ],
     "fallback_behavior": "En cas de suspicion de compromission d'une dépendance, isoler et analyser avant tout déploiement."
   },
-  "metadata": {"author": "Cognitive Products Lab", "creation_date": "03/06/2026", "last_update": "03/06/2026", "review_status": "validated", "source_type": "manual_structured_knowledge", "language": "fr", "retrieval_ready": true, "rag_compatible": true}
+  "metadata": {
+    "author": "Cognitive Products Lab",
+    "creation_date": "03/06/2026",
+    "last_update": "11/07/2026",
+    "review_status": "validated",
+    "reviewed_by": "",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
 }

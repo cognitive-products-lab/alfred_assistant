@@ -1,12 +1,32 @@
 {
-  "_meta": { "project": "ALFRED", "block": "B18", "file": "security_monitoring_basics.json", "version": "V2.0", "status": "VALIDATED", "updated": "2026-06-03", "validated_by": "Cognitive Products Lab" },
   "knowledge_id": "professional.engineering.cybersecurite.security_monitoring_basics",
-  "id": "professional.engineering.cybersecurite.security_monitoring_basics",
   "title": "Surveillance de sécurité — SOC et opérations",
-  "version": "2.0.0", "status": "active", "domain": "professional", "subdomain": "engineering", "category": "cybersecurite",
+  "version": "2.0.0",
+  "status": "active",
+  "domain": "professional",
+  "subdomain": "engineering",
+  "category": "cybersecurite",
+  "priority": "high",
+  "safety_level": "normal",
   "summary": "SOC : rôles Tier1/2/3, flux alerte→triage→investigation, SLA de réponse (P1<15min/P2<1h), métriques MTTD/MTTR, outils SIEM, organisation et prévention du burnout.",
   "purpose": "Permettre à ALFRED de conseiller sur l'organisation d'un SOC, les processus opérationnels de surveillance de sécurité, et les outils SIEM pour une détection et réponse efficaces.",
-  "tags": ["SOC", "SIEM", "monitoring sécurité", "triage", "alertes", "MTTD", "MTTR", "Tier1", "Tier2", "Tier3", "Splunk", "Microsoft Sentinel", "IBM QRadar", "Elastic SIEM", "SLA réponse"],
+  "tags": [
+    "SOC",
+    "SIEM",
+    "monitoring sécurité",
+    "triage",
+    "alertes",
+    "MTTD",
+    "MTTR",
+    "Tier1",
+    "Tier2",
+    "Tier3",
+    "Splunk",
+    "Microsoft Sentinel",
+    "IBM QRadar",
+    "Elastic SIEM",
+    "SLA réponse"
+  ],
   "intents": [
     "organiser un SOC",
     "définir des SLA de réponse aux incidents",
@@ -21,7 +41,6 @@
     "formation des analystes SOC",
     "audit de maturité SOC"
   ],
-  "priority": "high", "safety_level": "normal",
   "content": {
     "definition": "Un Security Operations Center (SOC) est une équipe centralisée chargée de surveiller en continu la sécurité d'une organisation, de détecter les incidents, de les investiguer et de coordonner la réponse. Il s'appuie sur des outils (SIEM, SOAR, EDR) et des processus structurés pour réduire le délai de détection (MTTD) et de réponse (MTTR).",
     "core_principles": [
@@ -161,12 +180,27 @@
       },
       "SOAR": {
         "description": "Security Orchestration Automation and Response — automatise les réponses aux alertes répétitives",
-        "outils": ["Splunk SOAR (ex-Phantom)", "Microsoft Sentinel Playbooks (Logic Apps)", "Palo Alto XSOAR", "IBM QRadar SOAR"],
-        "use_cases": ["Isolation automatique d'un device EDR sur alerte malware", "Blocage d'IP sur firewall depuis SIEM", "Création automatique de ticket JIRA pour chaque P2+"]
+        "outils": [
+          "Splunk SOAR (ex-Phantom)",
+          "Microsoft Sentinel Playbooks (Logic Apps)",
+          "Palo Alto XSOAR",
+          "IBM QRadar SOAR"
+        ],
+        "use_cases": [
+          "Isolation automatique d'un device EDR sur alerte malware",
+          "Blocage d'IP sur firewall depuis SIEM",
+          "Création automatique de ticket JIRA pour chaque P2+"
+        ]
       }
     },
     "burnout_analystes": {
-      "causes": ["Volume d'alertes trop élevé (alert fatigue)", "Trop de faux positifs", "Travail répétitif sans valeur ajoutée", "Postures nocturnes et week-ends en rotation", "Manque de reconnaissance et de progression"],
+      "causes": [
+        "Volume d'alertes trop élevé (alert fatigue)",
+        "Trop de faux positifs",
+        "Travail répétitif sans valeur ajoutée",
+        "Postures nocturnes et week-ends en rotation",
+        "Manque de reconnaissance et de progression"
+      ],
       "solutions": [
         "Automatiser les tâches répétitives avec SOAR",
         "Tuning continu pour réduire les faux positifs",
@@ -190,18 +224,61 @@
       "SIEM mal configuré avec toutes les sources de logs activées sans tuning → coûts et bruit",
       "Pas de métriques : impossible de mesurer la maturité ou l'amélioration",
       "SOC 8h/24 sans couverture nocturne pour une organisation exposée à des menaces mondiales"
-    ]
+    ],
+    "rules": [],
+    "examples": []
   },
   "retrieval_hints": {
-    "priority_keywords": ["SOC", "SIEM", "MTTD", "MTTR", "triage", "alerte sécurité", "Splunk", "Microsoft Sentinel", "analyste SOC", "SLA incidents"],
-    "related_knowledge": ["security_logging_strategy", "incident_classification", "nist_incident_response", "behavioral_anomaly_detection", "intrusion_detection_basics"],
+    "priority_keywords": [
+      "SOC",
+      "SIEM",
+      "MTTD",
+      "MTTR",
+      "triage",
+      "alerte sécurité",
+      "Splunk",
+      "Microsoft Sentinel",
+      "analyste SOC",
+      "SLA incidents"
+    ],
+    "related_domains": [],
+    "related_knowledge": [
+      "security_logging_strategy",
+      "incident_classification",
+      "nist_incident_response",
+      "behavioral_anomaly_detection",
+      "intrusion_detection_basics"
+    ],
     "retrieval_priority": 8
   },
-  "behavior_rules": { "tone": "professional", "response_style": "structured_clear", "max_complexity": "high", "allow_humor": false },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "high",
+    "allow_humor": false
+  },
   "safety_notes": {
-    "allowed_usage": ["Organisation et conseil SOC", "Sélection SIEM", "Définition de processus de réponse", "Formation analystes"],
-    "forbidden_usage": ["Utiliser des connaissances SOC pour contourner la détection lors d'une attaque"],
+    "allowed_usage": [
+      "Organisation et conseil SOC",
+      "Sélection SIEM",
+      "Définition de processus de réponse",
+      "Formation analystes"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [
+      "Utiliser des connaissances SOC pour contourner la détection lors d'une attaque"
+    ],
     "fallback_behavior": "Pour la mise en place d'un SOC, recommander un accompagnement par un intégrateur spécialisé (MSSP)."
   },
-  "metadata": { "author": "Cognitive Products Lab", "creation_date": "03/06/2026", "last_update": "03/06/2026", "review_status": "validated", "source_type": "manual_structured_knowledge", "language": "fr", "retrieval_ready": true, "rag_compatible": true }
+  "metadata": {
+    "author": "Cognitive Products Lab",
+    "creation_date": "03/06/2026",
+    "last_update": "11/07/2026",
+    "review_status": "validated",
+    "reviewed_by": "",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
 }

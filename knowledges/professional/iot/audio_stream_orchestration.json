@@ -1,111 +1,17 @@
 {
   "schema_version": "1.2",
   "type": "knowledge_unit",
-  "id": "knowledges.professional.iot.audio_stream_orchestration",
+  "knowledge_id": "",
   "title": "Orchestration des flux audio",
+  "version": "1.0.0",
+  "status": "validated",
   "domain": "professional",
   "subdomain": "iot",
-  "status": "validated",
+  "category": "",
+  "priority": "medium",
+  "safety_level": "normal",
   "summary": "L'orchestration des flux audio dans un assistant IA couvre la capture (STT), le traitement (LLM), la synthèse (TTS) et la lecture — chaque étape introduit de la latence et des choix architecturaux qui impactent l'expérience utilisateur.",
-  "core_definition": "L'orchestration des flux audio dans les systèmes IA est la gestion du pipeline complet de traitement de la voix : capture audio, transcription (STT), traitement par le LLM, synthèse vocale (TTS) et lecture, en optimisant la latence, la qualité et la cohérence de l'expérience.",
-  "knowledge": {
-    "audio_pipeline": [
-      {
-        "step": "Capture",
-        "tech": [
-          "PyAudio",
-          "sounddevice",
-          "Wake word detection (Porcupine, Whisper VAD)"
-        ],
-        "challenges": [
-          "Bruit de fond",
-          "Echo cancellation",
-          "Détection fin de phrase"
-        ]
-      },
-      {
-        "step": "STT (Speech-to-Text)",
-        "tech": [
-          "Whisper (OpenAI, local)",
-          "Deepgram (cloud)",
-          "Vosk (offline)"
-        ],
-        "challenges": [
-          "Latence de transcription",
-          "Précision sur accents",
-          "Streaming vs batch"
-        ]
-      },
-      {
-        "step": "LLM Processing",
-        "tech": [
-          "Ollama (local)",
-          "OpenAI API",
-          "Anthropic API"
-        ],
-        "challenges": [
-          "Latence d'inférence",
-          "Streaming des tokens",
-          "Gestion du contexte"
-        ]
-      },
-      {
-        "step": "TTS (Text-to-Speech)",
-        "tech": [
-          "Piper (local, rapide)",
-          "ElevenLabs (cloud, qualité)",
-          "Coqui TTS (local)"
-        ],
-        "challenges": [
-          "Naturalité de la voix",
-          "Latence first byte",
-          "Chunking du texte"
-        ]
-      },
-      {
-        "step": "Playback",
-        "tech": [
-          "PyGame mixer",
-          "simpleaudio",
-          "sounddevice"
-        ],
-        "challenges": [
-          "Anti-grésillement",
-          "Gestion des interruptions",
-          "Synchronisation lipsync"
-        ]
-      }
-    ],
-    "latency_optimization": [
-      "Streaming STT : commencer la transcription pendant que l'utilisateur parle",
-      "Streaming LLM : envoyer les chunks au TTS dès que disponibles, ne pas attendre la réponse complète",
-      "Chunking TTS : premier chunk audio produit après 200-500ms (pas après toute la réponse)",
-      "Pre-warming : modèle TTS chargé au démarrage pour éviter la latence du premier appel"
-    ]
-  },
-  "example_answers": [
-    {
-      "prompt": "Pourquoi y a-t-il parfois un délai avant qu'ALFRED réponde vocalement ?",
-      "answer": "Le pipeline vocal a plusieurs étapes : transcription de ta voix (STT), traitement par le LLM, génération de l'audio (TTS). Chaque étape ajoute de la latence. ALFRED utilise le streaming pour réduire au maximum le délai perçu — les premiers mots de la réponse sont prononcés dès que possible, sans attendre la réponse complète. Si le délai est inhabituellement long, le modèle LLM est probablement en charge."
-    },
-    {
-      "prompt": "Peut-on utiliser ALFRED entièrement hors-ligne pour la voix ?",
-      "answer": "Oui — avec la stack locale : Whisper pour la STT (transcription locale), Ollama avec un modèle comme Mistral ou Llama pour le LLM, Piper pour la TTS. La qualité est légèrement inférieure aux services cloud mais la confidentialité est totale et il n'y a pas de dépendance réseau. C'est la configuration recommandée pour les usages sensibles."
-    }
-  ],
-  "response_guidance": {
-    "tone": "technique, pragmatique, sensible à la confidentialité",
-    "structure": [
-      "identifier le composant IoT concerné",
-      "expliquer le flux de données ou le mécanisme",
-      "pointer les risques de sécurité/confidentialité"
-    ],
-    "avoid": [
-      "ignorer les contraintes de latence et de ressources limitées",
-      "négliger la sécurité IoT",
-      "trop générique"
-    ]
-  },
+  "purpose": "",
   "tags": [
     "audio",
     "STT",
@@ -118,7 +24,43 @@
     "système ambiant",
     "capteurs"
   ],
-  "related_knowledge_units": [
-    "knowledges.professional.engineering.systeme_design.local_first_architecture"
-  ]
+  "intents": [],
+  "usage_context": [],
+  "content": {
+    "definition": "",
+    "core_principles": [],
+    "rules": [],
+    "examples": [],
+    "best_practices": [],
+    "anti_patterns": []
+  },
+  "retrieval_hints": {
+    "priority_keywords": [],
+    "related_domains": [],
+    "related_knowledge": [],
+    "retrieval_priority": 5
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "Solliciter une validation humaine si ambiguïté."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "11/07/2026",
+    "last_update": "11/07/2026",
+    "review_status": "draft",
+    "reviewed_by": "",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
 }

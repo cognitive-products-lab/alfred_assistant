@@ -1,0 +1,102 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "aide_decision.modeles.modeles_decision_structuree",
+  "title": "Modèles de Décision Structurée",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "aide_decision",
+  "subdomain": "modeles",
+  "category": "modèles_décision",
+  "priority": "critical",
+  "safety_level": "normal",
+  "summary": "Modèles de décision structurée : matrice décisionnelle multicritères (pondération, notation), SMART criteria, analyse coûts-bénéfices, arbre de décision (expected value), analyse SWOT décisionnelle, méthode Delphi (consensus expert), décision basée sur les données (data-driven), niveau de confiance requis selon l'enjeu, modèle OODA (Observe-Orient-Decide-Act), prise de décision en incertitude (théorie des jeux, maximin/maximax, regret minimax).",
+  "purpose": "Permettre à ALFRED CPL d'expliquer et d'appliquer des modèles structurés pour l'aide à la décision.",
+  "tags": [
+    "décision_multicritères",
+    "arbre_décision",
+    "OODA",
+    "méthode_Delphi",
+    "analyse_coûts_bénéfices",
+    "data_driven",
+    "incertitude_décision",
+    "maximin"
+  ],
+  "intents": [
+    "explain_decision_models",
+    "explain_decision_matrix",
+    "explain_ooda",
+    "explain_decision_under_uncertainty"
+  ],
+  "usage_context": [
+    "Direction",
+    "Management",
+    "Conformité",
+    "Finance"
+  ],
+  "content": {
+    "matrices": {
+      "multicriteres": "Matrice décisionnelle multicritères : (1) Lister les options. (2) Identifier les critères (exhaustifs mais pas redondants). (3) Pondérer les critères (somme = 100%). (4) Noter chaque option sur chaque critère (1-5). (5) Calculer le score pondéré. Avantages : transparence, reproductibilité, identification des compromis. Limite : la qualité dépend de la sélection des critères et des pondérations.",
+      "avantages_limites": "ALFRED peut aider à construire la matrice, mais doit signaler explicitement quand les données sont insuffisantes pour noter fiablement un critère. Dans ce cas : recommander une recherche complémentaire plutôt que d'estimer."
+    },
+    "arbre_ooda": {
+      "arbre": "Arbre de décision : outil visuel représentant les décisions, leurs conséquences (états de la nature) et leurs probabilités. Valeur espérée = somme (probabilité × valeur de chaque résultat). Utile pour les décisions séquentielles avec incertitude mesurable.",
+      "ooda": "OODA Loop (Boyd) : Observe (collecter les données), Orient (analyser et donner du sens), Decide (choisir une action), Act (exécuter). Cycle itératif. Plus la boucle est rapide que celle de l'adversaire/environnement, plus l'avantage est grand. Adapté aux décisions tactiques rapides."
+    },
+    "incertitude": {
+      "strategies": "Décision en incertitude profonde (probabilités inconnues) : maximin (choisir l'option dont le pire cas est le meilleur — conservateur), maximax (choisir l'option avec le meilleur résultat possible — optimiste), minimax regret (minimiser le regret maximal — le 'j'aurais dû'). Choix de la stratégie selon la tolérance au risque et les enjeux.",
+      "alfred_role": "Rôle d'ALFRED : ALFRED peut structurer la décision, identifier les critères manquants, calculer les scores, signaler les biais. Il ne décide pas — la décision reste humaine, surtout pour les cas à fort enjeu ou valeur irréversible."
+    },
+    "definition": "",
+    "core_principles": [],
+    "rules": [],
+    "examples": [],
+    "best_practices": [],
+    "anti_patterns": []
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "décision multicritères",
+      "arbre de décision",
+      "OODA",
+      "méthode Delphi",
+      "analyse coûts-bénéfices",
+      "incertitude décision",
+      "maximin maximax"
+    ],
+    "related_domains": [
+      "aide_decision",
+      "management",
+      "finance_controle"
+    ],
+    "related_knowledge": [
+      "aide_decision.fondamentaux.aide_decision_fondamentaux"
+    ],
+    "retrieval_priority": 9
+  },
+  "behavior_rules": {
+    "tone": "practical",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "Aide à la décision"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "Pour les décisions à fort enjeu financier, juridique ou humain, rappeler que ALFRED structure mais ne décide pas."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "11/07/2026",
+    "last_update": "11/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}
