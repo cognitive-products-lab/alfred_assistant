@@ -2,18 +2,39 @@
   "schema_version": "1.2",
   "type": "knowledge_unit",
   "knowledge_id": "data_management.mdm.master_data_management",
+  "title": "Master Data Management (MDM)",
   "version": "1.0.0",
+  "status": "active",
   "domain": "data_management",
   "subdomain": "mdm",
   "category": "master_data",
   "priority": "high",
   "safety_level": "normal",
-  "title": "Master Data Management (MDM)",
   "summary": "MDM (Master Data Management) : définition, données maîtresses (client, produit, fournisseur, localisation), architectures MDM (registre, consolidation, coexistence, centralisation), golden record, déduplication, implémentation.",
   "purpose": "Permettre à ALFRED d'expliquer le MDM, ses architectures et son rôle dans la qualité et la gouvernance des données.",
-  "tags": ["MDM", "master_data", "données_maîtresses", "golden_record", "déduplication", "référentiel_client", "PIM", "MDM_architecture"],
-  "intents": ["explain_mdm", "explain_master_data", "explain_golden_record", "answer_data_management_question"],
-  "usage_context": ["Data Management", "DSI", "Data Governance", "ERP", "CRM"],
+  "tags": [
+    "MDM",
+    "master_data",
+    "données_maîtresses",
+    "golden_record",
+    "déduplication",
+    "référentiel_client",
+    "PIM",
+    "MDM_architecture"
+  ],
+  "intents": [
+    "explain_mdm",
+    "explain_master_data",
+    "explain_golden_record",
+    "answer_data_management_question"
+  ],
+  "usage_context": [
+    "Data Management",
+    "DSI",
+    "Data Governance",
+    "ERP",
+    "CRM"
+  ],
   "content": {
     "definition": "Le MDM (Master Data Management) est l'ensemble des processus, politiques, standards, outils et technologies permettant de créer et maintenir une vision unique, cohérente et fiable des données maîtresses de l'entreprise.",
     "master_data_types": {
@@ -37,18 +58,76 @@
       "survivorship": "Règles de survivance : définissent quelle source est la plus fiable pour chaque attribut. Ex : date de naissance depuis le système RH, email depuis le CRM. Configurables par attribut."
     },
     "implementation": {
-      "steps": ["1. Définir le périmètre (quel domaine MDM en premier)", "2. Analyser l'existant (data profiling des sources)", "3. Définir le modèle de données maîtresses", "4. Définir les règles de gouvernance (ownership, stewardship)", "5. Choisir l'architecture et l'outil", "6. Configurer matching, survivance, workflow", "7. Migrer les données initiales", "8. Intégrer les systèmes consommateurs", "9. Opérer et améliorer en continu"],
+      "steps": [
+        "1. Définir le périmètre (quel domaine MDM en premier)",
+        "2. Analyser l'existant (data profiling des sources)",
+        "3. Définir le modèle de données maîtresses",
+        "4. Définir les règles de gouvernance (ownership, stewardship)",
+        "5. Choisir l'architecture et l'outil",
+        "6. Configurer matching, survivance, workflow",
+        "7. Migrer les données initiales",
+        "8. Intégrer les systèmes consommateurs",
+        "9. Opérer et améliorer en continu"
+      ],
       "tools": "Outils MDM : Informatica MDM, IBM InfoSphere MDM, SAP MDM/STC, Stibo Systems, Talend MDM, Semarchy. Open-source : Apache Atlas (metadata), Hevo Data.",
-      "challenges": ["Résistance des équipes métier (ownership des données)", "Complexité des règles de matching", "Coûts de transformation", "Temps de déploiement (18-36 mois pour un MDM client complet)", "Qualité insuffisante des données sources"]
-    }
+      "challenges": [
+        "Résistance des équipes métier (ownership des données)",
+        "Complexité des règles de matching",
+        "Coûts de transformation",
+        "Temps de déploiement (18-36 mois pour un MDM client complet)",
+        "Qualité insuffisante des données sources"
+      ]
+    },
+    "core_principles": [],
+    "rules": [],
+    "examples": [],
+    "best_practices": [],
+    "anti_patterns": []
   },
   "retrieval_hints": {
-    "priority_keywords": ["MDM", "master data management", "golden record", "données maîtresses", "déduplication", "référentiel client", "PIM", "matching"],
-    "related_domains": ["data_management", "governance"],
-    "related_knowledge": ["data_management.quality.data_quality_fundamentals", "data_management.governance.data_governance_framework"],
+    "priority_keywords": [
+      "MDM",
+      "master data management",
+      "golden record",
+      "données maîtresses",
+      "déduplication",
+      "référentiel client",
+      "PIM",
+      "matching"
+    ],
+    "related_domains": [
+      "data_management",
+      "governance"
+    ],
+    "related_knowledge": [
+      "data_management.quality.data_quality_fundamentals",
+      "data_management.governance.data_governance_framework"
+    ],
     "retrieval_priority": 9
   },
-  "behavior_rules": {"tone": "educational", "response_style": "structured_clear", "max_complexity": "medium", "allow_humor": false},
-  "safety_notes": {"allowed_usage": ["Éducation sur le MDM"], "restricted_usage": [], "forbidden_usage": [], "fallback_behavior": ""},
-  "metadata": {"author": "ALFRED_SYSTEM", "creation_date": "10/07/2026", "last_update": "10/07/2026", "review_status": "active", "reviewed_by": "ALFRED_CORE", "source_type": "manual_structured_knowledge", "language": "fr", "retrieval_ready": true, "rag_compatible": true}
+  "behavior_rules": {
+    "tone": "educational",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "Éducation sur le MDM"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": ""
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "10/07/2026",
+    "last_update": "11/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
 }
