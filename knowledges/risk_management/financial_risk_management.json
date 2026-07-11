@@ -1,0 +1,53 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "risk_management.financial.financial_risk_management",
+  "version": "1.0.0",
+  "domain": "risk_management",
+  "subdomain": "financial",
+  "category": "financial_risk",
+  "priority": "high",
+  "safety_level": "sensitive",
+  "title": "Gestion des Risques Financiers",
+  "summary": "Risques financiers : risque de marché (taux, change, actions, matières premières), risque de crédit (contrepartie, concentration, pays), risque de liquidité, VaR, stress tests, ALM (Asset-Liability Management), couvertures dérivées.",
+  "purpose": "Permettre à ALFRED d'expliquer les types de risques financiers, leurs mesures et les instruments de couverture.",
+  "tags": ["risque_financier", "risque_marché", "risque_crédit", "risque_liquidité", "VaR", "stress_test", "ALM", "couverture", "dérivés", "taux_change"],
+  "intents": ["explain_financial_risks", "explain_var", "explain_alm", "explain_credit_risk", "answer_financial_risk_question"],
+  "usage_context": ["Finance", "Banque", "Trésorerie", "Risk Management"],
+  "content": {
+    "market_risk": {
+      "definition": "Risque de marché : risque de perte lié aux fluctuations des prix de marché.",
+      "interest_rate": "Risque de taux : impact des variations de taux d'intérêt sur la valeur des actifs/passifs et les revenus. Géré par l'ALM (Asset-Liability Management).",
+      "fx": "Risque de change : impact des fluctuations des cours de devises sur les flux et la valeur des actifs en devises étrangères. Couverture via forwards, options, swaps de devises.",
+      "equity": "Risque actions : fluctuations des prix des actions en portefeuille. Beta, VaR, diversification.",
+      "commodity": "Risque matières premières : fluctuations des cours (pétrole, métaux, agri). Critique pour les industriels. Couverture via futures, options."
+    },
+    "credit_risk": {
+      "definition": "Risque de crédit : risque de perte lié à la défaillance d'une contrepartie à honorer ses obligations.",
+      "types": "Types : risque de défaut, risque de dégradation de rating, risque pays, risque de concentration (exposition excessive à un secteur ou contrepartie).",
+      "pd_lgd_ead": "Paramètres : PD (Probability of Default), LGD (Loss Given Default), EAD (Exposure at Default). Expected Loss = PD × LGD × EAD.",
+      "tools": "Outils : notation interne (IRB), scoring crédit, analyse financière, CDS (Credit Default Swaps), titrisation."
+    },
+    "liquidity_risk": {
+      "definition": "Risque de liquidité : risque de ne pas pouvoir faire face à ses engagements financiers à court terme, ou de ne pas pouvoir liquider une position sans perte significative.",
+      "types": "Liquidité de financement (funding liquidity) vs liquidité de marché (impossibilité de vendre un actif rapidement).",
+      "ratios": "Ratios réglementaires Bâle III : LCR (Liquidity Coverage Ratio ≥100 % — horizon 30 jours), NSFR (Net Stable Funding Ratio ≥100 % — horizon 1 an).",
+      "contingency": "Plan de financement d'urgence (CFP — Contingency Funding Plan) : sources alternatives de liquidité en cas de crise."
+    },
+    "measurement": {
+      "var": "VaR (Value at Risk) : perte maximale estimée avec un niveau de confiance donné (ex : VaR 99 % 1 jour = perte à ne pas dépasser 99 % des jours). Limites : queue de distribution, hypothèse de normalité.",
+      "cvar": "CVaR / Expected Shortfall : perte moyenne au-delà de la VaR. Mesure des pertes extrêmes. Préféré par Bâle IV.",
+      "stress_tests": "Stress tests : simulation de scénarios adverses (crise financière 2008, COVID, etc.). FRTB (Fundamental Review of the Trading Book) réforme la mesure du risque de marché.",
+      "alm": "ALM (Asset-Liability Management) : gestion de la structure des actifs et passifs pour optimiser le couple rendement/risque. Immunisation du bilan contre le risque de taux."
+    }
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["risque financier", "VaR", "risque de crédit", "risque de liquidité", "ALM", "stress test", "risque de marché", "LCR", "NSFR"],
+    "related_domains": ["risk_management", "regulation"],
+    "related_knowledge": ["risk_management.foundations.risk_management_fundamentals", "regulation.financial.financial_regulation_basics"],
+    "retrieval_priority": 9
+  },
+  "behavior_rules": {"tone": "educational", "response_style": "structured_clear", "max_complexity": "high", "allow_humor": false},
+  "safety_notes": {"allowed_usage": ["Éducation sur les risques financiers"], "restricted_usage": ["Ne pas conseiller des investissements spécifiques"], "forbidden_usage": [], "fallback_behavior": "Pour des décisions de couverture financière, consulter un risk manager ou trésorier spécialisé."},
+  "metadata": {"author": "ALFRED_SYSTEM", "creation_date": "10/07/2026", "last_update": "10/07/2026", "review_status": "active", "reviewed_by": "ALFRED_CORE", "source_type": "manual_structured_knowledge", "language": "fr", "retrieval_ready": true, "rag_compatible": true}
+}

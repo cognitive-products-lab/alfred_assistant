@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "data_management.observability.data_observability",
+  "version": "1.0.0",
+  "domain": "data_management",
+  "subdomain": "observability",
+  "category": "data_quality",
+  "priority": "high",
+  "safety_level": "normal",
+  "title": "Data Observability",
+  "summary": "Data Observability : surveillance continue des pipelines de données pour détecter les anomalies (Monte Carlo, 2019), 5 piliers (fraîcheur, volume, distribution, schéma, lignage), data downtime, outils (Monte Carlo, Great Expectations, Soda), SRE des données.",
+  "purpose": "Permettre à ALFRED d'expliquer le concept de data observability et son rôle dans la fiabilité des pipelines de données.",
+  "tags": ["data_observability", "data_downtime", "anomalie_données", "Monte_Carlo_data", "Great_Expectations", "Soda", "pipelines_données", "SRE_données"],
+  "intents": ["explain_data_observability", "explain_data_downtime", "answer_data_quality_question"],
+  "usage_context": ["Data Engineering", "Data Quality", "DSI", "BI"],
+  "content": {
+    "definition": "La Data Observability est la capacité d'une organisation à comprendre, surveiller et dépanner l'état de santé de ses données dans l'ensemble de son écosystème data. Concept popularisé par Monte Carlo (Barr Moses, 2019).",
+    "five_pillars": {
+      "freshness": "Fraîcheur (Freshness) : les données ont-elles été mises à jour récemment ? Détection des retards de pipeline. Alerte si le délai entre deux rafraîchissements dépasse le seuil attendu.",
+      "volume": "Volume : le nombre d'enregistrements est-il dans la plage attendue ? Détection des pertes de données (table vide) ou des explosions (doublons massifs).",
+      "distribution": "Distribution : les valeurs sont-elles dans les plages normales ? Détection des outliers, des shifts de distribution, des valeurs nulles inattendues.",
+      "schema": "Schéma : la structure des tables a-t-elle changé ? Ajout/suppression de colonnes, changement de types. Cause fréquente de pannes downstream.",
+      "lineage": "Lignage (Lineage) : traçabilité end-to-end. Si une anomalie est détectée, quels dashboards et pipelines aval sont impactés ? Accélère l'investigation."
+    },
+    "data_downtime": {
+      "definition": "Data Downtime : périodes pendant lesquelles les données sont inexactes, manquantes ou non fiables. Analogue aux pannes système mais dans le monde des données.",
+      "cost": "Coût : décisions prises sur des KPIs erronés, rapports faux communiqués aux clients, alertes métier manquées. Difficile à quantifier mais significatif.",
+      "sla": "SLA de données : engagement sur la qualité et la disponibilité des datasets critiques. Analogue aux SLA IT. KPIs : pourcentage de data downtime, temps de détection, temps de résolution."
+    },
+    "tools": {
+      "monte_carlo": "Monte Carlo Data : leader du marché Data Observability. Détection automatique des anomalies par ML, intégration data warehouses et pipelines. Alertes + root cause.",
+      "great_expectations": "Great Expectations (open-source) : validation des données par des 'expectations' (attentes) définies dans le code Python. CI/CD des données.",
+      "soda": "Soda (open-source/cloud) : plateforme de qualité et observabilité. Checks déclaratifs, scans automatisés, intégration Airflow/dbt.",
+      "dbt_tests": "dbt tests : validation de la qualité directement dans les transformations SQL. Tests natifs (not_null, unique, accepted_values) + tests personnalisés."
+    }
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["data observability", "data downtime", "fraîcheur données", "anomalie données", "Monte Carlo data", "Great Expectations", "SLA données"],
+    "related_domains": ["data_management"],
+    "related_knowledge": ["data_management.quality.data_quality_fundamentals", "data_management.catalog.data_catalog_lineage"],
+    "retrieval_priority": 8
+  },
+  "behavior_rules": {"tone": "educational", "response_style": "structured_clear", "max_complexity": "medium", "allow_humor": false},
+  "safety_notes": {"allowed_usage": ["Éducation sur la data observability"], "restricted_usage": [], "forbidden_usage": [], "fallback_behavior": ""},
+  "metadata": {"author": "ALFRED_SYSTEM", "creation_date": "10/07/2026", "last_update": "10/07/2026", "review_status": "active", "reviewed_by": "ALFRED_CORE", "source_type": "manual_structured_knowledge", "language": "fr", "retrieval_ready": true, "rag_compatible": true}
+}

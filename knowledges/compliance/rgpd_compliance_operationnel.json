@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "compliance.data_protection.rgpd_compliance_operationnel",
+  "version": "1.0.0",
+  "domain": "compliance",
+  "subdomain": "data_protection",
+  "category": "regulatory_compliance",
+  "priority": "critical",
+  "safety_level": "sensitive",
+  "title": "Conformité RGPD — Mise en Œuvre Opérationnelle",
+  "summary": "Conformité RGPD opérationnelle : registre des traitements (art. 30), analyse d'impact (AIPD/DPIA), privacy by design, DPO mission, transferts hors UE (clauses contractuelles types, BCR), violations de données, CNIL contrôles.",
+  "purpose": "Permettre à ALFRED d'accompagner les questions sur la mise en conformité RGPD au sein d'une organisation.",
+  "tags": ["RGPD", "conformité", "AIPD", "DPIA", "registre_traitements", "DPO", "privacy_by_design", "CNIL", "transferts_données", "violation_données"],
+  "intents": ["explain_gdpr_compliance", "help_dpia", "explain_dpo_role", "answer_compliance_question"],
+  "usage_context": ["Conformité", "RGPD", "Données personnelles", "DSI"],
+  "content": {
+    "accountability_principle": "Principe d'accountability (art. 5.2) : le responsable de traitement doit être en mesure de démontrer sa conformité. Documentation proactive, pas seulement réactive.",
+    "records_of_processing": {
+      "obligation": "Registre des traitements (art. 30) : obligatoire pour organisations >250 salariés ou traitements à risque. Tenu par responsable de traitement ET sous-traitant.",
+      "content": "Contenu : nom et coordonnées du responsable, finalités, catégories de personnes et de données, destinataires, transferts hors UE, délais de conservation, mesures de sécurité.",
+      "maintenance": "Maintenu à jour, disponible sur demande de la CNIL. Format recommandé : tableur ou outil dédié (OneTrust, Didomi, etc.)."
+    },
+    "dpia": {
+      "definition": "AIPD/DPIA (Analyse d'Impact relative à la Protection des Données) : obligatoire quand traitement susceptible d'engendrer risque élevé (art. 35).",
+      "triggers": "Cas d'obligation : scoring/profilage, traitement à grande échelle de données sensibles, surveillance systématique, données de mineurs, biométrie, IA décisionnelle. 9 critères CNIL.",
+      "methodology": "Méthodologie : (1) décrire le traitement, (2) évaluer la nécessité et proportionnalité, (3) identifier et évaluer les risques, (4) définir les mesures, (5) valider et documenter.",
+      "outcome": "Si risque résiduel élevé malgré mesures → consultation préalable de la CNIL (art. 36). Délai de réponse CNIL : 8 semaines."
+    },
+    "privacy_by_design": {
+      "definition": "Privacy by Design (art. 25) : intégrer la protection des données dès la conception des systèmes et des processus.",
+      "principles": ["Proactif, non réactif", "Vie privée par défaut (paramètres par défaut = les plus protecteurs)", "Intégré dans la conception", "Fonctionnalité totale (pas de compromis faussé)", "Sécurité de bout en bout", "Visibilité et transparence", "Respect de la vie privée centré sur l'utilisateur"],
+      "in_practice": "Checklist à chaque nouveau projet IT : pseudonymisation, minimisation, contrôles d'accès, durée de conservation, journalisation."
+    },
+    "dpo": {
+      "obligation": "DPO obligatoire pour : organismes publics, organisations traitant à grande échelle des données sensibles ou de surveillance systématique (art. 37).",
+      "missions": "Missions DPO : informer et conseiller, contrôler la conformité, réaliser AIPD, coopérer avec CNIL, point de contact pour les personnes concernées.",
+      "independence": "Indépendance : pas d'instructions sur sa mission, pas de conflit d'intérêts, ressources suffisantes, accès à la direction."
+    },
+    "data_transfers": {
+      "adequacy": "Transferts hors UE : vers pays adéquat (UK, Suisse, Canada partiel, Japon, Corée du Sud, etc.) → OK. Vers USA : EU-US Data Privacy Framework (2023, 3ème tentative).",
+      "safeguards": "Garanties appropriées : Clauses Contractuelles Types (CCT) de la Commission (révisées 2021), Règles d'Entreprise Contraignantes (BCR), certifications (à développer).",
+      "schrems": "Arrêts Schrems I (2015) et II (2020) : invalidation Safe Harbor puis Privacy Shield par CJUE. Surveillance de masse US = incompatible avec droits fondamentaux UE."
+    },
+    "breach_notification": {
+      "timeline": "Violation de données : notification CNIL dans 72h (art. 33). Si risque élevé pour personnes → notification des personnes concernées (art. 34).",
+      "process": "Processus : détection → qualification (violation probable) → évaluation risque → notification CNIL → mesures correctives → documentation (même si pas notifiable).",
+      "register": "Registre des violations internes : obligatoire, même pour les violations non notifiables."
+    }
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["RGPD conformité", "AIPD", "DPIA", "registre traitements", "DPO", "privacy by design", "violation de données", "transferts hors UE"],
+    "related_domains": ["compliance", "law"],
+    "related_knowledge": ["law.digital.digital_law", "compliance.data_protection.rgpd_compliance_operationnel"],
+    "retrieval_priority": 10
+  },
+  "behavior_rules": {"tone": "educational", "response_style": "structured_clear", "max_complexity": "high", "allow_humor": false},
+  "safety_notes": {"allowed_usage": ["Éducation sur la conformité RGPD"], "restricted_usage": ["Ne pas valider une AIPD spécifique sans contexte complet"], "forbidden_usage": [], "fallback_behavior": "Pour une mise en conformité formelle, recommander un DPO ou juriste spécialisé."},
+  "metadata": {"author": "ALFRED_SYSTEM", "creation_date": "10/07/2026", "last_update": "10/07/2026", "review_status": "active", "reviewed_by": "ALFRED_CORE", "source_type": "manual_structured_knowledge", "language": "fr", "retrieval_ready": true, "rag_compatible": true}
+}

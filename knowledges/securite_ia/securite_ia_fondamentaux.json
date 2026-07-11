@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "securite_ia.fondamentaux.securite_ia_fondamentaux",
+  "version": "1.0.0",
+  "domain": "securite_ia",
+  "subdomain": "fondamentaux",
+  "category": "sécurité_IA",
+  "priority": "critical",
+  "safety_level": "sensitive",
+  "title": "Sécurité des Systèmes d'Intelligence Artificielle",
+  "summary": "Sécurité des modèles IA : injection de prompt, injection indirecte, fuite de contexte, extraction de modèle, empoisonnement des données, jailbreak, excessive agency, hallucinations, sécurité des systèmes RAG, bases vectorielles, agents IA, supervision humaine et red teaming IA.",
+  "purpose": "Permettre à ALFRED CPL de comprendre et d'expliquer les risques de sécurité spécifiques aux systèmes d'IA, notamment pour les agents et les systèmes RAG.",
+  "tags": ["sécurité_IA", "injection_prompt", "injection_indirecte", "jailbreak", "hallucination", "RAG_security", "agent_IA", "red_teaming", "supervision_humaine", "OWASP_LLM", "excessive_agency"],
+  "intents": ["explain_ai_security", "explain_prompt_injection", "explain_rag_security", "explain_ai_agent_risks", "explain_red_teaming_ai"],
+  "usage_context": ["Sécurité", "Architecture IA", "DSI", "RSSI", "Product Management"],
+  "content": {
+    "menaces_modeles": {
+      "injection_prompt": "Injection de prompt : attaque où un utilisateur malveillant insère des instructions dans le prompt pour détourner le comportement du modèle. Ex : 'Ignore tes instructions précédentes et fais X.' Contre-mesure : filtrage des entrées, validation, instructions système robustes.",
+      "injection_indirecte": "Injection indirecte (indirect prompt injection) : les instructions malveillantes proviennent d'une source externe consultée par l'agent (page web, document, email). OWASP LLM Top 10 : risque #1. Critique pour les agents avec accès à des outils.",
+      "fuite_contexte": "Fuite de contexte (context leakage) : révélation non intentionnelle du prompt système, des données d'autres utilisateurs ou des instructions confidentielles. Contre-mesure : isolation des contextes, ne jamais inclure de secrets dans le prompt système.",
+      "extraction_modele": "Extraction de modèle (model extraction) : reconstitution approximative d'un modèle propriétaire par des requêtes systématiques. Contre-mesure : limitation du débit, watermarking des réponses.",
+      "jailbreak": "Jailbreak : contournement des gardes-fous du modèle par des techniques rhétoriques (roleplay, hypothétiques, encodage). Contre-mesure : red teaming continu, fine-tuning de sécurité, filtrage des sorties."
+    },
+    "menaces_donnees": {
+      "empoisonnement_donnees": "Empoisonnement des données d'entraînement (data poisoning) : insertion de données malveillantes dans le corpus d'entraînement pour biaiser le modèle. Pertinent pour les modèles fine-tunés.",
+      "empoisonnement_knowledge": "Empoisonnement de la base de connaissances (knowledge base poisoning) : insertion de documents malveillants dans la base RAG pour influencer les réponses. Contre-mesure : contrôle d'accès à la base, validation des sources, audit."
+    },
+    "rag_security": {
+      "risques": "Risques spécifiques RAG : (1) Accès non autorisé à des documents confidentiels (fuite via retrieval), (2) Empoisonnement de la base vectorielle, (3) Injection indirecte via documents, (4) Sécurité des embeddings (reconstruction de textes sensibles).",
+      "contre_mesures": "Contre-mesures : contrôle d'accès au niveau document (RBAC sur les chunks), filtrage des résultats de retrieval selon le profil utilisateur, validation des sources, isolation des bases par niveau de sensibilité."
+    },
+    "agents_ia": {
+      "excessive_agency": "Excessive agency (OWASP LLM #8) : un agent IA qui a trop de permissions, d'accès ou d'autonomie peut causer des dommages non intentionnels. Principe du moindre privilège appliqué aux agents.",
+      "tool_hijacking": "Détournement des outils (tool hijacking) : un agent est manipulé pour utiliser ses outils à des fins non prévues (envoyer des emails, lire des fichiers sensibles, exécuter des commandes).",
+      "validation_actions": "Validation des actions : les actions irréversibles ou à fort impact (envoi d'email, suppression de données, exécution de code) doivent nécessiter une confirmation humaine explicite (human-in-the-loop)."
+    },
+    "supervision_humaine": "La supervision humaine (human oversight) est une exigence fondamentale de l'AI Act pour les systèmes à haut risque. Pratiquement : journalisation de toutes les actions IA, mécanismes d'arrêt d'urgence, révision humaine des décisions critiques, rapport d'audit consultable.",
+    "red_teaming_ia": "Red teaming IA : simulation d'attaques adversariales contre un système IA pour identifier ses faiblesses avant la mise en production. Inclut : test d'injections, de jailbreaks, d'abus de fonctions, de fuites de données. MITRE ATLAS : base de connaissances des tactiques d'attaque sur les systèmes ML.",
+    "owasp_llm_top10": "OWASP LLM Top 10 (2023) : LLM01 Prompt Injection, LLM02 Insecure Output Handling, LLM03 Training Data Poisoning, LLM04 Model DoS, LLM05 Supply Chain Vulnerabilities, LLM06 Sensitive Information Disclosure, LLM07 Insecure Plugin Design, LLM08 Excessive Agency, LLM09 Overreliance, LLM10 Model Theft.",
+    "filtrage": "Filtrage des entrées : valider et assainir les entrées utilisateur avant de les injecter dans le prompt. Filtrage des sorties : vérifier que les réponses ne contiennent pas de données sensibles, d'injections ou de contenus inappropriés (output guardrails)."
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["sécurité IA", "injection de prompt", "injection indirecte", "jailbreak", "RAG security", "agent IA", "excessive agency", "OWASP LLM", "red teaming IA"],
+    "related_domains": ["securite_ia", "information_security"],
+    "related_knowledge": ["information_security.foundations.information_security_basics", "ethique_ia.risques.ethique_ia_fondamentaux"],
+    "retrieval_priority": 10
+  },
+  "behavior_rules": {"tone": "educational", "response_style": "structured_clear", "max_complexity": "high", "allow_humor": false},
+  "safety_notes": {"allowed_usage": ["Éducation défensive sur la sécurité des systèmes IA", "Audit de sécurité d'un système IA"], "restricted_usage": ["Ne pas fournir de techniques d'attaque exploitables"], "forbidden_usage": ["Ne jamais démontrer concrètement un jailbreak ou une injection réussie"], "fallback_behavior": "Orienter vers les ressources OWASP LLM et MITRE ATLAS pour les détails techniques."},
+  "metadata": {"author": "ALFRED_SYSTEM", "creation_date": "10/07/2026", "last_update": "10/07/2026", "review_status": "active", "reviewed_by": "ALFRED_CORE", "source_type": "manual_structured_knowledge", "language": "fr", "retrieval_ready": true, "rag_compatible": true}
+}

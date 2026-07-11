@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "information_security.incident_response.incident_response_management",
+  "version": "1.0.0",
+  "domain": "information_security",
+  "subdomain": "incident_response",
+  "category": "security_operations",
+  "priority": "high",
+  "safety_level": "normal",
+  "title": "Gestion des Incidents de Sécurité (CERT/SOC)",
+  "summary": "Gestion des incidents de cybersécurité : cycle PICERL (Preparation, Identification, Containment, Eradication, Recovery, Lessons Learned), SOC (Security Operations Center), CERT/CSIRT, SIEM, playbooks, obligations de notification (NIS2, RGPD).",
+  "purpose": "Permettre à ALFRED d'expliquer la gestion des incidents de sécurité, le rôle du SOC et les obligations réglementaires de notification.",
+  "tags": ["incident_sécurité", "CERT", "SOC", "SIEM", "PICERL", "playbook", "NIS2", "notification_incident", "forensic", "CSIRT"],
+  "intents": ["explain_incident_response", "explain_soc", "explain_incident_notification", "answer_security_incident_question"],
+  "usage_context": ["Cybersécurité", "SOC", "RSSI", "DSI"],
+  "content": {
+    "definition": "La gestion des incidents de sécurité est le processus d'identification, de containment, d'éradication et de récupération face à des événements de cybersécurité affectant la confidentialité, l'intégrité ou la disponibilité des systèmes.",
+    "picerl": {
+      "preparation": "Préparation : politiques, playbooks, équipe formée, outils déployés (SIEM, EDR), exercices. Mettre en place AVANT les incidents.",
+      "identification": "Identification : détection de l'incident, triage, qualification (faux positif ou incident réel ?), classification par sévérité (P1-P4). Sources : SIEM, EDR, utilisateurs, honeypots.",
+      "containment": "Containment (confinement) : isoler les systèmes affectés pour stopper la propagation. Court terme (urgence) vs long terme (maintien de l'activité). Préserver les preuves forensiques.",
+      "eradication": "Éradication : supprimer la cause de l'incident (malware, compte compromis, vulnérabilité). Nettoyage des systèmes affectés.",
+      "recovery": "Recovery (reprise) : restaurer les systèmes en production de manière sécurisée. Validation de la propreté avant reconnexion. Surveillance renforcée post-incident.",
+      "lessons_learned": "Lessons Learned (RETEX) : rapport d'incident complet, chronologie, causes racines, mesures correctives. Amélioration du playbook."
+    },
+    "soc": {
+      "definition": "SOC (Security Operations Center) : centre de surveillance de la sécurité 24/7. Monitore les événements de sécurité, détecte les incidents, coordonne la réponse.",
+      "tiers": "Niveaux d'analystes : N1 (monitoring, triage), N2 (investigation, qualification), N3 (réponse avancée, forensics, threat hunting). Escalade progressive.",
+      "siem": "SIEM (Security Information and Event Management) : plateforme centrale de collecte et corrélation des logs. Outils : Splunk, Microsoft Sentinel, IBM QRadar, Elastic SIEM.",
+      "soar": "SOAR (Security Orchestration, Automation and Response) : automatisation des playbooks de réponse aux incidents. Réduit le MTTR (Mean Time To Respond)."
+    },
+    "notification_obligations": {
+      "nis2": "NIS2 : notification à l'autorité nationale (ANSSI en France) dans 24h (alerte précoce) puis 72h (notification d'incident) pour les incidents significatifs affectant les entités essentielles et importantes.",
+      "rgpd": "RGPD art. 33-34 : violation de données personnelles → CNIL dans 72h, personnes concernées si risque élevé.",
+      "dora": "DORA : notification à l'autorité de supervision financière selon classification TIC (ICT) incident. Délais : early warning 4h, notification intermédiaire 24h, rapport final 1 mois."
+    }
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["gestion incidents sécurité", "SOC", "CERT", "PICERL", "SIEM", "notification incident", "NIS2", "playbook sécurité"],
+    "related_domains": ["information_security", "risk_management"],
+    "related_knowledge": ["information_security.foundations.information_security_basics", "risk_management.cyber.cyber_risk_management"],
+    "retrieval_priority": 9
+  },
+  "behavior_rules": {"tone": "educational", "response_style": "structured_clear", "max_complexity": "medium", "allow_humor": false},
+  "safety_notes": {"allowed_usage": ["Éducation sur la gestion des incidents"], "restricted_usage": [], "forbidden_usage": [], "fallback_behavior": ""},
+  "metadata": {"author": "ALFRED_SYSTEM", "creation_date": "10/07/2026", "last_update": "10/07/2026", "review_status": "active", "reviewed_by": "ALFRED_CORE", "source_type": "manual_structured_knowledge", "language": "fr", "retrieval_ready": true, "rag_compatible": true}
+}
