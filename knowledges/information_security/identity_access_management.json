@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "information_security.iam.identity_access_management",
+  "version": "1.0.0",
+  "domain": "information_security",
+  "subdomain": "iam",
+  "category": "access_control",
+  "priority": "high",
+  "safety_level": "normal",
+  "title": "IAM — Gestion des Identités et des Accès",
+  "summary": "IAM (Identity and Access Management) : gestion des identités numériques, modèles de contrôle d'accès (RBAC, ABAC, DAC, MAC), PAM (Privileged Access Management), MFA, SSO, provisioning, répertoires (Active Directory, LDAP), Zero Trust.",
+  "purpose": "Permettre à ALFRED d'expliquer les concepts IAM, les modèles de contrôle d'accès et les solutions de gestion des identités.",
+  "tags": ["IAM", "identités", "contrôle_accès", "RBAC", "ABAC", "PAM", "MFA", "SSO", "Active_Directory", "Zero_Trust", "provisioning"],
+  "intents": ["explain_iam", "explain_rbac", "explain_mfa", "explain_pam", "answer_security_iam_question"],
+  "usage_context": ["Cybersécurité", "DSI", "Systèmes", "RSSI"],
+  "content": {
+    "definition": "L'IAM (Identity and Access Management) est l'ensemble des politiques, processus et technologies permettant de gérer les identités numériques et de contrôler l'accès aux ressources informatiques.",
+    "access_models": {
+      "dac": "DAC (Discretionary Access Control) : le propriétaire de la ressource contrôle les accès. Flexible mais difficile à gérer à grande échelle.",
+      "mac": "MAC (Mandatory Access Control) : accès définis par des politiques centrales selon des classifications (Secret, Confidentiel). Utilisé dans les systèmes militaires et gouvernementaux.",
+      "rbac": "RBAC (Role-Based Access Control) : accès définis selon les rôles fonctionnels. Simplifie la gestion : on assigne un rôle, pas des droits individuels. Standard de facto.",
+      "abac": "ABAC (Attribute-Based Access Control) : accès basés sur des attributs (utilisateur, ressource, environnement). Plus flexible que RBAC mais plus complexe à implémenter.",
+      "least_privilege": "Principe de moindre privilège : chaque utilisateur ne dispose que des droits strictement nécessaires à sa fonction. Limite le rayon d'impact en cas de compromission."
+    },
+    "authentication": {
+      "mfa": "MFA (Multi-Factor Authentication) : combinaison ≥ 2 facteurs d'authentification. Standard actuel pour les accès sensibles. Réduit de 99,9 % le risque de compromission par credential (Microsoft).",
+      "sso": "SSO (Single Sign-On) : authentification unique donnant accès à plusieurs applications. Améliore l'expérience utilisateur et réduit la fatigue de mots de passe. Protocoles : SAML 2.0, OAuth 2.0, OpenID Connect.",
+      "passwordless": "Authentification sans mot de passe : FIDO2/WebAuthn (clés passkeys), biométrie, liens magiques. Élimine le risque de phishing de credentials."
+    },
+    "pam": {
+      "definition": "PAM (Privileged Access Management) : gestion des comptes à privilèges (administrateurs, root, comptes de service). Risque majeur : 74 % des violations de données impliquent des comptes privilégiés (Forrester).",
+      "features": "Fonctionnalités PAM : coffre-fort de secrets (password vault), rotation automatique des mots de passe, session recording, just-in-time access, élévation de privilèges contrôlée.",
+      "tools": "Outils : CyberArk, BeyondTrust, Thycotic, Centrify. Intégration avec SIEM pour monitoring."
+    },
+    "directory": {
+      "active_directory": "Active Directory (Microsoft) : annuaire LDAP pour les environnements Windows. Gestion des utilisateurs, groupes, politiques (GPO), authentification Kerberos. Cible principale des attaques (75 % des grandes entreprises).",
+      "entra_id": "Microsoft Entra ID (ex Azure AD) : IAM cloud pour SaaS, hybride et multi-cloud. Conditional Access, Identity Protection, PIM (Privileged Identity Management).",
+      "ldap": "LDAP (Lightweight Directory Access Protocol) : protocole d'annuaire universel. Base de OpenLDAP, Active Directory."
+    }
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["IAM", "gestion des identités", "RBAC", "ABAC", "MFA", "SSO", "PAM", "Active Directory", "moindre privilège"],
+    "related_domains": ["information_security"],
+    "related_knowledge": ["information_security.foundations.information_security_basics", "information_security.zero_trust.zero_trust_security"],
+    "retrieval_priority": 9
+  },
+  "behavior_rules": {"tone": "educational", "response_style": "structured_clear", "max_complexity": "medium", "allow_humor": false},
+  "safety_notes": {"allowed_usage": ["Éducation sur l'IAM"], "restricted_usage": [], "forbidden_usage": [], "fallback_behavior": ""},
+  "metadata": {"author": "ALFRED_SYSTEM", "creation_date": "10/07/2026", "last_update": "10/07/2026", "review_status": "active", "reviewed_by": "ALFRED_CORE", "source_type": "manual_structured_knowledge", "language": "fr", "retrieval_ready": true, "rag_compatible": true}
+}

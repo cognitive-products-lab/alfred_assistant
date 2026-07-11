@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "governance.data.data_governance_framework",
+  "version": "1.0.0",
+  "domain": "governance",
+  "subdomain": "data",
+  "category": "data_governance",
+  "priority": "critical",
+  "safety_level": "normal",
+  "title": "Gouvernance des Données — Cadre et Mise en Œuvre",
+  "summary": "Gouvernance des données : définition, référentiels (DAMA-DMBOK, DCAM), composantes (politiques, standards, rôles, processus), rôles clés (CDO, data owner, data steward), organisation (comité de gouvernance, data office), maturité.",
+  "purpose": "Permettre à ALFRED d'expliquer la gouvernance des données, ses composantes organisationnelles et les référentiels de référence.",
+  "tags": ["gouvernance_données", "data_governance", "DAMA", "DCAM", "CDO", "data_owner", "data_steward", "comité_gouvernance", "politique_données", "data_office"],
+  "intents": ["explain_data_governance", "explain_cdo_role", "explain_data_steward", "answer_data_governance_question"],
+  "usage_context": ["Data Management", "DSI", "Direction Générale", "CDO"],
+  "content": {
+    "definition": "La gouvernance des données est l'exercice d'autorité, de contrôle et de prise de décision partagées sur la gestion des actifs de données. Elle définit qui peut faire quoi avec quelles données.",
+    "frameworks": {
+      "dama": "DAMA-DMBOK v2 : la gouvernance des données est l'une des 11 fonctions du Data Management. Définit les politiques, standards, rôles et responsabilités. DAMA Wheel : gouvernance au centre de 10 fonctions périphériques.",
+      "dcam": "DCAM (Data Management Capability Assessment Model, EDM Council) : cadre d'évaluation de la maturité de la gestion des données en 8 capacités. Standard de référence pour les institutions financières.",
+      "bcbs_239": "BCBS 239 (Bâle — 2013) : principes pour l'agrégation des données de risque et le reporting. Oblige les banques systémiques à une gouvernance et une architecture données robustes."
+    },
+    "components": {
+      "policies": "Politiques de données : règles et directives à respecter (politique de conservation, de classification, de confidentialité, de qualité). Validées par la direction.",
+      "standards": "Standards de données : définitions communes, formats, nomenclatures. Dictionnaire de données, glossaire métier. Réduisent l'ambiguïté et les silos.",
+      "processes": "Processus de gouvernance : revues de qualité, gestion des incidents de données, processus de certification de données, révision des politiques.",
+      "roles": "Rôles et responsabilités : RACI des décisions sur les données. Qui définit, qui valide, qui utilise, qui maintient."
+    },
+    "roles": {
+      "cdo": "CDO (Chief Data Officer) : responsable exécutif des données. Mission : valoriser les données comme actif stratégique, gouvernance, qualité, monétisation. Rattaché à la DG ou DSI.",
+      "data_owner": "Data Owner : responsable métier d'un domaine de données. Définit les règles métier, valide la qualité, arbitre les conflits. Exemple : Directeur Commercial = Data Owner du domaine Client.",
+      "data_steward": "Data Steward : opérationnel en charge de la qualité et de la conformité d'un sous-domaine. Interface IT-métier. Définit les règles techniques, gère les anomalies.",
+      "data_custodian": "Data Custodian : équipe IT responsable du stockage, de la sécurité et de la disponibilité technique des données.",
+      "data_consumer": "Data Consumer : utilisateur final des données (analyste, data scientist, applicatif). Remonte les problèmes qualité via les stewards."
+    },
+    "organization": {
+      "committee": "Comité de gouvernance des données (DGC) : instance de décision réunissant Data Owners, CDO, DSI, conformité. Valide les politiques, arbitre les conflits, priorise les chantiers qualité.",
+      "data_office": "Data Office (bureau des données) : équipe centrale animant la gouvernance (CDO + data stewards référents + analystes qualité). Taille : 5-30 personnes selon la maturité.",
+      "federated": "Modèle fédéré : les Data Owners et Stewards sont dans les métiers, le Data Office anime et coordonne. Adapté aux grandes organisations. Évite les silos vs contrôle centralisé."
+    },
+    "maturity": {
+      "levels": ["Niveau 1 — Initial : ad hoc, pas de politiques", "Niveau 2 — Géré : politiques définies, mais silos", "Niveau 3 — Défini : processus standardisés et documentés", "Niveau 4 — Quantifié : métriques qualité en place", "Niveau 5 — Optimisé : amélioration continue, données valorisées comme actif"],
+      "models": "Modèles de maturité : CMM-DM, DCAM, DAMA, Gartner EIDQ. Permettent le benchmarking et la roadmap."
+    }
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["gouvernance des données", "data governance", "CDO", "data steward", "data owner", "DAMA", "comité gouvernance données", "politique données"],
+    "related_domains": ["governance", "data_management"],
+    "related_knowledge": ["data_management.quality.data_quality_fundamentals", "data_management.mdm.master_data_management"],
+    "retrieval_priority": 10
+  },
+  "behavior_rules": {"tone": "educational", "response_style": "structured_clear", "max_complexity": "medium", "allow_humor": false},
+  "safety_notes": {"allowed_usage": ["Éducation sur la gouvernance des données"], "restricted_usage": [], "forbidden_usage": [], "fallback_behavior": ""},
+  "metadata": {"author": "ALFRED_SYSTEM", "creation_date": "10/07/2026", "last_update": "10/07/2026", "review_status": "active", "reviewed_by": "ALFRED_CORE", "source_type": "manual_structured_knowledge", "language": "fr", "retrieval_ready": true, "rag_compatible": true}
+}

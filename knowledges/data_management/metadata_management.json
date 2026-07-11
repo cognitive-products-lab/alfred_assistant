@@ -1,0 +1,46 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "data_management.metadata.metadata_management",
+  "version": "1.0.0",
+  "domain": "data_management",
+  "subdomain": "metadata",
+  "category": "metadata_management",
+  "priority": "high",
+  "safety_level": "normal",
+  "title": "Gestion des Métadonnées",
+  "summary": "Gestion des métadonnées : types (techniques, métier, opérationnelles), MDR (Metadata Repository), Common Warehouse Metamodel (CWM), Dublin Core, DCAT, standards d'interopérabilité, relation avec gouvernance et qualité des données.",
+  "purpose": "Permettre à ALFRED d'expliquer les types de métadonnées, leur gestion et leur rôle dans l'écosystème data.",
+  "tags": ["métadonnées", "metadata", "MDR", "Dublin_Core", "DCAT", "dictionnaire_données", "interopérabilité", "data_catalog", "standards_metadata"],
+  "intents": ["explain_metadata", "explain_metadata_types", "answer_metadata_question"],
+  "usage_context": ["Data Management", "Architecture", "Gouvernance", "BI"],
+  "content": {
+    "definition": "Les métadonnées sont des données sur les données. Elles décrivent le contexte, le contenu, la structure, l'origine et la disponibilité des données, facilitant leur découverte, compréhension et utilisation.",
+    "types": {
+      "technical": "Métadonnées techniques : nom de colonne, type de données (VARCHAR, INTEGER), longueur, format, tables, schémas, index, clés étrangères. Générées automatiquement par les SGBD.",
+      "business": "Métadonnées métier : définition fonctionnelle, synonymes, propriétaire, classification de confidentialité, règles de calcul (ex : 'Chiffre d'affaires net = CA brut - remises'). Saisies manuellement.",
+      "operational": "Métadonnées opérationnelles : fréquence de mise à jour, historique des traitements, volumétrie, délais de conservation, SLA de disponibilité. Générées par les pipelines ETL.",
+      "process": "Métadonnées de processus : audit trail, qui a accédé à quoi, quand, historique des modifications. Conformité RGPD et SOX."
+    },
+    "management": {
+      "mdr": "MDR (Metadata Repository / Référentiel de métadonnées) : système centralisant les métadonnées de l'organisation. Base du data catalog. Exemples : Apache Atlas, IBM IGC, Informatica EDC.",
+      "dictionary": "Dictionnaire de données : document listant tous les éléments de données d'un système avec leurs définitions techniques. Niveau technique vs glossaire métier (niveau fonctionnel).",
+      "glossary": "Glossaire métier : définitions validées par les métiers des termes utilisés dans les rapports et KPIs. Gouverné par les data stewards. Ex : définition unique de 'client actif' dans toute l'organisation."
+    },
+    "standards": {
+      "dublin_core": "Dublin Core Metadata Initiative : 15 éléments simples pour décrire des ressources web (titre, créateur, sujet, description, éditeur, date, format, identifiant...). Standard W3C.",
+      "dcat": "DCAT (Data Catalog Vocabulary) : ontologie W3C pour décrire des datasets dans des catalogues de données. Utilisé pour l'interopérabilité des catalogues publics (données ouvertes).",
+      "iso_11179": "ISO/IEC 11179 : standard pour les registres de métadonnées. Modèle de données conceptuel pour les éléments de données."
+    },
+    "value": "Valeur de la gestion des métadonnées : améliore la découverte des données (+70 % du temps des data scientists passé à chercher les bonnes données), facilite la conformité (RGPD, SOX), accélère les migrations, réduit les erreurs d'interprétation."
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["métadonnées", "metadata management", "dictionnaire de données", "glossaire métier", "data catalog", "MDR", "Dublin Core"],
+    "related_domains": ["data_management", "governance"],
+    "related_knowledge": ["data_management.catalog.data_catalog_lineage", "governance.data.data_governance_framework"],
+    "retrieval_priority": 8
+  },
+  "behavior_rules": {"tone": "educational", "response_style": "structured_clear", "max_complexity": "medium", "allow_humor": false},
+  "safety_notes": {"allowed_usage": ["Éducation sur les métadonnées"], "restricted_usage": [], "forbidden_usage": [], "fallback_behavior": ""},
+  "metadata": {"author": "ALFRED_SYSTEM", "creation_date": "10/07/2026", "last_update": "10/07/2026", "review_status": "active", "reviewed_by": "ALFRED_CORE", "source_type": "manual_structured_knowledge", "language": "fr", "retrieval_ready": true, "rag_compatible": true}
+}

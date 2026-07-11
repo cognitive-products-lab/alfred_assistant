@@ -1,0 +1,46 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "governance.compliance.compliance_management_framework",
+  "version": "1.0.0",
+  "domain": "governance",
+  "subdomain": "compliance",
+  "category": "compliance_governance",
+  "priority": "high",
+  "safety_level": "normal",
+  "title": "Management de la Conformité — Cadre et Organisation",
+  "summary": "Management de la conformité (compliance) : définition, programme de conformité (Sapin 2, DOJ), responsable conformité (CCO), cartographie réglementaire, veille réglementaire, culture de conformité, sanctions pénales et administratives.",
+  "purpose": "Permettre à ALFRED d'expliquer l'organisation et le management d'un programme de conformité au sein d'une entreprise.",
+  "tags": ["conformité", "compliance", "programme_conformité", "CCO", "Sapin_2", "cartographie_réglementaire", "veille_réglementaire", "culture_conformité", "sanctions"],
+  "intents": ["explain_compliance_management", "explain_compliance_program", "explain_cco_role", "answer_compliance_question"],
+  "usage_context": ["Conformité", "Direction Juridique", "Gouvernance", "Audit"],
+  "content": {
+    "definition": "La conformité (compliance) est le respect des lois, réglementations, normes et politiques internes applicables à une organisation. Un programme de conformité est l'ensemble des mesures organisationnelles et procédurales pour gérer ce respect.",
+    "regulatory_landscape": {
+      "extraterritoriality": "Extraterritorialité : les lois américaines (FCPA — Foreign Corrupt Practices Act, OFAC, SOX) et françaises (Sapin 2) s'appliquent potentiellement aux entreprises étrangères opérant dans ces juridictions.",
+      "sapin_2": "Loi Sapin 2 (France, 2016) : 8 piliers obligatoires pour les entreprises >500 salariés et >100M€ CA : code de conduite, instance de déontologie, cartographie des risques, procédures d'évaluation des tiers, contrôles comptables, formations, régime de dénonciation, régime disciplinaire. AFA supervise.",
+      "afa": "AFA (Agence Française Anticorruption) : contrôle la mise en œuvre des dispositifs Sapin 2. Recommandations publiées. Sanctions : amende jusqu'à 200 K€ pour personnes physiques et 1 M€ pour morales."
+    },
+    "program_components": {
+      "risk_mapping": "Cartographie des risques de non-conformité : identifier les obligations applicables, évaluer l'exposition (probabilité × impact), prioriser. Domaines : corruption, blanchiment, protection des données, concurrence, export control.",
+      "policies": "Politiques et procédures : code de conduite, politique cadeaux et invitations, politique tiers, politique conflits d'intérêts. Accessibles et comprises.",
+      "training": "Formation et sensibilisation : obligatoire (Sapin 2, RGPD). Onboarding + formations annuelles. Test de compréhension. Adapté aux risques métier.",
+      "third_party": "Gestion des tiers : due diligence anticorruption sur les intermédiaires (agents, distributeurs), fournisseurs critiques. Questionnaires, vérifications, certifications.",
+      "reporting": "Dispositif d'alerte (whistleblowing) : canaux confidentiels pour signaler les violations (Directive Lanceurs d'Alerte UE 2019/1937). Protection des lanceurs d'alerte en France (loi Waserman 2022)."
+    },
+    "cco": {
+      "definition": "CCO (Chief Compliance Officer) / Responsable de la conformité : garant du programme. Rattachement idéal : DG ou Conseil. Indépendance fonctionnelle de la ligne métier.",
+      "missions": "Missions : élaborer la cartographie, animer le programme, conseiller les directions, surveiller les indicateurs, piloter les enquêtes internes, rendre compte au CA.",
+      "dpo_vs_cco": "Distinction DPO / CCO : le DPO (RGPD) est spécialisé données personnelles, protégé légalement, ne peut pas cumuler des fonctions dirigeantes. Le CCO couvre un périmètre plus large."
+    }
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["programme conformité", "compliance", "Sapin 2", "CCO", "cartographie risques conformité", "whistleblowing", "AFA", "code de conduite"],
+    "related_domains": ["governance", "compliance"],
+    "related_knowledge": ["compliance.data_protection.rgpd_compliance_operationnel", "risk_management.foundations.risk_management_fundamentals"],
+    "retrieval_priority": 9
+  },
+  "behavior_rules": {"tone": "educational", "response_style": "structured_clear", "max_complexity": "medium", "allow_humor": false},
+  "safety_notes": {"allowed_usage": ["Éducation sur le management de la conformité"], "restricted_usage": [], "forbidden_usage": [], "fallback_behavior": ""},
+  "metadata": {"author": "ALFRED_SYSTEM", "creation_date": "10/07/2026", "last_update": "10/07/2026", "review_status": "active", "reviewed_by": "ALFRED_CORE", "source_type": "manual_structured_knowledge", "language": "fr", "retrieval_ready": true, "rag_compatible": true}
+}
