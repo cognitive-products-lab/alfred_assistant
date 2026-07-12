@@ -1,14 +1,14 @@
 """
 PROJECT      : ALFRED
-BLOCK        : TOOLS
-FUNCTION     : TOOLS
+BLOCK        : B23
+FUNCTION     : 23.01 — Suivi d'avancement & KPI globaux
 FILE         : tools/generate_backlog.py
 ROLE         : Genere BACKLOG.md depuis dashboard_data.json
 
 AUTHOR       : Cognitive Products Lab
 CREATED      : 2026-06-03
-UPDATED      : 2026-06-03
-VERSION      : V1.0
+UPDATED      : 2026-07-12
+VERSION      : V1.1
 STATUS       : ACTIVE
 
 DESCRIPTION :
