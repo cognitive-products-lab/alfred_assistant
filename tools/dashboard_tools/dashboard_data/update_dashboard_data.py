@@ -1,14 +1,14 @@
 """
 PROJECT      : ALFRED
-BLOCK        : DASHBOARD
-FUNCTION     : XX.XX
+BLOCK        : B23
+FUNCTION     : 23.01 — Suivi d'avancement & KPI globaux
 FILE         : tools/dashboard_tools/dashboard_data/update_dashboard_data.py
 ROLE         : Genere dashboard_data.json depuis dashboard_data_manifest.json et validation_registry.json
 
 AUTHOR       : Cognitive Products Lab
 CREATED      : 2026-05-10
-UPDATED      : 2026-06-20
-VERSION      : V1.3
+UPDATED      : 2026-07-12
+VERSION      : V1.4
 STATUS       : STABLE
 
 DESCRIPTION :

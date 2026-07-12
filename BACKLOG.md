@@ -1,27 +1,28 @@
 # ALFRED — BACKLOG & RÉFÉRENTIEL FICHIERS
 
-> Généré le 09/07/2026 21:19 depuis `dashboard_data.json` (mis à jour le 09/07/2026 21:19:04)
-> Progression technique : **86.8%** · Full projet : **95.5%**
-> 1389 fichiers détectés / 1306 cible full
+> Généré le 12/07/2026 07:25 depuis `dashboard_data.json` (mis à jour le 12/07/2026 07:25:21)
+> Progression technique : **86.0%** · Full projet : **94.3%**
+> 1318 fichiers détectés / 1319 cible full
 
 ## Synthèse globale
 
 | Statut | Nb | % | Priorité |
 |--------|---:|--:|----------|
-| 🟡 Partiel | 103 | 7.4% | 🟡 Sprint |
-| 🟦 Codé — à tester | 86 | 6.2% | 🟡 Sprint |
-| 🧪 Testé — à valider | 265 | 19.1% | 🧪 Tests |
-| ✅ Validé ✅ | 810 | 58.3% | ✅ Done |
-| ⚙️ Structurel | 126 | 9.1% | ✅ Done |
+| ❌ A créer | 16 | 1.2% | 🔴 Urgent |
+| 🟡 Partiel | 104 | 7.9% | 🟡 Sprint |
+| 🟦 Codé — à tester | 89 | 6.8% | 🟡 Sprint |
+| 🧪 Testé — à valider | 266 | 20.2% | 🧪 Tests |
+| ✅ Validé ✅ | 807 | 61.2% | ✅ Done |
+| ⚙️ Structurel | 123 | 9.3% | ✅ Done |
 | 📦 Archivé | 1 | 0.1% | ✅ Done |
 
 ## Backlog par bloc
 
-### 🟢 B01 — Interaction conversationnelle intelligente `86.4%`
+### 🟢 B01 — Interaction conversationnelle intelligente `86.8%`
 
 | KPI | Valeur |
 |-----|--------|
-| Validés | 23 |
+| Validés | 25 |
 | Testés | 29 |
 | Codés (à tester) | 1 |
 | Partiels | 5 |
@@ -199,39 +200,6 @@
 
 > 🟪 Roadmap V2 — ALFRED CPL : collaborateur professionnel interactif. Interface mode pro (brainstorming, revue docs, suivi projets), knowledges métier CPL (IA, cybersécurité, entrepreneuriat, droit numérique), co-rédaction, mémoire des décisions. Module src/collaboration/ + knowledges/professional/cpl/ à créer.
 
-> 🔴 **Échéance ferme** — Prototype + démo exploitable au **01/10/2026**, pour présentation au **forum du 14/10/2026** (suite à intervention en table ronde « IA en entreprise : comment passer du concept à la valeur pour les métiers ? »). Ajouté le 10/07/2026.
-
-**Spécification fonctionnelle et démo (intégré le 10/07/2026, source `docs/alfred_cpl_fonctions_et_demo.docx`) :**
-- Détail des 20 catégories de fonctions indispensables : [docs/roadmap/ALFRED_CPL_SPEC.md](docs/roadmap/ALFRED_CPL_SPEC.md)
-- Scénario de démonstration rejouable : [demo/ALFRED_CPL_DEMO_SCENARIO.md](demo/ALFRED_CPL_DEMO_SCENARIO.md)
-- Article de positionnement pour le forum : [docs/roadmap/ALFRED_CPL_ARTICLE_POSITIONNEMENT.md](docs/roadmap/ALFRED_CPL_ARTICLE_POSITIONNEMENT.md)
-- Fiches knowledge associées : `knowledges/cpl/product_platform/`
-
-> ⚠️ **Incident résolu le 11/07/2026** — les 70 fichiers de `knowledges/cpl/` (préexistants + nouveaux) ont été écrasés en stubs vides par un processus externe non identifié (probablement une autre session travaillant en parallèle sur ce dépôt). Restaurés sans perte via git (contenu déjà commité). Détail dans la mémoire projet — vigilance recommandée : committer fréquemment pendant les prochaines sessions CPL.
-
-**Socle minimum crédible pour le prototype — statuts mis à jour au 11/07/2026 (chantiers 1-8 exécutés) :**
-
-| Fonction MVP | Statut | Constat |
-|---|---|---|
-| Authentification et rôles | ✅ Implémenté | PIN bcrypt + MFA TOTP + RBAC 7 rôles (système), **+ rôles métier CPL (Chef de projet, RH) ajoutés le 11/07** avec table rôle→domaines de connaissances |
-| Base de connaissances métier | ✅ Implémenté | 526 unités renseignées (dont 4 fiches de démo versionnées), taxonomie/registre réels, pipeline testé |
-| Personnalisation client | ✅ Démontrable | **Isolation multi-client ajoutée le 11/07** (`src/security/cpl_client_isolation.py`) : 2 clients de démo (Nova Ingénierie, Atlas Conseil) avec bases strictement séparées, testé en combinaison avec le filtrage par rôle |
-| Recherche documentaire | ✅ Démontrable | Pipeline mot-clé/taxonomie testé ; fiches dédiées au scénario de démo (PMO-07 v3.2, procédure incidents v4.1/v3.8) vérifiées retrouvables sur les requêtes exactes du script |
-| Réponses sourcées | ✅ Démontrable | Citation document/version/date injectée dans le prompt LLM **et** filet de sécurité déterministe (footer de citation même sans LLM) ; détection de contradiction automatique entre versions d'un même document |
-| Génération de livrables métier | ✅ Démontrable | **`src/assistant_actions/deliverable_generator.py` + `deliverable_templates.py` ajoutés le 11/07** : 2 gabarits (fiche de cadrage, registre de risques) remplis à partir de connaissances sourcées, toujours soumis au workflow de validation humaine (chantier 6) |
-| Refus d'accès selon les habilitations | ✅ Implémenté | Pipeline Zero Trust complet (PDP/PEP) **+ filtrage par domaine de connaissance selon le rôle métier** (11/07), refus tracés dans l'audit |
-| Journalisation | ✅ Implémenté | Consultations et refus de connaissances désormais tracés dans `audit_trail.jsonl` (`consult_knowledge` ALLOW/DENY_PERMISSION) |
-| Validation humaine | ✅ Démontrable | **File d'approbation persistante ajoutée le 11/07** (`src/security/human_validation.py`) : actions sensibles (ex. `GENERATE_DELIVERABLE`) mises en attente (REVIEW) avec `approval_id`, approuvables/rejetables, tracées dans l'audit |
-| Traitement local ou environnement cloisonné | ✅ Implémenté | Anti-SSRF, allowlist réseau, registre RGPD Art. 30 100% local |
-| Tableau de bord sécurité | ✅ Implémenté | Score de conformité ISO 27001/RGPD/OWASP calculé en direct |
-| Gestion des versions documentaires | ✅ Démontrable | Fiches PROC-INC v4.1 (actuelle) / v3.8 (obsolète, encore référencée) avec métadonnées version/date/propriétaire/statut, contradiction détectée automatiquement |
-
-**Chantiers 1-8 : tous terminés le 11/07/2026** (session en boucle autonome `/loop`). Reste uniquement :
-
-9. Écran de démo « 5 zones » (profil, question, réponse, sources, statut sécurité) assemblant les données déjà produites par le backend (auth, refus d'accès, dashboard sécurité). *~3-5 j., non prioritaire, à faire si le temps le permet avant le 01/10.*
-
-**Tests ajoutés le 11/07/2026** : `tests/security_tests/test_cpl_role_access.py`, `test_cpl_client_isolation.py`, `test_human_validation.py` + `tests/b10_tests/` (nouveau, `test_deliverable_templates.py`, `test_deliverable_generator.py`) — 49 tests, intégrés au runner global (`python tests/run_all_tests.py`, groupe `b10`) et à `dashboard/dashboard_tests/dashboard_tests.json`. Isolation des fichiers d'audit/validation vis-à-vis des tests corrigée (`tests/conftest.py`) — 1344 tests passent, aucune pollution des fichiers de production.
-
 **Fichiers à traiter :**
 
 | Fichier | Statut | Action |
@@ -309,7 +277,7 @@
 | Codés (à tester) | 2 |
 | Partiels | 1 |
 | Structurels | 2 |
-| Manquants | 0 |
+| Manquants | 2 |
 
 **Fichiers à traiter :**
 
@@ -360,7 +328,7 @@
 | Codés (à tester) | 76 |
 | Partiels | 44 |
 | Structurels | 32 |
-| Manquants | 0 |
+| Manquants | 1 |
 
 **Fichiers à traiter :**
 
@@ -435,7 +403,7 @@
 | Codés (à tester) | 5 |
 | Partiels | 5 |
 | Structurels | 13 |
-| Manquants | 2 |
+| Manquants | 3 |
 
 **Fichiers à traiter :**
 
@@ -452,21 +420,37 @@
 | `tools/apply_headers.py` | 🟦 Codé — à tester | Tester |
 | `tools/dashboard_tools/dashboard_data/update_dashboard_data.py` | 🟦 Codé — à tester | Tester |
 
-### 🟢 B21 — ALFRED Web Platform `99.5%`
+### 🟡 B21 — ALFRED Web Platform `78.8%`
 
 | KPI | Valeur |
 |-----|--------|
-| Validés | 76 |
+| Validés | 63 |
 | Testés | 2 |
 | Codés (à tester) | 1 |
 | Partiels | 0 |
-| Structurels | 3 |
-| Manquants | 0 |
+| Structurels | 0 |
+| Manquants | 82 |
 
 **Fichiers à traiter :**
 
 | Fichier | Statut | Action |
 |---------|--------|--------|
+| `ALFRED_WEB/auth/__init__.py` | ❌ A créer | Créer |
+| `ALFRED_WEB/auth/routes.py` | ❌ A créer | Créer |
+| `ALFRED_WEB/models/__init__.py` | ❌ A créer | Créer |
+| `ALFRED_WEB/models/base.py` | ❌ A créer | Créer |
+| `ALFRED_WEB/models/user.py` | ❌ A créer | Créer |
+| `ALFRED_WEB/data/postgres.py` | ❌ A créer | Créer |
+| `ALFRED_WEB/data/preferences_repository.py` | ❌ A créer | Créer |
+| `ALFRED_WEB/data/conversations_repository.py` | ❌ A créer | Créer |
+| `ALFRED_WEB/conversations/__init__.py` | ❌ A créer | Créer |
+| `ALFRED_WEB/conversations/routes.py` | ❌ A créer | Créer |
+| `ALFRED_WEB/migrations/env.py` | ❌ A créer | Créer |
+| `ALFRED_WEB/scripts/init_mongo_preferences_index.py` | ❌ A créer | Créer |
+| `ALFRED_WEB/scripts/init_mongo_conversations_index.py` | ❌ A créer | Créer |
+| `ALFRED_WEB/tests/test_auth.py` | ❌ A créer | Créer |
+| `ALFRED_WEB/tests/test_preferences.py` | ❌ A créer | Créer |
+| `ALFRED_WEB/tests/test_conversations.py` | ❌ A créer | Créer |
 | `ALFRED_WEB/scripts/i18n_cadrage.py` | 🟦 Codé — à tester | Tester |
 
 ### 🟢 B22 — Accessibility & Cognitive Assistance `90.5%`
@@ -479,6 +463,28 @@
 | Partiels | 0 |
 | Structurels | 5 |
 | Manquants | 0 |
+
+### 🟢 B23 — Gouvernance & pilotage du projet `89.2%`
+
+| KPI | Valeur |
+|-----|--------|
+| Validés | 8 |
+| Testés | 1 |
+| Codés (à tester) | 3 |
+| Partiels | 1 |
+| Structurels | 0 |
+| Manquants | 0 |
+
+> Validé le 12/07/2026 — distinct du Bloc 11.05 (gouvernance data) et du Bloc 20 (gouvernance cybersécurité) : pilotage du projet ALFRED lui-même.
+
+**Fichiers à traiter :**
+
+| Fichier | Statut | Action |
+|---------|--------|--------|
+| `tools/dashboard_tools/dashboard_data/dashboard_data_server.bat` | 🟡 Partiel | Compléter |
+| `tools/dashboard_tools/dashboard_data/update_dashboard_data.py` | 🟦 Codé — à tester | Tester |
+| `ROADMAP.md` | 🟦 Codé — à tester | Tester |
+| `BACKLOG.md` | 🟦 Codé — à tester | Tester |
 
 ### ✅ B29 — Démonstrateur Big Data Hadoop `100.0%`
 
@@ -493,7 +499,7 @@
 
 > PoC ciblé (pas une infra de production) — regard critique assumé sur le surdimensionnement à l'échelle actuelle d'ALFRED, cf. docs/hadoop_poc_bilan.md.
 
-## 🟦 Sprint — Fichiers codés à tester (86)
+## 🟦 Sprint — Fichiers codés à tester (89)
 
 Ces fichiers sont implémentés mais n'ont pas encore de tests.
 
@@ -589,28 +595,7 @@ Ces fichiers sont implémentés mais n'ont pas encore de tests.
 - `tools/dashboard_tools/dashboard_data/update_dashboard_data.py`
 **B21**
 - `ALFRED_WEB/scripts/i18n_cadrage.py`
-
-## 2026-07-11
-
-### Changements (dernières 24h)
-
-**Commits (4)**
-- `52f00ce` feat(knowledges) — LOT4+LOT5 : 91 nouvelles fiches de connaissances métier (compliance, governance, regulation, risk_management, quality_management, information_security, data_management, enterprise_architecture, gouvernance CPL/product_platform, agile, management, organisation, etc.) ; total connaissances porté à 667. `knowledges/knowledge_registry.json`, `manifest.json`, `taxonomy.json` mis à jour en conséquence.
-- `c27bc61` docs(gouvernance) — 4 politiques formelles ajoutées/mises à jour (`politique_gestion_donnees.md`, `politique_gouvernance.md`) + correction de référence AI Act (Art.52 → Art.50) dans `cadre_reglementaire_CPL.md` et les docs SMSI.
-- `a2b9d51` feat(conformite) — intégration de l'AIPD T001 aux dashboards conformité et gouvernance, nouveaux rapports d'audit générés.
-- `013491b` docs(rgpd) — rédaction de l'AIPD T001 (comptes/préférences/conversations/Hadoop).
-
-**Changements non commités (24 modifiés, 26 nouveaux fichiers)**
-- Travaux en cours sur la spec ALFRED CPL : `docs/roadmap/ALFRED_CPL_SPEC.md`, `ALFRED_CPL_ARTICLE_POSITIONNEMENT.md`, `docs/alfred_cpl_fonctions_et_demo.docx`, `demo/ALFRED_CPL_DEMO_SCENARIO.md`.
-- Nouveau module sécurité : `src/security/cpl_role_access.py`, `src/security/human_validation.py` (validation à 2 vérificateurs humains), `config/security/cpl_business_roles.json`.
-- 15 nouvelles fiches connaissances additionnelles (agile_produit, amélioration continue, gestion_projet, gouvernance_si, management, organisation, sécurité IA).
-- Dashboards (conformité, gouvernance, risque, vulnérabilités) régénérés avec nouveaux rapports datés du jour.
-- Fichiers runtime modifiés (mémoire/bien-être, sortie audio Piper) — état d'exécution normal, pas d'action requise.
-
-### TODO / FIXME / XXX détectés
-- Aucun nouveau marqueur TODO/FIXME/XXX détecté dans les commits ou les changements non commités des dernières 24h.
-
-### Points ouverts
-- Volume important de changements non commités (91 fiches + modules sécurité CPL) : à committer pour sécuriser le travail.
-- Cohérence à vérifier entre `knowledges/knowledge_registry.json` (667 connaissances) et la synchronisation côté ALFRED_WEB (`static/dashboard/knowledge_dashboard_data.json`, déjà mis à jour côté WEB le même jour).
-- Suivi du point mémoire [[project_dashboard_conformite_phantom_proofs]] : `dashboard_conformite` régénéré aujourd'hui, à vérifier si les ~12 chemins de preuve fantômes sont désormais résolus.
+**B23**
+- `BACKLOG.md`
+- `ROADMAP.md`
+- `tools/dashboard_tools/dashboard_data/update_dashboard_data.py`
