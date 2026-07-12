@@ -4,10 +4,16 @@ FILE     : tools/daily_update.py
 ROLE     : Orchestrateur de la mise à jour quotidienne ALFRED.
            1. Régénère dashboard_gouvernance_data.json
            2. Régénère knowledge_dashboard_data.json
-           3. Lance sync_dashboards.py (copie JSON -> ALFRED_WEB + git push)
+           3. Régénère dashboard_quality_data.json (INTERNE — jamais synchronisé vers le web)
+           4. Lance sync_dashboards.py (copie JSON -> ALFRED_WEB + git push)
 USAGE    : python tools/daily_update.py
 SCHEDULE : Planificateur Windows — tâche ALFRED_DailyUpdate — tous les jours à 07h00
            (identique à daily_update.bat)
+
+⚠️ dashboard_quality_data est un dashboard PRIVÉ : sa régénération reste avant
+   l'étape de sync et son JSON n'apparaît jamais dans SRC_* de sync_dashboards.py.
+   Ne jamais l'y ajouter sans décision explicite de publication (voir
+   dashboard/dashboard_quality_data/dashboard_quality_data_manifest.json).
 """
 
 from __future__ import annotations
@@ -39,6 +45,10 @@ STEPS = [
     {
         "label": "Knowledge dashboard",
         "script": ALFRED_PC / "dashboard/dashboard_knowledges_tool/generate_knowledge_dashboard.py",
+    },
+    {
+        "label": "Qualité data [INTERNE — non synchronisé vers le web]",
+        "script": ALFRED_PC / "tools/dashboard_tools/dashboard_quality_data/update_quality_data_dashboard.py",
     },
     {
         "label": "Sync dashboards → ALFRED_WEB",
