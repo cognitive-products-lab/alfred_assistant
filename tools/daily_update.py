@@ -1,5 +1,7 @@
 """
 PROJECT  : ALFRED
+BLOCK    : B23
+FUNCTION : 23.02 — Orchestration & planification quotidienne
 FILE     : tools/daily_update.py
 ROLE     : Orchestrateur de la mise à jour quotidienne ALFRED.
            1. Régénère dashboard_gouvernance_data.json
