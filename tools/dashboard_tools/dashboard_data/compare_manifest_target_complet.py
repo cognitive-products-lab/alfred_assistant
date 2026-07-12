@@ -1,14 +1,14 @@
 """
 PROJECT      : ALFRED
-BLOCK        : DASHBOARD
-FUNCTION     : XX.XX
+BLOCK        : B23
+FUNCTION     : 23.01 — Suivi d'avancement & KPI globaux
 FILE         : tools/dashboard_tools/dashboard_data/compare_manifest_target_complet.py
 ROLE         : Comparaison complete du manifest courant contre les cibles V1 et complete
 
 AUTHOR       : Cognitive Products Lab
 CREATED      : 2026-05-10
-UPDATED      : 2026-05-23
-VERSION      : V1.1
+UPDATED      : 2026-07-12
+VERSION      : V1.2
 STATUS       : STABLE
 
 DESCRIPTION :
