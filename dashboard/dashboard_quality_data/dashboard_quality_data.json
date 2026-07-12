@@ -1,0 +1,784 @@
+{
+  "_alfred_header": {
+    "file": "dashboard/dashboard_quality_data/dashboard_quality_data.json",
+    "bloc": "Bloc 11.05 — Gouvernance data",
+    "notion_exam": "D11-5 — Capsule Gouvernance de la donnée",
+    "utilite_alfred": "Dashboard interne de gouvernance/qualité des données ALFRED (documentation, définition, statut, sensibilité, sécurité, accès, cycle de vie).",
+    "domaine": "Gouvernance de la donnée — qualité, cycle de vie, sécurité"
+  },
+  "_meta": {
+    "project": "ALFRED",
+    "file": "dashboard_quality_data.json",
+    "generated_at": "2026-07-12T06:47:55.619103+00:00",
+    "generated_by": "update_quality_data_dashboard.py",
+    "version": "V1.0",
+    "visibility": "PRIVE",
+    "visibility_note": "Dashboard interne — jamais publié sur ALFRED_WEB. Les statistiques publiables seront sélectionnées manuellement au cas par cas.",
+    "source_registry": "dashboard/dashboard_quality_data/data_quality_registry.json",
+    "stale_unused_threshold_days": 90
+  },
+  "global": {
+    "total_entries": 20,
+    "by_status": {
+      "utilisee": 14,
+      "utilisable": 2,
+      "a_connecter": 2,
+      "a_creer": 1,
+      "obsolete": 1
+    },
+    "by_data_type": {
+      "privee": 14,
+      "publique": 6
+    },
+    "by_sensitivity_classification": {
+      "C3_CONFIDENTIEL": 8,
+      "C4_SECRET": 2,
+      "C1_PUBLIC": 4,
+      "C2_INTERNE": 6
+    },
+    "by_security_level_planned": {
+      "4": 4,
+      "3": 4,
+      "5": 3,
+      "1": 4,
+      "2": 5
+    },
+    "by_intended_use": {
+      "technique": 14,
+      "metier": 9
+    },
+    "documented_count": 18,
+    "defined_count": 16,
+    "undocumented_count": 2,
+    "undefined_count": 4
+  },
+  "alerts": {
+    "total": 8,
+    "by_severity": {
+      "critical": 1,
+      "warning": 7
+    },
+    "items": [
+      {
+        "entry_id": "DQ-003",
+        "entry_name": "Logs de sécurité / audit trail",
+        "type": "acces_non_autorise",
+        "severity": "critical",
+        "message": "Rôle 'AI_MODULE' (habilitation MEDIUM) a accès à 'Logs de sécurité / audit trail' qui exige au moins CRITICAL (niveau de sécurité prévu 4/5)"
+      },
+      {
+        "entry_id": "DQ-013",
+        "entry_name": "État émotionnel / relationnel (V3)",
+        "type": "donnee_non_definie",
+        "severity": "warning",
+        "message": "Donnée non définie (schéma/périmètre à préciser) : État émotionnel / relationnel (V3)"
+      },
+      {
+        "entry_id": "DQ-014",
+        "entry_name": "Mémoire long terme — patterns (V3)",
+        "type": "donnee_non_documentee",
+        "severity": "warning",
+        "message": "Donnée non documentée : Mémoire long terme — patterns (V3)"
+      },
+      {
+        "entry_id": "DQ-014",
+        "entry_name": "Mémoire long terme — patterns (V3)",
+        "type": "donnee_non_definie",
+        "severity": "warning",
+        "message": "Donnée non définie (schéma/périmètre à préciser) : Mémoire long terme — patterns (V3)"
+      },
+      {
+        "entry_id": "DQ-018",
+        "entry_name": "Données santé pédiatriques ARTHUR (Art. 8/9)",
+        "type": "donnee_non_definie",
+        "severity": "warning",
+        "message": "Donnée non définie (schéma/périmètre à préciser) : Données santé pédiatriques ARTHUR (Art. 8/9)"
+      },
+      {
+        "entry_id": "DQ-019",
+        "entry_name": "Cache temporaire pipeline V1 (obsolète)",
+        "type": "donnee_non_documentee",
+        "severity": "warning",
+        "message": "Donnée non documentée : Cache temporaire pipeline V1 (obsolète)"
+      },
+      {
+        "entry_id": "DQ-019",
+        "entry_name": "Cache temporaire pipeline V1 (obsolète)",
+        "type": "donnee_non_definie",
+        "severity": "warning",
+        "message": "Donnée non définie (schéma/périmètre à préciser) : Cache temporaire pipeline V1 (obsolète)"
+      },
+      {
+        "entry_id": "DQ-019",
+        "entry_name": "Cache temporaire pipeline V1 (obsolète)",
+        "type": "statut_obsolete",
+        "severity": "warning",
+        "message": "Statut obsolète — à archiver ou supprimer : Cache temporaire pipeline V1 (obsolète)"
+      }
+    ]
+  },
+  "entries": [
+    {
+      "id": "DQ-001",
+      "name": "Profil utilisateur (personnalité, préférences, bien-être)",
+      "domain_bloc": "Bloc 05.01 — Profils utilisateurs",
+      "source_path": "data/profile/user_profile.json",
+      "description": "Traits de personnalité HEXACO, préférences, indicateurs de bien-être/santé déclarés par l'utilisateur.",
+      "documented": true,
+      "defined": true,
+      "status": "utilisee",
+      "data_type": "privee",
+      "sensitivity_classification": "C3_CONFIDENTIEL",
+      "security_level_planned": 4,
+      "intended_use": [
+        "technique",
+        "metier"
+      ],
+      "retention_period": "10 ans (base légale : consentement — cf. RGPD register T01)",
+      "update_frequency": "temps réel, à la demande de l'utilisateur",
+      "authorized_roles": {
+        "read": [
+          "OWNER",
+          "ADMIN"
+        ],
+        "write": [
+          "OWNER"
+        ]
+      },
+      "created_at": "2026-04-12",
+      "last_modified_at": "2026-07-10",
+      "planned_deletion_at": null,
+      "notes": "2 champs chiffrés (preferred_name, health_keywords) — cf. dashboard_gouvernance.profile_governance."
+    },
+    {
+      "id": "DQ-002",
+      "name": "Historique de dialogue (mémoire épisodique)",
+      "domain_bloc": "Bloc 02.01 — Mémoire courte",
+      "source_path": "data/memory/episodic/dialogue_history.json",
+      "description": "Journal des échanges conversationnels utilisés pour la mémoire courte/épisodique.",
+      "documented": true,
+      "defined": true,
+      "status": "utilisee",
+      "data_type": "privee",
+      "sensitivity_classification": "C3_CONFIDENTIEL",
+      "security_level_planned": 3,
+      "intended_use": [
+        "technique"
+      ],
+      "retention_period": "5 ans (RGPD register T02)",
+      "update_frequency": "temps réel",
+      "authorized_roles": {
+        "read": [
+          "OWNER",
+          "ADMIN",
+          "AI_MODULE"
+        ],
+        "write": [
+          "AI_MODULE",
+          "OWNER"
+        ]
+      },
+      "created_at": "2026-03-01",
+      "last_modified_at": "2026-07-11",
+      "planned_deletion_at": null,
+      "notes": ""
+    },
+    {
+      "id": "DQ-003",
+      "name": "Logs de sécurité / audit trail",
+      "domain_bloc": "Bloc 20.09 — Journalisation & audit",
+      "source_path": "data/security/ (logs/security/, audit_trail)",
+      "description": "Journalisation des événements de sécurité et piste d'audit Zero Trust.",
+      "documented": true,
+      "defined": true,
+      "status": "utilisee",
+      "data_type": "privee",
+      "sensitivity_classification": "C3_CONFIDENTIEL",
+      "security_level_planned": 4,
+      "intended_use": [
+        "technique"
+      ],
+      "retention_period": "90 jours (RGPD register T03)",
+      "update_frequency": "temps réel",
+      "authorized_roles": {
+        "read": [
+          "OWNER",
+          "ADMIN"
+        ],
+        "write": [
+          "AI_MODULE",
+          "OWNER",
+          "ADMIN"
+        ]
+      },
+      "created_at": "2026-02-10",
+      "last_modified_at": "2026-07-11",
+      "planned_deletion_at": null,
+      "notes": "Purge automatique à 90 jours à vérifier dans backup_security.py."
+    },
+    {
+      "id": "DQ-004",
+      "name": "Données de santé (Art. 9 RGPD)",
+      "domain_bloc": "Bloc 13.01 — Suivi bien-être",
+      "source_path": "data/profile/ (health_profile, wellbeing)",
+      "description": "Indicateurs de santé/fatigue déclarés — catégorie de données sensibles Art. 9.",
+      "documented": true,
+      "defined": true,
+      "status": "utilisee",
+      "data_type": "privee",
+      "sensitivity_classification": "C3_CONFIDENTIEL",
+      "security_level_planned": 5,
+      "intended_use": [
+        "metier"
+      ],
+      "retention_period": "2 ans (RGPD register T04)",
+      "update_frequency": "à la demande de l'utilisateur",
+      "authorized_roles": {
+        "read": [
+          "OWNER"
+        ],
+        "write": [
+          "OWNER"
+        ]
+      },
+      "created_at": "2026-04-12",
+      "last_modified_at": "2026-06-30",
+      "planned_deletion_at": null,
+      "notes": "Consentement renforcé requis — cf. docs/gouvernance/consentement_art9.md."
+    },
+    {
+      "id": "DQ-005",
+      "name": "Registre des incidents de sécurité",
+      "domain_bloc": "Bloc 20.11 — Réponse à incident",
+      "source_path": "data/security/incident_register",
+      "description": "Historique des incidents détectés/traités par incident_manager.py.",
+      "documented": true,
+      "defined": true,
+      "status": "utilisee",
+      "data_type": "privee",
+      "sensitivity_classification": "C3_CONFIDENTIEL",
+      "security_level_planned": 4,
+      "intended_use": [
+        "technique"
+      ],
+      "retention_period": "1 an (RGPD register T05 — obligation légale)",
+      "update_frequency": "temps réel (à l'incident)",
+      "authorized_roles": {
+        "read": [
+          "OWNER",
+          "ADMIN"
+        ],
+        "write": [
+          "OWNER",
+          "ADMIN"
+        ]
+      },
+      "created_at": "2026-05-02",
+      "last_modified_at": "2026-07-09",
+      "planned_deletion_at": null,
+      "notes": ""
+    },
+    {
+      "id": "DQ-006",
+      "name": "Sessions / authentification",
+      "domain_bloc": "Bloc 20.03 — Authentification & MFA",
+      "source_path": "data/security/session_manager",
+      "description": "Sessions actives, jetons, état MFA.",
+      "documented": true,
+      "defined": true,
+      "status": "utilisee",
+      "data_type": "privee",
+      "sensitivity_classification": "C3_CONFIDENTIEL",
+      "security_level_planned": 3,
+      "intended_use": [
+        "technique"
+      ],
+      "retention_period": "30 jours (RGPD register T06)",
+      "update_frequency": "temps réel",
+      "authorized_roles": {
+        "read": [
+          "OWNER",
+          "ADMIN",
+          "SERVICE"
+        ],
+        "write": [
+          "SERVICE"
+        ]
+      },
+      "created_at": "2026-02-15",
+      "last_modified_at": "2026-07-11",
+      "planned_deletion_at": null,
+      "notes": ""
+    },
+    {
+      "id": "DQ-007",
+      "name": "Clé de chiffrement Fernet + secrets MFA",
+      "domain_bloc": "Bloc 20.05 — Chiffrement & protection données",
+      "source_path": "data/security/fernet.key, mfa_secrets.json, pin_hash.json",
+      "description": "Secrets cryptographiques racine (chiffrement au repos, TOTP MFA, hash PIN).",
+      "documented": true,
+      "defined": true,
+      "status": "utilisee",
+      "data_type": "privee",
+      "sensitivity_classification": "C4_SECRET",
+      "security_level_planned": 5,
+      "intended_use": [
+        "technique"
+      ],
+      "retention_period": "durée de vie de la clé — rotation planifiée (key_rotation_scheduler.py)",
+      "update_frequency": "rotation périodique planifiée",
+      "authorized_roles": {
+        "read": [
+          "OWNER"
+        ],
+        "write": [
+          "OWNER"
+        ]
+      },
+      "created_at": "2026-01-20",
+      "last_modified_at": "2026-06-15",
+      "planned_deletion_at": null,
+      "notes": "Préférer FERNET_KEY en variable d'environnement plutôt que fichier sur disque."
+    },
+    {
+      "id": "DQ-008",
+      "name": "Manifest de progression des blocs (dashboard_data.json)",
+      "domain_bloc": "Bloc 11.03 — KPI & dashboards",
+      "source_path": "dashboard/dashboard_data/dashboard_data.json",
+      "description": "Suivi de la complétude des blocs B01→B29 (validés/testés/codés/manquants).",
+      "documented": true,
+      "defined": true,
+      "status": "utilisee",
+      "data_type": "publique",
+      "sensitivity_classification": "C1_PUBLIC",
+      "security_level_planned": 1,
+      "intended_use": [
+        "technique",
+        "metier"
+      ],
+      "retention_period": "illimitée — régénéré quotidiennement (pas d'historique conservé)",
+      "update_frequency": "quotidienne (tools/daily_update.py, 07h00)",
+      "authorized_roles": {
+        "read": [
+          "OWNER",
+          "ADMIN",
+          "USER",
+          "GUEST"
+        ],
+        "write": [
+          "AI_MODULE",
+          "OWNER"
+        ]
+      },
+      "created_at": "2026-05-02",
+      "last_modified_at": "2026-07-12",
+      "planned_deletion_at": null,
+      "notes": "Déjà publié sur ALFRED_WEB via tools/sync_dashboards.py — niveau 1 par construction."
+    },
+    {
+      "id": "DQ-009",
+      "name": "Dashboard gouvernance 360° (données publiées)",
+      "domain_bloc": "Bloc 11.05 — Gouvernance data",
+      "source_path": "dashboard/dashboard_gouvernance/dashboard_gouvernance_data.json",
+      "description": "Scores de conformité RGPD/ISO27001/Zero Trust agrégés, publiés sur le site.",
+      "documented": true,
+      "defined": true,
+      "status": "utilisee",
+      "data_type": "publique",
+      "sensitivity_classification": "C1_PUBLIC",
+      "security_level_planned": 1,
+      "intended_use": [
+        "metier"
+      ],
+      "retention_period": "illimitée — régénéré quotidiennement",
+      "update_frequency": "quotidienne (tools/daily_update.py, 07h00)",
+      "authorized_roles": {
+        "read": [
+          "OWNER",
+          "ADMIN",
+          "USER",
+          "GUEST"
+        ],
+        "write": [
+          "AI_MODULE",
+          "OWNER"
+        ]
+      },
+      "created_at": "2026-06-18",
+      "last_modified_at": "2026-07-11",
+      "planned_deletion_at": null,
+      "notes": "Uniquement des scores agrégés — jamais de détail nominatif."
+    },
+    {
+      "id": "DQ-010",
+      "name": "Registre RGPD Art. 30 (traitements)",
+      "domain_bloc": "Bloc 20.14 — Conformité & réglementation",
+      "source_path": "dashboard/dashboard_gouvernance/dashboard_gouvernance.json (rgpd_register)",
+      "description": "Registre des 6 traitements de données personnelles (bases légales, durées, statut).",
+      "documented": true,
+      "defined": true,
+      "status": "utilisee",
+      "data_type": "publique",
+      "sensitivity_classification": "C2_INTERNE",
+      "security_level_planned": 2,
+      "intended_use": [
+        "metier"
+      ],
+      "retention_period": "illimitée (registre vivant, mis à jour à chaque évolution)",
+      "update_frequency": "à chaque évolution de traitement",
+      "authorized_roles": {
+        "read": [
+          "OWNER",
+          "ADMIN",
+          "USER"
+        ],
+        "write": [
+          "OWNER"
+        ]
+      },
+      "created_at": "2026-06-18",
+      "last_modified_at": "2026-07-05",
+      "planned_deletion_at": null,
+      "notes": "Résumé publiable ; le détail des occurrences (T04 santé) reste interne."
+    },
+    {
+      "id": "DQ-011",
+      "name": "Registre de validation des blocs (validation_registry.json)",
+      "domain_bloc": "Bloc 11.05 — Gouvernance data",
+      "source_path": "dashboard/dashboard_data/validation_registry.json",
+      "description": "Registre des validations manuelles fusionnées au scan automatique de fichiers.",
+      "documented": true,
+      "defined": true,
+      "status": "utilisee",
+      "data_type": "privee",
+      "sensitivity_classification": "C2_INTERNE",
+      "security_level_planned": 2,
+      "intended_use": [
+        "technique"
+      ],
+      "retention_period": "illimitée (registre vivant)",
+      "update_frequency": "manuelle, au fil des validations",
+      "authorized_roles": {
+        "read": [
+          "OWNER",
+          "ADMIN"
+        ],
+        "write": [
+          "OWNER",
+          "ADMIN"
+        ]
+      },
+      "created_at": "2026-05-02",
+      "last_modified_at": "2026-07-08",
+      "planned_deletion_at": null,
+      "notes": ""
+    },
+    {
+      "id": "DQ-012",
+      "name": "Logs Hadoop anonymisés (PoC Big Data)",
+      "domain_bloc": "Bloc 29 — Démonstrateur Big Data Hadoop",
+      "source_path": "scripts/anonymize_logs_for_hadoop.py, hadoop_poc/",
+      "description": "Extraction anonymisée de logs pour le PoC MapReduce Hadoop.",
+      "documented": true,
+      "defined": true,
+      "status": "utilisable",
+      "data_type": "publique",
+      "sensitivity_classification": "C2_INTERNE",
+      "security_level_planned": 2,
+      "intended_use": [
+        "technique"
+      ],
+      "retention_period": "durée du PoC — non conservé en production",
+      "update_frequency": "ponctuelle (à la demande, non planifiée)",
+      "authorized_roles": {
+        "read": [
+          "OWNER",
+          "ADMIN"
+        ],
+        "write": [
+          "OWNER"
+        ]
+      },
+      "created_at": "2026-06-25",
+      "last_modified_at": "2026-06-28",
+      "planned_deletion_at": "2026-12-31",
+      "notes": "PoC assumé comme surdimensionné à l'échelle actuelle d'ALFRED (cf. docs/hadoop_poc_bilan.md) — pas intégré au pipeline principal. Bon candidat à réévaluer : garder, archiver ou supprimer."
+    },
+    {
+      "id": "DQ-013",
+      "name": "État émotionnel / relationnel (V3)",
+      "domain_bloc": "Bloc 03.04 — Personnalité dynamique",
+      "source_path": "data/v3/emotion_state.json, data/v3/relational_state.json",
+      "description": "État émotionnel courant et historique relationnel pour l'adaptation comportementale V3.",
+      "documented": true,
+      "defined": false,
+      "status": "a_connecter",
+      "data_type": "privee",
+      "sensitivity_classification": "C3_CONFIDENTIEL",
+      "security_level_planned": 3,
+      "intended_use": [
+        "technique"
+      ],
+      "retention_period": "à définir",
+      "update_frequency": "à définir",
+      "authorized_roles": {
+        "read": [
+          "OWNER",
+          "ADMIN",
+          "AI_MODULE"
+        ],
+        "write": [
+          "AI_MODULE"
+        ]
+      },
+      "created_at": "2026-05-20",
+      "last_modified_at": "2026-06-10",
+      "planned_deletion_at": null,
+      "notes": "Schéma de champs pas encore stabilisé — à définir avant bascule en 'utilisée'."
+    },
+    {
+      "id": "DQ-014",
+      "name": "Mémoire long terme — patterns (V3)",
+      "domain_bloc": "Bloc 02.02 — Mémoire longue",
+      "source_path": "data/v3/memory_patterns.json",
+      "description": "Motifs de mémoire long terme destinés à alimenter memory_engine.py.",
+      "documented": false,
+      "defined": false,
+      "status": "a_connecter",
+      "data_type": "privee",
+      "sensitivity_classification": "C2_INTERNE",
+      "security_level_planned": 3,
+      "intended_use": [
+        "technique"
+      ],
+      "retention_period": "à définir",
+      "update_frequency": "à définir",
+      "authorized_roles": {
+        "read": [],
+        "write": []
+      },
+      "created_at": "2026-05-25",
+      "last_modified_at": "2026-05-25",
+      "planned_deletion_at": null,
+      "notes": "Fichier présent sur disque mais jamais documenté ni relié à un contrôle d'accès — à trancher (compléter ou supprimer)."
+    },
+    {
+      "id": "DQ-015",
+      "name": "Roadmap produit / état produit (Bloc 11 CPL)",
+      "domain_bloc": "Bloc 11.04 — Reporting",
+      "source_path": "config/v2/product_roadmap.json, data/v2/product_state.json",
+      "description": "Indicateurs de pilotage produit et roadmap ALFRED CPL.",
+      "documented": true,
+      "defined": true,
+      "status": "utilisee",
+      "data_type": "privee",
+      "sensitivity_classification": "C2_INTERNE",
+      "security_level_planned": 2,
+      "intended_use": [
+        "metier"
+      ],
+      "retention_period": "illimitée (registre vivant)",
+      "update_frequency": "hebdomadaire",
+      "authorized_roles": {
+        "read": [
+          "OWNER",
+          "ADMIN",
+          "CHEF_DE_PROJET"
+        ],
+        "write": [
+          "OWNER",
+          "CHEF_DE_PROJET"
+        ]
+      },
+      "created_at": "2026-03-15",
+      "last_modified_at": "2026-07-01",
+      "planned_deletion_at": null,
+      "notes": ""
+    },
+    {
+      "id": "DQ-016",
+      "name": "Connaissances métier CPL (business_strategy)",
+      "domain_bloc": "Bloc 18.10 — Base métier & expertise",
+      "source_path": "knowledges/cpl/business_strategy/",
+      "description": "Corpus de connaissances stratégie business pour le copilote CPL.",
+      "documented": true,
+      "defined": true,
+      "status": "utilisable",
+      "data_type": "publique",
+      "sensitivity_classification": "C1_PUBLIC",
+      "security_level_planned": 1,
+      "intended_use": [
+        "metier"
+      ],
+      "retention_period": "illimitée",
+      "update_frequency": "ponctuelle, au fil des ajouts",
+      "authorized_roles": {
+        "read": [
+          "OWNER",
+          "ADMIN",
+          "USER",
+          "CHEF_DE_PROJET"
+        ],
+        "write": [
+          "OWNER",
+          "ADMIN"
+        ]
+      },
+      "created_at": "2026-05-10",
+      "last_modified_at": "2026-06-20",
+      "planned_deletion_at": null,
+      "notes": "Codé/rempli mais pas encore branché à un module CPL live en production (cf. BACKLOG.md — fichiers codés à tester B18)."
+    },
+    {
+      "id": "DQ-017",
+      "name": "Sauvegardes chiffrées (backup_security)",
+      "domain_bloc": "Bloc 20.12 — Sauvegarde & reprise",
+      "source_path": "backup/",
+      "description": "Sauvegardes périodiques chiffrées des données critiques.",
+      "documented": true,
+      "defined": true,
+      "status": "utilisee",
+      "data_type": "privee",
+      "sensitivity_classification": "C3_CONFIDENTIEL",
+      "security_level_planned": 4,
+      "intended_use": [
+        "technique"
+      ],
+      "retention_period": "30 jours glissants",
+      "update_frequency": "quotidienne",
+      "authorized_roles": {
+        "read": [
+          "OWNER",
+          "ADMIN"
+        ],
+        "write": [
+          "OWNER",
+          "ADMIN"
+        ]
+      },
+      "created_at": "2026-02-01",
+      "last_modified_at": "2026-07-12",
+      "planned_deletion_at": null,
+      "notes": ""
+    },
+    {
+      "id": "DQ-018",
+      "name": "Données santé pédiatriques ARTHUR (Art. 8/9)",
+      "domain_bloc": "Bloc 13.01 — Suivi bien-être (ARTHUR)",
+      "source_path": "non créé — module ARTHUR en conception (V3 2027)",
+      "description": "Futur suivi bien-être/santé de l'enfant, avec consentement parental et confidentialité vis-à-vis des parents.",
+      "documented": true,
+      "defined": false,
+      "status": "a_creer",
+      "data_type": "privee",
+      "sensitivity_classification": "C4_SECRET",
+      "security_level_planned": 5,
+      "intended_use": [
+        "metier"
+      ],
+      "retention_period": "à définir avant collecte",
+      "update_frequency": "à définir avant collecte",
+      "authorized_roles": {
+        "read": [],
+        "write": []
+      },
+      "created_at": null,
+      "last_modified_at": null,
+      "planned_deletion_at": null,
+      "notes": "cf. dashboard_gouvernance.arthur_governance — consentement parental Art.8 encore 'planned'. Ne rien collecter avant d'avoir défini rétention + contrôle d'accès."
+    },
+    {
+      "id": "DQ-019",
+      "name": "Cache temporaire pipeline V1 (obsolète)",
+      "domain_bloc": "Bloc 01 — Noyau conversationnel & orchestration (legacy V1)",
+      "source_path": "legacy — src/security.py (V1), remplacé par src/security/",
+      "description": "Ancien cache/état temporaire du pipeline V1, superseded par le pipeline V2/V3.",
+      "documented": false,
+      "defined": false,
+      "status": "obsolete",
+      "data_type": "privee",
+      "sensitivity_classification": "C2_INTERNE",
+      "security_level_planned": 2,
+      "intended_use": [
+        "technique"
+      ],
+      "retention_period": "aucune — à purger",
+      "update_frequency": "aucune (plus alimenté)",
+      "authorized_roles": {
+        "read": [],
+        "write": []
+      },
+      "created_at": "2025-11-01",
+      "last_modified_at": "2026-01-05",
+      "planned_deletion_at": "2026-08-01",
+      "notes": "cf. ALFRED_CONTEXT.md — 'src/security.py (V1) vs src/security/ (Bloc 20) → Bloc 20 gagne'. Jamais formellement documenté ni sous contrôle d'accès — à archiver puis supprimer."
+    },
+    {
+      "id": "DQ-020",
+      "name": "Connaissances domaine (knowledges/ — 250+ fichiers)",
+      "domain_bloc": "Bloc 18 — Base de connaissances & culture",
+      "source_path": "knowledges/",
+      "description": "Corpus de connaissances générales/professionnelles utilisé par le RAG.",
+      "documented": true,
+      "defined": true,
+      "status": "utilisee",
+      "data_type": "publique",
+      "sensitivity_classification": "C1_PUBLIC",
+      "security_level_planned": 1,
+      "intended_use": [
+        "technique",
+        "metier"
+      ],
+      "retention_period": "illimitée",
+      "update_frequency": "continue, au fil des ajouts",
+      "authorized_roles": {
+        "read": [
+          "OWNER",
+          "ADMIN",
+          "USER",
+          "GUEST",
+          "AI_MODULE"
+        ],
+        "write": [
+          "OWNER",
+          "ADMIN"
+        ]
+      },
+      "created_at": "2026-01-15",
+      "last_modified_at": "2026-07-11",
+      "planned_deletion_at": null,
+      "notes": "Gouverné par knowledges/governance_rules.json (Bloc 18)."
+    }
+  ],
+  "scales": {
+    "status": {
+      "a_creer": "À créer — la collecte/le champ n'existe pas encore",
+      "a_connecter": "Créé mais à connecter au système (pas encore branché dans le main)",
+      "utilisable": "Utilisable — disponible mais pas (ou plus) consommé en usage courant",
+      "utilisee": "Utilisée activement en production",
+      "obsolete": "Obsolète — à archiver ou supprimer"
+    },
+    "data_type": {
+      "publique": "Publique — peut être exposée telle quelle",
+      "privee": "Privée — usage interne uniquement"
+    },
+    "sensitivity_classification": {
+      "C1_PUBLIC": "C1 — Public (cf. src/security/asset_classifier.py)",
+      "C2_INTERNE": "C2 — Interne",
+      "C3_CONFIDENTIEL": "C3 — Confidentiel",
+      "C4_SECRET": "C4 — Secret"
+    },
+    "security_level_planned": {
+      "1": "Niveau 1 — Donnée système déjà publiée sur les dashboards en ligne du site (aucune restriction)",
+      "2": "Niveau 2 — Donnée statistique/agrégée, non nominative, usage interne",
+      "3": "Niveau 3 — Donnée sensible (personnelle ou technique interne), jamais publiable telle quelle",
+      "4": "Niveau 4 — Donnée très sensible (santé Art.9, comportementale fine, financière)",
+      "5": "Niveau 5 — Donnée ultra sensible / critique (secrets crypto, credentials, MFA, accès OWNER)"
+    },
+    "intended_use": {
+      "technique": "Usage technique (fonctionnement, debug, supervision système)",
+      "metier": "Usage métier (pilotage, reporting, décision)"
+    },
+    "authorized_roles_source": "config/security/roles_permissions.json — OWNER, ADMIN, USER, GUEST, SERVICE, AI_MODULE, EMERGENCY, CHEF_DE_PROJET, RH. (Le rôle MODERATOR n'existe pas encore — à créer dans roles_permissions.json quand une équipe de développement sera en place.)"
+  }
+}

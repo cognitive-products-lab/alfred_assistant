@@ -1,0 +1,44 @@
+{
+  "_alfred_header": {
+    "file": "dashboard/dashboard_quality_data/dashboard_quality_data_manifest.json",
+    "bloc": "Bloc 11.05 — Gouvernance data",
+    "notion_exam": "D11-5 — Capsule Gouvernance de la donnée",
+    "utilite_alfred": "Manifest du dashboard qualité data — liste les fichiers attendus et rappelle son statut PRIVÉ.",
+    "domaine": "Gouvernance de la donnée — qualité, cycle de vie, sécurité"
+  },
+  "_meta": {
+    "project": "ALFRED",
+    "file": "dashboard/dashboard_quality_data/dashboard_quality_data_manifest.json",
+    "role": "Manifest du dashboard qualité data",
+    "version": "V1.0",
+    "created": "2026-07-12",
+    "updated": "2026-07-12",
+    "status": "ACTIVE"
+  },
+  "dashboard": "dashboard_quality_data",
+  "visibility": "PRIVE — INTERNE UNIQUEMENT",
+  "visibility_rules": [
+    "Ne JAMAIS ajouter dashboard_quality_data.json (ni data_quality_registry.json) à tools/sync_dashboards.py.",
+    "Ne JAMAIS créer de template/route publique côté ALFRED_WEB pour ce dashboard.",
+    "Toute statistique destinée au site public doit être resélectionnée et recopiée manuellement, au cas par cas, dans un dashboard public existant (ex. dashboard_data, dashboard_gouvernance) — jamais par copie automatique de ce dashboard."
+  ],
+  "expected_files": [
+    "dashboard/dashboard_quality_data/data_quality_registry.json",
+    "dashboard/dashboard_quality_data/dashboard_quality_data.json",
+    "dashboard/dashboard_quality_data/dashboard_quality_data_dynamique.html",
+    "tools/dashboard_tools/dashboard_quality_data/__init__.py",
+    "tools/dashboard_tools/dashboard_quality_data/update_quality_data_dashboard.py",
+    "tools/dashboard_tools/dashboard_quality_data/dashboard_quality_data_server.bat"
+  ],
+  "update_frequency": "quotidienne — appelée depuis tools/daily_update.py (régénération locale uniquement, pas de sync web)",
+  "alert_types": [
+    "donnee_non_documentee",
+    "donnee_non_definie",
+    "statut_obsolete",
+    "donnee_creee_non_utilisee",
+    "controle_acces_absent",
+    "acces_non_autorise",
+    "acces_role_inconnu",
+    "purge_en_retard"
+  ]
+}
