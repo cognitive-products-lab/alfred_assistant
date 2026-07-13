@@ -36,39 +36,51 @@ contexte, la priorité et la marche à suivre que le dashboard seul ne donne pas
 
 ## Ordre d'exécution recommandé
 
-1. **C5 — A, B** (accès IA aux données sensibles) : à traiter en premier, risque actif.
-2. **C4 — C, D, E, F** : lacunes de fiabilité du pilotage + blocage PoC Android.
+1. ~~**C5 — A, B**~~ ✅ tranchés le 13/07/2026 (voir détail ci-dessous — A a généré un nouveau
+   point C4-P, mise en conformité technique réelle, à faire sur PC).
+2. **C4 — C, D, E, F, P** : lacunes de fiabilité du pilotage, blocage PoC Android, application
+   technique de la décision A.
 3. **C3 — G, H, I, J** : dette de gouvernance/documentation, pas urgent mais structurant.
 4. **En continu — K, M** : poursuite du registre qualité data (Claude peut continuer seul).
-5. **C2 — L** : merge des 2 PR une fois A/B/C au moins tranchés.
+5. **C2 — L** : merge des 2 PR une fois C/D/E/F/P au moins tranchés.
 6. **C1 — N, O** : déjà vérifié / étape future déjà annoncée.
 
 ---
 
 ## C5 — Critique
 
-### A. Référentiels santé (`config/health/`) lisibles par AI_MODULE sans habilitation suffisante
-- **Preuve** : `config/health/*.json` (jusqu'à 39 Ko — conditions chroniques, patterns cognitifs,
-  signaux de fragilité) porte un niveau de sécurité prévu 4/5 (exige habilitation CRITICAL),
-  mais le rôle `AI_MODULE` (habilitation MEDIUM, `config/security/roles_permissions.json`) y a
-  accès en lecture. Alerte `acces_non_autorise` sur DQ-027.
-- **Risque** : donnée de santé (catégorie Art. 9 RGPD) accessible à un rôle sous-habilité selon
-  la politique que le projet s'est lui-même fixée.
-- **Action** : soit restreindre l'accès (rôle dédié, ou passage par une couche
-  d'anonymisation/agrégation avant lecture par l'IA), soit — si l'accès est réellement
-  nécessaire au fonctionnement (adaptation comportementale temps réel) — relever
-  volontairement l'habilitation `AI_MODULE` dans `roles_permissions.json` **avec justification
-  écrite** (sinon l'alerte doit rester ouverte comme un risque assumé documenté).
-- **Qui agit** : 🤖 Claude peut préparer un correctif de config ; 👤 décision requise sur le
-  compromis fonctionnalité/sécurité — impact sur le pipeline d'adaptation santé qu'il faut
-  tester en conditions réelles.
+### A. ✅ TRANCHÉ le 13/07/2026 — Référentiels santé (`config/health/`) lisibles par AI_MODULE
+- **Décision** : mettre en conformité avec l'exigence (niveau de sécurité prévu 4/5 = CRITICAL).
+- **Fait** : `AI_MODULE` retiré de `authorized_roles.read` sur DQ-027 (`config/health/*.json`) —
+  ne reste que `OWNER` en lecture et en écriture. L'alerte `acces_non_autorise` a disparu du
+  dashboard (0 alerte critique restante sur ce point, vérifié par régénération +
+  `pytest tests/dashboard_tests/` → 84 passed).
+- **Vérification faite dans le code** : aucun point de contrôle RBAC (`require_access`/
+  `check_access`) ne gate aujourd'hui le chargement de `config/health/*.json` — ces fichiers
+  sont lus directement par `src/health/*.py`, `src/regulation/regulation_engine.py` et
+  `src/core/pipeline_bridge.py`, sans médiation RBAC. **Ce qui est fait** : la politique
+  déclarée (registre qualité data) est maintenant conforme. **Ce qui reste ouvert** :
+  aucune application technique réelle de cette restriction dans le pipeline — si l'on veut que
+  ce soit réellement bloqué (pas seulement documenté), il faut ajouter un contrôle d'accès
+  explicite dans ces 3 modules avant lecture. C'est un changement de comportement du pipeline
+  santé/adaptation → 🖥️ **à tester en conditions réelles sur le PC** avant de le coder/committer
+  (risque de casser l'adaptation comportementale temps réel si mal isolé). Nouveau point à
+  traiter, ajouté en C4 ci-dessous (C4-P).
 
-### B. Logs de sécurité / audit trail — écriture par AI_MODULE sans habilitation suffisante
-- **Preuve** : même mécanisme que A, sur DQ-003 (`data/security/` logs, niveau 4 requis,
-  `AI_MODULE` = MEDIUM).
-- **Action** : vérifier si c'est le processus applicatif (donc légitime, à documenter comme
-  exception justifiée) ou une vraie négligence de configuration des rôles.
-- **Qui agit** : 🤖 Claude peut documenter/proposer ; 👤 décision requise.
+### B. ✅ TRANCHÉ le 13/07/2026 — Logs de sécurité / audit trail, écriture par AI_MODULE
+- **Décision demandée** : vérifier la pertinence ; si pertinent, documenter ; sinon, adapter.
+- **Vérifié dans le code** : `AI_MODULE` n'a que l'écriture (append), jamais la lecture (déjà
+  restreinte à `OWNER`/`ADMIN`). `security_logger.log_event()`/`audit_trail.write_audit_event()`
+  sont appelés depuis 55 fichiers du pipeline, y compris les modules IA — retirer cet accès
+  casserait la journalisation des actions de l'IA elle-même, contraire au principe Zero Trust
+  "assume breach" (tout composant, y compris l'IA, doit logger ce qu'il fait).
+- **Conclusion : pertinent.** Documenté comme dérogation officielle plutôt que retiré — nouveau
+  champ `access_exceptions` ajouté au schéma du registre (rôle, scope read/write, justification,
+  qui a revu, quand). Le moteur d'alertes distingue maintenant une dérogation documentée
+  (nouveau type `acces_derogatoire_documente`, sévérité `info`) d'un vrai accès non autorisé
+  (`acces_non_autorise`, `critical`) — 2 tests ajoutés pour vérifier ce comportement (84 tests
+  au total, tous verts).
+- **Fait** : DQ-003 complétée avec la dérogation justifiée et revue par OWNER le 13/07/2026.
 
 ---
 
@@ -131,6 +143,18 @@ contexte, la priorité et la marche à suivre que le dashboard seul ne donne pas
   Claude peut rédiger un premier jet à distance à partir du contrat d'API déjà documenté côté
   client (`CompanionApiService.kt` : `GET /api/status`, `GET /api/notifications`, jeton
   `COMPANION_API_TOKEN`), mais 🖥️ le test réel (build + émulateur + connexion) nécessite le PC.
+
+### P. (nouveau, issu de A) Appliquer techniquement la restriction santé dans le pipeline
+- **Contexte** : suite à la décision A, `config/health/*.json` est maintenant restreint à
+  `OWNER` dans le registre de gouvernance, mais **rien ne l'empêche techniquement** — ces
+  fichiers sont lus directement par `src/health/*.py`, `src/regulation/regulation_engine.py`,
+  `src/core/pipeline_bridge.py` sans aucun point de contrôle RBAC.
+- **Action** : ajouter un contrôle d'accès explicite (`require_access`/`check_access`, ou
+  équivalent) avant le chargement de ces fichiers dans les 3 modules concernés.
+- **Qui agit** : 🖥️ **PC requis** — c'est un changement de comportement du pipeline
+  d'adaptation santé/comportementale, à tester en conditions réelles (le pipeline complet avec
+  modèles LLM locaux ne tourne pas dans cet environnement de préparation) avant de committer.
+  🤖 Claude peut préparer un premier jet de patch si utile comme base de travail.
 
 ---
 
@@ -222,12 +246,13 @@ contexte, la priorité et la marche à suivre que le dashboard seul ne donne pas
 
 | # | Sujet | Priorité | Qui agit |
 |---|-------|----------|----------|
-| A | Accès santé AI_MODULE sous-habilité | C5 | 👤 |
-| B | Accès logs sécurité AI_MODULE sous-habilité | C5 | 👤 |
+| A | Accès santé AI_MODULE sous-habilité | C5 | ✅ tranché (registre corrigé) |
+| B | Accès logs sécurité AI_MODULE sous-habilité | C5 | ✅ tranché (dérogation documentée) |
 | C | 3 fichiers sécurité runtime manquants | C4 | 🖥️🤖 |
 | D | 3 duplicatas obsolètes racine dashboard/ | C4 | 🤖 (attend feu vert) |
 | E | Casse `ALFRED_WEB/` — scan B21 à 0 % | C4 | 🖥️ puis 🤖 |
 | F | `companion_api.py` introuvable | C4 | 🖥️ puis 🤖 |
+| P | Appliquer techniquement la restriction santé (issu de A) | C4 | 🖥️ (pipeline à tester) |
 | G | Instance Céline non documentée | C3 | 🤖👤 |
 | H | Bloc 16 réservé vs contenu réel | C3 | 👤 |
 | I | `dialogue_history.json` orphelin | C3 | 🤖 (attend feu vert) |
