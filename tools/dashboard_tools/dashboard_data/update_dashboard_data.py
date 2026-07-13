@@ -1,14 +1,14 @@
 """
 PROJECT      : ALFRED
-BLOCK        : DASHBOARD
-FUNCTION     : XX.XX
+BLOCK        : B23
+FUNCTION     : 23.01 — Suivi d'avancement & KPI globaux
 FILE         : tools/dashboard_tools/dashboard_data/update_dashboard_data.py
 ROLE         : Genere dashboard_data.json depuis dashboard_data_manifest.json et validation_registry.json
 
 AUTHOR       : Cognitive Products Lab
 CREATED      : 2026-05-10
-UPDATED      : 2026-06-20
-VERSION      : V1.3
+UPDATED      : 2026-07-12
+VERSION      : V1.4
 STATUS       : STABLE
 
 DESCRIPTION :
@@ -50,6 +50,7 @@ MERGES_PATH = ROOT / "knowledges" / "knowledge_merges.json"
 # Clé = préfixe du chemin dans le manifest, Valeur = racine réelle sur le disque
 EXTERNAL_ROOTS: dict[str, Path] = {
     "ALFRED_WEB/": ALFRED_ROOT,
+    "ALFRED_ANDROID/": ALFRED_ROOT,
 }
 
 def load_json_safe(path):
@@ -380,14 +381,44 @@ def find_validation_marker(relative_path: str, file_text: str) -> bool:
     return any(marker in upper_text for marker in markers)
 
 
+def _resolve_case_insensitive(base: Path, relative: str) -> Path:
+    """Résout `base / relative` en tolérant une casse différente sur le disque.
+
+    Sur Windows (NTFS), la casse n'a jamais d'importance et ce correctif est un
+    no-op. Sur un filesystem sensible à la casse (Linux/Mac/CI), un dossier cloné
+    sous le nom exact du dépôt GitHub (ex: "alfred_web") ne correspondrait jamais
+    à un préfixe manifest en majuscules (ex: "ALFRED_WEB/") sans ce fallback —
+    cf. Bloc 21 qui détectait 0/82 fichiers avant ce correctif (point C4-E du
+    plan d'action du 13/07/2026).
+    """
+    current = base
+    for part in Path(relative).parts:
+        candidate = current / part
+        if candidate.exists():
+            current = candidate
+            continue
+        # Casse exacte absente : cherche une correspondance insensible à la casse
+        # parmi les entrées réelles du dossier courant.
+        match = None
+        if current.is_dir():
+            part_lower = part.lower()
+            for entry in current.iterdir():
+                if entry.name.lower() == part_lower:
+                    match = entry
+                    break
+        current = match if match is not None else candidate
+    return current
+
+
 def _resolve_path(relative_path: str) -> Path:
     """Résout un chemin manifest vers le Path absolu réel.
     Les chemins commençant par un préfixe EXTERNAL_ROOTS sont résolus
-    depuis la racine externe correspondante (ex: ALFRED_WEB/ → ALFRED_ROOT).
+    depuis la racine externe correspondante (ex: ALFRED_WEB/ → ALFRED_ROOT),
+    avec tolérance à la casse (cf. _resolve_case_insensitive).
     """
     for prefix, ext_root in EXTERNAL_ROOTS.items():
         if relative_path.startswith(prefix):
-            return ext_root / relative_path
+            return _resolve_case_insensitive(ext_root, relative_path)
     return ROOT / relative_path
 
 

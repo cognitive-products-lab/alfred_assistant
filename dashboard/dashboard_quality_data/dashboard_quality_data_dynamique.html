@@ -1,0 +1,329 @@
+<!--
+PROJECT  : ALFRED
+BLOCK    : Bloc 11.05 — Gouvernance data
+FILE     : dashboard/dashboard_quality_data/dashboard_quality_data_dynamique.html
+ROLE     : Dashboard Qualité Data — lit dashboard_quality_data.json, auto-refresh 30s
+           Standalone local — servir via python -m http.server depuis ALFRED_PC root
+
+⚠️ DASHBOARD INTERNE — NE JAMAIS déployer/copier ce fichier vers ALFRED_WEB.
+   Ne pas exposer publiquement. Voir dashboard_quality_data_manifest.json.
+
+AUTHOR   : Cognitive Products Lab
+CREATED  : 2026-07-12
+VERSION  : V1.0
+STATUS   : ACTIVE
+-->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>ALFRED — Dashboard Qualité Data [INTERNE]</title>
+<style>
+  :root {
+    --bg:#0d1117; --bg2:#161b22; --bg3:#1c2128;
+    --border:#30363d; --text:#e6edf3; --text2:#8b949e;
+    --blue:#388bfd; --green:#3fb950; --yellow:#d29922;
+    --red:#f85149; --purple:#8957e5; --teal:#00a6a6; --pink:#ec4899; --orange:#f0883e;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",monospace;font-size:14px;min-height:100vh;}
+
+  .private-banner{background:repeating-linear-gradient(45deg,#5c1a1a,#5c1a1a 10px,#3d1111 10px,#3d1111 20px);color:#fff;text-align:center;font-size:12px;font-weight:800;letter-spacing:.08em;padding:8px;text-transform:uppercase;border-bottom:2px solid var(--red);}
+
+  header{background:var(--bg2);border-bottom:1px solid var(--border);padding:16px 24px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
+  .logo{font-size:20px;font-weight:700;color:var(--orange);letter-spacing:2px;}
+  .subtitle{color:var(--text2);font-size:12px;}
+  .meta{margin-left:auto;display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+  .generated{color:var(--text2);font-size:11px;}
+  .refresh-btn{background:var(--bg3);border:1px solid var(--border);border-radius:6px;color:var(--text2);font-size:11px;padding:5px 12px;cursor:pointer;transition:all .15s;}
+  .refresh-btn:hover{border-color:var(--orange);color:var(--orange);}
+  .pulse{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--orange);margin-right:6px;animation:pulse 2s infinite;}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+
+  .main{padding:24px;max-width:1400px;margin:0 auto;}
+
+  .error-banner{background:rgba(248,81,73,.08);border:1px solid var(--red);border-radius:8px;padding:14px;color:var(--red);margin-bottom:16px;font-size:12px;}
+
+  .kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:22px;}
+  .kpi{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:14px;text-align:center;}
+  .kpi .val{font-size:24px;font-weight:800;}
+  .kpi .lbl{font-size:10px;color:var(--text2);margin-top:3px;text-transform:uppercase;letter-spacing:.05em;}
+
+  .section-title{font-size:15px;font-weight:700;color:var(--text);margin:24px 0 14px;border-left:3px solid var(--orange);padding-left:12px;}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px;margin-bottom:20px;}
+  .card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:18px;}
+  .card h3{font-size:12px;color:var(--text2);text-transform:uppercase;letter-spacing:1px;margin-bottom:14px;}
+
+  .stat-row{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid var(--border);font-size:12px;}
+  .stat-row:last-child{border-bottom:none;}
+  .stat-row .label{color:var(--text2);}
+
+  .badge{display:inline-block;padding:2px 8px;border-radius:12px;font-size:10px;font-weight:700;white-space:nowrap;}
+  .b-green {background:rgba(63,185,80,.15);color:var(--green);border:1px solid rgba(63,185,80,.3);}
+  .b-red   {background:rgba(248,81,73,.12);color:var(--red);border:1px solid rgba(248,81,73,.25);}
+  .b-yellow{background:rgba(210,153,34,.12);color:var(--yellow);border:1px solid rgba(210,153,34,.25);}
+  .b-blue  {background:rgba(56,139,253,.12);color:var(--blue);border:1px solid rgba(56,139,253,.25);}
+  .b-purple{background:rgba(137,87,229,.12);color:var(--purple);border:1px solid rgba(137,87,229,.25);}
+  .b-teal  {background:rgba(0,166,166,.12);color:var(--teal);border:1px solid rgba(0,166,166,.25);}
+  .b-orange{background:rgba(240,136,62,.12);color:var(--orange);border:1px solid rgba(240,136,62,.25);}
+  .b-grey  {background:var(--bg3);color:var(--text2);border:1px solid var(--border);}
+
+  .filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;}
+  .filters select, .filters input{background:var(--bg3);border:1px solid var(--border);color:var(--text);border-radius:6px;padding:6px 10px;font-size:12px;}
+
+  table{width:100%;border-collapse:collapse;font-size:12px;}
+  th{text-align:left;color:var(--text2);font-weight:600;padding:6px 8px;border-bottom:1px solid var(--border);font-size:10px;text-transform:uppercase;position:sticky;top:0;background:var(--bg2);}
+  td{padding:8px;border-bottom:1px solid rgba(48,54,61,.5);color:var(--text);vertical-align:top;}
+  tr:last-child td{border-bottom:none;}
+  tr:hover td{background:rgba(255,255,255,.02);}
+  .table-wrap{overflow-x:auto;max-height:640px;overflow-y:auto;}
+
+  .alert-row{display:flex;align-items:flex-start;gap:10px;padding:9px 0;border-bottom:1px solid rgba(48,54,61,.4);font-size:12px;}
+  .alert-row:last-child{border-bottom:none;}
+  .alert-icon{font-size:13px;flex-shrink:0;width:18px;text-align:center;}
+  .alert-body .title{color:var(--text);font-weight:600;}
+  .alert-body .sub{color:var(--text2);font-size:11px;margin-top:2px;}
+
+  .empty{color:var(--text2);font-style:italic;font-size:12px;padding:8px 0;}
+  .mono{font-family:monospace;font-size:11px;color:var(--text2);}
+
+  footer{text-align:center;font-size:11px;color:var(--text2);padding:24px;border-top:1px solid var(--border);margin-top:20px;letter-spacing:.08em;text-transform:uppercase;}
+</style>
+</head>
+<body>
+
+<div class="private-banner">🔒 Dashboard interne — ne pas publier — ne pas partager en dehors de l'équipe ALFRED</div>
+
+<header>
+  <div>
+    <div class="logo">📊 ALFRED</div>
+    <div class="subtitle">Dashboard Qualité Data — Gouvernance, cycle de vie & sécurité des données [INTERNE]</div>
+  </div>
+  <div class="meta">
+    <span><span class="pulse"></span><span id="refresh-status" style="font-size:11px;color:var(--text2);">Auto-refresh 30s</span></span>
+    <span class="generated" id="generated-at">Chargement...</span>
+    <button class="refresh-btn" onclick="load()">Actualiser</button>
+  </div>
+</header>
+
+<div class="main">
+
+  <div id="error-banner" style="display:none;" class="error-banner"></div>
+
+  <!-- KPIs -->
+  <div class="kpi-grid">
+    <div class="kpi"><div class="val" id="kpi-total">—</div><div class="lbl">Données recensées</div></div>
+    <div class="kpi"><div class="val" id="kpi-documented" style="color:var(--green);">—</div><div class="lbl">Documentées</div></div>
+    <div class="kpi"><div class="val" id="kpi-defined" style="color:var(--green);">—</div><div class="lbl">Définies</div></div>
+    <div class="kpi"><div class="val" id="kpi-alerts-critical" style="color:var(--red);">—</div><div class="lbl">Alertes critiques</div></div>
+    <div class="kpi"><div class="val" id="kpi-alerts-warning" style="color:var(--yellow);">—</div><div class="lbl">Alertes warning</div></div>
+    <div class="kpi"><div class="val" id="kpi-obsolete" style="color:var(--text2);">—</div><div class="lbl">Obsolètes</div></div>
+  </div>
+
+  <!-- Répartitions -->
+  <div class="section-title">Répartitions</div>
+  <div class="grid">
+    <div class="card"><h3>📌 Par statut</h3><div id="by-status"><div class="empty">Chargement...</div></div></div>
+    <div class="card"><h3>🌐 Par type de donnée</h3><div id="by-type"><div class="empty">Chargement...</div></div></div>
+    <div class="card"><h3>🗂️ Par classification (C1→C4)</h3><div id="by-sensitivity"><div class="empty">Chargement...</div></div></div>
+    <div class="card"><h3>🛡️ Par niveau de sécurité prévu (1→5)</h3><div id="by-security-level"><div class="empty">Chargement...</div></div></div>
+  </div>
+
+  <!-- Alertes -->
+  <div class="section-title">🚨 Alertes de gouvernance</div>
+  <div class="card" style="margin-bottom:20px;">
+    <h3 id="alerts-title">Alertes</h3>
+    <div id="alerts-content"><div class="empty">Chargement...</div></div>
+  </div>
+
+  <!-- Registre -->
+  <div class="section-title">📋 Registre des données</div>
+  <div class="filters">
+    <input type="text" id="f-search" placeholder="Rechercher (nom, id, bloc)..." oninput="renderTable()">
+    <select id="f-status" onchange="renderTable()"><option value="">Statut : tous</option></select>
+    <select id="f-type" onchange="renderTable()"><option value="">Type : tous</option></select>
+    <select id="f-security" onchange="renderTable()"><option value="">Sécurité : tous</option></select>
+  </div>
+  <div class="card">
+    <div class="table-wrap">
+      <table id="registry-table">
+        <thead>
+          <tr>
+            <th>ID</th><th>Nom</th><th>Bloc</th><th>Doc.</th><th>Déf.</th><th>Statut</th>
+            <th>Type</th><th>Classif.</th><th>Sécu.</th><th>Usage</th><th>Rétention</th>
+            <th>Fréq. MAJ</th><th>Rôles lecture</th><th>Créée</th><th>Modifiée</th><th>Purge prévue</th>
+          </tr>
+        </thead>
+        <tbody id="registry-tbody"><tr><td colspan="16" class="empty">Chargement...</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+
+  <footer>ALFRED — Dashboard Qualité Data · Bloc 11.05 · usage interne uniquement</footer>
+</div>
+
+<script>
+const DATA_URL = "dashboard_quality_data.json";
+let CURRENT = null;
+
+const STATUS_BADGE = {
+  a_creer: "b-grey", a_connecter: "b-yellow", utilisable: "b-blue",
+  utilisee: "b-green", obsolete: "b-red",
+};
+const STATUS_LABEL = {
+  a_creer: "À créer", a_connecter: "À connecter", utilisable: "Utilisable",
+  utilisee: "Utilisée", obsolete: "Obsolète",
+};
+const SEVERITY_ICON = { critical: "🔴", warning: "🟠", info: "🔵" };
+
+function badge(cls, text) { return `<span class="badge ${cls}">${text}</span>`; }
+
+function fmtBool(v) {
+  return v ? badge("b-green", "Oui") : badge("b-red", "Non");
+}
+
+function fmtDate(v) { return v ? v : '<span class="mono">—</span>'; }
+
+async function load() {
+  const errBox = document.getElementById("error-banner");
+  errBox.style.display = "none";
+  try {
+    const res = await fetch(DATA_URL + "?t=" + Date.now());
+    if (!res.ok) throw new Error("HTTP " + res.status);
+    CURRENT = await res.json();
+    render();
+  } catch (e) {
+    errBox.style.display = "block";
+    errBox.textContent = "Erreur de chargement de " + DATA_URL + " — " + e.message +
+      " (lancer update_quality_data_dashboard.py puis servir via python -m http.server)";
+  }
+}
+
+function render() {
+  const d = CURRENT;
+  document.getElementById("generated-at").textContent =
+    "Généré le " + new Date(d._meta.generated_at).toLocaleString("fr-FR");
+
+  const g = d.global;
+  document.getElementById("kpi-total").textContent = g.total_entries;
+  document.getElementById("kpi-documented").textContent = g.documented_count + "/" + g.total_entries;
+  document.getElementById("kpi-defined").textContent = g.defined_count + "/" + g.total_entries;
+  document.getElementById("kpi-alerts-critical").textContent = d.alerts.by_severity.critical || 0;
+  document.getElementById("kpi-alerts-warning").textContent = d.alerts.by_severity.warning || 0;
+  document.getElementById("kpi-obsolete").textContent = (g.by_status.obsolete || 0);
+
+  renderBreakdown("by-status", g.by_status, STATUS_LABEL);
+  renderBreakdown("by-type", g.by_data_type, {publique: "Publique", privee: "Privée"});
+  renderBreakdown("by-sensitivity", g.by_sensitivity_classification, {});
+  renderBreakdown("by-security-level", g.by_security_level_planned, {
+    "1": "Niveau 1 — public publié", "2": "Niveau 2 — statistique",
+    "3": "Niveau 3 — sensible", "4": "Niveau 4 — très sensible", "5": "Niveau 5 — ultra sensible",
+  });
+
+  renderAlerts();
+  populateFilterOptions();
+  renderTable();
+}
+
+function renderBreakdown(elId, counts, labels) {
+  const el = document.getElementById(elId);
+  const entries = Object.entries(counts || {}).sort((a, b) => b[1] - a[1]);
+  if (!entries.length) { el.innerHTML = '<div class="empty">Aucune donnée</div>'; return; }
+  el.innerHTML = entries.map(([k, v]) =>
+    `<div class="stat-row"><span class="label">${labels[k] || k}</span><span>${v}</span></div>`
+  ).join("");
+}
+
+function renderAlerts() {
+  const el = document.getElementById("alerts-content");
+  const title = document.getElementById("alerts-title");
+  const items = CURRENT.alerts.items || [];
+  title.textContent = `${items.length} alerte(s) — ${CURRENT.alerts.by_severity.critical || 0} critique(s), ${CURRENT.alerts.by_severity.warning || 0} warning`;
+  if (!items.length) { el.innerHTML = '<div class="empty">Aucune alerte 🎉</div>'; return; }
+  el.innerHTML = items.map(a => `
+    <div class="alert-row">
+      <div class="alert-icon">${SEVERITY_ICON[a.severity] || "⚪"}</div>
+      <div class="alert-body">
+        <div class="title">[${a.entry_id}] ${a.message}</div>
+        <div class="sub">type: ${a.type}</div>
+      </div>
+    </div>
+  `).join("");
+}
+
+function populateFilterOptions() {
+  const statuses = [...new Set(CURRENT.entries.map(e => e.status))].sort();
+  const types = [...new Set(CURRENT.entries.map(e => e.data_type))].sort();
+  const levels = [...new Set(CURRENT.entries.map(e => e.security_level_planned))].sort();
+
+  fillSelect("f-status", statuses, s => STATUS_LABEL[s] || s);
+  fillSelect("f-type", types, t => t === "publique" ? "Publique" : "Privée");
+  fillSelect("f-security", levels, l => "Niveau " + l);
+}
+
+function fillSelect(id, values, labelFn) {
+  const sel = document.getElementById(id);
+  const current = sel.value;
+  const first = sel.options[0];
+  sel.innerHTML = "";
+  sel.appendChild(first);
+  values.forEach(v => {
+    const opt = document.createElement("option");
+    opt.value = v;
+    opt.textContent = labelFn(v);
+    sel.appendChild(opt);
+  });
+  sel.value = current;
+}
+
+function renderTable() {
+  if (!CURRENT) return;
+  const search = (document.getElementById("f-search").value || "").toLowerCase();
+  const fStatus = document.getElementById("f-status").value;
+  const fType = document.getElementById("f-type").value;
+  const fSecurity = document.getElementById("f-security").value;
+
+  const rows = CURRENT.entries.filter(e => {
+    if (fStatus && e.status !== fStatus) return false;
+    if (fType && e.data_type !== fType) return false;
+    if (fSecurity && String(e.security_level_planned) !== fSecurity) return false;
+    if (search) {
+      const hay = (e.id + " " + e.name + " " + (e.domain_bloc || "")).toLowerCase();
+      if (!hay.includes(search)) return false;
+    }
+    return true;
+  });
+
+  const tbody = document.getElementById("registry-tbody");
+  if (!rows.length) { tbody.innerHTML = '<tr><td colspan="16" class="empty">Aucun résultat</td></tr>'; return; }
+
+  tbody.innerHTML = rows.map(e => `
+    <tr>
+      <td class="mono">${e.id}</td>
+      <td>${e.name}</td>
+      <td class="mono">${e.domain_bloc || "—"}</td>
+      <td>${fmtBool(e.documented)}</td>
+      <td>${fmtBool(e.defined)}</td>
+      <td>${badge(STATUS_BADGE[e.status] || "b-grey", STATUS_LABEL[e.status] || e.status)}</td>
+      <td>${e.data_type === "publique" ? badge("b-teal", "Publique") : badge("b-purple", "Privée")}</td>
+      <td class="mono">${e.sensitivity_classification || "—"}</td>
+      <td>${badge(e.security_level_planned >= 4 ? "b-red" : e.security_level_planned >= 3 ? "b-yellow" : "b-green", "N" + e.security_level_planned)}</td>
+      <td class="mono">${(e.intended_use || []).join(", ") || "—"}</td>
+      <td>${e.retention_period || "—"}</td>
+      <td>${e.update_frequency || "—"}</td>
+      <td class="mono">${((e.authorized_roles || {}).read || []).join(", ") || "—"}</td>
+      <td>${fmtDate(e.created_at)}</td>
+      <td>${fmtDate(e.last_modified_at)}</td>
+      <td>${fmtDate(e.planned_deletion_at)}</td>
+    </tr>
+  `).join("");
+}
+
+load();
+setInterval(load, 30000);
+</script>
+</body>
+</html>

@@ -1,5 +1,7 @@
 """
 PROJECT  : ALFRED
+BLOCK    : B23
+FUNCTION : 23.02 — Orchestration & planification quotidienne
 FILE     : tools/sync_dashboards.py
 ROLE     : Copie quotidienne des JSON dashboards ALFRED_PC -> ALFRED_WEB/static/dashboard/
            puis git commit + push pour declencher le deploiement Render automatiquement.
