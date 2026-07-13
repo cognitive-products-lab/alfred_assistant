@@ -168,11 +168,13 @@ def test_dashboard_html_is_well_formed(relpath):
 
 
 # ── Manifests/registres dashboard (structure JSON) ───────────
+# Les 3 anciens duplicatas racine (dashboard/dashboard_manifest.json,
+# dashboard/dashboard_data.json, dashboard/validation_registry.json) ont été
+# archivés le 13/07/2026 (dashboard/_archive/, point C4-D du plan d'action) —
+# ils étaient obsolètes depuis mai/juillet 2026 et superflus par rapport à
+# leurs équivalents dans dashboard/dashboard_data/.
 
 DASHBOARD_JSON_FILES = [
-    "dashboard/validation_registry.json",
-    "dashboard/dashboard_data.json",
-    "dashboard/dashboard_manifest.json",
     "dashboard/dashboard_conformite/_manifest.json",
     "dashboard/dashboard_data/validation_registry.json",
     "dashboard/dashboard_data/dashboard_data.json",
