@@ -9,7 +9,7 @@
   "_meta": {
     "project": "ALFRED",
     "file": "dashboard_quality_data.json",
-    "generated_at": "2026-07-13T12:08:34.314889+00:00",
+    "generated_at": "2026-07-13T12:15:40.371142+00:00",
     "generated_by": "update_quality_data_dashboard.py",
     "version": "V1.0",
     "visibility": "PRIVE",
@@ -20,10 +20,10 @@
   "global": {
     "total_entries": 44,
     "by_status": {
-      "utilisee": 24,
+      "utilisee": 25,
       "utilisable": 5,
       "a_connecter": 10,
-      "a_creer": 3,
+      "a_creer": 2,
       "obsolete": 2
     },
     "by_data_type": {
@@ -1630,21 +1630,23 @@
     },
     {
       "id": "DQ-045",
-      "name": "Données runtime sécurité manquantes (Bloc 20)",
+      "name": "Registre d'incidents & appareils de confiance (créés) + décisions d'accès (retiré du manifest)",
       "domain_bloc": "Bloc 20.08/20.09/20.11 — Détection d'intrusion, audit, réponse à incident",
-      "source_path": "data/security/access_decisions_history.json, data/security/incident_register.json, data/security/trusted_devices_runtime.json",
-      "description": "Trois fichiers de données runtime attendus par le manifest (décisions d'accès Zero Trust, registre d'incidents, appareils de confiance actifs) mais absents du disque à ce jour.",
+      "source_path": "data/security/incident_register.json, data/security/trusted_devices.json",
+      "description": [
+        "Point C4-C du plan d'action, traité le 13/07/2026. incident_register.json et trusted_devices.json sont self-initialisants (incident_manager.py / device_registry.py gèrent leur absence et les créent au premier usage) — créés ici avec leur état vide exact ([] et {}) pour que le manifest cesse de les compter comme manquants. Le 3e fichier attendu par le manifest, data/security/access_decisions_history.json, ne correspond à AUCUNE implémentation trouvée dans src/ — les décisions Zero Trust (zero_trust_orchestrator.py) sont en réalité déjà journalisées dans l'audit trail général (write_audit_event(), cf. DQ-003) et non dans un fichier dédié. Retiré du manifest plutôt que fabriqué comme fichier vide trompeur (aurait suggéré une surveillance dédiée qui n'existe pas)."
+      ],
       "documented": true,
       "defined": true,
-      "status": "a_creer",
+      "status": "utilisee",
       "data_type": "privee",
       "sensitivity_classification": "C3_CONFIDENTIEL",
       "security_level_planned": 4,
       "intended_use": [
         "technique"
       ],
-      "retention_period": "90 jours pour l'historique de décisions/audit (aligné RGPD register T03), 1 an pour le registre d'incidents (T05)",
-      "update_frequency": "temps réel une fois créés",
+      "retention_period": "90 jours pour le registre d'incidents (aligné RGPD register T05 — 1 an, à harmoniser), pas de rétention distincte pour trusted_devices.json (registre vivant)",
+      "update_frequency": "temps réel une fois alimentés par incident_manager.py / device_registry.py",
       "authorized_roles": {
         "read": [
           "OWNER",
@@ -1655,10 +1657,10 @@
           "ADMIN"
         ]
       },
-      "created_at": null,
-      "last_modified_at": null,
+      "created_at": "2026-07-13",
+      "last_modified_at": "2026-07-13",
       "planned_deletion_at": null,
-      "notes": "Écart réel entre le manifest (dashboard_data_manifest.json b20) et le disque — ces 3 fichiers comptent comme 'cible' dans le calcul d'avancement B20 (189/181, >100%) mais sont vides ; à créer ou à retirer du manifest si non prioritaires."
+      "notes": "Si un vrai historique de décisions d'accès dédié est souhaité (au-delà de l'audit trail général), il faudra développer explicitement cette fonctionnalité dans zero_trust_orchestrator.py/policy_decision_point.py — pas fait ici, décision produit à prendre séparément."
     }
   ],
   "scales": {
