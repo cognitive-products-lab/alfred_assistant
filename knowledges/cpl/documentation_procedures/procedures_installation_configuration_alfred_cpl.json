@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.documentation_procedures.procedures_installation_configuration_alfred_cpl",
+  "title": "Structure type d'une procédure d'installation et de configuration d'ALFRED CPL",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "documentation_procedures",
+  "category": "documentation_alfred_cpl",
+  "summary": "Structure type d'une procédure d'installation et de configuration d'ALFRED CPL : prérequis, étapes d'installation, vérifications post-installation et configuration initiale utilisateur/organisation.",
+  "purpose": "Fournir un cadre standard pour documenter et exécuter l'installation et la configuration initiale d'ALFRED CPL de façon fiable et reproductible.",
+  "tags": ["installation", "configuration", "procedure", "alfred_cpl", "deploiement_initial"],
+  "intents": ["describe_installation_procedure", "prepare_alfred_cpl_setup", "explain_initial_configuration"],
+  "usage_context": ["Déploiement d'ALFRED CPL chez un nouvel utilisateur ou une nouvelle organisation", "Documentation technique", "Support à l'installation"],
+  "priority": "high",
+  "safety_level": "normal",
+  "content": {
+    "definition": "Une procédure d'installation et de configuration d'ALFRED CPL est un document structuré décrivant, étape par étape, les actions nécessaires pour déployer le système sur un environnement cible (poste individuel, serveur local, infrastructure organisationnelle) et pour le configurer selon les besoins spécifiques de l'utilisateur ou de l'organisation.",
+    "core_principles": [
+      "Une procédure d'installation doit toujours commencer par la vérification des prérequis techniques (système d'exploitation compatible, ressources matérielles minimales, dépendances logicielles).",
+      "L'installation elle-même doit être décomposée en étapes séquentielles vérifiables, chacune avec un critère de succès explicite.",
+      "Une vérification post-installation (smoke test) doit confirmer que les composants essentiels fonctionnent correctement avant la mise à disposition du système à l'utilisateur final.",
+      "La configuration initiale couvre les paramètres utilisateur (préférences, niveau d'autonomie accordé) et les paramètres organisationnels (connecteurs autorisés, politique de confidentialité, base de connaissances métier spécifique).",
+      "Toute procédure doit prévoir un scénario de repli (rollback) en cas d'échec d'une étape critique.",
+      "La documentation de procédure doit être versionnée et mise à jour à chaque évolution significative du processus d'installation."
+    ],
+    "rules": [
+      "Ne jamais valider une installation sans exécuter la vérification post-installation prévue.",
+      "Toujours documenter les prérequis de façon exhaustive pour éviter les échecs d'installation évitables."
+    ],
+    "examples": [
+      {
+        "situation": "Une organisation souhaite déployer ALFRED CPL sur plusieurs postes de travail.",
+        "recommended_behavior": "Suivre la procédure standard (vérification des prérequis, installation, vérification post-installation, configuration organisationnelle) sur un poste pilote avant généralisation, puis documenter les éventuels écarts constatés.",
+        "avoid": "Déployer directement sur l'ensemble des postes sans validation préalable sur un environnement pilote."
+      }
+    ],
+    "best_practices": [
+      "Toujours tester une procédure d'installation sur un environnement représentatif avant un déploiement à grande échelle.",
+      "Fournir une checklist de vérification post-installation claire et actionnable.",
+      "Séparer explicitement configuration utilisateur individuelle et configuration organisationnelle dans la documentation.",
+      "Prévoir une procédure de rollback documentée en cas d'échec."
+    ],
+    "anti_patterns": [
+      "Rédiger une procédure d'installation sans étape de vérification explicite du succès de chaque étape.",
+      "Omettre de documenter les prérequis techniques, provoquant des échecs d'installation évitables."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["installation ALFRED CPL", "configuration initiale", "prérequis techniques", "procédure de déploiement"],
+    "related_domains": ["enterprise_architecture", "cpl"],
+    "related_knowledge": ["cpl.documentation_procedures.procedures_deploiement_mise_a_jour_alfred_cpl", "cpl.product_platform.administration_console"],
+    "retrieval_priority": 6
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "step_by_step",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["Description de la structure d'une procédure d'installation et de configuration"],
+    "restricted_usage": ["Détails d'installation propres à une infrastructure spécifique non documentée ici"],
+    "forbidden_usage": ["Communication de identifiants ou secrets de configuration réels"],
+    "fallback_behavior": "Renvoyer vers la documentation technique officielle à jour pour toute installation réelle."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "11/07/2026",
+    "last_update": "11/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}
