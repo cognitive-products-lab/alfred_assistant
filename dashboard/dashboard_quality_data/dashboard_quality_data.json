@@ -9,7 +9,7 @@
   "_meta": {
     "project": "ALFRED",
     "file": "dashboard_quality_data.json",
-    "generated_at": "2026-07-13T07:13:57.156397+00:00",
+    "generated_at": "2026-07-13T12:08:34.314889+00:00",
     "generated_by": "update_quality_data_dashboard.py",
     "version": "V1.0",
     "visibility": "PRIVE",
@@ -53,26 +53,13 @@
     "undefined_count": 15
   },
   "alerts": {
-    "total": 36,
+    "total": 35,
     "by_severity": {
-      "critical": 3,
-      "warning": 33
+      "critical": 1,
+      "warning": 33,
+      "info": 1
     },
     "items": [
-      {
-        "entry_id": "DQ-003",
-        "entry_name": "Logs de sécurité / audit trail",
-        "type": "acces_non_autorise",
-        "severity": "critical",
-        "message": "Rôle 'AI_MODULE' (habilitation MEDIUM) a accès à 'Logs de sécurité / audit trail' qui exige au moins CRITICAL (niveau de sécurité prévu 4/5)"
-      },
-      {
-        "entry_id": "DQ-027",
-        "entry_name": "Référentiels santé & adaptation (config/health/)",
-        "type": "acces_non_autorise",
-        "severity": "critical",
-        "message": "Rôle 'AI_MODULE' (habilitation MEDIUM) a accès à 'Référentiels santé & adaptation (config/health/)' qui exige au moins CRITICAL (niveau de sécurité prévu 4/5)"
-      },
       {
         "entry_id": "DQ-033",
         "entry_name": "Instance utilisateur nominative (Céline)",
@@ -310,6 +297,13 @@
         "type": "donnee_non_definie",
         "severity": "warning",
         "message": "Donnée non définie (schéma/périmètre à préciser) : État runtime domotique V4 (Bloc 19)"
+      },
+      {
+        "entry_id": "DQ-003",
+        "entry_name": "Logs de sécurité / audit trail",
+        "type": "acces_derogatoire_documente",
+        "severity": "info",
+        "message": "Rôle 'AI_MODULE' (habilitation MEDIUM) a un accès write dérogatoire documenté à 'Logs de sécurité / audit trail' (exige CRITICAL) — justification : Écriture (append) uniquement — pas de lecture. Nécessaire pour que le pipeline IA puisse journaliser ses propres actions (traçabilité Zero Trust, principe 'assume breach' : même les composants IA doivent logger ce qu'ils font). security_logger.log_event()/audit_trail.write_audit_event() sont appelés depuis 55 fichiers du pipeline, dont les modules IA — retirer cet accès casserait la journalisation des actions IA. La lecture des logs reste restreinte à OWNER/ADMIN uniquement (déjà conforme). (revu par OWNER le 2026-07-13)"
       }
     ]
   },
@@ -410,7 +404,16 @@
       "created_at": "2026-02-10",
       "last_modified_at": "2026-07-11",
       "planned_deletion_at": null,
-      "notes": "Purge automatique à 90 jours à vérifier dans backup_security.py."
+      "notes": "Purge automatique à 90 jours à vérifier dans backup_security.py. VÉRIFIÉ le 13/07/2026 (point C5-B du plan d'action) : pertinent et nécessaire — voir access_exceptions. Écriture seule (append), pas de lecture, cohérent avec le principe du moindre privilège (le rôle qui génère l'événement peut l'écrire, seuls OWNER/ADMIN peuvent relire l'ensemble des logs).",
+      "access_exceptions": [
+        {
+          "role": "AI_MODULE",
+          "scope": "write",
+          "justification": "Écriture (append) uniquement — pas de lecture. Nécessaire pour que le pipeline IA puisse journaliser ses propres actions (traçabilité Zero Trust, principe 'assume breach' : même les composants IA doivent logger ce qu'ils font). security_logger.log_event()/audit_trail.write_audit_event() sont appelés depuis 55 fichiers du pipeline, dont les modules IA — retirer cet accès casserait la journalisation des actions IA. La lecture des logs reste restreinte à OWNER/ADMIN uniquement (déjà conforme).",
+          "reviewed_by": "OWNER",
+          "reviewed_at": "2026-07-13"
+        }
+      ]
     },
     {
       "id": "DQ-004",
@@ -1134,8 +1137,7 @@
       "update_frequency": "évolutive, au fil du développement",
       "authorized_roles": {
         "read": [
-          "OWNER",
-          "AI_MODULE"
+          "OWNER"
         ],
         "write": [
           "OWNER"
@@ -1144,7 +1146,7 @@
       "created_at": "2026-04-01",
       "last_modified_at": "2026-06-20",
       "planned_deletion_at": null,
-      "notes": "Distinguer : ces fichiers sont des référentiels/règles génériques (pas des données personnelles d'un individu) — le profil de santé individuel réel est DQ-004."
+      "notes": "Distinguer : ces fichiers sont des référentiels/règles génériques (pas des données personnelles d'un individu) — le profil de santé individuel réel est DQ-004. CORRIGÉ le 13/07/2026 (décision OWNER, point C5-A du plan d'action) : AI_MODULE retiré de l'accès en lecture (habilitation MEDIUM insuffisante pour un niveau de sécurité prévu 4/5 = CRITICAL requis). Vérifié dans le code : aucun point de contrôle RBAC (require_access/check_access) ne gate aujourd'hui le chargement de config/health/*.json — ces fichiers sont lus directement par src/health/*.py, src/regulation/regulation_engine.py et src/core/pipeline_bridge.py comme n'importe quel fichier de config local du pipeline, sans médiation RBAC. Cette correction aligne donc la politique déclarée ; une mise en conformité technique réelle nécessiterait d'ajouter un point de contrôle d'accès explicite dans ces modules avant lecture — non fait ici (changement de comportement pipeline, à tester en conditions réelles sur le poste PC avant de le committer)."
     },
     {
       "id": "DQ-028",

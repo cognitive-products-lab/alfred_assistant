@@ -136,6 +136,17 @@ def check_created_but_unused(entry: dict, today: date) -> list[dict]:
     )]
 
 
+def _matching_exception(entry: dict, role_name: str, scope: str) -> dict | None:
+    """Cherche une dérogation documentée (access_exceptions) pour ce rôle/scope."""
+    for exc in entry.get("access_exceptions") or []:
+        if exc.get("role") != role_name:
+            continue
+        exc_scope = exc.get("scope", "both")
+        if exc_scope == "both" or exc_scope == scope:
+            return exc
+    return None
+
+
 def check_access_control(entry: dict, roles: dict[str, dict]) -> list[dict]:
     alerts = []
     status = entry.get("status")
@@ -163,11 +174,26 @@ def check_access_control(entry: dict, roles: dict[str, dict]) -> list[dict]:
                 ))
                 continue
             role_rank = CLEARANCE_ORDER.get(role_info.get("max_resource_sensitivity", "LOW"), 1)
-            if role_rank < min_rank:
+            if role_rank >= min_rank:
+                continue
+
+            scope = "read" if role_name in read_roles else "write"
+            if role_name in read_roles and role_name in write_roles:
+                scope = "both"
+            exception = _matching_exception(entry, role_name, scope)
+            if exception:
+                alerts.append(_alert(
+                    entry, "acces_derogatoire_documente", "info",
+                    f"Rôle '{role_name}' (habilitation {role_info.get('max_resource_sensitivity')}) "
+                    f"a un accès {scope} dérogatoire documenté à '{entry.get('name')}' (exige "
+                    f"{min_clearance}) — justification : {exception.get('justification', '(non renseignée)')} "
+                    f"(revu par {exception.get('reviewed_by', '?')} le {exception.get('reviewed_at', '?')})",
+                ))
+            else:
                 alerts.append(_alert(
                     entry, "acces_non_autorise", "critical",
                     f"Rôle '{role_name}' (habilitation {role_info.get('max_resource_sensitivity')}) "
-                    f"a accès à '{entry.get('name')}' qui exige au moins {min_clearance} "
+                    f"a accès {scope} à '{entry.get('name')}' qui exige au moins {min_clearance} "
                     f"(niveau de sécurité prévu {level}/5)",
                 ))
     return alerts
