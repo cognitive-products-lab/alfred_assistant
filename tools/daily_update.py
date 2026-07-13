@@ -41,6 +41,14 @@ STEPS = [
         "script": ALFRED_PC / "dashboard/dashboard_knowledges_tool/generate_knowledge_dashboard.py",
     },
     {
+        "label": "Data dashboard",
+        "script": ALFRED_PC / "tools/dashboard_tools/dashboard_data/update_data_dashboard.py",
+    },
+    {
+        "label": "Backlog (BACKLOG.md)",
+        "script": ALFRED_PC / "tools/generate_backlog.py",
+    },
+    {
         "label": "Sync dashboards → ALFRED_WEB",
         "script": ALFRED_PC / "tools/sync_dashboards.py",
     },
