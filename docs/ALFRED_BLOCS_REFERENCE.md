@@ -393,6 +393,60 @@
 
 ---
 
+### Bloc 24 — ALFRED Android / Compagnon mobile natif
+
+> Validé le 13/07/2026. Dépôt séparé `ALFRED_ANDROID` (Kotlin, Jetpack Compose,
+> MVVM, Retrofit), même statut structurel que le Bloc 21 (ALFRED_WEB) : un
+> produit dans un dépôt à part, indépendant de `src/`. PoC "Compagnon" validé
+> de bout en bout le 02/07/2026 (cf. `ALFRED_ANDROID/README.md`) — pas encore
+> le produit ALFRED Android complet (cf. `ROADMAP.md`, section Android).
+
+| Code  | Fonction principale                                    |
+|-------|----------------------------------------------------------|
+| 24.01 | Interface utilisateur native (Compose, thème, écrans)     |
+| 24.02 | Intégration API compagnon (client réseau, modèles)         |
+| 24.03 | Configuration & sécurité réseau (manifest, build, cleartext local) |
+
+**Dossiers/fichiers** :
+`ALFRED_ANDROID/app/src/main/java/.../MainActivity.kt`,
+`ALFRED_ANDROID/app/src/main/java/.../ui/` (24.01),
+`ALFRED_ANDROID/app/src/main/java/.../data/` (24.02),
+`ALFRED_ANDROID/app/src/main/AndroidManifest.xml`,
+`ALFRED_ANDROID/app/build.gradle.kts`,
+`ALFRED_ANDROID/app/src/main/res/xml/network_security_config.xml` (24.03)
+
+> ⚠️ PoC — pas de HTTPS (réseau local uniquement, cleartext volontaire),
+> pas de notifications push, pas de mode hors-ligne. Voir
+> `ALFRED_ANDROID/README.md` (limites connues) et `ROADMAP.md` (section Android)
+> pour le périmètre du produit complet.
+
+---
+
+### Bloc 25 — Documentation & politiques projet transverses
+
+> Validé le 13/07/2026. Contenu documentaire qui ne dépend d'aucun bloc
+> fonctionnel unique — à ne pas confondre avec le Bloc 23.04 (référentiel de
+> gouvernance interne) ni le Bloc 20.14 (conformité réglementaire —
+> `docs/gouvernance/`, `docs/rgpd/`, `docs/nis2/` y restent rattachés).
+> Note d'application : les fichiers `.md` légaux/communautaires ne suivent pas
+> la convention d'entête `Bloc XX.YY` (réservée aux fichiers `.py`/`.json`/code,
+> cf. section "Format des entêtes fichier" en tête de ce document) — ce bloc les
+> répertorie dans le manifest/dashboard sans modifier leur contenu.
+
+| Code  | Fonction principale                                  |
+|-------|--------------------------------------------------------|
+| 25.01 | Documentation légale & communautaire (README, LICENSE, CONTRIBUTING, CODE_OF_CONDUCT) |
+| 25.02 | Architecture technique (schémas, diagrammes réseau)     |
+| 25.03 | Expérience utilisateur & recherche (UX)                 |
+
+**Dossiers/fichiers** :
+`README.md`, `README_FR.md`, `LICENSE`, `CONTRIBUTING.md`, `CONTRIBUTING_FR.md`,
+`CODE_OF_CONDUCT.md` (25.01),
+`docs/architecture/` (25.02),
+`docs/ux/` (25.03)
+
+---
+
 ### Bloc 29 — Démonstrateur Big Data Hadoop
 
 > Absent de ce document jusqu'au 12/07/2026 alors que déjà suivi dans
@@ -444,19 +498,21 @@
 | B21                | Plateforme web & vitrine ALFRED     | **Bloc 21**   | ALFRED WEB PLATFORM                        |
 | B22                | Accessibility & Assistance cognitive| **Bloc 22**   | Accessibility & Cognitive Assistance       |
 | B23                | *(nouveau — pas d'ancien label dashboard)* | **Bloc 23** | Gouvernance & pilotage du projet |
+| B24                | *(nouveau — pas d'ancien label dashboard)* | **Bloc 24** | ALFRED Android / Compagnon mobile natif |
+| B25                | *(nouveau — pas d'ancien label dashboard)* | **Bloc 25** | Documentation & politiques projet transverses |
 | B29                | Démonstrateur Big Data Hadoop       | **Bloc 29**   | Démonstrateur Big Data Hadoop *(PoC)*      |
 
 ---
 
-## Blocs manquants / à trancher (état au 12/07/2026)
+## Blocs manquants / à trancher (état au 13/07/2026)
 
-La numérotation officielle saute de 22 à 29. État des lieux après audit :
+La numérotation officielle saute de 25 à 29. État des lieux après audit :
 
 | Bloc | Statut | Détail |
 |------|--------|--------|
 | **23** | ✅ Validé le 12/07/2026 | Gouvernance & pilotage du projet — cf. section dédiée ci-dessus. |
-| **24** | 🟡 Proposition — à valider | Candidat identifié : **ALFRED Android / Compagnon mobile natif** (dépôt `ALFRED_ANDROID`, Kotlin/Compose, PoC validé le 02/07/2026 — cf. `ALFRED_ANDROID/README.md`). Aujourd'hui sans bloc, alors qu'ALFRED_WEB (même statut de "produit dans un dépôt séparé") a le Bloc 21. |
-| **25** | 🟡 Proposition — à valider | Candidat identifié : **Documentation & politiques projet transverses** (`README.md`, `LICENSE`, `CONTRIBUTING(_FR).md`, `CODE_OF_CONDUCT.md`, `docs/architecture/`, `docs/ux/` — contenu qui ne dépend d'aucun bloc fonctionnel unique). À ne pas confondre avec le Bloc 23.04 (référentiel/gouvernance interne) ni le Bloc 20.14 (conformité réglementaire — `docs/gouvernance/`, `docs/rgpd/`, `docs/nis2/` y sont déjà rattachables). |
+| **24** | ✅ Validé le 13/07/2026 | ALFRED Android / Compagnon mobile natif — cf. section dédiée ci-dessus. |
+| **25** | ✅ Validé le 13/07/2026 | Documentation & politiques projet transverses — cf. section dédiée ci-dessus. |
 | **26–28** | ⚪ Aucune preuve trouvée | Pas de domaine fonctionnel non couvert identifié dans les 3 dépôts audités (`alfred_assistant`, `alfred_web`, `ALFRED_ANDROID`) au 12/07/2026. Ne pas assigner sans nouveau périmètre validé. |
 
 ---
@@ -464,12 +520,14 @@ La numérotation officielle saute de 22 à 29. État des lieux après audit :
 ## Règles d'usage
 
 1. **Entêtes fichiers** : utiliser `Bloc XX.YY` (ex. `Bloc 21.01 — Architecture Flask & structure projet`)
-2. **Dashboard** : utiliser l'identifiant court `Bloc 01` à `Bloc 23` (+ `Bloc 29`) + label officiel
-3. **Jamais** : inventer un numéro, utiliser "B04" seul sans vérification dans ce document — cf. tableau "Blocs manquants / à trancher" pour le statut de 24 à 28
+2. **Dashboard** : utiliser l'identifiant court `Bloc 01` à `Bloc 25` (+ `Bloc 29`) + label officiel
+3. **Jamais** : inventer un numéro, utiliser "B04" seul sans vérification dans ce document — cf. tableau "Blocs manquants / à trancher" pour le statut de 26 à 28
 4. **secret_manager.py** : anciennement étiqueté `20.06`, à reclasser `20.05` lors de la prochaine mise à jour des entêtes
 5. **Bloc 16** : documenté ici comme "réservé", mais suivi avec un contenu réel (46.7%, fichiers codés) sous le label `B16 — Démonstration & Scénarisation` dans `BACKLOG.md` / `dashboard_data_manifest.json` — incohérence non résolue, à trancher par l'équipe (formaliser le contenu ou l'archiver) avant de rouvrir ce bloc à de nouveaux fichiers.
 6. **Bloc 20.06 et 20.07** : sous-codes à implémenter (sécurité réseau, sécurité API)
 7. **Bloc 21** : ALFRED WEB PLATFORM — racine `ALFRED_WEB/`, indépendant de `src/`
 8. **Bloc 22** : Accessibility — racine `src/accessibility/`, transversal à tous les produits
 9. **Bloc 23** : Gouvernance & pilotage du projet — racine `tools/dashboard_tools/dashboard_data/` + `tools/daily_update.py`/`tools/sync_dashboards.py`, distinct du Bloc 11.05 (gouvernance des données) et du Bloc 20 (gouvernance cybersécurité)
-10. **Bloc 29** : PoC isolé — numérotation non contiguë assumée, ne pas combler 23→28 avec du contenu Hadoop
+10. **Bloc 24** : ALFRED Android — dépôt séparé `ALFRED_ANDROID/`, indépendant de `src/` (même logique que le Bloc 21 pour ALFRED_WEB)
+11. **Bloc 25** : Documentation & politiques projet — fichiers `.md`/légaux à la racine + `docs/architecture/`, `docs/ux/` ; ne pas leur imposer l'entête `Bloc XX.YY` (convention réservée au code/JSON)
+12. **Bloc 29** : PoC isolé — numérotation non contiguë assumée, ne pas combler 26→28 avec du contenu Hadoop
