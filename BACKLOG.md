@@ -1,19 +1,18 @@
 # ALFRED — BACKLOG & RÉFÉRENTIEL FICHIERS
 
-> Généré le 13/07/2026 06:55 depuis `dashboard_data.json` (mis à jour le 13/07/2026 06:55:45)
-> Progression technique : **84.0%** · Full projet : **93.8%**
-> 1336 fichiers détectés / 1337 cible full
+> Généré le 13/07/2026 12:13 depuis `dashboard_data.json` (mis à jour le 13/07/2026 12:11:52)
+> Progression technique : **84.9%** · Full projet : **95.2%**
+> 1420 fichiers détectés / 1336 cible full
 
 ## Synthèse globale
 
 | Statut | Nb | % | Priorité |
 |--------|---:|--:|----------|
-| ❌ A créer | 16 | 1.2% | 🔴 Urgent |
-| 🟡 Partiel | 106 | 7.9% | 🟡 Sprint |
-| 🟦 Codé — à tester | 104 | 7.8% | 🟡 Sprint |
-| 🧪 Testé — à valider | 267 | 20.0% | 🧪 Tests |
-| ✅ Validé ✅ | 807 | 60.4% | ✅ Done |
-| ⚙️ Structurel | 123 | 9.2% | ✅ Done |
+| 🟡 Partiel | 104 | 7.3% | 🟡 Sprint |
+| 🟦 Codé — à tester | 105 | 7.4% | 🟡 Sprint |
+| 🧪 Testé — à valider | 267 | 18.8% | 🧪 Tests |
+| ✅ Validé ✅ | 820 | 57.7% | ✅ Done |
+| ⚙️ Structurel | 126 | 8.9% | ✅ Done |
 | 📦 Archivé | 1 | 0.1% | ✅ Done |
 
 ## Backlog par bloc
@@ -394,63 +393,46 @@
 | `data/v4/sensor_state.json` | 🟡 Partiel | Compléter |
 | `data/v4/trigger_log.json` | 🟡 Partiel | Compléter |
 
-### 🟢 B20 — Cybersécurité Zero Trust `95.0%`
+### 🟢 B20 — Cybersécurité Zero Trust `95.8%`
 
 | KPI | Valeur |
 |-----|--------|
 | Validés | 143 |
 | Testés | 26 |
-| Codés (à tester) | 5 |
-| Partiels | 5 |
+| Codés (à tester) | 6 |
+| Partiels | 3 |
 | Structurels | 13 |
-| Manquants | 3 |
+| Manquants | 0 |
 
 **Fichiers à traiter :**
 
 | Fichier | Statut | Action |
 |---------|--------|--------|
 | `config/v3/safety_rules.json` | 🟡 Partiel | Compléter |
-| `data/security/access_decisions_history.json` | 🟡 Partiel | Compléter |
-| `data/security/trusted_devices_runtime.json` | 🟡 Partiel | Compléter |
 | `dashboard/ALFRED_DASHBOARD_DYNAMIC.html` | 🟡 Partiel | Compléter |
 | `dashboard/dashboard_data/ALFRED_DASHBOARD_DYNAMIC.html` | 🟡 Partiel | Compléter |
+| `data/security/trusted_devices.json` | 🟦 Codé — à tester | Tester |
 | `scripts/complete_dpa_openai.py` | 🟦 Codé — à tester | Tester |
 | `scripts/complete_vlan.py` | 🟦 Codé — à tester | Tester |
 | `scripts/fix_avatar_alpha.py` | 🟦 Codé — à tester | Tester |
 | `tools/apply_headers.py` | 🟦 Codé — à tester | Tester |
 | `tools/dashboard_tools/dashboard_data/update_dashboard_data.py` | 🟦 Codé — à tester | Tester |
 
-### 🟡 B21 — ALFRED Web Platform `78.8%`
+### 🟢 B21 — ALFRED Web Platform `99.5%`
 
 | KPI | Valeur |
 |-----|--------|
-| Validés | 63 |
+| Validés | 76 |
 | Testés | 2 |
 | Codés (à tester) | 1 |
 | Partiels | 0 |
-| Structurels | 0 |
-| Manquants | 82 |
+| Structurels | 3 |
+| Manquants | 0 |
 
 **Fichiers à traiter :**
 
 | Fichier | Statut | Action |
 |---------|--------|--------|
-| `ALFRED_WEB/auth/__init__.py` | ❌ A créer | Créer |
-| `ALFRED_WEB/auth/routes.py` | ❌ A créer | Créer |
-| `ALFRED_WEB/models/__init__.py` | ❌ A créer | Créer |
-| `ALFRED_WEB/models/base.py` | ❌ A créer | Créer |
-| `ALFRED_WEB/models/user.py` | ❌ A créer | Créer |
-| `ALFRED_WEB/data/postgres.py` | ❌ A créer | Créer |
-| `ALFRED_WEB/data/preferences_repository.py` | ❌ A créer | Créer |
-| `ALFRED_WEB/data/conversations_repository.py` | ❌ A créer | Créer |
-| `ALFRED_WEB/conversations/__init__.py` | ❌ A créer | Créer |
-| `ALFRED_WEB/conversations/routes.py` | ❌ A créer | Créer |
-| `ALFRED_WEB/migrations/env.py` | ❌ A créer | Créer |
-| `ALFRED_WEB/scripts/init_mongo_preferences_index.py` | ❌ A créer | Créer |
-| `ALFRED_WEB/scripts/init_mongo_conversations_index.py` | ❌ A créer | Créer |
-| `ALFRED_WEB/tests/test_auth.py` | ❌ A créer | Créer |
-| `ALFRED_WEB/tests/test_preferences.py` | ❌ A créer | Créer |
-| `ALFRED_WEB/tests/test_conversations.py` | ❌ A créer | Créer |
 | `ALFRED_WEB/scripts/i18n_cadrage.py` | 🟦 Codé — à tester | Tester |
 
 ### 🟢 B22 — Accessibility & Cognitive Assistance `90.5%`
@@ -552,7 +534,7 @@
 
 > PoC ciblé (pas une infra de production) — regard critique assumé sur le surdimensionnement à l'échelle actuelle d'ALFRED, cf. docs/hadoop_poc_bilan.md.
 
-## 🟦 Sprint — Fichiers codés à tester (104)
+## 🟦 Sprint — Fichiers codés à tester (105)
 
 Ces fichiers sont implémentés mais n'ont pas encore de tests.
 
@@ -641,6 +623,7 @@ Ces fichiers sont implémentés mais n'ont pas encore de tests.
 - `knowledges/professional/product_management/advanced/product_scaling_strategy.json`
 - `scripts/clean_project.ps1`
 **B20**
+- `data/security/trusted_devices.json`
 - `scripts/complete_dpa_openai.py`
 - `scripts/complete_vlan.py`
 - `scripts/fix_avatar_alpha.py`
