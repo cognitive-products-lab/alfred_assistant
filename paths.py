@@ -94,10 +94,16 @@ TESTS_DIR       = BASE_DIR / "tests"
 
 
 # ── Dashboard ─────────────────────────────────────────────
+# NB : dashboard_manifest/dashboard_data/dashboard_html ne sont utilisés
+# nulle part ailleurs dans le code (vérifié le 13/07/2026, point C4-D du plan
+# d'action) — uniquement affichés par le print() de vérification ci-dessous.
+# Redirigés vers les vrais fichiers actifs de dashboard/dashboard_data/ suite
+# à l'archivage des 3 duplicatas obsolètes (dashboard/_archive/).
 DASHBOARD_DIR         = BASE_DIR / "dashboard"
-DASHBOARD_MANIFEST    = DASHBOARD_DIR / "dashboard_manifest.json"
-DASHBOARD_DATA        = DASHBOARD_DIR / "dashboard_data.json"
-DASHBOARD_HTML        = DASHBOARD_DIR / "ALFRED_DASHBOARD.html"
+DASHBOARD_DATA_DIR    = DASHBOARD_DIR / "dashboard_data"
+DASHBOARD_MANIFEST    = DASHBOARD_DATA_DIR / "dashboard_data_manifest.json"
+DASHBOARD_DATA        = DASHBOARD_DATA_DIR / "dashboard_data.json"
+DASHBOARD_HTML        = DASHBOARD_DATA_DIR / "ALFRED_DASHBOARD_DYNAMIC.html"
 
 
 # ── Tools ─────────────────────────────────────────────────
