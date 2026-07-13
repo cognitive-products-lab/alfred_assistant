@@ -50,6 +50,7 @@ MERGES_PATH = ROOT / "knowledges" / "knowledge_merges.json"
 # Clé = préfixe du chemin dans le manifest, Valeur = racine réelle sur le disque
 EXTERNAL_ROOTS: dict[str, Path] = {
     "ALFRED_WEB/": ALFRED_ROOT,
+    "ALFRED_ANDROID/": ALFRED_ROOT,
 }
 
 def load_json_safe(path):
