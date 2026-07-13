@@ -249,6 +249,40 @@ def test_alert_unauthorized_access_role_too_weak(engine):
     assert any(a["type"] == "acces_non_autorise" for a in alerts)
 
 
+def test_access_exception_downgrades_alert_to_info(engine):
+    """Une dérogation documentée (access_exceptions) transforme l'alerte critique en info."""
+    entry = _base_entry(
+        security_level_planned=5,
+        authorized_roles={"read": [], "write": ["AI_MODULE"]},
+        access_exceptions=[{
+            "role": "AI_MODULE", "scope": "write",
+            "justification": "Écriture seule, append-only, nécessaire à la traçabilité.",
+            "reviewed_by": "OWNER", "reviewed_at": "2026-07-13",
+        }],
+    )
+    alerts = engine.check_access_control(entry, engine.load_roles())
+    types = {a["type"] for a in alerts}
+    assert "acces_derogatoire_documente" in types
+    assert "acces_non_autorise" not in types
+    derogation = next(a for a in alerts if a["type"] == "acces_derogatoire_documente")
+    assert derogation["severity"] == "info"
+
+
+def test_access_exception_scope_mismatch_still_alerts(engine):
+    """Une dérogation qui ne couvre pas le bon scope (read vs write) ne doit pas masquer l'alerte."""
+    entry = _base_entry(
+        security_level_planned=5,
+        authorized_roles={"read": ["AI_MODULE"], "write": []},
+        access_exceptions=[{
+            "role": "AI_MODULE", "scope": "write",
+            "justification": "Ne couvre que l'écriture.",
+            "reviewed_by": "OWNER", "reviewed_at": "2026-07-13",
+        }],
+    )
+    alerts = engine.check_access_control(entry, engine.load_roles())
+    assert any(a["type"] == "acces_non_autorise" for a in alerts)
+
+
 def test_alert_unknown_role(engine):
     entry = _base_entry(authorized_roles={"read": ["ROLE_QUI_N_EXISTE_PAS"], "write": []})
     alerts = engine.check_access_control(entry, engine.load_roles())
