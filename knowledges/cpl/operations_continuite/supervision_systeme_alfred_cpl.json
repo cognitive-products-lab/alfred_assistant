@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.operations_continuite.supervision_systeme_alfred_cpl",
+  "title": "Supervision technique du système ALFRED CPL",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "operations_continuite",
+  "category": "operations_alfred_cpl",
+  "summary": "Principes de supervision technique d'ALFRED CPL : santé des composants locaux, logs applicatifs, métriques de performance et alerting local, sans envoi de données sensibles vers le cloud.",
+  "purpose": "Définir comment ALFRED CPL doit être supervisé techniquement pour garantir sa fiabilité opérationnelle tout en respectant son positionnement local-first et la confidentialité des données utilisateur.",
+  "tags": ["supervision", "monitoring", "logs", "metriques", "alfred_cpl", "local_first"],
+  "intents": ["explain_alfred_cpl_monitoring", "describe_supervision_architecture", "assess_system_health"],
+  "usage_context": ["Exploitation technique d'ALFRED CPL", "Préparation d'une démonstration technique", "Documentation d'architecture"],
+  "priority": "high",
+  "safety_level": "normal",
+  "content": {
+    "definition": "La supervision technique d'ALFRED CPL consiste à observer en continu l'état de santé de ses composants (moteur de raisonnement local, base de connaissances, connecteurs, mémoire) afin de détecter précocement toute anomalie de fonctionnement. Elle repose sur trois piliers complémentaires : les logs applicatifs, les métriques de performance et un système d'alerting local qui ne transmet aucune donnée utilisateur sensible vers l'extérieur sans consentement explicite.",
+    "core_principles": [
+      "La supervision locale privilégie le traitement et le stockage des métriques directement sur la machine de l'utilisateur ou de l'organisation, conformément au principe local-first.",
+      "Les logs applicatifs doivent distinguer les événements techniques (démarrage, erreurs système, latence) des contenus métier échangés, ces derniers ne devant jamais être journalisés en clair sans nécessité justifiée.",
+      "Les métriques de performance clés incluent le temps de réponse du moteur de raisonnement, le taux d'erreur des connecteurs, la disponibilité de la base de connaissances et l'utilisation des ressources système (CPU, mémoire).",
+      "Un système d'alerting local doit notifier l'utilisateur ou l'administrateur en cas d'anomalie critique (composant indisponible, erreur récurrente) sans dépendre obligatoirement d'une connexion cloud permanente.",
+      "La supervision doit être configurable selon le niveau de sensibilité du déploiement (particulier, PME, organisation avec contraintes de conformité renforcées).",
+      "Toute donnée de supervision transmise à Cognitive Products Lab (télémétrie optionnelle) doit être anonymisée et soumise au consentement explicite de l'utilisateur."
+    ],
+    "rules": [
+      "Ne jamais journaliser en clair des données personnelles ou confidentielles dans les logs techniques.",
+      "Toujours permettre à l'utilisateur ou à l'administrateur de désactiver la télémétrie externe optionnelle sans dégrader le fonctionnement local d'ALFRED CPL."
+    ],
+    "examples": [
+      {
+        "situation": "Le moteur de raisonnement local d'ALFRED CPL commence à répondre avec une latence anormalement élevée.",
+        "recommended_behavior": "Le système de supervision détecte le dépassement de seuil de latence, génère une alerte locale horodatée, et consigne l'événement dans les logs techniques sans exposer le contenu des échanges utilisateur concernés.",
+        "avoid": "Ignorer la dégradation de performance jusqu'à ce que l'utilisateur signale un dysfonctionnement, ou journaliser le contenu complet des conversations pour diagnostiquer le problème."
+      }
+    ],
+    "best_practices": [
+      "Définir des seuils d'alerte clairs et documentés pour chaque métrique critique (latence, taux d'erreur, disponibilité).",
+      "Séparer strictement les logs techniques (diagnostics) des données métier (contenu des interactions).",
+      "Prévoir un tableau de bord de supervision local consultable par l'administrateur sans dépendance cloud obligatoire.",
+      "Documenter la politique de rétention des logs techniques (durée de conservation, purge automatique)."
+    ],
+    "anti_patterns": [
+      "Envoyer systématiquement toutes les métriques de supervision vers un service cloud tiers sans consentement explicite.",
+      "Confondre logs de diagnostic technique et journalisation du contenu métier des échanges utilisateur."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["supervision", "monitoring ALFRED CPL", "logs applicatifs", "alerting local", "métriques de performance"],
+    "related_domains": ["information_security", "enterprise_architecture"],
+    "related_knowledge": ["cpl.operations_continuite.gestion_incidents_alfred_cpl", "cpl.product_platform.logging_audit_human_control"],
+    "retrieval_priority": 6
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["Description de l'architecture de supervision technique d'ALFRED CPL"],
+    "restricted_usage": ["Configuration de supervision pour un déploiement soumis à des contraintes de conformité spécifiques non couvertes ici"],
+    "forbidden_usage": ["Journalisation de données personnelles ou confidentielles en clair"],
+    "fallback_behavior": "Recommander une revue de la politique de logs par un responsable technique/conformité avant tout déploiement en environnement sensible."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "11/07/2026",
+    "last_update": "11/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

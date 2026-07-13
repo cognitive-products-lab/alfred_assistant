@@ -1,7 +1,7 @@
 {
   "manifest_id": "alfred_knowledge_manifest_v2_0",
-  "version": "2.2.0",
-  "last_update": "2026-07-10",
+  "version": "2.3.0",
+  "last_update": "2026-07-11",
   "status": "active",
   "description": "Manifest global du socle de connaissances ALFRED. Il décrit les domaines, sous-domaines, usages et règles générales de chargement du dossier knowledges.",
   "scope": {
@@ -430,6 +430,79 @@
       ],
       "lot": "LOT5",
       "added": "2026-07-10"
+    },
+    "sciences": {
+      "label": "Sciences",
+      "description": "Physique, chimie, biologie, astronomie et méthode scientifique — culture scientifique générale.",
+      "priority": "medium",
+      "path": "knowledges/sciences/",
+      "subdomains": ["physique", "chimie", "biologie", "astronomie", "methode_scientifique"],
+      "lot": "LOT6",
+      "added": "2026-07-11"
+    },
+    "medecine": {
+      "label": "Médecine",
+      "description": "Culture générale médicale, prévention et premiers secours. Ne produit jamais de diagnostic médical.",
+      "priority": "medium",
+      "path": "knowledges/medecine/",
+      "safety_note": "Ce domaine ne doit jamais produire de diagnostic médical ni remplacer un professionnel de santé.",
+      "subdomains": ["anatomie_physiologie", "prevention", "premiers_secours", "vocabulaire_medical", "limites_alfred", "systemes_sante"],
+      "lot": "LOT6",
+      "added": "2026-07-11"
+    },
+    "mathematiques": {
+      "label": "Mathématiques",
+      "description": "Algèbre, statistiques et probabilités, logique, géométrie, mathématiques appliquées à l'IA.",
+      "priority": "medium",
+      "path": "knowledges/mathematiques/",
+      "subdomains": ["algebre", "statistiques_probabilites", "logique", "geometrie", "mathematiques_appliquees_ia"],
+      "lot": "LOT6",
+      "added": "2026-07-11"
+    },
+    "philosophie": {
+      "label": "Philosophie",
+      "description": "Éthique, épistémologie, philosophie de l'esprit et de l'IA, histoire de la philosophie, philosophie politique, métaphysique.",
+      "priority": "medium",
+      "path": "knowledges/philosophie/",
+      "subdomains": ["ethique", "epistemologie", "philosophie_esprit_ia", "courants_historiques", "logique_philosophique", "philosophie_politique", "metaphysique"],
+      "lot": "LOT6",
+      "added": "2026-07-11"
+    },
+    "geographie": {
+      "label": "Géographie",
+      "description": "Géopolitique, climat et environnement, urbanisme, démographie, cartographie, ressources naturelles.",
+      "priority": "medium",
+      "path": "knowledges/geographie/",
+      "subdomains": ["geopolitique", "climat_environnement", "urbanisme", "demographie", "cartographie", "ressources_naturelles"],
+      "lot": "LOT6",
+      "added": "2026-07-11"
+    },
+    "education": {
+      "label": "Éducation",
+      "description": "Pédagogie, andragogie, évaluation des apprentissages, e-learning et numérique éducatif.",
+      "priority": "medium",
+      "path": "knowledges/education/",
+      "subdomains": ["pedagogie", "andragogie", "evaluation_apprentissages", "elearning", "numerique_educatif"],
+      "lot": "LOT6",
+      "added": "2026-07-11"
+    },
+    "arts": {
+      "label": "Arts",
+      "description": "Histoire de l'art, musique, littérature, arts visuels.",
+      "priority": "low",
+      "path": "knowledges/arts/",
+      "subdomains": ["histoire_art", "musique", "litterature", "arts_visuels"],
+      "lot": "LOT6",
+      "added": "2026-07-11"
+    },
+    "competences_pratiques": {
+      "label": "Compétences pratiques",
+      "description": "Bricolage, jardinage, gestion de budget personnel, hygiène numérique quotidienne.",
+      "priority": "medium",
+      "path": "knowledges/competences_pratiques/",
+      "subdomains": ["bricolage", "jardinage", "gestion_budget_personnel", "hygiene_numerique"],
+      "lot": "LOT6",
+      "added": "2026-07-11"
     }
   },
   "recently_added_lots": {
@@ -520,6 +593,12 @@
         "llm_orchestration.json",
         "prompt_engineering.json"
       ]
+    },
+    "lot6_11_07_2026": {
+      "path": "knowledges/ (8 nouveaux domaines) + knowledges/cpl/operations_continuite/ + knowledges/cpl/documentation_procedures/",
+      "description": "Premier lot de l'enrichissement quotidien automatisé (voir knowledges/index/daily_enrichment_log.md). 60 fichiers créés : 8 nouveaux domaines (sciences, medecine, mathematiques, philosophie, geographie, education, arts, competences_pratiques) + 2 nouveaux sous-domaines du domaine cpl (operations_continuite, documentation_procedures).",
+      "new_domains": ["sciences", "medecine", "mathematiques", "philosophie", "geographie", "education", "arts", "competences_pratiques"],
+      "new_cpl_subdomains": ["cpl.operations_continuite", "cpl.documentation_procedures"]
     }
   },
   "loading_policy": {
@@ -552,5 +631,5 @@
       "Tester retrieval_engine.py sur des requêtes multi-domaines."
     ]
   },
-  "total_domains": 45
+  "total_domains": 53
 }
