@@ -272,7 +272,7 @@
     {
       "id": "DQ-008",
       "name": "Manifest de progression des blocs (dashboard_data.json)",
-      "domain_bloc": "Bloc 11.03 — KPI & dashboards",
+      "domain_bloc": "Bloc 23.01 — Suivi d'avancement & KPI globaux",
       "source_path": "dashboard/dashboard_data/dashboard_data.json",
       "description": "Suivi de la complétude des blocs B01→B29 (validés/testés/codés/manquants).",
       "documented": true,
@@ -302,7 +302,7 @@
       "created_at": "2026-05-02",
       "last_modified_at": "2026-07-12",
       "planned_deletion_at": null,
-      "notes": "Déjà publié sur ALFRED_WEB via tools/sync_dashboards.py — niveau 1 par construction."
+      "notes": "Déjà publié sur ALFRED_WEB via tools/sync_dashboards.py — niveau 1 par construction. (retaggé Bloc 23.01 le 13/07/2026, ex-Bloc 11.03, suite à la formalisation du Bloc 23.)"
     },
     {
       "id": "DQ-009",
@@ -373,7 +373,7 @@
     {
       "id": "DQ-011",
       "name": "Registre de validation des blocs (validation_registry.json)",
-      "domain_bloc": "Bloc 11.05 — Gouvernance data",
+      "domain_bloc": "Bloc 23.01 — Suivi d'avancement & KPI globaux",
       "source_path": "dashboard/dashboard_data/validation_registry.json",
       "description": "Registre des validations manuelles fusionnées au scan automatique de fichiers.",
       "documented": true,
@@ -400,7 +400,7 @@
       "created_at": "2026-05-02",
       "last_modified_at": "2026-07-08",
       "planned_deletion_at": null,
-      "notes": ""
+      "notes": " (retaggé Bloc 23.01 le 13/07/2026, ex-Bloc 11.05, suite à la formalisation du Bloc 23.)"
     },
     {
       "id": "DQ-012",
@@ -495,11 +495,11 @@
       "id": "DQ-015",
       "name": "Roadmap produit / état produit (Bloc 11 CPL)",
       "domain_bloc": "Bloc 11.04 — Reporting",
-      "source_path": "config/v2/product_roadmap.json, data/v2/product_state.json",
-      "description": "Indicateurs de pilotage produit et roadmap ALFRED CPL.",
-      "documented": true,
-      "defined": true,
-      "status": "utilisee",
+      "source_path": "config/v2/kpi_config.json, config/v2/product_roadmap.json, data/v2/product_state.json",
+      "description": "Indicateurs de pilotage produit, KPI et roadmap ALFRED CPL — corrigé le 13/07/2026 : vérification directe sur disque, ces 3 fichiers ne font que 6 à 20 octets (scaffolding quasi vide), contrairement à l'évaluation initiale de cette fiche qui les marquait 'utilisée'. Le pilotage business réel de CPL semble porté ailleurs (docs/roadmap/, dashboard_gouvernance) plutôt que par ces fichiers.",
+      "documented": false,
+      "defined": false,
+      "status": "a_connecter",
       "data_type": "privee",
       "sensitivity_classification": "C2_INTERNE",
       "security_level_planned": 2,
@@ -507,22 +507,15 @@
         "metier"
       ],
       "retention_period": "illimitée (registre vivant)",
-      "update_frequency": "hebdomadaire",
+      "update_frequency": "aucune constatée depuis leur création",
       "authorized_roles": {
-        "read": [
-          "OWNER",
-          "ADMIN",
-          "CHEF_DE_PROJET"
-        ],
-        "write": [
-          "OWNER",
-          "CHEF_DE_PROJET"
-        ]
+        "read": [],
+        "write": []
       },
-      "created_at": "2026-03-15",
-      "last_modified_at": "2026-07-01",
+      "created_at": "2026-05-02",
+      "last_modified_at": "2026-05-02",
       "planned_deletion_at": null,
-      "notes": ""
+      "notes": "Corrigé le 13/07/2026 (était marquée 'utilisée' par erreur lors du seed initial du 12/07/2026, sans vérification directe du contenu disque). Fusionnée avec DQ-038 (config/v2/kpi_config.json) pour éviter le doublon."
     },
     {
       "id": "DQ-016",
@@ -1137,6 +1130,266 @@
       "last_modified_at": "2026-06-15",
       "planned_deletion_at": null,
       "notes": "Ce sont les questionnaires (formulaires vierges), pas les réponses individuelles — vérifier que les réponses remplies suivent bien la même politique que DQ-004/DQ-001."
+    },
+    {
+      "id": "DQ-036",
+      "name": "Manifest source du pilotage multi-blocs",
+      "domain_bloc": "Bloc 23.01 — Suivi d'avancement & KPI globaux",
+      "source_path": "dashboard/dashboard_data/dashboard_data_manifest.json",
+      "description": "Manifest éditable listant les fichiers attendus par bloc (25 blocs, cible ~1400 fichiers) — source de vérité lue par update_dashboard_data.py pour produire dashboard_data.json.",
+      "documented": true,
+      "defined": true,
+      "status": "utilisee",
+      "data_type": "privee",
+      "sensitivity_classification": "C2_INTERNE",
+      "security_level_planned": 2,
+      "intended_use": [
+        "technique",
+        "metier"
+      ],
+      "retention_period": "illimitée (registre vivant)",
+      "update_frequency": "manuelle, à chaque évolution de bloc",
+      "authorized_roles": {
+        "read": [
+          "OWNER",
+          "ADMIN"
+        ],
+        "write": [
+          "OWNER",
+          "ADMIN"
+        ]
+      },
+      "created_at": "2026-05-02",
+      "last_modified_at": "2026-07-13",
+      "planned_deletion_at": null,
+      "notes": "Ce même fichier a servi de base à l'audit blocs 1-29 et à l'ajout des Blocs 23/24/25."
+    },
+    {
+      "id": "DQ-037",
+      "name": "Configuration collaboration & workflow V3 — scaffolding",
+      "domain_bloc": "Bloc 12.01/12.02 — Gestion de projet, coordination d'équipe",
+      "source_path": "config/v3/orchestrator_rules.json (6b), config/v3/workflow_rules.json (6b)",
+      "description": "Scaffolding V3 pour l'orchestration et les workflows de collaboration — non défini, non branché.",
+      "documented": false,
+      "defined": false,
+      "status": "a_connecter",
+      "data_type": "privee",
+      "sensitivity_classification": "C2_INTERNE",
+      "security_level_planned": 2,
+      "intended_use": [
+        "technique"
+      ],
+      "retention_period": "à définir",
+      "update_frequency": "à définir",
+      "authorized_roles": {
+        "read": [],
+        "write": []
+      },
+      "created_at": "2026-05-02",
+      "last_modified_at": "2026-05-02",
+      "planned_deletion_at": null,
+      "notes": "Même fichiers que ceux listés sous Bloc 18 (config/v3/orchestrator_rules.json, workflow_rules.json) — un seul fichier physique rattaché à deux blocs dans le manifest, à clarifier."
+    },
+    {
+      "id": "DQ-039",
+      "name": "Scénarios de démonstration (config/data Bloc 16)",
+      "domain_bloc": "Bloc 16 — Démonstration & Scénarisation",
+      "source_path": "config/v2/scenario_catalog.json (21b), data/v2/scenario_results.json (6b), data/v2/scenarios/career_transition.json, isolation_support.json, mental_overload.json (6b chacun)",
+      "description": "Catalogue et résultats de scénarios de démonstration — contenu quasi vide (6-21 octets) malgré un statut de suivi à 46.7% dans BACKLOG.md pour ce bloc.",
+      "documented": false,
+      "defined": false,
+      "status": "a_connecter",
+      "data_type": "privee",
+      "sensitivity_classification": "C2_INTERNE",
+      "security_level_planned": 2,
+      "intended_use": [
+        "metier"
+      ],
+      "retention_period": "à définir",
+      "update_frequency": "à définir",
+      "authorized_roles": {
+        "read": [],
+        "write": []
+      },
+      "created_at": "2026-05-02",
+      "last_modified_at": "2026-05-02",
+      "planned_deletion_at": null,
+      "notes": "Cohérent avec l'incohérence documentaire déjà relevée sur le Bloc 16 (marqué 'réservé' dans ALFRED_BLOCS_REFERENCE.md mais suivi avec du contenu réel ailleurs) — ici les données sont bien du scaffolding vide."
+    },
+    {
+      "id": "DQ-040",
+      "name": "Configurations réelles du moteur de connaissances (Bloc 18)",
+      "domain_bloc": "Bloc 18 — Base de connaissances & culture",
+      "source_path": "config/alfred_project.json, config/router_rules.json, config/routing_rules.json, config/tagging_rules.json, config/v1/basic_pipeline_rules.json, config/v2/module_mapping.json",
+      "description": "Configurations substantielles et réellement remplies du moteur de routage/tagging des connaissances (jusqu'à 11.8 Ko pour module_mapping.json).",
+      "documented": true,
+      "defined": true,
+      "status": "utilisee",
+      "data_type": "privee",
+      "sensitivity_classification": "C2_INTERNE",
+      "security_level_planned": 2,
+      "intended_use": [
+        "technique"
+      ],
+      "retention_period": "illimitée (config versionnée)",
+      "update_frequency": "évolutive, au fil du développement",
+      "authorized_roles": {
+        "read": [
+          "OWNER",
+          "ADMIN",
+          "AI_MODULE"
+        ],
+        "write": [
+          "OWNER",
+          "ADMIN"
+        ]
+      },
+      "created_at": "2026-02-01",
+      "last_modified_at": "2026-06-20",
+      "planned_deletion_at": null,
+      "notes": ""
+    },
+    {
+      "id": "DQ-041",
+      "name": "Scaffolding massif V2/V3 non connecté (Bloc 18)",
+      "domain_bloc": "Bloc 18 — Base de connaissances & culture",
+      "source_path": "~30 fichiers config/v2/*.json, config/v3/*.json, data/v2/*.json, data/v3/*.json (6 à 79 octets chacun — cf. dashboard_data_manifest.json b18 pour la liste complète)",
+      "description": "Ensemble d'environ 30 fichiers de scaffolding V2/V3 (confidence_rules, decision_rules, edge_cases, fallback_rules, feature_matrix, learning_rules, naming_conventions, proactivity_rules, signal_weights côté config ; experience_state, feedback_log, learning_state, robustness_results, behavior_state, context_memories, conversation_state, fusion_*, orchestrator_state, proactive_*, safety_state, workflow_log côté data) — tous quasi vides, créés le même jour (2026-05-02), jamais branchés au pipeline actuel.",
+      "documented": false,
+      "defined": false,
+      "status": "a_connecter",
+      "data_type": "privee",
+      "sensitivity_classification": "C2_INTERNE",
+      "security_level_planned": 2,
+      "intended_use": [
+        "technique"
+      ],
+      "retention_period": "à définir",
+      "update_frequency": "aucune depuis leur création",
+      "authorized_roles": {
+        "read": [],
+        "write": []
+      },
+      "created_at": "2026-05-02",
+      "last_modified_at": "2026-05-02",
+      "planned_deletion_at": null,
+      "notes": "Volume important de scaffolding jamais utilisé (~30 fichiers) — cas exemplaire de 'donnée créée en pensant l'utiliser mais au final pas de besoin confirmé à ce jour'. Recommandation : décision d'équipe à prendre bloc par bloc (V2 vs V3) — soit prioriser leur mise en service, soit les archiver pour alléger le manifest et arrêter de les compter comme 'cible' dans l'avancement Bloc 18."
+    },
+    {
+      "id": "DQ-042",
+      "name": "Configuration domotique V4 (Bloc 19)",
+      "domain_bloc": "Bloc 14.01/14.03 — Domotique, gestion des équipements",
+      "source_path": "config/v4/action_rules.json, home_devices.json, orchestration_rules.json, scenario_rules.json, trigger_rules.json (6b chacun)",
+      "description": "Scaffolding V4 pour la configuration domotique — non défini, non branché, cohérent avec un Bloc 19 à 60.0% (15/22 cible) encore largement en construction.",
+      "documented": false,
+      "defined": false,
+      "status": "a_connecter",
+      "data_type": "privee",
+      "sensitivity_classification": "C2_INTERNE",
+      "security_level_planned": 2,
+      "intended_use": [
+        "technique"
+      ],
+      "retention_period": "à définir",
+      "update_frequency": "à définir",
+      "authorized_roles": {
+        "read": [],
+        "write": []
+      },
+      "created_at": "2026-05-02",
+      "last_modified_at": "2026-05-02",
+      "planned_deletion_at": null,
+      "notes": ""
+    },
+    {
+      "id": "DQ-043",
+      "name": "État runtime domotique V4 (Bloc 19)",
+      "domain_bloc": "Bloc 14.02/14.05 — Capteurs intelligents, supervision IoT",
+      "source_path": "data/v4/action_log.json, device_registry.json, home_state.json, sensor_state.json, trigger_log.json (6b chacun)",
+      "description": "État runtime domotique (registre d'appareils, état capteurs, journaux d'actions/déclenchements) — scaffolding non alimenté.",
+      "documented": false,
+      "defined": false,
+      "status": "a_creer",
+      "data_type": "privee",
+      "sensitivity_classification": "C3_CONFIDENTIEL",
+      "security_level_planned": 3,
+      "intended_use": [
+        "technique"
+      ],
+      "retention_period": "à définir",
+      "update_frequency": "à définir",
+      "authorized_roles": {
+        "read": [],
+        "write": []
+      },
+      "created_at": "2026-05-02",
+      "last_modified_at": "2026-05-02",
+      "planned_deletion_at": null,
+      "notes": "Statut 'a_creer' plutôt que 'a_connecter' : ces données décriront un état physique domotique réel (capteurs/appareils du domicile) qui n'existe pas encore dans les faits, contrairement au scaffolding purement logiciel des autres blocs."
+    },
+    {
+      "id": "DQ-044",
+      "name": "Politiques de sécurité & Zero Trust (config Bloc 20)",
+      "domain_bloc": "Bloc 20.01/20.04/20.13 — Gouvernance cybersécurité, RBAC, Zero Trust",
+      "source_path": "config/safety_rules.json, config/security/access_policies.json, audit_retention_policy.json, roles_permissions.json, security_settings.json, trusted_devices.json, zero_trust_rules.json, network_policy.json, config/v3/safety_rules.json",
+      "description": "Configuration complète du socle Zero Trust — rôles/permissions, politiques d'accès, réseau, appareils de confiance, rétention d'audit.",
+      "documented": true,
+      "defined": true,
+      "status": "utilisee",
+      "data_type": "privee",
+      "sensitivity_classification": "C3_CONFIDENTIEL",
+      "security_level_planned": 4,
+      "intended_use": [
+        "technique"
+      ],
+      "retention_period": "illimitée (config versionnée, rotation via key_rotation_scheduler pour les secrets liés)",
+      "update_frequency": "évolutive, au fil du durcissement sécurité",
+      "authorized_roles": {
+        "read": [
+          "OWNER",
+          "ADMIN"
+        ],
+        "write": [
+          "OWNER",
+          "ADMIN"
+        ]
+      },
+      "created_at": "2026-02-01",
+      "last_modified_at": "2026-07-11",
+      "planned_deletion_at": null,
+      "notes": "config/v3/safety_rules.json (6b) fait exception : scaffolding vide non branché, contrairement au reste du groupe qui est substantiel et actif."
+    },
+    {
+      "id": "DQ-045",
+      "name": "Données runtime sécurité manquantes (Bloc 20)",
+      "domain_bloc": "Bloc 20.08/20.09/20.11 — Détection d'intrusion, audit, réponse à incident",
+      "source_path": "data/security/access_decisions_history.json, data/security/incident_register.json, data/security/trusted_devices_runtime.json",
+      "description": "Trois fichiers de données runtime attendus par le manifest (décisions d'accès Zero Trust, registre d'incidents, appareils de confiance actifs) mais absents du disque à ce jour.",
+      "documented": true,
+      "defined": true,
+      "status": "a_creer",
+      "data_type": "privee",
+      "sensitivity_classification": "C3_CONFIDENTIEL",
+      "security_level_planned": 4,
+      "intended_use": [
+        "technique"
+      ],
+      "retention_period": "90 jours pour l'historique de décisions/audit (aligné RGPD register T03), 1 an pour le registre d'incidents (T05)",
+      "update_frequency": "temps réel une fois créés",
+      "authorized_roles": {
+        "read": [
+          "OWNER",
+          "ADMIN"
+        ],
+        "write": [
+          "OWNER",
+          "ADMIN"
+        ]
+      },
+      "created_at": null,
+      "last_modified_at": null,
+      "planned_deletion_at": null,
+      "notes": "Écart réel entre le manifest (dashboard_data_manifest.json b20) et le disque — ces 3 fichiers comptent comme 'cible' dans le calcul d'avancement B20 (189/181, >100%) mais sont vides ; à créer ou à retirer du manifest si non prioritaires."
     }
   ]
 }
