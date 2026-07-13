@@ -1,19 +1,19 @@
 # ALFRED — BACKLOG & RÉFÉRENTIEL FICHIERS
 
-> Généré le 12/07/2026 07:25 depuis `dashboard_data.json` (mis à jour le 12/07/2026 07:25:21)
-> Progression technique : **86.0%** · Full projet : **94.3%**
-> 1318 fichiers détectés / 1319 cible full
+> Généré le 13/07/2026 06:55 depuis `dashboard_data.json` (mis à jour le 13/07/2026 06:55:45)
+> Progression technique : **84.0%** · Full projet : **93.8%**
+> 1336 fichiers détectés / 1337 cible full
 
 ## Synthèse globale
 
 | Statut | Nb | % | Priorité |
 |--------|---:|--:|----------|
 | ❌ A créer | 16 | 1.2% | 🔴 Urgent |
-| 🟡 Partiel | 104 | 7.9% | 🟡 Sprint |
-| 🟦 Codé — à tester | 89 | 6.8% | 🟡 Sprint |
-| 🧪 Testé — à valider | 266 | 20.2% | 🧪 Tests |
-| ✅ Validé ✅ | 807 | 61.2% | ✅ Done |
-| ⚙️ Structurel | 123 | 9.3% | ✅ Done |
+| 🟡 Partiel | 106 | 7.9% | 🟡 Sprint |
+| 🟦 Codé — à tester | 104 | 7.8% | 🟡 Sprint |
+| 🧪 Testé — à valider | 267 | 20.0% | 🧪 Tests |
+| ✅ Validé ✅ | 807 | 60.4% | ✅ Done |
+| ⚙️ Structurel | 123 | 9.2% | ✅ Done |
 | 📦 Archivé | 1 | 0.1% | ✅ Done |
 
 ## Backlog par bloc
@@ -486,6 +486,59 @@
 | `ROADMAP.md` | 🟦 Codé — à tester | Tester |
 | `BACKLOG.md` | 🟦 Codé — à tester | Tester |
 
+### 🟡 B24 — ALFRED Android / Compagnon mobile natif `60.0%`
+
+| KPI | Valeur |
+|-----|--------|
+| Validés | 0 |
+| Testés | 0 |
+| Codés (à tester) | 9 |
+| Partiels | 0 |
+| Structurels | 0 |
+| Manquants | 0 |
+
+> Validé le 13/07/2026 — dépôt séparé ALFRED_ANDROID, même statut structurel que le Bloc 21 (ALFRED_WEB). PoC 'Compagnon' validé de bout en bout le 02/07/2026, pas encore le produit Android complet (cf. ROADMAP.md, section Android).
+
+**Fichiers à traiter :**
+
+| Fichier | Statut | Action |
+|---------|--------|--------|
+| `ALFRED_ANDROID/app/src/main/java/com/cognitiveproductslab/alfred/companion/MainActivity.kt` | 🟦 Codé — à tester | Tester |
+| `ALFRED_ANDROID/app/src/main/java/com/cognitiveproductslab/alfred/companion/ui/CompanionViewModel.kt` | 🟦 Codé — à tester | Tester |
+| `ALFRED_ANDROID/app/src/main/java/com/cognitiveproductslab/alfred/companion/ui/theme/Theme.kt` | 🟦 Codé — à tester | Tester |
+| `ALFRED_ANDROID/app/src/main/java/com/cognitiveproductslab/alfred/companion/data/Models.kt` | 🟦 Codé — à tester | Tester |
+| `ALFRED_ANDROID/app/src/main/java/com/cognitiveproductslab/alfred/companion/data/CompanionApiService.kt` | 🟦 Codé — à tester | Tester |
+| `ALFRED_ANDROID/app/src/main/java/com/cognitiveproductslab/alfred/companion/data/ApiClient.kt` | 🟦 Codé — à tester | Tester |
+| `ALFRED_ANDROID/app/src/main/AndroidManifest.xml` | 🟦 Codé — à tester | Tester |
+| `ALFRED_ANDROID/app/build.gradle.kts` | 🟦 Codé — à tester | Tester |
+| `ALFRED_ANDROID/app/src/main/res/xml/network_security_config.xml` | 🟦 Codé — à tester | Tester |
+
+### 🟡 B25 — Documentation & politiques projet transverses `60.0%`
+
+| KPI | Valeur |
+|-----|--------|
+| Validés | 0 |
+| Testés | 1 |
+| Codés (à tester) | 6 |
+| Partiels | 2 |
+| Structurels | 0 |
+| Manquants | 0 |
+
+> Validé le 13/07/2026 — contenu qui ne dépend d'aucun bloc fonctionnel unique. Les fichiers .md légaux/communautaires ne portent pas l'entête Bloc XX.YY (convention réservée au code/JSON, cf. docs/ALFRED_BLOCS_REFERENCE.md).
+
+**Fichiers à traiter :**
+
+| Fichier | Statut | Action |
+|---------|--------|--------|
+| `docs/architecture/README.md` | 🟡 Partiel | Compléter |
+| `docs/ux/README.md` | 🟡 Partiel | Compléter |
+| `README_FR.md` | 🟦 Codé — à tester | Tester |
+| `LICENSE` | 🟦 Codé — à tester | Tester |
+| `CONTRIBUTING.md` | 🟦 Codé — à tester | Tester |
+| `CONTRIBUTING_FR.md` | 🟦 Codé — à tester | Tester |
+| `CODE_OF_CONDUCT.md` | 🟦 Codé — à tester | Tester |
+| `docs/architecture/reseau_alfred.svg` | 🟦 Codé — à tester | Tester |
+
 ### ✅ B29 — Démonstrateur Big Data Hadoop `100.0%`
 
 | KPI | Valeur |
@@ -499,7 +552,7 @@
 
 > PoC ciblé (pas une infra de production) — regard critique assumé sur le surdimensionnement à l'échelle actuelle d'ALFRED, cf. docs/hadoop_poc_bilan.md.
 
-## 🟦 Sprint — Fichiers codés à tester (89)
+## 🟦 Sprint — Fichiers codés à tester (104)
 
 Ces fichiers sont implémentés mais n'ont pas encore de tests.
 
@@ -599,3 +652,20 @@ Ces fichiers sont implémentés mais n'ont pas encore de tests.
 - `BACKLOG.md`
 - `ROADMAP.md`
 - `tools/dashboard_tools/dashboard_data/update_dashboard_data.py`
+**B24**
+- `ALFRED_ANDROID/app/build.gradle.kts`
+- `ALFRED_ANDROID/app/src/main/AndroidManifest.xml`
+- `ALFRED_ANDROID/app/src/main/java/com/cognitiveproductslab/alfred/companion/MainActivity.kt`
+- `ALFRED_ANDROID/app/src/main/java/com/cognitiveproductslab/alfred/companion/data/ApiClient.kt`
+- `ALFRED_ANDROID/app/src/main/java/com/cognitiveproductslab/alfred/companion/data/CompanionApiService.kt`
+- `ALFRED_ANDROID/app/src/main/java/com/cognitiveproductslab/alfred/companion/data/Models.kt`
+- `ALFRED_ANDROID/app/src/main/java/com/cognitiveproductslab/alfred/companion/ui/CompanionViewModel.kt`
+- `ALFRED_ANDROID/app/src/main/java/com/cognitiveproductslab/alfred/companion/ui/theme/Theme.kt`
+- `ALFRED_ANDROID/app/src/main/res/xml/network_security_config.xml`
+**B25**
+- `CODE_OF_CONDUCT.md`
+- `CONTRIBUTING.md`
+- `CONTRIBUTING_FR.md`
+- `LICENSE`
+- `README_FR.md`
+- `docs/architecture/reseau_alfred.svg`
