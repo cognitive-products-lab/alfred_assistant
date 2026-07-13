@@ -90,11 +90,14 @@ def render_fiche_cadrage(
     sections.extend(f"- {s}" for s in required_sections)
 
     if process_steps:
-        sections.append("")
-        sections.append("## Étapes du processus de lancement")
-        for _, steps in process_steps:
-            if isinstance(steps, list):
-                sections.extend(f"{i + 1}. {step}" for i, step in enumerate(steps))
+        # Ne garder que la première liste d'étapes (connaissance la mieux classée) —
+        # concaténer les process_steps de plusieurs procédures différentes créerait
+        # une liste numérotée trompeuse (plusieurs "1." qui ne s'enchaînent pas).
+        _, first_steps = process_steps[0]
+        if isinstance(first_steps, list):
+            sections.append("")
+            sections.append("## Étapes du processus de lancement")
+            sections.extend(f"{i + 1}. {step}" for i, step in enumerate(first_steps))
 
     sections.append("")
     sections.append("## Registre initial des risques (catégories à évaluer)")
