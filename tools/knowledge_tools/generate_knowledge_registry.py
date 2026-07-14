@@ -12,7 +12,7 @@ VERSION      : V1.0
 STATUS       : VALIDATED
 
 DESCRIPTION :
-Outils projet — description a completer.
+Outils projet â€” description a completer.
 """
 
 from pathlib import Path
@@ -66,12 +66,12 @@ registry = {
     "registry_id": "alfred_knowledge_registry_v3_2",
     "version": "3.2.0",
     "last_update": datetime.now().strftime("%Y-%m-%d"),
-    "description": "Registry global généré automatiquement depuis l’arborescence réelle du dossier knowledges.",
+    "description": "Registry global gÃ©nÃ©rÃ© automatiquement depuis lâ€™arborescence rÃ©elle du dossier knowledges.",
     "root": "knowledges/",
     "mode": "local_first",
     "governance": {
         "source_of_truth": "filesystem_scan",
-        "update_rule": "Relancer generate_knowledge_registry.py après ajout, suppression ou déplacement de fichiers knowledge.",
+        "update_rule": "Relancer generate_knowledge_registry.py aprÃ¨s ajout, suppression ou dÃ©placement de fichiers knowledge.",
         "excluded_files": sorted(EXCLUDED)
     },
     "knowledges": items,
@@ -84,5 +84,5 @@ registry = {
 with OUT.open("w", encoding="utf-8") as f:
     json.dump(registry, f, ensure_ascii=False, indent=2)
 
-print(f"Registry généré : {OUT}")
-print(f"Fichiers indexés : {len(items)}")
+print(f"Registry gÃ©nÃ©rÃ© : {OUT}")
+print(f"Fichiers indexÃ©s : {len(items)}")
