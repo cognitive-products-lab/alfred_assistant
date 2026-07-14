@@ -7,13 +7,12 @@ ROLE     : Génère knowledge_dashboard_data.json à partir du registry, de la t
 USAGE    : python dashboard/dashboard_knowledges_tool/generate_knowledge_dashboard.py
 OUTPUT   : dashboard/dashboard_knowledges_tool/knowledge_dashboard_data.json
 
-STATUS   : VALIDATED
+STATUS   : VALIDATED — recursive scan V1.1
 """
 
 from __future__ import annotations
 
 import json
-import os
 from datetime import datetime
 from pathlib import Path
 
@@ -211,33 +210,112 @@ def _load_json(path: Path) -> dict | list:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
-def _scan_domain_files() -> dict[str, dict[str, list[str]]]:
+def _scan_domain_files() -> dict[str, dict[str, dict]]:
     """
-    Scans knowledges/ pour compter les fichiers réels par domaine/sous-domaine.
-    Retourne : { "core": { "core": ["alfred_core_identity", ...] }, ... }
+    Scanne récursivement knowledges/ et regroupe chaque fichier par :
+      - domaine = premier dossier ;
+      - sous-domaine = premier dossier sous le domaine ;
+      - _root = fichiers placés directement dans le domaine.
+
+    Les niveaux plus profonds restent rattachés au premier sous-domaine afin
+    que les totaux du dashboard correspondent toujours au nombre réel de
+    fichiers. Leur arborescence est conservée dans ``nested_subdomains``.
+
+    Exemple :
+      professional/product_management/advanced/file.json
+      -> domaine : professional
+      -> sous-domaine : product_management
+      -> niveau imbriqué : advanced
     """
-    result: dict[str, dict[str, list[str]]] = {}
+    result: dict[str, dict[str, dict]] = {}
     excluded = {
-        "domain_links.json", "governance_rules.json", "knowledge_registry.json",
-        "knowledge_template.json", "manifest.json", "retrieval_rules.json", "taxonomy.json",
+        "domain_links.json",
+        "governance_rules.json",
+        "knowledge_registry.json",
+        "knowledge_template.json",
+        "manifest.json",
+        "retrieval_rules.json",
+        "taxonomy.json",
     }
-    for domain_dir in KNOWLEDGE_DIR.iterdir():
+
+    if not KNOWLEDGE_DIR.exists():
+        return result
+
+    for domain_dir in sorted(KNOWLEDGE_DIR.iterdir(), key=lambda p: p.name.lower()):
         if not domain_dir.is_dir():
             continue
+
         domain = domain_dir.name
-        result[domain] = {}
-        for item in domain_dir.iterdir():
-            if item.is_dir():
-                sub = item.name
-                files = [
-                    f.stem for f in item.iterdir()
-                    if f.is_file() and f.suffix == ".json" and f.name not in excluded
-                ]
-                if files:
-                    result[domain][sub] = sorted(files)
-            elif item.is_file() and item.suffix == ".json" and item.name not in excluded:
-                result[domain].setdefault("_root", []).append(item.stem)
+        domain_result: dict[str, dict] = {}
+
+        for file_path in sorted(domain_dir.rglob("*.json")):
+            if not file_path.is_file() or file_path.name in excluded:
+                continue
+
+            rel_to_domain = file_path.relative_to(domain_dir)
+            rel_to_knowledges = file_path.relative_to(KNOWLEDGE_DIR).as_posix()
+            parts = rel_to_domain.parts
+
+            subdomain = "_root" if len(parts) == 1 else parts[0]
+            bucket = domain_result.setdefault(
+                subdomain,
+                {
+                    "files": [],
+                    "paths": [],
+                    "nested_subdomains": {},
+                },
+            )
+
+            bucket["files"].append(file_path.stem)
+            bucket["paths"].append(rel_to_knowledges)
+
+            # Exemple : product_management/advanced/fichier.json
+            # Le niveau "advanced" est conservé sans créer un faux domaine.
+            if len(parts) > 2:
+                nested_name = "/".join(parts[1:-1])
+                nested = bucket["nested_subdomains"].setdefault(
+                    nested_name,
+                    {"files": [], "paths": []},
+                )
+                nested["files"].append(file_path.stem)
+                nested["paths"].append(rel_to_knowledges)
+
+        if not domain_result:
+            continue
+
+        # Tri stable pour produire un JSON déterministe et des diffs Git propres.
+        for bucket in domain_result.values():
+            bucket["files"].sort()
+            bucket["paths"].sort()
+
+            nested_sorted = {}
+            for nested_name in sorted(bucket["nested_subdomains"]):
+                nested = bucket["nested_subdomains"][nested_name]
+                nested["files"].sort()
+                nested["paths"].sort()
+                nested["count"] = len(nested["paths"])
+                nested_sorted[nested_name] = nested
+
+            bucket["nested_subdomains"] = nested_sorted
+            bucket["count"] = len(bucket["paths"])
+
+        result[domain] = domain_result
+
     return result
+
+
+def _normalise_registry_path(value: str) -> str:
+    """Normalise un chemin du registry relativement à knowledges/."""
+    path = str(value or "").replace("\\", "/").lstrip("./")
+    if path.startswith("knowledges/"):
+        path = path[len("knowledges/"):]
+    return path
+
+
+def _knowledge_id_from_path(relative_path: str) -> str:
+    """Transforme domain/sub/file.json en domain.sub.file."""
+    path = Path(relative_path)
+    return ".".join(path.with_suffix("").parts)
 
 
 def _get_recent_updates(domain: str, limit: int = 5) -> list[dict]:
@@ -305,123 +383,233 @@ def generate() -> None:
     print(f"[knowledge_dashboard] Génération — {ts}")
 
     registry_data = _load_json(REGISTRY_PATH)
-    taxonomy_data  = _load_json(TAXONOMY_PATH)
-    links_data     = _load_json(LINKS_PATH)
-    rules_data     = _load_json(RULES_PATH)
-    scanned        = _scan_domain_files()
+    taxonomy_data = _load_json(TAXONOMY_PATH)
+    links_data = _load_json(LINKS_PATH)
+    rules_data = _load_json(RULES_PATH)
+    scanned = _scan_domain_files()
 
-    # ── Stats globales depuis le registry ──────────────────────────────────
     knowledges_list = registry_data.get("knowledges", [])
-    total     = len(knowledges_list)
-    active    = sum(1 for k in knowledges_list if k.get("status") == "active")
-    deprecated = sum(1 for k in knowledges_list if k.get("status") == "deprecated")
+    if not isinstance(knowledges_list, list):
+        knowledges_list = []
 
-    # Compter par domaine depuis le scan réel
-    domain_counts: dict[str, int] = {}
-    for domain, subs in scanned.items():
-        domain_counts[domain] = sum(len(files) for files in subs.values())
+    # ── Le système de fichiers est la source de vérité ─────────────────────
+    scanned_paths: set[str] = set()
+    domain_paths: dict[str, set[str]] = {}
+    for domain, subdomains in scanned.items():
+        paths = {
+            path
+            for bucket in subdomains.values()
+            for path in bucket.get("paths", [])
+        }
+        domain_paths[domain] = paths
+        scanned_paths.update(paths)
+
+    registry_status_by_path: dict[str, str] = {}
+    registry_ids_by_path: dict[str, str] = {}
+    for item in knowledges_list:
+        rel_path = _normalise_registry_path(item.get("file", ""))
+        if not rel_path:
+            continue
+        registry_status_by_path[rel_path] = item.get("status", "active")
+        if item.get("id"):
+            registry_ids_by_path[rel_path] = item["id"]
+
+    registry_paths = set(registry_status_by_path)
+    total = len(scanned_paths)
+    registry_total = len(registry_paths)
+
+    def status_for(path: str) -> str:
+        # Un fichier réel absent du registry est considéré actif, tout en étant
+        # signalé dans le bloc integrity pour permettre la correction du registre.
+        return registry_status_by_path.get(path, "active")
+
+    active = sum(1 for path in scanned_paths if status_for(path) == "active")
+    deprecated = sum(1 for path in scanned_paths if status_for(path) == "deprecated")
+    other_status = total - active - deprecated
+
+    missing_in_registry = sorted(scanned_paths - registry_paths)
+    missing_on_disk = sorted(registry_paths - scanned_paths)
+    registry_in_sync = not missing_in_registry and not missing_on_disk
+
+    if not registry_in_sync:
+        print(
+            "  [WARN] Registry désynchronisé : "
+            f"{len(missing_in_registry)} fichier(s) absent(s) du registry, "
+            f"{len(missing_on_disk)} entrée(s) sans fichier réel."
+        )
+
+    # Comptage réel par domaine, incluant tous les niveaux imbriqués.
+    domain_counts = {
+        domain: len(paths)
+        for domain, paths in domain_paths.items()
+    }
 
     # ── Retrieval config ───────────────────────────────────────────────────
     score_cfg = rules_data.get("scoring", {})
     retrieval_cfg = {
         "max_knowledge_per_query": rules_data.get("max_knowledge_per_query", 3),
-        "minimum_score":           rules_data.get("minimum_score", 6.0),
-        "max_domains_per_query":   rules_data.get("max_domains_per_query", 3),
-        "domain_weights":          score_cfg.get("domain_weights", {}),
-        "intent_match_bonus":      score_cfg.get("intent_match_bonus", 3.0),
-        "title_match_bonus":       score_cfg.get("title_match_bonus", 2.5),
+        "minimum_score": rules_data.get("minimum_score", 6.0),
+        "max_domains_per_query": rules_data.get("max_domains_per_query", 3),
+        "domain_weights": score_cfg.get("domain_weights", {}),
+        "intent_match_bonus": score_cfg.get("intent_match_bonus", 3.0),
+        "title_match_bonus": score_cfg.get("title_match_bonus", 2.5),
     }
 
-    # ── Exemple IDs par domaine depuis le registry ─────────────────────────
+    # ── Exemples depuis le scan réel ───────────────────────────────────────
+    # Le registry reste utilisé lorsqu'il possède déjà l'identifiant exact.
     examples_by_domain: dict[str, list[str]] = {}
-    for k in knowledges_list:
-        d = k.get("domain", "")
-        if d not in examples_by_domain:
-            examples_by_domain[d] = []
-        if len(examples_by_domain[d]) < 3:
-            examples_by_domain[d].append(k["id"])
+    for domain, paths in domain_paths.items():
+        examples_by_domain[domain] = [
+            registry_ids_by_path.get(path, _knowledge_id_from_path(path))
+            for path in sorted(paths)[:3]
+        ]
 
     # ── Construction des domaines ──────────────────────────────────────────
-    domain_order = ["core", "human", "professional", "cpl", "culture", "system", "lifestyle", "cognition", "communication"]
-    other_domains = [d for d in scanned if d not in domain_order]
+    domain_order = [
+        "core",
+        "human",
+        "professional",
+        "cpl",
+        "culture",
+        "system",
+        "lifestyle",
+        "cognition",
+        "communication",
+    ]
+    other_domains = sorted(d for d in scanned if d not in domain_order)
     all_domains = domain_order + other_domains
 
     domains_out = []
     for domain_id in all_domains:
-        subs = scanned.get(domain_id, {})
+        subdomains = scanned.get(domain_id, {})
         count = domain_counts.get(domain_id, 0)
         if count == 0:
             continue
 
-        meta  = DOMAIN_META.get(domain_id, {
-            "label_fr": domain_id.title(), "label_en": domain_id.title(),
-            "emoji": "📂", "color": "#8b949e",
-            "usage_fr": "", "usage_en": "",
-            "retrieval_hint_fr": "", "retrieval_hint_en": "",
-        })
+        readable_label = domain_id.replace("_", " ").title()
+        meta = DOMAIN_META.get(
+            domain_id,
+            {
+                "label_fr": readable_label,
+                "label_en": readable_label,
+                "emoji": "📂",
+                "color": "#8b949e",
+                "usage_fr": "",
+                "usage_en": "",
+                "retrieval_hint_fr": "",
+                "retrieval_hint_en": "",
+            },
+        )
         priority = _get_taxonomy_priority(taxonomy_data, domain_id)
 
-        subdomains_out = {}
-        for sub, files in subs.items():
-            subdomains_out[sub] = {"count": len(files), "files": files}
+        subdomains_out: dict[str, dict] = {}
+        for subdomain_name in sorted(
+            subdomains,
+            key=lambda name: (name != "_root", name.lower()),
+        ):
+            bucket = subdomains[subdomain_name]
+            sub_paths = bucket.get("paths", [])
+            subdomains_out[subdomain_name] = {
+                "count": len(sub_paths),
+                "active_count": sum(
+                    1 for path in sub_paths if status_for(path) == "active"
+                ),
+                "deprecated_count": sum(
+                    1 for path in sub_paths if status_for(path) == "deprecated"
+                ),
+                "files": bucket.get("files", []),
+                "paths": sub_paths,
+                "nested_subdomains": bucket.get("nested_subdomains", {}),
+            }
 
-        # Sous-domaine plat (liste de noms de sous-dossiers + _root)
-        sub_names = [s for s in subdomains_out if s != "_root"]
+        sub_names = [name for name in subdomains_out if name != "_root"]
+        paths_for_domain = domain_paths.get(domain_id, set())
 
-        domains_out.append({
-            "id":       domain_id,
-            "label_fr": meta["label_fr"],
-            "label_en": meta["label_en"],
-            "emoji":    meta["emoji"],
-            "priority": priority,
-            "color":    meta["color"],
-            "count":    count,
-            "active_count": sum(
-                1 for k in knowledges_list
-                if k.get("domain") == domain_id and k.get("status") == "active"
-            ),
-            "subdomains":       subdomains_out,
-            "subdomain_names":  sub_names,
-            "examples":         examples_by_domain.get(domain_id, []),
-            "usage_fr":         meta["usage_fr"],
-            "usage_en":         meta["usage_en"],
-            "retrieval_hint_fr": meta["retrieval_hint_fr"],
-            "retrieval_hint_en": meta["retrieval_hint_en"],
-            "recent_updates":   _get_recent_updates(domain_id),
-        })
-        print(f"  {domain_id:18s}  {count:4d} fichiers  "
-              f"{len(sub_names):2d} sous-domaines  priorité:{priority}")
+        domains_out.append(
+            {
+                "id": domain_id,
+                "label_fr": meta["label_fr"],
+                "label_en": meta["label_en"],
+                "emoji": meta["emoji"],
+                "priority": priority,
+                "color": meta["color"],
+                "count": count,
+                "active_count": sum(
+                    1 for path in paths_for_domain if status_for(path) == "active"
+                ),
+                "deprecated_count": sum(
+                    1 for path in paths_for_domain
+                    if status_for(path) == "deprecated"
+                ),
+                "subdomains": subdomains_out,
+                "subdomain_names": sub_names,
+                "examples": examples_by_domain.get(domain_id, []),
+                "usage_fr": meta["usage_fr"],
+                "usage_en": meta["usage_en"],
+                "retrieval_hint_fr": meta["retrieval_hint_fr"],
+                "retrieval_hint_en": meta["retrieval_hint_en"],
+                "recent_updates": _get_recent_updates(domain_id),
+            }
+        )
+        print(
+            f"  {domain_id:28s}  {count:4d} fichiers  "
+            f"{len(sub_names):2d} sous-domaines  priorité:{priority}"
+        )
 
     # ── Cross-links ────────────────────────────────────────────────────────
     cross_links = _get_cross_links(links_data)
 
-    # ── Sortie ────────────────────────────────────────────────────────────
+    # ── Sortie ─────────────────────────────────────────────────────────────
     output = {
-        "generated_at":    ts,
-        "version":         "1.0",
+        "generated_at": ts,
+        "version": "1.1",
         "registry_version": registry_data.get("version", "unknown"),
         "stats": {
             "total_knowledges": total,
-            "active":           active,
-            "deprecated":       deprecated,
-            "domains_count":    len(domains_out),
-            "engine_modules":   len(ENGINE_MODULES),
-            "max_per_query":    retrieval_cfg["max_knowledge_per_query"],
-            "score_threshold":  retrieval_cfg["minimum_score"],
+            "active": active,
+            "deprecated": deprecated,
+            "other_status": other_status,
+            "domains_count": len(domains_out),
+            "engine_modules": len(ENGINE_MODULES),
+            "max_per_query": retrieval_cfg["max_knowledge_per_query"],
+            "score_threshold": retrieval_cfg["minimum_score"],
+            "registry_total": registry_total,
+            "registry_in_sync": registry_in_sync,
         },
-        "domains":          domains_out,
-        "cross_links":      cross_links,
+        "integrity": {
+            "source_of_truth": "filesystem_recursive_scan",
+            "scan_total": total,
+            "registry_total": registry_total,
+            "registry_in_sync": registry_in_sync,
+            "missing_in_registry_count": len(missing_in_registry),
+            "missing_on_disk_count": len(missing_on_disk),
+            # Limitation volontaire pour ne pas alourdir excessivement le JSON web.
+            "missing_in_registry_sample": missing_in_registry[:20],
+            "missing_on_disk_sample": missing_on_disk[:20],
+        },
+        "domains": domains_out,
+        "cross_links": cross_links,
         "retrieval_config": retrieval_cfg,
-        "engine_modules":   ENGINE_MODULES,
+        "engine_modules": ENGINE_MODULES,
     }
 
     OUT_DIR.mkdir(parents=True, exist_ok=True)
-    OUT_PATH.write_text(json.dumps(output, ensure_ascii=False, indent=2), encoding="utf-8")
+    OUT_PATH.write_text(
+        json.dumps(output, ensure_ascii=False, indent=2),
+        encoding="utf-8",
+    )
 
     size_kb = OUT_PATH.stat().st_size / 1024
     print(f"\n  [OK] {OUT_PATH}  ({size_kb:.1f} Ko)")
-    print(f"     {total} knowledges · {len(domains_out)} domaines · "
-          f"{len(cross_links)} liens inter-domaines")
+    print(
+        f"     {total} knowledges · {len(domains_out)} domaines · "
+        f"{len(cross_links)} liens inter-domaines"
+    )
+    print(
+        "     Cohérence registry : "
+        f"{'OK' if registry_in_sync else 'À CORRIGER'} "
+        f"(registry={registry_total}, scan={total})"
+    )
 
 
 if __name__ == "__main__":
