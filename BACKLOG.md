@@ -1,14 +1,14 @@
 # ALFRED — BACKLOG & RÉFÉRENTIEL FICHIERS
 
-> Généré le 13/07/2026 12:26 depuis `dashboard_data.json` (mis à jour le 13/07/2026 12:26:31)
-> Progression technique : **85.1%** · Full projet : **95.2%**
-> 1420 fichiers détectés / 1339 cible full
+> Généré le 15/07/2026 05:24 depuis `dashboard_data.json` (mis à jour le 15/07/2026 05:24:37)
+> Progression technique : **85.0%** · Full projet : **28.7%**
+> 1421 fichiers détectés / 4436 cible full
 
 ## Synthèse globale
 
 | Statut | Nb | % | Priorité |
 |--------|---:|--:|----------|
-| 🟡 Partiel | 104 | 7.3% | 🟡 Sprint |
+| 🟡 Partiel | 105 | 7.4% | 🟡 Sprint |
 | 🟦 Codé — à tester | 106 | 7.5% | 🟡 Sprint |
 | 🧪 Testé — à valider | 268 | 18.9% | 🧪 Tests |
 | ✅ Validé ✅ | 820 | 57.7% | ✅ Done |
@@ -393,14 +393,14 @@
 | `data/v4/sensor_state.json` | 🟡 Partiel | Compléter |
 | `data/v4/trigger_log.json` | 🟡 Partiel | Compléter |
 
-### 🟢 B20 — Cybersécurité Zero Trust `95.7%`
+### 🟢 B20 — Cybersécurité Zero Trust `95.5%`
 
 | KPI | Valeur |
 |-----|--------|
 | Validés | 143 |
 | Testés | 26 |
 | Codés (à tester) | 6 |
-| Partiels | 3 |
+| Partiels | 4 |
 | Structurels | 13 |
 | Manquants | 3 |
 
@@ -409,6 +409,7 @@
 | Fichier | Statut | Action |
 |---------|--------|--------|
 | `config/v3/safety_rules.json` | 🟡 Partiel | Compléter |
+| `data/security/access_decisions_history.json` | 🟡 Partiel | Compléter |
 | `dashboard/ALFRED_DASHBOARD_DYNAMIC.html` | 🟡 Partiel | Compléter |
 | `dashboard/dashboard_data/ALFRED_DASHBOARD_DYNAMIC.html` | 🟡 Partiel | Compléter |
 | `data/security/trusted_devices.json` | 🟦 Codé — à tester | Tester |
