@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.documentation_procedures.procedures_deploiement_mise_a_jour_alfred_cpl",
+  "title": "Procédures de déploiement et de mise à jour d'ALFRED CPL",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "documentation_procedures",
+  "category": "documentation_alfred_cpl",
+  "summary": "Cadre de déploiement et de mise à jour d'ALFRED CPL : versionnement, tests avant déploiement, procédure de rollback en cas d'échec, et communication des changements aux utilisateurs.",
+  "purpose": "Garantir que chaque évolution d'ALFRED CPL est déployée de façon maîtrisée, réversible et correctement communiquée aux utilisateurs concernés.",
+  "tags": ["deploiement", "mise_a_jour", "versionnement", "rollback", "alfred_cpl"],
+  "intents": ["describe_deployment_procedure", "explain_update_process", "explain_rollback_strategy"],
+  "usage_context": ["Mise à jour d'ALFRED CPL en production", "Documentation technique", "Gouvernance du cycle de vie produit"],
+  "priority": "high",
+  "safety_level": "normal",
+  "content": {
+    "definition": "Les procédures de déploiement et de mise à jour d'ALFRED CPL définissent la façon dont une nouvelle version du système (correctif, évolution fonctionnelle, mise à jour de la base de connaissances) est validée, déployée auprès des utilisateurs et, si nécessaire, annulée en cas de problème. Elles s'appuient sur un versionnement rigoureux et une communication claire des changements.",
+    "core_principles": [
+      "Le versionnement sémantique (version majeure.mineure.correctif) permet d'identifier précisément la nature d'une mise à jour et son impact potentiel.",
+      "Toute mise à jour doit être testée dans un environnement de pré-production représentatif avant son déploiement en production.",
+      "Une procédure de rollback documentée et testée doit exister pour chaque type de déploiement, permettant de revenir rapidement à la version stable précédente en cas d'échec.",
+      "Le déploiement progressif (par exemple sur un sous-ensemble d'utilisateurs pilotes avant généralisation) réduit le risque d'impact large en cas de défaut non détecté en test.",
+      "La communication des changements aux utilisateurs doit être proportionnée à l'impact de la mise à jour : notes de version pour les évolutions mineures, communication renforcée pour les changements fonctionnels majeurs.",
+      "Les mises à jour de la base de connaissances suivent une gouvernance spécifique (voir cpl.gouvernance_alfred_cpl et cpl.human_organization) distincte du déploiement du cœur applicatif, mais doivent rester coordonnées avec lui."
+    ],
+    "rules": [
+      "Ne jamais déployer une mise à jour majeure directement en production sans étape de test intermédiaire.",
+      "Toujours documenter et tester la procédure de rollback avant qu'elle ne soit nécessaire en situation réelle."
+    ],
+    "examples": [
+      {
+        "situation": "Une mise à jour majeure d'ALFRED CPL introduit un nouveau connecteur métier.",
+        "recommended_behavior": "Déployer d'abord sur un environnement pilote, valider l'absence de régression, informer les utilisateurs concernés du changement fonctionnel, puis généraliser le déploiement avec un plan de rollback prêt.",
+        "avoid": "Déployer directement en production sans phase pilote ni communication préalable aux utilisateurs impactés."
+      }
+    ],
+    "best_practices": [
+      "Toujours associer chaque déploiement à des notes de version claires et accessibles.",
+      "Automatiser autant que possible les tests de non-régression avant tout déploiement.",
+      "Prévoir un canal de retour utilisateur rapide après chaque mise à jour significative pour détecter tôt d'éventuels problèmes.",
+      "Conserver un historique des versions déployées pour faciliter le diagnostic en cas d'incident post-déploiement."
+    ],
+    "anti_patterns": [
+      "Déployer des mises à jour fréquentes sans communication, créant de la confusion chez les utilisateurs.",
+      "Absence de procédure de rollback testée, prolongeant la durée d'un incident en cas d'échec de déploiement."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["déploiement ALFRED CPL", "mise à jour", "versionnement", "rollback", "notes de version"],
+    "related_domains": ["enterprise_architecture", "cpl"],
+    "related_knowledge": ["cpl.documentation_procedures.procedures_installation_configuration_alfred_cpl", "gouvernance_alfred_cpl.processus_amelioration_continue_alfred"],
+    "retrieval_priority": 6
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["Description du cadre de déploiement et de mise à jour d'ALFRED CPL"],
+    "restricted_usage": ["Détails d'infrastructure de déploiement propres à un environnement spécifique non documenté ici"],
+    "forbidden_usage": [],
+    "fallback_behavior": "Renvoyer vers la documentation technique officielle à jour et vers l'équipe Cognitive Products Lab pour tout déploiement réel."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "11/07/2026",
+    "last_update": "11/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

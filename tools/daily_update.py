@@ -45,6 +45,10 @@ STEPS = [
         "script": ALFRED_PC / "tools/dashboard_tools/dashboard_risk_impact/update_risk_impact_data.py",
     },
     {
+        "label": "Knowledge registry",
+        "script": ALFRED_PC / "tools/knowledge_tools/generate_knowledge_registry.py",
+    },
+    {
         "label": "Knowledge dashboard",
         "script": ALFRED_PC / "dashboard/dashboard_knowledges_tool/generate_knowledge_dashboard.py",
     },

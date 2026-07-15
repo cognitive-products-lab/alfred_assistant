@@ -1,8 +1,8 @@
 {
   "taxonomy_id": "alfred_knowledge_taxonomy_v3_0",
   "version": "3.5.0",
-  "last_update": "2026-07-11",
-  "description": "Taxonomie officielle du Bloc 18 Knowledge & Culture. v3.0 : +7 sous-domaines (interaction, wellbeing, governance_ai, iot, engineering_reasoning, product_management_advanced, business_strategy).",
+  "last_update": "2026-07-12",
+  "description": "Taxonomie officielle du Bloc 18 Knowledge & Culture. v3.0 : +7 sous-domaines (interaction, wellbeing, governance_ai, iot, engineering_reasoning, product_management_advanced, business_strategy). v3.5 (LOT6, 11/07/2026) : +8 nouveaux domaines (sciences, medecine, mathematiques, philosophie, geographie, education, arts, competences_pratiques) et +2 sous-domaines cpl (operations_continuite, documentation_procedures).",
   "scope": {
     "bloc": "B18",
     "name": "Knowledge & Culture",
@@ -862,6 +862,53 @@
             "cpl.product_platform.ai_governance_accessibility",
             "cpl.product_platform.administration_console",
             "cpl.product_platform.product_overview_demo_promise"
+          ]
+        },
+        "operations_continuite": {
+          "label": "Continuité opérationnelle ALFRED CPL",
+          "description": "Haute disponibilité, sauvegarde/restauration, gestion des incidents et supervision technique propres à ALFRED CPL.",
+          "intents": [
+            "explain_alfred_cpl_monitoring",
+            "describe_alfred_cpl_backup_strategy",
+            "manage_alfred_cpl_incident",
+            "assess_alfred_cpl_availability"
+          ],
+          "linked_knowledge": [
+            "cpl.operations_continuite.haute_disponibilite_alfred_cpl",
+            "cpl.operations_continuite.sauvegarde_restauration_alfred_cpl",
+            "cpl.operations_continuite.gestion_incidents_alfred_cpl",
+            "cpl.operations_continuite.supervision_systeme_alfred_cpl"
+          ]
+        },
+        "documentation_procedures": {
+          "label": "Documentation et procédures ALFRED CPL",
+          "description": "Procédures standardisées d'installation, de configuration, de déploiement et de mise à jour d'ALFRED CPL.",
+          "intents": [
+            "describe_installation_procedure",
+            "describe_deployment_procedure",
+            "explain_update_process"
+          ],
+          "linked_knowledge": [
+            "cpl.documentation_procedures.procedures_installation_configuration_alfred_cpl",
+            "cpl.documentation_procedures.procedures_deploiement_mise_a_jour_alfred_cpl"
+          ]
+        },
+        "demo_scenario": {
+          "label": "Scénario de démonstration ALFRED CPL",
+          "description": "Fiches de démonstration rattachées à des clients fictifs (Nova Ingénierie, Atlas Conseil) utilisées pour le scénario de démo du forum du 14/10/2026 : procédures versionnées, contradiction documentaire, isolation multi-client.",
+          "intents": [
+            "demo_project_launch_procedure",
+            "demo_incident_procedure_contradiction",
+            "demo_client_isolation",
+            "procedure_actuelle_gestion_des_incidents",
+            "etapes_internes_lancer_nouveau_projet",
+            "lancement_mission_atlas_conseil"
+          ],
+          "linked_knowledge": [
+            "cpl.demo_scenario.pmo07_project_launch_procedure_v3_2",
+            "cpl.demo_scenario.incident_management_procedure_v4_1",
+            "cpl.demo_scenario.incident_management_procedure_v3_8",
+            "cpl.demo_scenario.atlas_conseil_mission_launch_procedure"
           ]
         }
       }
@@ -2578,6 +2625,480 @@
           "count": 0
         }
       }
+    },
+    "sciences": {
+      "label": "Sciences",
+      "description": "Physique, chimie, biologie, astronomie et méthode scientifique — culture scientifique générale et esprit critique appliqué à l'information scientifique.",
+      "priority": "medium",
+      "lot": "LOT6",
+      "subdomains": {
+        "physique": {
+          "label": "Physique",
+          "intents": [
+            "explain_physics_concept",
+            "explain_energy_thermodynamics",
+            "explain_electromagnetism"
+          ],
+          "linked_knowledge": [
+            "sciences.physique.mecanique_classique",
+            "sciences.physique.energie_et_thermodynamique",
+            "sciences.physique.electromagnetisme_bases"
+          ]
+        },
+        "chimie": {
+          "label": "Chimie",
+          "intents": [
+            "explain_chemistry_basics",
+            "explain_organic_chemistry"
+          ],
+          "linked_knowledge": [
+            "sciences.chimie.chimie_generale_bases",
+            "sciences.chimie.chimie_organique_bases"
+          ]
+        },
+        "biologie": {
+          "label": "Biologie",
+          "intents": [
+            "explain_cell_biology",
+            "explain_genetics",
+            "explain_ecology"
+          ],
+          "linked_knowledge": [
+            "sciences.biologie.biologie_cellulaire_bases",
+            "sciences.biologie.genetique_bases",
+            "sciences.biologie.ecologie_bases"
+          ]
+        },
+        "astronomie": {
+          "label": "Astronomie",
+          "intents": [
+            "explain_solar_system",
+            "explain_universe_formation"
+          ],
+          "linked_knowledge": [
+            "sciences.astronomie.systeme_solaire_et_univers"
+          ]
+        },
+        "methode_scientifique": {
+          "label": "Méthode scientifique",
+          "intents": [
+            "explain_scientific_method",
+            "evaluate_scientific_claim",
+            "detect_scientific_misinformation"
+          ],
+          "linked_knowledge": [
+            "sciences.methode_scientifique.demarche_scientifique",
+            "sciences.methode_scientifique.esprit_critique_scientifique"
+          ]
+        }
+      }
+    },
+    "medecine": {
+      "label": "Médecine",
+      "description": "Culture générale médicale, prévention et premiers secours.",
+      "priority": "medium",
+      "safety_note": "Ce domaine ne doit jamais produire de diagnostic médical ni remplacer un professionnel de santé.",
+      "lot": "LOT6",
+      "subdomains": {
+        "anatomie_physiologie": {
+          "label": "Anatomie et physiologie",
+          "intents": [
+            "explain_human_body_systems"
+          ],
+          "linked_knowledge": [
+            "medecine.anatomie_physiologie.corps_humain_bases"
+          ]
+        },
+        "prevention": {
+          "label": "Prévention",
+          "intents": [
+            "explain_health_prevention",
+            "give_general_lifestyle_advice"
+          ],
+          "linked_knowledge": [
+            "medecine.prevention.prevention_sante_publique",
+            "medecine.prevention.sommeil_et_hygiene_de_vie"
+          ]
+        },
+        "premiers_secours": {
+          "label": "Premiers secours",
+          "intents": [
+            "explain_first_aid_gestures"
+          ],
+          "linked_knowledge": [
+            "medecine.premiers_secours.gestes_premiers_secours_bases"
+          ]
+        },
+        "vocabulaire_medical": {
+          "label": "Vocabulaire médical",
+          "intents": [
+            "explain_medical_terminology"
+          ],
+          "linked_knowledge": [
+            "medecine.vocabulaire_medical.terminologie_medicale_bases"
+          ]
+        },
+        "limites_alfred": {
+          "label": "Limites d'ALFRED en santé",
+          "intents": [
+            "apply_medical_response_limits"
+          ],
+          "linked_knowledge": [
+            "medecine.limites_alfred.limites_reponse_medicale_alfred"
+          ]
+        },
+        "systemes_sante": {
+          "label": "Systèmes de santé",
+          "intents": [
+            "explain_french_health_system"
+          ],
+          "linked_knowledge": [
+            "medecine.systemes_sante.systeme_sante_francais"
+          ]
+        }
+      }
+    },
+    "mathematiques": {
+      "label": "Mathématiques",
+      "description": "Algèbre, statistiques et probabilités, logique, géométrie et mathématiques appliquées à l'IA.",
+      "priority": "medium",
+      "lot": "LOT6",
+      "subdomains": {
+        "algebre": {
+          "label": "Algèbre",
+          "intents": [
+            "explain_algebra_basics"
+          ],
+          "linked_knowledge": [
+            "mathematiques.algebre.algebre_bases"
+          ]
+        },
+        "statistiques_probabilites": {
+          "label": "Statistiques et probabilités",
+          "intents": [
+            "explain_descriptive_statistics",
+            "explain_probability_basics"
+          ],
+          "linked_knowledge": [
+            "mathematiques.statistiques_probabilites.statistiques_descriptives",
+            "mathematiques.statistiques_probabilites.probabilites_bases"
+          ]
+        },
+        "logique": {
+          "label": "Logique formelle",
+          "intents": [
+            "explain_formal_logic"
+          ],
+          "linked_knowledge": [
+            "mathematiques.logique.logique_formelle_bases"
+          ]
+        },
+        "geometrie": {
+          "label": "Géométrie",
+          "intents": [
+            "explain_geometry_theorem",
+            "calculate_area_volume"
+          ],
+          "linked_knowledge": [
+            "mathematiques.geometrie.geometrie_bases"
+          ]
+        },
+        "mathematiques_appliquees_ia": {
+          "label": "Mathématiques appliquées à l'IA",
+          "intents": [
+            "explain_linear_algebra_for_ai",
+            "explain_gradient_descent"
+          ],
+          "linked_knowledge": [
+            "mathematiques.mathematiques_appliquees_ia.algebre_lineaire_pour_ia",
+            "mathematiques.mathematiques_appliquees_ia.optimisation_et_calcul_differentiel_bases"
+          ]
+        }
+      }
+    },
+    "philosophie": {
+      "label": "Philosophie",
+      "description": "Éthique, épistémologie, philosophie de l'esprit et de l'IA, histoire de la philosophie, philosophie politique, métaphysique.",
+      "priority": "medium",
+      "lot": "LOT6",
+      "subdomains": {
+        "ethique": {
+          "label": "Éthique philosophique",
+          "intents": [
+            "explain_ethical_theories",
+            "discuss_ai_ethical_dilemma"
+          ],
+          "linked_knowledge": [
+            "philosophie.ethique.grands_courants_ethiques",
+            "philosophie.ethique.dilemmes_ethiques_ia"
+          ]
+        },
+        "epistemologie": {
+          "label": "Épistémologie",
+          "intents": [
+            "explain_epistemology_basics"
+          ],
+          "linked_knowledge": [
+            "philosophie.epistemologie.epistemologie_bases"
+          ]
+        },
+        "philosophie_esprit_ia": {
+          "label": "Philosophie de l'esprit et IA",
+          "intents": [
+            "discuss_ai_philosophy_of_mind"
+          ],
+          "linked_knowledge": [
+            "philosophie.philosophie_esprit_ia.philosophie_de_esprit_et_ia"
+          ]
+        },
+        "courants_historiques": {
+          "label": "Courants historiques",
+          "intents": [
+            "explain_philosophy_history"
+          ],
+          "linked_knowledge": [
+            "philosophie.courants_historiques.panorama_histoire_philosophie"
+          ]
+        },
+        "logique_philosophique": {
+          "label": "Logique philosophique",
+          "intents": [
+            "explain_argumentation_fallacies"
+          ],
+          "linked_knowledge": [
+            "philosophie.logique_philosophique.raisonnement_et_argumentation"
+          ]
+        },
+        "philosophie_politique": {
+          "label": "Philosophie politique",
+          "intents": [
+            "explain_social_contract",
+            "explain_theory_of_justice"
+          ],
+          "linked_knowledge": [
+            "philosophie.philosophie_politique.philosophie_politique_bases"
+          ]
+        },
+        "metaphysique": {
+          "label": "Métaphysique",
+          "intents": [
+            "discuss_free_will",
+            "discuss_meaning_of_life"
+          ],
+          "linked_knowledge": [
+            "philosophie.metaphysique.metaphysique_et_questions_existentielles"
+          ]
+        }
+      }
+    },
+    "geographie": {
+      "label": "Géographie",
+      "description": "Géopolitique, climat et environnement, urbanisme, démographie, cartographie, ressources naturelles.",
+      "priority": "medium",
+      "safety_note": "Rester factuel et neutre sur les sujets géopolitiques sensibles.",
+      "lot": "LOT6",
+      "subdomains": {
+        "geopolitique": {
+          "label": "Géopolitique",
+          "intents": [
+            "explain_geopolitical_context",
+            "contextualize_international_news"
+          ],
+          "linked_knowledge": [
+            "geographie.geopolitique.geopolitique_bases",
+            "geographie.geopolitique.grandes_zones_geopolitiques_2026"
+          ]
+        },
+        "climat_environnement": {
+          "label": "Climat et environnement",
+          "intents": [
+            "explain_global_climate"
+          ],
+          "linked_knowledge": [
+            "geographie.climat_environnement.climat_mondial_bases"
+          ]
+        },
+        "urbanisme": {
+          "label": "Urbanisme",
+          "intents": [
+            "explain_urbanization"
+          ],
+          "linked_knowledge": [
+            "geographie.urbanisme.urbanisme_et_villes"
+          ]
+        },
+        "demographie": {
+          "label": "Démographie",
+          "intents": [
+            "explain_world_demography"
+          ],
+          "linked_knowledge": [
+            "geographie.demographie.demographie_mondiale_bases"
+          ]
+        },
+        "cartographie": {
+          "label": "Cartographie",
+          "intents": [
+            "explain_cartography_basics"
+          ],
+          "linked_knowledge": [
+            "geographie.cartographie.cartographie_bases"
+          ]
+        },
+        "ressources_naturelles": {
+          "label": "Ressources naturelles",
+          "intents": [
+            "explain_natural_resources_distribution"
+          ],
+          "linked_knowledge": [
+            "geographie.ressources_naturelles.ressources_naturelles_mondiales"
+          ]
+        }
+      }
+    },
+    "education": {
+      "label": "Éducation",
+      "description": "Pédagogie, andragogie, évaluation des apprentissages, e-learning et numérique éducatif.",
+      "priority": "medium",
+      "lot": "LOT6",
+      "subdomains": {
+        "pedagogie": {
+          "label": "Pédagogie",
+          "intents": [
+            "explain_pedagogy_theories",
+            "explain_active_pedagogy"
+          ],
+          "linked_knowledge": [
+            "education.pedagogie.pedagogie_bases",
+            "education.pedagogie.pedagogies_actives_et_differenciation"
+          ]
+        },
+        "andragogie": {
+          "label": "Andragogie",
+          "intents": [
+            "explain_adult_learning"
+          ],
+          "linked_knowledge": [
+            "education.andragogie.andragogie_formation_adultes"
+          ]
+        },
+        "evaluation_apprentissages": {
+          "label": "Évaluation des apprentissages",
+          "intents": [
+            "explain_assessment_types"
+          ],
+          "linked_knowledge": [
+            "education.evaluation_apprentissages.evaluation_apprentissages_bases"
+          ]
+        },
+        "elearning": {
+          "label": "E-learning",
+          "intents": [
+            "explain_elearning_formats"
+          ],
+          "linked_knowledge": [
+            "education.elearning.elearning_et_formation_digitale"
+          ]
+        },
+        "numerique_educatif": {
+          "label": "Numérique éducatif",
+          "intents": [
+            "explain_educational_digital_tools"
+          ],
+          "linked_knowledge": [
+            "education.numerique_educatif.outils_numeriques_apprentissage"
+          ]
+        }
+      }
+    },
+    "arts": {
+      "label": "Arts",
+      "description": "Histoire de l'art, musique, littérature, arts visuels.",
+      "priority": "low",
+      "lot": "LOT6",
+      "subdomains": {
+        "histoire_art": {
+          "label": "Histoire de l'art",
+          "intents": [
+            "explain_art_history"
+          ],
+          "linked_knowledge": [
+            "arts.histoire_art.histoire_art_bases"
+          ]
+        },
+        "musique": {
+          "label": "Musique",
+          "intents": [
+            "explain_music_theory"
+          ],
+          "linked_knowledge": [
+            "arts.musique.theorie_musicale_bases"
+          ]
+        },
+        "litterature": {
+          "label": "Littérature",
+          "intents": [
+            "explain_literary_movements"
+          ],
+          "linked_knowledge": [
+            "arts.litterature.mouvements_litteraires_bases"
+          ]
+        },
+        "arts_visuels": {
+          "label": "Arts visuels",
+          "intents": [
+            "explain_painting_technique"
+          ],
+          "linked_knowledge": [
+            "arts.arts_visuels.peinture_et_arts_visuels_bases"
+          ]
+        }
+      }
+    },
+    "competences_pratiques": {
+      "label": "Compétences pratiques",
+      "description": "Bricolage, jardinage, gestion de budget personnel, hygiène numérique quotidienne.",
+      "priority": "medium",
+      "lot": "LOT6",
+      "subdomains": {
+        "bricolage": {
+          "label": "Bricolage",
+          "intents": [
+            "explain_diy_basics"
+          ],
+          "linked_knowledge": [
+            "competences_pratiques.bricolage.bricolage_bases_securite"
+          ]
+        },
+        "jardinage": {
+          "label": "Jardinage",
+          "intents": [
+            "explain_gardening_basics"
+          ],
+          "linked_knowledge": [
+            "competences_pratiques.jardinage.jardinage_bases"
+          ]
+        },
+        "gestion_budget_personnel": {
+          "label": "Gestion de budget personnel",
+          "intents": [
+            "explain_personal_budgeting"
+          ],
+          "linked_knowledge": [
+            "competences_pratiques.gestion_budget_personnel.budget_personnel_bases"
+          ]
+        },
+        "hygiene_numerique": {
+          "label": "Hygiène numérique",
+          "intents": [
+            "explain_password_hygiene",
+            "explain_phishing_awareness"
+          ],
+          "linked_knowledge": [
+            "competences_pratiques.hygiene_numerique.hygiene_numerique_quotidienne"
+          ]
+        }
+      }
     }
   },
   "intent_routing_rules": {
@@ -2754,7 +3275,7 @@
     "fallback_rule": "Si aucune correspondance claire n'est trouvée, ALFRED doit utiliser core.context_awareness, system.memory.memory_context_linking et human.cognition.uncertainty_management."
   },
   "last_updated": "2026-07-10",
-  "total_subdomains": 200,
+  "total_subdomains": 244,
   "routing_rules": [
     {
       "pattern": "organisation|structure entreprise|modèle économique|vision mission",
