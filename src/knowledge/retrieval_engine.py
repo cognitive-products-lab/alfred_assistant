@@ -23,7 +23,7 @@ Orchestrateur principal du Knowledge Retrieval Engine B18.
 """
 
 from dataclasses import dataclass, field
-from typing import Any
+from typing import Any, Callable
 
 from src.knowledge.knowledge_loader import KnowledgeLoader
 from src.knowledge.domain_matcher import DomainMatcher
@@ -31,8 +31,12 @@ from src.knowledge.taxonomy_router import TaxonomyRouter
 from src.knowledge.knowledge_ranker import KnowledgeRanker, RankedKnowledge
 from src.knowledge.context_merger import ContextMerger, MergedKnowledgeContext
 from src.security.audit_trail import write_audit_event
-from src.security.cpl_role_access import filter_by_role_access
-from src.security.cpl_client_isolation import filter_by_client_access
+
+# Type d'un filtre d'accès additionnel : (items_classés, identifiant) -> (autorisés, bloqués).
+# Le moteur core reste générique — il ne connaît aucune notion de rôle métier ou de
+# client. Les produits construits sur ALFRED (ex. ALFRED CPL, dépôt séparé) injectent
+# leurs propres filtres au constructeur plutôt que d'être importés en dur ici.
+AccessFilter = Callable[[list[RankedKnowledge], str], "tuple[list[RankedKnowledge], list[RankedKnowledge]]"]
 
 @dataclass
 class RetrievalResult:
@@ -88,7 +92,9 @@ class KnowledgeRetrievalEngine:
     def __init__(
         self,
         project_root: str | KnowledgeLoader = "D:/PROJET_ALFRED/ALFRED_PC",
-        max_chars_per_knowledge: int = 900
+        max_chars_per_knowledge: int = 900,
+        role_filter: AccessFilter | None = None,
+        client_filter: AccessFilter | None = None,
     ):
         if isinstance(project_root, KnowledgeLoader):
             self.loader = project_root
@@ -104,6 +110,11 @@ class KnowledgeRetrievalEngine:
         self.merger = ContextMerger(
             max_chars_per_knowledge=max_chars_per_knowledge
         )
+        # Filtres d'accès optionnels (rôle métier, client...) — voir AccessFilter
+        # ci-dessus. Sans filtre injecté, retrieve() ne restreint rien : le moteur
+        # core reste utilisable seul (assistant personnel) sans dépendance externe.
+        self.role_filter = role_filter
+        self.client_filter = client_filter
 
     def retrieve(
         self,
@@ -118,8 +129,13 @@ class KnowledgeRetrievalEngine:
 
         ranked = self.ranker.rank(query)
 
-        ranked, blocked_by_role = filter_by_role_access(ranked, role)
-        ranked, blocked_by_client = filter_by_client_access(ranked, client_id)
+        blocked_by_role: list[RankedKnowledge] = []
+        blocked_by_client: list[RankedKnowledge] = []
+
+        if self.role_filter:
+            ranked, blocked_by_role = self.role_filter(ranked, role)
+        if self.client_filter:
+            ranked, blocked_by_client = self.client_filter(ranked, client_id)
 
         merged = self.merger.merge(
             query=query,

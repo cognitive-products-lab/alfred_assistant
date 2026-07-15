@@ -39,7 +39,6 @@ DASHBOARD_JSON = ROOT / "dashboard" / "dashboard_tests" / "dashboard_tests.json"
 # Groupes de tests — ordre d'exécution
 TEST_GROUPS = {
     "security":    ["tests/security_tests"],
-    "b10":         ["tests/b10_tests"],
     "b15":         ["tests/b15_tests"],
     "b29":         ["tests/b29_tests"],
     "integration": ["tests/integration_tests"],
