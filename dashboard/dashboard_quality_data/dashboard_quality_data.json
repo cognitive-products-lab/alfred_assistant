@@ -9,7 +9,7 @@
   "_meta": {
     "project": "ALFRED",
     "file": "dashboard_quality_data.json",
-    "generated_at": "2026-07-13T21:30:08.254261+00:00",
+    "generated_at": "2026-07-15T05:18:16.370278+00:00",
     "generated_by": "update_quality_data_dashboard.py",
     "version": "V1.0",
     "visibility": "PRIVE",
@@ -53,11 +53,11 @@
     "undefined_count": 15
   },
   "alerts": {
-    "total": 35,
+    "total": 36,
     "by_severity": {
       "critical": 1,
       "warning": 33,
-      "info": 1
+      "info": 2
     },
     "items": [
       {
@@ -177,7 +177,7 @@
         "entry_name": "Mémoire utilisateur consolidée",
         "type": "donnee_creee_non_utilisee",
         "severity": "warning",
-        "message": "Créée il y a 134 jours et toujours 'utilisable' — jamais branchée en usage courant : Mémoire utilisateur consolidée. Parfois normal en cours de construction, parfois signe d'une collecte finalement inutile."
+        "message": "Créée il y a 136 jours et toujours 'utilisable' — jamais branchée en usage courant : Mémoire utilisateur consolidée. Parfois normal en cours de construction, parfois signe d'une collecte finalement inutile."
       },
       {
         "entry_id": "DQ-026",
@@ -226,7 +226,7 @@
         "entry_name": "Templates utilisateur (adaptation, public)",
         "type": "donnee_creee_non_utilisee",
         "severity": "warning",
-        "message": "Créée il y a 120 jours et toujours 'utilisable' — jamais branchée en usage courant : Templates utilisateur (adaptation, public). Parfois normal en cours de construction, parfois signe d'une collecte finalement inutile."
+        "message": "Créée il y a 122 jours et toujours 'utilisable' — jamais branchée en usage courant : Templates utilisateur (adaptation, public). Parfois normal en cours de construction, parfois signe d'une collecte finalement inutile."
       },
       {
         "entry_id": "DQ-037",
@@ -304,6 +304,13 @@
         "type": "acces_derogatoire_documente",
         "severity": "info",
         "message": "Rôle 'AI_MODULE' (habilitation MEDIUM) a un accès write dérogatoire documenté à 'Logs de sécurité / audit trail' (exige CRITICAL) — justification : Écriture (append) uniquement — pas de lecture. Nécessaire pour que le pipeline IA puisse journaliser ses propres actions (traçabilité Zero Trust, principe 'assume breach' : même les composants IA doivent logger ce qu'ils font). security_logger.log_event()/audit_trail.write_audit_event() sont appelés depuis 55 fichiers du pipeline, dont les modules IA — retirer cet accès casserait la journalisation des actions IA. La lecture des logs reste restreinte à OWNER/ADMIN uniquement (déjà conforme). (revu par OWNER le 2026-07-13)"
+      },
+      {
+        "entry_id": "DQ-027",
+        "entry_name": "Référentiels santé & adaptation (config/health/)",
+        "type": "acces_derogatoire_documente",
+        "severity": "info",
+        "message": "Rôle 'AI_MODULE' (habilitation MEDIUM) a un accès read dérogatoire documenté à 'Référentiels santé & adaptation (config/health/)' (exige CRITICAL) — justification : Lecture nécessaire au fonctionnement du pipeline santé temps réel (Bloc 13). Ces fichiers sont des référentiels de règles (poids de signaux, protocoles, patterns cognitifs), pas des données personnelles d'un utilisateur identifié — la donnée de santé individuelle (DQ-004) reste, elle, restreinte à OWNER. Un contrôle RBAC par rôle de requête serait de toute façon inopérant ici : le chargement se fait une seule fois à l'import du process, avant qu'un quelconque contexte de rôle n'existe. Le principe du moindre privilège reste respecté : write reste limité à OWNER (ces référentiels ne doivent pas être modifiés par le pipeline lui-même). (revu par OWNER le 2026-07-15)"
       }
     ]
   },
@@ -1137,16 +1144,26 @@
       "update_frequency": "évolutive, au fil du développement",
       "authorized_roles": {
         "read": [
-          "OWNER"
+          "OWNER",
+          "AI_MODULE"
         ],
         "write": [
           "OWNER"
         ]
       },
       "created_at": "2026-04-01",
-      "last_modified_at": "2026-06-20",
+      "last_modified_at": "2026-07-15",
       "planned_deletion_at": null,
-      "notes": "Distinguer : ces fichiers sont des référentiels/règles génériques (pas des données personnelles d'un individu) — le profil de santé individuel réel est DQ-004. CORRIGÉ le 13/07/2026 (décision OWNER, point C5-A du plan d'action) : AI_MODULE retiré de l'accès en lecture (habilitation MEDIUM insuffisante pour un niveau de sécurité prévu 4/5 = CRITICAL requis). Vérifié dans le code : aucun point de contrôle RBAC (require_access/check_access) ne gate aujourd'hui le chargement de config/health/*.json — ces fichiers sont lus directement par src/health/*.py, src/regulation/regulation_engine.py et src/core/pipeline_bridge.py comme n'importe quel fichier de config local du pipeline, sans médiation RBAC. Cette correction aligne donc la politique déclarée ; une mise en conformité technique réelle nécessiterait d'ajouter un point de contrôle d'accès explicite dans ces modules avant lecture — non fait ici (changement de comportement pipeline, à tester en conditions réelles sur le poste PC avant de le committer)."
+      "notes": "Distinguer : ces fichiers sont des référentiels/règles génériques (pas des données personnelles d'un individu) — le profil de santé individuel réel est DQ-004. CORRIGÉ le 13/07/2026 (décision OWNER, point C5-A du plan d'action) : AI_MODULE retiré de l'accès en lecture. RÉVISÉ le 15/07/2026 (point C4-P du plan d'action, après vérification technique) : AI_MODULE réintégré en lecture. Vérifié dans le code : src/health/chronic_support.py, interaction_adapter.py et health_profile.py chargent ces 6 fichiers en constantes module-level dès l'import du process (pas d'appel par requête, aucun paramètre role/user_id) ; regulation_engine.py et pipeline_bridge.py ne lisent aucun fichier directement, ils consomment ces constantes déjà en mémoire via les fonctions de src/health/*. Ces 3 modules SONT le pipeline IA (AI_MODULE) — il n'existe aucune autre identité pour les exécuter. Bloquer AI_MODULE en lecture casserait entièrement la détection de signaux santé et l'adaptation comportementale temps réel (fog cognitif, douleur, poussée/rechute, etc.) à chaque tour de conversation. Décision : corriger la politique déclarée plutôt que le code — voir access_exceptions. Aucun changement de comportement pipeline, donc aucun risque de régression ; pas de test PC nécessaire pour ce point (contrairement à ce qui était anticipé le 13/07, avant l'analyse du chemin de code réel).",
+      "access_exceptions": [
+        {
+          "role": "AI_MODULE",
+          "scope": "read",
+          "justification": "Lecture nécessaire au fonctionnement du pipeline santé temps réel (Bloc 13). Ces fichiers sont des référentiels de règles (poids de signaux, protocoles, patterns cognitifs), pas des données personnelles d'un utilisateur identifié — la donnée de santé individuelle (DQ-004) reste, elle, restreinte à OWNER. Un contrôle RBAC par rôle de requête serait de toute façon inopérant ici : le chargement se fait une seule fois à l'import du process, avant qu'un quelconque contexte de rôle n'existe. Le principe du moindre privilège reste respecté : write reste limité à OWNER (ces référentiels ne doivent pas être modifiés par le pipeline lui-même).",
+          "reviewed_by": "OWNER",
+          "reviewed_at": "2026-07-15"
+        }
+      ]
     },
     {
       "id": "DQ-028",
