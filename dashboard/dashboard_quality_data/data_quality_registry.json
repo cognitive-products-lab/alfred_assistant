@@ -876,16 +876,26 @@
       "update_frequency": "évolutive, au fil du développement",
       "authorized_roles": {
         "read": [
-          "OWNER"
+          "OWNER",
+          "AI_MODULE"
         ],
         "write": [
           "OWNER"
         ]
       },
       "created_at": "2026-04-01",
-      "last_modified_at": "2026-06-20",
+      "last_modified_at": "2026-07-15",
       "planned_deletion_at": null,
-      "notes": "Distinguer : ces fichiers sont des référentiels/règles génériques (pas des données personnelles d'un individu) — le profil de santé individuel réel est DQ-004. CORRIGÉ le 13/07/2026 (décision OWNER, point C5-A du plan d'action) : AI_MODULE retiré de l'accès en lecture (habilitation MEDIUM insuffisante pour un niveau de sécurité prévu 4/5 = CRITICAL requis). Vérifié dans le code : aucun point de contrôle RBAC (require_access/check_access) ne gate aujourd'hui le chargement de config/health/*.json — ces fichiers sont lus directement par src/health/*.py, src/regulation/regulation_engine.py et src/core/pipeline_bridge.py comme n'importe quel fichier de config local du pipeline, sans médiation RBAC. Cette correction aligne donc la politique déclarée ; une mise en conformité technique réelle nécessiterait d'ajouter un point de contrôle d'accès explicite dans ces modules avant lecture — non fait ici (changement de comportement pipeline, à tester en conditions réelles sur le poste PC avant de le committer)."
+      "notes": "Distinguer : ces fichiers sont des référentiels/règles génériques (pas des données personnelles d'un individu) — le profil de santé individuel réel est DQ-004. CORRIGÉ le 13/07/2026 (décision OWNER, point C5-A du plan d'action) : AI_MODULE retiré de l'accès en lecture. RÉVISÉ le 15/07/2026 (point C4-P du plan d'action, après vérification technique) : AI_MODULE réintégré en lecture. Vérifié dans le code : src/health/chronic_support.py, interaction_adapter.py et health_profile.py chargent ces 6 fichiers en constantes module-level dès l'import du process (pas d'appel par requête, aucun paramètre role/user_id) ; regulation_engine.py et pipeline_bridge.py ne lisent aucun fichier directement, ils consomment ces constantes déjà en mémoire via les fonctions de src/health/*. Ces 3 modules SONT le pipeline IA (AI_MODULE) — il n'existe aucune autre identité pour les exécuter. Bloquer AI_MODULE en lecture casserait entièrement la détection de signaux santé et l'adaptation comportementale temps réel (fog cognitif, douleur, poussée/rechute, etc.) à chaque tour de conversation. Décision : corriger la politique déclarée plutôt que le code — voir access_exceptions. Aucun changement de comportement pipeline, donc aucun risque de régression ; pas de test PC nécessaire pour ce point (contrairement à ce qui était anticipé le 13/07, avant l'analyse du chemin de code réel).",
+      "access_exceptions": [
+        {
+          "role": "AI_MODULE",
+          "scope": "read",
+          "justification": "Lecture nécessaire au fonctionnement du pipeline santé temps réel (Bloc 13). Ces fichiers sont des référentiels de règles (poids de signaux, protocoles, patterns cognitifs), pas des données personnelles d'un utilisateur identifié — la donnée de santé individuelle (DQ-004) reste, elle, restreinte à OWNER. Un contrôle RBAC par rôle de requête serait de toute façon inopérant ici : le chargement se fait une seule fois à l'import du process, avant qu'un quelconque contexte de rôle n'existe. Le principe du moindre privilège reste respecté : write reste limité à OWNER (ces référentiels ne doivent pas être modifiés par le pipeline lui-même).",
+          "reviewed_by": "OWNER",
+          "reviewed_at": "2026-07-15"
+        }
+      ]
     },
     {
       "id": "DQ-028",

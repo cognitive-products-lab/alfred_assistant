@@ -9,7 +9,7 @@
   "_meta": {
     "project": "ALFRED",
     "file": "dashboard_quality_data.json",
-    "generated_at": "2026-07-15T05:24:55.186539+00:00",
+    "generated_at": "2026-07-15T05:18:16.370278+00:00",
     "generated_by": "update_quality_data_dashboard.py",
     "version": "V1.0",
     "visibility": "PRIVE",
@@ -18,37 +18,37 @@
     "stale_unused_threshold_days": 90
   },
   "global": {
-    "total_entries": 45,
+    "total_entries": 44,
     "by_status": {
       "utilisee": 25,
       "utilisable": 5,
-      "a_connecter": 11,
+      "a_connecter": 10,
       "a_creer": 2,
       "obsolete": 2
     },
     "by_data_type": {
-      "privee": 39,
+      "privee": 38,
       "publique": 6
     },
     "by_sensitivity_classification": {
-      "C3_CONFIDENTIEL": 17,
+      "C3_CONFIDENTIEL": 16,
       "C4_SECRET": 3,
       "C1_PUBLIC": 4,
       "C2_INTERNE": 21
     },
     "by_security_level_planned": {
       "4": 8,
-      "3": 9,
+      "3": 8,
       "5": 4,
       "1": 4,
       "2": 20
     },
     "by_intended_use": {
-      "technique": 38,
+      "technique": 37,
       "metier": 14
     },
-    "documented_count": 30,
-    "defined_count": 30,
+    "documented_count": 29,
+    "defined_count": 29,
     "undocumented_count": 15,
     "undefined_count": 15
   },
@@ -306,11 +306,11 @@
         "message": "Rôle 'AI_MODULE' (habilitation MEDIUM) a un accès write dérogatoire documenté à 'Logs de sécurité / audit trail' (exige CRITICAL) — justification : Écriture (append) uniquement — pas de lecture. Nécessaire pour que le pipeline IA puisse journaliser ses propres actions (traçabilité Zero Trust, principe 'assume breach' : même les composants IA doivent logger ce qu'ils font). security_logger.log_event()/audit_trail.write_audit_event() sont appelés depuis 55 fichiers du pipeline, dont les modules IA — retirer cet accès casserait la journalisation des actions IA. La lecture des logs reste restreinte à OWNER/ADMIN uniquement (déjà conforme). (revu par OWNER le 2026-07-13)"
       },
       {
-        "entry_id": "DQ-045",
-        "entry_name": "Registre d'incidents, appareils de confiance & historique de décisions Zero Trust",
+        "entry_id": "DQ-027",
+        "entry_name": "Référentiels santé & adaptation (config/health/)",
         "type": "acces_derogatoire_documente",
         "severity": "info",
-        "message": "Rôle 'AI_MODULE' (habilitation MEDIUM) a un accès write dérogatoire documenté à 'Registre d'incidents, appareils de confiance & historique de décisions Zero Trust' (exige CRITICAL) — justification : Écriture (append) uniquement sur access_decisions_history.json — decide_access() journalise la décision quel que soit l'appelant, y compris les modules IA. Même raisonnement que DQ-003 : écriture append-only d'un journal d'audit, pas de lecture, principe du moindre privilège respecté (lecture toujours restreinte à OWNER/ADMIN). (revu par OWNER le 2026-07-13)"
+        "message": "Rôle 'AI_MODULE' (habilitation MEDIUM) a un accès read dérogatoire documenté à 'Référentiels santé & adaptation (config/health/)' (exige CRITICAL) — justification : Lecture nécessaire au fonctionnement du pipeline santé temps réel (Bloc 13). Ces fichiers sont des référentiels de règles (poids de signaux, protocoles, patterns cognitifs), pas des données personnelles d'un utilisateur identifié — la donnée de santé individuelle (DQ-004) reste, elle, restreinte à OWNER. Un contrôle RBAC par rôle de requête serait de toute façon inopérant ici : le chargement se fait une seule fois à l'import du process, avant qu'un quelconque contexte de rôle n'existe. Le principe du moindre privilège reste respecté : write reste limité à OWNER (ces référentiels ne doivent pas être modifiés par le pipeline lui-même). (revu par OWNER le 2026-07-15)"
       }
     ]
   },
@@ -1144,16 +1144,26 @@
       "update_frequency": "évolutive, au fil du développement",
       "authorized_roles": {
         "read": [
-          "OWNER"
+          "OWNER",
+          "AI_MODULE"
         ],
         "write": [
           "OWNER"
         ]
       },
       "created_at": "2026-04-01",
-      "last_modified_at": "2026-06-20",
+      "last_modified_at": "2026-07-15",
       "planned_deletion_at": null,
-      "notes": "Distinguer : ces fichiers sont des référentiels/règles génériques (pas des données personnelles d'un individu) — le profil de santé individuel réel est DQ-004. CORRIGÉ le 13/07/2026 (décision OWNER, point C5-A du plan d'action) : AI_MODULE retiré de l'accès en lecture (habilitation MEDIUM insuffisante pour un niveau de sécurité prévu 4/5 = CRITICAL requis). Vérifié dans le code : aucun point de contrôle RBAC (require_access/check_access) ne gate aujourd'hui le chargement de config/health/*.json — ces fichiers sont lus directement par src/health/*.py, src/regulation/regulation_engine.py et src/core/pipeline_bridge.py comme n'importe quel fichier de config local du pipeline, sans médiation RBAC. Cette correction aligne donc la politique déclarée ; une mise en conformité technique réelle nécessiterait d'ajouter un point de contrôle d'accès explicite dans ces modules avant lecture — non fait ici (changement de comportement pipeline, à tester en conditions réelles sur le poste PC avant de le committer)."
+      "notes": "Distinguer : ces fichiers sont des référentiels/règles génériques (pas des données personnelles d'un individu) — le profil de santé individuel réel est DQ-004. CORRIGÉ le 13/07/2026 (décision OWNER, point C5-A du plan d'action) : AI_MODULE retiré de l'accès en lecture. RÉVISÉ le 15/07/2026 (point C4-P du plan d'action, après vérification technique) : AI_MODULE réintégré en lecture. Vérifié dans le code : src/health/chronic_support.py, interaction_adapter.py et health_profile.py chargent ces 6 fichiers en constantes module-level dès l'import du process (pas d'appel par requête, aucun paramètre role/user_id) ; regulation_engine.py et pipeline_bridge.py ne lisent aucun fichier directement, ils consomment ces constantes déjà en mémoire via les fonctions de src/health/*. Ces 3 modules SONT le pipeline IA (AI_MODULE) — il n'existe aucune autre identité pour les exécuter. Bloquer AI_MODULE en lecture casserait entièrement la détection de signaux santé et l'adaptation comportementale temps réel (fog cognitif, douleur, poussée/rechute, etc.) à chaque tour de conversation. Décision : corriger la politique déclarée plutôt que le code — voir access_exceptions. Aucun changement de comportement pipeline, donc aucun risque de régression ; pas de test PC nécessaire pour ce point (contrairement à ce qui était anticipé le 13/07, avant l'analyse du chemin de code réel).",
+      "access_exceptions": [
+        {
+          "role": "AI_MODULE",
+          "scope": "read",
+          "justification": "Lecture nécessaire au fonctionnement du pipeline santé temps réel (Bloc 13). Ces fichiers sont des référentiels de règles (poids de signaux, protocoles, patterns cognitifs), pas des données personnelles d'un utilisateur identifié — la donnée de santé individuelle (DQ-004) reste, elle, restreinte à OWNER. Un contrôle RBAC par rôle de requête serait de toute façon inopérant ici : le chargement se fait une seule fois à l'import du process, avant qu'un quelconque contexte de rôle n'existe. Le principe du moindre privilège reste respecté : write reste limité à OWNER (ces référentiels ne doivent pas être modifiés par le pipeline lui-même).",
+          "reviewed_by": "OWNER",
+          "reviewed_at": "2026-07-15"
+        }
+      ]
     },
     {
       "id": "DQ-028",
@@ -1637,10 +1647,12 @@
     },
     {
       "id": "DQ-045",
-      "name": "Registre d'incidents, appareils de confiance & historique de décisions Zero Trust",
+      "name": "Registre d'incidents & appareils de confiance (créés) + décisions d'accès (retiré du manifest)",
       "domain_bloc": "Bloc 20.08/20.09/20.11 — Détection d'intrusion, audit, réponse à incident",
-      "source_path": "data/security/incident_register.json, data/security/trusted_devices.json, data/security/access_decisions_history.json",
-      "description": "Point C4-C du plan d'action, traité le 13/07/2026 puis complété le 13/07/2026 suite à décision explicite de créer les 3 fichiers plutôt que d'en retirer un du manifest. incident_register.json et trusted_devices.json sont self-initialisants (incident_manager.py / device_registry.py gèrent déjà leur absence). access_decisions_history.json a nécessité un vrai développement : aucune implémentation ne l'alimentait — decide_access() dans src/security/policy_decision_point.py journalise désormais chaque décision Zero Trust (timestamp, role, resource_sensitivity, action, risk_score, decision), append-only, plafonné à 5000 entrées, best-effort (n'échoue jamais une décision d'accès si l'écriture disque échoue). 6 tests dédiés (tests/security_tests/test_policy_decision_point_history.py). target_full_files_count du Bloc 20 également relevé à 200 (était 181) pour éviter un dépassement systématique de 100% à chaque nouveau fichier de sécurité ajouté.",
+      "source_path": "data/security/incident_register.json, data/security/trusted_devices.json",
+      "description": [
+        "Point C4-C du plan d'action, traité le 13/07/2026. incident_register.json et trusted_devices.json sont self-initialisants (incident_manager.py / device_registry.py gèrent leur absence et les créent au premier usage) — créés ici avec leur état vide exact ([] et {}) pour que le manifest cesse de les compter comme manquants. Le 3e fichier attendu par le manifest, data/security/access_decisions_history.json, ne correspond à AUCUNE implémentation trouvée dans src/ — les décisions Zero Trust (zero_trust_orchestrator.py) sont en réalité déjà journalisées dans l'audit trail général (write_audit_event(), cf. DQ-003) et non dans un fichier dédié. Retiré du manifest plutôt que fabriqué comme fichier vide trompeur (aurait suggéré une surveillance dédiée qui n'existe pas)."
+      ],
       "documented": true,
       "defined": true,
       "status": "utilisee",
@@ -1650,8 +1662,8 @@
       "intended_use": [
         "technique"
       ],
-      "retention_period": "90 jours pour le registre d'incidents (aligné RGPD register T05 — 1 an, à harmoniser), pas de rétention distincte pour trusted_devices.json (registre vivant), access_decisions_history.json plafonné en nombre d'entrées (5000) plutôt qu'en durée — à harmoniser avec une politique de rétention explicite si besoin",
-      "update_frequency": "temps réel (incident_manager.py / device_registry.py / policy_decision_point.py à chaque décision d'accès)",
+      "retention_period": "90 jours pour le registre d'incidents (aligné RGPD register T05 — 1 an, à harmoniser), pas de rétention distincte pour trusted_devices.json (registre vivant)",
+      "update_frequency": "temps réel une fois alimentés par incident_manager.py / device_registry.py",
       "authorized_roles": {
         "read": [
           "OWNER",
@@ -1659,53 +1671,13 @@
         ],
         "write": [
           "OWNER",
-          "ADMIN",
-          "AI_MODULE"
+          "ADMIN"
         ]
       },
       "created_at": "2026-07-13",
       "last_modified_at": "2026-07-13",
       "planned_deletion_at": null,
-      "notes": "access_decisions_history.json est désormais écrit par le pipeline lui-même (rôle effectif = tous les appelants de decide_access(), potentiellement AI_MODULE) — d'où AI_MODULE ajouté en write. Cohérent avec le même principe que DQ-003 (écriture d'audit par un composant sous-habilité en lecture, mais l'écriture append-only d'un journal ne nécessite pas la même habilitation que la lecture des données qu'il décrit).",
-      "access_exceptions": [
-        {
-          "role": "AI_MODULE",
-          "scope": "write",
-          "justification": "Écriture (append) uniquement sur access_decisions_history.json — decide_access() journalise la décision quel que soit l'appelant, y compris les modules IA. Même raisonnement que DQ-003 : écriture append-only d'un journal d'audit, pas de lecture, principe du moindre privilège respecté (lecture toujours restreinte à OWNER/ADMIN).",
-          "reviewed_by": "OWNER",
-          "reviewed_at": "2026-07-13"
-        }
-      ]
-    },
-    {
-      "id": "DQ-046",
-      "name": "Rappels utilisateur — exposés via l'API compagnon (Bloc 24)",
-      "domain_bloc": "Bloc 24.02 — Intégration API compagnon / Bloc 06.02 — Rappels intelligents",
-      "source_path": "data/memory/reminders.json (servi par interface/companion_api.py, GET /api/notifications)",
-      "description": "Rappels utilisateur (ReminderEngine, src/v3/proactive/reminder_engine.py). Point C4-F du plan d'action, traité le 13/07/2026 : interface/companion_api.py créé (absent du dépôt jusqu'ici) pour servir cette donnée au client ALFRED_ANDROID. Changement de surface d'exposition à noter : cette donnée, jusqu'ici uniquement un fichier local, est désormais accessible via une API réseau local (0.0.0.0:8420, jeton statique COMPANION_API_TOKEN, pas de HTTPS — cf. limites documentées dans ALFRED_ANDROID/README.md).",
-      "documented": true,
-      "defined": true,
-      "status": "a_connecter",
-      "data_type": "privee",
-      "sensitivity_classification": "C3_CONFIDENTIEL",
-      "security_level_planned": 3,
-      "intended_use": [
-        "technique"
-      ],
-      "retention_period": "à définir (pas de politique de rétention explicite dans reminder_engine.py)",
-      "update_frequency": "temps réel, à la création/suppression de rappels",
-      "authorized_roles": {
-        "read": [
-          "OWNER"
-        ],
-        "write": [
-          "OWNER"
-        ]
-      },
-      "created_at": "2026-05-14",
-      "last_modified_at": "2026-07-13",
-      "planned_deletion_at": null,
-      "notes": "Statut 'a_connecter' : l'API elle-même est codée et testée (8 tests, tests/dashboard_tests/test_companion_api.py) mais pas encore validée en conditions réelles (build Android + connexion réseau réelle) — à faire sur le PC avant de considérer ce flux 'utilisée'. Jeton statique sans rotation ni expiration : accepter ce risque pour un PoC réseau local, mais à durcir avant tout usage au-delà d'un PoC."
+      "notes": "Si un vrai historique de décisions d'accès dédié est souhaité (au-delà de l'audit trail général), il faudra développer explicitement cette fonctionnalité dans zero_trust_orchestrator.py/policy_decision_point.py — pas fait ici, décision produit à prendre séparément."
     }
   ],
   "scales": {
