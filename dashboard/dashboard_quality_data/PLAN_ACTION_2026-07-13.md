@@ -86,17 +86,37 @@ contexte, la priorité et la marche à suivre que le dashboard seul ne donne pas
 
 ## C4 — Élevée
 
-### C. Trois fichiers de sécurité runtime attendus mais absents du disque
-- **Preuve** : `data/security/access_decisions_history.json`, `incident_register.json`,
-  `trusted_devices_runtime.json` sont dans `dashboard_data_manifest.json` (Bloc 20) mais
-  n'existent pas — DQ-045. Ils comptent pourtant dans le calcul d'avancement B20 (189/181,
-  >100 %), donnant un **faux sentiment de complétude sécurité**.
-- **Action** : soit les créer (schéma à définir avec les modules qui devraient les alimenter :
-  `incident_manager.py`, `policy_decision_point.py`, `device_registry.py`), soit les retirer du
-  manifest s'ils ne sont pas prioritaires actuellement.
-- **Qui agit** : 🤖 Claude peut proposer un schéma JSON vide structuré à distance ; 🖥️ le
-  contenu réel (incidents effectivement survenus, décisions d'accès réelles) ne peut venir que
-  du système qui tourne sur le PC.
+### C. ✅ FAIT le 13/07/2026 — Trois fichiers de sécurité runtime manquants
+- **Décision** : créer les 3 (pas d'en retirer un), et relever la cible du Bloc 20 pour ne
+  jamais dépasser 100 %.
+- **Fait** :
+  - `data/security/incident_register.json` ([]) et `data/security/trusted_devices.json` ({}) —
+    self-initialisants, créés dans leur état vide exact.
+  - `data/security/access_decisions_history.json` — **vraie journalisation codée**, pas un
+    placeholder : `src/security/policy_decision_point.py::decide_access()` (le point d'entrée
+    réellement appelé par `zero_trust_orchestrator.py`) journalise désormais chaque décision
+    Zero Trust (timestamp, role, resource_sensitivity, action, risk_score, decision), append-only,
+    plafonné à 5000 entrées, best-effort (n'échoue jamais une décision si l'écriture échoue).
+    6 tests dédiés (`tests/security_tests/test_policy_decision_point_history.py`), tous verts.
+  - Corrigé au passage : le manifest attendait `trusted_devices_runtime.json`, un nom qui ne
+    correspondait à aucun fichier réellement écrit par `device_registry.py` (qui écrit
+    `trusted_devices.json`, sans suffixe).
+  - `target_full_files_count` du Bloc 20 relevé à **200** (était 181/180) — déjà fait
+    indépendamment côté PC (commit "Actualise les cibles projet"), confirmé cohérent avec la
+    demande. B20 passe de 189/181 (>100 %, faussé) à 189/200 (91.7 %, honnête).
+  - ⚠️ **Important pour ton PC** : les 3 fichiers `data/security/*.json` sont volontairement
+    `.gitignore`d (état sécurité runtime, jamais committé — cohérent avec le principe
+    local-first). Ils ont été créés localement dans cet environnement de préparation pour
+    vérifier que le code s'auto-initialise correctement, mais **ne sont pas dans le commit**.
+    Sur ton PC, après avoir tiré cette branche, tu les verras probablement encore "manquants"
+    tant que le code ne les aura pas créés pour de vrai (premier incident enregistré, premier
+    appareil déclaré, première décision Zero Trust journalisée) — c'est le fonctionnement
+    normal attendu, pas un oubli.
+  - Fiche registre `DQ-045` mise à jour en conséquence (statut `utilisee`, dérogation
+    `AI_MODULE` en écriture documentée, même principe que DQ-003/B).
+- **Précédent de gouvernance** : ce point C est le premier cas d'application concrète de la
+  nouvelle règle de gouvernance continue (§5bis, `docs/gouvernance/politique_gouvernance.md`
+  v1.1) — code + fiche registre + tests + documentation livrés ensemble.
 
 ### D. Trois fichiers dupliqués et obsolètes à la racine de `dashboard/`
 - **Preuve vérifiée aujourd'hui** :
@@ -259,7 +279,7 @@ contexte, la priorité et la marche à suivre que le dashboard seul ne donne pas
 |---|-------|----------|----------|
 | A | Accès santé AI_MODULE sous-habilité | C5 | ✅ tranché (registre corrigé) |
 | B | Accès logs sécurité AI_MODULE sous-habilité | C5 | ✅ tranché (dérogation documentée) |
-| C | 3 fichiers sécurité runtime manquants | C4 | ✅ fait (2 créés, 1 retiré du manifest) |
+| C | 3 fichiers sécurité runtime manquants | C4 | ✅ fait (3 créés, dont journalisation Zero Trust codée) |
 | D | 3 duplicatas obsolètes racine dashboard/ | C4 | ✅ fait (archivés) |
 | E | Casse `ALFRED_WEB/` — scan B21 à 0 % | C4 | ✅ fait (82/82 détectés) |
 | F | `companion_api.py` introuvable | C4 | ✅ codé + testé (8 tests) — reste test réel 🖥️ |
@@ -270,6 +290,30 @@ contexte, la priorité et la marche à suivre que le dashboard seul ne donne pas
 | J | ~40 fichiers scaffolding vides | C3 | 👤 puis 🤖 |
 | K | Poursuite registre (blocs restants) | continu | 🤖 |
 | M | Champs "à définir" à compléter | continu | 🤖👤 |
-| L | Merge PR #15 et #1 | C2 | 👤 |
+| L | Merge PR #15 et #1 | C2 | ✅ PR #15 mergée (main) — PR #1 ALFRED_ANDROID encore ouverte 👤 |
 | N | Templates `_public` | C1 | ✅ fait |
 | O | Sélection stats publiables | C1 | 👤 (futur) |
+
+---
+
+## Addendum — suite de session, 13/07/2026 (après merge de PR #15)
+
+- **PR #15 mergée dans `main`** pendant la session. Le travail de finalisation de C et F, plus
+  la nouvelle règle de gouvernance, a été fait sur la même branche (`claude/quality-data-dashboard-r8onnx`)
+  rebasée sur le nouveau `main`, puis poussé dans une **nouvelle PR** (une branche déjà mergée
+  ne peut pas rouvrir son ancienne PR).
+- **Découverte en fusionnant** : `dashboard/dashboard_vulnerabilites/dashboard_vulnerabilites.json`
+  était à **0 octet sur `main`** (donc probablement aussi sur ton PC si tu as pull le dernier
+  `main`) — la pipeline vulnérabilités plantait dessus (`JSONDecodeError`). Restauré depuis la
+  dernière version valide connue (17 Ko) puis régénéré normalement. Origine exacte non
+  déterminée avec certitude (probablement un plantage silencieux d'un des scripts de
+  régénération PC ayant écrit un fichier vide) — **à surveiller** si ça se reproduit après
+  merge : ce serait le signe d'un vrai bug dans `update_vulnerabilites_data.py` ou son
+  appelant (`run_pip_audit()`?), pas un artefact de fusion.
+- **Nouvelle règle de gouvernance édictée (13/07/2026)** — formalisée dans
+  `docs/gouvernance/politique_gouvernance.md` §5bis/§6bis (v1.1) et référencée dans
+  `dashboard_quality_data_manifest.json` : toute nouvelle brique ou modification substantielle
+  du code déclenche désormais automatiquement mise à jour manifeste/registre, classification/
+  sécurité/rétention/rôles, mise à jour documentaire, tests/dashboards, et alerte si une
+  information de gouvernance manque. Le point C de ce plan (journalisation Zero Trust) est le
+  premier cas traité selon cette règle.
