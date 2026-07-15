@@ -1400,6 +1400,36 @@
       "last_modified_at": "2026-07-13",
       "planned_deletion_at": null,
       "notes": "Si un vrai historique de décisions d'accès dédié est souhaité (au-delà de l'audit trail général), il faudra développer explicitement cette fonctionnalité dans zero_trust_orchestrator.py/policy_decision_point.py — pas fait ici, décision produit à prendre séparément."
+    },
+    {
+      "id": "DQ-046",
+      "name": "Rappels utilisateur — exposés via l'API compagnon (Bloc 24)",
+      "domain_bloc": "Bloc 24.02 — Intégration API compagnon / Bloc 06.02 — Rappels intelligents",
+      "source_path": "data/memory/reminders.json (servi par interface/companion_api.py, GET /api/notifications)",
+      "description": "Rappels utilisateur (ReminderEngine, src/v3/proactive/reminder_engine.py). Point C4-F du plan d'action, traité le 13/07/2026 : interface/companion_api.py créé (absent du dépôt jusqu'ici) pour servir cette donnée au client ALFRED_ANDROID. Changement de surface d'exposition à noter : cette donnée, jusqu'ici uniquement un fichier local, est désormais accessible via une API réseau local (0.0.0.0:8420, jeton statique COMPANION_API_TOKEN, pas de HTTPS — cf. limites documentées dans ALFRED_ANDROID/README.md).",
+      "documented": true,
+      "defined": true,
+      "status": "a_connecter",
+      "data_type": "privee",
+      "sensitivity_classification": "C3_CONFIDENTIEL",
+      "security_level_planned": 3,
+      "intended_use": [
+        "technique"
+      ],
+      "retention_period": "à définir (pas de politique de rétention explicite dans reminder_engine.py)",
+      "update_frequency": "temps réel, à la création/suppression de rappels",
+      "authorized_roles": {
+        "read": [
+          "OWNER"
+        ],
+        "write": [
+          "OWNER"
+        ]
+      },
+      "created_at": "2026-05-14",
+      "last_modified_at": "2026-07-13",
+      "planned_deletion_at": null,
+      "notes": "Statut 'a_connecter' : l'API elle-même est codée et testée (8 tests, tests/dashboard_tests/test_companion_api.py) mais pas encore validée en conditions réelles (build Android + connexion réseau réelle) — à faire sur le PC avant de considérer ce flux 'utilisée'. Jeton statique sans rotation ni expiration : accepter ce risque pour un PoC réseau local, mais à durcir avant tout usage au-delà d'un PoC."
     }
   ]
 }
