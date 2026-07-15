@@ -1369,12 +1369,10 @@
     },
     {
       "id": "DQ-045",
-      "name": "Registre d'incidents & appareils de confiance (créés) + décisions d'accès (retiré du manifest)",
+      "name": "Registre d'incidents, appareils de confiance & historique de décisions Zero Trust",
       "domain_bloc": "Bloc 20.08/20.09/20.11 — Détection d'intrusion, audit, réponse à incident",
-      "source_path": "data/security/incident_register.json, data/security/trusted_devices.json",
-      "description": [
-        "Point C4-C du plan d'action, traité le 13/07/2026. incident_register.json et trusted_devices.json sont self-initialisants (incident_manager.py / device_registry.py gèrent leur absence et les créent au premier usage) — créés ici avec leur état vide exact ([] et {}) pour que le manifest cesse de les compter comme manquants. Le 3e fichier attendu par le manifest, data/security/access_decisions_history.json, ne correspond à AUCUNE implémentation trouvée dans src/ — les décisions Zero Trust (zero_trust_orchestrator.py) sont en réalité déjà journalisées dans l'audit trail général (write_audit_event(), cf. DQ-003) et non dans un fichier dédié. Retiré du manifest plutôt que fabriqué comme fichier vide trompeur (aurait suggéré une surveillance dédiée qui n'existe pas)."
-      ],
+      "source_path": "data/security/incident_register.json, data/security/trusted_devices.json, data/security/access_decisions_history.json",
+      "description": "Point C4-C du plan d'action, traité le 13/07/2026 puis complété le 13/07/2026 suite à décision explicite de créer les 3 fichiers plutôt que d'en retirer un du manifest. incident_register.json et trusted_devices.json sont self-initialisants (incident_manager.py / device_registry.py gèrent déjà leur absence). access_decisions_history.json a nécessité un vrai développement : aucune implémentation ne l'alimentait — decide_access() dans src/security/policy_decision_point.py journalise désormais chaque décision Zero Trust (timestamp, role, resource_sensitivity, action, risk_score, decision), append-only, plafonné à 5000 entrées, best-effort (n'échoue jamais une décision d'accès si l'écriture disque échoue). 6 tests dédiés (tests/security_tests/test_policy_decision_point_history.py). target_full_files_count du Bloc 20 également relevé à 200 (était 181) pour éviter un dépassement systématique de 100% à chaque nouveau fichier de sécurité ajouté.",
       "documented": true,
       "defined": true,
       "status": "utilisee",
@@ -1384,8 +1382,8 @@
       "intended_use": [
         "technique"
       ],
-      "retention_period": "90 jours pour le registre d'incidents (aligné RGPD register T05 — 1 an, à harmoniser), pas de rétention distincte pour trusted_devices.json (registre vivant)",
-      "update_frequency": "temps réel une fois alimentés par incident_manager.py / device_registry.py",
+      "retention_period": "90 jours pour le registre d'incidents (aligné RGPD register T05 — 1 an, à harmoniser), pas de rétention distincte pour trusted_devices.json (registre vivant), access_decisions_history.json plafonné en nombre d'entrées (5000) plutôt qu'en durée — à harmoniser avec une politique de rétention explicite si besoin",
+      "update_frequency": "temps réel (incident_manager.py / device_registry.py / policy_decision_point.py à chaque décision d'accès)",
       "authorized_roles": {
         "read": [
           "OWNER",
@@ -1393,13 +1391,23 @@
         ],
         "write": [
           "OWNER",
-          "ADMIN"
+          "ADMIN",
+          "AI_MODULE"
         ]
       },
       "created_at": "2026-07-13",
       "last_modified_at": "2026-07-13",
       "planned_deletion_at": null,
-      "notes": "Si un vrai historique de décisions d'accès dédié est souhaité (au-delà de l'audit trail général), il faudra développer explicitement cette fonctionnalité dans zero_trust_orchestrator.py/policy_decision_point.py — pas fait ici, décision produit à prendre séparément."
+      "notes": "access_decisions_history.json est désormais écrit par le pipeline lui-même (rôle effectif = tous les appelants de decide_access(), potentiellement AI_MODULE) — d'où AI_MODULE ajouté en write. Cohérent avec le même principe que DQ-003 (écriture d'audit par un composant sous-habilité en lecture, mais l'écriture append-only d'un journal ne nécessite pas la même habilitation que la lecture des données qu'il décrit).",
+      "access_exceptions": [
+        {
+          "role": "AI_MODULE",
+          "scope": "write",
+          "justification": "Écriture (append) uniquement sur access_decisions_history.json — decide_access() journalise la décision quel que soit l'appelant, y compris les modules IA. Même raisonnement que DQ-003 : écriture append-only d'un journal d'audit, pas de lecture, principe du moindre privilège respecté (lecture toujours restreinte à OWNER/ADMIN).",
+          "reviewed_by": "OWNER",
+          "reviewed_at": "2026-07-13"
+        }
+      ]
     },
     {
       "id": "DQ-046",
