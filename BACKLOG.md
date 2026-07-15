@@ -1,6 +1,6 @@
 # ALFRED — BACKLOG & RÉFÉRENTIEL FICHIERS
 
-> Généré le 15/07/2026 05:24 depuis `dashboard_data.json` (mis à jour le 15/07/2026 05:24:37)
+> Généré le 15/07/2026 12:46 depuis `dashboard_data.json` (mis à jour le 15/07/2026 12:46:00)
 > Progression technique : **85.0%** · Full projet : **28.7%**
 > 1421 fichiers détectés / 4436 cible full
 
