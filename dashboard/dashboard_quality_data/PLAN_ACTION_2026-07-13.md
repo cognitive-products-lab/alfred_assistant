@@ -132,17 +132,28 @@ contexte, la priorité et la marche à suivre que le dashboard seul ne donne pas
 - **Qui agit** : 🖥️ confirmation du nom réel du dossier nécessaire ; 🤖 Claude peut coder le
   correctif ensuite.
 
-### F. `interface/companion_api.py` et `start_companion_api.bat` absents du dépôt
-- **Preuve** : `ALFRED_ANDROID/README.md` documente ces deux fichiers comme prérequis pour
-  faire tourner le PoC Compagnon côté ALFRED_PC. Recherche exhaustive (tous fichiers, toutes
-  branches de `alfred_assistant`) : **aucune trace**, ni sur `main` ni sur la branche de travail.
-- **Action** : soit ces fichiers existent en local non commités sur ton PC (à committer), soit
-  ils restent à développer. Dans les deux cas le PoC Android n'est pas utilisable tel quel
-  depuis ce dépôt distant.
-- **Qui agit** : 🖥️ à vérifier sur le PC (fichier local non poussé ?) ; si à développer, 🤖
-  Claude peut rédiger un premier jet à distance à partir du contrat d'API déjà documenté côté
-  client (`CompanionApiService.kt` : `GET /api/status`, `GET /api/notifications`, jeton
-  `COMPANION_API_TOKEN`), mais 🖥️ le test réel (build + émulateur + connexion) nécessite le PC.
+### F. ✅ CODÉ ET TESTÉ le 13/07/2026 — `interface/companion_api.py` était à développer
+- **Réponse à ta question "comment puis-je aider ?"** : tu as confirmé que le fichier n'existait
+  pas encore (à développer) — je l'ai donc écrit à distance à partir du contrat déjà documenté
+  côté client Android.
+- **Fait** :
+  - `interface/companion_api.py` (FastAPI) — `GET /api/status`, `GET /api/notifications`,
+    authentification par jeton statique (`COMPANION_API_TOKEN`, comparaison temps constant),
+    écoute `0.0.0.0:8420`. Réutilise `ReminderEngine` (`src/v3/proactive/reminder_engine.py`,
+    déjà existant et déjà alimenté en rappels réels) comme source des notifications — **aucune
+    nouvelle collecte de données créée**.
+  - `start_companion_api.bat` — lanceur Windows, vérifie la présence de `.env` avant de démarrer.
+  - `COMPANION_API_TOKEN` ajouté à `.env.example`, `fastapi`/`uvicorn` ajoutés à `requirements.txt`.
+  - **8 tests** (`tests/dashboard_tests/test_companion_api.py`, via `fastapi.testclient.TestClient`
+    — la même méthode que le README décrivait pour la validation d'origine) : 401 sans jeton,
+    401 avec mauvais jeton, 200 avec le bon jeton, format de réponse conforme à `Models.kt`,
+    et vérifié que les rappels retournés correspondent exactement aux rappels réels d'ALFRED_PC.
+    **Tous verts.**
+- **Ce qu'il reste à faire, uniquement sur PC** 🖥️ : lancer `start_companion_api.bat`, relancer
+  l'app Android (déjà buildée avec succès le 02/07/2026) et confirmer la connexion réelle
+  émulateur/téléphone → API. Rien à coder de plus a priori, sauf si le test réel révèle un écart.
+- Nouvelle fiche registre `DQ-046` : les rappels sont maintenant exposés via une API réseau
+  local (pas seulement un fichier local) — statut `a_connecter` tant que non validé sur PC.
 
 ### P. (nouveau, issu de A) Appliquer techniquement la restriction santé dans le pipeline
 - **Contexte** : suite à la décision A, `config/health/*.json` est maintenant restreint à
@@ -248,10 +259,10 @@ contexte, la priorité et la marche à suivre que le dashboard seul ne donne pas
 |---|-------|----------|----------|
 | A | Accès santé AI_MODULE sous-habilité | C5 | ✅ tranché (registre corrigé) |
 | B | Accès logs sécurité AI_MODULE sous-habilité | C5 | ✅ tranché (dérogation documentée) |
-| C | 3 fichiers sécurité runtime manquants | C4 | 🖥️🤖 |
-| D | 3 duplicatas obsolètes racine dashboard/ | C4 | 🤖 (attend feu vert) |
-| E | Casse `ALFRED_WEB/` — scan B21 à 0 % | C4 | 🖥️ puis 🤖 |
-| F | `companion_api.py` introuvable | C4 | 🖥️ puis 🤖 |
+| C | 3 fichiers sécurité runtime manquants | C4 | ✅ fait (2 créés, 1 retiré du manifest) |
+| D | 3 duplicatas obsolètes racine dashboard/ | C4 | ✅ fait (archivés) |
+| E | Casse `ALFRED_WEB/` — scan B21 à 0 % | C4 | ✅ fait (82/82 détectés) |
+| F | `companion_api.py` introuvable | C4 | ✅ codé + testé (8 tests) — reste test réel 🖥️ |
 | P | Appliquer techniquement la restriction santé (issu de A) | C4 | 🖥️ (pipeline à tester) |
 | G | Instance Céline non documentée | C3 | 🤖👤 |
 | H | Bloc 16 réservé vs contenu réel | C3 | 👤 |
