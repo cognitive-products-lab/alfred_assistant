@@ -1,0 +1,119 @@
+{
+  "_meta": {
+    "dashboard": "dashboard-vulnerabilites",
+    "title": "Analyse des Vulnérabilités",
+    "version": "2.0",
+    "source": "ALFRED_PC/dashboard/dashboard_vulnerabilites/dashboard_vulnerabilites.json",
+    "generated": "2026-07-14T11:03:08+00:00",
+    "generator": "tools/dashboard_tools/dashboard_vulnerabilites/update_vulnerabilites_data.py",
+    "status": "initialized"
+  },
+  "summary": {
+    "total": 0,
+    "active_total": 0,
+    "resolved_total": 0,
+    "detected_last_scan": 0,
+    "by_severity": {
+      "critique": 0,
+      "eleve": 0,
+      "moyen": 0,
+      "faible": 0
+    },
+    "by_status": {
+      "ouvert": 0,
+      "en cours": 0,
+      "contrôlé": 0,
+      "résolu": 0,
+      "accepté": 0
+    }
+  },
+  "config": {
+    "scan": {
+      "human": "Chaque dimanche à 03:00",
+      "cron": "0 3 * * 0",
+      "last": null,
+      "next": "2026-07-19T03:00+00:00",
+      "target": "auto"
+    },
+    "tests": {
+      "human": "Chaque jour à 03:30",
+      "cron": "30 3 * * *",
+      "last": null,
+      "next": "2026-07-15T03:30+00:00"
+    },
+    "notification_thresholds": {
+      "critique": 1,
+      "eleve": 1,
+      "moyen": 5,
+      "faible": 10
+    },
+    "admin": "Administrateur ALFRED",
+    "channels": {
+      "dashboard": {
+        "active": true,
+        "path": "/dashboard-vulnerabilites"
+      },
+      "journal": {
+        "active": true,
+        "path": "logs/security"
+      },
+      "email": {
+        "active": false,
+        "address": "À configurer"
+      }
+    },
+    "retention_logs_days": 365
+  },
+  "vulnerabilities": [],
+  "automation_tasks": [
+    {
+      "id": "VULN-AUTO-001",
+      "category": "scan",
+      "name": "Audit des dépendances Python",
+      "active": true,
+      "human": "Chaque dimanche à 03:00",
+      "cron": "0 3 * * 0",
+      "command": "python -m pip_audit --format json --aliases on --desc on --progress-spinner off",
+      "last_run": null,
+      "last_result": "jamais",
+      "note": "Le code retour 1 signifie que des vulnérabilités ont été trouvées."
+    },
+    {
+      "id": "VULN-AUTO-002",
+      "category": "reporting",
+      "name": "Mise à jour du dashboard vulnérabilités",
+      "active": true,
+      "human": "Après chaque audit",
+      "cron": "0 3 * * 0",
+      "command": "python tools/dashboard_tools/dashboard_vulnerabilites/update_vulnerabilites_data.py",
+      "last_run": null,
+      "last_result": "jamais",
+      "note": null
+    },
+    {
+      "id": "VULN-AUTO-003",
+      "category": "tests",
+      "name": "Tests de sécurité applicatifs",
+      "active": false,
+      "human": "À configurer",
+      "cron": "30 3 * * *",
+      "command": "python -m pytest tests/security -q",
+      "last_run": null,
+      "last_result": "non configuré",
+      "note": "Activer uniquement lorsque le répertoire tests/security existe."
+    },
+    {
+      "id": "VULN-AUTO-004",
+      "category": "backup",
+      "name": "Archivage des rapports de sécurité",
+      "active": true,
+      "human": "Conservation 365 jours",
+      "cron": "15 4 * * 0",
+      "command": "Archivage local dans dashboard_vulnerabilites/reports",
+      "last_run": null,
+      "last_result": "prêt",
+      "note": null
+    }
+  ],
+  "scan_history": []
+}

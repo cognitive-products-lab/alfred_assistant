@@ -186,6 +186,23 @@ contexte, la priorité et la marche à suivre que le dashboard seul ne donne pas
   d'adaptation santé/comportementale, à tester en conditions réelles (le pipeline complet avec
   modèles LLM locaux ne tourne pas dans cet environnement de préparation) avant de committer.
   🤖 Claude peut préparer un premier jet de patch si utile comme base de travail.
+- **✅ TRANCHÉ le 15/07/2026** — Analyse du chemin de code réel (`src/health/chronic_support.py`,
+  `interaction_adapter.py`, `health_profile.py`) : ces 6 fichiers sont chargés en constantes
+  module-level dès l'import du process (pas d'appel par requête, aucun paramètre
+  role/user_id) ; `regulation_engine.py` et `pipeline_bridge.py` ne lisent aucun fichier
+  directement, ils consomment ces constantes déjà en mémoire. Ces 3 modules **sont**
+  l'AI_MODULE — aucune autre identité ne peut les exécuter. Ajouter un `require_access` qui
+  bloquerait AI_MODULE casserait donc entièrement la détection de signaux santé et
+  l'adaptation temps réel (fog cognitif, douleur, poussée/rechute…) à chaque tour de
+  conversation, pour un gate qui de toute façon serait inopérant (chargement pré-requête, sans
+  contexte de rôle disponible). **Décision (validée par OWNER)** : corriger la politique
+  déclarée plutôt que le code — `AI_MODULE` réintégré en lecture sur DQ-027 via une dérogation
+  documentée (`access_exceptions`, même mécanisme que DQ-003), `write` reste limité à `OWNER`.
+  Aucun changement de comportement pipeline → pas de test PC nécessaire pour ce point (contrairement
+  à ce qui était anticipé le 13/07). Vérifié : `data_quality_registry.json` régénéré
+  (`update_quality_data_dashboard.py`) → plus d'alerte `acces_non_autorise` sur DQ-027 (l'unique
+  alerte critique restante, DQ-033, est sans rapport) ; `pytest tests/dashboard_tests/test_dashboard_quality_data.py`
+  → 25/25 passed.
 
 ---
 
@@ -283,7 +300,7 @@ contexte, la priorité et la marche à suivre que le dashboard seul ne donne pas
 | D | 3 duplicatas obsolètes racine dashboard/ | C4 | ✅ fait (archivés) |
 | E | Casse `ALFRED_WEB/` — scan B21 à 0 % | C4 | ✅ fait (82/82 détectés) |
 | F | `companion_api.py` introuvable | C4 | ✅ codé + testé (8 tests) — reste test réel 🖥️ |
-| P | Appliquer techniquement la restriction santé (issu de A) | C4 | 🖥️ (pipeline à tester) |
+| P | Appliquer techniquement la restriction santé (issu de A) | C4 | ✅ tranché (registre corrigé, pas de gate code — casserait le pipeline) |
 | G | Instance Céline non documentée | C3 | 🤖👤 |
 | H | Bloc 16 réservé vs contenu réel | C3 | 👤 |
 | I | `dialogue_history.json` orphelin | C3 | 🤖 (attend feu vert) |
