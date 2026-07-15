@@ -5,9 +5,9 @@ BLOCK    : B20 — Sécurité, Gouvernance & Conformité
 DOCUMENT : Politique de Gouvernance
 TYPE     : Documentation gouvernance
 REF      : ISO/IEC 27001:2022 — A.5.1, A.5.2, A.5.36
-VERSION  : V1.0
+VERSION  : V1.1
 CREATED  : 2026-07-10
-UPDATED  : 2026-07-10
+UPDATED  : 2026-07-13
 AUTHOR   : Cognitive Products Lab — Céline Rousselot (avec assistance Claude pour la rédaction)
 STATUS   : Approuvé
 ============================================================
@@ -16,7 +16,7 @@ STATUS   : Approuvé
 ## Cognitive Products Lab — ALFRED
 
 > **Référence :** ISO/IEC 27001:2022 — A.5.1, A.5.2, A.5.36
-> **Version :** 1.0 — 2026-07-10
+> **Version :** 1.1 — 2026-07-13
 > **Approbation :** Céline Rousselot — Fondatrice
 > **Statut :** Approuvé
 
@@ -99,6 +99,38 @@ C'est ce mécanisme — trouver et corriger les incohérences plutôt que les la
 
 ---
 
+## 5bis. Règle de gouvernance continue — toute brique de code déclenche la gouvernance de sa donnée
+
+Le circuit du §5 s'applique à un *traitement de données* identifié comme tel. Cette règle **généralise le principe à toute brique ou modification de code**, sans attendre qu'un traitement de données personnelles soit explicitement reconnu comme tel — parce que dans la pratique, une nouvelle donnée technique (fichier de log, registre d'état, cache local) précède souvent la prise de conscience qu'elle mérite une gouvernance, pas l'inverse (cf. §6 : `access_decisions_history.json` était référencé dans un manifest depuis mai 2026 sans qu'aucun code ne l'alimente ni ne le gouverne, découvert seulement le 13/07/2026).
+
+**Édictée le 13/07/2026, décision de la Fondatrice.**
+
+Toute nouvelle brique ou modification substantielle du code doit désormais déclencher automatiquement :
+
+1. **La mise à jour du manifeste et du registre des données** — `dashboard/dashboard_data/dashboard_data_manifest.json` (fichiers attendus par bloc) et `dashboard/dashboard_quality_data/data_quality_registry.json` (fiche de gouvernance par donnée).
+2. **L'identification des nouvelles données créées, utilisées ou modifiées** — toute donnée persistante nouvelle (fichier, table, collection) obtient une fiche registre avant — ou au plus tard au moment de — sa mise en service.
+3. **La classification, la sécurité, la rétention et les rôles d'accès** — chaque fiche renseigne `sensitivity_classification` (C1→C4), `security_level_planned` (1→5), `retention_period`, `authorized_roles` — pas de valeurs "à définir" laissées sans échéance sur une donnée déjà `utilisee`.
+4. **La mise à jour documentaire** — en-têtes de fichiers (`Bloc XX.YY`, cf. `docs/ALFRED_BLOCS_REFERENCE.md`), politiques concernées (celle-ci, `politique_gestion_donnees.md` si donnée personnelle), et le plan d'action en cours s'il y en a un.
+5. **L'exécution des tests et dashboards concernés** — `pytest` sur les tests touchés, régénération des dashboards impactés (`update_dashboard_data.py`, `update_quality_data_dashboard.py`, etc.) avant tout commit.
+6. **La création d'une alerte si une information de gouvernance manque** — le moteur d'alertes de `dashboard_quality_data` (`donnee_non_documentee`, `donnee_non_definie`, `controle_acces_absent`, `acces_non_autorise`, `acces_role_inconnu`, `donnee_creee_non_utilisee`, `statut_obsolete`, `purge_en_retard`) est le mécanisme de détection : une fiche incomplète ou un accès incohérent avec le niveau de sécurité déclaré produit une alerte visible, jamais un silence.
+
+**Statut honnête, même principe qu'au §5** : une fiche registre créée mais non revue par la Fondatrice reste `documented: false` ou porte une note explicite de vérification en attente — jamais présumée conforme par défaut.
+
+**Précédent d'application** : la journalisation des décisions Zero Trust (`data/security/access_decisions_history.json`, cf. §6-bis ci-dessous) est le premier cas traité selon cette règle — code, fiche registre, tests et documentation livrés ensemble, pas en différé.
+
+---
+
+## 6bis. Exemple réel — cette règle appliquée (13/07/2026)
+
+1. Audit du plan d'action qualité data (`dashboard/dashboard_quality_data/PLAN_ACTION_2026-07-13.md`, point C) : `data/security/access_decisions_history.json` attendu par le manifest depuis mai 2026, jamais alimenté par aucun module — écart réel entre l'avancement affiché du Bloc 20 (>100%, faussé) et l'état réel.
+2. Décision de la Fondatrice : créer le fichier avec un vrai code producteur plutôt qu'un fichier vide décoratif.
+3. `src/security/policy_decision_point.py::decide_access()` journalise désormais chaque décision Zero Trust (append-only, plafonné, best-effort — n'échoue jamais une décision d'accès si l'écriture échoue).
+4. Fiche registre `DQ-045` mise à jour (classification, rétention, rôles, `access_exceptions` documentant pourquoi `AI_MODULE` peut écrire sans pouvoir lire).
+5. 6 tests dédiés (`tests/security_tests/test_policy_decision_point_history.py`), tous verts avant commit.
+6. `target_full_files_count` du Bloc 20 recalibré (181→200) pour que l'ajout de fichiers de gouvernance légitimes ne fasse plus mécaniquement dépasser 100% d'avancement affiché.
+
+---
+
 ## 7. Gestion documentaire
 
 | Règle | Application |
@@ -117,5 +149,6 @@ Cette politique est révisée annuellement, à chaque évolution réglementaire 
 | Version | Date | Auteur | Modification |
 |---|---|---|---|
 | 1.0 | 2026-07-10 | Céline Rousselot (rédaction assistée Claude) | Création — formalise le référentiel de gouvernance CPL (4 politiques), le circuit de décision AIPD, et le principe de conformité volontaire hors champ légal |
+| 1.1 | 2026-07-13 | Céline Rousselot (rédaction assistée Claude) | Ajout §5bis/§6bis — règle de gouvernance continue : toute brique ou modification de code déclenche automatiquement mise à jour manifeste/registre, classification/sécurité/rétention/rôles, mise à jour documentaire, tests/dashboards, et alerte si information manquante. Opérationnalisée via `dashboard/dashboard_quality_data/` (registre + moteur d'alertes). |
 
 > **Cognitive Products Lab — Confidentiel interne**
