@@ -226,28 +226,32 @@ contexte, la priorité et la marche à suivre que le dashboard seul ne donne pas
 - **Feu vert OWNER obtenu** — reconfirmé orphelin (recherche exhaustive) puis supprimé
   (`git rm`). `DQ-022` mise à jour en conséquence.
 
-### J. ✅ Décision "construire" appliquée le 16/07/2026 — avec une découverte importante
-- **Décision (OWNER)** : construire plutôt qu'archiver.
-- **Découverte en cours de route** : le scaffolding n'est pas homogène. Sur ~50 fichiers :
-  - **8 fichiers correspondent à du code réel et fonctionnel** (`fusion_engine.py`,
+### J. ✅ FAIT le 16/07/2026 — "Schémas partout" (décision OWNER confirmée)
+- **Décision (OWNER, confirmée explicitement)** : construire un vrai schéma pour l'intégralité
+  du scaffolding, sans exception — pas seulement les fichiers avec du code réel derrière.
+- **Découverte en cours de route** : le scaffolding n'était pas homogène. Sur les ~47 fichiers
+  identifiés (config/data V2/V3/V4 + Bloc 16 + DQ-013/014) :
+  - **8 fichiers correspondaient à du code réel et fonctionnel** (`fusion_engine.py`,
     `decision_engine.py`, `confidence_scorer.py` en V2 ; `multi_signal_fusion_engine.py`,
     `confidence_engine.py`, `contradiction_detector.py`, `proactive_engine.py`,
-    `reminder_detector.py` en V3) — ces modules tournent déjà, mais gèrent leurs poids/seuils/
-    règles en constantes Python plutôt que via un fichier externe. **Fait** : schéma JSON
-    complet écrit pour chacun, copié fidèlement des vraies constantes du code (aucune valeur
-    inventée) — voir `DQ-047`.
-  - **~22 fichiers restants ne correspondent à AUCUN code** — les packages `src/v3/emotion/`,
-    `memory/`, `learning/`, `safety/`, `conversation/`, `orchestrator/`, `reasoning/` et
-    `src/v2/governance/`, `knowledge/`, `product/`, `experience/`, `scenarios/`, `fallback/`
-    ne contiennent qu'un `__init__.py` vide (1 ligne) — pas des fonctionnalités non branchées,
-    des fonctionnalités jamais conçues. Domotique V4 (`config/v4/`, `data/v4/`, DQ-042/043)
-    dans le même cas. Écrire un schéma ici serait de la pure spéculation de conception produit,
-    pas une tâche de gouvernance data — **laissé de côté**, voir `DQ-041` mis à jour.
-- **Ce qui reste ouvert** : 👤 décision produit à reprendre séparément pour ces ~22 fichiers
-  (prioriser leur conception, ou acter qu'ils ne seront pas construits et alléger le manifest).
-  🖥️ Câbler réellement la lecture des 8 schémas dans leurs modules respectifs (changement de
-  pipeline en prod, à faire et tester sur PC) — non fait ici sur décision explicite (schémas
-  seulement).
+    `reminder_detector.py` en V3) — schéma copié fidèlement des vraies constantes du code
+    (aucune valeur inventée) — voir `DQ-047`.
+  - **Les ~39 fichiers restants** (packages `src/v3/emotion/`, `memory/`, `learning/`,
+    `safety/`, `conversation/`, `orchestrator/`, `reasoning/`, `src/v2/governance/`,
+    `knowledge/`, `product/`, `experience/`, `scenarios/`, `fallback/`, `src/v4/*` — tous des
+    `__init__.py` vides, aucune implémentation) + Bloc 16 (5 fichiers) + DQ-013/014 (3 fichiers)
+    ont reçu un schéma structuré conçu par raisonnement domaine (convention
+    `_alfred_header`/`_meta`, statut `SCHEMA_DEFINI`, note explicite indiquant qu'aucun code
+    ne les lit encore) — voir `DQ-013`, `DQ-014`, `DQ-015`, `DQ-024`, `DQ-026`, `DQ-029`,
+    `DQ-039`, `DQ-041`, `DQ-042`, `DQ-043`.
+  - 5 fichiers avaient un squelette partiel déjà commencé (ex. `config/v2/edge_cases.json`
+    = `{"patterns": []}`) — étendus en préservant les clés déjà choisies plutôt qu'écrasés.
+- **Vérifié** : 0 fichier restant sous 50 octets sérialisés sur l'ensemble du périmètre.
+  121 tests dashboard_tests/ + b20_tests/test_smoke_batch1.py au vert après régénération.
+- **Ce qui reste ouvert** : 🖥️ câbler réellement la lecture de ces schémas dans le code (pour
+  les modules qui existent) et **développer les modules manquants** (pour ceux qui n'existent
+  pas encore) — c'est un changement de comportement pipeline en prod, à faire et tester sur PC,
+  décision de priorisation produit qui revient à l'équipe pour choisir quoi développer en premier.
 
 ---
 
@@ -255,28 +259,37 @@ contexte, la priorité et la marche à suivre que le dashboard seul ne donne pas
 
 ### K. Poursuivre le registre qualité data
 - Blocs 23-25/29 déjà partiellement couverts (peu de fichiers `config/`/`data/` dédiés — la
-  plupart de leur contenu réel est déjà référencé ailleurs dans le registre). Reste à faire :
-  relecture complète des 44 fiches par l'équipe, complément des champs `"à définir"`
-  (durée de conservation, fréquence de mise à jour réelle).
-- **Qui agit** : 🤖 Claude peut continuer seul ; 👤 relecture finale nécessaire avant de
-  considérer le registre "fiable" pour piloter de vraies décisions d'accès.
+  plupart de leur contenu réel est déjà référencé ailleurs dans le registre). **Fait le
+  16/07/2026** : audit de complétude — 46 fiches, 0 doublon d'ID, 0 champ obligatoire manquant.
+  Le registre reste un instantané vivant : à continuer d'alimenter à chaque nouvelle donnée
+  créée (cf. règle de gouvernance continue, §5bis).
+- **Qui agit** : 🤖 Claude continue seul au fil des évolutions ; 👤 relecture finale toujours
+  recommandée avant de piloter de vraies décisions d'accès sur cette base.
 
-### M. Compléter les champs incertains au fil de l'eau
-- Plusieurs fiches ont `retention_period`/`update_frequency` marqués "à définir" — à préciser
-  quand l'information réelle est connue (ex. politique de rétention pour les scaffolding une
-  fois leur sort tranché au point J).
-- **Qui agit** : 🤖 Claude peut proposer des valeurs par défaut cohérentes avec le RGPD register
-  existant ; 👤 confirmation finale.
+### M. ✅ FAIT le 16/07/2026 — Champs "à définir" complétés
+- 13 fiches avaient `retention_period`/`update_frequency` marqués "à définir"
+  (DQ-013/014/024/025/026/029/030/037/039/041/042/043/046) — complétées avec des valeurs
+  alignées sur le RGPD register existant (ex. 5 ans pour la mémoire, cohérent avec T02) ou
+  explicitement qualifiées de "sans objet tant que non câblé" quand aucune politique réelle
+  n'existe encore.
+- **Volontairement laissée en l'état** : `DQ-018` (santé pédiatrique ARTHUR) — "à définir avant
+  collecte" est correct tel quel, la donnée n'existe pas encore et il serait prématuré de fixer
+  une politique de rétention avant que le module et le consentement Art. 8 soient conçus.
 
 ---
 
 ## C2 — Faible
 
-### L. Merger les 2 PR ouvertes une fois les points ci-dessus au moins tranchés
-- **PR #15** (`alfred_assistant`) : dashboard qualité data + Blocs 23/24/25 + registre (44
-  fiches). Draft, propre, aucune CI configurée sur ce dépôt.
-- **PR #1** (`ALFRED_ANDROID`) : en-têtes Bloc 24 sur les 6 fichiers Kotlin. Draft, propre.
-- **Qui agit** : 👤 merge à ta main (droits + relecture finale).
+### L. Merger les 2 PR ouvertes — état au 16/07/2026, en attente de ton feu vert
+- **PR #15** : mergée le 14/07/2026 (via `main`).
+- **PR #16** (`alfred_assistant`) : suite de PR #15 — points C/F/H/I/J/M du plan, règle de
+  gouvernance continue, fusion avec tes commits locaux (DQ-027, vulnerabilites V2.0). Draft,
+  `mergeable_state: clean`, aucune CI configurée, aucun commentaire. **Prête à relire.**
+- **PR #1** (`ALFRED_ANDROID`) : en-têtes Bloc 24 sur les 6 fichiers Kotlin. Draft, propre,
+  `mergeable_state: clean`, aucun commentaire.
+- **Qui agit** : 👤 le merge reste ta décision (droits + relecture finale) — je ne merge jamais
+  de moi-même sans confirmation explicite. Dis-le-moi si tu veux que je merge maintenant que le
+  contenu a été largement revu ensemble dans cette conversation.
 
 ---
 
@@ -311,9 +324,9 @@ contexte, la priorité et la marche à suivre que le dashboard seul ne donne pas
 | G | Instance Céline non documentée | C3 | 🤖👤 (toujours ouvert) |
 | H | Bloc 16 réservé vs contenu réel | C3 | ✅ fait (formalisé) |
 | I | `dialogue_history.json` orphelin | C3 | ✅ fait (supprimé) |
-| J | ~50 fichiers scaffolding vides | C3 | ✅ 8/50 schématisés (code réel) — 👤 ~22 restants sans code, décision produit à part |
-| K | Poursuite registre (blocs restants) | continu | 🤖 |
-| M | Champs "à définir" à compléter | continu | 🤖👤 |
+| J | ~50 fichiers scaffolding vides | C3 | ✅ fait — schémas construits partout (8 réels + ~39 conçus par raisonnement domaine) — reste le câblage code, décision produit 🖥️👤 |
+| K | Poursuite registre (blocs restants) | continu | ✅ audit de complétude fait (46 fiches, 0 doublon, 0 champ manquant) — 🤖 continu |
+| M | Champs "à définir" à compléter | continu | ✅ fait (13 fiches complétées, DQ-018 volontairement laissée en l'état) |
 | L | Merge PR #15 et #1 | C2 | ✅ PR #15 mergée (main) — PR #1 ALFRED_ANDROID encore ouverte 👤 |
 | N | Templates `_public` | C1 | ✅ fait |
 | O | Sélection stats publiables | C1 | 👤 (futur) |
