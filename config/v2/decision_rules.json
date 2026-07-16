@@ -1,1 +1,58 @@
-﻿{"decision_thresholds": {"high_confidence": 0.7, "medium_confidence": 0.4}}
+{
+  "_alfred_header": {
+    "file": "config/v2/decision_rules.json",
+    "bloc": "Bloc 01.04 — Orchestration des modules",
+    "notion_exam": "D01-4 — Capsule Décision contextuelle",
+    "utilite_alfred": "Règles de sélection de stratégie de réponse (ton, longueur, hedge, actions post-réponse), consommées par DecisionEngine.",
+    "domaine": "Orchestration V2 — décision contextuelle"
+  },
+  "_meta": {
+    "project": "ALFRED",
+    "version": "V1.0",
+    "status": "SCHEMA_DEFINI — pas encore chargé par le code (src/v2/decision/decision_engine.py gère ses règles en mémoire)",
+    "created": "2026-07-16",
+    "note": "Point C3-J du plan d'action. Contenu précédent ({\"decision_thresholds\":{\"high_confidence\":0.7,\"medium_confidence\":0.4}}) était une ébauche partielle — complété ici avec l'ensemble des règles réelles de src/v2/decision/decision_engine.py (DecisionEngine._select_strategy, _TONE_BY_MODE, _LENGTH_BY_MODE, _post_actions). Câblage réel non fait — changement de pipeline à tester séparément sur PC."
+  },
+  "confidence_thresholds": {
+    "direct_response": 0.70,
+    "memory_strategy": 0.60,
+    "knowledge_strategy": 0.50
+  },
+  "tone_by_mode": {
+    "support": "warm",
+    "complicite": "playful",
+    "focus": "precise",
+    "challenge": "precise"
+  },
+  "max_length_by_mode": {
+    "support": 600,
+    "complicite": 400,
+    "focus": 800,
+    "challenge": 700
+  },
+  "distress_override": {
+    "condition": "emotion in [stressed, sad, anxious, tired]",
+    "tone": "warm",
+    "max_length_cap": 400
+  },
+  "strategy_selection_order": [
+    {"strategy": "empathetic", "condition": "emotion in [stressed, sad, anxious] and mode == support"},
+    {"strategy": "exploratory", "condition": "confidence_level == uncertain and is_question and not recently used"},
+    {"strategy": "hedged", "condition": "confidence_level in [low, uncertain]"},
+    {"strategy": "memory", "condition": "primary_source == memory and has_memory and confidence >= 0.60"},
+    {"strategy": "knowledge", "condition": "has_knowledge and mode in [focus, challenge] and confidence >= 0.50"},
+    {"strategy": "direct", "condition": "confidence >= 0.70"},
+    {"strategy": "fallback_llm", "condition": "aucune règle précédente ne s'applique"}
+  ],
+  "hedge_prefixes": {
+    "uncertain": "Je manque d'informations précises, mais je pense que ",
+    "low": "Je ne suis pas certain·e, mais ",
+    "medium": "",
+    "high": ""
+  },
+  "post_actions": [
+    {"action": "save_to_memory", "condition": "confidence >= 0.60"},
+    {"action": "trigger_proactive", "condition": "strategy == direct and confidence >= 0.70"},
+    {"action": "track_wellbeing", "condition": "emotion in [stressed, sad, anxious, tired]"}
+  ]
+}
