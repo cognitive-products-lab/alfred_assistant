@@ -1,0 +1,109 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "securite_ia.fondamentaux.empoisonnement_donnees_data_poisoning",
+  "title": "Empoisonnement de données (data poisoning) : risque et défense",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "securite_ia",
+  "subdomain": "fondamentaux",
+  "category": "securite_ia",
+  "summary": "Principe de l'attaque par empoisonnement de données (data poisoning) sur un modèle d'IA, ses variantes et les mesures de défense, en complément du red teaming et de la sécurité MLOps déjà couverts.",
+  "purpose": "Permettre à ALFRED d'expliquer le risque spécifique d'empoisonnement de données, une menace distincte des attaques par prompt déjà documentées ailleurs, pour sensibiliser les équipes techniques.",
+  "tags": [
+    "data_poisoning",
+    "empoisonnement_donnees",
+    "attaque_ia",
+    "integrite_modele",
+    "securite_mlops"
+  ],
+  "intents": [
+    "explain_data_poisoning",
+    "explain_ai_attack_vector",
+    "give_ai_security_defense_advice"
+  ],
+  "usage_context": [
+    "Ingénierie IA",
+    "Sécurité IA",
+    "MLOps"
+  ],
+  "priority": "high",
+  "safety_level": "sensitive",
+  "content": {
+    "definition": "L'empoisonnement de données (data poisoning) est une attaque visant à corrompre volontairement les données d'entraînement ou de fine-tuning d'un modèle d'IA pour en altérer le comportement de façon ciblée ou générale. Il existe deux grandes variantes : l'empoisonnement general, qui dégrade globalement la performance du modèle (déni de service qualitatif), et l'empoisonnement ciblé (backdoor), plus insidieux, qui insère un déclencheur spécifique (un mot, un motif) provoquant un comportement anormal précis du modèle uniquement en présence de ce déclencheur, tout en laissant le comportement normal intact et donc difficile à détecter par des tests standards. Ce risque est particulièrement élevé pour les modèles entraînés ou affinés sur des données collectées à grande échelle depuis des sources externes non entièrement contrôlées (web scraping, contributions ouvertes, feedback utilisateur non filtré).",
+    "core_principles": [
+      "L'empoisonnement ciblé (backdoor) est particulièrement dangereux car il laisse le comportement du modèle normal dans la grande majorité des cas, ne se déclenchant que face à un motif spécifique connu de l'attaquant.",
+      "Le risque d'empoisonnement augmente avec le degré d'ouverture des sources de données d'entraînement : les données collectées automatiquement depuis le web ou issues de contributions non filtrées sont les plus exposées.",
+      "Un pipeline de fine-tuning continu sur des retours utilisateurs non filtrés (apprentissage en ligne) constitue une surface d'attaque particulièrement critique si aucun filtrage ou validation n'est appliqué.",
+      "La défense contre l'empoisonnement combine plusieurs couches : validation et filtrage des données sources, détection d'anomalies statistiques dans le jeu de données, tests de robustesse ciblés et traçabilité complète de la provenance des données (data lineage)."
+    ],
+    "rules": [
+      "Toujours valider et filtrer les sources de données externes avant intégration dans un pipeline d'entraînement ou de fine-tuning, en particulier pour les sources ouvertes ou peu contrôlées.",
+      "Ne jamais intégrer des retours utilisateurs bruts dans un pipeline de ré-entraînement automatique sans étape de validation ou de modération intermédiaire.",
+      "Documenter et tracer la provenance de chaque source de donnée utilisée pour permettre un audit en cas de comportement anormal détecté après déploiement."
+    ],
+    "examples": [
+      {
+        "situation": "Une équipe MLOps prévoit d'intégrer automatiquement les retours utilisateurs d'un chatbot dans un pipeline de ré-entraînement continu.",
+        "recommended_behavior": "Recommander une étape de validation et de filtrage humain ou automatisé de ces retours avant intégration, et une surveillance des dérives de comportement du modèle après chaque cycle de ré-entraînement, pour limiter le risque d'empoisonnement via des retours malveillants massifs.",
+        "avoid": "Recommander l'intégration automatique et non filtrée des retours utilisateurs bruts dans le pipeline d'entraînement, ce qui expose directement au risque d'empoisonnement."
+      }
+    ],
+    "best_practices": [
+      "Mettre en place une validation et un filtrage systématique des sources de données avant leur intégration dans un pipeline d'entraînement.",
+      "Surveiller les dérives de comportement du modèle après chaque cycle de ré-entraînement pour détecter une éventuelle contamination.",
+      "Documenter la provenance complète (data lineage) de chaque jeu de données utilisé pour permettre l'audit et la remédiation en cas d'incident."
+    ],
+    "anti_patterns": [
+      "Intégrer des données externes non filtrées dans un pipeline d'entraînement sans validation préalable.",
+      "Considérer qu'un modèle au comportement normal dans les tests standards est nécessairement exempt de backdoor, alors que ce type d'attaque est précisément conçu pour rester indétectable en usage normal."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "data_poisoning",
+      "empoisonnement_donnees",
+      "attaque_ia",
+      "integrite_modele",
+      "securite_mlops"
+    ],
+    "related_domains": [
+      "securite_ia",
+      "ia_data_science",
+      "professional/engineering/cybersecurite"
+    ],
+    "related_knowledge": [
+      "securite_ia.securite_pipelines_mlops",
+      "securite_ia.red_teaming_ia_pratique",
+      "ia_data_science.fondamentaux.gouvernance_donnees_entrainement"
+    ],
+    "retrieval_priority": 7
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "high",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "sensibilisation technique à la sécurité des pipelines d'entraînement IA"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [
+      "fournir des instructions opérationnelles pour mener une attaque d'empoisonnement de données réelle"
+    ],
+    "fallback_behavior": "Se limiter à l'explication défensive et conceptuelle du risque, sans jamais détailler de méthode offensive exploitable."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "15/07/2026",
+    "last_update": "15/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

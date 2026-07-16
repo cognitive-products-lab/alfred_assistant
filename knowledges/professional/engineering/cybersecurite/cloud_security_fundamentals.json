@@ -1,0 +1,108 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "professional.engineering.cybersecurite.cloud_security_fundamentals",
+  "title": "Sécurité du cloud : fondamentaux et responsabilité partagée",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "professional",
+  "subdomain": "engineering/cybersecurite",
+  "category": "cybersécurité",
+  "summary": "Principe de responsabilité partagée entre fournisseur cloud et client, et bonnes pratiques fondamentales de sécurisation des environnements cloud (IAM, chiffrement, configuration).",
+  "purpose": "Permettre à ALFRED d'expliquer les principes de sécurité cloud, en particulier le modèle de responsabilité partagée, essentiel pour éviter les erreurs de configuration fréquentes en entreprise.",
+  "tags": [
+    "securite_cloud",
+    "responsabilite_partagee",
+    "iam_cloud",
+    "configuration_cloud",
+    "chiffrement"
+  ],
+  "intents": [
+    "explain_cloud_security_model",
+    "explain_shared_responsibility",
+    "give_cloud_hardening_advice"
+  ],
+  "usage_context": [
+    "DSI",
+    "architecture technique",
+    "question de sécurité sur un déploiement cloud"
+  ],
+  "priority": "high",
+  "safety_level": "normal",
+  "content": {
+    "definition": "La sécurité du cloud repose sur le modèle de responsabilité partagée : le fournisseur cloud est responsable de la sécurité « du » cloud (infrastructure physique, virtualisation, disponibilité de la plateforme), tandis que le client reste responsable de la sécurité « dans » le cloud (configuration des accès, gestion des identités, chiffrement des données, mise à jour des applications déployées). La répartition exacte des responsabilités varie selon le modèle de service utilisé (IaaS, PaaS, SaaS) : plus le service est managé, plus la part de responsabilité du fournisseur augmente, mais elle n'est jamais totale côté client. La majorité des incidents de sécurité cloud proviennent d'erreurs de configuration côté client (stockage exposé publiquement, droits excessifs, absence de chiffrement) plutôt que d'une faille du fournisseur lui-même.",
+    "core_principles": [
+      "Le modèle de responsabilité partagée signifie que le fournisseur cloud ne garantit jamais seul la sécurité complète d'un déploiement : le client garde une responsabilité irréductible sur la configuration et les accès.",
+      "Le niveau de responsabilité du client diminue à mesure que le modèle de service devient plus managé (IaaS > PaaS > SaaS), mais ne disparaît jamais totalement, y compris en SaaS (gestion des accès utilisateurs, classification des données).",
+      "La majorité des incidents de sécurité cloud documentés résultent d'erreurs de configuration côté client (bucket de stockage public par erreur, droits d'accès trop larges) plutôt que d'une compromission de l'infrastructure du fournisseur.",
+      "Le principe de moindre privilège (accès strictement nécessaire) et le chiffrement des données au repos et en transit restent des fondamentaux de sécurité cloud indépendants du fournisseur choisi."
+    ],
+    "rules": [
+      "Toujours clarifier le modèle de service (IaaS, PaaS, SaaS) avant d'expliquer la répartition précise des responsabilités de sécurité.",
+      "Ne jamais présenter le cloud d'un grand fournisseur comme intrinsèquement sécurisé sans mentionner la part de responsabilité qui reste au client.",
+      "Recommander systématiquement l'audit régulier des configurations d'accès (IAM) et de stockage, source la plus fréquente d'incidents cloud."
+    ],
+    "examples": [
+      {
+        "situation": "Une organisation subit une fuite de données suite à un stockage cloud mal configuré et accessible publiquement.",
+        "recommended_behavior": "Expliquer que ce type d'incident relève typiquement de la responsabilité du client dans le modèle de responsabilité partagée (erreur de configuration des droits d'accès), et recommander un audit systématique des configurations de stockage et des droits IAM sur l'ensemble de l'environnement.",
+        "avoid": "Attribuer par défaut la responsabilité de l'incident au fournisseur cloud sans vérifier la configuration côté client, qui est la cause la plus fréquente de ce type d'incident."
+      }
+    ],
+    "best_practices": [
+      "Toujours situer une question de sécurité cloud dans le modèle de responsabilité partagée applicable au service concerné.",
+      "Recommander l'application du principe de moindre privilège pour tous les accès cloud, humains et applicatifs (comptes de service).",
+      "Recommander un audit régulier et automatisé des configurations cloud (posture management) plutôt qu'un contrôle ponctuel unique."
+    ],
+    "anti_patterns": [
+      "Présenter la sécurité cloud comme entièrement déléguée au fournisseur, ce qui occulte la responsabilité irréductible du client.",
+      "Négliger l'audit des configurations de stockage et d'accès, source la plus fréquente d'incidents de sécurité cloud documentés."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "securite_cloud",
+      "responsabilite_partagee",
+      "iam_cloud",
+      "configuration_cloud",
+      "chiffrement"
+    ],
+    "related_domains": [
+      "professional/engineering/cybersecurite",
+      "professional/engineering/systeme_design",
+      "information_security"
+    ],
+    "related_knowledge": [
+      "professional.engineering.cybersecurite.zero_trust_architecture",
+      "professional.engineering.cybersecurite.identity_access_management"
+    ],
+    "retrieval_priority": 6
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "explication technique des principes de sécurité cloud"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [
+      "fournir des techniques d'exploitation de mauvaises configurations cloud à des fins offensives non autorisées"
+    ],
+    "fallback_behavior": "Pour un audit de sécurité cloud réel d'un environnement de production, recommander l'intervention d'un expert cloud sécurité ou un test d'intrusion autorisé."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "15/07/2026",
+    "last_update": "15/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

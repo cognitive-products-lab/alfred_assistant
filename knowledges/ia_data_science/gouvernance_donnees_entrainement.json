@@ -1,0 +1,108 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "ia_data_science.fondamentaux.gouvernance_donnees_entrainement",
+  "title": "Gouvernance des données d'entraînement des modèles d'IA",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "ia_data_science",
+  "subdomain": "fondamentaux",
+  "category": "gouvernance_ia_data",
+  "summary": "Enjeux de gouvernance des données utilisées pour entraîner des modèles d'IA : provenance, licences, qualité, biais, consentement et traçabilité, distincts de l'évaluation des modèles déjà couverte.",
+  "purpose": "Permettre à ALFRED d'expliquer les enjeux spécifiques de gouvernance des données d'entraînement, complément indispensable à l'évaluation des modèles déjà documentée dans ce domaine.",
+  "tags": [
+    "donnees_entrainement",
+    "gouvernance_donnees_ia",
+    "biais_dataset",
+    "licence_donnees",
+    "provenance_donnees"
+  ],
+  "intents": [
+    "explain_training_data_governance",
+    "explain_dataset_bias_risk",
+    "explain_data_provenance"
+  ],
+  "usage_context": [
+    "Ingénierie IA",
+    "Conformité",
+    "Gouvernance données"
+  ],
+  "priority": "high",
+  "safety_level": "normal",
+  "content": {
+    "definition": "La gouvernance des données d'entraînement conditionne directement la qualité, la légalité et l'équité d'un modèle d'IA en aval : un modèle ne peut pas être plus fiable ou plus équitable que les données sur lesquelles il a été entraîné. Elle recouvre quatre enjeux principaux : la provenance et la licence des données (droit d'usage, respect du droit d'auteur et des conditions d'utilisation des sources), la qualité et la représentativité (données à jour, couvrant la diversité des cas d'usage réels sans sur-représentation d'une catégorie), les biais hérités (reproduction et parfois amplification de biais sociaux ou historiques présents dans les données sources) et la traçabilité (documentation des sources et versions utilisées, nécessaire pour l'auditabilité et la conformité réglementaire comme l'AI Act).",
+    "core_principles": [
+      "La qualité d'un modèle d'IA est structurellement limitée par la qualité de ses données d'entraînement : aucune technique d'entraînement ne compense entièrement des données de mauvaise qualité ou non représentatives.",
+      "L'usage de données protégées par le droit d'auteur pour l'entraînement de modèles fait l'objet de cadres juridiques évolutifs et contestés selon les juridictions : une vigilance et une veille juridique sont nécessaires.",
+      "Les biais présents dans les données d'entraînement (sous-représentation de certains groupes, biais historiques) se traduisent statistiquement en biais de performance ou d'équité du modèle final, sans intervention corrective explicite.",
+      "La documentation de la provenance des données (data lineage, fiches de données ou « datasheets ») est une exigence croissante des cadres réglementaires (AI Act) pour les systèmes d'IA à risque."
+    ],
+    "rules": [
+      "Toujours documenter la provenance et la licence des données utilisées pour tout entraînement ou fine-tuning de modèle.",
+      "Évaluer systématiquement la représentativité d'un jeu de données par rapport à la population réelle d'usage visée avant l'entraînement.",
+      "Ne jamais présenter un modèle comme neutre ou objectif sans évaluation explicite des biais potentiellement hérités de ses données d'entraînement."
+    ],
+    "examples": [
+      {
+        "situation": "Une équipe souhaite entraîner un modèle de scoring RH sur des données de recrutement historiques de l'entreprise.",
+        "recommended_behavior": "Recommander d'auditer au préalable ces données pour détecter d'éventuels biais historiques de recrutement (genre, origine, âge) qui seraient reproduits ou amplifiés par le modèle, et de documenter les mesures correctives appliquées avant tout déploiement.",
+        "avoid": "Entraîner directement le modèle sur les données historiques sans audit préalable des biais potentiels qu'elles contiennent."
+      }
+    ],
+    "best_practices": [
+      "Toujours documenter la provenance, la licence et la date de collecte des données d'entraînement utilisées.",
+      "Auditer la représentativité et les biais potentiels d'un jeu de données avant tout entraînement, en particulier pour les usages à fort impact humain.",
+      "Mettre à jour régulièrement les données d'entraînement pour éviter une dérive (data drift) entre les données historiques et la réalité actuelle."
+    ],
+    "anti_patterns": [
+      "Utiliser des données d'entraînement sans vérifier leur licence d'usage ou leur conformité au droit d'auteur.",
+      "Considérer un modèle comme automatiquement neutre du simple fait qu'il est statistique, en ignorant les biais hérités de ses données."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "donnees_entrainement",
+      "gouvernance_donnees_ia",
+      "biais_dataset",
+      "licence_donnees",
+      "provenance_donnees"
+    ],
+    "related_domains": [
+      "ia_data_science",
+      "professional/governance_ai",
+      "data_management"
+    ],
+    "related_knowledge": [
+      "ia_data_science.ia_data_science_fondamentaux",
+      "professional.governance_ai.data_governance_ai"
+    ],
+    "retrieval_priority": 6
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "explication des enjeux de gouvernance des données d'entraînement IA"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [
+      "cautionner l'usage de données protégées sans licence ou autorisation appropriée"
+    ],
+    "fallback_behavior": "En cas de doute sur la licéité de l'usage d'un jeu de données pour l'entraînement, recommander une vérification juridique préalable."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "15/07/2026",
+    "last_update": "15/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

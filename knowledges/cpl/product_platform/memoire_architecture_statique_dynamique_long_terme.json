@@ -1,0 +1,109 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.product_platform.memoire_architecture_statique_dynamique_long_terme",
+  "title": "Architecture mémoire d'ALFRED CPL : statique, dynamique et long terme",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "product_platform",
+  "category": "architecture_produit",
+  "summary": "Distinction et articulation entre les trois couches de mémoire d'ALFRED CPL : mémoire statique (base de connaissances validée), mémoire dynamique (contexte de la session en cours) et mémoire long terme (préférences et historique persistants de l'utilisateur ou de l'organisation), avec leurs règles de gouvernance respectives.",
+  "purpose": "Permettre à ALFRED CPL d'expliquer sa propre architecture mémoire à un administrateur ou un utilisateur avancé, et d'appliquer les bonnes règles de gouvernance selon la couche mémoire concernée.",
+  "tags": [
+    "memoire_alfred",
+    "memoire_statique",
+    "memoire_dynamique",
+    "memoire_long_terme",
+    "architecture_produit"
+  ],
+  "intents": [
+    "explain_alfred_memory_architecture",
+    "explain_memory_governance",
+    "distinguish_memory_layers"
+  ],
+  "usage_context": [
+    "Administrateur ALFRED",
+    "DSI",
+    "Product Management",
+    "Conformité"
+  ],
+  "priority": "critical",
+  "safety_level": "sensitive",
+  "content": {
+    "definition": "L'architecture mémoire d'ALFRED CPL se structure en trois couches aux règles de gouvernance distinctes. La mémoire statique correspond à la base de connaissances validée (le dossier knowledges) : contenu structuré, versionné, soumis à validation avant publication, identique pour tous les utilisateurs d'un même périmètre. La mémoire dynamique correspond au contexte de la conversation en cours : elle n'existe que pendant la session active, permet la cohérence du dialogue, et doit être purgée ou anonymisée selon la politique de rétention à la fin de la session. La mémoire long terme correspond aux préférences, historiques et informations persistantes propres à un utilisateur ou une organisation (nom, préférences de style, projets suivis) : elle nécessite un consentement explicite, des règles de conservation définies et un droit d'accès/suppression pour l'utilisateur concerné.",
+    "core_principles": [
+      "Les trois couches mémoire n'ont pas la même durée de vie ni le même régime de gouvernance : confondre mémoire dynamique de session et mémoire long terme persistante est une erreur d'architecture à risque de conformité.",
+      "La mémoire statique (base de connaissances) est identique pour tous les utilisateurs d'un même périmètre et ne contient jamais de données personnelles d'un utilisateur individuel.",
+      "La mémoire long terme, contenant des données personnelles ou organisationnelles persistantes, doit respecter les principes de minimisation, de finalité et de droit à l'oubli du RGPD.",
+      "La mémoire dynamique de session doit être conçue pour être purgeable sans perte de fonctionnalité de la mémoire long terme, ces deux couches devant rester architecturalement séparées."
+    ],
+    "rules": [
+      "Ne jamais faire persister automatiquement une information de mémoire dynamique de session vers la mémoire long terme sans règle explicite ou consentement.",
+      "Toujours appliquer à la mémoire long terme les mêmes exigences de gouvernance des données personnelles qu'à toute autre donnée personnelle traitée par ALFRED CPL.",
+      "Documenter clairement pour l'administrateur la politique de rétention propre à chaque couche mémoire (durée, purge, anonymisation)."
+    ],
+    "examples": [
+      {
+        "situation": "Un administrateur demande pourquoi ALFRED ne se souvient plus d'un élément mentionné lors d'une conversation la semaine précédente alors qu'il se souvient d'une préférence enregistrée il y a plusieurs mois.",
+        "recommended_behavior": "Expliquer que l'élément mentionné relevait de la mémoire dynamique de la session (purgée à la fin de la conversation selon la politique de rétention définie) tandis que la préférence enregistrée relève de la mémoire long terme, explicitement conservée avec le consentement de l'utilisateur.",
+        "avoid": "Présenter ce comportement comme un bug plutôt que comme une conséquence attendue de l'architecture mémoire à trois couches."
+      }
+    ],
+    "best_practices": [
+      "Toujours clarifier auprès de l'utilisateur ou de l'administrateur quelle couche mémoire est concernée par une question de persistance ou d'oubli.",
+      "Prévoir une interface ou un canal permettant à l'utilisateur de consulter et de supprimer les éléments de sa mémoire long terme, conformément au droit à l'effacement.",
+      "Séparer techniquement les trois couches mémoire pour permettre une purge sélective sans affecter les autres couches."
+    ],
+    "anti_patterns": [
+      "Traiter la mémoire long terme comme une simple extension technique de la mémoire dynamique de session sans règles de gouvernance spécifiques.",
+      "Faire persister silencieusement des informations sensibles de session vers la mémoire long terme sans consentement explicite."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "memoire_alfred",
+      "memoire_statique",
+      "memoire_dynamique",
+      "memoire_long_terme",
+      "architecture_produit"
+    ],
+    "related_domains": [
+      "cpl",
+      "system/memory",
+      "donnees_personnelles"
+    ],
+    "related_knowledge": [
+      "cpl.product_platform.data_protection_hosting",
+      "donnees_personnelles.donnees_personnelles_fondamentaux"
+    ],
+    "retrieval_priority": 9
+  },
+  "behavior_rules": {
+    "tone": "formal",
+    "response_style": "structured_clear",
+    "max_complexity": "high",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "explication de l'architecture mémoire à un administrateur ou un utilisateur avancé"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [
+      "faire persister des données personnelles en mémoire long terme sans consentement ni base légale"
+    ],
+    "fallback_behavior": "En cas de doute sur la couche mémoire appropriée pour une information, appliquer par défaut le régime le plus protecteur (mémoire dynamique non persistante) et escalader vers l'administrateur."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "15/07/2026",
+    "last_update": "15/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

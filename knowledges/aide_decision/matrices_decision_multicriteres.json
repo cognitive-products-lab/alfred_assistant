@@ -1,0 +1,105 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "aide_decision.fondamentaux.matrices_decision_multicriteres",
+  "title": "Matrices de décision multicritères : méthode et usage",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "aide_decision",
+  "subdomain": "fondamentaux",
+  "category": "aide_decision",
+  "summary": "Méthode de construction et d'usage d'une matrice de décision multicritères pondérée pour arbitrer entre plusieurs options selon des critères définis, avec ses limites et précautions d'usage.",
+  "purpose": "Permettre à ALFRED d'aider à structurer une décision complexe impliquant plusieurs options et critères via une matrice de décision, en connaissant les limites de l'outil.",
+  "tags": [
+    "matrice_decision",
+    "aide_decision_multicriteres",
+    "ponderation_criteres",
+    "arbitrage"
+  ],
+  "intents": [
+    "help_build_decision_matrix",
+    "explain_multicriteria_decision",
+    "give_decision_support"
+  ],
+  "usage_context": [
+    "arbitrage entre plusieurs options complexes",
+    "aide à la décision stratégique ou opérationnelle"
+  ],
+  "priority": "high",
+  "safety_level": "normal",
+  "content": {
+    "definition": "Une matrice de décision multicritères permet de comparer objectivement plusieurs options (fournisseurs, solutions techniques, scénarios stratégiques) selon plusieurs critères pondérés selon leur importance relative. La construction suit quatre étapes : lister les options à comparer, définir les critères d'évaluation pertinents pour la décision, attribuer un poids à chaque critère selon son importance (la somme des poids totalisant généralement 100%), puis noter chaque option sur chaque critère avant de calculer un score pondéré global. Cet outil structure et objective la décision mais ne la remplace pas : le choix des critères et de leur pondération reste lui-même une décision subjective qui doit être explicitée et si possible partagée entre les parties prenantes concernées.",
+    "core_principles": [
+      "La matrice de décision rend explicite et discutable ce qui reste souvent implicite dans une décision intuitive : les critères retenus et leur importance relative.",
+      "Le choix des critères et de leur pondération est lui-même une décision subjective : la matrice objective le calcul final, pas les choix qui le fondent en amont.",
+      "Une matrice de décision est particulièrement utile pour trancher entre des options proches où l'intuition seule peine à départager, moins utile quand une option domine clairement sur tous les critères.",
+      "Faire varier les pondérations (analyse de sensibilité) permet de vérifier la robustesse du résultat : si le classement change radicalement avec de légères variations de pondération, la décision mérite d'être approfondie plutôt que tranchée sur le seul score."
+    ],
+    "rules": [
+      "Toujours faire expliciter par l'utilisateur ou le groupe les critères et leur pondération avant de construire la matrice, plutôt que de les imposer.",
+      "Ne jamais présenter le résultat d'une matrice de décision comme une vérité objective incontestable : c'est un outil d'aide à la décision, la décision finale reste humaine.",
+      "Recommander une analyse de sensibilité (faire varier les pondérations) quand deux options obtiennent des scores proches, plutôt que de trancher sur un écart minime."
+    ],
+    "examples": [
+      {
+        "situation": "Une équipe doit choisir entre trois solutions logicielles concurrentes pour un projet.",
+        "recommended_behavior": "Aider à lister les critères pertinents (coût, fonctionnalités, facilité d'intégration, support), à les faire pondérer collectivement par l'équipe selon leurs priorités réelles, puis à noter chaque solution sur chaque critère avant de calculer le score pondéré, en recommandant de tester la sensibilité du résultat si les scores sont proches.",
+        "avoid": "Imposer une liste de critères et une pondération sans les faire valider par les personnes qui devront vivre avec la décision."
+      }
+    ],
+    "best_practices": [
+      "Faire construire les critères et pondérations collectivement avec les parties prenantes plutôt que de les imposer.",
+      "Documenter explicitement les critères et pondérations retenus pour que la décision reste traçable et discutable a posteriori.",
+      "Tester la robustesse du résultat par une analyse de sensibilité quand les scores des options sont proches."
+    ],
+    "anti_patterns": [
+      "Présenter le score final d'une matrice de décision comme une vérité objective et indiscutable.",
+      "Construire une matrice de décision seul sans faire valider les critères et pondérations par les parties prenantes concernées par la décision."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "matrice_decision",
+      "aide_decision_multicriteres",
+      "ponderation_criteres",
+      "arbitrage"
+    ],
+    "related_domains": [
+      "aide_decision",
+      "gestion_projet",
+      "risk_management"
+    ],
+    "related_knowledge": [
+      "aide_decision",
+      "risk_management.risk_management_fundamentals"
+    ],
+    "retrieval_priority": 6
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "step_by_step",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "aide à la structuration d'une décision multicritères"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [
+      "présenter le résultat d'une matrice de décision comme une décision automatique se substituant au jugement humain"
+    ],
+    "fallback_behavior": "Toujours rappeler que la matrice est un outil d'aide à la décision et que le jugement humain final reste nécessaire, en particulier pour les décisions à fort enjeu."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "15/07/2026",
+    "last_update": "15/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

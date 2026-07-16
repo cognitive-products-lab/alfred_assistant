@@ -1,0 +1,108 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "gouvernance_alfred_cpl.fondamentaux.indicateurs_pilotage_gouvernance_alfred",
+  "title": "Indicateurs de pilotage de la gouvernance d'ALFRED CPL",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "gouvernance_alfred_cpl",
+  "subdomain": "fondamentaux",
+  "category": "gouvernance_alfred",
+  "summary": "Indicateurs clés permettant à un administrateur de piloter la gouvernance opérationnelle d'ALFRED CPL : taux d'escalade, taux de satisfaction, taux d'erreurs signalées, couverture de la base de connaissances, complétant la fiche fondamentaux existante centrée sur les règles.",
+  "purpose": "Donner à ALFRED CPL une connaissance des indicateurs qui permettent de mesurer si sa gouvernance fonctionne réellement en pratique, au-delà des règles définies.",
+  "tags": [
+    "indicateurs_gouvernance",
+    "pilotage_alfred",
+    "taux_escalade",
+    "qualite_reponse",
+    "supervision_alfred"
+  ],
+  "intents": [
+    "explain_governance_kpis",
+    "help_monitor_alfred_governance",
+    "explain_escalation_rate"
+  ],
+  "usage_context": [
+    "Administrateur ALFRED",
+    "Direction",
+    "Conformité"
+  ],
+  "priority": "high",
+  "safety_level": "sensitive",
+  "content": {
+    "definition": "Piloter la gouvernance d'ALFRED CPL suppose de suivre des indicateurs concrets au-delà des règles déclaratives : le taux d'escalade (proportion de demandes renvoyées vers un humain), qui doit rester dans une plage cohérente avec le périmètre défini (ni trop bas, signe d'une confiance excessive du système dans ses propres réponses, ni trop élevé, signe d'un périmètre mal calibré) ; le taux de satisfaction et de correction utilisateur (réponses signalées comme erronées ou peu utiles) ; la couverture et la fraîcheur de la base de connaissances (proportion de domaines à jour vs. obsolètes) ; et le taux d'usage des fonctions à risque nécessitant validation humaine, pour vérifier que le processus de validation est effectivement respecté.",
+    "core_principles": [
+      "Un taux d'escalade anormalement bas peut signaler qu'ALFRED répond avec trop de confiance à des questions hors de son périmètre de compétence réel, un risque de gouvernance plus qu'une performance.",
+      "Le taux de correction utilisateur (réponses explicitement signalées comme fausses ou inadaptées) est un indicateur direct de la fiabilité perçue, à suivre dans le temps et par domaine de connaissance.",
+      "La fraîcheur de la base de connaissances doit être mesurée par domaine : un domaine réglementaire obsolète présente un risque de gouvernance plus élevé qu'un domaine de culture générale stable.",
+      "Le respect effectif des règles de validation humaine pour les actions à risque doit être audité par les logs, pas seulement supposé sur la base des règles déclarées."
+    ],
+    "rules": [
+      "Ne jamais interpréter un indicateur de gouvernance isolément : toujours le croiser avec le contexte du domaine et du volume d'usage concerné.",
+      "Documenter toute anomalie détectée (pic d'escalade, taux de correction élevé sur un domaine) et la remonter à l'administrateur pour investigation, pas seulement la constater.",
+      "Ne jamais utiliser ces indicateurs pour masquer ou minimiser une non-conformité réelle détectée."
+    ],
+    "examples": [
+      {
+        "situation": "Un administrateur constate un pic soudain du taux de correction utilisateur sur le domaine réglementaire.",
+        "recommended_behavior": "Recommander d'investiguer si une source de la base de connaissances de ce domaine est devenue obsolète (changement réglementaire récent) avant de conclure à un problème de modèle, et de geler temporairement les réponses sur ce domaine si le doute est confirmé.",
+        "avoid": "Ignorer le signal ou l'attribuer par défaut à une erreur ponctuelle sans investigation systématique."
+      }
+    ],
+    "best_practices": [
+      "Suivre les indicateurs de gouvernance par domaine plutôt qu'en agrégé global, pour localiser précisément les zones à risque.",
+      "Croiser plusieurs indicateurs (escalade, correction, fraîcheur) plutôt que de piloter sur un seul chiffre isolé.",
+      "Documenter et historiser les anomalies détectées pour analyser les tendances dans le temps."
+    ],
+    "anti_patterns": [
+      "Piloter la gouvernance uniquement sur des règles déclaratives sans jamais vérifier des indicateurs d'usage réel.",
+      "Interpréter un indicateur en agrégé global sans le décomposer par domaine, ce qui masque les zones à risque spécifiques."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "indicateurs_gouvernance",
+      "pilotage_alfred",
+      "taux_escalade",
+      "qualite_reponse",
+      "supervision_alfred"
+    ],
+    "related_domains": [
+      "gouvernance_alfred_cpl",
+      "cpl",
+      "limites_ia"
+    ],
+    "related_knowledge": [
+      "gouvernance_alfred_cpl.fondamentaux.gouvernance_alfred_cpl_fondamentaux",
+      "cpl.product_platform.logging_audit_human_control"
+    ],
+    "retrieval_priority": 7
+  },
+  "behavior_rules": {
+    "tone": "formal",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "auto-gouvernance et supervision d'ALFRED CPL par un administrateur"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [
+      "manipuler ou masquer un indicateur de gouvernance pour dissimuler une non-conformité"
+    ],
+    "fallback_behavior": "En cas d'anomalie détectée sur un indicateur de gouvernance, toujours escalader vers l'administrateur ALFRED CPL pour investigation."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "15/07/2026",
+    "last_update": "15/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

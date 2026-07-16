@@ -1,0 +1,104 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "gouvernance_si.fondamentaux.urbanisation_systeme_information",
+  "title": "Urbanisation du système d'information : principes de base",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "gouvernance_si",
+  "subdomain": "fondamentaux",
+  "category": "gouvernance_si",
+  "summary": "Principes de l'urbanisation du système d'information (cartographie en couches métier/fonctionnelle/applicative/technique) pour maîtriser la complexité et la cohérence d'un SI, en complément des fondamentaux de gouvernance SI déjà couverts.",
+  "purpose": "Permettre à ALFRED d'expliquer les principes d'urbanisation du SI et d'aider à structurer une réflexion de cohérence du patrimoine applicatif.",
+  "tags": [
+    "urbanisation_SI",
+    "cartographie_applicative",
+    "gouvernance_SI",
+    "architecture_SI"
+  ],
+  "intents": [
+    "explain_it_urbanization",
+    "help_map_information_system",
+    "explain_layered_architecture"
+  ],
+  "usage_context": [
+    "DSI",
+    "gouvernance du système d'information",
+    "projet de refonte applicative"
+  ],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "L'urbanisation du système d'information, par analogie avec l'urbanisme des villes, vise à organiser un SI complexe et évolutif de façon cohérente plutôt que de laisser chaque projet ajouter des applications de façon non coordonnée (« SI en plat de spaghettis »). Elle s'appuie sur une cartographie en couches distinctes : la couche métier (processus et activités de l'organisation, indépendante de toute technologie), la couche fonctionnelle (grandes fonctions du SI répondant aux besoins métier), la couche applicative (applications concrètes qui implémentent ces fonctions) et la couche technique (infrastructure sous-jacente). Cette séparation en couches permet de faire évoluer une couche (par exemple remplacer une application) sans nécessairement remettre en cause les couches supérieures, à condition que les interfaces entre couches restent stables et documentées.",
+    "core_principles": [
+      "La séparation en couches (métier, fonctionnelle, applicative, technique) permet de faire évoluer une couche indépendamment des autres, à condition que les interfaces entre couches restent stables et documentées.",
+      "Un SI non urbanisé tend à accumuler des redondances fonctionnelles (plusieurs applications remplissant la même fonction) et des interdépendances non documentées qui rendent chaque évolution risquée et coûteuse.",
+      "La cartographie applicative (inventaire des applications et de leurs interactions) est un prérequis indispensable à toute décision d'urbanisation ou de rationalisation du patrimoine applicatif.",
+      "L'urbanisation du SI n'est pas un projet ponctuel mais une gouvernance continue : chaque nouveau projet doit être évalué à l'aune de la cohérence globale de la cartographie, pas seulement de son besoin isolé."
+    ],
+    "rules": [
+      "Toujours établir ou vérifier la cartographie applicative existante avant de recommander une décision d'urbanisation ou de rationalisation.",
+      "Distinguer clairement la couche métier (stable, indépendante de la technologie) des couches fonctionnelle, applicative et technique (plus sujettes à évolution) dans toute analyse.",
+      "Ne jamais recommander l'ajout d'une nouvelle application sans avoir vérifié l'absence de redondance fonctionnelle avec l'existant."
+    ],
+    "examples": [
+      {
+        "situation": "Une DSI constate que plusieurs applications remplissent des fonctions similaires sans que personne n'ait planifié cette redondance.",
+        "recommended_behavior": "Recommander d'établir une cartographie applicative complète pour objectiver les redondances fonctionnelles, puis de définir une trajectoire de rationalisation priorisée selon la criticité et le coût de chaque application redondante, plutôt que d'ajouter une nouvelle application supplémentaire pour répondre au prochain besoin métier.",
+        "avoid": "Recommander l'ajout d'une nouvelle application pour le prochain besoin métier sans vérifier au préalable l'existant, aggravant la redondance déjà constatée."
+      }
+    ],
+    "best_practices": [
+      "Maintenir une cartographie applicative à jour comme prérequis à toute décision de gouvernance SI.",
+      "Évaluer tout nouveau projet applicatif à l'aune de la cohérence globale du SI, pas seulement de son besoin métier isolé.",
+      "Documenter les interfaces entre couches (métier, fonctionnelle, applicative, technique) pour permettre des évolutions indépendantes maîtrisées."
+    ],
+    "anti_patterns": [
+      "Ajouter une nouvelle application sans vérifier l'existence d'une fonction similaire déjà couverte dans le patrimoine applicatif.",
+      "Traiter l'urbanisation du SI comme un projet ponctuel isolé plutôt que comme une gouvernance continue à intégrer dans chaque nouveau projet."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "urbanisation_SI",
+      "cartographie_applicative",
+      "gouvernance_SI",
+      "architecture_SI"
+    ],
+    "related_domains": [
+      "gouvernance_si",
+      "enterprise_architecture",
+      "professional/engineering/systeme_design"
+    ],
+    "related_knowledge": [
+      "gouvernance_si.gouvernance_si_fondamentaux",
+      "enterprise_architecture.fondamentaux.cloud_migration_strategie"
+    ],
+    "retrieval_priority": 5
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "high",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "conseil de structuration de la gouvernance et de la cartographie du système d'information"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "Adapter la profondeur de la démarche d'urbanisation à la taille réelle et à la maturité du système d'information concerné."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "15/07/2026",
+    "last_update": "15/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

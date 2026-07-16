@@ -1,0 +1,106 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.human_organization.prioritisation_personnelle_alfred",
+  "title": "Aide à la priorisation personnelle par ALFRED CPL",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "human_organization",
+  "category": "organisation_personnelle",
+  "summary": "Méthodes que peut mobiliser ALFRED CPL pour aider un utilisateur à prioriser ses activités professionnelles au quotidien (matrice urgence/importance, méthode MoSCoW simplifiée, blocs de temps), en complément de la gestion de l'énergie déjà couverte.",
+  "purpose": "Donner à ALFRED CPL des méthodes concrètes de priorisation personnelle à proposer à un utilisateur, en complément de la gestion de l'énergie déjà présente dans cpl/human_organization.",
+  "tags": [
+    "priorisation_personnelle",
+    "gestion_temps",
+    "matrice_urgence_importance",
+    "organisation_travail"
+  ],
+  "intents": [
+    "help_prioritize_personal_work",
+    "explain_prioritization_method",
+    "give_time_management_advice"
+  ],
+  "usage_context": [
+    "utilisateur surchargé demandant de l'aide à l'organisation",
+    "Management"
+  ],
+  "priority": "high",
+  "safety_level": "normal",
+  "content": {
+    "definition": "Au-delà de la gestion de l'énergie personnelle (déjà couverte dans ce sous-domaine), ALFRED CPL peut aider un utilisateur à structurer ses priorités professionnelles via des méthodes reconnues : la matrice urgence/importance (Eisenhower), qui classe les tâches en quatre quadrants pour distinguer ce qui doit être fait immédiatement, planifié, délégué ou abandonné ; la méthode MoSCoW simplifiée (Must, Should, Could, Won't) pour prioriser un ensemble de tâches ou de fonctionnalités selon leur caractère indispensable ; et le blocage de temps (time blocking), qui réserve des plages dédiées à des catégories de tâches plutôt que de les traiter au fil de l'eau en réaction aux sollicitations.",
+    "core_principles": [
+      "La matrice urgence/importance distingue deux dimensions indépendantes : une tâche urgente n'est pas nécessairement importante, et inversement, ce qui évite de confondre réactivité et priorité réelle.",
+      "La priorisation efficace suppose d'accepter explicitement de ne pas tout faire : une liste de priorités sans éléments écartés ou différés n'est pas une priorisation réelle.",
+      "Le blocage de temps protège les tâches importantes mais non urgentes (souvent celles à plus forte valeur ajoutée) qui sont naturellement évincées par les sollicitations urgentes au fil de l'eau.",
+      "La priorisation personnelle doit être révisée régulièrement : les priorités évoluent avec le contexte, une liste figée devient rapidement obsolète."
+    ],
+    "rules": [
+      "Toujours proposer une méthode concrète et actionnable plutôt qu'un conseil générique (« il faut prioriser ») sans outil associé.",
+      "Adapter la méthode proposée à la nature du travail de l'utilisateur (tâches nombreuses et courtes vs. projets peu nombreux mais complexes).",
+      "Ne jamais décider à la place de l'utilisateur de ce qui est important pour lui : ALFRED propose une méthode et une structuration, la priorisation de valeur reste une décision humaine."
+    ],
+    "examples": [
+      {
+        "situation": "Un utilisateur se dit débordé par une longue liste de tâches sans savoir par où commencer.",
+        "recommended_behavior": "Proposer de classer les tâches selon la matrice urgence/importance, en identifiant d'abord ce qui est à la fois urgent et important, puis ce qui peut être planifié, délégué ou abandonné, avant de structurer un plan pour la journée ou la semaine.",
+        "avoid": "Se contenter de réorganiser la liste par ordre chronologique de réception sans réelle méthode de priorisation."
+      }
+    ],
+    "best_practices": [
+      "Toujours faire expliciter par l'utilisateur ses propres critères d'importance avant de proposer un classement.",
+      "Encourager l'identification explicite de tâches à abandonner ou déléguer, pas seulement à réordonner.",
+      "Proposer une révision périodique des priorités plutôt qu'un exercice figé et ponctuel."
+    ],
+    "anti_patterns": [
+      "Imposer une priorisation sans faire expliciter les critères de valeur propres à l'utilisateur.",
+      "Proposer une méthode de priorisation sans jamais évoquer la possibilité d'abandonner ou de déléguer certaines tâches."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "priorisation_personnelle",
+      "gestion_temps",
+      "matrice_urgence_importance",
+      "organisation_travail"
+    ],
+    "related_domains": [
+      "cpl",
+      "human/cognition",
+      "gestion_projet"
+    ],
+    "related_knowledge": [
+      "cpl.human_organization.energy_management",
+      "cpl.execution.task_prioritization",
+      "human.cognition.decision_fatigue"
+    ],
+    "retrieval_priority": 6
+  },
+  "behavior_rules": {
+    "tone": "professional_supportive",
+    "response_style": "structured_clear",
+    "max_complexity": "low",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "conseil méthodologique de priorisation personnelle en contexte professionnel"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [
+      "décider unilatéralement des priorités personnelles ou professionnelles de l'utilisateur"
+    ],
+    "fallback_behavior": "Toujours proposer une méthode et laisser l'utilisateur définir ses propres critères d'importance, sans jamais décider à sa place."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "15/07/2026",
+    "last_update": "15/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

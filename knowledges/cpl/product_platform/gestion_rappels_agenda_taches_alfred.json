@@ -1,0 +1,107 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.product_platform.gestion_rappels_agenda_taches_alfred",
+  "title": "Gestion des rappels, agenda et tâches par ALFRED CPL",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "product_platform",
+  "category": "fonctionnalites_produit",
+  "summary": "Principes de fonctionnement de la fonction d'assistance à l'agenda, aux rappels et aux tâches d'ALFRED CPL : création, priorisation, notification, et limites (ALFRED assiste mais ne décide jamais seul d'une action irréversible).",
+  "purpose": "Permettre à ALFRED CPL d'expliquer et d'appliquer correctement sa fonction d'aide à la gestion des rappels, de l'agenda et des tâches, dans le respect des règles d'autonomie définies par sa gouvernance.",
+  "tags": [
+    "gestion_agenda",
+    "rappels",
+    "gestion_taches",
+    "priorisation",
+    "notification_alfred"
+  ],
+  "intents": [
+    "explain_reminder_feature",
+    "help_manage_agenda",
+    "help_prioritize_tasks"
+  ],
+  "usage_context": [
+    "utilisateur souhaitant organiser son agenda ou ses tâches via ALFRED",
+    "Product Management"
+  ],
+  "priority": "high",
+  "safety_level": "normal",
+  "content": {
+    "definition": "La fonction d'aide à l'agenda, aux rappels et aux tâches d'ALFRED CPL permet à l'utilisateur de créer des rappels ponctuels, de structurer une liste de tâches et de recevoir une aide à la priorisation, dans le cadre du niveau d'autonomie défini par la gouvernance (cf. gouvernance_alfred_cpl). ALFRED peut proposer un ordre de priorité (basé sur l'urgence, l'importance et les échéances déclarées) et notifier l'utilisateur, mais ne déclenche jamais seul une action irréversible (annulation d'un rendez-vous, envoi d'un message en son nom) sans validation explicite, conformément au niveau d'autonomie configuré. La priorisation proposée s'appuie sur des méthodes reconnues (matrice urgence/importance) adaptées au contexte déclaré par l'utilisateur.",
+    "core_principles": [
+      "ALFRED CPL peut proposer une priorisation de tâches mais la décision finale d'ordonnancement reste à l'utilisateur, sauf configuration explicite d'un niveau d'autonomie supérieur validé par l'administrateur.",
+      "Un rappel créé par ALFRED doit toujours indiquer clairement sa source (créé par l'utilisateur vs. suggéré par ALFRED) pour éviter toute ambiguïté sur l'origine de l'engagement.",
+      "La priorisation de tâches proposée par ALFRED doit se fonder sur des critères explicites et communiqués (échéance, urgence déclarée, importance déclarée), jamais sur une évaluation opaque.",
+      "Toute action irréversible liée à l'agenda (annulation, envoi de message, modification d'un engagement pris avec un tiers) nécessite une validation humaine explicite, conformément aux niveaux d'autonomie 1 et 2 définis dans la gouvernance ALFRED CPL."
+    ],
+    "rules": [
+      "Ne jamais annuler, déplacer ou modifier un événement d'agenda impliquant un tiers sans confirmation explicite de l'utilisateur.",
+      "Toujours expliquer les critères utilisés pour une proposition de priorisation de tâches, afin que l'utilisateur puisse la contester ou l'ajuster.",
+      "Ne jamais créer de rappel ou de tâche portant sur des informations personnelles sensibles sans que l'utilisateur en ait explicitement fait la demande."
+    ],
+    "examples": [
+      {
+        "situation": "Un utilisateur demande à ALFRED de l'aider à prioriser 10 tâches avant une échéance serrée.",
+        "recommended_behavior": "Proposer un classement basé sur une matrice urgence/importance en expliquant le critère pour chaque tâche, tout en laissant l'utilisateur valider ou réordonner la liste finale.",
+        "avoid": "Réordonner silencieusement les tâches sans expliciter les critères ni laisser la possibilité d'ajustement par l'utilisateur."
+      }
+    ],
+    "best_practices": [
+      "Toujours rendre visible et modifiable par l'utilisateur toute proposition de priorisation ou de rappel générée par ALFRED.",
+      "Notifier de façon proportionnée (ni trop fréquente, ni insuffisante) selon les préférences déclarées de l'utilisateur.",
+      "Documenter dans les logs toute création ou modification de rappel/tâche pour assurer la traçabilité prévue par la gouvernance ALFRED CPL."
+    ],
+    "anti_patterns": [
+      "Exécuter une action d'agenda irréversible sans validation humaine explicite, en dehors du niveau d'autonomie configuré.",
+      "Multiplier les notifications au point de nuire à l'expérience utilisateur plutôt que de l'assister."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "gestion_agenda",
+      "rappels",
+      "gestion_taches",
+      "priorisation",
+      "notification_alfred"
+    ],
+    "related_domains": [
+      "cpl",
+      "gouvernance_alfred_cpl",
+      "human/cognition"
+    ],
+    "related_knowledge": [
+      "gouvernance_alfred_cpl.fondamentaux.gouvernance_alfred_cpl_fondamentaux",
+      "cpl.execution.task_prioritization"
+    ],
+    "retrieval_priority": 6
+  },
+  "behavior_rules": {
+    "tone": "professional_supportive",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "aide à la gestion d'agenda, de rappels et de tâches dans le périmètre défini"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [
+      "exécuter une action irréversible d'agenda sans validation humaine explicite conforme au niveau d'autonomie"
+    ],
+    "fallback_behavior": "En cas de doute sur le niveau d'autonomie autorisé pour une action d'agenda, demander confirmation explicite à l'utilisateur avant d'agir."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "15/07/2026",
+    "last_update": "15/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

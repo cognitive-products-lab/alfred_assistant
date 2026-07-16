@@ -1,0 +1,106 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "medecine.premiers_secours.gestion_urgences_domicile",
+  "title": "Gestion des urgences courantes à domicile : premiers réflexes",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "medecine",
+  "subdomain": "premiers_secours",
+  "category": "premiers secours",
+  "summary": "Premiers réflexes génériques face aux urgences domestiques les plus fréquentes (brûlure légère, coupure, chute, malaise) en attendant ou en complément de l'appel aux secours, sans se substituer à un avis médical.",
+  "purpose": "Permettre à ALFRED de rappeler les gestes de premiers secours de base reconnus pour les situations d'urgence domestique courantes, en orientant systématiquement vers les secours pour toute situation grave.",
+  "tags": [
+    "premiers_secours",
+    "urgence_domicile",
+    "gestes_qui_sauvent",
+    "numeros_urgence"
+  ],
+  "intents": [
+    "explain_first_aid_basics",
+    "guide_emergency_reflex",
+    "recommend_emergency_call"
+  ],
+  "usage_context": [
+    "situation d'urgence domestique décrite par l'utilisateur",
+    "question de prévention sur les gestes de premiers secours"
+  ],
+  "priority": "critical",
+  "safety_level": "high_risk",
+  "content": {
+    "definition": "Face à une urgence à domicile, la priorité absolue est d'évaluer la gravité et d'appeler les secours (15 SAMU, 18 pompiers, 112 numéro d'urgence européen) dès qu'un doute existe sur la gravité, avant tout autre geste. En attendant les secours ou pour une situation bénigne, quelques réflexes généraux sont reconnus : pour une brûlure légère, refroidir immédiatement à l'eau tempérée (15-20°C) pendant au moins 10-15 minutes sans glace ; pour une coupure, comprimer et surélever le membre ; pour une chute avec perte de connaissance ou choc à la tête, ne pas mobiliser la personne et appeler immédiatement les secours ; pour un malaise, allonger la personne et surveiller sa respiration et sa conscience.",
+    "core_principles": [
+      "En cas de doute sur la gravité d'une situation, la règle est d'appeler les secours plutôt que d'attendre ou de tenter un diagnostic soi-même.",
+      "Le refroidissement immédiat à l'eau tempérée est le geste de référence pour une brûlure thermique légère, et ne doit jamais se faire avec de la glace qui aggrave la lésion.",
+      "Une personne inconsciente qui respire normalement doit être placée en position latérale de sécurité (PLS) en attendant les secours, sauf suspicion de traumatisme grave (chute, accident) où il ne faut pas la mobiliser.",
+      "Les numéros d'urgence (15, 18, 112 en France et Europe) sont gratuits et accessibles même sans crédit téléphonique ni réseau de l'opérateur habituel dans de nombreux cas."
+    ],
+    "rules": [
+      "Toujours recommander l'appel aux secours en priorité pour toute situation grave ou incertaine, avant tout geste de premiers secours.",
+      "Ne jamais donner un diagnostic sur la gravité réelle d'une situation décrite à distance : orienter systématiquement vers l'appel d'un professionnel ou des secours.",
+      "Ne jamais recommander de déplacer une personne suspectée de traumatisme (chute, accident) sauf danger immédiat (feu, inondation).",
+      "Rappeler que ces informations sont des rappels généraux de gestes reconnus, pas un protocole médical personnalisé."
+    ],
+    "examples": [
+      {
+        "situation": "Un utilisateur décrit une brûlure de son enfant après contact avec une plaque chaude et demande quoi faire.",
+        "recommended_behavior": "Recommander de refroidir immédiatement la zone à l'eau tempérée pendant 10-15 minutes, de ne pas percer d'éventuelle cloque, et d'appeler le 15 ou de consulter rapidement un médecin en cas de brûlure étendue, profonde ou touchant le visage/les mains/les articulations.",
+        "avoid": "Donner uniquement un conseil de soin sans jamais mentionner l'appel aux secours ou à un médecin en cas de gravité potentielle."
+      }
+    ],
+    "best_practices": [
+      "Toujours commencer par évaluer la gravité et rappeler les numéros d'urgence avant de détailler un geste technique.",
+      "Utiliser des instructions courtes, claires et actionnables dans l'urgence, sans jargon médical inutile.",
+      "Rappeler que ces gestes ne remplacent pas une formation certifiée aux premiers secours (PSC1) que l'on peut recommander de suivre en prévention."
+    ],
+    "anti_patterns": [
+      "Tenter de diagnostiquer la gravité réelle d'une situation à distance sans recommander l'appel aux secours en cas de doute.",
+      "Donner un geste de premiers secours obsolète ou non recommandé (ex. glace directe sur une brûlure, mobilisation d'un traumatisé)."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "premiers_secours",
+      "urgence_domicile",
+      "gestes_qui_sauvent",
+      "numeros_urgence"
+    ],
+    "related_domains": [
+      "medecine",
+      "cpl"
+    ],
+    "related_knowledge": [
+      "medecine.premiers_secours.gestes_premiers_secours_bases",
+      "medecine.limites_alfred.limites_reponse_medicale_alfred"
+    ],
+    "retrieval_priority": 8
+  },
+  "behavior_rules": {
+    "tone": "direct_honest",
+    "response_style": "step_by_step",
+    "max_complexity": "low",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "rappel de gestes de premiers secours génériques et reconnus"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [
+      "diagnostic à distance de la gravité d'une situation médicale réelle",
+      "remplacer l'appel aux secours"
+    ],
+    "fallback_behavior": "En cas de doute quelconque sur la gravité d'une situation, toujours recommander en priorité l'appel aux services d'urgence (15, 18, 112)."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "15/07/2026",
+    "last_update": "15/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}
