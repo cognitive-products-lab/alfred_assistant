@@ -715,12 +715,12 @@
     },
     {
       "id": "DQ-022",
-      "name": "Historique de dialogue — doublon de chemin non résolu",
+      "name": "Historique de dialogue — doublon de chemin (supprimé)",
       "domain_bloc": "Bloc 01.01 — Gestion des conversations",
       "source_path": "data/dialogue_history.json (19b) vs data/memory/episodic/dialogue_history.json (DQ-002, chemin réel utilisé par memory_manager.py)",
-      "description": "Deux fichiers 'dialogue_history.json' distincts référencés dans le manifest b01 — data/dialogue_history.json semble un reliquat V1, quasi vide (19 octets), non documenté comme tel.",
-      "documented": false,
-      "defined": false,
+      "description": "Point C3-I du plan d'action, traité le 16/07/2026 : data/dialogue_history.json (racine) était un reliquat V1 orphelin — confirmé une seconde fois via recherche exhaustive dans le code (aucune référence, seul data/memory/episodic/dialogue_history.json/DQ-002 est utilisé par main.py/main_v3.py). Feu vert OWNER obtenu le 16/07/2026 — fichier supprimé du dépôt.",
+      "documented": true,
+      "defined": true,
       "status": "obsolete",
       "data_type": "privee",
       "sensitivity_classification": "C2_INTERNE",
@@ -728,16 +728,16 @@
       "intended_use": [
         "technique"
       ],
-      "retention_period": "aucune — à purger si confirmé obsolète",
-      "update_frequency": "aucune (plus alimenté depuis la bascule vers data/memory/episodic/)",
+      "retention_period": "n/a — fichier supprimé",
+      "update_frequency": "n/a — fichier supprimé",
       "authorized_roles": {
         "read": [],
         "write": []
       },
       "created_at": "2026-03-01",
-      "last_modified_at": "2026-03-01",
-      "planned_deletion_at": null,
-      "notes": "À trancher par l'équipe : confirmer que data/dialogue_history.json (racine) est bien un reliquat V1 et non une source encore lue quelque part, avant suppression."
+      "last_modified_at": "2026-07-16",
+      "planned_deletion_at": "2026-07-16",
+      "notes": "Supprimé le 16/07/2026 (git rm data/dialogue_history.json). Ne conserver cette fiche que pour l'historique de la décision."
     },
     {
       "id": "DQ-023",
@@ -1211,10 +1211,10 @@
     {
       "id": "DQ-039",
       "name": "Scénarios de démonstration (config/data Bloc 16)",
-      "domain_bloc": "Bloc 16 — Démonstration & Scénarisation",
+      "domain_bloc": "Bloc 16.01/16.02/16.03 — Catalogue, résultats et scénarios de démonstration",
       "source_path": "config/v2/scenario_catalog.json (21b), data/v2/scenario_results.json (6b), data/v2/scenarios/career_transition.json, isolation_support.json, mental_overload.json (6b chacun)",
       "description": "Catalogue et résultats de scénarios de démonstration — contenu quasi vide (6-21 octets) malgré un statut de suivi à 46.7% dans BACKLOG.md pour ce bloc.",
-      "documented": false,
+      "documented": true,
       "defined": false,
       "status": "a_connecter",
       "data_type": "privee",
@@ -1232,7 +1232,7 @@
       "created_at": "2026-05-02",
       "last_modified_at": "2026-05-02",
       "planned_deletion_at": null,
-      "notes": "Cohérent avec l'incohérence documentaire déjà relevée sur le Bloc 16 (marqué 'réservé' dans ALFRED_BLOCS_REFERENCE.md mais suivi avec du contenu réel ailleurs) — ici les données sont bien du scaffolding vide."
+      "notes": "Bloc 16 formalisé le 16/07/2026 (point C3-H du plan d'action) — l'incohérence documentaire est résolue. Le contenu de cette fiche reste du scaffolding quasi vide (6-21 octets) : couvert par la décision 'construire' du point C3-J (voir DQ-041 pour le détail du chantier de construction du scaffolding V2/V3/V4)."
     },
     {
       "id": "DQ-040",
