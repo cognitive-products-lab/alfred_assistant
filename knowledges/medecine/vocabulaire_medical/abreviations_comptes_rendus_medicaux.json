@@ -1,0 +1,103 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "medecine.vocabulaire_medical.abreviations_comptes_rendus_medicaux",
+  "title": "Comprendre les abréviations courantes des comptes rendus médicaux",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "medecine",
+  "subdomain": "vocabulaire_medical",
+  "category": "vocabulaire médical",
+  "summary": "Explication des abréviations et sigles médicaux les plus fréquents rencontrés dans les comptes rendus et ordonnances (ex. TA, NFS, IRM, ATCD), à but purement lexical et non interprétatif.",
+  "purpose": "Aider un utilisateur non-médecin à comprendre le vocabulaire d'un document médical qu'il consulte, sans jamais interpréter le contenu médical de ce document.",
+  "tags": [
+    "vocabulaire_medical",
+    "abreviations_medicales",
+    "compte_rendu_medical",
+    "lexique_sante"
+  ],
+  "intents": [
+    "explain_medical_abbreviation",
+    "help_understand_medical_document",
+    "translate_medical_jargon"
+  ],
+  "usage_context": [
+    "utilisateur consultant un compte rendu ou une ordonnance et cherchant à comprendre un terme"
+  ],
+  "priority": "medium",
+  "safety_level": "sensitive",
+  "content": {
+    "definition": "Les comptes rendus médicaux et ordonnances utilisent de nombreuses abréviations standardisées pour gagner en concision : des constantes (TA pour tension artérielle, FC pour fréquence cardiaque), des examens (NFS pour numération formule sanguine, IRM pour imagerie par résonance magnétique, ECG pour électrocardiogramme), des éléments d'anamnèse (ATCD pour antécédents, ATCD fam. pour antécédents familiaux) ou de posologie (mg, po pour per os/voie orale, bid pour deux fois par jour). Expliquer ces abréviations relève du lexique, pas de l'interprétation clinique : connaître la signification d'un sigle ne permet pas de comprendre la portée médicale du résultat associé.",
+    "core_principles": [
+      "Une abréviation médicale a une signification lexicale précise et généralement standardisée, indépendante du contexte clinique du patient.",
+      "Comprendre la signification d'un terme ne donne aucune information sur la gravité ou la portée du résultat auquel il se rapporte.",
+      "Certaines abréviations sont ambiguës selon le contexte (ex. « PA » peut désigner pression artérielle ou d'autres notions selon la spécialité) : signaler cette ambiguïté si elle existe.",
+      "Le vocabulaire médical mêle souvent racines latines et grecques, dont la connaissance aide à décomposer des termes non abrégés (ex. -ite pour inflammation, -algie pour douleur)."
+    ],
+    "rules": [
+      "Toujours se limiter à la traduction lexicale du terme ou de l'abréviation, sans jamais commenter la valeur, la gravité ou la portée clinique du résultat.",
+      "Signaler explicitement quand une abréviation est ambiguë ou dépend du contexte médical spécifique.",
+      "Recommander systématiquement de poser la question à son médecin ou pharmacien pour toute interprétation clinique du contenu."
+    ],
+    "examples": [
+      {
+        "situation": "Un utilisateur montre un compte rendu mentionnant « NFS » et « ATCD » et demande ce que signifient ces sigles.",
+        "recommended_behavior": "Expliquer que NFS signifie numération formule sanguine (un examen mesurant les cellules du sang) et ATCD signifie antécédents (éléments de l'histoire médicale du patient), en précisant que la signification des résultats eux-mêmes doit être discutée avec le médecin prescripteur.",
+        "avoid": "Commenter si les valeurs associées au NFS mentionné semblent normales ou anormales, ce qui relèverait de l'interprétation clinique interdite."
+      }
+    ],
+    "best_practices": [
+      "Répondre uniquement au niveau lexical (que signifie ce terme) sans jamais glisser vers une interprétation clinique.",
+      "Encourager l'utilisateur à noter ses questions pour les poser à son médecin ou pharmacien lors du prochain échange.",
+      "Utiliser un langage simple pour expliquer un terme technique, en donnant si utile la racine étymologique."
+    ],
+    "anti_patterns": [
+      "Interpréter la gravité ou la normalité d'un résultat médical associé à une abréviation expliquée.",
+      "Donner un avis ou une hypothèse diagnostique à partir des éléments d'un compte rendu montré par l'utilisateur."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "vocabulaire_medical",
+      "abreviations_medicales",
+      "compte_rendu_medical",
+      "lexique_sante"
+    ],
+    "related_domains": [
+      "medecine",
+      "linguistics"
+    ],
+    "related_knowledge": [
+      "medecine.vocabulaire_medical.terminologie_medicale_bases",
+      "medecine.limites_alfred.limites_reponse_medicale_alfred"
+    ],
+    "retrieval_priority": 4
+  },
+  "behavior_rules": {
+    "tone": "direct_honest",
+    "response_style": "structured_clear",
+    "max_complexity": "low",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "traduction lexicale de termes et abréviations médicales"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [
+      "interprétation clinique d'un résultat ou d'un compte rendu médical réel"
+    ],
+    "fallback_behavior": "Se limiter strictement à la traduction lexicale et orienter systématiquement vers le médecin ou le pharmacien pour toute interprétation."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "15/07/2026",
+    "last_update": "15/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

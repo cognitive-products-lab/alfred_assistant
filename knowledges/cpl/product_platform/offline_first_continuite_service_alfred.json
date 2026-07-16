@@ -1,0 +1,108 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.product_platform.offline_first_continuite_service_alfred",
+  "title": "Offline-first et continuité de service d'ALFRED CPL",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "product_platform",
+  "category": "architecture_produit",
+  "summary": "Principe d'architecture offline-first d'ALFRED CPL : fonctionnement en mode dégradé sans connexion réseau, synchronisation différée et articulation avec la continuité opérationnelle déjà couverte par cpl/operations_continuite.",
+  "purpose": "Permettre à ALFRED CPL d'expliquer son fonctionnement offline-first et ses limites en mode déconnecté, en complément (et non en doublon) des procédures de sauvegarde/incident déjà documentées.",
+  "tags": [
+    "offline_first",
+    "local_first",
+    "continuite_service",
+    "synchronisation_differee",
+    "mode_degrade"
+  ],
+  "intents": [
+    "explain_offline_first_architecture",
+    "explain_degraded_mode",
+    "explain_sync_strategy"
+  ],
+  "usage_context": [
+    "DSI",
+    "Administrateur ALFRED",
+    "Product Management"
+  ],
+  "priority": "high",
+  "safety_level": "normal",
+  "content": {
+    "definition": "L'architecture offline-first d'ALFRED CPL vise à garantir un fonctionnement utile même sans connexion réseau active, en priorité sur les fonctions qui ne nécessitent pas de traitement distant : consultation de la base de connaissances locale, historique de conversation déjà chargé, fonctions de rédaction et d'analyse ne nécessitant pas de source externe en temps réel. En mode dégradé (hors ligne), certaines fonctions restent indisponibles (recherche sur sources externes actualisées, synchronisation avec d'autres utilisateurs) et doivent être clairement signalées comme telles à l'utilisateur plutôt que de produire une réponse silencieusement obsolète. Lors du retour de connexion, une synchronisation différée met à jour la base de connaissances locale et transmet les journaux d'activité accumulés hors ligne, selon la politique de journalisation définie par la gouvernance.",
+    "core_principles": [
+      "Le principe offline-first priorise la disponibilité locale des fonctions cœur (connaissances, historique, rédaction) plutôt que de considérer le hors-ligne comme un simple mode d'erreur.",
+      "Toute fonction indisponible en mode déconnecté doit être signalée explicitement à l'utilisateur, plutôt que de risquer une réponse silencieusement obsolète ou incomplète.",
+      "La synchronisation différée au retour de connexion doit être conçue pour éviter les conflits de données (ex. deux modifications concurrentes) via une stratégie de résolution définie à l'avance.",
+      "L'offline-first est un principe d'architecture complémentaire à la continuité opérationnelle (sauvegarde, gestion d'incidents documentées dans cpl/operations_continuite) : l'un traite l'absence de réseau, l'autre les pannes ou sinistres du système lui-même."
+    ],
+    "rules": [
+      "Toujours indiquer clairement à l'utilisateur quand ALFRED fonctionne en mode dégradé hors ligne et quelles fonctions sont limitées dans cet état.",
+      "Ne jamais présenter une information issue de la base de connaissances locale non synchronisée comme équivalente à une information vérifiée en ligne si une actualisation existe potentiellement.",
+      "Prioriser, lors de la synchronisation au retour de connexion, l'intégrité des données sur la rapidité de la synchronisation."
+    ],
+    "examples": [
+      {
+        "situation": "Un utilisateur pose une question réglementaire pointue alors qu'ALFRED est en mode hors ligne depuis plusieurs jours.",
+        "recommended_behavior": "Répondre avec les connaissances locales disponibles tout en signalant explicitement que la base n'a pas pu être synchronisée depuis X jours et que l'information réglementaire mériterait une vérification dès le retour de connexion, la réglementation pouvant évoluer.",
+        "avoid": "Répondre normalement sans mentionner l'absence de synchronisation récente, risquant de faire percevoir une information potentiellement datée comme à jour."
+      }
+    ],
+    "best_practices": [
+      "Afficher un indicateur clair de l'état de connexion et de fraîcheur de synchronisation de la base de connaissances.",
+      "Concevoir les fonctions cœur pour continuer à apporter de la valeur même sans réseau, plutôt que de bloquer totalement l'usage.",
+      "Documenter la stratégie de résolution de conflits de synchronisation pour l'administrateur (ex. priorité au serveur, priorité au client, fusion)."
+    ],
+    "anti_patterns": [
+      "Faire fonctionner ALFRED en mode hors ligne sans jamais signaler à l'utilisateur les limitations induites.",
+      "Confondre offline-first (gestion de l'absence de réseau) et continuité opérationnelle (gestion des pannes du système), qui répondent à des risques différents."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "offline_first",
+      "local_first",
+      "continuite_service",
+      "synchronisation_differee",
+      "mode_degrade"
+    ],
+    "related_domains": [
+      "cpl",
+      "cpl/operations_continuite",
+      "professional/engineering/systeme_design"
+    ],
+    "related_knowledge": [
+      "cpl.operations_continuite.sauvegarde_restauration_alfred_cpl",
+      "professional.engineering.systeme_design.local_first_architecture"
+    ],
+    "retrieval_priority": 6
+  },
+  "behavior_rules": {
+    "tone": "formal",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "explication technique de l'architecture offline-first à un public DSI ou administrateur"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [
+      "présenter une information non synchronisée comme garantie à jour sans avertissement"
+    ],
+    "fallback_behavior": "En mode hors ligne prolongé, signaler systématiquement le risque d'information non actualisée pour les domaines sensibles (réglementaire, sécurité)."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "15/07/2026",
+    "last_update": "15/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

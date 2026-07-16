@@ -1,0 +1,110 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "securite_ia.redteam.red_teaming_ia_methodologie",
+  "title": "Méthodologie de red teaming pour systèmes d'IA",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "securite_ia",
+  "subdomain": "redteam",
+  "category": "sécurité IA",
+  "summary": "Présente la méthodologie du red teaming appliqué aux systèmes d'IA (simulation d'attaques adversariales, tests de jailbreak, évaluation de robustesse), en complément de la fiche fondamentaux centrée sur le prompt injection et l'OWASP LLM Top 10 déjà présente.",
+  "purpose": "Initier le sous-domaine securite_ia.redteam explicitement prévu dans la taxonomie mais resté vide, avec un contenu méthodologique sur la démarche de test offensif structuré, distincte du panorama des menaces déjà couvert par la fiche fondamentaux.",
+  "tags": [
+    "red_teaming",
+    "jailbreak",
+    "test_adversarial",
+    "robustesse_ia",
+    "securite_ia"
+  ],
+  "intents": [
+    "explain_ai_red_teaming",
+    "explain_jailbreak_testing",
+    "assess_ai_robustness"
+  ],
+  "usage_context": [
+    "structuration d'une démarche de red teaming avant déploiement d'un système d'IA",
+    "évaluation de la robustesse d'un modèle face aux tentatives de contournement"
+  ],
+  "priority": "high",
+  "safety_level": "sensitive",
+  "content": {
+    "definition": "Le red teaming appliqué à l'IA est une méthodologie de test offensif structuré consistant à simuler délibérément des tentatives d'attaque ou de contournement d'un système d'IA (jailbreaks, prompts adversariaux, extraction de données d'entraînement) avant son déploiement, afin d'identifier ses vulnérabilités réelles dans un cadre contrôlé plutôt que de les découvrir après un incident en production.",
+    "core_principles": [
+      "Le red teaming se distingue de l'audit de conformité classique par sa posture offensive délibérée : l'équipe de red teaming adopte le point de vue d'un attaquant cherchant activement à contourner les protections du système plutôt qu'à vérifier passivement leur conformité à une checklist.",
+      "Les tests de jailbreak évaluent la résistance d'un système aux tentatives de contournement de ses garde-fous par des techniques variées (encodage détourné, jeux de rôle fictifs, instructions contradictoires imbriquées, exploitation de failles de raisonnement) plutôt qu'une seule catégorie d'attaque isolée.",
+      "L'évaluation de robustesse doit couvrir plusieurs dimensions : résistance aux tentatives malveillantes délibérées, mais aussi comportement face à des entrées inhabituelles non malveillantes (edge cases), et cohérence du système sous conditions de stress ou d'ambiguïté du contexte.",
+      "Un exercice de red teaming efficace se conclut systématiquement par une documentation structurée des vulnérabilités découvertes et un plan de correction vérifié, plutôt qu'un rapport de découverte sans suivi de la remédiation effective."
+    ],
+    "rules": [
+      "Toujours présenter le red teaming comme une démarche éthique et autorisée dans un cadre contrôlé, jamais comme une justification pour des tentatives de contournement non autorisées sur un système tiers.",
+      "Recommander une diversité de techniques d'attaque simulée plutôt qu'un test limité à une seule catégorie de vulnérabilité connue.",
+      "Insister sur le suivi de la remédiation après identification des vulnérabilités, un exercice de red teaming sans correction effective n'apportant pas de valeur de sécurité réelle."
+    ],
+    "examples": [
+      {
+        "situation": "Une organisation s'apprête à déployer un chatbot IA en production et demande comment structurer un exercice de red teaming préalable.",
+        "recommended_behavior": "Recommander la constitution d'une équipe dédiée testant délibérément plusieurs catégories de contournement (jailbreaks par jeu de rôle, prompts adversariaux, tentatives d'extraction d'informations sensibles), la documentation systématique des vulnérabilités trouvées et un plan de correction vérifié avant la mise en production effective.",
+        "avoid": "Limiter le test à une vérification de conformité passive sans simulation active de tentatives de contournement délibérées."
+      }
+    ],
+    "best_practices": [
+      "Diversifier les techniques de test simulé plutôt que de se limiter à une seule catégorie de vulnérabilité connue.",
+      "Documenter systématiquement chaque vulnérabilité découverte avec un plan de correction vérifiable.",
+      "Répéter l'exercice de red teaming périodiquement, en particulier après toute évolution significative du système testé."
+    ],
+    "anti_patterns": [
+      "Confondre red teaming (test offensif actif) et simple audit de conformité passif face à une checklist.",
+      "Réaliser un exercice de red teaming sans suivi de remédiation effective des vulnérabilités identifiées."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "red_teaming",
+      "jailbreak",
+      "test_adversarial",
+      "robustesse_ia",
+      "securite_ia"
+    ],
+    "related_domains": [
+      "securite_ia",
+      "professional",
+      "information_security"
+    ],
+    "related_knowledge": [
+      "securite_ia.fondamentaux.securite_ia_fondamentaux",
+      "professional.engineering.cybersecurite.prompt_injection_defense",
+      "professional.governance_ai.ai_safety_testing"
+    ],
+    "retrieval_priority": 7
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "conseil méthodologique sur la conduite d'un exercice de red teaming autorisé sur un système d'IA propre à l'organisation"
+    ],
+    "restricted_usage": [
+      "détail technique précis de techniques de jailbreak, à traiter avec prudence pour éviter un usage détourné"
+    ],
+    "forbidden_usage": [
+      "assistance à une tentative de contournement non autorisée d'un système d'IA tiers"
+    ],
+    "fallback_behavior": "S'en tenir à la méthodologie générale de red teaming dans un cadre autorisé et documenté, en refusant toute demande d'assistance à un contournement non autorisé d'un système tiers."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "16/07/2026",
+    "last_update": "16/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

@@ -1,0 +1,106 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "limites_ia.fondamentaux.hallucinations_ia_detection_pratique",
+  "title": "Détection pratique des hallucinations d'une IA générative",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "limites_ia",
+  "subdomain": "fondamentaux",
+  "category": "limites_IA",
+  "summary": "Techniques concrètes pour un utilisateur de détecter une hallucination d'IA générative (citations, chiffres, faits inventés) au-delà du rappel de principe déjà couvert par la fiche fondamentaux existante.",
+  "purpose": "Donner à ALFRED des méthodes concrètes et actionnables à recommander à un utilisateur pour vérifier une réponse potentiellement hallucinée, complétant la sensibilisation générale déjà présente dans limites_ia_fondamentaux.",
+  "tags": [
+    "hallucination_ia",
+    "verification_fait",
+    "fact_checking",
+    "fiabilite_reponse_ia"
+  ],
+  "intents": [
+    "explain_hallucination_detection",
+    "give_fact_checking_method",
+    "recommend_verification_practice"
+  ],
+  "usage_context": [
+    "Utilisateurs",
+    "Conformité",
+    "Product Management"
+  ],
+  "priority": "high",
+  "safety_level": "sensitive",
+  "content": {
+    "definition": "Détecter une hallucination d'IA générative demande des réflexes concrets au-delà de la simple prudence générale : vérifier systématiquement les éléments les plus « vérifiables et falsifiables » d'une réponse (dates précises, noms propres, chiffres, références bibliographiques, articles de loi cités), car ce sont les éléments les plus susceptibles d'être inventés de façon plausible ; croiser une information importante avec au moins une source primaire indépendante avant de l'utiliser dans une décision ; se méfier davantage des réponses sur des sujets très récents (postérieurs à la date de coupure des connaissances) ou très spécialisés (faible représentation dans les données d'entraînement) ; et demander à l'IA elle-même de citer ses sources ou d'indiquer son niveau de confiance, en gardant à l'esprit qu'une IA peut aussi halluciner une source qui n'existe pas.",
+    "core_principles": [
+      "Les éléments les plus précis et vérifiables d'une réponse (dates, chiffres, noms, citations exactes, références légales) sont statistiquement les plus à risque d'hallucination, car un modèle génère du texte plausible même sans certitude factuelle.",
+      "Une IA générative peut halluciner une source qui semble parfaitement légitime (titre d'article, nom d'auteur, DOI) : demander une source ne suffit donc jamais à garantir la véracité sans vérification indépendante de cette source.",
+      "Le risque d'hallucination augmente sur les sujets très récents (au-delà de la date de coupure des connaissances) et sur les sujets de niche peu représentés dans les données d'entraînement.",
+      "Une réponse formulée avec assurance et fluidité n'est pas un indicateur de fiabilité : le style d'écriture d'une IA générative reste confiant même en cas d'erreur factuelle."
+    ],
+    "rules": [
+      "Toujours signaler explicitement à l'utilisateur les éléments d'une réponse les plus susceptibles de nécessiter une vérification (dates, chiffres, références précises).",
+      "Ne jamais présenter une citation ou une référence bibliographique générée sans inviter à la vérifier indépendamment avant usage.",
+      "Recommander systématiquement une vérification croisée pour toute information utilisée dans une décision à enjeu (juridique, financier, réglementaire, médical)."
+    ],
+    "examples": [
+      {
+        "situation": "Un utilisateur veut citer dans un rapport une statistique précise fournie par ALFRED sans en vérifier la source.",
+        "recommended_behavior": "Recommander explicitement de vérifier cette statistique auprès de la source primaire mentionnée (ou d'une source officielle équivalente) avant de la citer dans un document engageant, en rappelant que les chiffres précis sont les éléments les plus à risque d'erreur.",
+        "avoid": "Laisser l'utilisateur utiliser la statistique sans avertissement alors qu'elle n'a pas été vérifiée par une source indépendante."
+      }
+    ],
+    "best_practices": [
+      "Toujours prioriser la vérification sur les éléments chiffrés et les références précises plutôt que sur l'impression générale de cohérence de la réponse.",
+      "Recommander des sources primaires officielles pour la vérification (organismes publics, publications reconnues) plutôt que d'autres résultats d'IA générative.",
+      "Adapter le niveau d'exigence de vérification à l'enjeu de la décision concernée (culture générale vs. décision engageante)."
+    ],
+    "anti_patterns": [
+      "Considérer qu'une réponse formulée avec assurance ou accompagnée d'une source citée est automatiquement fiable sans vérification.",
+      "Omettre de signaler le risque d'hallucination sur les éléments précis d'une réponse portant sur un sujet récent ou de niche."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "hallucination_ia",
+      "verification_fait",
+      "fact_checking",
+      "fiabilite_reponse_ia"
+    ],
+    "related_domains": [
+      "limites_ia",
+      "ia_data_science",
+      "securite_ia"
+    ],
+    "related_knowledge": [
+      "limites_ia.fondamentaux.limites_ia_fondamentaux",
+      "ia_data_science.evaluation_modeles_llm"
+    ],
+    "retrieval_priority": 7
+  },
+  "behavior_rules": {
+    "tone": "direct_honest",
+    "response_style": "structured_clear",
+    "max_complexity": "low",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "sensibilisation et conseils pratiques de vérification factuelle"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [
+      "prétendre qu'une réponse d'ALFRED est garantie exacte sans vérification possible"
+    ],
+    "fallback_behavior": "Toujours recommander une vérification indépendante pour tout élément précis et impactant une décision réelle."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "15/07/2026",
+    "last_update": "15/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

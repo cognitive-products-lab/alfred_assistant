@@ -1,0 +1,106 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "enterprise_architecture.fondamentaux.cloud_migration_strategie",
+  "title": "Stratégies de migration vers le cloud (modèle des 6R)",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "enterprise_architecture",
+  "subdomain": "fondamentaux",
+  "category": "architecture_entreprise",
+  "summary": "Le modèle des 6R (Rehost, Replatform, Repurchase, Refactor, Retire, Retain) pour structurer une stratégie de migration d'applications vers le cloud, avec critères de choix par application.",
+  "purpose": "Permettre à ALFRED d'expliquer les grandes stratégies de migration cloud et d'aider à structurer une décision de migration application par application.",
+  "tags": [
+    "migration_cloud",
+    "strategie_cloud",
+    "modele_6R",
+    "architecture_entreprise",
+    "transformation_si"
+  ],
+  "intents": [
+    "explain_cloud_migration_strategy",
+    "help_choose_migration_approach",
+    "explain_6R_model"
+  ],
+  "usage_context": [
+    "DSI",
+    "architecture d'entreprise",
+    "projet de transformation du système d'information"
+  ],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "Le modèle des 6R structure les options stratégiques de migration d'une application vers le cloud : Rehost (« lift and shift », migration sans modification de l'application, rapide mais ne tire pas parti des capacités natives du cloud), Replatform (migration avec optimisations mineures, ex. changement de base de données managée), Repurchase (remplacement par une solution SaaS équivalente), Refactor/Re-architect (réécriture pour exploiter pleinement les architectures cloud-natives, coûteux mais porteur de bénéfices maximaux à long terme), Retire (décommissionnement d'une application obsolète ou redondante) et Retain (maintien de l'application en l'état, sur site ou dans son environnement actuel, pour des raisons techniques, réglementaires ou de coût). Le choix par application dépend de sa criticité métier, de sa dette technique et du retour sur investissement attendu de chaque option.",
+    "core_principles": [
+      "Le Rehost (« lift and shift ») est la stratégie la plus rapide à mettre en œuvre mais ne bénéficie pas pleinement des capacités natives du cloud (élasticité, services managés), ce qui limite le retour sur investissement à long terme.",
+      "Le Refactor offre le meilleur potentiel de bénéfices (coût, performance, agilité) mais représente l'investissement le plus important en temps et en risque, à réserver aux applications stratégiques à fort potentiel de valeur.",
+      "Toutes les applications d'un patrimoine ne doivent pas suivre la même stratégie : un portefeuille applicatif combine généralement plusieurs des 6R selon la criticité et l'état de chaque application.",
+      "Le Retain reste un choix légitime pour des applications à faible valeur de migration, à forte contrainte réglementaire de localisation des données, ou en fin de vie proche (candidates au Retire plutôt qu'à un investissement de migration)."
+    ],
+    "rules": [
+      "Toujours évaluer chaque application individuellement selon sa criticité métier et sa dette technique avant de choisir une stratégie parmi les 6R, plutôt que d'appliquer une stratégie unique à l'ensemble du patrimoine.",
+      "Ne jamais recommander un Refactor systématique sans évaluation du retour sur investissement, cette stratégie étant la plus coûteuse.",
+      "Prendre en compte les contraintes réglementaires de localisation et de souveraineté des données dans le choix de la stratégie de migration, en particulier pour les données sensibles."
+    ],
+    "examples": [
+      {
+        "situation": "Une DSI doit décider de la stratégie de migration pour une application legacy critique mais très ancienne et peu documentée.",
+        "recommended_behavior": "Recommander une analyse préalable de la criticité métier et de la dette technique avant de choisir : si l'application reste critique et évolutive, envisager un Replatform ou un Refactor progressif ; si elle est peu utilisée ou redondante avec une autre solution, envisager un Retire ou un Repurchase.",
+        "avoid": "Recommander automatiquement un Rehost pour toutes les applications sans évaluation différenciée de leur criticité et de leur potentiel de valeur."
+      }
+    ],
+    "best_practices": [
+      "Toujours cartographier le patrimoine applicatif et évaluer chaque application selon criticité et dette technique avant de définir une stratégie de migration globale.",
+      "Prioriser les applications à fort potentiel de valeur pour un Refactor, et réserver le Rehost aux applications à migrer rapidement sans enjeu stratégique majeur.",
+      "Considérer systématiquement le Retire comme option pour les applications redondantes ou obsolètes avant d'investir dans leur migration."
+    ],
+    "anti_patterns": [
+      "Appliquer une stratégie de migration unique à l'ensemble du patrimoine applicatif sans différenciation par application.",
+      "Négliger les contraintes réglementaires de localisation des données dans le choix de la stratégie de migration cloud."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "migration_cloud",
+      "strategie_cloud",
+      "modele_6R",
+      "architecture_entreprise",
+      "transformation_si"
+    ],
+    "related_domains": [
+      "enterprise_architecture",
+      "professional/engineering/systeme_design",
+      "professional/engineering/cybersecurite"
+    ],
+    "related_knowledge": [
+      "enterprise_architecture",
+      "professional.engineering.cybersecurite.cloud_security_fundamentals"
+    ],
+    "retrieval_priority": 5
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "high",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "conseil de structuration d'une stratégie de migration cloud"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "Pour une décision de migration engageante, recommander une analyse détaillée avec les équipes techniques et une évaluation du retour sur investissement propre à chaque application."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "15/07/2026",
+    "last_update": "15/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

@@ -1,0 +1,106 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.business_piloting.pilotage_marge_projet_service",
+  "title": "Pilotage de la marge par projet et par prestation de service",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "business_piloting",
+  "category": "pilotage business ALFRED CPL",
+  "summary": "Détaille le pilotage opérationnel de la marge à l'échelle d'un projet ou d'une mission de conseil (taux journalier moyen, taux d'occupation, dérive de charge non facturée), en complément des fiches de stratégie de pricing, d'analyse de rentabilité globale et de mix de revenus déjà présentes.",
+  "purpose": "Compléter le pilotage business d'ALFRED CPL par une granularité projet, plus opérationnelle que l'analyse de rentabilité globale déjà couverte, utile pour le pilotage quotidien d'une activité de conseil ou de service comme Cognitive Products Lab.",
+  "tags": [
+    "marge_projet",
+    "taux_journalier_moyen",
+    "taux_occupation",
+    "derive_charge",
+    "pilotage_business"
+  ],
+  "intents": [
+    "monitor_project_margin",
+    "explain_utilization_rate",
+    "detect_scope_creep_cost"
+  ],
+  "usage_context": [
+    "suivi opérationnel de la rentabilité d'un projet ou d'une mission en cours",
+    "détection d'une dérive de charge non facturée sur une prestation"
+  ],
+  "priority": "high",
+  "safety_level": "normal",
+  "content": {
+    "definition": "Le pilotage de la marge par projet consiste à suivre en continu, à l'échelle d'une mission ou d'un projet donné, l'écart entre les revenus facturés (ou facturables) et les coûts réels engagés (temps consommé, sous-traitance, frais), afin de détecter au plus tôt une dérive de rentabilité avant la clôture du projet plutôt que de la constater a posteriori.",
+    "core_principles": [
+      "Le taux journalier moyen (TJM) réellement atteint sur un projet doit être suivi en continu en rapportant le revenu facturé au temps réellement consommé, cet indicateur révélant souvent un écart significatif avec le TJM commercial affiché initialement lorsque la charge dérive.",
+      "Le taux d'occupation (proportion du temps disponible effectivement facturé à des projets clients) est l'indicateur structurant de la rentabilité globale d'une structure de conseil ou de service, un taux trop bas indiquant un problème de charge commerciale ou d'organisation interne.",
+      "La dérive de charge non facturée (scope creep) — l'élargissement progressif et non contractualisé du périmètre d'une mission sans révision du prix — est une cause fréquente et souvent sous-estimée de dégradation de marge sur les projets au forfait.",
+      "Un suivi de marge par projet en temps réel (plutôt qu'en fin de mission) permet une action corrective précoce : renégociation de périmètre, réallocation de ressources, ou décision d'arrêt anticipé d'une mission structurellement déficitaire."
+    ],
+    "rules": [
+      "Toujours distinguer le TJM commercial affiché au client du TJM réellement atteint compte tenu du temps effectivement consommé, ces deux chiffres divergeant souvent significativement.",
+      "Recommander un suivi de charge en temps réel plutôt qu'un bilan uniquement a posteriori en fin de mission, pour permettre une correction avant que la dérive ne soit irréversible.",
+      "Identifier explicitement le scope creep comme une cause de dérive à traiter par une renégociation contractuelle plutôt qu'à absorber silencieusement par une charge de travail non facturée croissante."
+    ],
+    "examples": [
+      {
+        "situation": "Une mission de conseil au forfait dépasse largement le temps initialement estimé sans avoir été renégociée avec le client.",
+        "recommended_behavior": "Identifier la dérive comme un cas de scope creep probable, recommander une analyse rétrospective du périmètre réellement livré par rapport au périmètre initial contractualisé, et une renégociation formelle du prix ou du périmètre pour les missions futures similaires plutôt que d'absorber silencieusement la perte de marge.",
+        "avoid": "Continuer à absorber la charge supplémentaire sans en faire un sujet de suivi ou de renégociation avec le client."
+      }
+    ],
+    "best_practices": [
+      "Suivre le taux d'occupation et la marge par projet à fréquence régulière plutôt qu'uniquement en fin de mission.",
+      "Documenter systématiquement les évolutions de périmètre en cours de mission pour objectiver toute demande de renégociation.",
+      "Comparer le TJM réellement atteint au TJM commercial cible pour ajuster les futures estimations de charge."
+    ],
+    "anti_patterns": [
+      "Ne suivre la rentabilité d'un projet qu'à sa clôture, sans possibilité d'action corrective en cours de mission.",
+      "Absorber silencieusement une dérive de périmètre sans jamais la documenter ni la renégocier avec le client."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "marge_projet",
+      "taux_journalier_moyen",
+      "taux_occupation",
+      "derive_charge",
+      "scope_creep"
+    ],
+    "related_domains": [
+      "cpl",
+      "finance_controle",
+      "gestion_projet"
+    ],
+    "related_knowledge": [
+      "cpl.business_piloting.profitability_analysis",
+      "cpl.business_piloting.pricing_strategy",
+      "gestion_projet.gestion_parties_prenantes_projet"
+    ],
+    "retrieval_priority": 6
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "conseil méthodologique sur le pilotage de la marge et de la charge par projet"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "Recommander un suivi de marge en continu et une formalisation contractuelle de toute évolution de périmètre plutôt qu'une absorption silencieuse de la dérive."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "16/07/2026",
+    "last_update": "16/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

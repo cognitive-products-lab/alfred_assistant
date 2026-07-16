@@ -1,0 +1,106 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "competences_pratiques.hygiene_numerique.gestion_mots_de_passe_authentification",
+  "title": "Gestion des mots de passe et de l'authentification au quotidien",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "competences_pratiques",
+  "subdomain": "hygiene_numerique",
+  "category": "hygiène numérique",
+  "summary": "Bonnes pratiques grand public pour créer et gérer des mots de passe robustes, utiliser un gestionnaire de mots de passe et activer l'authentification multifacteur (MFA) sur les comptes personnels.",
+  "purpose": "Permettre à ALFRED de donner des conseils concrets et accessibles pour améliorer la sécurité des comptes personnels d'un utilisateur non technique.",
+  "tags": [
+    "mot_de_passe",
+    "authentification_multifacteur",
+    "gestionnaire_mots_de_passe",
+    "hygiene_numerique",
+    "securite_compte"
+  ],
+  "intents": [
+    "explain_password_hygiene",
+    "recommend_password_manager",
+    "explain_mfa"
+  ],
+  "usage_context": [
+    "question sur la sécurité d'un compte personnel",
+    "aide à la création d'un mot de passe robuste"
+  ],
+  "priority": "high",
+  "safety_level": "normal",
+  "content": {
+    "definition": "La gestion des mots de passe est la première ligne de défense des comptes personnels. Un mot de passe robuste est long (idéalement 12 caractères ou plus, ou une phrase de passe), unique à chaque service, et ne doit jamais être réutilisé d'un site à l'autre : la réutilisation expose tous les comptes en cas de fuite d'un seul service. Un gestionnaire de mots de passe permet de générer et stocker des mots de passe uniques et complexes sans avoir à les mémoriser. L'authentification multifacteur (MFA) ajoute une seconde preuve d'identité (code temporaire, application d'authentification, clé physique) en complément du mot de passe, ce qui bloque la grande majorité des compromissions de compte même en cas de mot de passe volé.",
+    "core_principles": [
+      "L'unicité du mot de passe par service est plus importante que sa complexité seule : un mot de passe réutilisé compromet tous les comptes liés.",
+      "La longueur d'un mot de passe (ou d'une phrase de passe) protège mieux contre les attaques par force brute que la seule complexité de caractères spéciaux.",
+      "Un gestionnaire de mots de passe réduit le risque humain (réutilisation, mots de passe faibles) en automatisant la génération et le stockage sécurisé.",
+      "L'authentification multifacteur ajoute une couche de protection indépendante du mot de passe : même volé, il ne suffit plus à accéder au compte."
+    ],
+    "rules": [
+      "Ne jamais recommander de communiquer un mot de passe par email, SMS ou messagerie non chiffrée, même à un proche de confiance.",
+      "Toujours privilégier une application d'authentification (TOTP) ou une clé physique à la MFA par SMS quand le service le propose, le SMS étant vulnérable au SIM swapping.",
+      "Ne jamais retenir ni stocker en clair un mot de passe d'utilisateur dans une conversation ou un document."
+    ],
+    "examples": [
+      {
+        "situation": "Un utilisateur demande s'il peut utiliser le même mot de passe pour plusieurs sites peu importants.",
+        "recommended_behavior": "Expliquer que même un compte « peu important » peut servir de point d'entrée (récupération de mot de passe, ingénierie sociale) vers des comptes plus sensibles, et recommander un gestionnaire de mots de passe pour générer un mot de passe unique par service sans effort de mémorisation.",
+        "avoid": "Valider la pratique de réutilisation par simplicité."
+      }
+    ],
+    "best_practices": [
+      "Recommander en priorité l'activation de la MFA sur les comptes les plus sensibles (messagerie principale, banque, gestionnaire de mots de passe lui-même).",
+      "Expliquer la notion de phrase de passe (plusieurs mots aléatoires) comme alternative mémorisable à un mot de passe complexe et court.",
+      "Rappeler l'importance de codes de récupération MFA stockés en lieu sûr, hors ligne si possible."
+    ],
+    "anti_patterns": [
+      "Recommander de changer de mot de passe très fréquemment sans raison (pratique obsolète qui pousse à des mots de passe plus faibles ou prévisibles).",
+      "Négliger la sécurité de la messagerie principale, qui sert souvent de clé de récupération pour tous les autres comptes."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "mot_de_passe",
+      "authentification_multifacteur",
+      "gestionnaire_mots_de_passe",
+      "hygiene_numerique",
+      "securite_compte"
+    ],
+    "related_domains": [
+      "competences_pratiques",
+      "information_security"
+    ],
+    "related_knowledge": [
+      "competences_pratiques.hygiene_numerique.hygiene_numerique_quotidienne",
+      "information_security.identity_access_management"
+    ],
+    "retrieval_priority": 6
+  },
+  "behavior_rules": {
+    "tone": "professional_supportive",
+    "response_style": "structured_clear",
+    "max_complexity": "low",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "conseils grand public de sécurité des comptes personnels"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [
+      "demander ou stocker le mot de passe réel d'un utilisateur dans une conversation"
+    ],
+    "fallback_behavior": "Ne jamais demander à l'utilisateur de saisir un mot de passe réel dans la conversation ; orienter vers l'outil de gestion de mots de passe ou le service concerné."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "15/07/2026",
+    "last_update": "15/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

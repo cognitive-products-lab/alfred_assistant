@@ -1,0 +1,104 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "mathematiques.geometrie.geometrie_analytique_bases",
+  "title": "Géométrie analytique : repérage et équations de droites",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "mathematiques",
+  "subdomain": "geometrie",
+  "category": "géométrie",
+  "summary": "Bases de la géométrie analytique : repérage dans un plan cartésien, équation d'une droite, calcul de distance et lien entre algèbre et géométrie.",
+  "purpose": "Permettre à ALFRED d'expliquer et d'aider à résoudre des problèmes de géométrie analytique de base, notamment pour l'aide aux devoirs.",
+  "tags": [
+    "geometrie_analytique",
+    "repere_cartesien",
+    "equation_droite",
+    "coordonnees"
+  ],
+  "intents": [
+    "explain_analytic_geometry",
+    "solve_geometry_problem",
+    "help_math_homework"
+  ],
+  "usage_context": [
+    "aide aux devoirs de mathématiques",
+    "question de culture générale mathématique"
+  ],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "La géométrie analytique, formalisée par René Descartes au XVIIe siècle, traduit les problèmes géométriques en équations algébriques grâce à un repère cartésien (deux axes gradués perpendiculaires, origine, coordonnées x et y). Un point est repéré par un couple de coordonnées (x, y). Une droite dans ce repère se décrit par une équation de la forme y = ax + b (a étant le coefficient directeur ou pente, b l'ordonnée à l'origine) ou sous forme générale ax + by + c = 0. La distance entre deux points A(x1,y1) et B(x2,y2) se calcule par la formule issue du théorème de Pythagore : AB = √((x2-x1)² + (y2-y1)²).",
+    "core_principles": [
+      "Le repère cartésien permet de traduire toute figure géométrique en équations algébriques, unifiant géométrie et algèbre.",
+      "Le coefficient directeur d'une droite (a dans y = ax + b) indique sa pente : plus |a| est grand, plus la droite est inclinée.",
+      "Deux droites sont parallèles si et seulement si elles ont le même coefficient directeur.",
+      "La distance entre deux points dans un repère orthonormé découle directement du théorème de Pythagore appliqué aux écarts de coordonnées."
+    ],
+    "rules": [
+      "Toujours préciser si le repère est orthonormé avant d'appliquer les formules de distance, qui supposent cette condition.",
+      "Distinguer coefficient directeur (pente) et ordonnée à l'origine dans l'équation d'une droite, deux paramètres aux rôles différents.",
+      "Vérifier la cohérence d'un résultat géométrique par une estimation visuelle ou graphique, pas seulement par le calcul."
+    ],
+    "examples": [
+      {
+        "situation": "Un élève doit trouver l'équation de la droite passant par les points A(1,2) et B(3,6).",
+        "recommended_behavior": "Guider le calcul du coefficient directeur a = (6-2)/(3-1) = 2, puis la détermination de b en substituant un point dans y = 2x + b, pour obtenir y = 2x, en expliquant chaque étape.",
+        "avoid": "Donner directement l'équation finale sans détailler la méthode de calcul du coefficient directeur."
+      }
+    ],
+    "best_practices": [
+      "Toujours détailler la méthode de calcul pas à pas pour une équation de droite ou une distance.",
+      "Relier le calcul algébrique à une représentation graphique mentale pour ancrer la compréhension.",
+      "Adapter le niveau de formalisme au niveau scolaire de l'utilisateur."
+    ],
+    "anti_patterns": [
+      "Confondre coefficient directeur et ordonnée à l'origine dans l'équation d'une droite.",
+      "Appliquer la formule de distance euclidienne sans vérifier que le repère est orthonormé."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "geometrie_analytique",
+      "repere_cartesien",
+      "equation_droite",
+      "coordonnees"
+    ],
+    "related_domains": [
+      "mathematiques",
+      "education"
+    ],
+    "related_knowledge": [
+      "mathematiques.geometrie.geometrie_bases",
+      "mathematiques.algebre.equations_fonctions_bases"
+    ],
+    "retrieval_priority": 5
+  },
+  "behavior_rules": {
+    "tone": "educational",
+    "response_style": "step_by_step",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "aide méthodologique aux devoirs de mathématiques"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [
+      "fournir un devoir noté complet présenté comme production personnelle de l'élève sans démarche pédagogique"
+    ],
+    "fallback_behavior": "Privilégier une aide méthodologique pas à pas plutôt que la seule fourniture du résultat final."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "15/07/2026",
+    "last_update": "15/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}
