@@ -9,7 +9,7 @@
   "_meta": {
     "project": "ALFRED",
     "file": "dashboard_quality_data.json",
-    "generated_at": "2026-07-16T18:56:31.461443+00:00",
+    "generated_at": "2026-07-16T19:40:59.089929+00:00",
     "generated_by": "update_quality_data_dashboard.py",
     "version": "V1.0",
     "visibility": "PRIVE",
@@ -47,26 +47,18 @@
       "technique": 39,
       "metier": 14
     },
-    "documented_count": 41,
+    "documented_count": 42,
     "defined_count": 40,
-    "undocumented_count": 5,
+    "undocumented_count": 4,
     "undefined_count": 6
   },
   "alerts": {
-    "total": 18,
+    "total": 17,
     "by_severity": {
-      "critical": 1,
       "warning": 14,
       "info": 3
     },
     "items": [
-      {
-        "entry_id": "DQ-033",
-        "entry_name": "Instance utilisateur nominative (Céline)",
-        "type": "donnee_non_documentee",
-        "severity": "critical",
-        "message": "Donnée non documentée : Instance utilisateur nominative (Céline)"
-      },
       {
         "entry_id": "DQ-013",
         "entry_name": "État émotionnel / relationnel (V3)",
@@ -1200,8 +1192,8 @@
       "name": "Instance utilisateur nominative (Céline)",
       "domain_bloc": "Bloc 05.01 — Profils utilisateurs",
       "source_path": "data/users/instances/user_celine_instance.json",
-      "description": "Instance utilisateur nominative complète (6.7 Ko) — donnée personnelle directement identifiante par le nom du fichier et le contenu.",
-      "documented": false,
+      "description": "Instance utilisateur nominative complète (6.7 Ko) — donnée personnelle directement identifiante par le nom du fichier et le contenu. Finalité : personnalisation du comportement d'ALFRED (ton, format de réponse, gestion stress/fatigue, proactivité) pour un unique utilisateur — Céline Rousselot, créatrice et OWNER. Alimentée par un questionnaire de personnalité externe (DISC — e-orientaction ; test 'Personnalité 32' — AssessFirst) : seuls les paramètres d'adaptation qui en sont dérivés sont stockés (psychometric_profile.derived_params), pas les résultats bruts du test. Usage strictement local, non partagé (data_local_only=true, data_sharing='none', analytics=false, déclaré dans le fichier). Distincte des profils génériques vides (templates publics, DQ-032/034). Base légale : consentement explicite (Art. 6.1.a RGPD) — consent_given=true dans le fichier, cohérent avec l'entrée T01 du registre RGPD (dashboard_gouvernance) : 'Profil et personnalisation', rétention 10 ans, traitement local, non classé Art. 9 à ce jour. Droits RGPD applicables : Céline étant à la fois personne concernée et responsable de traitement (OWNER), les droits d'accès/rectification/effacement/portabilité s'exercent directement par édition ou suppression du fichier — pas de circuit de demande externe tant que la donnée reste locale et non partagée.",
+      "documented": true,
       "defined": true,
       "status": "utilisee",
       "data_type": "privee",
@@ -1212,7 +1204,7 @@
         "metier"
       ],
       "retention_period": "10 ans (aligné RGPD register T01)",
-      "update_frequency": "temps réel, à la demande utilisateur",
+      "update_frequency": "temps réel, à la demande utilisateur ; mise à jour attendue à chaque nouveau passage du questionnaire de personnalité",
       "authorized_roles": {
         "read": [
           "OWNER"
@@ -1222,9 +1214,9 @@
         ]
       },
       "created_at": "2026-03-15",
-      "last_modified_at": "2026-07-10",
+      "last_modified_at": "2026-07-16",
       "planned_deletion_at": null,
-      "notes": "Nom de fichier nominatif — s'assurer qu'il n'existe aucune copie/sauvegarde/log exposant ce chemin en dehors du périmètre OWNER."
+      "notes": "Nom de fichier nominatif — s'assurer qu'il n'existe aucune copie/sauvegarde/log exposant ce chemin en dehors du périmètre OWNER. Description formelle rédigée et validée par OWNER le 16/07/2026 (point G du plan d'action). Rappel gouvernance (§5bis) : le prochain passage du questionnaire de personnalité doit déclencher une mise à jour de last_modified_at et, si la finalité ou le partage évoluent, une relecture de la description ci-dessus."
     },
     {
       "id": "DQ-034",
