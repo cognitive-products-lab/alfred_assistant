@@ -1,1 +1,44 @@
-﻿{}
+{
+  "_alfred_header": {
+    "file": "config/v3/fusion_rules.json",
+    "bloc": "Bloc 10.01 — NLP avancé",
+    "notion_exam": "D10-1 — Capsule Fusion multi-signaux V3",
+    "utilite_alfred": "Poids de fusion multi-signaux (nlp/emotion/context/memory) et correspondances émotion/intent → mode, consommés par MultiSignalFusionEngine.",
+    "domaine": "Intelligence cognitive avancée — fusion multi-signaux V3"
+  },
+  "_meta": {
+    "project": "ALFRED",
+    "version": "V1.0",
+    "status": "SCHEMA_DEFINI — pas encore chargé par le code (src/v3/fusion/multi_signal_fusion_engine.py gère ses poids en mémoire via _DEFAULT_WEIGHTS)",
+    "created": "2026-07-16",
+    "note": "Point C3-J du plan d'action. Schéma extrait des constantes réelles de src/v3/fusion/multi_signal_fusion_engine.py (_DEFAULT_WEIGHTS, _EMOTION_TO_MODE, _INTENT_TO_MODE). Câblage réel non fait — changement de pipeline à tester séparément sur PC."
+  },
+  "default_weights": {
+    "nlp": 0.35,
+    "emotion": 0.30,
+    "context": 0.20,
+    "memory": 0.15
+  },
+  "emotion_to_mode": {
+    "distress": "support",
+    "stressed": "support",
+    "sad": "support",
+    "tired": "support",
+    "confused": "support",
+    "motivated": "challenge",
+    "happy": "complicite",
+    "focused": "focus",
+    "curious": "complicite",
+    "neutral": "focus"
+  },
+  "intent_to_mode": {
+    "emotional_support": "support",
+    "wellbeing": "support",
+    "greeting": "complicite",
+    "engineering": "focus",
+    "knowledge_request": "focus",
+    "task": "focus",
+    "question": "focus",
+    "product_knowledge": "challenge"
+  }
+}
