@@ -84,8 +84,11 @@ def test_config_scan_fields(data):
     assert "channels" in cfg
 
 
-def test_vulnerabilities_not_empty(data):
-    assert len(data["vulnerabilities"]) > 0, "Catalogue vide"
+def test_vulnerabilities_is_well_formed_list(data):
+    """Catalogue bien formé — un catalogue vide est un état légitime (aucune
+    vulnérabilité connue détectée par pip-audit), pas une erreur : la V2.0 du
+    script (14/07/2026) gère explicitement ce cas (status 'ok', 0 trouvé)."""
+    assert isinstance(data["vulnerabilities"], list)
 
 
 def test_vulnerability_fields(data):

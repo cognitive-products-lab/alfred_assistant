@@ -86,17 +86,37 @@ contexte, la priorité et la marche à suivre que le dashboard seul ne donne pas
 
 ## C4 — Élevée
 
-### C. Trois fichiers de sécurité runtime attendus mais absents du disque
-- **Preuve** : `data/security/access_decisions_history.json`, `incident_register.json`,
-  `trusted_devices_runtime.json` sont dans `dashboard_data_manifest.json` (Bloc 20) mais
-  n'existent pas — DQ-045. Ils comptent pourtant dans le calcul d'avancement B20 (189/181,
-  >100 %), donnant un **faux sentiment de complétude sécurité**.
-- **Action** : soit les créer (schéma à définir avec les modules qui devraient les alimenter :
-  `incident_manager.py`, `policy_decision_point.py`, `device_registry.py`), soit les retirer du
-  manifest s'ils ne sont pas prioritaires actuellement.
-- **Qui agit** : 🤖 Claude peut proposer un schéma JSON vide structuré à distance ; 🖥️ le
-  contenu réel (incidents effectivement survenus, décisions d'accès réelles) ne peut venir que
-  du système qui tourne sur le PC.
+### C. ✅ FAIT le 13/07/2026 — Trois fichiers de sécurité runtime manquants
+- **Décision** : créer les 3 (pas d'en retirer un), et relever la cible du Bloc 20 pour ne
+  jamais dépasser 100 %.
+- **Fait** :
+  - `data/security/incident_register.json` ([]) et `data/security/trusted_devices.json` ({}) —
+    self-initialisants, créés dans leur état vide exact.
+  - `data/security/access_decisions_history.json` — **vraie journalisation codée**, pas un
+    placeholder : `src/security/policy_decision_point.py::decide_access()` (le point d'entrée
+    réellement appelé par `zero_trust_orchestrator.py`) journalise désormais chaque décision
+    Zero Trust (timestamp, role, resource_sensitivity, action, risk_score, decision), append-only,
+    plafonné à 5000 entrées, best-effort (n'échoue jamais une décision si l'écriture échoue).
+    6 tests dédiés (`tests/security_tests/test_policy_decision_point_history.py`), tous verts.
+  - Corrigé au passage : le manifest attendait `trusted_devices_runtime.json`, un nom qui ne
+    correspondait à aucun fichier réellement écrit par `device_registry.py` (qui écrit
+    `trusted_devices.json`, sans suffixe).
+  - `target_full_files_count` du Bloc 20 relevé à **200** (était 181/180) — déjà fait
+    indépendamment côté PC (commit "Actualise les cibles projet"), confirmé cohérent avec la
+    demande. B20 passe de 189/181 (>100 %, faussé) à 189/200 (91.7 %, honnête).
+  - ⚠️ **Important pour ton PC** : les 3 fichiers `data/security/*.json` sont volontairement
+    `.gitignore`d (état sécurité runtime, jamais committé — cohérent avec le principe
+    local-first). Ils ont été créés localement dans cet environnement de préparation pour
+    vérifier que le code s'auto-initialise correctement, mais **ne sont pas dans le commit**.
+    Sur ton PC, après avoir tiré cette branche, tu les verras probablement encore "manquants"
+    tant que le code ne les aura pas créés pour de vrai (premier incident enregistré, premier
+    appareil déclaré, première décision Zero Trust journalisée) — c'est le fonctionnement
+    normal attendu, pas un oubli.
+  - Fiche registre `DQ-045` mise à jour en conséquence (statut `utilisee`, dérogation
+    `AI_MODULE` en écriture documentée, même principe que DQ-003/B).
+- **Précédent de gouvernance** : ce point C est le premier cas d'application concrète de la
+  nouvelle règle de gouvernance continue (§5bis, `docs/gouvernance/politique_gouvernance.md`
+  v1.1) — code + fiche registre + tests + documentation livrés ensemble.
 
 ### D. Trois fichiers dupliqués et obsolètes à la racine de `dashboard/`
 - **Preuve vérifiée aujourd'hui** :
@@ -132,17 +152,28 @@ contexte, la priorité et la marche à suivre que le dashboard seul ne donne pas
 - **Qui agit** : 🖥️ confirmation du nom réel du dossier nécessaire ; 🤖 Claude peut coder le
   correctif ensuite.
 
-### F. `interface/companion_api.py` et `start_companion_api.bat` absents du dépôt
-- **Preuve** : `ALFRED_ANDROID/README.md` documente ces deux fichiers comme prérequis pour
-  faire tourner le PoC Compagnon côté ALFRED_PC. Recherche exhaustive (tous fichiers, toutes
-  branches de `alfred_assistant`) : **aucune trace**, ni sur `main` ni sur la branche de travail.
-- **Action** : soit ces fichiers existent en local non commités sur ton PC (à committer), soit
-  ils restent à développer. Dans les deux cas le PoC Android n'est pas utilisable tel quel
-  depuis ce dépôt distant.
-- **Qui agit** : 🖥️ à vérifier sur le PC (fichier local non poussé ?) ; si à développer, 🤖
-  Claude peut rédiger un premier jet à distance à partir du contrat d'API déjà documenté côté
-  client (`CompanionApiService.kt` : `GET /api/status`, `GET /api/notifications`, jeton
-  `COMPANION_API_TOKEN`), mais 🖥️ le test réel (build + émulateur + connexion) nécessite le PC.
+### F. ✅ CODÉ ET TESTÉ le 13/07/2026 — `interface/companion_api.py` était à développer
+- **Réponse à ta question "comment puis-je aider ?"** : tu as confirmé que le fichier n'existait
+  pas encore (à développer) — je l'ai donc écrit à distance à partir du contrat déjà documenté
+  côté client Android.
+- **Fait** :
+  - `interface/companion_api.py` (FastAPI) — `GET /api/status`, `GET /api/notifications`,
+    authentification par jeton statique (`COMPANION_API_TOKEN`, comparaison temps constant),
+    écoute `0.0.0.0:8420`. Réutilise `ReminderEngine` (`src/v3/proactive/reminder_engine.py`,
+    déjà existant et déjà alimenté en rappels réels) comme source des notifications — **aucune
+    nouvelle collecte de données créée**.
+  - `start_companion_api.bat` — lanceur Windows, vérifie la présence de `.env` avant de démarrer.
+  - `COMPANION_API_TOKEN` ajouté à `.env.example`, `fastapi`/`uvicorn` ajoutés à `requirements.txt`.
+  - **8 tests** (`tests/dashboard_tests/test_companion_api.py`, via `fastapi.testclient.TestClient`
+    — la même méthode que le README décrivait pour la validation d'origine) : 401 sans jeton,
+    401 avec mauvais jeton, 200 avec le bon jeton, format de réponse conforme à `Models.kt`,
+    et vérifié que les rappels retournés correspondent exactement aux rappels réels d'ALFRED_PC.
+    **Tous verts.**
+- **Ce qu'il reste à faire, uniquement sur PC** 🖥️ : lancer `start_companion_api.bat`, relancer
+  l'app Android (déjà buildée avec succès le 02/07/2026) et confirmer la connexion réelle
+  émulateur/téléphone → API. Rien à coder de plus a priori, sauf si le test réel révèle un écart.
+- Nouvelle fiche registre `DQ-046` : les rappels sont maintenant exposés via une API réseau
+  local (pas seulement un fichier local) — statut `a_connecter` tant que non validé sur PC.
 
 ### P. (nouveau, issu de A) Appliquer techniquement la restriction santé dans le pipeline
 - **Contexte** : suite à la décision A, `config/health/*.json` est maintenant restreint à
@@ -184,32 +215,43 @@ contexte, la priorité et la marche à suivre que le dashboard seul ne donne pas
 - **Action** : rédiger une description formelle (finalité, base légale, droits RGPD applicables)
   dans le registre. Pas de risque de sécurité immédiat.
 - **Qui agit** : 🤖 Claude peut rédiger un projet de description ; 👤 validation du niveau de
-  détail acceptable dans une documentation interne.
+  détail acceptable dans une documentation interne. *(toujours ouvert)*
 
-### H. Bloc 16 — incohérence documentaire non résolue
-- **Preuve** : `ALFRED_BLOCS_REFERENCE.md` dit "Bloc 16 réservé — non assigné", mais
-  `BACKLOG.md`/`dashboard_data_manifest.json` suivent un contenu réel sous ce label
-  (`Démonstration & Scénarisation`, 46,7 %, fichiers de scénarios quasi vides — DQ-039).
-- **Action** : trancher — soit formaliser le Bloc 16 dans le référentiel (comme B23/24/25),
-  soit confirmer qu'il doit rester réservé et déplacer son contenu ailleurs.
-- **Qui agit** : 👤 décision requise (relecture du contenu réel du bloc).
+### H. ✅ TRANCHÉ le 16/07/2026 — Bloc 16 formalisé
+- **Décision (OWNER)** : formaliser le Bloc 16 dans le référentiel, comme B23/24/25.
+- **Fait** : section complète ajoutée à `ALFRED_BLOCS_REFERENCE.md` (sous-codes 16.01-16.04),
+  tableau de correspondance et règle #5 corrigés, `DQ-039` mise à jour. 121 tests au vert.
 
-### I. `data/dialogue_history.json` (racine) — orphelin confirmé
-- **Preuve vérifiée aujourd'hui** : recherche exhaustive dans le code — aucune référence.
-  Seul `data/memory/episodic/dialogue_history.json` est utilisé (`main.py`, `main_v3.py`,
-  `memory_engine.py`, `compliance_manager.py`, `data_flow_mapper.py`).
-- **Action** : archiver/supprimer `data/dialogue_history.json` (racine).
-- **Qui agit** : 🤖 **Claude peut le faire à distance dès confirmation.**
+### I. ✅ FAIT le 16/07/2026 — `data/dialogue_history.json` (racine) supprimé
+- **Feu vert OWNER obtenu** — reconfirmé orphelin (recherche exhaustive) puis supprimé
+  (`git rm`). `DQ-022` mise à jour en conséquence.
 
-### J. Scaffolding V2/V3/V4 vide jamais branché — décision "construire ou archiver"
-- **Preuve** : ~40 fichiers au total (Blocs 02, 03, 06, 12, 16, 18, 19 — DQ-024, 026, 029,
-  015, 039, 041, 042, 043), tous créés le 02/05/2026, tous quasi vides (6 à 79 octets), jamais
-  modifiés depuis. Ils comptent dans le calcul d'avancement de plusieurs blocs alors qu'ils sont
-  vides.
-- **Action** : décision produit bloc par bloc — soit prioriser leur mise en service (V2→V3→V4
-  déjà dans la roadmap), soit les archiver pour ne plus fausser les pourcentages d'avancement.
-- **Qui agit** : 👤 décision de priorisation produit ; 🤖 exécution technique (créer/archiver)
-  une fois la décision prise.
+### J. ✅ FAIT le 16/07/2026 — "Schémas partout" (décision OWNER confirmée)
+- **Décision (OWNER, confirmée explicitement)** : construire un vrai schéma pour l'intégralité
+  du scaffolding, sans exception — pas seulement les fichiers avec du code réel derrière.
+- **Découverte en cours de route** : le scaffolding n'était pas homogène. Sur les ~47 fichiers
+  identifiés (config/data V2/V3/V4 + Bloc 16 + DQ-013/014) :
+  - **8 fichiers correspondaient à du code réel et fonctionnel** (`fusion_engine.py`,
+    `decision_engine.py`, `confidence_scorer.py` en V2 ; `multi_signal_fusion_engine.py`,
+    `confidence_engine.py`, `contradiction_detector.py`, `proactive_engine.py`,
+    `reminder_detector.py` en V3) — schéma copié fidèlement des vraies constantes du code
+    (aucune valeur inventée) — voir `DQ-047`.
+  - **Les ~39 fichiers restants** (packages `src/v3/emotion/`, `memory/`, `learning/`,
+    `safety/`, `conversation/`, `orchestrator/`, `reasoning/`, `src/v2/governance/`,
+    `knowledge/`, `product/`, `experience/`, `scenarios/`, `fallback/`, `src/v4/*` — tous des
+    `__init__.py` vides, aucune implémentation) + Bloc 16 (5 fichiers) + DQ-013/014 (3 fichiers)
+    ont reçu un schéma structuré conçu par raisonnement domaine (convention
+    `_alfred_header`/`_meta`, statut `SCHEMA_DEFINI`, note explicite indiquant qu'aucun code
+    ne les lit encore) — voir `DQ-013`, `DQ-014`, `DQ-015`, `DQ-024`, `DQ-026`, `DQ-029`,
+    `DQ-039`, `DQ-041`, `DQ-042`, `DQ-043`.
+  - 5 fichiers avaient un squelette partiel déjà commencé (ex. `config/v2/edge_cases.json`
+    = `{"patterns": []}`) — étendus en préservant les clés déjà choisies plutôt qu'écrasés.
+- **Vérifié** : 0 fichier restant sous 50 octets sérialisés sur l'ensemble du périmètre.
+  121 tests dashboard_tests/ + b20_tests/test_smoke_batch1.py au vert après régénération.
+- **Ce qui reste ouvert** : 🖥️ câbler réellement la lecture de ces schémas dans le code (pour
+  les modules qui existent) et **développer les modules manquants** (pour ceux qui n'existent
+  pas encore) — c'est un changement de comportement pipeline en prod, à faire et tester sur PC,
+  décision de priorisation produit qui revient à l'équipe pour choisir quoi développer en premier.
 
 ---
 
@@ -217,28 +259,37 @@ contexte, la priorité et la marche à suivre que le dashboard seul ne donne pas
 
 ### K. Poursuivre le registre qualité data
 - Blocs 23-25/29 déjà partiellement couverts (peu de fichiers `config/`/`data/` dédiés — la
-  plupart de leur contenu réel est déjà référencé ailleurs dans le registre). Reste à faire :
-  relecture complète des 44 fiches par l'équipe, complément des champs `"à définir"`
-  (durée de conservation, fréquence de mise à jour réelle).
-- **Qui agit** : 🤖 Claude peut continuer seul ; 👤 relecture finale nécessaire avant de
-  considérer le registre "fiable" pour piloter de vraies décisions d'accès.
+  plupart de leur contenu réel est déjà référencé ailleurs dans le registre). **Fait le
+  16/07/2026** : audit de complétude — 46 fiches, 0 doublon d'ID, 0 champ obligatoire manquant.
+  Le registre reste un instantané vivant : à continuer d'alimenter à chaque nouvelle donnée
+  créée (cf. règle de gouvernance continue, §5bis).
+- **Qui agit** : 🤖 Claude continue seul au fil des évolutions ; 👤 relecture finale toujours
+  recommandée avant de piloter de vraies décisions d'accès sur cette base.
 
-### M. Compléter les champs incertains au fil de l'eau
-- Plusieurs fiches ont `retention_period`/`update_frequency` marqués "à définir" — à préciser
-  quand l'information réelle est connue (ex. politique de rétention pour les scaffolding une
-  fois leur sort tranché au point J).
-- **Qui agit** : 🤖 Claude peut proposer des valeurs par défaut cohérentes avec le RGPD register
-  existant ; 👤 confirmation finale.
+### M. ✅ FAIT le 16/07/2026 — Champs "à définir" complétés
+- 13 fiches avaient `retention_period`/`update_frequency` marqués "à définir"
+  (DQ-013/014/024/025/026/029/030/037/039/041/042/043/046) — complétées avec des valeurs
+  alignées sur le RGPD register existant (ex. 5 ans pour la mémoire, cohérent avec T02) ou
+  explicitement qualifiées de "sans objet tant que non câblé" quand aucune politique réelle
+  n'existe encore.
+- **Volontairement laissée en l'état** : `DQ-018` (santé pédiatrique ARTHUR) — "à définir avant
+  collecte" est correct tel quel, la donnée n'existe pas encore et il serait prématuré de fixer
+  une politique de rétention avant que le module et le consentement Art. 8 soient conçus.
 
 ---
 
 ## C2 — Faible
 
-### L. Merger les 2 PR ouvertes une fois les points ci-dessus au moins tranchés
-- **PR #15** (`alfred_assistant`) : dashboard qualité data + Blocs 23/24/25 + registre (44
-  fiches). Draft, propre, aucune CI configurée sur ce dépôt.
-- **PR #1** (`ALFRED_ANDROID`) : en-têtes Bloc 24 sur les 6 fichiers Kotlin. Draft, propre.
-- **Qui agit** : 👤 merge à ta main (droits + relecture finale).
+### L. Merger les 2 PR ouvertes — état au 16/07/2026, en attente de ton feu vert
+- **PR #15** : mergée le 14/07/2026 (via `main`).
+- **PR #16** (`alfred_assistant`) : suite de PR #15 — points C/F/H/I/J/M du plan, règle de
+  gouvernance continue, fusion avec tes commits locaux (DQ-027, vulnerabilites V2.0). Draft,
+  `mergeable_state: clean`, aucune CI configurée, aucun commentaire. **Prête à relire.**
+- **PR #1** (`ALFRED_ANDROID`) : en-têtes Bloc 24 sur les 6 fichiers Kotlin. Draft, propre,
+  `mergeable_state: clean`, aucun commentaire.
+- **Qui agit** : 👤 le merge reste ta décision (droits + relecture finale) — je ne merge jamais
+  de moi-même sans confirmation explicite. Dis-le-moi si tu veux que je merge maintenant que le
+  contenu a été largement revu ensemble dans cette conversation.
 
 ---
 
@@ -265,17 +316,41 @@ contexte, la priorité et la marche à suivre que le dashboard seul ne donne pas
 |---|-------|----------|----------|
 | A | Accès santé AI_MODULE sous-habilité | C5 | ✅ tranché (registre corrigé) |
 | B | Accès logs sécurité AI_MODULE sous-habilité | C5 | ✅ tranché (dérogation documentée) |
-| C | 3 fichiers sécurité runtime manquants | C4 | 🖥️🤖 |
-| D | 3 duplicatas obsolètes racine dashboard/ | C4 | 🤖 (attend feu vert) |
-| E | Casse `ALFRED_WEB/` — scan B21 à 0 % | C4 | 🖥️ puis 🤖 |
-| F | `companion_api.py` introuvable | C4 | 🖥️ puis 🤖 |
+| C | 3 fichiers sécurité runtime manquants | C4 | ✅ fait (3 créés, dont journalisation Zero Trust codée) |
+| D | 3 duplicatas obsolètes racine dashboard/ | C4 | ✅ fait (archivés) |
+| E | Casse `ALFRED_WEB/` — scan B21 à 0 % | C4 | ✅ fait (82/82 détectés) |
+| F | `companion_api.py` introuvable | C4 | ✅ codé + testé (8 tests) — reste test réel 🖥️ |
 | P | Appliquer techniquement la restriction santé (issu de A) | C4 | ✅ tranché (registre corrigé, pas de gate code — casserait le pipeline) |
-| G | Instance Céline non documentée | C3 | 🤖👤 |
-| H | Bloc 16 réservé vs contenu réel | C3 | 👤 |
-| I | `dialogue_history.json` orphelin | C3 | 🤖 (attend feu vert) |
-| J | ~40 fichiers scaffolding vides | C3 | 👤 puis 🤖 |
-| K | Poursuite registre (blocs restants) | continu | 🤖 |
-| M | Champs "à définir" à compléter | continu | 🤖👤 |
-| L | Merge PR #15 et #1 | C2 | 👤 |
+| G | Instance Céline non documentée | C3 | 🤖👤 (toujours ouvert) |
+| H | Bloc 16 réservé vs contenu réel | C3 | ✅ fait (formalisé) |
+| I | `dialogue_history.json` orphelin | C3 | ✅ fait (supprimé) |
+| J | ~50 fichiers scaffolding vides | C3 | ✅ fait — schémas construits partout (8 réels + ~39 conçus par raisonnement domaine) — reste le câblage code, décision produit 🖥️👤 |
+| K | Poursuite registre (blocs restants) | continu | ✅ audit de complétude fait (46 fiches, 0 doublon, 0 champ manquant) — 🤖 continu |
+| M | Champs "à définir" à compléter | continu | ✅ fait (13 fiches complétées, DQ-018 volontairement laissée en l'état) |
+| L | Merge PR #15 et #1 | C2 | ✅ PR #15 mergée (main) — PR #1 ALFRED_ANDROID encore ouverte 👤 |
 | N | Templates `_public` | C1 | ✅ fait |
 | O | Sélection stats publiables | C1 | 👤 (futur) |
+
+---
+
+## Addendum — suite de session, 13/07/2026 (après merge de PR #15)
+
+- **PR #15 mergée dans `main`** pendant la session. Le travail de finalisation de C et F, plus
+  la nouvelle règle de gouvernance, a été fait sur la même branche (`claude/quality-data-dashboard-r8onnx`)
+  rebasée sur le nouveau `main`, puis poussé dans une **nouvelle PR** (une branche déjà mergée
+  ne peut pas rouvrir son ancienne PR).
+- **Découverte en fusionnant** : `dashboard/dashboard_vulnerabilites/dashboard_vulnerabilites.json`
+  était à **0 octet sur `main`** (donc probablement aussi sur ton PC si tu as pull le dernier
+  `main`) — la pipeline vulnérabilités plantait dessus (`JSONDecodeError`). Restauré depuis la
+  dernière version valide connue (17 Ko) puis régénéré normalement. Origine exacte non
+  déterminée avec certitude (probablement un plantage silencieux d'un des scripts de
+  régénération PC ayant écrit un fichier vide) — **à surveiller** si ça se reproduit après
+  merge : ce serait le signe d'un vrai bug dans `update_vulnerabilites_data.py` ou son
+  appelant (`run_pip_audit()`?), pas un artefact de fusion.
+- **Nouvelle règle de gouvernance édictée (13/07/2026)** — formalisée dans
+  `docs/gouvernance/politique_gouvernance.md` §5bis/§6bis (v1.1) et référencée dans
+  `dashboard_quality_data_manifest.json` : toute nouvelle brique ou modification substantielle
+  du code déclenche désormais automatiquement mise à jour manifeste/registre, classification/
+  sécurité/rétention/rôles, mise à jour documentaire, tests/dashboards, et alerte si une
+  information de gouvernance manque. Le point C de ce plan (journalisation Zero Trust) est le
+  premier cas traité selon cette règle.
