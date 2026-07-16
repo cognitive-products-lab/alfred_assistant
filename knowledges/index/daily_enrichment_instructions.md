@@ -59,6 +59,10 @@ Avant de créer un fichier : chercher l'existant sur le même sujet (registry + 
 3. Mettre à jour `taxonomy.json` (nouveaux domaines/sous-domaines/intents/linked_knowledge) et `manifest.json` (`domains`, `total_domains`, `recently_added_lots`, `last_update`) si de nouveaux domaines/sous-domaines majeurs ont été créés.
 4. Ajouter une entrée au journal `knowledges/index/daily_enrichment_log.md`.
 
+## Écart connu disque / registre (ne pas re-signaler comme anomalie)
+
+Le nombre de fichiers `.json` réellement présents sous `knowledges/` (compte `find`) sera toujours supérieur de 8 au nombre indexé par `knowledge_registry.json`. Cet écart est normal : il correspond aux fichiers techniques listés dans `taxonomy.json.loading_policy.technical_files_not_loaded_as_knowledge` (`manifest.json`, `taxonomy.json`, `domain_links.json`, `retrieval_rules.json`, `governance_rules.json`, `knowledge_template.json`, `knowledge_registry.json`) plus un fichier `cpl/human_organization/__init__.py`. Documenté le 16/07/2026 (Lot 8) pour éviter qu'il soit reconstaté comme une incohérence à chaque lot — vérifier seulement si l'écart change (signe qu'un fichier technique a été ajouté/retiré).
+
 ## Récapitulatif obligatoire après chaque lot
 
 Fournir : nb fichiers créés / mis à jour / fusionnés / doublons évités, domaines et sous-domaines couverts, domaines spécifiques ALFRED CPL couverts, nouveaux domaines créés + justification, nouveaux modèles JSON introduits, nouveaux champs de métadonnées introduits, fichiers ayant nécessité une MAJ importante, incohérences/limites détectées, recommandations pour le prochain lot. Ce récapitulatif doit aussi être ajouté (résumé) au journal `daily_enrichment_log.md`.
