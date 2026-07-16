@@ -235,7 +235,25 @@
 
 ---
 
-> ⚠️ **Bloc 16 réservé** — non assigné dans la structure officielle v1.
+### Bloc 16 — Démonstration & Scénarisation
+
+> Formalisé le 16/07/2026 (décision OWNER, point C3-H du plan d'action). Documenté depuis la
+> v1 comme "réservé — non assigné", alors que suivi avec un contenu réel (46,7 %,
+> `BACKLOG.md`/`dashboard_data_manifest.json`) depuis mai 2026 — incohérence résolue en
+> formalisant le contenu existant plutôt qu'en l'archivant.
+
+| Code  | Fonction principale                              |
+|-------|---------------------------------------------------|
+| 16.01 | Catalogue de scénarios de démonstration            |
+| 16.02 | Résultats & historique d'exécution des scénarios   |
+| 16.03 | Scénarios métier (transition, isolement, surcharge mentale) |
+| 16.04 | Tests de démonstration                             |
+
+**Dossiers/fichiers** :
+`config/v2/scenario_catalog.json` (16.01),
+`data/v2/scenario_results.json` (16.02),
+`data/v2/scenarios/career_transition.json`, `isolation_support.json`, `mental_overload.json` (16.03),
+`tests/test_pipeline.py` (16.04)
 
 ---
 
@@ -490,7 +508,7 @@
 | B13                | Compagnon pédiatrique / ARTHUR| **Bloc 13**   | Santé & soutien émotionnel *(ARTHUR)* |
 | B14                | IoT & Intégrations            | **Bloc 14**   | IoT & environnement connecté          |
 | B15                | Présence visuelle & Avatar    | **Bloc 15**   | Présence visuelle & avatar            |
-| B16                | Démonstration & Scénarisation | *(réservé)*   | Bloc 16 non assigné                   |
+| B16                | Démonstration & Scénarisation | **Bloc 16**   | Démonstration & Scénarisation          |
 | B17                | Visual Generation contextuelle| **Bloc 17**   | Génération multimédia                 |
 | B18                | Knowledge & Intelligence System | **Bloc 18** | Base de connaissances & culture       |
 | B19                | Domotique Intelligente              | **Bloc 19**   | Infrastructure & extensions                |
@@ -523,7 +541,7 @@ La numérotation officielle saute de 25 à 29. État des lieux après audit :
 2. **Dashboard** : utiliser l'identifiant court `Bloc 01` à `Bloc 25` (+ `Bloc 29`) + label officiel
 3. **Jamais** : inventer un numéro, utiliser "B04" seul sans vérification dans ce document — cf. tableau "Blocs manquants / à trancher" pour le statut de 26 à 28
 4. **secret_manager.py** : anciennement étiqueté `20.06`, à reclasser `20.05` lors de la prochaine mise à jour des entêtes
-5. **Bloc 16** : documenté ici comme "réservé", mais suivi avec un contenu réel (46.7%, fichiers codés) sous le label `B16 — Démonstration & Scénarisation` dans `BACKLOG.md` / `dashboard_data_manifest.json` — incohérence non résolue, à trancher par l'équipe (formaliser le contenu ou l'archiver) avant de rouvrir ce bloc à de nouveaux fichiers.
+5. **Bloc 16** : formalisé le 16/07/2026 (était documenté "réservé" alors que suivi avec un contenu réel depuis mai 2026) — voir section dédiée ci-dessus.
 6. **Bloc 20.06 et 20.07** : sous-codes à implémenter (sécurité réseau, sécurité API)
 7. **Bloc 21** : ALFRED WEB PLATFORM — racine `ALFRED_WEB/`, indépendant de `src/`
 8. **Bloc 22** : Accessibility — racine `src/accessibility/`, transversal à tous les produits

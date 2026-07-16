@@ -1,23 +1,23 @@
 # ALFRED — BACKLOG & RÉFÉRENTIEL FICHIERS
 
-> Généré le 13/07/2026 12:13 depuis `dashboard_data.json` (mis à jour le 13/07/2026 12:11:52)
-> Progression technique : **84.9%** · Full projet : **95.2%**
-> 1420 fichiers détectés / 1336 cible full
+> Généré le 16/07/2026 18:50 depuis `dashboard_data.json` (mis à jour le 16/07/2026 18:50:56)
+> Progression technique : **86.8%** · Full projet : **29.0%**
+> 1420 fichiers détectés / 4436 cible full
 
 ## Synthèse globale
 
 | Statut | Nb | % | Priorité |
 |--------|---:|--:|----------|
-| 🟡 Partiel | 104 | 7.3% | 🟡 Sprint |
-| 🟦 Codé — à tester | 105 | 7.4% | 🟡 Sprint |
-| 🧪 Testé — à valider | 267 | 18.8% | 🧪 Tests |
+| 🟡 Partiel | 105 | 7.4% | 🟡 Sprint |
+| 🟦 Codé — à tester | 106 | 7.5% | 🟡 Sprint |
+| 🧪 Testé — à valider | 268 | 18.9% | 🧪 Tests |
 | ✅ Validé ✅ | 820 | 57.7% | ✅ Done |
-| ⚙️ Structurel | 126 | 8.9% | ✅ Done |
+| ⚙️ Structurel | 127 | 8.9% | ✅ Done |
 | 📦 Archivé | 1 | 0.1% | ✅ Done |
 
 ## Backlog par bloc
 
-### 🟢 B01 — Interaction conversationnelle intelligente `86.8%`
+### 🟢 B01 — Interaction conversationnelle intelligente `86.2%`
 
 | KPI | Valeur |
 |-----|--------|
@@ -26,7 +26,7 @@
 | Codés (à tester) | 1 |
 | Partiels | 5 |
 | Structurels | 8 |
-| Manquants | 0 |
+| Manquants | 1 |
 
 **Fichiers à traiter :**
 
@@ -39,7 +39,7 @@
 | `src/start_alfred.bat` | 🟡 Partiel | Compléter |
 | `tests/manual/voice_loop_manual.py` | 🟦 Codé — à tester | Tester |
 
-### 🟢 B02 — Mémoire & RAG `81.4%`
+### 🟢 B02 — Mémoire & RAG `83.6%`
 
 | KPI | Valeur |
 |-----|--------|
@@ -59,7 +59,7 @@
 | `data/v3/memory_patterns.json` | 🟡 Partiel | Compléter |
 | `src/memory/memory_manager.py` | 🟡 Partiel | Compléter |
 
-### 🟢 B03 — Émotions & Régulation `94.8%`
+### 🟢 B03 — Émotions & Régulation `96.0%`
 
 | KPI | Valeur |
 |-----|--------|
@@ -91,7 +91,7 @@
 | Structurels | 2 |
 | Manquants | 0 |
 
-### 🟢 B05 — Organisation & Assistance `90.7%`
+### 🟢 B05 — Organisation & Assistance `93.3%`
 
 | KPI | Valeur |
 |-----|--------|
@@ -186,7 +186,7 @@
 | `tools/dashboard_tools/dashboard_gouvernance/dashboard_gouvernance_server.bat` | 🟡 Partiel | Compléter |
 | `tools/dashboard_tools/dashboard_data/archive script/repair_manifest_paths.py` | 🟦 Codé — à tester | Tester |
 
-### 🟡 B10 — Collaboration & Coordination `76.0%`
+### 🟢 B10 — Collaboration & Coordination `84.0%`
 
 | KPI | Valeur |
 |-----|--------|
@@ -224,7 +224,7 @@
 |---------|--------|--------|
 | `src/knowledge/knowledge_router.py` | 🟡 Partiel | Compléter |
 
-### 🟢 B12 — Pilotage business & Stratégie `96.9%`
+### 🟢 B12 — Pilotage business & Stratégie `98.0%`
 
 | KPI | Valeur |
 |-----|--------|
@@ -286,7 +286,7 @@
 | `src/ui/alfred_app.py` | 🟦 Codé — à tester | Tester |
 | `src/ui/webcam_widget.py` | 🟦 Codé — à tester | Tester |
 
-### 🟠 B16 — Démonstration & Scénarisation `46.7%`
+### 🟡 B16 — Démonstration & Scénarisation `63.3%`
 
 | KPI | Valeur |
 |-----|--------|
@@ -318,7 +318,7 @@
 | Structurels | 0 |
 | Manquants | 0 |
 
-### 🟢 B18 — Knowledge & Intelligence System `82.1%`
+### 🟢 B18 — Knowledge & Intelligence System `83.9%`
 
 | KPI | Valeur |
 |-----|--------|
@@ -365,7 +365,7 @@
 | `data/v3/fusion_results.json` | 🟡 Partiel | Compléter |
 | *... 90 autres* | | |
 
-### 🟡 B19 — Domotique Intelligente `60.0%`
+### 🟡 B19 — Domotique Intelligente `73.3%`
 
 | KPI | Valeur |
 |-----|--------|
@@ -393,22 +393,23 @@
 | `data/v4/sensor_state.json` | 🟡 Partiel | Compléter |
 | `data/v4/trigger_log.json` | 🟡 Partiel | Compléter |
 
-### 🟢 B20 — Cybersécurité Zero Trust `95.8%`
+### 🟢 B20 — Cybersécurité Zero Trust `95.6%`
 
 | KPI | Valeur |
 |-----|--------|
 | Validés | 143 |
 | Testés | 26 |
 | Codés (à tester) | 6 |
-| Partiels | 3 |
+| Partiels | 4 |
 | Structurels | 13 |
-| Manquants | 0 |
+| Manquants | 3 |
 
 **Fichiers à traiter :**
 
 | Fichier | Statut | Action |
 |---------|--------|--------|
 | `config/v3/safety_rules.json` | 🟡 Partiel | Compléter |
+| `data/security/access_decisions_history.json` | 🟡 Partiel | Compléter |
 | `dashboard/ALFRED_DASHBOARD_DYNAMIC.html` | 🟡 Partiel | Compléter |
 | `dashboard/dashboard_data/ALFRED_DASHBOARD_DYNAMIC.html` | 🟡 Partiel | Compléter |
 | `data/security/trusted_devices.json` | 🟦 Codé — à tester | Tester |
@@ -468,15 +469,15 @@
 | `ROADMAP.md` | 🟦 Codé — à tester | Tester |
 | `BACKLOG.md` | 🟦 Codé — à tester | Tester |
 
-### 🟡 B24 — ALFRED Android / Compagnon mobile natif `60.0%`
+### 🟡 B24 — ALFRED Android / Compagnon mobile natif `65.0%`
 
 | KPI | Valeur |
 |-----|--------|
 | Validés | 0 |
-| Testés | 0 |
-| Codés (à tester) | 9 |
+| Testés | 1 |
+| Codés (à tester) | 10 |
 | Partiels | 0 |
-| Structurels | 0 |
+| Structurels | 1 |
 | Manquants | 0 |
 
 > Validé le 13/07/2026 — dépôt séparé ALFRED_ANDROID, même statut structurel que le Bloc 21 (ALFRED_WEB). PoC 'Compagnon' validé de bout en bout le 02/07/2026, pas encore le produit Android complet (cf. ROADMAP.md, section Android).
@@ -494,6 +495,7 @@
 | `ALFRED_ANDROID/app/src/main/AndroidManifest.xml` | 🟦 Codé — à tester | Tester |
 | `ALFRED_ANDROID/app/build.gradle.kts` | 🟦 Codé — à tester | Tester |
 | `ALFRED_ANDROID/app/src/main/res/xml/network_security_config.xml` | 🟦 Codé — à tester | Tester |
+| `start_companion_api.bat` | 🟦 Codé — à tester | Tester |
 
 ### 🟡 B25 — Documentation & politiques projet transverses `60.0%`
 
@@ -534,7 +536,7 @@
 
 > PoC ciblé (pas une infra de production) — regard critique assumé sur le surdimensionnement à l'échelle actuelle d'ALFRED, cf. docs/hadoop_poc_bilan.md.
 
-## 🟦 Sprint — Fichiers codés à tester (105)
+## 🟦 Sprint — Fichiers codés à tester (106)
 
 Ces fichiers sont implémentés mais n'ont pas encore de tests.
 
@@ -645,6 +647,7 @@ Ces fichiers sont implémentés mais n'ont pas encore de tests.
 - `ALFRED_ANDROID/app/src/main/java/com/cognitiveproductslab/alfred/companion/ui/CompanionViewModel.kt`
 - `ALFRED_ANDROID/app/src/main/java/com/cognitiveproductslab/alfred/companion/ui/theme/Theme.kt`
 - `ALFRED_ANDROID/app/src/main/res/xml/network_security_config.xml`
+- `start_companion_api.bat`
 **B25**
 - `CODE_OF_CONDUCT.md`
 - `CONTRIBUTING.md`

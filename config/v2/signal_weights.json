@@ -1,1 +1,42 @@
-﻿{"emotion": 0.4, "memory": 0.3, "intent": 0.3}
+{
+  "_alfred_header": {
+    "file": "config/v2/signal_weights.json",
+    "bloc": "Bloc 01.04 — Orchestration des modules",
+    "notion_exam": "D01-4 — Capsule Fusion multi-sources",
+    "utilite_alfred": "Poids de fusion multi-sources (mémoire/knowledge/llm) et règles d'adaptation par émotion/mode, consommés par FusionEngine.",
+    "domaine": "Orchestration V2 — fusion de contexte"
+  },
+  "_meta": {
+    "project": "ALFRED",
+    "version": "V1.0",
+    "status": "SCHEMA_DEFINI — pas encore chargé par le code (src/v2/fusion/fusion_engine.py gère ses poids en mémoire via _DEFAULT_WEIGHTS)",
+    "created": "2026-07-16",
+    "note": "Point C3-J du plan d'action (registre qualité data). Contenu précédent ({\"emotion\":0.4,\"memory\":0.3,\"intent\":0.3}) remplacé : ces clés ne correspondaient à aucun module identifié. Schéma ci-dessous extrait directement des constantes réelles de src/v2/fusion/fusion_engine.py (FusionEngine._DEFAULT_WEIGHTS et _adapt_weights()) — copie exacte de ce que le moteur utilise déjà en interne, pas des valeurs inventées. Pour un effet réel, fusion_engine.py devrait être modifié pour charger ces valeurs au lieu de ses constantes codées en dur — non fait ici (changement de code pipeline, à faire et tester séparément sur PC)."
+  },
+  "default_weights": {
+    "memory": 0.40,
+    "knowledge": 0.35,
+    "llm": 0.25
+  },
+  "adaptation_rules": [
+    {
+      "condition": "emotion in [stressed, sad, anxious, tired]",
+      "effect": "boost mémoire (contexte personnel), réduit knowledge",
+      "memory_delta": 0.15,
+      "memory_cap": 0.60,
+      "knowledge_delta": -0.10,
+      "knowledge_floor": 0.15
+    },
+    {
+      "condition": "mode in [focus, challenge]",
+      "effect": "boost knowledge (contenu expert), réduit mémoire",
+      "knowledge_delta": 0.15,
+      "knowledge_cap": 0.55,
+      "memory_delta": -0.10,
+      "memory_floor": 0.20
+    }
+  ],
+  "normalization": "somme des poids toujours renormalisée à 1.0 après ajustement",
+  "strategies": ["weighted", "priority", "round_robin"],
+  "default_strategy": "weighted"
+}

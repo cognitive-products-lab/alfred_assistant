@@ -1,1 +1,48 @@
-﻿{}
+{
+  "_alfred_header": {
+    "file": "config/v3/pattern_rules.json",
+    "bloc": "Bloc 10.01 — NLP avancé",
+    "notion_exam": "D10-1 — Capsule Détection de contradictions V3",
+    "utilite_alfred": "Paires texte/émotion contradictoires et poids de sévérité, consommés par ContradictionDetector.",
+    "domaine": "Intelligence cognitive avancée — détection de contradictions V3"
+  },
+  "_meta": {
+    "project": "ALFRED",
+    "version": "V1.0",
+    "status": "SCHEMA_DEFINI — pas encore chargé par le code (src/v3/fusion/contradiction_detector.py gère ses règles en dur via _TEXT_EMOTION_PAIRS)",
+    "created": "2026-07-16",
+    "note": "Point C3-J du plan d'action. Règles extraites telles quelles de src/v3/fusion/contradiction_detector.py. Câblage réel non fait."
+  },
+  "text_emotion_contradiction_pairs": [
+    {
+      "positive_keywords": ["ca va", "bien", "super", "top", "genial"],
+      "contradicting_emotions": ["distress", "stressed", "sad"],
+      "type": "emotion_text_mismatch"
+    },
+    {
+      "positive_keywords": ["fatiguee", "epuisee", "crevee"],
+      "contradicting_emotions": ["happy", "motivated"],
+      "type": "emotion_text_mismatch"
+    },
+    {
+      "positive_keywords": ["motivee", "on y va", "super"],
+      "contradicting_emotions": ["distress", "sad"],
+      "type": "emotion_text_mismatch"
+    }
+  ],
+  "energy_emotion_rule": {
+    "condition": "context.energy_level == high and emotion in [distress, sad]",
+    "type": "energy_emotion_mismatch",
+    "severity": "low"
+  },
+  "severity_intensity_split": {
+    "medium_max_intensity": 0.8,
+    "high_min_intensity": 0.8,
+    "min_intensity_to_flag": 0.5
+  },
+  "severity_weights": {
+    "low": 0.2,
+    "medium": 0.5,
+    "high": 1.0
+  }
+}

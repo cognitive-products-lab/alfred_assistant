@@ -457,8 +457,8 @@
       "intended_use": [
         "technique"
       ],
-      "retention_period": "à définir",
-      "update_frequency": "à définir",
+      "retention_period": "illimitée pour la config (versionnée avec le code) ; 5 ans pour l'état runtime une fois alimenté (aligné RGPD register T02, comme la mémoire conversationnelle)",
+      "update_frequency": "évolutive pour la config, au fil du développement ; temps réel pour l'état une fois le pipeline V3 câblé",
       "authorized_roles": {
         "read": [
           "OWNER",
@@ -470,9 +470,9 @@
         ]
       },
       "created_at": "2026-05-20",
-      "last_modified_at": "2026-06-10",
+      "last_modified_at": "2026-07-16",
       "planned_deletion_at": null,
-      "notes": "Schéma de champs pas encore stabilisé — à définir avant bascule en 'utilisée'."
+      "notes": "Schéma de champs pas encore stabilisé — à définir avant bascule en 'utilisée'. RÉSOLU le 16/07/2026 (point C3-J du plan d'action, décision OWNER : construire les schémas partout). Fichier(s) doté(s) d'un vrai schéma structuré (convention _alfred_header/_meta) — le contenu réel reste vide tant que le module de code correspondant n'est pas implémenté/câblé (majoritairement des stubs __init__.py en V3/V4)."
     },
     {
       "id": "DQ-014",
@@ -480,7 +480,7 @@
       "domain_bloc": "Bloc 02.02 — Mémoire longue",
       "source_path": "data/v3/memory_patterns.json",
       "description": "Motifs de mémoire long terme destinés à alimenter memory_engine.py.",
-      "documented": false,
+      "documented": true,
       "defined": false,
       "status": "a_connecter",
       "data_type": "privee",
@@ -489,16 +489,16 @@
       "intended_use": [
         "technique"
       ],
-      "retention_period": "à définir",
-      "update_frequency": "à définir",
+      "retention_period": "illimitée pour la config (versionnée avec le code) ; 5 ans pour les motifs mémorisés une fois alimentés (aligné RGPD register T02)",
+      "update_frequency": "évolutive pour la config, au fil du développement ; temps réel pour les motifs une fois le pipeline V3 câblé",
       "authorized_roles": {
         "read": [],
         "write": []
       },
       "created_at": "2026-05-25",
-      "last_modified_at": "2026-05-25",
+      "last_modified_at": "2026-07-16",
       "planned_deletion_at": null,
-      "notes": "Fichier présent sur disque mais jamais documenté ni relié à un contrôle d'accès — à trancher (compléter ou supprimer)."
+      "notes": "Fichier présent sur disque mais jamais documenté ni relié à un contrôle d'accès — à trancher (compléter ou supprimer). RÉSOLU le 16/07/2026 (point C3-J du plan d'action, décision OWNER : construire les schémas partout). Fichier(s) doté(s) d'un vrai schéma structuré (convention _alfred_header/_meta) — le contenu réel reste vide tant que le module de code correspondant n'est pas implémenté/câblé (majoritairement des stubs __init__.py en V3/V4)."
     },
     {
       "id": "DQ-015",
@@ -506,8 +506,8 @@
       "domain_bloc": "Bloc 11.04 — Reporting",
       "source_path": "config/v2/kpi_config.json, config/v2/product_roadmap.json, data/v2/product_state.json",
       "description": "Indicateurs de pilotage produit, KPI et roadmap ALFRED CPL — corrigé le 13/07/2026 : vérification directe sur disque, ces 3 fichiers ne font que 6 à 20 octets (scaffolding quasi vide), contrairement à l'évaluation initiale de cette fiche qui les marquait 'utilisée'. Le pilotage business réel de CPL semble porté ailleurs (docs/roadmap/, dashboard_gouvernance) plutôt que par ces fichiers.",
-      "documented": false,
-      "defined": false,
+      "documented": true,
+      "defined": true,
       "status": "a_connecter",
       "data_type": "privee",
       "sensitivity_classification": "C2_INTERNE",
@@ -522,9 +522,9 @@
         "write": []
       },
       "created_at": "2026-05-02",
-      "last_modified_at": "2026-05-02",
+      "last_modified_at": "2026-07-16",
       "planned_deletion_at": null,
-      "notes": "Corrigé le 13/07/2026 (était marquée 'utilisée' par erreur lors du seed initial du 12/07/2026, sans vérification directe du contenu disque). Fusionnée avec DQ-038 (config/v2/kpi_config.json) pour éviter le doublon."
+      "notes": "Corrigé le 13/07/2026 (était marquée 'utilisée' par erreur lors du seed initial du 12/07/2026, sans vérification directe du contenu disque). Fusionnée avec DQ-038 (config/v2/kpi_config.json) pour éviter le doublon. RÉSOLU le 16/07/2026 (point C3-J du plan d'action, décision OWNER : construire les schémas partout). Fichier(s) doté(s) d'un vrai schéma structuré (convention _alfred_header/_meta) — le contenu réel reste vide tant que le module de code correspondant n'est pas implémenté/câblé (majoritairement des stubs __init__.py en V3/V4)."
     },
     {
       "id": "DQ-016",
@@ -715,12 +715,12 @@
     },
     {
       "id": "DQ-022",
-      "name": "Historique de dialogue — doublon de chemin non résolu",
+      "name": "Historique de dialogue — doublon de chemin (supprimé)",
       "domain_bloc": "Bloc 01.01 — Gestion des conversations",
       "source_path": "data/dialogue_history.json (19b) vs data/memory/episodic/dialogue_history.json (DQ-002, chemin réel utilisé par memory_manager.py)",
-      "description": "Deux fichiers 'dialogue_history.json' distincts référencés dans le manifest b01 — data/dialogue_history.json semble un reliquat V1, quasi vide (19 octets), non documenté comme tel.",
-      "documented": false,
-      "defined": false,
+      "description": "Point C3-I du plan d'action, traité le 16/07/2026 : data/dialogue_history.json (racine) était un reliquat V1 orphelin — confirmé une seconde fois via recherche exhaustive dans le code (aucune référence, seul data/memory/episodic/dialogue_history.json/DQ-002 est utilisé par main.py/main_v3.py). Feu vert OWNER obtenu le 16/07/2026 — fichier supprimé du dépôt.",
+      "documented": true,
+      "defined": true,
       "status": "obsolete",
       "data_type": "privee",
       "sensitivity_classification": "C2_INTERNE",
@@ -728,16 +728,16 @@
       "intended_use": [
         "technique"
       ],
-      "retention_period": "aucune — à purger si confirmé obsolète",
-      "update_frequency": "aucune (plus alimenté depuis la bascule vers data/memory/episodic/)",
+      "retention_period": "n/a — fichier supprimé",
+      "update_frequency": "n/a — fichier supprimé",
       "authorized_roles": {
         "read": [],
         "write": []
       },
       "created_at": "2026-03-01",
-      "last_modified_at": "2026-03-01",
-      "planned_deletion_at": null,
-      "notes": "À trancher par l'équipe : confirmer que data/dialogue_history.json (racine) est bien un reliquat V1 et non une source encore lue quelque part, avant suppression."
+      "last_modified_at": "2026-07-16",
+      "planned_deletion_at": "2026-07-16",
+      "notes": "Supprimé le 16/07/2026 (git rm data/dialogue_history.json). Ne conserver cette fiche que pour l'historique de la décision."
     },
     {
       "id": "DQ-023",
@@ -778,8 +778,8 @@
       "domain_bloc": "Bloc 02.02/02.04 — Mémoire longue, contextualisation intelligente",
       "source_path": "config/v3/memory_rules.json (6b), data/v2/memory_samples.json (6b)",
       "description": "Fichiers de scaffolding V2/V3 (contenu quasi vide, 6 octets) créés en prévision de la mémoire long-terme avancée — schéma non défini, jamais branchés au pipeline mémoire actuel (cf. DQ-014 pour data/v3/memory_patterns.json, même situation).",
-      "documented": false,
-      "defined": false,
+      "documented": true,
+      "defined": true,
       "status": "a_connecter",
       "data_type": "privee",
       "sensitivity_classification": "C2_INTERNE",
@@ -787,16 +787,16 @@
       "intended_use": [
         "technique"
       ],
-      "retention_period": "à définir",
-      "update_frequency": "à définir",
+      "retention_period": "illimitée (config versionnée avec le code) ; 5 ans pour les échantillons mémoire une fois alimentés (aligné RGPD register T02)",
+      "update_frequency": "évolutive, au fil du développement",
       "authorized_roles": {
         "read": [],
         "write": []
       },
       "created_at": "2026-05-02",
-      "last_modified_at": "2026-05-02",
+      "last_modified_at": "2026-07-16",
       "planned_deletion_at": null,
-      "notes": "Cas typique 'créé en prévision, jamais utilisé' — à trancher : définir le schéma et brancher, ou supprimer le scaffolding."
+      "notes": "Cas typique 'créé en prévision, jamais utilisé' — à trancher : définir le schéma et brancher, ou supprimer le scaffolding. RÉSOLU le 16/07/2026 (point C3-J du plan d'action, décision OWNER : construire les schémas partout). Fichier(s) doté(s) d'un vrai schéma structuré (convention _alfred_header/_meta) — le contenu réel reste vide tant que le module de code correspondant n'est pas implémenté/câblé (majoritairement des stubs __init__.py en V3/V4)."
     },
     {
       "id": "DQ-025",
@@ -813,8 +813,8 @@
       "intended_use": [
         "technique"
       ],
-      "retention_period": "à définir (aligner sur RGPD register T02 — 5 ans ?)",
-      "update_frequency": "à vérifier",
+      "retention_period": "5 ans (aligné RGPD register T02 — mémoire conversationnelle)",
+      "update_frequency": "temps réel, à chaque interaction consolidée",
       "authorized_roles": {
         "read": [
           "OWNER",
@@ -826,7 +826,7 @@
         ]
       },
       "created_at": "2026-03-01",
-      "last_modified_at": "2026-06-01",
+      "last_modified_at": "2026-07-16",
       "planned_deletion_at": null,
       "notes": "Relation avec data/memory/episodic/dialogue_history.json (DQ-002) et data/profile/user_profile.json (DQ-001) à clarifier — risque de chevauchement de périmètre entre 3 fichiers de 'mémoire utilisateur'."
     },
@@ -836,8 +836,8 @@
       "domain_bloc": "Bloc 03.01/03.04 — Détection émotionnelle, personnalité dynamique",
       "source_path": "config/v2/emotion_profiles.json (20b), config/v3/emotion_rules.json (6b), config/v3/tone_profiles.json (6b)",
       "description": "Scaffolding V2/V3 pour la configuration émotionnelle et le ton — non défini, non branché (cf. DQ-013 pour les fichiers data/v3/ correspondants, même situation).",
-      "documented": false,
-      "defined": false,
+      "documented": true,
+      "defined": true,
       "status": "a_connecter",
       "data_type": "privee",
       "sensitivity_classification": "C2_INTERNE",
@@ -845,16 +845,16 @@
       "intended_use": [
         "technique"
       ],
-      "retention_period": "à définir",
-      "update_frequency": "à définir",
+      "retention_period": "illimitée (config versionnée avec le code)",
+      "update_frequency": "évolutive, au fil du développement",
       "authorized_roles": {
         "read": [],
         "write": []
       },
       "created_at": "2026-05-02",
-      "last_modified_at": "2026-05-02",
+      "last_modified_at": "2026-07-16",
       "planned_deletion_at": null,
-      "notes": ""
+      "notes": "RÉSOLU le 16/07/2026 (point C3-J du plan d'action, décision OWNER : construire les schémas partout). Fichier(s) doté(s) d'un vrai schéma structuré (convention _alfred_header/_meta) — le contenu réel reste vide tant que le module de code correspondant n'est pas implémenté/câblé (majoritairement des stubs __init__.py en V3/V4)."
     },
     {
       "id": "DQ-027",
@@ -936,8 +936,8 @@
       "domain_bloc": "Bloc 06.03 — Gestion des tâches / Bloc 06.01 — Agenda",
       "source_path": "data/actions/tasks.json (17b), data/v2/scenarios/daily_organization.json (6b)",
       "description": "Scaffolding pour la gestion de tâches et l'organisation quotidienne — quasi vide, schéma non défini.",
-      "documented": false,
-      "defined": false,
+      "documented": true,
+      "defined": true,
       "status": "a_connecter",
       "data_type": "privee",
       "sensitivity_classification": "C2_INTERNE",
@@ -945,16 +945,16 @@
       "intended_use": [
         "technique"
       ],
-      "retention_period": "à définir",
-      "update_frequency": "à définir",
+      "retention_period": "aucune politique explicite (comme data/memory/reminders.json, DQ-046) — à harmoniser si un TaskEngine réel est développé",
+      "update_frequency": "temps réel une fois un TaskEngine implémenté (aucun aujourd'hui, contrairement à ReminderEngine)",
       "authorized_roles": {
         "read": [],
         "write": []
       },
       "created_at": "2026-05-02",
-      "last_modified_at": "2026-05-02",
+      "last_modified_at": "2026-07-16",
       "planned_deletion_at": null,
-      "notes": ""
+      "notes": "RÉSOLU le 16/07/2026 (point C3-J du plan d'action, décision OWNER : construire les schémas partout). Fichier(s) doté(s) d'un vrai schéma structuré (convention _alfred_header/_meta) — le contenu réel reste vide tant que le module de code correspondant n'est pas implémenté/câblé (majoritairement des stubs __init__.py en V3/V4)."
     },
     {
       "id": "DQ-030",
@@ -971,8 +971,8 @@
       "intended_use": [
         "technique"
       ],
-      "retention_period": "à définir",
-      "update_frequency": "à définir",
+      "retention_period": "correspond à la session active — pas de politique de rétention longue documentée, à clarifier si le contexte est conservé au-delà d'une session",
+      "update_frequency": "temps réel pendant la session",
       "authorized_roles": {
         "read": [
           "OWNER",
@@ -983,7 +983,7 @@
         ]
       },
       "created_at": "2026-05-02",
-      "last_modified_at": "2026-05-15",
+      "last_modified_at": "2026-07-16",
       "planned_deletion_at": null,
       "notes": "Bloc 07 tech 73.3% / full 22.0% (3/10 cible) — cohérent avec un périmètre encore largement à construire."
     },
@@ -1197,25 +1197,25 @@
       "intended_use": [
         "technique"
       ],
-      "retention_period": "à définir",
-      "update_frequency": "à définir",
+      "retention_period": "illimitée (config versionnée avec le code)",
+      "update_frequency": "évolutive, au fil du développement",
       "authorized_roles": {
         "read": [],
         "write": []
       },
       "created_at": "2026-05-02",
-      "last_modified_at": "2026-05-02",
+      "last_modified_at": "2026-07-16",
       "planned_deletion_at": null,
       "notes": "Même fichiers que ceux listés sous Bloc 18 (config/v3/orchestrator_rules.json, workflow_rules.json) — un seul fichier physique rattaché à deux blocs dans le manifest, à clarifier."
     },
     {
       "id": "DQ-039",
       "name": "Scénarios de démonstration (config/data Bloc 16)",
-      "domain_bloc": "Bloc 16 — Démonstration & Scénarisation",
+      "domain_bloc": "Bloc 16.01/16.02/16.03 — Catalogue, résultats et scénarios de démonstration",
       "source_path": "config/v2/scenario_catalog.json (21b), data/v2/scenario_results.json (6b), data/v2/scenarios/career_transition.json, isolation_support.json, mental_overload.json (6b chacun)",
       "description": "Catalogue et résultats de scénarios de démonstration — contenu quasi vide (6-21 octets) malgré un statut de suivi à 46.7% dans BACKLOG.md pour ce bloc.",
-      "documented": false,
-      "defined": false,
+      "documented": true,
+      "defined": true,
       "status": "a_connecter",
       "data_type": "privee",
       "sensitivity_classification": "C2_INTERNE",
@@ -1223,16 +1223,16 @@
       "intended_use": [
         "metier"
       ],
-      "retention_period": "à définir",
-      "update_frequency": "à définir",
+      "retention_period": "illimitée pour le catalogue (config versionnée) ; pas de politique définie pour l'historique d'exécution (scenario_results.json) — données de démonstration, pas de données personnelles réelles",
+      "update_frequency": "évolutive pour le catalogue ; à la demande pour l'exécution des scénarios",
       "authorized_roles": {
         "read": [],
         "write": []
       },
       "created_at": "2026-05-02",
-      "last_modified_at": "2026-05-02",
+      "last_modified_at": "2026-07-16",
       "planned_deletion_at": null,
-      "notes": "Cohérent avec l'incohérence documentaire déjà relevée sur le Bloc 16 (marqué 'réservé' dans ALFRED_BLOCS_REFERENCE.md mais suivi avec du contenu réel ailleurs) — ici les données sont bien du scaffolding vide."
+      "notes": "Bloc 16 formalisé le 16/07/2026 (point C3-H du plan d'action) — l'incohérence documentaire est résolue. Le contenu de cette fiche reste du scaffolding quasi vide (6-21 octets) : couvert par la décision 'construire' du point C3-J (voir DQ-041 pour le détail du chantier de construction du scaffolding V2/V3/V4). RÉSOLU le 16/07/2026 (point C3-J du plan d'action, décision OWNER : construire les schémas partout). Fichier(s) doté(s) d'un vrai schéma structuré (convention _alfred_header/_meta) — le contenu réel reste vide tant que le module de code correspondant n'est pas implémenté/câblé (majoritairement des stubs __init__.py en V3/V4)."
     },
     {
       "id": "DQ-040",
@@ -1269,12 +1269,12 @@
     },
     {
       "id": "DQ-041",
-      "name": "Scaffolding massif V2/V3 non connecté (Bloc 18)",
+      "name": "Scaffolding restant sans aucune implémentation (Bloc 18 + V2/V3 divers)",
       "domain_bloc": "Bloc 18 — Base de connaissances & culture",
-      "source_path": "~30 fichiers config/v2/*.json, config/v3/*.json, data/v2/*.json, data/v3/*.json (6 à 79 octets chacun — cf. dashboard_data_manifest.json b18 pour la liste complète)",
-      "description": "Ensemble d'environ 30 fichiers de scaffolding V2/V3 (confidence_rules, decision_rules, edge_cases, fallback_rules, feature_matrix, learning_rules, naming_conventions, proactivity_rules, signal_weights côté config ; experience_state, feedback_log, learning_state, robustness_results, behavior_state, context_memories, conversation_state, fusion_*, orchestrator_state, proactive_*, safety_state, workflow_log côté data) — tous quasi vides, créés le même jour (2026-05-02), jamais branchés au pipeline actuel.",
-      "documented": false,
-      "defined": false,
+      "source_path": "~22 fichiers restants : config/v2/edge_cases.json, fallback_rules.json, feature_matrix.json, learning_rules.json, naming_conventions.json, proactivity_rules.json ; config/v3/conversation_rules.json, learning_rules.json, orchestrator_rules.json, priority_rules.json, relational_rules.json, workflow_rules.json ; data/v2/experience_state.json, feedback_log.json, learning_state.json, robustness_results.json ; data/v3/behavior_state.json, context_memories.json, conversation_state.json, feedback_log_v3.json, fusion_results.json, fusion_state.json, learning_state_v3.json, orchestrator_state.json, proactive_results.json, proactive_state.json, safety_state.json, workflow_log.json",
+      "description": "Point C3-J du plan d'action, investigation du 16/07/2026 : recherche exhaustive du code src/v2/ et src/v3/ menée pour tous les fichiers restants — AUCUNE implémentation trouvée. Les packages correspondants (src/v3/emotion/, memory/, learning/, safety/, conversation/, orchestrator/, reasoning/ ; src/v2/governance/, knowledge/, product/, experience/, scenarios/, fallback/) ne contiennent qu'un __init__.py vide (1 ligne) — ce ne sont pas des fonctionnalités 'non branchées', ce sont des fonctionnalités qui n'ont jamais été codées. Différent de DQ-047 (8 fichiers pour lesquels du code réel existe et fonctionne déjà en mémoire, juste sans lecture de config externe).",
+      "documented": true,
+      "defined": true,
       "status": "a_connecter",
       "data_type": "privee",
       "sensitivity_classification": "C2_INTERNE",
@@ -1282,16 +1282,16 @@
       "intended_use": [
         "technique"
       ],
-      "retention_period": "à définir",
-      "update_frequency": "aucune depuis leur création",
+      "retention_period": "illimitée pour la config (versionnée avec le code) ; sans objet pour les fichiers d'état tant qu'aucun module ne les alimente",
+      "update_frequency": "évolutive pour la config, au fil du développement ; aucune pour les fichiers d'état tant que non câblés",
       "authorized_roles": {
         "read": [],
         "write": []
       },
       "created_at": "2026-05-02",
-      "last_modified_at": "2026-05-02",
+      "last_modified_at": "2026-07-16",
       "planned_deletion_at": null,
-      "notes": "Volume important de scaffolding jamais utilisé (~30 fichiers) — cas exemplaire de 'donnée créée en pensant l'utiliser mais au final pas de besoin confirmé à ce jour'. Recommandation : décision d'équipe à prendre bloc par bloc (V2 vs V3) — soit prioriser leur mise en service, soit les archiver pour alléger le manifest et arrêter de les compter comme 'cible' dans l'avancement Bloc 18."
+      "notes": "Écrire un schéma ici serait pure spéculation sur une fonctionnalité jamais conçue — pas une tâche de gouvernance data, mais une décision de conception produit qui revient à l'équipe : soit prioriser la conception de ces modules (V2 gouvernance/connaissance/produit/expérience/scénarios/repli, V3 conversation/orchestrateur/raisonnement/mémoire/apprentissage/sécurité/émotion), soit acter qu'ils ne seront pas construits et retirer ces ~22 entrées du manifest pour ne plus fausser l'avancement du Bloc 18. RÉSOLU le 16/07/2026 (point C3-J du plan d'action, décision OWNER : construire les schémas partout). Fichier(s) doté(s) d'un vrai schéma structuré (convention _alfred_header/_meta) — le contenu réel reste vide tant que le module de code correspondant n'est pas implémenté/câblé (majoritairement des stubs __init__.py en V3/V4)."
     },
     {
       "id": "DQ-042",
@@ -1299,8 +1299,8 @@
       "domain_bloc": "Bloc 14.01/14.03 — Domotique, gestion des équipements",
       "source_path": "config/v4/action_rules.json, home_devices.json, orchestration_rules.json, scenario_rules.json, trigger_rules.json (6b chacun)",
       "description": "Scaffolding V4 pour la configuration domotique — non défini, non branché, cohérent avec un Bloc 19 à 60.0% (15/22 cible) encore largement en construction.",
-      "documented": false,
-      "defined": false,
+      "documented": true,
+      "defined": true,
       "status": "a_connecter",
       "data_type": "privee",
       "sensitivity_classification": "C2_INTERNE",
@@ -1308,16 +1308,16 @@
       "intended_use": [
         "technique"
       ],
-      "retention_period": "à définir",
-      "update_frequency": "à définir",
+      "retention_period": "illimitée (config versionnée avec le code)",
+      "update_frequency": "évolutive, au fil du développement",
       "authorized_roles": {
         "read": [],
         "write": []
       },
       "created_at": "2026-05-02",
-      "last_modified_at": "2026-05-02",
+      "last_modified_at": "2026-07-16",
       "planned_deletion_at": null,
-      "notes": ""
+      "notes": "RÉSOLU le 16/07/2026 (point C3-J du plan d'action, décision OWNER : construire les schémas partout). Fichier(s) doté(s) d'un vrai schéma structuré (convention _alfred_header/_meta) — le contenu réel reste vide tant que le module de code correspondant n'est pas implémenté/câblé (majoritairement des stubs __init__.py en V3/V4)."
     },
     {
       "id": "DQ-043",
@@ -1325,25 +1325,25 @@
       "domain_bloc": "Bloc 14.02/14.05 — Capteurs intelligents, supervision IoT",
       "source_path": "data/v4/action_log.json, device_registry.json, home_state.json, sensor_state.json, trigger_log.json (6b chacun)",
       "description": "État runtime domotique (registre d'appareils, état capteurs, journaux d'actions/déclenchements) — scaffolding non alimenté.",
-      "documented": false,
-      "defined": false,
-      "status": "a_creer",
+      "documented": true,
+      "defined": true,
+      "status": "a_connecter",
       "data_type": "privee",
       "sensitivity_classification": "C3_CONFIDENTIEL",
       "security_level_planned": 3,
       "intended_use": [
         "technique"
       ],
-      "retention_period": "à définir",
-      "update_frequency": "à définir",
+      "retention_period": "à harmoniser une fois du matériel domotique réel déclaré — proposition : 90 jours pour les journaux (action_log/trigger_log, cohérent avec data/security/incident_register.json), pas d'historique long pour l'état courant (home_state/sensor_state/device_registry)",
+      "update_frequency": "temps réel une fois des appareils domotiques réels déclarés",
       "authorized_roles": {
         "read": [],
         "write": []
       },
       "created_at": "2026-05-02",
-      "last_modified_at": "2026-05-02",
+      "last_modified_at": "2026-07-16",
       "planned_deletion_at": null,
-      "notes": "Statut 'a_creer' plutôt que 'a_connecter' : ces données décriront un état physique domotique réel (capteurs/appareils du domicile) qui n'existe pas encore dans les faits, contrairement au scaffolding purement logiciel des autres blocs."
+      "notes": "Statut 'a_creer' plutôt que 'a_connecter' : ces données décriront un état physique domotique réel (capteurs/appareils du domicile) qui n'existe pas encore dans les faits, contrairement au scaffolding purement logiciel des autres blocs. RÉSOLU le 16/07/2026 (point C3-J du plan d'action, décision OWNER : construire les schémas partout). Fichier(s) doté(s) d'un vrai schéma structuré (convention _alfred_header/_meta) — le contenu réel reste vide tant que le module de code correspondant n'est pas implémenté/câblé (majoritairement des stubs __init__.py en V3/V4)."
     },
     {
       "id": "DQ-044",
@@ -1379,12 +1379,10 @@
     },
     {
       "id": "DQ-045",
-      "name": "Registre d'incidents & appareils de confiance (créés) + décisions d'accès (retiré du manifest)",
+      "name": "Registre d'incidents, appareils de confiance & historique de décisions Zero Trust",
       "domain_bloc": "Bloc 20.08/20.09/20.11 — Détection d'intrusion, audit, réponse à incident",
-      "source_path": "data/security/incident_register.json, data/security/trusted_devices.json",
-      "description": [
-        "Point C4-C du plan d'action, traité le 13/07/2026. incident_register.json et trusted_devices.json sont self-initialisants (incident_manager.py / device_registry.py gèrent leur absence et les créent au premier usage) — créés ici avec leur état vide exact ([] et {}) pour que le manifest cesse de les compter comme manquants. Le 3e fichier attendu par le manifest, data/security/access_decisions_history.json, ne correspond à AUCUNE implémentation trouvée dans src/ — les décisions Zero Trust (zero_trust_orchestrator.py) sont en réalité déjà journalisées dans l'audit trail général (write_audit_event(), cf. DQ-003) et non dans un fichier dédié. Retiré du manifest plutôt que fabriqué comme fichier vide trompeur (aurait suggéré une surveillance dédiée qui n'existe pas)."
-      ],
+      "source_path": "data/security/incident_register.json, data/security/trusted_devices.json, data/security/access_decisions_history.json",
+      "description": "Point C4-C du plan d'action, traité le 13/07/2026 puis complété le 13/07/2026 suite à décision explicite de créer les 3 fichiers plutôt que d'en retirer un du manifest. incident_register.json et trusted_devices.json sont self-initialisants (incident_manager.py / device_registry.py gèrent déjà leur absence). access_decisions_history.json a nécessité un vrai développement : aucune implémentation ne l'alimentait — decide_access() dans src/security/policy_decision_point.py journalise désormais chaque décision Zero Trust (timestamp, role, resource_sensitivity, action, risk_score, decision), append-only, plafonné à 5000 entrées, best-effort (n'échoue jamais une décision d'accès si l'écriture disque échoue). 6 tests dédiés (tests/security_tests/test_policy_decision_point_history.py). target_full_files_count du Bloc 20 également relevé à 200 (était 181) pour éviter un dépassement systématique de 100% à chaque nouveau fichier de sécurité ajouté.",
       "documented": true,
       "defined": true,
       "status": "utilisee",
@@ -1394,8 +1392,8 @@
       "intended_use": [
         "technique"
       ],
-      "retention_period": "90 jours pour le registre d'incidents (aligné RGPD register T05 — 1 an, à harmoniser), pas de rétention distincte pour trusted_devices.json (registre vivant)",
-      "update_frequency": "temps réel une fois alimentés par incident_manager.py / device_registry.py",
+      "retention_period": "90 jours pour le registre d'incidents (aligné RGPD register T05 — 1 an, à harmoniser), pas de rétention distincte pour trusted_devices.json (registre vivant), access_decisions_history.json plafonné en nombre d'entrées (5000) plutôt qu'en durée — à harmoniser avec une politique de rétention explicite si besoin",
+      "update_frequency": "temps réel (incident_manager.py / device_registry.py / policy_decision_point.py à chaque décision d'accès)",
       "authorized_roles": {
         "read": [
           "OWNER",
@@ -1403,13 +1401,86 @@
         ],
         "write": [
           "OWNER",
-          "ADMIN"
+          "ADMIN",
+          "AI_MODULE"
         ]
       },
       "created_at": "2026-07-13",
       "last_modified_at": "2026-07-13",
       "planned_deletion_at": null,
-      "notes": "Si un vrai historique de décisions d'accès dédié est souhaité (au-delà de l'audit trail général), il faudra développer explicitement cette fonctionnalité dans zero_trust_orchestrator.py/policy_decision_point.py — pas fait ici, décision produit à prendre séparément."
+      "notes": "access_decisions_history.json est désormais écrit par le pipeline lui-même (rôle effectif = tous les appelants de decide_access(), potentiellement AI_MODULE) — d'où AI_MODULE ajouté en write. Cohérent avec le même principe que DQ-003 (écriture d'audit par un composant sous-habilité en lecture, mais l'écriture append-only d'un journal ne nécessite pas la même habilitation que la lecture des données qu'il décrit).",
+      "access_exceptions": [
+        {
+          "role": "AI_MODULE",
+          "scope": "write",
+          "justification": "Écriture (append) uniquement sur access_decisions_history.json — decide_access() journalise la décision quel que soit l'appelant, y compris les modules IA. Même raisonnement que DQ-003 : écriture append-only d'un journal d'audit, pas de lecture, principe du moindre privilège respecté (lecture toujours restreinte à OWNER/ADMIN).",
+          "reviewed_by": "OWNER",
+          "reviewed_at": "2026-07-13"
+        }
+      ]
+    },
+    {
+      "id": "DQ-046",
+      "name": "Rappels utilisateur — exposés via l'API compagnon (Bloc 24)",
+      "domain_bloc": "Bloc 24.02 — Intégration API compagnon / Bloc 06.02 — Rappels intelligents",
+      "source_path": "data/memory/reminders.json (servi par interface/companion_api.py, GET /api/notifications)",
+      "description": "Rappels utilisateur (ReminderEngine, src/v3/proactive/reminder_engine.py). Point C4-F du plan d'action, traité le 13/07/2026 : interface/companion_api.py créé (absent du dépôt jusqu'ici) pour servir cette donnée au client ALFRED_ANDROID. Changement de surface d'exposition à noter : cette donnée, jusqu'ici uniquement un fichier local, est désormais accessible via une API réseau local (0.0.0.0:8420, jeton statique COMPANION_API_TOKEN, pas de HTTPS — cf. limites documentées dans ALFRED_ANDROID/README.md).",
+      "documented": true,
+      "defined": true,
+      "status": "a_connecter",
+      "data_type": "privee",
+      "sensitivity_classification": "C3_CONFIDENTIEL",
+      "security_level_planned": 3,
+      "intended_use": [
+        "technique"
+      ],
+      "retention_period": "aucune politique de rétention/purge automatique dans reminder_engine.py actuel — rappels conservés jusqu'à suppression manuelle par l'utilisateur (à durcir si l'usage se généralise au-delà du PoC réseau local)",
+      "update_frequency": "temps réel, à la création/suppression de rappels",
+      "authorized_roles": {
+        "read": [
+          "OWNER"
+        ],
+        "write": [
+          "OWNER"
+        ]
+      },
+      "created_at": "2026-05-14",
+      "last_modified_at": "2026-07-16",
+      "planned_deletion_at": null,
+      "notes": "Statut 'a_connecter' : l'API elle-même est codée et testée (8 tests, tests/dashboard_tests/test_companion_api.py) mais pas encore validée en conditions réelles (build Android + connexion réseau réelle) — à faire sur le PC avant de considérer ce flux 'utilisée'. Jeton statique sans rotation ni expiration : accepter ce risque pour un PoC réseau local, mais à durcir avant tout usage au-delà d'un PoC."
+    },
+    {
+      "id": "DQ-047",
+      "name": "Scaffolding V2/V3 — schémas réels définis (8 fichiers)",
+      "domain_bloc": "Bloc 01.04 (V2) / Bloc 10.01-10.05 (V3) — Orchestration & intelligence cognitive",
+      "source_path": "config/v2/signal_weights.json, decision_rules.json, confidence_rules.json ; config/v3/fusion_rules.json, confidence_rules.json, proactive_rules.json, trigger_rules.json, pattern_rules.json",
+      "description": "Point C3-J du plan d'action, traité le 16/07/2026 : contrairement au reste du scaffolding (DQ-041), ces 8 fichiers correspondent à du code réel et fonctionnel — src/v2/fusion/fusion_engine.py, src/v2/decision/decision_engine.py, src/v2/confidence/confidence_scorer.py, src/v3/fusion/multi_signal_fusion_engine.py, src/v3/fusion/confidence_engine.py, src/v3/proactive/proactive_engine.py, src/v3/proactive/reminder_detector.py, src/v3/fusion/contradiction_detector.py. Ces modules gèrent aujourd'hui leurs poids/seuils/règles en mémoire (constantes Python), sans lire de fichier externe. Schémas JSON écrits en copiant exactement les constantes réelles de chaque module (pas de valeurs inventées).",
+      "documented": true,
+      "defined": true,
+      "status": "a_connecter",
+      "data_type": "privee",
+      "sensitivity_classification": "C2_INTERNE",
+      "security_level_planned": 2,
+      "intended_use": [
+        "technique"
+      ],
+      "retention_period": "illimitée (config versionnée)",
+      "update_frequency": "évolutive, au fil du développement",
+      "authorized_roles": {
+        "read": [
+          "OWNER",
+          "ADMIN",
+          "AI_MODULE"
+        ],
+        "write": [
+          "OWNER",
+          "ADMIN"
+        ]
+      },
+      "created_at": "2026-05-02",
+      "last_modified_at": "2026-07-16",
+      "planned_deletion_at": null,
+      "notes": "Statut 'a_connecter' et pas 'utilisee' : le schéma est réel et fidèle au code, mais aucun module ne charge encore ces fichiers (ils gèrent toujours leurs constantes en dur). Câbler réellement la lecture de ces fichiers dans les 8 modules est un chantier de développement à part entière (modifie du code de pipeline qui tourne), à faire et tester sur PC — non fait ici, sur décision explicite de l'équipe (schémas seulement, pas de code)."
     }
   ]
 }
