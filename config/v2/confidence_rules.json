@@ -1,1 +1,35 @@
-﻿{"thresholds": {"high": 0.7, "medium": 0.4}}
+{
+  "_alfred_header": {
+    "file": "config/v2/confidence_rules.json",
+    "bloc": "Bloc 01.04 — Orchestration des modules",
+    "notion_exam": "D01-4 — Capsule Scoring de confiance",
+    "utilite_alfred": "Poids des signaux de confiance et seuils de niveau, consommés par ConfidenceScorer.",
+    "domaine": "Orchestration V2 — scoring de confiance"
+  },
+  "_meta": {
+    "project": "ALFRED",
+    "version": "V1.0",
+    "status": "SCHEMA_DEFINI — pas encore chargé par le code (src/v2/confidence/confidence_scorer.py gère ses règles en mémoire)",
+    "created": "2026-07-16",
+    "note": "Point C3-J du plan d'action. Contenu précédent ({\"thresholds\":{\"high\":0.7,\"medium\":0.4}}) était une ébauche partielle — complété avec les valeurs réelles de src/v2/confidence/confidence_scorer.py (ConfidenceScorer._SIGNAL_WEIGHTS, _THRESHOLDS, _HEDGE_PHRASES). Câblage réel non fait."
+  },
+  "signal_weights": {
+    "fusion_quality": 0.30,
+    "memory_coverage": 0.25,
+    "knowledge_coverage": 0.25,
+    "emotion_alignment": 0.10,
+    "response_quality": 0.10
+  },
+  "level_thresholds": {
+    "high": 0.70,
+    "medium": 0.45,
+    "low": 0.25
+  },
+  "hedge_phrases": {
+    "low": "Je ne suis pas certain·e de cette réponse, mais voici ce que je sais : ",
+    "uncertain": "Je manque d'informations précises sur ce sujet, mais je pense que ",
+    "medium": "",
+    "high": ""
+  },
+  "is_confident_threshold": 0.60
+}

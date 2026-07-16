@@ -1,7 +1,7 @@
 # ALFRED — BACKLOG & RÉFÉRENTIEL FICHIERS
 
-> Généré le 16/07/2026 13:30 depuis `dashboard_data.json` (mis à jour le 16/07/2026 13:30:21)
-> Progression technique : **85.0%** · Full projet : **28.7%**
+> Généré le 16/07/2026 17:05 depuis `dashboard_data.json` (mis à jour le 16/07/2026 17:05:20)
+> Progression technique : **85.0%** · Full projet : **28.8%**
 > 1420 fichiers détectés / 4436 cible full
 
 ## Synthèse globale
@@ -318,7 +318,7 @@
 | Structurels | 0 |
 | Manquants | 0 |
 
-### 🟢 B18 — Knowledge & Intelligence System `82.1%`
+### 🟢 B18 — Knowledge & Intelligence System `82.5%`
 
 | KPI | Valeur |
 |-----|--------|
