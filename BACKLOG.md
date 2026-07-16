@@ -1,8 +1,8 @@
 # ALFRED — BACKLOG & RÉFÉRENTIEL FICHIERS
 
-> Généré le 15/07/2026 12:46 depuis `dashboard_data.json` (mis à jour le 15/07/2026 12:46:00)
+> Généré le 16/07/2026 13:30 depuis `dashboard_data.json` (mis à jour le 16/07/2026 13:30:21)
 > Progression technique : **85.0%** · Full projet : **28.7%**
-> 1421 fichiers détectés / 4436 cible full
+> 1420 fichiers détectés / 4436 cible full
 
 ## Synthèse globale
 
@@ -17,7 +17,7 @@
 
 ## Backlog par bloc
 
-### 🟢 B01 — Interaction conversationnelle intelligente `86.8%`
+### 🟢 B01 — Interaction conversationnelle intelligente `86.2%`
 
 | KPI | Valeur |
 |-----|--------|
@@ -26,7 +26,7 @@
 | Codés (à tester) | 1 |
 | Partiels | 5 |
 | Structurels | 8 |
-| Manquants | 0 |
+| Manquants | 1 |
 
 **Fichiers à traiter :**
 
