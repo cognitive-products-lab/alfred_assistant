@@ -215,32 +215,39 @@ contexte, la priorité et la marche à suivre que le dashboard seul ne donne pas
 - **Action** : rédiger une description formelle (finalité, base légale, droits RGPD applicables)
   dans le registre. Pas de risque de sécurité immédiat.
 - **Qui agit** : 🤖 Claude peut rédiger un projet de description ; 👤 validation du niveau de
-  détail acceptable dans une documentation interne.
+  détail acceptable dans une documentation interne. *(toujours ouvert)*
 
-### H. Bloc 16 — incohérence documentaire non résolue
-- **Preuve** : `ALFRED_BLOCS_REFERENCE.md` dit "Bloc 16 réservé — non assigné", mais
-  `BACKLOG.md`/`dashboard_data_manifest.json` suivent un contenu réel sous ce label
-  (`Démonstration & Scénarisation`, 46,7 %, fichiers de scénarios quasi vides — DQ-039).
-- **Action** : trancher — soit formaliser le Bloc 16 dans le référentiel (comme B23/24/25),
-  soit confirmer qu'il doit rester réservé et déplacer son contenu ailleurs.
-- **Qui agit** : 👤 décision requise (relecture du contenu réel du bloc).
+### H. ✅ TRANCHÉ le 16/07/2026 — Bloc 16 formalisé
+- **Décision (OWNER)** : formaliser le Bloc 16 dans le référentiel, comme B23/24/25.
+- **Fait** : section complète ajoutée à `ALFRED_BLOCS_REFERENCE.md` (sous-codes 16.01-16.04),
+  tableau de correspondance et règle #5 corrigés, `DQ-039` mise à jour. 121 tests au vert.
 
-### I. `data/dialogue_history.json` (racine) — orphelin confirmé
-- **Preuve vérifiée aujourd'hui** : recherche exhaustive dans le code — aucune référence.
-  Seul `data/memory/episodic/dialogue_history.json` est utilisé (`main.py`, `main_v3.py`,
-  `memory_engine.py`, `compliance_manager.py`, `data_flow_mapper.py`).
-- **Action** : archiver/supprimer `data/dialogue_history.json` (racine).
-- **Qui agit** : 🤖 **Claude peut le faire à distance dès confirmation.**
+### I. ✅ FAIT le 16/07/2026 — `data/dialogue_history.json` (racine) supprimé
+- **Feu vert OWNER obtenu** — reconfirmé orphelin (recherche exhaustive) puis supprimé
+  (`git rm`). `DQ-022` mise à jour en conséquence.
 
-### J. Scaffolding V2/V3/V4 vide jamais branché — décision "construire ou archiver"
-- **Preuve** : ~40 fichiers au total (Blocs 02, 03, 06, 12, 16, 18, 19 — DQ-024, 026, 029,
-  015, 039, 041, 042, 043), tous créés le 02/05/2026, tous quasi vides (6 à 79 octets), jamais
-  modifiés depuis. Ils comptent dans le calcul d'avancement de plusieurs blocs alors qu'ils sont
-  vides.
-- **Action** : décision produit bloc par bloc — soit prioriser leur mise en service (V2→V3→V4
-  déjà dans la roadmap), soit les archiver pour ne plus fausser les pourcentages d'avancement.
-- **Qui agit** : 👤 décision de priorisation produit ; 🤖 exécution technique (créer/archiver)
-  une fois la décision prise.
+### J. ✅ Décision "construire" appliquée le 16/07/2026 — avec une découverte importante
+- **Décision (OWNER)** : construire plutôt qu'archiver.
+- **Découverte en cours de route** : le scaffolding n'est pas homogène. Sur ~50 fichiers :
+  - **8 fichiers correspondent à du code réel et fonctionnel** (`fusion_engine.py`,
+    `decision_engine.py`, `confidence_scorer.py` en V2 ; `multi_signal_fusion_engine.py`,
+    `confidence_engine.py`, `contradiction_detector.py`, `proactive_engine.py`,
+    `reminder_detector.py` en V3) — ces modules tournent déjà, mais gèrent leurs poids/seuils/
+    règles en constantes Python plutôt que via un fichier externe. **Fait** : schéma JSON
+    complet écrit pour chacun, copié fidèlement des vraies constantes du code (aucune valeur
+    inventée) — voir `DQ-047`.
+  - **~22 fichiers restants ne correspondent à AUCUN code** — les packages `src/v3/emotion/`,
+    `memory/`, `learning/`, `safety/`, `conversation/`, `orchestrator/`, `reasoning/` et
+    `src/v2/governance/`, `knowledge/`, `product/`, `experience/`, `scenarios/`, `fallback/`
+    ne contiennent qu'un `__init__.py` vide (1 ligne) — pas des fonctionnalités non branchées,
+    des fonctionnalités jamais conçues. Domotique V4 (`config/v4/`, `data/v4/`, DQ-042/043)
+    dans le même cas. Écrire un schéma ici serait de la pure spéculation de conception produit,
+    pas une tâche de gouvernance data — **laissé de côté**, voir `DQ-041` mis à jour.
+- **Ce qui reste ouvert** : 👤 décision produit à reprendre séparément pour ces ~22 fichiers
+  (prioriser leur conception, ou acter qu'ils ne seront pas construits et alléger le manifest).
+  🖥️ Câbler réellement la lecture des 8 schémas dans leurs modules respectifs (changement de
+  pipeline en prod, à faire et tester sur PC) — non fait ici sur décision explicite (schémas
+  seulement).
 
 ---
 
@@ -301,10 +308,10 @@ contexte, la priorité et la marche à suivre que le dashboard seul ne donne pas
 | E | Casse `ALFRED_WEB/` — scan B21 à 0 % | C4 | ✅ fait (82/82 détectés) |
 | F | `companion_api.py` introuvable | C4 | ✅ codé + testé (8 tests) — reste test réel 🖥️ |
 | P | Appliquer techniquement la restriction santé (issu de A) | C4 | ✅ tranché (registre corrigé, pas de gate code — casserait le pipeline) |
-| G | Instance Céline non documentée | C3 | 🤖👤 |
-| H | Bloc 16 réservé vs contenu réel | C3 | 👤 |
-| I | `dialogue_history.json` orphelin | C3 | 🤖 (attend feu vert) |
-| J | ~40 fichiers scaffolding vides | C3 | 👤 puis 🤖 |
+| G | Instance Céline non documentée | C3 | 🤖👤 (toujours ouvert) |
+| H | Bloc 16 réservé vs contenu réel | C3 | ✅ fait (formalisé) |
+| I | `dialogue_history.json` orphelin | C3 | ✅ fait (supprimé) |
+| J | ~50 fichiers scaffolding vides | C3 | ✅ 8/50 schématisés (code réel) — 👤 ~22 restants sans code, décision produit à part |
 | K | Poursuite registre (blocs restants) | continu | 🤖 |
 | M | Champs "à définir" à compléter | continu | 🤖👤 |
 | L | Merge PR #15 et #1 | C2 | ✅ PR #15 mergée (main) — PR #1 ALFRED_ANDROID encore ouverte 👤 |
