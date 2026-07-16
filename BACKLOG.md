@@ -1,7 +1,7 @@
 # ALFRED — BACKLOG & RÉFÉRENTIEL FICHIERS
 
-> Généré le 16/07/2026 17:05 depuis `dashboard_data.json` (mis à jour le 16/07/2026 17:05:20)
-> Progression technique : **85.0%** · Full projet : **28.8%**
+> Généré le 16/07/2026 18:50 depuis `dashboard_data.json` (mis à jour le 16/07/2026 18:50:56)
+> Progression technique : **86.8%** · Full projet : **29.0%**
 > 1420 fichiers détectés / 4436 cible full
 
 ## Synthèse globale
@@ -39,7 +39,7 @@
 | `src/start_alfred.bat` | 🟡 Partiel | Compléter |
 | `tests/manual/voice_loop_manual.py` | 🟦 Codé — à tester | Tester |
 
-### 🟢 B02 — Mémoire & RAG `81.4%`
+### 🟢 B02 — Mémoire & RAG `83.6%`
 
 | KPI | Valeur |
 |-----|--------|
@@ -59,7 +59,7 @@
 | `data/v3/memory_patterns.json` | 🟡 Partiel | Compléter |
 | `src/memory/memory_manager.py` | 🟡 Partiel | Compléter |
 
-### 🟢 B03 — Émotions & Régulation `94.8%`
+### 🟢 B03 — Émotions & Régulation `96.0%`
 
 | KPI | Valeur |
 |-----|--------|
@@ -91,7 +91,7 @@
 | Structurels | 2 |
 | Manquants | 0 |
 
-### 🟢 B05 — Organisation & Assistance `90.7%`
+### 🟢 B05 — Organisation & Assistance `93.3%`
 
 | KPI | Valeur |
 |-----|--------|
@@ -186,7 +186,7 @@
 | `tools/dashboard_tools/dashboard_gouvernance/dashboard_gouvernance_server.bat` | 🟡 Partiel | Compléter |
 | `tools/dashboard_tools/dashboard_data/archive script/repair_manifest_paths.py` | 🟦 Codé — à tester | Tester |
 
-### 🟡 B10 — Collaboration & Coordination `76.0%`
+### 🟢 B10 — Collaboration & Coordination `84.0%`
 
 | KPI | Valeur |
 |-----|--------|
@@ -224,7 +224,7 @@
 |---------|--------|--------|
 | `src/knowledge/knowledge_router.py` | 🟡 Partiel | Compléter |
 
-### 🟢 B12 — Pilotage business & Stratégie `96.9%`
+### 🟢 B12 — Pilotage business & Stratégie `98.0%`
 
 | KPI | Valeur |
 |-----|--------|
@@ -286,7 +286,7 @@
 | `src/ui/alfred_app.py` | 🟦 Codé — à tester | Tester |
 | `src/ui/webcam_widget.py` | 🟦 Codé — à tester | Tester |
 
-### 🟠 B16 — Démonstration & Scénarisation `46.7%`
+### 🟡 B16 — Démonstration & Scénarisation `63.3%`
 
 | KPI | Valeur |
 |-----|--------|
@@ -318,7 +318,7 @@
 | Structurels | 0 |
 | Manquants | 0 |
 
-### 🟢 B18 — Knowledge & Intelligence System `82.5%`
+### 🟢 B18 — Knowledge & Intelligence System `83.9%`
 
 | KPI | Valeur |
 |-----|--------|
@@ -365,7 +365,7 @@
 | `data/v3/fusion_results.json` | 🟡 Partiel | Compléter |
 | *... 90 autres* | | |
 
-### 🟡 B19 — Domotique Intelligente `60.0%`
+### 🟡 B19 — Domotique Intelligente `73.3%`
 
 | KPI | Valeur |
 |-----|--------|
@@ -393,7 +393,7 @@
 | `data/v4/sensor_state.json` | 🟡 Partiel | Compléter |
 | `data/v4/trigger_log.json` | 🟡 Partiel | Compléter |
 
-### 🟢 B20 — Cybersécurité Zero Trust `95.5%`
+### 🟢 B20 — Cybersécurité Zero Trust `95.6%`
 
 | KPI | Valeur |
 |-----|--------|
