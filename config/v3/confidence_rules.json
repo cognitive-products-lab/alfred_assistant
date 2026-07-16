@@ -1,1 +1,32 @@
-﻿{}
+{
+  "_alfred_header": {
+    "file": "config/v3/confidence_rules.json",
+    "bloc": "Bloc 10.02 — Raisonnement IA",
+    "notion_exam": "D10-2 — Capsule Évaluation de confiance V3",
+    "utilite_alfred": "Seuils de confiance et formule de score ajusté, consommés par ConfidenceEngine pour décider agir/prudence/clarifier.",
+    "domaine": "Intelligence cognitive avancée — évaluation de confiance V3"
+  },
+  "_meta": {
+    "project": "ALFRED",
+    "version": "V1.0",
+    "status": "SCHEMA_DEFINI — pas encore chargé par le code (src/v3/fusion/confidence_engine.py gère ses seuils en mémoire via CONFIDENCE_THRESHOLDS)",
+    "created": "2026-07-16",
+    "note": "Point C3-J du plan d'action. Schéma extrait des constantes réelles de src/v3/fusion/confidence_engine.py. Câblage réel non fait."
+  },
+  "thresholds": {
+    "high": 0.70,
+    "medium": 0.40,
+    "low": 0.0
+  },
+  "actions_by_level": {
+    "high": "act",
+    "medium": "proceed_cautiously",
+    "low": "clarify"
+  },
+  "adjusted_score_formula": {
+    "raw_confidence_weight": 0.6,
+    "coherence_weight": 0.3,
+    "source_factor_weight": 0.1,
+    "source_factor_max_sources": 3
+  }
+}

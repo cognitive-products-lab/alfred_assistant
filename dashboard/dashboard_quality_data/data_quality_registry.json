@@ -1269,13 +1269,13 @@
     },
     {
       "id": "DQ-041",
-      "name": "Scaffolding massif V2/V3 non connecté (Bloc 18)",
+      "name": "Scaffolding restant sans aucune implémentation (Bloc 18 + V2/V3 divers)",
       "domain_bloc": "Bloc 18 — Base de connaissances & culture",
-      "source_path": "~30 fichiers config/v2/*.json, config/v3/*.json, data/v2/*.json, data/v3/*.json (6 à 79 octets chacun — cf. dashboard_data_manifest.json b18 pour la liste complète)",
-      "description": "Ensemble d'environ 30 fichiers de scaffolding V2/V3 (confidence_rules, decision_rules, edge_cases, fallback_rules, feature_matrix, learning_rules, naming_conventions, proactivity_rules, signal_weights côté config ; experience_state, feedback_log, learning_state, robustness_results, behavior_state, context_memories, conversation_state, fusion_*, orchestrator_state, proactive_*, safety_state, workflow_log côté data) — tous quasi vides, créés le même jour (2026-05-02), jamais branchés au pipeline actuel.",
-      "documented": false,
+      "source_path": "~22 fichiers restants : config/v2/edge_cases.json, fallback_rules.json, feature_matrix.json, learning_rules.json, naming_conventions.json, proactivity_rules.json ; config/v3/conversation_rules.json, learning_rules.json, orchestrator_rules.json, priority_rules.json, relational_rules.json, workflow_rules.json ; data/v2/experience_state.json, feedback_log.json, learning_state.json, robustness_results.json ; data/v3/behavior_state.json, context_memories.json, conversation_state.json, feedback_log_v3.json, fusion_results.json, fusion_state.json, learning_state_v3.json, orchestrator_state.json, proactive_results.json, proactive_state.json, safety_state.json, workflow_log.json",
+      "description": "Point C3-J du plan d'action, investigation du 16/07/2026 : recherche exhaustive du code src/v2/ et src/v3/ menée pour tous les fichiers restants — AUCUNE implémentation trouvée. Les packages correspondants (src/v3/emotion/, memory/, learning/, safety/, conversation/, orchestrator/, reasoning/ ; src/v2/governance/, knowledge/, product/, experience/, scenarios/, fallback/) ne contiennent qu'un __init__.py vide (1 ligne) — ce ne sont pas des fonctionnalités 'non branchées', ce sont des fonctionnalités qui n'ont jamais été codées. Différent de DQ-047 (8 fichiers pour lesquels du code réel existe et fonctionne déjà en mémoire, juste sans lecture de config externe).",
+      "documented": true,
       "defined": false,
-      "status": "a_connecter",
+      "status": "a_creer",
       "data_type": "privee",
       "sensitivity_classification": "C2_INTERNE",
       "security_level_planned": 2,
@@ -1289,9 +1289,9 @@
         "write": []
       },
       "created_at": "2026-05-02",
-      "last_modified_at": "2026-05-02",
+      "last_modified_at": "2026-07-16",
       "planned_deletion_at": null,
-      "notes": "Volume important de scaffolding jamais utilisé (~30 fichiers) — cas exemplaire de 'donnée créée en pensant l'utiliser mais au final pas de besoin confirmé à ce jour'. Recommandation : décision d'équipe à prendre bloc par bloc (V2 vs V3) — soit prioriser leur mise en service, soit les archiver pour alléger le manifest et arrêter de les compter comme 'cible' dans l'avancement Bloc 18."
+      "notes": "Écrire un schéma ici serait pure spéculation sur une fonctionnalité jamais conçue — pas une tâche de gouvernance data, mais une décision de conception produit qui revient à l'équipe : soit prioriser la conception de ces modules (V2 gouvernance/connaissance/produit/expérience/scénarios/repli, V3 conversation/orchestrateur/raisonnement/mémoire/apprentissage/sécurité/émotion), soit acter qu'ils ne seront pas construits et retirer ces ~22 entrées du manifest pour ne plus fausser l'avancement du Bloc 18."
     },
     {
       "id": "DQ-042",
@@ -1448,6 +1448,39 @@
       "last_modified_at": "2026-07-13",
       "planned_deletion_at": null,
       "notes": "Statut 'a_connecter' : l'API elle-même est codée et testée (8 tests, tests/dashboard_tests/test_companion_api.py) mais pas encore validée en conditions réelles (build Android + connexion réseau réelle) — à faire sur le PC avant de considérer ce flux 'utilisée'. Jeton statique sans rotation ni expiration : accepter ce risque pour un PoC réseau local, mais à durcir avant tout usage au-delà d'un PoC."
+    },
+    {
+      "id": "DQ-047",
+      "name": "Scaffolding V2/V3 — schémas réels définis (8 fichiers)",
+      "domain_bloc": "Bloc 01.04 (V2) / Bloc 10.01-10.05 (V3) — Orchestration & intelligence cognitive",
+      "source_path": "config/v2/signal_weights.json, decision_rules.json, confidence_rules.json ; config/v3/fusion_rules.json, confidence_rules.json, proactive_rules.json, trigger_rules.json, pattern_rules.json",
+      "description": "Point C3-J du plan d'action, traité le 16/07/2026 : contrairement au reste du scaffolding (DQ-041), ces 8 fichiers correspondent à du code réel et fonctionnel — src/v2/fusion/fusion_engine.py, src/v2/decision/decision_engine.py, src/v2/confidence/confidence_scorer.py, src/v3/fusion/multi_signal_fusion_engine.py, src/v3/fusion/confidence_engine.py, src/v3/proactive/proactive_engine.py, src/v3/proactive/reminder_detector.py, src/v3/fusion/contradiction_detector.py. Ces modules gèrent aujourd'hui leurs poids/seuils/règles en mémoire (constantes Python), sans lire de fichier externe. Schémas JSON écrits en copiant exactement les constantes réelles de chaque module (pas de valeurs inventées).",
+      "documented": true,
+      "defined": true,
+      "status": "a_connecter",
+      "data_type": "privee",
+      "sensitivity_classification": "C2_INTERNE",
+      "security_level_planned": 2,
+      "intended_use": [
+        "technique"
+      ],
+      "retention_period": "illimitée (config versionnée)",
+      "update_frequency": "évolutive, au fil du développement",
+      "authorized_roles": {
+        "read": [
+          "OWNER",
+          "ADMIN",
+          "AI_MODULE"
+        ],
+        "write": [
+          "OWNER",
+          "ADMIN"
+        ]
+      },
+      "created_at": "2026-05-02",
+      "last_modified_at": "2026-07-16",
+      "planned_deletion_at": null,
+      "notes": "Statut 'a_connecter' et pas 'utilisee' : le schéma est réel et fidèle au code, mais aucun module ne charge encore ces fichiers (ils gèrent toujours leurs constantes en dur). Câbler réellement la lecture de ces fichiers dans les 8 modules est un chantier de développement à part entière (modifie du code de pipeline qui tourne), à faire et tester sur PC — non fait ici, sur décision explicite de l'équipe (schémas seulement, pas de code)."
     }
   ]
 }
