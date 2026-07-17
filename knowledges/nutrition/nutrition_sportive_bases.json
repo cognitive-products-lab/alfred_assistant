@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "nutrition.nutrition_sportive.nutrition_sportive_bases",
+  "title": "Bases de la nutrition sportive",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "nutrition",
+  "subdomain": "nutrition_sportive",
+  "category": "nutrition",
+  "priority": "medium",
+  "safety_level": "sensitive",
+  "summary": "La nutrition sportive ajuste les apports en glucides, protéines et hydratation autour de l'effort (avant, pendant, après) pour optimiser performance et récupération, sans se substituer à un avis médical ou diététique personnalisé, en particulier pour tout objectif de perte de poids ou de pathologie associée.",
+  "purpose": "Donner à ALFRED un cadre factuel de culture générale sur la nutrition sportive, complémentaire au domaine sports_science déjà couvert côté physiologie et récupération, avec des garde-fous stricts contre tout conseil personnalisé à risque.",
+  "tags": ["nutrition_sportive", "hydratation", "glucides", "recuperation"],
+  "intents": ["explain_sports_nutrition_basics", "explain_pre_post_workout_nutrition", "avoid_personalized_diet_advice"],
+  "usage_context": [
+    "question de culture générale sur l'alimentation autour de l'effort physique",
+    "accompagnement d'un objectif sportif nécessitant une base nutritionnelle générale"
+  ],
+  "content": {
+    "definition": "La nutrition sportive est l'ensemble des principes d'ajustement de l'alimentation et de l'hydratation autour de la pratique physique, visant à soutenir la performance pendant l'effort et à optimiser la récupération après l'effort, distincte d'un régime alimentaire personnalisé qui nécessite une évaluation individuelle par un professionnel de santé ou un diététicien du sport.",
+    "core_principles": [
+      "Les glucides constituent la principale source d'énergie rapidement mobilisable pour un effort physique, leur apport avant et pendant l'effort étant ajusté selon l'intensité et la durée de la pratique.",
+      "L'hydratation doit être anticipée avant l'effort, maintenue pendant et complétée après, la sensation de soif n'étant pas un indicateur fiable et précoce du besoin réel en eau pendant l'effort.",
+      "La récupération post-effort combine réhydratation, apport en protéines pour la réparation musculaire et reconstitution des réserves de glucides, dans une fenêtre de temps généralement plus favorable dans les heures suivant l'effort.",
+      "Les besoins nutritionnels varient fortement selon le type d'effort (endurance vs force), son intensité, sa durée et le profil individuel de la personne, rendant toute généralisation universelle risquée sans adaptation au contexte réel."
+    ],
+    "rules": [
+      "Ne jamais fournir de plan nutritionnel personnalisé chiffré (calories, macronutriments précis) sans rappeler qu'une évaluation individuelle par un professionnel est nécessaire.",
+      "Ne jamais associer conseil nutritionnel sportif à un objectif de perte de poids sans rediriger vers un accompagnement médical ou diététique adapté, la nutrition sportive et la nutrition de perte de poids répondant à des logiques différentes.",
+      "Rappeler systématiquement que les besoins varient selon le profil individuel, l'état de santé et le type d'activité, empêchant toute généralisation universelle applicable à tous.",
+      "Rediriger vers un professionnel de santé toute situation évoquant un trouble du comportement alimentaire potentiel, indépendamment de la question nutritionnelle sportive posée initialement."
+    ],
+    "examples": [
+      {
+        "situation": "Un utilisateur pratiquant la course à pied demande des conseils généraux sur l'hydratation pendant un effort prolongé.",
+        "recommended_behavior": "Présenter les principes généraux d'anticipation et de maintien de l'hydratation pendant l'effort, sans donner de quantité précise personnalisée, et suggérer une adaptation individuelle selon la durée, l'intensité et les conditions climatiques réelles.",
+        "avoid": "Fournir un plan d'hydratation chiffré précis présenté comme universellement applicable, sans tenir compte du profil individuel et des conditions réelles de pratique."
+      }
+    ],
+    "best_practices": [
+      "Présenter systématiquement les principes de nutrition sportive comme des repères généraux à adapter individuellement, jamais comme une prescription définitive.",
+      "Distinguer clairement nutrition de performance sportive et nutrition de gestion du poids, deux objectifs différents nécessitant des approches distinctes.",
+      "Relier la nutrition sportive aux principes de récupération déjà couverts côté sports_science pour une vision cohérente et non isolée du sujet."
+    ],
+    "anti_patterns": [
+      "Fournir un plan nutritionnel chiffré personnalisé sans rappel de la nécessité d'un avis professionnel individualisé.",
+      "Mélanger conseil de nutrition sportive et conseil de perte de poids sans distinction, risque accru de conseil inadapté ou dangereux.",
+      "Ignorer un signal potentiel de trouble du comportement alimentaire évoqué dans une question de nutrition sportive."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["nutrition_sportive", "hydratation", "glucides", "recuperation_musculaire"],
+    "related_domains": ["nutrition", "sports_science", "medecine"],
+    "related_knowledge": [
+      "sports_science.recovery_performance",
+      "sports_science.sports_physiology",
+      "medecine.limites_alfred"
+    ],
+    "retrieval_priority": 5
+  },
+  "behavior_rules": {
+    "tone": "professional_supportive",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["information générale de culture nutritionnelle sportive non personnalisée"],
+    "restricted_usage": ["information nutritionnelle sportive dans un contexte évoquant une pathologie ou un objectif de perte de poids"],
+    "forbidden_usage": ["prescription nutritionnelle personnalisée chiffrée se substituant à un diététicien du sport ou un médecin"],
+    "fallback_behavior": "Rediriger systématiquement vers un professionnel de santé ou un diététicien du sport pour tout besoin d'accompagnement nutritionnel personnalisé ou situation évoquant un risque."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "17/07/2026",
+    "last_update": "17/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}
