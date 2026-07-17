@@ -208,14 +208,18 @@ contexte, la priorité et la marche à suivre que le dashboard seul ne donne pas
 
 ## C3 — Modérée
 
-### G. Instance utilisateur nominative non documentée
+### G. ✅ FAIT le 16/07/2026 — Instance utilisateur nominative documentée
 - **Preuve** : `data/users/instances/user_celine_instance.json` (6,7 Ko) — accès déjà
   correctement restreint à `OWNER` seul (pas un risque d'accès), mais `documented: false` dans
   le registre (DQ-033).
-- **Action** : rédiger une description formelle (finalité, base légale, droits RGPD applicables)
-  dans le registre. Pas de risque de sécurité immédiat.
-- **Qui agit** : 🤖 Claude peut rédiger un projet de description ; 👤 validation du niveau de
-  détail acceptable dans une documentation interne. *(toujours ouvert)*
+- **Fait** : description formelle rédigée (finalité, base légale Art. 6.1.a RGPD — consentement,
+  cohérence avec l'entrée T01 du registre RGPD, droits RGPD applicables) et **validée par
+  OWNER** ("c'est juste", 16/07/2026). `DQ-033` mise à jour : `documented: true`,
+  `update_frequency` précise qu'un nouveau passage du questionnaire de personnalité doit
+  déclencher une mise à jour de la fiche (§5bis).
+- **Contexte donné par OWNER** : questionnaires de personnalité et ajustements ALFRED prévus le
+  17/07/2026, dans le cadre de cette même instance privée (créatrice uniquement) — la note de
+  gouvernance ajoutée à `DQ-033` anticipe cette mise à jour à venir.
 
 ### H. ✅ TRANCHÉ le 16/07/2026 — Bloc 16 formalisé
 - **Décision (OWNER)** : formaliser le Bloc 16 dans le référentiel, comme B23/24/25.
@@ -321,7 +325,7 @@ contexte, la priorité et la marche à suivre que le dashboard seul ne donne pas
 | E | Casse `ALFRED_WEB/` — scan B21 à 0 % | C4 | ✅ fait (82/82 détectés) |
 | F | `companion_api.py` introuvable | C4 | ✅ codé + testé (8 tests) — reste test réel 🖥️ |
 | P | Appliquer techniquement la restriction santé (issu de A) | C4 | ✅ tranché (registre corrigé, pas de gate code — casserait le pipeline) |
-| G | Instance Céline non documentée | C3 | 🤖👤 (toujours ouvert) |
+| G | Instance Céline non documentée | C3 | ✅ fait (description rédigée et validée par OWNER) |
 | H | Bloc 16 réservé vs contenu réel | C3 | ✅ fait (formalisé) |
 | I | `dialogue_history.json` orphelin | C3 | ✅ fait (supprimé) |
 | J | ~50 fichiers scaffolding vides | C3 | ✅ fait — schémas construits partout (8 réels + ~39 conçus par raisonnement domaine) — reste le câblage code, décision produit 🖥️👤 |
