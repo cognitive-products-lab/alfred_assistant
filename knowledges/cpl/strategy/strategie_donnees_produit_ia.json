@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.strategy.strategie_donnees_produit_ia",
+  "title": "Stratégie des données comme actif produit pour ALFRED CPL",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "strategy",
+  "category": "cpl strategy",
+  "summary": "Les données de contexte, d'usage et de connaissance métier accumulées par ALFRED CPL constituent un actif stratégique différenciant à condition d'être gouvernées explicitement (propriété, portabilité, réversibilité) — sans quoi elles deviennent un facteur de dépendance perçue négativement par le client.",
+  "purpose": "Cadrer la réflexion stratégique sur la valeur et la gouvernance des données accumulées par ALFRED CPL au fil de son usage, distincte de la stratégie de différenciation technique local-first déjà couverte.",
+  "tags": ["strategie_donnees", "actif_produit", "portabilite", "reversibilite", "cpl"],
+  "intents": ["define_data_as_product_asset", "explain_data_portability_commitment", "avoid_vendor_lock_in_perception"],
+  "usage_context": [
+    "définition de la politique de gouvernance des données accumulées par ALFRED CPL chez un client",
+    "discussion contractuelle sur la réversibilité et la portabilité des données"
+  ],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "La stratégie des données comme actif produit désigne l'approche par laquelle ALFRED CPL considère les données de contexte, d'usage et de connaissance métier accumulées au fil du temps chez un client comme une source de valeur pour la qualité du service, tout en garantissant explicitement au client la propriété, la portabilité et la réversibilité de ces données.",
+    "core_principles": [
+      "Plus un système IA accumule de contexte pertinent sur l'usage réel d'un client, plus la qualité de ses réponses s'améliore — cet effet d'apprentissage cumulatif est un actif stratégique pour la rétention et la satisfaction client.",
+      "Cet actif ne doit jamais se transformer en verrouillage (vendor lock-in) perçu : le client doit conserver à tout moment la certitude qu'il peut extraire ses données et changer de solution sans perte substantielle.",
+      "La propriété des données reste toujours celle du client, ALFRED CPL n'en étant que le dépositaire technique dans le cadre du service rendu, jamais le propriétaire de fait.",
+      "La portabilité effective (format exploitable, documentation claire de la structure) distingue un engagement réel de réversibilité d'un engagement purement contractuel non opérationnalisable en pratique."
+    ],
+    "rules": [
+      "Documenter explicitement, dans chaque contrat client, les modalités concrètes d'extraction et de portabilité des données en cas de fin de contrat.",
+      "Ne jamais concevoir une fonctionnalité qui rendrait techniquement difficile l'extraction des données accumulées par un client, même si cela renforcerait la rétention à court terme.",
+      "Communiquer proactivement au client la valeur de l'apprentissage cumulatif de son instance ALFRED CPL, sans jamais présenter cette valeur comme un motif de dépendance forcée.",
+      "Prévoir un format d'export documenté et testé, pas seulement théorique, pour la portabilité des données métier et de contexte."
+    ],
+    "examples": [
+      {
+        "situation": "Un client envisage ALFRED CPL mais exprime une inquiétude sur le risque de dépendance à long terme vis-à-vis d'un fournisseur.",
+        "recommended_behavior": "Présenter explicitement la politique de portabilité et de réversibilité des données, avec une démonstration concrète du format d'export disponible, pour transformer l'inquiétude en argument de confiance plutôt que de l'éluder.",
+        "avoid": "Minimiser la question de la réversibilité pour ne pas fragiliser l'argumentaire commercial, ce qui renforce le doute du client plutôt que de le lever."
+      }
+    ],
+    "best_practices": [
+      "Traiter la portabilité des données comme une fonctionnalité produit à part entière, testée et documentée, et non comme une simple clause contractuelle.",
+      "Valoriser explicitement auprès du client la qualité croissante du service liée à l'accumulation de contexte, en la présentant comme un bénéfice réversible plutôt que comme un levier de rétention forcée.",
+      "Revoir périodiquement la politique de gouvernance des données à mesure que de nouveaux types de données sont accumulés par le produit."
+    ],
+    "anti_patterns": [
+      "Concevoir délibérément un format de données propriétaire difficile à exporter pour renforcer artificiellement la rétention client.",
+      "Présenter la réversibilité comme acquise sans jamais l'avoir testée concrètement, créant un engagement contractuel non opérationnalisable en pratique.",
+      "Traiter la stratégie de données uniquement sous l'angle de la valeur pour l'éditeur, en ignorant la perception de dépendance qu'elle peut créer chez le client."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["strategie_donnees", "portabilite", "reversibilite", "vendor_lock_in", "actif_strategique"],
+    "related_domains": ["cpl", "governance"],
+    "related_knowledge": [
+      "cpl.product_platform.data_protection_hosting",
+      "cpl.strategy.differenciation_concurrentielle_ia_locale",
+      "governance.data.data_governance_framework"
+    ],
+    "retrieval_priority": 6
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["conception de la politique de gouvernance et de portabilité des données produit"],
+    "restricted_usage": ["engagement contractuel de réversibilité non vérifié techniquement"],
+    "forbidden_usage": ["concevoir volontairement un obstacle technique à la portabilité des données du client"],
+    "fallback_behavior": "Recommander la vérification technique effective de la portabilité avant tout engagement contractuel formel sur ce point."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "17/07/2026",
+    "last_update": "17/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "professional.communication.redaction_synthese_executive",
+  "title": "Rédaction de synthèse exécutive (executive summary)",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "professional",
+  "subdomain": "communication",
+  "category": "professional communication",
+  "summary": "Une synthèse exécutive efficace part de la conclusion et de la recommandation avant le raisonnement qui y mène, inversant l'ordre narratif naturel, car son lecteur type dispose de quelques minutes et doit pouvoir décider ou agir sans lire le document complet.",
+  "purpose": "Fournir un cadre de rédaction distinct de la synthèse écrite générale déjà couverte (synthesis_writing), centré spécifiquement sur le format executive summary destiné à un décideur pressé.",
+  "tags": ["synthese_executive", "redaction_professionnelle", "communication_ecrite", "prise_de_decision"],
+  "intents": ["write_executive_summary", "structure_decision_oriented_document", "prioritize_conclusion_first"],
+  "usage_context": [
+    "rédaction d'un rapport, d'une étude ou d'une proposition destinée à un décideur",
+    "synthèse d'un document technique long pour un public non expert du sujet"
+  ],
+  "priority": "high",
+  "safety_level": "normal",
+  "content": {
+    "definition": "La synthèse exécutive est un format de rédaction professionnelle destiné à un décideur disposant de peu de temps, structuré pour présenter d'abord la conclusion et la recommandation, puis les éléments de justification essentiels, en inversant l'ordre narratif chronologique naturel (contexte puis analyse puis conclusion) au profit d'un ordre orienté décision (conclusion puis justification).",
+    "core_principles": [
+      "Le principe de la pyramide inversée place la conclusion et la recommandation en premier, permettant au lecteur de décider ou d'agir même s'il ne lit que les deux premières phrases.",
+      "Un décideur lit une synthèse exécutive pour décider, pas pour comprendre l'intégralité du raisonnement : chaque élément inclus doit être justifié par son utilité directe à la décision, pas par son intérêt intrinsèque.",
+      "La longueur cible d'une synthèse exécutive se mesure en minutes de lecture (généralement une à deux minutes), pas en nombre de pages, ce qui impose un tri sévère des informations à inclure.",
+      "Une synthèse exécutive n'est pas un résumé exhaustif compressé : elle sélectionne les éléments strictement nécessaires à la décision, quitte à omettre des informations présentes dans le document source mais non déterminantes."
+    ],
+    "rules": [
+      "Toujours placer la conclusion ou la recommandation principale dans les deux ou trois premières phrases de la synthèse.",
+      "Limiter la synthèse au strict nécessaire à la décision : chaque phrase doit répondre à la question « le décideur en a-t-il besoin pour trancher ? ».",
+      "Éviter tout jargon technique non indispensable à la compréhension de la décision, quitte à simplifier au prix d'une légère perte de précision technique.",
+      "Terminer par une action ou une décision explicitement demandée au lecteur, jamais par une simple information neutre sans suite attendue."
+    ],
+    "examples": [
+      {
+        "situation": "Rédaction de la synthèse exécutive d'une étude technique de 40 pages sur le choix d'une architecture logicielle.",
+        "recommended_behavior": "Commencer par la recommandation retenue et son impact chiffré principal, puis lister en trois à cinq points les raisons essentielles de ce choix, sans détailler la méthodologie complète de l'étude ni les options écartées en profondeur.",
+        "avoid": "Reproduire la structure chronologique de l'étude complète (contexte, méthodologie, analyse, conclusion) dans la synthèse, obligeant le décideur à lire jusqu'à la fin pour connaître la recommandation."
+      }
+    ],
+    "best_practices": [
+      "Rédiger la synthèse exécutive en dernier, une fois le document complet finalisé, pour garantir qu'elle en reflète fidèlement la conclusion réelle.",
+      "Tester la synthèse en vérifiant qu'un lecteur pressé peut prendre une décision informée en lisant uniquement les deux premières phrases.",
+      "Limiter le nombre de recommandations à une ou deux priorités claires plutôt que de multiplier les points d'égale importance apparente."
+    ],
+    "anti_patterns": [
+      "Rédiger la synthèse exécutive en suivant l'ordre chronologique du document source plutôt que l'ordre orienté décision.",
+      "Inclure des détails techniques ou méthodologiques non nécessaires à la décision, alourdissant inutilement la lecture.",
+      "Terminer la synthèse sans action ou décision explicite attendue, laissant le lecteur sans direction claire sur la suite à donner."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["synthese_executive", "pyramide_inversee", "redaction_decideur", "recommandation"],
+    "related_domains": ["professional", "communication"],
+    "related_knowledge": [
+      "communication.written.synthesis_writing",
+      "professional.communication.pitch_executif_structuration_message",
+      "professional.decision.decision_support"
+    ],
+    "retrieval_priority": 6
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["rédaction et structuration d'une synthèse exécutive professionnelle"],
+    "restricted_usage": ["simplification d'un sujet technique complexe au point d'en dénaturer une information critique"],
+    "forbidden_usage": ["omettre dans une synthèse un risque ou une réserve significative pour rendre la recommandation plus séduisante"],
+    "fallback_behavior": "Inclure toute réserve ou incertitude significative liée à la recommandation, même au prix d'une synthèse légèrement moins tranchée."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "17/07/2026",
+    "last_update": "17/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

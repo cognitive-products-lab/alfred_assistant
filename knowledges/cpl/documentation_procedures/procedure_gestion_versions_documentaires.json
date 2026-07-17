@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.documentation_procedures.procedure_gestion_versions_documentaires",
+  "title": "Procédure de gestion des versions documentaires ALFRED CPL",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "documentation_procedures",
+  "category": "cpl documentation procedures",
+  "summary": "La gestion des versions documentaires d'ALFRED CPL garantit qu'une procédure interne obsolète ne soit jamais présentée comme actuelle : chaque document a un numéro de version, une date d'entrée en vigueur, et un statut explicite (en vigueur, en révision, archivé).",
+  "purpose": "Permettre à ALFRED CPL de toujours sourcer ses réponses sur la version en vigueur d'un document, et de signaler explicitement une contradiction entre versions plutôt que de choisir silencieusement l'une d'elles.",
+  "tags": ["gestion_documentaire", "versioning", "cpl", "sourced_answers", "procedure_interne"],
+  "intents": ["explain_document_versioning_procedure", "detect_document_contradiction", "identify_current_document_version"],
+  "usage_context": [
+    "réponse à une question portant sur une procédure interne susceptible d'avoir plusieurs versions",
+    "détection d'une contradiction entre deux documents de référence"
+  ],
+  "priority": "high",
+  "safety_level": "normal",
+  "content": {
+    "definition": "La gestion des versions documentaires est le processus par lequel ALFRED CPL identifie, pour chaque document de référence interne (procédure, politique, guide), la version actuellement en vigueur, distincte des versions antérieures archivées ou des versions en cours de révision non encore applicables.",
+    "core_principles": [
+      "Chaque document versionné porte un numéro de version explicite, une date d'entrée en vigueur et un statut (en vigueur / en révision / archivé) permettant de le situer sans ambiguïté dans son cycle de vie.",
+      "En cas de coexistence de plusieurs versions d'un même document dans la base documentaire, seule la version au statut « en vigueur » doit être utilisée pour répondre, sauf demande explicite de l'utilisateur portant sur l'historique.",
+      "Une contradiction détectée entre deux documents référençant le même sujet à des dates différentes doit être signalée explicitement à l'utilisateur plutôt que résolue silencieusement par le système.",
+      "La traçabilité de la source (cpl.product_platform.sourced_answers_business_assistant) s'applique pleinement au versioning : toute réponse basée sur un document versionné doit citer la version précise utilisée."
+    ],
+    "rules": [
+      "Ne jamais répondre à partir d'une version archivée d'un document sans le signaler explicitement à l'utilisateur.",
+      "Toujours citer le numéro de version et la date d'entrée en vigueur du document source dans une réponse sourcée sur une procédure interne.",
+      "Signaler immédiatement toute incohérence détectée entre deux versions d'un même document plutôt que de trancher silencieusement en faveur de l'une d'elles.",
+      "Distinguer clairement une demande portant sur la procédure actuelle d'une demande portant explicitement sur son historique ou une version antérieure."
+    ],
+    "examples": [
+      {
+        "situation": "Un utilisateur demande la procédure actuelle de gestion des incidents, alors que deux versions du document (v3.8 et v4.1) coexistent dans la base documentaire.",
+        "recommended_behavior": "Identifier le statut de chaque version, répondre sur la base de la version en vigueur (v4.1 si son statut l'indique), et mentionner explicitement qu'une version antérieure (v3.8) existe si cela est pertinent pour la clarté de la réponse.",
+        "avoid": "Mélanger des éléments des deux versions dans une même réponse sans préciser leur origine, créant une procédure hybride qui n'existe dans aucun document réel."
+      }
+    ],
+    "best_practices": [
+      "Structurer les métadonnées de chaque document versionné avec un statut explicite et une date d'entrée en vigueur exploitable automatiquement.",
+      "Prévoir un mécanisme d'alerte lorsqu'une contradiction entre versions est détectée, pour permettre une résolution humaine rapide.",
+      "Conserver les versions archivées accessibles sur demande explicite, sans les supprimer, pour préserver la traçabilité historique."
+    ],
+    "anti_patterns": [
+      "Répondre en mélangeant silencieusement des éléments de plusieurs versions d'un même document.",
+      "Ignorer le statut d'un document et le traiter comme en vigueur par défaut sans vérification.",
+      "Supprimer les versions archivées d'un document au lieu de les conserver avec un statut explicite."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["versioning_documentaire", "procedure_en_vigueur", "contradiction_documentaire", "sourced_answers"],
+    "related_domains": ["cpl"],
+    "related_knowledge": [
+      "cpl.product_platform.sourced_answers_business_assistant",
+      "cpl.demo_scenario.incident_management_procedure_v4_1",
+      "cpl.demo_scenario.incident_management_procedure_v3_8"
+    ],
+    "retrieval_priority": 7
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["identification de la version en vigueur d'un document", "signalement d'une contradiction documentaire"],
+    "restricted_usage": ["synthèse de plusieurs versions d'un document sans préciser leur origine respective"],
+    "forbidden_usage": ["présenter une version archivée comme la procédure actuellement en vigueur sans le signaler"],
+    "fallback_behavior": "En cas d'incertitude sur le statut d'un document, signaler l'ambiguïté à l'utilisateur plutôt que de choisir une version par défaut."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "17/07/2026",
+    "last_update": "17/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

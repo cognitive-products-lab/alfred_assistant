@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.business_piloting.analyse_couts_infrastructure_ia_locale",
+  "title": "Analyse des coûts d'infrastructure d'une IA locale",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "business_piloting",
+  "category": "cpl business piloting",
+  "summary": "Le modèle de coût d'ALFRED CPL diffère structurellement d'une IA cloud facturée à l'usage : coût matériel initial (hardware local) et coût de maintenance internalisé, contre coût variable récurrent par requête — un arbitrage économique qui doit être présenté explicitement au client selon son horizon d'usage.",
+  "purpose": "Donner à ALFRED CPL un cadre chiffré pour expliquer et arbitrer le modèle de coût local-first face à l'alternative cloud, complément économique à l'argumentaire de différenciation stratégique déjà couvert.",
+  "tags": ["cout_infrastructure", "ia_locale", "business_piloting", "capex_opex", "cpl"],
+  "intents": ["explain_local_ai_cost_model", "compare_capex_vs_opex_ai", "estimate_infrastructure_investment"],
+  "usage_context": [
+    "présentation du modèle économique d'ALFRED CPL à un client comparant les coûts avec une solution cloud",
+    "arbitrage interne sur le dimensionnement matériel d'un déploiement"
+  ],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "L'analyse des coûts d'infrastructure d'une IA locale consiste à modéliser et comparer la structure de coût d'un déploiement local-first comme ALFRED CPL (investissement matériel initial, maintenance, électricité, renouvellement) à celle d'une solution IA cloud facturée à l'usage, afin d'objectiver l'arbitrage économique selon l'horizon et le volume d'usage réel du client.",
+    "core_principles": [
+      "Le modèle local-first repose principalement sur un coût d'investissement initial (CAPEX) — matériel serveur ou poste dédié — suivi d'un coût de maintenance et d'exploitation prévisible et plafonné dans le temps.",
+      "Le modèle cloud repose sur un coût variable récurrent (OPEX) proportionnel au volume d'usage, sans investissement initial significatif mais avec un coût cumulé croissant et potentiellement imprévisible à fort volume.",
+      "Le point de bascule économique entre les deux modèles dépend directement du volume d'usage prévu et de l'horizon temporel considéré : un usage faible ou ponctuel favorise le cloud, un usage intensif et durable favorise le local-first.",
+      "Le coût de l'IA locale inclut des composantes souvent sous-estimées si elles ne sont pas chiffrées explicitement : renouvellement matériel à moyen terme, consommation électrique, et compétence de maintenance interne ou externalisée."
+    ],
+    "rules": [
+      "Toujours présenter l'arbitrage de coût en fonction de l'horizon et du volume d'usage réel du client, jamais comme un choix universellement moins coûteux dans l'absolu.",
+      "Inclure explicitement dans le chiffrage local-first les coûts de renouvellement matériel et de maintenance, pas seulement l'investissement initial.",
+      "Ne jamais comparer un coût cloud actuel à un coût local-first projeté sans actualiser les deux sur le même horizon temporel.",
+      "Documenter les hypothèses de volume d'usage retenues pour toute comparaison chiffrée, pour permettre au client de challenger ou ajuster l'estimation."
+    ],
+    "examples": [
+      {
+        "situation": "Un client hésite entre ALFRED CPL local-first et un abonnement à un assistant IA cloud, sur la base d'un usage intensif quotidien anticipé sur plusieurs années.",
+        "recommended_behavior": "Modéliser le coût cumulé des deux options sur l'horizon réel envisagé (par exemple trois ans), en intégrant pour le local-first l'investissement initial, la maintenance et un renouvellement matériel partiel, et pour le cloud la projection du coût variable au volume d'usage anticipé.",
+        "avoid": "Comparer uniquement le coût d'abonnement mensuel cloud actuel à l'investissement initial local-first sans le rapporter au même horizon temporel, faussant la comparaison en faveur du cloud."
+      }
+    ],
+    "best_practices": [
+      "Présenter systématiquement une projection de coût cumulé sur plusieurs horizons (court, moyen, long terme) plutôt qu'un chiffre unique, pour rendre le point de bascule visible.",
+      "Documenter séparément les composantes du coût local-first (matériel, maintenance, électricité, compétence) pour la crédibilité et la transparence du chiffrage.",
+      "Relier l'analyse de coût à l'argumentaire de différenciation stratégique (souveraineté, confidentialité) pour ne pas réduire la décision client au seul critère financier."
+    ],
+    "anti_patterns": [
+      "Présenter le local-first comme systématiquement moins coûteux sans tenir compte du volume d'usage réel du client.",
+      "Omettre les coûts de maintenance et de renouvellement matériel dans le chiffrage initial, sous-estimant le coût total de possession.",
+      "Réduire l'arbitrage à la seule dimension financière en ignorant les bénéfices non chiffrables de souveraineté et de confidentialité."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["cout_infrastructure", "capex_opex", "cout_total_possession", "arbitrage_cloud_local"],
+    "related_domains": ["cpl", "professional"],
+    "related_knowledge": [
+      "cpl.strategy.differenciation_concurrentielle_ia_locale",
+      "cpl.business_piloting.profitability_analysis",
+      "professional.engineering.systeme_design.local_first_architecture"
+    ],
+    "retrieval_priority": 6
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["modélisation et présentation d'un arbitrage de coût d'infrastructure IA"],
+    "restricted_usage": ["chiffrage définitif présenté au client sans validation des hypothèses de volume d'usage"],
+    "forbidden_usage": ["présenter une projection de coût comme garantie contractuelle sans réserve sur les hypothèses retenues"],
+    "fallback_behavior": "Présenter systématiquement les hypothèses de volume et d'horizon retenues plutôt qu'un chiffre présenté comme absolu et non contextualisé."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "17/07/2026",
+    "last_update": "17/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

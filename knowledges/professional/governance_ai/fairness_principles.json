@@ -1,74 +1,91 @@
 {
-  "_meta": {
-    "project": "ALFRED",
-    "block": "B18",
-    "file": "fairness_principles.json",
-    "version": "V1.0",
-    "status": "VALIDATED",
-    "updated": "2026-05-13",
-    "standardized_by": "generate_knowledges.py",
-    "validated_by": "Cognitive Products Lab",
-    "validated_date": "2026-05-13"
-  },
-  "id": "knowledges.professional.governance_ai.fairness_principles",
-  "domain": "professional_governance",
-  "category": "ai_governance",
-  "title": "Fairness Principles",
-  "description": "Principes d’équité appliqués aux systèmes IA.",
-  "version": "1.0",
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "professional.governance_ai.fairness_principles",
+  "title": "Principes d'équité appliqués aux systèmes IA",
+  "version": "1.1.0",
   "status": "active",
-  "tags": [
-    "ai governance",
-    "fairness principles",
-    "governance ai",
-    "professional",
-    "professional governance"
+  "domain": "professional",
+  "subdomain": "governance_ai",
+  "category": "ai_governance",
+  "summary": "Les principes d'équité IA (traitement égal, non-discrimination, accessibilité, design inclusif) forment le socle éthique et organisationnel dont la détection de biais (bias_detection) et l'équité algorithmique (algorithmic_fairness) sont les outils techniques de mise en œuvre.",
+  "purpose": "Donner à ALFRED le cadre de principes qui précède et englobe les méthodes techniques de détection de biais : pourquoi l'équité est un objectif organisationnel avant d'être un problème statistique.",
+  "tags": ["equite", "non_discrimination", "accessibilite", "design_inclusif", "gouvernance_ia"],
+  "intents": ["explain_fairness_principles", "apply_inclusive_design", "prevent_ai_discrimination"],
+  "usage_context": [
+    "définition de la politique d'équité d'un système IA",
+    "conception d'une fonctionnalité destinée à des publics divers (situation de handicap, âge, profil)"
   ],
+  "priority": "high",
+  "safety_level": "sensitive",
   "content": {
-    "summary": "Principes d’équité appliqués aux systèmes IA.",
-    "details": [
-      "Equal treatment",
-      "Bias mitigation",
-      "Inclusive design",
-      "Accessibility",
-      "Éviter les discriminations",
-      "Favoriser l’accessibilité",
-      "Garantir une expérience équitable",
-      "Accessibilité RQTH",
-      "Design inclusif",
-      "Adaptation utilisateur"
+    "definition": "Les principes d'équité IA sont l'ensemble des engagements organisationnels et de conception visant à garantir qu'un système IA offre un traitement égal et une expérience équitable à tous les utilisateurs, indépendamment de caractéristiques protégées, et qu'il soit accessible aux personnes en situation de handicap. Ils constituent le cadre de valeurs que la détection de biais et l'équité algorithmique opérationnalisent techniquement.",
+    "core_principles": [
+      "Le traitement égal (equal treatment) signifie qu'un système ne doit pas produire de résultats systématiquement moins favorables pour un groupe protégé sans justification légitime et proportionnée.",
+      "La mitigation des biais (bias mitigation) est l'action continue de réduction des écarts de traitement identifiés, en amont (données), pendant (modèle) ou en aval (post-traitement) du système.",
+      "Le design inclusif (inclusive design) intègre dès la conception les besoins des utilisateurs en situation de handicap ou de vulnérabilité, plutôt que de les traiter comme des cas particuliers ajoutés après coup.",
+      "L'accessibilité (accessibility) est une composante à part entière de l'équité : un système parfaitement non-discriminant statistiquement mais inutilisable par une personne en situation de handicap reste inéquitable."
     ],
-    "references": []
+    "rules": [
+      "Évaluer l'équité d'un système IA sur au moins deux dimensions distinctes : l'équité statistique des résultats (voir bias_detection) et l'équité d'accès à l'usage (accessibilité).",
+      "Ne jamais traiter l'accessibilité comme une fonctionnalité optionnelle ajoutée après la conception principale.",
+      "Documenter les choix de conception qui pourraient avoir un impact différencié selon les profils d'utilisateurs, même en l'absence d'intention discriminatoire.",
+      "Prévoir des mécanismes d'adaptation utilisateur (rythme, modalité d'interaction, complexité) plutôt qu'une expérience strictement uniforme pour tous."
+    ],
+    "examples": [
+      {
+        "situation": "Conception d'une interface vocale ALFRED CPL destinée à un usage professionnel large.",
+        "recommended_behavior": "Prévoir dès la conception une alternative non vocale équivalente pour les utilisateurs malentendants (accessibilité RQTH), et tester le système avec des voix et accents variés pour éviter un biais de reconnaissance.",
+        "avoid": "Concevoir l'interface pour un profil utilisateur unique puis ajouter des adaptations d'accessibilité en fin de projet, souvent de façon incomplète."
+      }
+    ],
+    "best_practices": [
+      "Associer les principes d'équité à des critères d'acceptation testables (checklist accessibilité, tests avec profils variés) plutôt qu'à une déclaration d'intention.",
+      "Distinguer explicitement dans la documentation ce qui relève des principes d'équité (pourquoi) et des méthodes de bias_detection (comment mesurer).",
+      "Adapter l'expérience utilisateur au profil réel de la personne (adaptation utilisateur) sans présumer de ses capacités à partir de caractéristiques démographiques."
+    ],
+    "anti_patterns": [
+      "Réduire l'équité IA à la seule absence de biais statistique en ignorant l'accessibilité et le design inclusif.",
+      "Traiter tous les utilisateurs de façon strictement identique en confondant égalité de traitement et équité réelle d'usage.",
+      "Ajouter l'accessibilité comme correctif tardif plutôt que comme exigence de conception initiale."
+    ]
   },
-  "metadata": {
-    "created": "2026-05-12",
-    "updated": "2026-05-12",
-    "author": "Cognitive Products Lab"
+  "retrieval_hints": {
+    "priority_keywords": ["equite", "non_discrimination", "accessibilite", "design_inclusif", "traitement_egal"],
+    "related_domains": ["professional", "accessibilite_inclusion", "cpl"],
+    "related_knowledge": [
+      "professional.governance_ai.bias_detection",
+      "professional.governance_ai.algorithmic_fairness",
+      "cpl.ethics_governance.accessibility_principles"
+    ],
+    "retrieval_priority": 7
   },
-  "core_concepts": [
-    "Equal treatment",
-    "Bias mitigation",
-    "Inclusive design",
-    "Accessibility"
-  ],
-  "principles": [
-    "Éviter les discriminations",
-    "Favoriser l’accessibilité",
-    "Garantir une expérience équitable"
-  ],
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["explication des principes d'équité IA", "conception d'une politique d'équité et d'accessibilité"],
+    "restricted_usage": ["évaluation d'équité définitive sans mesure technique associée (bias_detection)"],
+    "forbidden_usage": ["justifier un traitement différencié discriminatoire par un principe d'équité mal interprété"],
+    "fallback_behavior": "Rappeler que les principes d'équité doivent être complétés par une mesure technique concrète (détection de biais, tests d'accessibilité) avant toute validation."
+  },
   "alfred_application": [
-    "Accessibilité RQTH",
-    "Design inclusif",
-    "Adaptation utilisateur"
+    "Accessibilité RQTH intégrée dès la conception des interfaces ALFRED",
+    "Design inclusif appliqué aux parcours d'interaction principaux",
+    "Adaptation utilisateur au profil réel plutôt qu'à des présomptions démographiques"
   ],
-  "aliases": [],
-  "relationships": {
-    "merged_from": [],
-    "see_also": [],
-    "depends_on": []
-  },
-  "retrieval": {
-    "priority": "medium",
-    "trigger_queries": []
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "12/05/2026",
+    "last_update": "17/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
   }
 }

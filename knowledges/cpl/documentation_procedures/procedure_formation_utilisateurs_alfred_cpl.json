@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.documentation_procedures.procedure_formation_utilisateurs_alfred_cpl",
+  "title": "Procédure de formation des utilisateurs à ALFRED CPL",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "documentation_procedures",
+  "category": "cpl documentation procedures",
+  "summary": "La formation des utilisateurs à ALFRED CPL suit un parcours progressif en trois paliers (prise en main, usages métiers, autonomie avancée) plutôt qu'une formation unique exhaustive, pour aligner la montée en compétence avec la montée en autonomie du système.",
+  "purpose": "Structurer l'accompagnement des nouveaux utilisateurs et administrateurs d'ALFRED CPL de façon cohérente avec le principe d'autonomie progressive du produit, et fournir un référentiel réutilisable pour la démonstration et l'onboarding client.",
+  "tags": ["formation", "onboarding", "cpl", "autonomie_progressive", "adoption_utilisateur"],
+  "intents": ["describe_user_training_procedure", "structure_onboarding_alfred_cpl", "explain_progressive_training_path"],
+  "usage_context": [
+    "préparation de l'onboarding d'un nouveau client ou utilisateur ALFRED CPL",
+    "conception d'un parcours de formation interne à un déploiement"
+  ],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "La procédure de formation des utilisateurs est le parcours structuré par lequel un nouvel utilisateur ou administrateur d'ALFRED CPL acquiert progressivement les compétences nécessaires à son usage, aligné sur les paliers d'autonomie progressive du système plutôt que sur une formation initiale exhaustive.",
+    "core_principles": [
+      "Le palier de prise en main couvre les interactions de base (poser une question, consulter une réponse sourcée, comprendre les limites du système) et doit pouvoir être acquis en une session courte.",
+      "Le palier des usages métiers approfondit les cas d'usage spécifiques au contexte professionnel de l'utilisateur (gestion de projet, conformité, RH) avec des scénarios concrets tirés de son activité réelle.",
+      "Le palier d'autonomie avancée couvre la personnalisation du système, la compréhension de sa gouvernance (traçabilité, human-in-the-loop) et, pour les administrateurs, la console d'administration.",
+      "La progression entre paliers n'est pas strictement chronologique : elle peut être adaptée au rythme et au besoin réel de chaque utilisateur, dans une logique de calibrage plutôt que de programme rigide imposé."
+    ],
+    "rules": [
+      "Ne jamais présenter à un nouvel utilisateur les fonctionnalités du palier d'autonomie avancée avant qu'il ait consolidé la prise en main de base.",
+      "Adapter le contenu du palier des usages métiers au contexte professionnel réel de l'utilisateur plutôt que d'utiliser des exemples génériques.",
+      "Vérifier, avant de clore un parcours de formation, que l'utilisateur comprend les limites du système et sait comment escalader vers un humain.",
+      "Documenter pour chaque client ou déploiement le palier de formation atteint, utile pour adapter le support et anticiper les besoins de montée en compétence."
+    ],
+    "examples": [
+      {
+        "situation": "Un cabinet de conseil (profil Atlas Conseil) démarre son déploiement ALFRED CPL avec plusieurs consultants aux profils techniques hétérogènes.",
+        "recommended_behavior": "Démarrer tous les utilisateurs sur le palier de prise en main commun, puis différencier le palier des usages métiers selon le rôle (consultant terrain vs gestionnaire de mission), avant de proposer le palier d'autonomie avancée aux seuls profils qui en expriment le besoin.",
+        "avoid": "Dispenser une formation unique identique et exhaustive à tous les profils dès le premier jour, créant surcharge cognitive et faible rétention."
+      }
+    ],
+    "best_practices": [
+      "Prévoir des scénarios de démonstration concrets et sourcés (voir cpl.demo_scenario) pour illustrer chaque palier plutôt que des explications abstraites.",
+      "Recueillir un retour utilisateur à l'issue de chaque palier pour ajuster le rythme du palier suivant.",
+      "Réutiliser les mêmes scénarios de formation entre l'onboarding client et la démonstration commerciale, pour garantir une cohérence du discours produit."
+    ],
+    "anti_patterns": [
+      "Former un utilisateur à toutes les fonctionnalités avancées avant qu'il ait pratiqué les usages de base, provoquant une surcharge cognitive contre-productive.",
+      "Utiliser des exemples de formation génériques déconnectés du contexte métier réel de l'utilisateur.",
+      "Considérer la formation comme un événement ponctuel unique plutôt qu'un accompagnement progressif aligné sur l'autonomie croissante du système."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["formation_utilisateur", "onboarding", "paliers_autonomie", "adoption"],
+    "related_domains": ["cpl"],
+    "related_knowledge": [
+      "cpl.product_platform.progressive_autonomy_ai_risk",
+      "cpl.product_platform.administration_console",
+      "cpl.demo_scenario.pmo07_project_launch_procedure_v3_2"
+    ],
+    "retrieval_priority": 6
+  },
+  "behavior_rules": {
+    "tone": "professional_supportive",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["conception d'un parcours de formation ou d'onboarding ALFRED CPL"],
+    "restricted_usage": ["formation avancée dispensée sans validation préalable des compétences de base"],
+    "forbidden_usage": ["former un administrateur aux fonctions sensibles de la console d'administration sans vérification de son habilitation"],
+    "fallback_behavior": "En cas de doute sur le palier approprié pour un utilisateur, proposer par défaut le palier de prise en main avant tout accès élargi."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "17/07/2026",
+    "last_update": "17/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

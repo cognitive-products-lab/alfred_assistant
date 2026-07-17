@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.operations_continuite.gestion_montees_version_production",
+  "title": "Gestion des montées de version en production ALFRED CPL",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "operations_continuite",
+  "category": "cpl operations continuite",
+  "summary": "Une montée de version en production d'ALFRED CPL doit être réversible par conception (rollback testé, déploiement progressif) plutôt que testée uniquement en amont, car un changement de modèle ou de règles peut produire des régressions comportementales subtiles non détectées par les tests fonctionnels classiques.",
+  "purpose": "Compléter les procédures de continuité opérationnelle déjà couvertes (haute disponibilité, incidents, supervision) par un traitement spécifique du risque propre aux montées de version d'un système IA, distinct d'une mise à jour logicielle classique.",
+  "tags": ["montee_version", "rollback", "deploiement_progressif", "continuite_service", "cpl"],
+  "intents": ["design_ai_version_rollout", "plan_rollback_strategy", "detect_behavioral_regression"],
+  "usage_context": [
+    "planification d'une montée de version majeure d'ALFRED CPL en production",
+    "détection d'une régression comportementale après une mise à jour"
+  ],
+  "priority": "high",
+  "safety_level": "sensitive",
+  "content": {
+    "definition": "La gestion des montées de version en production est le processus encadrant le déploiement d'une nouvelle version du modèle, des règles ou des composants d'ALFRED CPL chez les clients, conçu pour rester réversible à tout moment et pour détecter rapidement une régression comportementale, risque spécifique aux systèmes IA qui ne se limite pas aux bugs fonctionnels classiques détectés par les tests automatisés.",
+    "core_principles": [
+      "Une régression comportementale IA (changement de ton, de fiabilité des réponses, de respect des garde-fous) peut survenir sans qu'aucun test fonctionnel classique n'échoue, car elle relève d'un changement de comportement statistique plutôt que d'un bug déterministe.",
+      "Le déploiement progressif (limiter la nouvelle version à un périmètre restreint avant généralisation) permet de détecter une régression comportementale sur un échantillon limité avant qu'elle n'affecte l'ensemble des utilisateurs.",
+      "Le rollback doit être testé et documenté avant le déploiement, pas conçu dans l'urgence au moment où un problème est détecté — un rollback non testé peut lui-même introduire de nouveaux risques.",
+      "La communication de la montée de version aux utilisateurs (nouveauté, changement de comportement attendu) réduit le risque qu'un changement légitime soit interprété à tort comme une régression, et inversement."
+    ],
+    "rules": [
+      "Ne jamais déployer une montée de version majeure de modèle ou de règles sans plan de rollback testé au préalable.",
+      "Privilégier un déploiement progressif (canary, périmètre restreint) pour toute montée de version significative avant généralisation complète.",
+      "Définir des indicateurs de surveillance comportementale spécifiques (pas seulement techniques) à observer pendant la phase de déploiement progressif.",
+      "Documenter et communiquer les changements de comportement attendus de la nouvelle version, pour distinguer un changement voulu d'une régression réelle."
+    ],
+    "examples": [
+      {
+        "situation": "Une nouvelle version du modèle de raisonnement d'ALFRED CPL est prête à être déployée chez l'ensemble des clients.",
+        "recommended_behavior": "Déployer d'abord sur un périmètre restreint représentatif, surveiller les indicateurs de comportement (taux d'escalade humaine, taux de correction utilisateur) pendant une période définie, et ne généraliser qu'après validation, avec un rollback testé disponible à tout moment de la phase.",
+        "avoid": "Déployer directement la nouvelle version à l'ensemble des clients sans phase progressive, faute de quoi une régression comportementale non détectée en amont affecterait immédiatement tous les utilisateurs."
+      }
+    ],
+    "best_practices": [
+      "Tester explicitement la procédure de rollback avant chaque montée de version majeure, pas seulement documenter son principe.",
+      "Définir des indicateurs de surveillance comportementale distincts des indicateurs techniques classiques (disponibilité, latence) pour détecter une régression IA spécifique.",
+      "Conserver l'historique des versions déployées et de leurs changements de comportement documentés, pour faciliter le diagnostic en cas d'anomalie détectée a posteriori."
+    ],
+    "anti_patterns": [
+      "Traiter une montée de version de modèle IA comme une mise à jour logicielle classique, en se fiant uniquement aux tests fonctionnels automatisés.",
+      "Concevoir un plan de rollback sans jamais le tester avant d'en avoir réellement besoin en situation d'urgence.",
+      "Généraliser une nouvelle version à l'ensemble des utilisateurs sans phase de déploiement progressif préalable."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["montee_version", "rollback", "deploiement_progressif", "regression_comportementale"],
+    "related_domains": ["cpl", "professional"],
+    "related_knowledge": [
+      "cpl.operations_continuite.haute_disponibilite_alfred_cpl",
+      "professional.governance_ai.model_lifecycle_management",
+      "cpl.operations_continuite.gestion_incidents_alfred_cpl"
+    ],
+    "retrieval_priority": 7
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "high",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["planification d'une montée de version d'ALFRED CPL en production"],
+    "restricted_usage": ["déploiement généralisé sans phase progressive pour une montée de version majeure"],
+    "forbidden_usage": ["déployer une montée de version en production sans plan de rollback testé et disponible"],
+    "fallback_behavior": "Reporter une montée de version majeure tant que le plan de rollback n'a pas été testé et validé."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "17/07/2026",
+    "last_update": "17/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

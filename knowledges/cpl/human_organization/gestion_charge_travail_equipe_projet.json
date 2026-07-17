@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.human_organization.gestion_charge_travail_equipe_projet",
+  "title": "Gestion de la charge de travail d'une équipe projet",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "human_organization",
+  "category": "cpl human organization",
+  "summary": "ALFRED CPL peut objectiver la charge de travail réelle d'une équipe projet (allocation vs capacité disponible) pour prévenir la surcharge silencieuse, en distinguant explicitement charge planifiée et charge perçue, cette dernière ne relevant pas d'une mesure automatisable mais d'un signal humain à recueillir.",
+  "purpose": "Étendre les principes d'energy_management et de prioritisation_personnelle_alfred au niveau collectif d'une équipe projet, pour prévenir la surcharge chronique souvent invisible dans les outils de planification classiques.",
+  "tags": ["charge_travail", "surcharge_equipe", "cpl", "planification_ressources", "prevention_burnout"],
+  "intents": ["assess_team_workload", "prevent_silent_overload", "distinguish_planned_vs_perceived_load"],
+  "usage_context": [
+    "planification de l'allocation d'une équipe sur plusieurs projets simultanés",
+    "détection d'un risque de surcharge avant qu'il ne se traduise en épuisement ou en retard"
+  ],
+  "priority": "high",
+  "safety_level": "sensitive",
+  "content": {
+    "definition": "La gestion de la charge de travail d'une équipe projet consiste à objectiver, au niveau collectif, l'écart entre la charge planifiée (somme des tâches allouées à chaque membre) et la capacité disponible réelle, tout en reconnaissant que la charge perçue par les personnes ne se réduit pas à cette mesure quantitative et nécessite un signal humain complémentaire.",
+    "core_principles": [
+      "La charge planifiée est mesurable objectivement (nombre de tâches, heures allouées, projets simultanés par personne) et peut être suivie de façon systématique par un outil de planification.",
+      "La charge perçue (fatigue, stress, sentiment de surcharge) ne se déduit pas mécaniquement de la charge planifiée : deux personnes avec une charge planifiée identique peuvent avoir une charge perçue très différente selon le contexte personnel ou la nature des tâches.",
+      "La surcharge silencieuse se manifeste souvent d'abord par une dégradation de la qualité ou un allongement des délais avant qu'un signal explicite de fatigue ne soit exprimé, ce qui rend le suivi de la charge planifiée insuffisant seul.",
+      "ALFRED CPL peut objectiver et alerter sur la charge planifiée de façon fiable, mais ne doit jamais se substituer à l'écoute humaine de la charge perçue, qui relève du management direct."
+    ],
+    "rules": [
+      "Suivre systématiquement la charge planifiée cumulée de chaque membre d'équipe sur l'ensemble de ses projets simultanés, pas uniquement projet par projet isolément.",
+      "Signaler proactivement toute allocation cumulée dépassant la capacité disponible déclarée d'une personne, avant que la surcharge ne se traduise en retard ou en dégradation qualité.",
+      "Ne jamais présenter une mesure de charge planifiée comme équivalente à une évaluation de la charge perçue ou du bien-être réel de la personne.",
+      "Rediriger vers un rôle managérial humain toute situation où un signal de surcharge perçue est exprimé, ALFRED CPL n'ayant vocation qu'à objectiver la donnée planifiée."
+    ],
+    "examples": [
+      {
+        "situation": "Un consultant est alloué à plusieurs missions simultanées dont la somme des charges planifiées dépasse sa capacité disponible sur la période.",
+        "recommended_behavior": "Signaler explicitement ce dépassement cumulé au responsable de planification avant que les échéances ne soient compromises, en présentant la donnée factuelle sans interpréter l'état de fatigue réel de la personne.",
+        "avoid": "Attendre qu'un retard ou une baisse de qualité se manifeste sur l'une des missions avant de signaler que la charge cumulée dépassait la capacité disponible depuis le départ."
+      }
+    ],
+    "best_practices": [
+      "Visualiser la charge planifiée cumulée par personne au niveau du portefeuille de projets, pas seulement au niveau de chaque projet isolé.",
+      "Compléter le suivi de charge planifiée par un point d'écoute humain régulier sur la charge perçue, distinct et non automatisable.",
+      "Alerter en amont plutôt qu'en aval : signaler un risque de surcharge dès la phase d'allocation plutôt qu'après la matérialisation d'un retard."
+    ],
+    "anti_patterns": [
+      "Considérer qu'une charge planifiée équilibrée garantit l'absence de surcharge réelle vécue par la personne.",
+      "Suivre la charge de travail projet par projet sans vision cumulée d'une personne allouée à plusieurs projets simultanés.",
+      "Utiliser la donnée de charge planifiée pour évaluer la performance individuelle plutôt que pour prévenir un risque de surcharge collective."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["charge_travail", "surcharge_equipe", "capacite_disponible", "allocation_ressources"],
+    "related_domains": ["cpl", "human"],
+    "related_knowledge": [
+      "cpl.human_organization.energy_management",
+      "human.wellbeing.energy_budgeting",
+      "cpl.execution.task_prioritization"
+    ],
+    "retrieval_priority": 7
+  },
+  "behavior_rules": {
+    "tone": "professional_supportive",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["suivi objectif de la charge de travail planifiée d'une équipe projet"],
+    "restricted_usage": ["évaluation de l'état de fatigue ou de bien-être réel d'une personne à partir de la seule charge planifiée"],
+    "forbidden_usage": ["se substituer à un manager humain pour évaluer ou traiter une situation de surcharge perçue exprimée par une personne"],
+    "fallback_behavior": "Rediriger systématiquement vers un rôle managérial humain dès qu'un signal de charge perçue ou de fatigue est exprimé, au-delà de la simple donnée de charge planifiée."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "17/07/2026",
+    "last_update": "17/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

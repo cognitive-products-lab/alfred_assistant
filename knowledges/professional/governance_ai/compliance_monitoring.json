@@ -1,36 +1,64 @@
 {
-  "knowledge_id": "",
-  "title": "compliance monitoring",
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "professional.governance_ai.compliance_monitoring",
+  "title": "Monitoring continu de la conformité IA",
   "version": "1.0.0",
-  "status": "draft",
-  "domain": "",
-  "subdomain": "",
-  "category": "",
-  "priority": "medium",
+  "status": "active",
+  "domain": "professional",
+  "subdomain": "governance_ai",
+  "category": "ai_governance",
+  "summary": "La conformité IA n'est pas un état acquis à la mise en production mais un processus continu : dérive du modèle, évolution réglementaire et changement d'usage réel peuvent faire sortir un système conforme de sa zone de conformité sans qu'aucune modification technique n'ait été apportée.",
+  "purpose": "Fournir à ALFRED un cadre pour distinguer la conformité IA ponctuelle (évaluation à un instant T) du monitoring continu, et proposer des indicateurs concrets de suivi plutôt qu'une simple checklist initiale.",
+  "tags": ["conformite", "monitoring", "gouvernance_ia", "audit_continu", "derive_modele"],
+  "intents": ["design_ai_compliance_monitoring", "detect_compliance_drift", "define_compliance_kpi"],
+  "usage_context": [
+    "suivi opérationnel d'un système IA après sa mise en production",
+    "conception d'un tableau de bord de gouvernance IA"
+  ],
+  "priority": "high",
   "safety_level": "normal",
-  "summary": "",
-  "purpose": "",
-  "tags": [],
-  "intents": [],
-  "usage_context": [],
   "content": {
-    "summary": "",
-    "links": [],
-    "use_cases": [],
-    "risks": [],
-    "key_points": [],
-    "definition": "",
-    "core_principles": [],
-    "rules": [],
-    "examples": [],
-    "best_practices": [],
-    "anti_patterns": []
+    "definition": "Le monitoring continu de la conformité IA consiste à surveiller dans la durée, au moyen d'indicateurs et de contrôles réguliers, qu'un système IA reste conforme aux exigences réglementaires, éthiques et internes qui s'appliquaient à sa mise en production, malgré la dérive du modèle, l'évolution du cadre légal ou le changement des usages réels des utilisateurs.",
+    "core_principles": [
+      "Trois sources de dérive rendent un système initialement conforme non conforme dans le temps : la dérive du modèle (model drift, les performances évoluent avec de nouvelles données), l'évolution réglementaire (une nouvelle obligation légale s'applique à un système existant), et la dérive d'usage (les utilisateurs emploient le système différemment de l'usage prévu et audité).",
+      "Le monitoring de conformité se distingue de l'audit ponctuel : l'audit évalue un état à une date donnée, le monitoring détecte les écarts en continu entre deux audits.",
+      "Un dispositif de monitoring efficace combine des indicateurs quantitatifs (taux d'erreur par groupe protégé, taux d'escalade humaine, volume de réclamations) et des revues qualitatives périodiques.",
+      "La responsabilité du monitoring doit être explicitement attribuée à un rôle identifié, faute de quoi elle se dilue et n'est exercée par personne en pratique."
+    ],
+    "rules": [
+      "Définir dès la conception du système les indicateurs de conformité à surveiller et leur fréquence de revue, pas seulement les critères de conformité initiale.",
+      "Déclencher une réévaluation de conformité à chaque changement significatif : mise à jour majeure du modèle, nouvelle réglementation applicable, changement d'usage constaté.",
+      "Conserver un historique des résultats de monitoring pour pouvoir démontrer la diligence de l'organisation en cas de contrôle ou d'incident.",
+      "Ne jamais interpréter l'absence d'alerte comme une preuve de conformité si le dispositif de monitoring lui-même n'a pas été validé et testé."
+    ],
+    "examples": [
+      {
+        "situation": "Un système de recommandation conforme lors de son audit initial voit son taux d'escalade humaine chuter fortement six mois plus tard.",
+        "recommended_behavior": "Traiter cette baisse comme un signal à investiguer : elle peut indiquer une confiance excessive des utilisateurs, un contournement du mécanisme d'escalade, ou une évolution du modèle réduisant les cas ambigus détectés — toutes hypothèses nécessitant vérification avant d'être écartées.",
+        "avoid": "Considérer la baisse du taux d'escalade comme une amélioration du système sans en vérifier la cause réelle."
+      }
+    ],
+    "best_practices": [
+      "Mettre en place un tableau de bord de conformité IA distinct du tableau de bord de performance technique, avec des indicateurs propres (équité, transparence, taux de supervision humaine).",
+      "Planifier des revues de conformité à fréquence régulière (trimestrielle a minima pour les systèmes à risque), indépendamment de tout incident déclencheur.",
+      "Documenter explicitement qui est responsable de chaque indicateur de monitoring et quelle action est attendue en cas de dépassement de seuil."
+    ],
+    "anti_patterns": [
+      "Traiter la conformité comme un jalon de mise en production plutôt qu'un processus continu, ce qui expose l'organisation à une non-conformité silencieuse.",
+      "Multiplier les indicateurs de monitoring sans définir d'action associée à chaque seuil d'alerte, créant une illusion de contrôle.",
+      "Laisser la responsabilité du monitoring diffuse entre plusieurs équipes sans propriétaire clairement identifié."
+    ]
   },
   "retrieval_hints": {
-    "priority_keywords": [],
-    "related_domains": [],
-    "related_knowledge": [],
-    "retrieval_priority": 5
+    "priority_keywords": ["monitoring_conformite", "derive_modele", "audit_continu", "indicateurs_gouvernance_ia"],
+    "related_domains": ["professional", "cpl", "risk_management"],
+    "related_knowledge": [
+      "professional.governance_ai.ai_auditability",
+      "professional.governance_ai.ai_risk_management",
+      "cpl.product_platform.progressive_autonomy_ai_risk"
+    ],
+    "retrieval_priority": 6
   },
   "behavior_rules": {
     "tone": "professional",
@@ -39,17 +67,17 @@
     "allow_humor": false
   },
   "safety_notes": {
-    "allowed_usage": [],
-    "restricted_usage": [],
-    "forbidden_usage": [],
-    "fallback_behavior": "Solliciter une validation humaine si ambiguïté."
+    "allowed_usage": ["conception d'un dispositif de monitoring de conformité IA", "explication des sources de dérive de conformité"],
+    "restricted_usage": ["évaluation définitive de conformité réglementaire sans validation par un expert compétent"],
+    "forbidden_usage": ["affirmer qu'un système reste conforme sans monitoring effectif en place"],
+    "fallback_behavior": "Recommander la mise en place d'indicateurs de suivi et la validation par un responsable conformité plutôt que d'affirmer une conformité non vérifiée dans le temps."
   },
   "metadata": {
     "author": "ALFRED_SYSTEM",
-    "creation_date": "11/07/2026",
-    "last_update": "11/07/2026",
-    "review_status": "draft",
-    "reviewed_by": "",
+    "creation_date": "17/07/2026",
+    "last_update": "17/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
     "source_type": "manual_structured_knowledge",
     "language": "fr",
     "retrieval_ready": true,

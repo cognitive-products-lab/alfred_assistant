@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.execution.gestion_dependances_projet",
+  "title": "Gestion des dépendances entre tâches et projets",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "execution",
+  "category": "cpl execution",
+  "summary": "La gestion des dépendances identifie et rend visibles les liens de blocage entre tâches, avant qu'ils ne se manifestent comme des retards en cascade, en distinguant les dépendances internes à un projet des dépendances inter-projets souvent invisibles dans les outils de suivi classiques.",
+  "purpose": "Compléter task_prioritization et project_management_core par un traitement spécifique des dépendances, cause fréquente de retard non anticipé dans l'exécution de projet.",
+  "tags": ["gestion_dependances", "planification", "cpl", "risque_projet", "chemin_critique"],
+  "intents": ["identify_task_dependencies", "map_cross_project_dependencies", "anticipate_cascading_delay"],
+  "usage_context": [
+    "planification d'un projet avec des tâches interdépendantes",
+    "anticipation d'un risque de retard en cascade sur un portefeuille de projets"
+  ],
+  "priority": "high",
+  "safety_level": "normal",
+  "content": {
+    "definition": "La gestion des dépendances est la pratique consistant à identifier explicitement les relations de blocage entre tâches (une tâche ne peut démarrer ou se terminer sans l'achèvement d'une autre) et à les rendre visibles dans le plan de projet, afin d'anticiper les risques de retard en cascade plutôt que de les découvrir au moment où ils se matérialisent.",
+    "core_principles": [
+      "Une dépendance interne relie deux tâches d'un même projet et est généralement bien capturée par les outils de planification classiques (diagramme de Gantt, chemin critique).",
+      "Une dépendance inter-projets relie une tâche d'un projet à une ressource, une décision ou une livraison d'un autre projet, et reste souvent invisible car elle sort du périmètre de suivi habituel d'un chef de projet unique.",
+      "Le chemin critique d'un projet est la séquence de tâches dépendantes dont le retard cumulé impacte directement la date de fin du projet — toute tâche hors chemin critique dispose d'une marge (slack) qui ne doit pas être confondue avec une absence de dépendance.",
+      "Une dépendance non documentée n'est pas absente, elle est simplement invisible jusqu'à ce qu'elle se manifeste comme un blocage imprévu, généralement au pire moment du calendrier."
+    ],
+    "rules": [
+      "Cartographier explicitement, dès la planification, les dépendances internes et inter-projets d'une tâche, pas seulement son propre périmètre d'exécution.",
+      "Identifier le chemin critique du projet et le distinguer clairement des tâches disposant d'une marge, pour prioriser la surveillance sur les éléments réellement bloquants.",
+      "Réévaluer la carte des dépendances à chaque changement significatif de calendrier d'un projet lié, pas seulement au lancement initial.",
+      "Signaler proactivement toute dépendance inter-projets à risque, plutôt que d'attendre que le retard du projet dépendant se matérialise avant d'alerter."
+    ],
+    "examples": [
+      {
+        "situation": "Le lancement d'une nouvelle mission (profil Atlas Conseil) dépend de la disponibilité d'un consultant actuellement affecté à un autre projet dont la date de fin a glissé.",
+        "recommended_behavior": "Identifier explicitement cette dépendance inter-projets dès la planification de la nouvelle mission, suivre l'avancement du projet source, et alerter en amont si le glissement menace la date de démarrage prévue.",
+        "avoid": "Planifier la nouvelle mission en supposant la disponibilité du consultant sans vérifier l'état d'avancement réel du projet dont dépend sa libération."
+      }
+    ],
+    "best_practices": [
+      "Utiliser une représentation visuelle des dépendances (diagramme de dépendances, chemin critique) plutôt qu'une liste de tâches non reliées entre elles.",
+      "Documenter systématiquement les dépendances inter-projets dans un registre partagé accessible aux responsables des différents projets concernés.",
+      "Réévaluer périodiquement la criticité des dépendances à mesure que le projet avance, une dépendance initialement mineure pouvant devenir bloquante suite à un changement de contexte."
+    ],
+    "anti_patterns": [
+      "Se concentrer uniquement sur les dépendances internes au projet en ignorant les dépendances vers des ressources ou décisions externes.",
+      "Confondre l'absence de documentation d'une dépendance avec son absence réelle, découvrant le blocage seulement lorsqu'il se matérialise.",
+      "Traiter toutes les tâches avec la même vigilance de suivi sans distinguer celles situées sur le chemin critique de celles disposant d'une marge."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["dependances_taches", "chemin_critique", "retard_cascade", "dependances_inter_projets"],
+    "related_domains": ["cpl", "gestion_projet"],
+    "related_knowledge": [
+      "cpl.execution.project_management_core",
+      "cpl.execution.task_prioritization",
+      "gestion_projet"
+    ],
+    "retrieval_priority": 7
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["identification et cartographie des dépendances entre tâches ou projets"],
+    "restricted_usage": ["engagement de délai sans vérification préalable des dépendances inter-projets"],
+    "forbidden_usage": ["affirmer l'absence de risque de retard sans avoir vérifié les dépendances externes au projet"],
+    "fallback_behavior": "Signaler l'incertitude sur une dépendance non vérifiée plutôt que de garantir un calendrier qui en dépend implicitement."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "17/07/2026",
+    "last_update": "17/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

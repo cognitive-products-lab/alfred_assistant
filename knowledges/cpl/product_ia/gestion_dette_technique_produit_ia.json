@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.product_ia.gestion_dette_technique_produit_ia",
+  "title": "Gestion de la dette technique d'un produit IA",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "product_ia",
+  "category": "cpl product ia",
+  "summary": "La dette technique d'un produit IA a une dimension spécifique au-delà du code : dette de données (jeux d'entraînement non maintenus), dette de modèle (versions non réévaluées) et dette de gouvernance (règles de sécurité non revues), qui doivent être budgétées explicitement dans la roadmap.",
+  "purpose": "Donner à ALFRED CPL un cadre pour arbitrer les décisions de roadmap produit IA en tenant compte des trois dimensions spécifiques de dette technique propres à l'IA, au-delà de la dette de code logicielle classique déjà connue.",
+  "tags": ["dette_technique", "produit_ia", "roadmap", "cpl", "maintenance_modele"],
+  "intents": ["manage_ai_technical_debt", "budget_model_maintenance", "prioritize_governance_debt"],
+  "usage_context": [
+    "arbitrage de priorisation roadmap entre nouvelles fonctionnalités et maintenance du produit IA",
+    "évaluation de la santé technique d'un produit IA en fonctionnement"
+  ],
+  "priority": "high",
+  "safety_level": "normal",
+  "content": {
+    "definition": "La dette technique d'un produit IA est l'ensemble des compromis de conception ou de maintenance différée qui dégradent progressivement la qualité, la sécurité ou la conformité du système, avec trois dimensions propres à l'IA en plus de la dette de code classique : la dette de données, la dette de modèle et la dette de gouvernance.",
+    "core_principles": [
+      "La dette de données correspond aux jeux de données, contextes ou documents sources qui ne sont plus maintenus ou mis à jour, dégradant silencieusement la pertinence des réponses sans que le code du système n'ait changé.",
+      "La dette de modèle correspond à l'absence de réévaluation périodique d'un modèle ou d'une version de règles déployée, alors que sa performance ou son comportement peut avoir dérivé (voir compliance_monitoring) sans alerte automatique.",
+      "La dette de gouvernance correspond aux règles de sécurité, de consentement ou de supervision humaine définies à un instant donné et jamais revues malgré l'évolution des fonctionnalités du produit, créant un écart croissant entre gouvernance théorique et réalité opérationnelle.",
+      "Ces trois dettes sont souvent invisibles dans les indicateurs de vélocité produit classiques (features livrées) car elles ne bloquent pas immédiatement le développement, mais elles dégradent la qualité perçue et le risque du produit dans la durée."
+    ],
+    "rules": [
+      "Allouer explicitement une part du temps de roadmap à la réduction de dette technique IA, distincte du temps alloué aux nouvelles fonctionnalités.",
+      "Réévaluer périodiquement la pertinence des données et contextes utilisés par le système, pas seulement sa disponibilité technique.",
+      "Ne jamais laisser une règle de gouvernance définie à la création du produit rester non révisée après l'ajout de fonctionnalités significatives qui en changent la portée réelle.",
+      "Documenter la dette technique IA identifiée dans un registre visible par les décideurs produit, au même titre que la dette de code."
+    ],
+    "examples": [
+      {
+        "situation": "ALFRED CPL a ajouté plusieurs nouvelles fonctionnalités d'autonomie depuis sa mise en production initiale, mais les règles de human-in-the-loop n'ont pas été réévaluées depuis.",
+        "recommended_behavior": "Identifier explicitement cette dette de gouvernance dans la roadmap et planifier une revue des règles de supervision humaine à la lumière des nouvelles fonctionnalités, plutôt que de considérer les règles initiales comme définitivement adaptées.",
+        "avoid": "Continuer à ajouter des fonctionnalités d'autonomie sans jamais revisiter si le cadre de gouvernance initial reste proportionné au risque réel du système actuel."
+      }
+    ],
+    "best_practices": [
+      "Intégrer un indicateur de fraîcheur des données et du contexte utilisé dans le tableau de bord produit, au même titre que les indicateurs de performance fonctionnelle.",
+      "Planifier des revues périodiques de gouvernance à fréquence fixe, indépendamment de l'ajout de nouvelles fonctionnalités, pour éviter l'accumulation silencieuse de dette.",
+      "Prioriser la réduction de dette technique IA à effet de sécurité ou de conformité avant la dette à effet purement de qualité perçue."
+    ],
+    "anti_patterns": [
+      "Considérer que la dette technique d'un produit IA se limite à la dette de code, en ignorant les dimensions données et gouvernance.",
+      "Reporter indéfiniment la réévaluation d'un modèle ou d'une règle de gouvernance faute d'indicateur d'alerte visible.",
+      "Prioriser systématiquement les nouvelles fonctionnalités au détriment de la maintenance IA, jusqu'à ce qu'un incident révèle la dette accumulée."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["dette_technique", "dette_donnees", "dette_modele", "dette_gouvernance", "roadmap_produit_ia"],
+    "related_domains": ["cpl", "professional"],
+    "related_knowledge": [
+      "professional.governance_ai.compliance_monitoring",
+      "professional.governance_ai.model_lifecycle_management",
+      "cpl.product_platform.progressive_autonomy_ai_risk"
+    ],
+    "retrieval_priority": 7
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["arbitrage de roadmap produit IA intégrant la dette technique", "identification de dette de données, modèle ou gouvernance"],
+    "restricted_usage": ["décision de report indéfini d'une dette à impact de sécurité ou conformité"],
+    "forbidden_usage": ["ignorer une dette de gouvernance identifiée comme ayant un impact direct sur la sécurité utilisateur"],
+    "fallback_behavior": "Signaler toute dette technique IA à impact potentiel de sécurité ou conformité comme prioritaire, même en l'absence de pression immédiate côté fonctionnalités."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "17/07/2026",
+    "last_update": "17/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

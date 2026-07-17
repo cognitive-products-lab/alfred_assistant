@@ -1,72 +1,91 @@
 {
-  "_meta": {
-    "project": "ALFRED",
-    "block": "B18",
-    "file": "data_minimization.json",
-    "version": "V1.0",
-    "status": "VALIDATED",
-    "updated": "2026-05-13",
-    "standardized_by": "generate_knowledges.py",
-    "validated_by": "Cognitive Products Lab",
-    "validated_date": "2026-05-13"
-  },
-  "id": "knowledges.professional.governance_ai.data_minimization",
-  "domain": "professional_governance",
-  "category": "ai_governance",
-  "title": "Data Minimization",
-  "description": "Réduction des données collectées au strict nécessaire.",
-  "version": "1.0",
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "professional.governance_ai.data_minimization",
+  "title": "Minimisation des données dans les systèmes IA",
+  "version": "1.1.0",
   "status": "active",
-  "tags": [
-    "ai governance",
-    "data minimization",
-    "governance ai",
-    "professional",
-    "professional governance"
+  "domain": "professional",
+  "subdomain": "governance_ai",
+  "category": "ai_governance",
+  "summary": "La minimisation des données limite la collecte et la conservation aux seules données strictement nécessaires à la finalité du système IA, réduisant à la fois le risque réglementaire (RGPD) et la surface d'exposition en cas d'incident de sécurité.",
+  "purpose": "Donner à ALFRED un principe de conception distinct du consentement : le consentement porte sur l'autorisation d'usage d'une donnée, la minimisation sur la nécessité réelle de la collecter et de la conserver.",
+  "tags": ["minimisation_donnees", "rgpd", "gouvernance_ia", "retention", "vie_privee"],
+  "intents": ["apply_data_minimization", "design_retention_policy", "reduce_data_exposure_risk"],
+  "usage_context": [
+    "conception de la politique de collecte de données d'un système IA",
+    "arbitrage entre besoin fonctionnel et volume de données collectées"
   ],
+  "priority": "high",
+  "safety_level": "normal",
   "content": {
-    "summary": "Réduction des données collectées au strict nécessaire.",
-    "details": [
-      "Minimal collection",
-      "Limited retention",
-      "Need-to-know basis",
-      "Réduire les risques RGPD",
-      "Limiter l’exposition données",
-      "Améliorer la confiance",
-      "Mémoire sélective",
-      "Rétention limitée",
-      "Suppression automatique"
+    "definition": "La minimisation des données est le principe selon lequel un système IA ne doit collecter, traiter et conserver que les données strictement nécessaires à l'accomplissement de sa finalité déclarée, avec une durée de rétention limitée et une suppression automatique une fois la finalité atteinte ou le besoin disparu.",
+    "core_principles": [
+      "La collecte minimale (minimal collection) impose de justifier chaque donnée collectée par un besoin fonctionnel précis, et non par une utilité potentielle future non définie.",
+      "La rétention limitée (limited retention) fixe une durée de conservation proportionnée à la finalité, au-delà de laquelle la donnée doit être supprimée ou anonymisée.",
+      "Le principe du besoin de savoir (need-to-know basis) restreint l'accès à une donnée aux seuls composants ou processus qui en ont réellement besoin pour fonctionner.",
+      "La minimisation réduit mécaniquement les risques RGPD (moins de données = moins d'exposition en cas de violation) et améliore la confiance utilisateur en rendant le système plus prévisible."
     ],
-    "references": []
+    "rules": [
+      "Justifier explicitement, pour chaque type de donnée collectée par un système IA, la finalité précise qui en nécessite la collecte.",
+      "Définir une durée de rétention pour chaque catégorie de données, avec suppression ou anonymisation automatique à l'échéance.",
+      "Préférer une mémoire sélective (ne conserver que ce qui reste pertinent pour l'usage) à une mémoire exhaustive par défaut.",
+      "Revoir périodiquement la politique de minimisation à mesure que les fonctionnalités du système évoluent, pour éviter une dérive de collecte non justifiée."
+    ],
+    "examples": [
+      {
+        "situation": "Conception de la mémoire long terme d'ALFRED CPL destinée à personnaliser les réponses.",
+        "recommended_behavior": "Mettre en place une politique de rétention limitée avec suppression automatique des informations devenues obsolètes ou non pertinentes, plutôt qu'un stockage indéfini de tout l'historique conversationnel.",
+        "avoid": "Conserver l'intégralité des échanges indéfiniment au motif qu'ils pourraient être utiles un jour."
+      }
+    ],
+    "best_practices": [
+      "Documenter la finalité de chaque catégorie de donnée collectée dès la conception, pas a posteriori pour justifier un choix déjà fait.",
+      "Mettre en place des mécanismes techniques de suppression automatique plutôt que des procédures manuelles rarement exécutées.",
+      "Arbitrer explicitement, en cas de tension entre richesse de personnalisation et minimisation, en documentant le choix retenu et sa justification."
+    ],
+    "anti_patterns": [
+      "Collecter des données « au cas où » sans finalité précise identifiée au moment de la collecte.",
+      "Fixer une politique de rétention sans mécanisme technique de suppression automatique effectif.",
+      "Considérer que la minimisation nuit systématiquement à la qualité du service, alors qu'une mémoire sélective bien conçue peut être plus pertinente qu'une mémoire exhaustive."
+    ]
   },
-  "metadata": {
-    "created": "2026-05-12",
-    "updated": "2026-05-12",
-    "author": "Cognitive Products Lab"
+  "retrieval_hints": {
+    "priority_keywords": ["minimisation_donnees", "retention", "suppression_automatique", "need_to_know"],
+    "related_domains": ["professional", "cpl", "compliance"],
+    "related_knowledge": [
+      "professional.governance_ai.consent_management",
+      "professional.governance_ai.sensitive_data_handling",
+      "compliance.data_protection.rgpd_compliance_operationnel"
+    ],
+    "retrieval_priority": 7
   },
-  "core_concepts": [
-    "Minimal collection",
-    "Limited retention",
-    "Need-to-know basis"
-  ],
-  "objectives": [
-    "Réduire les risques RGPD",
-    "Limiter l’exposition données",
-    "Améliorer la confiance"
-  ],
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["conception d'une politique de minimisation des données", "arbitrage collecte/finalité"],
+    "restricted_usage": ["extension de la collecte de données au-delà de la finalité initialement déclarée sans réévaluation"],
+    "forbidden_usage": ["collecter une donnée sans finalité identifiable au moment de la collecte"],
+    "fallback_behavior": "Ne pas collecter une donnée en cas de doute sur sa nécessité, et solliciter une clarification de la finalité avant toute collecte étendue."
+  },
   "alfred_application": [
-    "Mémoire sélective",
-    "Rétention limitée",
-    "Suppression automatique"
+    "Mémoire sélective plutôt qu'exhaustive pour la personnalisation utilisateur",
+    "Rétention limitée avec durée définie par catégorie de donnée",
+    "Suppression automatique des données devenues non pertinentes"
   ],
-  "aliases": [],
-  "relationships": {
-    "merged_from": [],
-    "see_also": [],
-    "depends_on": []
-  },
-  "retrieval": {
-    "priority": "medium",
-    "trigger_queries": []
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "12/05/2026",
+    "last_update": "17/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
   }
 }

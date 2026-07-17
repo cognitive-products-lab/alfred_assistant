@@ -1,72 +1,91 @@
 {
-  "_meta": {
-    "project": "ALFRED",
-    "block": "B18",
-    "file": "consent_management.json",
-    "version": "V1.0",
-    "status": "VALIDATED",
-    "updated": "2026-05-13",
-    "standardized_by": "generate_knowledges.py",
-    "validated_by": "Cognitive Products Lab",
-    "validated_date": "2026-05-13"
-  },
-  "id": "knowledges.professional.governance_ai.consent_management",
-  "domain": "professional_governance",
-  "category": "ai_governance",
-  "title": "Consent Management",
-  "description": "Gestion du consentement utilisateur.",
-  "version": "1.0",
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "professional.governance_ai.consent_management",
+  "title": "Gestion du consentement utilisateur",
+  "version": "1.1.0",
   "status": "active",
-  "tags": [
-    "ai governance",
-    "consent management",
-    "governance ai",
-    "professional",
-    "professional governance"
+  "domain": "professional",
+  "subdomain": "governance_ai",
+  "category": "ai_governance",
+  "summary": "La gestion du consentement encadre l'accord explicite et révocable qu'un utilisateur donne pour l'activation de fonctions IA sensibles (micro, caméra, mémoire persistante), avec information claire et retrait possible à tout moment.",
+  "purpose": "Donner à ALFRED un cadre opérationnel de gestion du consentement distinct de la minimisation des données : le consentement porte sur l'autorisation d'usage, la minimisation sur le volume de données collectées.",
+  "tags": ["consentement", "gouvernance_ia", "rgpd", "vie_privee", "controle_utilisateur"],
+  "intents": ["manage_user_consent", "explain_consent_revocation", "design_consent_flow"],
+  "usage_context": [
+    "activation d'une fonction IA sensible (micro, caméra, mémoire persistante)",
+    "audit du parcours de consentement d'un produit IA"
   ],
+  "priority": "high",
+  "safety_level": "sensitive",
   "content": {
-    "summary": "Gestion du consentement utilisateur.",
-    "details": [
-      "Explicit consent",
-      "Revocable consent",
-      "Granular permissions",
-      "Consentement clair",
-      "Retrait possible",
-      "Information transparente",
-      "Activation micros",
-      "Caméras locales",
-      "Mémoire utilisateur"
+    "definition": "La gestion du consentement est le processus par lequel un système IA obtient, documente et respecte l'autorisation explicite d'un utilisateur avant d'activer une fonctionnalité impliquant un traitement sensible de ses données, et lui permet de retirer cette autorisation à tout moment sans dégradation punitive du service.",
+    "core_principles": [
+      "Le consentement valide au sens RGPD doit être libre, spécifique, éclairé et univoque : une case pré-cochée ou une activation par défaut ne constitue pas un consentement valide.",
+      "Le consentement est granulaire par fonction (micro, caméra, mémoire) et non global : autoriser la mémoire ne doit pas activer implicitement la caméra.",
+      "Le consentement est révocable à tout moment, avec un mécanisme de retrait aussi simple que le mécanisme d'octroi initial.",
+      "L'information préalable doit être compréhensible sans jargon technique ou juridique, expliquant concrètement ce que la fonction fait et à quoi servent les données collectées."
     ],
-    "references": []
+    "rules": [
+      "Ne jamais activer une fonction sensible (micro, caméra, mémoire persistante) sans consentement explicite préalable et documenté.",
+      "Proposer un retrait de consentement en un nombre d'étapes équivalent ou inférieur à l'octroi initial.",
+      "Réafficher une demande de consentement en cas de changement significatif de finalité d'usage d'une donnée déjà consentie.",
+      "Documenter chaque consentement et chaque retrait avec horodatage, pour répondre à une obligation de preuve en cas de contrôle."
+    ],
+    "examples": [
+      {
+        "situation": "Un utilisateur souhaite activer la reconnaissance vocale continue d'ALFRED CPL.",
+        "recommended_behavior": "Expliquer clairement ce que la fonction implique (écoute active, traitement local, durée de conservation), demander un consentement explicite distinct de tout autre consentement déjà donné, et proposer un accès visible pour le désactiver ensuite.",
+        "avoid": "Activer la fonction par défaut ou la regrouper avec d'autres consentements dans une seule case à cocher globale."
+      }
+    ],
+    "best_practices": [
+      "Concevoir des interfaces de consentement granulaires, fonction par fonction, plutôt qu'un consentement global à l'installation.",
+      "Prévoir un tableau de bord de gestion des consentements accessible et compréhensible pour l'utilisateur final.",
+      "Réévaluer le consentement lors de mises à jour majeures qui changent la finalité d'une fonction déjà autorisée."
+    ],
+    "anti_patterns": [
+      "Présenter le retrait de consentement comme plus complexe ou plus long que son octroi initial.",
+      "Regrouper plusieurs finalités distinctes (micro, caméra, mémoire) sous un seul consentement global.",
+      "Considérer qu'un consentement donné une fois reste valable indéfiniment malgré un changement d'usage de la donnée."
+    ]
   },
-  "metadata": {
-    "created": "2026-05-12",
-    "updated": "2026-05-12",
-    "author": "Cognitive Products Lab"
+  "retrieval_hints": {
+    "priority_keywords": ["consentement", "opt_in", "revocation", "granularite", "micro_camera"],
+    "related_domains": ["professional", "cpl", "compliance"],
+    "related_knowledge": [
+      "professional.governance_ai.data_minimization",
+      "professional.governance_ai.sensitive_data_handling",
+      "cpl.product_platform.identity_access_zero_trust"
+    ],
+    "retrieval_priority": 7
   },
-  "core_concepts": [
-    "Explicit consent",
-    "Revocable consent",
-    "Granular permissions"
-  ],
-  "principles": [
-    "Consentement clair",
-    "Retrait possible",
-    "Information transparente"
-  ],
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["conception d'un parcours de consentement", "explication des exigences RGPD sur le consentement"],
+    "restricted_usage": ["activation d'une fonction sensible en l'absence de consentement clairement documenté"],
+    "forbidden_usage": ["activer un capteur (micro, caméra) sans consentement explicite préalable de l'utilisateur"],
+    "fallback_behavior": "Refuser d'activer toute fonction sensible tant que le consentement explicite n'est pas confirmé."
+  },
   "alfred_application": [
-    "Activation micros",
-    "Caméras locales",
-    "Mémoire utilisateur"
+    "Activation des micros soumise à consentement explicite et révocable",
+    "Activation des caméras locales soumise à consentement explicite et révocable",
+    "Activation de la mémoire persistante utilisateur soumise à consentement granulaire distinct des autres fonctions"
   ],
-  "aliases": [],
-  "relationships": {
-    "merged_from": [],
-    "see_also": [],
-    "depends_on": []
-  },
-  "retrieval": {
-    "priority": "medium",
-    "trigger_queries": []
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "12/05/2026",
+    "last_update": "17/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
   }
 }
