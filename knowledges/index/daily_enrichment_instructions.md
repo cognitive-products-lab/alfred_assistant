@@ -1,6 +1,6 @@
 # Enrichissement quotidien de la base de connaissances ALFRED — Instructions permanentes
 
-**Statut** : actif, continu, sans date de fin. Démarré le 11/07/2026 (exécution manuelle de reprise), automatisé chaque jour à 5h00 à partir du 12/07/2026 via la tâche planifiée `alfred-knowledge-daily-enrichment`.
+**Statut** : actif, continu, sans date de fin. Démarré le 11/07/2026 (exécution manuelle de reprise), automatisé chaque jour à 5h00 à partir du 12/07/2026 via la tâche planifiée `alfred-knowledge-daily-enrichment`. Répartition 20 CPL / 40 socle imposée à partir du 17/07/2026 (voir section « Répartition quotidienne des 60 fichiers »).
 
 ## Mission
 
@@ -44,9 +44,15 @@ Langue : français (`"language": "fr"`) sauf domaine explicitement anglophone.
 - Pas de données personnelles/confidentielles/sensibles sans justification et classification (`safety_level`).
 - Respecter `safety_rules` du template : jamais de credentials/secrets, jamais de diagnostic médical, jamais de guidance illégale, toujours un `fallback_behavior`.
 
-## Répartition quotidienne des 60 fichiers (équilibre à maintenir)
+## Répartition quotidienne des 60 fichiers (règle obligatoire depuis le 17/07/2026)
 
-Mélanger : connaissances générales, professionnelles, techniques, réglementaires, cybersécurité, IA, gouvernance, spécifiques ALFRED CPL, mises à jour de fichiers existants, et création de nouveaux domaines quand pertinent. Ne pas concentrer sur un seul domaine sauf besoin prioritaire documenté.
+Répartition fixe imposée par Céline le 17/07/2026, à respecter sur le total de 60 fichiers (créations + mises à jour comptent dans leur quota respectif) :
+- **20 fichiers domaine `cpl`** (ALFRED CPL) : fonctionnalités, architecture, mémoire, gouvernance IA produit, business/stratégie CPL, opérations/continuité, documentation/procédures, scénarios — voir la liste « Domaines spécifiques à ALFRED CPL » ci-dessous.
+- **40 fichiers hors domaine `cpl`** (« socle » ALFRED — tous les autres domaines : culture générale, professionnel/technique, réglementaire, IA générique, gouvernance générale, etc.) — voir la liste « Domaines de connaissances » ci-dessous.
+
+Si la cible de 60 n'est pas atteinte dans un lot (qualité prioritaire sur le volume, cf. règle déjà en vigueur) : produire en priorité les 20 fichiers CPL au complet, puis compléter avec des fichiers socle jusqu'à épuisement du temps disponible — ne jamais réduire le quota CPL pour compenser un retard côté socle, ni l'inverse. Autrement dit, le socle absorbe seul la variabilité du volume quotidien ; le bloc CPL (20) est la partie non négociable du lot.
+
+Au sein de chaque bloc (20 CPL / 40 socle), continuer à mélanger les sous-thèmes et à éviter de concentrer sur un seul domaine ou sous-domaine, sauf besoin prioritaire documenté (ex. rattrapage avant une échéance CPL).
 
 ## Gestion des doublons
 
@@ -58,6 +64,7 @@ Avant de créer un fichier : chercher l'existant sur le même sujet (registry + 
 2. Régénérer le registre : `python D:\PROJET_ALFRED\ALFRED_PC\tools\knowledge_tools\generate_knowledge_registry.py`.
 3. Mettre à jour `taxonomy.json` (nouveaux domaines/sous-domaines/intents/linked_knowledge) et `manifest.json` (`domains`, `total_domains`, `recently_added_lots`, `last_update`) si de nouveaux domaines/sous-domaines majeurs ont été créés.
 4. Ajouter une entrée au journal `knowledges/index/daily_enrichment_log.md`.
+5. **Obligatoire depuis le 17/07/2026 (consigne Céline) : `git add`, `git commit`, `git push origin main` des fichiers `knowledges/` créés/modifiés/supprimés par le lot.** Se limiter au périmètre `knowledges/` (ne pas ajouter des fichiers modifiés ailleurs dans le dépôt par une autre session en cours, conformément à la vigilance sessions parallèles déjà en place) : `git add knowledges/`. Message de commit court indiquant le numéro de lot et le résumé (ex. `knowledges: lot 10 - 60 fiches (20 cpl / 40 socle)`). Avant de pousser, vérifier avec `git status`/`git diff --stat -- knowledges/` qu'aucun fichier sensible (secrets, tokens, registres d'incidents) ne s'est glissé dans `knowledges/` — cas normalement exclu par construction mais à vérifier par principe. `alfred_assistant` (ce dépôt) est **public** sur GitHub.
 
 ## Écart connu disque / registre (ne pas re-signaler comme anomalie)
 

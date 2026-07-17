@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "lifestyle.health.exercices_sophrologie_quotidien",
+  "title": "Exercices de sophrologie pour le quotidien",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "lifestyle",
+  "subdomain": "health",
+  "category": "techniques_relaxation",
+  "summary": "Trois exercices simples de sophrologie (respiration abdominale, relaxation musculaire progressive, visualisation du lieu ressource) sont transférables en autonomie sans praticien, à condition d'être présentés comme des outils de détente courante et non comme une réponse à une difficulté psychologique installée.",
+  "purpose": "Compléter le cadre théorique de la sophrologie par un contenu opérationnel concret qu'ALFRED peut réellement accompagner, dans les limites strictes de la règle de frontière médicale déjà posée.",
+  "tags": ["exercices_sophrologie", "respiration_abdominale", "relaxation_musculaire", "visualisation"],
+  "intents": ["guide_sophrology_exercise", "explain_abdominal_breathing", "guide_resource_visualization"],
+  "usage_context": [
+    "utilisateur souhaitant un exercice concret de sophrologie pour se détendre",
+    "accompagnement d'un moment de stress courant ou de préparation avant un événement"
+  ],
+  "priority": "medium",
+  "safety_level": "sensitive",
+  "content": {
+    "definition": "Les exercices de sophrologie pour le quotidien sont des pratiques courtes et autonomes, dérivées des trois piliers de la sophrologie (respiration, relaxation musculaire, visualisation), utilisables sans supervision d'un praticien pour des besoins de détente courante, distincts d'un accompagnement structuré par un sophrologue formé.",
+    "core_principles": [
+      "La respiration abdominale (dite aussi respiration diaphragmatique) consiste à inspirer lentement en gonflant le ventre plutôt que la poitrine, puis à expirer plus longuement que l'inspiration, mécanisme associé à une activation du système nerveux parasympathique favorisant la détente.",
+      "La relaxation musculaire progressive consiste à contracter volontairement un groupe musculaire quelques secondes puis à le relâcher complètement, en parcourant successivement les grandes zones du corps, pour permettre de ressentir le contraste entre tension et détente et faciliter le relâchement conscient.",
+      "La visualisation du lieu ressource consiste à se représenter mentalement, avec le plus de détails sensoriels possibles (vue, son, sensation), un lieu ou un souvenir associé à un sentiment de sécurité et de calme, mobilisable rapidement en cas de besoin ponctuel de détente.",
+      "L'efficacité perçue de ces exercices dépend largement de la régularité de la pratique plutôt que de leur seule exécution ponctuelle : une pratique répétée même courte est généralement présentée comme plus bénéfique qu'une pratique longue mais isolée."
+    ],
+    "rules": [
+      "Toujours présenter ces exercices comme des outils de détente courante, jamais comme une réponse à une souffrance psychologique installée ou un trouble déjà nommé par l'utilisateur.",
+      "Guider l'exercice avec des instructions claires et un rythme respectueux du temps de l'utilisateur, sans injonction de résultat immédiat.",
+      "Interrompre immédiatement l'exercice et appliquer la règle de frontière médicale si l'utilisateur exprime, pendant ou après l'exercice, un signal de détresse dépassant le cadre du bien-être courant.",
+      "Ne jamais insister si l'utilisateur exprime un inconfort avec l'exercice proposé (par exemple une gêne avec la fermeture des yeux ou la visualisation) : proposer une alternative ou arrêter plutôt que de forcer la poursuite."
+    ],
+    "examples": [
+      {
+        "situation": "Un utilisateur demande un exercice rapide de sophrologie pour se détendre avant une réunion importante.",
+        "recommended_behavior": "Guider un exercice court de respiration abdominale (inspiration lente sur 4 temps, expiration sur 6 temps, répétée cinq à six fois), avec des instructions simples et un rythme adapté, en terminant par une invitation à noter comment le corps se sent après l'exercice.",
+        "avoid": "Proposer un exercice long et complexe nécessitant un cadre calme non disponible avant une réunion, inadapté au contexte réel exprimé par l'utilisateur."
+      }
+    ],
+    "best_practices": [
+      "Adapter la durée et la complexité de l'exercice proposé au contexte réel exprimé par l'utilisateur (quelques minutes disponibles vs moment calme dédié).",
+      "Proposer systématiquement l'exercice de respiration abdominale en premier, le plus simple et le plus rapidement transférable en autonomie.",
+      "Encourager une pratique régulière courte plutôt qu'une pratique ponctuelle longue, cohérent avec les données disponibles sur l'efficacité perçue de ces techniques."
+    ],
+    "anti_patterns": [
+      "Proposer un exercice de sophrologie comme réponse à une expression de souffrance psychologique intense plutôt que d'appliquer la règle de frontière médicale.",
+      "Insister pour que l'utilisateur poursuive un exercice malgré un inconfort exprimé.",
+      "Présenter l'exercice comme garantissant un résultat immédiat et systématique, alors que l'effet perçu varie selon les personnes et la régularité de pratique."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["respiration_abdominale", "relaxation_musculaire_progressive", "visualisation_lieu_ressource", "exercice_detente"],
+    "related_domains": ["lifestyle", "human"],
+    "related_knowledge": [
+      "lifestyle.health.sophrologie_principes_pratiques",
+      "human.wellbeing.medical_boundary_rules",
+      "human.wellbeing.stress_regulation"
+    ],
+    "retrieval_priority": 6
+  },
+  "behavior_rules": {
+    "tone": "empathetic",
+    "response_style": "step_by_step",
+    "max_complexity": "low",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["accompagnement guidé d'exercices de sophrologie de détente courante"],
+    "restricted_usage": ["poursuite d'un exercice malgré un inconfort exprimé par l'utilisateur"],
+    "forbidden_usage": ["présenter un exercice de sophrologie comme réponse à un trouble psychologique diagnostiqué ou une souffrance intense"],
+    "fallback_behavior": "Interrompre l'exercice et appliquer la règle de frontière médicale dès qu'un signal de détresse dépassant le bien-être courant apparaît, avant ou pendant la pratique."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "17/07/2026",
+    "last_update": "17/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

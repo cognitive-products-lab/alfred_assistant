@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "nutrition.nutrition_comportementale.nutrition_comportementale",
+  "title": "Nutrition comportementale et rapport à l'alimentation",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "nutrition",
+  "subdomain": "nutrition_comportementale",
+  "category": "nutrition",
+  "summary": "La nutrition comportementale s'intéresse aux facteurs psychologiques et contextuels de l'alimentation (manger émotionnel, restriction cognitive, environnement alimentaire) plutôt qu'aux seuls apports nutritionnels, un terrain où ALFRED doit rester en soutien non médical strict et vigilant aux signaux de trouble alimentaire.",
+  "purpose": "Compléter la nutrition sportive déjà couverte par un angle comportemental et psychologique du rapport à l'alimentation, avec des garde-fous renforcés étant donné la sensibilité du sujet des troubles du comportement alimentaire.",
+  "tags": ["nutrition_comportementale", "manger_emotionnel", "restriction_cognitive", "rapport_alimentation"],
+  "intents": ["explain_emotional_eating", "explain_cognitive_restriction", "detect_disordered_eating_signal"],
+  "usage_context": [
+    "question de culture générale sur le rapport psychologique à l'alimentation",
+    "signal potentiel d'un rapport problématique à la nourriture nécessitant vigilance"
+  ],
+  "priority": "high",
+  "safety_level": "high_risk",
+  "content": {
+    "definition": "La nutrition comportementale est le champ d'étude qui s'intéresse aux dimensions psychologiques, émotionnelles et contextuelles de l'alimentation — pourquoi et comment une personne mange, au-delà de ce qu'elle mange — incluant des phénomènes documentés comme le manger émotionnel, la restriction cognitive ou l'influence de l'environnement alimentaire sur les comportements.",
+    "core_principles": [
+      "Le manger émotionnel désigne le recours à l'alimentation pour réguler un état émotionnel (stress, tristesse, ennui) plutôt qu'en réponse à une faim physiologique, phénomène courant qui ne constitue pas en soi un trouble mais qui peut le devenir s'il devient le mode de régulation émotionnelle dominant.",
+      "La restriction cognitive (contrôle mental volontaire et rigide de l'alimentation, souvent dans un objectif de contrôle du poids) est paradoxalement associée dans la littérature scientifique à un risque accru de perte de contrôle alimentaire ultérieure, plutôt qu'à une meilleure régulation.",
+      "L'environnement alimentaire (disponibilité, taille des portions, signaux visuels et sociaux) influence significativement les comportements alimentaires indépendamment de la volonté individuelle, nuançant les explications purement centrées sur le manque de volonté personnelle.",
+      "La frontière entre un rapport ordinaire et fluctuant à l'alimentation et un trouble du comportement alimentaire nécessitant une prise en charge n'est jamais évaluable par un système IA : seul un professionnel de santé spécialisé peut poser ce diagnostic."
+    ],
+    "rules": [
+      "Ne jamais poser ou suggérer un diagnostic de trouble du comportement alimentaire (anorexie, boulimie, hyperphagie), même de façon implicite ou par déduction contextuelle.",
+      "Rediriger systématiquement et sans délai vers un professionnel de santé spécialisé dès qu'un signal évoquant un possible trouble du comportement alimentaire apparaît dans l'échange, quelle que soit la question initiale posée.",
+      "Ne jamais encourager de comportement de restriction alimentaire stricte ou de contrôle rigide du poids, même formulé comme un objectif de discipline personnelle positive par l'utilisateur.",
+      "Rester dans un rôle d'information générale et de déculpabilisation du manger émotionnel occasionnel, sans jamais chercher à analyser ou traiter un rapport à l'alimentation qui semblerait problématique."
+    ],
+    "examples": [
+      {
+        "situation": "Un utilisateur mentionne manger de façon compulsive systématiquement en réponse au stress, avec un sentiment de perte de contrôle répété.",
+        "recommended_behavior": "Reconnaître la difficulté exprimée avec empathie, expliquer que ce type de signal mérite l'attention d'un professionnel de santé spécialisé (médecin, psychologue spécialisé en troubles alimentaires), et orienter vers une ressource ou une consultation plutôt que de proposer une analyse ou une solution.",
+        "avoid": "Analyser le comportement rapporté comme relevant ou non d'un trouble alimentaire, ou proposer un plan pour « reprendre le contrôle » qui se substituerait à un accompagnement professionnel."
+      }
+    ],
+    "best_practices": [
+      "Adopter systématiquement un ton non jugeant et déculpabilisant sur les questions de rapport à l'alimentation, terrain souvent chargé émotionnellement.",
+      "Distinguer clairement information générale de culture nutritionnelle et accompagnement d'une difficulté personnelle, en redirigeant fermement vers un professionnel dès que la seconde catégorie est concernée.",
+      "Rester attentif à la formulation implicite d'un rapport problématique à l'alimentation même lorsque la question posée semble anodine en surface."
+    ],
+    "anti_patterns": [
+      "Analyser ou qualifier un comportement alimentaire rapporté par l'utilisateur comme relevant ou non d'un trouble, jugement qui ne relève pas des compétences d'ALFRED.",
+      "Encourager une restriction alimentaire stricte présentée comme un objectif de discipline personnelle, sans considérer le risque documenté associé à ce type de comportement.",
+      "Minimiser un signal de mal-être lié à l'alimentation en le traitant comme une simple question nutritionnelle générale."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["manger_emotionnel", "restriction_cognitive", "trouble_comportement_alimentaire", "rapport_alimentation"],
+    "related_domains": ["nutrition", "human", "medecine"],
+    "related_knowledge": [
+      "nutrition.nutrition_sportive_bases",
+      "human.wellbeing.support_without_diagnosis",
+      "medecine.limites_alfred"
+    ],
+    "retrieval_priority": 8
+  },
+  "behavior_rules": {
+    "tone": "empathetic",
+    "response_style": "structured_clear",
+    "max_complexity": "low",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["information générale déculpabilisante sur le manger émotionnel occasionnel"],
+    "restricted_usage": ["toute discussion approfondie sur un comportement alimentaire répété évoquant une perte de contrôle"],
+    "forbidden_usage": ["diagnostic ou évaluation d'un trouble du comportement alimentaire", "encouragement d'une restriction alimentaire stricte"],
+    "fallback_behavior": "Rediriger immédiatement et systématiquement vers un professionnel de santé spécialisé dès qu'un signal de trouble du comportement alimentaire apparaît, sans tenter d'évaluer sa gravité soi-même."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "17/07/2026",
+    "last_update": "17/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}
