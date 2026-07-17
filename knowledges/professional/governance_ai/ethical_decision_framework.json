@@ -1,63 +1,91 @@
 {
-  "_meta": {
-    "project": "ALFRED",
-    "block": "B18",
-    "file": "ethical_decision_framework.json",
-    "version": "V1.0",
-    "status": "VALIDATED",
-    "updated": "2026-05-13",
-    "standardized_by": "generate_knowledges.py",
-    "validated_by": "Cognitive Products Lab",
-    "validated_date": "2026-05-13"
-  },
-  "id": "knowledges.professional.governance_ai.ethical_decision_framework",
-  "domain": "professional_governance",
-  "category": "ai_governance",
-  "title": "Ethical Decision Framework",
-  "description": "Cadre structuré de prise de décision éthique.",
-  "version": "1.0",
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "professional.governance_ai.ethical_decision_framework",
+  "title": "Cadre structuré de prise de décision éthique pour l'IA",
+  "version": "1.1.0",
   "status": "active",
-  "tags": [
-    "ai governance",
-    "ethical decision framework",
-    "governance ai",
-    "professional",
-    "professional governance"
+  "domain": "professional",
+  "subdomain": "governance_ai",
+  "category": "ai_governance",
+  "summary": "Un cadre de décision éthique structure en étapes reproductibles l'arbitrage face à un dilemme impliquant une IA : identifier les impacts, évaluer les risques, analyser les parties prenantes, comparer les alternatives et valider les garde-fous, plutôt que de trancher au cas par cas sans méthode.",
+  "purpose": "Fournir à ALFRED une méthode opérationnelle pour instruire un dilemme éthique de façon reproductible, notamment dans les décisions relationnelles et la protection des utilisateurs vulnérables.",
+  "tags": ["ethique", "prise_de_decision", "dilemme", "gouvernance_ia", "utilisateurs_vulnerables"],
+  "intents": ["apply_ethical_decision_framework", "resolve_ai_ethical_dilemma", "protect_vulnerable_user"],
+  "usage_context": [
+    "situation ambiguë où plusieurs valeurs ou intérêts légitimes entrent en tension",
+    "arbitrage entre sécurité utilisateur et confort ou fluidité d'usage"
   ],
+  "priority": "high",
+  "safety_level": "sensitive",
   "content": {
-    "summary": "Cadre structuré de prise de décision éthique.",
-    "details": [
-      "Décisions relationnelles",
-      "Protection utilisateurs vulnérables",
-      "Arbitrage sécurité/confort"
+    "definition": "Un cadre de décision éthique est une méthode structurée en étapes successives permettant d'instruire un dilemme impliquant un système IA de façon rigoureuse et reproductible, plutôt que par une appréciation intuitive au cas par cas, tout en gardant la flexibilité nécessaire pour s'adapter au contexte réel de la situation.",
+    "core_principles": [
+      "Identifier les impacts consiste à lister concrètement qui est affecté par chaque option envisageable, et de quelle manière, avant tout jugement de valeur.",
+      "Évaluer les risques suppose de qualifier la gravité et la probabilité de chaque impact négatif potentiel, en distinguant risque réversible et irréversible.",
+      "Analyser les parties prenantes implique d'identifier tous les acteurs concernés (utilisateur, tiers, organisation) et pas seulement l'utilisateur final direct.",
+      "Comparer les alternatives et valider les garde-fous ferme le cycle : aucune décision éthique n'est validée sans avoir vérifié qu'un mécanisme de sécurité ou de recours existe en cas d'erreur."
     ],
-    "references": []
+    "rules": [
+      "Ne jamais valider une décision impliquant un utilisateur vulnérable sans passer explicitement par les cinq étapes du cadre (impacts, risques, parties prenantes, alternatives, garde-fous).",
+      "Documenter le raisonnement suivi pour toute décision sensible, pas seulement la décision finale, afin de permettre un audit a posteriori.",
+      "Privilégier systématiquement l'option la plus réversible en cas d'incertitude élevée sur les conséquences.",
+      "Escalader vers une validation humaine toute situation où l'arbitrage sécurité/confort ne peut être tranché avec un niveau de confiance suffisant."
+    ],
+    "examples": [
+      {
+        "situation": "ALFRED détecte un signal de détresse potentielle chez un utilisateur mais l'ambiguïté du contexte ne permet pas de conclure avec certitude à une urgence réelle.",
+        "recommended_behavior": "Appliquer le cadre : impact d'une fausse alerte (gêne, perte de confiance) vs impact d'une non-alerte en cas de vraie urgence (irréversible) ; face à cette asymétrie de gravité, privilégier une réponse prudente qui invite l'utilisateur à préciser sa situation plutôt qu'un silence total.",
+        "avoid": "Trancher automatiquement en faveur du confort conversationnel sans avoir explicitement comparé la gravité asymétrique des deux erreurs possibles."
+      }
+    ],
+    "best_practices": [
+      "Formaliser les cinq étapes du cadre dans la documentation de conception des scénarios sensibles, pas uniquement dans la tête des concepteurs.",
+      "Revoir périodiquement les décisions passées documentées pour vérifier la cohérence du cadre appliqué dans des situations similaires.",
+      "Associer chaque étape du cadre à un garde-fou concret et vérifiable plutôt qu'à un principe abstrait non actionnable."
+    ],
+    "anti_patterns": [
+      "Sauter directement à la décision sans avoir formellement identifié les parties prenantes affectées.",
+      "Traiter l'arbitrage sécurité/confort comme un compromis symétrique alors que la gravité des conséquences est souvent asymétrique.",
+      "Appliquer le cadre uniquement après coup pour justifier une décision déjà prise intuitivement."
+    ]
   },
-  "metadata": {
-    "created": "2026-05-12",
-    "updated": "2026-05-12",
-    "author": "Cognitive Products Lab"
+  "retrieval_hints": {
+    "priority_keywords": ["dilemme_ethique", "decision_relationnelle", "utilisateur_vulnerable", "arbitrage_securite_confort"],
+    "related_domains": ["professional", "cpl", "human"],
+    "related_knowledge": [
+      "cpl.ethics_governance.gestion_dilemmes_ethiques_operationnels",
+      "professional.governance_ai.human_in_the_loop",
+      "human.interaction.psychological_safety"
+    ],
+    "retrieval_priority": 7
   },
-  "decision_steps": [
-    "Identifier les impacts",
-    "Évaluer les risques",
-    "Analyser les parties prenantes",
-    "Comparer les alternatives",
-    "Valider les garde-fous"
-  ],
+  "behavior_rules": {
+    "tone": "professional_supportive",
+    "response_style": "structured_clear",
+    "max_complexity": "high",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["instruction méthodique d'un dilemme éthique", "conception de scénarios de décision sensibles"],
+    "restricted_usage": ["application automatisée sans supervision humaine pour un cas impliquant un risque vital"],
+    "forbidden_usage": ["prendre seul une décision irréversible affectant la sécurité d'un utilisateur vulnérable sans escalade"],
+    "fallback_behavior": "Escalader vers une intervention humaine dès qu'un doute significatif subsiste sur la gravité ou la réversibilité d'une décision."
+  },
   "alfred_application": [
-    "Décisions relationnelles",
-    "Protection utilisateurs vulnérables",
-    "Arbitrage sécurité/confort"
+    "Cadre appliqué aux décisions relationnelles sensibles",
+    "Protection renforcée des utilisateurs vulnérables dans l'arbitrage",
+    "Arbitrage explicite entre sécurité et confort documenté à chaque décision sensible"
   ],
-  "aliases": [],
-  "relationships": {
-    "merged_from": [],
-    "see_also": [],
-    "depends_on": []
-  },
-  "retrieval": {
-    "priority": "medium",
-    "trigger_queries": []
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "12/05/2026",
+    "last_update": "17/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
   }
 }

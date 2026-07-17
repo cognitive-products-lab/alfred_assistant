@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.product_ia.cycle_feedback_utilisateur_produit_ia",
+  "title": "Cycle de retour utilisateur pour un produit IA",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "product_ia",
+  "category": "cpl product ia",
+  "summary": "Le feedback utilisateur d'un produit IA doit être capté à trois niveaux distincts (correction ponctuelle d'une réponse, signal d'usage agrégé, retour qualitatif structuré) car une correction isolée mal exploitée peut désoptimiser le système pour l'ensemble des autres utilisateurs.",
+  "purpose": "Structurer la collecte et l'exploitation du feedback utilisateur d'ALFRED CPL de façon à améliorer le produit sans sur-réagir à un signal individuel non représentatif.",
+  "tags": ["feedback_utilisateur", "produit_ia", "amelioration_continue", "cpl", "signal_usage"],
+  "intents": ["design_ai_feedback_loop", "avoid_overfitting_to_single_feedback", "structure_qualitative_feedback"],
+  "usage_context": [
+    "conception du mécanisme de retour utilisateur d'un produit IA",
+    "arbitrage sur l'exploitation d'un signal de correction ponctuelle"
+  ],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "Le cycle de feedback utilisateur d'un produit IA est le processus structuré de collecte, d'agrégation et d'exploitation des retours des utilisateurs à trois niveaux distincts — correction ponctuelle d'une réponse individuelle, signal d'usage agrégé sur plusieurs utilisateurs, et retour qualitatif structuré recueilli activement — afin d'améliorer le produit sans sur-ajuster le système à partir d'un cas isolé non représentatif.",
+    "core_principles": [
+      "La correction ponctuelle d'une réponse par un utilisateur (« ce n'est pas ce que je voulais ») est un signal utile mais individuel : l'exploiter directement pour modifier le comportement général du système risque de désoptimiser l'expérience pour d'autres utilisateurs aux besoins différents.",
+      "Le signal d'usage agrégé (fréquence d'un type de correction, taux d'escalade humaine, patterns récurrents) est plus fiable pour identifier une amélioration produit réellement généralisable qu'un cas isolé.",
+      "Le retour qualitatif structuré, recueilli activement plutôt que passivement, permet de comprendre le pourquoi derrière un signal quantitatif, information souvent absente des corrections ponctuelles brutes.",
+      "Une hiérarchie claire entre ces trois niveaux évite le piège du sur-ajustement local (overfitting produit) où le système est modifié pour satisfaire l'utilisateur le plus vocal plutôt que l'ensemble représentatif des usages."
+    ],
+    "rules": [
+      "Ne jamais modifier un comportement général du système sur la seule base d'une correction ponctuelle isolée sans vérifier sa représentativité au niveau agrégé.",
+      "Collecter systématiquement les corrections ponctuelles dans un registre exploitable en agrégat, plutôt que de les traiter uniquement au cas par cas.",
+      "Prévoir des sollicitations actives de retour qualitatif structuré à intervalle régulier, plutôt que de dépendre uniquement du feedback spontané souvent biaisé vers l'insatisfaction.",
+      "Documenter la décision produit prise à partir d'un signal agrégé, avec le volume de signaux ayant motivé la décision, pour assurer la traçabilité des choix de roadmap."
+    ],
+    "examples": [
+      {
+        "situation": "Un utilisateur signale que le ton d'ALFRED CPL est trop formel pour son usage quotidien.",
+        "recommended_behavior": "Enregistrer ce retour dans le registre de feedback, vérifier s'il correspond à un signal agrégé récurrent chez d'autres utilisateurs avant d'envisager un ajustement général, et proposer en attendant une option de personnalisation individuelle du ton plutôt qu'un changement global non validé.",
+        "avoid": "Modifier immédiatement le ton par défaut du système pour l'ensemble des utilisateurs sur la base d'un seul retour, au risque de dégrader l'expérience pour les utilisateurs satisfaits du ton actuel."
+      }
+    ],
+    "best_practices": [
+      "Distinguer explicitement, dans l'outillage de collecte de feedback, les trois niveaux (ponctuel, agrégé, qualitatif structuré) plutôt que de les mélanger dans un flux unique.",
+      "Prioriser les décisions produit sur la base du signal agrégé et qualitatif structuré, en réservant la correction ponctuelle à un usage de service client individuel plutôt que de roadmap.",
+      "Relier le cycle de feedback aux indicateurs de cpl.product_platform pour vérifier la cohérence entre feedback perçu et usage réel mesuré."
+    ],
+    "anti_patterns": [
+      "Sur-ajuster le comportement général du système à partir du retour de l'utilisateur le plus insistant ou le plus récent.",
+      "Collecter du feedback sans mécanisme d'agrégation, rendant impossible la distinction entre signal isolé et tendance généralisable.",
+      "Ne solliciter le feedback qualitatif qu'en cas d'insatisfaction déjà exprimée, biaisant la collecte vers les retours négatifs."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["feedback_utilisateur", "signal_agrege", "amelioration_produit_ia", "overfitting_produit"],
+    "related_domains": ["cpl", "professional"],
+    "related_knowledge": [
+      "professional.product_management.advanced.continuous_discovery",
+      "professional.product_management.user_feedback_loops",
+      "cpl.product_ia.product_design_methodology"
+    ],
+    "retrieval_priority": 6
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["conception d'un cycle de collecte et d'exploitation du feedback utilisateur d'un produit IA"],
+    "restricted_usage": ["modification d'un comportement général du système sur la base d'un signal non vérifié en agrégat"],
+    "forbidden_usage": ["présenter une décision produit comme fondée sur un large consensus utilisateur alors qu'elle repose sur un seul retour isolé"],
+    "fallback_behavior": "En cas de doute sur la représentativité d'un signal, privilégier une option de personnalisation individuelle plutôt qu'un changement de comportement général du système."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "17/07/2026",
+    "last_update": "17/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

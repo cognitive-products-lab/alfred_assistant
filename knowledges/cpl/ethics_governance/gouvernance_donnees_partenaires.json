@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.ethics_governance.gouvernance_donnees_partenaires",
+  "title": "Gouvernance des données partagées avec des partenaires ou sous-traitants",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "ethics_governance",
+  "category": "cpl ethics governance",
+  "summary": "Toute donnée client transmise à un partenaire ou sous-traitant d'ALFRED CPL (hébergement, support, intégration) doit rester couverte par les mêmes garanties de gouvernance que celles appliquées en interne, avec une chaîne de responsabilité documentée et non diluée.",
+  "purpose": "Étendre les principes de gouvernance IA (minimisation, consentement, traçabilité) au périmètre des tiers impliqués dans la chaîne de valeur d'ALFRED CPL, souvent absent des politiques de gouvernance centrées uniquement sur le périmètre interne.",
+  "tags": ["gouvernance_partenaires", "sous_traitance", "chaine_responsabilite", "cpl", "donnees_tierces"],
+  "intents": ["govern_third_party_data_sharing", "define_subcontractor_accountability", "audit_partner_data_chain"],
+  "usage_context": [
+    "intégration d'un partenaire technique ou d'un sous-traitant dans la chaîne de service ALFRED CPL",
+    "audit de la chaîne de traitement des données au-delà du périmètre interne"
+  ],
+  "priority": "high",
+  "safety_level": "sensitive",
+  "content": {
+    "definition": "La gouvernance des données partagées avec des partenaires ou sous-traitants est l'ensemble des garanties contractuelles et techniques assurant que toute donnée client transmise en dehors du périmètre direct d'ALFRED CPL — hébergement, support technique, intégration tierce — reste soumise au même niveau d'exigence de gouvernance (minimisation, consentement, sécurité, traçabilité) que le traitement interne, sans dilution de responsabilité.",
+    "core_principles": [
+      "La chaîne de responsabilité ne s'arrête pas à la frontière technique d'ALFRED CPL : chaque partenaire ou sous-traitant ayant accès à une donnée client doit être identifié et son niveau de garantie documenté explicitement.",
+      "Le principe de minimisation s'applique aussi aux tiers : un partenaire ne doit recevoir que les données strictement nécessaires à sa fonction, jamais un accès large par simplicité d'intégration.",
+      "La transparence envers le client sur l'implication de tiers dans le traitement de ses données est une condition de confiance, distincte de la transparence algorithmique déjà couverte, mais tout aussi essentielle.",
+      "Un partenaire non conforme aux exigences de gouvernance d'ALFRED CPL représente un risque de conformité et de confiance équivalent à une faille interne, même si la responsabilité contractuelle est partagée."
+    ],
+    "rules": [
+      "Documenter explicitement, pour chaque partenaire ou sous-traitant ayant accès à des données client, la nature exacte des données partagées et la finalité précise de ce partage.",
+      "Exiger contractuellement de chaque partenaire un niveau de garantie de sécurité et de gouvernance au moins équivalent à celui appliqué en interne.",
+      "Informer le client de l'implication de tout tiers significatif dans le traitement de ses données, sans attendre qu'il le découvre ou le demande explicitement.",
+      "Auditer périodiquement la conformité effective des partenaires aux engagements contractuels de gouvernance, pas seulement à la signature du contrat."
+    ],
+    "examples": [
+      {
+        "situation": "ALFRED CPL envisage d'intégrer un service tiers de reconnaissance vocale pour enrichir une fonctionnalité conversationnelle.",
+        "recommended_behavior": "Évaluer explicitement le niveau de gouvernance des données du service tiers avant intégration, limiter les données transmises au strict nécessaire à la fonction vocale, informer le client de cette intégration et documenter la garantie contractuelle obtenue.",
+        "avoid": "Intégrer un service tiers pour sa performance technique sans évaluer préalablement son niveau de gouvernance des données ni en informer le client concerné."
+      }
+    ],
+    "best_practices": [
+      "Maintenir un registre à jour de tous les tiers ayant accès à des données client, avec la nature des données et la finalité du partage.",
+      "Privilégier, à qualité équivalente, un partenaire dont le niveau de gouvernance est vérifiable et documenté plutôt qu'un partenaire moins transparent.",
+      "Intégrer les clauses de gouvernance des données dès la négociation contractuelle avec un partenaire, plutôt que de les ajouter après l'intégration technique."
+    ],
+    "anti_patterns": [
+      "Considérer que la responsabilité de gouvernance s'arrête à la frontière technique d'ALFRED CPL une fois une donnée transmise à un tiers.",
+      "Intégrer un partenaire pour des raisons de rapidité ou de coût sans évaluation préalable de son niveau de gouvernance des données.",
+      "Garder confidentielle vis-à-vis du client l'implication d'un tiers significatif dans le traitement de ses données."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["gouvernance_partenaires", "sous_traitance", "chaine_responsabilite", "audit_tiers"],
+    "related_domains": ["cpl", "professional", "risk_management"],
+    "related_knowledge": [
+      "cpl.product_platform.data_protection_hosting",
+      "professional.governance_ai.sensitive_data_handling",
+      "risk_management.third_party.third_party_risk"
+    ],
+    "retrieval_priority": 7
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["évaluation de la gouvernance des données dans une chaîne de partenaires ou sous-traitants"],
+    "restricted_usage": ["intégration d'un tiers sans évaluation préalable documentée de son niveau de garantie"],
+    "forbidden_usage": ["transmettre des données client à un tiers sans garantie contractuelle de gouvernance équivalente au périmètre interne"],
+    "fallback_behavior": "Refuser ou suspendre l'intégration d'un partenaire tant que son niveau de gouvernance des données n'est pas vérifié et documenté."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "17/07/2026",
+    "last_update": "17/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

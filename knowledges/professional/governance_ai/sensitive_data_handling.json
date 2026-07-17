@@ -1,67 +1,91 @@
 {
-  "_meta": {
-    "project": "ALFRED",
-    "block": "B18",
-    "file": "sensitive_data_handling.json",
-    "version": "V1.0",
-    "status": "VALIDATED",
-    "updated": "2026-05-13",
-    "standardized_by": "generate_knowledges.py",
-    "validated_by": "Cognitive Products Lab",
-    "validated_date": "2026-05-13"
-  },
-  "id": "knowledges.professional.governance_ai.sensitive_data_handling",
-  "domain": "professional_governance",
-  "category": "ai_governance",
-  "title": "Sensitive Data Handling",
-  "description": "Gestion sécurisée des données sensibles.",
-  "version": "1.0",
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "professional.governance_ai.sensitive_data_handling",
+  "title": "Gestion des données sensibles dans les systèmes IA",
+  "version": "1.1.0",
   "status": "active",
-  "tags": [
-    "ai governance",
-    "governance ai",
-    "professional",
-    "professional governance",
-    "sensitive data handling"
+  "domain": "professional",
+  "subdomain": "governance_ai",
+  "category": "ai_governance",
+  "summary": "Les données sensibles (santé, identité, biométrie, localisation) relèvent d'une catégorie spéciale du RGPD imposant un isolement technique renforcé, un chiffrement systématique et un contrôle d'accès strict, distinct du traitement des données personnelles courantes.",
+  "purpose": "Donner à ALFRED un cadre spécifique pour les catégories de données à protection renforcée, en complément du principe général de minimisation des données.",
+  "tags": ["donnees_sensibles", "gouvernance_ia", "chiffrement", "rgpd", "isolement_memoire"],
+  "intents": ["handle_sensitive_data", "apply_data_isolation", "secure_health_or_biometric_data"],
+  "usage_context": [
+    "traitement d'une donnée de santé, d'identité, biométrique ou de localisation par un système IA",
+    "conception de l'isolement mémoire pour des données critiques"
   ],
+  "priority": "critical",
+  "safety_level": "high_risk",
   "content": {
-    "summary": "Gestion sécurisée des données sensibles.",
-    "details": [
-      "Protection données santé",
-      "Isolement mémoire critique",
-      "Contrôle permissions"
+    "definition": "La gestion des données sensibles désigne l'ensemble des mesures techniques et organisationnelles renforcées appliquées aux catégories de données bénéficiant d'une protection particulière au sens de l'article 9 RGPD (santé, origine, opinions, biométrie) ainsi qu'aux données à fort impact sur la vie privée comme la localisation, imposant un traitement distinct des données personnelles courantes.",
+    "core_principles": [
+      "Les données de santé, d'identité, biométriques et de localisation exigent un niveau de protection supérieur à celui des données personnelles courantes, avec une base légale renforcée pour leur traitement.",
+      "Le chiffrement (au repos et en transit) est une mesure de sécurité minimale non négociable pour toute donnée sensible traitée ou stockée par un système IA.",
+      "La restriction d'accès doit suivre le principe du besoin de savoir strict : seuls les composants techniques strictement nécessaires à la finalité doivent pouvoir accéder à la donnée sensible en clair.",
+      "L'isolement mémoire critique consiste à séparer techniquement le stockage des données sensibles du reste du système, pour limiter la surface d'exposition en cas de compromission partielle."
     ],
-    "references": []
+    "rules": [
+      "Chiffrer systématiquement toute donnée de santé, d'identité, biométrique ou de localisation, sans exception liée à la commodité de développement.",
+      "Restreindre l'accès aux données sensibles au strict périmètre technique qui en a un besoin fonctionnel direct, avec journalisation de chaque accès.",
+      "Isoler physiquement ou logiquement le stockage des données sensibles du reste de la mémoire système, pour contenir l'impact d'un incident de sécurité.",
+      "Prévoir une procédure de suppression contrôlée et vérifiable spécifique aux données sensibles, distincte de la suppression standard."
+    ],
+    "examples": [
+      {
+        "situation": "ALFRED CPL traite une information de santé mentionnée incidemment par l'utilisateur lors d'une conversation.",
+        "recommended_behavior": "Isoler cette information dans un compartiment mémoire chiffré et à accès restreint, distinct de la mémoire conversationnelle générale, et appliquer une politique de rétention plus stricte que pour une donnée non sensible.",
+        "avoid": "Stocker une donnée de santé au même niveau de protection qu'une préférence utilisateur ordinaire (couleur d'interface, horaires habituels)."
+      }
+    ],
+    "best_practices": [
+      "Identifier explicitement, dans la conception du système, les flux de données susceptibles de contenir des catégories sensibles, même de façon incidente et non structurée.",
+      "Auditer régulièrement les accès effectifs aux compartiments de données sensibles pour vérifier le respect du principe du besoin de savoir.",
+      "Documenter les mesures de chiffrement et d'isolement appliquées, condition nécessaire pour démontrer la conformité en cas de contrôle."
+    ],
+    "anti_patterns": [
+      "Traiter une donnée sensible mentionnée incidemment dans une conversation comme une donnée ordinaire faute de classification explicite.",
+      "Reporter la mise en place du chiffrement ou de l'isolement à une phase ultérieure du projet pour des raisons de simplicité de développement.",
+      "Donner un accès large aux données sensibles à des composants qui n'en ont pas un besoin fonctionnel direct."
+    ]
   },
-  "metadata": {
-    "created": "2026-05-12",
-    "updated": "2026-05-12",
-    "author": "Cognitive Products Lab"
+  "retrieval_hints": {
+    "priority_keywords": ["donnees_sensibles", "chiffrement", "isolement_memoire", "donnees_sante", "biometrie"],
+    "related_domains": ["professional", "cpl", "information_security"],
+    "related_knowledge": [
+      "professional.governance_ai.data_minimization",
+      "professional.governance_ai.gdpr_ai_intersection",
+      "cpl.product_platform.data_protection_hosting"
+    ],
+    "retrieval_priority": 8
   },
-  "sensitive_data_examples": [
-    "Santé",
-    "Identité",
-    "Biométrie",
-    "Localisation"
-  ],
-  "security_measures": [
-    "Chiffrement",
-    "Restriction accès",
-    "Suppression contrôlée"
-  ],
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "high",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["conception de l'isolement et du chiffrement des données sensibles", "classification d'une donnée comme sensible"],
+    "restricted_usage": ["traitement d'une donnée de santé ou biométrique sans mesure de protection renforcée identifiée"],
+    "forbidden_usage": ["stocker une donnée de santé, biométrique ou d'identité en clair sans chiffrement ni contrôle d'accès"],
+    "fallback_behavior": "Traiter par défaut toute donnée ambiguë comme potentiellement sensible tant que sa nature n'est pas clarifiée, plutôt que l'inverse."
+  },
   "alfred_application": [
-    "Protection données santé",
-    "Isolement mémoire critique",
-    "Contrôle permissions"
+    "Protection renforcée des données de santé mentionnées en conversation",
+    "Isolement mémoire critique distinct de la mémoire conversationnelle générale",
+    "Contrôle d'accès strict aux compartiments de données sensibles"
   ],
-  "aliases": [],
-  "relationships": {
-    "merged_from": [],
-    "see_also": [],
-    "depends_on": []
-  },
-  "retrieval": {
-    "priority": "medium",
-    "trigger_queries": []
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "12/05/2026",
+    "last_update": "17/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
   }
 }

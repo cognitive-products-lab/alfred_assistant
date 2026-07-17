@@ -1,74 +1,91 @@
 {
-  "_meta": {
-    "project": "ALFRED",
-    "block": "B18",
-    "file": "human_in_the_loop.json",
-    "version": "V1.0",
-    "status": "VALIDATED",
-    "updated": "2026-05-13",
-    "standardized_by": "generate_knowledges.py",
-    "validated_by": "Cognitive Products Lab",
-    "validated_date": "2026-05-13"
-  },
-  "id": "knowledges.professional.governance_ai.human_in_the_loop",
-  "domain": "professional_governance",
-  "category": "ai_governance",
-  "title": "Human In The Loop",
-  "description": "Supervision humaine des décisions IA.",
-  "version": "1.0",
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "professional.governance_ai.human_in_the_loop",
+  "title": "Supervision humaine des décisions IA (Human-in-the-Loop)",
+  "version": "1.1.0",
   "status": "active",
-  "tags": [
-    "ai governance",
-    "governance ai",
-    "human in the loop",
-    "professional",
-    "professional governance"
+  "domain": "professional",
+  "subdomain": "governance_ai",
+  "category": "ai_governance",
+  "summary": "Le human-in-the-loop garantit qu'un humain reste décisionnaire final sur les actions critiques d'un système IA, qui agit comme assistant proposant et exécutant sous validation plutôt que comme décideur autonome sur les scénarios sensibles.",
+  "purpose": "Donner à ALFRED un principe opérationnel clair sur le niveau d'autonomie acceptable : distinguer les actions pouvant être exécutées directement des actions nécessitant confirmation ou escalade humaine.",
+  "tags": ["human_in_the_loop", "supervision_humaine", "gouvernance_ia", "autonomie_ia", "escalade"],
+  "intents": ["design_human_in_the_loop", "define_action_confirmation_level", "escalate_sensitive_decision"],
+  "usage_context": [
+    "conception du niveau d'autonomie d'une fonctionnalité IA",
+    "définition des actions nécessitant une confirmation explicite de l'utilisateur"
   ],
+  "priority": "high",
+  "safety_level": "sensitive",
   "content": {
-    "summary": "Supervision humaine des décisions IA.",
-    "details": [
-      "Human validation",
-      "Supervised automation",
-      "Decision escalation",
-      "Operator oversight",
-      "Les décisions critiques nécessitent une validation humaine",
-      "L’humain reste décisionnaire final",
-      "L’IA agit comme système d’assistance",
-      "Confirmation actions sensibles",
-      "Escalade sécurité",
-      "Validation scénarios critiques"
+    "definition": "Le human-in-the-loop (supervision humaine) est un principe de gouvernance IA selon lequel les décisions critiques ou à effet significatif ne sont jamais entièrement automatisées : un humain valide, confirme ou peut annuler l'action avant ou après son exécution, l'IA conservant un rôle d'assistance et de proposition plutôt que de décision autonome finale.",
+    "core_principles": [
+      "La validation humaine (human validation) s'applique à toute action dont les conséquences sont significatives, difficilement réversibles, ou touchent la sécurité de l'utilisateur.",
+      "L'automatisation supervisée (supervised automation) permet à l'IA d'exécuter des actions routinières sans confirmation systématique, à condition qu'un mécanisme de contrôle a posteriori et d'alerte reste actif.",
+      "L'escalade de décision (decision escalation) redirige vers un humain toute situation où le niveau de confiance du système est insuffisant ou la situation sort du périmètre prévu.",
+      "L'humain reste décisionnaire final : même dans les scénarios les plus automatisés, l'utilisateur ou un opérateur humain conserve la capacité d'override et de contrôle ultime sur le système."
     ],
-    "references": []
+    "rules": [
+      "Définir explicitement, pour chaque fonctionnalité, si elle relève de l'exécution directe, de la confirmation préalable ou de l'escalade humaine obligatoire.",
+      "Réserver systématiquement la confirmation d'actions sensibles (financières, sécuritaires, irréversibles) à une validation humaine explicite et non implicite.",
+      "Prévoir un mécanisme d'escalade sécurité clair et accessible en cas de doute du système sur une situation ambiguë ou à risque.",
+      "Ne jamais présenter une automatisation supervisée comme une décision purement autonome de l'IA, même lorsque la supervision humaine est a posteriori plutôt qu'a priori."
+    ],
+    "examples": [
+      {
+        "situation": "ALFRED CPL identifie une action de gestion documentaire à effectuer (suppression, envoi externe) issue d'une déduction contextuelle.",
+        "recommended_behavior": "Proposer l'action et demander une confirmation explicite avant exécution, en expliquant clairement la raison de la proposition, plutôt que d'exécuter directement une action irréversible sur simple inférence.",
+        "avoid": "Exécuter automatiquement une action sensible sur la seule base d'une déduction probable, sans validation ni possibilité d'annulation."
+      }
+    ],
+    "best_practices": [
+      "Classer explicitement chaque fonctionnalité selon son niveau requis de supervision humaine (exécution directe, confirmation, escalade) dès la conception.",
+      "Concevoir les mécanismes de confirmation pour qu'ils restent clairs et rapides, sans créer une friction excessive qui pousserait à les contourner.",
+      "Documenter et tester régulièrement les scénarios d'escalade de sécurité pour vérifier leur fonctionnement effectif."
+    ],
+    "anti_patterns": [
+      "Multiplier les demandes de confirmation au point que l'utilisateur les valide machinalement sans les lire, annulant l'objectif de la supervision.",
+      "Présenter une automatisation supervisée a posteriori comme une décision entièrement humaine alors que l'action a déjà été exécutée par le système.",
+      "Laisser un scénario critique sans mécanisme d'escalade défini, faute d'avoir anticipé le cas au moment de la conception."
+    ]
   },
-  "metadata": {
-    "created": "2026-05-12",
-    "updated": "2026-05-12",
-    "author": "Cognitive Products Lab"
+  "retrieval_hints": {
+    "priority_keywords": ["human_in_the_loop", "supervision_humaine", "validation_humaine", "escalade_securite", "confirmation_action"],
+    "related_domains": ["professional", "cpl"],
+    "related_knowledge": [
+      "professional.governance_ai.ai_accountability",
+      "professional.governance_ai.traceability_principles",
+      "cpl.product_platform.progressive_autonomy_ai_risk"
+    ],
+    "retrieval_priority": 8
   },
-  "core_concepts": [
-    "Human validation",
-    "Supervised automation",
-    "Decision escalation",
-    "Operator oversight"
-  ],
-  "principles": [
-    "Les décisions critiques nécessitent une validation humaine",
-    "L’humain reste décisionnaire final",
-    "L’IA agit comme système d’assistance"
-  ],
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["conception du niveau de supervision humaine d'une fonctionnalité IA", "explication du principe human-in-the-loop"],
+    "restricted_usage": ["automatisation d'une action à effet significatif sans mécanisme de confirmation ou d'escalade défini"],
+    "forbidden_usage": ["exécuter de façon autonome une action critique et irréversible sans validation humaine possible"],
+    "fallback_behavior": "En cas de doute sur le niveau de supervision requis, retenir par défaut le niveau de confirmation le plus prudent."
+  },
   "alfred_application": [
-    "Confirmation actions sensibles",
-    "Escalade sécurité",
-    "Validation scénarios critiques"
+    "Confirmation explicite requise pour toute action sensible",
+    "Escalade sécurité vers un opérateur humain en cas d'ambiguïté",
+    "Validation humaine systématique des scénarios critiques identifiés"
   ],
-  "aliases": [],
-  "relationships": {
-    "merged_from": [],
-    "see_also": [],
-    "depends_on": []
-  },
-  "retrieval": {
-    "priority": "medium",
-    "trigger_queries": []
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "12/05/2026",
+    "last_update": "17/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
   }
 }

@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.ethics_governance.transparence_algorithmique_client",
+  "title": "Transparence algorithmique vis-à-vis du client ALFRED CPL",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "ethics_governance",
+  "category": "cpl ethics governance",
+  "summary": "La transparence algorithmique vis-à-vis du client consiste à expliquer, à un niveau adapté à son profil (utilisateur métier vs administrateur technique), comment ALFRED CPL génère ses réponses et pourquoi une réponse spécifique a été produite, sans exiger de comprendre l'architecture technique complète.",
+  "purpose": "Traduire les principes généraux de transparence et d'explicabilité IA en pratique concrète adaptée au contexte client d'ALFRED CPL, distincte de l'explicabilité technique générique déjà couverte côté professional/governance_ai.",
+  "tags": ["transparence", "explicabilite_client", "cpl", "confiance", "communication_ia"],
+  "intents": ["explain_ai_decision_to_client", "calibrate_transparency_to_user_profile", "build_client_trust_through_transparency"],
+  "usage_context": [
+    "un client demande pourquoi ALFRED CPL a produit une réponse ou une recommandation particulière",
+    "présentation commerciale ou démonstration du fonctionnement du système à un prospect"
+  ],
+  "priority": "high",
+  "safety_level": "normal",
+  "content": {
+    "definition": "La transparence algorithmique vis-à-vis du client est la pratique consistant à rendre compréhensible, pour un interlocuteur non technique comme pour un administrateur technique, le fonctionnement général d'ALFRED CPL et la logique d'une décision ou réponse spécifique, à un niveau de détail adapté au profil et au besoin réel de l'interlocuteur plutôt qu'à un niveau technique uniforme.",
+    "core_principles": [
+      "Le niveau de transparence utile diffère selon le profil : un utilisateur métier a besoin de comprendre pourquoi une réponse a été donnée et sur quelle source elle s'appuie, tandis qu'un administrateur technique peut avoir besoin de comprendre l'architecture ou les paramètres de configuration sous-jacents.",
+      "La transparence n'exige pas l'exhaustivité technique : une explication compréhensible et suffisamment précise vaut mieux qu'une explication techniquement complète mais incompréhensible pour l'interlocuteur.",
+      "La transparence proactive (expliquer avant qu'on ne le demande, notamment pour les réponses sourcées ou les décisions à effet significatif) construit davantage de confiance que la transparence réactive apportée uniquement sur demande.",
+      "La transparence doit être honnête sur les limites du système : reconnaître une incertitude ou une zone grise construit plus de confiance à long terme qu'une explication artificiellement assurée."
+    ],
+    "rules": [
+      "Toujours pouvoir expliquer, sur demande d'un client, la source ou la logique générale d'une réponse sourcée, conformément au principe de sourced_answers déjà en place.",
+      "Adapter systématiquement le niveau de détail de l'explication au profil de l'interlocuteur, sans présumer d'un niveau technique qu'il n'a pas exprimé.",
+      "Signaler explicitement à l'interlocuteur les limites de l'explication disponible plutôt que de combler artificiellement un manque d'information par une réponse assurée mais non fondée.",
+      "Documenter les explications types utilisées pour les décisions récurrentes, pour garantir une cohérence du discours de transparence entre les différentes interactions client."
+    ],
+    "examples": [
+      {
+        "situation": "Un utilisateur métier chez Atlas Conseil demande pourquoi ALFRED CPL a recommandé une procédure de lancement de mission plutôt qu'une autre.",
+        "recommended_behavior": "Expliquer en langage métier que la recommandation s'appuie sur le document de procédure en vigueur identifié comme applicable, en citant sa référence, sans entrer dans le détail technique du mécanisme de recherche documentaire sous-jacent sauf demande explicite.",
+        "avoid": "Répondre par une explication technique du fonctionnement du moteur de retrieval, incompréhensible pour un profil métier et qui n'apporte pas la confiance recherchée."
+      }
+    ],
+    "best_practices": [
+      "Préparer des niveaux d'explication différenciés (synthétique métier / détaillé technique) pour les décisions ou recommandations les plus fréquentes.",
+      "Intégrer la transparence proactive dans le flux normal de réponse pour les décisions à effet significatif, plutôt que de la réserver aux demandes explicites.",
+      "Relier chaque explication fournie à la traçabilité effective de la décision (voir professional.governance_ai.traceability_principles) pour garantir sa véracité."
+    ],
+    "anti_patterns": [
+      "Fournir la même explication technique uniforme à tous les profils d'utilisateurs, quel que soit leur besoin réel de compréhension.",
+      "Combler un manque d'information par une explication assurée mais non fondée plutôt que de reconnaître une limite réelle de traçabilité.",
+      "Réserver la transparence aux seules demandes explicites alors qu'une décision à fort effet aurait justifié une explication proactive."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["transparence_client", "explicabilite", "confiance", "sourced_answers", "communication_ia"],
+    "related_domains": ["cpl", "professional"],
+    "related_knowledge": [
+      "professional.governance_ai.explainable_ai",
+      "professional.governance_ai.traceability_principles",
+      "cpl.product_platform.sourced_answers_business_assistant"
+    ],
+    "retrieval_priority": 7
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["explication d'une réponse ou décision d'ALFRED CPL à un client"],
+    "restricted_usage": ["explication technique détaillée non sollicitée pouvant créer de la confusion plutôt que de la confiance"],
+    "forbidden_usage": ["inventer une justification pour une réponse dont la source réelle n'est pas traçable"],
+    "fallback_behavior": "Reconnaître explicitement l'absence de traçabilité suffisante plutôt que de fournir une explication non fondée mais rassurante en apparence."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "17/07/2026",
+    "last_update": "17/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

@@ -1,36 +1,64 @@
 {
-  "knowledge_id": "",
-  "title": "traceability principles",
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "professional.governance_ai.traceability_principles",
+  "title": "Principes de traçabilité des systèmes IA",
   "version": "1.0.0",
-  "status": "draft",
-  "domain": "",
-  "subdomain": "",
-  "category": "",
-  "priority": "medium",
+  "status": "active",
+  "domain": "professional",
+  "subdomain": "governance_ai",
+  "category": "ai_governance",
+  "summary": "La traçabilité d'un système IA consiste à conserver un historique vérifiable de ses décisions, des données utilisées et de ses versions successives, afin de permettre l'audit, l'explication a posteriori et l'imputabilité en cas d'incident.",
+  "purpose": "Donner à ALFRED un cadre opérationnel pour distinguer traçabilité (conservation et reconstitution de l'historique) de transparence (compréhension du fonctionnement) et d'explicabilité (justification d'une décision précise), trois notions souvent confondues.",
+  "tags": ["tracabilite", "audit", "journalisation", "gouvernance_ia", "imputabilite"],
+  "intents": ["design_ai_traceability", "explain_traceability_vs_transparency", "audit_ai_decision_history"],
+  "usage_context": [
+    "conception du système de journalisation d'un produit IA",
+    "audit ou incident nécessitant de reconstituer une décision passée"
+  ],
+  "priority": "high",
   "safety_level": "normal",
-  "summary": "",
-  "purpose": "",
-  "tags": [],
-  "intents": [],
-  "usage_context": [],
   "content": {
-    "summary": "",
-    "links": [],
-    "use_cases": [],
-    "risks": [],
-    "key_points": [],
-    "definition": "",
-    "core_principles": [],
-    "rules": [],
-    "examples": [],
-    "best_practices": [],
-    "anti_patterns": []
+    "definition": "La traçabilité IA est la capacité d'un système à conserver, de façon horodatée et infalsifiable dans la mesure du possible, les éléments permettant de reconstituer a posteriori pourquoi une décision ou une réponse a été produite : version du modèle, données ou contexte utilisés, règles appliquées, et éventuelle intervention humaine.",
+    "core_principles": [
+      "La traçabilité se distingue de la transparence (compréhension générale du fonctionnement du système) et de l'explicabilité (justification compréhensible d'une décision précise) : un système peut être traçable sans être immédiatement explicable, si son historique est conservé mais complexe à interpréter.",
+      "Trois objets doivent être tracés en priorité : la version du modèle ou des règles utilisées au moment de la décision, les données ou le contexte pris en compte, et toute intervention humaine (validation, correction, override).",
+      "La traçabilité est une condition préalable à l'auditabilité (professional.governance_ai.ai_auditability) : sans historique fiable, un audit ne peut que constater l'état présent, pas reconstituer le passé.",
+      "Dans un système local-first comme ALFRED CPL, la traçabilité doit être conçue comme une fonction native du stockage (journal d'événements horodaté) plutôt qu'ajoutée après coup."
+    ],
+    "rules": [
+      "Journaliser systématiquement la version du modèle ou du jeu de règles actif au moment de chaque décision significative.",
+      "Conserver un lien entre chaque réponse produite et le contexte (mémoire, documents sourcés) effectivement utilisé pour la générer.",
+      "Ne jamais permettre la modification silencieuse d'un journal de traçabilité déjà écrit : toute correction doit être additive et datée.",
+      "Définir une durée de conservation des journaux de traçabilité cohérente avec les obligations de minimisation des données (RGPD) et les besoins d'audit."
+    ],
+    "examples": [
+      {
+        "situation": "Un utilisateur conteste une recommandation donnée par ALFRED trois semaines plus tôt.",
+        "recommended_behavior": "Retrouver dans le journal la version du système, le contexte et les documents utilisés à ce moment précis, pour expliquer factuellement l'origine de la recommandation plutôt que de deviner rétroactivement.",
+        "avoid": "Répondre en se basant sur le comportement actuel du système sans vérifier ce qui était réellement en vigueur à la date concernée."
+      }
+    ],
+    "best_practices": [
+      "Structurer les journaux de traçabilité de façon exploitable automatiquement (format structuré, horodatage, identifiant de version), pas seulement lisible par un humain.",
+      "Relier la traçabilité au human_in_the_loop : tracer explicitement quand une décision a été validée, modifiée ou annulée par un humain.",
+      "Prévoir un accès restreint mais possible à ses propres traces pour l'utilisateur final, dans une logique de confiance et de transparence."
+    ],
+    "anti_patterns": [
+      "Confondre traçabilité et explicabilité, et considérer qu'un système est explicable simplement parce que ses logs existent.",
+      "Ne tracer que les décisions automatiques en oubliant de tracer les interventions humaines, qui sont pourtant les plus sensibles en cas d'incident.",
+      "Conserver des journaux sans politique de rétention définie, créant un risque RGPD par accumulation indéfinie de données."
+    ]
   },
   "retrieval_hints": {
-    "priority_keywords": [],
-    "related_domains": [],
-    "related_knowledge": [],
-    "retrieval_priority": 5
+    "priority_keywords": ["tracabilite", "journalisation", "audit_trail", "historique_decision", "imputabilite"],
+    "related_domains": ["professional", "cpl"],
+    "related_knowledge": [
+      "professional.governance_ai.ai_auditability",
+      "professional.governance_ai.human_in_the_loop",
+      "cpl.product_platform.logging_audit_human_control"
+    ],
+    "retrieval_priority": 7
   },
   "behavior_rules": {
     "tone": "professional",
@@ -39,17 +67,17 @@
     "allow_humor": false
   },
   "safety_notes": {
-    "allowed_usage": [],
-    "restricted_usage": [],
-    "forbidden_usage": [],
-    "fallback_behavior": "Solliciter une validation humaine si ambiguïté."
+    "allowed_usage": ["conception d'un dispositif de journalisation IA", "explication du rôle de la traçabilité en gouvernance IA"],
+    "restricted_usage": ["reconstitution d'une décision précise sans accès réel au journal correspondant"],
+    "forbidden_usage": ["falsifier ou reconstituer artificiellement un historique de décision manquant"],
+    "fallback_behavior": "Indiquer clairement quand une trace n'est pas disponible plutôt que de reconstituer un historique probable présenté comme certain."
   },
   "metadata": {
     "author": "ALFRED_SYSTEM",
-    "creation_date": "11/07/2026",
-    "last_update": "11/07/2026",
-    "review_status": "draft",
-    "reviewed_by": "",
+    "creation_date": "17/07/2026",
+    "last_update": "17/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
     "source_type": "manual_structured_knowledge",
     "language": "fr",
     "retrieval_ready": true,

@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.execution.suivi_avancement_reporting_projet",
+  "title": "Suivi d'avancement et reporting de projet",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "execution",
+  "category": "cpl execution",
+  "summary": "Un reporting de projet fiable distingue l'avancement déclaratif (ce qui est rapporté comme fait) de l'avancement vérifié (ce qui est effectivement livré et validé), un écart persistant entre les deux étant lui-même un signal d'alerte à traiter avant le retard qu'il annonce.",
+  "purpose": "Structurer la pratique de reporting d'ALFRED CPL pour qu'il aide à détecter les écarts entre avancement perçu et réel plutôt que de se contenter d'agréger des pourcentages déclarés.",
+  "tags": ["reporting_projet", "suivi_avancement", "cpl", "indicateurs_projet", "alerte_precoce"],
+  "intents": ["design_project_reporting", "detect_declared_vs_verified_progress_gap", "structure_early_warning_indicators"],
+  "usage_context": [
+    "conception d'un tableau de bord de suivi de projet",
+    "analyse d'un reporting d'avancement présentant des signaux ambigus"
+  ],
+  "priority": "high",
+  "safety_level": "normal",
+  "content": {
+    "definition": "Le suivi d'avancement et le reporting de projet consistent à mesurer et communiquer régulièrement l'état réel d'un projet par rapport à son plan initial, en distinguant explicitement l'avancement déclaratif (rapporté par les équipes) de l'avancement vérifié (livré, testé, validé par un tiers), afin de détecter au plus tôt les signaux de dérive plutôt que de les découvrir au jalon final.",
+    "core_principles": [
+      "L'avancement déclaratif reflète la perception ou l'estimation des équipes d'exécution, sujette à des biais d'optimisme et à l'effet du dernier pourcentage (une tâche annoncée à 90 % depuis plusieurs semaines révèle souvent un blocage non résolu plutôt qu'un simple achèvement imminent).",
+      "L'avancement vérifié repose sur des critères objectifs de complétion (livrable produit, test passé, validation d'un tiers) et constitue une mesure plus fiable, bien que plus coûteuse à collecter en continu.",
+      "Un écart persistant et croissant entre avancement déclaratif et vérifié est en lui-même un indicateur d'alerte précoce, souvent plus révélateur qu'un simple pourcentage de retard global.",
+      "Le reporting ne doit pas se limiter à un pourcentage d'avancement global mais inclure les risques identifiés et les décisions en attente, informations qui expliquent le pourquoi de l'avancement plutôt que son seul état."
+    ],
+    "rules": [
+      "Distinguer systématiquement, dans tout reporting de projet, l'avancement déclaratif de l'avancement vérifié lorsque les deux sont disponibles.",
+      "Traiter un écart croissant entre avancement déclaratif et vérifié comme un signal à investiguer immédiatement, indépendamment du pourcentage global affiché.",
+      "Accompagner tout indicateur chiffré d'avancement des risques et décisions en attente qui en expliquent le contexte, pour éviter une lecture purement quantitative trompeuse.",
+      "Adapter la fréquence de reporting au niveau de risque du projet plutôt qu'à un rythme calendaire uniforme identique pour tous les projets."
+    ],
+    "examples": [
+      {
+        "situation": "Une tâche critique d'un projet est déclarée à 90 % d'avancement depuis trois points de suivi consécutifs, sans livrable vérifiable produit.",
+        "recommended_behavior": "Signaler explicitement cette stagnation comme un signal d'alerte prioritaire, distinct d'un simple retard mineur, et recommander une investigation sur le blocage réel sous-jacent plutôt que d'attendre un nouveau point de suivi.",
+        "avoid": "Reporter mécaniquement le pourcentage déclaré sans questionner sa stagnation, ce qui masque un problème réel jusqu'au jalon final du projet."
+      }
+    ],
+    "best_practices": [
+      "Définir des critères de complétion vérifiables et partagés pour chaque type de livrable, pas seulement une estimation subjective d'avancement.",
+      "Structurer le reporting autour de trois éléments systématiques : avancement, risques identifiés, décisions en attente, plutôt qu'un pourcentage isolé.",
+      "Historiser les reportings successifs pour détecter les tendances de stagnation ou de dérive, plus révélatrices qu'un instantané unique."
+    ],
+    "anti_patterns": [
+      "Se fier uniquement à un pourcentage d'avancement déclaratif agrégé sans jamais le confronter à un critère de complétion vérifiable.",
+      "Considérer qu'un projet à 90 % d'avancement stable depuis plusieurs semaines est proche de sa fin sans investiguer la cause de la stagnation.",
+      "Réduire le reporting à un chiffre unique en supprimant le contexte des risques et décisions en attente qui permettent de l'interpréter correctement."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["reporting_projet", "avancement_declaratif", "avancement_verifie", "alerte_precoce", "indicateurs_projet"],
+    "related_domains": ["cpl", "gestion_projet"],
+    "related_knowledge": [
+      "cpl.execution.project_management_core",
+      "cpl.execution.gestion_dependances_projet",
+      "cpl.business_piloting.pilotage_marge_projet_service"
+    ],
+    "retrieval_priority": 7
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["conception d'un reporting de projet et détection de signaux de dérive"],
+    "restricted_usage": ["confirmation d'un avancement projet fondée uniquement sur une déclaration non vérifiée"],
+    "forbidden_usage": ["présenter un avancement déclaratif comme vérifié sans distinction explicite des deux"],
+    "fallback_behavior": "Toujours préciser si un chiffre d'avancement communiqué est déclaratif ou vérifié en cas d'ambiguïté sur la source de l'information."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "17/07/2026",
+    "last_update": "17/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

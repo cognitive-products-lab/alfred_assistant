@@ -1,55 +1,83 @@
 {
-  "knowledge_id": "",
-  "title": "gdpr ai intersection",
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "professional.governance_ai.gdpr_ai_intersection",
+  "title": "Intersection RGPD et systèmes IA",
   "version": "1.0.0",
-  "status": "draft",
-  "domain": "",
-  "subdomain": "",
-  "category": "",
-  "priority": "medium",
-  "safety_level": "normal",
-  "summary": "",
-  "purpose": "",
-  "tags": [],
-  "intents": [],
-  "usage_context": [],
+  "status": "active",
+  "domain": "professional",
+  "subdomain": "governance_ai",
+  "category": "ai_governance",
+  "summary": "Le RGPD s'applique pleinement aux systèmes IA dès qu'ils traitent des données personnelles, mais soulève des tensions spécifiques : minimisation vs besoin de gros volumes d'entraînement, droit à l'explication vs opacité des modèles, droit à l'effacement vs mémorisation implicite du modèle.",
+  "purpose": "Permettre à ALFRED d'identifier les points de friction entre exigences RGPD et fonctionnement technique des systèmes IA, et de proposer des mesures de conformité concrètes plutôt que des généralités.",
+  "tags": ["rgpd", "gdpr", "ia", "protection_donnees", "conformite", "gouvernance_ia"],
+  "intents": ["apply_gdpr_to_ai_system", "identify_ai_gdpr_tension", "explain_ai_data_subject_rights"],
+  "usage_context": [
+    "conception d'un système IA traitant des données personnelles",
+    "audit de conformité RGPD d'un projet IA"
+  ],
+  "priority": "high",
+  "safety_level": "sensitive",
   "content": {
-    "summary": "",
-    "links": [],
-    "use_cases": [],
-    "risks": [],
-    "key_points": [],
-    "definition": "",
-    "core_principles": [],
-    "rules": [],
-    "examples": [],
-    "best_practices": [],
-    "anti_patterns": []
+    "definition": "L'intersection RGPD-IA désigne l'ensemble des obligations et tensions qui apparaissent lorsqu'un système d'intelligence artificielle traite des données à caractère personnel : base légale du traitement, minimisation, droits des personnes concernées (accès, rectification, effacement, opposition, portabilité) et encadrement spécifique de la décision automatisée (article 22 RGPD).",
+    "core_principles": [
+      "Toute donnée personnelle utilisée pour entraîner, affiner (fine-tuning) ou faire fonctionner un modèle IA reste soumise au RGPD, y compris lorsqu'elle est transformée en représentation vectorielle ou en poids de modèle.",
+      "L'article 22 RGPD encadre les décisions individuelles fondées exclusivement sur un traitement automatisé produisant des effets juridiques ou significatifs : la personne a le droit de ne pas y être soumise sans intervention humaine, sauf exceptions strictement encadrées.",
+      "Le droit à l'explication (considérant 71) impose de pouvoir fournir une information significative sur la logique sous-jacente d'une décision automatisée, ce qui entre en tension avec l'opacité des modèles complexes.",
+      "Le droit à l'effacement (article 17) est difficile à appliquer techniquement à un modèle déjà entraîné sur une donnée : la donnée peut être supprimée de la base source sans que son influence sur les poids du modèle disparaisse (nécessité de réentraînement ou de techniques de désapprentissage machine)."
+    ],
+    "rules": [
+      "Documenter systématiquement la base légale du traitement de données personnelles par un système IA avant tout déploiement (consentement, intérêt légitime, exécution contractuelle).",
+      "Réaliser une analyse d'impact relative à la protection des données (AIPD/DPIA) dès que le traitement IA présente un risque élevé pour les droits des personnes.",
+      "Prévoir un mécanisme de supervision humaine effective pour toute décision automatisée à effet significatif, et non une validation de pure forme.",
+      "Anticiper dès la conception la difficulté de l'effacement post-entraînement (article 17) en séparant données brutes et modèle, et en documentant la politique de réentraînement."
+    ],
+    "examples": [
+      {
+        "situation": "Un système IA local propose des recommandations de gestion d'agenda en analysant les habitudes personnelles de l'utilisateur.",
+        "recommended_behavior": "Identifier la base légale (probablement l'exécution du service demandé par l'utilisateur), documenter les catégories de données traitées, et vérifier que l'utilisateur garde un contrôle effectif (visualisation, modification, suppression) sur les données utilisées.",
+        "avoid": "Traiter la conformité RGPD comme un sujet uniquement juridique déconnecté des choix d'architecture technique du système IA."
+      }
+    ],
+    "best_practices": [
+      "Concevoir le système pour que les données personnelles restent identifiables et supprimables indépendamment du modèle (architecture local-first, séparation données/modèle).",
+      "Documenter la logique de décision de façon compréhensible pour répondre au droit à l'explication, même si le modèle sous-jacent est complexe.",
+      "Prévoir des tests réguliers de conformité RGPD spécifiques à l'IA, distincts des tests de conformité RGPD génériques du système d'information."
+    ],
+    "anti_patterns": [
+      "Considérer qu'un système IA local-first échappe au RGPD parce qu'il ne transmet pas de données à un tiers — le RGPD s'applique dès qu'il y a traitement, y compris local.",
+      "Répondre à une demande de droit à l'effacement en supprimant uniquement la donnée source sans traiter son influence résiduelle sur un modèle déjà entraîné.",
+      "Présenter une décision automatisée comme supervisée par un humain alors que la validation humaine est purement formelle et systématique."
+    ]
   },
   "retrieval_hints": {
-    "priority_keywords": [],
-    "related_domains": [],
-    "related_knowledge": [],
-    "retrieval_priority": 5
+    "priority_keywords": ["rgpd", "article_22", "droit_a_l_explication", "droit_a_l_effacement", "aipd"],
+    "related_domains": ["professional", "compliance", "cpl"],
+    "related_knowledge": [
+      "professional.governance_ai.explainable_ai",
+      "professional.governance_ai.data_minimization",
+      "compliance.data_protection.rgpd_compliance_operationnel"
+    ],
+    "retrieval_priority": 7
   },
   "behavior_rules": {
     "tone": "professional",
     "response_style": "structured_clear",
-    "max_complexity": "medium",
+    "max_complexity": "high",
     "allow_humor": false
   },
   "safety_notes": {
-    "allowed_usage": [],
-    "restricted_usage": [],
-    "forbidden_usage": [],
-    "fallback_behavior": "Solliciter une validation humaine si ambiguïté."
+    "allowed_usage": ["conseil sur la conformité RGPD d'un système IA", "identification des tensions RGPD/IA"],
+    "restricted_usage": ["évaluation juridique définitive d'un cas concret sans validation par un DPO ou juriste"],
+    "forbidden_usage": ["affirmer qu'un traitement est conforme RGPD sans réserve alors qu'un doute réel subsiste"],
+    "fallback_behavior": "Présenter les principes et risques applicables, et recommander la validation par un délégué à la protection des données pour toute décision définitive."
   },
   "metadata": {
     "author": "ALFRED_SYSTEM",
-    "creation_date": "11/07/2026",
-    "last_update": "11/07/2026",
-    "review_status": "draft",
-    "reviewed_by": "",
+    "creation_date": "17/07/2026",
+    "last_update": "17/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
     "source_type": "manual_structured_knowledge",
     "language": "fr",
     "retrieval_ready": true,
