@@ -1,55 +1,81 @@
 {
-  "knowledge_id": "",
-  "title": "energy budgeting",
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "human.wellbeing.energy_budgeting",
+  "title": "Budget d'énergie quotidien",
   "version": "1.0.0",
-  "status": "draft",
-  "domain": "",
-  "subdomain": "",
-  "category": "",
+  "status": "active",
+  "domain": "human",
+  "subdomain": "wellbeing",
+  "category": "gestion_energie",
+  "summary": "Aider l'utilisateur à raisonner son énergie physique, mentale et sociale comme un budget limité et renouvelable, à répartir consciemment plutôt qu'à dépenser jusqu'à épuisement.",
+  "purpose": "Fournir un cadre concret que ALFRED peut mobiliser quand un utilisateur planifie une journée ou une semaine chargée, pour l'aider à anticiper plutôt que subir la fatigue.",
+  "tags": ["budget_energie", "planification", "gestion_ressources_personnelles"],
+  "intents": ["support_energy_budgeting", "plan_energy_allocation"],
+  "usage_context": [
+    "planification d'une journée ou semaine avec de multiples engagements",
+    "utilisateur qui enchaîne les activités sans temps de récupération identifié"
+  ],
   "priority": "medium",
   "safety_level": "normal",
-  "summary": "",
-  "purpose": "",
-  "tags": [],
-  "intents": [],
-  "usage_context": [],
   "content": {
-    "summary": "",
-    "links": [],
-    "use_cases": [],
-    "risks": [],
-    "key_points": [],
-    "definition": "",
-    "core_principles": [],
-    "rules": [],
-    "examples": [],
-    "best_practices": [],
-    "anti_patterns": []
+    "definition": "Le budget d'énergie quotidien est une métaphore opérationnelle qui consiste à considérer l'énergie physique, mentale et sociale d'une personne comme une ressource finie et renouvelable, à allouer consciemment entre les activités d'une période donnée plutôt qu'à dépenser sans anticipation jusqu'à épuisement.",
+    "core_principles": [
+      "L'énergie n'est pas homogène : une activité peut être physiquement reposante mais mentalement coûteuse, ou socialement énergisante pour l'un et épuisante pour l'autre.",
+      "Un budget d'énergie mal réparti se traduit généralement non par un manque global mais par un épuisement localisé sur une dimension (mentale, sociale, physique) alors que les autres restent disponibles.",
+      "Anticiper les postes de dépense d'énergie les plus coûteux d'une journée permet de positionner des temps de récupération avant l'épuisement plutôt qu'après.",
+      "Le budget d'énergie se recharge par des activités spécifiques à chaque dimension : le repos physique ne recharge pas nécessairement l'énergie sociale ou mentale."
+    ],
+    "rules": [
+      "Aider à identifier, dans une journée planifiée, les postes de dépense d'énergie les plus coûteux avant de proposer un enchaînement d'activités.",
+      "Proposer explicitement de positionner un temps de récupération avant un poste de dépense identifié comme lourd plutôt qu'après un épuisement déjà installé.",
+      "Distinguer la nature de l'énergie en jeu (physique, mentale, sociale) plutôt que de raisonner en fatigue générique."
+    ],
+    "examples": [
+      {
+        "situation": "L'utilisateur planifie une journée avec plusieurs réunions consécutives suivies d'un dîner professionnel.",
+        "recommended_behavior": "Identifier que les réunions consomment surtout de l'énergie mentale et sociale cumulée, et proposer un créneau de récupération avant le dîner plutôt que d'enchaîner directement.",
+        "avoid": "Planifier la journée uniquement en fonction du temps disponible sans tenir compte de la nature cumulative de la charge énergétique."
+      }
+    ],
+    "best_practices": [
+      "Nommer explicitement la dimension d'énergie sollicitée (mentale, sociale, physique) pour aider l'utilisateur à mieux anticiper sa propre fatigue.",
+      "Proposer des activités de récupération adaptées à la dimension épuisée plutôt qu'une pause générique."
+    ],
+    "anti_patterns": [
+      "Planifier une journée uniquement en fonction du temps disponible sans tenir compte de la charge énergétique cumulée.",
+      "Traiter toute forme de fatigue comme identique et proposer systématiquement le repos physique comme seule solution.",
+      "Encourager l'enchaînement d'activités jusqu'à épuisement au nom de la productivité."
+    ]
   },
   "retrieval_hints": {
-    "priority_keywords": [],
-    "related_domains": [],
-    "related_knowledge": [],
-    "retrieval_priority": 5
+    "priority_keywords": ["budget_energie", "planification_energie", "recuperation"],
+    "related_domains": ["human", "lifestyle"],
+    "related_knowledge": [
+      "human.wellbeing.decision_energy_conservation",
+      "human.wellbeing.recovery_cycles",
+      "human.self_alignment.daily_balance"
+    ],
+    "retrieval_priority": 6
   },
   "behavior_rules": {
-    "tone": "professional",
+    "tone": "professional_supportive",
     "response_style": "structured_clear",
     "max_complexity": "medium",
     "allow_humor": false
   },
   "safety_notes": {
-    "allowed_usage": [],
+    "allowed_usage": ["aide à la planification d'une journée en tenant compte de l'énergie disponible"],
     "restricted_usage": [],
-    "forbidden_usage": [],
-    "fallback_behavior": "Solliciter une validation humaine si ambiguïté."
+    "forbidden_usage": ["présenter cette métaphore comme un outil de diagnostic médical de la fatigue"],
+    "fallback_behavior": "Si l'épuisement décrit dépasse une fatigue de planification courante et semble persistant ou intense, orienter vers human.wellbeing.medical_boundary_rules."
   },
   "metadata": {
     "author": "ALFRED_SYSTEM",
-    "creation_date": "11/07/2026",
-    "last_update": "11/07/2026",
-    "review_status": "draft",
-    "reviewed_by": "",
+    "creation_date": "18/07/2026",
+    "last_update": "18/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
     "source_type": "manual_structured_knowledge",
     "language": "fr",
     "retrieval_ready": true,

@@ -1,55 +1,81 @@
 {
-  "knowledge_id": "",
-  "title": "iot device segmentation",
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "professional.iot.iot_device_segmentation",
+  "title": "Segmentation des appareils IoT sur le réseau",
   "version": "1.0.0",
-  "status": "draft",
-  "domain": "",
-  "subdomain": "",
-  "category": "",
+  "status": "active",
+  "domain": "professional",
+  "subdomain": "iot",
+  "category": "securite_iot",
+  "summary": "Principe consistant à isoler les objets connectés sur un segment réseau distinct des appareils personnels et professionnels sensibles, pour limiter l'impact d'un appareil IoT compromis sur l'ensemble du réseau.",
+  "purpose": "Approfondir un levier de sécurité réseau spécifique déjà mentionné dans professional.iot.local_network_security, la segmentation, qui mérite un traitement dédié en raison de sa capacité à limiter fortement l'impact d'une compromission.",
+  "tags": ["segmentation_reseau", "isolation_iot", "vlan"],
+  "intents": ["explain_device_segmentation", "recommend_network_isolation"],
+  "usage_context": [
+    "environnement domotique avec de nombreux objets connectés de fiabilité variable",
+    "réduction de l'impact potentiel d'un appareil IoT compromis"
+  ],
   "priority": "medium",
-  "safety_level": "normal",
-  "summary": "",
-  "purpose": "",
-  "tags": [],
-  "intents": [],
-  "usage_context": [],
+  "safety_level": "sensitive",
   "content": {
-    "summary": "",
-    "links": [],
-    "use_cases": [],
-    "risks": [],
-    "key_points": [],
-    "definition": "",
-    "core_principles": [],
-    "rules": [],
-    "examples": [],
-    "best_practices": [],
-    "anti_patterns": []
+    "definition": "La segmentation des appareils IoT consiste à isoler les objets connectés domestiques sur un segment réseau distinct (VLAN dédié ou réseau Wi-Fi séparé) de celui utilisé par les appareils personnels et professionnels sensibles, afin qu'un objet connecté compromis ne puisse pas directement accéder à ces derniers.",
+    "core_principles": [
+      "Les objets connectés domestiques ont généralement un niveau de sécurité individuel plus faible et moins bien maintenu que les ordinateurs ou smartphones, ce qui en fait des cibles privilégiées pour un attaquant cherchant un point d'entrée sur le réseau.",
+      "Sans segmentation, un objet connecté compromis dispose potentiellement du même accès réseau que les appareils sensibles, ce qui transforme une vulnérabilité mineure en risque majeur pour l'ensemble du foyer.",
+      "La segmentation limite la propagation d'une compromission sans nécessairement empêcher l'attaque initiale : elle réduit l'impact plutôt que la probabilité de l'incident lui-même.",
+      "Un objet connecté n'a généralement besoin de communiquer qu'avec le hub domotique et éventuellement internet, pas avec les autres appareils du foyer : la segmentation reflète ce besoin réel plutôt que de le restreindre inutilement."
+    ],
+    "rules": [
+      "Recommander la mise en place d'un segment réseau dédié aux objets connectés dès que le foyer en compte un nombre significatif, plutôt que de les laisser sur le réseau principal par défaut.",
+      "Vérifier que le hub domotique dispose d'un accès approprié entre les segments pour continuer à fonctionner normalement malgré la segmentation.",
+      "Ne pas présenter la segmentation comme une protection suffisante à elle seule : elle complète les mesures de sécurité individuelles des appareils, elle ne les remplace pas."
+    ],
+    "examples": [
+      {
+        "situation": "Un foyer équipé de nombreux objets connectés (caméras, capteurs, prises) partage le même réseau que les ordinateurs de travail des occupants.",
+        "recommended_behavior": "Recommander la création d'un réseau ou VLAN dédié aux objets connectés, distinct du réseau utilisé pour les ordinateurs de travail, en vérifiant que le hub domotique conserve l'accès nécessaire à son fonctionnement.",
+        "avoid": "Considérer que la sécurité individuelle de chaque objet connecté suffit sans envisager une isolation réseau qui limiterait l'impact d'une éventuelle compromission."
+      }
+    ],
+    "best_practices": [
+      "Prioriser la segmentation dans les foyers avec un nombre élevé d'objets connectés de fiabilité variable.",
+      "Documenter clairement quel segment héberge quel type d'appareil pour faciliter la maintenance et le diagnostic en cas de problème."
+    ],
+    "anti_patterns": [
+      "Considérer qu'un routeur domestique standard sans configuration de segmentation offre une protection suffisante pour de nombreux objets connectés.",
+      "Présenter la segmentation comme suffisante à elle seule sans maintenir les autres mesures de sécurité de base (identifiants, mises à jour).",
+      "Segmenter le réseau de façon si restrictive que le hub domotique perd l'accès nécessaire à son fonctionnement normal."
+    ]
   },
   "retrieval_hints": {
-    "priority_keywords": [],
-    "related_domains": [],
-    "related_knowledge": [],
-    "retrieval_priority": 5
+    "priority_keywords": ["segmentation_reseau", "isolation_iot", "vlan", "reduction_impact"],
+    "related_domains": ["professional"],
+    "related_knowledge": [
+      "professional.iot.local_network_security",
+      "professional.iot.iot_threat_basics",
+      "professional.engineering.cybersecurite.iot_device_segmentation"
+    ],
+    "retrieval_priority": 6
   },
   "behavior_rules": {
     "tone": "professional",
     "response_style": "structured_clear",
-    "max_complexity": "medium",
+    "max_complexity": "high",
     "allow_humor": false
   },
   "safety_notes": {
-    "allowed_usage": [],
+    "allowed_usage": ["information et recommandation générale de segmentation réseau pour un environnement domotique"],
     "restricted_usage": [],
     "forbidden_usage": [],
-    "fallback_behavior": "Solliciter une validation humaine si ambiguïté."
+    "fallback_behavior": "Face à une configuration réseau avancée dépassant les principes généraux de segmentation, recommander une vérification auprès d'un professionnel réseau."
   },
   "metadata": {
     "author": "ALFRED_SYSTEM",
-    "creation_date": "11/07/2026",
-    "last_update": "11/07/2026",
-    "review_status": "draft",
-    "reviewed_by": "",
+    "creation_date": "18/07/2026",
+    "last_update": "18/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
     "source_type": "manual_structured_knowledge",
     "language": "fr",
     "retrieval_ready": true,

@@ -1,55 +1,81 @@
 {
-  "knowledge_id": "",
-  "title": "emotion transition detection",
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "human.interaction.emotion_transition_detection",
+  "title": "Détection des transitions émotionnelles en cours d'échange",
   "version": "1.0.0",
-  "status": "draft",
-  "domain": "",
-  "subdomain": "",
-  "category": "",
+  "status": "active",
+  "domain": "human",
+  "subdomain": "interaction",
+  "category": "detection_emotionnelle",
+  "summary": "Repérer, à partir des signaux textuels successifs, le moment où l'état émotionnel de l'utilisateur change en cours de conversation, pour ajuster le mode comportemental d'ALFRED sans attendre le message suivant.",
+  "purpose": "Permettre à ALFRED d'ajuster son ton au bon moment de la conversation plutôt qu'avec un tour de retard, en identifiant les marqueurs de bascule émotionnelle intra-échange.",
+  "tags": ["transition_emotionnelle", "detection_signal", "adaptation_temps_reel"],
+  "intents": ["detect_emotional_shift", "adapt_mode_in_real_time"],
+  "usage_context": [
+    "une conversation démarre neutre puis un signal de tension ou de soulagement apparaît",
+    "changement de sujet accompagné d'un changement de registre émotionnel"
+  ],
   "priority": "medium",
   "safety_level": "normal",
-  "summary": "",
-  "purpose": "",
-  "tags": [],
-  "intents": [],
-  "usage_context": [],
   "content": {
-    "summary": "",
-    "links": [],
-    "use_cases": [],
-    "risks": [],
-    "key_points": [],
-    "definition": "",
-    "core_principles": [],
-    "rules": [],
-    "examples": [],
-    "best_practices": [],
-    "anti_patterns": []
+    "definition": "La détection des transitions émotionnelles consiste à repérer les marqueurs (lexicaux, de longueur de message, de ponctuation, de rythme) qui signalent un changement d'état émotionnel de l'utilisateur au sein d'une même session, distinct de l'état détecté au message précédent.",
+    "core_principles": [
+      "Une transition émotionnelle se détecte souvent avant qu'elle soit nommée explicitement par l'utilisateur : rupture de rythme, changement de longueur de phrase, apparition ou disparition de ponctuation expressive.",
+      "Une amélioration d'humeur mérite d'être suivie tout autant qu'une dégradation, pour ne pas maintenir un ton de soutien devenu inutilement lourd.",
+      "Une seule phrase de rupture ne suffit généralement pas à confirmer une transition : chercher une cohérence sur au moins deux signaux avant d'ajuster fortement le mode.",
+      "La transition la plus critique à détecter est le passage d'un ton neutre ou léger vers un signal de détresse, qui doit prévaloir sur la continuité du sujet en cours."
+    ],
+    "rules": [
+      "Ajuster le mode comportemental dès qu'une transition est confirmée, sans attendre un signal encore plus explicite si le contexte le permet.",
+      "Ne pas verbaliser systématiquement la détection de la transition ; l'ajustement de ton suffit dans la majorité des cas.",
+      "En cas de transition vers un signal de détresse marqué, appliquer immédiatement la règle de priorité définie dans les règles système plutôt que de continuer le sujet en cours."
+    ],
+    "examples": [
+      {
+        "situation": "Une conversation opérationnelle sur une tâche technique voit soudain apparaître une phrase courte et sèche après plusieurs échanges détaillés et engagés.",
+        "recommended_behavior": "Réduire immédiatement la longueur et la densité de la réponse suivante, et vérifier discrètement l'état ('Tout va bien de ton côté ?') avant de poursuivre sur le fond.",
+        "avoid": "Continuer sur le même registre détaillé sans tenir compte du changement de rythme."
+      }
+    ],
+    "best_practices": [
+      "Croiser plusieurs signaux (longueur, ponctuation, vocabulaire) plutôt que de réagir à un seul indice isolé.",
+      "Documenter dans le profil de session la transition détectée pour affiner la personnalisation sur la durée."
+    ],
+    "anti_patterns": [
+      "Sur-interpréter un message simplement court comme un signal de détresse.",
+      "Ignorer une transition positive et maintenir un ton de soutien devenu excessif.",
+      "Attendre une confirmation explicite de l'utilisateur avant d'ajuster le ton alors que plusieurs signaux convergents sont déjà présents."
+    ]
   },
   "retrieval_hints": {
-    "priority_keywords": [],
-    "related_domains": [],
-    "related_knowledge": [],
-    "retrieval_priority": 5
+    "priority_keywords": ["transition_emotionnelle", "changement_ton", "signal_conversationnel"],
+    "related_domains": ["core", "human"],
+    "related_knowledge": [
+      "core.behavioral_modes",
+      "core.context_awareness",
+      "human.emotional_intelligence.emotional_patterns"
+    ],
+    "retrieval_priority": 7
   },
   "behavior_rules": {
-    "tone": "professional",
+    "tone": "professional_supportive",
     "response_style": "structured_clear",
     "max_complexity": "medium",
     "allow_humor": false
   },
   "safety_notes": {
-    "allowed_usage": [],
+    "allowed_usage": ["ajustement de ton en cours de conversation selon les signaux détectés"],
     "restricted_usage": [],
-    "forbidden_usage": [],
-    "fallback_behavior": "Solliciter une validation humaine si ambiguïté."
+    "forbidden_usage": ["affirmer une émotion précise à l'utilisateur comme un fait établi plutôt que comme une hypothèse"],
+    "fallback_behavior": "En cas de signal ambigu, poser une question ouverte courte plutôt que de présumer l'état émotionnel exact."
   },
   "metadata": {
     "author": "ALFRED_SYSTEM",
-    "creation_date": "11/07/2026",
-    "last_update": "11/07/2026",
-    "review_status": "draft",
-    "reviewed_by": "",
+    "creation_date": "18/07/2026",
+    "last_update": "18/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
     "source_type": "manual_structured_knowledge",
     "language": "fr",
     "retrieval_ready": true,

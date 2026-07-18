@@ -1,36 +1,62 @@
 {
-  "knowledge_id": "",
-  "title": "task decomposition reasoning",
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "professional.engineering_reasoning.task_decomposition_reasoning",
+  "title": "Décomposition d'une tâche complexe en sous-tâches",
   "version": "1.0.0",
-  "status": "draft",
-  "domain": "",
-  "subdomain": "",
-  "category": "",
-  "priority": "medium",
+  "status": "active",
+  "domain": "professional",
+  "subdomain": "engineering_reasoning",
+  "category": "methodes_raisonnement",
+  "summary": "Méthode consistant à découper une tâche ou une question complexe en sous-parties plus simples et traitables individuellement, première étape fréquente avant d'appliquer d'autres méthodes de raisonnement.",
+  "purpose": "Documenter la méthode de décomposition, référencée par plusieurs autres fiches de raisonnement comme première étape d'un traitement structuré, pour un problème qui serait trop large ou ambigu à traiter d'un seul bloc.",
+  "tags": ["decomposition_tache", "sous_taches", "structuration_probleme"],
+  "intents": ["decompose_complex_task", "structure_ambiguous_problem"],
+  "usage_context": [
+    "demande large ou ambiguë qui mélange plusieurs sujets ou étapes distincts",
+    "tâche complexe nécessitant d'être traitée par étapes plutôt qu'en un seul bloc"
+  ],
+  "priority": "high",
   "safety_level": "normal",
-  "summary": "",
-  "purpose": "",
-  "tags": [],
-  "intents": [],
-  "usage_context": [],
   "content": {
-    "summary": "",
-    "links": [],
-    "use_cases": [],
-    "risks": [],
-    "key_points": [],
-    "definition": "",
-    "core_principles": [],
-    "rules": [],
-    "examples": [],
-    "best_practices": [],
-    "anti_patterns": []
+    "definition": "La décomposition de tâche consiste à découper une demande ou un problème complexe en sous-parties plus simples, chacune pouvant être traitée individuellement avec plus de clarté et de rigueur qu'en traitant l'ensemble du problème d'un seul bloc.",
+    "core_principles": [
+      "Un problème complexe traité d'un seul bloc génère plus facilement des oublis, des incohérences ou une réponse superficielle qu'un problème découpé en sous-parties traitées successivement.",
+      "Le découpage doit produire des sous-tâches réellement indépendantes ou clairement séquencées, pas un découpage arbitraire qui recrée artificiellement de l'interdépendance non gérée.",
+      "Toutes les demandes ne bénéficient pas de la décomposition : une question simple et directe n'a pas besoin d'être artificiellement fragmentée.",
+      "Une fois les sous-tâches traitées, leur synthèse en une réponse cohérente est une étape à part entière, pas une simple juxtaposition des résultats obtenus séparément."
+    ],
+    "rules": [
+      "Décomposer explicitement une demande large ou ambiguë en sous-parties identifiables avant de commencer à y répondre en détail.",
+      "Vérifier que chaque sous-tâche identifiée est réellement traitable de façon autonome ou correctement séquencée par rapport aux autres.",
+      "Synthétiser les résultats des sous-tâches en une réponse cohérente plutôt que de les présenter comme des blocs juxtaposés sans lien explicite."
+    ],
+    "examples": [
+      {
+        "situation": "Un utilisateur demande de l'aide pour préparer un lancement de projet qui mélange des aspects budgétaires, organisationnels et de communication.",
+        "recommended_behavior": "Décomposer explicitement la demande en trois volets (budget, organisation, communication), traiter chacun avec la rigueur appropriée, puis présenter une synthèse cohérente qui articule les trois volets entre eux.",
+        "avoid": "Traiter la demande comme un bloc unique, ce qui risque de mélanger les aspects et de traiter certains superficiellement faute de structuration claire."
+      }
+    ],
+    "best_practices": [
+      "Rendre visible pour l'utilisateur la décomposition retenue quand la demande initiale était particulièrement large ou ambiguë, pour vérifier qu'elle correspond à ses attentes.",
+      "Réserver la décomposition explicite aux demandes qui en bénéficient réellement, sans la systématiser pour des questions simples."
+    ],
+    "anti_patterns": [
+      "Traiter un problème complexe et multi-facettes d'un seul bloc sans décomposition, au risque d'oublis ou de superficialité.",
+      "Découper artificiellement une demande simple en sous-parties inutiles, ce qui alourdit la réponse sans bénéfice.",
+      "Présenter les résultats des sous-tâches comme des blocs juxtaposés sans synthèse cohérente finale."
+    ]
   },
   "retrieval_hints": {
-    "priority_keywords": [],
-    "related_domains": [],
-    "related_knowledge": [],
-    "retrieval_priority": 5
+    "priority_keywords": ["decomposition_tache", "sous_taches", "structuration"],
+    "related_domains": ["professional"],
+    "related_knowledge": [
+      "professional.engineering_reasoning.reasoning_orchestration",
+      "professional.engineering_reasoning.meta_reasoning_basics",
+      "professional.decision.problem_solving"
+    ],
+    "retrieval_priority": 7
   },
   "behavior_rules": {
     "tone": "professional",
@@ -39,17 +65,17 @@
     "allow_humor": false
   },
   "safety_notes": {
-    "allowed_usage": [],
+    "allowed_usage": ["décomposition d'une demande complexe ou ambiguë en sous-parties traitables"],
     "restricted_usage": [],
     "forbidden_usage": [],
-    "fallback_behavior": "Solliciter une validation humaine si ambiguïté."
+    "fallback_behavior": "En cas de doute sur la pertinence d'une décomposition, privilégier une réponse directe simple si la demande ne semble pas réellement complexe."
   },
   "metadata": {
     "author": "ALFRED_SYSTEM",
-    "creation_date": "11/07/2026",
-    "last_update": "11/07/2026",
-    "review_status": "draft",
-    "reviewed_by": "",
+    "creation_date": "18/07/2026",
+    "last_update": "18/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
     "source_type": "manual_structured_knowledge",
     "language": "fr",
     "retrieval_ready": true,

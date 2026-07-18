@@ -1,36 +1,62 @@
 {
-  "knowledge_id": "",
-  "title": "reasoning failure patterns",
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "professional.engineering_reasoning.reasoning_failure_patterns",
+  "title": "Patterns récurrents d'échec de raisonnement",
   "version": "1.0.0",
-  "status": "draft",
-  "domain": "",
-  "subdomain": "",
-  "category": "",
-  "priority": "medium",
+  "status": "active",
+  "domain": "professional",
+  "subdomain": "engineering_reasoning",
+  "category": "fiabilite_raisonnement",
+  "summary": "Répertoire des façons типиques dont un raisonnement peut échouer (ancrage excessif sur la première hypothèse, sur-généralisation, confusion de corrélation et causalité, raisonnement circulaire) pour les reconnaître et les éviter.",
+  "purpose": "Donner à ALFRED un catalogue des erreurs de raisonnement les plus fréquentes pour s'auto-vérifier avant de conclure, en complément des fiches dédiées à des méthodes spécifiques de raisonnement.",
+  "tags": ["echec_raisonnement", "biais_raisonnement", "auto_verification"],
+  "intents": ["recognize_reasoning_failure_pattern", "self_check_before_concluding"],
+  "usage_context": [
+    "vérification finale d'un raisonnement avant de conclure une réponse",
+    "raisonnement complexe à plusieurs étapes où une erreur en amont peut se propager"
+  ],
+  "priority": "high",
   "safety_level": "normal",
-  "summary": "",
-  "purpose": "",
-  "tags": [],
-  "intents": [],
-  "usage_context": [],
   "content": {
-    "summary": "",
-    "links": [],
-    "use_cases": [],
-    "risks": [],
-    "key_points": [],
-    "definition": "",
-    "core_principles": [],
-    "rules": [],
-    "examples": [],
-    "best_practices": [],
-    "anti_patterns": []
+    "definition": "Les patterns récurrents d'échec de raisonnement désignent les erreurs typiques et bien identifiées qui peuvent affecter un raisonnement même structuré : ancrage excessif sur la première hypothèse formulée, sur-généralisation à partir d'un exemple limité, confusion entre corrélation et causalité, et raisonnement circulaire où la conclusion est en réalité déjà présupposée dans les prémisses.",
+    "core_principles": [
+      "L'ancrage sur la première hypothèse formulée biaise l'évaluation des hypothèses suivantes, qui sont alors jugées par comparaison à la première plutôt que sur leurs propres mérites.",
+      "Une conclusion tirée d'un seul exemple ou d'un cas particulier n'est généralisable que si sa représentativité est explicitement vérifiée, faute de quoi elle reste une sur-généralisation.",
+      "Une corrélation observée entre deux éléments ne prouve pas qu'un cause l'autre : un troisième facteur commun ou une simple coïncidence sont des explications alternatives à toujours considérer.",
+      "Un raisonnement circulaire donne une impression de rigueur alors que sa conclusion était en réalité présupposée par la formulation même des prémisses."
+    ],
+    "rules": [
+      "Avant de conclure un raisonnement à enjeu significatif, vérifier explicitement qu'aucun des patterns d'échec courants (ancrage, sur-généralisation, confusion causale, circularité) n'a affecté la conclusion.",
+      "Quand plusieurs hypothèses sont envisagées, les évaluer sur des critères explicites plutôt que par comparaison implicite à la première formulée.",
+      "Face à une corrélation observée, envisager explicitement au moins une explication alternative à la causalité directe avant de conclure."
+    ],
+    "examples": [
+      {
+        "situation": "Un raisonnement conclut qu'une méthode est la meilleure parce qu'elle a été la première envisagée et qu'aucune alternative n'a été sérieusement comparée.",
+        "recommended_behavior": "Revenir en arrière et évaluer explicitement au moins une alternative sur les mêmes critères avant de confirmer la conclusion, pour éviter un biais d'ancrage.",
+        "avoid": "Conclure directement en faveur de la première hypothèse sans comparaison explicite avec d'autres options raisonnables."
+      }
+    ],
+    "best_practices": [
+      "Intégrer une vérification finale explicite des patterns d'échec courants avant de livrer une conclusion sur un raisonnement à enjeu significatif.",
+      "Nommer explicitement le pattern évité quand cela clarifie la robustesse du raisonnement pour l'utilisateur ('j'ai vérifié que ce n'était pas juste une corrélation')."
+    ],
+    "anti_patterns": [
+      "Confirmer la première hypothèse formulée sans comparaison rigoureuse avec des alternatives.",
+      "Généraliser une conclusion à partir d'un seul exemple sans vérifier sa représentativité.",
+      "Présenter une corrélation observée comme une preuve de causalité sans envisager d'explications alternatives."
+    ]
   },
   "retrieval_hints": {
-    "priority_keywords": [],
-    "related_domains": [],
-    "related_knowledge": [],
-    "retrieval_priority": 5
+    "priority_keywords": ["echec_raisonnement", "biais_ancrage", "sur_generalisation", "causalite"],
+    "related_domains": ["professional", "human"],
+    "related_knowledge": [
+      "professional.engineering_reasoning.contradiction_detection",
+      "human.cognition.critical_thinking",
+      "human.psychology.cognitive_bias_awareness"
+    ],
+    "retrieval_priority": 7
   },
   "behavior_rules": {
     "tone": "professional",
@@ -39,17 +65,17 @@
     "allow_humor": false
   },
   "safety_notes": {
-    "allowed_usage": [],
+    "allowed_usage": ["auto-vérification d'un raisonnement pour éviter des erreurs de logique courantes"],
     "restricted_usage": [],
     "forbidden_usage": [],
-    "fallback_behavior": "Solliciter une validation humaine si ambiguïté."
+    "fallback_behavior": "En cas de doute sur la présence d'un biais de raisonnement dans une conclusion à enjeu significatif, revérifier explicitement plutôt que de livrer la conclusion telle quelle."
   },
   "metadata": {
     "author": "ALFRED_SYSTEM",
-    "creation_date": "11/07/2026",
-    "last_update": "11/07/2026",
-    "review_status": "draft",
-    "reviewed_by": "",
+    "creation_date": "18/07/2026",
+    "last_update": "18/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
     "source_type": "manual_structured_knowledge",
     "language": "fr",
     "retrieval_ready": true,

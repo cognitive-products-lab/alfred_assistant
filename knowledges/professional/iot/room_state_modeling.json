@@ -1,35 +1,61 @@
 {
-  "knowledge_id": "",
-  "title": "room state modeling",
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "professional.iot.room_state_modeling",
+  "title": "Modélisation de l'état d'une pièce",
   "version": "1.0.0",
-  "status": "draft",
-  "domain": "",
-  "subdomain": "",
-  "category": "",
+  "status": "active",
+  "domain": "professional",
+  "subdomain": "iot",
+  "category": "architecture_iot",
+  "summary": "Principe consistant à combiner plusieurs signaux de capteurs (présence, température, luminosité, ouverture) en un état synthétique et cohérent d'une pièce, plutôt que de traiter chaque capteur isolément, pour des automatisations plus pertinentes.",
+  "purpose": "Décrire un niveau d'abstraction technique intermédiaire entre les capteurs bruts (voir professional.iot.presence_detection) et les règles d'automatisation, utile pour concevoir des automatisations domotiques cohérentes plutôt que fragiles.",
+  "tags": ["modelisation_etat", "fusion_capteurs", "coherence_automatisation"],
+  "intents": ["explain_room_state_modeling", "design_coherent_automation"],
+  "usage_context": [
+    "conception d'automatisations combinant plusieurs types de capteurs",
+    "règles domotiques qui se déclenchent de façon incohérente ou contradictoire"
+  ],
   "priority": "medium",
   "safety_level": "normal",
-  "summary": "",
-  "purpose": "",
-  "tags": [],
-  "intents": [],
-  "usage_context": [],
   "content": {
-    "summary": "",
-    "links": [],
-    "use_cases": [],
-    "risks": [],
-    "key_points": [],
-    "definition": "",
-    "core_principles": [],
-    "rules": [],
-    "examples": [],
-    "best_practices": [],
-    "anti_patterns": []
+    "definition": "La modélisation de l'état d'une pièce consiste à combiner les signaux de plusieurs capteurs (présence, température, luminosité, ouverture de fenêtre) en une représentation synthétique et cohérente de la situation réelle de la pièce, sur laquelle les règles d'automatisation se basent, plutôt que sur chaque capteur pris isolément.",
+    "core_principles": [
+      "Une automatisation basée sur un seul capteur isolé (par exemple uniquement la présence) ignore souvent un contexte pertinent (luminosité déjà suffisante, fenêtre ouverte) qui rendrait l'action inadaptée.",
+      "La fusion de plusieurs signaux en un état synthétique de la pièce permet des règles plus pertinentes qu'une accumulation de règles indépendantes qui peuvent entrer en contradiction les unes avec les autres.",
+      "Un état de pièce mal modélisé (signaux contradictoires non résolus) produit des comportements erratiques qui dégradent la confiance de l'utilisateur envers l'ensemble du système domotique.",
+      "La modélisation doit gérer explicitement les cas de signaux manquants ou en panne (capteur hors ligne) plutôt que de présumer silencieusement un état par défaut potentiellement erroné."
+    ],
+    "rules": [
+      "Concevoir les règles d'automatisation à partir d'un état de pièce combinant plusieurs signaux pertinents plutôt que d'un seul capteur isolé quand le contexte le justifie.",
+      "Prévoir explicitement le traitement des signaux manquants ou en panne dans la modélisation, plutôt que de laisser un comportement non défini.",
+      "Documenter la logique de fusion des signaux (quelle priorité entre eux en cas de conflit) pour faciliter le diagnostic en cas de comportement inattendu."
+    ],
+    "examples": [
+      {
+        "situation": "Une règle d'éclairage automatique se déclenche même en pleine journée avec beaucoup de lumière naturelle, uniquement basée sur la détection de présence.",
+        "recommended_behavior": "Reconcevoir la règle pour combiner présence et luminosité ambiante dans un état synthétique de la pièce, l'éclairage ne se déclenchant que si la présence est détectée ET que la luminosité est insuffisante.",
+        "avoid": "Continuer à baser la règle uniquement sur la présence, ce qui produit un comportement perçu comme absurde ou inutile par l'utilisateur."
+      }
+    ],
+    "best_practices": [
+      "Identifier les signaux pertinents à combiner en fonction de l'objectif réel de chaque automatisation plutôt que d'utiliser systématiquement tous les capteurs disponibles.",
+      "Définir explicitement un comportement par défaut sûr en cas de signal manquant plutôt que de laisser un état indéterminé."
+    ],
+    "anti_patterns": [
+      "Baser une automatisation sur un seul capteur isolé alors que le contexte réel dépend de plusieurs facteurs.",
+      "Laisser des règles indépendantes entrer en conflit sans logique de résolution explicite.",
+      "Ignorer le cas d'un capteur hors ligne ou en panne dans la conception de la règle."
+    ]
   },
   "retrieval_hints": {
-    "priority_keywords": [],
-    "related_domains": [],
-    "related_knowledge": [],
+    "priority_keywords": ["modelisation_etat", "fusion_capteurs", "automatisation_coherente"],
+    "related_domains": ["professional"],
+    "related_knowledge": [
+      "professional.iot.presence_detection",
+      "professional.iot.smart_alert_prioritization",
+      "professional.iot.smart_home_basics"
+    ],
     "retrieval_priority": 5
   },
   "behavior_rules": {
@@ -39,17 +65,17 @@
     "allow_humor": false
   },
   "safety_notes": {
-    "allowed_usage": [],
+    "allowed_usage": ["conception technique d'automatisations domotiques cohérentes basées sur plusieurs signaux"],
     "restricted_usage": [],
     "forbidden_usage": [],
-    "fallback_behavior": "Solliciter une validation humaine si ambiguïté."
+    "fallback_behavior": "En cas de conflit non résolu entre plusieurs signaux dans une automatisation critique de sécurité, privilégier le comportement le plus prudent (sécurité activée) plutôt que le plus permissif."
   },
   "metadata": {
     "author": "ALFRED_SYSTEM",
-    "creation_date": "11/07/2026",
-    "last_update": "11/07/2026",
-    "review_status": "draft",
-    "reviewed_by": "",
+    "creation_date": "18/07/2026",
+    "last_update": "18/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
     "source_type": "manual_structured_knowledge",
     "language": "fr",
     "retrieval_ready": true,

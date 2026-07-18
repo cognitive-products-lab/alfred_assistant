@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.operations_continuite.resilience_architecture_alfred_cpl",
+  "title": "Résilience architecturale d'ALFRED CPL",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "operations_continuite",
+  "category": "continuite_operationnelle",
+  "summary": "Principe de résilience architecturale d'ALFRED CPL : concevoir le système pour absorber une défaillance partielle sans interruption totale de service, distinct de la haute disponibilité (redondance) et de la sauvegarde/restauration (récupération après incident) déjà documentées séparément.",
+  "purpose": "Documenter la résilience comme principe d'architecture à part entière, explicitement listé dans les instructions permanentes, complémentaire à la haute disponibilité et à la sauvegarde déjà couvertes, avec un focus sur la dégradation gracieuse plutôt que sur la redondance ou la récupération.",
+  "tags": ["resilience", "degradation_gracieuse", "tolerance_pannes"],
+  "intents": ["explain_resilience_principle", "design_graceful_degradation"],
+  "usage_context": [
+    "conception d'une architecture capable d'absorber une défaillance partielle",
+    "distinction entre résilience, haute disponibilité et sauvegarde pour un client ou un auditeur"
+  ],
+  "priority": "high",
+  "safety_level": "sensitive",
+  "content": {
+    "definition": "La résilience architecturale désigne la capacité d'ALFRED CPL à continuer de fournir un service utile, même dégradé, en cas de défaillance partielle d'un de ses composants, par opposition à la haute disponibilité qui vise à éviter la défaillance par redondance, et à la sauvegarde/restauration qui vise à récupérer après une perte de données déjà survenue.",
+    "core_principles": [
+      "La résilience ne cherche pas à empêcher toute défaillance (rôle de la haute disponibilité) mais à limiter son impact quand elle survient malgré tout, en assurant une dégradation gracieuse plutôt qu'une interruption complète.",
+      "Un système résilient identifie ses fonctions critiques à préserver en priorité en cas de défaillance partielle, plutôt que de traiter toutes ses fonctionnalités comme également indispensables.",
+      "La dégradation gracieuse suppose une communication claire à l'utilisateur sur le mode dégradé en cours, plutôt qu'un fonctionnement silencieusement altéré qui pourrait induire en erreur.",
+      "La résilience se distingue de l'offline-first (qui traite spécifiquement l'absence de réseau) en couvrant plus largement toute défaillance partielle d'un composant, réseau ou non."
+    ],
+    "rules": [
+      "Identifier explicitement, pour chaque composant d'ALFRED CPL, les fonctions critiques à préserver en priorité en cas de défaillance partielle de ce composant.",
+      "Concevoir un mode dégradé explicite et communiqué à l'utilisateur plutôt qu'une interruption totale ou un fonctionnement silencieusement altéré.",
+      "Distinguer clairement, dans la documentation technique et la communication client, la résilience de la haute disponibilité et de la sauvegarde/restauration, ces trois notions répondant à des risques différents."
+    ],
+    "examples": [
+      {
+        "situation": "Un composant secondaire d'ALFRED CPL (par exemple une intégration tierce non critique) tombe en panne pendant que le cœur du système reste fonctionnel.",
+        "recommended_behavior": "Continuer à fournir les fonctions critiques du système en signalant clairement à l'utilisateur que la fonctionnalité liée au composant en panne est temporairement indisponible, plutôt que d'interrompre l'ensemble du service.",
+        "avoid": "Interrompre totalement le service à cause de la défaillance d'un composant non critique, ou au contraire masquer silencieusement la dégradation sans en informer l'utilisateur."
+      }
+    ],
+    "best_practices": [
+      "Cartographier explicitement les fonctions critiques versus non critiques du système pour prioriser la conception de la résilience.",
+      "Tester régulièrement le comportement du système en cas de défaillance simulée d'un composant pour vérifier la dégradation gracieuse effective."
+    ],
+    "anti_patterns": [
+      "Concevoir un système où la défaillance d'un composant non critique entraîne l'interruption totale du service.",
+      "Laisser un mode dégradé fonctionner silencieusement sans en informer clairement l'utilisateur.",
+      "Confondre résilience, haute disponibilité et sauvegarde/restauration comme si ces trois notions répondaient au même risque."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["resilience", "degradation_gracieuse", "tolerance_pannes", "fonctions_critiques"],
+    "related_domains": ["cpl"],
+    "related_knowledge": [
+      "cpl.operations_continuite.haute_disponibilite_alfred_cpl",
+      "cpl.operations_continuite.sauvegarde_restauration_alfred_cpl",
+      "cpl.product_platform.offline_first_continuite_service_alfred"
+    ],
+    "retrieval_priority": 7
+  },
+  "behavior_rules": {
+    "tone": "formal",
+    "response_style": "structured_clear",
+    "max_complexity": "high",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["explication et conception de principes de résilience architecturale pour ALFRED CPL"],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "En cas de doute sur la criticité d'un composant lors de la conception d'un mode dégradé, le traiter par défaut comme critique plutôt que non critique."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "18/07/2026",
+    "last_update": "18/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

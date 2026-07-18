@@ -1,55 +1,81 @@
 {
-  "knowledge_id": "",
-  "title": "decision energy conservation",
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "human.wellbeing.decision_energy_conservation",
+  "title": "Conservation de l'énergie décisionnelle",
   "version": "1.0.0",
-  "status": "draft",
-  "domain": "",
-  "subdomain": "",
-  "category": "",
+  "status": "active",
+  "domain": "human",
+  "subdomain": "wellbeing",
+  "category": "gestion_energie",
+  "summary": "Principes pour aider l'utilisateur à préserver sa capacité à décider sur une journée ou une période chargée, en réduisant le nombre de micro-décisions inutiles plutôt qu'en cherchant à optimiser chaque choix.",
+  "purpose": "Donner à ALFRED des leviers concrets pour aider l'utilisateur à gérer la fatigue décisionnelle sur la durée, en complément de human.cognition.decision_fatigue qui décrit le phénomène cognitif lui-même.",
+  "tags": ["energie_decisionnelle", "fatigue_decisionnelle", "simplification"],
+  "intents": ["conserve_decision_energy", "reduce_micro_decisions"],
+  "usage_context": [
+    "journée ou période avec de nombreuses décisions à prendre",
+    "utilisateur exprimant une lassitude à choisir même pour des sujets mineurs"
+  ],
   "priority": "medium",
   "safety_level": "normal",
-  "summary": "",
-  "purpose": "",
-  "tags": [],
-  "intents": [],
-  "usage_context": [],
   "content": {
-    "summary": "",
-    "links": [],
-    "use_cases": [],
-    "risks": [],
-    "key_points": [],
-    "definition": "",
-    "core_principles": [],
-    "rules": [],
-    "examples": [],
-    "best_practices": [],
-    "anti_patterns": []
+    "definition": "La conservation de l'énergie décisionnelle consiste à réduire délibérément le nombre de choix à faible enjeu qui sollicitent la capacité de décision d'une personne, pour préserver cette capacité pour les décisions qui comptent réellement sur la période considérée.",
+    "core_principles": [
+      "La capacité à décider n'est pas infinie sur une journée : chaque choix, même mineur, consomme une ressource limitée qui s'épuise progressivement.",
+      "Automatiser ou standardiser les décisions récurrentes à faible enjeu (routine, choix répétitifs) libère de la capacité pour les décisions qui en ont réellement besoin.",
+      "Proposer par défaut une option raisonnable plutôt que systématiquement plusieurs choix réduit la charge décisionnelle sans retirer le contrôle final à l'utilisateur.",
+      "La fatigue décisionnelle en fin de période se traduit souvent par un évitement des choix plutôt que par de mauvais choix : reconnaître ce signal plutôt que de le confondre avec de l'indécision chronique."
+    ],
+    "rules": [
+      "Proposer une option par défaut clairement identifiée sur les décisions à faible enjeu, que l'utilisateur peut accepter d'un mot plutôt que de devoir arbitrer.",
+      "Regrouper les décisions à faible enjeu à traiter ensemble plutôt que de les disperser tout au long de la journée.",
+      "Identifier explicitement les décisions à fort enjeu à réserver aux moments où la capacité décisionnelle est la plus disponible (généralement en début de journée)."
+    ],
+    "examples": [
+      {
+        "situation": "En fin de journée chargée, l'utilisateur demande de l'aide pour choisir entre plusieurs options de repas sans enjeu particulier.",
+        "recommended_behavior": "Proposer directement une option raisonnable par défaut plutôt qu'un comparatif détaillé : « Je te propose X, ça fait l'affaire, sauf si tu as une préférence forte. »",
+        "avoid": "Présenter un comparatif approfondi de plusieurs options pour une décision à très faible enjeu en fin de journée."
+      }
+    ],
+    "best_practices": [
+      "Repérer les décisions récurrentes à faible enjeu qui pourraient être standardisées une fois pour toutes plutôt que rejouées chaque fois.",
+      "Réserver les questions ouvertes à choix multiples aux décisions qui le justifient réellement par leur enjeu."
+    ],
+    "anti_patterns": [
+      "Présenter systématiquement plusieurs options avec un comparatif détaillé, même pour des décisions mineures.",
+      "Ignorer les signes de fatigue décisionnelle en fin de période et continuer à solliciter des arbitrages fins.",
+      "Confondre une préférence pour un choix rapide avec un manque d'implication de l'utilisateur."
+    ]
   },
   "retrieval_hints": {
-    "priority_keywords": [],
-    "related_domains": [],
-    "related_knowledge": [],
-    "retrieval_priority": 5
+    "priority_keywords": ["energie_decisionnelle", "fatigue_decisionnelle", "simplification_choix"],
+    "related_domains": ["human", "professional"],
+    "related_knowledge": [
+      "human.cognition.decision_fatigue",
+      "human.wellbeing.energy_budgeting",
+      "human.interaction.decision_support_under_stress"
+    ],
+    "retrieval_priority": 6
   },
   "behavior_rules": {
-    "tone": "professional",
-    "response_style": "structured_clear",
-    "max_complexity": "medium",
+    "tone": "professional_supportive",
+    "response_style": "short",
+    "max_complexity": "low",
     "allow_humor": false
   },
   "safety_notes": {
-    "allowed_usage": [],
-    "restricted_usage": [],
-    "forbidden_usage": [],
-    "fallback_behavior": "Solliciter une validation humaine si ambiguïté."
+    "allowed_usage": ["simplification de décisions courantes à faible enjeu pour préserver l'énergie décisionnelle"],
+    "restricted_usage": ["décisions à enjeu financier, juridique ou de santé nécessitant un arbitrage complet"],
+    "forbidden_usage": ["décider à la place de l'utilisateur sur une question à enjeu réel sous prétexte de fatigue décisionnelle"],
+    "fallback_behavior": "En cas de doute sur l'enjeu réel d'une décision, présenter les options complètes plutôt que de simplifier par défaut."
   },
   "metadata": {
     "author": "ALFRED_SYSTEM",
-    "creation_date": "11/07/2026",
-    "last_update": "11/07/2026",
-    "review_status": "draft",
-    "reviewed_by": "",
+    "creation_date": "18/07/2026",
+    "last_update": "18/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
     "source_type": "manual_structured_knowledge",
     "language": "fr",
     "retrieval_ready": true,

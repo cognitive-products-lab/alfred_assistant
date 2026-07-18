@@ -1,36 +1,62 @@
 {
-  "knowledge_id": "",
-  "title": "presence detection",
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "professional.iot.presence_detection",
+  "title": "Détection de présence dans un environnement domotique",
   "version": "1.0.0",
-  "status": "draft",
-  "domain": "",
-  "subdomain": "",
-  "category": "",
+  "status": "active",
+  "domain": "professional",
+  "subdomain": "iot",
+  "category": "detection_environnementale",
+  "summary": "Principes techniques et de confidentialité de la détection de présence (technologies utilisées, fiabilité, granularité) qui sous-tend de nombreuses automatisations domotiques, avec attention particulière à la sensibilité de cette donnée.",
+  "purpose": "Documenter la détection de présence comme brique technique fondamentale de nombreuses automatisations (éclairage, chauffage, sécurité), avec un traitement explicite de sa sensibilité en tant que donnée personnelle.",
+  "tags": ["detection_presence", "capteurs_presence", "confidentialite"],
+  "intents": ["explain_presence_detection", "address_presence_data_sensitivity"],
+  "usage_context": [
+    "configuration d'automatisations basées sur la présence (éclairage, chauffage)",
+    "question sur la confidentialité des données de présence collectées"
+  ],
   "priority": "medium",
-  "safety_level": "normal",
-  "summary": "",
-  "purpose": "",
-  "tags": [],
-  "intents": [],
-  "usage_context": [],
+  "safety_level": "sensitive",
   "content": {
-    "summary": "",
-    "links": [],
-    "use_cases": [],
-    "risks": [],
-    "key_points": [],
-    "definition": "",
-    "core_principles": [],
-    "rules": [],
-    "examples": [],
-    "best_practices": [],
-    "anti_patterns": []
+    "definition": "La détection de présence désigne les technologies (infrarouge passif, radar à ondes millimétriques, capteurs de mouvement combinés à d'autres signaux) utilisées pour déterminer si un espace est occupé, avec des niveaux de granularité variables allant de la simple détection binaire à la localisation fine d'une personne dans une pièce.",
+    "core_principles": [
+      "Les technologies de détection de présence varient en fiabilité et en granularité : un simple détecteur infrarouge passif détecte le mouvement mais pas une présence immobile, alors qu'un radar à ondes millimétriques peut détecter une présence statique.",
+      "Les données de présence constituent une donnée personnelle sensible, car elles révèlent les habitudes de vie et les rythmes de présence au domicile, avec un potentiel d'usage détourné si mal protégées.",
+      "La granularité de détection nécessaire dépend de l'usage prévu : une automatisation d'éclairage simple n'a pas besoin de la même précision qu'un système de sécurité ou de suivi de bien-être.",
+      "Le traitement local des données de présence, plutôt que leur transmission systématique vers un service cloud, réduit significativement les risques de confidentialité associés à cette donnée sensible."
+    ],
+    "rules": [
+      "Toujours signaler la sensibilité des données de présence quand une automatisation ou un usage impliquant ce type de capteur est discuté.",
+      "Recommander la technologie de détection la plus adaptée à l'usage réel plutôt que la plus précise par défaut, pour limiter la collecte de données à ce qui est nécessaire.",
+      "Privilégier un traitement local des données de présence plutôt qu'une transmission systématique vers un service cloud tiers."
+    ],
+    "examples": [
+      {
+        "situation": "Un utilisateur souhaite automatiser l'éclairage de son couloir selon la présence.",
+        "recommended_behavior": "Recommander une technologie de détection simple (infrarouge passif) suffisante pour cet usage, plutôt qu'un système de détection fine plus intrusif qui collecterait plus de données que nécessaire, et mentionner le traitement local comme critère de choix pertinent.",
+        "avoid": "Recommander systématiquement la technologie de détection la plus avancée sans tenir compte du besoin réel ni de la sensibilité accrue de la donnée collectée."
+      }
+    ],
+    "best_practices": [
+      "Adapter la granularité de détection au besoin réel de l'automatisation plutôt que de maximiser la précision par défaut.",
+      "Documenter pour l'utilisateur où et comment les données de présence collectées sont traitées et stockées."
+    ],
+    "anti_patterns": [
+      "Traiter les données de présence comme une donnée anodine ne méritant pas d'attention particulière en matière de confidentialité.",
+      "Recommander systématiquement la technologie de détection la plus précise sans considération pour la proportionnalité de la collecte.",
+      "Transmettre systématiquement les données de présence vers un service cloud sans envisager un traitement local."
+    ]
   },
   "retrieval_hints": {
-    "priority_keywords": [],
-    "related_domains": [],
-    "related_knowledge": [],
-    "retrieval_priority": 5
+    "priority_keywords": ["detection_presence", "capteurs", "confidentialite_donnees", "granularite"],
+    "related_domains": ["professional", "cpl"],
+    "related_knowledge": [
+      "professional.iot.room_state_modeling",
+      "professional.iot.smart_home_basics",
+      "cpl.product_platform.data_protection_hosting"
+    ],
+    "retrieval_priority": 6
   },
   "behavior_rules": {
     "tone": "professional",
@@ -39,17 +65,17 @@
     "allow_humor": false
   },
   "safety_notes": {
-    "allowed_usage": [],
-    "restricted_usage": [],
-    "forbidden_usage": [],
-    "fallback_behavior": "Solliciter une validation humaine si ambiguïté."
+    "allowed_usage": ["explication technique et recommandation proportionnée pour la détection de présence domotique"],
+    "restricted_usage": ["usages de surveillance de personnes sans leur consentement clair"],
+    "forbidden_usage": ["conseiller un usage de détection de présence à des fins de surveillance non consentie d'un tiers"],
+    "fallback_behavior": "Face à un usage potentiellement problématique de la détection de présence (surveillance non consentie), signaler explicitement la limite éthique plutôt que de fournir la recommandation technique demandée."
   },
   "metadata": {
     "author": "ALFRED_SYSTEM",
-    "creation_date": "11/07/2026",
-    "last_update": "11/07/2026",
-    "review_status": "draft",
-    "reviewed_by": "",
+    "creation_date": "18/07/2026",
+    "last_update": "18/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
     "source_type": "manual_structured_knowledge",
     "language": "fr",
     "retrieval_ready": true,

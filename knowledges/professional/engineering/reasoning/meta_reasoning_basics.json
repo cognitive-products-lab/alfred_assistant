@@ -1,36 +1,62 @@
 {
-  "knowledge_id": "",
-  "title": "meta reasoning basics",
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "professional.engineering_reasoning.meta_reasoning_basics",
+  "title": "Bases du méta-raisonnement",
   "version": "1.0.0",
-  "status": "draft",
-  "domain": "",
-  "subdomain": "",
-  "category": "",
+  "status": "active",
+  "domain": "professional",
+  "subdomain": "engineering_reasoning",
+  "category": "architecture_raisonnement",
+  "summary": "Principe consistant à raisonner sur son propre raisonnement avant de répondre : choisir consciemment la méthode de résolution adaptée au problème plutôt que d'appliquer systématiquement la même approche.",
+  "purpose": "Donner à ALFRED un premier niveau de réflexion explicite sur le choix de sa méthode de raisonnement selon le type de problème posé, avant d'appliquer une méthode spécifique (décomposition, arbre de pensée, raisonnement probabiliste, etc.).",
+  "tags": ["meta_raisonnement", "choix_methode", "reflexion_sur_le_raisonnement"],
+  "intents": ["select_appropriate_reasoning_method", "reflect_on_own_reasoning_process"],
+  "usage_context": [
+    "problème complexe où plusieurs approches de raisonnement seraient possibles",
+    "besoin de choisir explicitement une méthode avant de commencer à résoudre"
+  ],
   "priority": "medium",
   "safety_level": "normal",
-  "summary": "",
-  "purpose": "",
-  "tags": [],
-  "intents": [],
-  "usage_context": [],
   "content": {
-    "summary": "",
-    "links": [],
-    "use_cases": [],
-    "risks": [],
-    "key_points": [],
-    "definition": "",
-    "core_principles": [],
-    "rules": [],
-    "examples": [],
-    "best_practices": [],
-    "anti_patterns": []
+    "definition": "Le méta-raisonnement désigne la réflexion préalable sur la façon dont un problème devrait être abordé — quelle méthode de raisonnement mobiliser, quel niveau de détail est nécessaire, quelles informations manquent — avant d'entamer la résolution proprement dite du problème.",
+    "core_principles": [
+      "Tous les problèmes ne bénéficient pas de la même méthode de raisonnement : une question factuelle simple n'a pas besoin d'une décomposition en étapes, alors qu'une décision complexe à enjeux multiples en bénéficie généralement.",
+      "Le méta-raisonnement inclut l'évaluation du niveau d'incertitude et de complexité du problème avant de choisir entre une réponse directe et une méthode plus structurée (décomposition, exploration de plusieurs pistes).",
+      "Reconnaître qu'un problème est mal posé ou nécessite des informations manquantes fait partie du méta-raisonnement, avant même de tenter une résolution.",
+      "Le coût du méta-raisonnement doit rester proportionné à l'enjeu du problème : un excès de réflexion préalable sur des questions simples ralentit inutilement la réponse."
+    ],
+    "rules": [
+      "Évaluer brièvement la nature du problème (factuel simple, décision multi-critères, exploratoire) avant de choisir une méthode de raisonnement adaptée.",
+      "Ne pas appliquer systématiquement la méthode de raisonnement la plus élaborée par défaut, en particulier pour des questions simples et directes.",
+      "Identifier explicitement, avant de raisonner, si des informations manquantes rendent le problème mal posé, plutôt que de raisonner sur des hypothèses non vérifiées sans le signaler."
+    ],
+    "examples": [
+      {
+        "situation": "Un utilisateur pose une question factuelle simple à réponse directe, immédiatement suivie d'une question de décision stratégique complexe à enjeux multiples.",
+        "recommended_behavior": "Répondre directement et brièvement à la première question, puis mobiliser une méthode de raisonnement plus structurée (décomposition, comparaison d'options) pour la seconde, en adaptant l'effort de raisonnement au type de problème.",
+        "avoid": "Appliquer le même niveau d'élaboration structurée aux deux questions, ce qui alourdirait inutilement la réponse à la question simple."
+      }
+    ],
+    "best_practices": [
+      "Adapter le niveau de structuration du raisonnement à la complexité réelle du problème plutôt qu'à un standard uniforme.",
+      "Signaler explicitement quand un problème semble mal posé ou nécessite des informations manquantes avant de tenter une résolution complète."
+    ],
+    "anti_patterns": [
+      "Appliquer systématiquement la méthode de raisonnement la plus complexe, y compris pour des questions simples.",
+      "Raisonner sur un problème mal posé sans jamais signaler les informations manquantes qui rendraient la résolution plus fiable.",
+      "Passer un temps de réflexion préalable disproportionné sur des questions à faible enjeu."
+    ]
   },
   "retrieval_hints": {
-    "priority_keywords": [],
-    "related_domains": [],
-    "related_knowledge": [],
-    "retrieval_priority": 5
+    "priority_keywords": ["meta_raisonnement", "choix_methode", "adaptation_complexite"],
+    "related_domains": ["professional"],
+    "related_knowledge": [
+      "professional.engineering_reasoning.task_decomposition_reasoning",
+      "professional.engineering_reasoning.reasoning_orchestration",
+      "professional.engineering.ai.reasoning_engine"
+    ],
+    "retrieval_priority": 6
   },
   "behavior_rules": {
     "tone": "professional",
@@ -39,17 +65,17 @@
     "allow_humor": false
   },
   "safety_notes": {
-    "allowed_usage": [],
+    "allowed_usage": ["choix explicite d'une méthode de raisonnement adaptée à la nature du problème posé"],
     "restricted_usage": [],
     "forbidden_usage": [],
-    "fallback_behavior": "Solliciter une validation humaine si ambiguïté."
+    "fallback_behavior": "En cas de doute sur la méthode de raisonnement adaptée, privilégier l'approche la plus simple qui reste fiable plutôt que la plus élaborée par défaut."
   },
   "metadata": {
     "author": "ALFRED_SYSTEM",
-    "creation_date": "11/07/2026",
-    "last_update": "11/07/2026",
-    "review_status": "draft",
-    "reviewed_by": "",
+    "creation_date": "18/07/2026",
+    "last_update": "18/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
     "source_type": "manual_structured_knowledge",
     "language": "fr",
     "retrieval_ready": true,

@@ -1,36 +1,62 @@
 {
-  "knowledge_id": "",
-  "title": "product kpi frameworks",
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "professional.product_management_advanced.product_kpi_frameworks",
+  "title": "Cadres de construction des indicateurs produit",
   "version": "1.0.0",
-  "status": "draft",
-  "domain": "",
-  "subdomain": "",
-  "category": "",
+  "status": "active",
+  "domain": "professional",
+  "subdomain": "product_management_advanced",
+  "category": "pilotage_produit",
+  "summary": "Méthodes structurées (HEART, AARRR, arbre de métriques) pour construire un ensemble d'indicateurs produit cohérent plutôt qu'une liste ad hoc de chiffres disponibles, en reliant chaque indicateur à un objectif réel.",
+  "purpose": "Donner un cadre méthodologique pour construire des indicateurs produit de façon structurée, en complément de professional.product_management_advanced.product_health_monitoring qui traite de leur suivi une fois construits.",
+  "tags": ["cadres_kpi", "heart", "aarrr", "arbre_metriques"],
+  "intents": ["design_product_kpi_framework", "select_relevant_metrics"],
+  "usage_context": [
+    "construction d'un nouveau système de mesure pour un produit",
+    "liste de métriques existante jugée incohérente ou déconnectée des objectifs"
+  ],
   "priority": "medium",
   "safety_level": "normal",
-  "summary": "",
-  "purpose": "",
-  "tags": [],
-  "intents": [],
-  "usage_context": [],
   "content": {
-    "summary": "",
-    "links": [],
-    "use_cases": [],
-    "risks": [],
-    "key_points": [],
-    "definition": "",
-    "core_principles": [],
-    "rules": [],
-    "examples": [],
-    "best_practices": [],
-    "anti_patterns": []
+    "definition": "Les cadres de construction des indicateurs produit désignent des méthodologies structurées — comme le cadre HEART (Happiness, Engagement, Adoption, Retention, Task success) ou l'entonnoir AARRR (Acquisition, Activation, Retention, Referral, Revenue) — qui aident à choisir un ensemble d'indicateurs cohérent et relié aux objectifs réels du produit, plutôt qu'une accumulation ad hoc de chiffres disponibles.",
+    "core_principles": [
+      "Un indicateur n'a de valeur que s'il est explicitement relié à un objectif produit ou business : mesurer ce qui est facilement disponible plutôt que ce qui compte réellement est une erreur fréquente de construction de tableau de bord.",
+      "Les cadres structurés comme HEART ou AARRR offrent une couverture équilibrée de différentes dimensions (expérience utilisateur, entonnoir business) qui évite de sur-représenter une seule dimension au détriment des autres.",
+      "Un arbre de métriques (décomposer un objectif de haut niveau en indicateurs intermédiaires puis en leviers d'action) permet de relier une métrique stratégique aux actions concrètes qui peuvent l'influencer.",
+      "Le choix du cadre approprié dépend du contexte : AARRR convient bien à un produit en phase de croissance centré sur l'entonnoir d'acquisition, HEART convient mieux à un produit mature centré sur la qualité d'expérience."
+    ],
+    "rules": [
+      "Relier explicitement chaque indicateur choisi à un objectif produit ou business identifié plutôt que de le retenir uniquement parce qu'il est facilement mesurable.",
+      "Choisir le cadre structurant (HEART, AARRR, arbre de métriques) en fonction du contexte et de la maturité du produit plutôt que d'appliquer un cadre par défaut.",
+      "Limiter le nombre d'indicateurs retenus par dimension pour garder le système de mesure exploitable au quotidien."
+    ],
+    "examples": [
+      {
+        "situation": "Une équipe produit dispose d'une vingtaine de métriques suivies sans lien clair entre elles ni avec les objectifs stratégiques du produit.",
+        "recommended_behavior": "Reconstruire le système de mesure à partir d'un cadre structurant adapté au contexte (par exemple HEART pour un produit mature), en ne conservant que les indicateurs reliés explicitement à une dimension du cadre et à un objectif identifié.",
+        "avoid": "Continuer à accumuler des métriques disponibles sans les relier à un cadre cohérent, ce qui rend le pilotage confus et peu actionnable."
+      }
+    ],
+    "best_practices": [
+      "Documenter explicitement le lien entre chaque indicateur retenu et l'objectif qu'il est censé refléter.",
+      "Revoir le cadre choisi à mesure que la phase de vie du produit évolue, un cadre adapté à la phase de croissance ne l'étant plus nécessairement en phase de maturité."
+    ],
+    "anti_patterns": [
+      "Retenir un indicateur uniquement parce qu'il est facilement disponible, sans lien explicite avec un objectif produit.",
+      "Appliquer un cadre de mesure par défaut sans vérifier son adéquation au contexte et à la phase de vie réels du produit.",
+      "Accumuler un nombre excessif d'indicateurs qui rend le système de mesure impraticable au quotidien."
+    ]
   },
   "retrieval_hints": {
-    "priority_keywords": [],
-    "related_domains": [],
-    "related_knowledge": [],
-    "retrieval_priority": 5
+    "priority_keywords": ["cadre_kpi", "heart", "aarrr", "arbre_metriques"],
+    "related_domains": ["professional", "cpl"],
+    "related_knowledge": [
+      "professional.product_management_advanced.north_star_metric",
+      "professional.product_management_advanced.product_health_monitoring",
+      "professional.product_management_advanced.activation_retention_metrics"
+    ],
+    "retrieval_priority": 6
   },
   "behavior_rules": {
     "tone": "professional",
@@ -39,17 +65,17 @@
     "allow_humor": false
   },
   "safety_notes": {
-    "allowed_usage": [],
+    "allowed_usage": ["conseil méthodologique sur la construction d'un système d'indicateurs produit"],
     "restricted_usage": [],
     "forbidden_usage": [],
-    "fallback_behavior": "Solliciter une validation humaine si ambiguïté."
+    "fallback_behavior": "En l'absence d'information sur la phase de vie du produit, présenter les principaux cadres avec leurs contextes d'usage typiques plutôt que d'en recommander un par défaut."
   },
   "metadata": {
     "author": "ALFRED_SYSTEM",
-    "creation_date": "11/07/2026",
-    "last_update": "11/07/2026",
-    "review_status": "draft",
-    "reviewed_by": "",
+    "creation_date": "18/07/2026",
+    "last_update": "18/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
     "source_type": "manual_structured_knowledge",
     "language": "fr",
     "retrieval_ready": true,

@@ -1,55 +1,81 @@
 {
-  "knowledge_id": "",
-  "title": "self consistency reasoning",
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "professional.engineering_reasoning.self_consistency_reasoning",
+  "title": "Auto-cohérence par vérification de plusieurs chemins de raisonnement",
   "version": "1.0.0",
-  "status": "draft",
-  "domain": "",
-  "subdomain": "",
-  "category": "",
+  "status": "active",
+  "domain": "professional",
+  "subdomain": "engineering_reasoning",
+  "category": "methodes_raisonnement",
+  "summary": "Technique consistant à explorer mentalement plusieurs chemins de raisonnement indépendants sur une même question à enjeu important, et à ne retenir une conclusion qu'en cas de convergence, pour réduire le risque d'une erreur isolée non détectée.",
+  "purpose": "Donner une méthode concrète de fiabilisation d'un raisonnement à enjeu élevé, complémentaire de la détection de contradiction, en vérifiant la robustesse d'une conclusion par plusieurs angles d'approche plutôt qu'un seul.",
+  "tags": ["auto_coherence", "verification_croisee", "robustesse_conclusion"],
+  "intents": ["verify_conclusion_via_multiple_paths", "increase_reasoning_robustness"],
+  "usage_context": [
+    "conclusion à enjeu élevé où une erreur isolée aurait des conséquences importantes",
+    "raisonnement complexe où une seule approche pourrait comporter un biais non détecté"
+  ],
   "priority": "medium",
   "safety_level": "normal",
-  "summary": "",
-  "purpose": "",
-  "tags": [],
-  "intents": [],
-  "usage_context": [],
   "content": {
-    "summary": "",
-    "links": [],
-    "use_cases": [],
-    "risks": [],
-    "key_points": [],
-    "definition": "",
-    "core_principles": [],
-    "rules": [],
-    "examples": [],
-    "best_practices": [],
-    "anti_patterns": []
+    "definition": "L'auto-cohérence par vérification de plusieurs chemins consiste à aborder une même question par au moins deux approches de raisonnement distinctes et indépendantes, puis à ne retenir la conclusion que si les deux approches convergent, ce qui réduit la probabilité qu'une erreur isolée dans un seul chemin de raisonnement passe inaperçue.",
+    "core_principles": [
+      "Un seul chemin de raisonnement, même rigoureux en apparence, peut comporter une erreur ou un biais qui reste invisible tant qu'il n'est pas comparé à une approche indépendante du même problème.",
+      "La convergence de plusieurs approches indépendantes vers la même conclusion est un indicateur de robustesse plus fiable que la seule qualité apparente d'un raisonnement unique.",
+      "Une divergence entre deux chemins de raisonnement est une information précieuse : elle signale soit une erreur dans l'un des deux chemins, soit une réelle ambiguïté du problème qui mérite d'être signalée telle quelle.",
+      "Cette méthode a un coût en temps de traitement proportionné à l'enjeu de la question : elle se justifie pour des conclusions importantes, pas systématiquement pour toute question."
+    ],
+    "rules": [
+      "Pour une conclusion à enjeu élevé (impact significatif d'une erreur), envisager au moins deux approches de raisonnement distinctes avant de conclure.",
+      "En cas de convergence, présenter la conclusion avec un niveau de confiance renforcé ; en cas de divergence, la signaler explicitement plutôt que de choisir arbitrairement l'un des deux résultats.",
+      "Réserver cette méthode aux questions à enjeu réel plutôt que de l'appliquer systématiquement, ce qui alourdirait inutilement les réponses courantes."
+    ],
+    "examples": [
+      {
+        "situation": "Un calcul ou une estimation à conséquence importante pour une décision de l'utilisateur.",
+        "recommended_behavior": "Vérifier le résultat par une seconde méthode de calcul ou d'estimation indépendante avant de le communiquer, et signaler si les deux résultats ne convergent pas plutôt que de retenir le premier obtenu.",
+        "avoid": "Communiquer directement le résultat d'un seul chemin de calcul sans vérification croisée sur une question à enjeu élevé pour l'utilisateur."
+      }
+    ],
+    "best_practices": [
+      "Choisir des approches réellement indépendantes (méthodes différentes, pas simplement une relecture de la même approche) pour que la vérification croisée soit réellement informative.",
+      "Signaler à l'utilisateur, quand c'est pertinent, qu'une conclusion a été vérifiée par plusieurs approches convergentes, ce qui renforce légitimement la confiance qu'il peut y accorder."
+    ],
+    "anti_patterns": [
+      "Relire le même raisonnement une seconde fois en le faisant passer pour une vérification indépendante, sans réel changement d'approche.",
+      "Choisir arbitrairement l'un des deux résultats en cas de divergence sans la signaler à l'utilisateur.",
+      "Appliquer cette méthode systématiquement, y compris pour des questions à faible enjeu, ce qui alourdirait inutilement les réponses."
+    ]
   },
   "retrieval_hints": {
-    "priority_keywords": [],
-    "related_domains": [],
-    "related_knowledge": [],
-    "retrieval_priority": 5
+    "priority_keywords": ["auto_coherence", "verification_croisee", "convergence_raisonnement"],
+    "related_domains": ["professional"],
+    "related_knowledge": [
+      "professional.engineering_reasoning.contradiction_detection",
+      "professional.engineering_reasoning.reasoning_failure_patterns",
+      "professional.engineering_reasoning.uncertainty_reasoning"
+    ],
+    "retrieval_priority": 6
   },
   "behavior_rules": {
     "tone": "professional",
     "response_style": "structured_clear",
-    "max_complexity": "medium",
+    "max_complexity": "high",
     "allow_humor": false
   },
   "safety_notes": {
-    "allowed_usage": [],
+    "allowed_usage": ["vérification croisée d'une conclusion à enjeu élevé par plusieurs approches de raisonnement"],
     "restricted_usage": [],
     "forbidden_usage": [],
-    "fallback_behavior": "Solliciter une validation humaine si ambiguïté."
+    "fallback_behavior": "En cas de divergence persistante entre plusieurs chemins de raisonnement, signaler explicitement l'incertitude plutôt que de choisir arbitrairement une conclusion."
   },
   "metadata": {
     "author": "ALFRED_SYSTEM",
-    "creation_date": "11/07/2026",
-    "last_update": "11/07/2026",
-    "review_status": "draft",
-    "reviewed_by": "",
+    "creation_date": "18/07/2026",
+    "last_update": "18/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
     "source_type": "manual_structured_knowledge",
     "language": "fr",
     "retrieval_ready": true,

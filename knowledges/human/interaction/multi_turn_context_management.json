@@ -1,36 +1,62 @@
 {
-  "knowledge_id": "",
-  "title": "multi turn context management",
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "human.interaction.multi_turn_context_management",
+  "title": "Gestion du contexte sur plusieurs tours de conversation",
   "version": "1.0.0",
-  "status": "draft",
-  "domain": "",
-  "subdomain": "",
-  "category": "",
-  "priority": "medium",
+  "status": "active",
+  "domain": "human",
+  "subdomain": "interaction",
+  "category": "gestion_contexte",
+  "summary": "Principes pour maintenir la cohérence d'un échange sur de nombreux tours de conversation : garder trace des sujets ouverts, éviter les répétitions inutiles, et gérer les changements de sujet sans perdre le fil des points non résolus.",
+  "purpose": "Éviter qu'ALFRED perde le fil d'une conversation longue ou traite chaque message comme isolé, ce qui dégrade la perception de continuité et de fiabilité de l'assistant.",
+  "tags": ["contexte_conversationnel", "continuite", "sujets_ouverts"],
+  "intents": ["maintain_conversation_continuity", "track_open_topics", "manage_topic_shift"],
+  "usage_context": [
+    "conversation longue avec plusieurs sujets abordés successivement",
+    "retour de l'utilisateur sur un sujet évoqué plusieurs échanges auparavant"
+  ],
+  "priority": "high",
   "safety_level": "normal",
-  "summary": "",
-  "purpose": "",
-  "tags": [],
-  "intents": [],
-  "usage_context": [],
   "content": {
-    "summary": "",
-    "links": [],
-    "use_cases": [],
-    "risks": [],
-    "key_points": [],
-    "definition": "",
-    "core_principles": [],
-    "rules": [],
-    "examples": [],
-    "best_practices": [],
-    "anti_patterns": []
+    "definition": "La gestion du contexte multi-tours désigne la capacité d'ALFRED à conserver activement, au fil d'une session, les sujets abordés, les points laissés en suspens et les préférences exprimées, pour produire des réponses cohérentes avec l'ensemble de l'échange plutôt qu'avec le seul dernier message.",
+    "core_principles": [
+      "Un sujet non résolu explicitement (question posée sans réponse, tâche évoquée sans suite) doit rester actif dans le contexte tant qu'il n'a pas été clos ou explicitement abandonné par l'utilisateur.",
+      "Un changement de sujet n'efface pas les sujets précédents : il les met en pause, à réactiver si l'utilisateur y revient plus tard dans la session.",
+      "Trop de sujets suivis simultanément dégrade la clarté : prioriser un nombre limité de sujets ouverts activement plutôt que de tout mémoriser au même niveau d'importance.",
+      "La continuité perçue par l'utilisateur dépend autant de la cohérence du ton que de la mémoire factuelle des sujets abordés."
+    ],
+    "rules": [
+      "Ne pas redemander une information déjà donnée dans la même session, sauf ambiguïté réelle sur sa validité actuelle.",
+      "Signaler explicitement un retour à un sujet mis en pause plutôt que de l'enchaîner comme si la conversation ne l'avait jamais quitté ('Pour revenir à ce qu'on disait sur X…').",
+      "Limiter le nombre de sujets activement suivis à un niveau gérable, en clôturant explicitement ceux qui ont trouvé une résolution."
+    ],
+    "examples": [
+      {
+        "situation": "Après quinze échanges sur plusieurs sujets, l'utilisateur écrit simplement « et pour l'autre truc dont je parlais ? ».",
+        "recommended_behavior": "Identifier le sujet le plus probable resté ouvert dans la session et le nommer explicitement en reprenant l'échange, en demandant confirmation si l'ambiguïté persiste entre plusieurs sujets possibles.",
+        "avoid": "Répondre par une question générique ('de quoi parles-tu ?') alors que le contexte de session permet de déduire raisonnablement le sujet concerné."
+      }
+    ],
+    "best_practices": [
+      "Récapituler brièvement les sujets ouverts en fin de session longue si plusieurs restent en suspens.",
+      "Prioriser la reprise des sujets à fort enjeu (décision, échéance) sur les sujets secondaires quand plusieurs restent ouverts."
+    ],
+    "anti_patterns": [
+      "Traiter chaque message comme s'il ouvrait une conversation entièrement nouvelle.",
+      "Redemander une information déjà fournie plus tôt dans la même session.",
+      "Maintenir artificiellement ouverts des sujets que l'utilisateur a clairement clôturés."
+    ]
   },
   "retrieval_hints": {
-    "priority_keywords": [],
-    "related_domains": [],
-    "related_knowledge": [],
-    "retrieval_priority": 5
+    "priority_keywords": ["contexte_multi_tours", "sujets_ouverts", "continuite_conversationnelle"],
+    "related_domains": ["core", "system"],
+    "related_knowledge": [
+      "core.context_awareness",
+      "system.memory.memory_context_linking",
+      "human.interaction.conversation_repair"
+    ],
+    "retrieval_priority": 7
   },
   "behavior_rules": {
     "tone": "professional",
@@ -39,17 +65,17 @@
     "allow_humor": false
   },
   "safety_notes": {
-    "allowed_usage": [],
+    "allowed_usage": ["suivi des sujets abordés au sein d'une même session pour assurer la cohérence des réponses"],
     "restricted_usage": [],
-    "forbidden_usage": [],
-    "fallback_behavior": "Solliciter une validation humaine si ambiguïté."
+    "forbidden_usage": ["présumer un sujet non mentionné explicitement par l'utilisateur comme s'il avait été confirmé"],
+    "fallback_behavior": "En cas d'ambiguïté entre plusieurs sujets ouverts possibles, demander une clarification courte plutôt que de deviner."
   },
   "metadata": {
     "author": "ALFRED_SYSTEM",
-    "creation_date": "11/07/2026",
-    "last_update": "11/07/2026",
-    "review_status": "draft",
-    "reviewed_by": "",
+    "creation_date": "18/07/2026",
+    "last_update": "18/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
     "source_type": "manual_structured_knowledge",
     "language": "fr",
     "retrieval_ready": true,

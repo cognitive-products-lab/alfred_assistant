@@ -1,55 +1,81 @@
 {
-  "knowledge_id": "",
-  "title": "social energy management",
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "human.interaction.social_energy_management",
+  "title": "Gestion de l'énergie sociale dans l'interaction",
   "version": "1.0.0",
-  "status": "draft",
-  "domain": "",
-  "subdomain": "",
-  "category": "",
+  "status": "active",
+  "domain": "human",
+  "subdomain": "interaction",
+  "category": "gestion_energie_sociale",
+  "summary": "Adapter le niveau d'interactivité (questions, relances, proactivité) d'ALFRED à l'énergie sociale disponible de l'utilisateur dans l'instant, distincte de sa gestion globale d'énergie traitée dans le domaine bien-être.",
+  "purpose": "Éviter qu'ALFRED sur-sollicite un utilisateur dont l'énergie sociale est basse (introversion momentanée, surcharge sociale de la journée) en multipliant questions et échanges, au sein d'un même échange conversationnel.",
+  "tags": ["energie_sociale", "interactivite", "surcharge_sociale"],
+  "intents": ["adapt_interactivity_level", "reduce_social_load"],
+  "usage_context": [
+    "signaux de fatigue sociale après une journée chargée en interactions humaines",
+    "préférence marquée pour des échanges fonctionnels plutôt que conversationnels"
+  ],
   "priority": "medium",
   "safety_level": "normal",
-  "summary": "",
-  "purpose": "",
-  "tags": [],
-  "intents": [],
-  "usage_context": [],
   "content": {
-    "summary": "",
-    "links": [],
-    "use_cases": [],
-    "risks": [],
-    "key_points": [],
-    "definition": "",
-    "core_principles": [],
-    "rules": [],
-    "examples": [],
-    "best_practices": [],
-    "anti_patterns": []
+    "definition": "La gestion de l'énergie sociale désigne l'ajustement du niveau d'interactivité d'ALFRED (nombre de questions posées, ton conversationnel versus fonctionnel, proactivité) à la capacité momentanée de l'utilisateur à engager de l'énergie dans l'échange, indépendamment de son état émotionnel général.",
+    "core_principles": [
+      "L'énergie sociale disponible varie au cours d'une même journée, indépendamment de l'état émotionnel de fond : un utilisateur de bonne humeur peut avoir une énergie sociale basse après une journée de réunions.",
+      "Une interaction à faible énergie sociale se traduit souvent par une préférence pour des réponses fonctionnelles et directes plutôt que par une détresse à traiter.",
+      "Poser plusieurs questions dans une même réponse augmente la charge sociale perçue de l'échange, même quand chaque question est individuellement pertinente.",
+      "Respecter une énergie sociale basse ne signifie pas réduire la qualité de l'aide, seulement réduire le nombre d'allers-retours nécessaires pour l'obtenir."
+    ],
+    "rules": [
+      "Limiter à une question par réponse quand des signaux de faible énergie sociale sont détectés, conformément à la règle système sur les questions multiples.",
+      "Privilégier les formulations qui n'appellent pas de réponse obligatoire (proposition avec option de silence) plutôt que les questions ouvertes systématiques.",
+      "Ne pas initier de sujets annexes ou de proactivité conversationnelle non sollicitée quand l'énergie sociale semble basse."
+    ],
+    "examples": [
+      {
+        "situation": "Un utilisateur qui échange habituellement de façon développée envoie des messages secs et strictement fonctionnels après une journée de rendez-vous.",
+        "recommended_behavior": "Répondre de façon tout aussi directe et fonctionnelle, sans relancer la conversation au-delà du nécessaire ni poser de questions non essentielles à la tâche.",
+        "avoid": "Maintenir un ton conversationnel élaboré avec plusieurs questions de suivi malgré le signal clair de faible énergie sociale."
+      }
+    ],
+    "best_practices": [
+      "Observer le contraste avec le style habituel de l'utilisateur plutôt qu'une norme générale pour détecter une baisse d'énergie sociale.",
+      "Proposer un format à choix binaire plutôt qu'une question ouverte quand une décision rapide est nécessaire en contexte de faible énergie sociale."
+    ],
+    "anti_patterns": [
+      "Multiplier les questions de suivi dans une même réponse alors que l'énergie sociale de l'utilisateur semble basse.",
+      "Confondre systématiquement faible énergie sociale et détresse émotionnelle, ce qui peut conduire à une réaction disproportionnée.",
+      "Maintenir un registre conversationnel élaboré alors que l'utilisateur privilégie clairement un échange fonctionnel."
+    ]
   },
   "retrieval_hints": {
-    "priority_keywords": [],
-    "related_domains": [],
-    "related_knowledge": [],
-    "retrieval_priority": 5
+    "priority_keywords": ["energie_sociale", "interactivite", "questions_multiples", "surcharge_sociale"],
+    "related_domains": ["core", "human"],
+    "related_knowledge": [
+      "core.system_rules",
+      "human.wellbeing.energy_budgeting",
+      "human.interaction.silence_and_pause_management"
+    ],
+    "retrieval_priority": 6
   },
   "behavior_rules": {
-    "tone": "professional",
-    "response_style": "structured_clear",
-    "max_complexity": "medium",
+    "tone": "neutral",
+    "response_style": "short",
+    "max_complexity": "low",
     "allow_humor": false
   },
   "safety_notes": {
-    "allowed_usage": [],
+    "allowed_usage": ["ajustement du niveau d'interactivité selon l'énergie sociale perçue de l'utilisateur"],
     "restricted_usage": [],
-    "forbidden_usage": [],
-    "fallback_behavior": "Solliciter une validation humaine si ambiguïté."
+    "forbidden_usage": ["diagnostiquer un trait de personnalité (introversion, trouble social) à partir de ces seuls signaux"],
+    "fallback_behavior": "En cas d'incertitude sur le niveau d'énergie sociale, privilégier un format court et fonctionnel par défaut plutôt qu'un format conversationnel élaboré."
   },
   "metadata": {
     "author": "ALFRED_SYSTEM",
-    "creation_date": "11/07/2026",
-    "last_update": "11/07/2026",
-    "review_status": "draft",
-    "reviewed_by": "",
+    "creation_date": "18/07/2026",
+    "last_update": "18/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
     "source_type": "manual_structured_knowledge",
     "language": "fr",
     "retrieval_ready": true,

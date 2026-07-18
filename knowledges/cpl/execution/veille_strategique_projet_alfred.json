@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.execution.veille_strategique_projet_alfred",
+  "title": "Veille stratégique appliquée au pilotage de projet",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "execution",
+  "category": "assistance_execution",
+  "summary": "Méthode pour qu'ALFRED CPL structure une veille stratégique ciblée et actionnable au service d'un projet en cours (concurrence, réglementation, technologie), plutôt qu'une veille généraliste déconnectée des décisions à prendre.",
+  "purpose": "Décliner au niveau opérationnel de l'exécution de projet la fonction de veille listée dans les instructions permanentes, distincte du domaine generaliste veille déjà présent dans le socle, en la centrant sur son utilité directe pour les décisions de projet en cours.",
+  "tags": ["veille_strategique", "pilotage_projet", "signaux_actionnables"],
+  "intents": ["structure_project_intelligence", "connect_watch_to_decisions"],
+  "usage_context": [
+    "projet en cours nécessitant une veille ciblée sur un sujet précis (concurrent, réglementation, technologie)",
+    "signal externe potentiellement impactant pour les décisions de projet en cours"
+  ],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "La veille stratégique appliquée au pilotage de projet désigne la collecte et la synthèse ciblées d'informations externes (mouvements concurrentiels, évolutions réglementaires, avancées technologiques) directement pertinentes pour les décisions d'un projet en cours, structurée pour rester actionnable plutôt que pour produire une accumulation d'informations générales sans lien avec les décisions à prendre.",
+    "core_principles": [
+      "Une veille utile au pilotage de projet se définit par les décisions qu'elle informe, pas par l'exhaustivité de la collecte : un signal non relié à une décision identifiable du projet a une valeur limitée dans ce cadre.",
+      "Le périmètre de veille pertinent évolue avec les phases du projet : les signaux utiles en phase de cadrage (concurrence, marché) diffèrent de ceux utiles en phase d'exécution (technologie, réglementation applicable).",
+      "Un signal de veille doit être qualifié explicitement par son impact potentiel sur le projet (opportunité, risque, neutre) plutôt que simplement rapporté brut, pour que sa pertinence décisionnelle soit immédiatement lisible.",
+      "La fréquence de synthèse de la veille doit être adaptée au rythme de décision du projet : une veille quotidienne non synthétisée noie l'information utile, une veille trop espacée risque de manquer des signaux à traiter en urgence."
+    ],
+    "rules": [
+      "Cibler la veille sur les sujets directement reliés aux décisions identifiées du projet en cours plutôt que sur une couverture généraliste du secteur.",
+      "Qualifier chaque signal de veille remonté par son impact potentiel (opportunité, risque, neutre) sur le projet plutôt que de le présenter comme une information brute.",
+      "Synthétiser la veille à une fréquence adaptée au rythme de décision réel du projet, ni trop fragmentée ni trop espacée."
+    ],
+    "examples": [
+      {
+        "situation": "Un projet en phase de cadrage bénéficierait d'une veille sur les mouvements récents d'un concurrent direct.",
+        "recommended_behavior": "Structurer une veille ciblée sur ce concurrent précis, synthétiser les signaux collectés en les qualifiant explicitement par leur impact potentiel sur les décisions de cadrage en cours, plutôt que de fournir un flux d'information brut et non hiérarchisé.",
+        "avoid": "Fournir une veille généraliste sur l'ensemble du secteur sans lien explicite avec les décisions concrètes du projet en cours."
+      }
+    ],
+    "best_practices": [
+      "Reformuler explicitement le périmètre de veille au début de chaque phase de projet plutôt que de le figer une fois pour toutes.",
+      "Présenter systématiquement chaque signal de veille remonté avec son implication décisionnelle probable pour le projet."
+    ],
+    "anti_patterns": [
+      "Produire une veille généraliste et exhaustive déconnectée des décisions concrètes du projet en cours.",
+      "Rapporter des signaux de veille bruts sans les qualifier par leur impact potentiel sur le projet.",
+      "Maintenir un périmètre de veille figé indépendamment de l'évolution des phases et besoins du projet."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["veille_strategique", "pilotage_projet", "signaux_actionnables"],
+    "related_domains": ["cpl", "veille"],
+    "related_knowledge": [
+      "cpl.execution.decision_making_framework",
+      "cpl.execution.project_management_core",
+      "veille.veille_technologique_methodes"
+    ],
+    "retrieval_priority": 5
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["structuration d'une veille stratégique ciblée au service d'un projet en cours"],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "En l'absence de décisions de projet clairement identifiées, orienter d'abord vers leur clarification avant de structurer un périmètre de veille, plutôt que de proposer une veille générique par défaut."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "18/07/2026",
+    "last_update": "18/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.documentation_procedures.procedure_recuperation_apres_sinistre_alfred_cpl",
+  "title": "Procédure documentée de récupération après sinistre",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "documentation_procedures",
+  "category": "procedures_operationnelles",
+  "summary": "Procédure documentée de reprise d'activité après un sinistre majeur (perte de données, panne d'infrastructure critique, incident de sécurité grave), distincte de la gestion opérationnelle courante des incidents déjà traitée dans cpl.operations_continuite.",
+  "purpose": "Documenter le volet procédural du plan de reprise après sinistre pour ALFRED CPL, complémentaire à la gestion d'incidents opérationnels courants déjà couverte, en formalisant les étapes et responsabilités spécifiques à un sinistre majeur.",
+  "tags": ["reprise_apres_sinistre", "plan_continuite", "procedure_documentee"],
+  "intents": ["document_disaster_recovery_procedure", "restore_after_major_incident"],
+  "usage_context": [
+    "sinistre majeur affectant significativement le fonctionnement d'ALFRED CPL (perte de données, panne critique)",
+    "préparation d'un plan de reprise d'activité documenté pour un déploiement client"
+  ],
+  "priority": "critical",
+  "safety_level": "high_risk",
+  "content": {
+    "definition": "La procédure documentée de récupération après sinistre désigne l'ensemble structuré des étapes, responsabilités et priorités à appliquer suite à un événement majeur affectant gravement le fonctionnement d'ALFRED CPL (perte de données significative, panne d'infrastructure critique, incident de sécurité grave), distinct par son ampleur de la gestion d'incidents opérationnels courants qui traite des perturbations de moindre gravité.",
+    "core_principles": [
+      "Un sinistre majeur se distingue d'un incident opérationnel courant par son ampleur et sa capacité à interrompre durablement le service : la procédure de reprise après sinistre doit être testée et documentée séparément, pas improvisée sur le modèle des incidents courants.",
+      "La procédure doit prioriser explicitement l'ordre de restauration des fonctions (sécurité et intégrité des données avant fonctionnalités de confort) plutôt que de traiter toutes les composantes du système sur un pied d'égalité.",
+      "Les responsabilités et le circuit de décision en situation de sinistre doivent être définis à l'avance, l'improvisation d'une chaîne de décision au moment de la crise aggravant généralement le temps de reprise.",
+      "Une procédure de reprise après sinistre non testée régulièrement présente un risque équivalent à l'absence de procédure, car des lacunes ou obsolescences ne sont révélées qu'à l'usage réel."
+    ],
+    "rules": [
+      "Documenter explicitement l'ordre de priorité de restauration des composantes du système en cas de sinistre, sécurité et intégrité des données en priorité absolue.",
+      "Définir à l'avance les responsabilités et le circuit de décision applicables en situation de sinistre, distincts de la gestion d'incident courante.",
+      "Tester périodiquement la procédure de reprise après sinistre plutôt que de la considérer valide sur la seule base de sa rédaction initiale."
+    ],
+    "examples": [
+      {
+        "situation": "Une panne d'infrastructure critique entraîne une interruption significative du service ALFRED CPL pour un client, dépassant le périmètre de la gestion d'incident courante.",
+        "recommended_behavior": "Activer la procédure de reprise après sinistre documentée, en suivant l'ordre de priorité établi (sécurité et intégrité des données d'abord) et le circuit de décision prédéfini, plutôt que d'improviser une réponse au cas par cas.",
+        "avoid": "Traiter un sinistre majeur avec les mêmes réflexes que la gestion d'incident courante, sans mobiliser une procédure dédiée ni un circuit de décision clarifié à l'avance."
+      }
+    ],
+    "best_practices": [
+      "Tester la procédure de reprise après sinistre à intervalle régulier plutôt que de la considérer acquise une fois documentée.",
+      "Documenter les enseignements de chaque test ou incident réel pour faire évoluer la procédure plutôt que de la figer."
+    ],
+    "anti_patterns": [
+      "Ne disposer d'aucune procédure documentée spécifique aux sinistres majeurs, en s'appuyant uniquement sur la gestion d'incident courante.",
+      "Laisser une procédure de reprise après sinistre non testée depuis sa rédaction initiale, sans vérifier sa validité réelle.",
+      "Improviser le circuit de décision au moment du sinistre plutôt que de s'appuyer sur des responsabilités définies à l'avance."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["reprise_apres_sinistre", "plan_continuite", "procedure_documentee", "restauration_prioritaire"],
+    "related_domains": ["cpl"],
+    "related_knowledge": [
+      "cpl.operations_continuite.gestion_incidents_alfred_cpl",
+      "cpl.operations_continuite.sauvegarde_restauration_alfred_cpl",
+      "cpl.operations_continuite.haute_disponibilite_alfred_cpl"
+    ],
+    "retrieval_priority": 8
+  },
+  "behavior_rules": {
+    "tone": "formal",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["documentation et application de la procédure de reprise après sinistre"],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "En l'absence de procédure testée et à jour pour un déploiement donné, signaler explicitement ce risque plutôt que de présumer une capacité de reprise non vérifiée."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "18/07/2026",
+    "last_update": "18/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}
