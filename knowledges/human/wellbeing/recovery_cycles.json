@@ -1,55 +1,81 @@
 {
-  "knowledge_id": "",
-  "title": "recovery cycles",
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "human.wellbeing.recovery_cycles",
+  "title": "Cycles de récupération",
   "version": "1.0.0",
-  "status": "draft",
-  "domain": "",
-  "subdomain": "",
-  "category": "",
+  "status": "active",
+  "domain": "human",
+  "subdomain": "wellbeing",
+  "category": "gestion_recuperation",
+  "summary": "Comprendre que la récupération suit des cycles de durées différentes (micro-récupération intra-journée, récupération quotidienne, récupération hebdomadaire) et qu'un déficit à un niveau ne se compense pas automatiquement par un excès à un autre niveau.",
+  "purpose": "Donner un cadre structurant pour aider l'utilisateur à planifier sa récupération à plusieurs échelles de temps plutôt que de compter sur un seul grand repos pour compenser une fatigue accumulée sur plusieurs semaines.",
+  "tags": ["cycles_recuperation", "micro_recuperation", "planification_repos"],
+  "intents": ["explain_recovery_cycles", "plan_multi_level_recovery"],
+  "usage_context": [
+    "planification du repos sur une semaine ou un mois",
+    "fatigue accumulée malgré un week-end de repos ponctuel"
+  ],
   "priority": "medium",
   "safety_level": "normal",
-  "summary": "",
-  "purpose": "",
-  "tags": [],
-  "intents": [],
-  "usage_context": [],
   "content": {
-    "summary": "",
-    "links": [],
-    "use_cases": [],
-    "risks": [],
-    "key_points": [],
-    "definition": "",
-    "core_principles": [],
-    "rules": [],
-    "examples": [],
-    "best_practices": [],
-    "anti_patterns": []
+    "definition": "Les cycles de récupération désignent les différentes échelles temporelles auxquelles une personne a besoin de récupérer — micro-récupération de quelques minutes au sein d'une journée, récupération quotidienne via le sommeil et la fin de journée, récupération hebdomadaire, et récupération plus longue sur plusieurs semaines — chaque niveau répondant à un type de fatigue différent.",
+    "core_principles": [
+      "Un déficit de micro-récupération intra-journée (aucune pause réelle sur plusieurs jours) ne se compense pas entièrement par un bon sommeil ou un week-end de repos : chaque échelle de récupération a sa propre fonction.",
+      "La fatigue accumulée sur plusieurs semaines nécessite une récupération à l'échelle correspondante (plusieurs jours de repos réel, pas seulement un week-end) pour être réellement résorbée.",
+      "Un week-end perçu comme reposant mais rempli d'activités socialement ou mentalement exigeantes peut ne pas constituer une récupération réelle malgré l'absence de travail.",
+      "Anticiper les cycles de récupération à l'avance (positionner des micro-pauses avant l'épuisement, planifier un vrai temps de repos hebdomadaire) est plus efficace qu'une récupération réactive après épuisement complet."
+    ],
+    "rules": [
+      "Distinguer explicitement, quand un utilisateur décrit une fatigue persistante, à quelle échelle temporelle le déficit de récupération se situe avant de proposer une solution.",
+      "Ne pas présumer qu'un jour de repos ponctuel suffit à compenser une fatigue accumulée sur plusieurs semaines.",
+      "Encourager la planification proactive de micro-récupérations intra-journée plutôt que de compter uniquement sur le repos de fin de semaine."
+    ],
+    "examples": [
+      {
+        "situation": "L'utilisateur dit être toujours fatigué malgré un week-end de repos chaque semaine.",
+        "recommended_behavior": "Explorer si la fatigue vient d'un déficit de micro-récupération quotidienne (aucune vraie pause en semaine) ou d'une accumulation sur plusieurs semaines qui demanderait un temps de repos plus long que deux jours.",
+        "avoid": "Conclure que le repos hebdomadaire est insuffisant en soi sans avoir distingué le niveau réel du déficit de récupération."
+      }
+    ],
+    "best_practices": [
+      "Aider à identifier au moins un moment de micro-récupération réelle à intégrer dans chaque journée plutôt que de tout reporter sur le week-end.",
+      "Questionner la nature réelle du repos de fin de semaine (activités reposantes versus simplement différentes du travail) avant de le considérer comme suffisant."
+    ],
+    "anti_patterns": [
+      "Considérer qu'un seul niveau de récupération (le sommeil, ou le week-end) suffit à compenser tous les types de fatigue accumulée.",
+      "Ignorer un déficit chronique de micro-récupération intra-journée au profit d'une attention exclusive au repos de fin de semaine.",
+      "Confondre absence de travail et récupération réelle."
+    ]
   },
   "retrieval_hints": {
-    "priority_keywords": [],
-    "related_domains": [],
-    "related_knowledge": [],
-    "retrieval_priority": 5
+    "priority_keywords": ["cycles_recuperation", "micro_recuperation", "repos_hebdomadaire"],
+    "related_domains": ["human", "lifestyle"],
+    "related_knowledge": [
+      "human.wellbeing.energy_budgeting",
+      "human.wellbeing.recovery_management",
+      "human.wellbeing.focus_recovery_balance"
+    ],
+    "retrieval_priority": 6
   },
   "behavior_rules": {
-    "tone": "professional",
+    "tone": "professional_supportive",
     "response_style": "structured_clear",
     "max_complexity": "medium",
     "allow_humor": false
   },
   "safety_notes": {
-    "allowed_usage": [],
+    "allowed_usage": ["aide à la planification de la récupération à plusieurs échelles de temps"],
     "restricted_usage": [],
-    "forbidden_usage": [],
-    "fallback_behavior": "Solliciter une validation humaine si ambiguïté."
+    "forbidden_usage": ["présenter ce cadre comme un traitement d'un épuisement clinique ou d'un burnout diagnostiqué"],
+    "fallback_behavior": "Si la fatigue décrite persiste malgré une récupération planifiée à toutes les échelles, orienter vers human.wellbeing.medical_boundary_rules."
   },
   "metadata": {
     "author": "ALFRED_SYSTEM",
-    "creation_date": "11/07/2026",
-    "last_update": "11/07/2026",
-    "review_status": "draft",
-    "reviewed_by": "",
+    "creation_date": "18/07/2026",
+    "last_update": "18/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
     "source_type": "manual_structured_knowledge",
     "language": "fr",
     "retrieval_ready": true,

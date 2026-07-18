@@ -1,55 +1,81 @@
 {
-  "knowledge_id": "",
-  "title": "focus recovery balance",
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "human.wellbeing.focus_recovery_balance",
+  "title": "Équilibre entre concentration soutenue et récupération",
   "version": "1.0.0",
-  "status": "draft",
-  "domain": "",
-  "subdomain": "",
-  "category": "",
+  "status": "active",
+  "domain": "human",
+  "subdomain": "wellbeing",
+  "category": "gestion_attention",
+  "summary": "Principes pour alterner efficacement des périodes de concentration soutenue et des périodes de récupération attentionnelle, afin de maintenir la qualité du focus sur la durée plutôt que de le dégrader par un usage continu sans pause.",
+  "purpose": "Donner à ALFRED un cadre pour conseiller l'alternance concentration/récupération quand un utilisateur planifie un travail exigeant en attention, en complément des outils de gestion du temps classiques.",
+  "tags": ["concentration", "recuperation_attentionnelle", "alternance"],
+  "intents": ["balance_focus_and_recovery", "prevent_attention_depletion"],
+  "usage_context": [
+    "planification d'une session de travail exigeant une concentration soutenue",
+    "signes de dégradation de la qualité de focus après une longue période sans pause"
+  ],
   "priority": "medium",
   "safety_level": "normal",
-  "summary": "",
-  "purpose": "",
-  "tags": [],
-  "intents": [],
-  "usage_context": [],
   "content": {
-    "summary": "",
-    "links": [],
-    "use_cases": [],
-    "risks": [],
-    "key_points": [],
-    "definition": "",
-    "core_principles": [],
-    "rules": [],
-    "examples": [],
-    "best_practices": [],
-    "anti_patterns": []
+    "definition": "L'équilibre entre concentration et récupération désigne le principe selon lequel la capacité d'attention soutenue se dégrade progressivement avec la durée d'usage continu et se restaure par des périodes de récupération courtes mais réelles, distinctes d'une simple pause occupée par une autre forme de sollicitation attentionnelle.",
+    "core_principles": [
+      "La qualité de la concentration décroît avec la durée continue d'usage, indépendamment de la motivation : ce n'est pas un problème de volonté mais un phénomène attentionnel normal.",
+      "Une pause n'est récupératrice que si elle change réellement le type de sollicitation attentionnelle : consulter un autre écran pendant une pause de travail sur écran ne restaure pas l'attention de la même façon qu'une rupture réelle.",
+      "Les cycles de concentration efficaces alternent des blocs de durée adaptée à la nature de la tâche (plus courts pour les tâches très exigeantes cognitivement) avec des récupérations courtes mais régulières.",
+      "Anticiper la pause avant la dégradation de la qualité de focus est plus efficace que d'attendre l'épuisement attentionnel pour s'arrêter."
+    ],
+    "rules": [
+      "Proposer des blocs de concentration de durée adaptée à l'intensité cognitive de la tâche plutôt qu'une durée standard identique pour tout type de travail.",
+      "Recommander des pauses qui changent réellement de nature attentionnelle (mouvement, extérieur, absence d'écran) plutôt que des pauses qui sollicitent une autre forme d'attention continue.",
+      "Signaler explicitement quand une session de concentration dépasse une durée où la qualité du focus décroît généralement, sans imposer l'arrêt."
+    ],
+    "examples": [
+      {
+        "situation": "Un utilisateur travaille en continu depuis plus de deux heures sur une tâche analytique exigeante sans interruption.",
+        "recommended_behavior": "Signaler avec légèreté la durée écoulée et proposer une pause courte avec un changement réel de sollicitation attentionnelle avant de poursuivre.",
+        "avoid": "Continuer à fournir un contenu dense et exigeant sans jamais mentionner la durée de concentration continue déjà écoulée."
+      }
+    ],
+    "best_practices": [
+      "Adapter la durée des blocs de concentration recommandés à la nature de la tâche plutôt que d'appliquer une règle unique.",
+      "Suggérer des pauses concrètes qui rompent réellement avec le type de sollicitation attentionnelle de la tâche en cours."
+    ],
+    "anti_patterns": [
+      "Recommander des pauses qui sollicitent la même forme d'attention que la tâche en cours (écran contre écran).",
+      "Ignorer les signaux de dégradation de la qualité de focus au nom de la continuité du travail.",
+      "Imposer un rythme de pauses rigide sans tenir compte de la nature réelle de la tâche."
+    ]
   },
   "retrieval_hints": {
-    "priority_keywords": [],
-    "related_domains": [],
-    "related_knowledge": [],
-    "retrieval_priority": 5
+    "priority_keywords": ["concentration", "recuperation_attentionnelle", "pause_efficace"],
+    "related_domains": ["human", "professional"],
+    "related_knowledge": [
+      "human.cognition.focus_management",
+      "human.wellbeing.recovery_cycles",
+      "human.wellbeing.energy_budgeting"
+    ],
+    "retrieval_priority": 6
   },
   "behavior_rules": {
-    "tone": "professional",
+    "tone": "professional_supportive",
     "response_style": "structured_clear",
     "max_complexity": "medium",
     "allow_humor": false
   },
   "safety_notes": {
-    "allowed_usage": [],
+    "allowed_usage": ["conseil sur l'alternance concentration/récupération pour une session de travail courante"],
     "restricted_usage": [],
-    "forbidden_usage": [],
-    "fallback_behavior": "Solliciter une validation humaine si ambiguïté."
+    "forbidden_usage": ["présenter ces principes comme un traitement d'un trouble de l'attention diagnostiqué"],
+    "fallback_behavior": "En cas de difficulté de concentration décrite comme sévère et persistante malgré ces ajustements, orienter vers human.wellbeing.medical_boundary_rules."
   },
   "metadata": {
     "author": "ALFRED_SYSTEM",
-    "creation_date": "11/07/2026",
-    "last_update": "11/07/2026",
-    "review_status": "draft",
-    "reviewed_by": "",
+    "creation_date": "18/07/2026",
+    "last_update": "18/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
     "source_type": "manual_structured_knowledge",
     "language": "fr",
     "retrieval_ready": true,

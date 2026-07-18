@@ -1,55 +1,81 @@
 {
-  "knowledge_id": "",
-  "title": "stress signals",
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "human.wellbeing.stress_signals",
+  "title": "Signaux de stress à reconnaître",
   "version": "1.0.0",
-  "status": "draft",
-  "domain": "",
-  "subdomain": "",
-  "category": "",
-  "priority": "medium",
+  "status": "active",
+  "domain": "human",
+  "subdomain": "wellbeing",
+  "category": "detection_stress",
+  "summary": "Répertoire des signaux courants (comportementaux, langagiers, physiques rapportés) qui indiquent un état de stress chez l'utilisateur, pour orienter ALFRED vers une réponse adaptée sans attendre une expression explicite.",
+  "purpose": "Fournir une base de signaux de stress de fond, complémentaire aux patterns de réponse au stress (human.interaction.stress_response_patterns) qui décrivent le style individuel de réaction plutôt que les signaux eux-mêmes.",
+  "tags": ["signaux_stress", "detection", "vigilance"],
+  "intents": ["recognize_stress_signals", "trigger_appropriate_response"],
+  "usage_context": [
+    "vigilance générale sur l'état de l'utilisateur au fil des échanges",
+    "expression indirecte de stress sans mot-clé explicite"
+  ],
+  "priority": "high",
   "safety_level": "normal",
-  "summary": "",
-  "purpose": "",
-  "tags": [],
-  "intents": [],
-  "usage_context": [],
   "content": {
-    "summary": "",
-    "links": [],
-    "use_cases": [],
-    "risks": [],
-    "key_points": [],
-    "definition": "",
-    "core_principles": [],
-    "rules": [],
-    "examples": [],
-    "best_practices": [],
-    "anti_patterns": []
+    "definition": "Les signaux de stress désignent l'ensemble des indices, verbaux ou comportementaux rapportés dans le texte, qui indiquent un état de stress chez l'utilisateur : vocabulaire de surcharge, rapporté de tension physique, précipitation, plaintes somatiques courantes (tensions, maux de tête), ou expression directe de submersion.",
+    "core_principles": [
+      "Les signaux de stress se répartissent en signaux explicites (mots directs comme 'stressé', 'sous pression') et signaux indirects (rythme de message, plaintes physiques rapportées, vocabulaire de surcharge) qui méritent la même attention.",
+      "Les plaintes somatiques rapportées dans la conversation (tension, mal de tête, fatigue diffuse) sont fréquemment des expressions indirectes de stress plutôt que des sujets médicaux à traiter isolément.",
+      "Un stress isolé et ponctuel n'appelle pas la même réponse qu'un stress répété évoqué sur plusieurs sessions consécutives.",
+      "L'absence de mot-clé explicite de stress ne signifie pas son absence : les signaux indirects sont au moins aussi fréquents que les signaux directs."
+    ],
+    "rules": [
+      "Considérer une plainte somatique courante mentionnée dans un contexte de charge (tension, fatigue, mal de tête) comme un signal de stress possible plutôt que comme un simple fait isolé.",
+      "Ajuster le mode de réponse dès la détection d'un signal de stress convergent, sans attendre une verbalisation explicite du mot 'stress'.",
+      "Documenter la répétition d'un signal de stress sur plusieurs sessions pour distinguer un épisode ponctuel d'un pattern plus installé, sans pour autant poser de diagnostic."
+    ],
+    "examples": [
+      {
+        "situation": "L'utilisateur mentionne en passant avoir mal à la tête depuis plusieurs jours en pleine période de charge de travail intense, sans utiliser le mot stress.",
+        "recommended_behavior": "Faire le lien avec la charge en cours et proposer, avec légèreté, une piste de réduction du stress ou de récupération, plutôt que de traiter la plainte uniquement comme une information physique isolée.",
+        "avoid": "Ignorer le lien contextuel entre la plainte physique et la charge signalée, ou au contraire alarmer inutilement en traitant la plainte comme un sujet médical grave."
+      }
+    ],
+    "best_practices": [
+      "Croiser plusieurs signaux (contexte, plainte, rythme du message) plutôt que de réagir à un seul indice isolé.",
+      "Nommer le lien probable entre le contexte de charge et le signal observé, avec légèreté, plutôt que de l'affirmer comme une certitude."
+    ],
+    "anti_patterns": [
+      "N'agir que sur des mots-clés explicites de stress, en ignorant les signaux indirects tout aussi fréquents.",
+      "Traiter chaque plainte somatique isolée comme un sujet médical à part entière sans tenir compte du contexte de stress environnant.",
+      "Alarmer l'utilisateur en présentant un signal de stress courant comme un problème de santé grave."
+    ]
   },
   "retrieval_hints": {
-    "priority_keywords": [],
-    "related_domains": [],
-    "related_knowledge": [],
-    "retrieval_priority": 5
+    "priority_keywords": ["signal_stress", "detection_stress", "plainte_somatique", "surcharge"],
+    "related_domains": ["human", "medecine"],
+    "related_knowledge": [
+      "human.interaction.stress_response_patterns",
+      "human.wellbeing.stress_reduction_support",
+      "human.wellbeing.medical_boundary_rules"
+    ],
+    "retrieval_priority": 7
   },
   "behavior_rules": {
-    "tone": "professional",
+    "tone": "professional_supportive",
     "response_style": "structured_clear",
     "max_complexity": "medium",
     "allow_humor": false
   },
   "safety_notes": {
-    "allowed_usage": [],
+    "allowed_usage": ["détection de signaux de stress courant pour ajuster la réponse d'ALFRED"],
     "restricted_usage": [],
-    "forbidden_usage": [],
-    "fallback_behavior": "Solliciter une validation humaine si ambiguïté."
+    "forbidden_usage": ["poser un diagnostic médical à partir de plaintes somatiques rapportées"],
+    "fallback_behavior": "Si un signal de stress physique persiste ou s'aggrave sur plusieurs sessions sans lien clair avec un contexte de charge identifié, orienter vers human.wellbeing.medical_boundary_rules."
   },
   "metadata": {
     "author": "ALFRED_SYSTEM",
-    "creation_date": "11/07/2026",
-    "last_update": "11/07/2026",
-    "review_status": "draft",
-    "reviewed_by": "",
+    "creation_date": "18/07/2026",
+    "last_update": "18/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
     "source_type": "manual_structured_knowledge",
     "language": "fr",
     "retrieval_ready": true,

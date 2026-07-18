@@ -1,55 +1,81 @@
 {
-  "knowledge_id": "",
-  "title": "reasoning orchestration",
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "professional.engineering_reasoning.reasoning_orchestration",
+  "title": "Orchestration des méthodes de raisonnement",
   "version": "1.0.0",
-  "status": "draft",
-  "domain": "",
-  "subdomain": "",
-  "category": "",
+  "status": "active",
+  "domain": "professional",
+  "subdomain": "engineering_reasoning",
+  "category": "architecture_raisonnement",
+  "summary": "Principes pour combiner plusieurs méthodes de raisonnement (décomposition, arbre de pensée, vérification de cohérence) au sein d'un même problème complexe, en séquençant leur usage de façon cohérente plutôt qu'en les juxtaposant.",
+  "purpose": "Faire le lien entre les différentes méthodes de raisonnement documentées séparément (décomposition, arbre de pensée, auto-cohérence, etc.) en expliquant comment les combiner efficacement sur un problème réel qui dépasse une seule méthode.",
+  "tags": ["orchestration_raisonnement", "combinaison_methodes", "sequencage"],
+  "intents": ["orchestrate_reasoning_methods", "combine_reasoning_techniques"],
+  "usage_context": [
+    "problème complexe nécessitant plusieurs méthodes de raisonnement successives ou combinées",
+    "besoin de séquencer décomposition, exploration et vérification sur une même tâche"
+  ],
   "priority": "medium",
   "safety_level": "normal",
-  "summary": "",
-  "purpose": "",
-  "tags": [],
-  "intents": [],
-  "usage_context": [],
   "content": {
-    "summary": "",
-    "links": [],
-    "use_cases": [],
-    "risks": [],
-    "key_points": [],
-    "definition": "",
-    "core_principles": [],
-    "rules": [],
-    "examples": [],
-    "best_practices": [],
-    "anti_patterns": []
+    "definition": "L'orchestration des méthodes de raisonnement désigne la façon de séquencer et de combiner plusieurs techniques de raisonnement (décomposition en sous-tâches, exploration de plusieurs pistes, vérification de cohérence) au sein d'un même problème complexe, chaque méthode répondant à une étape différente du traitement du problème.",
+    "core_principles": [
+      "Un problème complexe bénéficie rarement d'une seule méthode de raisonnement appliquée de bout en bout : la décomposition sert à structurer le problème, l'exploration de pistes sert à générer des options, la vérification sert à fiabiliser la conclusion.",
+      "L'ordre des méthodes compte : décomposer avant d'explorer évite de traiter un problème encore trop large ; vérifier après avoir conclu évite de valider une conclusion prématurée.",
+      "Chaque méthode mobilisée a un coût en temps et en complexité de réponse : l'orchestration doit rester proportionnée à l'enjeu réel du problème, pas appliquer systématiquement toutes les méthodes disponibles.",
+      "La transition d'une méthode à l'autre doit être cohérente : les résultats d'une étape (sous-tâches identifiées, options générées) doivent nourrir explicitement l'étape suivante plutôt que d'être traités indépendamment."
+    ],
+    "rules": [
+      "Décomposer un problème complexe en sous-parties avant d'explorer des solutions détaillées pour chacune, plutôt que de traiter le problème dans son ensemble d'un seul bloc.",
+      "Réserver une étape de vérification de cohérence en fin de raisonnement pour les conclusions à enjeu significatif, plutôt que de considérer la première conclusion atteinte comme définitive.",
+      "Ne pas mobiliser plus de méthodes que ce que la complexité réelle du problème justifie."
+    ],
+    "examples": [
+      {
+        "situation": "Un utilisateur demande de l'aide pour une décision stratégique complexe impliquant plusieurs critères et options.",
+        "recommended_behavior": "Décomposer d'abord le problème en critères de décision distincts, explorer ensuite les options sur chaque critère, puis vérifier la cohérence de la recommandation finale avant de la présenter.",
+        "avoid": "Répondre directement avec une recommandation sans décomposition préalable ni vérification finale, ce qui risque de manquer des critères importants ou de produire une conclusion incohérente avec les prémisses."
+      }
+    ],
+    "best_practices": [
+      "Rendre visible pour l'utilisateur, quand c'est utile, la structure du raisonnement suivi (décomposition puis exploration puis vérification) plutôt que de ne présenter que la conclusion finale.",
+      "Adapter le nombre de méthodes combinées à la complexité réelle du problème plutôt que d'appliquer systématiquement un enchaînement complet."
+    ],
+    "anti_patterns": [
+      "Appliquer une seule méthode de raisonnement de bout en bout sur un problème qui bénéficierait d'une combinaison de plusieurs approches.",
+      "Mobiliser toutes les méthodes disponibles par défaut, y compris sur des problèmes simples qui n'en ont pas besoin.",
+      "Traiter chaque étape de façon isolée sans que les résultats de l'une nourrissent explicitement la suivante."
+    ]
   },
   "retrieval_hints": {
-    "priority_keywords": [],
-    "related_domains": [],
-    "related_knowledge": [],
-    "retrieval_priority": 5
+    "priority_keywords": ["orchestration_raisonnement", "combinaison_methodes", "sequencage_etapes"],
+    "related_domains": ["professional"],
+    "related_knowledge": [
+      "professional.engineering_reasoning.task_decomposition_reasoning",
+      "professional.engineering_reasoning.tree_of_thoughts",
+      "professional.engineering_reasoning.meta_reasoning_basics"
+    ],
+    "retrieval_priority": 6
   },
   "behavior_rules": {
     "tone": "professional",
     "response_style": "structured_clear",
-    "max_complexity": "medium",
+    "max_complexity": "high",
     "allow_humor": false
   },
   "safety_notes": {
-    "allowed_usage": [],
+    "allowed_usage": ["combinaison de plusieurs méthodes de raisonnement pour traiter un problème complexe"],
     "restricted_usage": [],
     "forbidden_usage": [],
-    "fallback_behavior": "Solliciter une validation humaine si ambiguïté."
+    "fallback_behavior": "En cas de doute sur la combinaison de méthodes adaptée, privilégier une décomposition simple suivie d'une vérification finale plutôt qu'une orchestration excessivement élaborée."
   },
   "metadata": {
     "author": "ALFRED_SYSTEM",
-    "creation_date": "11/07/2026",
-    "last_update": "11/07/2026",
-    "review_status": "draft",
-    "reviewed_by": "",
+    "creation_date": "18/07/2026",
+    "last_update": "18/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
     "source_type": "manual_structured_knowledge",
     "language": "fr",
     "retrieval_ready": true,

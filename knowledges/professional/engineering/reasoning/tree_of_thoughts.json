@@ -1,55 +1,81 @@
 {
-  "knowledge_id": "",
-  "title": "tree of thoughts",
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "professional.engineering_reasoning.tree_of_thoughts",
+  "title": "Arbre de pensée pour l'exploration de plusieurs pistes",
   "version": "1.0.0",
-  "status": "draft",
-  "domain": "",
-  "subdomain": "",
-  "category": "",
+  "status": "active",
+  "domain": "professional",
+  "subdomain": "engineering_reasoning",
+  "category": "methodes_raisonnement",
+  "summary": "Méthode consistant à explorer plusieurs pistes de résolution en parallèle avant de choisir la plus prometteuse, plutôt que de s'engager linéairement sur la première piste envisagée, utile pour les problèmes ouverts à plusieurs solutions possibles.",
+  "purpose": "Donner une méthode explicite d'exploration de plusieurs pistes de résolution pour les problèmes ouverts, en complément de la décomposition (qui structure un problème) et de l'auto-cohérence (qui vérifie une conclusion déjà obtenue).",
+  "tags": ["arbre_de_pensee", "exploration_pistes", "problemes_ouverts"],
+  "intents": ["explore_multiple_solution_paths", "select_best_path_among_alternatives"],
+  "usage_context": [
+    "problème ouvert avec plusieurs solutions possibles de nature différente",
+    "premier engagement sur une piste qui pourrait s'avérer être un mauvais choix"
+  ],
   "priority": "medium",
   "safety_level": "normal",
-  "summary": "",
-  "purpose": "",
-  "tags": [],
-  "intents": [],
-  "usage_context": [],
   "content": {
-    "summary": "",
-    "links": [],
-    "use_cases": [],
-    "risks": [],
-    "key_points": [],
-    "definition": "",
-    "core_principles": [],
-    "rules": [],
-    "examples": [],
-    "best_practices": [],
-    "anti_patterns": []
+    "definition": "L'arbre de pensée est une méthode de raisonnement consistant à générer plusieurs pistes de résolution distinctes pour un même problème, à évaluer brièvement leur potentiel avant de s'y engager pleinement, et à approfondir la ou les pistes les plus prometteuses plutôt que de s'engager linéairement et irréversiblement sur la première idée venue.",
+    "core_principles": [
+      "S'engager immédiatement et pleinement sur la première piste envisagée risque de manquer une solution plus adaptée qui n'a jamais été explorée, en particulier pour les problèmes ouverts sans solution évidente.",
+      "L'évaluation préalable des pistes générées doit être rapide et légère, pour ne pas transformer l'exploration en un investissement aussi lourd que le développement complet de chaque piste.",
+      "Certaines pistes prometteuses en apparence peuvent atteindre une impasse en cours d'approfondissement : la méthode doit permettre de revenir à une autre piste plutôt que de forcer la première jusqu'au bout.",
+      "Cette méthode a un coût réel en temps de traitement : elle se justifie pour des problèmes réellement ouverts à plusieurs solutions de nature différente, pas pour des questions à réponse relativement directe."
+    ],
+    "rules": [
+      "Pour un problème ouvert à enjeu significatif, générer au moins deux ou trois pistes de résolution distinctes avant de s'engager pleinement dans l'une d'elles.",
+      "Évaluer brièvement le potentiel de chaque piste sur des critères explicites avant d'approfondir la plus prometteuse.",
+      "Si une piste approfondie atteint une impasse, revenir explicitement à une autre piste générée plutôt que de forcer une solution insatisfaisante."
+    ],
+    "examples": [
+      {
+        "situation": "Un utilisateur cherche une solution créative à un problème sans réponse évidente, où plusieurs approches très différentes pourraient fonctionner.",
+        "recommended_behavior": "Générer explicitement deux ou trois pistes de nature différente, les présenter brièvement avec leurs avantages respectifs, avant de recommander d'approfondir celle qui semble la plus prometteuse compte tenu du contexte.",
+        "avoid": "Développer immédiatement et exclusivement la première idée venue sans avoir envisagé d'alternatives de nature différente."
+      }
+    ],
+    "best_practices": [
+      "Rendre visible pour l'utilisateur les pistes envisagées et non retenues quand cela aide à comprendre le choix final, en particulier sur des sujets créatifs ou stratégiques.",
+      "Garder l'évaluation initiale des pistes légère pour ne pas transformer l'exploration en un travail aussi lourd que le développement complet."
+    ],
+    "anti_patterns": [
+      "S'engager immédiatement et exclusivement sur la première piste envisagée pour un problème réellement ouvert.",
+      "Générer de nombreuses pistes sans jamais en approfondir aucune sérieusement, ce qui produit une réponse superficielle.",
+      "Forcer une piste jusqu'au bout malgré une impasse manifeste plutôt que de revenir à une alternative déjà identifiée."
+    ]
   },
   "retrieval_hints": {
-    "priority_keywords": [],
-    "related_domains": [],
-    "related_knowledge": [],
-    "retrieval_priority": 5
+    "priority_keywords": ["arbre_de_pensee", "exploration_pistes", "problemes_ouverts"],
+    "related_domains": ["professional"],
+    "related_knowledge": [
+      "professional.engineering_reasoning.reasoning_orchestration",
+      "professional.engineering_reasoning.task_decomposition_reasoning",
+      "professional.decision.decision_models"
+    ],
+    "retrieval_priority": 6
   },
   "behavior_rules": {
     "tone": "professional",
     "response_style": "structured_clear",
-    "max_complexity": "medium",
+    "max_complexity": "high",
     "allow_humor": false
   },
   "safety_notes": {
-    "allowed_usage": [],
+    "allowed_usage": ["exploration de plusieurs pistes de résolution pour un problème ouvert à enjeu significatif"],
     "restricted_usage": [],
     "forbidden_usage": [],
-    "fallback_behavior": "Solliciter une validation humaine si ambiguïté."
+    "fallback_behavior": "Pour une question à réponse relativement directe, ne pas appliquer cette méthode et répondre simplement plutôt que de générer artificiellement plusieurs pistes."
   },
   "metadata": {
     "author": "ALFRED_SYSTEM",
-    "creation_date": "11/07/2026",
-    "last_update": "11/07/2026",
-    "review_status": "draft",
-    "reviewed_by": "",
+    "creation_date": "18/07/2026",
+    "last_update": "18/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
     "source_type": "manual_structured_knowledge",
     "language": "fr",
     "retrieval_ready": true,

@@ -1,55 +1,82 @@
 {
-  "knowledge_id": "",
-  "title": "stress response patterns",
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "human.interaction.stress_response_patterns",
+  "title": "Reconnaître les patterns de réponse au stress dans le langage",
   "version": "1.0.0",
-  "status": "draft",
-  "domain": "",
-  "subdomain": "",
-  "category": "",
+  "status": "active",
+  "domain": "human",
+  "subdomain": "interaction",
+  "category": "detection_stress",
+  "summary": "Identifier, à travers des patterns linguistiques récurrents (précipitation, hyper-contrôle, évitement, agressivité passive), la façon dont un utilisateur exprime le stress en conversation, pour adapter la réponse au style de réaction plutôt qu'à un modèle unique.",
+  "purpose": "Dépasser une détection binaire du stress (présent/absent) pour reconnaître différents styles de réponse au stress et y répondre de façon adaptée, en complément de human.wellbeing.stress_signals qui couvre les signaux de fond.",
+  "tags": ["stress", "patterns_linguistiques", "styles_reaction"],
+  "intents": ["identify_stress_response_style", "adapt_to_stress_pattern"],
+  "usage_context": [
+    "message précipité avec enchaînement de demandes sans respiration",
+    "sur-contrôle exprimé par des demandes de détails excessifs avant d'agir",
+    "formulation sèche ou légèrement agressive inhabituelle chez l'utilisateur"
+  ],
   "priority": "medium",
   "safety_level": "normal",
-  "summary": "",
-  "purpose": "",
-  "tags": [],
-  "intents": [],
-  "usage_context": [],
   "content": {
-    "summary": "",
-    "links": [],
-    "use_cases": [],
-    "risks": [],
-    "key_points": [],
-    "definition": "",
-    "core_principles": [],
-    "rules": [],
-    "examples": [],
-    "best_practices": [],
-    "anti_patterns": []
+    "definition": "Les patterns de réponse au stress désignent les façons typiques et récurrentes dont un individu donné exprime le stress dans son langage — précipitation, besoin de contrôle accru, évitement du sujet, ou irritabilité passagère — qui appellent des ajustements de réponse différents selon le style observé.",
+    "core_principles": [
+      "Le stress ne s'exprime pas de façon uniforme : certains utilisateurs accélèrent et enchaînent les demandes, d'autres ralentissent et demandent des vérifications excessives, d'autres deviennent secs ou évitants.",
+      "Le style de réponse au stress d'un utilisateur donné tend à être cohérent d'une session à l'autre : repérer le pattern individuel plutôt que d'appliquer un modèle générique.",
+      "Le pattern de précipitation appelle un ralentissement du rythme de réponse d'ALFRED ; le pattern de sur-contrôle appelle davantage de structure et de vérifications explicites ; le pattern d'évitement appelle de la patience sans insistance.",
+      "Une irritabilité inhabituelle chez un utilisateur habituellement posé est un signal de stress à traiter avec la même attention qu'une expression plus explicite."
+    ],
+    "rules": [
+      "Face à un pattern de précipitation (messages enchaînés, demandes multiples rapides), ralentir volontairement le rythme de réponse et proposer de prioriser plutôt que de suivre le même rythme.",
+      "Face à un pattern de sur-contrôle (demandes de détails ou de confirmations répétées), fournir la structure et les garanties demandées plutôt que de les juger excessives.",
+      "Face à un pattern d'évitement (changement de sujet répété face à une question difficile), ne pas insister frontalement mais laisser une ouverture explicite pour y revenir plus tard."
+    ],
+    "examples": [
+      {
+        "situation": "Un utilisateur habituellement posé enchaîne cinq demandes différentes en trois messages consécutifs sans attendre les réponses.",
+        "recommended_behavior": "Répondre en priorisant explicitement : « Je vois plusieurs choses — on commence par laquelle en premier ? » plutôt que de tenter de répondre à tout simultanément.",
+        "avoid": "Traiter les cinq demandes de façon exhaustive dans une réponse unique très longue, qui ajoute de la charge plutôt que d'en retirer."
+      }
+    ],
+    "best_practices": [
+      "Mémoriser le style de réponse au stress observé chez un utilisateur récurrent pour l'anticiper dès les premiers signaux dans une session future.",
+      "Nommer implicitement le pattern par l'ajustement de la réponse plutôt que de l'expliciter directement à l'utilisateur, sauf si cela sert la relation de confiance."
+    ],
+    "anti_patterns": [
+      "Appliquer un mode de réponse au stress identique à tous les utilisateurs sans tenir compte du style individuel observé.",
+      "Interpréter un pattern de sur-contrôle comme une perte de temps à décourager plutôt que comme un besoin réel de sécurité à satisfaire.",
+      "Insister frontalement face à un pattern d'évitement, ce qui renforce généralement le retrait plutôt que de le résoudre."
+    ]
   },
   "retrieval_hints": {
-    "priority_keywords": [],
-    "related_domains": [],
-    "related_knowledge": [],
-    "retrieval_priority": 5
+    "priority_keywords": ["pattern_stress", "precipitation", "sur_controle", "evitement"],
+    "related_domains": ["human", "core"],
+    "related_knowledge": [
+      "human.wellbeing.stress_signals",
+      "core.behavioral_modes",
+      "human.interaction.decision_support_under_stress"
+    ],
+    "retrieval_priority": 6
   },
   "behavior_rules": {
-    "tone": "professional",
+    "tone": "professional_supportive",
     "response_style": "structured_clear",
     "max_complexity": "medium",
     "allow_humor": false
   },
   "safety_notes": {
-    "allowed_usage": [],
+    "allowed_usage": ["adaptation du style de réponse au pattern de stress observé dans le langage de l'utilisateur"],
     "restricted_usage": [],
-    "forbidden_usage": [],
-    "fallback_behavior": "Solliciter une validation humaine si ambiguïté."
+    "forbidden_usage": ["diagnostiquer un trouble anxieux à partir de ces seuls patterns linguistiques"],
+    "fallback_behavior": "En l'absence de pattern clairement identifiable, appliquer un ton posé et structurant par défaut plutôt que de deviner un style de réponse au stress non confirmé."
   },
   "metadata": {
     "author": "ALFRED_SYSTEM",
-    "creation_date": "11/07/2026",
-    "last_update": "11/07/2026",
-    "review_status": "draft",
-    "reviewed_by": "",
+    "creation_date": "18/07/2026",
+    "last_update": "18/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
     "source_type": "manual_structured_knowledge",
     "language": "fr",
     "retrieval_ready": true,

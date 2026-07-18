@@ -1,55 +1,81 @@
 {
-  "knowledge_id": "",
-  "title": "sleep hygiene basics",
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "human.wellbeing.sleep_hygiene_basics",
+  "title": "Bases de l'hygiène du sommeil",
   "version": "1.0.0",
-  "status": "draft",
-  "domain": "",
-  "subdomain": "",
-  "category": "",
+  "status": "active",
+  "domain": "human",
+  "subdomain": "wellbeing",
+  "category": "hygiene_sommeil",
+  "summary": "Principes généraux et reconnus d'hygiène du sommeil (régularité, environnement, exposition à la lumière, écrans) qu'ALFRED peut partager à titre informatif, sans jamais se substituer à un avis médical en cas de trouble du sommeil persistant.",
+  "purpose": "Donner à ALFRED une base d'information générale et non médicale sur l'hygiène du sommeil, mobilisable quand un utilisateur cherche à améliorer un sommeil de qualité ordinaire dégradée par des habitudes identifiables.",
+  "tags": ["hygiene_sommeil", "sommeil", "habitudes"],
+  "intents": ["provide_sleep_hygiene_information", "support_sleep_habit_improvement"],
+  "usage_context": [
+    "difficulté d'endormissement ou sommeil de mauvaise qualité liée à des habitudes identifiables",
+    "demande d'information générale sur l'amélioration du sommeil"
+  ],
   "priority": "medium",
-  "safety_level": "normal",
-  "summary": "",
-  "purpose": "",
-  "tags": [],
-  "intents": [],
-  "usage_context": [],
+  "safety_level": "sensitive",
   "content": {
-    "summary": "",
-    "links": [],
-    "use_cases": [],
-    "risks": [],
-    "key_points": [],
-    "definition": "",
-    "core_principles": [],
-    "rules": [],
-    "examples": [],
-    "best_practices": [],
-    "anti_patterns": []
+    "definition": "L'hygiène du sommeil désigne l'ensemble des habitudes comportementales et environnementales reconnues comme favorisant un sommeil de meilleure qualité : régularité des horaires, exposition à la lumière naturelle, gestion des écrans en soirée, environnement de la chambre, et gestion de la caféine et de l'activité physique.",
+    "core_principles": [
+      "La régularité des horaires de coucher et de lever, y compris le week-end, est l'un des leviers les plus robustes pour améliorer la qualité du sommeil, davantage que la durée de sommeil visée elle-même.",
+      "L'exposition à la lumière des écrans en soirée retarde la sécrétion de mélatonine et peut décaler l'endormissement, un effet renforcé par le contenu stimulant souvent consulté sur ces écrans.",
+      "La caféine a une demi-vie longue (plusieurs heures) et peut affecter la qualité du sommeil même consommée en début d'après-midi, indépendamment de la perception subjective de fatigue au moment du coucher.",
+      "Un environnement de sommeil frais, sombre et calme favorise un endormissement plus rapide et un sommeil moins fragmenté."
+    ],
+    "rules": [
+      "Ne jamais présenter ces principes comme un traitement d'un trouble du sommeil diagnostiqué (insomnie chronique, apnée du sommeil, etc.).",
+      "Recommander explicitement une consultation médicale si les difficultés de sommeil décrites sont sévères, anciennes (plusieurs mois) ou associées à d'autres signes (fatigue diurne majeure, ronflements avec pauses respiratoires).",
+      "Adapter les recommandations au contexte réel de vie de l'utilisateur plutôt que de proposer un protocole rigide et générique."
+    ],
+    "examples": [
+      {
+        "situation": "L'utilisateur dit avoir du mal à s'endormir après avoir travaillé sur écran tard le soir.",
+        "recommended_behavior": "Expliquer le lien entre exposition lumineuse tardive et endormissement, et proposer un ajustement concret et réaliste (réduire la luminosité, arrêter les écrans stimulants un moment avant le coucher) plutôt qu'une règle stricte difficile à tenir.",
+        "avoid": "Prescrire un protocole de sommeil détaillé et rigide, ou minimiser la difficulté si elle semble en réalité plus ancienne et sévère qu'une simple habitude d'écran tardif."
+      }
+    ],
+    "best_practices": [
+      "Prioriser un seul changement d'habitude à la fois plutôt que de proposer une liste complète de recommandations d'un coup.",
+      "Vérifier explicitement l'ancienneté et la sévérité de la difficulté avant de proposer des ajustements d'hygiène de sommeil plutôt qu'une orientation médicale."
+    ],
+    "anti_patterns": [
+      "Traiter une difficulté de sommeil ancienne ou sévère uniquement par des conseils d'hygiène de sommeil sans orienter vers un professionnel.",
+      "Présenter ces principes comme une solution garantie plutôt que comme des leviers généraux à adapter individuellement.",
+      "Ignorer des signes associés (fatigue diurne majeure, ronflements avec pauses) qui appelleraient une consultation médicale spécifique."
+    ]
   },
   "retrieval_hints": {
-    "priority_keywords": [],
-    "related_domains": [],
-    "related_knowledge": [],
-    "retrieval_priority": 5
+    "priority_keywords": ["sommeil", "hygiene_sommeil", "endormissement", "regularite"],
+    "related_domains": ["human", "medecine", "lifestyle"],
+    "related_knowledge": [
+      "human.wellbeing.medical_boundary_rules",
+      "human.wellbeing.recovery_cycles",
+      "lifestyle.health.stress_management"
+    ],
+    "retrieval_priority": 6
   },
   "behavior_rules": {
-    "tone": "professional",
+    "tone": "professional_supportive",
     "response_style": "structured_clear",
-    "max_complexity": "medium",
+    "max_complexity": "low",
     "allow_humor": false
   },
   "safety_notes": {
-    "allowed_usage": [],
-    "restricted_usage": [],
-    "forbidden_usage": [],
-    "fallback_behavior": "Solliciter une validation humaine si ambiguïté."
+    "allowed_usage": ["information générale sur l'hygiène du sommeil pour une difficulté d'endormissement ordinaire et récente"],
+    "restricted_usage": ["difficultés de sommeil anciennes ou associées à d'autres symptômes"],
+    "forbidden_usage": ["diagnostiquer un trouble du sommeil (insomnie chronique, apnée) ou prescrire un traitement"],
+    "fallback_behavior": "Si la difficulté de sommeil décrite est sévère, ancienne ou associée à d'autres signes, rediriger vers un professionnel de santé conformément à human.wellbeing.medical_boundary_rules."
   },
   "metadata": {
     "author": "ALFRED_SYSTEM",
-    "creation_date": "11/07/2026",
-    "last_update": "11/07/2026",
-    "review_status": "draft",
-    "reviewed_by": "",
+    "creation_date": "18/07/2026",
+    "last_update": "18/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
     "source_type": "manual_structured_knowledge",
     "language": "fr",
     "retrieval_ready": true,

@@ -1,36 +1,61 @@
 {
-  "knowledge_id": "",
-  "title": "iot threat basics",
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "professional.iot.iot_threat_basics",
+  "title": "Menaces courantes sur les objets connectés",
   "version": "1.0.0",
-  "status": "draft",
-  "domain": "",
-  "subdomain": "",
-  "category": "",
-  "priority": "medium",
-  "safety_level": "normal",
-  "summary": "",
-  "purpose": "",
-  "tags": [],
-  "intents": [],
-  "usage_context": [],
+  "status": "active",
+  "domain": "professional",
+  "subdomain": "iot",
+  "category": "securite_iot",
+  "summary": "Panorama des menaces de sécurité les plus courantes sur les objets connectés domestiques (identifiants par défaut, firmware non mis à jour, appareils exposés sur internet) et des principes de réduction de risque associés.",
+  "purpose": "Donner à ALFRED une base de vigilance sécurité sur les objets connectés, préalable nécessaire avant de conseiller ou piloter un environnement domotique, en cohérence avec les principes de sécurité by design attendus d'ALFRED CPL.",
+  "tags": ["securite_iot", "menaces_objets_connectes", "vigilance"],
+  "intents": ["explain_iot_threats", "recommend_risk_reduction"],
+  "usage_context": [
+    "configuration ou audit d'un environnement domotique",
+    "question sur les risques de sécurité liés aux objets connectés"
+  ],
+  "priority": "high",
+  "safety_level": "sensitive",
   "content": {
-    "summary": "",
-    "links": [],
-    "use_cases": [],
-    "risks": [],
-    "key_points": [],
-    "definition": "",
-    "core_principles": [],
-    "rules": [],
-    "examples": [],
-    "best_practices": [],
-    "anti_patterns": []
+    "definition": "Les menaces courantes sur les objets connectés désignent les vulnérabilités les plus fréquemment exploitées sur les appareils IoT domestiques : identifiants par défaut jamais changés, firmware obsolète non mis à jour, exposition directe d'un appareil sur internet sans protection, et collecte de données par des services cloud tiers peu transparents.",
+    "core_principles": [
+      "Les identifiants par défaut, souvent identiques pour tout un modèle d'appareil, restent l'une des vulnérabilités les plus exploitées, car de nombreux utilisateurs ne les changent jamais après l'installation.",
+      "Un firmware obsolète accumule des vulnérabilités connues et corrigées par le fabricant mais jamais appliquées, ce qui rend l'appareil vulnérable à des attaques déjà documentées publiquement.",
+      "Un appareil exposé directement sur internet sans passerelle de sécurité élargit considérablement la surface d'attaque par rapport à un appareil isolé sur le réseau local.",
+      "Les objets connectés collectent souvent plus de données que nécessaire à leur fonction, transmises à des services cloud tiers dont la politique de confidentialité est rarement examinée par l'utilisateur."
+    ],
+    "rules": [
+      "Recommander systématiquement le changement des identifiants par défaut dès l'installation de tout nouvel appareil connecté.",
+      "Signaler l'importance des mises à jour de firmware régulières comme mesure de sécurité de base, pas comme une option secondaire.",
+      "Déconseiller l'exposition directe d'un appareil IoT sur internet sans passerelle de sécurité."
+    ],
+    "examples": [
+      {
+        "situation": "Un utilisateur installe une nouvelle caméra connectée et demande si la configuration par défaut est suffisante.",
+        "recommended_behavior": "Recommander explicitement de changer l'identifiant et le mot de passe par défaut, de vérifier la disponibilité d'une mise à jour de firmware, et d'éviter l'exposition directe de l'appareil sur internet sans passerelle sécurisée.",
+        "avoid": "Valider la configuration par défaut sans mentionner ces vigilances de base, en particulier pour un appareil aussi sensible qu'une caméra."
+      }
+    ],
+    "best_practices": [
+      "Établir une checklist de sécurité de base à vérifier systématiquement à l'installation de tout nouvel appareil IoT.",
+      "Privilégier une architecture de segmentation réseau pour limiter l'impact d'un appareil compromis."
+    ],
+    "anti_patterns": [
+      "Considérer la configuration par défaut d'un appareil connecté comme suffisante en matière de sécurité.",
+      "Ignorer les mises à jour de firmware comme un simple confort plutôt qu'une mesure de sécurité de base.",
+      "Recommander une exposition directe d'un appareil sur internet sans passerelle de sécurité pour un accès distant plus simple."
+    ]
   },
   "retrieval_hints": {
-    "priority_keywords": [],
-    "related_domains": [],
-    "related_knowledge": [],
-    "retrieval_priority": 5
+    "priority_keywords": ["securite_iot", "menaces_objets_connectes", "identifiants_par_defaut", "firmware"],
+    "related_domains": ["professional", "cpl"],
+    "related_knowledge": [
+      "professional.iot.local_network_security",
+      "professional.iot.iot_device_segmentation"
+    ],
+    "retrieval_priority": 8
   },
   "behavior_rules": {
     "tone": "professional",
@@ -39,17 +64,17 @@
     "allow_humor": false
   },
   "safety_notes": {
-    "allowed_usage": [],
+    "allowed_usage": ["information et recommandation de sécurité générale sur les objets connectés"],
     "restricted_usage": [],
-    "forbidden_usage": [],
-    "fallback_behavior": "Solliciter une validation humaine si ambiguïté."
+    "forbidden_usage": ["fournir des instructions d'exploitation de vulnérabilités spécifiques sur des appareils"],
+    "fallback_behavior": "Face à une question technique de sécurité dépassant les principes généraux, recommander une vérification auprès du fabricant de l'appareil ou d'un professionnel de la cybersécurité."
   },
   "metadata": {
     "author": "ALFRED_SYSTEM",
-    "creation_date": "11/07/2026",
-    "last_update": "11/07/2026",
-    "review_status": "draft",
-    "reviewed_by": "",
+    "creation_date": "18/07/2026",
+    "last_update": "18/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
     "source_type": "manual_structured_knowledge",
     "language": "fr",
     "retrieval_ready": true,

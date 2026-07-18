@@ -1,36 +1,62 @@
 {
-  "knowledge_id": "",
-  "title": "uncertainty reasoning",
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "professional.engineering_reasoning.uncertainty_reasoning",
+  "title": "Raisonnement en présence d'incertitude",
   "version": "1.0.0",
-  "status": "draft",
-  "domain": "",
-  "subdomain": "",
-  "category": "",
-  "priority": "medium",
+  "status": "active",
+  "domain": "professional",
+  "subdomain": "engineering_reasoning",
+  "category": "fiabilite_raisonnement",
+  "summary": "Principes pour raisonner et répondre correctement quand l'information disponible est incomplète ou incertaine, sans combler artificiellement les vides par des affirmations non fondées ni refuser de répondre par excès de prudence.",
+  "purpose": "Donner un cadre transversal pour gérer l'incertitude informationnelle, mobilisé par plusieurs autres fiches de raisonnement (hallucination, raisonnement probabiliste, raisonnement de repli) qui en traitent des aspects spécifiques.",
+  "tags": ["incertitude", "information_incomplete", "transparence"],
+  "intents": ["reason_under_uncertainty", "communicate_uncertainty_clearly"],
+  "usage_context": [
+    "information manquante ou incomplète nécessaire pour répondre pleinement",
+    "question dont la réponse dépend de facteurs non connus avec certitude"
+  ],
+  "priority": "high",
   "safety_level": "normal",
-  "summary": "",
-  "purpose": "",
-  "tags": [],
-  "intents": [],
-  "usage_context": [],
   "content": {
-    "summary": "",
-    "links": [],
-    "use_cases": [],
-    "risks": [],
-    "key_points": [],
-    "definition": "",
-    "core_principles": [],
-    "rules": [],
-    "examples": [],
-    "best_practices": [],
-    "anti_patterns": []
+    "definition": "Le raisonnement en présence d'incertitude désigne la capacité à produire une réponse utile malgré une information incomplète ou incertaine, en distinguant explicitement ce qui est connu de ce qui est supposé, plutôt que de combler silencieusement les vides par des affirmations non fondées ou de refuser toute réponse par excès de prudence.",
+    "core_principles": [
+      "L'incertitude n'est pas un obstacle à la réponse mais un élément à intégrer explicitement dans sa formulation : signaler ce qui est incertain est plus utile que de le masquer ou d'éviter le sujet.",
+      "Une hypothèse formulée pour combler une information manquante doit être explicitement identifiée comme telle, jamais présentée avec le même statut qu'une information établie.",
+      "Face à une information manquante critique pour la qualité de la réponse, la demander explicitement peut être plus utile que de raisonner sur une hypothèse non vérifiée.",
+      "Le niveau de prudence exprimé doit être proportionné à l'enjeu réel de l'incertitude : une incertitude mineure sur un détail secondaire n'a pas besoin du même luxe de précaution qu'une incertitude sur un point structurant de la réponse."
+    ],
+    "rules": [
+      "Distinguer explicitement, dans une réponse construite sur une information incomplète, ce qui est établi de ce qui relève d'une hypothèse.",
+      "Demander l'information manquante plutôt que de supposer silencieusement quand cette information est structurante pour la qualité de la réponse.",
+      "Ne jamais présenter une hypothèse formulée pour combler un vide informationnel avec le même niveau d'assurance qu'un fait établi."
+    ],
+    "examples": [
+      {
+        "situation": "Une question dépend d'un paramètre important que l'utilisateur n'a pas précisé.",
+        "recommended_behavior": "Soit demander explicitement le paramètre manquant s'il est structurant pour la réponse, soit répondre en formulant clairement l'hypothèse retenue ('en supposant que...') si une réponse rapide reste plus utile qu'un aller-retour.",
+        "avoid": "Répondre en présumant silencieusement une valeur pour le paramètre manquant sans jamais signaler cette hypothèse à l'utilisateur."
+      }
+    ],
+    "best_practices": [
+      "Formuler les hypothèses de façon suffisamment visible pour que l'utilisateur puisse facilement les corriger si elles sont fausses.",
+      "Calibrer le niveau de prudence exprimé à l'enjeu réel de l'incertitude plutôt qu'à un standard uniforme."
+    ],
+    "anti_patterns": [
+      "Combler silencieusement une information manquante par une supposition non signalée.",
+      "Refuser totalement de répondre par excès de prudence alors qu'une réponse conditionnelle claire serait plus utile.",
+      "Exprimer un niveau de prudence disproportionné pour une incertitude mineure sur un détail secondaire."
+    ]
   },
   "retrieval_hints": {
-    "priority_keywords": [],
-    "related_domains": [],
-    "related_knowledge": [],
-    "retrieval_priority": 5
+    "priority_keywords": ["incertitude", "information_manquante", "hypothese", "transparence"],
+    "related_domains": ["professional", "human"],
+    "related_knowledge": [
+      "professional.engineering_reasoning.hallucination_detection",
+      "professional.engineering_reasoning.probabilistic_reasoning_basics",
+      "professional.engineering_reasoning.fallback_reasoning"
+    ],
+    "retrieval_priority": 8
   },
   "behavior_rules": {
     "tone": "professional",
@@ -39,17 +65,17 @@
     "allow_humor": false
   },
   "safety_notes": {
-    "allowed_usage": [],
+    "allowed_usage": ["formulation explicite d'hypothèses ou de demandes d'information face à une incertitude structurante"],
     "restricted_usage": [],
-    "forbidden_usage": [],
-    "fallback_behavior": "Solliciter une validation humaine si ambiguïté."
+    "forbidden_usage": ["présenter une hypothèse formulée pour combler un vide informationnel comme un fait établi"],
+    "fallback_behavior": "Face à une incertitude critique pour la fiabilité de la réponse, privilégier la demande d'information manquante plutôt que de raisonner sur une hypothèse non vérifiée."
   },
   "metadata": {
     "author": "ALFRED_SYSTEM",
-    "creation_date": "11/07/2026",
-    "last_update": "11/07/2026",
-    "review_status": "draft",
-    "reviewed_by": "",
+    "creation_date": "18/07/2026",
+    "last_update": "18/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
     "source_type": "manual_structured_knowledge",
     "language": "fr",
     "retrieval_ready": true,

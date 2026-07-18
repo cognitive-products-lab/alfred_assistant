@@ -1,36 +1,62 @@
 {
-  "knowledge_id": "",
-  "title": "offline first home automation",
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "professional.iot.offline_first_home_automation",
+  "title": "Domotique offline-first",
   "version": "1.0.0",
-  "status": "draft",
-  "domain": "",
-  "subdomain": "",
-  "category": "",
-  "priority": "medium",
+  "status": "active",
+  "domain": "professional",
+  "subdomain": "iot",
+  "category": "architecture_iot",
+  "summary": "Principe d'architecture domotique où les automatisations essentielles continuent de fonctionner sans connexion internet, en traitement local sur le hub, par opposition aux architectures entièrement dépendantes du cloud.",
+  "purpose": "Appliquer au domaine IoT domestique le principe offline-first déjà documenté côté produit ALFRED CPL (cpl.product_platform.offline_first_continuite_service_alfred), dans sa version spécifique à la domotique physique.",
+  "tags": ["offline_first", "domotique_locale", "traitement_local"],
+  "intents": ["explain_offline_first_home_automation", "recommend_local_processing"],
+  "usage_context": [
+    "choix d'architecture domotique entre solution cloud et solution locale",
+    "panne internet affectant le fonctionnement des automatisations domestiques"
+  ],
+  "priority": "high",
   "safety_level": "normal",
-  "summary": "",
-  "purpose": "",
-  "tags": [],
-  "intents": [],
-  "usage_context": [],
   "content": {
-    "summary": "",
-    "links": [],
-    "use_cases": [],
-    "risks": [],
-    "key_points": [],
-    "definition": "",
-    "core_principles": [],
-    "rules": [],
-    "examples": [],
-    "best_practices": [],
-    "anti_patterns": []
+    "definition": "La domotique offline-first désigne une architecture où les règles d'automatisation essentielles (allumage, sécurité, chauffage) s'exécutent par un traitement local sur le hub domotique, sans dépendre d'une connexion internet active, contrairement aux architectures entièrement cloud où une coupure internet interrompt le fonctionnement de la maison connectée.",
+    "core_principles": [
+      "Une architecture entièrement dépendante du cloud transforme une simple coupure internet en panne complète de fonctions du quotidien (éclairage, chauffage, sécurité) qui n'ont pourtant aucune raison technique de dépendre d'une connexion distante.",
+      "Le traitement local des règles d'automatisation réduit également la latence de réponse par rapport à un aller-retour systématique vers un serveur distant.",
+      "L'offline-first en domotique renforce aussi la confidentialité, car les données de capteurs (présence, habitudes) n'ont pas besoin de transiter systématiquement vers un service cloud tiers pour que les automatisations fonctionnent.",
+      "Certaines fonctionnalités avancées (assistant vocal cloud, intégrations tierces complexes) peuvent légitimement rester dépendantes d'internet, à condition que cette dépendance soit un choix explicite et non une conséquence par défaut de l'architecture."
+    ],
+    "rules": [
+      "Recommander par défaut un hub domotique capable de traitement local pour les automatisations essentielles plutôt qu'une solution entièrement dépendante du cloud.",
+      "Signaler explicitement, pour toute fonctionnalité domotique décrite, si elle continue de fonctionner en cas de coupure internet ou si elle en dépend.",
+      "Ne pas présenter l'offline-first comme incompatible avec des fonctionnalités avancées : certaines dépendances au cloud restent légitimes si elles sont un choix assumé plutôt qu'une contrainte d'architecture."
+    ],
+    "examples": [
+      {
+        "situation": "Un utilisateur choisit un hub domotique et demande si l'éclairage automatique continuera de fonctionner en cas de panne internet.",
+        "recommended_behavior": "Vérifier et expliquer clairement si le hub envisagé traite les règles d'automatisation localement, et recommander cette caractéristique comme critère de choix important pour les fonctions essentielles du quotidien.",
+        "avoid": "Présumer que toutes les solutions domotiques fonctionnent de la même façon sans distinguer les architectures cloud-dépendantes des architectures local-first."
+      }
+    ],
+    "best_practices": [
+      "Prioriser le traitement local pour les fonctions de sécurité et de confort essentielles (éclairage, chauffage, alarme).",
+      "Documenter clairement pour l'utilisateur quelles fonctionnalités restent dépendantes d'internet et pourquoi, plutôt que de laisser cette dépendance implicite."
+    ],
+    "anti_patterns": [
+      "Choisir par défaut une architecture entièrement dépendante du cloud sans évaluer l'impact d'une coupure internet sur les fonctions essentielles.",
+      "Présenter l'offline-first comme excluant toute fonctionnalité cloud, alors que certaines dépendances peuvent rester un choix légitime.",
+      "Laisser l'utilisateur découvrir après coup, lors d'une panne, que des fonctions essentielles dépendaient d'une connexion internet."
+    ]
   },
   "retrieval_hints": {
-    "priority_keywords": [],
-    "related_domains": [],
-    "related_knowledge": [],
-    "retrieval_priority": 5
+    "priority_keywords": ["offline_first", "domotique_locale", "traitement_local", "continuite_service"],
+    "related_domains": ["professional", "cpl"],
+    "related_knowledge": [
+      "cpl.product_platform.offline_first_continuite_service_alfred",
+      "professional.iot.smart_home_basics",
+      "professional.engineering.systeme_design.local_first_architecture"
+    ],
+    "retrieval_priority": 7
   },
   "behavior_rules": {
     "tone": "professional",
@@ -39,17 +65,17 @@
     "allow_humor": false
   },
   "safety_notes": {
-    "allowed_usage": [],
+    "allowed_usage": ["explication et recommandation d'architecture offline-first pour un environnement domotique"],
     "restricted_usage": [],
     "forbidden_usage": [],
-    "fallback_behavior": "Solliciter une validation humaine si ambiguïté."
+    "fallback_behavior": "En cas de doute sur les capacités offline d'une solution précise, recommander une vérification directe des spécifications du fabricant plutôt que de présumer."
   },
   "metadata": {
     "author": "ALFRED_SYSTEM",
-    "creation_date": "11/07/2026",
-    "last_update": "11/07/2026",
-    "review_status": "draft",
-    "reviewed_by": "",
+    "creation_date": "18/07/2026",
+    "last_update": "18/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
     "source_type": "manual_structured_knowledge",
     "language": "fr",
     "retrieval_ready": true,

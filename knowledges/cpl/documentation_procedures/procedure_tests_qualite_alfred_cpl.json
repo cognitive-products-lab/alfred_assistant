@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.documentation_procedures.procedure_tests_qualite_alfred_cpl",
+  "title": "Procédure de tests et de contrôle qualité avant déploiement",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "documentation_procedures",
+  "category": "procedures_operationnelles",
+  "summary": "Procédure documentée de tests et de contrôle qualité à exécuter avant toute mise en production d'une évolution d'ALFRED CPL, distincte des procédures de déploiement elles-mêmes qui supposent cette étape déjà validée en amont.",
+  "purpose": "Combler une lacune identifiée dans le sous-domaine documentation_procedures : les procédures de déploiement existantes supposent une version déjà validée, sans documenter l'étape de test et de contrôle qualité qui doit la précéder.",
+  "tags": ["tests_qualite", "procedure_validation", "avant_deploiement"],
+  "intents": ["document_qa_procedure", "validate_before_deployment"],
+  "usage_context": [
+    "préparation d'une nouvelle version d'ALFRED CPL avant sa mise en production",
+    "définition des critères de qualité minimaux avant déploiement"
+  ],
+  "priority": "high",
+  "safety_level": "normal",
+  "content": {
+    "definition": "La procédure de tests et de contrôle qualité désigne l'ensemble structuré des vérifications à exécuter sur une évolution d'ALFRED CPL avant sa mise en production — tests fonctionnels, tests de non-régression, vérification des garde-fous éthiques et de sécurité, validation de performance — condition préalable documentée avant d'engager les procédures de déploiement proprement dites.",
+    "core_principles": [
+      "Une procédure de déploiement fiable suppose une étape de validation qualité préalable clairement définie : sans cette étape documentée, le déploiement repose sur une confiance informelle plutôt que sur des critères vérifiables.",
+      "Les tests de non-régression doivent couvrir explicitement les garde-fous éthiques et de sécurité déjà validés sur les versions précédentes, pas uniquement les fonctionnalités métier, pour éviter qu'une évolution ne dégrade silencieusement un principe déjà acquis.",
+      "Le niveau de rigueur des tests doit être proportionné à la criticité de l'évolution concernée : une évolution mineure d'interface n'appelle pas le même niveau de test qu'une évolution touchant au raisonnement ou à la gouvernance des données.",
+      "Une évolution qui échoue aux critères de qualité définis ne doit pas être déployée, quelle que soit la pression de délai, ce principe devant être documenté explicitement pour ne pas dépendre d'un arbitrage informel au moment critique."
+    ],
+    "rules": [
+      "Définir et documenter des critères de qualité minimaux à valider avant tout déploiement, différenciés selon la criticité de l'évolution concernée.",
+      "Inclure systématiquement dans les tests de non-régression une vérification des garde-fous éthiques et de sécurité déjà validés sur les versions précédentes.",
+      "Bloquer le déploiement de toute évolution qui échoue aux critères de qualité définis, indépendamment de la pression de délai."
+    ],
+    "examples": [
+      {
+        "situation": "Une évolution touchant au moteur de raisonnement d'ALFRED CPL est prête et son équipe souhaite la déployer rapidement pour respecter une échéance client.",
+        "recommended_behavior": "Appliquer le niveau de test renforcé correspondant à la criticité de cette évolution (incluant la vérification des garde-fous éthiques), et ne déployer qu'une fois ces critères validés, en explicitant si besoin à l'échéance client la nécessité de ce délai.",
+        "avoid": "Accélérer ou réduire les tests de contrôle qualité au nom de la pression de délai, en particulier sur une évolution touchant au raisonnement ou aux garde-fous du système."
+      }
+    ],
+    "best_practices": [
+      "Différencier explicitement les niveaux de rigueur de test selon la criticité de chaque type d'évolution plutôt que d'appliquer un protocole uniforme.",
+      "Documenter les résultats de chaque cycle de test pour constituer un historique de traçabilité qualité utile en cas d'audit."
+    ],
+    "anti_patterns": [
+      "Déployer une évolution sans procédure de test formalisée, en s'appuyant uniquement sur une validation informelle.",
+      "Réduire les tests de contrôle qualité sous la pression d'un délai, en particulier pour les évolutions les plus critiques.",
+      "Omettre la vérification des garde-fous éthiques et de sécurité des tests de non-régression, en se concentrant uniquement sur les fonctionnalités métier."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["tests_qualite", "controle_qualite", "validation_avant_deploiement", "non_regression"],
+    "related_domains": ["cpl", "professional"],
+    "related_knowledge": [
+      "cpl.documentation_procedures.procedures_deploiement_mise_a_jour_alfred_cpl",
+      "cpl.ethics_governance.gouvernance_cycle_de_vie_ia_alfred",
+      "cpl.operations_continuite.gestion_montees_version_production"
+    ],
+    "retrieval_priority": 7
+  },
+  "behavior_rules": {
+    "tone": "formal",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["documentation et application de la procédure de tests et de contrôle qualité avant déploiement"],
+    "restricted_usage": [],
+    "forbidden_usage": ["déployer une évolution n'ayant pas satisfait les critères de qualité définis pour respecter un délai"],
+    "fallback_behavior": "En cas d'incertitude sur le niveau de criticité d'une évolution, appliquer par défaut le niveau de test le plus rigoureux plutôt que le plus léger."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "18/07/2026",
+    "last_update": "18/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

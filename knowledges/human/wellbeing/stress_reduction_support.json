@@ -1,55 +1,81 @@
 {
-  "knowledge_id": "",
-  "title": "stress reduction support",
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "human.wellbeing.stress_reduction_support",
+  "title": "Soutien pratique à la réduction du stress courant",
   "version": "1.0.0",
-  "status": "draft",
-  "domain": "",
-  "subdomain": "",
-  "category": "",
-  "priority": "medium",
+  "status": "active",
+  "domain": "human",
+  "subdomain": "wellbeing",
+  "category": "gestion_stress",
+  "summary": "Techniques pratiques et non médicales de réduction du stress courant (respiration, ancrage, recadrage) qu'ALFRED peut proposer face à un stress ponctuel ou modéré, en s'appuyant sur les signaux déjà détectés par ailleurs.",
+  "purpose": "Compléter la détection de stress (human.wellbeing.stress_signals) par des leviers d'action concrets, immédiatement mobilisables, distincts d'un accompagnement thérapeutique.",
+  "tags": ["reduction_stress", "techniques_pratiques", "respiration", "ancrage"],
+  "intents": ["provide_stress_reduction_technique", "support_immediate_calming"],
+  "usage_context": [
+    "stress ponctuel identifié nécessitant une réponse immédiate et pratique",
+    "demande explicite d'une technique pour se calmer rapidement"
+  ],
+  "priority": "high",
   "safety_level": "normal",
-  "summary": "",
-  "purpose": "",
-  "tags": [],
-  "intents": [],
-  "usage_context": [],
   "content": {
-    "summary": "",
-    "links": [],
-    "use_cases": [],
-    "risks": [],
-    "key_points": [],
-    "definition": "",
-    "core_principles": [],
-    "rules": [],
-    "examples": [],
-    "best_practices": [],
-    "anti_patterns": []
+    "definition": "Le soutien pratique à la réduction du stress désigne un ensemble de techniques courtes et non médicales (respiration contrôlée, ancrage sensoriel, recadrage cognitif simple) qu'ALFRED peut proposer pour aider à réduire un stress ponctuel ou modéré dans l'instant, sans se substituer à un accompagnement thérapeutique pour un trouble anxieux installé.",
+    "core_principles": [
+      "Les techniques de réduction du stress les plus efficaces dans l'instant agissent sur le système nerveux de façon directe (respiration, ancrage sensoriel) plutôt que par la seule réflexion verbale.",
+      "Une technique proposée doit être immédiatement applicable dans le contexte de l'utilisateur (pas besoin d'un lieu ou d'un matériel particulier) pour être réellement utile en situation de stress.",
+      "Le recadrage cognitif (relativiser une pensée anxiogène) est utile pour un stress modéré mais inefficace, voire contre-productif, face à un stress intense où le corps a besoin d'une réponse physiologique avant toute réflexion.",
+      "La réduction du stress courant n'est pas un traitement : une technique efficace ponctuellement ne remplace pas un accompagnement si le stress est chronique ou invalidant."
+    ],
+    "rules": [
+      "Proposer une seule technique à la fois, simple et immédiatement applicable, plutôt qu'une liste de plusieurs options qui ajouterait de la charge cognitive.",
+      "Adapter la technique à l'intensité du stress décrit : respiration ou ancrage sensoriel pour un stress fort, recadrage cognitif pour un stress plus modéré.",
+      "Ne jamais présenter ces techniques comme un traitement d'un trouble anxieux diagnostiqué ou d'une crise de panique répétée."
+    ],
+    "examples": [
+      {
+        "situation": "L'utilisateur signale un pic de stress juste avant une prise de parole importante.",
+        "recommended_behavior": "Proposer une technique de respiration courte et concrète immédiatement applicable (expiration plus longue que l'inspiration, quelques cycles), sans développement théorique.",
+        "avoid": "Proposer une réflexion approfondie sur les causes du stress alors que la situation demande une réponse immédiate et pratique."
+      }
+    ],
+    "best_practices": [
+      "Formuler la technique de façon suffisamment concrète pour être suivie sans effort de compréhension supplémentaire dans un moment de stress.",
+      "Vérifier après coup si la technique a été utile, pour ajuster les propositions futures au profil de l'utilisateur."
+    ],
+    "anti_patterns": [
+      "Proposer plusieurs techniques à la fois dans un moment où la charge cognitive de l'utilisateur est déjà réduite par le stress.",
+      "Utiliser le recadrage cognitif seul face à un stress très intense où une réponse corporelle est plus adaptée.",
+      "Présenter ces techniques comme suffisantes face à un stress chronique ou invalidant."
+    ]
   },
   "retrieval_hints": {
-    "priority_keywords": [],
-    "related_domains": [],
-    "related_knowledge": [],
-    "retrieval_priority": 5
+    "priority_keywords": ["reduction_stress", "respiration", "ancrage", "technique_immediate"],
+    "related_domains": ["human", "lifestyle"],
+    "related_knowledge": [
+      "human.wellbeing.stress_signals",
+      "human.wellbeing.medical_boundary_rules",
+      "lifestyle.health.stress_management"
+    ],
+    "retrieval_priority": 7
   },
   "behavior_rules": {
-    "tone": "professional",
-    "response_style": "structured_clear",
-    "max_complexity": "medium",
+    "tone": "empathetic",
+    "response_style": "short",
+    "max_complexity": "low",
     "allow_humor": false
   },
   "safety_notes": {
-    "allowed_usage": [],
-    "restricted_usage": [],
-    "forbidden_usage": [],
-    "fallback_behavior": "Solliciter une validation humaine si ambiguïté."
+    "allowed_usage": ["proposition de techniques courtes de réduction du stress ponctuel ou modéré"],
+    "restricted_usage": ["stress associé à des signes de crise de panique répétée ou de trouble anxieux marqué"],
+    "forbidden_usage": ["présenter ces techniques comme un traitement d'un trouble anxieux diagnostiqué"],
+    "fallback_behavior": "Si le stress décrit s'accompagne de signes de crise de panique répétée ou d'un trouble installé, orienter vers un professionnel de santé conformément à human.wellbeing.medical_boundary_rules."
   },
   "metadata": {
     "author": "ALFRED_SYSTEM",
-    "creation_date": "11/07/2026",
-    "last_update": "11/07/2026",
-    "review_status": "draft",
-    "reviewed_by": "",
+    "creation_date": "18/07/2026",
+    "last_update": "18/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
     "source_type": "manual_structured_knowledge",
     "language": "fr",
     "retrieval_ready": true,

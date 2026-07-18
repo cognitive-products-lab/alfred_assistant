@@ -1,55 +1,81 @@
 {
-  "knowledge_id": "",
-  "title": "mental overload patterns",
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "human.wellbeing.mental_overload_patterns",
+  "title": "Patterns de surcharge mentale",
   "version": "1.0.0",
-  "status": "draft",
-  "domain": "",
-  "subdomain": "",
-  "category": "",
-  "priority": "medium",
+  "status": "active",
+  "domain": "human",
+  "subdomain": "wellbeing",
+  "category": "gestion_charge_mentale",
+  "summary": "Reconnaître les patterns typiques de surcharge mentale (accumulation de sujets ouverts, sentiment de tout porter en tête, difficulté à prioriser) et proposer des leviers concrets de décharge cognitive.",
+  "purpose": "Donner à ALFRED des repères concrets pour identifier une surcharge mentale installée, au-delà d'un simple pic de stress ponctuel, et proposer des leviers de décharge adaptés.",
+  "tags": ["surcharge_mentale", "charge_cognitive", "decharge"],
+  "intents": ["identify_mental_overload", "support_cognitive_offloading"],
+  "usage_context": [
+    "utilisateur exprimant le sentiment de tout porter en tête simultanément",
+    "accumulation visible de sujets ouverts sans priorisation possible"
+  ],
+  "priority": "high",
   "safety_level": "normal",
-  "summary": "",
-  "purpose": "",
-  "tags": [],
-  "intents": [],
-  "usage_context": [],
   "content": {
-    "summary": "",
-    "links": [],
-    "use_cases": [],
-    "risks": [],
-    "key_points": [],
-    "definition": "",
-    "core_principles": [],
-    "rules": [],
-    "examples": [],
-    "best_practices": [],
-    "anti_patterns": []
+    "definition": "Les patterns de surcharge mentale désignent des configurations récurrentes dans lesquelles une personne porte simultanément un grand nombre d'informations, de tâches ou de préoccupations en mémoire active, sans système externe de décharge, ce qui dégrade progressivement sa capacité à prioriser et à agir sereinement.",
+    "core_principles": [
+      "La surcharge mentale se manifeste souvent moins par l'ampleur réelle des tâches que par leur non-décharge : porter mentalement des sujets non écrits ou non structurés épuise davantage que leur volume objectif.",
+      "Un des signes les plus fiables de surcharge mentale est la difficulté à établir une priorité claire — tout semble également urgent quand la charge mentale devient trop dense.",
+      "La décharge cognitive (externaliser par écrit ce qui est porté mentalement) réduit immédiatement la charge perçue, indépendamment de la résolution effective des tâches elles-mêmes.",
+      "La surcharge mentale chronique diffère du stress ponctuel par sa durée et par l'absence de retour à un état de charge gérable entre les pics."
+    ],
+    "rules": [
+      "Face à un signal de surcharge mentale, proposer en premier lieu une décharge externe (lister ce qui est porté mentalement) avant toute tentative de résolution ou de priorisation.",
+      "Ne pas ajouter de structure complexe (méthode de priorisation élaborée) tant que la première étape de décharge n'est pas faite.",
+      "Distinguer explicitement l'urgence réelle de l'urgence perçue une fois la liste des sujets établie, pour aider à une priorisation réaliste."
+    ],
+    "examples": [
+      {
+        "situation": "L'utilisateur dit qu'il a « quinze choses en tête » et ne sait pas par où commencer.",
+        "recommended_behavior": "Proposer de lister ces quinze choses une par une avant toute autre chose : « On les sort toutes d'un coup, même en vrac, et on priorise après — là tout de suite, rien qu'écrire la liste va déjà alléger. »",
+        "avoid": "Demander directement quelle est la tâche la plus urgente alors que rien n'a encore été externalisé, ce qui maintient la charge cognitive intacte."
+      }
+    ],
+    "best_practices": [
+      "Toujours séparer la phase de décharge (tout sortir) de la phase de priorisation (organiser), sans les mélanger.",
+      "Reformuler la liste obtenue de façon structurée pour donner un sentiment tangible d'allègement avant de passer à l'action."
+    ],
+    "anti_patterns": [
+      "Passer directement à la priorisation sans phase de décharge préalable.",
+      "Ajouter de la complexité méthodologique alors que le besoin immédiat est la simplification.",
+      "Minimiser la surcharge en comparant le volume de tâches à celui d'autres personnes."
+    ]
   },
   "retrieval_hints": {
-    "priority_keywords": [],
-    "related_domains": [],
-    "related_knowledge": [],
-    "retrieval_priority": 5
+    "priority_keywords": ["surcharge_mentale", "decharge_cognitive", "priorisation"],
+    "related_domains": ["human", "professional"],
+    "related_knowledge": [
+      "human.cognition.cognitive_load",
+      "human.wellbeing.decision_energy_conservation",
+      "professional.decision.prioritization"
+    ],
+    "retrieval_priority": 7
   },
   "behavior_rules": {
-    "tone": "professional",
+    "tone": "professional_supportive",
     "response_style": "structured_clear",
     "max_complexity": "medium",
     "allow_humor": false
   },
   "safety_notes": {
-    "allowed_usage": [],
+    "allowed_usage": ["accompagnement à la décharge cognitive et à la priorisation en cas de surcharge mentale courante"],
     "restricted_usage": [],
-    "forbidden_usage": [],
-    "fallback_behavior": "Solliciter une validation humaine si ambiguïté."
+    "forbidden_usage": ["présenter la surcharge décrite comme un trouble anxieux ou un burnout diagnostiqué"],
+    "fallback_behavior": "Si la surcharge mentale décrite est intense, persistante et associée à une souffrance marquée, orienter vers human.wellbeing.medical_boundary_rules."
   },
   "metadata": {
     "author": "ALFRED_SYSTEM",
-    "creation_date": "11/07/2026",
-    "last_update": "11/07/2026",
-    "review_status": "draft",
-    "reviewed_by": "",
+    "creation_date": "18/07/2026",
+    "last_update": "18/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
     "source_type": "manual_structured_knowledge",
     "language": "fr",
     "retrieval_ready": true,

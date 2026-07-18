@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.product_platform.interfaces_vocales_assistant_local",
+  "title": "Interfaces vocales de l'assistant local ALFRED CPL",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "product_platform",
+  "category": "architecture_produit",
+  "summary": "Principes de conception des interfaces vocales d'ALFRED CPL (mot d'activation, traitement de la voix, restitution) traitées localement en priorité, et adaptation du comportement conversationnel au canal vocal par rapport au canal texte.",
+  "purpose": "Documenter une capacité produit explicitement listée dans les instructions permanentes (interfaces vocales) mais absente de la base CPL jusqu'ici, en articulant les enjeux techniques (traitement local) et comportementaux (adaptation du style de réponse à l'oral).",
+  "tags": ["interface_vocale", "traitement_local_voix", "adaptation_canal"],
+  "intents": ["explain_voice_interface_principles", "adapt_response_to_voice_channel"],
+  "usage_context": [
+    "conception ou déploiement d'une interaction vocale avec ALFRED CPL",
+    "adaptation du style de réponse quand le canal utilisé est vocal plutôt que texte"
+  ],
+  "priority": "medium",
+  "safety_level": "sensitive",
+  "content": {
+    "definition": "Les interfaces vocales d'ALFRED CPL désignent l'ensemble du traitement voix (détection du mot d'activation, reconnaissance vocale, restitution en synthèse vocale) conçu prioritairement pour un traitement local plutôt qu'un envoi systématique vers un service cloud, avec une adaptation du comportement conversationnel spécifique au canal oral, distinct du canal texte.",
+    "core_principles": [
+      "Le traitement local de la reconnaissance et de la synthèse vocale, quand l'infrastructure le permet, réduit la dépendance à un service cloud et la quantité de données vocales potentiellement sensibles transmises à l'extérieur.",
+      "Une réponse conçue pour l'écrit ne se transpose pas directement à l'oral : la densité d'information, la structuration en listes ou tableaux, et la longueur doivent être adaptées à ce que l'écoute permet de suivre.",
+      "Le mot d'activation et la détection d'intention vocale doivent être suffisamment fiables pour éviter les déclenchements non désirés, un risque spécifique au canal vocal absent du canal texte.",
+      "La confidentialité de l'écoute (quand le système écoute réellement, quand il ne traite rien) doit être transparente pour l'utilisateur, condition de confiance particulièrement sensible pour un canal qui capte l'environnement sonore."
+    ],
+    "rules": [
+      "Adapter systématiquement le format de réponse au canal vocal : réduire la densité d'information, éviter les structures qui ne se prêtent pas à l'écoute (tableaux complexes, longues listes numérotées), privilégier des phrases courtes et un enchaînement naturel.",
+      "Signaler clairement à l'utilisateur les états d'écoute du système (en veille, en écoute active, en traitement) pour garantir la transparence sur la captation audio.",
+      "Prioriser le traitement local de la voix quand l'infrastructure le permet, plutôt qu'un envoi systématique vers un service cloud tiers."
+    ],
+    "examples": [
+      {
+        "situation": "Une réponse initialement structurée en plusieurs points avec des sous-catégories doit être délivrée à l'oral suite à une demande vocale.",
+        "recommended_behavior": "Reformuler la réponse en un enchaînement de phrases naturelles et courtes, en réduisant le nombre de points traités simultanément pour rester suivable à l'écoute, plutôt que de restituer telle quelle une structure conçue pour l'écrit.",
+        "avoid": "Restituer vocalement une structure complexe pensée pour l'écrit (tableau, liste à plusieurs niveaux), difficile à suivre pour un auditeur."
+      }
+    ],
+    "best_practices": [
+      "Tester systématiquement les réponses destinées au canal vocal à l'oreille plutôt qu'à la lecture, pour vérifier leur fluidité réelle.",
+      "Documenter clairement pour l'utilisateur les états d'écoute du système et la politique de traitement local ou cloud de la voix."
+    ],
+    "anti_patterns": [
+      "Restituer une réponse conçue pour l'écrit sans adaptation au canal vocal.",
+      "Laisser ambigu pour l'utilisateur quand le système écoute réellement, ce qui nuit à la confiance.",
+      "Envoyer systématiquement les flux vocaux vers un service cloud sans envisager un traitement local quand l'infrastructure le permet."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["interface_vocale", "traitement_local_voix", "adaptation_canal_oral"],
+    "related_domains": ["cpl", "professional"],
+    "related_knowledge": [
+      "cpl.product_platform.offline_first_continuite_service_alfred",
+      "cpl.ethics_governance.accessibility_principles",
+      "human.interaction.social_energy_management"
+    ],
+    "retrieval_priority": 5
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["conception et adaptation des interactions vocales d'ALFRED CPL"],
+    "restricted_usage": [],
+    "forbidden_usage": ["captation audio continue sans état d'écoute clairement signalé à l'utilisateur"],
+    "fallback_behavior": "En cas d'ambiguïté sur l'état d'écoute du système lors d'un déploiement donné, privilégier la transparence maximale plutôt que de laisser l'utilisateur dans le doute."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "18/07/2026",
+    "last_update": "18/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.product_platform.vision_par_ordinateur_reconnaissance_locale",
+  "title": "Vision par ordinateur en traitement local dans ALFRED CPL",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "product_platform",
+  "category": "architecture_produit",
+  "summary": "Principes d'usage de la vision par ordinateur (reconnaissance d'objets, de documents, de scènes) dans ALFRED CPL, traitée localement pour préserver la confidentialité, avec des garde-fous explicites sur la reconnaissance de personnes.",
+  "purpose": "Documenter une capacité produit explicitement listée dans les instructions permanentes (vision par ordinateur) mais absente de la base CPL jusqu'ici, en cohérence avec le principe local-first et avec la piste de reconnaissance active documentée par ailleurs pour éviter la classification haut risque au titre de l'AI Act.",
+  "tags": ["vision_par_ordinateur", "reconnaissance_locale", "confidentialite"],
+  "intents": ["explain_computer_vision_capability", "clarify_local_processing_guarantee"],
+  "usage_context": [
+    "utilisation d'une fonctionnalité de reconnaissance d'objet, de document ou de scène",
+    "question sur la confidentialité des images traitées par ALFRED CPL"
+  ],
+  "priority": "high",
+  "safety_level": "sensitive",
+  "content": {
+    "definition": "La vision par ordinateur dans ALFRED CPL désigne les capacités de reconnaissance visuelle (objets, documents, scènes) exécutées en traitement local sur l'infrastructure du client plutôt que via un service cloud tiers, avec un périmètre volontairement circonscrit à des usages fonctionnels (lecture de documents, reconnaissance de contexte) et des garde-fous explicites sur la reconnaissance de personnes.",
+    "core_principles": [
+      "Le traitement local des images est un choix d'architecture délibéré, cohérent avec le principe local-first du produit, qui évite qu'une image potentiellement sensible transite vers un service cloud tiers pour être analysée.",
+      "La reconnaissance de personnes (identification nominative à partir d'une image) est un usage à haut risque distinct de la reconnaissance d'objets ou de documents, et appelle une prudence accrue conformément à la piste de reconnaissance active documentée par ailleurs pour le produit.",
+      "Une capacité de vision par ordinateur doit être limitée aux usages fonctionnels réellement utiles au produit (lecture de documents, contexte de scène pour l'assistance) plutôt qu'étendue par défaut à tout usage possible.",
+      "La transparence sur ce qui est reconnu et pourquoi doit accompagner toute fonctionnalité de vision par ordinateur, pour que l'utilisateur comprenne le périmètre exact de cette capacité."
+    ],
+    "rules": [
+      "Traiter les images localement plutôt que de les transmettre à un service cloud externe pour l'analyse, sauf choix explicite et documenté contraire.",
+      "Distinguer clairement, dans toute fonctionnalité de vision par ordinateur, la reconnaissance d'objets ou de documents (usage courant) de la reconnaissance de personnes (usage sensible nécessitant des garde-fous renforcés).",
+      "Ne pas étendre le périmètre de reconnaissance au-delà des usages fonctionnels définis pour le produit sans validation explicite."
+    ],
+    "examples": [
+      {
+        "situation": "Un utilisateur demande si ALFRED CPL peut identifier automatiquement les personnes présentes dans une photo pour du classement documentaire.",
+        "recommended_behavior": "Expliquer que la reconnaissance de personnes est un usage à haut risque traité avec des garde-fous spécifiques et distincts de la reconnaissance de documents ou d'objets, en clarifiant le périmètre exact actuellement supporté par le produit.",
+        "avoid": "Présenter la reconnaissance de personnes comme une simple extension de la reconnaissance d'objets sans reconnaître sa sensibilité particulière."
+      }
+    ],
+    "best_practices": [
+      "Documenter explicitement le périmètre fonctionnel exact couvert par la vision par ordinateur pour chaque déploiement client.",
+      "Vérifier systématiquement le traitement local des images comme critère de conformité au principe local-first du produit."
+    ],
+    "anti_patterns": [
+      "Transmettre des images à un service cloud externe pour analyse sans que ce choix soit explicite et documenté.",
+      "Traiter la reconnaissance de personnes avec le même niveau de prudence que la reconnaissance d'objets ou de documents.",
+      "Étendre silencieusement le périmètre de reconnaissance au-delà des usages fonctionnels initialement définis."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["vision_par_ordinateur", "reconnaissance_locale", "reconnaissance_personnes", "confidentialite_image"],
+    "related_domains": ["cpl", "professional"],
+    "related_knowledge": [
+      "cpl.product_platform.data_protection_hosting",
+      "cpl.product_platform.offline_first_continuite_service_alfred",
+      "cpl.ethics_governance.ethical_ai_framework"
+    ],
+    "retrieval_priority": 6
+  },
+  "behavior_rules": {
+    "tone": "formal",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["reconnaissance locale d'objets, de documents ou de scènes pour des usages fonctionnels définis"],
+    "restricted_usage": ["reconnaissance de personnes, qui nécessite des garde-fous et une validation renforcés"],
+    "forbidden_usage": ["transmission d'images à un service cloud externe non documenté et non consenti"],
+    "fallback_behavior": "Face à une demande de reconnaissance de personnes non explicitement prévue et validée pour le déploiement concerné, décliner la fonctionnalité et orienter vers une clarification du périmètre autorisé."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "18/07/2026",
+    "last_update": "18/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

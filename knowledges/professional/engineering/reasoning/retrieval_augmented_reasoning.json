@@ -1,36 +1,62 @@
 {
-  "knowledge_id": "",
-  "title": "retrieval augmented reasoning",
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "professional.engineering_reasoning.retrieval_augmented_reasoning",
+  "title": "Raisonnement augmenté par la récupération de connaissances",
   "version": "1.0.0",
-  "status": "draft",
-  "domain": "",
-  "subdomain": "",
-  "category": "",
-  "priority": "medium",
+  "status": "active",
+  "domain": "professional",
+  "subdomain": "engineering_reasoning",
+  "category": "architecture_raisonnement",
+  "summary": "Principes pour intégrer correctement les connaissances récupérées via RAG dans un raisonnement : vérifier leur pertinence, gérer les conflits entre plusieurs sources récupérées, et distinguer ce qui vient de la base de ce qui relève d'une inférence propre.",
+  "purpose": "Faire le lien entre l'infrastructure RAG d'ALFRED (déjà documentée côté architecture technique) et son usage effectif dans le raisonnement, pour que les connaissances récupérées soient exploitées de façon fiable plutôt que juxtaposées telles quelles.",
+  "tags": ["rag", "raisonnement_augmente", "gestion_sources"],
+  "intents": ["integrate_retrieved_knowledge", "resolve_source_conflicts"],
+  "usage_context": [
+    "plusieurs fiches de connaissances récupérées sont pertinentes pour une même question",
+    "conflit ou tension entre deux sources récupérées sur un même sujet"
+  ],
+  "priority": "high",
   "safety_level": "normal",
-  "summary": "",
-  "purpose": "",
-  "tags": [],
-  "intents": [],
-  "usage_context": [],
   "content": {
-    "summary": "",
-    "links": [],
-    "use_cases": [],
-    "risks": [],
-    "key_points": [],
-    "definition": "",
-    "core_principles": [],
-    "rules": [],
-    "examples": [],
-    "best_practices": [],
-    "anti_patterns": []
+    "definition": "Le raisonnement augmenté par la récupération désigne l'usage effectif, au sein d'un raisonnement, des connaissances renvoyées par le système de retrieval (RAG) : vérifier leur pertinence réelle par rapport à la question posée, les combiner de façon cohérente, et distinguer explicitement ce qui provient de la base de connaissances de ce qui relève d'une inférence propre à la situation.",
+    "core_principles": [
+      "Une connaissance récupérée n'est pertinente que si elle correspond réellement au contexte de la question posée : la présence d'une fiche dans les résultats de retrieval ne garantit pas son adéquation totale à la situation actuelle.",
+      "Plusieurs fiches récupérées peuvent se compléter, se recouvrir partiellement, ou entrer en tension : les traiter comme un ensemble cohérent à synthétiser plutôt que comme des blocs juxtaposés sans articulation.",
+      "En cas de tension entre deux sources récupérées sur un même sujet, privilégier la plus récente ou la plus spécifique au contexte, en signalant explicitement si le conflit ne peut pas être résolu avec certitude.",
+      "Distinguer dans la réponse ce qui provient directement d'une connaissance récupérée fiable de ce qui relève d'une inférence ou d'une extrapolation propre à la situation de l'utilisateur."
+    ],
+    "rules": [
+      "Vérifier explicitement la pertinence contextuelle d'une connaissance récupérée avant de l'utiliser telle quelle, plutôt que de l'appliquer automatiquement du seul fait qu'elle a été renvoyée par le retrieval.",
+      "En cas de tension entre plusieurs sources récupérées, la signaler explicitement plutôt que de choisir silencieusement l'une des deux versions.",
+      "Ne jamais présenter une inférence propre comme si elle provenait directement d'une connaissance récupérée et validée."
+    ],
+    "examples": [
+      {
+        "situation": "Deux fiches récupérées sur un même sujet donnent des recommandations légèrement différentes, l'une plus ancienne et générale, l'autre plus récente et spécifique au contexte CPL.",
+        "recommended_behavior": "Privilégier la fiche la plus récente et la plus spécifique au contexte, en mentionnant si pertinent que la recommandation a évolué ou se précise selon le contexte, plutôt que de choisir silencieusement sans justification.",
+        "avoid": "Fusionner les deux sources sans distinction ou choisir arbitrairement l'une des deux sans tenir compte de leur pertinence relative au contexte."
+      }
+    ],
+    "best_practices": [
+      "Synthétiser plusieurs connaissances récupérées complémentaires en une réponse cohérente plutôt que de les juxtaposer telles quelles.",
+      "Signaler la source de l'information (connaissance établie versus inférence propre) quand cela renforce la transparence de la réponse."
+    ],
+    "anti_patterns": [
+      "Appliquer une connaissance récupérée sans vérifier sa pertinence réelle au contexte de la question posée.",
+      "Juxtaposer plusieurs fiches récupérées sans les synthétiser en une réponse cohérente.",
+      "Présenter une inférence propre comme si elle provenait directement d'une source de connaissance validée."
+    ]
   },
   "retrieval_hints": {
-    "priority_keywords": [],
-    "related_domains": [],
-    "related_knowledge": [],
-    "retrieval_priority": 5
+    "priority_keywords": ["rag", "retrieval_augmente", "synthese_sources", "conflit_sources"],
+    "related_domains": ["professional"],
+    "related_knowledge": [
+      "professional.engineering.ai.rag",
+      "professional.engineering.ai.rag_architecture",
+      "professional.engineering_reasoning.hallucination_detection"
+    ],
+    "retrieval_priority": 7
   },
   "behavior_rules": {
     "tone": "professional",
@@ -39,17 +65,17 @@
     "allow_humor": false
   },
   "safety_notes": {
-    "allowed_usage": [],
+    "allowed_usage": ["intégration et synthèse de connaissances récupérées pertinentes dans un raisonnement"],
     "restricted_usage": [],
-    "forbidden_usage": [],
-    "fallback_behavior": "Solliciter une validation humaine si ambiguïté."
+    "forbidden_usage": ["présenter une inférence propre comme provenant directement d'une source de connaissance validée"],
+    "fallback_behavior": "En cas de conflit non résolu entre plusieurs sources récupérées, le signaler explicitement à l'utilisateur plutôt que de trancher arbitrairement."
   },
   "metadata": {
     "author": "ALFRED_SYSTEM",
-    "creation_date": "11/07/2026",
-    "last_update": "11/07/2026",
-    "review_status": "draft",
-    "reviewed_by": "",
+    "creation_date": "18/07/2026",
+    "last_update": "18/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
     "source_type": "manual_structured_knowledge",
     "language": "fr",
     "retrieval_ready": true,

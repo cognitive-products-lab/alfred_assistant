@@ -1,36 +1,62 @@
 {
-  "knowledge_id": "",
-  "title": "product health monitoring",
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "professional.product_management_advanced.product_health_monitoring",
+  "title": "Suivi de la santé d'un produit",
   "version": "1.0.0",
-  "status": "draft",
-  "domain": "",
-  "subdomain": "",
-  "category": "",
+  "status": "active",
+  "domain": "professional",
+  "subdomain": "product_management_advanced",
+  "category": "pilotage_produit",
+  "summary": "Principe consistant à suivre un ensemble équilibré d'indicateurs de santé produit (usage, satisfaction, technique, business) plutôt qu'un seul indicateur de croissance, pour détecter tôt les signaux de dégradation qu'une seule métrique masquerait.",
+  "purpose": "Compléter les fiches déjà présentes sur les métriques individuelles (north_star_metric, activation_retention_metrics) par une vision d'ensemble de la santé produit, qui croise plusieurs dimensions pour éviter un pilotage à l'aveugle sur une seule métrique.",
+  "tags": ["sante_produit", "indicateurs_equilibres", "detection_precoce"],
+  "intents": ["monitor_product_health", "detect_early_degradation_signals"],
+  "usage_context": [
+    "pilotage régulier d'un produit déjà lancé",
+    "croissance apparente d'une métrique masquant une dégradation sur une autre dimension"
+  ],
   "priority": "medium",
   "safety_level": "normal",
-  "summary": "",
-  "purpose": "",
-  "tags": [],
-  "intents": [],
-  "usage_context": [],
   "content": {
-    "summary": "",
-    "links": [],
-    "use_cases": [],
-    "risks": [],
-    "key_points": [],
-    "definition": "",
-    "core_principles": [],
-    "rules": [],
-    "examples": [],
-    "best_practices": [],
-    "anti_patterns": []
+    "definition": "Le suivi de la santé d'un produit désigne l'observation régulière d'un ensemble équilibré d'indicateurs couvrant plusieurs dimensions — usage réel, satisfaction utilisateur, qualité technique, performance business — plutôt que la seule croissance d'une métrique isolée, pour détecter des signaux de dégradation qu'un pilotage mono-indicateur laisserait invisibles.",
+    "core_principles": [
+      "Une métrique de croissance en amélioration peut masquer une dégradation sur une autre dimension (satisfaction en baisse, dette technique croissante) : un pilotage sain croise plusieurs dimensions plutôt que d'optimiser une seule métrique.",
+      "Les signaux de dégradation de la santé produit apparaissent souvent d'abord sur des indicateurs secondaires (temps de résolution des tickets, taux d'erreurs techniques) avant d'affecter les métriques business principales, ce qui permet une détection précoce si ces indicateurs sont suivis.",
+      "Un tableau de bord de santé produit doit rester suffisamment restreint pour être réellement consulté régulièrement, l'accumulation d'indicateurs sans hiérarchie nuisant à son utilité pratique.",
+      "La fréquence de suivi doit être adaptée à la nature de chaque indicateur : certains signaux (erreurs techniques) bénéficient d'un suivi quasi temps réel, d'autres (satisfaction) d'un suivi périodique plus espacé."
+    ],
+    "rules": [
+      "Construire un tableau de bord de santé produit couvrant au minimum les dimensions usage, satisfaction, technique et business plutôt qu'une seule dimension.",
+      "Prioriser un nombre limité d'indicateurs par dimension, suffisamment représentatifs pour être réellement utiles sans surcharger le suivi.",
+      "Investiguer explicitement toute divergence entre dimensions (croissance business avec satisfaction en baisse) plutôt que de se rassurer sur la seule métrique en amélioration."
+    ],
+    "examples": [
+      {
+        "situation": "Le nombre d'utilisateurs actifs d'un produit continue de croître alors que le taux de tickets support et le temps de résolution se dégradent depuis plusieurs mois.",
+        "recommended_behavior": "Alerter explicitement sur cette divergence : la croissance masque une dégradation probable de l'expérience et de la capacité opérationnelle à absorber le volume, qui pourrait affecter la croissance elle-même à moyen terme si elle n'est pas traitée.",
+        "avoid": "Se concentrer uniquement sur la métrique de croissance en amélioration sans investiguer les signaux de dégradation présents sur les autres dimensions."
+      }
+    ],
+    "best_practices": [
+      "Réévaluer périodiquement la pertinence des indicateurs suivis à mesure que le produit et son contexte évoluent.",
+      "Présenter les indicateurs de santé produit ensemble plutôt que séparément, pour rendre visibles les divergences entre dimensions."
+    ],
+    "anti_patterns": [
+      "Piloter un produit sur une seule métrique de croissance sans surveiller les autres dimensions de sa santé.",
+      "Accumuler un trop grand nombre d'indicateurs au point que le tableau de bord n'est plus réellement consulté.",
+      "Ignorer une divergence entre dimensions tant que la métrique business principale reste en amélioration."
+    ]
   },
   "retrieval_hints": {
-    "priority_keywords": [],
-    "related_domains": [],
-    "related_knowledge": [],
-    "retrieval_priority": 5
+    "priority_keywords": ["sante_produit", "indicateurs_equilibres", "tableau_de_bord", "detection_precoce"],
+    "related_domains": ["professional", "cpl"],
+    "related_knowledge": [
+      "professional.product_management_advanced.north_star_metric",
+      "professional.product_management_advanced.product_kpi_frameworks",
+      "professional.product_management_advanced.activation_retention_metrics"
+    ],
+    "retrieval_priority": 6
   },
   "behavior_rules": {
     "tone": "professional",
@@ -39,17 +65,17 @@
     "allow_humor": false
   },
   "safety_notes": {
-    "allowed_usage": [],
+    "allowed_usage": ["conseil sur la construction d'un tableau de bord de santé produit équilibré"],
     "restricted_usage": [],
     "forbidden_usage": [],
-    "fallback_behavior": "Solliciter une validation humaine si ambiguïté."
+    "fallback_behavior": "En l'absence d'information suffisante sur les indicateurs déjà suivis, recommander de commencer par un socle minimal couvrant les quatre dimensions plutôt qu'un tableau de bord exhaustif d'emblée."
   },
   "metadata": {
     "author": "ALFRED_SYSTEM",
-    "creation_date": "11/07/2026",
-    "last_update": "11/07/2026",
-    "review_status": "draft",
-    "reviewed_by": "",
+    "creation_date": "18/07/2026",
+    "last_update": "18/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
     "source_type": "manual_structured_knowledge",
     "language": "fr",
     "retrieval_ready": true,

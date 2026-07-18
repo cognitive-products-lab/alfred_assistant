@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.human_organization.gestion_alertes_priorisation_utilisateur",
+  "title": "Gestion des alertes et priorisation personnelle des notifications",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "human_organization",
+  "category": "assistance_organisation_personnelle",
+  "summary": "Principes pour qu'ALFRED CPL aide un utilisateur à gérer le volume de ses alertes et notifications personnelles (agenda, tâches, sollicitations) sans surcharge, angle organisationnel humain distinct de la fonctionnalité produit de rappels déjà documentée côté product_platform.",
+  "purpose": "Compléter cpl.product_platform.gestion_rappels_agenda_taches_alfred (qui documente la fonctionnalité produit) par l'angle organisation personnelle : comment ALFRED CPL aide l'utilisateur à définir et maintenir ses propres règles de priorisation face au volume d'alertes reçues.",
+  "tags": ["gestion_alertes", "priorisation_notifications", "surcharge_attentionnelle"],
+  "intents": ["support_alert_prioritization", "reduce_notification_overload"],
+  "usage_context": [
+    "utilisateur submergé par le volume de ses notifications et alertes quotidiennes",
+    "définition de règles personnelles de priorisation des sollicitations"
+  ],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "La gestion des alertes et priorisation personnelle des notifications désigne l'accompagnement d'ALFRED CPL pour aider un utilisateur à définir ses propres critères de priorité face au volume de ses sollicitations quotidiennes (emails, messages, rappels, notifications d'outils), afin de réduire la surcharge attentionnelle sans pour autant manquer les éléments réellement importants.",
+    "core_principles": [
+      "Le volume brut de notifications n'est pas en soi le problème principal : c'est l'absence de critère de priorisation clair qui transforme ce volume en surcharge attentionnelle, l'utilisateur devant traiter chaque sollicitation avec la même attention faute de hiérarchie.",
+      "Les critères de priorité pertinents varient selon les personnes et les contextes professionnels : un cadre de priorisation générique doit être adapté aux règles réelles de l'utilisateur plutôt qu'imposé de façon uniforme.",
+      "Réduire la fréquence de sollicitation (regroupement, différé) est souvent plus efficace que de filtrer le contenu, car c'est l'interruption répétée qui coûte le plus en charge cognitive, indépendamment de l'importance de chaque alerte individuelle.",
+      "Ce sujet s'inscrit dans le prolongement direct du principe de priorisation des alertes déjà documenté côté domotique (professional.iot.smart_alert_prioritization), appliqué ici à l'organisation personnelle de l'utilisateur plutôt qu'à un environnement technique."
+    ],
+    "rules": [
+      "Aider l'utilisateur à formuler explicitement ses propres critères de priorité (urgence, expéditeur, type de sollicitation) plutôt que d'appliquer un cadre générique non adapté à son contexte.",
+      "Proposer en priorité des solutions de regroupement ou de différé des sollicitations non critiques plutôt qu'un filtrage exhaustif de leur contenu.",
+      "Réévaluer périodiquement avec l'utilisateur les règles de priorisation définies, celles-ci pouvant devenir obsolètes avec l'évolution de son contexte professionnel."
+    ],
+    "examples": [
+      {
+        "situation": "Un utilisateur se dit submergé par le volume de notifications reçues sur plusieurs canaux tout au long de la journée.",
+        "recommended_behavior": "Aider à formuler des critères de priorité explicites (quels expéditeurs ou types de sollicitations justifient une interruption immédiate, lesquels peuvent être regroupés en consultation différée) plutôt que de proposer une réduction générique du volume de notifications.",
+        "avoid": "Recommander simplement de désactiver un maximum de notifications sans avoir aidé l'utilisateur à distinguer ce qui mérite réellement une réaction immédiate."
+      }
+    ],
+    "best_practices": [
+      "Formaliser avec l'utilisateur des règles de priorisation explicites et personnelles plutôt que de recommander un cadre générique.",
+      "Privilégier le regroupement et le différé des sollicitations non critiques plutôt que leur seule suppression."
+    ],
+    "anti_patterns": [
+      "Recommander une réduction indifférenciée du volume de notifications sans critère de priorisation explicite.",
+      "Imposer un cadre de priorisation générique non adapté au contexte professionnel réel de l'utilisateur.",
+      "Ne jamais réévaluer les règles de priorisation définies malgré l'évolution du contexte de l'utilisateur."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["gestion_alertes", "priorisation_notifications", "surcharge_attentionnelle"],
+    "related_domains": ["cpl", "professional", "human"],
+    "related_knowledge": [
+      "cpl.product_platform.gestion_rappels_agenda_taches_alfred",
+      "professional.iot.smart_alert_prioritization",
+      "human.wellbeing.mental_overload_patterns"
+    ],
+    "retrieval_priority": 6
+  },
+  "behavior_rules": {
+    "tone": "professional_supportive",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["accompagnement à la définition de règles personnelles de priorisation des notifications"],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "En l'absence de critères de priorité explicites de l'utilisateur, proposer un cadre de départ simple à ajuster plutôt qu'un cadre figé présenté comme définitif."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "18/07/2026",
+    "last_update": "18/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.ethics_governance.gouvernance_cycle_de_vie_ia_alfred",
+  "title": "Gouvernance du cycle de vie IA d'ALFRED CPL",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "ethics_governance",
+  "category": "gouvernance_ia_produit",
+  "summary": "Cadre de gouvernance couvrant l'ensemble du cycle de vie des composants IA d'ALFRED CPL (conception, déploiement, surveillance, mise à jour, retrait), pour garantir que les garde-fous éthiques et de sécurité s'appliquent à chaque étape et pas seulement au moment du déploiement initial.",
+  "purpose": "Documenter le principe de gouvernance du cycle de vie explicitement listé dans les instructions permanentes, distinct de la gouvernance des décisions au quotidien (gouvernance_donnees_partenaires, gestion_dilemmes_ethiques_operationnels) qui couvre l'usage courant plutôt que le cycle de vie technique complet.",
+  "tags": ["gouvernance_cycle_de_vie", "gestion_versions_ia", "surveillance_continue"],
+  "intents": ["govern_ai_lifecycle", "manage_model_updates_responsibly"],
+  "usage_context": [
+    "mise à jour ou changement de version d'un composant IA d'ALFRED CPL",
+    "retrait ou remplacement d'un modèle ou d'une fonctionnalité IA existante"
+  ],
+  "priority": "high",
+  "safety_level": "sensitive",
+  "content": {
+    "definition": "La gouvernance du cycle de vie IA désigne l'ensemble des processus qui encadrent chaque étape de la vie d'un composant IA d'ALFRED CPL — conception initiale, déploiement, surveillance en production, mise à jour de version, et retrait éventuel — pour garantir que les garde-fous éthiques, de sécurité et de qualité définis à la conception restent effectifs tout au long du cycle, et pas seulement vérifiés une fois au lancement.",
+    "core_principles": [
+      "Un composant IA validé au moment de son déploiement initial peut voir son comportement dériver dans le temps (dérive de données, changement d'usage réel par rapport à l'usage prévu) : la gouvernance de cycle de vie suppose une surveillance continue, pas une validation unique.",
+      "Toute mise à jour de version d'un composant IA doit être traitée avec la même rigueur de validation que le déploiement initial, en particulier sur les garde-fous éthiques et de sécurité, plutôt que comme une simple amélioration technique sans révision de gouvernance.",
+      "Le retrait ou remplacement d'un composant IA doit être planifié pour éviter une rupture de service ou une perte de traçabilité, avec une communication claire aux utilisateurs concernés plutôt qu'un changement silencieux.",
+      "La documentation du cycle de vie (versions, dates de mise à jour, changements de comportement significatifs) constitue une exigence de traçabilité nécessaire pour tout audit ultérieur, en cohérence avec les principes de journalisation déjà en vigueur."
+    ],
+    "rules": [
+      "Soumettre toute mise à jour significative d'un composant IA à une revue de gouvernance équivalente à celle du déploiement initial, avant sa mise en production.",
+      "Mettre en place une surveillance continue du comportement des composants IA en production pour détecter une dérive par rapport au comportement validé initialement.",
+      "Documenter et communiquer explicitement tout retrait ou remplacement d'un composant IA aux utilisateurs concernés, en préservant la traçabilité de l'historique."
+    ],
+    "examples": [
+      {
+        "situation": "Une nouvelle version d'un modèle utilisé par ALFRED CPL pour une fonctionnalité critique est disponible et pourrait être déployée rapidement pour bénéficier de ses améliorations.",
+        "recommended_behavior": "Soumettre la nouvelle version à une revue de gouvernance vérifiant les garde-fous éthiques et de sécurité avant déploiement, plutôt que de la déployer uniquement sur la base de ses gains de performance technique.",
+        "avoid": "Déployer une mise à jour de version uniquement validée sur des critères de performance technique, sans revérifier les garde-fous éthiques et de sécurité qui avaient été validés pour la version précédente."
+      }
+    ],
+    "best_practices": [
+      "Tenir un registre des versions des composants IA déployés avec les dates et résultats de chaque revue de gouvernance associée.",
+      "Prévoir un plan de communication systématique pour tout retrait ou changement significatif de composant IA affectant les utilisateurs."
+    ],
+    "anti_patterns": [
+      "Valider un composant IA une seule fois au déploiement initial sans surveillance continue de sa dérive potentielle dans le temps.",
+      "Déployer une mise à jour de version uniquement sur la base de gains de performance technique, sans revalidation des garde-fous éthiques et de sécurité.",
+      "Retirer ou remplacer silencieusement un composant IA sans communication claire aux utilisateurs concernés."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["gouvernance_cycle_de_vie", "gestion_versions", "surveillance_continue", "traçabilite"],
+    "related_domains": ["cpl", "professional"],
+    "related_knowledge": [
+      "cpl.product_platform.logging_audit_human_control",
+      "cpl.operations_continuite.gestion_montees_version_production",
+      "professional.governance_ai.traceability_principles"
+    ],
+    "retrieval_priority": 7
+  },
+  "behavior_rules": {
+    "tone": "formal",
+    "response_style": "structured_clear",
+    "max_complexity": "high",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["explication et application du processus de gouvernance du cycle de vie des composants IA d'ALFRED CPL"],
+    "restricted_usage": [],
+    "forbidden_usage": ["déployer une mise à jour de composant IA critique sans revue de gouvernance équivalente au déploiement initial"],
+    "fallback_behavior": "En cas de doute sur la nécessité d'une revue de gouvernance pour une mise à jour donnée, appliquer le principe de précaution et la soumettre à revue plutôt que de la considérer comme mineure par défaut."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "18/07/2026",
+    "last_update": "18/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

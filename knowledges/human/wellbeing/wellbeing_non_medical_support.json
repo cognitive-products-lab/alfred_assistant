@@ -1,55 +1,81 @@
 {
-  "knowledge_id": "",
-  "title": "wellbeing non medical support",
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "human.wellbeing.wellbeing_non_medical_support",
+  "title": "Périmètre du soutien au bien-être non médical",
   "version": "1.0.0",
-  "status": "draft",
-  "domain": "",
-  "subdomain": "",
-  "category": "",
-  "priority": "medium",
-  "safety_level": "normal",
-  "summary": "",
-  "purpose": "",
-  "tags": [],
-  "intents": [],
-  "usage_context": [],
+  "status": "active",
+  "domain": "human",
+  "subdomain": "wellbeing",
+  "category": "wellbeing_governance",
+  "summary": "Définir concrètement ce qui relève du soutien au bien-être non médical qu'ALFRED peut apporter au quotidien (organisation, énergie, stress courant, sommeil, motivation) par opposition à ce qui relève d'un accompagnement de santé.",
+  "purpose": "Servir de fiche d'orientation générale du sous-domaine wellbeing, énumérant les sujets couverts par un soutien non médical légitime, en lien direct avec la règle de frontière définie dans human.wellbeing.medical_boundary_rules.",
+  "tags": ["bien_etre_non_medical", "perimetre_soutien", "vue_ensemble"],
+  "intents": ["define_non_medical_wellbeing_scope", "orient_to_relevant_wellbeing_knowledge"],
+  "usage_context": [
+    "orientation générale d'une demande de bien-être vers le bon type de réponse",
+    "clarification du périmètre d'aide d'ALFRED sur les sujets de bien-être"
+  ],
+  "priority": "high",
+  "safety_level": "sensitive",
   "content": {
-    "summary": "",
-    "links": [],
-    "use_cases": [],
-    "risks": [],
-    "key_points": [],
-    "definition": "",
-    "core_principles": [],
-    "rules": [],
-    "examples": [],
-    "best_practices": [],
-    "anti_patterns": []
+    "definition": "Le soutien au bien-être non médical désigne l'ensemble des sujets de la vie quotidienne pour lesquels ALFRED peut apporter une aide informative et pratique légitime — gestion de l'énergie, du stress courant, du sommeil, de la motivation, de l'organisation face à la fatigue mentale — sans que cela relève d'un accompagnement de santé physique ou psychologique.",
+    "core_principles": [
+      "Le bien-être non médical couvre des états courants et non pathologiques : fatigue passagère, stress ordinaire, motivation fluctuante, difficultés d'organisation liées à la charge, pas des troubles diagnostiqués.",
+      "Le sous-domaine wellbeing traite les conséquences pratiques quotidiennes de ces états (comment mieux gérer sa journée, son énergie, sa récupération) plutôt que leurs causes profondes qui relèveraient d'un accompagnement thérapeutique.",
+      "Chaque fiche du sous-domaine reste ancrée dans le principe de non-diagnostic défini de façon transversale par human.wellbeing.medical_boundary_rules, quel que soit le sujet spécifique traité.",
+      "Le périmètre non médical n'est pas figé par sujet mais par intensité et durée : un même sujet (fatigue, stress) peut basculer du soutien non médical vers la redirection professionnelle selon sa sévérité."
+    ],
+    "rules": [
+      "Orienter une demande de bien-être vers la fiche la plus pertinente du sous-domaine (énergie, récupération, stress, sommeil, motivation, fonctions exécutives) plutôt que de traiter chaque demande de façon isolée.",
+      "Appliquer systématiquement la règle de frontière médicale transversale dès qu'un signal dépasse le périmètre non médical, quel que soit le sujet d'entrée.",
+      "Ne pas traiter les sujets de ce sous-domaine comme cloisonnés : la fatigue, le stress, la motivation et l'organisation sont souvent liés dans la réalité vécue par l'utilisateur."
+    ],
+    "examples": [
+      {
+        "situation": "Un utilisateur évoque à la fois une fatigue persistante, une baisse de motivation et des difficultés d'organisation, sans savoir par où commencer.",
+        "recommended_behavior": "Reconnaître que ces trois éléments sont probablement liés, prioriser avec l'utilisateur le sujet le plus impactant à traiter en premier, et mobiliser les fiches spécifiques correspondantes (fatigue_patterns, motivation_fluctuation_patterns, executive_dysfunction) selon la priorité choisie.",
+        "avoid": "Traiter les trois sujets de façon totalement cloisonnée sans reconnaître leurs liens probables."
+      }
+    ],
+    "best_practices": [
+      "Considérer ce fichier comme le point d'entrée du sous-domaine wellbeing, à référencer depuis les fiches plus spécifiques pour assurer la cohérence d'ensemble.",
+      "Réévaluer explicitement si une demande initialement présentée comme du bien-être courant dépasse en réalité ce périmètre, avant de continuer avec les fiches spécifiques."
+    ],
+    "anti_patterns": [
+      "Traiter tout sujet de bien-être comme relevant automatiquement du soutien non médical sans vérifier l'intensité et la durée décrites.",
+      "Cloisonner artificiellement des sujets de bien-être qui sont en réalité liés dans le vécu de l'utilisateur.",
+      "Oublier d'appliquer la règle de frontière médicale transversale sous prétexte que le sujet d'entrée semblait anodin."
+    ]
   },
   "retrieval_hints": {
-    "priority_keywords": [],
-    "related_domains": [],
-    "related_knowledge": [],
-    "retrieval_priority": 5
+    "priority_keywords": ["bien_etre_non_medical", "perimetre", "vue_ensemble_wellbeing"],
+    "related_domains": ["human", "medecine"],
+    "related_knowledge": [
+      "human.wellbeing.medical_boundary_rules",
+      "human.wellbeing.support_without_diagnosis",
+      "human.wellbeing.energy_budgeting"
+    ],
+    "retrieval_priority": 8
   },
   "behavior_rules": {
-    "tone": "professional",
+    "tone": "professional_supportive",
     "response_style": "structured_clear",
     "max_complexity": "medium",
     "allow_humor": false
   },
   "safety_notes": {
-    "allowed_usage": [],
+    "allowed_usage": ["orientation générale d'une demande de bien-être vers le soutien non médical approprié"],
     "restricted_usage": [],
-    "forbidden_usage": [],
-    "fallback_behavior": "Solliciter une validation humaine si ambiguïté."
+    "forbidden_usage": ["utiliser ce périmètre pour éviter une redirection professionnelle nécessaire"],
+    "fallback_behavior": "Toujours appliquer human.wellbeing.medical_boundary_rules en priorité dès qu'un signal dépasse le périmètre non médical décrit ici."
   },
   "metadata": {
     "author": "ALFRED_SYSTEM",
-    "creation_date": "11/07/2026",
-    "last_update": "11/07/2026",
-    "review_status": "draft",
-    "reviewed_by": "",
+    "creation_date": "18/07/2026",
+    "last_update": "18/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
     "source_type": "manual_structured_knowledge",
     "language": "fr",
     "retrieval_ready": true,

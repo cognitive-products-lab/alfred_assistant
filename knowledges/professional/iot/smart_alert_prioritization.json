@@ -1,36 +1,62 @@
 {
-  "knowledge_id": "",
-  "title": "smart alert prioritization",
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "professional.iot.smart_alert_prioritization",
+  "title": "Priorisation des alertes domotiques",
   "version": "1.0.0",
-  "status": "draft",
-  "domain": "",
-  "subdomain": "",
-  "category": "",
-  "priority": "medium",
+  "status": "active",
+  "domain": "professional",
+  "subdomain": "iot",
+  "category": "gestion_alertes",
+  "summary": "Principes pour hiérarchiser les alertes générées par un environnement domotique (sécurité critique versus confort mineur) afin d'éviter la fatigue d'alerte qui conduirait l'utilisateur à ignorer les notifications importantes.",
+  "purpose": "Traiter la priorisation des alertes comme un sujet à part entière du domaine IoT, en lien avec les principes généraux de gestion des alertes déjà présents côté produit ALFRED (cpl.product_platform.gestion_rappels_agenda_taches_alfred), appliqués ici spécifiquement au contexte domotique.",
+  "tags": ["priorisation_alertes", "fatigue_alerte", "notifications_domotiques"],
+  "intents": ["prioritize_home_automation_alerts", "prevent_alert_fatigue"],
+  "usage_context": [
+    "configuration des notifications d'un environnement domotique avec de nombreux capteurs",
+    "utilisateur ignorant les alertes domotiques par accumulation excessive"
+  ],
+  "priority": "high",
   "safety_level": "normal",
-  "summary": "",
-  "purpose": "",
-  "tags": [],
-  "intents": [],
-  "usage_context": [],
   "content": {
-    "summary": "",
-    "links": [],
-    "use_cases": [],
-    "risks": [],
-    "key_points": [],
-    "definition": "",
-    "core_principles": [],
-    "rules": [],
-    "examples": [],
-    "best_practices": [],
-    "anti_patterns": []
+    "definition": "La priorisation des alertes domotiques désigne la hiérarchisation des notifications générées par les capteurs et systèmes d'un environnement connecté selon leur criticité réelle, pour que les alertes de sécurité importantes (intrusion, fuite d'eau, fumée) se distinguent clairement des notifications de confort mineur, évitant ainsi la fatigue d'alerte qui conduit à ignorer l'ensemble des notifications.",
+    "core_principles": [
+      "La fatigue d'alerte (habituation progressive à ignorer les notifications par excès de volume) est un risque de sécurité réel : un système qui notifie trop souvent pour des événements mineurs finit par voir ses alertes critiques ignorées au même titre que les mineures.",
+      "Les alertes de sécurité critique (intrusion, fumée, fuite d'eau, gaz) doivent se distinguer visuellement, sonorement ou par le canal de notification des alertes de confort mineur, pour rester identifiables même en cas de fatigue générale.",
+      "Le seuil de déclenchement d'une alerte doit être calibré pour limiter les faux positifs, qui sont la cause la plus fréquente de fatigue d'alerte et donc de désensibilisation aux alertes réellement importantes.",
+      "Regrouper plusieurs notifications mineures en un résumé périodique, plutôt que de notifier chaque événement individuellement, réduit le volume perçu sans perdre l'information."
+    ],
+    "rules": [
+      "Réserver les canaux de notification les plus visibles et intrusifs (son fort, notification prioritaire) aux alertes de sécurité critique, jamais aux notifications de confort.",
+      "Calibrer les seuils de déclenchement pour limiter les faux positifs, en particulier sur les capteurs sujets à des déclenchements erronés fréquents.",
+      "Regrouper les événements mineurs en résumé périodique plutôt que de notifier chacun individuellement en temps réel."
+    ],
+    "examples": [
+      {
+        "situation": "Un système domotique envoie autant de notifications pour une lumière laissée allumée que pour une détection de fumée.",
+        "recommended_behavior": "Reconfigurer le système pour que les alertes de sécurité critique (fumée) utilisent un canal et un ton radicalement différents des notifications de confort (lumière allumée), cette dernière pouvant être regroupée dans un résumé plutôt que notifiée immédiatement.",
+        "avoid": "Laisser toutes les notifications au même niveau de priorité et de visibilité, ce qui expose au risque qu'une alerte de sécurité soit ignorée par habituation."
+      }
+    ],
+    "best_practices": [
+      "Établir une hiérarchie explicite de criticité des alertes avant de configurer les canaux de notification.",
+      "Revoir périodiquement les seuils de déclenchement pour ajuster les faux positifs constatés dans l'usage réel."
+    ],
+    "anti_patterns": [
+      "Traiter toutes les notifications domotiques avec le même niveau de priorité et de visibilité.",
+      "Laisser un taux élevé de faux positifs sans ajustement, ce qui conduit à la désensibilisation aux alertes.",
+      "Notifier individuellement chaque événement mineur au lieu de les regrouper en résumé périodique."
+    ]
   },
   "retrieval_hints": {
-    "priority_keywords": [],
-    "related_domains": [],
-    "related_knowledge": [],
-    "retrieval_priority": 5
+    "priority_keywords": ["priorisation_alertes", "fatigue_alerte", "notifications_securite"],
+    "related_domains": ["professional", "cpl"],
+    "related_knowledge": [
+      "cpl.product_platform.gestion_rappels_agenda_taches_alfred",
+      "professional.iot.room_state_modeling",
+      "human.interaction.social_energy_management"
+    ],
+    "retrieval_priority": 6
   },
   "behavior_rules": {
     "tone": "professional",
@@ -39,17 +65,17 @@
     "allow_humor": false
   },
   "safety_notes": {
-    "allowed_usage": [],
+    "allowed_usage": ["configuration et recommandation de priorisation des alertes domotiques"],
     "restricted_usage": [],
-    "forbidden_usage": [],
-    "fallback_behavior": "Solliciter une validation humaine si ambiguïté."
+    "forbidden_usage": ["recommander de désactiver ou masquer des alertes de sécurité critique pour réduire le volume de notifications"],
+    "fallback_behavior": "En cas de doute sur la criticité d'un type d'alerte, la traiter par défaut comme prioritaire plutôt que de risquer de la noyer parmi des notifications mineures."
   },
   "metadata": {
     "author": "ALFRED_SYSTEM",
-    "creation_date": "11/07/2026",
-    "last_update": "11/07/2026",
-    "review_status": "draft",
-    "reviewed_by": "",
+    "creation_date": "18/07/2026",
+    "last_update": "18/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
     "source_type": "manual_structured_knowledge",
     "language": "fr",
     "retrieval_ready": true,

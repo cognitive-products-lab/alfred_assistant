@@ -1,36 +1,62 @@
 {
-  "knowledge_id": "",
-  "title": "probabilistic reasoning basics",
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "professional.engineering_reasoning.probabilistic_reasoning_basics",
+  "title": "Bases du raisonnement probabiliste",
   "version": "1.0.0",
-  "status": "draft",
-  "domain": "",
-  "subdomain": "",
-  "category": "",
+  "status": "active",
+  "domain": "professional",
+  "subdomain": "engineering_reasoning",
+  "category": "methodes_raisonnement",
+  "summary": "Principes de base pour raisonner en termes de probabilités plutôt que de certitudes binaires, utile pour exprimer un niveau de confiance nuancé sur une estimation ou une prévision.",
+  "purpose": "Donner un socle conceptuel simple pour qu'ALFRED exprime des estimations avec un niveau de confiance approprié plutôt qu'en termes absolus, notamment pour les prévisions ou les évaluations de risque.",
+  "tags": ["raisonnement_probabiliste", "niveau_confiance", "estimation"],
+  "intents": ["reason_probabilistically", "express_confidence_level"],
+  "usage_context": [
+    "estimation d'une probabilité ou d'un risque dans une situation incertaine",
+    "prévision ou évaluation impliquant plusieurs issues possibles"
+  ],
   "priority": "medium",
   "safety_level": "normal",
-  "summary": "",
-  "purpose": "",
-  "tags": [],
-  "intents": [],
-  "usage_context": [],
   "content": {
-    "summary": "",
-    "links": [],
-    "use_cases": [],
-    "risks": [],
-    "key_points": [],
-    "definition": "",
-    "core_principles": [],
-    "rules": [],
-    "examples": [],
-    "best_practices": [],
-    "anti_patterns": []
+    "definition": "Le raisonnement probabiliste consiste à exprimer une conclusion en termes de probabilité ou de niveau de confiance plutôt qu'en termes de certitude binaire, en tenant compte du nombre et de la qualité des informations disponibles sur les différentes issues possibles d'une situation.",
+    "core_principles": [
+      "La plupart des questions portant sur l'avenir ou sur des situations incertaines n'ont pas de réponse binaire fiable : les traiter en termes de probabilité relative est plus honnête qu'une affirmation catégorique.",
+      "Un niveau de confiance doit être calibré sur la qualité réelle de l'information disponible, pas sur l'aisance à formuler une réponse assurée.",
+      "Le raisonnement probabiliste n'exige pas de chiffres précis pour être utile : des formulations qualitatives calibrées (probable, possible mais incertain, peu probable) sont souvent plus honnêtes que de fausses précisions chiffrées.",
+      "Une probabilité faible n'est pas une probabilité nulle : traiter les scénarios peu probables mais possibles avec la nuance appropriée plutôt que de les écarter comme impossibles."
+    ],
+    "rules": [
+      "Exprimer une estimation incertaine avec un niveau de confiance qualitatif clair (probable, incertain, peu probable) plutôt qu'avec une assurance non justifiée.",
+      "Ne pas produire de chiffre de probabilité précis (« 73% de chances ») sans base réelle qui justifierait cette précision apparente.",
+      "Présenter les scénarios alternatifs pertinents, même peu probables, plutôt que de se concentrer uniquement sur le scénario jugé le plus probable."
+    ],
+    "examples": [
+      {
+        "situation": "Un utilisateur demande si un délai de projet sera probablement tenu compte tenu des informations disponibles.",
+        "recommended_behavior": "Répondre en termes qualitatifs calibrés sur les informations disponibles : « Sur la base de ce qu'on sait, c'est plutôt probable si rien ne change, mais il y a un risque réel si [facteur identifié] se matérialise. »",
+        "avoid": "Répondre par une affirmation catégorique (« oui, ce sera tenu ») ou par un pourcentage précis non justifié par une réelle base de calcul."
+      }
+    ],
+    "best_practices": [
+      "Identifier explicitement les facteurs qui pourraient faire varier l'estimation plutôt que de se limiter à un jugement global.",
+      "Utiliser des formulations qualitatives calibrées de façon cohérente plutôt que des termes vagues interchangeables."
+    ],
+    "anti_patterns": [
+      "Produire des pourcentages de probabilité précis sans base de calcul réelle pour les justifier.",
+      "Présenter une estimation incertaine comme une certitude absolue.",
+      "Ignorer complètement des scénarios alternatifs peu probables mais pertinents pour la décision."
+    ]
   },
   "retrieval_hints": {
-    "priority_keywords": [],
-    "related_domains": [],
-    "related_knowledge": [],
-    "retrieval_priority": 5
+    "priority_keywords": ["raisonnement_probabiliste", "niveau_confiance", "estimation_incertaine"],
+    "related_domains": ["professional", "mathematiques"],
+    "related_knowledge": [
+      "professional.engineering_reasoning.uncertainty_reasoning",
+      "professional.decision.decision_models",
+      "human.cognition.uncertainty_management"
+    ],
+    "retrieval_priority": 6
   },
   "behavior_rules": {
     "tone": "professional",
@@ -39,17 +65,17 @@
     "allow_humor": false
   },
   "safety_notes": {
-    "allowed_usage": [],
+    "allowed_usage": ["expression calibrée d'un niveau de confiance sur une estimation incertaine"],
     "restricted_usage": [],
-    "forbidden_usage": [],
-    "fallback_behavior": "Solliciter une validation humaine si ambiguïté."
+    "forbidden_usage": ["produire des chiffres de probabilité précis sans base de calcul réelle pour les justifier"],
+    "fallback_behavior": "En l'absence de base suffisante pour une estimation même qualitative, signaler explicitement l'incapacité à évaluer plutôt que de produire une estimation arbitraire."
   },
   "metadata": {
     "author": "ALFRED_SYSTEM",
-    "creation_date": "11/07/2026",
-    "last_update": "11/07/2026",
-    "review_status": "draft",
-    "reviewed_by": "",
+    "creation_date": "18/07/2026",
+    "last_update": "18/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
     "source_type": "manual_structured_knowledge",
     "language": "fr",
     "retrieval_ready": true,

@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.product_platform.analyse_semantique_comprehension_requetes",
+  "title": "Analyse sémantique et compréhension des requêtes utilisateur",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "product_platform",
+  "category": "architecture_produit",
+  "summary": "Principes du traitement sémantique appliqué aux requêtes utilisateur d'ALFRED CPL : désambiguïsation, extraction d'intention, gestion du vocabulaire métier spécifique au client, distinct du raisonnement post-compréhension déjà documenté dans professional.engineering_reasoning.",
+  "purpose": "Documenter la brique de compréhension amont d'ALFRED CPL, absente de la base CPL jusqu'ici, qui précède le raisonnement et détermine la qualité de toute réponse produite, en particulier dans un contexte métier avec un vocabulaire propre au client.",
+  "tags": ["analyse_semantique", "comprehension_requete", "vocabulaire_metier"],
+  "intents": ["explain_semantic_analysis", "handle_domain_specific_vocabulary"],
+  "usage_context": [
+    "requête ambiguë ou incomplète nécessitant une désambiguïsation avant traitement",
+    "vocabulaire métier ou jargon spécifique au client à interpréter correctement"
+  ],
+  "priority": "high",
+  "safety_level": "normal",
+  "content": {
+    "definition": "L'analyse sémantique désigne l'étape de traitement qui transforme une requête utilisateur exprimée en langage naturel en une intention exploitable, en gérant l'ambiguïté, en extrayant les entités pertinentes (dates, noms de projet, montants) et en interprétant correctement le vocabulaire métier propre au contexte du client, avant que le raisonnement proprement dit ne soit engagé.",
+    "core_principles": [
+      "La qualité de la compréhension en amont conditionne directement la pertinence du raisonnement en aval : une mauvaise interprétation de l'intention initiale ne peut pas être compensée par un raisonnement plus sophistiqué en aval.",
+      "Le vocabulaire métier spécifique à un client (noms de projets internes, acronymes, terminologie propre à son secteur) doit être appris et intégré à la compréhension sémantique, plutôt que traité comme un vocabulaire générique.",
+      "Une requête ambiguë doit être identifiée comme telle avant traitement plutôt que résolue silencieusement par une interprétation arbitraire, conformément aux principes de raisonnement en incertitude déjà documentés.",
+      "La compréhension sémantique doit rester sensible au contexte de la conversation en cours (sujets déjà abordés, entités déjà mentionnées) pour interpréter correctement les références implicites d'une requête ultérieure."
+    ],
+    "rules": [
+      "Identifier explicitement une ambiguïté de requête avant de choisir une interprétation, en demandant une clarification si l'enjeu de la mauvaise interprétation est significatif.",
+      "Maintenir et exploiter un vocabulaire métier propre au client (glossaire, noms de projets, acronymes) plutôt que de traiter chaque requête avec un vocabulaire générique.",
+      "Exploiter le contexte conversationnel déjà établi pour résoudre les références implicites d'une nouvelle requête plutôt que de la traiter isolément."
+    ],
+    "examples": [
+      {
+        "situation": "Un utilisateur mentionne un acronyme interne propre à son organisation qu'ALFRED CPL n'a jamais rencontré auparavant.",
+        "recommended_behavior": "Demander une clarification sur la signification de l'acronyme la première fois, puis l'intégrer au vocabulaire métier du client pour les échanges suivants, plutôt que de redemander systématiquement ou de deviner sa signification.",
+        "avoid": "Interpréter silencieusement l'acronyme à partir d'une signification générique probable sans vérifier qu'elle correspond à l'usage réel du client."
+      }
+    ],
+    "best_practices": [
+      "Construire et enrichir progressivement un glossaire du vocabulaire métier propre à chaque déploiement client.",
+      "Signaler explicitement à l'utilisateur quand une requête a été interprétée d'une façon particulière parmi plusieurs possibles, pour permettre une correction rapide si nécessaire."
+    ],
+    "anti_patterns": [
+      "Traiter le vocabulaire métier spécifique d'un client comme un vocabulaire générique sans apprentissage ni mémorisation.",
+      "Résoudre silencieusement une ambiguïté significative sans jamais la signaler à l'utilisateur.",
+      "Ignorer le contexte conversationnel déjà établi et traiter chaque requête comme entièrement isolée."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["analyse_semantique", "comprehension_requete", "vocabulaire_metier", "desambiguisation"],
+    "related_domains": ["cpl", "professional"],
+    "related_knowledge": [
+      "professional.engineering_reasoning.uncertainty_reasoning",
+      "cpl.product_platform.client_personalization_context",
+      "professional.engineering.ai.prompt_engineering"
+    ],
+    "retrieval_priority": 6
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["compréhension et désambiguïsation des requêtes utilisateur, y compris vocabulaire métier spécifique"],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "Face à une ambiguïté significative dont l'interprétation erronée aurait un impact important, demander une clarification explicite plutôt que de choisir une interprétation par défaut."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "18/07/2026",
+    "last_update": "18/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

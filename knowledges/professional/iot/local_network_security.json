@@ -1,36 +1,62 @@
 {
-  "knowledge_id": "",
-  "title": "local network security",
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "professional.iot.local_network_security",
+  "title": "Sécurité du réseau local domestique",
   "version": "1.0.0",
-  "status": "draft",
-  "domain": "",
-  "subdomain": "",
-  "category": "",
-  "priority": "medium",
-  "safety_level": "normal",
-  "summary": "",
-  "purpose": "",
-  "tags": [],
-  "intents": [],
-  "usage_context": [],
+  "status": "active",
+  "domain": "professional",
+  "subdomain": "iot",
+  "category": "securite_iot",
+  "summary": "Principes de sécurisation du réseau local domestique (Wi-Fi, box internet, isolation des appareils) qui conditionnent la sécurité de l'ensemble des objets connectés qui s'y rattachent.",
+  "purpose": "Couvrir le niveau réseau de la sécurité IoT, préalable à la sécurité de chaque appareil individuel déjà traitée dans professional.iot.iot_threat_basics, car un réseau mal sécurisé compromet la sécurité de tous les appareils qui s'y connectent.",
+  "tags": ["securite_reseau", "wifi", "isolation_reseau"],
+  "intents": ["explain_local_network_security", "recommend_network_hardening"],
+  "usage_context": [
+    "configuration initiale d'un réseau domestique avec objets connectés",
+    "question sur le niveau de sécurité global du réseau local"
+  ],
+  "priority": "high",
+  "safety_level": "sensitive",
   "content": {
-    "summary": "",
-    "links": [],
-    "use_cases": [],
-    "risks": [],
-    "key_points": [],
-    "definition": "",
-    "core_principles": [],
-    "rules": [],
-    "examples": [],
-    "best_practices": [],
-    "anti_patterns": []
+    "definition": "La sécurité du réseau local domestique désigne l'ensemble des mesures qui protègent le réseau Wi-Fi et la box internet d'un foyer, condition préalable à la sécurité individuelle de chaque objet connecté qui s'y rattache, un réseau compromis exposant l'ensemble des appareils qui y sont connectés.",
+    "core_principles": [
+      "La sécurité de chaque objet connecté individuel dépend directement de la sécurité du réseau auquel il est rattaché : un réseau compromis compromet potentiellement tous les appareils qui s'y connectent, quelle que soit leur propre sécurité individuelle.",
+      "Le mot de passe administrateur de la box internet, souvent laissé par défaut, donne un accès complet à la configuration du réseau et constitue une cible prioritaire pour un attaquant.",
+      "Le protocole de chiffrement Wi-Fi (WPA3 préférable à WPA2, lui-même préférable à WEP obsolète) détermine directement la résistance du réseau aux tentatives d'intrusion.",
+      "Un réseau invité séparé du réseau principal limite l'exposition des appareils personnels et professionnels aux visiteurs ou aux appareils moins fiables connectés temporairement."
+    ],
+    "rules": [
+      "Recommander systématiquement le changement du mot de passe administrateur par défaut de la box internet.",
+      "Recommander le protocole de chiffrement Wi-Fi le plus récent disponible sur l'équipement plutôt qu'un protocole obsolète laissé par défaut.",
+      "Recommander la mise en place d'un réseau invité distinct pour les appareils ou visiteurs non fiables plutôt qu'un réseau unique partagé."
+    ],
+    "examples": [
+      {
+        "situation": "Un utilisateur configure son réseau domestique pour la première fois avec plusieurs objets connectés à venir.",
+        "recommended_behavior": "Recommander en priorité le changement du mot de passe administrateur de la box, la vérification du protocole de chiffrement Wi-Fi utilisé, et la mise en place d'un réseau invité avant même de configurer les objets connectés individuels.",
+        "avoid": "Se concentrer uniquement sur la sécurité de chaque objet connecté sans avoir vérifié en amont la sécurité du réseau qui les héberge tous."
+      }
+    ],
+    "best_practices": [
+      "Traiter la sécurité du réseau comme un préalable à la sécurité de chaque appareil individuel plutôt que comme une étape secondaire.",
+      "Recommander une vérification périodique de la configuration réseau, pas seulement à l'installation initiale."
+    ],
+    "anti_patterns": [
+      "Sécuriser chaque objet connecté individuellement sans avoir vérifié la sécurité du réseau qui les héberge.",
+      "Laisser le mot de passe administrateur de la box par défaut au nom de la simplicité de configuration.",
+      "Connecter des appareils ou visiteurs non fiables sur le même réseau que les appareils personnels et professionnels sensibles."
+    ]
   },
   "retrieval_hints": {
-    "priority_keywords": [],
-    "related_domains": [],
-    "related_knowledge": [],
-    "retrieval_priority": 5
+    "priority_keywords": ["securite_reseau", "wifi", "reseau_invite", "chiffrement"],
+    "related_domains": ["professional", "cpl"],
+    "related_knowledge": [
+      "professional.iot.iot_threat_basics",
+      "professional.iot.iot_device_segmentation",
+      "professional.engineering.cybersecurite.cloud_security_fundamentals"
+    ],
+    "retrieval_priority": 7
   },
   "behavior_rules": {
     "tone": "professional",
@@ -39,17 +65,17 @@
     "allow_humor": false
   },
   "safety_notes": {
-    "allowed_usage": [],
+    "allowed_usage": ["information et recommandation générale de sécurisation d'un réseau domestique"],
     "restricted_usage": [],
-    "forbidden_usage": [],
-    "fallback_behavior": "Solliciter une validation humaine si ambiguïté."
+    "forbidden_usage": ["fournir des instructions d'exploitation de vulnérabilités réseau"],
+    "fallback_behavior": "Face à une configuration réseau complexe dépassant les principes généraux, recommander une vérification auprès du fournisseur d'accès ou d'un professionnel réseau."
   },
   "metadata": {
     "author": "ALFRED_SYSTEM",
-    "creation_date": "11/07/2026",
-    "last_update": "11/07/2026",
-    "review_status": "draft",
-    "reviewed_by": "",
+    "creation_date": "18/07/2026",
+    "last_update": "18/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
     "source_type": "manual_structured_knowledge",
     "language": "fr",
     "retrieval_ready": true,

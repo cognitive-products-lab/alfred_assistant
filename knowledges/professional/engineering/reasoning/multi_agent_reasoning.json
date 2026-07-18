@@ -1,55 +1,81 @@
 {
-  "knowledge_id": "",
-  "title": "multi agent reasoning",
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "professional.engineering_reasoning.multi_agent_reasoning",
+  "title": "Raisonnement multi-agent",
   "version": "1.0.0",
-  "status": "draft",
-  "domain": "",
-  "subdomain": "",
-  "category": "",
+  "status": "active",
+  "domain": "professional",
+  "subdomain": "engineering_reasoning",
+  "category": "architecture_raisonnement",
+  "summary": "Principes de conception d'un raisonnement réparti entre plusieurs agents spécialisés (rôles distincts, coordination, arbitrage des désaccords) pour traiter des problèmes complexes qu'un raisonnement unique traiterait moins bien.",
+  "purpose": "Donner un cadre conceptuel pour les architectures multi-agents mobilisables par ALFRED CPL ou par ALFRED lui-même quand une tâche bénéficie d'une décomposition entre rôles spécialisés plutôt qu'un raisonnement monolithique.",
+  "tags": ["multi_agent", "raisonnement_reparti", "coordination_agents"],
+  "intents": ["design_multi_agent_reasoning", "coordinate_specialized_agents"],
+  "usage_context": [
+    "conception d'un système où plusieurs agents spécialisés collaborent sur une même tâche",
+    "besoin de rôles distincts (recherche, rédaction, vérification) pour une tâche complexe"
+  ],
   "priority": "medium",
   "safety_level": "normal",
-  "summary": "",
-  "purpose": "",
-  "tags": [],
-  "intents": [],
-  "usage_context": [],
   "content": {
-    "summary": "",
-    "links": [],
-    "use_cases": [],
-    "risks": [],
-    "key_points": [],
-    "definition": "",
-    "core_principles": [],
-    "rules": [],
-    "examples": [],
-    "best_practices": [],
-    "anti_patterns": []
+    "definition": "Le raisonnement multi-agent désigne une architecture dans laquelle plusieurs agents spécialisés, chacun avec un rôle et un périmètre définis, traitent des sous-parties d'un problème complexe et coordonnent leurs résultats, par opposition à un raisonnement unique traitant l'ensemble du problème de façon monolithique.",
+    "core_principles": [
+      "Un raisonnement multi-agent apporte de la valeur quand les sous-tâches bénéficient de spécialisations distinctes (recherche factuelle, vérification, rédaction, critique) qu'un raisonnement unique traiterait de façon moins rigoureuse en les mélangeant.",
+      "La coordination entre agents doit prévoir explicitement comment un désaccord entre deux agents est arbitré, sinon le système hérite d'une incohérence non résolue.",
+      "Un agent de vérification ou de critique distinct de l'agent de production améliore généralement la fiabilité du résultat final, car il évite le biais de confirmation d'un même processus qui produit et vérifie sa propre sortie.",
+      "La complexité de coordination d'une architecture multi-agent a un coût réel : elle n'est justifiée que si la tâche bénéficie effectivement de la spécialisation, pas par défaut pour toute tâche complexe."
+    ],
+    "rules": [
+      "Définir explicitement le rôle et le périmètre de chaque agent avant de répartir une tâche, pour éviter les recouvrements ou les zones non couvertes.",
+      "Prévoir un mécanisme explicite d'arbitrage en cas de désaccord entre agents plutôt que de laisser le système produire un résultat incohérent.",
+      "Réserver l'architecture multi-agent aux tâches qui bénéficient réellement de la spécialisation, plutôt que de l'appliquer par défaut à toute tâche complexe."
+    ],
+    "examples": [
+      {
+        "situation": "Une tâche de rédaction d'un document important bénéficierait d'une vérification indépendante avant livraison finale.",
+        "recommended_behavior": "Séparer explicitement le rôle de rédaction du rôle de vérification/critique, en s'assurant que le second dispose d'une réelle indépendance de jugement par rapport au premier plutôt que d'être une simple relecture de forme.",
+        "avoid": "Confier la vérification au même processus qui a produit le contenu initial, ce qui reproduit généralement les mêmes angles morts."
+      }
+    ],
+    "best_practices": [
+      "Documenter clairement le périmètre et les responsabilités de chaque agent dans une architecture multi-agent, pour faciliter la maintenance et le diagnostic en cas de problème.",
+      "Tester le mécanisme d'arbitrage des désaccords avant de déployer une architecture multi-agent en production."
+    ],
+    "anti_patterns": [
+      "Déployer une architecture multi-agent complexe pour une tâche qui n'en tire pas de bénéfice réel par rapport à un raisonnement unique.",
+      "Laisser un désaccord entre agents non résolu produire un résultat final incohérent.",
+      "Confier la vérification d'un résultat au même processus qui l'a produit, sans indépendance de jugement réelle."
+    ]
   },
   "retrieval_hints": {
-    "priority_keywords": [],
-    "related_domains": [],
-    "related_knowledge": [],
+    "priority_keywords": ["multi_agent", "raisonnement_reparti", "coordination", "arbitrage"],
+    "related_domains": ["professional"],
+    "related_knowledge": [
+      "professional.engineering_reasoning.reasoning_orchestration",
+      "professional.engineering.ai.llm_orchestration",
+      "professional.engineering_reasoning.self_consistency_reasoning"
+    ],
     "retrieval_priority": 5
   },
   "behavior_rules": {
     "tone": "professional",
     "response_style": "structured_clear",
-    "max_complexity": "medium",
+    "max_complexity": "high",
     "allow_humor": false
   },
   "safety_notes": {
-    "allowed_usage": [],
+    "allowed_usage": ["conception d'architectures multi-agents pour des tâches complexes bénéficiant de la spécialisation"],
     "restricted_usage": [],
     "forbidden_usage": [],
-    "fallback_behavior": "Solliciter une validation humaine si ambiguïté."
+    "fallback_behavior": "En cas d'incertitude sur la pertinence d'une architecture multi-agent pour une tâche donnée, privilégier un raisonnement unique plus simple sauf bénéfice clairement identifié."
   },
   "metadata": {
     "author": "ALFRED_SYSTEM",
-    "creation_date": "11/07/2026",
-    "last_update": "11/07/2026",
-    "review_status": "draft",
-    "reviewed_by": "",
+    "creation_date": "18/07/2026",
+    "last_update": "18/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
     "source_type": "manual_structured_knowledge",
     "language": "fr",
     "retrieval_ready": true,

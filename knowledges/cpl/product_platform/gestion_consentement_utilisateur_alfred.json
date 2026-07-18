@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.product_platform.gestion_consentement_utilisateur_alfred",
+  "title": "Gestion du consentement utilisateur dans ALFRED CPL",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "product_platform",
+  "category": "gouvernance_donnees_produit",
+  "summary": "Mécanisme produit par lequel ALFRED CPL recueille, documente et permet de révoquer le consentement de l'utilisateur pour chaque catégorie de traitement de données (mémorisation long terme, partage avec un partenaire, usage vocal), distinct de la fonction generic consent_management déjà couverte côté gouvernance IA générale.",
+  "purpose": "Préciser l'implémentation produit concrète du consentement dans ALFRED CPL, en articulation avec professional.governance_ai.consent_management qui traite du principe général, ici décliné aux mécanismes spécifiques du produit (granularité par fonctionnalité, révocabilité, traçabilité).",
+  "tags": ["consentement", "granularite_consentement", "revocabilite"],
+  "intents": ["manage_user_consent", "explain_consent_mechanism", "revoke_consent"],
+  "usage_context": [
+    "activation d'une fonctionnalité nécessitant un consentement spécifique (mémoire long terme, partage partenaire)",
+    "demande utilisateur de révocation d'un consentement déjà donné"
+  ],
+  "priority": "critical",
+  "safety_level": "high_risk",
+  "content": {
+    "definition": "La gestion du consentement utilisateur dans ALFRED CPL désigne le mécanisme produit qui recueille un consentement distinct et granulaire pour chaque catégorie de traitement de données sensible (mémorisation long terme, partage avec un partenaire tiers, usage vocal, analyse comportementale), documente ce consentement de façon traçable, et permet à tout moment sa révocation sans dégrader le fonctionnement des fonctionnalités non concernées.",
+    "core_principles": [
+      "Le consentement doit être granulaire par catégorie de traitement plutôt que global : accepter la mémorisation long terme ne doit pas impliquer automatiquement d'accepter le partage avec un partenaire tiers.",
+      "Un consentement donné doit rester révocable à tout moment, avec un effet réel et immédiat sur le traitement concerné, pas une révocation de façade sans conséquence technique.",
+      "La révocation d'un consentement spécifique ne doit dégrader que les fonctionnalités qui en dépendent réellement, pas l'ensemble du produit par excès de prudence technique.",
+      "Chaque consentement donné ou révoqué doit être horodaté et traçable, condition nécessaire pour répondre à une demande d'audit ou de conformité réglementaire."
+    ],
+    "rules": [
+      "Recueillir un consentement explicite et distinct pour chaque catégorie de traitement sensible avant son activation, sans présumer un consentement implicite par l'usage général du produit.",
+      "Permettre la révocation d'un consentement à tout moment via une action simple et accessible, sans procédure complexe ou dissuasive.",
+      "Documenter et horodater chaque changement d'état de consentement pour garantir la traçabilité en cas d'audit."
+    ],
+    "examples": [
+      {
+        "situation": "Un utilisateur souhaite désactiver la mémorisation long terme tout en continuant à utiliser les fonctionnalités de base d'ALFRED CPL.",
+        "recommended_behavior": "Permettre la révocation ciblée du consentement à la mémorisation long terme sans affecter les autres fonctionnalités, en confirmant clairement quelles capacités seront perdues et lesquelles resteront disponibles.",
+        "avoid": "Traiter toute révocation de consentement comme nécessitant la désactivation complète du compte ou du produit, ce qui dissuade l'utilisateur d'exercer ce droit."
+      }
+    ],
+    "best_practices": [
+      "Présenter chaque demande de consentement avec une explication claire de ce qu'implique concrètement l'acceptation, en langage non technique.",
+      "Prévoir un tableau de bord accessible où l'utilisateur peut consulter et gérer l'ensemble de ses consentements actifs en un seul endroit."
+    ],
+    "anti_patterns": [
+      "Recueillir un consentement global unique qui couvre implicitement plusieurs catégories de traitement distinctes.",
+      "Rendre la révocation d'un consentement plus complexe ou moins visible que son acceptation initiale.",
+      "Faire dépendre l'usage de fonctionnalités non concernées par un consentement révoqué, par excès de prudence technique non justifié."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["consentement", "granularite", "revocation", "traçabilite"],
+    "related_domains": ["cpl", "professional"],
+    "related_knowledge": [
+      "professional.governance_ai.consent_management",
+      "cpl.product_platform.data_protection_hosting",
+      "cpl.product_platform.identity_access_zero_trust"
+    ],
+    "retrieval_priority": 8
+  },
+  "behavior_rules": {
+    "tone": "formal",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["explication et gestion du mécanisme de consentement granulaire d'ALFRED CPL"],
+    "restricted_usage": [],
+    "forbidden_usage": ["activer un traitement de données sensible sans consentement explicite préalable de la catégorie concernée"],
+    "fallback_behavior": "En cas d'ambiguïté sur le périmètre exact d'un consentement demandé, présenter le périmètre le plus restrictif par défaut plutôt que d'étendre implicitement la portée du consentement."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "18/07/2026",
+    "last_update": "18/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

@@ -1,36 +1,62 @@
 {
-  "knowledge_id": "",
-  "title": "smart home basics",
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "professional.iot.smart_home_basics",
+  "title": "Bases de la maison connectée",
   "version": "1.0.0",
-  "status": "draft",
-  "domain": "",
-  "subdomain": "",
-  "category": "",
+  "status": "active",
+  "domain": "professional",
+  "subdomain": "iot",
+  "category": "fondamentaux_iot",
+  "summary": "Concepts fondamentaux d'une maison connectée (hub domotique, capteurs, actionneurs, protocoles de communication) que ALFRED doit maîtriser pour expliquer ou piloter un environnement domotique local-first.",
+  "purpose": "Servir de fiche d'entrée du sous-domaine IoT, posant le vocabulaire et l'architecture de base avant les fiches plus spécifiques (sécurité, présence, alertes) qui la complètent.",
+  "tags": ["maison_connectee", "domotique", "hub", "capteurs"],
+  "intents": ["explain_smart_home_basics", "describe_home_automation_architecture"],
+  "usage_context": [
+    "explication du fonctionnement général d'un environnement domotique",
+    "orientation vers les fiches spécifiques du domaine IoT"
+  ],
   "priority": "medium",
   "safety_level": "normal",
-  "summary": "",
-  "purpose": "",
-  "tags": [],
-  "intents": [],
-  "usage_context": [],
   "content": {
-    "summary": "",
-    "links": [],
-    "use_cases": [],
-    "risks": [],
-    "key_points": [],
-    "definition": "",
-    "core_principles": [],
-    "rules": [],
-    "examples": [],
-    "best_practices": [],
-    "anti_patterns": []
+    "definition": "Une maison connectée désigne un environnement domestique équipé de capteurs (présence, température, ouverture) et d'actionneurs (éclairage, chauffage, volets) pilotés par un hub domotique central qui centralise la collecte de données et l'exécution de règles, avec ou sans dépendance à une connexion internet selon l'architecture retenue.",
+    "core_principles": [
+      "Un capteur mesure un état de l'environnement (présence, température, luminosité) tandis qu'un actionneur agit sur cet environnement (allumer, fermer, ajuster) : la distinction structure toute règle domotique en condition et action.",
+      "Un hub domotique centralise la communication entre les appareils, souvent hétérogènes en protocoles, et exécute les règles d'automatisation définies par l'utilisateur.",
+      "Les protocoles de communication IoT courants (Zigbee, Z-Wave, Wi-Fi, Matter) diffèrent en portée, consommation énergétique et fiabilité, ce qui influence le choix d'architecture selon les besoins du foyer.",
+      "Une architecture local-first (traitement des règles sur le hub local plutôt que dans le cloud) réduit la dépendance à la connexion internet et améliore la confidentialité, au prix parfois d'une richesse fonctionnelle moindre que les solutions cloud."
+    ],
+    "rules": [
+      "Distinguer clairement, dans toute explication, le rôle du capteur, de l'actionneur et du hub pour éviter la confusion sur qui fait quoi dans une règle domotique.",
+      "Préciser si une fonctionnalité décrite dépend d'une connexion internet active ou fonctionne en local, information souvent déterminante pour l'utilisateur.",
+      "Adapter le niveau de détail technique (protocoles précis) au profil de l'interlocuteur plutôt que de systématiquement entrer dans le détail des protocoles."
+    ],
+    "examples": [
+      {
+        "situation": "Un utilisateur demande comment fonctionne l'automatisation qui allume la lumière quand il entre dans une pièce.",
+        "recommended_behavior": "Expliquer simplement la chaîne : un capteur de présence détecte l'entrée, transmet l'information au hub, qui déclenche l'actionneur (l'éclairage) selon la règle configurée, en précisant si ce traitement se fait localement ou via le cloud.",
+        "avoid": "Entrer directement dans le détail des protocoles de communication (Zigbee, Matter) sans avoir d'abord expliqué le principe général de la chaîne capteur-hub-actionneur."
+      }
+    ],
+    "best_practices": [
+      "Toujours situer une fonctionnalité domotique dans la chaîne capteur-hub-actionneur pour la rendre compréhensible.",
+      "Signaler explicitement la dépendance ou l'indépendance à internet d'une fonctionnalité décrite."
+    ],
+    "anti_patterns": [
+      "Mélanger les rôles de capteur et d'actionneur dans une explication, ce qui brouille la compréhension du mécanisme.",
+      "Présenter une architecture cloud comme la seule option possible sans mentionner les alternatives local-first.",
+      "Entrer systématiquement dans un niveau de détail technique élevé sans l'adapter au besoin réel de l'interlocuteur."
+    ]
   },
   "retrieval_hints": {
-    "priority_keywords": [],
-    "related_domains": [],
-    "related_knowledge": [],
-    "retrieval_priority": 5
+    "priority_keywords": ["maison_connectee", "domotique", "hub_domotique", "capteurs_actionneurs"],
+    "related_domains": ["professional", "cpl"],
+    "related_knowledge": [
+      "professional.iot.local_network_security",
+      "professional.iot.offline_first_home_automation",
+      "cpl.product_platform.offline_first_continuite_service_alfred"
+    ],
+    "retrieval_priority": 6
   },
   "behavior_rules": {
     "tone": "professional",
@@ -39,17 +65,17 @@
     "allow_humor": false
   },
   "safety_notes": {
-    "allowed_usage": [],
+    "allowed_usage": ["explication générale de l'architecture et du fonctionnement d'un environnement domotique"],
     "restricted_usage": [],
     "forbidden_usage": [],
-    "fallback_behavior": "Solliciter une validation humaine si ambiguïté."
+    "fallback_behavior": "En cas de question dépassant les fondamentaux vers un aspect sécurité ou vie privée spécifique, orienter vers les fiches dédiées du sous-domaine IoT plutôt que d'y répondre superficiellement ici."
   },
   "metadata": {
     "author": "ALFRED_SYSTEM",
-    "creation_date": "11/07/2026",
-    "last_update": "11/07/2026",
-    "review_status": "draft",
-    "reviewed_by": "",
+    "creation_date": "18/07/2026",
+    "last_update": "18/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
     "source_type": "manual_structured_knowledge",
     "language": "fr",
     "retrieval_ready": true,

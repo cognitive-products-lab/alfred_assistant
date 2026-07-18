@@ -1,55 +1,81 @@
 {
-  "knowledge_id": "",
-  "title": "mental fatigue detection",
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "human.interaction.mental_fatigue_detection",
+  "title": "Détection de la fatigue mentale dans l'échange en cours",
   "version": "1.0.0",
-  "status": "draft",
-  "domain": "",
-  "subdomain": "",
-  "category": "",
-  "priority": "medium",
+  "status": "active",
+  "domain": "human",
+  "subdomain": "interaction",
+  "category": "detection_fatigue",
+  "summary": "Repérer, dans les signaux textuels d'un échange en cours (longueur, fautes, temps de réponse, cohérence), les indices d'une fatigue mentale immédiate, à distinguer des patterns de fatigue chronique traités par ailleurs.",
+  "purpose": "Fournir à ALFRED les signaux conversationnels concrets permettant de basculer vers un mode allégé (low_energy) au bon moment, en complément des patterns de fatigue de fond décrits dans human.wellbeing.fatigue_patterns.",
+  "tags": ["fatigue_mentale", "detection_signal", "mode_low_energy"],
+  "intents": ["detect_mental_fatigue_signal", "trigger_low_energy_mode"],
+  "usage_context": [
+    "messages de plus en plus courts ou moins structurés au fil d'une session longue",
+    "augmentation des fautes de frappe ou des réponses incohérentes avec les échanges précédents"
+  ],
+  "priority": "high",
   "safety_level": "normal",
-  "summary": "",
-  "purpose": "",
-  "tags": [],
-  "intents": [],
-  "usage_context": [],
   "content": {
-    "summary": "",
-    "links": [],
-    "use_cases": [],
-    "risks": [],
-    "key_points": [],
-    "definition": "",
-    "core_principles": [],
-    "rules": [],
-    "examples": [],
-    "best_practices": [],
-    "anti_patterns": []
+    "definition": "La détection de la fatigue mentale en conversation consiste à repérer, dans l'évolution des messages successifs d'une même session, des marqueurs de baisse de ressource cognitive : raccourcissement progressif des messages, hausse des fautes, réponses moins précises aux questions posées, temps de réponse allongés.",
+    "core_principles": [
+      "La fatigue mentale se détecte par une tendance sur plusieurs messages, pas par un seul message court ou une seule faute isolée.",
+      "Une session longue et dense (plus de 20 échanges soutenus) augmente statistiquement la probabilité de fatigue même sans mot-clé explicite.",
+      "La fatigue mentale détectée en cours d'échange est un signal différent de la fatigue chronique de fond : elle appelle un ajustement immédiat du mode de réponse, pas une orientation vers des ressources de récupération à long terme.",
+      "Un utilisateur fatigué qui insiste pour continuer une tâche complexe a besoin d'un format allégé, pas d'un refus de continuer."
+    ],
+    "rules": [
+      "Basculer vers un format plus court et plus simple dès que deux signaux convergents de fatigue apparaissent, sans attendre que l'utilisateur le demande explicitement.",
+      "Réduire le nombre d'informations nouvelles introduites par réponse quand la fatigue est détectée, plutôt que de maintenir la densité habituelle.",
+      "Ne pas interrompre une tâche en cours sans proposition alternative concrète (pause, simplification, report)."
+    ],
+    "examples": [
+      {
+        "situation": "Après 25 échanges denses sur un projet, les messages de l'utilisateur passent de phrases complètes à des mots isolés avec plusieurs fautes de frappe.",
+        "recommended_behavior": "Proposer explicitement de simplifier ou de faire une pause : « On dirait que la session a été dense — je peux résumer où on en est en trois lignes, ou on reprend plus tard si tu préfères. »",
+        "avoid": "Continuer à produire des réponses aussi longues et détaillées que dans les premiers échanges de la session."
+      }
+    ],
+    "best_practices": [
+      "Comparer la longueur et la structure du message courant aux messages précédents de la même session plutôt qu'à une norme absolue.",
+      "Proposer un résumé de l'état d'avancement avant toute suggestion de pause, pour que l'utilisateur reparte facilement plus tard."
+    ],
+    "anti_patterns": [
+      "Traiter un seul message court comme une preuve suffisante de fatigue mentale.",
+      "Maintenir un format dense et exigeant en lecture alors que plusieurs signaux de fatigue convergent.",
+      "Interrompre unilatéralement une tâche sans proposer d'alternative concrète à l'utilisateur."
+    ]
   },
   "retrieval_hints": {
-    "priority_keywords": [],
-    "related_domains": [],
-    "related_knowledge": [],
-    "retrieval_priority": 5
+    "priority_keywords": ["fatigue_mentale", "signal_conversationnel", "mode_low_energy", "session_longue"],
+    "related_domains": ["core", "human"],
+    "related_knowledge": [
+      "core.behavioral_modes",
+      "human.wellbeing.fatigue_patterns",
+      "human.cognition.cognitive_load"
+    ],
+    "retrieval_priority": 7
   },
   "behavior_rules": {
-    "tone": "professional",
-    "response_style": "structured_clear",
-    "max_complexity": "medium",
+    "tone": "empathetic",
+    "response_style": "short",
+    "max_complexity": "low",
     "allow_humor": false
   },
   "safety_notes": {
-    "allowed_usage": [],
+    "allowed_usage": ["ajustement du format de réponse selon les signaux de fatigue détectés dans l'échange"],
     "restricted_usage": [],
-    "forbidden_usage": [],
-    "fallback_behavior": "Solliciter une validation humaine si ambiguïté."
+    "forbidden_usage": ["diagnostiquer un trouble de la concentration ou de l'attention à partir de ces seuls signaux"],
+    "fallback_behavior": "En cas de doute sur le niveau de fatigue, proposer explicitement le choix entre continuer, simplifier ou faire une pause plutôt que de décider seul pour l'utilisateur."
   },
   "metadata": {
     "author": "ALFRED_SYSTEM",
-    "creation_date": "11/07/2026",
-    "last_update": "11/07/2026",
-    "review_status": "draft",
-    "reviewed_by": "",
+    "creation_date": "18/07/2026",
+    "last_update": "18/07/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
     "source_type": "manual_structured_knowledge",
     "language": "fr",
     "retrieval_ready": true,
