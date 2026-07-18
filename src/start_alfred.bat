@@ -27,7 +27,7 @@ echo Lancement du systeme...
 timeout /t 1 >nul
 
 cd /d D:\PROJET_ALFRED\ALFRED_PC
-python src\alfred_with_ui.py
+python src\alfred_desktop.py
 
 echo.
 echo ==================================================
