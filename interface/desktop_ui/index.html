@@ -273,10 +273,21 @@ button{ cursor:pointer; }
 .welcome{ display:flex; align-items:center; justify-content:space-between; gap:var(--sp-4); flex-wrap:wrap; }
 .welcome h2{ font-size:1.625rem; font-weight:800; }
 .welcome p{ color:var(--text-2); font-size:.875rem; margin-top:4px; }
-.weather{ display:flex; align-items:center; gap:10px; background:var(--surface-1); border:1px solid var(--border); border-radius:var(--radius-card); padding:10px 16px; box-shadow:var(--shadow-card); }
-.weather svg{ width:26px; height:26px; color:var(--orange); }
+.weather-wrap{ position:relative; }
+.weather{ display:flex; align-items:center; gap:10px; background:var(--surface-1); border:1px solid var(--border); border-radius:var(--radius-card); padding:10px 16px; box-shadow:var(--shadow-card); cursor:pointer; }
+.weather:hover{ border-color:var(--border-strong); }
+.weather svg{ width:26px; height:26px; color:var(--orange); flex-shrink:0; }
 .weather .t{ font-family:var(--font-display); font-weight:800; font-size:1.125rem; }
 .weather .d{ font-size:.6875rem; color:var(--text-3); }
+.weather-panel{ display:none; position:absolute; top:calc(100% + 8px); right:0; width:280px; z-index:20; background:var(--surface-1); border:1px solid var(--border); border-radius:var(--radius-card); padding:var(--sp-4); box-shadow:var(--shadow-card); }
+.weather-panel.open{ display:block; }
+.weather-panel p{ font-size:.75rem; color:var(--text-2); margin-bottom:var(--sp-3); }
+.weather-panel .btn{ width:100%; }
+.weather-search-row{ display:flex; gap:8px; margin-bottom:8px; }
+.weather-search-row input{ flex:1; min-width:0; background:var(--surface-2); border:1px solid var(--border); border-radius:var(--radius-sm); color:var(--text-1); padding:0 10px; font-size:.8125rem; min-height:44px; }
+.weather-location-label{ font-size:.75rem; color:var(--text-2); margin:8px 0; }
+.weather-panel .btn + .btn{ margin-top:8px; }
+.weather-error{ font-size:.75rem; color:var(--red, #e5484d); margin:6px 0; }
 
 /* KPI grid */
 .kpi-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:var(--sp-4); }
@@ -766,9 +777,27 @@ button{ cursor:pointer; }
               </div>
             </div>
             <div class="dash-aside">
-              <div class="weather">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6"/></svg>
-                <div><div class="t">19°C</div><div class="d">Ciel dégagé</div></div>
+              <div class="weather-wrap">
+                <div class="weather" id="weather-widget" role="button" tabindex="0" aria-expanded="false" aria-label="Météo — cliquer pour les options">
+                  <svg id="weather-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6"/></svg>
+                  <div><div class="t" id="weather-temp">—</div><div class="d" id="weather-desc">Météo désactivée</div></div>
+                </div>
+                <div class="weather-panel" id="weather-panel">
+                  <div id="weather-panel-off">
+                    <p>ALFRED peut afficher la météo de votre localité en se connectant à <strong>geo.api.gouv.fr</strong> et <strong>open-meteo.com</strong> (services publics gratuits, sans clé — seul le code postal recherché est transmis). Aucun appel n'est fait tant que ce n'est pas activé.</p>
+                    <button type="button" class="btn btn-primary btn-sm" id="btn-weather-enable">Activer la météo</button>
+                  </div>
+                  <div id="weather-panel-on" hidden>
+                    <p class="weather-location-label" id="weather-location-label">—</p>
+                    <div class="weather-error" id="weather-error" hidden></div>
+                    <div class="weather-search-row">
+                      <input type="text" id="weather-postal-input" placeholder="Autre code postal" inputmode="numeric" maxlength="5" aria-label="Rechercher un autre code postal">
+                      <button type="button" class="btn btn-ghost btn-sm" id="btn-weather-search">Chercher</button>
+                    </div>
+                    <button type="button" class="btn btn-ghost btn-sm" id="btn-weather-reset" hidden>↺ Revenir à ma localisation</button>
+                    <button type="button" class="btn btn-ghost btn-sm" id="btn-weather-disable">Désactiver la météo</button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -1548,6 +1577,68 @@ button{ cursor:pointer; }
     }
   }
 
+  var WEATHER_ICON_PATHS = {
+    sun: '<circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6"/>',
+    'cloud-sun': '<circle cx="8" cy="8" r="2.6"/><path d="M8 2.5v1.6M8 12.4V14M2.5 8h1.6M12.4 8H14M3.8 3.8l1.1 1.1M11.1 3.8L10 4.9"/><path d="M18 20h-6.3A4.2 4.2 0 0 1 11 11.7a4.6 4.6 0 0 1 8.6 1.6A3.7 3.7 0 0 1 18 20z"/>',
+    cloud: '<path d="M18 20H8a5 5 0 0 1 .3-10A6.5 6.5 0 0 1 20.6 12.2 4.2 4.2 0 0 1 18 20z"/>',
+    fog: '<path d="M17 16H9a4.3 4.3 0 0 1 .3-8.6A5.6 5.6 0 0 1 19.6 9 3.6 3.6 0 0 1 17 16z"/><path d="M4 19h16M4 22h10"/>',
+    rain: '<path d="M17 14H9a4.3 4.3 0 0 1 .3-8.6A5.6 5.6 0 0 1 19.6 7 3.6 3.6 0 0 1 17 14z"/><path d="M8 18v2M12 18v2M16 18v2"/>',
+    snow: '<path d="M17 14H9a4.3 4.3 0 0 1 .3-8.6A5.6 5.6 0 0 1 19.6 7 3.6 3.6 0 0 1 17 14z"/><path d="M8 18v.01M12 18v.01M16 18v.01M8 21v.01M12 21v.01M16 21v.01"/>',
+    storm: '<path d="M17 13H9a4.3 4.3 0 0 1 .3-8.6A5.6 5.6 0 0 1 19.6 6 3.6 3.6 0 0 1 17 13z"/><path d="M13 15l-2.5 4h3L11 23"/>'
+  };
+
+  function renderWeather(state){
+    var widget = document.getElementById('weather-widget');
+    if (!widget || !state) return;
+    var tempEl = document.getElementById('weather-temp');
+    var descEl = document.getElementById('weather-desc');
+    var iconEl = document.getElementById('weather-icon');
+    var panelOff = document.getElementById('weather-panel-off');
+    var panelOn = document.getElementById('weather-panel-on');
+    var locLabel = document.getElementById('weather-location-label');
+    var errEl = document.getElementById('weather-error');
+    var resetBtn = document.getElementById('btn-weather-reset');
+
+    var pvExt = document.getElementById('pv-ext');
+    if (pvExt){
+      pvExt.classList.toggle('off', !state.consent);
+      pvExt.classList.toggle('on-blue', !!state.consent);
+      pvExt.lastChild.textContent = state.consent ? ' Connexion météo active' : ' Aucune connexion extérieure';
+    }
+
+    if (!state.consent){
+      tempEl.textContent = '—';
+      descEl.textContent = 'Météo désactivée';
+      iconEl.innerHTML = WEATHER_ICON_PATHS.sun;
+      panelOff.hidden = false;
+      panelOn.hidden = true;
+      return;
+    }
+    panelOff.hidden = true;
+    panelOn.hidden = false;
+    resetBtn.hidden = !state.is_override;
+
+    if (state.no_location){
+      tempEl.textContent = '—';
+      descEl.textContent = 'Aucune localisation';
+      locLabel.textContent = 'Aucun code postal dans votre profil — saisissez-en un ci-dessous.';
+      errEl.hidden = true;
+      return;
+    }
+    if (!state.ok){
+      tempEl.textContent = '—';
+      descEl.textContent = 'Erreur météo';
+      errEl.hidden = false;
+      errEl.textContent = state.error || 'Erreur inconnue.';
+      return;
+    }
+    errEl.hidden = true;
+    tempEl.textContent = Math.round(state.temperature_c) + '°C';
+    descEl.textContent = state.label;
+    locLabel.textContent = state.commune + ' (' + state.postal_code + ')';
+    iconEl.innerHTML = WEATHER_ICON_PATHS[state.icon] || WEATHER_ICON_PATHS.sun;
+  }
+
   function refreshDashboardWidgets(){
     if (!(window.pywebview && window.pywebview.api)) return;
     var api = window.pywebview.api;
@@ -1556,6 +1647,53 @@ button{ cursor:pointer; }
     if (api.get_planning) api.get_planning().then(renderPlanning).catch(function(){});
     if (api.get_devices) api.get_devices().then(renderDevices).catch(function(){});
     if (api.get_emotion_state) api.get_emotion_state().then(renderEmotion).catch(function(){});
+    if (api.get_weather) api.get_weather().then(renderWeather).catch(function(){});
+  }
+
+  /* ---------- WEATHER WIDGET ---------- */
+  var weatherWidget = document.getElementById('weather-widget');
+  var weatherPanel = document.getElementById('weather-panel');
+  if (weatherWidget && weatherPanel){
+    var toggleWeatherPanel = function(force){
+      var open = typeof force === 'boolean' ? force : !weatherPanel.classList.contains('open');
+      weatherPanel.classList.toggle('open', open);
+      weatherWidget.setAttribute('aria-expanded', String(open));
+    };
+    weatherWidget.addEventListener('click', function(){ toggleWeatherPanel(); });
+    weatherWidget.addEventListener('keydown', function(e){
+      if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); toggleWeatherPanel(); }
+    });
+    document.addEventListener('click', function(e){
+      if (!weatherPanel.classList.contains('open')) return;
+      if (!weatherPanel.contains(e.target) && !weatherWidget.contains(e.target)) toggleWeatherPanel(false);
+    });
+    weatherPanel.addEventListener('click', function(e){ e.stopPropagation(); });
+
+    document.getElementById('btn-weather-enable').addEventListener('click', function(){
+      var api = window.pywebview && window.pywebview.api;
+      if (api && api.set_weather_consent) api.set_weather_consent(true).then(renderWeather).catch(function(){});
+    });
+    document.getElementById('btn-weather-disable').addEventListener('click', function(){
+      var api = window.pywebview && window.pywebview.api;
+      if (api && api.set_weather_consent) api.set_weather_consent(false).then(renderWeather).catch(function(){});
+    });
+    document.getElementById('btn-weather-reset').addEventListener('click', function(){
+      var api = window.pywebview && window.pywebview.api;
+      if (api && api.reset_weather_location) api.reset_weather_location().then(renderWeather).catch(function(){});
+    });
+    var doWeatherSearch = function(){
+      var input = document.getElementById('weather-postal-input');
+      var cp = input.value.trim();
+      if (!cp) return;
+      var api = window.pywebview && window.pywebview.api;
+      if (api && api.search_weather){
+        api.search_weather(cp).then(function(state){ renderWeather(state); input.value = ''; }).catch(function(){});
+      }
+    };
+    document.getElementById('btn-weather-search').addEventListener('click', doWeatherSearch);
+    document.getElementById('weather-postal-input').addEventListener('keydown', function(e){
+      if (e.key === 'Enter'){ e.preventDefault(); doWeatherSearch(); }
+    });
   }
 
   /* ---------- EMOTION WIDGET ---------- */

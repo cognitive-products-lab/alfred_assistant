@@ -205,6 +205,24 @@ class AlfredDesktopAPI:
         from src.ui.desktop_dashboard_data import get_activite
         return get_activite()
 
+    # ── Météo (premier appel réseau externe du pipeline — voir weather_data.py) ──
+
+    def get_weather(self) -> dict:
+        from src.ui.weather_data import get_weather_state
+        return get_weather_state()
+
+    def set_weather_consent(self, enabled: bool) -> dict:
+        from src.ui.weather_data import set_weather_consent
+        return set_weather_consent(enabled)
+
+    def search_weather(self, postal_code: str) -> dict:
+        from src.ui.weather_data import search_weather
+        return search_weather(postal_code)
+
+    def reset_weather_location(self) -> dict:
+        from src.ui.weather_data import reset_weather_location
+        return reset_weather_location()
+
     # ── Mode vocal — micro push-to-talk (voir src/ui/desktop_mic.py) ─────────────
 
     def start_recording(self) -> dict:
