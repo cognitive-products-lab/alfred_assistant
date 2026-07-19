@@ -12,7 +12,7 @@
 # 🏗️ DOMAINE :
 #   Interaction vocale — capture audio bas niveau, sounddevice
 #
-# STATUS  : TESTED
+# STATUS  : VALIDATED
 # ============================================================
 
 class AudioCaptureNotAvailable(Exception):

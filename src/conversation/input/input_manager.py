@@ -16,7 +16,7 @@
 # après le fix du bug "ALFRED ne réagit pas en mode vocal" — main.py
 # consomme désormais get_input() en bloquant pour clavier ET voix).
 #
-# STATUS  : TESTED
+# STATUS  : VALIDATED
 # ============================================================
 
 from __future__ import annotations

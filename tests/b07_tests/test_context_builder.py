@@ -10,7 +10,7 @@ AUTHOR       : Cognitive Products Lab — Céline Darras
 CREATED      : 2026-06-20
 UPDATED      : 2026-06-20
 VERSION      : V1.0
-STATUS       : TESTED
+STATUS       : VALIDATED
 
 DESCRIPTION :
 Teste toutes les fonctions de src/conversation/input/context_builder.py :

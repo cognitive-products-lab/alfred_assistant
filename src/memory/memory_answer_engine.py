@@ -12,7 +12,7 @@
 # 🏗️ DOMAINE :
 #   Mémoire & contexte — réponses mémorielles déterministes
 #
-# STATUS  : TESTED
+# STATUS  : VALIDATED
 # ============================================================
 
 from __future__ import annotations

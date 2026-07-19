@@ -10,7 +10,7 @@ AUTHOR       : Cognitive Products Lab
 CREATED      : 2026-06-22
 UPDATED      : 2026-07-05
 VERSION      : V1.1
-STATUS       : TESTED
+STATUS       : VALIDATED
 
 DESCRIPTION :
 Ce module gère la passation conversationnelle des questionnaires psychométriques :

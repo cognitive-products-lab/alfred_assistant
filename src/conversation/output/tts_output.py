@@ -12,7 +12,7 @@
 # 🏗️ DOMAINE :
 #   Interaction vocale — sortie audio et texte terminal V1
 #
-# STATUS  : TESTED
+# STATUS  : VALIDATED
 # ============================================================
 
 import sys

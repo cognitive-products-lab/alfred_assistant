@@ -12,7 +12,7 @@
 # 🏗️ DOMAINE :
 #   Noyau conversationnel — NLP règles V1, stub STT → Whisper V3
 #
-# STATUS  : TESTED
+# STATUS  : VALIDATED
 # ============================================================
 
 import re

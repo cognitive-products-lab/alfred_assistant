@@ -8,7 +8,7 @@ ROLE         : Pont entre les profils d'onboarding et les paramètres live du mo
 AUTHOR       : Cognitive Products Lab
 CREATED      : 2026-05-26
 VERSION      : V1.0
-STATUS       : TESTED
+STATUS       : VALIDATED
 
 DESCRIPTION :
 Charge les profils utilisateur (santé, personnalité, émotionnel) depuis data/profile/ et data/health/,

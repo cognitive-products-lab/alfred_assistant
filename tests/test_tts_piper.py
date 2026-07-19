@@ -9,7 +9,7 @@ AUTHOR       : Cognitive Products Lab
 CREATED      : 2026-06-03
 UPDATED      : 2026-06-05
 VERSION      : V1.1
-STATUS       : TESTED
+STATUS       : VALIDATED
 
 DESCRIPTION :
 Vérifie que piper.exe est accessible, que le modèle vocal existe

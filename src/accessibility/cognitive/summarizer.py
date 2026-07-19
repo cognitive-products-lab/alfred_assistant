@@ -12,7 +12,7 @@
 # 🔐 BLOC SÉCURITÉ / DOMAINE :
 #   Accessibilité & assistance cognitive (22.04 / 22.09)
 #
-# STATUS  : TESTED
+# STATUS  : VALIDATED
 # ============================================================
 
 from __future__ import annotations

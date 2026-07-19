@@ -7,7 +7,7 @@
 #   .venv\Scripts\Activate.ps1
 #   pytest tests/test_b02_b03.py -v
 #
-# STATUS  : TESTED
+# STATUS  : VALIDATED
 # ============================================================
 
 import pytest

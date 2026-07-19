@@ -12,7 +12,7 @@
 # 🏗️ DOMAINE :
 #   Noyau conversationnel — NLP pipeline input, structure LLM-ready
 #
-# STATUS  : TESTED
+# STATUS  : VALIDATED
 # ============================================================
 
 import re
