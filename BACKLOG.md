@@ -1,18 +1,18 @@
 # ALFRED — BACKLOG & RÉFÉRENTIEL FICHIERS
 
-> Généré le 16/07/2026 18:50 depuis `dashboard_data.json` (mis à jour le 16/07/2026 18:50:56)
+> Généré le 19/07/2026 15:02 depuis `dashboard_data.json` (mis à jour le 19/07/2026 14:53:20)
 > Progression technique : **86.8%** · Full projet : **29.0%**
-> 1420 fichiers détectés / 4436 cible full
+> 1320 fichiers détectés / 4436 cible full
 
 ## Synthèse globale
 
 | Statut | Nb | % | Priorité |
 |--------|---:|--:|----------|
-| 🟡 Partiel | 105 | 7.4% | 🟡 Sprint |
-| 🟦 Codé — à tester | 106 | 7.5% | 🟡 Sprint |
-| 🧪 Testé — à valider | 268 | 18.9% | 🧪 Tests |
-| ✅ Validé ✅ | 820 | 57.7% | ✅ Done |
-| ⚙️ Structurel | 127 | 8.9% | ✅ Done |
+| 🟡 Partiel | 105 | 8.0% | 🟡 Sprint |
+| 🟦 Codé — à tester | 106 | 8.0% | 🟡 Sprint |
+| 🧪 Testé — à valider | 268 | 20.3% | 🧪 Tests |
+| ✅ Validé ✅ | 820 | 62.1% | ✅ Done |
+| ⚙️ Structurel | 127 | 9.6% | ✅ Done |
 | 📦 Archivé | 1 | 0.1% | ✅ Done |
 
 ## Backlog par bloc
@@ -276,7 +276,7 @@
 | Codés (à tester) | 2 |
 | Partiels | 1 |
 | Structurels | 2 |
-| Manquants | 2 |
+| Manquants | 13 |
 
 **Fichiers à traiter :**
 
@@ -316,9 +316,9 @@
 | Codés (à tester) | 0 |
 | Partiels | 0 |
 | Structurels | 0 |
-| Manquants | 0 |
+| Manquants | 84 |
 
-### 🟢 B18 — Knowledge & Intelligence System `83.9%`
+### 🟢 B18 — Knowledge & Intelligence System `83.4%`
 
 | KPI | Valeur |
 |-----|--------|
@@ -327,7 +327,7 @@
 | Codés (à tester) | 76 |
 | Partiels | 44 |
 | Structurels | 32 |
-| Manquants | 1 |
+| Manquants | 6 |
 
 **Fichiers à traiter :**
 
