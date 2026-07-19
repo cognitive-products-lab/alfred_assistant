@@ -13,10 +13,18 @@ STATUS       : STABLE
 DESCRIPTION :
 Tests de BackgroundManager (pure Python, sans Kivy).
 Couvre : normalisation periode/lieu, resolution chemin, fallback, status().
+
+STATUT 2026-07-18 : assets/backgrounds/ a ete archive (assets/_archive/backgrounds/)
+dans le cadre de l'evolution de l'interface graphique, sans remplacement actif pour
+l'instant -- voir assets/_archive/README.md. Les classes dependant de la presence
+reelle des fichiers sont desactivees (skip) ; TestNormalizePeriod et
+TestNormalizeLocation restent actives (logique pure, sans dependance disque).
 """
 
 import sys
 from pathlib import Path
+
+import pytest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
@@ -24,6 +32,11 @@ from src.ui.background_manager import (
     BackgroundManager,
     _normalize_period,
     _normalize_location,
+)
+
+_SKIP_REASON = (
+    "assets/backgrounds archive le 2026-07-18, en attente d'un nouveau systeme "
+    "(cf. assets/_archive/README.md)"
 )
 
 
@@ -115,6 +128,7 @@ class TestNormalizeLocation:
 # BackgroundManager -- mode portrait
 # ---------------------------------------------------------
 
+@pytest.mark.skip(reason=_SKIP_REASON)
 class TestBackgroundManagerPortrait:
 
     def setup_method(self):
@@ -182,6 +196,7 @@ class TestBackgroundManagerPortrait:
 # BackgroundManager -- mode paysage
 # ---------------------------------------------------------
 
+@pytest.mark.skip(reason=_SKIP_REASON)
 class TestBackgroundManagerPaysage:
 
     def setup_method(self):
@@ -202,6 +217,7 @@ class TestBackgroundManagerPaysage:
 # BackgroundManager -- fallback
 # ---------------------------------------------------------
 
+@pytest.mark.skip(reason=_SKIP_REASON)
 class TestBackgroundManagerFallback:
 
     def setup_method(self):
@@ -225,6 +241,7 @@ class TestBackgroundManagerFallback:
 # get_background_for_context
 # ---------------------------------------------------------
 
+@pytest.mark.skip(reason=_SKIP_REASON)
 class TestGetBackgroundForContext:
 
     def setup_method(self):
@@ -250,6 +267,7 @@ class TestGetBackgroundForContext:
 # list_available
 # ---------------------------------------------------------
 
+@pytest.mark.skip(reason=_SKIP_REASON)
 class TestListAvailable:
 
     def setup_method(self):
@@ -279,6 +297,7 @@ class TestListAvailable:
 # exists + status
 # ---------------------------------------------------------
 
+@pytest.mark.skip(reason=_SKIP_REASON)
 class TestExistsAndStatus:
 
     def setup_method(self):

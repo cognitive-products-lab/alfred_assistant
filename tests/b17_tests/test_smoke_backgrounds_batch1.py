@@ -15,12 +15,23 @@ STATUS       : TESTED
 DESCRIPTION :
 Verifie que chaque image background est un fichier image valide et non
 corrompu (ouverture + verify() Pillow), avec des dimensions non nulles.
+
+STATUT 2026-07-18 : assets/backgrounds/ a ete archive (assets/_archive/backgrounds/)
+dans le cadre de l'evolution de l'interface graphique, sans remplacement actif pour
+l'instant. Module desactive en attente d'un nouveau systeme de backgrounds -- voir
+assets/_archive/README.md.
 """
 
 from pathlib import Path
 
 import pytest
 from PIL import Image
+
+pytest.skip(
+    "assets/backgrounds archive le 2026-07-18, en attente d'un nouveau systeme "
+    "(cf. assets/_archive/README.md)",
+    allow_module_level=True,
+)
 
 ROOT = Path(__file__).resolve().parents[2]
 
