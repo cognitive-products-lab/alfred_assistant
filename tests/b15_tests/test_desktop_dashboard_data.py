@@ -7,7 +7,8 @@ ROLE         : Tests unitaires src/ui/desktop_dashboard_data.py
 
 AUTHOR       : Cognitive Products Lab
 CREATED      : 2026-07-19
-VERSION      : V1.0
+UPDATED      : 2026-07-19
+VERSION      : V1.1
 STATUS       : TESTED
 
 DESCRIPTION :
@@ -26,12 +27,21 @@ import pytest
 import src.main as main_module
 from src.ui import desktop_dashboard_data as ddd
 from src.ui import emotion_override_prefs as eop
+from src.ui import context_consent_prefs as ccp
 
 
 @pytest.fixture(autouse=True)
 def _isolated_emotion_override_file(monkeypatch):
     tmp_dir = Path(tempfile.mkdtemp(prefix="alfred_ddd_emotion_"))
     monkeypatch.setattr(eop, "_OVERRIDE_FILE", tmp_dir / "emotion_override.json")
+    yield
+    shutil.rmtree(tmp_dir, ignore_errors=True)
+
+
+@pytest.fixture(autouse=True)
+def _isolated_context_consent_file(monkeypatch):
+    tmp_dir = Path(tempfile.mkdtemp(prefix="alfred_ddd_consent_"))
+    monkeypatch.setattr(ccp, "_PREFS_FILE", tmp_dir / "context_consent.json")
     yield
     shutil.rmtree(tmp_dir, ignore_errors=True)
 
@@ -234,3 +244,125 @@ def test_get_activite_delegates_to_episodic_memory(monkeypatch):
     )
     result = ddd.get_activite()
     assert result == [{"id": "ep_1", "title": "Test"}]
+
+
+# =============================================================================
+# get_planning — gate de consentement par catégorie
+# =============================================================================
+
+def test_get_planning_empty_when_agenda_consent_disabled(monkeypatch):
+    ccp.set_context_consent("agenda", False)
+    engine = types.SimpleNamespace(get_active=lambda: [
+        types.SimpleNamespace(id="a", title="X", due_at="2026-07-20T09:00:00",
+                               recurrent=False, is_due=lambda: False)
+    ])
+    monkeypatch.setattr(main_module, "get_live_components",
+                         lambda: _fake_components(reminder_engine=engine))
+    assert ddd.get_planning() == []
+
+
+# =============================================================================
+# get_kpis
+# =============================================================================
+
+def test_get_kpis_offline_when_no_live_components(no_live_components):
+    result = ddd.get_kpis()
+    assert result == {
+        "system_status": "Hors ligne", "memory_count": None,
+        "task_count": 0, "confidence_label": None,
+    }
+
+
+def test_get_kpis_operational_when_llm_present(monkeypatch):
+    monkeypatch.setattr(main_module, "get_live_components",
+                         lambda: _fake_components(llm=object()))
+    result = ddd.get_kpis()
+    assert result["system_status"] == "Opérationnel"
+    assert result["task_count"] == 0
+
+
+def test_get_kpis_degraded_when_llm_absent(monkeypatch):
+    monkeypatch.setattr(main_module, "get_live_components", lambda: _fake_components())
+    result = ddd.get_kpis()
+    assert result["system_status"] == "Dégradé"
+
+
+def test_get_kpis_memory_count_from_ltm_stats(monkeypatch):
+    ltm = types.SimpleNamespace(get_memory_stats=lambda: {"memories_active": 47})
+    monkeypatch.setattr(main_module, "get_live_components",
+                         lambda: _fake_components(ltm=ltm, ltm_ok=True))
+    result = ddd.get_kpis()
+    assert result["memory_count"] == 47
+
+
+def test_get_kpis_memory_count_none_when_ltm_not_ok(monkeypatch):
+    ltm = types.SimpleNamespace(get_memory_stats=lambda: {"memories_active": 47})
+    monkeypatch.setattr(main_module, "get_live_components",
+                         lambda: _fake_components(ltm=ltm, ltm_ok=False))
+    result = ddd.get_kpis()
+    assert result["memory_count"] is None
+
+
+def test_get_kpis_confidence_label_from_fused_signal(monkeypatch):
+    fused = types.SimpleNamespace(dominant_emotion="calm", confidence=0.9, sources_used=[])
+    decision = types.SimpleNamespace(level="high")
+    fake_engine = types.SimpleNamespace(evaluate=lambda f: decision)
+    monkeypatch.setattr(
+        "src.v3.fusion.confidence_engine.ConfidenceEngine",
+        lambda: fake_engine,
+    )
+    monkeypatch.setattr(main_module, "get_live_components",
+                         lambda: _fake_components(_last_fused=fused))
+    result = ddd.get_kpis()
+    assert result["confidence_label"] == "Élevée"
+
+
+def test_get_kpis_confidence_label_none_without_fused_signal(monkeypatch):
+    monkeypatch.setattr(main_module, "get_live_components", lambda: _fake_components())
+    result = ddd.get_kpis()
+    assert result["confidence_label"] is None
+
+
+# =============================================================================
+# get_notifications
+# =============================================================================
+
+def test_get_notifications_combines_recommandations_and_overdue_reminders(monkeypatch):
+    suggestion = types.SimpleNamespace(
+        content="Pause suggérée", category="wellbeing", priority=2, can_dismiss=True,
+        trigger="high_fatigue", timestamp="2026-07-19T08:00:00",
+    )
+    reco_engine = types.SimpleNamespace(get_history=lambda n: [suggestion])
+    overdue = types.SimpleNamespace(id="r1", title="Appeler le buraliste",
+                                     due_at="2026-07-19T07:00:00", recurrent=False,
+                                     is_due=lambda: True)
+    not_due = types.SimpleNamespace(id="r2", title="Plus tard",
+                                     due_at="2026-07-25T07:00:00", recurrent=False,
+                                     is_due=lambda: False)
+    reminder_engine = types.SimpleNamespace(get_active=lambda: [overdue, not_due])
+    monkeypatch.setattr(main_module, "get_live_components", lambda: _fake_components(
+        proactive_engine=reco_engine, reminder_engine=reminder_engine,
+    ))
+
+    result = ddd.get_notifications()
+    kinds = {n["kind"] for n in result}
+    assert kinds == {"recommandation", "rappel"}
+    assert any("Appeler le buraliste" in n["text"] for n in result)
+    assert not any("Plus tard" in n["text"] for n in result)
+
+
+def test_get_notifications_empty_when_nothing_to_show(no_live_components):
+    assert ddd.get_notifications() == []
+
+
+def test_get_notifications_respects_limit(monkeypatch):
+    suggestions = [
+        types.SimpleNamespace(content=f"s{i}", category="c", priority=1, can_dismiss=True,
+                               trigger="t", timestamp=f"2026-07-19T0{i}:00:00")
+        for i in range(5)
+    ]
+    engine = types.SimpleNamespace(get_history=lambda n: suggestions)
+    monkeypatch.setattr(main_module, "get_live_components",
+                         lambda: _fake_components(proactive_engine=engine))
+    result = ddd.get_notifications(limit=2)
+    assert len(result) == 2

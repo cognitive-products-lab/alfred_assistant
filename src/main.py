@@ -2077,6 +2077,9 @@ def main() -> None:
         if not user_input:
             continue
 
+        # Nouvelle saisie = on repart sur une réponse fraîche, plus interrompue
+        components["_interrupted"] = False
+
         # ── Détection demandes de mémorisation ────────────────────────────
         _saved_pref = _detect_and_save_preference(user_input)
 
@@ -2146,7 +2149,11 @@ def main() -> None:
                 except Exception:
                     pass
                 # 3. TTS — avatar + SoundWave synchronisés via on_play_start/stop
-                if _tts_active:
+                # _interrupted : levé par interrupt_speech() (bouton "Interrompre"
+                # desktop) — empêche les phrases suivantes de jouer après un
+                # sd.stop() qui n'a coupé que la phrase en cours (voir
+                # src/ui/desktop_tts_control.py).
+                if _tts_active and not components.get("_interrupted"):
                     try:
                         tts.speak(clean_for_tts(s))
                     except Exception as exc:
@@ -2203,6 +2210,8 @@ def main() -> None:
                     if not chunks:
                         chunks = [response]
                     for chunk in chunks:
+                        if components.get("_interrupted"):
+                            break
                         if chunk:
                             tts.speak(clean_for_tts(chunk))
             else:
