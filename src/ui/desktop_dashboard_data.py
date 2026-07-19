@@ -40,10 +40,10 @@ from __future__ import annotations
 #    qu'un code court — le "Basé sur : ..." affiché par le widget est
 #    reconstruit ici) ─────────────────────────────────────────────────────
 TRIGGER_JUSTIFICATIONS = {
-    "high_fatigue":          "Basé sur : signaux de fatigue élevés détectés dans vos derniers échanges",
+    "high_fatigue":          "Basé sur : signaux de fatigue élevés détectés dans tes derniers échanges",
     "flow_state":            "Basé sur : rythme d'échanges soutenu et concentré (état de flow détecté)",
-    "emotion_stressed":      "Basé sur : ton stressé détecté dans vos derniers échanges",
-    "emotion_sad":           "Basé sur : ton triste détecté dans vos derniers échanges",
+    "emotion_stressed":      "Basé sur : ton stressé détecté dans tes derniers échanges",
+    "emotion_sad":           "Basé sur : ton triste détecté dans tes derniers échanges",
     "late_night_low_energy": "Basé sur : horaire tardif et niveau d'énergie bas",
     "forced":                "Suggestion déclenchée manuellement",
 }
@@ -60,10 +60,10 @@ EMOTION_FR = {
 }
 
 SOURCE_FR = {
-    "nlp":     "Analyse du texte de vos derniers échanges",
-    "emotion": "Ton détecté dans vos derniers échanges",
+    "nlp":     "Analyse du texte de tes derniers échanges",
+    "emotion": "Ton détecté dans tes derniers échanges",
     "context": "Horaire et rythme de la journée",
-    "memory":  "Cohérence avec votre historique récent",
+    "memory":  "Cohérence avec ton historique récent",
 }
 
 
@@ -87,7 +87,7 @@ def get_recommandations(limit: int = 5) -> list[dict]:
             "priority": s.priority,
             "can_dismiss": s.can_dismiss,
             "trigger": s.trigger,
-            "why": TRIGGER_JUSTIFICATIONS.get(s.trigger, "Basé sur votre contexte actuel"),
+            "why": TRIGGER_JUSTIFICATIONS.get(s.trigger, "Basé sur ton contexte actuel"),
             "timestamp": s.timestamp,
         }
         for s in reversed(suggestions)  # plus récent en premier
@@ -110,7 +110,7 @@ def get_emotion_state() -> dict:
         return {
             "enabled": True,
             "manual": True,
-            "mood_label": f"{override['manual_mood']} — corrigé par vous",
+            "mood_label": f"{override['manual_mood']} — corrigé par toi",
             "corrected_at": override.get("manual_set_at"),
         }
 
