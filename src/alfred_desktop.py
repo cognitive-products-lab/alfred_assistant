@@ -6,9 +6,9 @@ ROLE         : Point d'entree ALFRED avec l'interface desktop HTML (pywebview)
 
 AUTHOR       : Cognitive Products Lab
 CREATED      : 2026-07-18
-UPDATED      : 2026-07-18
-VERSION      : V1.1
-STATUS       : DRAFT — mode texte + réglages branchés, reste à câbler (voix, données)
+UPDATED      : 2026-07-19
+VERSION      : V1.2
+STATUS       : DRAFT — texte + dashboard + mode vocal (micro/TTS) branchés, visèmes en attente
 
 DESCRIPTION :
 Remplace src/alfred_with_ui.py (interface Kivy) par la nouvelle interface
@@ -30,11 +30,27 @@ Branché en V1.1 :
     data/settings/desktop_ui_prefs.json (src/ui/desktop_prefs.py) et
     restaurés au démarrage.
 
+Branché en V1.2 :
+  - Tableau de bord branché sur les vraies sources (src/ui/desktop_dashboard_data.py) :
+    recommandations (ProactiveEngine), état émotionnel (MultiSignalFusionEngine +
+    correction/désactivation persistée dans emotion_override_prefs.py), planning
+    (ReminderEngine), appareils connectés (device_settings.py — inventaire local
+    réel uniquement, pas d'appareils réseau fictifs), activité récente
+    (episodic_memory.py, alimentée par un nouvel appel record_episode() par
+    échange dans main.py).
+  - Mode vocal : micro push-to-talk réel (src/ui/desktop_mic.py, reprend le
+    pattern sd.InputStream + _transcribe_audio déjà utilisé par alfred_app.py),
+    le texte transcrit passe par le même send_message()/ui_bridge que le mode
+    texte. États écoute/parole synchronisés sur les vrais évènements TTS
+    (set_ui_speaking/set_ui_listening, désormais monkeypatchés eux aussi) au
+    lieu d'un minuteur factice.
+
 Pas encore branché (prochaines étapes) :
-  - Tableau de bord (tâches, agenda, mémoire, appareils) reste sur données
-    de démonstration statiques.
-  - Mode vocal (micro réel, TTS réel, avatar synchronisé) reste simulé —
-    seul le mode texte parle au vrai pipeline pour l'instant.
+  - Synchronisation labiale précise par visème (V00-V14, en cours de
+    génération côté utilisateur) — le mode vocal fait pour l'instant un
+    simple bascule parle/silence (sprite "explaining" vs "neutral").
+  - Coupure effective du son en cours de lecture sur "Interrompre" (le TTS
+    continue de jouer la phrase en cours).
 
 L'ancien point d'entree Kivy (src/alfred_with_ui.py) reste present et
 fonctionnel pour revenir en arriere si besoin — il n'est plus appele par
@@ -106,6 +122,18 @@ def _on_stream_phrase(phrase: str) -> None:
     _push("onStreamPhrase", phrase)
 
 
+def _on_speaking(active: bool) -> None:
+    _push("onSpeaking", active)
+
+
+def _on_listening(active: bool) -> None:
+    _push("onListening", active)
+
+
+def _on_voice_error(message: str) -> None:
+    _push("onVoiceError", message)
+
+
 def _install_bridge_hooks() -> None:
     """
     Remplace les hooks pipeline->UI de src.ui.alfred_app par nos versions
@@ -118,6 +146,12 @@ def _install_bridge_hooks() -> None:
     _alfred_app_module.set_ui_thinking = _on_thinking
     _alfred_app_module.set_ui_input_enabled = _on_input_enabled
     _alfred_app_module.stream_ui_phrase = _on_stream_phrase
+    # set_ui_speaking / set_ui_listening sont déjà appelés par main.py (callbacks
+    # TTS on_play_start/on_play_stop, et boucle principale) mais n'étaient pas
+    # branchés côté desktop HTML — c'est ce qui manquait pour un mode vocal réel.
+    _alfred_app_module.set_ui_speaking = _on_speaking
+    _alfred_app_module.set_ui_listening = _on_listening
+    _alfred_app_module.set_ui_voice_error = _on_voice_error
 
 
 # ============================================================
@@ -140,6 +174,46 @@ class AlfredDesktopAPI:
         """Persiste un réglage d'apparence/accessibilité modifié côté UI."""
         from src.ui.desktop_prefs import save_desktop_pref
         return save_desktop_pref(key, value)
+
+    # ── Tableau de bord (données réelles, voir src/ui/desktop_dashboard_data.py) ──
+
+    def get_recommandations(self) -> list:
+        from src.ui.desktop_dashboard_data import get_recommandations
+        return get_recommandations()
+
+    def get_emotion_state(self) -> dict:
+        from src.ui.desktop_dashboard_data import get_emotion_state
+        return get_emotion_state()
+
+    def set_emotion_override(self, enabled: bool) -> dict:
+        from src.ui.desktop_dashboard_data import set_emotion_override
+        return set_emotion_override(enabled)
+
+    def correct_emotion(self, mood_label: str) -> dict:
+        from src.ui.desktop_dashboard_data import correct_emotion
+        return correct_emotion(mood_label)
+
+    def get_planning(self) -> list:
+        from src.ui.desktop_dashboard_data import get_planning
+        return get_planning()
+
+    def get_devices(self) -> dict:
+        from src.ui.desktop_dashboard_data import get_devices
+        return get_devices()
+
+    def get_activite(self) -> list:
+        from src.ui.desktop_dashboard_data import get_activite
+        return get_activite()
+
+    # ── Mode vocal — micro push-to-talk (voir src/ui/desktop_mic.py) ─────────────
+
+    def start_recording(self) -> dict:
+        from src.ui.desktop_mic import start_recording
+        return start_recording()
+
+    def stop_recording(self) -> dict:
+        from src.ui.desktop_mic import stop_recording
+        return stop_recording()
 
 
 # ============================================================
@@ -218,6 +292,15 @@ if __name__ == "__main__":
     try:
         from tools.startup_refresh import refresh_knowledge_dashboard_async
         refresh_knowledge_dashboard_async()
+    except Exception:
+        pass
+
+    # Pré-scan caméra/micro/sortie audio en arrière-plan (widget "Appareils
+    # connectés") — évite que le premier chargement du dashboard bloque sur
+    # le scan OpenCV des index caméra (~1-2s/index).
+    try:
+        from src.ui.device_settings import prefetch_devices_async
+        prefetch_devices_async()
     except Exception:
         pass
 
