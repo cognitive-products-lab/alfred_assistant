@@ -1229,11 +1229,29 @@ button{ cursor:pointer; }
           </div>
 
           <div class="card">
+            <div class="card-head"><h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6"/></svg>Météo</h3></div>
+            <div class="setting-row">
+              <div class="setting-copy"><div class="k">Météo activée</div><div class="d">Se connecte à geo.api.gouv.fr et open-meteo.com (services publics gratuits, sans clé) pour afficher les conditions actuelles. Rien n'est appelé tant que c'est désactivé.</div></div>
+              <span class="switch"><input type="checkbox" id="set-toggle-weather"><span class="track"></span><span class="thumb"></span></span>
+            </div>
+            <div id="set-weather-body" hidden>
+              <div class="ctx-row"><span class="k">Localisation actuelle</span><span class="v" id="set-weather-location">—</span></div>
+              <div class="ctx-row"><span class="k">Conditions</span><span class="v" id="set-weather-conditions">—</span></div>
+              <div class="weather-error" id="set-weather-error" hidden></div>
+              <div class="weather-search-row" style="margin-top:var(--sp-3);">
+                <input type="text" id="set-weather-postal-input" placeholder="Autre code postal" inputmode="numeric" maxlength="5" aria-label="Rechercher un autre code postal">
+                <button type="button" class="btn btn-ghost btn-sm" id="set-btn-weather-search">Chercher</button>
+              </div>
+              <button type="button" class="btn btn-ghost btn-sm" id="set-btn-weather-reset" hidden style="margin-top:8px;">↺ Revenir à ma localisation</button>
+            </div>
+          </div>
+
+          <div class="card">
             <div class="card-head"><h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="10.5" width="14" height="10" rx="2"/><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"/></svg>Confidentialité</h3></div>
-            <div class="ctx-row"><span class="k">Microphone</span><span class="v">Inactif</span></div>
+            <div class="ctx-row"><span class="k">Microphone</span><span class="v" id="set-ctx-mic">Inactif</span></div>
             <div class="ctx-row"><span class="k">Caméra</span><span class="v">Inactive</span></div>
             <div class="ctx-row"><span class="k">Traitement</span><span class="v">Local par défaut</span></div>
-            <div class="ctx-row"><span class="k">Connexion extérieure</span><span class="v">Aucune actuellement</span></div>
+            <div class="ctx-row"><span class="k">Connexion extérieure</span><span class="v" id="set-ctx-ext">Aucune actuellement</span></div>
             <div class="ctx-row"><span class="k">Mémoire</span><span class="v">Verrouillée</span></div>
             <p class="ctx-note">Ces indicateurs reflètent l'état réel des capteurs et de la synchronisation en temps réel, partout dans l'interface.</p>
           </div>
@@ -1310,6 +1328,9 @@ button{ cursor:pointer; }
     document.getElementById('main').scrollTop = 0;
     if (name === 'voice') setVState('inactive');
     if (name === 'dashboard') refreshDashboardWidgets();
+    if (name === 'parametres' && window.pywebview && window.pywebview.api && window.pywebview.api.get_weather){
+      window.pywebview.api.get_weather().then(function(state){ renderWeather(state); renderWeatherSettings(state); }).catch(function(){});
+    }
   }
 
   document.querySelectorAll('[data-target]').forEach(function(el){
@@ -1639,6 +1660,40 @@ button{ cursor:pointer; }
     iconEl.innerHTML = WEATHER_ICON_PATHS[state.icon] || WEATHER_ICON_PATHS.sun;
   }
 
+  function renderWeatherSettings(state){
+    var toggle = document.getElementById('set-toggle-weather');
+    if (!toggle || !state) return;
+    var body = document.getElementById('set-weather-body');
+    var locEl = document.getElementById('set-weather-location');
+    var condEl = document.getElementById('set-weather-conditions');
+    var errEl = document.getElementById('set-weather-error');
+    var resetBtn = document.getElementById('set-btn-weather-reset');
+    var extPill = document.getElementById('set-ctx-ext');
+
+    toggle.checked = !!state.consent;
+    body.hidden = !state.consent;
+    if (extPill) extPill.textContent = state.consent ? 'Météo (geo.api.gouv.fr, open-meteo.com)' : 'Aucune actuellement';
+    if (!state.consent) return;
+
+    resetBtn.hidden = !state.is_override;
+    if (state.no_location){
+      locEl.textContent = 'Aucun code postal dans votre profil';
+      condEl.textContent = '—';
+      errEl.hidden = true;
+      return;
+    }
+    if (!state.ok){
+      locEl.textContent = '—';
+      condEl.textContent = '—';
+      errEl.hidden = false;
+      errEl.textContent = state.error || 'Erreur inconnue.';
+      return;
+    }
+    errEl.hidden = true;
+    locEl.textContent = state.commune + ' (' + state.postal_code + ')';
+    condEl.textContent = Math.round(state.temperature_c) + '°C — ' + state.label;
+  }
+
   function refreshDashboardWidgets(){
     if (!(window.pywebview && window.pywebview.api)) return;
     var api = window.pywebview.api;
@@ -1647,7 +1702,7 @@ button{ cursor:pointer; }
     if (api.get_planning) api.get_planning().then(renderPlanning).catch(function(){});
     if (api.get_devices) api.get_devices().then(renderDevices).catch(function(){});
     if (api.get_emotion_state) api.get_emotion_state().then(renderEmotion).catch(function(){});
-    if (api.get_weather) api.get_weather().then(renderWeather).catch(function(){});
+    if (api.get_weather) api.get_weather().then(function(state){ renderWeather(state); renderWeatherSettings(state); }).catch(function(){});
   }
 
   /* ---------- WEATHER WIDGET ---------- */
@@ -1669,17 +1724,19 @@ button{ cursor:pointer; }
     });
     weatherPanel.addEventListener('click', function(e){ e.stopPropagation(); });
 
+    var onWeatherState = function(state){ renderWeather(state); renderWeatherSettings(state); };
+
     document.getElementById('btn-weather-enable').addEventListener('click', function(){
       var api = window.pywebview && window.pywebview.api;
-      if (api && api.set_weather_consent) api.set_weather_consent(true).then(renderWeather).catch(function(){});
+      if (api && api.set_weather_consent) api.set_weather_consent(true).then(onWeatherState).catch(function(){});
     });
     document.getElementById('btn-weather-disable').addEventListener('click', function(){
       var api = window.pywebview && window.pywebview.api;
-      if (api && api.set_weather_consent) api.set_weather_consent(false).then(renderWeather).catch(function(){});
+      if (api && api.set_weather_consent) api.set_weather_consent(false).then(onWeatherState).catch(function(){});
     });
     document.getElementById('btn-weather-reset').addEventListener('click', function(){
       var api = window.pywebview && window.pywebview.api;
-      if (api && api.reset_weather_location) api.reset_weather_location().then(renderWeather).catch(function(){});
+      if (api && api.reset_weather_location) api.reset_weather_location().then(onWeatherState).catch(function(){});
     });
     var doWeatherSearch = function(){
       var input = document.getElementById('weather-postal-input');
@@ -1687,12 +1744,40 @@ button{ cursor:pointer; }
       if (!cp) return;
       var api = window.pywebview && window.pywebview.api;
       if (api && api.search_weather){
-        api.search_weather(cp).then(function(state){ renderWeather(state); input.value = ''; }).catch(function(){});
+        api.search_weather(cp).then(function(state){ onWeatherState(state); input.value = ''; }).catch(function(){});
       }
     };
     document.getElementById('btn-weather-search').addEventListener('click', doWeatherSearch);
     document.getElementById('weather-postal-input').addEventListener('keydown', function(e){
       if (e.key === 'Enter'){ e.preventDefault(); doWeatherSearch(); }
+    });
+  }
+
+  /* ---------- WEATHER SETTINGS CARD (Paramètres) — même backend que le widget dashboard ---------- */
+  var setToggleWeather = document.getElementById('set-toggle-weather');
+  if (setToggleWeather){
+    var onSetWeatherState = function(state){ renderWeatherSettings(state); renderWeather(state); };
+
+    setToggleWeather.addEventListener('change', function(e){
+      var api = window.pywebview && window.pywebview.api;
+      if (api && api.set_weather_consent) api.set_weather_consent(e.target.checked).then(onSetWeatherState).catch(function(){});
+    });
+    document.getElementById('set-btn-weather-reset').addEventListener('click', function(){
+      var api = window.pywebview && window.pywebview.api;
+      if (api && api.reset_weather_location) api.reset_weather_location().then(onSetWeatherState).catch(function(){});
+    });
+    var doSetWeatherSearch = function(){
+      var input = document.getElementById('set-weather-postal-input');
+      var cp = input.value.trim();
+      if (!cp) return;
+      var api = window.pywebview && window.pywebview.api;
+      if (api && api.search_weather){
+        api.search_weather(cp).then(function(state){ onSetWeatherState(state); input.value = ''; }).catch(function(){});
+      }
+    };
+    document.getElementById('set-btn-weather-search').addEventListener('click', doSetWeatherSearch);
+    document.getElementById('set-weather-postal-input').addEventListener('keydown', function(e){
+      if (e.key === 'Enter'){ e.preventDefault(); doSetWeatherSearch(); }
     });
   }
 
@@ -1911,6 +1996,8 @@ button{ cursor:pointer; }
       pvMicPill.classList.toggle('off', !on);
       pvMicPill.lastChild.textContent = on ? ' Micro actif' : ' Micro inactif';
     }
+    var setCtxMic = document.getElementById('set-ctx-mic');
+    if (setCtxMic) setCtxMic.textContent = (name === 'listening') ? 'Actif — écoute en cours' : 'Inactif';
     if (dashListenState){
       var dot = dashListenState.querySelector('.dot');
       if (name === 'listening' || name === 'responding'){
