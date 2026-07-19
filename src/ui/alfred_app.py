@@ -272,6 +272,15 @@ def set_ui_listening(active: bool) -> None:
         )
 
 
+def set_ui_voice_error(message: str) -> None:
+    """
+    Signale une erreur du pipeline vocal (micro indisponible, transcription
+    vide...). No-op côté Kivy (pas de zone d'erreur dédiée dans cette UI) —
+    monkeypatché par src/alfred_desktop.py pour l'interface desktop HTML.
+    """
+    pass
+
+
 def is_camera_active() -> bool:
     """Indique si la caméra est actuellement activée (overlay webcam)."""
     if _app_instance is not None and _app_instance._layout is not None:

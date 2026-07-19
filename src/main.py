@@ -99,6 +99,17 @@ VOICE_RECORD_SECONDS = 10
 
 _whisper_model = None  # singleton — chargé une seule fois
 
+_LIVE_COMPONENTS: dict[str, Any] | None = None  # référence au dict components du pipeline actif
+
+
+def get_live_components() -> "dict[str, Any] | None":
+    """
+    Accès en lecture au dict components du pipeline en cours, depuis un thread
+    externe (ex. AlfredDesktopAPI dans le thread pywebview). Même pattern que
+    _app_instance dans src/ui/alfred_app.py ou _window dans alfred_desktop.py.
+    """
+    return _LIVE_COMPONENTS
+
 
 # =============================================================================
 # 3. BRIDGES B03 -> BEHAVIOR ENGINE
@@ -1896,6 +1907,8 @@ def main() -> None:
         pass
 
     components = init_components()
+    global _LIVE_COMPONENTS
+    _LIVE_COMPONENTS = components
     memory = components["memory"]
     user_name = components.get("user_name", USER_FALLBACK_NAME)
     llm_available = components.get("llm") is not None
@@ -2249,6 +2262,29 @@ def main() -> None:
                     )
             except Exception as exc:
                 print(f"  [AVERT mémoire LTM] {exc}")
+
+            # 📖 mémoire épisodique (alimente le widget "Activité récente" du dashboard)
+            try:
+                from src.memory.episodic_memory import record_episode
+                _fused = components.get("_last_fused")
+                _ep_emotion = getattr(_fused, "dominant_emotion", None) or emotion_label
+                _ep_importance = 0.3
+                if proactive_suggestion:
+                    _ep_importance = max(_ep_importance, 0.5)
+                if _check_in:
+                    _ep_importance = max(_ep_importance, 0.6)
+                _title = user_input if len(user_input) <= 60 else user_input[:57] + "…"
+                _desc = response if len(response) <= 220 else response[:217] + "…"
+                record_episode(
+                    title=_title,
+                    description=_desc,
+                    category="daily",
+                    emotion=_ep_emotion,
+                    importance=_ep_importance,
+                    tags=[mode],
+                )
+            except Exception as exc:
+                print(f"  [AVERT mémoire épisodique] {exc}")
 
         except (KeyboardInterrupt, EOFError):
             print(f"\n\n  {ALFRED_NAME} : À bientôt, {user_name}.\n")
