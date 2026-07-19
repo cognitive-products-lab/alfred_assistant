@@ -6,7 +6,8 @@ ROLE         : Agrège les données réelles du pipeline pour les widgets du tab
 
 AUTHOR       : Cognitive Products Lab
 CREATED      : 2026-07-19
-VERSION      : V1.0
+UPDATED      : 2026-07-19
+VERSION      : V1.1
 STATUS       : DRAFT
 
 DESCRIPTION :
@@ -21,10 +22,16 @@ Sources réelles utilisées (aucune donnée fabriquée) :
   - État émotionnel : components["_last_fused"] (MultiSignalFusionEngine) +
     wellbeing_tracker.get_daily_energy_summary(), avec repli sur
     emotion_override_prefs si l'utilisateur a désactivé/corrigé l'estimation.
-  - Planning du jour : components["reminder_engine"] (ReminderEngine.get_active)
+  - Planning du jour : components["reminder_engine"] (ReminderEngine.get_active),
+    filtré par context_consent_prefs.py (toggle "Agenda du jour").
   - Appareils connectés : device_settings.py (inventaire local réel uniquement —
     pas d'appareils réseau fictifs, cf. décision du 19/07/2026).
   - Activité récente : src.memory.episodic_memory.get_timeline()
+  - KPI (V1.1) : "Confiance" via ConfidenceEngine (instancié paresseusement sur
+    components), "Mémoire" via ltm.get_memory_stats() (décompte réel, pas un
+    pourcentage fabriqué), "Tâches" à 0 tant qu'aucun TaskEngine n'existe.
+  - Notifications (V1.1) : agrégation recommandations + rappels en retard —
+    aucun système de notification dédié n'existe côté backend.
 """
 
 from __future__ import annotations
@@ -162,6 +169,11 @@ def correct_emotion(mood_label: str) -> dict:
 # ============================================================
 
 def get_planning() -> list[dict]:
+    from src.ui.context_consent_prefs import load_context_consent
+
+    if not load_context_consent()["agenda"]:
+        return []
+
     from src.main import get_live_components
 
     components = get_live_components()
@@ -220,3 +232,86 @@ def get_activite(limit: int = 10) -> list[dict]:
     from src.memory.episodic_memory import get_timeline
 
     return get_timeline(limit=limit)
+
+
+# ============================================================
+# KPI grid
+# ============================================================
+# "État du système" et "Confiance" ont un vrai signal ; "Mémoire" est
+# remplacé par un décompte réel (pas de notion de "%" qui existerait déjà
+# côté backend) ; "Tâches" reste à 0 tant qu'aucun TaskEngine n'existe
+# (backlog séparé) — pas de nombre fabriqué à la place.
+
+CONFIDENCE_FR = {"high": "Élevée", "medium": "Moyenne", "low": "Faible"}
+
+
+def get_kpis() -> dict:
+    from src.main import get_live_components
+
+    components = get_live_components()
+    if components is None:
+        return {
+            "system_status": "Hors ligne",
+            "memory_count": None,
+            "task_count": 0,
+            "confidence_label": None,
+        }
+
+    system_status = "Opérationnel" if components.get("llm") is not None else "Dégradé"
+
+    memory_count = None
+    ltm = components.get("ltm")
+    if ltm and components.get("ltm_ok"):
+        try:
+            memory_count = ltm.get_memory_stats().get("memories_active")
+        except Exception:
+            pass
+
+    confidence_label = None
+    fused = components.get("_last_fused")
+    if fused is not None:
+        try:
+            from src.v3.fusion.confidence_engine import ConfidenceEngine
+
+            engine = components.get("confidence_engine")
+            if engine is None:
+                engine = ConfidenceEngine()
+                components["confidence_engine"] = engine
+            decision = engine.evaluate(fused)
+            confidence_label = CONFIDENCE_FR.get(decision.level, decision.level)
+        except Exception:
+            pass
+
+    return {
+        "system_status": system_status,
+        "memory_count": memory_count,
+        "task_count": 0,  # TaskEngine pas encore implémenté
+        "confidence_label": confidence_label,
+    }
+
+
+# ============================================================
+# Notifications — agrège recommandations + rappels du jour,
+# aucun système de notification distinct n'existe côté backend.
+# ============================================================
+
+def get_notifications(limit: int = 8) -> list[dict]:
+    items = []
+
+    for reco in get_recommandations(limit=5):
+        items.append({
+            "kind": "recommandation",
+            "text": reco["content"],
+            "timestamp": reco["timestamp"],
+        })
+
+    for plan in get_planning():
+        if plan["overdue"]:
+            items.append({
+                "kind": "rappel",
+                "text": f"Rappel en retard : {plan['title']}",
+                "timestamp": plan["due_at"],
+            })
+
+    items.sort(key=lambda n: n["timestamp"], reverse=True)
+    return items[:limit]

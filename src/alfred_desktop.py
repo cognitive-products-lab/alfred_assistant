@@ -205,6 +205,36 @@ class AlfredDesktopAPI:
         from src.ui.desktop_dashboard_data import get_activite
         return get_activite()
 
+    def get_kpis(self) -> dict:
+        from src.ui.desktop_dashboard_data import get_kpis
+        return get_kpis()
+
+    def get_notifications(self) -> list:
+        from src.ui.desktop_dashboard_data import get_notifications
+        return get_notifications()
+
+    def get_context_consent(self) -> dict:
+        from src.ui.context_consent_prefs import load_context_consent
+        return load_context_consent()
+
+    def set_context_consent(self, category: str, enabled: bool) -> dict:
+        from src.ui.context_consent_prefs import set_context_consent
+        return set_context_consent(category, enabled)
+
+    # ── Actions rapides (voir src/ui/desktop_quick_actions.py) ───────────────────
+
+    def run_backup(self) -> dict:
+        from src.ui.desktop_quick_actions import run_backup
+        return run_backup()
+
+    def summarize_today(self) -> dict:
+        from src.ui.desktop_quick_actions import summarize_today
+        return summarize_today()
+
+    def search_knowledge(self, query: str) -> dict:
+        from src.ui.desktop_quick_actions import search_knowledge
+        return search_knowledge(query)
+
     # ── Météo (premier appel réseau externe du pipeline — voir weather_data.py) ──
 
     def get_weather(self) -> dict:
@@ -232,6 +262,10 @@ class AlfredDesktopAPI:
     def stop_recording(self) -> dict:
         from src.ui.desktop_mic import stop_recording
         return stop_recording()
+
+    def interrupt_speech(self) -> dict:
+        from src.ui.desktop_tts_control import interrupt_speech
+        return interrupt_speech()
 
 
 # ============================================================
