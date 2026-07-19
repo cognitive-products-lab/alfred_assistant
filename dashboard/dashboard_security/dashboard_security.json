@@ -3,7 +3,7 @@
         "project": "ALFRED",
         "block": "B20",
         "file": "dashboard_security.json",
-        "generated_at": "2026-07-06T12:20:50.333743+00:00",
+        "generated_at": "2026-07-19T12:54:13.121095+00:00",
         "version": "V1.0"
     },
     "sessions": {
@@ -16,38 +16,18 @@
         "sessions": []
     },
     "devices": {
-        "trusted_count": 3,
-        "total_count": 4,
+        "trusted_count": 2,
+        "total_count": 2,
         "devices": [
             {
-                "device_id": "_meta",
-                "label": "_meta",
-                "owner": "?",
-                "trusted": false,
-                "risk_level": "UNKNOWN",
-                "trust_score": 0,
-                "failed_attempts": 0,
-                "last_seen": ""
-            },
-            {
                 "device_id": "local_pc",
-                "label": "PC Test",
+                "label": "PC local ALFRED",
                 "owner": "OWNER",
                 "trusted": true,
                 "risk_level": "UNKNOWN",
                 "trust_score": 0,
                 "failed_attempts": 0,
-                "last_seen": "2026-07-06T12:16:45.738394+00:00"
-            },
-            {
-                "device_id": "demo_device_live",
-                "label": "Demo Live Device",
-                "owner": "OWNER",
-                "trusted": true,
-                "risk_level": "UNKNOWN",
-                "trust_score": 0,
-                "failed_attempts": 0,
-                "last_seen": "2026-06-01T13:55:08.483903+00:00"
+                "last_seen": "2026-07-18T11:24:42.366981+00:00"
             },
             {
                 "device_id": "zt_test_device_001",
@@ -57,47 +37,47 @@
                 "risk_level": "UNKNOWN",
                 "trust_score": 0,
                 "failed_attempts": 0,
-                "last_seen": "2026-07-06T12:16:45.867695+00:00"
+                "last_seen": "2026-07-11T23:02:06.088902+00:00"
             }
         ]
     },
     "incidents": {
-        "total": 572,
+        "total": 286,
         "by_level": {
-            "HIGH": 572
+            "HIGH": 286
         },
         "open_critical": 0,
         "recent_open": [
             {
-                "timestamp": "2026-07-06T12:16:42.632297+00:00",
+                "timestamp": "2026-07-16T07:27:08.802984+00:00",
                 "level": "HIGH",
                 "description": "Tentative SSRF détectée : http://127.0.0.1:8080/admin",
                 "source": "network_security",
                 "status": "OPEN"
             },
             {
-                "timestamp": "2026-07-06T12:16:42.637604+00:00",
+                "timestamp": "2026-07-16T07:27:08.808856+00:00",
                 "level": "HIGH",
                 "description": "Tentative SSRF détectée : http://10.0.0.1/secret",
                 "source": "network_security",
                 "status": "OPEN"
             },
             {
-                "timestamp": "2026-07-06T12:16:42.640828+00:00",
+                "timestamp": "2026-07-16T07:27:08.813321+00:00",
                 "level": "HIGH",
                 "description": "Tentative SSRF détectée : http://192.168.1.1/config",
                 "source": "network_security",
                 "status": "OPEN"
             },
             {
-                "timestamp": "2026-07-06T12:16:42.643972+00:00",
+                "timestamp": "2026-07-16T07:27:08.819740+00:00",
                 "level": "HIGH",
                 "description": "Tentative SSRF détectée : http://172.16.0.1/internal",
                 "source": "network_security",
                 "status": "OPEN"
             },
             {
-                "timestamp": "2026-07-06T12:16:42.649826+00:00",
+                "timestamp": "2026-07-16T07:27:08.837910+00:00",
                 "level": "HIGH",
                 "description": "Tentative SSRF (hostname local) : http://localhost/admin",
                 "source": "network_security",
@@ -119,7 +99,7 @@
         "present_count": 3,
         "missing_count": 0,
         "all_ok": true,
-        "env_file_age_days": 4.1,
+        "env_file_age_days": 3.2,
         "stale_secrets": [],
         "rotation_recommended": false,
         "access_stats": {},
@@ -133,31 +113,28 @@
         "available": true
     },
     "audit": {
-        "total_events": 23,
+        "total_events": 105,
         "by_decision": {
-            "DENY_PERMISSION": 2,
-            "DENY_INPUT": 6,
-            "DENY_THREAT": 3,
-            "DENY_DEVICE": 1,
-            "ALLOW": 7,
-            "DENY_MFA": 3,
-            "DENY_POLICY": 1
+            "DENY_PERMISSION": 21,
+            "ALLOW": 69,
+            "DENY_CLIENT_ISOLATION": 13,
+            "REVIEW": 2
         },
         "last_event": {
-            "timestamp": "2026-07-06T12:16:45.868889+00:00",
-            "user_id": "admin1",
-            "action": "READ",
-            "resource": "memory",
+            "timestamp": "2026-07-18T09:52:28.354028+00:00",
+            "user_id": "celine",
+            "action": "consult_knowledge",
+            "resource": "gestion_documentaire.systemes_gestion_electronique_documents_ged",
             "decision": "ALLOW",
             "request_id": "",
             "device_id": "",
-            "role": "",
+            "role": "OWNER",
             "risk_score": 0
         }
     },
     "permissions": {
-        "roles_count": 7,
-        "permissions_total": 19,
+        "roles_count": 9,
+        "permissions_total": 23,
         "unique_permissions_count": 9,
         "matrix": {
             "OWNER": [
@@ -192,6 +169,14 @@
             "EMERGENCY": [
                 "SEND_ALERT",
                 "READ_EMERGENCY_CONTEXT"
+            ],
+            "CHEF_DE_PROJET": [
+                "READ_MEMORY",
+                "RUN_AI_MODULE"
+            ],
+            "RH": [
+                "READ_MEMORY",
+                "RUN_AI_MODULE"
             ]
         }
     },
@@ -214,7 +199,9 @@
             "SERVICE": 1,
             "AI_MODULE": 1,
             "EMERGENCY": 0,
-            "GUEST": 0
+            "GUEST": 0,
+            "CHEF_DE_PROJET": 1,
+            "RH": 1
         },
         "resource_sensitivity_levels": {
             "LOW": 0,
