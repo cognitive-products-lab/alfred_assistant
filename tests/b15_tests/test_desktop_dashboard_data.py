@@ -99,7 +99,7 @@ def test_get_recommandations_unknown_trigger_gets_generic_justification(monkeypa
     monkeypatch.setattr(main_module, "get_live_components",
                          lambda: _fake_components(proactive_engine=engine))
     result = ddd.get_recommandations()
-    assert result[0]["why"] == "Basé sur votre contexte actuel"
+    assert result[0]["why"] == "Basé sur ton contexte actuel"
 
 
 def test_get_recommandations_most_recent_first(monkeypatch):
@@ -130,7 +130,7 @@ def test_get_emotion_state_manual_override_takes_priority(no_live_components):
     assert state["enabled"] is True
     assert state["manual"] is True
     assert "Calme" in state["mood_label"]
-    assert "corrigé par vous" in state["mood_label"]
+    assert "corrigé par toi" in state["mood_label"]
 
 
 def test_get_emotion_state_no_data_before_first_exchange(monkeypatch):
@@ -155,7 +155,7 @@ def test_get_emotion_state_live_signal(monkeypatch):
     assert state["mood_label"] == "Fatigué(e)"
     assert state["confidence_pct"] == 64
     assert state["bar_pct"] == 64
-    assert "Ton détecté dans vos derniers échanges" in state["sources"]
+    assert "Ton détecté dans tes derniers échanges" in state["sources"]
     assert state["energy_dominant"] == "low"
 
 
