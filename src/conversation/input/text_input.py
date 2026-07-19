@@ -12,7 +12,7 @@
 # 🏗️ DOMAINE :
 #   Noyau conversationnel — interface texte V1, hotpath clavier
 #
-# STATUS  : TESTED
+# STATUS  : VALIDATED
 # ============================================================
 
 import html

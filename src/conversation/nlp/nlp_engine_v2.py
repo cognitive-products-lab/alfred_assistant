@@ -12,7 +12,7 @@
 # 🏗️ DOMAINE :
 #   Noyau conversationnel — NLP enrichi V2, LLM-ready
 #
-# STATUS  : TESTED
+# STATUS  : VALIDATED
 # ============================================================
 
 from __future__ import annotations

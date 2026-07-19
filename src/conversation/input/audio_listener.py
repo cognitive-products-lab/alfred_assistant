@@ -12,7 +12,7 @@
 # 🏗️ DOMAINE :
 #   Interaction vocale — façade d'écoute, mode simulation pour tests
 #
-# STATUS  : TESTED
+# STATUS  : VALIDATED
 # ============================================================
 
 from typing import Optional

@@ -12,7 +12,7 @@
 # 🏗️ DOMAINE :
 #   Interaction vocale — orchestrateur vocal complet V3
 #
-# STATUS  : TESTED
+# STATUS  : VALIDATED
 # ============================================================
 
 from src.input.audio_capture  import is_audio_available

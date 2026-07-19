@@ -13,7 +13,7 @@
 #   Mémoire & contexte — SQLite local-first, recherche sémantique V3
 #
 # UPDATED : 2026-06-10 — chemins _DB_DIR/_DB_PATH ancrés sur paths.PATHS
-# STATUS  : TESTED (auto: tests/test_b02_b03.py OK le 2026-07-05 ; cwd réel encore à reconfirmer)
+# STATUS  : VALIDATED (auto: tests/test_b02_b03.py OK le 2026-07-05 ; cwd réel encore à reconfirmer)
 # ============================================================
 
 import json
