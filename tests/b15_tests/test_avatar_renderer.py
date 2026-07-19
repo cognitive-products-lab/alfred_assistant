@@ -24,13 +24,12 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
 from src.ui.avatar_renderer import (
     AvatarRendererLogic,
-    _STATE_SPRITE,
+    _MEDIUM_SPRITES,
     _STATE_COLOR_HEX,
     _STATE_ANIM,
     _STATE_LAYOUT,
-    _SPEAKING_FRAMES,
+    _SPEAKING_MEDIUM_FRAMES,
     _hex_to_rgb,
-    _sprite_path,
 )
 
 
@@ -74,7 +73,7 @@ class TestStateTables:
 
     def test_all_states_have_sprite(self):
         for s in self._REQUIRED_STATES:
-            assert s in _STATE_SPRITE, f"Etat manquant dans _STATE_SPRITE : {s}"
+            assert s in _MEDIUM_SPRITES, f"Etat manquant dans _MEDIUM_SPRITES : {s}"
 
     def test_all_states_have_color(self):
         for s in self._REQUIRED_STATES:
@@ -84,12 +83,11 @@ class TestStateTables:
         for s in self._REQUIRED_STATES:
             assert s in _STATE_ANIM, f"Etat manquant dans _STATE_ANIM : {s}"
 
-    def test_sprite_tuples_valid(self):
-        valid_mouths = {"idle", "a", "m", "o"}
-        valid_eyes   = {"open", "half", "closed"}
-        for state, (mouth, eyes) in _STATE_SPRITE.items():
-            assert mouth in valid_mouths, f"{state}: mouth invalide = {mouth}"
-            assert eyes  in valid_eyes,  f"{state}: eyes invalide = {eyes}"
+    def test_sprite_filenames_valid(self):
+        for state, filename in _MEDIUM_SPRITES.items():
+            assert isinstance(filename, str) and filename.endswith(".png"), (
+                f"{state}: nom de fichier invalide = {filename}"
+            )
 
     def test_color_hex_format(self):
         for state, hex_color in _STATE_COLOR_HEX.items():
@@ -103,12 +101,11 @@ class TestStateTables:
             assert isinstance(period, float), f"{state}: periode doit etre float"
 
     def test_speaking_frames_not_empty(self):
-        assert len(_SPEAKING_FRAMES) >= 2
+        assert len(_SPEAKING_MEDIUM_FRAMES) >= 2
 
     def test_speaking_frames_valid(self):
-        for mouth, eyes in _SPEAKING_FRAMES:
-            assert isinstance(mouth, str) and mouth
-            assert isinstance(eyes,  str) and eyes
+        for filename in _SPEAKING_MEDIUM_FRAMES:
+            assert isinstance(filename, str) and filename.endswith(".png")
 
 
 # ---------------------------------------------------------
@@ -143,42 +140,37 @@ class TestAvatarRendererLogic:
 
     def test_get_sprite_returns_string(self):
         logic = AvatarRendererLogic()
-        for state in _STATE_SPRITE:
+        for state in _MEDIUM_SPRITES:
             sprite = logic.get_sprite(state)
             assert isinstance(sprite, str) and len(sprite) > 0
 
     def test_get_sprite_current_when_empty(self):
         logic = AvatarRendererLogic()
         logic.set_state("support")
-        # Accepte medium (alfred_medium_love) ou base_normal (idle+open)
         sprite = logic.get_sprite()
-        assert isinstance(sprite, str) and len(sprite) > 0
+        assert "alfred_medium_love" in sprite
 
     def test_get_sprite_idle_contains_half(self):
         logic = AvatarRendererLogic()
         sprite = logic.get_sprite("idle")
-        # Accepte medium (alfred_medium_neutral) ou base_normal (eyes_half)
-        assert "half" in sprite or "neutral" in sprite or "alfred_medium" in sprite
+        assert "alfred_medium_neutral" in sprite
 
     def test_get_sprite_offline_uses_thinking_png_or_closed(self):
-        # V1.2+ : offline utilise alfred_medium_neutral ou alfred_thinking ou eyes_closed
+        # V1.2+ : offline utilise alfred_medium_neutral
         logic = AvatarRendererLogic()
         sprite = logic.get_sprite("offline")
-        assert "alfred_thinking" in sprite or "closed" in sprite or "alfred_medium" in sprite
+        assert "alfred_medium_neutral" in sprite
 
     def test_get_sprite_speaking_contains_a(self):
         logic = AvatarRendererLogic()
         logic.set_state("speaking")
         frame = logic.get_speaking_frame()
-        # Accepte mouth_a (base_normal) ou neutral_a (medium)
-        assert "mouth_a" in frame or "neutral_a" in frame or "_a" in frame
+        assert "neutral_a" in frame
 
     def test_next_speaking_frame_cycles(self):
         logic = AvatarRendererLogic()
         logic.set_state("speaking")
-        # Les frames peuvent être medium (6) ou fallback (4)
-        from src.ui.avatar_renderer import _SPEAKING_MEDIUM_FRAMES
-        expected_count = len(_SPEAKING_MEDIUM_FRAMES) if _SPEAKING_MEDIUM_FRAMES else len(_SPEAKING_FRAMES)
+        expected_count = len(_SPEAKING_MEDIUM_FRAMES)
         frames = set()
         for _ in range(expected_count + 2):
             frames.add(logic.next_speaking_frame())
@@ -257,17 +249,16 @@ class TestAvatarAssets:
         assert missing == [], f"Sprites manquants : {missing}"
 
     def test_all_speaking_frames_exist(self):
-        from src.ui.avatar_renderer import _SPEAKING_FRAMES, _sprite_path
+        from src.ui.avatar_renderer import _ASSET_MEDIUM
         from pathlib import Path
-        for mouth, eyes in _SPEAKING_FRAMES:
-            path = _sprite_path(mouth, eyes)
-            assert Path(path).exists(), f"Frame manquant : {path}"
+        for filename in _SPEAKING_MEDIUM_FRAMES:
+            path = _ASSET_MEDIUM / filename
+            assert path.exists(), f"Frame manquant : {path}"
 
     def test_sprite_path_format(self):
         logic = AvatarRendererLogic()
         path = logic.get_sprite("idle")
-        # Accepte medium (alfred_medium_*.png) ou base_normal (avatar_mouth_*_eyes_*.png.png)
-        assert "alfred_medium" in path or "avatar_mouth_idle_eyes_half" in path
+        assert "alfred_medium" in path
         assert path.endswith(".png")
 
 

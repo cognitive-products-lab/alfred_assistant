@@ -64,18 +64,17 @@ from typing import Optional, Tuple
 # Chemins assets
 # ============================================================
 
-# Sprites base_normal (mouth+eyes) — utilisés pour l'animation bouche speaking
-_ASSET_BASE = (
-    Path(__file__).resolve().parents[2]
-    / "assets" / "avatars" / "no_active_avatar_normal" / "base_normal"
-)
-_SPRITE_EXT = ".png.png"
-
-# Sprites expressifs medium — priorité sur base_normal pour états non-animés
+# Sprites expressifs medium — système d'avatar actif (base_normal archivé
+# le 2026-07-18, cf. assets/_archive/README.md)
 _ASSET_MEDIUM = (
     Path(__file__).resolve().parents[2]
     / "assets" / "avatars" / "avatar_medium" / "base_medium"
 )
+
+# Calques blink (yeux) du système layered avatar_no_mouth
+_ASSET_BLINK = _ASSET_MEDIUM / "avatar_no_mouth"
+_BLINK_HALF_FILE = "BL01.png"
+_BLINK_CLOSED_FILE = "BL02.png"
 
 # Correspondance état → fichier PNG medium
 _MEDIUM_SPRITES: dict[str, str] = {
@@ -91,24 +90,6 @@ _MEDIUM_SPRITES: dict[str, str] = {
     "offline":    "alfred_medium_neutral.png",
 }
 
-
-# ============================================================
-# Tables de correspondance etat -> visuel (base_normal fallback)
-# ============================================================
-
-_STATE_SPRITE: dict[str, Tuple[str, str]] = {
-    "idle":       ("idle", "half"),
-    "listening":  ("idle", "open"),
-    "thinking":   ("idle", "half"),
-    "speaking":   ("a",    "open"),
-    "support":    ("idle", "open"),
-    "focus":      ("idle", "half"),
-    "challenge":  ("idle", "open"),
-    "complicite": ("idle", "open"),
-    "error":      ("idle", "half"),
-    "offline":    ("idle", "closed"),
-}
-
 # Frames animation bouche speaking — sprites medium expressifs
 _SPEAKING_MEDIUM_FRAMES: list[str] = [
     "alfred_medium_neutral_a.png",
@@ -118,17 +99,6 @@ _SPEAKING_MEDIUM_FRAMES: list[str] = [
     "alfred_medium_neutral_u.png",
     "alfred_medium_neutral_m.png",
 ]
-
-# Fallback base_normal si les fichiers medium sont absents
-_SPEAKING_FRAMES_FALLBACK: list[Tuple[str, str]] = [
-    ("a",    "open"),
-    ("m",    "open"),
-    ("o",    "open"),
-    ("idle", "open"),
-]
-
-# Alias pour compatibilité (les tests importent _SPEAKING_FRAMES)
-_SPEAKING_FRAMES = _SPEAKING_FRAMES_FALLBACK
 
 _STATE_COLOR_HEX: dict[str, str] = {
     "idle":       "#8B9FD4",
@@ -190,11 +160,6 @@ def _hex_to_rgb(hex_color: str) -> Tuple[float, float, float]:
     return tuple(int(h[i:i+2], 16) / 255.0 for i in (0, 2, 4))  # type: ignore[return-value]
 
 
-def _sprite_path(mouth: str, eyes: str) -> str:
-    """Retourne le chemin absolu du sprite PNG."""
-    return str(_ASSET_BASE / f"avatar_mouth_{mouth}_eyes_{eyes}{_SPRITE_EXT}")
-
-
 # ============================================================
 # Logique pure -- testable sans Kivy
 # ============================================================
@@ -211,28 +176,15 @@ class AvatarRendererLogic:
         self._speaking_idx: int = 0
 
     def get_sprite(self, state_name: str = "") -> str:
-        """Retourne le sprite pour l'état donné.
-        Priorité : medium expressif > base_normal fallback.
+        """Retourne le sprite pour l'état donné (système medium).
         Ne pas appeler pour speaking (utiliser get_speaking_frame)."""
         name = state_name or self._state
-        medium_file = _MEDIUM_SPRITES.get(name)
-        if medium_file:
-            medium_path = str(_ASSET_MEDIUM / medium_file)
-            if Path(medium_path).exists():
-                return medium_path
-        # Fallback base_normal
-        mouth, eyes = _STATE_SPRITE.get(name, ("idle", "half"))
-        return _sprite_path(mouth, eyes)
+        medium_file = _MEDIUM_SPRITES.get(name, _MEDIUM_SPRITES["idle"])
+        return str(_ASSET_MEDIUM / medium_file)
 
     def get_speaking_frame(self) -> str:
         idx = self._speaking_idx % len(_SPEAKING_MEDIUM_FRAMES)
-        path = str(_ASSET_MEDIUM / _SPEAKING_MEDIUM_FRAMES[idx])
-        if Path(path).exists():
-            return path
-        # Fallback base_normal
-        fi = idx % len(_SPEAKING_FRAMES_FALLBACK)
-        mouth, eyes = _SPEAKING_FRAMES_FALLBACK[fi]
-        return _sprite_path(mouth, eyes)
+        return str(_ASSET_MEDIUM / _SPEAKING_MEDIUM_FRAMES[idx])
 
     def next_speaking_frame(self) -> str:
         self._speaking_idx = (self._speaking_idx + 1) % len(_SPEAKING_MEDIUM_FRAMES)
@@ -267,11 +219,10 @@ class AvatarRendererLogic:
 
     def all_sprites_exist(self) -> dict[str, bool]:
         result = {}
-        for name in _STATE_SPRITE:
+        for name in _MEDIUM_SPRITES:
             if name == "speaking":
-                # speaking utilise les frames base_normal
                 result[name] = all(
-                    Path(_sprite_path(m, e)).exists() for m, e in _SPEAKING_FRAMES
+                    (_ASSET_MEDIUM / f).exists() for f in _SPEAKING_MEDIUM_FRAMES
                 )
             else:
                 result[name] = Path(self.get_sprite(name)).exists()
@@ -387,16 +338,6 @@ if _KIVY_OK:
                         self._speaking_textures.append(ci.texture)
                 except Exception:
                     pass
-            # Fallback base_normal si aucune texture medium chargée
-            if not self._speaking_textures:
-                for mouth, eyes in _SPEAKING_FRAMES_FALLBACK:
-                    path = _sprite_path(mouth, eyes)
-                    try:
-                        if Path(path).exists():
-                            ci = CoreImage(path, nocache=True)
-                            self._speaking_textures.append(ci.texture)
-                    except Exception:
-                        pass
 
         # --------------------------------------------------------
         # Canvas (calques 1 + 2 + 3)
@@ -643,7 +584,7 @@ if _KIVY_OK:
             self._blink_tex_open = self._avatar_img.texture
 
             # Étape 1 : yeux fermés (80ms)
-            path_closed = _sprite_path("idle", "closed")
+            path_closed = str(_ASSET_BLINK / _BLINK_CLOSED_FILE)
             if Path(path_closed).exists():
                 try:
                     ci = CoreImage(path_closed, nocache=True)
@@ -654,7 +595,7 @@ if _KIVY_OK:
 
         def _blink_half_open(self, dt: float = 0) -> None:
             """Étape 2 : yeux mi-clos (50ms)."""
-            path_half = _sprite_path("idle", "half")
+            path_half = str(_ASSET_BLINK / _BLINK_HALF_FILE)
             if Path(path_half).exists():
                 try:
                     ci = CoreImage(path_half, nocache=True)

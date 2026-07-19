@@ -26,17 +26,6 @@ from PIL import Image
 ROOT = Path(__file__).resolve().parents[2]
 
 AVATAR_IMAGES = [
-    "assets/avatars/no_active_avatar_normal/base_normal/avatar_mouth_a_eyes_closed.png.png",
-    "assets/avatars/no_active_avatar_normal/base_normal/avatar_mouth_a_eyes_half.png.png",
-    "assets/avatars/no_active_avatar_normal/base_normal/avatar_mouth_a_eyes_open.png.png",
-    "assets/avatars/no_active_avatar_normal/base_normal/avatar_mouth_idle_eyes_closed.png.png",
-    "assets/avatars/no_active_avatar_normal/base_normal/avatar_mouth_idle_eyes_half.png.png",
-    "assets/avatars/no_active_avatar_normal/base_normal/avatar_mouth_m_eyes_closed.png.png",
-    "assets/avatars/no_active_avatar_normal/base_normal/avatar_mouth_m_eyes_half.png.png",
-    "assets/avatars/no_active_avatar_normal/base_normal/avatar_mouth_m_eyes_open.png.png",
-    "assets/avatars/no_active_avatar_normal/base_normal/avatar_mouth_o_eyes_closed.png.png",
-    "assets/avatars/no_active_avatar_normal/base_normal/avatar_mouth_o_eyes_half.png.png",
-    "assets/avatars/no_active_avatar_normal/base_normal/avatar_mouth_o_eyes_open.png.png",
     "assets/avatars/avatar_medium/base_medium/alfred_medium_neutral.png",
     "assets/avatars/avatar_medium/base_medium/alfred_medium_neutral_a.png",
     "assets/avatars/avatar_medium/base_medium/alfred_medium_neutral_e.png",

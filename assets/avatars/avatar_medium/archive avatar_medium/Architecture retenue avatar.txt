@@ -1,0 +1,344 @@
+Oui, c’est **la solution la plus simple, la plus robuste et la plus facile à exploiter dans ALFRED**.
+
+Il faut abandonner la multiplication de calques séparés pour les sourcils, les paupières et les iris. Chaque combinaison **yeux + sourcils** devient une base faciale complète sans bouche. La bouche est ensuite ajoutée indépendamment selon l’émotion ou le son prononcé.
+
+# Architecture retenue
+
+## 1. Image corporelle de référence verrouillée
+
+Fichier principal :
+
+```text
+alfred_body_no_face.png
+```
+
+Il conserve strictement :
+
+* le canvas de `1024 × 1536 px` ;
+* la position du corps ;
+* la position de la tête ;
+* les cheveux ;
+* l’oreille ;
+* le costume ;
+* l’éclairage ;
+* les proportions ;
+* la transparence.
+
+Ce fichier ne devra plus jamais être redimensionné, recadré ou redessiné.
+
+---
+
+## 2. Bases d’expression sans bouche
+
+Chaque base contient :
+
+* le corps original ;
+* les sourcils ;
+* les yeux ;
+* les iris et pupilles ;
+* éventuellement le nez s’il est visible ;
+* **aucune bouche**.
+
+Tous les fichiers restent en `1024 × 1536 px`, avec exactement le même placement.
+
+Il n’est donc plus nécessaire d’assembler séparément :
+
+```text
+corps + sourcils + yeux + pupilles
+```
+
+On charge directement :
+
+```text
+base_expression_sans_bouche + calque_bouche
+```
+
+C’est beaucoup plus propre.
+
+# Bases faciales recommandées
+
+## Expressions principales
+
+| Code  | Nom du fichier                              | Expression des yeux et sourcils                    |
+| ----- | ------------------------------------------- | -------------------------------------------------- |
+| `F00` | `alfred_face_neutral_no_mouth.png`          | Regard direct, sourcils neutres   ok                 |
+| `F01` | `alfred_face_available_no_mouth.png`     | Regard doux, sourcils légèrement relevés ok           |
+| `F02` | `alfred_face_listening_no_mouth.png`        | Yeux attentifs, sourcils ouverts    ok               |
+| `F03` | `alfred_face_kind_no_mouth.png`             | Regard bienveillant et chaleureux     ok             |
+| `F04` | `alfred_face_happy_no_mouth.png`            | Yeux légèrement plissés par le sourire  ok           |
+| `F05` | `alfred_face_very_happy_no_mouth.png`    | Yeux en croissants, sourcils détendus     ok         |
+| `F06` | `alfred_face_focused_no_mouth.png`   | Yeux légèrement plissés, sourcils rapprochés  ok     |
+| `F07` | `alfred_face_serious_no_mouth.png`        | Regard droit, sourcils horizontaux et bas ok         |
+| `F08` | `alfred_face_alert_no_mouth.png`  | Regard très attentif, sourcils légèrement froncés ok |
+| `F09` | `alfred_face_concerned_no_mouth.png`   | Sourcils intérieurs relevés, regard inquiet  ok   |
+| `F10` | `alfred_face_empathic_no_mouth.png` | Regard doux, sourcils exprimant la compassion   ok   |
+| `F11` | `alfred_face_sad_no_mouth.png`   | Paupières légèrement abaissées, regard vers le bas ok |
+| `F12` | `alfred_face_surprised_no_mouth.png`        | Yeux grands ouverts, sourcils relevés   ok           |
+| `F13` | `alfred_face_confused_no_mouth.png`    | Sourcils asymétriques, regard interrogatif ok          |
+| `F14` | `alfred_face_skeptical_no_mouth.png`     | Un sourcil relevé, yeux légèrement plissés           |
+| `F15` | `alfred_face_annoyed_no_mouth.png`          | Sourcils abaissés, paupières tendues               |
+| `F16` | `alfred_face_angry_controlled_no_mouth.png` | Regard ferme, sourcils fortement rapprochés        |
+| `F17` | `alfred_face_tired_no_mouth.png`            | Yeux mi-clos, sourcils relâchés                    |
+| `F18` | `alfred_face_sleepy_no_mouth.png`           | Yeux presque fermés                                |
+| `F19` | `alfred_face_eyes_closed_no_mouth.png`      | Yeux entièrement fermés                            |
+| `F20` | `alfred_face_wink_left_no_mouth.png`        | Clin d’œil gauche                                  |
+| `F21` | `alfred_face_wink_right_no_mouth.png`       | Clin d’œil droit                                   |
+
+Cela donne **22 bases faciales principales**.
+
+---
+
+# Bases supplémentaires pour le regard
+
+Elles seront utiles pour donner de la vie à ALFRED sans déplacer la tête.
+
+| Code  | Nom                                      | Regard                    |
+| ----- | ---------------------------------------- | ------------------------- |
+| `G00` | `alfred_face_look_left_no_mouth.png`     | Légèrement vers la gauche |
+| `G01` | `alfred_face_look_right_no_mouth.png`    | Légèrement vers la droite |
+| `G02` | `alfred_face_look_up_no_mouth.png`       | Vers le haut              |
+| `G03` | `alfred_face_look_down_no_mouth.png`     | Vers le bas               |
+| `G04` | `alfred_face_look_up_left_no_mouth.png`  | Haut gauche               |
+| `G05` | `alfred_face_look_up_right_no_mouth.png` | Haut droite               |
+
+Il ne faut pas multiplier les directions inutilement. Six variantes suffisent pour les microanimations de réflexion et de conversation.
+
+avatar exprimant des emotion forte : 
+| Code   | Nom                         | Description            |
+| `SP01` | `mouth_laugh.png`           | Rire                   |
+| `SP02` | `mouth_sad_closed.png`      | Tristesse              |
+| `SP03` | `mouth_serious.png`         | Information importante |
+| `SP04` | `mouth_tense.png`           | Alerte                 |
+| `SP05` | `mouth_skeptical.png`       | Doute                  |
+| `SP06` | `mouth_sigh.png`            | Soupir ou soulagement  |
+| `SP07` | `mouth_rest_open.png`       | Respiration légère     |
+---
+
+# Animation du clignement
+
+Créer seulement trois bases supplémentaires :
+
+| Code   | Fichier                            | État                  |
+| ------ | ---------------------------------- | --------------------- |
+| `BL00` | `alfred_blink_open_no_mouth.png`   | Yeux ouverts          |
+| `BL01` | `alfred_blink_half_no_mouth.png`   | Paupières à mi-course |
+| `BL02` | `alfred_blink_closed_no_mouth.png` | Yeux fermés           |
+
+Séquence :
+
+```text
+BL00
+BL01
+BL02
+BL01
+BL00
+```
+
+Durée totale recommandée :
+
+```text
+120 à 180 millisecondes
+```
+
+Le clignement peut être déclenché aléatoirement toutes les trois à sept secondes.
+
+# 3. Calques de bouche indépendants
+
+Les bouches doivent être exportées sur un canvas transparent de :
+
+```text
+1024 × 1536 px
+```
+
+Même si seule une petite zone contient des pixels.
+
+Elles seront placées automatiquement au bon endroit, sans calcul de coordonnées supplémentaire.
+
+Structure :
+
+```text
+alfred_face_neutral_no_mouth.png
++
+mouth_V09_A.png
+=
+ALFRED prononçant le son « A »
+```
+
+À chaque image de l’animation, le moteur affiche **une seule bouche**. Les bouches ne doivent jamais être empilées les unes sur les autres.
+
+---
+
+# Bouches de repos et émotionnelles
+
+| Code  | Fichier                     | Utilisation            |
+| ----- | --------------------------- | ---------------------- |
+| `M00` | `mouth_closed_neutral.png`  | Repos                  |
+| `M01` | `mouth_closed_soft.png`     | Écoute calme           |
+| `M02` | `mouth_small_smile.png`     | Bienveillance          |
+| `M03` | `mouth_medium_smile.png`    | Satisfaction           |
+| `M04` | `mouth_open_smile.png`      | Accueil                |
+| `M05` | `mouth_large_smile.png`     | Joie                   |
+
+
+
+
+---
+
+# Calques de bouche pour la parole
+
+Pour commencer, une série de **15 visèmes** est largement suffisante.
+
+| Code  | Sons représentés | Forme attendue                  |
+| ----- | ---------------- | ------------------------------- |
+| `V00` | Silence          | Bouche fermée                   |
+| `V01` | M, B, P          | Lèvres jointes                  |
+| `V02` | F, V             | Lèvre inférieure sous les dents |
+| `V03` | T, D, N          | Petite ouverture                |
+| `V04` | L                | Langue légèrement visible       |
+| `V05` | S, Z             | Bouche étirée, dents proches    |
+| `V06` | CH, J            | Lèvres légèrement projetées     |
+| `V07` | K, G             | Ouverture moyenne               |
+| `V08` | R                | Bouche semi-arrondie            |
+| `V09` | A                | Grande ouverture verticale      |
+| `V10` | É, È, AI         | Ouverture horizontale           |
+| `V11` | I, Y             | Lèvres très étirées             |
+| `V12` | O, AU            | Bouche ronde moyenne            |
+| `V13` | OU, W            | Petite bouche ronde projetée    |
+| `V14` | U, EU, Œ         | Bouche arrondie et serrée       |
+
+Noms de fichiers :
+
+```text
+mouth_viseme_V00_silence.png
+mouth_viseme_V01_MBP.png
+mouth_viseme_V02_FV.png
+mouth_viseme_V03_TDN.png
+mouth_viseme_V04_L.png
+mouth_viseme_V05_SZ.png
+mouth_viseme_V06_CHJ.png
+mouth_viseme_V07_KG.png
+mouth_viseme_V08_R.png
+mouth_viseme_V09_A.png
+mouth_viseme_V10_E.png
+mouth_viseme_V11_I.png
+mouth_viseme_V12_O.png
+mouth_viseme_V13_OU.png
+mouth_viseme_V14_U_EU.png
+```
+
+# Organisation des fichiers
+
+```text
+avatar_alfred/
+│
+├── base/
+│   └── alfred_body_no_face.png
+│
+├── faces_no_mouth/
+│   ├── alfred_face_neutral_no_mouth.png
+│   ├── alfred_face_listening_no_mouth.png
+│   ├── alfred_face_happy_no_mouth.png
+│   ├── alfred_face_focused_no_mouth.png
+│   └── ...
+│
+├── blink/
+│   ├── alfred_blink_open_no_mouth.png
+│   ├── alfred_blink_half_no_mouth.png
+│   └── alfred_blink_closed_no_mouth.png
+│
+├── mouths_emotions/
+│   ├── mouth_closed_neutral.png
+│   ├── mouth_small_smile.png
+│   └── ...
+│
+└── mouths_visemes/
+    ├── mouth_viseme_V00_silence.png
+    ├── mouth_viseme_V01_MBP.png
+    └── ...
+```
+
+# Composition par état d’ALFRED
+
+## ALFRED attend
+
+```text
+alfred_face_neutral_no_mouth.png
++
+mouth_closed_neutral.png
+```
+
+## ALFRED écoute
+
+```text
+alfred_face_listening_no_mouth.png
++
+mouth_closed_soft.png
+```
+
+## ALFRED répond avec bienveillance
+
+```text
+alfred_face_kind_no_mouth.png
++
+séquence des visèmes V00 à V14
+```
+
+## ALFRED annonce une alerte
+
+```text
+alfred_face_alert_no_mouth.png
++
+séquence des visèmes V00 à V14
+```
+
+## ALFRED est heureux
+
+```text
+alfred_face_happy_no_mouth.png
++
+mouth_large_smile.png
+```
+
+# Première série à produire
+
+Pour éviter de lancer immédiatement une usine à expressions, la première version devrait comprendre :
+
+### Bases sans bouche
+
+1. Neutre
+2. Disponible
+3. Écoute attentive
+4. Bienveillant
+5. Heureux
+6. Concentré
+7. Sérieux
+8. Préoccupé
+9. Empathique
+10. Triste
+11. Surpris
+12. Sceptique
+13. Alerte
+14. Fatigué
+15. Yeux fermés
+16. Clignement intermédiaire
+
+### Bouches
+
+* 6 bouches émotionnelles essentielles ;
+* 15 visèmes de parole.
+
+Cela représente seulement :
+
+```text
+16 bases faciales
++
+21 calques de bouche
+=
+37 fichiers
+```
+
+C’est infiniment plus maîtrisable que 150 calques indépendants, tout en couvrant déjà l’essentiel des interactions. Ensuite, les variantes pourront être ajoutées sans toucher au moteur d’affichage.
+
+La règle d’or sera donc :
+
+> **Les yeux et les sourcils définissent l’état émotionnel général. La bouche définit soit l’émotion au repos, soit le son prononcé.**

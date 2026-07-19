@@ -30,6 +30,12 @@ Lieux V1.2 :
 
 Specifiques :
   soiree_tv | sport
+
+STATUT 2026-07-18 : assets/backgrounds/ a ete archive (assets/_archive/backgrounds/)
+dans le cadre de l'evolution de l'interface graphique, sans remplacement actif pour
+l'instant. get_background() reste sans danger (fallback progressif jusqu'a _DEFAULT,
+jamais d'exception) mais ne retourne plus de fichier existant tant qu'un nouveau
+systeme de backgrounds n'est pas en place -- voir assets/_archive/README.md.
 """
 
 from __future__ import annotations
