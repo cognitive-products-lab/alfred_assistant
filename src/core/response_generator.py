@@ -543,6 +543,140 @@ Réponds maintenant.""".strip()
         "contrairement à un humain",
     ]
 
+    # Combos sujet+verbe les plus fréquents en registre assistant, du plus
+    # spécifique au plus générique (appliqués dans cet ordre).
+    _TUTOIEMENT_SUBJECT_VERB = [
+        (r"\bvous êtes-vous\b", "es-tu"),
+        (r"\bvous êtes\b", "tu es"),
+        (r"\bvous avez\b", "tu as"),
+        (r"\bvous pouvez\b", "tu peux"),
+        (r"\bvous pourriez\b", "tu pourrais"),
+        (r"\bvous voulez\b", "tu veux"),
+        (r"\bvous voudriez\b", "tu voudrais"),
+        (r"\bvous devez\b", "tu dois"),
+        (r"\bvous devriez\b", "tu devrais"),
+        (r"\bvous savez\b", "tu sais"),
+        (r"\bvous faites\b", "tu fais"),
+        (r"\bvous allez\b", "tu vas"),
+        (r"\bvous semblez\b", "tu sembles"),
+        (r"\bvous préférez\b", "tu préfères"),
+        (r"\bvous pensez\b", "tu penses"),
+        (r"\bvous trouvez\b", "tu trouves"),
+        (r"\bvous aimeriez\b", "tu aimerais"),
+        (r"\bvous aimez\b", "tu aimes"),
+    ]
+
+    _TUTOIEMENT_PREPOSITIONS = [
+        (r"\bpour vous\b", "pour toi"),
+        (r"\bavec vous\b", "avec toi"),
+        (r"\bchez vous\b", "chez toi"),
+        (r"\bsans vous\b", "sans toi"),
+        (r"\bde vous\b", "de toi"),
+        (r"\bsur vous\b", "sur toi"),
+        (r"\bvers vous\b", "vers toi"),
+        (r"\bvous[- ]même\b", "toi-même"),
+    ]
+
+    _ELISION_CHARS = "aeiouhàâäéèêëïîôöùûüyAEIOUHÀÂÄÉÈÊËÏÎÔÖÙÛÜY"
+
+    @classmethod
+    def _te_form(cls, verb: str) -> str:
+        """« te » ou « t’ » selon élision devant la voyelle du verbe suivant."""
+        return "t’" + verb if verb[:1] in cls._ELISION_CHARS else "te " + verb
+
+    @staticmethod
+    def _tu_verb_form(verb: str) -> str:
+        """Best-effort : reconjugue un verbe en "-ez" (2e pers. pluriel) vers
+        sa forme "-es" (2e pers. singulier) — correct pour les verbes en
+        -er réguliers (immense majorité en usage courant), imparfait sur les
+        verbes irréguliers (ex. "prenez" -> "prenes" au lieu de "prends")."""
+        if verb.lower().endswith("ez") and len(verb) > 2:
+            return verb[:-2] + "es"
+        return verb
+
+    @staticmethod
+    def _match_case(sample: str, replacement: str) -> str:
+        """Reprend la casse de la première lettre de `sample` sur `replacement`,
+        pour ne pas casser un début de phrase ("Vous êtes" -> "Tu es")."""
+        if sample[:1].isupper():
+            return replacement[:1].upper() + replacement[1:]
+        return replacement
+
+    @classmethod
+    def _enforce_tutoiement(cls, text: str) -> str:
+        """Filet de sécurité déterministe : le LLM local ne respecte pas
+        toujours la consigne de tutoiement du prompt système (comportement
+        déjà connu pour le Markdown, cf. _strip_markdown) — on corrige donc
+        après coup plutôt que de compter uniquement sur l'instruction."""
+        for pattern, replacement in cls._TUTOIEMENT_SUBJECT_VERB:
+            text = re.sub(
+                pattern,
+                lambda m, r=replacement: cls._match_case(m.group(0), r),
+                text,
+                flags=re.IGNORECASE,
+            )
+        for pattern, replacement in cls._TUTOIEMENT_PREPOSITIONS:
+            text = re.sub(
+                pattern,
+                lambda m, r=replacement: cls._match_case(m.group(0), r),
+                text,
+                flags=re.IGNORECASE,
+            )
+
+        # Pronom objet/réfléchi : "je vous aide" -> "je t'aide", "vous vous
+        # inquiétez" -> "tu t'inquiètes" (élision selon la voyelle du verbe).
+        text = re.sub(
+            r"\bje vous (\w+)",
+            lambda m: cls._match_case(m.group(0), "je " + cls._te_form(m.group(1))),
+            text,
+            flags=re.IGNORECASE,
+        )
+        text = re.sub(
+            r"\bvous vous (\w+)",
+            lambda m: cls._match_case(
+                m.group(0), "tu " + cls._te_form(cls._tu_verb_form(m.group(1)))
+            ),
+            text,
+            flags=re.IGNORECASE,
+        )
+
+        # Sujet "vous" + verbe en -ez non couvert par la liste explicite
+        # (ex. "vous confirmez" -> "tu confirmes") — avant le filet générique
+        # ci-dessous pour reconjuguer plutôt que laisser le verbe intact.
+        text = re.sub(
+            r"\bvous (\w+)ez\b",
+            lambda m: cls._match_case(m.group(0), "tu " + m.group(1) + "es"),
+            text,
+            flags=re.IGNORECASE,
+        )
+
+        # Filet générique : tout "vous/votre/vos" résiduel (sujet non couvert
+        # ci-dessus) — imparfait sur l'accord de genre de "ton/ta", mais
+        # élimine le mot interdit dans tous les cas. "rendez-vous" (le nom
+        # commun, pas un pronom) est protégé en amont.
+        text = re.sub(r"\brendez-vous\b", "\0RDV\0", text, flags=re.IGNORECASE)
+        text = re.sub(
+            r"\bvotre\b",
+            lambda m: cls._match_case(m.group(0), "ton"),
+            text,
+            flags=re.IGNORECASE,
+        )
+        text = re.sub(
+            r"\bvos\b",
+            lambda m: cls._match_case(m.group(0), "tes"),
+            text,
+            flags=re.IGNORECASE,
+        )
+        text = re.sub(
+            r"\bvous\b",
+            lambda m: cls._match_case(m.group(0), "tu"),
+            text,
+            flags=re.IGNORECASE,
+        )
+        text = text.replace("\0RDV\0", "rendez-vous")
+
+        return text
+
     @staticmethod
     def _strip_markdown(text: str) -> str:
         """Neutralise la syntaxe Markdown résiduelle avant TTS/affichage.
@@ -631,6 +765,7 @@ Réponds maintenant.""".strip()
         response_clean = response_clean.strip(" \n\t:-")
 
         response_clean = self._strip_markdown(response_clean)
+        response_clean = self._enforce_tutoiement(response_clean)
 
         mode = context.get("adaptation", {}).get("mode", "")
         if mode in ("support", "low_energy_mode") and len(response_clean) > 1500:
