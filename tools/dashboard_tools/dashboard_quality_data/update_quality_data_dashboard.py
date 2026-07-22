@@ -252,6 +252,7 @@ def _count_by(entries: list[dict], key: str) -> dict[str, int]:
 def build_dashboard() -> dict[str, Any]:
     registry = load_json(REGISTRY_PATH)
     entries = registry.get("entries", [])
+    archived_entries = registry.get("archived_entries", [])
     roles = load_roles()
     today = datetime.now(timezone.utc).date()
 
@@ -297,6 +298,12 @@ def build_dashboard() -> dict[str, Any]:
             "items": alerts,
         },
         "entries": entries,
+        "archived": {
+            "note": "Entrées 'obsolete' archivées : conservées pour historique mais exclues de "
+                    "'global' et 'alerts' ci-dessus (ne sont plus comptées ni alertées).",
+            "count": len(archived_entries),
+            "items": archived_entries,
+        },
         "scales": registry.get("scales", {}),
     }
     return data
