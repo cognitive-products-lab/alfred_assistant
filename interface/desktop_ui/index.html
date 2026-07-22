@@ -1080,7 +1080,7 @@ button{ cursor:pointer; }
             <div class="orb-actions">
               <button class="btn btn-ghost" id="btn-text-mode">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M7 9h.01M11 9h.01M15 9h.01M7 13h6"/></svg>
-                Passer en mode texte
+                Écrire un message
               </button>
               <button class="btn btn-ghost" id="btn-retry" hidden>
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 0 1 14.5-4.6M20 12a8 8 0 0 1-14.5 4.6M17 4v4h-4M7 20v-4h4"/></svg>
@@ -1093,9 +1093,9 @@ button{ cursor:pointer; }
             </div>
           </div>
 
-          <div class="card" id="text-mode-card" hidden style="width:100%;max-width:560px;text-align:left;">
+          <div class="card" id="text-mode-card" style="width:100%;max-width:560px;text-align:left;">
             <div class="card-head">
-              <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/></svg>Mode texte</h3>
+              <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/></svg>Écrire à ALFRED</h3>
               <span class="mic-badge" id="text-mode-status">Mode démonstration</span>
             </div>
             <div class="text-mode-messages" id="text-mode-messages" aria-live="polite">
@@ -2378,16 +2378,12 @@ button{ cursor:pointer; }
     });
   });
 
-  /* ---------- text mode toggle ---------- */
+  /* ---------- interface hybride : voix + texte toujours visibles ensemble ---------- */
   var btnTextMode = document.getElementById('btn-text-mode');
   var textModeCard = document.getElementById('text-mode-card');
-  var voiceHero = document.querySelector('.voice-hero');
   btnTextMode.addEventListener('click', function(){
-    var showing = !textModeCard.hidden;
-    textModeCard.hidden = showing;
-    voiceHero.style.display = showing ? 'flex' : 'none';
-    btnTextMode.lastChild.textContent = showing ? ' Passer en mode texte' : ' Revenir au mode vocal';
-    if (!showing) tmInput.focus();
+    textModeCard.scrollIntoView({ behavior:'smooth', block:'nearest' });
+    tmInput.focus();
   });
 
   /* ---------- text mode conversation ---------- */
