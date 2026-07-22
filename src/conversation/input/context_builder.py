@@ -18,6 +18,14 @@
 import platform
 import socket
 from datetime import datetime
+from zoneinfo import ZoneInfo
+
+# ALFRED est un assistant francophone local (localisation confirmée par le
+# code postal du profil / de la météo, toujours en France) : l'heure est
+# ancrée explicitement sur "Europe/Paris" plutôt que de dépendre de l'horloge
+# système, qui peut être mal réglée ou (sur Android/autre device) dans un
+# fuseau différent.
+_FRANCE_TZ = ZoneInfo("Europe/Paris")
 
 
 # ─────────────────────────────────────────────────────────
@@ -26,12 +34,12 @@ from datetime import datetime
 
 def get_time_context() -> dict:
     """
-    Construit le contexte temporel courant.
+    Construit le contexte temporel courant (heure française, Europe/Paris).
 
     Returns:
         dict avec heure, période journée, jour semaine, date
     """
-    now = datetime.now()
+    now = datetime.now(_FRANCE_TZ)
     hour = now.hour
 
     if 5 <= hour < 12:
