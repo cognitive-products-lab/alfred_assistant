@@ -13,7 +13,7 @@
     "status": "SEED — à compléter par l'équipe au fil de l'eau",
     "visibility": "INTERNE — NE JAMAIS PUBLIER SUR ALFRED_WEB",
     "created": "2026-07-12",
-    "note": "Première passe d'inventaire réalisée le 2026-07-12 à partir des fichiers/registres existants (profil, mémoire, sécurité, RGPD, dashboards). Complété le 2026-07-13 par un passage bloc par bloc (Blocs 01 à 08) croisé avec dashboard_data_manifest.json — à poursuivre pour les blocs suivants. Ce n'est toujours pas un inventaire exhaustif."
+    "note": "Première passe d'inventaire réalisée le 2026-07-12 à partir des fichiers/registres existants (profil, mémoire, sécurité, RGPD, dashboards). Complété le 2026-07-13 par un passage bloc par bloc (Blocs 01 à 08) croisé avec dashboard_data_manifest.json — à poursuivre pour les blocs suivants. Ce n'est toujours pas un inventaire exhaustif. Passe de rattrapage documentation/définition le 2026-07-22 : les 6 dernières fiches non documentées ou non définies (DQ-013, DQ-014, DQ-019, DQ-025, DQ-030, DQ-037) ont été vérifiées disque par disque et corrigées — dont 3 cas de désynchronisation registre/disque (schéma déjà écrit le 16/07 mais flag jamais remonté) et 1 schéma réellement ajouté au fichier (DQ-030). Seule DQ-018 (module ARTHUR, non conçu) reste non définie, à dessein — cf. sa fiche. Même jour, sur demande OWNER : les 2 entrées 'obsolete' (DQ-019, DQ-022) déplacées de entries[] vers archived_entries[] — conservées intégralement pour l'historique mais sorties du suivi actif (total_entries/documented_count/defined_count/alertes 'statut_obsolete' dans dashboard_quality_data.json)."
   },
   "scales": {
     "status": {
@@ -449,7 +449,7 @@
       "source_path": "data/v3/emotion_state.json, data/v3/relational_state.json",
       "description": "État émotionnel courant et historique relationnel pour l'adaptation comportementale V3.",
       "documented": true,
-      "defined": false,
+      "defined": true,
       "status": "a_connecter",
       "data_type": "privee",
       "sensitivity_classification": "C3_CONFIDENTIEL",
@@ -472,7 +472,7 @@
       "created_at": "2026-05-20",
       "last_modified_at": "2026-07-16",
       "planned_deletion_at": null,
-      "notes": "Schéma de champs pas encore stabilisé — à définir avant bascule en 'utilisée'. RÉSOLU le 16/07/2026 (point C3-J du plan d'action, décision OWNER : construire les schémas partout). Fichier(s) doté(s) d'un vrai schéma structuré (convention _alfred_header/_meta) — le contenu réel reste vide tant que le module de code correspondant n'est pas implémenté/câblé (majoritairement des stubs __init__.py en V3/V4)."
+      "notes": "Schéma de champs pas encore stabilisé — à définir avant bascule en 'utilisée'. RÉSOLU le 16/07/2026 (point C3-J du plan d'action, décision OWNER : construire les schémas partout). Fichier(s) doté(s) d'un vrai schéma structuré (convention _alfred_header/_meta) — le contenu réel reste vide tant que le module de code correspondant n'est pas implémenté/câblé (majoritairement des stubs __init__.py en V3/V4). CORRIGÉ le 22/07/2026 : le flag 'defined' n'avait pas été mis à jour lors de la résolution du 16/07 malgré le schéma déjà écrit dans les 2 fichiers (vérifié sur disque : data/v3/emotion_state.json et relational_state.json portent bien _alfred_header/_meta avec status SCHEMA_DEFINI) — désynchronisation registre/disque, pas un oubli de schéma."
     },
     {
       "id": "DQ-014",
@@ -481,7 +481,7 @@
       "source_path": "data/v3/memory_patterns.json",
       "description": "Motifs de mémoire long terme destinés à alimenter memory_engine.py.",
       "documented": true,
-      "defined": false,
+      "defined": true,
       "status": "a_connecter",
       "data_type": "privee",
       "sensitivity_classification": "C2_INTERNE",
@@ -498,7 +498,7 @@
       "created_at": "2026-05-25",
       "last_modified_at": "2026-07-16",
       "planned_deletion_at": null,
-      "notes": "Fichier présent sur disque mais jamais documenté ni relié à un contrôle d'accès — à trancher (compléter ou supprimer). RÉSOLU le 16/07/2026 (point C3-J du plan d'action, décision OWNER : construire les schémas partout). Fichier(s) doté(s) d'un vrai schéma structuré (convention _alfred_header/_meta) — le contenu réel reste vide tant que le module de code correspondant n'est pas implémenté/câblé (majoritairement des stubs __init__.py en V3/V4)."
+      "notes": "Fichier présent sur disque mais jamais documenté ni relié à un contrôle d'accès — à trancher (compléter ou supprimer). RÉSOLU le 16/07/2026 (point C3-J du plan d'action, décision OWNER : construire les schémas partout). Fichier(s) doté(s) d'un vrai schéma structuré (convention _alfred_header/_meta) — le contenu réel reste vide tant que le module de code correspondant n'est pas implémenté/câblé (majoritairement des stubs __init__.py en V3/V4). CORRIGÉ le 22/07/2026 : le flag 'defined' n'avait pas été mis à jour malgré le schéma déjà écrit (vérifié sur disque : data/v3/memory_patterns.json porte bien _alfred_header/_meta avec status SCHEMA_DEFINI) — désynchronisation registre/disque. Le contrôle d'accès (authorized_roles vides) reste, lui, à trancher séparément — la sensibilité C2_INTERNE et l'absence de tout contenu réel (patterns: []) rendent la question peu urgente tant que memory_engine.py ne lit pas ce fichier."
     },
     {
       "id": "DQ-015",
@@ -619,32 +619,6 @@
       "notes": "cf. dashboard_gouvernance.arthur_governance — consentement parental Art.8 encore 'planned'. Ne rien collecter avant d'avoir défini rétention + contrôle d'accès."
     },
     {
-      "id": "DQ-019",
-      "name": "Cache temporaire pipeline V1 (obsolète)",
-      "domain_bloc": "Bloc 01 — Noyau conversationnel & orchestration (legacy V1)",
-      "source_path": "legacy — src/security.py (V1), remplacé par src/security/",
-      "description": "Ancien cache/état temporaire du pipeline V1, superseded par le pipeline V2/V3.",
-      "documented": false,
-      "defined": false,
-      "status": "obsolete",
-      "data_type": "privee",
-      "sensitivity_classification": "C2_INTERNE",
-      "security_level_planned": 2,
-      "intended_use": [
-        "technique"
-      ],
-      "retention_period": "aucune — à purger",
-      "update_frequency": "aucune (plus alimenté)",
-      "authorized_roles": {
-        "read": [],
-        "write": []
-      },
-      "created_at": "2025-11-01",
-      "last_modified_at": "2026-01-05",
-      "planned_deletion_at": "2026-08-01",
-      "notes": "cf. ALFRED_CONTEXT.md — 'src/security.py (V1) vs src/security/ (Bloc 20) → Bloc 20 gagne'. Jamais formellement documenté ni sous contrôle d'accès — à archiver puis supprimer."
-    },
-    {
       "id": "DQ-020",
       "name": "Connaissances domaine (knowledges/ — 250+ fichiers)",
       "domain_bloc": "Bloc 18 — Base de connaissances & culture",
@@ -714,32 +688,6 @@
       "notes": "4 fichiers réels et documentés (610b à 8.2Ko) — cf. dashboard_data_manifest.json b01."
     },
     {
-      "id": "DQ-022",
-      "name": "Historique de dialogue — doublon de chemin (supprimé)",
-      "domain_bloc": "Bloc 01.01 — Gestion des conversations",
-      "source_path": "data/dialogue_history.json (19b) vs data/memory/episodic/dialogue_history.json (DQ-002, chemin réel utilisé par memory_manager.py)",
-      "description": "Point C3-I du plan d'action, traité le 16/07/2026 : data/dialogue_history.json (racine) était un reliquat V1 orphelin — confirmé une seconde fois via recherche exhaustive dans le code (aucune référence, seul data/memory/episodic/dialogue_history.json/DQ-002 est utilisé par main.py/main_v3.py). Feu vert OWNER obtenu le 16/07/2026 — fichier supprimé du dépôt.",
-      "documented": true,
-      "defined": true,
-      "status": "obsolete",
-      "data_type": "privee",
-      "sensitivity_classification": "C2_INTERNE",
-      "security_level_planned": 2,
-      "intended_use": [
-        "technique"
-      ],
-      "retention_period": "n/a — fichier supprimé",
-      "update_frequency": "n/a — fichier supprimé",
-      "authorized_roles": {
-        "read": [],
-        "write": []
-      },
-      "created_at": "2026-03-01",
-      "last_modified_at": "2026-07-16",
-      "planned_deletion_at": "2026-07-16",
-      "notes": "Supprimé le 16/07/2026 (git rm data/dialogue_history.json). Ne conserver cette fiche que pour l'historique de la décision."
-    },
-    {
       "id": "DQ-023",
       "name": "Configuration mémoire & RAG (config Bloc 02)",
       "domain_bloc": "Bloc 02.01/02.02 — Mémoire courte, mémoire longue",
@@ -803,8 +751,8 @@
       "name": "Mémoire utilisateur consolidée",
       "domain_bloc": "Bloc 02.03 — Historique utilisateur",
       "source_path": "data/user_memory.json",
-      "description": "Mémoire utilisateur consolidée (229 octets — contenu réel mais restreint).",
-      "documented": false,
+      "description": "Vérifié le 22/07/2026 (contenu disque relu intégralement, 243 octets) : ce fichier ne contient à ce jour que son bloc _meta (project/block/version/status/updated/standardized_by) — aucun champ de mémoire utilisateur réel. Il n'est référencé qu'une fois dans le code, dans src/security/compliance_manager.py (liste SENSITIVE_FILES, avec data/memory/episodic/dialogue_history.json et logs/security/security.log) : un module de conformité qui le surveille comme fichier sensible à protéger, sans jamais le lire ni l'écrire pour une logique de mémoire. Le nom et le _meta laissent supposer une consolidation de mémoire utilisateur prévue mais jamais implémentée — statut 'utilisable' à reconsidérer en 'a_creer' si aucun module ne vient l'alimenter.",
+      "documented": true,
       "defined": true,
       "status": "utilisable",
       "data_type": "privee",
@@ -828,7 +776,7 @@
       "created_at": "2026-03-01",
       "last_modified_at": "2026-07-16",
       "planned_deletion_at": null,
-      "notes": "Relation avec data/memory/episodic/dialogue_history.json (DQ-002) et data/profile/user_profile.json (DQ-001) à clarifier — risque de chevauchement de périmètre entre 3 fichiers de 'mémoire utilisateur'."
+      "notes": "Relation avec data/memory/episodic/dialogue_history.json (DQ-002) et data/profile/user_profile.json (DQ-001) à clarifier — risque de chevauchement de périmètre entre 3 fichiers de 'mémoire utilisateur'. DOCUMENTÉ le 22/07/2026 après relecture disque + recherche des usages code : le fichier n'a jamais dépassé le stade du header _meta, sa seule consommation actuelle est en tant qu'entrée de la liste SENSITIVE_FILES de compliance_manager.py — pas un chevauchement fonctionnel actif avec DQ-001/DQ-002 aujourd'hui, mais un risque de chevauchement latent si ce fichier venait à être implémenté sans clarifier son périmètre par rapport aux deux autres."
     },
     {
       "id": "DQ-026",
@@ -961,9 +909,9 @@
       "name": "Contexte utilisateur courant",
       "domain_bloc": "Bloc 07.03 — Gestion du contexte / mobilité",
       "source_path": "data/context/user_context.json",
-      "description": "Contexte utilisateur courant (localisation/activité déclarée) — 50 octets, contenu minimal.",
-      "documented": false,
-      "defined": false,
+      "description": "Contexte utilisateur courant (localisation/activité déclarée). Vérifié le 22/07/2026 : aucune référence au chemin data/context/user_context.json dans src/ — le fichier n'est consommé par aucun module du pipeline à ce jour, malgré son statut 'utilisable' (disponible mais pas branché en usage courant). Fichier doté d'un schéma _alfred_header/_meta le 22/07/2026 (même convention que le reste du registre) tout en conservant ses 2 champs d'origine (location, energy_level).",
+      "documented": true,
+      "defined": true,
       "status": "utilisable",
       "data_type": "privee",
       "sensitivity_classification": "C3_CONFIDENTIEL",
@@ -983,9 +931,9 @@
         ]
       },
       "created_at": "2026-05-02",
-      "last_modified_at": "2026-07-16",
+      "last_modified_at": "2026-07-22",
       "planned_deletion_at": null,
-      "notes": "Bloc 07 tech 73.3% / full 22.0% (3/10 cible) — cohérent avec un périmètre encore largement à construire."
+      "notes": "Bloc 07 tech 73.3% / full 22.0% (3/10 cible) — cohérent avec un périmètre encore largement à construire. DOCUMENTÉ/DÉFINI le 22/07/2026 : schéma _alfred_header/_meta ajouté au fichier disque (aucun code ne dépendait d'une structure plate stricte, vérifié avant modification) ; rétention au-delà de la session active toujours à clarifier si ce contexte finit par être persisté durablement (cf. _meta.note du fichier)."
     },
     {
       "id": "DQ-031",
@@ -1187,9 +1135,9 @@
       "name": "Configuration collaboration & workflow V3 — scaffolding",
       "domain_bloc": "Bloc 12.01/12.02 — Gestion de projet, coordination d'équipe",
       "source_path": "config/v3/orchestrator_rules.json (6b), config/v3/workflow_rules.json (6b)",
-      "description": "Scaffolding V3 pour l'orchestration et les workflows de collaboration — non défini, non branché.",
-      "documented": false,
-      "defined": false,
+      "description": "Scaffolding V3 pour l'orchestration et les workflows de collaboration (ordre d'appel des modules, priorités, gestion d'échec, workflows multi-étapes type onboarding) — schéma désormais réel (_alfred_header/_meta + champs module_order/fail_fast/workflows), mais non branché : src/v3/orchestrator/ reste un stub __init__.py vide.",
+      "documented": true,
+      "defined": true,
       "status": "a_connecter",
       "data_type": "privee",
       "sensitivity_classification": "C2_INTERNE",
@@ -1206,7 +1154,7 @@
       "created_at": "2026-05-02",
       "last_modified_at": "2026-07-16",
       "planned_deletion_at": null,
-      "notes": "Même fichiers que ceux listés sous Bloc 18 (config/v3/orchestrator_rules.json, workflow_rules.json) — un seul fichier physique rattaché à deux blocs dans le manifest, à clarifier."
+      "notes": "Même fichiers que ceux listés sous Bloc 18 (config/v3/orchestrator_rules.json, workflow_rules.json) — un seul fichier physique rattaché à deux blocs dans le manifest, à clarifier. CORRIGÉ le 22/07/2026 : les 2 fichiers ont bien reçu leur schéma _alfred_header/_meta le 16/07/2026 (point C3-J, même chantier que DQ-013/DQ-014/DQ-041) mais cette fiche n'avait jamais été repassée à documented/defined=true — désynchronisation registre/disque, corrigée ici après vérification directe du contenu des 2 fichiers."
     },
     {
       "id": "DQ-039",
@@ -1481,6 +1429,63 @@
       "last_modified_at": "2026-07-16",
       "planned_deletion_at": null,
       "notes": "Statut 'a_connecter' et pas 'utilisee' : le schéma est réel et fidèle au code, mais aucun module ne charge encore ces fichiers (ils gèrent toujours leurs constantes en dur). Câbler réellement la lecture de ces fichiers dans les 8 modules est un chantier de développement à part entière (modifie du code de pipeline qui tourne), à faire et tester sur PC — non fait ici, sur décision explicite de l'équipe (schémas seulement, pas de code)."
+    }
+  ],
+  "_archived_entries_note": "Entrées au statut 'obsolete' déplacées ici le 22/07/2026 (demande OWNER : ne plus les compter dans le suivi actif). Conservées intégralement pour traçabilité — exclues de entries[], donc de total_entries/documented_count/defined_count/alertes dans dashboard_quality_data.json. Ne pas supprimer ces fiches, seulement les archiver plus loin si un jour elles n'ont plus aucune valeur historique.",
+  "archived_entries": [
+    {
+      "id": "DQ-019",
+      "name": "Cache temporaire pipeline V1 (obsolète)",
+      "domain_bloc": "Bloc 01 — Noyau conversationnel & orchestration (legacy V1)",
+      "source_path": "legacy — src/security.py (V1), remplacé par src/security/",
+      "description": "Ancien cache/état temporaire du pipeline V1, superseded par le pipeline V2/V3. Vérifié le 22/07/2026 : src/security.py (V1) est absent du disque (recherche exhaustive) et n'apparaît dans aucun commit de suppression de l'historique git ALFRED_PC — le fichier a donc déjà disparu avant la mise sous git du dépôt (ou avant le point où l'historique git remonte), sans qu'aucun cache/état temporaire associé ne subsiste par ailleurs. Il n'y a donc plus de donnée physique réelle à définir : cette fiche documente une entrée déjà soldée, conservée pour traçabilité de la décision Bloc 20 (cf. notes).",
+      "documented": true,
+      "defined": true,
+      "status": "obsolete",
+      "data_type": "privee",
+      "sensitivity_classification": "C2_INTERNE",
+      "security_level_planned": 2,
+      "intended_use": [
+        "technique"
+      ],
+      "retention_period": "aucune — à purger",
+      "update_frequency": "aucune (plus alimenté)",
+      "authorized_roles": {
+        "read": [],
+        "write": []
+      },
+      "created_at": "2025-11-01",
+      "last_modified_at": "2026-01-05",
+      "planned_deletion_at": "2026-08-01",
+      "archived_at": "2026-07-22",
+      "notes": "cf. ALFRED_CONTEXT.md — 'src/security.py (V1) vs src/security/ (Bloc 20) → Bloc 20 gagne'. DOCUMENTÉ le 22/07/2026 : investigation disque + git log confirme l'absence totale du fichier legacy et de tout cache associé — rien à archiver ni à supprimer, la purge est déjà un fait accompli. planned_deletion_at (2026-08-01) conservée par prudence mais n'a plus d'objet réel. ARCHIVÉE le 22/07/2026 (demande OWNER) : sortie de entries[] pour ne plus être comptée/alertée dans le suivi actif."
+    },
+    {
+      "id": "DQ-022",
+      "name": "Historique de dialogue — doublon de chemin (supprimé)",
+      "domain_bloc": "Bloc 01.01 — Gestion des conversations",
+      "source_path": "data/dialogue_history.json (19b) vs data/memory/episodic/dialogue_history.json (DQ-002, chemin réel utilisé par memory_manager.py)",
+      "description": "Point C3-I du plan d'action, traité le 16/07/2026 : data/dialogue_history.json (racine) était un reliquat V1 orphelin — confirmé une seconde fois via recherche exhaustive dans le code (aucune référence, seul data/memory/episodic/dialogue_history.json/DQ-002 est utilisé par main.py/main_v3.py). Feu vert OWNER obtenu le 16/07/2026 — fichier supprimé du dépôt.",
+      "documented": true,
+      "defined": true,
+      "status": "obsolete",
+      "data_type": "privee",
+      "sensitivity_classification": "C2_INTERNE",
+      "security_level_planned": 2,
+      "intended_use": [
+        "technique"
+      ],
+      "retention_period": "n/a — fichier supprimé",
+      "update_frequency": "n/a — fichier supprimé",
+      "authorized_roles": {
+        "read": [],
+        "write": []
+      },
+      "created_at": "2026-03-01",
+      "last_modified_at": "2026-07-16",
+      "planned_deletion_at": "2026-07-16",
+      "archived_at": "2026-07-22",
+      "notes": "Supprimé le 16/07/2026 (git rm data/dialogue_history.json). Ne conserver cette fiche que pour l'historique de la décision. ARCHIVÉE le 22/07/2026 (demande OWNER) : sortie de entries[] pour ne plus être comptée/alertée dans le suivi actif."
     }
   ]
 }
