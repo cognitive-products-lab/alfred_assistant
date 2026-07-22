@@ -751,11 +751,16 @@ button{ cursor:pointer; }
         <button class="icon-btn" id="btn-theme" aria-label="Changer le thème visuel">
           <svg id="theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg>
         </button>
-        <button class="profile-btn" aria-label="Profil utilisateur, Céline">
-          <span class="profile-avatar" aria-hidden="true"></span>
-          <span>Céline</span>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
-        </button>
+        <div class="weather-wrap">
+          <button class="profile-btn" id="btn-profile" aria-label="Profil utilisateur, Céline" aria-expanded="false">
+            <span class="profile-avatar" aria-hidden="true"></span>
+            <span>Céline</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="weather-panel" id="profile-panel" style="width:200px;padding:var(--sp-2);">
+            <button type="button" class="btn btn-ghost btn-sm" id="btn-profile-parametres" style="width:100%;justify-content:flex-start;">Paramètres</button>
+          </div>
+        </div>
       </div>
     </header>
 
@@ -1748,6 +1753,28 @@ button{ cursor:pointer; }
     panel.addEventListener('click', function(e){ e.stopPropagation(); });
     document.addEventListener('click', function(e){
       if (panel.classList.contains('open') && !panel.contains(e.target) && !btn.contains(e.target)) toggle(false);
+    });
+  })();
+
+  /* ---------- PROFILE DROPDOWN ---------- */
+  (function(){
+    var btn = document.getElementById('btn-profile');
+    var panel = document.getElementById('profile-panel');
+    if (!btn || !panel) return;
+    function toggle(force){
+      var open = typeof force === 'boolean' ? force : !panel.classList.contains('open');
+      panel.classList.toggle('open', open);
+      btn.setAttribute('aria-expanded', String(open));
+    }
+    btn.addEventListener('click', function(e){ e.stopPropagation(); toggle(); });
+    panel.addEventListener('click', function(e){ e.stopPropagation(); });
+    document.addEventListener('click', function(e){
+      if (panel.classList.contains('open') && !panel.contains(e.target) && !btn.contains(e.target)) toggle(false);
+    });
+    var goToSettings = document.getElementById('btn-profile-parametres');
+    if (goToSettings) goToSettings.addEventListener('click', function(){
+      toggle(false);
+      switchView('parametres');
     });
   })();
 
