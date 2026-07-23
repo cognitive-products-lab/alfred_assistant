@@ -26,6 +26,7 @@ Variable d'environnement (.env) :
     OPENAI_API_KEY=ta_cle_api
 """
 
+import json
 import os
 from typing import Optional
 
@@ -57,17 +58,63 @@ class OpenAILLMClient:
         user_prompt: str,
         previous_response_id: Optional[str] = None,
         on_sentence=None,
+        tools: bool = False,
     ) -> str:
+        messages = [
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": user_prompt},
+        ]
+
+        if tools:
+            from src.core.tool_calling import openai_style_tools
+
+            return self._run_tool_loop(messages, openai_style_tools())
+
         response = self.client.chat.completions.create(
             model=self.model,
-            messages=[
-                {"role": "system", "content": system_prompt},
-                {"role": "user", "content": user_prompt}
-            ],
+            messages=messages,
             temperature=self.temperature,
             max_tokens=self.max_output_tokens
         )
         return response.choices[0].message.content.strip()
+
+    def _run_tool_loop(
+        self,
+        messages: list[dict],
+        tools: list[dict],
+        max_rounds: int = 3,
+    ) -> str:
+        """Boucle function-calling OpenAI — voir OllamaLLMClient._run_tool_loop
+        pour le même principe côté modèle local."""
+        from src.core.tool_calling import execute_tool
+
+        for _ in range(max_rounds):
+            response = self.client.chat.completions.create(
+                model=self.model,
+                messages=messages,
+                temperature=self.temperature,
+                max_tokens=self.max_output_tokens,
+                tools=tools,
+            )
+            message = response.choices[0].message
+
+            if not message.tool_calls:
+                return (message.content or "").strip()
+
+            messages.append(message.model_dump())
+            for call in message.tool_calls:
+                try:
+                    arguments = json.loads(call.function.arguments)
+                except json.JSONDecodeError:
+                    arguments = {}
+                result = execute_tool(call.function.name, arguments)
+                messages.append({
+                    "role": "tool",
+                    "tool_call_id": call.id,
+                    "content": json.dumps(result, ensure_ascii=False),
+                })
+
+        return "Désolé, je n'ai pas réussi à finaliser cette action après plusieurs tentatives."
 
     def is_available(self) -> bool:
         """Vérifie que la clé API est présente et le client initialisé."""

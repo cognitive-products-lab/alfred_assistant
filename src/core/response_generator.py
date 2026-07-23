@@ -22,6 +22,17 @@ import json
 import re
 from typing import Any, Dict, Optional
 
+# Mots-clés déclenchant l'activation des outils réels (Google Agenda) pour ce
+# tour de conversation — voir _should_enable_tools(). Filtre volontairement
+# grossier : un faux positif ne coûte qu'un aller-retour LLM supplémentaire
+# (src/llm/llm_client_ollama.py::_run_tool_loop), un faux négatif redonnerait
+# lieu à l'hallucination du 23/07/2026 (instructions d'UI inventées pour
+# ALFRED CPL au lieu d'un vrai appel à create_calendar_event).
+_TOOL_TRIGGER_KEYWORDS = [
+    "agenda", "rappel", "rappelle", "rendez-vous", "rendez vous",
+    "événement", "evenement", "calendrier", "planifie", "programme",
+]
+
 
 class ResponseGenerator:
     """
@@ -65,11 +76,14 @@ class ResponseGenerator:
         if forced:
             return forced
 
+        tools_enabled = self._should_enable_tools(user_message)
+
         system_prompt = self._build_system_prompt(
             context=response_context,
             history_text=history_text,
             session_summary=session_summary,
             mode_guidelines=mode_guidelines,
+            tools_enabled=tools_enabled,
         )
 
         user_prompt = self._build_user_prompt(user_message, response_context)
@@ -85,7 +99,9 @@ class ResponseGenerator:
             print(user_prompt)
 
         if self.llm_client:
-            response = self._call_llm(system_prompt, user_prompt, on_sentence=on_sentence)
+            response = self._call_llm(
+                system_prompt, user_prompt, on_sentence=on_sentence, tools=tools_enabled,
+            )
         else:
             response = self._fallback_response(user_message, response_context)
 
@@ -138,12 +154,20 @@ class ResponseGenerator:
 
         return ""
 
+    def _should_enable_tools(self, user_message: str) -> bool:
+        """Active les outils réels (Google Agenda) pour ce tour si le message
+        contient un mot-clé plausible — évite de payer le coût d'un aller-retour
+        LLM supplémentaire sur chaque message de conversation ordinaire."""
+        text = user_message.lower()
+        return any(keyword in text for keyword in _TOOL_TRIGGER_KEYWORDS)
+
     def _build_system_prompt(
         self,
         context: Dict[str, Any],
         history_text: str = "",
         session_summary: Optional[Dict[str, Any]] = None,
         mode_guidelines: str = "",
+        tools_enabled: bool = False,
     ) -> str:
         """Construit le prompt système complet."""
 
@@ -179,6 +203,16 @@ RÈGLE AUDIO :
 - L'interface mélange déjà voix et texte dans une seule vue : l'utilisateur peut parler ou taper au même endroit, sans "mode" séparé à changer.
 - Ne jamais prétendre que le module vocal n'est pas branché ou que tu réponds "uniquement en texte" — c'est faux dans cette version.
 - Aucun faux diagnostic technique.
+"""
+
+        tools_block = ""
+        if tools_enabled:
+            tools_block = """
+OUTILS RÉELS DISPONIBLES POUR CE TOUR :
+- Tu as un accès réel à Google Agenda : create_calendar_event (créer un événement ou un rappel, avec répétition possible) et list_calendar_events (lister les prochains événements).
+- Dès que l'utilisateur demande d'ajouter, créer ou planifier un rappel/rendez-vous/événement, ou de consulter son agenda, tu appelles l'outil correspondant.
+- Interdit d'inventer des instructions d'interface ("ouvre tel menu, clique sur tel bouton") à la place d'un appel d'outil réel — cette action existe réellement, utilise-la.
+- Si l'outil retourne une erreur (agenda non connecté, consentement désactivé), tu relaies cette erreur honnêtement à l'utilisateur, sans l'inventer autrement.
 """
 
         memory_block = ""
@@ -262,6 +296,7 @@ Tu tutoies toujours {user_name} ("tu", "toi", "ton/ta/tes"). INTERDIT d'utiliser
 {execution_block}
 
 {audio_block}
+{tools_block}
 {time_block}
 RÔLE :
 {assistant.get("role", "Assistant personnel adaptatif")}
@@ -445,7 +480,9 @@ Réponds maintenant.""".strip()
     # APPEL LLM
     # =========================================================
 
-    def _call_llm(self, system_prompt: str, user_prompt: str, on_sentence=None) -> str:
+    def _call_llm(
+        self, system_prompt: str, user_prompt: str, on_sentence=None, tools: bool = False,
+    ) -> str:
         """Appelle le LLM externe via le client abstrait."""
         try:
             import inspect
@@ -453,6 +490,8 @@ Réponds maintenant.""".strip()
             kwargs = {}
             if "on_sentence" in sig.parameters and on_sentence is not None:
                 kwargs["on_sentence"] = on_sentence
+            if "tools" in sig.parameters:
+                kwargs["tools"] = tools
             response = self.llm_client.generate(
                 system_prompt=system_prompt,
                 user_prompt=user_prompt,
