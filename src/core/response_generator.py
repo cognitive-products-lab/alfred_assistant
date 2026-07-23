@@ -225,6 +225,17 @@ MODE ACTIF :
 {mode_guidelines}
 """
 
+        time_ctx = context.get("time") or {}
+        time_block = ""
+        if time_ctx:
+            time_block = f"""
+CONTEXTE TEMPOREL RÉEL (heure française, Europe/Paris) :
+- Nous sommes le {time_ctx.get("date", "date inconnue")}
+- Il est actuellement {time_ctx.get("time", "heure inconnue")}
+- Moment de la journée : {time_ctx.get("period", "inconnu")}
+Si {user_name} demande l'heure ou la date, tu réponds directement avec ces informations réelles — ne dis jamais que tu n'y as pas accès.
+"""
+
         if context.get("research_mode", False):
             return self._build_research_system_prompt(
                 context=context,
@@ -232,6 +243,7 @@ MODE ACTIF :
                 session_block=session_block,
                 memory_block=memory_block,
                 mode_block=mode_block,
+                time_block=time_block,
             )
 
         return f"""Tu es {assistant.get("name", "ALFRED")}.
@@ -250,7 +262,7 @@ Tu tutoies toujours {user_name} ("tu", "toi", "ton/ta/tes"). INTERDIT d'utiliser
 {execution_block}
 
 {audio_block}
-
+{time_block}
 RÔLE :
 {assistant.get("role", "Assistant personnel adaptatif")}
 
@@ -333,6 +345,7 @@ RÈGLE DE CITATION DES SOURCES :
         session_block: str = "",
         memory_block: str = "",
         mode_block: str = "",
+        time_block: str = "",
     ) -> str:
         """Prompt système pour le mode expérimentation — liberté interactionnelle élevée."""
 
@@ -360,7 +373,7 @@ RÈGLE AUDIO :
 {execution_block}
 
 {audio_block}
-
+{time_block}
 TUTOIEMENT OBLIGATOIRE — RÈGLE ABSOLUE :
 Tu tutoies toujours {user_name} ("tu", "toi", "ton/ta/tes"). INTERDIT d'utiliser "vous", "votre", "vos", même par registre soutenu.
 
