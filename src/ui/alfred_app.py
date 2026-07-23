@@ -281,6 +281,19 @@ def set_ui_voice_error(message: str) -> None:
     pass
 
 
+def set_ui_visemes(timeline: list) -> None:
+    """
+    Transmet la timeline de visèmes (phonème-exacte) de la phrase qui va être
+    jouée : liste de {"v": code_viseme, "t": debut_ms, "d": duree_ms}. Émis
+    juste avant sd.play() (même instant que set_ui_speaking(True)), pour que
+    le récepteur puisse caler son minuteur sur le vrai début de lecture.
+    No-op côté Kivy (le renderer historique reste sur la sync par amplitude,
+    cf. AvatarController.set_speaking) — monkeypatché par src/alfred_desktop.py
+    pour l'interface desktop HTML.
+    """
+    pass
+
+
 def is_camera_active() -> bool:
     """Indique si la caméra est actuellement activée (overlay webcam)."""
     if _app_instance is not None and _app_instance._layout is not None:

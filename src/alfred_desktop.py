@@ -6,9 +6,9 @@ ROLE         : Point d'entree ALFRED avec l'interface desktop HTML (pywebview)
 
 AUTHOR       : Cognitive Products Lab
 CREATED      : 2026-07-18
-UPDATED      : 2026-07-19
-VERSION      : V1.2
-STATUS       : DRAFT — texte + dashboard + mode vocal (micro/TTS) branchés, visèmes en attente
+UPDATED      : 2026-07-23
+VERSION      : V1.3
+STATUS       : DRAFT — texte + dashboard + mode vocal (micro/TTS) + visèmes phonème-exactes branchés
 
 DESCRIPTION :
 Remplace src/alfred_with_ui.py (interface Kivy) par la nouvelle interface
@@ -45,10 +45,20 @@ Branché en V1.2 :
     (set_ui_speaking/set_ui_listening, désormais monkeypatchés eux aussi) au
     lieu d'un minuteur factice.
 
+Branché en V1.3 :
+  - Synchronisation labiale phonème-exacte (V00-V14) : PiperTTS.speak() est
+    passé du CLI piper.exe (sous-processus) à l'API Python de Piper
+    (voice.synthesize_wav(..., include_alignments=True)), qui donne les
+    timings réels par phonème sans synthèse double. src/conversation/output/
+    phoneme_viseme_map.py convertit la séquence de phonèmes IPA en timeline
+    de visèmes ({"v": "V03", "t": ..., "d": ...}), poussée juste avant
+    onSpeaking(true) via le nouvel évènement onVisemes (voir
+    set_ui_visemes dans src/ui/alfred_app.py). Nécessite que le modèle .onnx
+    ait été patché avec `python -m piper.patch_voice_with_alignment` (sinon
+    Piper renvoie une liste d'alignments vide — fallback silencieux sur
+    l'ancien cycle de visèmes à intervalle fixe côté JS).
+
 Pas encore branché (prochaines étapes) :
-  - Synchronisation labiale précise par visème (V00-V14, en cours de
-    génération côté utilisateur) — le mode vocal fait pour l'instant un
-    simple bascule parle/silence (sprite "explaining" vs "neutral").
   - Coupure effective du son en cours de lecture sur "Interrompre" (le TTS
     continue de jouer la phrase en cours).
 
@@ -134,6 +144,10 @@ def _on_voice_error(message: str) -> None:
     _push("onVoiceError", message)
 
 
+def _on_visemes(timeline: list) -> None:
+    _push("onVisemes", timeline)
+
+
 def _install_bridge_hooks() -> None:
     """
     Remplace les hooks pipeline->UI de src.ui.alfred_app par nos versions
@@ -152,6 +166,9 @@ def _install_bridge_hooks() -> None:
     _alfred_app_module.set_ui_speaking = _on_speaking
     _alfred_app_module.set_ui_listening = _on_listening
     _alfred_app_module.set_ui_voice_error = _on_voice_error
+    # Timeline de visèmes phonème-exacte, émise juste avant onSpeaking(true) —
+    # voir main.py::_cb_visemes et PiperTTS.on_visemes.
+    _alfred_app_module.set_ui_visemes = _on_visemes
 
 
 # ============================================================

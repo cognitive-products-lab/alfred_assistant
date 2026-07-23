@@ -237,11 +237,11 @@ def synthesize(
         with tempfile.NamedTemporaryFile(suffix=".wav", delete=False) as tmp:
             tmp_path = tmp.name
 
+        from piper.config import SynthesisConfig
+        syn_config = SynthesisConfig(speaker_id=ALFRED_VOICE["speaker_id"])
+
         with wave.open(tmp_path, "wb") as wav_file:
-            wav_file.setnchannels(1)
-            wav_file.setsampwidth(2)
-            wav_file.setframerate(ALFRED_VOICE["sample_rate"])
-            voice.synthesize(text, wav_file)
+            voice.synthesize_wav(text, wav_file, syn_config=syn_config)
 
         with wave.open(tmp_path, "rb") as wav_file:
             frames = wav_file.readframes(wav_file.getnframes())
@@ -380,12 +380,11 @@ def save_to_file(
     output_path.parent.mkdir(parents=True, exist_ok=True)
 
     try:
-        with wave.open(str(output_path), "wb") as wav_file:
-            wav_file.setnchannels(1)
-            wav_file.setsampwidth(2)
-            wav_file.setframerate(ALFRED_VOICE["sample_rate"])
+        from piper.config import SynthesisConfig
+        syn_config = SynthesisConfig(speaker_id=ALFRED_VOICE["speaker_id"])
 
-            voice.synthesize(text, wav_file)
+        with wave.open(str(output_path), "wb") as wav_file:
+            voice.synthesize_wav(text, wav_file, syn_config=syn_config)
 
         log_event(f"TTS sauvegardé : {output_path}")
         return True
@@ -442,8 +441,18 @@ if __name__ == "__main__":
 
 class PiperTTS:
     """
-    Backend TTS robuste via Piper CLI.
-    Contourne le bug Piper Python qui génère un audio vide sous Windows/Python 3.13.
+    Backend TTS via l'API Python de Piper (voice.synthesize_wav).
+
+    NOTE 2026-07-23 : utilisait auparavant le CLI piper.exe en sous-processus,
+    avec un commentaire indiquant que l'API Python générait un audio vide sous
+    Windows/Python 3.13. Vérifié faux : la vraie cause était un appel à la
+    mauvaise méthode (voir tts_piper.synthesize() ci-dessus, qui appelle
+    voice.synthesize(text, wav_file) — signature obsolète pour piper-tts 1.4.2,
+    qui interprète silencieusement wav_file comme syn_config). La bonne méthode
+    est synthesize_wav(), qui produit un audio valide ET permet include_alignments
+    (timing réel par phonème, nécessaire à la synchro labiale phonème-exacte —
+    voir phoneme_viseme_map.py). Passer par l'API évite aussi une double
+    synthèse (CLI pour l'audio + API pour les timings).
     """
 
     def __init__(self, mode: str = "default", blocking: bool = True) -> None:
@@ -452,6 +461,10 @@ class PiperTTS:
         # Callbacks déclenchés en synchronisation avec la lecture audio réelle
         self.on_play_start: "callable | None" = None  # juste après sd.play()
         self.on_play_stop:  "callable | None" = None  # juste après sd.wait()
+        # Timeline de visèmes (phonème-exacte) de la prochaine phrase à jouer —
+        # appelé juste avant on_play_start, avec la liste produite par
+        # build_viseme_timeline() : [{"v": "V03", "t": 120, "d": 80}, ...]
+        self.on_visemes: "callable | None" = None
         # Amplitude RMS de la dernière phrase synthétisée (0.0-~0.3 pour une
         # voix normale) -- mesure simple lue par l'avatar (cf.
         # AvatarController.resume_speaking) pour adapter le rythme de bouche
@@ -459,46 +472,42 @@ class PiperTTS:
         self.last_amplitude: float = 0.0
 
     def speak(self, text: str) -> bool:
-        import os
-        import subprocess
+        import wave
         import tempfile
         import sounddevice as sd
         import soundfile as sf
+        import numpy as np
 
         if not text or not text.strip():
             return False
 
+        voice = _load_voice()
+        if voice is None:
+            print("❌ Erreur Piper API : voix non chargée")
+            if self.on_play_stop:
+                try:
+                    self.on_play_stop()
+                except Exception:
+                    pass
+            return False
+
+        tmp_wav_path = None
         try:
+            from piper.config import SynthesisConfig
+
             tmp_file = tempfile.NamedTemporaryFile(delete=False, suffix=".wav")
             tmp_wav_path = tmp_file.name
             tmp_file.close()
 
-            command = [
-                "piper",
-                "--model", str(_MODEL_PATH),
-                "--config", str(_CONFIG_PATH),
-                "--output_file", tmp_wav_path,
-                "--speaker", str(ALFRED_VOICE["speaker_id"]),
-            ]
+            syn_config = SynthesisConfig(speaker_id=ALFRED_VOICE["speaker_id"])
 
-            # PYTHONIOENCODING force le CLI Piper (script Python) à lire son
-            # stdin en UTF-8 — sans ça, Windows utilise le codepage console
-            # (cp1252/cp850) et les caractères accentués sont mal interprétés.
-            piper_env = dict(os.environ, PYTHONIOENCODING="utf-8", PYTHONUTF8="1")
-
-            subprocess.run(
-                command,
-                input=text.strip(),
-                text=True,
-                encoding="utf-8",
-                errors="replace",
-                check=True,
-                stdout=subprocess.PIPE,
-                stderr=subprocess.PIPE,
-                env=piper_env,
-            )
-            import sounddevice as sd
-            import soundfile as sf
+            with wave.open(tmp_wav_path, "wb") as wav_file:
+                alignments = voice.synthesize_wav(
+                    text.strip(),
+                    wav_file,
+                    syn_config=syn_config,
+                    include_alignments=True,
+                )
 
             audio, samplerate = sf.read(tmp_wav_path, dtype="float32")
 
@@ -516,8 +525,18 @@ class PiperTTS:
 
             # Amplitude RMS de la phrase -- calculée avant lecture pour être
             # disponible dès on_play_start (sync avatar/bouche).
-            import numpy as np
             self.last_amplitude = float(np.sqrt(np.mean(np.square(audio)))) if audio.size else 0.0
+
+            # Timeline de visèmes -- calculée sur le sample rate Piper d'origine
+            # (avant resample), qui est celui utilisé par voice.synthesize_wav()
+            # pour convertir num_samples en durée.
+            if self.on_visemes and alignments:
+                try:
+                    from src.conversation.output.phoneme_viseme_map import build_viseme_timeline
+                    piper_sample_rate = voice.config.sample_rate
+                    self.on_visemes(build_viseme_timeline(alignments, piper_sample_rate))
+                except Exception:
+                    pass
 
             # Sortie sur le device par défaut système (ne pas forcer un index)
             # PaErrorCode -9998 = device 3 est input-only sur cette machine
@@ -543,7 +562,7 @@ class PiperTTS:
             return True
 
         except Exception as e:
-            print(f"❌ Erreur Piper CLI : {type(e).__name__} — {e}")
+            print(f"❌ Erreur Piper API : {type(e).__name__} — {e}")
             # Garantit que on_play_stop est appelé même en cas d'erreur
             if self.on_play_stop:
                 try:
@@ -551,5 +570,12 @@ class PiperTTS:
                 except Exception:
                     pass
             return False
+
+        finally:
+            if tmp_wav_path:
+                try:
+                    os.remove(tmp_wav_path)
+                except OSError:
+                    pass
 
 
