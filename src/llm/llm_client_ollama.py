@@ -163,30 +163,29 @@ class OllamaLLMClient:
         previous_response_id: Optional[str] = None,
         stream_prefix: str = "  ALFRED : ",
         on_sentence: Optional[Callable[[str], None]] = None,
+        tools: bool = False,
     ) -> str:
-        payload = {
-            "model": self.model,
-            "messages": [
-                {"role": "system", "content": system_prompt},
-                {"role": "user", "content": user_prompt}
-            ],
-            "stream": self.stream,
-            "options": {
-                "temperature": self.temperature,
-                "num_predict": self.max_tokens,
-                "num_ctx":     self.num_ctx,
-            }
-        }
-        if self.keep_alive:
-            payload["keep_alive"] = self.keep_alive
+        messages = [
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": user_prompt},
+        ]
 
-        data = json.dumps(payload).encode("utf-8")
-        req = urllib.request.Request(
-            f"{self.base_url}/api/chat",
-            data=data,
-            headers={"Content-Type": "application/json"},
-            method="POST"
-        )
+        if tools:
+            from src.core.tool_calling import openai_style_tools
+
+            messages, direct_answer = self._run_tool_loop(messages, openai_style_tools())
+            if direct_answer is not None:
+                # Le tour d'outils a déjà produit la réponse finale (avec ou sans
+                # appel d'outil réellement exécuté) — pas besoin d'un second
+                # aller-retour Ollama. Coût : pas de streaming token-par-token
+                # pour ce tour précis (rare — seulement les demandes agenda/rappel).
+                print(f"{stream_prefix}{direct_answer}", flush=True)
+                if on_sentence:
+                    on_sentence(direct_answer)
+                self.last_was_streamed = False
+                return direct_answer
+
+        req = self._build_request(messages, stream=self.stream)
 
         try:
             if self.stream:
@@ -197,6 +196,85 @@ class OllamaLLMClient:
                 return self._generate_blocking(req)
         except urllib.error.URLError as e:
             raise ConnectionError(f"Ollama inaccessible : {e}")
+
+    def _build_request(
+        self,
+        messages: list[dict],
+        stream: bool,
+        tools: Optional[list[dict]] = None,
+    ) -> urllib.request.Request:
+        payload = {
+            "model": self.model,
+            "messages": messages,
+            "stream": stream,
+            "options": {
+                "temperature": self.temperature,
+                "num_predict": self.max_tokens,
+                "num_ctx":     self.num_ctx,
+            }
+        }
+        if self.keep_alive:
+            payload["keep_alive"] = self.keep_alive
+        if tools:
+            payload["tools"] = tools
+
+        data = json.dumps(payload).encode("utf-8")
+        return urllib.request.Request(
+            f"{self.base_url}/api/chat",
+            data=data,
+            headers={"Content-Type": "application/json"},
+            method="POST"
+        )
+
+    def _run_tool_loop(
+        self,
+        messages: list[dict],
+        tools: list[dict],
+        max_rounds: int = 3,
+    ) -> tuple[list[dict], Optional[str]]:
+        """Boucle function-calling : le modèle local (ex. llama3.2) décide s'il
+        appelle un outil ; si oui, on l'exécute (src/core/tool_calling.py) et on
+        renvoie le résultat au modèle jusqu'à ce qu'il réponde en texte, ou que
+        max_rounds soit atteint (garde-fou contre une boucle d'outils infinie).
+
+        Chaque appel de décision est non-streamé (Ollama ne renvoie tool_calls
+        qu'en une fois, pas au fil du stream). Dès qu'un tour ne demande plus
+        d'outil, son message.content EST la réponse finale — on la retourne
+        directement plutôt que de refaire un aller-retour Ollama en plus."""
+        from src.core.tool_calling import execute_tool
+
+        for _ in range(max_rounds):
+            req = self._build_request(messages, stream=False, tools=tools)
+            try:
+                with urllib.request.urlopen(req, timeout=self.timeout) as resp:
+                    data = json.loads(resp.read().decode())
+            except urllib.error.URLError as e:
+                raise ConnectionError(f"Ollama inaccessible : {e}")
+
+            message = data.get("message", {})
+            tool_calls = message.get("tool_calls") or []
+            if not tool_calls:
+                return messages, (message.get("content") or "").strip()
+
+            messages.append(message)
+            for call in tool_calls:
+                function = call.get("function", {})
+                name = function.get("name", "")
+                arguments = function.get("arguments", {})
+                if isinstance(arguments, str):
+                    try:
+                        arguments = json.loads(arguments)
+                    except json.JSONDecodeError:
+                        arguments = {}
+                result = execute_tool(name, arguments)
+                messages.append({
+                    "role": "tool",
+                    "content": json.dumps(result, ensure_ascii=False),
+                })
+
+        return messages, None
+
+        return messages
 
     def _generate_stream(
         self,
