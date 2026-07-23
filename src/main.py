@@ -1454,6 +1454,14 @@ def build_response(
         user_adaptation=user_adaptation,   # MBTI + préférences comm + frontières
     )
 
+    # Contexte temporel réel (heure française) — sans ça le LLM n'a aucune
+    # base pour répondre à "quelle heure est-il ?" et le dit honnêtement.
+    try:
+        from src.conversation.input.context_builder import get_time_context
+        context["time"] = get_time_context()
+    except Exception:
+        pass
+
     # Fusion PipelineContext → response_context (mode santé, ton, règles)
     if pipeline_ctx:
         try:
@@ -1979,8 +1987,19 @@ def main() -> None:
             except Exception:
                 pass
 
+        def _cb_visemes(timeline: list) -> None:
+            # Émis juste avant on_play_start (voir PiperTTS.speak) — timeline
+            # phonème-exacte de la phrase sur le point d'être jouée.
+            try:
+                from src.ui.alfred_app import set_ui_visemes
+                set_ui_visemes(timeline)
+            except Exception:
+                pass
+
         _tts_backend.on_play_start = _cb_play_start
         _tts_backend.on_play_stop  = _cb_play_stop
+        if hasattr(_tts_backend, "on_visemes"):
+            _tts_backend.on_visemes = _cb_visemes
 
     # Accueil vocal automatique
     try:
