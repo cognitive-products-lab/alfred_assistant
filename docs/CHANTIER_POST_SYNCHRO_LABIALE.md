@@ -1,9 +1,10 @@
-# Chantier — 3 prochaines étapes après la synchronisation labiale
+# Chantier — 4 prochaines étapes après la synchronisation labiale
 
 > Rédigé le 23/07/2026 — description du travail à fournir, **pas encore commencé**.
 > Ordre décidé par Céline : Google Home/Calendar d'abord, puis Mémoire/Connaissances/
-> Appareils/Émotions, puis TaskEngine. Reprendre une fois le chantier synchro labiale
-> (session parallèle) terminé — voir `project_backlog_next_session.md` (mémoire).
+> Appareils/Émotions, puis TaskEngine, puis Android. Reprendre une fois le chantier
+> synchro labiale (session parallèle) terminé — voir `project_backlog_next_session.md`
+> (mémoire).
 
 ---
 
@@ -175,6 +176,75 @@ en JSON local comme le ReminderEngine, branché sur la page Tâches réelle et s
 - Le compteur "Tâches" affiché dans le sidebar (badge visible sur "Tâches" dans les
   captures d'écran) est peut-être déjà un chiffre statique/démo à vérifier/corriger une
   fois le vrai moteur branché.
+
+---
+
+## Chantier 4 — Android
+
+Adapter l'interface desktop à une interface Android, pour un prototype Android fonctionnel.
+
+### État actuel réel (vérifié 23/07/2026)
+
+Le projet `ALFRED_ANDROID` n'est **pas** une base à étendre directement — c'est un PoC
+"compagnon" minimaliste, distinct de l'objectif "adaptation de l'interface desktop" :
+
+- `ALFRED_ANDROID/.../CompanionApiService.kt` n'expose que 2 appels Retrofit en lecture
+  seule vers un serveur distant. Aucune permission Android au-delà d'`INTERNET` — pas de
+  localisation, pas de micro, pas de code TTS/haut-parleur, UI Compose minimale
+  (`MainActivity`/`CompanionViewModel`).
+- Côté serveur, `interface/companion_api.py` (113 lignes, FastAPI, `start_companion_api.bat`)
+  **confirme l'écart** : seulement 2 routes réelles, `GET /api/status` et
+  `GET /api/notifications`, protégées par un token (`COMPANION_API_TOKEN`, actuellement
+  absent de `.env` — cause du seul test qui échoue dans la suite actuelle). Rien
+  d'équivalent à `send_message`, au tableau de bord, ni au mode vocal.
+- Build Android confirmé fonctionnel (test bout-en-bout émulateur Pixel 6, 02/07/2026,
+  commit `dc08fa0`) mais projet inactif depuis mi-juillet.
+- **Le vrai bloquant n'est pas Kotlin, c'est le manque de serveur côté ALFRED_PC** : le
+  pipeline conversationnel (`src/main.py`) ne tourne aujourd'hui qu'en process local sur
+  le PC — rien n'expose `send_message`, les données du tableau de bord, ni le mode vocal
+  par réseau. Un téléphone ne peut rien faire tant que ce serveur n'existe pas.
+
+### Objectif
+
+Un prototype Android fonctionnel qui reproduit l'expérience desktop (tableau de bord +
+mode vocal hybride texte/voix, cf. chantier interface fait le 22-23/07) en utilisant les
+capteurs du téléphone (position, micro, haut-parleur) au lieu de ceux du PC.
+
+### Étapes à construire (dans l'ordre logique, chacune bloque la suivante)
+
+1. **Décision d'architecture** — étendre le PoC compagnon existant (client léger vers une
+   API à construire) vs. réplique complète pipeline + UI côté Android. À trancher avec
+   Céline avant tout code, ne pas supposer.
+2. **Serveur HTTP exposant le pipeline ALFRED** — le vrai prérequis n°1, n'existe pas :
+   `send_message`, données tableau de bord, mode vocal, exposés en réseau (probablement
+   une extension de `interface/companion_api.py`, ou un nouveau service).
+3. **Modèle d'authentification mobile** — le PIN desktop actuel est pensé pour un accès
+   machine locale, pas pour un accès réseau depuis un téléphone.
+4. **Permissions Android** — `ACCESS_FINE_LOCATION`/`ACCESS_COARSE_LOCATION`,
+   `RECORD_AUDIO`, gestion des permissions runtime (API 23+) : rien n'existe encore.
+5. **Géolocalisation** (`FusedLocationProviderClient` ou équivalent), avec repli code
+   postal manuel — rester cohérent avec le widget météo desktop déjà construit cette
+   session (même logique de consentement explicite).
+6. **Micro** — `AudioRecord`/`SpeechRecognizer` Android, ou streaming vers le serveur STT
+   existant côté PC (`faster_whisper`) plutôt que dupliquer la transcription sur le
+   téléphone.
+7. **Haut-parleur/TTS** — API `TextToSpeech` Android, ou lecture d'un flux audio déjà
+   synthétisé côté serveur (cohérent avec Piper déjà en place).
+8. **UI Compose complète** — dashboard + vue hybride vocale/texte, en s'inspirant
+   directement du design desktop déjà validé (interface hybride, avatar plein corps,
+   tutoiement) plutôt que d'en inventer un nouveau.
+9. **Réseau local PC↔téléphone** — même réseau ou VPN, lien direct avec le chantier VLAN
+   déjà en cours (ALFRED_COR/ADMIN/IOT) : ne pas exposer le pipeline sans authentification
+   forte ni segmentation réseau appropriée.
+
+### Risques / points à trancher avant de coder
+
+- Ne pas repartir de la fausse hypothèse "juste adapter le code existant" — l'écart est
+  structurel (serveur backend manquant), pas seulement de l'UI Kotlin à écrire.
+- Commencer par les points 1 et 2 (décision d'architecture + serveur HTTP) avec Céline —
+  tout le reste en dépend directement.
+- Exposition réseau du pipeline = surface d'attaque nouvelle ; à traiter avec le même
+  niveau d'exigence sécurité que le reste du projet (Zero Trust déjà en place ailleurs).
 
 ---
 
