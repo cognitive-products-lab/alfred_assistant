@@ -56,6 +56,7 @@ def _normalize_event(event: dict) -> dict:
         "end": end.get("date") or end.get("dateTime", ""),
         "location": event.get("location"),
         "all_day": all_day,
+        "recurring_event_id": event.get("recurringEventId"),
     }
 
 
@@ -148,3 +149,134 @@ def create_event(
         raise CalendarError(f"Création de l'événement impossible : {exc}") from exc
 
     return _normalize_event(created)
+
+
+def update_event(
+    creds,
+    event_id: str,
+    summary: str | None = None,
+    start_iso: str | None = None,
+    end_iso: str | None = None,
+    location: str | None = None,
+) -> dict:
+    """
+    Modifie un événement existant (patch partiel — seuls les champs fournis
+    sont modifiés).
+
+    Args:
+        creds     : Credentials Google valides
+        event_id  : Identifiant de l'événement (voir list_upcoming_events/find_event)
+        summary   : Nouveau titre, si fourni
+        start_iso : Nouvelle date/heure de début ISO 8601, si fournie
+        end_iso   : Nouvelle date/heure de fin ISO 8601, si fournie
+        location  : Nouveau lieu, si fourni
+
+    Returns:
+        Événement modifié, normalisé.
+
+    Raises:
+        CalendarError en cas d'échec de l'appel API.
+    """
+    from googleapiclient.errors import HttpError
+
+    service = _build_service(creds)
+    body: dict = {}
+    if summary is not None:
+        body["summary"] = summary
+    if start_iso is not None:
+        body["start"] = {"dateTime": start_iso, "timeZone": "Europe/Paris"}
+    if end_iso is not None:
+        body["end"] = {"dateTime": end_iso, "timeZone": "Europe/Paris"}
+    if location is not None:
+        body["location"] = location
+
+    try:
+        updated = (
+            service.events()
+            .patch(calendarId=_CALENDAR_ID, eventId=event_id, body=body)
+            .execute()
+        )
+    except HttpError as exc:
+        raise CalendarError(f"Modification de l'événement impossible : {exc}") from exc
+
+    return _normalize_event(updated)
+
+
+def delete_event(creds, event_id: str) -> None:
+    """
+    Supprime un événement (ou toute une série récurrente si event_id est
+    l'identifiant de l'événement maître — voir find_event).
+
+    Raises:
+        CalendarError en cas d'échec de l'appel API.
+    """
+    from googleapiclient.errors import HttpError
+
+    service = _build_service(creds)
+    try:
+        service.events().delete(calendarId=_CALENDAR_ID, eventId=event_id).execute()
+    except HttpError as exc:
+        raise CalendarError(f"Suppression de l'événement impossible : {exc}") from exc
+
+
+def find_event(creds, summary_hint: str, max_candidates: int = 25) -> list[dict]:
+    """
+    Cherche, parmi les prochains événements, ceux dont le titre contient
+    summary_hint (insensible à la casse) — utilisé pour résoudre une demande
+    en langage naturel ("mon rendez-vous chez le dentiste") vers un event_id
+    réel avant modification/suppression, sans exiger que l'utilisateur (ou le
+    LLM) connaisse l'identifiant technique.
+
+    Pour un événement récurrent, retourne l'identifiant de la SÉRIE (masterEventId
+    si présent sur l'occurrence, sinon son propre id) afin qu'une suppression
+    affecte la série entière plutôt qu'une seule occurrence — cohérent avec
+    l'attente naturelle "supprime mon rappel de manger" (toutes les occurrences).
+
+    Returns:
+        Liste d'événements normalisés correspondants, triés par date croissante,
+        dédoublonnés par identifiant de série.
+    """
+    from datetime import datetime, timedelta, timezone
+
+    from googleapiclient.errors import HttpError
+
+    # Fenêtre élargie à -24h (pas uniquement les événements à venir) : une
+    # demande de modification/suppression doit aussi pouvoir retrouver un
+    # événement tout juste passé (ex. mal planifié par erreur, ou "annule mon
+    # rendez-vous de ce matin") — list_upcoming_events filtre strictement à
+    # partir de maintenant, trop restrictif pour ce cas d'usage.
+    service = _build_service(creds)
+    time_min = (datetime.now(timezone.utc) - timedelta(hours=24)).isoformat()
+
+    try:
+        response = (
+            service.events()
+            .list(
+                calendarId=_CALENDAR_ID,
+                timeMin=time_min,
+                maxResults=max_candidates,
+                singleEvents=True,
+                orderBy="startTime",
+            )
+            .execute()
+        )
+    except HttpError as exc:
+        raise CalendarError(f"Recherche de l'événement impossible : {exc}") from exc
+
+    events = [_normalize_event(e) for e in response.get("items", [])]
+    hint = summary_hint.strip().lower()
+    if not hint:
+        return []
+
+    seen_series: set[str] = set()
+    matches: list[dict] = []
+    for event in events:
+        if hint not in event["summary"].lower():
+            continue
+        series_id = event.get("recurring_event_id") or event["id"]
+        if series_id in seen_series:
+            continue
+        seen_series.add(series_id)
+        matches.append({**event, "id": series_id})
+
+    return matches

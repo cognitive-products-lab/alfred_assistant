@@ -106,3 +106,81 @@ def create_calendar_event(
         return {"consent": True, "connected": True, "ok": True, "event": event}
     except CalendarError as exc:
         return {"consent": True, "connected": True, "ok": False, "error": str(exc)}
+
+
+def find_calendar_events(summary_hint: str) -> dict:
+    """Cherche des événements par titre approximatif — utilisé par les outils
+    du LLM (src/core/tool_calling.py) pour résoudre "mon rendez-vous chez le
+    dentiste" en event_id réel avant modification/suppression."""
+    from src.ui.google_calendar_prefs import load_google_calendar_prefs
+
+    if not load_google_calendar_prefs()["consent"]:
+        return {"consent": False}
+
+    from src.integrations import google_auth
+
+    creds = google_auth.get_credentials()
+    if not creds:
+        return {"consent": True, "connected": False}
+
+    from src.integrations.google_calendar_client import find_event, CalendarError
+
+    try:
+        events = find_event(creds, summary_hint)
+        return {"consent": True, "connected": True, "ok": True, "events": events}
+    except CalendarError as exc:
+        return {"consent": True, "connected": True, "ok": False, "error": str(exc)}
+
+
+def update_calendar_event(
+    event_id: str,
+    summary: str | None = None,
+    start_iso: str | None = None,
+    end_iso: str | None = None,
+    location: str | None = None,
+) -> dict:
+    """Modifie un événement existant — appelé depuis les outils du LLM."""
+    from src.ui.google_calendar_prefs import load_google_calendar_prefs
+
+    if not load_google_calendar_prefs()["consent"]:
+        return {"consent": False}
+
+    from src.integrations import google_auth
+
+    creds = google_auth.get_credentials()
+    if not creds:
+        return {"consent": True, "connected": False}
+
+    from src.integrations.google_calendar_client import update_event, CalendarError
+
+    try:
+        event = update_event(
+            creds, event_id, summary=summary, start_iso=start_iso,
+            end_iso=end_iso, location=location,
+        )
+        return {"consent": True, "connected": True, "ok": True, "event": event}
+    except CalendarError as exc:
+        return {"consent": True, "connected": True, "ok": False, "error": str(exc)}
+
+
+def delete_calendar_event(event_id: str) -> dict:
+    """Supprime un événement (ou une série récurrente) — appelé depuis les
+    outils du LLM."""
+    from src.ui.google_calendar_prefs import load_google_calendar_prefs
+
+    if not load_google_calendar_prefs()["consent"]:
+        return {"consent": False}
+
+    from src.integrations import google_auth
+
+    creds = google_auth.get_credentials()
+    if not creds:
+        return {"consent": True, "connected": False}
+
+    from src.integrations.google_calendar_client import delete_event, CalendarError
+
+    try:
+        delete_event(creds, event_id)
+        return {"consent": True, "connected": True, "ok": True}
+    except CalendarError as exc:
+        return {"consent": True, "connected": True, "ok": False, "error": str(exc)}
