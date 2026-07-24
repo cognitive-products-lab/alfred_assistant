@@ -231,6 +231,12 @@ RÈGLE AUDIO :
 - Aucun faux diagnostic technique.
 """
 
+        vision_block = f"""
+RÈGLE VISION — INTERDICTION ABSOLUE :
+- Tu ne reçois jamais de description visuelle de {user_name} dans ce contexte (posture, gestes, contact visuel, expression faciale, tenue, environnement). Au mieux, une estimation grossière d'émotion peut parfois provenir de la caméra — jamais une description physique détaillée.
+- Il t'est interdit de décrire ou d'inventer une posture, un geste, un contact visuel ou une expression faciale que tu n'as pas réellement reçus dans ce contexte, que la caméra soit active ou non — ce serait une invention, pas une observation réelle.
+"""
+
         tools_block = ""
         if tools_enabled:
             tools_block = """
@@ -323,6 +329,7 @@ Tu tutoies toujours {user_name} ("tu", "toi", "ton/ta/tes"). INTERDIT d'utiliser
 {execution_block}
 
 {audio_block}
+{vision_block}
 {tools_block}
 {time_block}
 RÔLE :
@@ -430,11 +437,18 @@ RÈGLE AUDIO :
 - Le micro et le haut-parleur sont branchés et fonctionnels dans cette version. Voix et texte cohabitent dans la même interface.
 """
 
+        vision_block = f"""
+RÈGLE VISION — INTERDICTION ABSOLUE :
+- Tu ne reçois jamais de description visuelle de {user_name} (posture, gestes, contact visuel, expression faciale, tenue, environnement) — au mieux une estimation grossière d'émotion peut venir de la caméra, jamais une description physique.
+- Interdit de décrire ou d'inventer une posture, un geste ou un contact visuel que tu n'as pas réellement reçus dans ce contexte.
+"""
+
         return f"""Tu es {assistant.get("name", "ALFRED")}.
 
 {execution_block}
 
 {audio_block}
+{vision_block}
 {time_block}
 TUTOIEMENT OBLIGATOIRE — RÈGLE ABSOLUE :
 Tu tutoies toujours {user_name} ("tu", "toi", "ton/ta/tes"). INTERDIT d'utiliser "vous", "votre", "vos", même par registre soutenu.
