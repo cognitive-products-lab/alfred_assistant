@@ -72,7 +72,7 @@ class ResponseGenerator:
         on_sentence=None,
     ) -> str:
         """Génère une réponse complète."""
-        forced = self._forced_response(user_message)
+        forced = self._forced_response(user_message, response_context)
         if forced:
             return forced
 
@@ -113,7 +113,7 @@ class ResponseGenerator:
     # =========================================================
     # PROMPT SYSTÈME
     # =========================================================
-    def _forced_response(self, user_message: str) -> str:
+    def _forced_response(self, user_message: str, context: Dict[str, Any]) -> str:
         """
         Réponses déterministes pour éviter les hallucinations sur les cas critiques.
         """
@@ -151,6 +151,31 @@ class ResponseGenerator:
 
         if asks_code_check:
             return "Je n’ai pas accès aux lignes de code dans ce contexte."
+
+        # Réponse directe pour l'heure/la date — observé en usage réel (24/07/2026) :
+        # le LLM local répond parfois par un pavé hors-sujet (balises entre
+        # crochets type "[Vérification contexte]", contenu générique sans
+        # rapport) à une question aussi simple que "quelle heure est-il ?".
+        # Court-circuiter le LLM entièrement pour cette classe de question est
+        # à la fois plus rapide et garanti correct, plutôt que d'espérer que
+        # le modèle reste sobre malgré un prompt système chargé de règles.
+        time_question_keywords = [
+            "quelle heure", "quelle heure est-il", "quelle heure il est",
+            "quel jour sommes-nous", "quel jour on est", "quelle est la date",
+            "on est quel jour", "on est quelle date",
+        ]
+        asks_time_or_date = any(keyword in real_user_message for keyword in time_question_keywords)
+
+        if asks_time_or_date:
+            time_ctx = context.get("time") or {}
+            heure = time_ctx.get("time")
+            date = time_ctx.get("date")
+            if heure and date:
+                return f"Il est {heure}, nous sommes le {date}."
+            if heure:
+                return f"Il est {heure}."
+            if date:
+                return f"Nous sommes le {date}."
 
         return ""
 
