@@ -182,7 +182,14 @@ class OllamaLLMClient:
                 print(f"{stream_prefix}{direct_answer}", flush=True)
                 if on_sentence:
                     on_sentence(direct_answer)
-                self.last_was_streamed = False
+                # True (pas False) : la réponse a déjà été livrée via on_sentence,
+                # exactement comme le ferait un vrai stream token-par-token.
+                # src/main.py décide de rejouer le TTS en fallback quand
+                # last_was_streamed est False (cas des réponses non-streamées
+                # type OpenAI) — le laisser à False ici aurait fait parler
+                # ALFRED deux fois de suite sur la même réponse (bug observé
+                # en usage réel le 24/07/2026 : "boucle, reprend du début").
+                self.last_was_streamed = True
                 return direct_answer
 
         req = self._build_request(messages, stream=self.stream)
