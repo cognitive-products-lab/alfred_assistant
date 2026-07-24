@@ -129,6 +129,30 @@ class TestCleanForTts:
     def test_removes_fire_emoji(self):
         assert "🔥" not in clean_for_tts("🔥 Excellent")
 
+    def test_removes_bracketed_meta_tags(self):
+        result = clean_for_tts("Bonjour ! [Vérification contexte] Comment ça va ?")
+        assert "[" not in result
+        assert "Vérification contexte" not in result
+        assert "Bonjour !" in result and "Comment ça va ?" in result
+
+    def test_removes_multiple_bracketed_tags(self):
+        result = clean_for_tts("[A] Texte [B] milieu [C] fin")
+        assert "[" not in result and "]" not in result
+        assert "Texte" in result and "milieu" in result and "fin" in result
+
+    def test_converts_colon_time_to_spoken_form(self):
+        assert clean_for_tts("Il est 10:45.") == "Il est 10 heures 45."
+
+    def test_converts_h_time_to_spoken_form(self):
+        assert clean_for_tts("Il est 10h45.") == "Il est 10 heures 45."
+
+    def test_converts_round_hour_without_trailing_zero_minutes(self):
+        assert clean_for_tts("Il est 14:00.") == "Il est 14 heures."
+
+    def test_time_conversion_does_not_affect_plain_text(self):
+        text = "Bonjour, je suis Alfred."
+        assert clean_for_tts(text) == text
+
 
 # ─────────────────────────────────────────────────────────
 # safe_getattr()

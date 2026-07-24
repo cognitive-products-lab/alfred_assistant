@@ -333,6 +333,8 @@ def _load_user_profile_context() -> str:
 
 
 def clean_for_tts(text: str) -> str:
+    import re
+
     replacements = {
         "**": "", "*": "",
         "’": "'", "‘": "'",
@@ -348,6 +350,21 @@ def clean_for_tts(text: str) -> str:
     cleaned = text
     for old, new in replacements.items():
         cleaned = cleaned.replace(old, new)
+
+    # Balises meta entre crochets (ex. "[Vérification contexte]") — jamais
+    # destinées à être lues à voix haute, observé en usage réel le 24/07/2026.
+    cleaned = re.sub(r"\[[^\]]*\]", "", cleaned)
+
+    # Heures au format "10:45" ou "10h45" -> "10 heures 45" pour une
+    # prononciation naturelle — Piper lisait sinon le séparateur comme la
+    # lettre "h" ("dix h quarante-cinq") plutôt que comme "heures".
+    def _spoken_time(match: "re.Match") -> str:
+        hour, minute = match.group(1), match.group(2)
+        return f"{hour} heures" if minute == "00" else f"{hour} heures {minute}"
+
+    cleaned = re.sub(r"\b(\d{1,2})[:h](\d{2})\b", _spoken_time, cleaned)
+
+    cleaned = re.sub(r"\s{2,}", " ", cleaned).strip()
 
     return cleaned
 
