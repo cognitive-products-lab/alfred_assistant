@@ -143,6 +143,80 @@ TOOL_SPECS: list[dict] = [
             "required": ["summary_hint"],
         },
     },
+    {
+        "name": "create_task",
+        "description": (
+            "Crée une tâche réelle dans la liste de tâches d'ALFRED. Une tâche "
+            "peut ne pas avoir d'échéance (ex. 'ranger le bureau') ou en avoir "
+            "une (ex. 'appeler le dentiste demain'). Utilise cet outil dès que "
+            "l'utilisateur demande d'ajouter/noter/créer une tâche."
+        ),
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "title": {"type": "string", "description": "Titre court de la tâche."},
+                "due_date": {
+                    "type": "string",
+                    "description": "Date d'échéance YYYY-MM-DD, si l'utilisateur en donne une. Laisser vide si aucune échéance.",
+                },
+                "due_time": {
+                    "type": "string",
+                    "description": "Heure d'échéance HH:MM, si l'utilisateur en donne une.",
+                },
+                "reminder": {
+                    "type": "boolean",
+                    "description": "True si l'utilisateur veut être rappelé à l'échéance, sinon False (simple pense-bête).",
+                },
+                "notes": {"type": "string", "description": "Détails optionnels sur la tâche."},
+            },
+            "required": ["title"],
+        },
+    },
+    {
+        "name": "list_tasks",
+        "description": "Liste les tâches réelles de l'utilisateur (en cours par défaut).",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "include_done": {
+                    "type": "boolean",
+                    "description": "True pour inclure aussi les tâches déjà terminées (False par défaut).",
+                },
+            },
+            "required": [],
+        },
+    },
+    {
+        "name": "complete_task",
+        "description": (
+            "Marque une tâche comme terminée. Identifie la tâche à partir d'un "
+            "extrait de son titre."
+        ),
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "title_hint": {
+                    "type": "string",
+                    "description": "Extrait du titre de la tâche terminée (ex. 'vermifuger').",
+                },
+            },
+            "required": ["title_hint"],
+        },
+    },
+    {
+        "name": "delete_task",
+        "description": "Supprime une tâche. Identifie la tâche à partir d'un extrait de son titre.",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "title_hint": {
+                    "type": "string",
+                    "description": "Extrait du titre de la tâche à supprimer.",
+                },
+            },
+            "required": ["title_hint"],
+        },
+    },
 ]
 
 
@@ -262,6 +336,31 @@ def _resolve_single_event(summary_hint: str) -> tuple[dict | None, dict | None]:
         return None, {
             "ok": False,
             "error": f"Plusieurs événements correspondent à « {hint} » : {listing}. Demande à l'utilisateur de préciser lequel.",
+        }
+    return candidates[0], None
+
+
+def _resolve_single_task(title_hint: str) -> tuple[dict | None, dict | None]:
+    """Résout un extrait de titre vers une tâche unique via find_tasks — même
+    principe que _resolve_single_event côté agenda."""
+    from src.ui.tasks_data import find_tasks
+
+    hint = (title_hint or "").strip()
+    if not hint:
+        return None, {"ok": False, "error": "Un extrait du titre de la tâche est requis."}
+
+    found = find_tasks(hint)
+    if not found.get("ok", False):
+        return None, {"ok": False, "error": found.get("error", "Erreur inconnue.")}
+
+    candidates = found.get("tasks") or []
+    if not candidates:
+        return None, {"ok": False, "error": f"Aucune tâche trouvée avec « {hint} » dans le titre."}
+    if len(candidates) > 1:
+        listing = "; ".join(c["title"] for c in candidates[:5])
+        return None, {
+            "ok": False,
+            "error": f"Plusieurs tâches correspondent à « {hint} » : {listing}. Demande à l'utilisateur de préciser laquelle.",
         }
     return candidates[0], None
 
@@ -394,6 +493,63 @@ def execute_tool(name: str, arguments: dict) -> dict:
             if not result.get("ok", False):
                 return {"ok": False, "error": result.get("error", "Erreur inconnue.")}
             return {"ok": True, "deleted_summary": event["summary"]}
+
+        if name == "create_task":
+            from src.ui.tasks_data import create_task
+
+            title = (arguments.get("title") or "").strip()
+            due_date_raw = arguments.get("due_date")
+            due_time_raw = arguments.get("due_time")
+
+            due_at = None
+            if due_date_raw or due_time_raw:
+                base_date = _parse_date(due_date_raw) if due_date_raw else datetime.now(_FRANCE_TZ)
+                if due_time_raw:
+                    hour, minute = _parse_time(due_time_raw)
+                    base_date = base_date.replace(hour=hour, minute=minute, second=0, microsecond=0)
+                due_at = base_date.isoformat()
+
+            result = create_task(
+                title=title,
+                due_at=due_at,
+                reminder=bool(arguments.get("reminder", False)),
+                notes=arguments.get("notes") or None,
+            )
+            if not result.get("ok", False):
+                return {"ok": False, "error": result.get("error", "Erreur inconnue.")}
+            return {"ok": True, "task": result.get("task")}
+
+        if name == "list_tasks":
+            from src.ui.tasks_data import get_tasks_state
+
+            result = get_tasks_state(include_done=bool(arguments.get("include_done", False)))
+            if not result.get("ok", False):
+                return {"ok": False, "error": result.get("error", "Erreur inconnue.")}
+            return {"ok": True, "tasks": result.get("tasks")}
+
+        if name == "complete_task":
+            from src.ui.tasks_data import complete_task
+
+            task, error = _resolve_single_task(arguments.get("title_hint", ""))
+            if error:
+                return error
+
+            result = complete_task(task_id=task["id"])
+            if not result.get("ok", False):
+                return {"ok": False, "error": result.get("error", "Erreur inconnue.")}
+            return {"ok": True, "task": result.get("task")}
+
+        if name == "delete_task":
+            from src.ui.tasks_data import delete_task
+
+            task, error = _resolve_single_task(arguments.get("title_hint", ""))
+            if error:
+                return error
+
+            result = delete_task(task_id=task["id"])
+            if not result.get("ok", False):
+                return {"ok": False, "error": result.get("error", "Erreur inconnue.")}
+            return {"ok": True, "deleted_title": task["title"]}
 
         return {"ok": False, "error": f"Outil inconnu : {name}"}
     except Exception as exc:

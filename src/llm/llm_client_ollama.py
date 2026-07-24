@@ -173,12 +173,31 @@ class OllamaLLMClient:
         if tools:
             from src.core.tool_calling import openai_style_tools
 
-            messages, direct_answer = self._run_tool_loop(messages, openai_style_tools())
+            tool_defs = openai_style_tools()
+            tool_messages, direct_answer, any_tool_called = self._run_tool_loop(list(messages), tool_defs)
+
+            if direct_answer is not None and not any_tool_called:
+                # Le modèle a répondu en texte libre sans jamais appeler d'outil —
+                # c'est exactement le scénario de l'hallucination du 23/07/2026
+                # (ALFRED CPL) : une confirmation d'action plausible mais fabriquée,
+                # rien n'a réellement été exécuté. Vérifié en usage réel le
+                # 24/07/2026 que ça arrive une fraction significative du temps
+                # avec llama3.2 (3B), indépendamment de la longueur du prompt
+                # système ou du nombre d'outils disponibles. Une seconde tentative
+                # complète avant d'admettre honnêtement l'échec plutôt que de
+                # relayer une confirmation potentiellement mensongère.
+                tool_messages, direct_answer, any_tool_called = self._run_tool_loop(list(messages), tool_defs)
+
             if direct_answer is not None:
+                if not any_tool_called:
+                    direct_answer = (
+                        "Je n'ai pas réussi à effectuer cette action de façon fiable — "
+                        "peux-tu réessayer ou reformuler ta demande ?"
+                    )
                 # Le tour d'outils a déjà produit la réponse finale (avec ou sans
-                # appel d'outil réellement exécuté) — pas besoin d'un second
-                # aller-retour Ollama. Coût : pas de streaming token-par-token
-                # pour ce tour précis (rare — seulement les demandes agenda/rappel).
+                # appel d'outil réellement exécuté) — pas besoin d'un aller-retour
+                # Ollama supplémentaire. Coût : pas de streaming token-par-token
+                # pour ce tour précis (rare — seulement les demandes agenda/tâche).
                 print(f"{stream_prefix}{direct_answer}", flush=True)
                 if on_sentence:
                     on_sentence(direct_answer)
@@ -191,6 +210,11 @@ class OllamaLLMClient:
                 # en usage réel le 24/07/2026 : "boucle, reprend du début").
                 self.last_was_streamed = True
                 return direct_answer
+
+            # Boucle épuisée sans réponse finale (rare, max_rounds atteint) :
+            # l'appel streamé ci-dessous reprend l'historique accumulé (avec
+            # les résultats d'outils déjà obtenus), pas les messages d'origine.
+            messages = tool_messages
 
         req = self._build_request(messages, stream=self.stream)
 
@@ -238,7 +262,7 @@ class OllamaLLMClient:
         messages: list[dict],
         tools: list[dict],
         max_rounds: int = 3,
-    ) -> tuple[list[dict], Optional[str]]:
+    ) -> tuple[list[dict], Optional[str], bool]:
         """Boucle function-calling : le modèle local (ex. llama3.2) décide s'il
         appelle un outil ; si oui, on l'exécute (src/core/tool_calling.py) et on
         renvoie le résultat au modèle jusqu'à ce qu'il réponde en texte, ou que
@@ -247,8 +271,15 @@ class OllamaLLMClient:
         Chaque appel de décision est non-streamé (Ollama ne renvoie tool_calls
         qu'en une fois, pas au fil du stream). Dès qu'un tour ne demande plus
         d'outil, son message.content EST la réponse finale — on la retourne
-        directement plutôt que de refaire un aller-retour Ollama en plus."""
+        directement plutôt que de refaire un aller-retour Ollama en plus.
+
+        Retourne aussi any_tool_called : False si le modèle a répondu en texte
+        libre dès le premier tour sans jamais appeler d'outil — le distinguer
+        du cas "outil appelé puis réponse de synthèse" est essentiel pour ne
+        pas relayer une confirmation fabriquée (voir generate())."""
         from src.core.tool_calling import execute_tool
+
+        any_tool_called = False
 
         for _ in range(max_rounds):
             req = self._build_request(messages, stream=False, tools=tools)
@@ -261,8 +292,9 @@ class OllamaLLMClient:
             message = data.get("message", {})
             tool_calls = message.get("tool_calls") or []
             if not tool_calls:
-                return messages, (message.get("content") or "").strip()
+                return messages, (message.get("content") or "").strip(), any_tool_called
 
+            any_tool_called = True
             messages.append(message)
             for call in tool_calls:
                 function = call.get("function", {})
@@ -279,9 +311,7 @@ class OllamaLLMClient:
                     "content": json.dumps(result, ensure_ascii=False),
                 })
 
-        return messages, None
-
-        return messages
+        return messages, None, any_tool_called
 
     def _generate_stream(
         self,

@@ -22,15 +22,16 @@ import json
 import re
 from typing import Any, Dict, Optional
 
-# Mots-clés déclenchant l'activation des outils réels (Google Agenda) pour ce
-# tour de conversation — voir _should_enable_tools(). Filtre volontairement
-# grossier : un faux positif ne coûte qu'un aller-retour LLM supplémentaire
-# (src/llm/llm_client_ollama.py::_run_tool_loop), un faux négatif redonnerait
-# lieu à l'hallucination du 23/07/2026 (instructions d'UI inventées pour
-# ALFRED CPL au lieu d'un vrai appel à create_calendar_event).
+# Mots-clés déclenchant l'activation des outils réels (Google Agenda + Tâches)
+# pour ce tour de conversation — voir _should_enable_tools(). Filtre
+# volontairement grossier : un faux positif ne coûte qu'un aller-retour LLM
+# supplémentaire (src/llm/llm_client_ollama.py::_run_tool_loop), un faux
+# négatif redonnerait lieu à l'hallucination du 23/07/2026 (instructions
+# d'UI inventées pour ALFRED CPL au lieu d'un vrai appel d'outil).
 _TOOL_TRIGGER_KEYWORDS = [
     "agenda", "rappel", "rappelle", "rendez-vous", "rendez vous",
     "événement", "evenement", "calendrier", "planifie", "programme",
+    "tâche", "tache", "todo", "à faire", "a faire",
 ]
 
 
@@ -234,10 +235,11 @@ RÈGLE AUDIO :
         if tools_enabled:
             tools_block = """
 OUTILS RÉELS DISPONIBLES POUR CE TOUR :
-- Tu as un accès réel à Google Agenda : create_calendar_event (créer un événement ou un rappel, avec répétition possible) et list_calendar_events (lister les prochains événements).
-- Dès que l'utilisateur demande d'ajouter, créer ou planifier un rappel/rendez-vous/événement, ou de consulter son agenda, tu appelles l'outil correspondant.
-- Interdit d'inventer des instructions d'interface ("ouvre tel menu, clique sur tel bouton") à la place d'un appel d'outil réel — cette action existe réellement, utilise-la.
-- Si l'outil retourne une erreur (agenda non connecté, consentement désactivé), tu relaies cette erreur honnêtement à l'utilisateur, sans l'inventer autrement.
+- Google Agenda : create_calendar_event (créer, répétition possible), update_calendar_event (déplacer/renommer), delete_calendar_event (supprimer), list_calendar_events (lister). L'événement à modifier/supprimer s'identifie par un extrait de son titre, pas un identifiant.
+- Tâches : create_task (créer, échéance optionnelle, rappel optionnel), list_tasks (lister), complete_task (marquer terminée), delete_task (supprimer). La tâche à terminer/supprimer s'identifie par un extrait de son titre.
+- Dès que l'utilisateur demande d'ajouter/modifier/supprimer/consulter un rappel, rendez-vous, événement, ou une tâche, tu appelles l'outil correspondant.
+- Interdit d'inventer des instructions d'interface ("ouvre tel menu, clique sur tel bouton") à la place d'un appel d'outil réel — ces actions existent réellement, utilise-les.
+- Si l'outil retourne une erreur (agenda non connecté, consentement désactivé, tâche introuvable, plusieurs correspondances ambiguës), tu relaies cette erreur honnêtement à l'utilisateur, sans l'inventer autrement.
 """
 
         memory_block = ""
