@@ -139,8 +139,10 @@ def collect_privacy() -> dict:
         gi_ok = ".env" in content
 
     return {
-        "local_first": True,
-        "eu_transfers": 0,
+        # T07 (Google Agenda, Chantier 1 — 2026-07-23) introduit un sous-traitant
+        # externe optionnel (consentement requis) : plus strictement "100% local".
+        "local_first": False,
+        "eu_transfers": 1,
         "pii_filter_active": has_pii_filter,
         "audit_trail_active": has_audit,
         "encryption_at_rest": has_data_protection,
@@ -209,14 +211,38 @@ def collect_rgpd() -> dict:
             "art9": False,
             "status": "OK",
         },
+        {
+            "id": "T07",
+            "name": "Synchronisation Google Agenda",
+            "base_legale": "Consentement",
+            "retention": "Aucune conservation locale — lecture à la demande, jeton de session chiffré tant que connecté",
+            "local": False,
+            "art9": False,
+            "status": "ATTENTION",
+        },
+        {
+            "id": "T08",
+            "name": "Synchronisation Google Home / Nest",
+            "base_legale": "Consentement",
+            "retention": "État des appareils mis en cache localement (config/v4, data/v4) jusqu'à la prochaine synchronisation, jeton de session chiffré tant que connecté",
+            "local": False,
+            "art9": False,
+            "status": "ATTENTION",
+        },
     ]
     compliant = sum(1 for t in treatments if t["status"] == "OK")
     attention = sum(1 for t in treatments if t["status"] == "ATTENTION")
+    # T07 (Google Agenda, Chantier 1 — 2026-07-23) est le premier traitement à
+    # impliquer un sous-traitant hors du périmètre local : transfert hors UE à
+    # trancher formellement avec Céline (statut ATTENTION en attendant).
+    # T08 (Google Home / Nest, Chantier 1B — 2026-07-23) idem, avec en plus une
+    # copie locale de l'état des appareils (config/v4, data/v4) — pas de simple
+    # lecture à la demande comme T07.
     return {
         "total_treatments": len(treatments),
         "compliant": compliant,
         "attention": attention,
-        "eu_transfers": 0,
+        "eu_transfers": 1,
         "treatments": treatments,
     }
 

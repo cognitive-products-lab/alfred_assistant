@@ -270,6 +270,62 @@ class AlfredDesktopAPI:
         from src.ui.weather_data import reset_weather_location
         return reset_weather_location()
 
+    # ── Google Agenda (voir src/ui/google_calendar_data.py) ──────────────────────
+
+    def get_calendar_events(self) -> dict:
+        from src.ui.google_calendar_data import get_calendar_state
+        return get_calendar_state()
+
+    def set_calendar_consent(self, enabled: bool) -> dict:
+        from src.ui.google_calendar_data import set_calendar_consent
+        return set_calendar_consent(enabled)
+
+    def get_google_auth_status(self) -> dict:
+        from src.ui.google_calendar_data import get_google_auth_status
+        return get_google_auth_status()
+
+    def start_google_auth(self) -> dict:
+        from src.ui.google_calendar_data import start_google_auth
+        return start_google_auth()
+
+    def disconnect_google_calendar(self) -> dict:
+        from src.ui.google_calendar_data import disconnect_google_calendar
+        return disconnect_google_calendar()
+
+    def create_calendar_event(self, summary: str, start_iso: str, end_iso: str, location: str = "") -> dict:
+        from src.ui.google_calendar_data import create_calendar_event
+        return create_calendar_event(summary, start_iso, end_iso, location=location)
+
+    # ── Google Home / Nest (voir src/ui/google_home_data.py) ─────────────────────
+
+    def get_home_devices(self) -> dict:
+        from src.ui.google_home_data import get_home_state
+        return get_home_state()
+
+    def set_home_consent(self, enabled: bool) -> dict:
+        from src.ui.google_home_data import set_home_consent
+        return set_home_consent(enabled)
+
+    def set_home_project_id(self, project_id: str) -> dict:
+        from src.ui.google_home_data import set_home_project_id
+        return set_home_project_id(project_id)
+
+    def get_home_auth_url(self) -> dict:
+        from src.ui.google_home_data import get_home_auth_url
+        return get_home_auth_url()
+
+    def submit_home_auth_code(self, code: str) -> dict:
+        from src.ui.google_home_data import submit_home_auth_code
+        return submit_home_auth_code(code)
+
+    def disconnect_home(self) -> dict:
+        from src.ui.google_home_data import disconnect_home
+        return disconnect_home()
+
+    def execute_home_command(self, device_id: str, command: str, params: dict | None = None) -> dict:
+        from src.ui.google_home_data import execute_home_command
+        return execute_home_command(device_id, command, params)
+
     # ── Mode vocal — micro push-to-talk (voir src/ui/desktop_mic.py) ─────────────
 
     def start_recording(self) -> dict:

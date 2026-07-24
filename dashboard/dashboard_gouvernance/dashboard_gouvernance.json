@@ -3,7 +3,7 @@
         "project": "ALFRED",
         "block": "B20",
         "file": "dashboard_gouvernance.json",
-        "generated_at": "2026-07-06T12:20:50.078716+00:00",
+        "generated_at": "2026-07-23T13:38:50.564971+00:00",
         "version": "V1.0",
         "generated_by": "dashboard_gouvernance.py"
     },
@@ -137,8 +137,8 @@
         ]
     },
     "privacy_indicators": {
-        "local_first": true,
-        "eu_transfers": 0,
+        "local_first": false,
+        "eu_transfers": 1,
         "pii_filter_active": true,
         "audit_trail_active": true,
         "encryption_at_rest": true,
@@ -147,10 +147,10 @@
         "env_in_gitignore": true
     },
     "rgpd_register": {
-        "total_treatments": 6,
+        "total_treatments": 8,
         "compliant": 5,
-        "attention": 1,
-        "eu_transfers": 0,
+        "attention": 3,
+        "eu_transfers": 1,
         "treatments": [
             {
                 "id": "T01",
@@ -205,12 +205,30 @@
                 "local": true,
                 "art9": false,
                 "status": "OK"
+            },
+            {
+                "id": "T07",
+                "name": "Synchronisation Google Agenda",
+                "base_legale": "Consentement",
+                "retention": "Aucune conservation locale — lecture à la demande, jeton de session chiffré tant que connecté",
+                "local": false,
+                "art9": false,
+                "status": "ATTENTION"
+            },
+            {
+                "id": "T08",
+                "name": "Synchronisation Google Home / Nest",
+                "base_legale": "Consentement",
+                "retention": "État des appareils mis en cache localement (config/v4, data/v4) jusqu'à la prochaine synchronisation, jeton de session chiffré tant que connecté",
+                "local": false,
+                "art9": false,
+                "status": "ATTENTION"
             }
         ]
     },
     "zero_trust": {
-        "modules_total": 43,
-        "test_files": 44,
+        "modules_total": 44,
+        "test_files": 47,
         "principles_active": 5,
         "principles_total": 5,
         "mfa_mandatory_roles": [
@@ -233,7 +251,7 @@
     },
     "profile_governance": {
         "profile_exists": true,
-        "profile_size_bytes": 7382,
+        "profile_size_bytes": 7260,
         "fields_encrypted": 2,
         "fields_local_json": 3,
         "rights_implemented": 5,
