@@ -1263,6 +1263,45 @@ button{ cursor:pointer; }
           </div>
 
           <div class="card">
+            <div class="card-head"><h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M8 3v4M16 3v4M3.5 10h17"/></svg>Google Agenda</h3></div>
+            <div class="setting-row">
+              <div class="setting-copy"><div class="k">Synchronisation activée</div><div class="d">Se connecte à ton compte Google Agenda (lecture et création d'événements) une fois autorisé. Rien n'est appelé tant que c'est désactivé.</div></div>
+              <span class="switch"><input type="checkbox" id="set-toggle-gcal"><span class="track"></span><span class="thumb"></span></span>
+            </div>
+            <div id="set-gcal-body" hidden>
+              <div class="ctx-row"><span class="k">Statut</span><span class="v" id="set-gcal-status">Non connecté</span></div>
+              <div class="weather-error" id="set-gcal-error" hidden></div>
+              <button type="button" class="btn btn-ghost btn-sm" id="set-btn-gcal-connect">Connecter Google Agenda</button>
+              <button type="button" class="btn btn-ghost btn-sm" id="set-btn-gcal-disconnect" hidden style="margin-top:8px;">Déconnecter</button>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-head"><h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg>Google Home (Nest)</h3></div>
+            <div class="setting-row">
+              <div class="setting-copy"><div class="k">Synchronisation activée</div><div class="d">Se connecte à ton projet Device Access ("ALFRED_HOME") pour lire l'état de tes appareils Nest et, après confirmation, changer le mode/la température du thermostat. Rien n'est appelé tant que c'est désactivé.</div></div>
+              <span class="switch"><input type="checkbox" id="set-toggle-home"><span class="track"></span><span class="thumb"></span></span>
+            </div>
+            <div id="set-home-body" hidden>
+              <div class="ctx-row"><span class="k">Statut</span><span class="v" id="set-home-status">Non connecté</span></div>
+              <div class="weather-search-row" style="margin-top:var(--sp-2);">
+                <input type="text" id="set-home-project-input" placeholder="Project ID Device Access (ex. 4e4b0f16-…)">
+                <button type="button" class="btn btn-ghost btn-sm" id="set-btn-home-save-project">Enregistrer</button>
+              </div>
+              <div class="weather-error" id="set-home-error" hidden></div>
+              <button type="button" class="btn btn-ghost btn-sm" id="set-btn-home-connect" style="margin-top:8px;">Connecter Google Home</button>
+              <div id="set-home-code-row" hidden style="margin-top:8px;">
+                <p class="ctx-note">Une page Google va s'ouvrir. Une fois autorisé, colle ici le <code>code</code> visible dans l'adresse de la page de redirection (google.com/?code=…).</p>
+                <div class="weather-search-row">
+                  <input type="text" id="set-home-code-input" placeholder="Code d'autorisation">
+                  <button type="button" class="btn btn-primary btn-sm" id="set-btn-home-submit-code">Valider le code</button>
+                </div>
+              </div>
+              <button type="button" class="btn btn-ghost btn-sm" id="set-btn-home-disconnect" hidden style="margin-top:8px;">Déconnecter</button>
+            </div>
+          </div>
+
+          <div class="card">
             <div class="card-head"><h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="10.5" width="14" height="10" rx="2"/><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"/></svg>Confidentialité</h3></div>
             <div class="ctx-row"><span class="k">Microphone</span><span class="v" id="set-ctx-mic">Inactif</span></div>
             <div class="ctx-row"><span class="k">Caméra</span><span class="v">Inactive</span></div>
@@ -1288,11 +1327,18 @@ button{ cursor:pointer; }
             <p>La gestion complète de tes tâches et de leurs priorités arrivera dans une prochaine version.</p>
           </div>
         </section>
-        <section class="center placeholder-center" id="view-agenda" data-panel="agenda" hidden>
-          <div class="card ph-card">
-            <div class="ph-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M8 3v4M16 3v4M3.5 10h17"/></svg></div>
-            <h2>Agenda</h2>
-            <p>Ton calendrier complet, synchronisé et enrichi par ALFRED, arrivera dans une prochaine version.</p>
+        <section class="center placeholder-center" id="view-agenda" data-panel="agenda" hidden style="max-width:640px;">
+          <div class="card">
+            <div class="card-head"><h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M8 3v4M16 3v4M3.5 10h17"/></svg>Agenda</h3></div>
+            <div id="gcal-agenda-off">
+              <p class="ctx-note">Google Agenda n'est pas activé — rends-toi dans <a href="#" id="gcal-goto-settings">Paramètres</a> pour l'activer.</p>
+            </div>
+            <div id="gcal-agenda-noauth" hidden>
+              <p class="ctx-note">Google Agenda est activé mais pas encore connecté.</p>
+              <button type="button" class="btn btn-ghost btn-sm" id="gcal-agenda-connect-btn">Connecter Google Agenda</button>
+            </div>
+            <div id="gcal-agenda-list" class="plan-list" hidden></div>
+            <div class="weather-error" id="gcal-agenda-error" hidden></div>
           </div>
         </section>
         <section class="center placeholder-center" id="view-connaissances" data-panel="connaissances" hidden>
@@ -1309,11 +1355,17 @@ button{ cursor:pointer; }
             <p>L'historique détaillé des estimations émotionnelles arrivera dans une prochaine version.</p>
           </div>
         </section>
-        <section class="center placeholder-center" id="view-appareils" data-panel="appareils" hidden>
-          <div class="card ph-card">
-            <div class="ph-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg></div>
-            <h2>Appareils</h2>
-            <p>La gestion complète de tes appareils connectés arrivera dans une prochaine version.</p>
+        <section class="center placeholder-center" id="view-appareils" data-panel="appareils" hidden style="max-width:640px;">
+          <div class="card">
+            <div class="card-head"><h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg>Appareils connectés (maison)</h3></div>
+            <div id="ghome-off">
+              <p class="ctx-note">Google Home n'est pas activé — rends-toi dans <a href="#" id="ghome-goto-settings">Paramètres</a> pour l'activer.</p>
+            </div>
+            <div id="ghome-noauth" hidden>
+              <p class="ctx-note">Google Home est activé mais pas encore connecté — configure la connexion dans Paramètres.</p>
+            </div>
+            <div id="ghome-list" hidden></div>
+            <div class="weather-error" id="ghome-error" hidden></div>
           </div>
         </section>
 
@@ -1344,8 +1396,17 @@ button{ cursor:pointer; }
     document.getElementById('main').scrollTop = 0;
     if (name === 'voice') setVState('inactive');
     if (name === 'dashboard') refreshDashboardWidgets();
-    if (name === 'parametres' && window.pywebview && window.pywebview.api && window.pywebview.api.get_weather){
-      window.pywebview.api.get_weather().then(function(state){ renderWeather(state); renderWeatherSettings(state); }).catch(function(){});
+    if (name === 'parametres' && window.pywebview && window.pywebview.api){
+      var api = window.pywebview.api;
+      if (api.get_weather) api.get_weather().then(function(state){ renderWeather(state); renderWeatherSettings(state); }).catch(function(){});
+      if (api.get_calendar_events) api.get_calendar_events().then(renderGcalSettings).catch(function(){});
+      if (api.get_home_devices) api.get_home_devices().then(renderHomeSettings).catch(function(){});
+    }
+    if (name === 'agenda' && window.pywebview && window.pywebview.api && window.pywebview.api.get_calendar_events){
+      window.pywebview.api.get_calendar_events().then(renderCalendarAgendaView).catch(function(){});
+    }
+    if (name === 'appareils' && window.pywebview && window.pywebview.api && window.pywebview.api.get_home_devices){
+      window.pywebview.api.get_home_devices().then(renderHomeDevicesView).catch(function(){});
     }
   }
 
@@ -1710,6 +1771,174 @@ button{ cursor:pointer; }
     condEl.textContent = Math.round(state.temperature_c) + '°C — ' + state.label;
   }
 
+  function renderGcalSettings(state){
+    var toggle = document.getElementById('set-toggle-gcal');
+    if (!toggle || !state) return;
+    var body = document.getElementById('set-gcal-body');
+    var statusEl = document.getElementById('set-gcal-status');
+    var errEl = document.getElementById('set-gcal-error');
+    var connectBtn = document.getElementById('set-btn-gcal-connect');
+    var disconnectBtn = document.getElementById('set-btn-gcal-disconnect');
+
+    toggle.checked = !!state.consent;
+    body.hidden = !state.consent;
+    if (!state.consent) return;
+
+    statusEl.textContent = state.connected ? 'Connecté' : 'Non connecté';
+    connectBtn.hidden = !!state.connected;
+    disconnectBtn.hidden = !state.connected;
+    errEl.hidden = state.ok !== false;
+    if (state.ok === false) errEl.textContent = state.error || 'Erreur inconnue.';
+  }
+
+  function fmtEventWhen(ev){
+    if (ev.all_day) return 'Toute la journée';
+    try {
+      var d = new Date(ev.start);
+      return d.toLocaleDateString('fr-FR', {day:'2-digit', month:'2-digit'}) + ' ' + d.toLocaleTimeString('fr-FR', {hour:'2-digit', minute:'2-digit'});
+    } catch(e){ return ''; }
+  }
+
+  function renderCalendarEvents(list){
+    var listEl = document.getElementById('gcal-agenda-list');
+    if (!listEl) return;
+    if (!list || !list.length){ listEl.innerHTML = emptyRow('Aucun événement à venir.'); return; }
+    listEl.innerHTML = list.map(function(ev){
+      var lbl = escapeHtml(ev.summary) + (ev.location ? ' — ' + escapeHtml(ev.location) : '');
+      return '<div class="plan-item"><span class="plan-time mono" style="width:auto;white-space:nowrap;">' +
+        fmtEventWhen(ev) + '</span>' + ICON_CAL + '<span class="lbl">' + lbl + '</span></div>';
+    }).join('');
+  }
+
+  function renderCalendarAgendaView(state){
+    var offEl = document.getElementById('gcal-agenda-off');
+    var noauthEl = document.getElementById('gcal-agenda-noauth');
+    var listEl = document.getElementById('gcal-agenda-list');
+    var errEl = document.getElementById('gcal-agenda-error');
+    if (!offEl || !state) return;
+
+    offEl.hidden = !!state.consent;
+    noauthEl.hidden = !state.consent || !!state.connected;
+    listEl.hidden = !state.consent || !state.connected;
+    errEl.hidden = !(state.consent && state.connected && state.ok === false);
+
+    if (state.consent && state.connected){
+      if (state.ok === false) errEl.textContent = state.error || 'Erreur inconnue.';
+      else renderCalendarEvents(state.events);
+    }
+  }
+
+  function renderHomeSettings(state){
+    var toggle = document.getElementById('set-toggle-home');
+    if (!toggle || !state) return;
+    var body = document.getElementById('set-home-body');
+    var statusEl = document.getElementById('set-home-status');
+    var errEl = document.getElementById('set-home-error');
+    var connectBtn = document.getElementById('set-btn-home-connect');
+    var disconnectBtn = document.getElementById('set-btn-home-disconnect');
+    var codeRow = document.getElementById('set-home-code-row');
+    var projectInput = document.getElementById('set-home-project-input');
+
+    toggle.checked = !!state.consent;
+    body.hidden = !state.consent;
+    if (!state.consent) return;
+
+    if (document.activeElement !== projectInput) projectInput.value = state.project_id || '';
+
+    if (state.no_project_id){
+      statusEl.textContent = 'Project ID requis';
+      connectBtn.hidden = true;
+      disconnectBtn.hidden = true;
+      codeRow.hidden = true;
+      errEl.hidden = true;
+      return;
+    }
+
+    statusEl.textContent = state.connected ? 'Connecté' : 'Non connecté';
+    connectBtn.hidden = !!state.connected;
+    disconnectBtn.hidden = !state.connected;
+    if (state.connected) codeRow.hidden = true;
+    errEl.hidden = state.ok !== false;
+    if (state.ok === false) errEl.textContent = state.error || 'Erreur inconnue.';
+  }
+
+  var HOME_MODE_LABELS = {HEAT: 'Chauffage', COOL: 'Froid', HEATCOOL: 'Auto', OFF: 'Arrêt'};
+
+  function renderHomeDevices(devices){
+    var listEl = document.getElementById('ghome-list');
+    if (!listEl) return;
+    if (!devices || !devices.length){ listEl.innerHTML = emptyRow('Aucun appareil Google Home trouvé.'); return; }
+
+    listEl.innerHTML = devices.map(function(d){
+      var dotClass = d.online ? 'dot mint' : 'dot';
+      var dotStyle = d.online ? '' : ' style="background:var(--text-3)"';
+      var cmds = d.available_commands || [];
+      var controls = '';
+      if (cmds.indexOf('SetMode') !== -1){
+        var modes = (d.traits['sdm.devices.traits.ThermostatMode'] || {}).availableModes || ['HEAT','COOL','OFF'];
+        controls += '<div class="seg" role="group" aria-label="Mode thermostat" style="margin-top:6px;">' +
+          modes.map(function(m){
+            return '<button type="button" data-home-mode="' + escapeHtml(m) + '" data-home-device="' + escapeHtml(d.id) + '">' +
+              (HOME_MODE_LABELS[m] || escapeHtml(m)) + '</button>';
+          }).join('') + '</div>';
+      }
+      if (cmds.indexOf('SetHeat') !== -1 || cmds.indexOf('SetCool') !== -1){
+        controls += '<div class="weather-search-row" style="margin-top:6px;">' +
+          '<input type="number" step="0.5" placeholder="°C" class="ghome-temp-input" data-home-device="' + escapeHtml(d.id) + '" style="max-width:90px;">' +
+          '<button type="button" class="btn btn-ghost btn-sm" data-home-set-temp="' + escapeHtml(d.id) + '">Régler la température</button>' +
+          '</div>';
+      }
+      return '<div class="device-item" style="align-items:flex-start;flex-direction:column;gap:6px;padding:10px 0;border-bottom:1px solid var(--border-soft);">' +
+        '<div style="display:flex;align-items:center;gap:10px;"><span class="' + dotClass + '"' + dotStyle + '></span>' +
+        '<div><div class="device-name">' + escapeHtml(d.custom_name) + '</div><div class="device-status">' +
+        (d.room ? escapeHtml(d.room) + ' · ' : '') + (d.online ? 'En ligne' : 'Hors ligne') + '</div></div></div>' +
+        controls + '</div>';
+    }).join('');
+
+    listEl.querySelectorAll('[data-home-mode]').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var mode = btn.dataset.homeMode;
+        var deviceId = btn.dataset.homeDevice;
+        if (!window.confirm('Confirmer : passer le thermostat en mode "' + (HOME_MODE_LABELS[mode] || mode) + '" ?')) return;
+        var api = window.pywebview && window.pywebview.api;
+        if (api && api.execute_home_command){
+          api.execute_home_command(deviceId, 'SetMode', {mode: mode}).then(renderHomeDevicesView).catch(function(){});
+        }
+      });
+    });
+    listEl.querySelectorAll('[data-home-set-temp]').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var deviceId = btn.dataset.homeSetTemp;
+        var input = listEl.querySelector('.ghome-temp-input[data-home-device="' + deviceId + '"]');
+        var value = parseFloat(input.value);
+        if (isNaN(value)) return;
+        if (!window.confirm('Confirmer : régler la température sur ' + value + '°C ?')) return;
+        var api = window.pywebview && window.pywebview.api;
+        if (api && api.execute_home_command){
+          api.execute_home_command(deviceId, 'SetHeat', {heatCelsius: value}).then(renderHomeDevicesView).catch(function(){});
+        }
+      });
+    });
+  }
+
+  function renderHomeDevicesView(state){
+    var offEl = document.getElementById('ghome-off');
+    var noauthEl = document.getElementById('ghome-noauth');
+    var listEl = document.getElementById('ghome-list');
+    var errEl = document.getElementById('ghome-error');
+    if (!offEl || !state) return;
+
+    offEl.hidden = !!state.consent;
+    noauthEl.hidden = !state.consent || !!state.connected;
+    listEl.hidden = !state.consent || !state.connected;
+    errEl.hidden = !(state.consent && state.connected && state.ok === false);
+
+    if (state.consent && state.connected){
+      if (state.ok === false) errEl.textContent = state.error || 'Erreur inconnue.';
+      else renderHomeDevices(state.devices);
+    }
+  }
+
   function renderKpis(k){
     if (!k) return;
     document.getElementById('kpi-system-status').textContent = k.system_status || '—';
@@ -1881,7 +2110,56 @@ button{ cursor:pointer; }
     });
     var newEventBtn = document.getElementById('qa-new-event');
     if (newEventBtn) newEventBtn.addEventListener('click', function(){
-      showResult('<p>Bientôt disponible — nécessite la connexion à Google Agenda.</p>');
+      var api = requireApi(); if (!api) return;
+      if (!api.get_calendar_events){
+        showResult('<p>Bientôt disponible — nécessite la connexion à Google Agenda.</p>');
+        return;
+      }
+      showResult('<p>Vérification de la connexion Google Agenda…</p>');
+      api.get_calendar_events().then(function(state){
+        if (!state.consent){
+          showResult('<p>Active Google Agenda dans Paramètres pour ajouter un événement.</p>');
+          return;
+        }
+        if (!state.connected){
+          showResult('<p>Connecte Google Agenda dans Paramètres pour ajouter un événement.</p>');
+          return;
+        }
+        var today = new Date().toISOString().slice(0, 10);
+        showResult(
+          '<div class="settings-grid" style="gap:8px;">' +
+            '<input type="text" id="qa-event-title" placeholder="Titre de l’événement" aria-label="Titre">' +
+            '<div style="display:flex;gap:8px;">' +
+              '<input type="date" id="qa-event-date" value="' + today + '" style="flex:1;">' +
+              '<input type="time" id="qa-event-start" value="09:00" style="flex:1;">' +
+              '<input type="time" id="qa-event-end" value="10:00" style="flex:1;">' +
+            '</div>' +
+            '<input type="text" id="qa-event-location" placeholder="Lieu (optionnel)" aria-label="Lieu">' +
+            '<button type="button" class="btn btn-primary btn-sm" id="qa-event-submit">Ajouter à Google Agenda</button>' +
+          '</div>' +
+          '<p class="weather-error" id="qa-event-error" hidden></p>'
+        );
+        document.getElementById('qa-event-submit').addEventListener('click', function(){
+          var title = document.getElementById('qa-event-title').value.trim();
+          var date = document.getElementById('qa-event-date').value;
+          var startTime = document.getElementById('qa-event-start').value;
+          var endTime = document.getElementById('qa-event-end').value;
+          var location = document.getElementById('qa-event-location').value.trim();
+          var errEl = document.getElementById('qa-event-error');
+          if (!title || !date || !startTime || !endTime){
+            errEl.hidden = false;
+            errEl.textContent = 'Titre, date et heures sont requis.';
+            return;
+          }
+          var startIso = new Date(date + 'T' + startTime).toISOString();
+          var endIso = new Date(date + 'T' + endTime).toISOString();
+          api.create_calendar_event(title, startIso, endIso, location).then(function(r){
+            if (r.ok) showResult('<p>Événement « ' + escapeHtml(r.event.summary) + ' » ajouté à Google Agenda.</p>');
+            else showResult('<p>' + escapeHtml(r.error || 'Erreur inconnue.') + '</p>');
+            if (r.ok) window.pywebview.api.get_calendar_events().then(renderCalendarAgendaView).catch(function(){});
+          }).catch(function(){ showResult('<p>Erreur inattendue pendant la création de l’événement.</p>'); });
+        });
+      }).catch(function(){ showResult('<p>Erreur inattendue.</p>'); });
     });
   })();
 
@@ -1960,6 +2238,105 @@ button{ cursor:pointer; }
       if (e.key === 'Enter'){ e.preventDefault(); doSetWeatherSearch(); }
     });
   }
+
+  /* ---------- GOOGLE AGENDA SETTINGS CARD (Paramètres) ---------- */
+  var setToggleGcal = document.getElementById('set-toggle-gcal');
+  if (setToggleGcal){
+    setToggleGcal.addEventListener('change', function(e){
+      var api = window.pywebview && window.pywebview.api;
+      if (api && api.set_calendar_consent) api.set_calendar_consent(e.target.checked).then(renderGcalSettings).catch(function(){});
+    });
+    var runGcalConnect = function(btn){
+      var api = window.pywebview && window.pywebview.api;
+      if (!(api && api.start_google_auth)) return;
+      var label = btn.textContent;
+      btn.disabled = true;
+      btn.textContent = 'Connexion en cours… (finalise dans le navigateur)';
+      api.start_google_auth().then(function(state){
+        btn.disabled = false;
+        btn.textContent = label;
+        renderGcalSettings(state);
+        renderCalendarAgendaView(state);
+      }).catch(function(){ btn.disabled = false; btn.textContent = label; });
+    };
+    document.getElementById('set-btn-gcal-connect').addEventListener('click', function(e){ runGcalConnect(e.target); });
+    document.getElementById('set-btn-gcal-disconnect').addEventListener('click', function(){
+      var api = window.pywebview && window.pywebview.api;
+      if (api && api.disconnect_google_calendar) api.disconnect_google_calendar().then(renderGcalSettings).catch(function(){});
+    });
+  }
+
+  /* ---------- GOOGLE AGENDA — VUE AGENDA ---------- */
+  (function(){
+    var gotoSettings = document.getElementById('gcal-goto-settings');
+    if (gotoSettings) gotoSettings.addEventListener('click', function(e){ e.preventDefault(); switchView('parametres'); });
+    var connectBtn = document.getElementById('gcal-agenda-connect-btn');
+    if (connectBtn) connectBtn.addEventListener('click', function(){
+      var api = window.pywebview && window.pywebview.api;
+      if (!(api && api.start_google_auth)) return;
+      var label = connectBtn.textContent;
+      connectBtn.disabled = true;
+      connectBtn.textContent = 'Connexion en cours… (finalise dans le navigateur)';
+      api.start_google_auth().then(function(state){
+        connectBtn.disabled = false;
+        connectBtn.textContent = label;
+        renderCalendarAgendaView(state);
+      }).catch(function(){ connectBtn.disabled = false; connectBtn.textContent = label; });
+    });
+  })();
+
+  /* ---------- GOOGLE HOME SETTINGS CARD (Paramètres) ---------- */
+  var setToggleHome = document.getElementById('set-toggle-home');
+  if (setToggleHome){
+    setToggleHome.addEventListener('change', function(e){
+      var api = window.pywebview && window.pywebview.api;
+      if (api && api.set_home_consent) api.set_home_consent(e.target.checked).then(renderHomeSettings).catch(function(){});
+    });
+    document.getElementById('set-btn-home-save-project').addEventListener('click', function(){
+      var api = window.pywebview && window.pywebview.api;
+      var projectId = document.getElementById('set-home-project-input').value.trim();
+      if (api && api.set_home_project_id) api.set_home_project_id(projectId).then(renderHomeSettings).catch(function(){});
+    });
+    document.getElementById('set-btn-home-connect').addEventListener('click', function(){
+      var api = window.pywebview && window.pywebview.api;
+      if (!(api && api.get_home_auth_url)) return;
+      api.get_home_auth_url().then(function(r){
+        var errEl = document.getElementById('set-home-error');
+        if (!r.success){
+          errEl.hidden = false;
+          errEl.textContent = r.error || 'Erreur inconnue.';
+          return;
+        }
+        window.open(r.url, '_blank');
+        document.getElementById('set-home-code-row').hidden = false;
+      }).catch(function(){});
+    });
+    document.getElementById('set-btn-home-submit-code').addEventListener('click', function(){
+      var api = window.pywebview && window.pywebview.api;
+      var code = document.getElementById('set-home-code-input').value.trim();
+      if (!code || !(api && api.submit_home_auth_code)) return;
+      api.submit_home_auth_code(code).then(function(r){
+        var errEl = document.getElementById('set-home-error');
+        if (!r.success && r.success !== undefined){
+          errEl.hidden = false;
+          errEl.textContent = r.error || 'Erreur inconnue.';
+          return;
+        }
+        document.getElementById('set-home-code-input').value = '';
+        renderHomeSettings(r);
+      }).catch(function(){});
+    });
+    document.getElementById('set-btn-home-disconnect').addEventListener('click', function(){
+      var api = window.pywebview && window.pywebview.api;
+      if (api && api.disconnect_home) api.disconnect_home().then(renderHomeSettings).catch(function(){});
+    });
+  }
+
+  /* ---------- GOOGLE HOME — VUE APPAREILS ---------- */
+  (function(){
+    var gotoSettings = document.getElementById('ghome-goto-settings');
+    if (gotoSettings) gotoSettings.addEventListener('click', function(e){ e.preventDefault(); switchView('parametres'); });
+  })();
 
   /* ---------- EMOTION WIDGET ---------- */
   var emotionBody = document.getElementById('emotion-body');
