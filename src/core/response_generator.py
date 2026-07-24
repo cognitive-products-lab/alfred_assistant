@@ -811,6 +811,20 @@ Réponds maintenant.""".strip()
 
         return text
 
+    @staticmethod
+    def _fix_elisions(text: str) -> str:
+        """Corrige l'élision manquante de "de" devant un mot commençant par
+        une voyelle (ex. "de être" -> "d'être") — erreur de génération
+        occasionnelle du LLM local, observée en usage réel le 24/07/2026.
+        Limité aux voyelles (jamais "h") pour éviter toute fausse élision
+        devant un mot à h aspiré ("de haut", pas "d'haut")."""
+
+        def _elide(match: "re.Match") -> str:
+            de, rest = match.group(1), match.group(2)
+            return f"{de[0]}'{rest}"
+
+        return re.sub(r"\b(de) ([aeiouyàâäéèêëïîôöùûü]\w*)", _elide, text, flags=re.IGNORECASE)
+
     def _post_process(self, response: str, context: Dict[str, Any]) -> str:
         """Nettoie la réponse finale."""
         if not response or not response.strip():
@@ -859,6 +873,7 @@ Réponds maintenant.""".strip()
 
         response_clean = self._strip_markdown(response_clean)
         response_clean = self._enforce_tutoiement(response_clean)
+        response_clean = self._fix_elisions(response_clean)
 
         mode = context.get("adaptation", {}).get("mode", "")
         if mode in ("support", "low_energy_mode") and len(response_clean) > 1500:
