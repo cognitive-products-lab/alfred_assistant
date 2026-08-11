@@ -36,6 +36,24 @@ _RECURRENCE_RULES: dict[str, list[str] | None] = {
     "weekly": ["RRULE:FREQ=WEEKLY"],
 }
 
+_OUTLOOK_RECURRENCE_TYPES: dict[str, str] = {
+    "daily": "daily",
+    "weekly": "weekly",
+}
+
+
+def _build_outlook_recurrence(keyword: str, start_dt: datetime) -> dict | None:
+    """Motif de récurrence au format natif Microsoft Graph — structurellement
+    différent des RRULE Google (voir _RECURRENCE_RULES), donc construit
+    séparément plutôt que traduit."""
+    graph_type = _OUTLOOK_RECURRENCE_TYPES.get(keyword)
+    if not graph_type:
+        return None
+    return {
+        "pattern": {"type": graph_type, "interval": 1},
+        "range": {"type": "noEnd", "startDate": start_dt.strftime("%Y-%m-%d")},
+    }
+
 # ---------------------------------------------------------------------------
 # Schéma des outils — format proche d'OpenAI/Ollama (function calling),
 # converti pour Anthropic dans _anthropic_tools().
@@ -44,10 +62,11 @@ TOOL_SPECS: list[dict] = [
     {
         "name": "create_calendar_event",
         "description": (
-            "Crée un événement ou un rappel réel dans Google Agenda. À utiliser "
-            "dès que l'utilisateur demande d'ajouter un rendez-vous, un événement "
-            "ou un rappel à son agenda — ne jamais inventer d'instructions "
-            "d'interface à la place, toujours appeler cet outil."
+            "Crée un événement ou un rappel réel dans l'agenda (Google par "
+            "défaut, ou Outlook si l'utilisateur le nomme explicitement). À "
+            "utiliser dès que l'utilisateur demande d'ajouter un rendez-vous, "
+            "un événement ou un rappel à son agenda — ne jamais inventer "
+            "d'instructions d'interface à la place, toujours appeler cet outil."
         ),
         "parameters": {
             "type": "object",
@@ -84,19 +103,33 @@ TOOL_SPECS: list[dict] = [
                     "type": "string",
                     "description": "Lieu optionnel.",
                 },
+                "provider": {
+                    "type": "string",
+                    "enum": ["google", "outlook"],
+                    "description": (
+                        "Laisser vide sauf si l'utilisateur nomme explicitement "
+                        "\"Google\" ou \"Outlook\" — sinon l'agenda par défaut "
+                        "configuré dans Paramètres est utilisé."
+                    ),
+                },
             },
             "required": ["summary", "time"],
         },
     },
     {
         "name": "list_calendar_events",
-        "description": "Liste les prochains événements réels de Google Agenda.",
+        "description": "Liste les prochains événements réels de l'agenda (Google par défaut, ou Outlook si nommé).",
         "parameters": {
             "type": "object",
             "properties": {
                 "max_results": {
                     "type": "integer",
                     "description": "Nombre maximum d'événements à retourner (10 par défaut).",
+                },
+                "provider": {
+                    "type": "string",
+                    "enum": ["google", "outlook"],
+                    "description": "Laisser vide sauf si l'utilisateur nomme explicitement l'agenda à consulter.",
                 },
             },
             "required": [],
@@ -105,7 +138,7 @@ TOOL_SPECS: list[dict] = [
     {
         "name": "update_calendar_event",
         "description": (
-            "Modifie un événement existant dans Google Agenda (déplace l'heure/la "
+            "Modifie un événement existant dans l'agenda (déplace l'heure/la "
             "date, change le titre, la durée ou le lieu). Identifie l'événement à "
             "partir d'un extrait de son titre actuel — pas besoin d'un identifiant "
             "technique."
@@ -122,6 +155,11 @@ TOOL_SPECS: list[dict] = [
                 "new_time": {"type": "string", "description": "Nouvelle heure HH:MM, si à changer."},
                 "new_duration_minutes": {"type": "integer", "description": "Nouvelle durée en minutes, si à changer."},
                 "new_location": {"type": "string", "description": "Nouveau lieu, si à changer."},
+                "provider": {
+                    "type": "string",
+                    "enum": ["google", "outlook"],
+                    "description": "Laisser vide sauf si l'utilisateur nomme explicitement l'agenda concerné.",
+                },
             },
             "required": ["summary_hint"],
         },
@@ -129,8 +167,8 @@ TOOL_SPECS: list[dict] = [
     {
         "name": "delete_calendar_event",
         "description": (
-            "Supprime un événement (ou toute une série récurrente) de Google "
-            "Agenda. Identifie l'événement à partir d'un extrait de son titre."
+            "Supprime un événement (ou toute une série récurrente) de l'agenda. "
+            "Identifie l'événement à partir d'un extrait de son titre."
         ),
         "parameters": {
             "type": "object",
@@ -138,6 +176,11 @@ TOOL_SPECS: list[dict] = [
                 "summary_hint": {
                     "type": "string",
                     "description": "Extrait du titre de l'événement à supprimer (ex. 'manger').",
+                },
+                "provider": {
+                    "type": "string",
+                    "enum": ["google", "outlook"],
+                    "description": "Laisser vide sauf si l'utilisateur nomme explicitement l'agenda concerné.",
                 },
             },
             "required": ["summary_hint"],
@@ -310,19 +353,40 @@ def _existing_event_datetimes(event: dict) -> tuple[datetime, datetime]:
     return datetime.fromisoformat(event["start"]), datetime.fromisoformat(event["end"])
 
 
-def _resolve_single_event(summary_hint: str) -> tuple[dict | None, dict | None]:
+def _calendar_module(provider: str):
+    """Module data-layer du fournisseur d'agenda résolu — google_calendar_data.py
+    et outlook_calendar_data.py exposent des fonctions au nom et à la
+    signature identiques exprès, pour permettre ce dispatch polymorphe."""
+    if provider == "outlook":
+        import src.ui.outlook_calendar_data as mod
+    else:
+        import src.ui.google_calendar_data as mod
+    return mod
+
+
+def _resolve_calendar_provider(arguments: dict) -> str:
+    """Fournisseur explicitement nommé par l'utilisateur ("provider" dans les
+    arguments de l'outil), sinon le fournisseur par défaut configuré dans
+    Paramètres (Google par défaut — décision de Céline le 24/07/2026, voir
+    src/ui/calendar_provider_prefs.py)."""
+    requested = (arguments.get("provider") or "").strip().lower()
+    if requested in ("google", "outlook"):
+        return requested
+    from src.ui.calendar_provider_prefs import load_default_calendar_provider
+    return load_default_calendar_provider()
+
+
+def _resolve_single_event(summary_hint: str, provider: str) -> tuple[dict | None, dict | None]:
     """Résout un extrait de titre vers un événement unique via find_calendar_events.
     Retourne (event, None) en cas de succès, ou (None, erreur_française) sinon
     (aucun résultat, plusieurs résultats ambigus, ou porte consentement/connexion
     fermée)."""
-    from src.ui.google_calendar_data import find_calendar_events
-
     hint = (summary_hint or "").strip()
     if not hint:
         return None, {"ok": False, "error": "Un extrait du titre de l'événement est requis."}
 
-    found = find_calendar_events(hint)
-    gate_error = _consent_gated_error(found)
+    found = _calendar_module(provider).find_calendar_events(hint)
+    gate_error = _consent_gated_error(found, provider)
     if gate_error:
         return None, gate_error
     if not found.get("ok", False):
@@ -365,24 +429,25 @@ def _resolve_single_task(title_hint: str) -> tuple[dict | None, dict | None]:
     return candidates[0], None
 
 
-def _consent_gated_error(result: dict) -> dict | None:
-    """Traduit les portes consentement/connexion de google_calendar_data.py
-    en erreur française exploitable par le LLM. Retourne None si les deux
-    portes sont ouvertes (rien à bloquer)."""
+def _consent_gated_error(result: dict, provider: str = "google") -> dict | None:
+    """Traduit les portes consentement/connexion de google_calendar_data.py /
+    outlook_calendar_data.py en erreur française exploitable par le LLM.
+    Retourne None si les deux portes sont ouvertes (rien à bloquer)."""
+    label = "Agenda Outlook" if provider == "outlook" else "Google Agenda"
     if not result.get("consent", False):
         return {
             "ok": False,
             "error": (
-                "Le consentement Google Agenda n'est pas activé. Dis à "
-                "l'utilisateur d'aller dans Paramètres > Agenda pour l'activer."
+                f"Le consentement {label} n'est pas activé. Dis à "
+                f"l'utilisateur d'aller dans Paramètres > Agenda pour l'activer."
             ),
         }
     if not result.get("connected", False):
         return {
             "ok": False,
             "error": (
-                "Google Agenda n'est pas connecté. Dis à l'utilisateur d'aller "
-                "dans Paramètres > Agenda > Se connecter à Google."
+                f"{label} n'est pas connecté. Dis à l'utilisateur d'aller "
+                f"dans Paramètres > Agenda > Se connecter."
             ),
         }
     return None
@@ -394,22 +459,25 @@ def execute_tool(name: str, arguments: dict) -> dict:
     recevoir une réponse — succès ou erreur explicite)."""
     try:
         if name == "create_calendar_event":
-            from src.ui.google_calendar_data import create_calendar_event
+            provider = _resolve_calendar_provider(arguments)
+            mod = _calendar_module(provider)
 
             start_iso, end_iso = _build_iso_range(arguments)
-            recurrence = _RECURRENCE_RULES.get(
-                (arguments.get("recurrence") or "none").strip().lower()
-            )
+            recurrence_keyword = (arguments.get("recurrence") or "none").strip().lower()
+            if provider == "outlook":
+                recurrence = _build_outlook_recurrence(recurrence_keyword, datetime.fromisoformat(start_iso))
+            else:
+                recurrence = _RECURRENCE_RULES.get(recurrence_keyword)
             summary = (arguments.get("summary") or "Rappel").strip()
 
-            result = create_calendar_event(
+            result = mod.create_calendar_event(
                 summary=summary,
                 start_iso=start_iso,
                 end_iso=end_iso,
                 location=arguments.get("location") or None,
                 recurrence=recurrence,
             )
-            gate_error = _consent_gated_error(result)
+            gate_error = _consent_gated_error(result, provider)
             if gate_error:
                 return gate_error
             if not result.get("ok", False):
@@ -417,15 +485,16 @@ def execute_tool(name: str, arguments: dict) -> dict:
             return {"ok": True, "event": result.get("event")}
 
         if name == "list_calendar_events":
-            from src.ui.google_calendar_data import get_calendar_state
+            provider = _resolve_calendar_provider(arguments)
+            mod = _calendar_module(provider)
 
             try:
                 max_results = int(arguments.get("max_results") or 10)
             except (TypeError, ValueError):
                 max_results = 10
 
-            result = get_calendar_state(max_results=max_results)
-            gate_error = _consent_gated_error(result)
+            result = mod.get_calendar_state(max_results=max_results)
+            gate_error = _consent_gated_error(result, provider)
             if gate_error:
                 return gate_error
             if not result.get("ok", False):
@@ -433,9 +502,10 @@ def execute_tool(name: str, arguments: dict) -> dict:
             return {"ok": True, "events": result.get("events")}
 
         if name == "update_calendar_event":
-            from src.ui.google_calendar_data import update_calendar_event
+            provider = _resolve_calendar_provider(arguments)
+            mod = _calendar_module(provider)
 
-            event, error = _resolve_single_event(arguments.get("summary_hint", ""))
+            event, error = _resolve_single_event(arguments.get("summary_hint", ""), provider)
             if error:
                 return error
 
@@ -465,14 +535,14 @@ def execute_tool(name: str, arguments: dict) -> dict:
                 new_end = new_start + duration
                 start_iso, end_iso = new_start.isoformat(), new_end.isoformat()
 
-            result = update_calendar_event(
+            result = mod.update_calendar_event(
                 event_id=event["id"],
                 summary=arguments.get("new_summary") or None,
                 start_iso=start_iso,
                 end_iso=end_iso,
                 location=arguments.get("new_location") or None,
             )
-            gate_error = _consent_gated_error(result)
+            gate_error = _consent_gated_error(result, provider)
             if gate_error:
                 return gate_error
             if not result.get("ok", False):
@@ -480,14 +550,15 @@ def execute_tool(name: str, arguments: dict) -> dict:
             return {"ok": True, "event": result.get("event")}
 
         if name == "delete_calendar_event":
-            from src.ui.google_calendar_data import delete_calendar_event
+            provider = _resolve_calendar_provider(arguments)
+            mod = _calendar_module(provider)
 
-            event, error = _resolve_single_event(arguments.get("summary_hint", ""))
+            event, error = _resolve_single_event(arguments.get("summary_hint", ""), provider)
             if error:
                 return error
 
-            result = delete_calendar_event(event_id=event["id"])
-            gate_error = _consent_gated_error(result)
+            result = mod.delete_calendar_event(event_id=event["id"])
+            gate_error = _consent_gated_error(result, provider)
             if gate_error:
                 return gate_error
             if not result.get("ok", False):
