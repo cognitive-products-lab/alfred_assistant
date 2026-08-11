@@ -1,0 +1,34 @@
+/* Extrait automatiquement de interface/desktop_ui/index.html (lignes 87-119) le 2026-08-11 — contenu inchange. */
+/* High contrast mode */
+:root.hc{
+  --border:var(--border-strong);
+  --text-2:var(--text-1); --text-3:var(--text-2);
+}
+:root.hc [data-theme],:root.hc{ --shadow-card:none; }
+:root.hc .card,:root.hc .pill,:root.hc .btn{ border-width:1.5px; }
+
+/* Dyslexia-friendly typeface */
+:root.dyslexia-font{
+  --font-ui:'OpenDyslexic',-apple-system,'Segoe UI',sans-serif;
+  --font-display:'OpenDyslexic','Inter Var',sans-serif;
+}
+:root.dyslexia-font body{ letter-spacing:.01em; line-height:1.7; }
+:root.dyslexia-font h1,:root.dyslexia-font h2,:root.dyslexia-font h3,:root.dyslexia-font h4{ letter-spacing:0; }
+
+/* Font-size steps */
+html{ font-size:16px; }
+html[data-fontsize="sm"]{ font-size:14px; }
+html[data-fontsize="md"]{ font-size:16px; }
+html[data-fontsize="lg"]{ font-size:18px; }
+html[data-fontsize="xl"]{ font-size:20px; }
+
+/* Reduced motion */
+:root.reduced-motion *,
+:root.reduced-motion *::before,
+:root.reduced-motion *::after{
+  animation-duration:.001ms !important; animation-iteration-count:1 !important;
+  transition-duration:.001ms !important; scroll-behavior:auto !important;
+}
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{ animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; }
+}
