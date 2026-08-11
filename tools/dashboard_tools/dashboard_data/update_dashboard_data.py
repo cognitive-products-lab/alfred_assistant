@@ -7,8 +7,8 @@ ROLE         : Genere dashboard_data.json depuis dashboard_data_manifest.json et
 
 AUTHOR       : Cognitive Products Lab
 CREATED      : 2026-05-10
-UPDATED      : 2026-07-12
-VERSION      : V1.4
+UPDATED      : 2026-08-11
+VERSION      : V1.5
 STATUS       : STABLE
 
 DESCRIPTION :
@@ -706,6 +706,7 @@ def build_dashboard_data() -> dict:
     validation_map = load_status_registry()
 
     blocks = []
+    manifest_warnings = []
 
     for block_id in sorted(blocks_manifest.keys()):
         block = blocks_manifest[block_id]
@@ -716,6 +717,27 @@ def build_dashboard_data() -> dict:
             "target_full_files_count",
             len(expected_files)
         )
+
+        # Garde-fou : une cible déclarée sans expected_files produit un 0 % qui
+        # ressemble à une régression alors que c'est souvent un manifest pas
+        # tenu à jour après une décision produit (cf. Bloc 17, 11/08/2026 —
+        # cible restée à 230 après la décision "fond neutre", plus aucun
+        # expected_files pour la justifier). On avertit au lieu de laisser
+        # passer silencieusement, et on protège la division qui suit contre
+        # une cible à 0 (ZeroDivisionError sinon).
+        if target_full_files_count > 0 and not expected_files:
+            manifest_warnings.append(
+                f"{block_id}: target_full_files_count={target_full_files_count} "
+                f"mais expected_files est vide — vérifier que la cible manifest "
+                f"est toujours d'actualité (roadmap_note présent : "
+                f"{'oui' if block.get('roadmap_note') else 'NON'})."
+            )
+        if target_full_files_count <= 0:
+            manifest_warnings.append(
+                f"{block_id}: target_full_files_count={target_full_files_count} "
+                f"<= 0, corrigé à 1 pour éviter une division par zéro."
+            )
+            target_full_files_count = 1
 
         files_info = []
 
@@ -886,6 +908,7 @@ def build_dashboard_data() -> dict:
         "blocks": blocks,
 
         "weighted_global_progress": weighted_global_progress,
+        "manifest_warnings": manifest_warnings,
     }
 
 
@@ -905,6 +928,11 @@ def print_summary(data: dict) -> None:
     print(f"Fichiers détectés : {data['total_files_detected']}")
     print(f"Fichiers manquants : {data['total_files_missing']}")
     print(f"Avancement global : {data['global_progress']}%")
+    warnings = data.get("manifest_warnings", [])
+    if warnings:
+        print(f"ATTENTION - {len(warnings)} avertissement(s) manifest :")
+        for w in warnings:
+            print(f"  ! {w}")
     print("Détail par bloc :")
     for block in data["blocks"]:
         print(
