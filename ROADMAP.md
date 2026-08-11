@@ -1,6 +1,10 @@
 # ALFRED Roadmap
 
-Dernière mise à jour : 2026-07-05
+Dernière mise à jour : 2026-08-11
+
+> Voir aussi `docs/roadmap/ROADMAP_MASTER_V0_VFINALE.md` — vue complète Epic/Sprint/User story/Livrable
+> (26 Blocs officiels), statuts croisés avec `dashboard/dashboard_data/dashboard_data.json` et anomalies
+> détectées. Ce fichier-ci reste la version courte/chronologique ; l'autre est la version détaillée.
 
 ---
 
@@ -59,8 +63,26 @@ Dernière mise à jour : 2026-07-05
 - [x] Client `llm_client_anthropic.py` — fallback Anthropic Claude
 - [x] Mode recherche `recherche_on` / `recherche_off` — console commande runtime
 - [x] Arborescence documentation reworkée (dossier_cadrage.html v1.1)
-- [ ] Q01→Q09 — remplissage des réponses utilisateur (en attente)
-- [ ] Fusion branche feature → dev (pipeline complet Kivy + Avatar)
+- [x] Q01→Q09 — remplissage des réponses utilisateur (fait le 18/07/2026, onboarding complet MBTI EXFP + émotionnel + santé)
+- [x] Fusion branche feature → dev (superseded — développement repris directement sur `main`, modules livrés et validés)
+
+---
+
+## V1.4 — Chantiers post-05/07 (sessions 22-24/07/2026)
+
+- [x] UI hybride voix+texte — fusion des modes (plus de toggle exclusif), refus vocal figé supprimé, heure ancrée Europe/Paris
+- [x] Article "Évolution de l'interface" publié (ALFRED_WEB, commit `18bbef4`)
+- [x] Fix dashboard `/dashboard-gouvernance` — servait le mauvais contenu (doublon Conformité) depuis le 18/06, corrigé
+- [x] Page "Qualité & Data" publiée avec contenu réel (registre RGPD 7 traitements, traçabilité, KPIs)
+- [x] Système avatar en calques (F/G/BL/SP/M/V00-14) — tous créés, couture V-series/f00 corrigée (cv2.seamlessClone)
+- [x] **Synchro labiale phonème-exacte** — PiperTTS→API Python, table phonème→visème, testée en conditions réelles (23/07)
+- [x] **Chantier 1 — Google Agenda** : lecture + écriture confirmées sur le vrai compte (create/list/delete/modify event depuis le chat), commit `dac0a4f`
+- [x] Function-calling réel branché au chat — corrige une hallucination d'UI (ALFRED CPL inventé)
+- [x] Moteur de tâches complet (TaskEngine) + garde-fou anti-hallucination outils — ~35-40 % des appels d'outils llama3.2 n'aboutissaient à rien de réel avant le correctif, 0 fausse confirmation sur 8 essais après
+- [x] Fixes TTS (élision "de X"→"d'X", lecture des balises entre crochets, double lecture heure/date)
+- [x] Décision produit : fond visuel de l'avatar **neutre**, aligné sur l'interface existante (allège le système visuel, remplace la génération contextuelle de fonds prévue au Bloc 17)
+- [ ] **Chantier 1B — Google Home/Nest : bloqué définitivement.** Code écrit (commit "feat(v4): intégration Google Home/Nest + vision sécurité domestique", 24/07) mais Céline n'a que des enceintes Nest, non supportées par l'API SDM (seuls thermostat/caméra/sonnette/Hub Max le sont). **Ne pas redépanner l'OAuth Google Home** — voir Tuya à la place.
+- [ ] **Chantier 2 — Sécurité chute/accompagnement (Tuya)** : vision complète rédigée (`docs/module_securite_accompagnement/vision_securite_accompagnement_360.md`), Sébastien confirmé comme contact de confiance, caméras RTSP + audio bidirectionnel prévues. **3 inconnues Tuya non résolues bloquent tout début de code.**
 
 ---
 
@@ -95,14 +117,28 @@ Dernière mise à jour : 2026-07-05
 
 ---
 
+## Objectif de la reprise (11/08/2026)
+
+Reprise après une pause de développement liée à un impératif de santé de Céline (plan de révision d'examens).
+Objectif explicite : **un projet propre et démontrable pour les soutenances FEDE d'octobre 2026** (Mastère Expert IT
+— IA & Big Data), pas seulement l'avancement brut vers V-finale.
+
+- **UC D42** (mémoire projet tutoré ALFRED) — Prêt.
+- **UC D52** (thèse pro "du cadrage méthodologique à la mise en œuvre technique") — En cours. **Soutenance principale pour laquelle ALFRED doit être démontrable.**
+- **UC B5** (synthèse en anglais de la thèse D52) — À réaliser.
+
+Voir `docs/roadmap/ROADMAP_MASTER_V0_VFINALE.md` pour le détail complet par Epic/Bloc, et l'exercice suivant
+(tableau de tâches → Gantt) pour la mise en séquence vers cette échéance.
+
 ## Backlog — En attente
 
 | Priorité | Item | Contexte |
 |----------|------|---------|
-| P1 | Remplissage Q01→Q09 utilisateur | Main bloquée par douleur mains |
-| P1 | AIPD T001 (RGPD art.35) | Obligatoire avant production |
-| P1 | PSSI formelle | docs/gouvernance/PSSI_formelle.md |
+| P1 | Mettre à jour la cible manifest du Bloc 17 (dashboard) | Cible encore à 230 fichiers alors que le fond visuel neutre a été tranché — affiche un faux 0 % sinon |
 | P2 | Reconcilier profile_analyzer (src/core vs src/profile) | Doublon à nettoyer |
-| P2 | Merge feature branch → dev | Pipeline complet Kivy + modules B |
+| P2 | Débloquer les 3 inconnues Tuya | Condition pour démarrer le code du Chantier 2 (sécurité/accompagnement) |
 | P3 | Compléter gouvernance 360° (soa_iso27001, smsi) | Chantier audit certification |
 | P3 | Mode démo public ALFRED | Après nettoyage données sensibles |
+| P3 | ARTHUR | Volontairement non engagé — après ALFRED_PC et ALFRED_CPL "au point" (V4) |
+
+*(Q01→Q09, AIPD T001 et PSSI formelle retirés de ce backlog le 11/08/2026 — déjà réalisés, cf. ci-dessus et `docs/roadmap/ROADMAP_MASTER_V0_VFINALE.md` section 5.)*
