@@ -38,6 +38,12 @@ uvicorn>=0.29.0               # Serveur ASGI pour interface/companion_api.py
 # chromadb>=0.4.0           # Vector DB locale
 # faiss-cpu>=1.8.0          # Recherche vectorielle locale
 
+# --- GOUVERNANCE DATA (Bloc 11.05 — scan_data_assets.py) ---
+# Lecture seule des bases PostgreSQL/MongoDB d'ALFRED_WEB pour le scanner
+# d'actifs de données (pilier Automatisation du framework DQbD, mémoire M2).
+psycopg2-binary>=2.9.0       # Introspection PostgreSQL (information_schema)
+pymongo>=4.7.0                # Introspection MongoDB (list_collection_names)
+
 # --- INTERFACE (GUI) ---
 pywebview>=6.2.0             # Fenêtre desktop native pour interface/desktop_ui (src/alfred_desktop.py)
 # kivy>=2.3.0               # Ancienne interface Kivy (src/alfred_with_ui.py, conservée en fallback)
@@ -48,9 +54,13 @@ google-auth-oauthlib>=1.2.0   # Flux OAuth desktop (src/integrations/google_auth
 google-auth-httplib2>=0.2.0   # Transport HTTP pour les appels authentifiés
 google-api-python-client>=2.130.0  # Client Google Calendar API
 
+# --- OUTLOOK (Agenda, second fournisseur — 24/07/2026) ---
+msal>=1.28.0                  # Flux OAuth desktop Microsoft (src/integrations/outlook_auth.py)
+requests>=2.31.0              # Appels REST Microsoft Graph (src/integrations/outlook_calendar_client.py)
+
 # --- DOMOTIQUE (V4) ---
 # paho-mqtt>=2.0.0          # MQTT pour objets connectés
-# requests>=2.31.0          # API REST (météo, Google Home, etc.)
+# requests déjà listé plus haut (section OUTLOOK) — aussi utilisable pour météo/Google Home
 
 # --- AUDIT / SÉCURITÉ DEV ---
 bandit>=1.7.0               # Scan sécurité du code Python

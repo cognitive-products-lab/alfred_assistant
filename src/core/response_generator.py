@@ -32,6 +32,7 @@ _TOOL_TRIGGER_KEYWORDS = [
     "agenda", "rappel", "rappelle", "rendez-vous", "rendez vous",
     "événement", "evenement", "calendrier", "planifie", "programme",
     "tâche", "tache", "todo", "à faire", "a faire",
+    "outlook",
 ]
 
 
@@ -241,7 +242,7 @@ RÈGLE VISION — INTERDICTION ABSOLUE :
         if tools_enabled:
             tools_block = """
 OUTILS RÉELS DISPONIBLES POUR CE TOUR :
-- Google Agenda : create_calendar_event (créer, répétition possible), update_calendar_event (déplacer/renommer), delete_calendar_event (supprimer), list_calendar_events (lister). L'événement à modifier/supprimer s'identifie par un extrait de son titre, pas un identifiant.
+- Agenda : create_calendar_event (créer, répétition possible), update_calendar_event (déplacer/renommer), delete_calendar_event (supprimer), list_calendar_events (lister). L'événement à modifier/supprimer s'identifie par un extrait de son titre, pas un identifiant. Deux fournisseurs possibles (Google et Outlook) — Google est utilisé par défaut, ne précise le paramètre "provider" que si l'utilisateur nomme explicitement "Outlook".
 - Tâches : create_task (créer, échéance optionnelle, rappel optionnel), list_tasks (lister), complete_task (marquer terminée), delete_task (supprimer). La tâche à terminer/supprimer s'identifie par un extrait de son titre.
 - Dès que l'utilisateur demande d'ajouter/modifier/supprimer/consulter un rappel, rendez-vous, événement, ou une tâche, tu appelles l'outil correspondant.
 - Interdit d'inventer des instructions d'interface ("ouvre tel menu, clique sur tel bouton") à la place d'un appel d'outil réel — ces actions existent réellement, utilise-les.
