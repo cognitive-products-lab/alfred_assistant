@@ -8,31 +8,31 @@
         "updated": "2026-08-12",
         "generated_by": "update_dashboard_data.py"
     },
-    "last_update": "12/08/2026 12:38:43",
+    "last_update": "12/08/2026 12:43:21",
     "source": "dashboard_data_manifest.json + validation_registry.json",
     "mode": "manifest_expected_vs_existing_with_validation_registry",
-    "validated_files_count": 1000,
-    "global_progress": 93.3,
+    "validated_files_count": 1007,
+    "global_progress": 93.9,
     "total_target_full_files": 4207,
     "global_full_project_progress": 29.6,
-    "total_expected_files": 1324,
-    "total_files_detected": 1324,
+    "total_expected_files": 1326,
+    "total_files_detected": 1326,
     "total_files_missing": 0,
     "global_status_counts": {
-        "structural": 127,
+        "structural": 128,
         "absent": 0,
         "to_start": 2,
         "alias_existing": 0,
         "merged_in_other_file": 0,
         "empty": 0,
-        "partial": 99,
+        "partial": 93,
         "created": 0,
         "coded": 94,
         "archive": 1,
         "tested": 1,
-        "validated": 1000
+        "validated": 1007
     },
-    "validation_registry_count": 1261,
+    "validation_registry_count": 1263,
     "blocks": [
         {
             "id": "b01",
@@ -10391,32 +10391,34 @@
             "id": "b10",
             "label": "Collaboration & Coordination",
             "target_full_files_count": 30,
-            "full_project_progress": 14.0,
+            "full_project_progress": 23.3,
             "sub_targets": {},
-            "progress": 84.0,
-            "expected_count": 5,
-            "files_count": 5,
+            "progress": 100.0,
+            "expected_count": 7,
+            "files_count": 7,
             "missing_count": 0,
             "status_counts": {
-                "structural": 0,
+                "structural": 1,
                 "absent": 0,
                 "to_start": 0,
                 "alias_existing": 0,
                 "merged_in_other_file": 0,
                 "empty": 0,
-                "partial": 3,
+                "partial": 0,
                 "created": 0,
                 "coded": 0,
                 "archive": 0,
                 "tested": 0,
-                "validated": 2
+                "validated": 6
             },
             "files_detected": [
                 "knowledges/professional/governance_ai/human_ai_collaboration.json",
                 "config/v3/orchestrator_rules.json",
                 "config/v3/workflow_rules.json",
                 "src/v3/orchestrator/__init__.py",
-                "knowledges/professional/product_management/advanced/cross_functional_collaboration.json"
+                "knowledges/professional/product_management/advanced/cross_functional_collaboration.json",
+                "tests/b10_tests/__init__.py",
+                "tests/b10_tests/test_orchestrator.py"
             ],
             "files_missing": [],
             "files": [
@@ -10442,47 +10444,53 @@
                 {
                     "path": "config/v3/orchestrator_rules.json",
                     "exists": true,
-                    "status": "partial",
-                    "score": 60,
-                    "size_bytes": 899,
+                    "status": "validated",
+                    "score": 100,
+                    "size_bytes": 1214,
                     "tests": [],
                     "details": {},
                     "validation": {
                         "path": "config/v3/orchestrator_rules.json",
                         "module": "B10",
-                        "status": "partial",
-                        "last_test": "2026-07-04",
-                        "test_level": "auto",
-                        "score": 40
+                        "status": "validated",
+                        "last_test": "2026-08-12",
+                        "test_level": "automated",
+                        "tests": [
+                            "pytest tests/b10_tests/test_orchestrator.py -v -- 13/13 PASSED (dont test_default_construction_loads_real_config qui charge ce fichier reel et verifie fail_fast=False)"
+                        ],
+                        "notes": "Audit 2026-08-12 : desormais reellement charge par src/v3/orchestrator/__init__.py (CollaborationOrchestrator lit fail_fast a l'instanciation). _meta.status mis a jour en consequence (n'est plus un schema non branche)."
                     },
-                    "validated": false,
-                    "tested": false
+                    "validated": true,
+                    "tested": true
                 },
                 {
                     "path": "config/v3/workflow_rules.json",
                     "exists": true,
-                    "status": "partial",
-                    "score": 60,
-                    "size_bytes": 796,
+                    "status": "validated",
+                    "score": 100,
+                    "size_bytes": 2811,
                     "tests": [],
                     "details": {},
                     "validation": {
                         "path": "config/v3/workflow_rules.json",
                         "module": "B10",
-                        "status": "partial",
-                        "last_test": "2026-07-04",
-                        "test_level": "auto",
-                        "score": 40
+                        "status": "validated",
+                        "last_test": "2026-08-12",
+                        "test_level": "automated",
+                        "tests": [
+                            "pytest tests/b10_tests/test_orchestrator.py -v -- 13/13 PASSED (dont test_each_real_workflow_has_deliverable_type et 3x test_workflow_runs_without_error qui executent les 3 workflows reels definis ici)"
+                        ],
+                        "notes": "Audit 2026-08-12 : 3 workflows reels definis (brainstorming, revue_documentaire, co_redaction), plus 'workflows: []' vide. Chacun reference un deliverable_type existant dans alfred_cpl/assistant_actions/deliverable_templates.py (ALFRED_CPL) : fiche_cadrage ou registre_risques."
                     },
-                    "validated": false,
-                    "tested": false
+                    "validated": true,
+                    "tested": true
                 },
                 {
                     "path": "src/v3/orchestrator/__init__.py",
                     "exists": true,
-                    "status": "partial",
+                    "status": "validated",
                     "score": 100,
-                    "size_bytes": 17,
+                    "size_bytes": 11042,
                     "tests": [],
                     "details": {
                         "note": "__init__.py structurel valide même vide"
@@ -10490,13 +10498,16 @@
                     "validation": {
                         "path": "src/v3/orchestrator/__init__.py",
                         "module": "B10",
-                        "status": "partial",
-                        "last_test": "2026-07-04",
-                        "test_level": "auto",
-                        "score": 40
+                        "status": "validated",
+                        "last_test": "2026-08-12",
+                        "test_level": "automated",
+                        "tests": [
+                            "pytest tests/b10_tests/test_orchestrator.py -v -- 13/13 PASSED"
+                        ],
+                        "notes": "Audit 2026-08-12 : remplace le stub '# ALFRED module' par CollaborationOrchestrator (charge workflow_rules.json + orchestrator_rules.json, run_workflow() respecte fail_fast, import cross-depot vers ALFRED_CPL via variable d'environnement ALFRED_CPL_ROOT ou dossier frere par defaut, meme mecanisme que alfred_cpl/__init__.py en sens inverse). Le test test_real_alfred_cpl_repo_importable_if_present confirme que l'import reel vers alfred_cpl.assistant_actions.deliverable_generator fonctionne effectivement sur ce poste (pas seulement avec un mock)."
                     },
-                    "validated": false,
-                    "tested": false
+                    "validated": true,
+                    "tested": true
                 },
                 {
                     "path": "knowledges/professional/product_management/advanced/cross_functional_collaboration.json",
@@ -10513,6 +10524,61 @@
                         "last_test": "2026-07-04",
                         "test_level": "auto",
                         "score": 100
+                    },
+                    "validated": true,
+                    "tested": true
+                },
+                {
+                    "path": "tests/b10_tests/__init__.py",
+                    "exists": true,
+                    "status": "structural",
+                    "score": 100,
+                    "size_bytes": 16,
+                    "tests": [],
+                    "details": {
+                        "note": "__init__.py structurel valide même vide"
+                    },
+                    "validation": {
+                        "path": "tests/b10_tests/__init__.py",
+                        "module": "B10",
+                        "status": "structural",
+                        "last_test": "2026-08-12",
+                        "test_level": "none",
+                        "notes": "Fichier d'init de package de test, cree le 2026-08-12 avec le reste du dossier tests/b10_tests/."
+                    },
+                    "validated": false,
+                    "tested": false
+                },
+                {
+                    "path": "tests/b10_tests/test_orchestrator.py",
+                    "exists": true,
+                    "status": "validated",
+                    "score": 100,
+                    "size_bytes": 8714,
+                    "tests": [],
+                    "details": {
+                        "python": {
+                            "has_code": true,
+                            "has_class": true,
+                            "has_function": true,
+                            "has_docstring": true,
+                            "imports_count": 5,
+                            "classes_count": 3,
+                            "functions_count": 14,
+                            "syntax_ok": true,
+                            "syntax_error": null
+                        }
+                    },
+                    "validation": {
+                        "path": "tests/b10_tests/test_orchestrator.py",
+                        "module": "B10",
+                        "status": "validated",
+                        "last_test": "2026-08-12",
+                        "test_level": "automated",
+                        "tests": [
+                            "pytest tests/b10_tests/test_orchestrator.py -v -- 13/13 PASSED"
+                        ],
+                        "notes": "Audit 2026-08-12 : suite de tests creee et executee reellement (13/13 verts) - couvre chargement de la config reelle, execution des 3 workflows reels avec un deliverable_fn injecte, fail_fast=True (arret immediat) et fail_fast=False (collecte des erreurs sans arret) avec des rules de test dediees, et le vrai mecanisme d'import cross-depot vers ALFRED_CPL (cas absent -> erreur explicite, cas present -> import reel confirme fonctionnel sur ce poste)."
                     },
                     "validated": true,
                     "tested": true
@@ -14353,7 +14419,7 @@
                 "runtime_code_config": 50,
                 "knowledge_files": 2950
             },
-            "progress": 87.4,
+            "progress": 87.7,
             "expected_count": 388,
             "files_count": 388,
             "missing_count": 0,
@@ -14364,12 +14430,12 @@
                 "alias_existing": 0,
                 "merged_in_other_file": 0,
                 "empty": 0,
-                "partial": 42,
+                "partial": 39,
                 "created": 0,
                 "coded": 73,
                 "archive": 0,
                 "tested": 0,
-                "validated": 239
+                "validated": 242
             },
             "files_detected": [
                 ".env",
@@ -15203,21 +15269,24 @@
                 {
                     "path": "config/v3/orchestrator_rules.json",
                     "exists": true,
-                    "status": "partial",
-                    "score": 60,
-                    "size_bytes": 899,
+                    "status": "validated",
+                    "score": 100,
+                    "size_bytes": 1214,
                     "tests": [],
                     "details": {},
                     "validation": {
                         "path": "config/v3/orchestrator_rules.json",
                         "module": "B10",
-                        "status": "partial",
-                        "last_test": "2026-07-04",
-                        "test_level": "auto",
-                        "score": 40
+                        "status": "validated",
+                        "last_test": "2026-08-12",
+                        "test_level": "automated",
+                        "tests": [
+                            "pytest tests/b10_tests/test_orchestrator.py -v -- 13/13 PASSED (dont test_default_construction_loads_real_config qui charge ce fichier reel et verifie fail_fast=False)"
+                        ],
+                        "notes": "Audit 2026-08-12 : desormais reellement charge par src/v3/orchestrator/__init__.py (CollaborationOrchestrator lit fail_fast a l'instanciation). _meta.status mis a jour en consequence (n'est plus un schema non branche)."
                     },
-                    "validated": false,
-                    "tested": false
+                    "validated": true,
+                    "tested": true
                 },
                 {
                     "path": "config/v3/pattern_rules.json",
@@ -15317,21 +15386,24 @@
                 {
                     "path": "config/v3/workflow_rules.json",
                     "exists": true,
-                    "status": "partial",
-                    "score": 60,
-                    "size_bytes": 796,
+                    "status": "validated",
+                    "score": 100,
+                    "size_bytes": 2811,
                     "tests": [],
                     "details": {},
                     "validation": {
                         "path": "config/v3/workflow_rules.json",
                         "module": "B10",
-                        "status": "partial",
-                        "last_test": "2026-07-04",
-                        "test_level": "auto",
-                        "score": 40
+                        "status": "validated",
+                        "last_test": "2026-08-12",
+                        "test_level": "automated",
+                        "tests": [
+                            "pytest tests/b10_tests/test_orchestrator.py -v -- 13/13 PASSED (dont test_each_real_workflow_has_deliverable_type et 3x test_workflow_runs_without_error qui executent les 3 workflows reels definis ici)"
+                        ],
+                        "notes": "Audit 2026-08-12 : 3 workflows reels definis (brainstorming, revue_documentaire, co_redaction), plus 'workflows: []' vide. Chacun reference un deliverable_type existant dans alfred_cpl/assistant_actions/deliverable_templates.py (ALFRED_CPL) : fiche_cadrage ou registre_risques."
                     },
-                    "validated": false,
-                    "tested": false
+                    "validated": true,
+                    "tested": true
                 },
                 {
                     "path": "data/v2/experience_state.json",
@@ -16577,9 +16649,9 @@
                 {
                     "path": "src/v3/orchestrator/__init__.py",
                     "exists": true,
-                    "status": "partial",
+                    "status": "validated",
                     "score": 100,
-                    "size_bytes": 17,
+                    "size_bytes": 11042,
                     "tests": [],
                     "details": {
                         "note": "__init__.py structurel valide même vide"
@@ -16587,13 +16659,16 @@
                     "validation": {
                         "path": "src/v3/orchestrator/__init__.py",
                         "module": "B10",
-                        "status": "partial",
-                        "last_test": "2026-07-04",
-                        "test_level": "auto",
-                        "score": 40
+                        "status": "validated",
+                        "last_test": "2026-08-12",
+                        "test_level": "automated",
+                        "tests": [
+                            "pytest tests/b10_tests/test_orchestrator.py -v -- 13/13 PASSED"
+                        ],
+                        "notes": "Audit 2026-08-12 : remplace le stub '# ALFRED module' par CollaborationOrchestrator (charge workflow_rules.json + orchestrator_rules.json, run_workflow() respecte fail_fast, import cross-depot vers ALFRED_CPL via variable d'environnement ALFRED_CPL_ROOT ou dossier frere par defaut, meme mecanisme que alfred_cpl/__init__.py en sens inverse). Le test test_real_alfred_cpl_repo_importable_if_present confirme que l'import reel vers alfred_cpl.assistant_actions.deliverable_generator fonctionne effectivement sur ce poste (pas seulement avec un mock)."
                     },
-                    "validated": false,
-                    "tested": false
+                    "validated": true,
+                    "tested": true
                 },
                 {
                     "path": "src/v3/proactive/__init__.py",
@@ -28729,7 +28804,7 @@
                     "exists": true,
                     "status": "validated",
                     "score": 100,
-                    "size_bytes": 522653,
+                    "size_bytes": 525327,
                     "tests": [],
                     "details": {},
                     "validation": {
@@ -28751,7 +28826,7 @@
                     "exists": true,
                     "status": "validated",
                     "score": 100,
-                    "size_bytes": 1493045,
+                    "size_bytes": 1494845,
                     "tests": [],
                     "details": {},
                     "validation": {
@@ -28794,7 +28869,7 @@
                     "exists": true,
                     "status": "validated",
                     "score": 100,
-                    "size_bytes": 86933,
+                    "size_bytes": 87022,
                     "tests": [],
                     "details": {},
                     "validation": {
@@ -31569,7 +31644,7 @@
                     "exists": true,
                     "status": "validated",
                     "score": 100,
-                    "size_bytes": 86933,
+                    "size_bytes": 87022,
                     "tests": [],
                     "details": {},
                     "validation": {
@@ -32338,6 +32413,6 @@
             "roadmap_note": "PoC ciblé (pas une infra de production) — regard critique assumé sur le surdimensionnement à l'échelle actuelle d'ALFRED, cf. docs/hadoop_poc_bilan.md."
         }
     ],
-    "weighted_global_progress": 29.5,
+    "weighted_global_progress": 29.6,
     "manifest_warnings": []
 }

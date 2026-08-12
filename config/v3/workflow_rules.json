@@ -1,17 +1,40 @@
 {
   "_alfred_header": {
     "file": "config/v3/workflow_rules.json",
-    "bloc": "Bloc 01.04 — Orchestration des modules",
-    "notion_exam": "D01-4 — Capsule Orchestration des modules V3",
-    "utilite_alfred": "Règles de workflow multi-étapes (ex: onboarding, questionnaire en plusieurs tours).",
-    "domaine": "Noyau conversationnel & orchestration — workflow V3"
+    "bloc": "Bloc 10 — Collaboration & Coordination (volet CPL)",
+    "notion_exam": "D01-4 / D10 — Capsule Orchestration des modules V3 / Collaboration pro",
+    "utilite_alfred": "Règles de workflow multi-étapes pour le mode collaborateur pro ALFRED CPL (brainstorming, revue documentaire, co-rédaction). Chaque workflow enchaîne des étapes ordonnées et se termine par la génération d'un livrable via alfred_cpl.assistant_actions.deliverable_generator/deliverable_templates.",
+    "domaine": "Noyau conversationnel & orchestration — collaboration pro CPL"
   },
   "_meta": {
     "project": "ALFRED",
-    "version": "V1.0",
-    "status": "SCHEMA_DEFINI — pas encore chargé par le code (module correspondant non implémenté, src/v3/* ou src/v4/* est un stub __init__.py vide)",
+    "version": "V1.1",
+    "status": "CHARGÉ PAR le code depuis le 12/08/2026 — src/v3/orchestrator/__init__.py (CollaborationOrchestrator.run_workflow)",
     "created": "2026-07-16",
-    "note": "Point C3-J du plan d'action (décision OWNER : construire les schémas). src/v3/orchestrator/ est un stub vide."
+    "updated": "2026-08-12",
+    "note": "3 workflows définis, cohérents avec les 2 types de livrables réellement implémentés dans ALFRED_CPL (alfred_cpl/assistant_actions/deliverable_templates.py : fiche_cadrage, registre_risques). Pas de 3e type de livrable inventé — brainstorming et co_redaction réutilisent fiche_cadrage (cadrage projet), revue_documentaire utilise registre_risques (une revue documentaire fait remonter des risques/écarts, cohérent avec ce gabarit)."
   },
-  "workflows": []
+  "workflows": [
+    {
+      "name": "brainstorming",
+      "label": "Brainstorming — génération d'idées et d'options sur un sujet",
+      "description": "Explore un sujet donné, fait remonter les connaissances CPL pertinentes (procédures, catégories de risque) et produit un brouillon de cadrage à discuter et affiner en équipe.",
+      "steps": ["collect_input", "generate_draft", "review", "finalize"],
+      "deliverable_type": "fiche_cadrage"
+    },
+    {
+      "name": "revue_documentaire",
+      "label": "Revue documentaire — relecture et commentaire d'un document fourni",
+      "description": "Relit un document fourni par l'utilisateur (ou son sujet), identifie les écarts/risques par rapport à la base de connaissances CPL, et produit un registre de risques initial servant de support de revue.",
+      "steps": ["collect_input", "generate_draft", "review", "finalize"],
+      "deliverable_type": "registre_risques"
+    },
+    {
+      "name": "co_redaction",
+      "label": "Co-rédaction — co-écriture d'un livrable avec l'utilisateur",
+      "description": "Construit un brouillon de livrable de cadrage à partir des connaissances CPL retrouvées, destiné à être complété et corrigé conjointement par l'utilisateur (jamais renvoyé comme document final, cf. deliverable_generator).",
+      "steps": ["collect_input", "generate_draft", "review", "finalize"],
+      "deliverable_type": "fiche_cadrage"
+    }
+  ]
 }
