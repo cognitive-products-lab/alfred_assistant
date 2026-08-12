@@ -3,17 +3,21 @@
     "file": "data/context/user_context.json",
     "bloc": "Bloc 07.03 — Gestion du contexte / mobilité",
     "notion_exam": "D07-3 — Capsule Gestion du contexte",
-    "utilite_alfred": "Contexte utilisateur courant (localisation/activité déclarée) pour la durée d'une session — pas encore consommé par un module du pipeline (aucune référence dans src/ au 22/07/2026).",
-    "domaine": "Contexte & mobilité — état de session"
+    "utilite_alfred": "Contexte utilisateur courant (localisation/activité/appareil déclarés) pour la durée d'une session. Distinct de src/conversation/input/context_builder.py (Bloc 01.03) qui construit un contexte calculé (heure/device système/conversation) et ne lit pas ce fichier. Toujours pas consommé par un module du pipeline au 12/08/2026 — vérifié : aucune référence à 'user_context' dans src/.",
+    "domaine": "Contexte & mobilité — état de session déclaré (pas de capture automatique à ce jour)"
   },
   "_meta": {
     "project": "ALFRED",
-    "version": "V1.0",
-    "status": "SCHEMA_DEFINI — contenu minimal réel, non lu par le pipeline à ce jour",
+    "version": "V1.1",
+    "status": "SCHEMA_DEFINI — exemple complet et cohérent, non lu par le pipeline à ce jour",
     "created": "2026-05-02",
-    "updated": "2026-07-22",
-    "note": "DQ-030 du registre qualité data. Champs actuels conservés tels quels (valeurs d'exemple/placeholder) ; retention/rétention au-delà de la session active reste à clarifier si ce contexte finit par être persisté durablement."
+    "updated": "2026-08-12",
+    "note": "DQ-030 du registre qualité data. Exemple réel complété le 12/08/2026 pour couvrir mobilité/contexte externe (préparation Bloc 07/24 — client ALFRED_ANDROID), sans inventer de champs hors du périmètre 'contexte de session déclaré'. Rétention au-delà de la session active reste à clarifier si ce contexte finit par être persisté durablement (voir docs/mobilite/vision_mobilite_v2.md)."
   },
   "location": "home",
-  "energy_level": "normal"
+  "energy_level": "normal",
+  "activity": "travail",
+  "active_device": "desktop",
+  "source": "manual_declaration",
+  "last_updated": "2026-08-12T12:00:00+02:00"
 }
