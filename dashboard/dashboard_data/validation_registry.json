@@ -6381,26 +6381,35 @@
     {
       "path": "config/v3/orchestrator_rules.json",
       "module": "B10",
-      "status": "partial",
-      "last_test": "2026-07-04",
-      "test_level": "auto",
-      "score": 40
+      "status": "validated",
+      "last_test": "2026-08-12",
+      "test_level": "automated",
+      "tests": [
+        "pytest tests/b10_tests/test_orchestrator.py -v -- 13/13 PASSED (dont test_default_construction_loads_real_config qui charge ce fichier reel et verifie fail_fast=False)"
+      ],
+      "notes": "Audit 2026-08-12 : desormais reellement charge par src/v3/orchestrator/__init__.py (CollaborationOrchestrator lit fail_fast a l'instanciation). _meta.status mis a jour en consequence (n'est plus un schema non branche)."
     },
     {
       "path": "config/v3/workflow_rules.json",
       "module": "B10",
-      "status": "partial",
-      "last_test": "2026-07-04",
-      "test_level": "auto",
-      "score": 40
+      "status": "validated",
+      "last_test": "2026-08-12",
+      "test_level": "automated",
+      "tests": [
+        "pytest tests/b10_tests/test_orchestrator.py -v -- 13/13 PASSED (dont test_each_real_workflow_has_deliverable_type et 3x test_workflow_runs_without_error qui executent les 3 workflows reels definis ici)"
+      ],
+      "notes": "Audit 2026-08-12 : 3 workflows reels definis (brainstorming, revue_documentaire, co_redaction), plus 'workflows: []' vide. Chacun reference un deliverable_type existant dans alfred_cpl/assistant_actions/deliverable_templates.py (ALFRED_CPL) : fiche_cadrage ou registre_risques."
     },
     {
       "path": "src/v3/orchestrator/__init__.py",
       "module": "B10",
-      "status": "partial",
-      "last_test": "2026-07-04",
-      "test_level": "auto",
-      "score": 40
+      "status": "validated",
+      "last_test": "2026-08-12",
+      "test_level": "automated",
+      "tests": [
+        "pytest tests/b10_tests/test_orchestrator.py -v -- 13/13 PASSED"
+      ],
+      "notes": "Audit 2026-08-12 : remplace le stub '# ALFRED module' par CollaborationOrchestrator (charge workflow_rules.json + orchestrator_rules.json, run_workflow() respecte fail_fast, import cross-depot vers ALFRED_CPL via variable d'environnement ALFRED_CPL_ROOT ou dossier frere par defaut, meme mecanisme que alfred_cpl/__init__.py en sens inverse). Le test test_real_alfred_cpl_repo_importable_if_present confirme que l'import reel vers alfred_cpl.assistant_actions.deliverable_generator fonctionne effectivement sur ce poste (pas seulement avec un mock)."
     },
     {
       "path": "knowledges/human/cognition/cognitive_load.json",
@@ -11524,6 +11533,25 @@
       "last_test": "2026-08-12",
       "test_level": "none",
       "notes": "Nouveau document de vision cree le 2026-08-12 (pattern imite de docs/gouvernance/vision_performance_CPL.md). Formalise le client mobile leger ALFRED_ANDROID <-> core ALFRED_PC (API REST/WebSocket + tunnel WireGuard, JWT + TLS mutuel prevus) avec un tableau ecart vision/reel honnete : interface/companion_api.py reel n'a qu'un jeton statique + cleartext local (verifie par lecture du code), pas de JWT/TLS/WireGuard/WebSocket a ce jour. Statut 'coded' car document de vision, pas du code testable - pas de statut 'validated' fabrique."
+    },
+    {
+      "path": "tests/b10_tests/__init__.py",
+      "module": "B10",
+      "status": "structural",
+      "last_test": "2026-08-12",
+      "test_level": "none",
+      "notes": "Fichier d'init de package de test, cree le 2026-08-12 avec le reste du dossier tests/b10_tests/."
+    },
+    {
+      "path": "tests/b10_tests/test_orchestrator.py",
+      "module": "B10",
+      "status": "validated",
+      "last_test": "2026-08-12",
+      "test_level": "automated",
+      "tests": [
+        "pytest tests/b10_tests/test_orchestrator.py -v -- 13/13 PASSED"
+      ],
+      "notes": "Audit 2026-08-12 : suite de tests creee et executee reellement (13/13 verts) - couvre chargement de la config reelle, execution des 3 workflows reels avec un deliverable_fn injecte, fail_fast=True (arret immediat) et fail_fast=False (collecte des erreurs sans arret) avec des rules de test dediees, et le vrai mecanisme d'import cross-depot vers ALFRED_CPL (cas absent -> erreur explicite, cas present -> import reel confirme fonctionnel sur ce poste)."
     }
   ],
   "ALFRED_CONTEXT.md": {
