@@ -11552,6 +11552,39 @@
         "pytest tests/b10_tests/test_orchestrator.py -v -- 13/13 PASSED"
       ],
       "notes": "Audit 2026-08-12 : suite de tests creee et executee reellement (13/13 verts) - couvre chargement de la config reelle, execution des 3 workflows reels avec un deliverable_fn injecte, fail_fast=True (arret immediat) et fail_fast=False (collecte des erreurs sans arret) avec des rules de test dediees, et le vrai mecanisme d'import cross-depot vers ALFRED_CPL (cas absent -> erreur explicite, cas present -> import reel confirme fonctionnel sur ce poste)."
+    },
+    {
+      "path": "ALFRED_ANDROID/app/src/main/java/com/cognitiveproductslab/alfred/companion/ui/CompanionViewModel.kt",
+      "module": "B24",
+      "status": "tested",
+      "last_test": "2026-08-12",
+      "test_level": "automated",
+      "tests": [
+        "ALFRED_ANDROID/app/src/test/java/com/cognitiveproductslab/alfred/companion/ui/CompanionViewModelTest.kt"
+      ],
+      "notes": "Audit 2026-08-12 (depuis le depot ALFRED_ANDROID) : gradle :app:testDebugUnitTest execute reellement (gradle 8.14.5 + JDK JBR Android Studio en cache local, gradlew absent du depot car gitignore) -- BUILD SUCCESSFUL, 4/4 tests de CompanionViewModelTest.kt passes (succes, jeton vide, erreur reseau, erreur sans message), verifie dans les rapports XML JUnit. Promu 'coded' -> 'tested' (pas 'validated' : test unitaire seul, pas de validation manuelle en conditions reelles emulateur/appareil au-dela du PoC du 02/07)."
+    },
+    {
+      "path": "ALFRED_ANDROID/app/src/main/java/com/cognitiveproductslab/alfred/companion/data/ApiClient.kt",
+      "module": "B24",
+      "status": "tested",
+      "last_test": "2026-08-12",
+      "test_level": "automated",
+      "tests": [
+        "ALFRED_ANDROID/app/src/test/java/com/cognitiveproductslab/alfred/companion/data/ApiClientTest.kt"
+      ],
+      "notes": "Audit 2026-08-12 (depuis le depot ALFRED_ANDROID) : gradle :app:testDebugUnitTest execute reellement -- BUILD SUCCESSFUL, 3/3 tests de ApiClientTest.kt passes via MockWebServer (vrai serveur HTTP local, pas un mock de transport) : appel /api/status avec en-tete Authorization correct, normalisation URL sans slash final, propagation d'une erreur HTTP 401. Promu 'coded' -> 'tested'."
+    },
+    {
+      "path": "ALFRED_ANDROID/app/src/main/java/com/cognitiveproductslab/alfred/companion/data/Models.kt",
+      "module": "B24",
+      "status": "tested",
+      "last_test": "2026-08-12",
+      "test_level": "automated",
+      "tests": [
+        "ALFRED_ANDROID/app/src/test/java/com/cognitiveproductslab/alfred/companion/data/ModelsTest.kt"
+      ],
+      "notes": "Audit 2026-08-12 (depuis le depot ALFRED_ANDROID) : gradle :app:testDebugUnitTest execute reellement -- BUILD SUCCESSFUL, 5/5 tests de ModelsTest.kt passes : (de)serialisation Gson de StatusResponse/Reminder (champ snake_case due_at)/NotificationsResponse, liste vide, round-trip. Promu 'coded' -> 'tested'."
     }
   ],
   "ALFRED_CONTEXT.md": {
