@@ -5868,10 +5868,10 @@
     {
       "path": "data/context/user_context.json",
       "module": "B07",
-      "status": "partial",
-      "last_test": "2026-07-04",
-      "test_level": "auto",
-      "score": 40
+      "status": "validated",
+      "last_test": "2026-08-12",
+      "test_level": "manual_review",
+      "notes": "Audit 2026-08-12 : complete avec un exemple reel et coherent (activity, active_device, source, last_updated), verifie qu'aucun module de src/ ne consomme encore ce fichier (grep 'user_context' - 0 resultat), confirme que c'est un fichier distinct de src/conversation/input/context_builder.py (Bloc 01.03, contexte calcule, pas declare). JSON valide (json.load OK). Ecart honnetement documente dans docs/mobilite/vision_mobilite_v2.md."
     },
     {
       "path": "tests/b07_tests/__init__.py",
@@ -11516,6 +11516,14 @@
         "manual execution: python -c \"import xml.dom.minidom as m; m.parse('docs/architecture/reseau_alfred.svg')\" -- XML valide, element racine 'svg' confirme"
       ],
       "notes": "Audit 2026-08-12 : fichier XML/SVG valide et s'ouvre correctement, coherent avec la description du reseau dans docs/architecture/README.md (etat 2026-07-05, DMZ+pare-feu WAN faits, ACL inter-VLAN restantes)."
+    },
+    {
+      "path": "docs/mobilite/vision_mobilite_v2.md",
+      "module": "B07",
+      "status": "coded",
+      "last_test": "2026-08-12",
+      "test_level": "none",
+      "notes": "Nouveau document de vision cree le 2026-08-12 (pattern imite de docs/gouvernance/vision_performance_CPL.md). Formalise le client mobile leger ALFRED_ANDROID <-> core ALFRED_PC (API REST/WebSocket + tunnel WireGuard, JWT + TLS mutuel prevus) avec un tableau ecart vision/reel honnete : interface/companion_api.py reel n'a qu'un jeton statique + cleartext local (verifie par lecture du code), pas de JWT/TLS/WireGuard/WebSocket a ce jour. Statut 'coded' car document de vision, pas du code testable - pas de statut 'validated' fabrique."
     }
   ],
   "ALFRED_CONTEXT.md": {

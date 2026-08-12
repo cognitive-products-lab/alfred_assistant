@@ -8,15 +8,15 @@
         "updated": "2026-08-12",
         "generated_by": "update_dashboard_data.py"
     },
-    "last_update": "12/08/2026 12:35:49",
+    "last_update": "12/08/2026 12:38:43",
     "source": "dashboard_data_manifest.json + validation_registry.json",
     "mode": "manifest_expected_vs_existing_with_validation_registry",
-    "validated_files_count": 999,
-    "global_progress": 93.2,
+    "validated_files_count": 1000,
+    "global_progress": 93.3,
     "total_target_full_files": 4207,
-    "global_full_project_progress": 29.5,
-    "total_expected_files": 1323,
-    "total_files_detected": 1323,
+    "global_full_project_progress": 29.6,
+    "total_expected_files": 1324,
+    "total_files_detected": 1324,
     "total_files_missing": 0,
     "global_status_counts": {
         "structural": 127,
@@ -25,14 +25,14 @@
         "alias_existing": 0,
         "merged_in_other_file": 0,
         "empty": 0,
-        "partial": 100,
+        "partial": 99,
         "created": 0,
-        "coded": 93,
+        "coded": 94,
         "archive": 1,
         "tested": 1,
-        "validated": 999
+        "validated": 1000
     },
-    "validation_registry_count": 1260,
+    "validation_registry_count": 1261,
     "blocks": [
         {
             "id": "b01",
@@ -6246,11 +6246,11 @@
             "id": "b07",
             "label": "Mobilité & Contexte externe",
             "target_full_files_count": 20,
-            "full_project_progress": 13.0,
+            "full_project_progress": 18.0,
             "sub_targets": {},
-            "progress": 86.7,
-            "expected_count": 3,
-            "files_count": 3,
+            "progress": 90.0,
+            "expected_count": 4,
+            "files_count": 4,
             "missing_count": 0,
             "status_counts": {
                 "structural": 1,
@@ -6259,38 +6259,39 @@
                 "alias_existing": 0,
                 "merged_in_other_file": 0,
                 "empty": 0,
-                "partial": 1,
+                "partial": 0,
                 "created": 0,
-                "coded": 0,
+                "coded": 1,
                 "archive": 0,
                 "tested": 0,
-                "validated": 1
+                "validated": 2
             },
             "files_detected": [
                 "data/context/user_context.json",
                 "tests/b07_tests/__init__.py",
-                "tests/b07_tests/test_context_builder.py"
+                "tests/b07_tests/test_context_builder.py",
+                "docs/mobilite/vision_mobilite_v2.md"
             ],
             "files_missing": [],
             "files": [
                 {
                     "path": "data/context/user_context.json",
                     "exists": true,
-                    "status": "partial",
-                    "score": 60,
-                    "size_bytes": 982,
+                    "status": "validated",
+                    "score": 100,
+                    "size_bytes": 1551,
                     "tests": [],
                     "details": {},
                     "validation": {
                         "path": "data/context/user_context.json",
                         "module": "B07",
-                        "status": "partial",
-                        "last_test": "2026-07-04",
-                        "test_level": "auto",
-                        "score": 40
+                        "status": "validated",
+                        "last_test": "2026-08-12",
+                        "test_level": "manual_review",
+                        "notes": "Audit 2026-08-12 : complete avec un exemple reel et coherent (activity, active_device, source, last_updated), verifie qu'aucun module de src/ ne consomme encore ce fichier (grep 'user_context' - 0 resultat), confirme que c'est un fichier distinct de src/conversation/input/context_builder.py (Bloc 01.03, contexte calcule, pas declare). JSON valide (json.load OK). Ecart honnetement documente dans docs/mobilite/vision_mobilite_v2.md."
                     },
-                    "validated": false,
-                    "tested": false
+                    "validated": true,
+                    "tested": true
                 },
                 {
                     "path": "tests/b07_tests/__init__.py",
@@ -6346,6 +6347,25 @@
                     },
                     "validated": true,
                     "tested": true
+                },
+                {
+                    "path": "docs/mobilite/vision_mobilite_v2.md",
+                    "exists": true,
+                    "status": "coded",
+                    "score": 60,
+                    "size_bytes": 5289,
+                    "tests": [],
+                    "details": {},
+                    "validation": {
+                        "path": "docs/mobilite/vision_mobilite_v2.md",
+                        "module": "B07",
+                        "status": "coded",
+                        "last_test": "2026-08-12",
+                        "test_level": "none",
+                        "notes": "Nouveau document de vision cree le 2026-08-12 (pattern imite de docs/gouvernance/vision_performance_CPL.md). Formalise le client mobile leger ALFRED_ANDROID <-> core ALFRED_PC (API REST/WebSocket + tunnel WireGuard, JWT + TLS mutuel prevus) avec un tableau ecart vision/reel honnete : interface/companion_api.py reel n'a qu'un jeton statique + cleartext local (verifie par lecture du code), pas de JWT/TLS/WireGuard/WebSocket a ce jour. Statut 'coded' car document de vision, pas du code testable - pas de statut 'validated' fabrique."
+                    },
+                    "validated": false,
+                    "tested": false
                 }
             ],
             "roadmap_note": "🟪 Roadmap V2 — ALFRED Android : client mobile léger connecté au core ALFRED_PC (LLM + mémoire + knowledge). Accès distant via API REST/WebSocket sécurisé + tunnel WireGuard (ER605). Auth JWT + TLS mutuel. UI conversationnelle Android (Kotlin ou Flutter à trancher)."
@@ -28709,7 +28729,7 @@
                     "exists": true,
                     "status": "validated",
                     "score": 100,
-                    "size_bytes": 521473,
+                    "size_bytes": 522653,
                     "tests": [],
                     "details": {},
                     "validation": {
@@ -28731,7 +28751,7 @@
                     "exists": true,
                     "status": "validated",
                     "score": 100,
-                    "size_bytes": 1487024,
+                    "size_bytes": 1493045,
                     "tests": [],
                     "details": {},
                     "validation": {
@@ -28774,7 +28794,7 @@
                     "exists": true,
                     "status": "validated",
                     "score": 100,
-                    "size_bytes": 86885,
+                    "size_bytes": 86933,
                     "tests": [],
                     "details": {},
                     "validation": {
@@ -31549,7 +31569,7 @@
                     "exists": true,
                     "status": "validated",
                     "score": 100,
-                    "size_bytes": 86885,
+                    "size_bytes": 86933,
                     "tests": [],
                     "details": {},
                     "validation": {
