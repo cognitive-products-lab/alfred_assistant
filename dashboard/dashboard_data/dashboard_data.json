@@ -5,14 +5,14 @@
         "file": "dashboard_data.json",
         "version": "V1.0",
         "status": "ACTIVE",
-        "updated": "2026-08-11",
+        "updated": "2026-08-12",
         "generated_by": "update_dashboard_data.py"
     },
-    "last_update": "11/08/2026 13:34:17",
+    "last_update": "12/08/2026 12:32:47",
     "source": "dashboard_data_manifest.json + validation_registry.json",
     "mode": "manifest_expected_vs_existing_with_validation_registry",
-    "validated_files_count": 985,
-    "global_progress": 91.5,
+    "validated_files_count": 989,
+    "global_progress": 91.7,
     "total_target_full_files": 4207,
     "global_full_project_progress": 29.4,
     "total_expected_files": 1323,
@@ -27,12 +27,12 @@
         "empty": 0,
         "partial": 104,
         "created": 0,
-        "coded": 103,
+        "coded": 99,
         "archive": 1,
         "tested": 1,
-        "validated": 985
+        "validated": 989
     },
-    "validation_registry_count": 1252,
+    "validation_registry_count": 1254,
     "blocks": [
         {
             "id": "b01",
@@ -10284,9 +10284,10 @@
                         "path": "tools/dashboard_tools/dashboard_data/dashboard_data_server.bat",
                         "module": "B09",
                         "status": "partial",
-                        "last_test": "2026-07-04",
-                        "test_level": "auto",
-                        "score": 40
+                        "last_test": "2026-08-12",
+                        "test_level": "manual_partial",
+                        "score": 60,
+                        "notes": "Audit 2026-08-12 : les 2 etapes automatisables du script ont ete testees reellement et fonctionnent - (1) 'python update_dashboard_data.py' invoque par le .bat : exit=0, confirme independamment le meme jour ; (2) 'python -m http.server' servant les fichiers dashboard : demarre sur port 8010, GET /dashboard/dashboard_data/ALFRED_DASHBOARD_DYNAMIC.html -> 200, GET /dashboard/dashboard_data/dashboard_data.json -> 200, serveur arrete proprement ensuite. Reste NON testable en autonome : les commandes 'start' du .bat ouvrent une fenetre console interactive et un navigateur par defaut, et le script se termine par 'pause' (attente d'une touche) - ce sont des interactions GUI/utilisateur qui ne peuvent pas etre executees ni verifiees depuis un environnement CLI sans tete. Statut laisse a 'partial' en toute honnetete plutot que force a 'validated' sans preuve de bout en bout."
                     },
                     "validated": false,
                     "tested": false
@@ -22987,10 +22988,10 @@
                 "empty": 0,
                 "partial": 4,
                 "created": 0,
-                "coded": 6,
+                "coded": 5,
                 "archive": 0,
                 "tested": 0,
-                "validated": 166
+                "validated": 167
             },
             "files_detected": [
                 "config/safety_rules.json",
@@ -23365,7 +23366,7 @@
                     "exists": true,
                     "status": "validated",
                     "score": 100,
-                    "size_bytes": 134403,
+                    "size_bytes": 137603,
                     "tests": [],
                     "details": {},
                     "validation": {
@@ -23396,7 +23397,7 @@
                     "exists": true,
                     "status": "partial",
                     "score": 60,
-                    "size_bytes": 53487,
+                    "size_bytes": 56441,
                     "tests": [],
                     "details": {},
                     "validation": {
@@ -23453,7 +23454,7 @@
                     "exists": true,
                     "status": "validated",
                     "score": 100,
-                    "size_bytes": 7400846,
+                    "size_bytes": 7453435,
                     "tests": [],
                     "details": {},
                     "validation": {
@@ -28183,7 +28184,7 @@
                 {
                     "path": "tools/dashboard_tools/dashboard_data/update_dashboard_data.py",
                     "exists": true,
-                    "status": "coded",
+                    "status": "validated",
                     "score": 100,
                     "size_bytes": 29905,
                     "tests": [],
@@ -28203,13 +28204,17 @@
                     "validation": {
                         "path": "tools/dashboard_tools/dashboard_data/update_dashboard_data.py",
                         "module": "B20",
-                        "status": "coded",
-                        "last_test": "2026-07-04",
-                        "test_level": "auto",
-                        "score": 60
+                        "status": "validated",
+                        "last_test": "2026-08-12",
+                        "test_level": "automated",
+                        "tests": [
+                            "manual execution: python tools/dashboard_tools/dashboard_data/update_dashboard_data.py -- exit=0, 1323/1323 fichiers detectes, dashboard_data.json regenere",
+                            "pytest tests/dashboard_tests/test_dashboard_pipeline.py -v -- 3/3 PASSED (test_real_pipeline_runs_without_error, test_real_dashboard_data_json_valid, test_real_manifest_loadable)"
+                        ],
+                        "notes": "Audit 2026-08-12 : execution reelle confirmee (exit=0) ET suite pytest dediee entierement verte. Remonte de 'coded' a 'validated' sur cette base."
                     },
-                    "validated": false,
-                    "tested": false
+                    "validated": true,
+                    "tested": true
                 },
                 {
                     "path": "tools/dashboard_tools/dashboard_gouvernance/dashboard_gouvernance.py",
@@ -28704,7 +28709,7 @@
                     "exists": true,
                     "status": "validated",
                     "score": 100,
-                    "size_bytes": 514671,
+                    "size_bytes": 517736,
                     "tests": [],
                     "details": {},
                     "validation": {
@@ -28928,7 +28933,7 @@
                     "exists": true,
                     "status": "validated",
                     "score": 100,
-                    "size_bytes": 127465,
+                    "size_bytes": 127501,
                     "tests": [],
                     "details": {
                         "python": {
@@ -29182,7 +29187,7 @@
                     "exists": true,
                     "status": "validated",
                     "score": 100,
-                    "size_bytes": 28305,
+                    "size_bytes": 28747,
                     "tests": [],
                     "details": {},
                     "validation": {
@@ -29239,7 +29244,7 @@
                     "exists": true,
                     "status": "validated",
                     "score": 100,
-                    "size_bytes": 26647,
+                    "size_bytes": 26750,
                     "tests": [],
                     "details": {},
                     "validation": {
@@ -31244,14 +31249,14 @@
             "id": "b23",
             "label": "Gouvernance & pilotage du projet",
             "target_full_files_count": 13,
-            "full_project_progress": 90.8,
+            "full_project_progress": 96.9,
             "sub_targets": {
                 "suivi_avancement": 5,
                 "orchestration": 2,
                 "referentiel_gouvernance": 4,
                 "roadmap": 2
             },
-            "progress": 90.8,
+            "progress": 96.9,
             "expected_count": 13,
             "files_count": 13,
             "missing_count": 0,
@@ -31264,10 +31269,10 @@
                 "empty": 0,
                 "partial": 1,
                 "created": 0,
-                "coded": 3,
+                "coded": 0,
                 "archive": 0,
                 "tested": 0,
-                "validated": 9
+                "validated": 12
             },
             "files_detected": [
                 "tools/dashboard_tools/dashboard_data/update_dashboard_data.py",
@@ -31289,7 +31294,7 @@
                 {
                     "path": "tools/dashboard_tools/dashboard_data/update_dashboard_data.py",
                     "exists": true,
-                    "status": "coded",
+                    "status": "validated",
                     "score": 100,
                     "size_bytes": 29905,
                     "tests": [],
@@ -31309,13 +31314,17 @@
                     "validation": {
                         "path": "tools/dashboard_tools/dashboard_data/update_dashboard_data.py",
                         "module": "B20",
-                        "status": "coded",
-                        "last_test": "2026-07-04",
-                        "test_level": "auto",
-                        "score": 60
+                        "status": "validated",
+                        "last_test": "2026-08-12",
+                        "test_level": "automated",
+                        "tests": [
+                            "manual execution: python tools/dashboard_tools/dashboard_data/update_dashboard_data.py -- exit=0, 1323/1323 fichiers detectes, dashboard_data.json regenere",
+                            "pytest tests/dashboard_tests/test_dashboard_pipeline.py -v -- 3/3 PASSED (test_real_pipeline_runs_without_error, test_real_dashboard_data_json_valid, test_real_manifest_loadable)"
+                        ],
+                        "notes": "Audit 2026-08-12 : execution reelle confirmee (exit=0) ET suite pytest dediee entierement verte. Remonte de 'coded' a 'validated' sur cette base."
                     },
-                    "validated": false,
-                    "tested": false
+                    "validated": true,
+                    "tested": true
                 },
                 {
                     "path": "tools/dashboard_tools/dashboard_data/extract_missing_dashboard.py",
@@ -31431,9 +31440,10 @@
                         "path": "tools/dashboard_tools/dashboard_data/dashboard_data_server.bat",
                         "module": "B09",
                         "status": "partial",
-                        "last_test": "2026-07-04",
-                        "test_level": "auto",
-                        "score": 40
+                        "last_test": "2026-08-12",
+                        "test_level": "manual_partial",
+                        "score": 60,
+                        "notes": "Audit 2026-08-12 : les 2 etapes automatisables du script ont ete testees reellement et fonctionnent - (1) 'python update_dashboard_data.py' invoque par le .bat : exit=0, confirme independamment le meme jour ; (2) 'python -m http.server' servant les fichiers dashboard : demarre sur port 8010, GET /dashboard/dashboard_data/ALFRED_DASHBOARD_DYNAMIC.html -> 200, GET /dashboard/dashboard_data/dashboard_data.json -> 200, serveur arrete proprement ensuite. Reste NON testable en autonome : les commandes 'start' du .bat ouvrent une fenetre console interactive et un navigateur par defaut, et le script se termine par 'pause' (attente d'une touche) - ce sont des interactions GUI/utilisateur qui ne peuvent pas etre executees ni verifiees depuis un environnement CLI sans tete. Statut laisse a 'partial' en toute honnetete plutot que force a 'validated' sans preuve de bout en bout."
                     },
                     "validated": false,
                     "tested": false
@@ -31597,20 +31607,43 @@
                 {
                     "path": "ROADMAP.md",
                     "exists": true,
-                    "status": "coded",
-                    "score": 60,
+                    "status": "validated",
+                    "score": 100,
                     "size_bytes": 8818,
                     "tests": [],
-                    "details": {}
+                    "details": {},
+                    "validation": {
+                        "path": "ROADMAP.md",
+                        "module": "B23",
+                        "status": "validated",
+                        "last_test": "2026-08-12",
+                        "test_level": "manual_review",
+                        "notes": "Audit 2026-08-12 : relecture integrale contre docs/roadmap/ROADMAP_MASTER_V0_VFINALE.md section 5 ('Corrections apportees a ROADMAP.md'). Les 3 corrections listees sont deja appliquees (session du 11/08/2026, commit ca79736d) : Q01->Q09 marque fait le 18/07 (plus de ligne 'en attente'), AIPD (docs/rgpd/aipd_donnees_sante.md + aipd_comptes_deploiement_public.md, verifies presents sur disque) et PSSI (docs/security/PSSI.md, chemin verifie correct) retires du backlog P1, section 'V1.4 - Chantiers post-05/07' presente et complete (Google Agenda, Google Home/Nest bloque, Tuya vision, TaskEngine, synchro labiale, UI hybride, article interface, fix dashboard gouvernance, page qualite-data). Aucune correction supplementaire necessaire au 12/08/2026."
+                    },
+                    "validated": true,
+                    "tested": true
                 },
                 {
                     "path": "BACKLOG.md",
                     "exists": true,
-                    "status": "coded",
-                    "score": 60,
-                    "size_bytes": 25539,
+                    "status": "validated",
+                    "score": 100,
+                    "size_bytes": 25690,
                     "tests": [],
-                    "details": {}
+                    "details": {},
+                    "validation": {
+                        "path": "BACKLOG.md",
+                        "module": "B23",
+                        "status": "validated",
+                        "last_test": "2026-08-12",
+                        "test_level": "automated",
+                        "tests": [
+                            "manual execution: python tools/generate_backlog.py -- exit=0, BACKLOG.md regenere (656 lignes) depuis dashboard_data.json fraichement mis a jour (91.5% technique)"
+                        ],
+                        "notes": "Audit 2026-08-12 : fichier auto-genere (pas de liste de priorites P1 manuelle a corriger, contrairement a ROADMAP.md) - regenere avec le script officiel tools/generate_backlog.py pour refleter l'etat courant du dashboard. Contenu verifie coherent avec dashboard_data.json post-regeneration."
+                    },
+                    "validated": true,
+                    "tested": true
                 }
             ],
             "roadmap_note": "Validé le 12/07/2026 — distinct du Bloc 11.05 (gouvernance data) et du Bloc 20 (gouvernance cybersécurité) : pilotage du projet ALFRED lui-même."
