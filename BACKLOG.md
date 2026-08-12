@@ -1,50 +1,50 @@
 # ALFRED — BACKLOG & RÉFÉRENTIEL FICHIERS
 
-> Généré le 19/07/2026 15:02 depuis `dashboard_data.json` (mis à jour le 19/07/2026 14:53:20)
-> Progression technique : **86.8%** · Full projet : **29.0%**
-> 1320 fichiers détectés / 4436 cible full
+> Généré le 12/08/2026 12:31 depuis `dashboard_data.json` (mis à jour le 12/08/2026 12:30:48)
+> Progression technique : **91.5%** · Full projet : **29.4%**
+> 1323 fichiers détectés / 4207 cible full
 
 ## Synthèse globale
 
 | Statut | Nb | % | Priorité |
 |--------|---:|--:|----------|
-| 🟡 Partiel | 105 | 8.0% | 🟡 Sprint |
-| 🟦 Codé — à tester | 106 | 8.0% | 🟡 Sprint |
-| 🧪 Testé — à valider | 268 | 20.3% | 🧪 Tests |
-| ✅ Validé ✅ | 820 | 62.1% | ✅ Done |
+| 🔲 A démarrer | 2 | 0.2% | 🔴 Urgent |
+| 🟡 Partiel | 104 | 7.9% | 🟡 Sprint |
+| 🟦 Codé — à tester | 103 | 7.8% | 🟡 Sprint |
+| 🧪 Testé — à valider | 1 | 0.1% | 🧪 Tests |
+| ✅ Validé ✅ | 985 | 74.5% | ✅ Done |
 | ⚙️ Structurel | 127 | 9.6% | ✅ Done |
 | 📦 Archivé | 1 | 0.1% | ✅ Done |
 
 ## Backlog par bloc
 
-### 🟢 B01 — Interaction conversationnelle intelligente `86.2%`
+### 🟢 B01 — Interaction conversationnelle intelligente `95.8%`
 
 | KPI | Valeur |
 |-----|--------|
-| Validés | 25 |
-| Testés | 29 |
+| Validés | 54 |
+| Testés | 0 |
 | Codés (à tester) | 1 |
-| Partiels | 5 |
+| Partiels | 4 |
 | Structurels | 8 |
-| Manquants | 1 |
+| Manquants | 0 |
 
 **Fichiers à traiter :**
 
 | Fichier | Statut | Action |
 |---------|--------|--------|
-| `data/dialogue_history.json` | 🟡 Partiel | Compléter |
 | `src/output/tts_engine.py` | 🟡 Partiel | Compléter |
 | `src/output/tts_output.py` | 🟡 Partiel | Compléter |
 | `src/output/tts_piper.py` | 🟡 Partiel | Compléter |
 | `src/start_alfred.bat` | 🟡 Partiel | Compléter |
 | `tests/manual/voice_loop_manual.py` | 🟦 Codé — à tester | Tester |
 
-### 🟢 B02 — Mémoire & RAG `83.6%`
+### 🟢 B02 — Mémoire & RAG `93.6%`
 
 | KPI | Valeur |
 |-----|--------|
-| Validés | 8 |
-| Testés | 14 |
+| Validés | 22 |
+| Testés | 0 |
 | Codés (à tester) | 0 |
 | Partiels | 4 |
 | Structurels | 2 |
@@ -59,12 +59,12 @@
 | `data/v3/memory_patterns.json` | 🟡 Partiel | Compléter |
 | `src/memory/memory_manager.py` | 🟡 Partiel | Compléter |
 
-### 🟢 B03 — Émotions & Régulation `96.0%`
+### 🟢 B03 — Émotions & Régulation `97.6%`
 
 | KPI | Valeur |
 |-----|--------|
-| Validés | 60 |
-| Testés | 7 |
+| Validés | 67 |
+| Testés | 0 |
 | Codés (à tester) | 0 |
 | Partiels | 5 |
 | Structurels | 13 |
@@ -80,23 +80,23 @@
 | `data/v3/emotion_state.json` | 🟡 Partiel | Compléter |
 | `data/v3/relational_state.json` | 🟡 Partiel | Compléter |
 
-### 🟢 B04 — Sécurité & Protection `87.3%`
+### 🟢 B04 — Sécurité & Protection `95.3%`
 
 | KPI | Valeur |
 |-----|--------|
-| Validés | 6 |
-| Testés | 6 |
+| Validés | 12 |
+| Testés | 0 |
 | Codés (à tester) | 0 |
 | Partiels | 0 |
 | Structurels | 2 |
 | Manquants | 0 |
 
-### 🟢 B05 — Organisation & Assistance `93.3%`
+### 🟢 B05 — Organisation & Assistance `94.7%`
 
 | KPI | Valeur |
 |-----|--------|
-| Validés | 11 |
-| Testés | 1 |
+| Validés | 12 |
+| Testés | 0 |
 | Codés (à tester) | 0 |
 | Partiels | 2 |
 | Structurels | 1 |
@@ -109,23 +109,23 @@
 | `data/actions/tasks.json` | 🟡 Partiel | Compléter |
 | `data/v2/scenarios/daily_organization.json` | 🟡 Partiel | Compléter |
 
-### 🟢 B06 — Communication & Lien social `95.9%`
+### ✅ B06 — Communication & Lien social `100.0%`
 
 | KPI | Valeur |
 |-----|--------|
-| Validés | 23 |
-| Testés | 6 |
+| Validés | 29 |
+| Testés | 0 |
 | Codés (à tester) | 0 |
 | Partiels | 0 |
 | Structurels | 0 |
 | Manquants | 0 |
 
-### 🟡 B07 — Mobilité & Contexte externe `73.3%`
+### 🟢 B07 — Mobilité & Contexte externe `86.7%`
 
 | KPI | Valeur |
 |-----|--------|
-| Validés | 0 |
-| Testés | 1 |
+| Validés | 1 |
+| Testés | 0 |
 | Codés (à tester) | 0 |
 | Partiels | 1 |
 | Structurels | 1 |
@@ -139,12 +139,12 @@
 |---------|--------|--------|
 | `data/context/user_context.json` | 🟡 Partiel | Compléter |
 
-### 🟢 B08 — Personnalisation utilisateur `86.5%`
+### 🟢 B08 — Personnalisation utilisateur `97.1%`
 
 | KPI | Valeur |
 |-----|--------|
-| Validés | 13 |
-| Testés | 17 |
+| Validés | 30 |
+| Testés | 0 |
 | Codés (à tester) | 0 |
 | Partiels | 2 |
 | Structurels | 2 |
@@ -157,12 +157,12 @@
 | `data/personality.json` | 🟡 Partiel | Compléter |
 | `data/preferences_profile.json` | 🟡 Partiel | Compléter |
 
-### 🟢 B09 — Productivité & Copilote pro `96.1%`
+### 🟢 B09 — Productivité & Copilote pro `96.8%`
 
 | KPI | Valeur |
 |-----|--------|
-| Validés | 111 |
-| Testés | 6 |
+| Validés | 117 |
+| Testés | 0 |
 | Codés (à tester) | 1 |
 | Partiels | 12 |
 | Structurels | 22 |
@@ -207,12 +207,12 @@
 | `config/v3/workflow_rules.json` | 🟡 Partiel | Compléter |
 | `src/v3/orchestrator/__init__.py` | 🟡 Partiel | Compléter |
 
-### 🟢 B11 — Intelligence cognitive avancée `91.3%`
+### 🟢 B11 — Intelligence cognitive avancée `97.4%`
 
 | KPI | Valeur |
 |-----|--------|
-| Validés | 12 |
-| Testés | 7 |
+| Validés | 19 |
+| Testés | 0 |
 | Codés (à tester) | 0 |
 | Partiels | 1 |
 | Structurels | 3 |
@@ -243,12 +243,12 @@
 | `config/v2/product_roadmap.json` | 🟡 Partiel | Compléter |
 | `data/v2/product_state.json` | 🟡 Partiel | Compléter |
 
-### 🟢 B13 — Compagnon pédiatrique / ARTHUR `83.3%`
+### ✅ B13 — Compagnon pédiatrique / ARTHUR `100.0%`
 
 | KPI | Valeur |
 |-----|--------|
-| Validés | 0 |
-| Testés | 5 |
+| Validés | 5 |
+| Testés | 0 |
 | Codés (à tester) | 0 |
 | Partiels | 0 |
 | Structurels | 1 |
@@ -267,16 +267,16 @@
 
 > 🟪 Roadmap V2 — Architecture IoT esquissée (src/v4/). Systèmes disponibles : Google Home + Tuya. Implémenter : tinytuya (accès local/cloud) + Google Home API, pattern Adapter (tuya_adapter.py + google_home_adapter.py).
 
-### 🟢 B15 — Présence visuelle & Avatar `85.2%`
+### 🟢 B15 — Présence visuelle & Avatar `98.1%`
 
 | KPI | Valeur |
 |-----|--------|
-| Validés | 16 |
-| Testés | 44 |
+| Validés | 47 |
+| Testés | 0 |
 | Codés (à tester) | 2 |
 | Partiels | 1 |
 | Structurels | 2 |
-| Manquants | 13 |
+| Manquants | 0 |
 
 **Fichiers à traiter :**
 
@@ -286,12 +286,12 @@
 | `src/ui/alfred_app.py` | 🟦 Codé — à tester | Tester |
 | `src/ui/webcam_widget.py` | 🟦 Codé — à tester | Tester |
 
-### 🟡 B16 — Démonstration & Scénarisation `63.3%`
+### 🟡 B16 — Démonstration & Scénarisation `66.7%`
 
 | KPI | Valeur |
 |-----|--------|
-| Validés | 0 |
-| Testés | 1 |
+| Validés | 1 |
+| Testés | 0 |
 | Codés (à tester) | 0 |
 | Partiels | 5 |
 | Structurels | 0 |
@@ -307,32 +307,36 @@
 | `data/v2/scenarios/isolation_support.json` | 🟡 Partiel | Compléter |
 | `data/v2/scenarios/mental_overload.json` | 🟡 Partiel | Compléter |
 
-### 🟢 B17 — Visual Generation contextuelle `97.1%`
+### ✅ B17 — Visual Generation contextuelle `100.0%`
 
 | KPI | Valeur |
 |-----|--------|
-| Validés | 72 |
-| Testés | 12 |
+| Validés | 1 |
+| Testés | 0 |
 | Codés (à tester) | 0 |
 | Partiels | 0 |
 | Structurels | 0 |
-| Manquants | 84 |
+| Manquants | 0 |
 
-### 🟢 B18 — Knowledge & Intelligence System `83.4%`
+> Périmètre réduit assumé le 11/08/2026 : fond visuel neutre aligné sur l'interface existante (allège le système visuel), remplace la cible initiale de 230 fichiers (200 assets PNG + 30 runtime/config) prévue pour une génération contextuelle de fonds. Voir config/v2/visual_background_policy.json.
+
+### 🟢 B18 — Knowledge & Intelligence System `87.2%`
 
 | KPI | Valeur |
 |-----|--------|
-| Validés | 169 |
-| Testés | 71 |
-| Codés (à tester) | 76 |
+| Validés | 237 |
+| Testés | 0 |
+| Codés (à tester) | 73 |
 | Partiels | 44 |
 | Structurels | 32 |
-| Manquants | 6 |
+| Manquants | 0 |
 
 **Fichiers à traiter :**
 
 | Fichier | Statut | Action |
 |---------|--------|--------|
+| `knowledges/professional/governance_ai/decision_transparency.json` | 🔲 A démarrer | Créer |
+| `knowledges/professional/governance_ai/eu_ai_act_basics.json` | 🔲 A démarrer | Créer |
 | `config/v1/basic_pipeline_rules.json` | 🟡 Partiel | Compléter |
 | `config/v2/confidence_rules.json` | 🟡 Partiel | Compléter |
 | `config/v2/decision_rules.json` | 🟡 Partiel | Compléter |
@@ -361,9 +365,7 @@
 | `data/v3/behavior_state.json` | 🟡 Partiel | Compléter |
 | `data/v3/context_memories.json` | 🟡 Partiel | Compléter |
 | `data/v3/conversation_state.json` | 🟡 Partiel | Compléter |
-| `data/v3/feedback_log_v3.json` | 🟡 Partiel | Compléter |
-| `data/v3/fusion_results.json` | 🟡 Partiel | Compléter |
-| *... 90 autres* | | |
+| *... 89 autres* | | |
 
 ### 🟡 B19 — Domotique Intelligente `73.3%`
 
@@ -393,16 +395,16 @@
 | `data/v4/sensor_state.json` | 🟡 Partiel | Compléter |
 | `data/v4/trigger_log.json` | 🟡 Partiel | Compléter |
 
-### 🟢 B20 — Cybersécurité Zero Trust `95.6%`
+### 🟢 B20 — Cybersécurité Zero Trust `98.2%`
 
 | KPI | Valeur |
 |-----|--------|
-| Validés | 143 |
-| Testés | 26 |
+| Validés | 166 |
+| Testés | 0 |
 | Codés (à tester) | 6 |
 | Partiels | 4 |
 | Structurels | 13 |
-| Manquants | 3 |
+| Manquants | 0 |
 
 **Fichiers à traiter :**
 
@@ -419,12 +421,12 @@
 | `tools/apply_headers.py` | 🟦 Codé — à tester | Tester |
 | `tools/dashboard_tools/dashboard_data/update_dashboard_data.py` | 🟦 Codé — à tester | Tester |
 
-### 🟢 B21 — ALFRED Web Platform `99.5%`
+### ✅ B21 — ALFRED Web Platform `100.0%`
 
 | KPI | Valeur |
 |-----|--------|
-| Validés | 76 |
-| Testés | 2 |
+| Validés | 78 |
+| Testés | 0 |
 | Codés (à tester) | 1 |
 | Partiels | 0 |
 | Structurels | 3 |
@@ -436,23 +438,23 @@
 |---------|--------|--------|
 | `ALFRED_WEB/scripts/i18n_cadrage.py` | 🟦 Codé — à tester | Tester |
 
-### 🟢 B22 — Accessibility & Cognitive Assistance `90.5%`
+### ✅ B22 — Accessibility & Cognitive Assistance `100.0%`
 
 | KPI | Valeur |
 |-----|--------|
-| Validés | 6 |
-| Testés | 10 |
+| Validés | 16 |
+| Testés | 0 |
 | Codés (à tester) | 0 |
 | Partiels | 0 |
 | Structurels | 5 |
 | Manquants | 0 |
 
-### 🟢 B23 — Gouvernance & pilotage du projet `89.2%`
+### 🟢 B23 — Gouvernance & pilotage du projet `90.8%`
 
 | KPI | Valeur |
 |-----|--------|
-| Validés | 8 |
-| Testés | 1 |
+| Validés | 9 |
+| Testés | 0 |
 | Codés (à tester) | 3 |
 | Partiels | 1 |
 | Structurels | 0 |
@@ -497,12 +499,12 @@
 | `ALFRED_ANDROID/app/src/main/res/xml/network_security_config.xml` | 🟦 Codé — à tester | Tester |
 | `start_companion_api.bat` | 🟦 Codé — à tester | Tester |
 
-### 🟡 B25 — Documentation & politiques projet transverses `60.0%`
+### 🟡 B25 — Documentation & politiques projet transverses `62.2%`
 
 | KPI | Valeur |
 |-----|--------|
-| Validés | 0 |
-| Testés | 1 |
+| Validés | 1 |
+| Testés | 0 |
 | Codés (à tester) | 6 |
 | Partiels | 2 |
 | Structurels | 0 |
@@ -536,7 +538,7 @@
 
 > PoC ciblé (pas une infra de production) — regard critique assumé sur le surdimensionnement à l'échelle actuelle d'ALFRED, cf. docs/hadoop_poc_bilan.md.
 
-## 🟦 Sprint — Fichiers codés à tester (106)
+## 🟦 Sprint — Fichiers codés à tester (103)
 
 Ces fichiers sont implémentés mais n'ont pas encore de tests.
 
@@ -606,9 +608,6 @@ Ces fichiers sont implémentés mais n'ont pas encore de tests.
 - `knowledges/professional/engineering/reasoning/tree_of_thoughts.json`
 - `knowledges/professional/engineering/reasoning/uncertainty_reasoning.json`
 - `knowledges/professional/governance_ai/compliance_monitoring.json`
-- `knowledges/professional/governance_ai/decision_transparency.json`
-- `knowledges/professional/governance_ai/eu_ai_act_basics.json`
-- `knowledges/professional/governance_ai/explainability_xai.json`
 - `knowledges/professional/governance_ai/gdpr_ai_intersection.json`
 - `knowledges/professional/governance_ai/traceability_principles.json`
 - `knowledges/professional/iot/iot_device_segmentation.json`
