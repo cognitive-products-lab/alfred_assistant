@@ -8,13 +8,13 @@
         "updated": "2026-08-12",
         "generated_by": "update_dashboard_data.py"
     },
-    "last_update": "12/08/2026 12:43:21",
+    "last_update": "12/08/2026 12:50:37",
     "source": "dashboard_data_manifest.json + validation_registry.json",
     "mode": "manifest_expected_vs_existing_with_validation_registry",
     "validated_files_count": 1007,
-    "global_progress": 93.9,
+    "global_progress": 94.1,
     "total_target_full_files": 4207,
-    "global_full_project_progress": 29.6,
+    "global_full_project_progress": 29.7,
     "total_expected_files": 1326,
     "total_files_detected": 1326,
     "total_files_missing": 0,
@@ -27,12 +27,12 @@
         "empty": 0,
         "partial": 93,
         "created": 0,
-        "coded": 94,
+        "coded": 91,
         "archive": 1,
-        "tested": 1,
+        "tested": 4,
         "validated": 1007
     },
-    "validation_registry_count": 1263,
+    "validation_registry_count": 1266,
     "blocks": [
         {
             "id": "b01",
@@ -28804,7 +28804,7 @@
                     "exists": true,
                     "status": "validated",
                     "score": 100,
-                    "size_bytes": 525327,
+                    "size_bytes": 527740,
                     "tests": [],
                     "details": {},
                     "validation": {
@@ -28826,7 +28826,7 @@
                     "exists": true,
                     "status": "validated",
                     "score": 100,
-                    "size_bytes": 1494845,
+                    "size_bytes": 1501398,
                     "tests": [],
                     "details": {},
                     "validation": {
@@ -31747,14 +31747,14 @@
             "id": "b24",
             "label": "ALFRED Android / Compagnon mobile natif",
             "target_full_files_count": 12,
-            "full_project_progress": 65.0,
+            "full_project_progress": 70.0,
             "sub_targets": {
                 "ui_native": 3,
                 "api_integration": 3,
                 "config_securite": 3,
                 "api_pc_side": 3
             },
-            "progress": 65.0,
+            "progress": 70.0,
             "expected_count": 12,
             "files_count": 12,
             "missing_count": 0,
@@ -31767,9 +31767,9 @@
                 "empty": 0,
                 "partial": 0,
                 "created": 0,
-                "coded": 10,
+                "coded": 7,
                 "archive": 0,
-                "tested": 1,
+                "tested": 4,
                 "validated": 0
             },
             "files_detected": [
@@ -31793,18 +31793,31 @@
                     "exists": true,
                     "status": "coded",
                     "score": 60,
-                    "size_bytes": 6181,
+                    "size_bytes": 6667,
                     "tests": [],
                     "details": {}
                 },
                 {
                     "path": "ALFRED_ANDROID/app/src/main/java/com/cognitiveproductslab/alfred/companion/ui/CompanionViewModel.kt",
                     "exists": true,
-                    "status": "coded",
-                    "score": 60,
+                    "status": "tested",
+                    "score": 80,
                     "size_bytes": 2958,
                     "tests": [],
-                    "details": {}
+                    "details": {},
+                    "validation": {
+                        "path": "ALFRED_ANDROID/app/src/main/java/com/cognitiveproductslab/alfred/companion/ui/CompanionViewModel.kt",
+                        "module": "B24",
+                        "status": "tested",
+                        "last_test": "2026-08-12",
+                        "test_level": "automated",
+                        "tests": [
+                            "ALFRED_ANDROID/app/src/test/java/com/cognitiveproductslab/alfred/companion/ui/CompanionViewModelTest.kt"
+                        ],
+                        "notes": "Audit 2026-08-12 (depuis le depot ALFRED_ANDROID) : gradle :app:testDebugUnitTest execute reellement (gradle 8.14.5 + JDK JBR Android Studio en cache local, gradlew absent du depot car gitignore) -- BUILD SUCCESSFUL, 4/4 tests de CompanionViewModelTest.kt passes (succes, jeton vide, erreur reseau, erreur sans message), verifie dans les rapports XML JUnit. Promu 'coded' -> 'tested' (pas 'validated' : test unitaire seul, pas de validation manuelle en conditions reelles emulateur/appareil au-dela du PoC du 02/07)."
+                    },
+                    "validated": false,
+                    "tested": true
                 },
                 {
                     "path": "ALFRED_ANDROID/app/src/main/java/com/cognitiveproductslab/alfred/companion/ui/theme/Theme.kt",
@@ -31818,11 +31831,24 @@
                 {
                     "path": "ALFRED_ANDROID/app/src/main/java/com/cognitiveproductslab/alfred/companion/data/Models.kt",
                     "exists": true,
-                    "status": "coded",
-                    "score": 60,
+                    "status": "tested",
+                    "score": 80,
                     "size_bytes": 829,
                     "tests": [],
-                    "details": {}
+                    "details": {},
+                    "validation": {
+                        "path": "ALFRED_ANDROID/app/src/main/java/com/cognitiveproductslab/alfred/companion/data/Models.kt",
+                        "module": "B24",
+                        "status": "tested",
+                        "last_test": "2026-08-12",
+                        "test_level": "automated",
+                        "tests": [
+                            "ALFRED_ANDROID/app/src/test/java/com/cognitiveproductslab/alfred/companion/data/ModelsTest.kt"
+                        ],
+                        "notes": "Audit 2026-08-12 (depuis le depot ALFRED_ANDROID) : gradle :app:testDebugUnitTest execute reellement -- BUILD SUCCESSFUL, 5/5 tests de ModelsTest.kt passes : (de)serialisation Gson de StatusResponse/Reminder (champ snake_case due_at)/NotificationsResponse, liste vide, round-trip. Promu 'coded' -> 'tested'."
+                    },
+                    "validated": false,
+                    "tested": true
                 },
                 {
                     "path": "ALFRED_ANDROID/app/src/main/java/com/cognitiveproductslab/alfred/companion/data/CompanionApiService.kt",
@@ -31836,11 +31862,24 @@
                 {
                     "path": "ALFRED_ANDROID/app/src/main/java/com/cognitiveproductslab/alfred/companion/data/ApiClient.kt",
                     "exists": true,
-                    "status": "coded",
-                    "score": 60,
+                    "status": "tested",
+                    "score": 80,
                     "size_bytes": 1677,
                     "tests": [],
-                    "details": {}
+                    "details": {},
+                    "validation": {
+                        "path": "ALFRED_ANDROID/app/src/main/java/com/cognitiveproductslab/alfred/companion/data/ApiClient.kt",
+                        "module": "B24",
+                        "status": "tested",
+                        "last_test": "2026-08-12",
+                        "test_level": "automated",
+                        "tests": [
+                            "ALFRED_ANDROID/app/src/test/java/com/cognitiveproductslab/alfred/companion/data/ApiClientTest.kt"
+                        ],
+                        "notes": "Audit 2026-08-12 (depuis le depot ALFRED_ANDROID) : gradle :app:testDebugUnitTest execute reellement -- BUILD SUCCESSFUL, 3/3 tests de ApiClientTest.kt passes via MockWebServer (vrai serveur HTTP local, pas un mock de transport) : appel /api/status avec en-tete Authorization correct, normalisation URL sans slash final, propagation d'une erreur HTTP 401. Promu 'coded' -> 'tested'."
+                    },
+                    "validated": false,
+                    "tested": true
                 },
                 {
                     "path": "ALFRED_ANDROID/app/src/main/AndroidManifest.xml",
@@ -31856,7 +31895,7 @@
                     "exists": true,
                     "status": "coded",
                     "score": 60,
-                    "size_bytes": 1944,
+                    "size_bytes": 2562,
                     "tests": [],
                     "details": {}
                 },
