@@ -14,8 +14,8 @@
 
 | Indicateur | Valeur | Ce qu'il mesure |
 |---|---|---|
-| **Avancement du périmètre courant** | **87,6 %** | Sur les 1322 fichiers *actuellement attendus* (ce qui est planifié pour le sprint/la version en cours), combien existent et sont validés. |
-| **Avancement vision finale (V0→V-finale)** | **27,9 %** | Sur les **4436 fichiers cibles** de la vision complète du produit (tous produits, toute la base de connaissances), combien sont faits. |
+| **Avancement du périmètre courant** | **94,1 %** *(87,6 % au 11/08, session du 12/08 sur b23/b25/b07/b10/b24)* | Sur les fichiers *actuellement attendus* (ce qui est planifié pour le sprint/la version en cours), combien existent et sont validés. |
+| **Avancement vision finale (V0→V-finale)** | **29,7 %** *(27,9 % au 11/08)* | Sur les fichiers cibles de la vision complète du produit (tous produits, toute la base de connaissances), combien sont faits. |
 
 **L'écart entre ces deux chiffres est la clé de lecture de toute la roadmap.** ALFRED est très avancé sur ce qu'il a *décidé de construire jusqu'ici*, mais la vision complète (notamment la base de connaissances à 3000 fichiers, cible du Bloc 18, qui représente à elle seule 67 % du total des 4436 fichiers cibles) reste largement à construire. Ce n'est pas un retard caché — c'est la définition même de "V-finale" : un objectif lointain et volontairement ambitieux.
 
@@ -124,12 +124,12 @@ Légende statut : ✅ **Finalisé** (≥95 % périmètre courant, validé en con
 **Statut : 🟢 Réalisé (périmètre courant), 🟡 en cours vers la cible finale** — 100 % / 42 % (21 attendus sur cible 50). Modes d'accessibilité (voice_output_manager, text_reader, WCAG checker) posés ; reste à couvrir : accessibilité Android (22.13), conformité WCAG formelle (22.15), neurodiversité avancée (22.12).
 
 #### Epic b23 — Gouvernance & pilotage du projet *(Bloc officiel 23)*
-**Statut : 🟡 En cours** — 90,8 % / 90,8 % (13 attendus, 9 validés, **3 « codés — à tester »** : `update_dashboard_data.py`, `ROADMAP.md`, `BACKLOG.md`, 1 partiel).
-- **Point important pour cet exercice précis** : les outils de gouvernance qui produisent les chiffres cités dans ce document (`update_dashboard_data.py`) sont eux-mêmes non "validés" à 100 % — cohérent avec l'anomalie du Bloc 17 détectée en section 4. Historique de bugs similaires déjà rencontrés (`_meta.generated` figé, "preuves fantômes" sur dashboard Conformité, corrigés en juillet).
+**Statut : 🟢 Réalisé** — 96,9 % / 96,9 % (12 validés, 1 partiel restant : `dashboard_data_server.bat`).
+- **Session 12/08/2026** : `update_dashboard_data.py` réellement exécuté (exit 0) + `tests/dashboard_tests/test_dashboard_pipeline.py` passé ; `ROADMAP.md` et `BACKLOG.md` corrigés (section 5 de ce document appliquée : Q01→Q09, AIPD/PSSI, chantiers post-05/07 ajoutés) ; les 3 fichiers passés à "validated" avec preuve dans `validation_registry.json`. `dashboard_data_server.bat` reste "partial" : ses étapes automatisables sont testées, mais ses commandes `start`/`pause` sont interactives, donc non testables en CLI headless — assumé, pas un oubli.
 
 #### Epic b25 — Documentation & politiques projet transverses *(Bloc officiel 25)*
-**Statut : 🟡 En cours** — 62,2 % / 62,2 % (9 attendus, 1 validé, 6 « codés — à tester » : README_FR, LICENSE, CONTRIBUTING(_FR), CODE_OF_CONDUCT, schéma réseau SVG ; 2 partiels : `docs/architecture/README.md`, `docs/ux/README.md`).
-- **Livrable** : les documents légaux/communautaires existent mais n'ont pas de statut "validé" formel (pas de revue juridique/qualité tracée).
+**Statut : ✅ Finalisé — 100 % / 100 %.**
+- **Session 12/08/2026** : `docs/ux/README.md` (stub pur de 89 o) réécrit avec un vrai contenu (principes UX, personas Céline/Sébastien, pointeurs avatar/UI hybride/accessibilité) ; `docs/architecture/README.md` étoffé (vue d'ensemble modules + liens SVG/SMSI) ; les 6 fichiers légaux/communautaires (README_FR, LICENSE, CONTRIBUTING(_FR), CODE_OF_CONDUCT, `reseau_alfred.svg`) relus intégralement, une incohérence FR/EN corrigée dans README_FR.md, tous passés "validated" dans `validation_registry.json`.
 
 #### Epic b29 — Démonstrateur Big Data Hadoop *(Bloc officiel 29, PoC hors trajectoire produit)*
 **Statut : ✅ Finalisé — 100 % / 100 %.** PoC assumé comme tel (regard critique documenté sur le surdimensionnement, `docs/hadoop_poc_bilan.md`) — pas une brique de production, ne pas le compter dans "V-finale produit".
@@ -152,17 +152,18 @@ Détaillé ci-dessus dans b20 — traité comme sous-sprint et non comme epic s�
 ### V2 — Extension produits & contexte
 
 #### Epic b07 — Mobilité & Contexte externe *(Bloc officiel 07)*
-**Statut : 🔴 À réaliser** — 86,7 % / **13 %** (3 fichiers attendus seulement — quasiment un stub). Ce bloc contient surtout, aujourd'hui, la note de vision "Roadmap V2 — ALFRED Android : client mobile léger connecté au core ALFRED_PC (API REST/WebSocket + tunnel WireGuard, JWT + TLS mutuel)". Le vrai développement mobile est suivi sous b24.
+**Statut : 🟡 En cours** — 90 % / **18 %** (toujours un petit périmètre par nature, mais plus un stub). Le vrai développement mobile reste suivi sous b24.
+- **Session 12/08/2026** : `data/context/user_context.json` complété (passait "partial" → "validated") ; nouveau document `docs/mobilite/vision_mobilite_v2.md` formalisant la vision "client mobile léger + API REST/WebSocket + tunnel WireGuard + JWT/TLS mutuel", avec l'écart honnête documenté vis-à-vis de l'API réelle actuelle (`interface/companion_api.py` : jeton statique, cleartext local).
 
 #### Epic b10 — Collaboration & Coordination *(Bloc officiel 12, volet CPL)*
-**Statut : 🔴 À réaliser** — 84 % / 14 % (5 fichiers attendus, 2 validés, 3 partiels : `orchestrator_rules.json`, `workflow_rules.json`, `src/v3/orchestrator/__init__.py`).
-- Cohérent avec l'état du dépôt `ALFRED_CPL` : extrait le 13/07, dormant depuis le 16/07 (une seule régénération de démo depuis, liée à la résolution d'un incident `FERNET_KEY`). Le moteur d'orchestration "collaborateur pro" (mode brainstorming, revue de docs, co-rédaction) n'est pas construit.
+**Statut : ✅ Finalisé (périmètre courant) — 100 % / 23,3 %.**
+- **Session 12/08/2026** : `config/v3/workflow_rules.json` (ALFRED_PC) rempli avec 3 workflows réels (`brainstorming`, `revue_documentaire`, `co_redaction`) ; `src/v3/orchestrator/__init__.py` implémenté (`CollaborationOrchestrator`, respect `fail_fast`, import cross-dépôt vers `alfred_cpl.assistant_actions.deliverable_generator` avec erreur explicite si ALFRED_CPL introuvable) ; `tests/b10_tests/test_orchestrator.py` ajouté et passé. Le moteur d'orchestration "collaborateur pro" existe désormais réellement — reste à écrire côté ALFRED_CPL le contenu métier fin de chaque workflow (vision finale encore à 23,3 %).
 
 #### Epic b24 — ALFRED Android / Compagnon mobile natif *(Bloc officiel 24)*
-**Statut : 🟡 En cours (PoC validé, produit non commencé)** — 65 % / 65 % (12 attendus, **0 validé formellement**, 10 « codés — à tester », 1 testé).
+**Statut : 🟡 En cours (PoC validé, tests unitaires ajoutés, produit complet non commencé)** — 70 % / 70 %.
 - **Sprint marquant** : PoC "Compagnon" validé de bout en bout le 02/07/2026 (build + émulateur Pixel 6 + connexion API réelle).
-- **Ce qui manque pour le produit complet** (explicitement noté dans le Bloc officiel) : HTTPS (le PoC est en cleartext réseau local volontaire), notifications push, mode hors-ligne.
-- **Livrable** : PoC fonctionnel mais pas de statut "validé" formel dans le dashboard — écart entre "ça marche en démo" et "c'est du produit fini" à ne pas confondre.
+- **Session 12/08/2026** : `app/src/test/` créé (n'existait pas) avec 12 tests JUnit réels (`ModelsTest.kt`, `ApiClientTest.kt` via MockWebServer, `CompanionViewModelTest.kt` via MockK) — `gradle :app:testDebugUnitTest` exécuté réellement, BUILD SUCCESSFUL, 12/12 passés (JDK/Gradle déjà en cache via Android Studio). Stockage du jeton sécurisé via `data/SecureTokenStore.kt` (EncryptedSharedPreferences/Keystore) — compile mais pas encore couvert par un test (nécessiterait Robolectric ou test instrumenté). `CompanionViewModel.kt`/`ApiClient.kt`/`Models.kt` passés "tested" côté dashboard.
+- **Ce qui manque pour le produit complet, toujours hors scope** (cf. `ALFRED_ANDROID/docs/BLOC24_STATUS_SESSION.md`) : HTTPS (le PoC est en cleartext réseau local volontaire), notifications push, mode hors-ligne — chacun nécessite une infra supplémentaire (TLS serveur, FCM, base locale) non traitée cette session.
 
 ---
 
