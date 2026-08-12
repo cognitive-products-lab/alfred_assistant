@@ -11263,11 +11263,11 @@
     },
     {
       "path": "docs/ux/README.md",
-      "module": "B18",
-      "status": "partial",
-      "last_test": "2026-07-04",
-      "test_level": "auto",
-      "score": 40
+      "module": "B25",
+      "status": "validated",
+      "last_test": "2026-08-12",
+      "test_level": "manual_review",
+      "notes": "Audit 2026-08-12 : remplace le stub 'Place UX notes...' par un contenu reel - principes UX (avatar unique multi-produits, UI hybride voix+texte, synchro labiale, accessibilite WCAG/neurodiversite), personas (Celine MBTI EXFP, Sebastien), pointeurs vers interface/, templates/, systeme avatar en calques. Assume honnetement l'absence d'outil de maquettage Figma reel."
     },
     {
       "path": "docs/module_profil_ia_adaptative/README.md",
@@ -11415,11 +11415,11 @@
     },
     {
       "path": "docs/architecture/README.md",
-      "module": "B18",
-      "status": "partial",
-      "last_test": "2026-07-04",
-      "test_level": "auto",
-      "score": 40
+      "module": "B25",
+      "status": "validated",
+      "last_test": "2026-08-12",
+      "test_level": "manual_review",
+      "notes": "Audit 2026-08-12 : etoffe avec une vue d'ensemble des grands modules du depot src/ (core, conversation/dialogue, memory/rag, regulation, profile, security/auth, knowledge, ui/output/input/vision, accessibility, assistant_actions, integrations, health, v1-v4), lien vers reseau_alfred.svg conserve, nouvelle section Securite/SMSI pointant vers docs/security/PSSI.md et docs/smsi/ (verifies presents sur disque)."
     },
     {
       "path": "docs/security/PSSI.md",
@@ -11465,6 +11465,57 @@
         "manual execution: python tools/generate_backlog.py -- exit=0, BACKLOG.md regenere (656 lignes) depuis dashboard_data.json fraichement mis a jour (91.5% technique)"
       ],
       "notes": "Audit 2026-08-12 : fichier auto-genere (pas de liste de priorites P1 manuelle a corriger, contrairement a ROADMAP.md) - regenere avec le script officiel tools/generate_backlog.py pour refleter l'etat courant du dashboard. Contenu verifie coherent avec dashboard_data.json post-regeneration."
+    },
+    {
+      "path": "README_FR.md",
+      "module": "B25",
+      "status": "validated",
+      "last_test": "2026-08-12",
+      "test_level": "manual_review",
+      "notes": "Audit 2026-08-12 : relu integralement, contenu coherent avec l'etat reel du projet. Incoherence FR/EN detectee et corrigee : README.md (anglais) etait un stub quickstart totalement different (structure, contenu, et un bug de rendu markdown - fence de code casse '\\\\\\\\\\\\powershell' au lieu de '```powershell') au lieu d'etre le miroir anglais annonce par le lien '..English version available here: README.md..' de ce fichier. README.md reecrit pour mirroirer README_FR.md en anglais (module B18, deja valide par smoke test, non reindexe ici)."
+    },
+    {
+      "path": "LICENSE",
+      "module": "B25",
+      "status": "validated",
+      "last_test": "2026-08-12",
+      "test_level": "manual_review",
+      "notes": "Audit 2026-08-12 : licence MIT standard, copyright 2026 Cognitive Products Lab - annee coherente avec la date courante du projet. Aucune incoherence trouvee, contenu inchange."
+    },
+    {
+      "path": "CONTRIBUTING.md",
+      "module": "B25",
+      "status": "validated",
+      "last_test": "2026-08-12",
+      "test_level": "manual_review",
+      "notes": "Audit 2026-08-12 : relu integralement, coherent avec CONTRIBUTING_FR.md (meme structure, meme contenu traduit) et avec l'etat reel du projet (mentions UX/avatar/dashboard/documentation coherentes avec les modules existants). Aucune incoherence trouvee, contenu inchange."
+    },
+    {
+      "path": "CONTRIBUTING_FR.md",
+      "module": "B25",
+      "status": "validated",
+      "last_test": "2026-08-12",
+      "test_level": "manual_review",
+      "notes": "Audit 2026-08-12 : relu integralement, verifie miroir fidele de CONTRIBUTING.md (structure et contenu identiques, traduction correcte). Aucune incoherence trouvee, contenu inchange."
+    },
+    {
+      "path": "CODE_OF_CONDUCT.md",
+      "module": "B25",
+      "status": "validated",
+      "last_test": "2026-08-12",
+      "test_level": "manual_review",
+      "notes": "Audit 2026-08-12 : relu integralement, contenu generique de code de conduite coherent avec un projet solo en preparation de collaboration ouverte. Aucune incoherence trouvee, contenu inchange."
+    },
+    {
+      "path": "docs/architecture/reseau_alfred.svg",
+      "module": "B25",
+      "status": "validated",
+      "last_test": "2026-08-12",
+      "test_level": "automated",
+      "tests": [
+        "manual execution: python -c \"import xml.dom.minidom as m; m.parse('docs/architecture/reseau_alfred.svg')\" -- XML valide, element racine 'svg' confirme"
+      ],
+      "notes": "Audit 2026-08-12 : fichier XML/SVG valide et s'ouvre correctement, coherent avec la description du reseau dans docs/architecture/README.md (etat 2026-07-05, DMZ+pare-feu WAN faits, ACL inter-VLAN restantes)."
     }
   ],
   "ALFRED_CONTEXT.md": {
