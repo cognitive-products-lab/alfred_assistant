@@ -174,3 +174,74 @@ Tant que ces trois points ne sont pas confirmés, aucun code d'intégration
 Tuya ne doit être écrit — même logique de prudence que pour les chantiers
 Google Agenda et Google Home (ne pas deviner les identifiants/contraintes
 d'une API tierce).
+
+---
+
+## 8. Guide pas-à-pas — préparation de la prochaine session (Phase 0)
+
+Contrairement à Google, Tuya Cloud API ne demande pas de flux OAuth avec
+écran de consentement navigateur — juste une paire **Access ID / Access
+Secret** générée une fois sur la Tuya IoT Platform. Plus simple à mettre en
+place.
+
+### A. À vérifier par Céline, avant la session (5 minutes)
+
+1. **Région du compte app** : ouvrir l'app Tuya Smart ou Smart Life →
+   **Moi (Me) → Réglages (Settings) → Compte et sécurité → Région**. Noter
+   la région affichée (ex. "Europe de l'Ouest" / "Western Europe") — le
+   Cloud Project créé à l'étape B devra utiliser le **même centre de
+   données**, sinon les appareils n'apparaîtront jamais dans le projet.
+2. **Modèle exact de la caméra de surveillance** (référence produit,
+   visible dans l'app ou sur l'appareil).
+3. ~~Carte SIM dédiée à ALFRED : appareil physique ou service cloud ?~~
+   **Confirmé (24/07/2026)** : carte SIM insérée dans une **tablette
+   Samsung A9 dédiée**, avec carte mémoire dédiée également, sur laquelle
+   l'app ALFRED (compagnon Android, cf. `interface/companion_api.py` — PoC
+   minimaliste actuel, 2 endpoints lecture seule) sera installée. L'envoi
+   de SMS/appels lors d'une escalade passera donc par le **matériel de
+   cette tablette**, pas par un service cloud type Twilio — l'app Android
+   devra gagner une capacité d'émission SMS/appel qu'elle n'a pas
+   aujourd'hui. Ce point rattache la Phase 4 de ce chantier à l'écart
+   ALFRED_ANDROID vs desktop déjà documenté par ailleurs.
+
+### B. Créer le compte développeur + Cloud Project (pendant la session)
+
+1. Aller sur [iot.tuya.com](https://iot.tuya.com/) → se connecter (créer un
+   compte développeur si besoin — gratuit).
+2. Menu de gauche → **Cloud** → **Create Cloud Project** (Créer un projet
+   Cloud).
+3. Renseigner :
+   - **Project Name** : ex. `ALFRED_TUYA`
+   - **Description** : libre
+   - **Development Method** : **Smart Home**
+   - **Data Center** : celui correspondant à la région notée en A.1
+4. Cliquer **Create**.
+5. Dans la fenêtre d'autorisation des services API qui suit, sélectionner
+   au minimum : **Industry Basic Service**, **Smart Home Basic Service**,
+   **Device Status Notification** → **Authorize**.
+
+### C. Lier le compte app (pour que les appareils apparaissent)
+
+1. Dans le projet créé, onglet **Devices** → **Link Tuya App Account** →
+   **Add App Account**.
+2. Un QR code s'affiche → le scanner avec l'app Tuya Smart / Smart Life
+   (généralement via le bouton "+" ou un scanner QR dans l'app).
+3. Confirmer sur le téléphone (bouton **Confirm**).
+4. Retour sur le site → cliquer **All Devices** → vérifier que le bouton
+   d'alerte et la caméra apparaissent bien dans la liste.
+
+### D. Récupérer les identifiants
+
+1. Ouvrir la page **Overview** du projet (cliquer sur son nom).
+2. Noter les deux valeurs affichées : **Access ID / Client ID** et
+   **Access Secret / Client Secret** — équivalent du `client_id`/
+   `client_secret` Google, mais sans navigateur ni consentement à rejouer.
+
+### E. Ce que je ferai ensuite (pas à faire par Céline)
+
+Une fois A–D confirmés, je créerai `src/integrations/tuya_client.py`
+(probablement via la librairie `tuya-connector-python`, l'équivalent
+officiel Tuya de `google-api-python-client`), stockerai l'Access ID/Secret
+chiffrés selon le même principe que Google (`encryption_service.py`), et
+listerai le bouton d'alerte + la caméra pour valider la connexion — sans
+aller plus loin que la Phase 0 tant que ce n'est pas explicitement demandé.
