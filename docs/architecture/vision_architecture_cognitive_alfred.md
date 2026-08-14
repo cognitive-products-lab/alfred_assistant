@@ -100,27 +100,44 @@ là où une règle suffit, ne pas réinventer ce qui existe déjà ») :
   + 58/58 tests existants (`response_generator`, `output_filter`,
   `policy_engine`) non affectés. Commit `55ac5eee`, poussé sur `main`.
 
-### P1 — Rebrancher l'IntentNet déjà écrit
+### P1 — Rebrancher l'IntentNet déjà écrit ✅ **Livré 14/08/2026**
 
-Réactiver `IntentClassifier`/`intents_catalog.json` en amont de
-`response_generator.py`, au minimum pour distinguer conversation générale /
-action système / contenu sensible — sert aussi de signal d'entrée
-complémentaire à `safety_gate` (P0).
+`analyze_v2()` (`src/conversation/nlp/nlp_engine_v2.py`, seul module NLP
+réellement importé par `main.py`) retournait un intent hardcodé à
+`"conversation"` quel que soit le texte — `IntentClassifier` existait mais
+n'était jamais appelé. Rebranché : catégories étendues
+(`emotional_support`, `engineering`) en réutilisant les mots-clés déjà
+rédigés dans `config/intents_catalog.json`, vocabulaire choisi pour
+recouper `multi_signal_fusion_engine.py::_INTENT_TO_MODE` (sinon
+l'intention détectée resterait sans effet sur le mode ALFRED recommandé).
+Tests : `test_intent_net_wiring.py` (4 tests). Commit `3833b802`.
 
-### P2 — Sobriété réelle des modèles
+### P2 — Sobriété réelle des modèles ✅ **Livré 14/08/2026**
 
-Sélectionner le modèle Ollama par complexité de tâche plutôt qu'un modèle
-fixe (`MODEL_PROFILES` existe déjà, juste non exploité). Bénéfice
-secondaire attendu : ce point touche directement le problème déjà identifié
-du 24/07/2026 (~35-40 % d'échecs d'appels d'outils sur `llama3.2`) — un
-modèle mieux dimensionné pour le tool-calling pourrait réduire ce taux.
+`MODEL_PROFILES` listait déjà plusieurs tailles de modèle (3B à 120B) mais
+`MODEL` était câblé en dur, jamais différencié par tâche. `OllamaLLMClient`
+accepte désormais un `tools_model` optionnel (dédié aux tours
+function-calling, là où llama3.2 a montré ~35-40 % d'échecs le
+24/07/2026), configurable via `ALFRED_LLM_TOOLS_MODEL`. **Décision
+volontaire : pas de changement de modèle par défaut** — la latence d'un
+modèle plus lourd sur le matériel réel (Miniforum MS-S1 Max) n'a pas
+encore été validée ; le mécanisme est livré, l'activation reste un choix à
+faire une fois mesurée. Tests : `test_ollama_tools_model.py` (7 tests).
+Commit `9a564880`.
 
-### P3 — Politique mémoire écrite (MemoryNet léger)
+### P3 — Politique mémoire écrite (MemoryNet léger) ✅ **Livré 14/08/2026**
 
-`memory_engine.py` logue tout sans filtre alors que
-`memory_decay_rules.json`/`memory_prioritization.json` existent déjà en
-JSON, non branchés. Ajouter une règle simple KEEP/EXPIRE/IGNORE avant
-écriture (déterministe, pas de ML — même logique que P0).
+`memory_engine.py` (`MemoryEngine`, seul chemin d'écriture mémoire
+réellement exercé par `main.py` — `save_fact()`/SQLite `long_term_memory.py`
+existent mais ne sont appelés nulle part en prod) loguait chaque échange
+sans filtre ni purge : `dialogue_history.json` grandissait indéfiniment.
+Ajout d'un `retention_days` optionnel (règle déterministe, pas de ML) qui
+purge les échanges au-delà de N jours au chargement et après chaque
+écriture. **Décision volontaire : `None` par défaut** (historique conservé
+indéfiniment, comportement inchangé) — c'est de l'historique de
+conversation personnel, la décision de le purger revient à Céline, pas à
+un défaut silencieux. Tests : `test_memory_engine_retention.py` (5 tests).
+Commit `0194051c`.
 
 ### P4 — Différé, pas engagé maintenant
 
@@ -139,11 +156,18 @@ d'événements complet.
 
 | Point | Statut | Commit |
 |---|---|---|
-| P0 — SafetyNet (blocage cloud) | ✅ Livré, testé, poussé | `55ac5eee` (2026-08-14) |
-| P1 — IntentNet rebranché | À faire | — |
-| P2 — Sobriété modèle | À faire | — |
-| P3 — MemoryNet léger | À faire | — |
+| P0 — SafetyNet (blocage cloud) | ✅ Livré, testé | `55ac5eee` (2026-08-14) |
+| P1 — IntentNet rebranché | ✅ Livré, testé | `3833b802` (2026-08-14) |
+| P2 — Sobriété modèle | ✅ Livré, testé | `9a564880` (2026-08-14) |
+| P3 — MemoryNet léger | ✅ Livré, testé | `0194051c` (2026-08-14) |
 | P4 — Cognitive Bus / Learning LLM | Différé (pas de date) | — |
+
+Les 4 points ont été traités un par un (implémentation → tests → commit
+local dédié) le 14/08/2026. **Push différé** : une autre session travaillait
+en parallèle sur le même dépôt ce jour-là (collision constatée sur
+`docs/roadmap/ROADMAP_MASTER_V0_VFINALE.md` et `ROADMAP.md`) — décision de
+Céline de faire un push global une fois toutes les sessions terminées
+plutôt que de pousser point par point et risquer d'autres collisions.
 
 Ce document sert de source de vérité pour ce chantier ; le suivi macro
 (pourcentages, epics) reste dans
