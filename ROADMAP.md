@@ -117,6 +117,20 @@ Dernière mise à jour : 2026-08-11
 
 ---
 
+## V4 — Portage multi-OS (ajouté 11/08/2026)
+
+> Pas de Bloc officiel assigné — nouveau périmètre, à valider avant de numéroter (cf. `docs/ALFRED_BLOCS_REFERENCE.md`,
+> section "Blocs manquants / à trancher"). Séquencement explicite : chaque portage ne démarre qu'une fois
+> son équivalent d'origine pleinement fonctionnel — pas de développement en parallèle.
+
+- [ ] **Portage ALFRED_PC → macOS**, une fois ALFRED_PC pleinement fonctionnel sous Windows.
+      ⚠️ Contrainte connue : pas de Mac disponible pour développer/tester — modalité à définir
+      (VM cloud macOS, CI macOS, matériel à acquérir, ou bêta-testeur externe).
+- [ ] **Portage ALFRED Android → iOS**, une fois l'application Android pleinement fonctionnelle.
+      ⚠️ Contrainte connue : pas d'iPhone disponible pour développer/tester — modalité à définir.
+
+---
+
 ## Objectif de la reprise (11/08/2026)
 
 Reprise après une pause de développement liée à un impératif de santé de Céline (plan de révision d'examens).
