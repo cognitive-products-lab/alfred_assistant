@@ -4,14 +4,21 @@ BLOCK        : B24
 FUNCTION     : 24.02 — Intégration API compagnon
 FILE         : interface/companion_api.py
 ROLE         : API locale consommée par le PoC Compagnon ALFRED_ANDROID
-               (GET /api/status, GET /api/notifications)
+               (GET /api/status, GET /api/notifications) + dispatcher RPC
+               générique (POST /api/rpc) et hébergement statique de
+               interface/desktop_ui/ (/ui/) pour le pont window.AlfredBridge
+               (voir index.html) — permet à une WebView Android de charger
+               l'interface complète d'ALFRED PC, pas seulement le PoC natif.
 
 AUTHOR       : Cognitive Products Lab
 CREATED      : 2026-07-13
-UPDATED      : 2026-08-14 — TLS local ajouté (tools/security/generate_local_tls_cert.py)
-VERSION      : V1.1
-STATUS       : CODÉ — À TESTER en conditions réelles (build + émulateur/téléphone,
-                cf. ALFRED_ANDROID/README.md)
+UPDATED      : 2026-08-14 — /api/rpc générique + /ui/ statique + run_server_in_thread()
+                (appelé depuis src/alfred_desktop.py pour partager le pipeline live —
+                nécessaire pour que send_message obtienne de vraies réponses)
+VERSION      : V1.2
+STATUS       : CODÉ — /api/status et /api/notifications testés en conditions réelles
+                (cf. ALFRED_ANDROID/README.md) ; /api/rpc et /ui/ codés, pas encore
+                testés avec un vrai client Android (WebView)
 
 DESCRIPTION :
 Ré-implémentation de l'API compagnon documentée dans ALFRED_ANDROID/README.md mais
@@ -52,6 +59,7 @@ from __future__ import annotations
 
 import hmac
 import os
+import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -59,6 +67,12 @@ from dotenv import load_dotenv
 from fastapi import FastAPI, Header, HTTPException
 
 ROOT = Path(__file__).resolve().parents[1]
+# Nécessaire pour `from src...` (get_notifications, /api/rpc) quand ce fichier
+# est lancé directement (python interface/companion_api.py) : sys.path[0] est
+# alors le dossier interface/, pas la racine du projet — même correctif que
+# src/alfred_desktop.py.
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 load_dotenv(ROOT / ".env")
 
 COMPANION_API_HOST = "0.0.0.0"
@@ -127,6 +141,96 @@ def get_notifications(authorization: str | None = Header(default=None)) -> dict:
             for r in reminders
         ]
     }
+
+
+_RPC_METHODS: tuple[str, ...] = (
+    # Mêmes noms que les méthodes de AlfredDesktopAPI (src/alfred_desktop.py) —
+    # whitelist stricte : seuls ces noms peuvent être invoqués via /api/rpc,
+    # jamais un attribut arbitraire de l'instance.
+    "send_message", "get_settings", "save_setting",
+    "get_recommandations", "get_emotion_state", "set_emotion_override", "correct_emotion",
+    "get_planning", "get_devices", "get_activite", "get_kpis", "get_notifications",
+    "get_context_consent", "set_context_consent",
+    "run_backup", "summarize_today", "search_knowledge",
+    "get_weather", "set_weather_consent", "search_weather", "reset_weather_location",
+    "get_calendar_events", "set_calendar_consent", "get_google_auth_status",
+    "start_google_auth", "disconnect_google_calendar", "create_calendar_event",
+    "get_home_devices", "set_home_consent", "set_home_project_id",
+    "get_home_auth_url", "submit_home_auth_code", "disconnect_home", "execute_home_command",
+)
+
+_api_instance = None  # instancié à la 1ère requête (import différé, évite le cycle avec src.alfred_desktop)
+
+
+def _get_api_instance():
+    global _api_instance
+    if _api_instance is None:
+        from src.alfred_desktop import AlfredDesktopAPI
+
+        _api_instance = AlfredDesktopAPI()
+    return _api_instance
+
+
+@app.post("/api/rpc")
+def rpc(payload: dict, authorization: str | None = Header(default=None)) -> dict:
+    """
+    Dispatcher générique consommé par le pont JS window.AlfredBridge (interface/
+    desktop_ui/index.html) quand la page ne tourne pas dans la fenêtre pywebview.
+    Body : {"method": "get_kpis", "args": {}}. Réutilise exactement les mêmes
+    fonctions que le pont pywebview.api — aucune logique dupliquée.
+    """
+    _require_token(authorization)
+    method = payload.get("method")
+    args = payload.get("args") or {}
+    if not isinstance(method, str) or method not in _RPC_METHODS:
+        raise HTTPException(status_code=404, detail=f"Méthode RPC inconnue : {method!r}")
+    if not isinstance(args, dict):
+        raise HTTPException(status_code=400, detail="'args' doit être un objet")
+
+    api = _get_api_instance()
+    func = getattr(api, method)
+    try:
+        result = func(**args)
+    except TypeError as exc:
+        raise HTTPException(status_code=400, detail=f"Arguments invalides pour {method} : {exc}") from exc
+    except Exception as exc:  # noqa: BLE001 — remonté tel quel au client distant, journalisé côté serveur
+        print(f"[ALFRED] Erreur RPC {method}: {exc}")
+        raise HTTPException(status_code=500, detail=str(exc)) from exc
+    return {"ok": True, "result": result}
+
+
+# Sert interface/desktop_ui/ (utilisé par ALFRED PC lui-même via pywebview en
+# file://, mais aussi par toute WebView/navigateur distant — ex. ALFRED_ANDROID)
+# sous /ui/. Monté après les routes /api/* pour ne jamais les masquer.
+from fastapi.staticfiles import StaticFiles  # noqa: E402
+
+app.mount(
+    "/ui",
+    StaticFiles(directory=str(ROOT / "interface" / "desktop_ui"), html=True),
+    name="ui",
+)
+
+
+def run_server_in_thread() -> None:
+    """
+    Démarre ce serveur (API + /ui/ statique) dans un thread daemon du process
+    appelant, au lieu d'un process séparé — nécessaire pour que /api/rpc partage
+    le même pipeline ALFRED (ui_bridge, hooks onResponse/...) que la fenêtre
+    pywebview. Voir src/alfred_desktop.py.
+    """
+    import threading
+
+    import uvicorn
+
+    _expected_token()
+    tls_kwargs = _tls_kwargs()
+    scheme = "https" if tls_kwargs else "http"
+
+    def _serve() -> None:
+        print(f"[ALFRED] API + interface distante sur {scheme}://{COMPANION_API_HOST}:{COMPANION_API_PORT}/ui/")
+        uvicorn.run(app, host=COMPANION_API_HOST, port=COMPANION_API_PORT, log_level="warning", **tls_kwargs)
+
+    threading.Thread(target=_serve, name="alfred-api-server", daemon=True).start()
 
 
 if __name__ == "__main__":

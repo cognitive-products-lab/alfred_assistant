@@ -6,9 +6,14 @@ ROLE         : Point d'entree ALFRED avec l'interface desktop HTML (pywebview)
 
 AUTHOR       : Cognitive Products Lab
 CREATED      : 2026-07-18
-UPDATED      : 2026-07-23
-VERSION      : V1.3
-STATUS       : DRAFT — texte + dashboard + mode vocal (micro/TTS) + visèmes phonème-exactes branchés
+UPDATED      : 2026-08-14 — démarre aussi l'API HTTP (interface/companion_api.py,
+                run_server_in_thread) dans ce process, pour que window.AlfredBridge
+                côté WebView Android/navigateur parle au pipeline réel plutôt qu'à
+                une instance séparée sans conversation active.
+VERSION      : V1.4
+STATUS       : DRAFT — texte + dashboard + mode vocal (micro/TTS) + visèmes phonème-exactes
+                branchés ; API distante (/api/rpc, /ui/) codée, pas encore testée avec un
+                vrai client Android
 
 DESCRIPTION :
 Remplace src/alfred_with_ui.py (interface Kivy) par la nouvelle interface
@@ -436,6 +441,15 @@ if __name__ == "__main__":
         daemon=True,
     )
     pipeline_thread.start()
+
+    # API HTTP + interface statique (/ui/) dans ce même process, pour que
+    # window.AlfredBridge (WebView Android, navigateur) parle au pipeline réel
+    # ci-dessus plutôt qu'à une instance séparée sans conversation active.
+    try:
+        from interface.companion_api import run_server_in_thread
+        run_server_in_thread()
+    except Exception as exc:
+        print(f"  [ALFRED] API distante non démarrée (facultatif) : {exc}")
 
     # Fenêtre desktop HTML dans le thread principal (obligatoire sur Windows/macOS)
     if not UI_HTML_PATH.exists():
