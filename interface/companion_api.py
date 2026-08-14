@@ -112,6 +112,42 @@ def _require_token(authorization: str | None) -> None:
         raise HTTPException(status_code=401, detail="Jeton invalide ou manquant")
 
 
+def _require_token_qs(token: str | None) -> None:
+    """Variante pour /api/events : EventSource ne permet pas d'en-tête
+    Authorization, le jeton passe donc en query string pour cet endpoint
+    précis (même modèle de menace que le jeton statique déjà utilisé
+    ailleurs : réseau local, TLS optionnel — voir en-tête de fichier)."""
+    expected = _expected_token()
+    if not token or not hmac.compare_digest(token, expected):
+        raise HTTPException(status_code=401, detail="Jeton invalide ou manquant")
+
+
+# ============================================================
+# Évènements temps réel (réponses, streaming, visèmes...) — diffusés par
+# src/alfred_desktop.py::_push() vers tout client SSE connecté, en plus de
+# l'appel evaluate_js() historique vers la fenêtre pywebview.
+# ============================================================
+
+import queue  # noqa: E402
+import threading  # noqa: E402
+
+_event_subscribers: list[queue.Queue] = []
+_event_subscribers_lock = threading.Lock()
+
+
+def broadcast_event(js_call: str, *args) -> None:
+    """Pousse un évènement pipeline (onResponse, onThinking, ...) vers tous
+    les clients SSE connectés — voir window.__alfredBridge côté JS."""
+    message = {"event": js_call, "args": list(args)}
+    with _event_subscribers_lock:
+        subs = list(_event_subscribers)
+    for q in subs:
+        try:
+            q.put_nowait(message)
+        except Exception:
+            pass
+
+
 @app.get("/api/status")
 def get_status(authorization: str | None = Header(default=None)) -> dict:
     _require_token(authorization)
@@ -197,6 +233,45 @@ def rpc(payload: dict, authorization: str | None = Header(default=None)) -> dict
         print(f"[ALFRED] Erreur RPC {method}: {exc}")
         raise HTTPException(status_code=500, detail=str(exc)) from exc
     return {"ok": True, "result": result}
+
+
+@app.get("/api/events")
+async def events(token: str | None = None):
+    """
+    Flux SSE des évènements pipeline (onResponse, onThinking, onStreamPhrase,
+    onSpeaking, onListening, onVoiceError, onVisemes) — consommé par le pont
+    window.AlfredBridge côté JS pour afficher les vraies réponses en mode
+    texte/vocal distant. Sans ce flux, /api/rpc::send_message envoie bien le
+    message mais la réponse ne s'affiche jamais côté client distant.
+    """
+    _require_token_qs(token)
+    import asyncio
+    import json as _json
+
+    q: queue.Queue = queue.Queue()
+    with _event_subscribers_lock:
+        _event_subscribers.append(q)
+
+    async def stream():
+        try:
+            while True:
+                try:
+                    item = await asyncio.get_event_loop().run_in_executor(None, q.get, True, 15)
+                    yield f"data: {_json.dumps(item, ensure_ascii=False)}\n\n"
+                except queue.Empty:
+                    yield ": keep-alive\n\n"
+        finally:
+            with _event_subscribers_lock:
+                if q in _event_subscribers:
+                    _event_subscribers.remove(q)
+
+    from fastapi.responses import StreamingResponse
+
+    return StreamingResponse(
+        stream(),
+        media_type="text/event-stream",
+        headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"},
+    )
 
 
 # Sert interface/desktop_ui/ (utilisé par ALFRED PC lui-même via pywebview en

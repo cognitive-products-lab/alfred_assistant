@@ -820,9 +820,32 @@
   window.AlfredBridge = AlfredBridge;
   window.pywebview = { api: AlfredBridge };
 
-  // Flux temps réel (réponses ALFRED, streaming, visèmes...) : branché en tâche
-  // suivante (SSE /api/events) — voir docs/mobilite. Sans lui, le mode texte
-  // distant enverra les messages mais n'affichera pas encore la réponse poussée.
+  /*
+   * Flux temps réel (réponses ALFRED, streaming, visèmes...) — voir
+   * interface/companion_api.py::/api/events, alimenté par _push() côté
+   * src/alfred_desktop.py. EventSource ne permet pas d'en-tête Authorization
+   * -> jeton en query string pour cet endpoint précis uniquement (même
+   * modèle de menace que le reste : réseau local, TLS optionnel).
+   * Reconnexion automatique gérée nativement par EventSource.
+   */
+  function connectEventStream(){
+    if (!cfg.base || !cfg.token || typeof EventSource === 'undefined') return;
+    var url = cfg.base.replace(/\/$/, '') + '/api/events?token=' + encodeURIComponent(cfg.token);
+    var es = new EventSource(url);
+    es.onmessage = function(evt){
+      try {
+        var payload = JSON.parse(evt.data);
+        var bridge = window.__alfredBridge;
+        var fn = bridge && bridge[payload.event];
+        if (typeof fn === 'function') fn.apply(bridge, payload.args || []);
+      } catch (err){ /* évènement mal formé : ignoré, le flux continue */ }
+    };
+  }
+  // window.__alfredBridge est défini plus bas dans ce fichier (fin de script) ;
+  // le premier évènement SSE n'arrive qu'après un aller-retour réseau, donc il
+  // est toujours défini avant réception — mais on attend DOMContentLoaded par
+  // prudence, cohérent avec l'écran de connexion ci-dessous.
+  document.addEventListener('DOMContentLoaded', connectEventStream);
 
   if (!cfg.base || !cfg.token){
     document.addEventListener('DOMContentLoaded', function(){
