@@ -1,0 +1,83 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "professional.communication.communication_technique_documentation",
+  "title": "Communication technique et rédaction de documentation",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "professional",
+  "subdomain": "communication",
+  "category": "professional communication",
+  "summary": "Principes de rédaction d'une documentation technique claire et exploitable (guides utilisateur, documentation d'API, procédures), distincts de la synthèse exécutive et du pitch déjà couverts, centrés sur un lectorat devant exécuter une action précise à partir du texte.",
+  "purpose": "Compléter le sous-domaine communication avec le registre technique, jusqu'ici absent malgré la présence de la rédaction managériale, du pitch exécutif et de la synthèse exécutive, tous orientés décision plutôt qu'exécution.",
+  "tags": ["documentation_technique", "redaction", "communication_technique", "clarte"],
+  "intents": ["rediger_documentation_technique", "structurer_guide_utilisateur", "clarifier_procedure_ecrite"],
+  "usage_context": [
+    "rédaction d'une documentation technique destinée à être suivie pas à pas par un lecteur",
+    "révision d'une documentation existante jugée ambiguë ou difficile à exécuter"
+  ],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "La communication technique et la rédaction de documentation consistent à produire un texte destiné non pas à informer ou convaincre, mais à permettre à un lecteur d'exécuter correctement une action précise (installation, configuration, procédure), ce qui impose des exigences de clarté et de vérifiabilité différentes de la communication orientée décision.",
+    "core_principles": [
+      "Une documentation technique doit être testée par exécution réelle des étapes décrites, pas seulement relue pour sa cohérence apparente.",
+      "L'ordre des instructions doit refléter strictement l'ordre d'exécution réel, toute ambiguïté de séquence créant un risque d'erreur du lecteur.",
+      "Chaque terme technique non universellement connu du lectorat cible doit être défini ou évité, la documentation technique n'étant utile que si elle est comprise sans interprétation.",
+      "Une documentation technique doit distinguer explicitement les étapes obligatoires des étapes optionnelles, pour éviter qu'un lecteur ne s'arrête à tort sur une étape non essentielle."
+    ],
+    "rules": [
+      "Rédiger les instructions dans l'ordre exact d'exécution attendu, sans réorganisation narrative qui romprait la séquence logique.",
+      "Tester chaque procédure documentée par une exécution réelle avant sa publication, pas uniquement par relecture.",
+      "Signaler explicitement les prérequis nécessaires avant de détailler les étapes elles-mêmes."
+    ],
+    "examples": [
+      {
+        "situation": "Une documentation technique décrit une procédure d'installation dans un ordre narratif logique pour un rédacteur, mais qui ne correspond pas exactement à l'ordre d'exécution requis par le système.",
+        "recommended_behavior": "Réorganiser strictement les étapes selon l'ordre d'exécution réel testé, même si cela paraît moins narrativement fluide, la fonction de la documentation primant sur son élégance stylistique.",
+        "avoid": "Privilégier une organisation narrative agréable à lire au détriment de la fidélité exacte à l'ordre d'exécution réel requis."
+      }
+    ],
+    "best_practices": [
+      "Faire relire et exécuter la documentation par une personne non impliquée dans sa rédaction, pour détecter les ambiguïtés invisibles à l'auteur.",
+      "Illustrer les étapes ambiguës par un exemple concret plutôt qu'une seule description abstraite."
+    ],
+    "anti_patterns": [
+      "Publier une documentation technique jamais testée par exécution réelle des étapes décrites.",
+      "Utiliser un jargon technique non défini en présumant que tout le lectorat cible le maîtrise déjà."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["documentation technique", "procédure", "clarté", "rédaction"],
+    "related_domains": ["professional", "communication"],
+    "related_knowledge": [
+      "professional.communication.redaction_synthese_executive",
+      "communication.written.professional_writing",
+      "cpl.documentation_procedures.procedures_installation_configuration_alfred_cpl"
+    ],
+    "retrieval_priority": 6
+  },
+  "behavior_rules": {
+    "tone": "neutral",
+    "response_style": "step_by_step",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["rédaction et révision de documentation technique et de guides utilisateur"],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "En cas d'étape de procédure non vérifiable par exécution réelle, le signaler explicitement comme non testée plutôt que de la présenter comme validée."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "14/08/2026",
+    "last_update": "14/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

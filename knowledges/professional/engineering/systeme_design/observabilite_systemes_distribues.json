@@ -1,0 +1,83 @@
+{
+  "knowledge_id": "professional.engineering.systeme_design.observabilite_systemes_distribues",
+  "title": "Observabilité des systèmes distribués",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "professional",
+  "subdomain": "engineering",
+  "category": "system_design",
+  "priority": "high",
+  "safety_level": "normal",
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "summary": "Présente l'observabilité (logs, métriques, traces distribuées) comme capacité à comprendre l'état interne d'un système distribué à partir de ses sorties externes, distincte de la surveillance simple (monitoring) qui se limite à vérifier des seuils prédéfinis sans nécessairement expliquer une cause.",
+  "purpose": "Compléter engineering/systeme_design avec la dimension observabilité, absente des fiches existantes centrées sur les styles architecturaux (microservices, event-driven), pourtant nécessaire pour diagnostiquer ces mêmes architectures une fois en production.",
+  "tags": ["observabilite", "monitoring", "traces_distribuees", "systemes_distribues"],
+  "intents": ["expliquer_observabilite", "distinguer_monitoring_observabilite", "concevoir_strategie_traces"],
+  "usage_context": [
+    "conception de la stratégie d'observabilité d'une architecture distribuée (microservices, event-driven)",
+    "diagnostic d'un incident dont la cause traverse plusieurs services distincts"
+  ],
+  "content": {
+    "definition": "L'observabilité d'un système distribué est sa capacité à permettre la compréhension de son état interne et de la cause d'un comportement à partir de l'analyse de ses sorties externes (journaux, métriques, traces), reposant classiquement sur trois piliers complémentaires : les logs (événements horodatés), les métriques (mesures agrégées dans le temps) et les traces distribuées (parcours d'une requête à travers plusieurs services).",
+    "core_principles": [
+      "Le monitoring vérifie des seuils connus à l'avance (le système est-il en panne), tandis que l'observabilité permet d'investiguer des questions non anticipées à l'avance sur le comportement du système.",
+      "Dans une architecture distribuée, une même requête traverse souvent plusieurs services : sans traçage distribué, reconstituer son parcours pour diagnostiquer un incident devient extrêmement coûteux.",
+      "Les trois piliers de l'observabilité (logs, métriques, traces) sont complémentaires, chacun répondant à un type de question différent, et aucun ne peut se substituer entièrement aux deux autres.",
+      "L'observabilité doit être conçue en amont de l'architecture, pas ajoutée après un premier incident difficile à diagnostiquer faute d'instrumentation suffisante."
+    ],
+    "rules": [
+      "Instrumenter chaque service d'une architecture distribuée avec un identifiant de corrélation propagé de bout en bout pour permettre le traçage d'une requête à travers l'ensemble du système.",
+      "Distinguer clairement dans la conception les métriques d'alerte (seuils de monitoring) des données d'investigation plus détaillées (logs et traces) nécessaires au diagnostic approfondi.",
+      "Prévoir l'instrumentation d'observabilité dès la conception d'un nouveau service plutôt que comme un ajout a posteriori après un incident."
+    ],
+    "examples": [
+      {
+        "situation": "Un incident de lenteur apparaît côté utilisateur sans que l'équipe ne parvienne à identifier quel service, parmi plusieurs impliqués dans la requête, en est la cause.",
+        "recommended_behavior": "Utiliser le traçage distribué pour reconstituer le parcours exact de la requête et identifier le service et l'étape précise responsable de la latence, plutôt que d'investiguer service par service sans visibilité de bout en bout.",
+        "avoid": "Se limiter aux métriques agrégées de chaque service isolément, sans traçage de bout en bout permettant de relier la cause à l'effet observé côté utilisateur."
+      }
+    ],
+    "best_practices": [
+      "Propager systématiquement un identifiant de corrélation unique à travers l'ensemble des services traversés par une même requête.",
+      "Définir des indicateurs de service (SLI) et des objectifs de service (SLO) explicites pour orienter les priorités d'observabilité vers ce qui compte réellement pour l'utilisateur."
+    ],
+    "anti_patterns": [
+      "Se limiter au seul monitoring de disponibilité sans investir dans les traces distribuées, rendant le diagnostic d'incidents complexes très coûteux en temps.",
+      "Ajouter l'instrumentation d'observabilité seulement après un premier incident difficile à diagnostiquer, plutôt que dès la conception initiale."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["observabilité", "traces distribuées", "monitoring", "microservices"],
+    "related_domains": ["professional", "cpl"],
+    "related_knowledge": [
+      "professional.engineering.systeme_design.microservices_architecture",
+      "professional.engineering.systeme_design.event_driven_architecture",
+      "cpl.operations_continuite.supervision_systeme_alfred_cpl"
+    ],
+    "retrieval_priority": 7
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "high",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["conception et explication de stratégies d'observabilité pour systèmes distribués"],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "En cas d'architecture distribuée sans traçage de bout en bout constaté, signaler explicitement cette lacune comme un facteur aggravant du temps de diagnostic en cas d'incident."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "14/08/2026",
+    "last_update": "14/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

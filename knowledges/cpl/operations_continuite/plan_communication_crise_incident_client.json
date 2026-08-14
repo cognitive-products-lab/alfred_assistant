@@ -1,0 +1,83 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.operations_continuite.plan_communication_crise_incident_client",
+  "title": "Plan de communication de crise vers les clients en cas d'incident",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "operations_continuite",
+  "category": "continuite_operationnelle",
+  "summary": "Cadre de communication destiné aux clients d'ALFRED CPL en cas d'incident technique affectant le service, distinct de la gestion technique de l'incident elle-même déjà couverte, ici centré sur ce qui doit être communiqué, quand et par quel canal pour préserver la confiance client.",
+  "purpose": "Compléter operations_continuite avec le volet communication client d'un incident, absent de gestion_incidents_alfred_cpl qui traite du processus technique de résolution sans détailler la communication externe associée.",
+  "tags": ["communication_crise", "incident_client", "transparence", "confiance"],
+  "intents": ["communiquer_incident_client", "planifier_message_crise", "preserver_confiance_apres_incident"],
+  "usage_context": [
+    "survenue d'un incident technique affectant le service rendu à un ou plusieurs clients d'ALFRED CPL",
+    "préparation en amont d'un modèle de communication de crise pour réduire le délai de réaction"
+  ],
+  "priority": "high",
+  "safety_level": "sensitive",
+  "content": {
+    "definition": "Le plan de communication de crise vers les clients est le cadre définissant le contenu, le moment et le canal de communication utilisés pour informer les clients affectés par un incident technique d'ALFRED CPL, visant à préserver la confiance par la transparence plutôt que par la minimisation ou le silence.",
+    "core_principles": [
+      "Une communication de crise rapide mais incomplète préserve mieux la confiance qu'une communication tardive mais parfaitement complète.",
+      "La transparence sur ce qui est connu et sur ce qui reste incertain est plus crédible qu'une communication prématurément rassurante.",
+      "Le silence prolongé pendant un incident est interprété par défaut comme une aggravation de la situation, même lorsque ce n'est pas le cas.",
+      "La communication de crise doit être différenciée selon la criticité de l'impact pour chaque client, plutôt qu'un message unique indifférencié."
+    ],
+    "rules": [
+      "Communiquer un premier message aux clients affectés dans un délai court après la détection de l'incident, même en l'absence de résolution ou de cause identifiée.",
+      "Distinguer explicitement dans la communication ce qui est confirmé de ce qui reste en cours d'investigation.",
+      "Prévoir une communication de clôture explicite une fois l'incident résolu, incluant les mesures prises pour éviter sa récurrence."
+    ],
+    "examples": [
+      {
+        "situation": "Un incident technique affecte temporairement la disponibilité d'ALFRED CPL pour plusieurs clients sans que la cause exacte ne soit encore identifiée.",
+        "recommended_behavior": "Communiquer rapidement un message reconnaissant l'incident, précisant ce qui est en cours d'investigation et le prochain point de communication prévu, plutôt que d'attendre d'avoir toutes les réponses avant de communiquer.",
+        "avoid": "Attendre la résolution complète de l'incident avant toute communication, laissant les clients sans information pendant la période la plus critique."
+      }
+    ],
+    "best_practices": [
+      "Préparer à l'avance des modèles de message de crise adaptables, pour réduire le délai de réaction lors d'un incident réel.",
+      "Prévoir un point de contact identifié pour les questions client pendant toute la durée de l'incident, plutôt qu'une communication uniquement descendante."
+    ],
+    "anti_patterns": [
+      "Minimiser la gravité perçue d'un incident dans la communication au risque de perdre en crédibilité si la réalité s'avère plus sévère.",
+      "Laisser un silence de communication prolongé pendant la phase d'investigation d'un incident, par crainte de communiquer une information incomplète."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["communication de crise", "incident", "transparence", "client"],
+    "related_domains": ["cpl", "risk_management"],
+    "related_knowledge": [
+      "cpl.operations_continuite.gestion_incidents_alfred_cpl",
+      "cpl.human_communication.gestion_attentes_client_projet",
+      "risk_management.crisis.crisis_management"
+    ],
+    "retrieval_priority": 7
+  },
+  "behavior_rules": {
+    "tone": "formal",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["préparation et diffusion d'une communication de crise vers les clients d'ALFRED CPL"],
+    "restricted_usage": [],
+    "forbidden_usage": ["diffuser une communication de crise minimisant délibérément la gravité réelle d'un incident"],
+    "fallback_behavior": "En cas d'incertitude sur l'ampleur réelle d'un incident, communiquer la fourchette d'impact connue plutôt que d'attendre une certitude complète avant toute communication."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "14/08/2026",
+    "last_update": "14/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

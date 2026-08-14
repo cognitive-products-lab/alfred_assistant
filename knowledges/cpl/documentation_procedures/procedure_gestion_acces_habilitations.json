@@ -1,0 +1,83 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.documentation_procedures.procedure_gestion_acces_habilitations",
+  "title": "Procédure de gestion des accès et habilitations d'ALFRED CPL",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "documentation_procedures",
+  "category": "procedure_operationnelle",
+  "summary": "Procédure standardisée de création, modification et révocation des accès utilisateurs d'ALFRED CPL (attribution de rôle, revue périodique des habilitations, procédure de départ), distincte du modèle Zero Trust déjà couvert côté product_platform qui pose le principe architectural sans détailler la procédure opérationnelle.",
+  "purpose": "Compléter documentation_procedures avec la procédure opérationnelle concrète de gestion du cycle de vie des accès, en articulation avec identity_access_zero_trust qui définit le modèle architectural sous-jacent.",
+  "tags": ["gestion_acces", "habilitation", "procedure", "cycle_de_vie_compte"],
+  "intents": ["gerer_cycle_vie_acces", "reviser_habilitations_periodiquement", "revoquer_acces_depart"],
+  "usage_context": [
+    "attribution d'un nouvel accès à ALFRED CPL pour un collaborateur ou un client",
+    "revue périodique des habilitations existantes pour détecter des accès obsolètes"
+  ],
+  "priority": "critical",
+  "safety_level": "high_risk",
+  "content": {
+    "definition": "La procédure de gestion des accès et habilitations est l'ensemble des étapes standardisées régissant la création, la modification, la revue périodique et la révocation des droits d'accès à ALFRED CPL, garantissant que chaque utilisateur ne dispose que des droits strictement nécessaires à son rôle et pour la durée nécessaire.",
+    "core_principles": [
+      "Un accès doit être attribué selon le principe du moindre privilège, limité strictement aux fonctions nécessaires au rôle de l'utilisateur.",
+      "Une habilitation attribuée doit avoir une durée de validité explicite ou une échéance de revue, plutôt qu'être considérée comme permanente par défaut.",
+      "La révocation d'un accès en fin de mission ou de contrat doit être un déclencheur automatique du processus de départ, jamais une action laissée à la seule initiative manuelle.",
+      "Une revue périodique des habilitations doit être menée même en l'absence de changement de personnel constaté, pour détecter les accès orphelins."
+    ],
+    "rules": [
+      "Formaliser toute attribution d'accès par une demande tracée associée à un rôle défini, jamais par une attribution informelle.",
+      "Déclencher automatiquement la révocation des accès lors de la clôture d'un contrat ou d'une mission.",
+      "Réaliser une revue périodique de l'ensemble des habilitations actives, y compris en l'absence de changement connu."
+    ],
+    "examples": [
+      {
+        "situation": "Un consultant externe termine sa mission sur un projet client géré via ALFRED CPL.",
+        "recommended_behavior": "Déclencher immédiatement la révocation de ses accès dans le cadre de la procédure de fin de mission, sans attendre une demande explicite ou une prochaine revue périodique.",
+        "avoid": "Laisser l'accès actif par défaut jusqu'à la prochaine revue périodique programmée, créant une fenêtre d'accès non justifiée."
+      }
+    ],
+    "best_practices": [
+      "Associer chaque compte à une date de revue programmée dès sa création plutôt que de compter uniquement sur une revue globale périodique.",
+      "Documenter la justification métier de chaque niveau d'habilitation attribué, pas seulement le rôle générique associé."
+    ],
+    "anti_patterns": [
+      "Attribuer des accès par défaut au niveau le plus large pour simplifier la gestion, à l'inverse du principe de moindre privilège.",
+      "Ne réviser les habilitations qu'à l'occasion d'un incident constaté, plutôt que selon une périodicité définie à l'avance."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["accès", "habilitation", "procédure", "révocation"],
+    "related_domains": ["cpl", "information_security"],
+    "related_knowledge": [
+      "cpl.product_platform.identity_access_zero_trust",
+      "information_security.identity_access_management",
+      "cpl.documentation_procedures.procedure_audit_conformite_periodique"
+    ],
+    "retrieval_priority": 8
+  },
+  "behavior_rules": {
+    "tone": "formal",
+    "response_style": "step_by_step",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["gestion procédurale des accès et habilitations d'ALFRED CPL"],
+    "restricted_usage": [],
+    "forbidden_usage": ["attribuer un accès sans demande tracée ni justification de rôle"],
+    "fallback_behavior": "En cas de doute sur la légitimité d'un accès existant lors d'une revue, le suspendre par défaut jusqu'à confirmation plutôt que de le maintenir actif."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "14/08/2026",
+    "last_update": "14/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

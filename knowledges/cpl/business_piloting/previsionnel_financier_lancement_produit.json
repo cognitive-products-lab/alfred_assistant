@@ -1,0 +1,83 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.business_piloting.previsionnel_financier_lancement_produit",
+  "title": "Prévisionnel financier de lancement produit pour ALFRED CPL",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "business_piloting",
+  "category": "pilotage_financier",
+  "summary": "Méthode de construction d'un prévisionnel financier de lancement produit (coûts de développement, coûts d'infrastructure, hypothèses de revenus, seuil de rentabilité) pour ALFRED CPL, distincte de l'analyse de coûts d'infrastructure déjà couverte et de la rentabilité par mission déjà pilotée.",
+  "purpose": "Compléter business_piloting avec la dimension prévisionnelle de lancement, en amont de la rentabilité déjà mesurée en régime établi (profitability_analysis) et distincte de l'analyse de coûts d'infrastructure seule (analyse_couts_infrastructure_ia_locale).",
+  "tags": ["previsionnel_financier", "lancement_produit", "seuil_rentabilite", "pilotage"],
+  "intents": ["construire_previsionnel_financier", "estimer_seuil_rentabilite_produit", "planifier_besoin_financement"],
+  "usage_context": [
+    "préparation du prévisionnel financier avant le lancement commercial d'ALFRED CPL",
+    "révision du prévisionnel après un premier retour d'usage réel du marché"
+  ],
+  "priority": "high",
+  "safety_level": "sensitive",
+  "content": {
+    "definition": "Le prévisionnel financier de lancement produit est la projection structurée des coûts (développement, infrastructure, commercialisation) et des hypothèses de revenus d'ALFRED CPL sur les premiers mois ou années suivant son lancement, permettant d'estimer le seuil de rentabilité et le besoin de financement associé.",
+    "core_principles": [
+      "Un prévisionnel financier de lancement doit distinguer explicitement les coûts fixes des coûts variables, ces derniers évoluant avec le volume de clients réellement acquis.",
+      "Les hypothèses de revenus doivent être présentées avec leur degré d'incertitude, un prévisionnel de lancement étant par nature plus incertain qu'un prévisionnel en régime établi.",
+      "Le seuil de rentabilité doit être exprimé en unités concrètes (nombre de clients, volume de licences) autant qu'en valeur monétaire, pour rester actionnable.",
+      "Un prévisionnel doit être révisé à intervalle rapproché en phase de lancement, la vitesse d'apprentissage sur les hypothèses initiales étant alors la plus élevée."
+    ],
+    "rules": [
+      "Distinguer explicitement coûts fixes et coûts variables dans toute construction de prévisionnel de lancement.",
+      "Documenter le degré d'incertitude de chaque hypothèse de revenu utilisée dans le prévisionnel.",
+      "Exprimer le seuil de rentabilité en unités opérationnelles concrètes en complément de sa valeur monétaire."
+    ],
+    "examples": [
+      {
+        "situation": "Le prévisionnel initial d'ALFRED CPL repose sur une hypothèse d'acquisition de clients qui s'avère significativement plus lente que prévu après les premiers mois de commercialisation.",
+        "recommended_behavior": "Réviser explicitement le prévisionnel avec les données réelles d'acquisition, recalculer le seuil de rentabilité actualisé et en tirer les implications sur le besoin de financement ou le rythme de dépense.",
+        "avoid": "Maintenir le prévisionnel initial inchangé malgré l'écart constaté, au risque de sous-estimer un besoin de financement réel."
+      }
+    ],
+    "best_practices": [
+      "Construire systématiquement un scénario prudent en complément du scénario central, plutôt qu'un unique jeu d'hypothèses optimiste.",
+      "Relier explicitement le prévisionnel financier aux hypothèses de pricing et de rentabilité par mission déjà documentées côté business_piloting."
+    ],
+    "anti_patterns": [
+      "Construire un prévisionnel de lancement sans scénario prudent alternatif, exposant à une sous-estimation du besoin de financement.",
+      "Ne jamais réviser le prévisionnel initial après les premiers résultats réels, perdant sa valeur de pilotage."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["prévisionnel", "financement", "seuil de rentabilité", "lancement"],
+    "related_domains": ["cpl", "professional"],
+    "related_knowledge": [
+      "cpl.business_piloting.profitability_analysis",
+      "cpl.business_piloting.analyse_couts_infrastructure_ia_locale",
+      "cpl.business_strategy.financial_modeling_basics"
+    ],
+    "retrieval_priority": 7
+  },
+  "behavior_rules": {
+    "tone": "formal",
+    "response_style": "structured_clear",
+    "max_complexity": "high",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["construction et révision d'un prévisionnel financier de lancement produit"],
+    "restricted_usage": ["utilisation du prévisionnel comme engagement financier ferme envers un tiers"],
+    "forbidden_usage": ["présenter un prévisionnel comme garanti ou certain"],
+    "fallback_behavior": "En cas d'hypothèse de revenu non étayée par une donnée réelle, la signaler explicitement comme hypothèse à valider plutôt que comme donnée acquise."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "14/08/2026",
+    "last_update": "14/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

@@ -1,0 +1,83 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "information_security.chiffrement_donnees_repos_transit",
+  "title": "Chiffrement des données au repos et en transit",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "information_security",
+  "subdomain": "information_security",
+  "category": "information_security",
+  "summary": "Présente les principes du chiffrement des données au repos (stockage) et en transit (réseau), deux protections complémentaires mais distinctes, souvent confondues alors qu'elles répondent à des menaces différentes et nécessitent des mécanismes différents.",
+  "purpose": "Compléter information_security avec un contrôle fondamental de protection des données non détaillé explicitement dans les fiches existantes (IAM, réponse aux incidents, Zero Trust, sensibilisation), bien que mentionné en filigrane dans plusieurs d'entre elles.",
+  "tags": ["chiffrement", "donnees_au_repos", "donnees_en_transit", "protection_donnees"],
+  "intents": ["expliquer_chiffrement_repos_transit", "distinguer_protection_stockage_reseau", "choisir_mecanisme_chiffrement"],
+  "usage_context": [
+    "conception de la protection des données stockées et transmises par un système",
+    "clarification de la différence entre chiffrement au repos et chiffrement en transit"
+  ],
+  "priority": "high",
+  "safety_level": "sensitive",
+  "content": {
+    "definition": "Le chiffrement des données au repos protège les données stockées (disque, base de données, sauvegarde) contre un accès non autorisé en cas de compromission du support physique ou logique, tandis que le chiffrement en transit protège les données lors de leur transmission sur un réseau contre une interception ou une altération, les deux étant nécessaires et non substituables l'un à l'autre.",
+    "core_principles": [
+      "Le chiffrement au repos protège contre le vol ou l'accès non autorisé à un support de stockage, mais ne protège en rien les données une fois en transit sur un réseau non chiffré.",
+      "Le chiffrement en transit (par exemple TLS) protège contre l'interception réseau, mais ne protège pas les données une fois stockées sur un support compromis.",
+      "La gestion des clés de chiffrement est aussi critique que l'algorithme utilisé : un chiffrement fort avec une clé mal protégée offre une protection illusoire.",
+      "Le chiffrement ne dispense jamais des autres contrôles de sécurité (contrôle d'accès, journalisation) : il constitue une couche de défense complémentaire, pas une protection suffisante à elle seule."
+    ],
+    "rules": [
+      "Chiffrer systématiquement les données sensibles à la fois au repos et en transit, ces deux protections n'étant pas substituables.",
+      "Séparer la gestion des clés de chiffrement du stockage des données elles-mêmes, pour éviter qu'une même compromission n'expose les deux simultanément.",
+      "Utiliser des protocoles et algorithmes de chiffrement à jour et reconnus, en évitant les implémentations obsolètes ou dépréciées."
+    ],
+    "examples": [
+      {
+        "situation": "Un système chiffre correctement les données stockées en base mais transmet ces mêmes données sur le réseau interne sans chiffrement, considéré comme suffisamment sûr.",
+        "recommended_behavior": "Chiffrer également les données en transit sur le réseau interne, un réseau interne n'étant pas à l'abri d'une interception en cas de compromission d'un composant du réseau lui-même.",
+        "avoid": "Considérer que le chiffrement au repos suffit à protéger des données également transmises en clair, en présumant à tort la sécurité intrinsèque du réseau interne."
+      }
+    ],
+    "best_practices": [
+      "Documenter explicitement quelles données sont chiffrées au repos, en transit, ou les deux, pour éviter une fausse impression de protection homogène.",
+      "Auditer périodiquement la robustesse des algorithmes et protocoles de chiffrement utilisés, ces standards évoluant avec le temps."
+    ],
+    "anti_patterns": [
+      "Confondre chiffrement au repos et chiffrement en transit en présumant que l'un dispense de l'autre.",
+      "Stocker les clés de chiffrement au même endroit que les données qu'elles protègent, annulant l'essentiel du bénéfice du chiffrement en cas de compromission."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["chiffrement", "données au repos", "données en transit", "clés"],
+    "related_domains": ["information_security", "cpl"],
+    "related_knowledge": [
+      "information_security.information_security_basics",
+      "cpl.product_platform.data_protection_hosting",
+      "cpl.product_platform.security_by_design_default"
+    ],
+    "retrieval_priority": 7
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["explication et conception de mécanismes de chiffrement des données"],
+    "restricted_usage": [],
+    "forbidden_usage": ["recommandation d'algorithmes de chiffrement obsolètes ou reconnus comme vulnérables"],
+    "fallback_behavior": "En cas de doute sur le niveau de chiffrement approprié à une donnée, recommander le niveau de protection le plus élevé compatible avec l'usage."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "14/08/2026",
+    "last_update": "14/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

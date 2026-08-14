@@ -1,0 +1,83 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "human.cognition.cout_changement_contexte_task_switching",
+  "title": "Le coût cognitif du changement de contexte (task switching)",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "human",
+  "subdomain": "cognition",
+  "category": "gestion_attention",
+  "summary": "Explique le coût cognitif réel du changement fréquent de tâche (task switching), souvent confondu à tort avec le multitâche productif, et propose des repères pour qu'ALFRED aide l'utilisateur à regrouper ses tâches similaires plutôt que de les alterner sans discernement.",
+  "purpose": "Compléter human.cognition avec un mécanisme distinct de la charge cognitive globale déjà couverte (cognitive_load) et de la gestion du focus (focus_management), ici centré spécifiquement sur le coût du basculement entre tâches plutôt que sur la charge ou l'attention en elles-mêmes.",
+  "tags": ["task_switching", "changement_contexte", "multitache", "attention"],
+  "intents": ["expliquer_cout_changement_tache", "regrouper_taches_similaires", "reduire_basculement_frequent"],
+  "usage_context": [
+    "un utilisateur alterne fréquemment entre des tâches très différentes au cours de sa journée",
+    "explication de pourquoi le multitâche perçu comme efficace dégrade en réalité la performance"
+  ],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "Le coût cognitif du changement de contexte, ou task switching, désigne le temps et l'énergie mentale nécessaires pour désengager l'attention d'une tâche et la réengager pleinement sur une autre, un coût réel et mesurable qui n'est jamais nul même lors d'un basculement perçu comme rapide.",
+    "core_principles": [
+      "Le multitâche simultané perçu (faire deux choses à la fois) est en réalité, dans la grande majorité des tâches cognitives complexes, une alternance rapide entre tâches, chaque bascule ayant un coût réel non nul.",
+      "Le coût de bascule est plus élevé entre tâches de nature très différente (créative puis administrative) qu'entre tâches de nature similaire.",
+      "Après un changement de tâche, une partie de l'attention reste engagée sur la tâche précédente pendant un temps mesurable, phénomène parfois appelé résidu d'attention.",
+      "Regrouper les tâches similaires (traitement des messages, tâches administratives) en blocs dédiés réduit significativement le coût cumulé de bascule sur une journée."
+    ],
+    "rules": [
+      "Encourager le regroupement de tâches de nature similaire en blocs dédiés plutôt que leur alternance dispersée tout au long de la journée.",
+      "Signaler que la perception subjective d'efficacité du multitâche ne correspond généralement pas à la performance réelle mesurée sur des tâches cognitives complexes.",
+      "Prendre en compte la nature des tâches (similaire versus très différente) avant de recommander un regroupement, l'effet de bascule variant selon ce critère."
+    ],
+    "examples": [
+      {
+        "situation": "Un utilisateur alterne toute la journée entre rédaction de documents complexes et réponse ponctuelle à des messages, en se sentant productif.",
+        "recommended_behavior": "Expliquer le coût cumulé de ces bascules fréquentes et proposer de regrouper le traitement des messages en deux ou trois créneaux dédiés plutôt qu'en continu, pour préserver des blocs de concentration ininterrompus sur la rédaction.",
+        "avoid": "Valider la perception de productivité de l'utilisateur sans questionner le coût réel du changement fréquent de contexte qu'elle dissimule."
+      }
+    ],
+    "best_practices": [
+      "Identifier les tâches les plus coûteuses à interrompre (créatives, analytiques complexes) pour leur réserver en priorité des blocs de temps protégés.",
+      "Prévoir un court sas de transition entre deux blocs de tâches très différentes plutôt qu'un basculement immédiat."
+    ],
+    "anti_patterns": [
+      "Présenter le multitâche comme une compétence à développer plutôt que comme une source de coût cognitif à limiter.",
+      "Recommander un regroupement de tâches sans tenir compte de leur nature, alors que l'effet de bascule diffère fortement selon la similarité des tâches concernées."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["task switching", "changement de contexte", "multitâche", "attention"],
+    "related_domains": ["human", "cognition"],
+    "related_knowledge": [
+      "human.cognition.focus_management",
+      "human.cognition.cognitive_load",
+      "human.wellbeing.attention_management_support"
+    ],
+    "retrieval_priority": 6
+  },
+  "behavior_rules": {
+    "tone": "educational",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["explication du coût cognitif du changement de tâche et accompagnement de son organisation"],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "En cas de contrainte professionnelle imposant réellement des interruptions fréquentes non évitables, adapter la recommandation vers une réduction du coût plutôt qu'une élimination irréaliste des bascules."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "14/08/2026",
+    "last_update": "14/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

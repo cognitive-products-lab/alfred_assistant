@@ -1,0 +1,83 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.documentation_procedures.procedure_audit_conformite_periodique",
+  "title": "Procédure d'audit de conformité périodique d'ALFRED CPL",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "documentation_procedures",
+  "category": "procedure_operationnelle",
+  "summary": "Procédure standardisée d'audit périodique de conformité technique et documentaire d'ALFRED CPL (vérification des procédures à jour, cohérence de la documentation, conformité RGPD opérationnelle), distincte de l'audit éthique du comportement déjà couvert côté ethics_governance.",
+  "purpose": "Compléter documentation_procedures avec une procédure d'audit de conformité documentaire et technique, distincte de l'audit éthique du comportement (audit_ethique_periodique_alfred_cpl) qui porte sur les réponses produites plutôt que sur l'état de la documentation et des procédures elles-mêmes.",
+  "tags": ["audit_conformite", "procedure", "documentation", "revue_periodique"],
+  "intents": ["planifier_audit_conformite", "verifier_documentation_a_jour", "detecter_ecart_procedure"],
+  "usage_context": [
+    "revue périodique de la conformité documentaire et procédurale d'ALFRED CPL",
+    "préparation d'un audit externe ou d'une certification nécessitant une documentation à jour"
+  ],
+  "priority": "high",
+  "safety_level": "sensitive",
+  "content": {
+    "definition": "La procédure d'audit de conformité périodique est le processus récurrent de vérification que l'ensemble des procédures documentées d'ALFRED CPL (installation, déploiement, gestion des accès, sauvegarde) reflètent fidèlement les pratiques réellement en vigueur, et que la documentation reste cohérente avec les évolutions techniques du produit.",
+    "core_principles": [
+      "Une procédure documentée qui ne correspond plus à la pratique réelle est une source de risque plus grande qu'une absence totale de documentation, car elle crée une fausse confiance.",
+      "L'audit de conformité documentaire doit être mené par une personne distincte de celle ayant rédigé ou mis à jour la procédure concernée, pour limiter le biais de confirmation.",
+      "La fréquence de l'audit doit être adaptée à la vitesse d'évolution du produit : une procédure liée à un composant récemment modifié doit être vérifiée plus fréquemment.",
+      "Un écart détecté entre procédure documentée et pratique réelle doit être corrigé dans la documentation ou dans la pratique, jamais laissé sans arbitrage explicite."
+    ],
+    "rules": [
+      "Vérifier à chaque audit que chaque procédure documentée correspond à la pratique réellement en vigueur, pas seulement à sa cohérence interne.",
+      "Faire réaliser l'audit par une personne distincte de l'auteur de la procédure auditée lorsque les ressources le permettent.",
+      "Documenter et tracer tout écart détecté ainsi que la décision prise pour le résoudre (mise à jour de la procédure ou correction de la pratique)."
+    ],
+    "examples": [
+      {
+        "situation": "Un audit périodique révèle que la procédure de sauvegarde documentée ne mentionne pas une étape de vérification d'intégrité récemment ajoutée en pratique.",
+        "recommended_behavior": "Mettre à jour la documentation pour refléter la pratique réelle et tracer explicitement la correction apportée lors de l'audit.",
+        "avoid": "Considérer l'écart comme mineur et ne pas le corriger, laissant la documentation diverger progressivement de la pratique réelle."
+      }
+    ],
+    "best_practices": [
+      "Tenir un registre des audits de conformité réalisés avec leurs constats, pour permettre le suivi de la récurrence d'un même type d'écart.",
+      "Prioriser l'audit des procédures les plus critiques (sécurité, sauvegarde, accès) en cas de ressources limitées pour couvrir l'ensemble."
+    ],
+    "anti_patterns": [
+      "Réaliser l'audit de conformité en se limitant à relire la documentation sans vérifier la pratique réelle sur le terrain.",
+      "Laisser un écart documenté sans arbitrage explicite, ni correction de la documentation ni correction de la pratique."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["audit", "conformité", "documentation", "procédure"],
+    "related_domains": ["cpl", "professional"],
+    "related_knowledge": [
+      "cpl.ethics_governance.audit_ethique_periodique_alfred_cpl",
+      "cpl.documentation_procedures.procedure_tests_qualite_alfred_cpl",
+      "professional.governance_ai.ai_auditability"
+    ],
+    "retrieval_priority": 7
+  },
+  "behavior_rules": {
+    "tone": "formal",
+    "response_style": "step_by_step",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["planification et documentation de l'audit de conformité périodique d'ALFRED CPL"],
+    "restricted_usage": [],
+    "forbidden_usage": ["présenter un audit non réalisé comme effectué"],
+    "fallback_behavior": "En cas d'audit non réalisé dans les délais prévus, le signaler explicitement comme retard plutôt que de présumer la conformité."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "14/08/2026",
+    "last_update": "14/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

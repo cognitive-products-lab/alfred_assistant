@@ -1,0 +1,83 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.business_piloting.suivi_indicateurs_satisfaction_client",
+  "title": "Suivi des indicateurs de satisfaction client pour ALFRED CPL",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "business_piloting",
+  "category": "pilotage_client",
+  "summary": "Cadre de sélection et de suivi d'indicateurs de satisfaction client (NPS, taux de renouvellement, signaux qualitatifs) pour ALFRED CPL, complémentaire au tableau de bord croisant KPI produit/financier/client déjà existant, ici centré spécifiquement sur la dimension satisfaction.",
+  "purpose": "Approfondir la dimension satisfaction client du tableau de bord de pilotage déjà existant (tableau_bord_pilotage_kpi_alfred_cpl), qui la mentionne parmi d'autres indicateurs sans détailler sa méthode de suivi propre.",
+  "tags": ["satisfaction_client", "nps", "indicateurs", "pilotage"],
+  "intents": ["suivre_satisfaction_client", "interpreter_indicateur_nps", "detecter_signal_insatisfaction"],
+  "usage_context": [
+    "mise en place d'un suivi régulier de la satisfaction des clients d'ALFRED CPL",
+    "interprétation d'une baisse d'un indicateur de satisfaction pour en identifier la cause"
+  ],
+  "priority": "high",
+  "safety_level": "normal",
+  "content": {
+    "definition": "Le suivi des indicateurs de satisfaction client est le processus de sélection, de mesure régulière et d'interprétation d'indicateurs quantitatifs (comme le Net Promoter Score, le taux de renouvellement) et qualitatifs (verbatims, retours spontanés) permettant de détecter précocement une évolution de la satisfaction des clients d'ALFRED CPL.",
+    "core_principles": [
+      "Un indicateur quantitatif isolé comme le NPS ne révèle pas sa cause : il doit systématiquement être complété par un suivi qualitatif pour rester actionnable.",
+      "La fréquence de mesure de la satisfaction doit être suffisante pour détecter une tendance sans pour autant solliciter excessivement les clients.",
+      "Une baisse d'indicateur de satisfaction chez un petit nombre de clients à fort enjeu peut être plus significative qu'une moyenne stable sur un ensemble large.",
+      "La satisfaction déclarée et la satisfaction révélée par le comportement (renouvellement, recommandation effective) peuvent diverger et doivent être croisées."
+    ],
+    "rules": [
+      "Compléter systématiquement tout indicateur quantitatif de satisfaction par une collecte qualitative permettant d'en comprendre la cause.",
+      "Suivre la satisfaction à un niveau suffisamment fin pour détecter une dégradation chez un client à fort enjeu, pas seulement en moyenne agrégée.",
+      "Croiser la satisfaction déclarée avec des indicateurs comportementaux (renouvellement, usage effectif) pour valider sa fiabilité."
+    ],
+    "examples": [
+      {
+        "situation": "Le NPS moyen des clients d'ALFRED CPL reste stable, mais un client stratégique de longue date exprime une insatisfaction croissante lors des échanges informels.",
+        "recommended_behavior": "Considérer ce signal qualitatif comme prioritaire malgré la stabilité de la moyenne agrégée, et engager une clarification ciblée avec ce client avant qu'un renouvellement ne soit compromis.",
+        "avoid": "Se rassurer sur la stabilité de la moyenne globale sans investiguer un signal qualitatif fort concernant un client stratégique isolé."
+      }
+    ],
+    "best_practices": [
+      "Documenter systématiquement les verbatims clients associés à chaque mesure quantitative de satisfaction, pour permettre une analyse de cause a posteriori.",
+      "Définir à l'avance un seuil d'alerte déclenchant une investigation qualitative immédiate plutôt que d'attendre la prochaine mesure périodique."
+    ],
+    "anti_patterns": [
+      "Se limiter au suivi d'un indicateur quantitatif agrégé sans jamais l'associer à une analyse qualitative de cause.",
+      "Solliciter excessivement les clients pour des mesures de satisfaction répétées, générant une lassitude qui biaise les réponses obtenues."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["satisfaction", "NPS", "indicateur", "client"],
+    "related_domains": ["cpl", "professional"],
+    "related_knowledge": [
+      "cpl.business_piloting.tableau_bord_pilotage_kpi_alfred_cpl",
+      "cpl.business_strategy.customer_retention",
+      "cpl.human_communication.gestion_attentes_client_projet"
+    ],
+    "retrieval_priority": 7
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["suivi et interprétation d'indicateurs de satisfaction client d'ALFRED CPL"],
+    "restricted_usage": [],
+    "forbidden_usage": ["dissimuler une dégradation de satisfaction client dans un reporting agrégé trompeur"],
+    "fallback_behavior": "En cas de signal qualitatif contradictoire avec l'indicateur quantitatif agrégé, prioriser l'investigation du signal qualitatif plutôt que de le négliger."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "14/08/2026",
+    "last_update": "14/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

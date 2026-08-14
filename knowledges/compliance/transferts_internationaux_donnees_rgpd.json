@@ -1,0 +1,83 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "compliance.transferts_internationaux_donnees_rgpd",
+  "title": "Transferts internationaux de données personnelles sous le RGPD",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "compliance",
+  "subdomain": "compliance",
+  "category": "compliance",
+  "summary": "Présente le régime spécifique des transferts de données personnelles hors de l'Union européenne sous le RGPD (décisions d'adéquation, clauses contractuelles types, garanties appropriées), un volet distinct du RGPD opérationnel déjà couvert qui traite des principes généraux sans détailler ce mécanisme spécifique.",
+  "purpose": "Compléter compliance avec le régime spécifique des transferts internationaux, distinct de rgpd_compliance_operationnel qui couvre les principes généraux du RGPD (finalité, minimisation, droits des personnes) sans détailler ce mécanisme à part entière du chapitre V du règlement.",
+  "tags": ["transfert_international_donnees", "rgpd", "clauses_contractuelles_types", "decision_adequation"],
+  "intents": ["expliquer_transfert_international_donnees", "choisir_mecanisme_transfert_rgpd", "verifier_garantie_transfert_hors_ue"],
+  "usage_context": [
+    "évaluation de la conformité d'un transfert de données personnelles vers un pays hors Union européenne",
+    "choix du mécanisme juridique approprié pour encadrer un transfert international de données"
+  ],
+  "priority": "high",
+  "safety_level": "sensitive",
+  "content": {
+    "definition": "Le régime des transferts internationaux de données personnelles sous le RGPD encadre tout transfert de données personnelles vers un pays situé hors de l'Espace économique européen, en exigeant soit une décision d'adéquation reconnaissant un niveau de protection équivalent, soit la mise en place de garanties appropriées (clauses contractuelles types, règles d'entreprise contraignantes), soit le recours à une dérogation limitée pour des situations spécifiques.",
+    "core_principles": [
+      "Une décision d'adéquation, lorsqu'elle existe pour un pays donné, dispense de toute garantie contractuelle supplémentaire, mais elle n'est ni universelle ni permanente et peut être révisée ou invalidée.",
+      "Les clauses contractuelles types sont le mécanisme de garantie le plus fréquemment utilisé en l'absence de décision d'adéquation, mais leur seule signature ne suffit pas : une évaluation de l'effectivité de la protection dans le pays destinataire est également requise.",
+      "Un transfert international de données ne se limite pas à un envoi physique explicite : l'accès à des données depuis un pays tiers, y compris par un sous-traitant, constitue également un transfert au sens du règlement.",
+      "Les dérogations prévues pour des situations spécifiques (consentement explicite, exécution d'un contrat) doivent rester d'interprétation stricte et ne pas être utilisées comme un contournement systématique du régime général."
+    ],
+    "rules": [
+      "Identifier systématiquement tout transfert de données personnelles vers un pays hors Espace économique européen, y compris les accès indirects par un sous-traitant situé dans un pays tiers.",
+      "Vérifier l'existence d'une décision d'adéquation applicable avant de recourir à un autre mécanisme de garantie, cette dernière dispensant de démarches supplémentaires.",
+      "Documenter, en complément de la signature de clauses contractuelles types, une évaluation de l'effectivité réelle de la protection offerte dans le pays destinataire du transfert."
+    ],
+    "examples": [
+      {
+        "situation": "Une organisation utilise un service cloud dont le sous-traitant technique est situé dans un pays sans décision d'adéquation, sans avoir identifié ce transfert comme relevant du régime spécifique des transferts internationaux.",
+        "recommended_behavior": "Identifier explicitement ce transfert indirect, vérifier l'existence de clauses contractuelles types avec le sous-traitant concerné et documenter une évaluation de l'effectivité de la protection offerte dans le pays destinataire.",
+        "avoid": "Considérer qu'un transfert de données réalisé indirectement par un sous-traitant technique échappe au régime des transferts internationaux du seul fait de son caractère indirect."
+      }
+    ],
+    "best_practices": [
+      "Cartographier l'ensemble des flux de données personnelles, y compris indirects via des sous-traitants, pour identifier tous les transferts internationaux réellement concernés.",
+      "Suivre l'évolution des décisions d'adéquation et de la jurisprudence applicable, ce régime étant sujet à des évolutions significatives dans le temps."
+    ],
+    "anti_patterns": [
+      "Se limiter à la signature de clauses contractuelles types sans évaluation complémentaire de l'effectivité réelle de la protection offerte dans le pays destinataire.",
+      "Ignorer les transferts internationaux indirects réalisés par un sous-traitant, en se concentrant uniquement sur les transferts directs et explicites."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["transfert international de données", "RGPD", "clauses contractuelles types"],
+    "related_domains": ["compliance", "cpl"],
+    "related_knowledge": [
+      "compliance.rgpd_compliance_operationnel",
+      "compliance.data_protection_law",
+      "cpl.product_platform.data_protection_hosting"
+    ],
+    "retrieval_priority": 7
+  },
+  "behavior_rules": {
+    "tone": "formal",
+    "response_style": "structured_clear",
+    "max_complexity": "high",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["explication générale du régime des transferts internationaux de données personnelles"],
+    "restricted_usage": ["situations nécessitant une analyse juridique spécifique d'un transfert donné"],
+    "forbidden_usage": ["fournir un avis juridique engageant en lieu et place d'un délégué à la protection des données ou d'un professionnel du droit qualifié"],
+    "fallback_behavior": "En cas de transfert international de données identifié sans mécanisme de garantie clair, recommander une analyse par un délégué à la protection des données avant toute poursuite du transfert."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "14/08/2026",
+    "last_update": "14/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}
