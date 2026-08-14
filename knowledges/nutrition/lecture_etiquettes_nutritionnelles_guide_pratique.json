@@ -1,0 +1,83 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "nutrition.etiquetage.lecture_etiquettes_nutritionnelles_guide_pratique",
+  "title": "Lire et comprendre les étiquettes nutritionnelles",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "nutrition",
+  "subdomain": "etiquetage",
+  "category": "nutrition",
+  "summary": "Guide pratique de lecture des étiquettes nutritionnelles (liste d'ingrédients, valeurs pour 100g, Nutri-Score) pour aider un utilisateur à comparer des produits de façon éclairée, complémentaire aux fiches déjà existantes sur les macronutriments et micronutriments qui expliquent le contenu sans détailler sa lecture pratique sur un emballage réel.",
+  "purpose": "Compléter nutrition avec une compétence pratique directement actionnable au moment des courses, absente des fiches existantes plus théoriques (macronutriments, micronutriments, microbiote) qui n'expliquent pas la lecture concrète d'un étiquetage.",
+  "tags": ["etiquette_nutritionnelle", "nutriscore", "liste_ingredients", "guide_pratique"],
+  "intents": ["lire_etiquette_nutritionnelle", "comparer_produits_alimentaires", "comprendre_nutriscore"],
+  "usage_context": [
+    "comparaison de deux produits alimentaires similaires à partir de leurs étiquettes",
+    "explication de la signification d'un indicateur d'étiquetage comme le Nutri-Score"
+  ],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "La lecture des étiquettes nutritionnelles est la capacité à interpréter les informations réglementaires figurant sur un emballage alimentaire (liste d'ingrédients par ordre décroissant de quantité, valeurs nutritionnelles pour 100g ou 100ml, indicateurs synthétiques comme le Nutri-Score) pour comparer objectivement des produits plutôt que de se fier au seul discours marketing de l'emballage.",
+    "core_principles": [
+      "La liste d'ingrédients est classée par ordre décroissant de quantité : les premiers ingrédients cités représentent la plus grande part du produit, information souvent plus révélatrice que le discours marketing associé.",
+      "Comparer des valeurs nutritionnelles nécessite de le faire à quantité équivalente (généralement pour 100g), une comparaison à la portion pouvant induire en erreur si les portions de référence diffèrent entre produits.",
+      "Un indicateur synthétique comme le Nutri-Score offre une comparaison rapide mais résumée : il ne dispense pas d'une lecture de la liste d'ingrédients pour des besoins ou préoccupations spécifiques (allergènes, additifs).",
+      "Les allégations marketing figurant en évidence sur l'emballage (léger, naturel, sans sucre ajouté) ont des définitions réglementaires précises qui peuvent différer de leur perception intuitive par le consommateur."
+    ],
+    "rules": [
+      "Comparer systématiquement les valeurs nutritionnelles à quantité équivalente (pour 100g ou 100ml) plutôt qu'à la portion, ces dernières n'étant pas standardisées entre produits.",
+      "Consulter la liste d'ingrédients en complément de tout indicateur synthétique pour vérifier la présence d'éléments spécifiquement recherchés ou évités.",
+      "Ne pas se fier uniquement à une allégation marketing en façade sans vérifier sa correspondance avec les valeurs nutritionnelles détaillées au dos de l'emballage."
+    ],
+    "examples": [
+      {
+        "situation": "Un utilisateur compare deux produits similaires en se basant uniquement sur la mention 'léger' figurant sur l'un des deux emballages.",
+        "recommended_behavior": "Comparer les valeurs nutritionnelles réelles pour une quantité équivalente sur les deux emballages plutôt que de se fier à la seule allégation marketing, qui peut porter sur un seul critère (matières grasses) sans refléter l'ensemble du profil nutritionnel.",
+        "avoid": "Se fier uniquement à une allégation marketing en façade sans vérifier les valeurs nutritionnelles détaillées correspondantes."
+      }
+    ],
+    "best_practices": [
+      "Vérifier la position des ingrédients d'intérêt particulier (sucre, matières grasses) dans la liste ordonnée plutôt que leur seule présence.",
+      "Utiliser un indicateur synthétique comme point de départ rapide, puis approfondir par la liste d'ingrédients pour un besoin spécifique (allergène, régime particulier)."
+    ],
+    "anti_patterns": [
+      "Comparer des valeurs nutritionnelles à la portion entre deux produits dont les portions de référence diffèrent, faussant la comparaison.",
+      "Se limiter à la lecture d'un indicateur synthétique sans jamais consulter la liste d'ingrédients pour des besoins spécifiques."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["étiquette nutritionnelle", "Nutri-Score", "liste d'ingrédients"],
+    "related_domains": ["nutrition"],
+    "related_knowledge": [
+      "nutrition.macronutrients_deep",
+      "nutrition.micronutrients_vitamins",
+      "nutrition.dietary_patterns"
+    ],
+    "retrieval_priority": 5
+  },
+  "behavior_rules": {
+    "tone": "educational",
+    "response_style": "structured_clear",
+    "max_complexity": "low",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["explication de la lecture des étiquettes nutritionnelles à des fins informatives"],
+    "restricted_usage": ["recommandations alimentaires personnalisées liées à une pathologie"],
+    "forbidden_usage": ["diagnostic ou prescription nutritionnelle médicale"],
+    "fallback_behavior": "En cas de besoin nutritionnel lié à une pathologie ou allergie sévère, orienter vers un professionnel de santé plutôt que de fournir une recommandation personnalisée."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "14/08/2026",
+    "last_update": "14/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

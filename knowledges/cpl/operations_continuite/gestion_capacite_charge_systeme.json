@@ -1,0 +1,83 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.operations_continuite.gestion_capacite_charge_systeme",
+  "title": "Gestion de la capacité et de la charge système d'ALFRED CPL",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "operations_continuite",
+  "category": "continuite_operationnelle",
+  "summary": "Méthode d'anticipation et de dimensionnement de la capacité système d'ALFRED CPL (ressources de calcul local, montée en charge progressive) pour éviter la dégradation de service sous forte sollicitation, distincte de la haute disponibilité déjà couverte qui traite de la résistance à la panne plutôt que du dimensionnement de charge.",
+  "purpose": "Compléter operations_continuite avec le volet capacité/dimensionnement, distinct de haute_disponibilite_alfred_cpl (résilience aux pannes) et de resilience_architecture_alfred_cpl (résilience architecturale), ici centré sur l'anticipation de la charge normale et de ses pics.",
+  "tags": ["capacite", "charge_systeme", "dimensionnement", "continuite"],
+  "intents": ["dimensionner_capacite_systeme", "anticiper_pic_charge", "surveiller_saturation_ressources"],
+  "usage_context": [
+    "dimensionnement des ressources locales nécessaires à ALFRED CPL avant une montée en charge prévisible",
+    "détection d'une saturation progressive des ressources système en usage normal"
+  ],
+  "priority": "high",
+  "safety_level": "normal",
+  "content": {
+    "definition": "La gestion de la capacité et de la charge système est le processus d'anticipation, de dimensionnement et de surveillance des ressources nécessaires au fonctionnement fluide d'ALFRED CPL (calcul local, mémoire, stockage) face à sa charge d'usage normale et à ses pics prévisibles, distincte de la résistance aux pannes.",
+    "core_principles": [
+      "Le dimensionnement de la capacité doit anticiper la charge future prévisible, pas seulement répondre à la charge actuelle constatée.",
+      "Une dégradation progressive de performance sous charge croissante est un signal d'alerte à traiter avant qu'elle n'atteigne un seuil de rupture de service.",
+      "Le contexte local-first d'ALFRED CPL impose des contraintes de capacité différentes d'une architecture cloud élastique : le dimensionnement doit intégrer cette limite structurelle.",
+      "Un pic de charge ponctuel prévisible (ex. usage simultané renforcé) doit être anticipé différemment d'une croissance progressive de la charge de fond."
+    ],
+    "rules": [
+      "Surveiller en continu les indicateurs de saturation des ressources critiques (calcul, mémoire, stockage) plutôt qu'en réaction à un incident déjà survenu.",
+      "Dimensionner la capacité en anticipant la croissance d'usage prévisible sur un horizon défini, pas seulement la charge actuelle.",
+      "Documenter les limites de capacité connues du contexte local-first pour éviter une promesse de performance non tenable en pratique."
+    ],
+    "examples": [
+      {
+        "situation": "Le temps de réponse d'ALFRED CPL se dégrade progressivement à mesure que le volume de mémoire long terme stockée localement augmente.",
+        "recommended_behavior": "Détecter cette dégradation progressive via une surveillance continue des indicateurs de performance, et ajuster le dimensionnement ou les mécanismes d'archivage avant qu'elle n'affecte l'expérience utilisateur.",
+        "avoid": "Attendre qu'un utilisateur signale une lenteur perceptible avant d'investiguer une dégradation de capacité déjà en cours depuis un certain temps."
+      }
+    ],
+    "best_practices": [
+      "Définir des seuils d'alerte de saturation en amont du seuil de dégradation perceptible par l'utilisateur, pour agir de façon préventive.",
+      "Documenter explicitement les limites de capacité du contexte local-first dans la communication produit, pour aligner les attentes utilisateur avec la réalité technique."
+    ],
+    "anti_patterns": [
+      "Dimensionner la capacité uniquement sur la base de la charge actuelle sans anticipation de sa croissance prévisible.",
+      "Confondre gestion de la capacité et haute disponibilité, en traitant les deux comme un seul et même sujet alors qu'ils répondent à des risques différents."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["capacité", "charge", "dimensionnement", "performance"],
+    "related_domains": ["cpl", "professional"],
+    "related_knowledge": [
+      "cpl.operations_continuite.haute_disponibilite_alfred_cpl",
+      "cpl.operations_continuite.resilience_architecture_alfred_cpl",
+      "cpl.operations_continuite.supervision_systeme_alfred_cpl"
+    ],
+    "retrieval_priority": 7
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["dimensionnement et surveillance de la capacité système d'ALFRED CPL"],
+    "restricted_usage": [],
+    "forbidden_usage": ["promettre un niveau de performance non compatible avec les contraintes réelles du contexte local-first"],
+    "fallback_behavior": "En cas d'incertitude sur la capacité disponible face à une charge prévisible, privilégier une estimation prudente plutôt qu'optimiste dans la communication produit."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "14/08/2026",
+    "last_update": "14/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

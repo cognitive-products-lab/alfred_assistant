@@ -1,0 +1,83 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "data_management.regles_validation_donnees_qualite_operationnelle",
+  "title": "Règles de validation des données et qualité opérationnelle",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "data_management",
+  "subdomain": "data_management",
+  "category": "data_management",
+  "summary": "Présente la conception et la mise en œuvre de règles métier de validation des données (complétude, format, cohérence inter-champs) comme mécanisme opérationnel de qualité, distinct des principes généraux de qualité des données déjà couverts qui restent au niveau conceptuel.",
+  "purpose": "Compléter data_management avec le niveau opérationnel de la qualité des données, distinct de data_quality_fundamentals qui pose les principes généraux (exactitude, complétude, cohérence) sans détailler la conception concrète des règles de validation qui les mettent en œuvre.",
+  "tags": ["validation_donnees", "regle_metier", "qualite_operationnelle", "controle_donnees"],
+  "intents": ["concevoir_regle_validation_donnees", "controler_qualite_donnees_entree", "detecter_anomalie_donnees"],
+  "usage_context": [
+    "conception de règles métier de validation pour un flux de données entrant",
+    "détection d'une anomalie de qualité de données non couverte par les règles de validation existantes"
+  ],
+  "priority": "high",
+  "safety_level": "normal",
+  "content": {
+    "definition": "Les règles de validation des données sont des contrôles opérationnels explicites (format, complétude, plage de valeurs, cohérence entre champs liés) appliqués systématiquement aux données entrantes ou existantes pour détecter et prévenir les anomalies, traduisant concrètement les principes généraux de qualité des données en mécanismes vérifiables et automatisables.",
+    "core_principles": [
+      "Une règle de validation doit être appliquée le plus en amont possible du cycle de vie de la donnée, une anomalie détectée tardivement étant plus coûteuse à corriger et pouvant déjà avoir propagé des erreurs dans des traitements en aval.",
+      "Les règles de cohérence inter-champs (par exemple une date de fin postérieure à une date de début) sont souvent plus révélatrices d'anomalies réelles que les seules règles de format appliquées champ par champ isolément.",
+      "Une règle de validation trop stricte génère des faux rejets de données valides, tandis qu'une règle trop permissive laisse passer des anomalies réelles : le calibrage doit être itératif et documenté.",
+      "Les règles de validation doivent évoluer avec le métier qu'elles servent, une règle figée devenant progressivement obsolète ou inadaptée à mesure que les besoins évoluent."
+    ],
+    "rules": [
+      "Appliquer les règles de validation le plus en amont possible du flux de données, avant toute propagation vers des traitements ou systèmes en aval.",
+      "Combiner systématiquement des règles de format simples avec des règles de cohérence inter-champs plus complexes pour une détection plus complète des anomalies.",
+      "Documenter et réviser périodiquement les règles de validation existantes à la lumière des faux positifs et faux négatifs constatés en usage réel."
+    ],
+    "examples": [
+      {
+        "situation": "Un flux de données entrant contient des enregistrements dont la date de fin est antérieure à la date de début, non détectés par des règles de validation limitées au seul format de chaque champ pris isolément.",
+        "recommended_behavior": "Ajouter une règle de cohérence inter-champs vérifiant explicitement la relation logique entre date de début et date de fin, en complément des règles de format déjà en place.",
+        "avoid": "Se limiter à des règles de validation par champ isolé sans jamais vérifier la cohérence logique entre champs liés d'un même enregistrement."
+      }
+    ],
+    "best_practices": [
+      "Prioriser la conception des règles de validation sur les champs identifiés comme critiques pour les décisions ou traitements en aval, plutôt que de viser une exhaustivité uniforme sur l'ensemble des champs.",
+      "Suivre le taux de rejet généré par chaque règle de validation pour détecter un calibrage trop strict ou trop permissif nécessitant un ajustement."
+    ],
+    "anti_patterns": [
+      "Concevoir des règles de validation uniquement au niveau du format sans jamais vérifier la cohérence logique entre champs liés.",
+      "Laisser les règles de validation figées sans révision périodique malgré l'évolution des besoins métier qu'elles sont censées servir."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["validation de données", "règle métier", "qualité opérationnelle"],
+    "related_domains": ["data_management", "professional"],
+    "related_knowledge": [
+      "data_management.data_quality_fundamentals",
+      "data_management.data_observability",
+      "data_management.gouvernance_donnees_reference_referentiels"
+    ],
+    "retrieval_priority": 6
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "high",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["conception et explication de règles de validation de données"],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "En cas de règle de validation générant un volume élevé de faux rejets, recommander sa révision plutôt que sa désactivation pure et simple sans remplacement."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "14/08/2026",
+    "last_update": "14/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

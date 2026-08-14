@@ -1,0 +1,83 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "data_management.gouvernance_donnees_reference_referentiels",
+  "title": "Gouvernance des données de référence et référentiels",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "data_management",
+  "subdomain": "data_management",
+  "category": "data_management",
+  "summary": "Présente la gouvernance des données de référence (listes de codes, référentiels partagés comme les pays, devises, unités) comme catégorie distincte des données maîtres (Master Data) déjà couvertes, ces deux types de données répondant à des logiques de gouvernance différentes.",
+  "purpose": "Compléter data_management avec la gouvernance des données de référence, souvent confondue à tort avec le Master Data Management déjà couvert alors qu'elle répond à une logique de gouvernance distincte (référentiels partagés stables plutôt qu'entités métier évolutives).",
+  "tags": ["donnees_reference", "referentiel", "gouvernance_donnees", "code_liste"],
+  "intents": ["gouverner_donnees_reference", "distinguer_master_data_reference_data", "gerer_referentiel_partage"],
+  "usage_context": [
+    "gouvernance des référentiels partagés d'une organisation (codes pays, devises, unités de mesure)",
+    "clarification de la différence entre données de référence et données maîtres"
+  ],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "La gouvernance des données de référence désigne l'encadrement des listes de valeurs partagées et relativement stables utilisées à travers une organisation (codes pays, devises, unités de mesure, catégories normalisées), distinctes des données maîtres qui décrivent des entités métier propres à l'organisation (clients, produits, fournisseurs) et évoluent selon une dynamique différente.",
+    "core_principles": [
+      "Les données de référence sont généralement issues de standards externes (normes ISO, nomenclatures officielles) tandis que les données maîtres sont propres à l'organisation et à son activité, ce qui implique des sources d'autorité différentes.",
+      "Une incohérence dans les données de référence (deux systèmes utilisant des codes différents pour une même valeur) crée des erreurs de rapprochement silencieuses et difficiles à diagnostiquer entre systèmes.",
+      "La gouvernance des données de référence doit désigner une source d'autorité unique par référentiel, faisant foi pour l'ensemble de l'organisation, plutôt que de laisser chaque système maintenir sa propre copie divergente.",
+      "Les données de référence évoluent moins fréquemment que les données maîtres mais leur mise à jour (par exemple un changement de norme officielle) doit néanmoins être propagée de façon coordonnée à travers tous les systèmes consommateurs."
+    ],
+    "rules": [
+      "Désigner une source d'autorité unique pour chaque référentiel de données de référence utilisé à travers l'organisation.",
+      "Documenter explicitement la distinction entre données de référence et données maîtres dans la gouvernance des données, ces deux catégories nécessitant des processus différents.",
+      "Coordonner la propagation de toute mise à jour d'un référentiel de données de référence vers l'ensemble des systèmes consommateurs concernés."
+    ],
+    "examples": [
+      {
+        "situation": "Deux systèmes d'une même organisation utilisent des codes différents pour désigner un même pays, provoquant des erreurs de rapprochement lors de la consolidation de données.",
+        "recommended_behavior": "Désigner un référentiel unique faisant autorité pour les codes pays et migrer progressivement les systèmes divergents vers cette source unique, plutôt que de corriger ponctuellement chaque incohérence détectée.",
+        "avoid": "Corriger chaque incohérence de rapprochement au cas par cas sans jamais traiter la cause structurelle de l'absence de référentiel unique partagé."
+      }
+    ],
+    "best_practices": [
+      "Documenter clairement pour chaque référentiel sa source d'autorité, sa fréquence de mise à jour et les systèmes qui le consomment.",
+      "Automatiser autant que possible la propagation des mises à jour de référentiels externes plutôt que de dépendre d'une mise à jour manuelle par chaque système."
+    ],
+    "anti_patterns": [
+      "Confondre systématiquement gouvernance des données de référence et Master Data Management, alors que ces deux catégories répondent à des logiques de gouvernance distinctes.",
+      "Laisser chaque système maintenir sa propre copie divergente d'un référentiel censé être partagé à l'échelle de l'organisation."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["données de référence", "référentiel", "gouvernance des données"],
+    "related_domains": ["data_management", "governance"],
+    "related_knowledge": [
+      "data_management.master_data_management",
+      "data_management.metadata_management",
+      "data_management.roles_gouvernance_donnees_data_owner_steward"
+    ],
+    "retrieval_priority": 6
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "high",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["conception et explication de la gouvernance des données de référence"],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "En cas de doute sur la source d'autorité d'un référentiel donné, recommander de la clarifier explicitement avant toute décision de gouvernance."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "14/08/2026",
+    "last_update": "14/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

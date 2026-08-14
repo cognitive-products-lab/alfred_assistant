@@ -1,0 +1,83 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.product_ia.conception_prompts_systeme_alfred",
+  "title": "Conception des prompts système d'ALFRED CPL",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "product_ia",
+  "category": "conception_produit_ia",
+  "summary": "Méthode de conception et de maintenance des prompts système qui définissent le comportement d'ALFRED CPL, appliquant les principes génériques de prompt engineering au contexte spécifique du produit (rôle de conseil, contraintes de sécurité, ton de marque).",
+  "purpose": "Décliner au produit ALFRED CPL les principes génériques déjà couverts côté professional.engineering.ai.prompt_engineering, en les appliquant spécifiquement à la maintenance et à la gouvernance des prompts système du produit.",
+  "tags": ["prompt_systeme", "conception_produit_ia", "comportement_ia", "maintenance"],
+  "intents": ["concevoir_prompt_systeme", "maintenir_coherence_comportement_ia", "versionner_prompt_produit"],
+  "usage_context": [
+    "conception ou modification d'un prompt système régissant le comportement d'ALFRED CPL",
+    "diagnostic d'une dérive de comportement potentiellement liée à une modification récente du prompt système"
+  ],
+  "priority": "critical",
+  "safety_level": "sensitive",
+  "content": {
+    "definition": "La conception des prompts système d'ALFRED CPL est le processus structuré de rédaction, de test et de versionnement des instructions qui définissent le comportement par défaut du produit (rôle, ton, contraintes de sécurité, limites d'usage), traité comme un artefact produit à part entière plutôt que comme un réglage informel.",
+    "core_principles": [
+      "Un prompt système est un artefact produit à part entière, versionné et testé, jamais un réglage ad hoc modifié sans traçabilité.",
+      "Une instruction ajoutée à un prompt système peut avoir des effets de bord sur des comportements déjà stabilisés ailleurs dans le prompt : toute modification doit être testée sur un périmètre représentatif, pas seulement sur le cas visé.",
+      "La longueur et la complexité d'un prompt système doivent être arbitrées contre sa maintenabilité : un prompt trop long devient difficile à faire évoluer sans régression.",
+      "Les contraintes de sécurité et les limites d'usage doivent être positionnées de façon à rester prioritaires même face à des instructions utilisateur contradictoires."
+    ],
+    "rules": [
+      "Versionner chaque modification de prompt système avec une justification documentée du changement apporté.",
+      "Tester toute modification de prompt système sur un ensemble représentatif de cas d'usage avant sa mise en production, pas seulement sur le cas ayant motivé la modification.",
+      "Positionner les contraintes de sécurité et les limites d'usage de façon à rester robustes face à des tentatives de contournement par instruction utilisateur."
+    ],
+    "examples": [
+      {
+        "situation": "Une modification du prompt système visant à rendre les réponses plus concises entraîne une perte de nuances importantes sur les sujets sensibles.",
+        "recommended_behavior": "Tester la modification sur un échantillon incluant des cas sensibles avant sa mise en production, et ajuster l'instruction pour préserver la nuance sur ces cas spécifiques sans revenir sur l'objectif de concision général.",
+        "avoid": "Déployer directement une modification de prompt système sans test sur un périmètre représentatif incluant les cas les plus sensibles."
+      }
+    ],
+    "best_practices": [
+      "Maintenir un historique versionné des prompts système avec la justification de chaque évolution significative.",
+      "Structurer le prompt système en sections claires (rôle, ton, contraintes, exceptions) pour en faciliter la maintenance et la revue."
+    ],
+    "anti_patterns": [
+      "Modifier un prompt système en production sans versionnement ni test préalable sur un périmètre représentatif.",
+      "Laisser un prompt système croître indéfiniment en longueur sans refactorisation périodique, au détriment de sa maintenabilité."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["prompt système", "conception", "comportement", "versionnement"],
+    "related_domains": ["cpl", "professional"],
+    "related_knowledge": [
+      "professional.engineering.ai.prompt_engineering",
+      "cpl.product_platform.security_by_design_default",
+      "cpl.product_ia.gestion_hallucinations_produit_ia"
+    ],
+    "retrieval_priority": 8
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "high",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["conception, test et versionnement des prompts système d'ALFRED CPL"],
+    "restricted_usage": [],
+    "forbidden_usage": ["déployer une modification de prompt système en production sans test préalable documenté"],
+    "fallback_behavior": "En cas de doute sur l'effet de bord d'une modification de prompt système, revenir à la version précédente validée plutôt que de maintenir une version non testée en production."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "14/08/2026",
+    "last_update": "14/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

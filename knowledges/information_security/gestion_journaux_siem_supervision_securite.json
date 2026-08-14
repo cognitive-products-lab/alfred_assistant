@@ -1,0 +1,83 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "information_security.gestion_journaux_siem_supervision_securite",
+  "title": "Gestion des journaux et supervision de sécurité (SIEM)",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "information_security",
+  "subdomain": "information_security",
+  "category": "information_security",
+  "summary": "Présente le rôle d'un système de gestion des informations et événements de sécurité (SIEM) dans la centralisation, la corrélation et l'alerte à partir des journaux de sécurité de multiples sources, distinct de la réponse aux incidents déjà couverte qui traite du processus une fois l'incident détecté.",
+  "purpose": "Compléter information_security avec la fonction de détection en amont de la réponse aux incidents (incident_response_management), le SIEM constituant l'outil de détection dont dépend la rapidité de déclenchement du processus de réponse déjà documenté.",
+  "tags": ["siem", "supervision_securite", "correlation_evenements", "detection"],
+  "intents": ["expliquer_role_siem", "centraliser_journaux_securite", "detecter_anomalie_securite"],
+  "usage_context": [
+    "conception d'une capacité de détection centralisée des événements de sécurité",
+    "explication du rôle d'un SIEM dans la chaîne de détection et réponse aux incidents"
+  ],
+  "priority": "high",
+  "safety_level": "sensitive",
+  "content": {
+    "definition": "Un système de gestion des informations et événements de sécurité (SIEM) centralise les journaux issus de multiples sources (systèmes, applications, équipements réseau), les corrèle pour détecter des schémas suspects que chaque source isolée ne révélerait pas, et génère des alertes destinées à déclencher le processus de réponse aux incidents.",
+    "core_principles": [
+      "Un événement de sécurité isolé sur une seule source paraît souvent anodin ; c'est la corrélation entre plusieurs sources qui révèle un schéma d'attaque réel, fonction centrale du SIEM.",
+      "Un SIEM mal calibré génère un volume d'alertes excessif (faux positifs) qui provoque une fatigue d'alerte réduisant la vigilance réelle face aux alertes véritablement critiques.",
+      "La valeur d'un SIEM dépend directement de la qualité et de l'exhaustivité des sources de journaux qui l'alimentent : une source non intégrée reste un angle mort de détection.",
+      "Un SIEM ne remplace pas un processus de réponse aux incidents : il en constitue le déclencheur, l'efficacité globale dépendant de l'articulation entre les deux."
+    ],
+    "rules": [
+      "Intégrer au SIEM l'ensemble des sources de journaux critiques identifiées, en documentant explicitement les sources non couvertes comme angles morts connus.",
+      "Calibrer les règles de corrélation et d'alerte pour limiter les faux positifs sans pour autant masquer des signaux faibles réellement significatifs.",
+      "Articuler explicitement chaque type d'alerte SIEM avec l'étape correspondante du processus de réponse aux incidents."
+    ],
+    "examples": [
+      {
+        "situation": "Plusieurs tentatives de connexion échouées sur un même compte, réparties sur différents systèmes, ne sont visibles individuellement sur aucune source isolée comme un signal fort.",
+        "recommended_behavior": "Configurer une règle de corrélation SIEM capable de détecter cette répartition inhabituelle sur plusieurs systèmes comme un signal d'alerte prioritaire, plutôt que de compter sur la détection isolée par chaque système.",
+        "avoid": "Se contenter de seuils d'alerte définis indépendamment sur chaque système, sans corrélation transversale capable de révéler un schéma distribué."
+      }
+    ],
+    "best_practices": [
+      "Réviser périodiquement les règles de corrélation du SIEM à la lumière des incidents réels constatés, pour réduire les faux positifs et combler les angles morts identifiés a posteriori.",
+      "Documenter explicitement les sources de journaux non encore intégrées au SIEM comme risque résiduel connu, plutôt que de laisser cette lacune implicite."
+    ],
+    "anti_patterns": [
+      "Déployer un SIEM sans calibrage des règles de corrélation, générant un volume d'alertes ingérable qui provoque une fatigue d'alerte contre-productive.",
+      "Considérer le SIEM comme suffisant en lui-même sans processus de réponse aux incidents clairement articulé en aval de ses alertes."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["SIEM", "journaux", "corrélation", "supervision"],
+    "related_domains": ["information_security", "cpl"],
+    "related_knowledge": [
+      "information_security.incident_response_management",
+      "cpl.product_platform.logging_audit_human_control",
+      "cpl.product_platform.journalisation_technique_evenements_alfred"
+    ],
+    "retrieval_priority": 7
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "high",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["conception et explication de la supervision de sécurité via un SIEM"],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "En cas de source de journal critique non intégrée au SIEM, la signaler explicitement comme angle mort de détection plutôt que de présumer une couverture complète."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "14/08/2026",
+    "last_update": "14/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}
