@@ -113,11 +113,20 @@ class OllamaLLMClient:
         max_tokens: int | None = None,
         base_url: str = "http://localhost:11434",
         stream: bool = True,
+        tools_model: str | None = None,
     ):
         self.model = model
         self.base_url = base_url.rstrip("/")
         self.stream = stream
         self.last_was_streamed = False
+
+        # Sobriété modèle (docs/architecture/vision_architecture_cognitive_alfred.md,
+        # section P2) : modèle dédié optionnel pour les tours function-calling
+        # (tools=True), là où le 24/07/2026 a montré ~35-40 % d'échecs sur
+        # llama3.2 (3B). None par défaut = comportement inchangé (même modèle
+        # pour tout) — à activer explicitement une fois la latence d'un modèle
+        # plus lourd validée sur le matériel réel.
+        self.tools_model = tools_model or model
 
         # Applique le profil du modèle, surchargeable manuellement
         profile = MODEL_PROFILES.get(model, MODEL_PROFILES["__default__"])
@@ -137,6 +146,7 @@ class OllamaLLMClient:
         """Retourne les paramètres actifs du modèle."""
         return {
             "model":       self.model,
+            "tools_model": self.tools_model,
             "temperature": self.temperature,
             "max_tokens":  self.max_tokens,
             "num_ctx":     self.num_ctx,
@@ -174,7 +184,9 @@ class OllamaLLMClient:
             from src.core.tool_calling import openai_style_tools
 
             tool_defs = openai_style_tools()
-            tool_messages, direct_answer, any_tool_called = self._run_tool_loop(list(messages), tool_defs)
+            tool_messages, direct_answer, any_tool_called = self._run_tool_loop(
+                list(messages), tool_defs, model=self.tools_model,
+            )
 
             if direct_answer is not None and not any_tool_called:
                 # Le modèle a répondu en texte libre sans jamais appeler d'outil —
@@ -186,7 +198,9 @@ class OllamaLLMClient:
                 # système ou du nombre d'outils disponibles. Une seconde tentative
                 # complète avant d'admettre honnêtement l'échec plutôt que de
                 # relayer une confirmation potentiellement mensongère.
-                tool_messages, direct_answer, any_tool_called = self._run_tool_loop(list(messages), tool_defs)
+                tool_messages, direct_answer, any_tool_called = self._run_tool_loop(
+                    list(messages), tool_defs, model=self.tools_model,
+                )
 
             if direct_answer is not None:
                 if not any_tool_called:
@@ -233,9 +247,10 @@ class OllamaLLMClient:
         messages: list[dict],
         stream: bool,
         tools: Optional[list[dict]] = None,
+        model: Optional[str] = None,
     ) -> urllib.request.Request:
         payload = {
-            "model": self.model,
+            "model": model or self.model,
             "messages": messages,
             "stream": stream,
             "options": {
@@ -262,6 +277,7 @@ class OllamaLLMClient:
         messages: list[dict],
         tools: list[dict],
         max_rounds: int = 3,
+        model: Optional[str] = None,
     ) -> tuple[list[dict], Optional[str], bool]:
         """Boucle function-calling : le modèle local (ex. llama3.2) décide s'il
         appelle un outil ; si oui, on l'exécute (src/core/tool_calling.py) et on
@@ -282,7 +298,7 @@ class OllamaLLMClient:
         any_tool_called = False
 
         for _ in range(max_rounds):
-            req = self._build_request(messages, stream=False, tools=tools)
+            req = self._build_request(messages, stream=False, tools=tools, model=model)
             try:
                 with urllib.request.urlopen(req, timeout=self.timeout) as resp:
                     data = json.loads(resp.read().decode())
