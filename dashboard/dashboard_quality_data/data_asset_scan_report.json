@@ -1,0 +1,252 @@
+{
+  "_alfred_header": {
+    "file": "dashboard/dashboard_quality_data/data_asset_scan_report.json",
+    "bloc": "Bloc 11.05 — Gouvernance data",
+    "notion_exam": "D11-5 — Capsule Gouvernance de la donnée",
+    "utilite_alfred": "Confronte le registre de gouvernance (saisi à la main) aux moteurs de données réels (SQLite/PostgreSQL/MongoDB) — implémentation du pilier Automatisation du framework DQbD.",
+    "domaine": "Gouvernance de la donnée — automatisation, traçabilité"
+  },
+  "_meta": {
+    "project": "ALFRED",
+    "generated_at": "2026-08-14T13:36:21.609802+00:00",
+    "generated_by": "scan_data_assets.py",
+    "version": "V1.0",
+    "visibility": "PRIVE",
+    "visibility_note": "Dashboard interne — jamais publié sur ALFRED_WEB.",
+    "read_only": true
+  },
+  "sources_scanned": {
+    "sqlite_alfred_pc": {
+      "reachable": true,
+      "engine": "SQLite",
+      "source": "D:\\PROJET_ALFRED\\ALFRED_PC\\data\\memory\\alfred_memory.db",
+      "tables": [
+        {
+          "table": "memories",
+          "columns": [
+            "id",
+            "session_id",
+            "timestamp",
+            "user_input",
+            "alfred_resp",
+            "intent",
+            "emotion",
+            "topic",
+            "importance",
+            "archived"
+          ],
+          "row_count": 274
+        },
+        {
+          "table": "facts",
+          "columns": [
+            "id",
+            "key",
+            "value",
+            "category",
+            "created_at",
+            "updated_at",
+            "source"
+          ],
+          "row_count": 2
+        },
+        {
+          "table": "patterns",
+          "columns": [
+            "id",
+            "pattern_key",
+            "count",
+            "last_seen",
+            "category"
+          ],
+          "row_count": 1
+        }
+      ]
+    },
+    "postgresql_alfred_web": {
+      "reachable": true,
+      "engine": "PostgreSQL",
+      "source": "ALFRED_WEB (DATABASE_URL)",
+      "tables": [
+        {
+          "table": "alembic_version",
+          "columns": [
+            "version_num"
+          ],
+          "row_count": 1
+        },
+        {
+          "table": "users",
+          "columns": [
+            "id",
+            "email",
+            "password_hash",
+            "role",
+            "created_at",
+            "consent_at"
+          ],
+          "row_count": 0
+        }
+      ]
+    },
+    "mongodb_alfred_web": {
+      "reachable": true,
+      "engine": "MongoDB",
+      "source": "ALFRED_WEB (alfred_web)",
+      "collections": [
+        {
+          "collection": "article_comments",
+          "sample_fields": [],
+          "doc_count": 0
+        },
+        {
+          "collection": "articles",
+          "sample_fields": [
+            "_id",
+            "categorie",
+            "date",
+            "lecture",
+            "resume",
+            "slug",
+            "tags",
+            "titre"
+          ],
+          "doc_count": 13
+        },
+        {
+          "collection": "conversations",
+          "sample_fields": [],
+          "doc_count": 0
+        },
+        {
+          "collection": "user_preferences",
+          "sample_fields": [],
+          "doc_count": 0
+        }
+      ]
+    }
+  },
+  "unreachable_sources": {},
+  "real_assets_found": {
+    "total": 9,
+    "by_engine": {
+      "SQLite": 3,
+      "PostgreSQL": 2,
+      "MongoDB": 4
+    },
+    "assets": [
+      {
+        "engine": "SQLite",
+        "asset": "table:memories",
+        "columns": [
+          "id",
+          "session_id",
+          "timestamp",
+          "user_input",
+          "alfred_resp",
+          "intent",
+          "emotion",
+          "topic",
+          "importance",
+          "archived"
+        ],
+        "row_count": 274
+      },
+      {
+        "engine": "SQLite",
+        "asset": "table:facts",
+        "columns": [
+          "id",
+          "key",
+          "value",
+          "category",
+          "created_at",
+          "updated_at",
+          "source"
+        ],
+        "row_count": 2
+      },
+      {
+        "engine": "SQLite",
+        "asset": "table:patterns",
+        "columns": [
+          "id",
+          "pattern_key",
+          "count",
+          "last_seen",
+          "category"
+        ],
+        "row_count": 1
+      },
+      {
+        "engine": "PostgreSQL",
+        "asset": "table:alembic_version",
+        "columns": [
+          "version_num"
+        ],
+        "row_count": 1
+      },
+      {
+        "engine": "PostgreSQL",
+        "asset": "table:users",
+        "columns": [
+          "id",
+          "email",
+          "password_hash",
+          "role",
+          "created_at",
+          "consent_at"
+        ],
+        "row_count": 0
+      },
+      {
+        "engine": "MongoDB",
+        "asset": "collection:article_comments",
+        "columns": [],
+        "row_count": 0
+      },
+      {
+        "engine": "MongoDB",
+        "asset": "collection:articles",
+        "columns": [
+          "_id",
+          "categorie",
+          "date",
+          "lecture",
+          "resume",
+          "slug",
+          "tags",
+          "titre"
+        ],
+        "row_count": 13
+      },
+      {
+        "engine": "MongoDB",
+        "asset": "collection:conversations",
+        "columns": [],
+        "row_count": 0
+      },
+      {
+        "engine": "MongoDB",
+        "asset": "collection:user_preferences",
+        "columns": [],
+        "row_count": 0
+      }
+    ]
+  },
+  "registry_coverage": {
+    "covered_count": 8,
+    "uncovered_count": 1,
+    "uncovered_assets": [
+      {
+        "engine": "PostgreSQL",
+        "asset": "table:alembic_version",
+        "columns": [
+          "version_num"
+        ],
+        "row_count": 1
+      }
+    ],
+    "note": "Un actif 'non couvert' n'est pas forcément un manquement : ça signifie qu'aucune fiche DQ-xxx du registre ne le référence explicitement aujourd'hui. Pour PostgreSQL/MongoDB (ALFRED_WEB), c'est structurel tant que le registre reste scopé ALFRED_PC — action de suivi : ajouter des fiches DQ dédiées (comptes utilisateurs, articles, conversations)."
+  }
+}
