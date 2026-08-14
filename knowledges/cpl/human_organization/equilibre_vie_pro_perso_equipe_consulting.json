@@ -1,0 +1,83 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.human_organization.equilibre_vie_pro_perso_equipe_consulting",
+  "title": "Équilibre vie professionnelle et personnelle en contexte de conseil",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "human_organization",
+  "category": "organisation_humaine",
+  "summary": "Cadre d'accompagnement par ALFRED CPL de l'équilibre vie professionnelle et personnelle des équipes de conseil, structurellement exposées à des pics d'activité liés aux échéances client, distinct de la gestion de charge d'équipe déjà couverte côté gestion_charge_travail_equipe_projet.",
+  "purpose": "Compléter human_organization avec la dimension équilibre de vie sur la durée, distincte de la gestion de charge ponctuelle par projet déjà présente, en s'appuyant sur les principes déjà validés côté human.self_alignment.routines.daily_balance.",
+  "tags": ["equilibre_vie_pro_perso", "bien_etre_equipe", "consulting", "organisation"],
+  "intents": ["accompagner_equilibre_vie_equipe", "detecter_desequilibre_pro_perso", "prevenir_epuisement_consulting"],
+  "usage_context": [
+    "accompagnement d'une équipe de conseil en période de forte charge liée à une échéance client",
+    "détection de signaux de déséquilibre récurrent entre vie professionnelle et personnelle chez un collaborateur"
+  ],
+  "priority": "high",
+  "safety_level": "sensitive",
+  "content": {
+    "definition": "L'équilibre vie professionnelle et personnelle en contexte de conseil est l'attention portée par ALFRED CPL à la soutenabilité dans la durée du rythme de travail des équipes de conseil, structurellement exposées à des pics d'activité liés aux échéances client, au-delà de la seule gestion de charge ponctuelle par projet.",
+    "core_principles": [
+      "Le métier de conseil génère des pics d'activité prévisibles (avant livrable, avant présentation client) qui doivent être anticipés plutôt que simplement subis.",
+      "Un déséquilibre ponctuel et assumé avant une échéance n'est pas en soi problématique ; c'est sa récurrence non compensée dans le temps qui constitue un signal de risque.",
+      "L'accompagnement de l'équilibre de vie ne doit jamais se substituer à un accompagnement professionnel de santé en cas de signal de détresse réelle.",
+      "La reconnaissance explicite d'un effort ponctuel intense contribue autant à l'équilibre perçu que la réduction de la charge elle-même."
+    ],
+    "rules": [
+      "Anticiper les pics d'activité prévisibles liés aux échéances client dans la planification plutôt que de les traiter comme des imprévus récurrents.",
+      "Suivre la récurrence des déséquilibres dans le temps plutôt que leur seule occurrence ponctuelle, pour distinguer un pic assumé d'un épuisement progressif.",
+      "Orienter vers un accompagnement professionnel dès qu'un signal de détresse dépasse le cadre d'un simple déséquilibre d'organisation."
+    ],
+    "examples": [
+      {
+        "situation": "Un collaborateur enchaîne plusieurs échéances client rapprochées sans période de récupération identifiable entre elles.",
+        "recommended_behavior": "Signaler explicitement cette accumulation à l'équipe de pilotage et proposer d'anticiper une période de récupération planifiée après la prochaine échéance, plutôt que d'attendre un signe d'épuisement manifeste.",
+        "avoid": "Considérer chaque échéance isolément sans suivi de leur accumulation dans le temps, laissant un déséquilibre s'installer silencieusement."
+      }
+    ],
+    "best_practices": [
+      "Intégrer la récupération post-échéance comme une étape planifiée du cycle de mission, pas comme une option facultative.",
+      "Croiser le suivi de charge de travail (gestion_charge_travail_equipe_projet) avec un suivi qualitatif du ressenti d'équilibre exprimé par les collaborateurs."
+    ],
+    "anti_patterns": [
+      "Traiter l'accumulation de pics d'activité comme une succession d'événements isolés sans vision cumulative.",
+      "Se substituer à un accompagnement de santé professionnel face à un signal de détresse dépassant le cadre organisationnel."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["équilibre vie", "charge de travail", "consulting", "récupération"],
+    "related_domains": ["cpl", "human"],
+    "related_knowledge": [
+      "cpl.human_organization.gestion_charge_travail_equipe_projet",
+      "human.self_alignment.routines.daily_balance",
+      "human.wellbeing.burnout_signals"
+    ],
+    "retrieval_priority": 7
+  },
+  "behavior_rules": {
+    "tone": "empathetic",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["accompagnement organisationnel de l'équilibre vie professionnelle et personnelle en équipe de conseil"],
+    "restricted_usage": ["situations relevant d'un accompagnement de santé mentale professionnel"],
+    "forbidden_usage": ["poser un diagnostic médical ou psychologique sur l'état d'un collaborateur"],
+    "fallback_behavior": "Face à un signal de détresse dépassant un simple déséquilibre d'organisation, orienter explicitement vers un accompagnement professionnel plutôt que de tenter d'y répondre seul."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "14/08/2026",
+    "last_update": "14/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

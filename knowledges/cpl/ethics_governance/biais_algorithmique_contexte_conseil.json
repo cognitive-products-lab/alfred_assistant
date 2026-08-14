@@ -1,0 +1,83 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.ethics_governance.biais_algorithmique_contexte_conseil",
+  "title": "Détection des biais algorithmiques dans les recommandations de conseil d'ALFRED CPL",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "ethics_governance",
+  "category": "gouvernance_ia_appliquee",
+  "summary": "Cadre opérationnel pour repérer et limiter les biais algorithmiques spécifiquement dans les recommandations d'ALFRED CPL en contexte de conseil (priorisation de projets, arbitrages business, évaluation de risques), où un biais peut orienter une décision client sans que cela soit visible.",
+  "purpose": "Décliner la vigilance générale sur les biais IA au cas précis du conseil, où les recommandations d'ALFRED CPL influencent directement des décisions business et où un biais silencieux a un impact concret sur un client, distinct de bias_detection_basics générique côté professional.governance_ai.",
+  "tags": ["biais_algorithmique", "conseil", "recommandation", "gouvernance_ia"],
+  "intents": ["detecter_biais_recommandation", "limiter_influence_biais_conseil", "auditer_recommandation_ia"],
+  "usage_context": [
+    "ALFRED CPL priorise automatiquement une liste de projets ou d'options business pour un client",
+    "revue périodique de la qualité et de l'impartialité des recommandations produites"
+  ],
+  "priority": "critical",
+  "safety_level": "high_risk",
+  "content": {
+    "definition": "Le biais algorithmique en contexte de conseil désigne toute distorsion systématique dans les recommandations d'ALFRED CPL (priorisation, arbitrage, évaluation de risque) qui favorise de façon non justifiée une option, un profil de client ou un type de solution, sans que cette distorsion soit explicite ni intentionnelle.",
+    "core_principles": [
+      "Une recommandation de conseil doit pouvoir être justifiée par des critères explicites et vérifiables, jamais par la seule fréquence historique d'un choix similaire.",
+      "Un biais en contexte de conseil est d'autant plus risqué qu'il influence une décision business réelle, contrairement à un biais purement informatif à faible enjeu.",
+      "L'absence de plainte client sur une recommandation ne signifie pas l'absence de biais : l'audit doit être proactif, pas seulement réactif.",
+      "Un biais peut provenir autant des données d'apprentissage que de la formulation des critères de priorisation eux-mêmes."
+    ],
+    "rules": [
+      "Documenter explicitement les critères utilisés pour toute recommandation de priorisation ou d'arbitrage business.",
+      "Auditer périodiquement un échantillon de recommandations pour détecter une surreprésentation systématique d'un type d'option ou de profil client.",
+      "Signaler à l'utilisateur humain toute recommandation reposant sur des données historiques limitées ou non représentatives."
+    ],
+    "examples": [
+      {
+        "situation": "ALFRED CPL recommande systématiquement la même catégorie de solution technique pour des clients de secteurs très différents.",
+        "recommended_behavior": "Examiner si cette récurrence reflète un critère objectif pertinent ou un biais issu d'un déséquilibre dans les données ou l'historique de recommandations passées, et ajuster si nécessaire.",
+        "avoid": "Considérer la récurrence d'une recommandation comme une validation de sa pertinence sans vérification des critères sous-jacents."
+      }
+    ],
+    "best_practices": [
+      "Faire varier délibérément les jeux de test lors de l'audit des recommandations pour révéler des biais qui n'apparaîtraient pas sur un échantillon homogène.",
+      "Associer systématiquement une explication des critères à toute recommandation de conseil, condition nécessaire à sa contestabilité par l'utilisateur."
+    ],
+    "anti_patterns": [
+      "Traiter la détection de biais en conseil comme un exercice ponctuel unique plutôt qu'un audit périodique récurrent.",
+      "Masquer les critères de recommandation sous prétexte de simplicité d'usage, rendant tout biais impossible à détecter par l'utilisateur."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["biais", "recommandation", "conseil", "audit"],
+    "related_domains": ["cpl", "professional"],
+    "related_knowledge": [
+      "professional.governance_ai.bias_detection_basics",
+      "cpl.ethics_governance.transparence_algorithmique_client",
+      "cpl.product_platform.explicabilite_decisions_ia_alfred"
+    ],
+    "retrieval_priority": 8
+  },
+  "behavior_rules": {
+    "tone": "formal",
+    "response_style": "structured_clear",
+    "max_complexity": "high",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["détection et correction de biais dans les recommandations de conseil d'ALFRED CPL"],
+    "restricted_usage": [],
+    "forbidden_usage": ["présenter une recommandation potentiellement biaisée comme neutre sans réserve"],
+    "fallback_behavior": "En cas de doute sur un biais possible dans une recommandation, signaler explicitement l'incertitude à l'utilisateur plutôt que de présenter la recommandation comme définitive."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "14/08/2026",
+    "last_update": "14/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

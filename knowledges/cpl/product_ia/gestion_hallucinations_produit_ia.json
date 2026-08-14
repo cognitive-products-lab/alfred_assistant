@@ -1,0 +1,83 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.product_ia.gestion_hallucinations_produit_ia",
+  "title": "Gestion produit des hallucinations d'ALFRED CPL",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "product_ia",
+  "category": "conception_produit_ia",
+  "summary": "Mécanismes produit (sourcing des réponses, affichage du niveau de confiance, garde-fous de repli) mis en œuvre par ALFRED CPL pour limiter l'impact des hallucinations sur l'utilisateur final, distinct de hallucination_detection côté professional.engineering.reasoning qui traite du mécanisme de détection au niveau du moteur de raisonnement.",
+  "purpose": "Décliner au niveau produit et expérience utilisateur la détection technique des hallucinations déjà couverte côté moteur de raisonnement, en se concentrant sur ce que l'utilisateur voit et peut faire face à une réponse potentiellement erronée.",
+  "tags": ["hallucination", "fiabilite_reponse", "sourcing", "experience_utilisateur"],
+  "intents": ["limiter_impact_hallucination_utilisateur", "afficher_niveau_confiance_reponse", "concevoir_garde_fou_repli"],
+  "usage_context": [
+    "conception de l'affichage du niveau de confiance ou de sourcing d'une réponse produite par ALFRED CPL",
+    "traitement d'un signalement utilisateur d'une réponse manifestement erronée"
+  ],
+  "priority": "critical",
+  "safety_level": "high_risk",
+  "content": {
+    "definition": "La gestion produit des hallucinations est l'ensemble des mécanismes visibles par l'utilisateur (sourcing explicite des réponses, indication du niveau de confiance, formulation prudente en cas d'incertitude, garde-fous de repli) mis en œuvre pour limiter l'impact d'une réponse erronée d'ALFRED CPL sur la décision de l'utilisateur, complémentaire mais distincte de la détection technique interne des hallucinations.",
+    "core_principles": [
+      "La détection technique d'une hallucination côté moteur de raisonnement n'a de valeur produit que si elle se traduit par un signal visible et compréhensible par l'utilisateur.",
+      "Le sourcing explicite d'une réponse (origine de l'information) est un mécanisme de réduction d'impact plus robuste qu'une simple mention générique de prudence.",
+      "Une réponse à faible confiance doit rester utile plutôt que d'être simplement refusée, sauf sur les sujets à risque élevé où le refus prudent est préférable.",
+      "La confiance affichée doit rester calibrée dans le temps : un système qui affiche une confiance élevée de façon systématique perd sa valeur de signal pour l'utilisateur."
+    ],
+    "rules": [
+      "Associer un sourcing explicite ou une indication de niveau de confiance à toute réponse portant sur un fait vérifiable plutôt qu'une opinion.",
+      "Prévoir un mécanisme de repli explicite (formulation prudente, proposition de vérification) pour les réponses à confiance faible, sans les supprimer par défaut.",
+      "Faciliter le signalement par l'utilisateur d'une réponse suspectée erronée, et exploiter ces signalements pour améliorer les mécanismes de détection."
+    ],
+    "examples": [
+      {
+        "situation": "ALFRED CPL produit une réponse factuelle précise mais dont la source interne indique une confiance faible.",
+        "recommended_behavior": "Formuler la réponse avec une prudence explicite et proposer une vérification complémentaire, plutôt que de la présenter avec la même assurance qu'une réponse à confiance élevée.",
+        "avoid": "Présenter toute réponse avec le même niveau d'assurance apparente indépendamment de la confiance interne réellement associée."
+      }
+    ],
+    "best_practices": [
+      "Concevoir l'affichage du niveau de confiance de façon simple et non technique, compréhensible par un utilisateur non spécialiste.",
+      "Analyser périodiquement les signalements utilisateurs de réponses erronées pour identifier des patterns récurrents à corriger en amont."
+    ],
+    "anti_patterns": [
+      "Masquer systématiquement l'incertitude d'une réponse pour donner une impression de fiabilité uniforme, indépendamment de la confiance réelle.",
+      "Refuser systématiquement toute réponse à confiance modérée par excès de prudence, dégradant l'utilité perçue du produit sans justification proportionnée au risque réel."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["hallucination", "confiance", "sourcing", "fiabilité"],
+    "related_domains": ["cpl", "professional"],
+    "related_knowledge": [
+      "professional.engineering.reasoning.hallucination_detection",
+      "cpl.product_platform.sourced_answers_business_assistant",
+      "cpl.product_platform.explicabilite_decisions_ia_alfred"
+    ],
+    "retrieval_priority": 8
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "high",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["conception des mécanismes produit de réduction d'impact des hallucinations"],
+    "restricted_usage": [],
+    "forbidden_usage": ["afficher un niveau de confiance élevé pour une réponse dont la fiabilité interne est réellement faible"],
+    "fallback_behavior": "En cas d'incertitude significative sur une réponse factuelle, la signaler explicitement à l'utilisateur plutôt que de la formuler avec une assurance non justifiée."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "14/08/2026",
+    "last_update": "14/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

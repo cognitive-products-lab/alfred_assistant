@@ -1,0 +1,83 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.execution.estimation_charge_planification_mission",
+  "title": "Estimation de charge et planification d'une mission de conseil",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "execution",
+  "category": "gestion_projet",
+  "summary": "Méthode d'estimation de la charge de travail nécessaire à une mission de conseil et de sa traduction en planning réaliste, pour ALFRED CPL, en tenant compte de l'incertitude propre aux missions à forte composante intellectuelle.",
+  "purpose": "Compléter execution avec la phase amont d'estimation et de planification, distincte du suivi d'avancement déjà couvert (suivi_avancement_reporting_projet) qui porte sur l'exécution une fois la mission lancée.",
+  "tags": ["estimation_charge", "planification", "mission_conseil", "gestion_projet"],
+  "intents": ["estimer_charge_mission", "planifier_mission_conseil", "anticiper_incertitude_estimation"],
+  "usage_context": [
+    "cadrage initial d'une nouvelle mission de conseil nécessitant une estimation de charge",
+    "révision du planning suite à un écart constaté entre charge estimée et charge réelle"
+  ],
+  "priority": "high",
+  "safety_level": "normal",
+  "content": {
+    "definition": "L'estimation de charge et la planification d'une mission de conseil consistent à évaluer le volume de travail nécessaire à chaque étape d'une mission et à le traduire en un planning réaliste, en intégrant explicitement la marge d'incertitude propre aux tâches à forte composante intellectuelle et relationnelle.",
+    "core_principles": [
+      "Une estimation de charge en conseil comporte une incertitude structurelle plus élevée qu'une tâche technique répétitive, et doit intégrer une marge explicite plutôt qu'un chiffre unique présumé exact.",
+      "Décomposer une mission en étapes plus fines améliore la fiabilité de l'estimation globale, la loi des grands nombres réduisant l'incertitude cumulée.",
+      "Le temps de coordination et de communication avec le client fait partie intégrante de la charge et doit être estimé explicitement, pas considéré comme accessoire.",
+      "Une estimation initiale doit être révisée à des jalons définis, pas seulement en cas de dérapage constaté."
+    ],
+    "rules": [
+      "Décomposer toute mission en étapes suffisamment fines avant d'estimer sa charge globale, plutôt que d'estimer un chiffre unique agrégé.",
+      "Intégrer une marge d'incertitude explicite à chaque estimation, proportionnée à la nouveauté et à la complexité de la tâche.",
+      "Réviser l'estimation à des jalons planifiés à l'avance, indépendamment de la survenue d'un écart déjà constaté."
+    ],
+    "examples": [
+      {
+        "situation": "Une mission de conseil comporte une phase de diagnostic dont la durée dépend fortement de la disponibilité et de la qualité des informations fournies par le client.",
+        "recommended_behavior": "Estimer cette phase avec une fourchette explicite plutôt qu'un chiffre unique, et prévoir un point de révision dès la fin de la collecte d'informations initiale.",
+        "avoid": "Présenter une estimation unique et précise pour une phase intrinsèquement incertaine, créant une fausse impression de maîtrise du planning."
+      }
+    ],
+    "best_practices": [
+      "Comparer systématiquement les estimations passées aux charges réellement constatées pour affiner progressivement la fiabilité des futures estimations.",
+      "Distinguer explicitement dans le planning le temps de production du temps de coordination et d'échange avec le client."
+    ],
+    "anti_patterns": [
+      "Présenter une estimation de charge sans marge d'incertitude sur des tâches intrinsèquement variables, créant des attentes irréalistes.",
+      "Ignorer le temps de coordination client dans l'estimation de charge, sous-évaluant systématiquement la charge réelle totale."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["estimation", "charge", "planification", "mission"],
+    "related_domains": ["cpl", "professional"],
+    "related_knowledge": [
+      "cpl.execution.suivi_avancement_reporting_projet",
+      "cpl.execution.project_management_core",
+      "cpl.business_piloting.pilotage_marge_projet_service"
+    ],
+    "retrieval_priority": 6
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["estimation de charge et planification de missions de conseil"],
+    "restricted_usage": [],
+    "forbidden_usage": ["présenter une estimation de charge comme un engagement contractuel ferme sans en préciser les marges"],
+    "fallback_behavior": "En cas de forte incertitude sur une estimation, la présenter sous forme de fourchette avec les hypothèses associées plutôt qu'un chiffre unique."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "14/08/2026",
+    "last_update": "14/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

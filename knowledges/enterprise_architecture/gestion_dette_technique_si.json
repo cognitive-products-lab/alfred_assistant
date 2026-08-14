@@ -1,0 +1,83 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "enterprise_architecture.gestion_dette_technique_si",
+  "title": "Gestion de la dette technique au niveau du système d'information",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "enterprise_architecture",
+  "subdomain": "enterprise_architecture",
+  "category": "enterprise_architecture",
+  "summary": "Présente la gestion de la dette technique à l'échelle du système d'information d'une organisation (composants obsolètes, dépendances non maintenues, architecture héritée), distincte de la dette technique au niveau d'un seul produit déjà couverte côté cpl.product_ia qui traite d'un périmètre produit isolé.",
+  "purpose": "Décliner à l'échelle du système d'information global la notion de dette technique déjà couverte au niveau produit unique (gestion_dette_technique_produit_ia), avec des enjeux d'arbitrage différents lorsque plusieurs systèmes interdépendants sont concernés.",
+  "tags": ["dette_technique", "systeme_information", "architecture_heritee", "modernisation"],
+  "intents": ["cartographier_dette_technique_si", "arbitrer_modernisation_systeme", "prioriser_reduction_dette"],
+  "usage_context": [
+    "cartographie de la dette technique accumulée à l'échelle du système d'information d'une organisation",
+    "arbitrage entre modernisation d'un composant hérité et maintien en l'état par contrainte de ressources"
+  ],
+  "priority": "high",
+  "safety_level": "normal",
+  "content": {
+    "definition": "La gestion de la dette technique au niveau du système d'information est le processus de cartographie, d'évaluation du risque et de priorisation de la modernisation des composants obsolètes, des dépendances non maintenues et des architectures héritées à l'échelle de l'ensemble des systèmes d'une organisation, plutôt qu'au niveau d'un seul produit isolé.",
+    "core_principles": [
+      "La dette technique à l'échelle du système d'information comporte un risque d'interdépendance que la dette d'un produit isolé ne présente pas : moderniser un composant central peut avoir des répercussions sur de multiples systèmes qui en dépendent.",
+      "Toute dette technique n'appelle pas nécessairement une résorption immédiate : son coût de maintien doit être comparé explicitement au coût et au risque de sa modernisation.",
+      "Un composant hérité critique mais stable présente un profil de risque différent d'un composant hérité instable ou non maintenu par son éditeur, la priorisation devant en tenir compte.",
+      "La dette technique non documentée est plus dangereuse que la dette technique connue et assumée : la cartographie explicite est la première étape de toute gestion sérieuse."
+    ],
+    "rules": [
+      "Cartographier explicitement les composants hérités du système d'information avec leur niveau de risque (obsolescence, dépendance, maintenabilité) plutôt que de laisser cette connaissance implicite.",
+      "Prioriser la résorption de la dette technique selon un arbitrage explicite entre coût de maintien, risque et coût de modernisation, pas uniquement selon l'ancienneté du composant.",
+      "Documenter les interdépendances entre systèmes avant toute décision de modernisation d'un composant central, pour anticiper les répercussions."
+    ],
+    "examples": [
+      {
+        "situation": "Un composant central du système d'information repose sur une technologie ancienne dont l'éditeur a annoncé la fin de maintenance, sans que son remplacement n'ait été planifié.",
+        "recommended_behavior": "Cartographier les systèmes dépendants de ce composant, évaluer le risque croissant lié à l'absence de maintenance, et planifier sa modernisation avant l'échéance de fin de support plutôt qu'après la survenue d'un incident.",
+        "avoid": "Attendre un incident lié à l'obsolescence du composant pour engager sa modernisation, alors que le risque était identifiable et documentable en amont."
+      }
+    ],
+    "best_practices": [
+      "Maintenir un registre à jour de la dette technique connue à l'échelle du système d'information, avec son niveau de risque associé.",
+      "Intégrer la résorption de la dette technique critique dans la planification budgétaire régulière plutôt que de la traiter uniquement en réaction à un incident."
+    ],
+    "anti_patterns": [
+      "Traiter la dette technique uniquement au niveau de chaque produit isolément, sans vision transversale des interdépendances au niveau du système d'information.",
+      "Laisser une dette technique critique non documentée, la rendant invisible dans les arbitrages budgétaires jusqu'à la survenue d'un incident."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["dette technique", "système d'information", "modernisation", "architecture héritée"],
+    "related_domains": ["enterprise_architecture", "cpl"],
+    "related_knowledge": [
+      "cpl.product_ia.gestion_dette_technique_produit_ia",
+      "enterprise_architecture.enterprise_architecture_basics",
+      "enterprise_architecture.digital_transformation_governance"
+    ],
+    "retrieval_priority": 6
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "high",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["cartographie et arbitrage de la dette technique à l'échelle du système d'information"],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "En cas de dette technique critique non documentée découverte, recommander sa documentation immédiate avant tout arbitrage de priorisation."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "14/08/2026",
+    "last_update": "14/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

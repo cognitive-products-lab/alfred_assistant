@@ -1,0 +1,83 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "enterprise_architecture.gouvernance_api_strategie_plateforme",
+  "title": "Gouvernance des API et stratégie de plateforme",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "enterprise_architecture",
+  "subdomain": "enterprise_architecture",
+  "category": "enterprise_architecture",
+  "summary": "Présente les principes de gouvernance des interfaces de programmation (API) au niveau de l'entreprise (catalogue centralisé, versionnement, contrats stables) comme fondement d'une stratégie de plateforme, distincts de l'urbanisation SI déjà couverte qui porte sur le référentiel d'architecture global plutôt que sur les API elles-mêmes.",
+  "purpose": "Compléter enterprise_architecture avec un sujet structurant de la transformation digitale, absent des fiches existantes centrées sur le cloud, le DevSecOps et l'urbanisation générale sans traiter spécifiquement de la gouvernance des interfaces exposées.",
+  "tags": ["gouvernance_api", "strategie_plateforme", "architecture_entreprise", "interoperabilite"],
+  "intents": ["gouverner_api_entreprise", "concevoir_strategie_plateforme", "versionner_api_entreprise"],
+  "usage_context": [
+    "mise en place d'un catalogue centralisé des API exposées par une organisation",
+    "arbitrage sur le versionnement et la dépréciation d'une API existante"
+  ],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "La gouvernance des API et la stratégie de plateforme désignent l'ensemble des règles et pratiques encadrant la conception, la publication, le versionnement et la dépréciation des interfaces de programmation exposées par une organisation, condition nécessaire pour construire une plateforme cohérente permettant la réutilisation et l'interopérabilité plutôt qu'une accumulation d'intégrations ponctuelles non coordonnées.",
+    "core_principles": [
+      "Une API doit être conçue comme un contrat stable engageant l'organisation envers ses consommateurs, dont la modification incompatible doit suivre un processus de versionnement explicite plutôt qu'un changement silencieux.",
+      "Un catalogue centralisé des API existantes évite la duplication d'efforts et la création répétée d'intégrations ponctuelles répondant au même besoin.",
+      "La dépréciation d'une API doit être planifiée et communiquée avec un délai suffisant à ses consommateurs, jamais réalisée de façon abrupte sans période de transition.",
+      "Une stratégie de plateforme réussie repose sur la gouvernance de bout en bout du cycle de vie des API, de leur conception initiale à leur retrait planifié."
+    ],
+    "rules": [
+      "Documenter et publier chaque API dans un catalogue centralisé accessible aux équipes internes concernées avant toute intégration ponctuelle redondante.",
+      "Versionner explicitement toute modification incompatible d'une API existante plutôt que de modifier son contrat en place.",
+      "Communiquer un délai de transition suffisant avant la dépréciation effective d'une API utilisée par des consommateurs internes ou externes."
+    ],
+    "examples": [
+      {
+        "situation": "Deux équipes développent indépendamment des intégrations similaires avec un même système tiers, faute de visibilité sur une API déjà existante ailleurs dans l'organisation.",
+        "recommended_behavior": "Mettre en place un catalogue centralisé des API disponibles, consultable avant toute nouvelle intégration, pour éviter cette duplication d'effort constatée.",
+        "avoid": "Laisser chaque équipe développer ses propres intégrations sans visibilité centralisée sur les API déjà existantes dans l'organisation."
+      }
+    ],
+    "best_practices": [
+      "Définir des standards de conception d'API communs (nommage, format d'erreur, pagination) pour garantir une cohérence d'usage à travers l'organisation.",
+      "Prévoir un processus formel de revue avant la publication d'une nouvelle API dans le catalogue centralisé."
+    ],
+    "anti_patterns": [
+      "Modifier le contrat d'une API en production sans versionnement explicite, cassant silencieusement les intégrations existantes.",
+      "Laisser proliférer des API redondantes faute de catalogue centralisé et de gouvernance de leur cycle de vie."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["API", "gouvernance", "plateforme", "interopérabilité"],
+    "related_domains": ["enterprise_architecture", "professional"],
+    "related_knowledge": [
+      "enterprise_architecture.urbanisation_si_architecture_reference",
+      "professional.engineering.systeme_design.api_basics",
+      "professional.engineering.systeme_design.microservices_architecture"
+    ],
+    "retrieval_priority": 6
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["conception et explication de la gouvernance des API d'entreprise"],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "En cas de modification d'API envisagée sans plan de versionnement clair, recommander d'en établir un avant tout déploiement en production."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "14/08/2026",
+    "last_update": "14/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}
