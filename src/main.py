@@ -47,6 +47,7 @@ Usage :
   python src/main.py
 """
 
+import os
 import sys
 import time
 from datetime import datetime
@@ -60,6 +61,15 @@ from typing import Any
 ROOT = Path(__file__).resolve().parent.parent
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
+
+# Charge .env avant toute lecture de os.environ ci-dessous (même pattern que
+# src/security/security_config.py) — sans ça, ALFRED_LLM_MODEL/
+# ALFRED_LLM_TOOLS_MODEL définis dans .env n'auraient aucun effet.
+try:
+    from dotenv import load_dotenv
+    load_dotenv(ROOT / ".env")
+except ImportError:
+    pass
 
 
 # =============================================================================
@@ -83,15 +93,24 @@ USER_FALLBACK_NAME = "Céline"
 USER_ID = "celine"   # identifiant onboarding — correspond aux fichiers data/profile/personality_celine.json
 
 # ─────────────────────────────────────────────────────────────────────────────
-# Modèle Ollama actif — changer ici pour switcher
+# Modèle Ollama actif — surchargeable via variable d'environnement, sans
+# changer le défaut (sobriété modèle, docs/architecture/
+# vision_architecture_cognitive_alfred.md, section P2).
 #
 #   "llama3.2"   → actuel, léger
 #   "mistral:7b" → recommandé (meilleur en français)
 #   "phi3:mini"  → ultra-rapide (conversationnel léger)
 #
+# ALFRED_LLM_TOOLS_MODEL (optionnel) : modèle dédié aux tours function-calling
+# (agenda/tâches), là où llama3.2 (3B) a montré ~35-40 % d'échecs le
+# 24/07/2026. Non défini par défaut = même modèle que MODEL, comportement
+# inchangé — à activer une fois la latence d'un modèle plus lourd validée
+# sur le matériel réel (voir MODEL_PROFILES dans llm_client_ollama.py).
+#
 # Pré-requis : ollama pull <modele>
 # ─────────────────────────────────────────────────────────────────────────────
-MODEL = "llama3.2"   # mistral:7b trop lent sans GPU → llama3.2 recommandé sur CPU
+MODEL = os.environ.get("ALFRED_LLM_MODEL") or "llama3.2"   # mistral:7b trop lent sans GPU → llama3.2 recommandé sur CPU
+TOOLS_MODEL = os.environ.get("ALFRED_LLM_TOOLS_MODEL") or None   # None/vide = pas de modèle dédié
 
 MAX_INPUT_LENGTH = 2000
 MAX_MEMORY_CONTEXT = 8
@@ -627,7 +646,7 @@ def init_components() -> dict[str, Any]:
 
     # LLM Router : Ollama local -> OpenAI fallback -> fallback offline
     try:
-        ollama = OllamaLLMClient(model=MODEL)
+        ollama = OllamaLLMClient(model=MODEL, tools_model=TOOLS_MODEL)
 
         try:
             openai = OpenAILLMClient(model="gpt-4o-mini")
