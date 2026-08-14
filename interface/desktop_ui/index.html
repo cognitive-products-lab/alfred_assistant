@@ -2120,15 +2120,16 @@
     }, 20000);
   }
 
-  function setVState(name){
+  function setVState(name, opts){
     var s = VOICE_STATES[name]; if (!s) return;
     currentVState = name;
     avatarStage.dataset.vstate = name;
     voiceStatusZone.dataset.tone = s.tone;
     orbStatusEl.textContent = s.status;
     orbHintEl.textContent = s.hint;
-    orbTranscriptEl.textContent = s.transcript || '';
-    captionsLineEl.textContent = s.transcript || '';
+    var transcript = (opts && typeof opts.transcript === 'string') ? opts.transcript : (s.transcript || '');
+    orbTranscriptEl.textContent = transcript;
+    captionsLineEl.textContent = transcript;
     lbStatusEl.textContent = s.lb;
     if (ctxStatusValue) ctxStatusValue.textContent = s.status;
     btnOrbPrimaryLabel.textContent = s.primary;
@@ -2192,9 +2193,7 @@
    * exactement le même chemin que le mode texte : AlfredBridge.send_message().
    */
   window.__onAndroidSpeechResult = function(text){
-    orbTranscriptEl.textContent = '« ' + text + ' »';
-    captionsLineEl.textContent = '« ' + text + ' »';
-    setVState('analyzing');
+    setVState('analyzing', {transcript: '« ' + text + ' »'});
     var api = window.pywebview && window.pywebview.api;
     if (api && api.send_message) api.send_message(text).catch(function(){});
   };
@@ -2215,9 +2214,7 @@
         setVState('transcribing');
         api.stop_recording().then(function(result){
           if (result && result.ok){
-            orbTranscriptEl.textContent = '« ' + result.text + ' »';
-            captionsLineEl.textContent = '« ' + result.text + ' »';
-            setVState('analyzing');
+            setVState('analyzing', {transcript: '« ' + result.text + ' »'});
             api.send_message(result.text).catch(function(){});
           } else {
             setVState('error');
@@ -2287,9 +2284,7 @@
       var cmd = chip.dataset.cmd;
       var api = window.pywebview && window.pywebview.api;
       if (api && api.send_message){
-        orbTranscriptEl.textContent = '« ' + cmd + ' »';
-        captionsLineEl.textContent = '« ' + cmd + ' »';
-        setVState('analyzing');
+        setVState('analyzing', {transcript: '« ' + cmd + ' »'});
         api.send_message(cmd).catch(function(){});
         return;
       }
