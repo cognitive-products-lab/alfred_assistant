@@ -522,3 +522,52 @@
   .brand-text,.avatar-block .availability,.nav-item span.label-text{ display:none; }
   .avatar-medallion{ width:44px; height:44px; }
 }
+
+/* ===== Téléphone (<=600px) : nav basse, topbar compacte, panneaux empilés ===== */
+html, body{ overflow-x:hidden; }
+
+@media (max-width: 600px){
+  .topbar{
+    padding:var(--sp-3) var(--sp-4);
+    padding-top:max(var(--sp-3), env(safe-area-inset-top));
+    gap:var(--sp-2);
+  }
+  .topbar-title{ min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:.9375rem; }
+  .search .kbd{ display:none; }
+  .topbar-actions{ gap:4px; }
+  .profile-btn{ padding:4px; gap:0; }
+  .profile-btn span{ display:none; }
+
+  .workspace{ padding:var(--sp-4); padding-bottom:calc(72px + env(safe-area-inset-bottom)); }
+  .kpi-grid,.qa-grid{ grid-template-columns:1fr; }
+  .privacy-strip{ flex-wrap:nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch; padding:var(--sp-2) var(--sp-4); }
+
+  /* Avatar : mise à l'échelle sur la largeur d'écran plutôt qu'une hauteur fixe */
+  .avatar-stage{ height:auto; min-height:0; }
+  .avatar-figure canvas{ width:min(70vw, 320px); height:auto; }
+  .avatar-rings-svg{ width:300px; height:300px; }
+  .avatar-particles{ width:300px; height:300px; }
+  .avatar-halo{ width:140px; height:140px; top:30px; }
+
+  /* Sidebar -> barre de navigation basse (icônes + libellés courts) */
+  .app{ flex-direction:column; }
+  .sidebar{
+    position:fixed; left:0; right:0; bottom:0; top:auto; z-index:40;
+    width:100%; min-height:0; height:auto; flex-direction:row;
+    padding:6px 4px calc(6px + env(safe-area-inset-bottom));
+    border-right:0; border-top:1px solid var(--border);
+    gap:0;
+  }
+  .brand,.avatar-block,#btn-new-conversation,.sidebar-foot{ display:none; }
+  .nav{ flex-direction:row; flex:1; gap:0; justify-content:space-around; overflow-y:visible; }
+  .nav-item{
+    position:relative; flex-direction:column; flex:1; min-width:0; gap:2px;
+    padding:6px 2px; min-height:52px; justify-content:center;
+  }
+  .nav-item .label-text{
+    display:block; font-size:.625rem; font-weight:600; white-space:nowrap;
+    overflow:hidden; text-overflow:ellipsis; max-width:100%;
+  }
+  .nav-item svg{ width:20px; height:20px; }
+  .nav-badge{ position:absolute; top:2px; right:14%; margin-left:0; }
+}
