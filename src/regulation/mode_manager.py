@@ -115,6 +115,32 @@ MODES: dict[str, ModeConfig] = {
 
 DEFAULT_MODE = "focus"
 
+# Intention détectée → mode. Vocabulaire aligné sur le catalogue réellement
+# produit en production (src/input/nlp_engine.py::_INTENT_CATALOG, consommé
+# via src/conversation/input/nlp_engine_v2.py par regulation_engine.py) —
+# avant cette extension, la moitié des intentions réelles (farewell,
+# organization, reminder, weather, music, information, project) n'avaient
+# aucun effet sur le mode. wellbeing/knowledge_request/product_knowledge
+# conservés pour compatibilité avec d'autres catalogues d'intention du
+# projet (ex. multi_signal_fusion_engine.py::_INTENT_TO_MODE).
+INTENT_TO_MODE: dict[str, str] = {
+    "emotional_support": "support",
+    "wellbeing":         "support",
+    "engineering":       "focus",
+    "knowledge_request": "focus",
+    "information":       "focus",
+    "organization":      "focus",
+    "reminder":          "focus",
+    "project":           "focus",
+    "task":              "focus",
+    "question":          "focus",
+    "product_knowledge": "challenge",
+    "greeting":          "complicite",
+    "farewell":          "complicite",
+    "weather":           "complicite",
+    "music":             "complicite",
+}
+
 
 # ─────────────────────────────────────────────────────────
 # Machine à états (singleton session)
@@ -235,17 +261,67 @@ class ModeManager:
             return self._current_mode
 
         # Intent → mode
-        intent_to_mode = {
-            "emotional_support": "support",
-            "wellbeing":         "support",
-            "engineering":       "focus",
-            "knowledge_request": "focus",
-            "product_knowledge": "challenge",
-            "greeting":          "complicite",
-        }
-        target = intent_to_mode.get(intent)
+        target = INTENT_TO_MODE.get(intent)
         if target and target != self._current_mode:
             self.set_mode(target, reason=f"intent_{intent}")
+
+        return self._current_mode
+
+    def update_from_signals(
+        self,
+        emotion: EmotionalState | None = None,
+        energy_level: str | None = None,
+        intent: str | None = None,
+    ) -> str:
+        """
+        Résout le mode à partir de plusieurs signaux combinés, avec un ordre
+        de priorité explicite plutôt que des appels séquentiels qui
+        s'écrasent silencieusement l'un l'autre (bug corrigé le 14/08/2026 :
+        regulation_engine.py appelait update_from_emotion() PUIS
+        update_from_context(), et l'intent pouvait annuler une décision
+        d'émotion pourtant plus prioritaire — ex. émotion "stressed"→support
+        écrasé par intent "engineering"→focus sur la même requête).
+
+        Ordre de priorité :
+            1. Protection / détresse (absolu)
+            2. Énergie basse
+            3. Émotion dominante (si elle résout vers un mode connu)
+            4. Intention (utilisée seulement si l'émotion n'a rien résolu)
+
+        Args:
+            emotion      : EmotionalState depuis emotion_detector (optionnel)
+            energy_level : high / medium / low (optionnel)
+            intent       : Intention NLP détectée (optionnel)
+
+        Returns:
+            Mode résultant
+        """
+        from src.regulation.protection_guard import is_protection_needed
+
+        if emotion is not None and is_protection_needed(emotion):
+            self.set_mode("support", reason=f"protection_{emotion.emotion}")
+            return self._current_mode
+
+        if energy_level == "low":
+            self.set_mode("support", reason="low_energy")
+            return self._current_mode
+
+        # "neutral" est l'état par défaut du détecteur d'émotion (absence de
+        # signal), pas une émotion dominante réelle — le laisser prioritaire
+        # sur l'intent masquerait systématiquement l'intent dès qu'aucune
+        # émotion marquée n'est détectée (cas majoritaire en usage réel,
+        # constaté lors de la vérification manuelle du 14/08/2026).
+        if emotion is not None and emotion.emotion not in (None, "", "neutral"):
+            target = self._resolve_mode_from_emotion(emotion.emotion)
+            if target:
+                if target != self._current_mode:
+                    self.set_mode(target, reason=f"emotion_{emotion.emotion}")
+                return self._current_mode
+
+        if intent:
+            target = INTENT_TO_MODE.get(intent)
+            if target and target != self._current_mode:
+                self.set_mode(target, reason=f"intent_{intent}")
 
         return self._current_mode
 

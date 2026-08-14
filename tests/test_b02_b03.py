@@ -361,6 +361,117 @@ class TestModeManager:
         assert transitions[0] == ("focus", "support")
 
 
+class TestModeManagerSignals:
+    """
+    Tests B03.02/03 — update_from_signals().
+
+    Corrige le 14/08/2026 un bug réel de regulation_engine.py::_run_mode() :
+    update_from_emotion() était appelé PUIS update_from_context(), et
+    l'intent pouvait écraser silencieusement une décision d'émotion plus
+    prioritaire (ex. émotion "stressed"→support annulée par intent
+    "engineering"→focus sur la même requête). update_from_signals() applique
+    un ordre de priorité explicite : protection > énergie basse > émotion >
+    intent (utilisé seulement si l'émotion n'a rien résolu).
+    """
+
+    def setup_method(self):
+        import src.regulation.mode_manager as mm
+        mm._mode_manager = None
+
+    def test_emotion_wins_over_conflicting_intent(self):
+        from src.regulation.mode_manager import get_mode_manager
+        from src.regulation.emotion_detector import EmotionalState
+        manager = get_mode_manager()
+        state = EmotionalState(emotion="stressed", intensity=0.5, valence="negative")
+
+        mode = manager.update_from_signals(emotion=state, energy_level="medium", intent="engineering")
+
+        assert mode == "support"
+
+    def test_low_energy_beats_emotion_and_intent(self):
+        from src.regulation.mode_manager import get_mode_manager
+        from src.regulation.emotion_detector import EmotionalState
+        manager = get_mode_manager()
+        state = EmotionalState(emotion="motivated", intensity=0.6, valence="positive")
+
+        mode = manager.update_from_signals(emotion=state, energy_level="low", intent="engineering")
+
+        assert mode == "support"
+
+    def test_intent_used_as_fallback_when_emotion_unresolved(self):
+        from src.regulation.mode_manager import get_mode_manager
+        from src.regulation.emotion_detector import EmotionalState
+        manager = get_mode_manager()
+        # "unknown_emotion" ne correspond à aucun trigger de mode -> l'intent
+        # devient le signal décisif.
+        state = EmotionalState(emotion="unknown_emotion", intensity=0.3, valence="neutral")
+
+        mode = manager.update_from_signals(emotion=state, energy_level="medium", intent="organization")
+
+        assert mode == "focus"
+
+    def test_neutral_emotion_does_not_block_intent(self):
+        from src.regulation.mode_manager import get_mode_manager
+        from src.regulation.emotion_detector import EmotionalState
+        manager = get_mode_manager()
+        # "neutral" = absence de signal, pas une émotion dominante réelle —
+        # c'est le cas majoritaire en usage réel (bug constaté le 14/08/2026
+        # via une vérification manuelle bout-en-bout sur RegulationEngine).
+        state = EmotionalState(emotion="neutral", intensity=0.0, valence="neutral")
+
+        mode = manager.update_from_signals(emotion=state, energy_level="medium", intent="emotional_support")
+
+        assert mode == "support"
+
+    def test_protection_needed_overrides_everything(self):
+        from src.regulation.mode_manager import get_mode_manager
+        from src.regulation.emotion_detector import EmotionalState
+        manager = get_mode_manager()
+        state = EmotionalState(emotion="distress", intensity=0.9, valence="negative")
+
+        mode = manager.update_from_signals(emotion=state, energy_level="high", intent="engineering")
+
+        assert mode == "support"
+
+    def test_no_signals_keeps_current_mode(self):
+        from src.regulation.mode_manager import get_mode_manager
+        manager = get_mode_manager()
+        manager.set_mode("challenge", "setup")
+
+        mode = manager.update_from_signals()
+
+        assert mode == "challenge"
+
+
+class TestIntentToMode:
+    """
+    Tests B03.02 — INTENT_TO_MODE couvre le catalogue d'intentions réel
+    (src/input/nlp_engine.py::_INTENT_CATALOG, consommé en production via
+    regulation_engine.py). Avant l'extension du 14/08/2026, 7 des 11
+    intentions réelles (farewell, organization, reminder, weather, music,
+    information, project) n'avaient aucun effet sur le mode.
+    """
+
+    def test_real_catalog_intents_all_mapped(self):
+        from src.regulation.mode_manager import INTENT_TO_MODE
+        from src.input.nlp_engine import _INTENT_CATALOG
+
+        unmapped = [
+            intent for intent in _INTENT_CATALOG
+            if intent != "general" and intent not in INTENT_TO_MODE
+        ]
+        assert unmapped == [], f"Intentions réelles sans mode associé : {unmapped}"
+
+    def test_organization_and_reminder_map_to_focus(self):
+        from src.regulation.mode_manager import INTENT_TO_MODE
+        assert INTENT_TO_MODE["organization"] == "focus"
+        assert INTENT_TO_MODE["reminder"] == "focus"
+
+    def test_farewell_maps_to_complicite(self):
+        from src.regulation.mode_manager import INTENT_TO_MODE
+        assert INTENT_TO_MODE["farewell"] == "complicite"
+
+
 class TestProtectionGuard:
     """Tests B03.04 — Mode protection."""
 
