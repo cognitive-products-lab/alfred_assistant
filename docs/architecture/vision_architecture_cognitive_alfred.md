@@ -141,14 +141,44 @@ Commit `0194051c`.
 
 ### P4 — Différé, pas engagé maintenant
 
-Cognitive Bus événementiel complet, StateNet unifié, Learning LLM
-propriétaire/LoRA, offres commerciales Standard/Adaptive/Pro. Investissement
-structurel important que le document source lui-même conditionne à un gain
-mesurable (section 25) — prématuré tant que P0-P3 ne sont pas stabilisés et
-qu'aucun dataset ALFRED (Intent/Routing/Memory) n'existe encore pour
-justifier un composant appris. `mode_manager.py` couvre déjà une partie du
-StateNet ; l'étendre suffira longtemps avant d'avoir besoin d'un bus
-d'événements complet.
+Cognitive Bus événementiel complet, Learning LLM propriétaire/LoRA, offres
+commerciales Standard/Adaptive/Pro. Investissement structurel important que
+le document source lui-même conditionne à un gain mesurable (section 25) —
+toujours différé, aucun dataset ALFRED (Intent/Routing/Memory) n'existe
+encore pour justifier un composant appris.
+
+**Extension ciblée livrée 14/08/2026** (décision explicite de Céline de ne
+pas attendre la stabilisation complète de P0-P3 pour ce point précis, jugé
+à faible risque contrairement au reste de P4) : `mode_manager.py` s'est
+révélé être la partie de StateNet **déjà réellement active en production**
+— contrairement à IntentNet/SafetyNet avant P0-P1, ce n'était pas du code
+mort. En traçant le vrai chemin d'appel (`regulation_engine.py`, pas
+`main.py` — **deux pipelines NLP/mode parallèles coexistent**, voir
+point de vigilance ci-dessous), deux problèmes concrets ont été trouvés et
+corrigés :
+1. Un bug d'écrasement de priorité (`update_from_emotion()` puis
+   `update_from_context()` appelés sans discipline — l'intent pouvait
+   annuler une émotion pourtant plus prioritaire), remplacé par
+   `update_from_signals()` (protection > énergie basse > émotion dominante
+   > intent en repli).
+2. Un vocabulaire d'intentions incomplet (`INTENT_TO_MODE` ne couvrait que
+   6 catégories dont 3 inexistantes dans le catalogue réel — 7 intentions
+   réelles sur 11 n'avaient donc aucun effet sur le mode choisi).
+
+Commit `9667fd46`, 8 tests + vérification manuelle bout-en-bout sur
+`RegulationEngine.process()` réel.
+
+**Point de vigilance découvert, non traité (hors scope de cette extension)** :
+au moins deux chaînes NLP → mode parallèles coexistent dans le code —
+`main.py::detect_context()` (utilise `src.conversation.nlp.nlp_engine_v2`,
+corrigé en P1, alimente `MultiSignalFusionEngine`) et
+`regulation_engine.py::process()` (utilise
+`src.conversation.input.nlp_engine_v2`, différent module, déjà fonctionnel
+avant ce chantier, alimente `mode_guidelines` — celui qui atteint
+réellement le prompt LLM). Une troisième variante existe même dans
+`src/input/nlp_engine_v2.py`. Cette duplication n'a pas été démêlée ici —
+unifier ces chaînes serait un chantier à part entière, plus risqué qu'une
+extension ciblée de `mode_manager.py`.
 
 ---
 
