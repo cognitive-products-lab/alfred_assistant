@@ -112,6 +112,14 @@ USER_ID = "celine"   # identifiant onboarding — correspond aux fichiers data/p
 MODEL = os.environ.get("ALFRED_LLM_MODEL") or "llama3.2"   # mistral:7b trop lent sans GPU → llama3.2 recommandé sur CPU
 TOOLS_MODEL = os.environ.get("ALFRED_LLM_TOOLS_MODEL") or None   # None/vide = pas de modèle dédié
 
+# Politique mémoire (docs/architecture/vision_architecture_cognitive_alfred.md,
+# section P3) : purge des échanges au-delà de N jours dans dialogue_history.json,
+# opt-in — None par défaut = historique conservé indéfiniment (comportement
+# inchangé). C'est de l'historique personnel, la décision de le purger revient
+# à l'utilisatrice.
+_retention_raw = os.environ.get("ALFRED_MEMORY_RETENTION_DAYS")
+MEMORY_RETENTION_DAYS = int(_retention_raw) if _retention_raw else None
+
 MAX_INPUT_LENGTH = 2000
 MAX_MEMORY_CONTEXT = 8
 VOICE_RECORD_SECONDS = 10
@@ -587,6 +595,7 @@ def init_components() -> dict[str, Any]:
         components["memory"] = MemoryEngine(
             history_path=str(MEMORY_PATH),
             max_context_entries=MAX_MEMORY_CONTEXT,
+            retention_days=MEMORY_RETENTION_DAYS,
         )
     except Exception as exc:
         print(f"  [ERREUR] MemoryEngine : {exc}")

@@ -28,7 +28,7 @@ Local-first : tout reste sur le PC, aucun cloud.
 """
 
 import json
-from datetime import datetime
+from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
@@ -38,10 +38,18 @@ class MemoryEngine:
     def __init__(
         self,
         history_path: str = "data/memory/episodic/dialogue_history.json",
-        max_context_entries: int = 10
+        max_context_entries: int = 10,
+        retention_days: Optional[int] = None,
     ):
         self.history_path = Path(history_path)
         self.max_context_entries = max_context_entries
+        # Politique mémoire (docs/architecture/vision_architecture_cognitive_alfred.md,
+        # section P3) : None = comportement inchangé, tout est conservé
+        # indéfiniment. Purge des échanges au-delà de N jours volontairement
+        # opt-in — c'est de l'historique de conversation personnel, la
+        # décision de le purger revient à l'utilisatrice, pas à un défaut
+        # silencieux.
+        self.retention_days = retention_days
         self.history: List[Dict[str, Any]] = []
 
         self._ensure_file()
@@ -66,10 +74,43 @@ class MemoryEngine:
         except (json.JSONDecodeError, FileNotFoundError):
             self.history = []
 
+        if self._apply_retention_policy():
+            self._save_to_disk(self.history)
+
     def _save_to_disk(self, data: list) -> None:
         """Sauvegarde l'historique sur le disque."""
         with open(self.history_path, "w", encoding="utf-8") as f:
             json.dump(data, f, indent=2, ensure_ascii=False)
+
+    def _apply_retention_policy(self) -> int:
+        """
+        Retire de self.history les échanges plus anciens que retention_days.
+        No-op (retourne 0) si retention_days est None — comportement par
+        défaut, historique conservé indéfiniment.
+        """
+        if not self.retention_days or not self.history:
+            return 0
+
+        cutoff = datetime.now() - timedelta(days=self.retention_days)
+        kept: List[Dict[str, Any]] = []
+        removed = 0
+        for entry in self.history:
+            ts = entry.get("timestamp")
+            try:
+                entry_date = datetime.fromisoformat(ts) if ts else None
+            except ValueError:
+                entry_date = None
+            # Timestamp illisible → conservé par prudence (jamais de perte
+            # silencieuse sur une entrée qu'on n'arrive pas à dater).
+            if entry_date is None or entry_date >= cutoff:
+                kept.append(entry)
+            else:
+                removed += 1
+
+        if removed:
+            self.history = kept
+            print(f"  Mémoire : {removed} échange(s) au-delà de {self.retention_days} jours retirés de l'historique.")
+        return removed
 
     # ─────────────────────────────────────────────────────
     # Écriture
@@ -93,6 +134,7 @@ class MemoryEngine:
             "alfred": alfred_response
         }
         self.history.append(entry)
+        self._apply_retention_policy()
         self._save_to_disk(self.history)
 
     # ─────────────────────────────────────────────────────
@@ -165,7 +207,8 @@ class MemoryEngine:
         return {
             "total_exchanges": len(self.history),
             "file": str(self.history_path),
-            "max_context": self.max_context_entries
+            "max_context": self.max_context_entries,
+            "retention_days": self.retention_days,
         }
 
     def __repr__(self) -> str:
