@@ -382,10 +382,15 @@ class RegulationEngine:
         if health.crisis_health or health.flare_detected:
             self._mode_manager.set_mode("support", reason="health_signal")
         else:
-            # Mode depuis émotion (Bloc 03)
-            self._mode_manager.update_from_emotion(emotion)
-            # Contexte NLP en renfort
-            self._mode_manager.update_from_context(ctx.energy_level, ctx.intent)
+            # Émotion + énergie + intent combinés avec priorité explicite
+            # (docs/architecture/vision_architecture_cognitive_alfred.md,
+            # section P4) — remplace deux appels séquentiels
+            # (update_from_emotion puis update_from_context) où le second
+            # pouvait écraser silencieusement une décision d'émotion plus
+            # prioritaire.
+            self._mode_manager.update_from_signals(
+                emotion=emotion, energy_level=ctx.energy_level, intent=ctx.intent,
+            )
 
         mode_cfg         = self._mode_manager.get_current_config()
         ctx.mode         = self._mode_manager.current_mode
