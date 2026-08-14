@@ -1503,15 +1503,16 @@
     },
     "b24": {
       "label": "ALFRED Android / Compagnon mobile natif",
-      "target_full_files_count": 12,
-      "target_full_label": "PoC Compagnon v1",
+      "target_full_files_count": 15,
+      "target_full_label": "PoC Compagnon v1 + durcissement TLS (14/08/2026)",
       "sub_targets": {
         "ui_native": 3,
         "api_integration": 3,
         "config_securite": 3,
-        "api_pc_side": 3
+        "api_pc_side": 3,
+        "securite_tls": 3
       },
-      "roadmap_note": "Validé le 13/07/2026 — dépôt séparé ALFRED_ANDROID, même statut structurel que le Bloc 21 (ALFRED_WEB). PoC 'Compagnon' validé de bout en bout le 02/07/2026, pas encore le produit Android complet (cf. ROADMAP.md, section Android).",
+      "roadmap_note": "Validé le 13/07/2026 — dépôt séparé ALFRED_ANDROID, même statut structurel que le Bloc 21 (ALFRED_WEB). PoC 'Compagnon' validé de bout en bout le 02/07/2026, pas encore le produit Android complet (cf. ROADMAP.md, section Android). Durcissement TLS ajouté le 14/08/2026 (cf. ALFRED_ANDROID/docs/BLOC24_STATUS_SESSION.md) : cible étendue de 12 à 15 fichiers.",
       "expected_files": [
         "ALFRED_ANDROID/app/src/main/java/com/cognitiveproductslab/alfred/companion/MainActivity.kt",
         "ALFRED_ANDROID/app/src/main/java/com/cognitiveproductslab/alfred/companion/ui/CompanionViewModel.kt",
@@ -1524,7 +1525,10 @@
         "ALFRED_ANDROID/app/src/main/res/xml/network_security_config.xml",
         "interface/__init__.py",
         "interface/companion_api.py",
-        "start_companion_api.bat"
+        "start_companion_api.bat",
+        "tools/security/generate_local_tls_cert.py",
+        "tests/dashboard_tests/test_companion_api_tls.py",
+        "ALFRED_ANDROID/app/src/main/res/raw/alfred_pc_cert.pem"
       ]
     },
     "b25": {
