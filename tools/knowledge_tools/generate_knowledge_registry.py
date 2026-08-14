@@ -19,7 +19,7 @@ from pathlib import Path
 import json
 from datetime import datetime
 
-ROOT = Path("D:/PROJET_ALFRED/ALFRED_PC")
+ROOT = Path(__file__).resolve().parents[2]
 KNOWLEDGES = ROOT / "knowledges"
 OUT = KNOWLEDGES / "knowledge_registry.json"
 
