@@ -22,6 +22,8 @@ import json
 import re
 from typing import Any, Dict, Optional
 
+from src.security.safety_gate import is_cloud_allowed
+
 # Mots-clés déclenchant l'activation des outils réels (Google Agenda + Tâches)
 # pour ce tour de conversation — voir _should_enable_tools(). Filtre
 # volontairement grossier : un faux positif ne coûte qu'un aller-retour LLM
@@ -79,6 +81,7 @@ class ResponseGenerator:
             return forced
 
         tools_enabled = self._should_enable_tools(user_message)
+        cloud_allowed = is_cloud_allowed(user_message)
 
         system_prompt = self._build_system_prompt(
             context=response_context,
@@ -103,6 +106,7 @@ class ResponseGenerator:
         if self.llm_client:
             response = self._call_llm(
                 system_prompt, user_prompt, on_sentence=on_sentence, tools=tools_enabled,
+                cloud_allowed=cloud_allowed,
             )
         else:
             response = self._fallback_response(user_message, response_context)
@@ -524,6 +528,7 @@ Réponds maintenant.""".strip()
 
     def _call_llm(
         self, system_prompt: str, user_prompt: str, on_sentence=None, tools: bool = False,
+        cloud_allowed: bool = True,
     ) -> str:
         """Appelle le LLM externe via le client abstrait."""
         try:
@@ -534,6 +539,8 @@ Réponds maintenant.""".strip()
                 kwargs["on_sentence"] = on_sentence
             if "tools" in sig.parameters:
                 kwargs["tools"] = tools
+            if "cloud_allowed" in sig.parameters:
+                kwargs["cloud_allowed"] = cloud_allowed
             response = self.llm_client.generate(
                 system_prompt=system_prompt,
                 user_prompt=user_prompt,
