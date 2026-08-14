@@ -12,7 +12,7 @@ ROLE         : Charge config/v3/workflow_rules.json + orchestrator_rules.json,
 AUTHOR       : Cognitive Products Lab
 CREATED      : 2026-08-12
 VERSION      : V1.0
-STATUS       : CODÉ — À TESTER (tests/b10_tests/test_orchestrator.py)
+STATUS       : VALIDÉ — 13/13 tests passés (tests/b10_tests/test_orchestrator.py, 12/08/2026)
 
 DESCRIPTION :
 CollaborationOrchestrator est le point d'entrée du mode "collaborateur pro"
