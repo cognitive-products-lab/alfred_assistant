@@ -2183,10 +2183,31 @@
     if (api && api.interrupt_speech) api.interrupt_speech().catch(function(){});
   }
 
+  /*
+   * Mode vocal distant (WebView Android) : le micro d'ALFRED PC (api.start_
+   * recording/stop_recording) n'a pas de sens pour un client distant — c'est
+   * le micro du téléphone qui doit être utilisé. WebUiActivity.kt (ALFRED_
+   * ANDROID) expose window.AndroidSpeech (SpeechRecognizer natif) quand la
+   * page tourne dans cette WebView. Le texte transcrit suit ensuite
+   * exactement le même chemin que le mode texte : AlfredBridge.send_message().
+   */
+  window.__onAndroidSpeechResult = function(text){
+    orbTranscriptEl.textContent = '« ' + text + ' »';
+    captionsLineEl.textContent = '« ' + text + ' »';
+    setVState('analyzing');
+    var api = window.pywebview && window.pywebview.api;
+    if (api && api.send_message) api.send_message(text).catch(function(){});
+  };
+  window.__onAndroidSpeechError = function(message){
+    setVState('error');
+    orbHintEl.textContent = message || 'Rien n’a été compris, réessayez.';
+  };
+
   function handlePrimaryInteraction(){
     if (currentVState === 'responding'){ interruptSpeaking(); return; }
 
     var api = window.pywebview && window.pywebview.api;
+    var androidSpeech = window.AndroidSpeech;
 
     if (currentVState === 'listening'){
       // 2e clic : arrête l'enregistrement et transcrit (push-to-talk).
@@ -2203,6 +2224,9 @@
             orbHintEl.textContent = (result && result.error) || 'Rien n’a été compris, réessayez.';
           }
         }).catch(function(){ setVState('error'); });
+      } else if (androidSpeech && androidSpeech.stopListening){
+        setVState('transcribing');
+        androidSpeech.stopListening(); // déclenche window.__onAndroidSpeechResult/Error
       } else {
         setVState('inactive');
       }
@@ -2220,8 +2244,11 @@
           orbHintEl.textContent = (result && result.error) || 'Microphone indisponible.';
         }
       }).catch(function(){ setVState('error'); });
+    } else if (androidSpeech && androidSpeech.startListening){
+      androidSpeech.startListening();
+      setVState('listening');
     } else {
-      // Hors pywebview (démo navigateur / Artifact) : comportement simulé inchangé.
+      // Ni pywebview ni WebView Android (démo navigateur / Artifact) : comportement simulé inchangé.
       setVState('listening');
     }
   }
