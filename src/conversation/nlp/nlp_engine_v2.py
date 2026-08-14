@@ -6,8 +6,9 @@
 #   D12-2 — Capsule 2 : NLP enrichi — scoring émotion et détection langue
 #
 # 🎯 UTILITÉ ALFRED :
-#   Moteur NLP V2 — étend V1 avec scoring émotionnel, détection langue
-#   et hook LLM local (Mistral/llama-cpp) prévu pour V3.
+#   Moteur NLP V2 — étend V1 avec scoring émotionnel, détection langue,
+#   classification d'intention (IntentNet, cf. intent_classifier.py) et
+#   hook LLM local (Mistral/llama-cpp) prévu pour V3.
 #
 # 🏗️ DOMAINE :
 #   Noyau conversationnel — NLP enrichi V2, LLM-ready
@@ -16,6 +17,10 @@
 # ============================================================
 
 from __future__ import annotations
+
+from src.conversation.nlp.intent_classifier import IntentClassifier
+
+_intent_classifier = IntentClassifier()
 
 
 def analyze_v2(text: str, time_context: dict | None = None) -> dict:
@@ -33,10 +38,13 @@ def analyze_v2(text: str, time_context: dict | None = None) -> dict:
     else:
         emotion = "neutral"
 
+    intent = _intent_classifier.classify(text)
+    confidence = 0.8 if intent != "fallback" else 0.3
+
     return {
-        "intent": "conversation",
+        "intent": intent,
         "emotion": emotion,
-        "confidence": 0.5,
+        "confidence": confidence,
         "entities": [],
         "time_context": time_context or {},
     }
