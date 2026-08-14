@@ -13,7 +13,7 @@
     "status": "SEED — à compléter par l'équipe au fil de l'eau",
     "visibility": "INTERNE — NE JAMAIS PUBLIER SUR ALFRED_WEB",
     "created": "2026-07-12",
-    "note": "Première passe d'inventaire réalisée le 2026-07-12 à partir des fichiers/registres existants (profil, mémoire, sécurité, RGPD, dashboards). Complété le 2026-07-13 par un passage bloc par bloc (Blocs 01 à 08) croisé avec dashboard_data_manifest.json — à poursuivre pour les blocs suivants. Ce n'est toujours pas un inventaire exhaustif. Passe de rattrapage documentation/définition le 2026-07-22 : les 6 dernières fiches non documentées ou non définies (DQ-013, DQ-014, DQ-019, DQ-025, DQ-030, DQ-037) ont été vérifiées disque par disque et corrigées — dont 3 cas de désynchronisation registre/disque (schéma déjà écrit le 16/07 mais flag jamais remonté) et 1 schéma réellement ajouté au fichier (DQ-030). Seule DQ-018 (module ARTHUR, non conçu) reste non définie, à dessein — cf. sa fiche. Même jour, sur demande OWNER : les 2 entrées 'obsolete' (DQ-019, DQ-022) déplacées de entries[] vers archived_entries[] — conservées intégralement pour l'historique mais sorties du suivi actif (total_entries/documented_count/defined_count/alertes 'statut_obsolete' dans dashboard_quality_data.json)."
+    "note": "Première passe d'inventaire réalisée le 2026-07-12 à partir des fichiers/registres existants (profil, mémoire, sécurité, RGPD, dashboards). Complété le 2026-07-13 par un passage bloc par bloc (Blocs 01 à 08) croisé avec dashboard_data_manifest.json — à poursuivre pour les blocs suivants. Ce n'est toujours pas un inventaire exhaustif. Passe de rattrapage documentation/définition le 2026-07-22 : les 6 dernières fiches non documentées ou non définies (DQ-013, DQ-014, DQ-019, DQ-025, DQ-030, DQ-037) ont été vérifiées disque par disque et corrigées — dont 3 cas de désynchronisation registre/disque (schéma déjà écrit le 16/07 mais flag jamais remonté) et 1 schéma réellement ajouté au fichier (DQ-030). Seule DQ-018 (module ARTHUR, non conçu) reste non définie, à dessein — cf. sa fiche. Même jour, sur demande OWNER : les 2 entrées 'obsolete' (DQ-019, DQ-022) déplacées de entries[] vers archived_entries[] — conservées intégralement pour l'historique mais sorties du suivi actif (total_entries/documented_count/defined_count/alertes 'statut_obsolete' dans dashboard_quality_data.json). Extension ALFRED_WEB le 2026-08-11 : le registre était scopé ALFRED_PC uniquement — aucune fiche ne référençait PostgreSQL/MongoDB côté ALFRED_WEB. Ajout de DQ-048 à DQ-051 (comptes utilisateurs Postgres, articles/commentaires Mongo, conversations Mongo, préférences Mongo) après confrontation aux moteurs de données réels via tools/dashboard_tools/dashboard_quality_data/scan_data_assets.py (nouveau, pilier Automatisation du framework DQbD). La table technique `alembic_version` (PostgreSQL) est volontairement exclue : bookkeeping interne de migration de schéma (1 ligne, un hash de version), pas une donnée au sens de ce registre."
   },
   "scales": {
     "status": {
@@ -1429,6 +1429,147 @@
       "last_modified_at": "2026-07-16",
       "planned_deletion_at": null,
       "notes": "Statut 'a_connecter' et pas 'utilisee' : le schéma est réel et fidèle au code, mais aucun module ne charge encore ces fichiers (ils gèrent toujours leurs constantes en dur). Câbler réellement la lecture de ces fichiers dans les 8 modules est un chantier de développement à part entière (modifie du code de pipeline qui tourne), à faire et tester sur PC — non fait ici, sur décision explicite de l'équipe (schémas seulement, pas de code)."
+    },
+    {
+      "id": "DQ-048",
+      "name": "Comptes utilisateurs (PostgreSQL, ALFRED_WEB)",
+      "domain_bloc": "Bloc 21.23 — Comptes utilisateurs (PostgreSQL)",
+      "source_path": "ALFRED_WEB/models/user.py (table PostgreSQL `users`)",
+      "description": "Comptes utilisateurs du site public ALFRED_WEB : id, email, password_hash (bcrypt), role, created_at, consent_at. Migration Alembic versionnée, 11 tests automatisés passés contre une base PostgreSQL réelle (inscription, doublon email, mot de passe court rejeté, hachage vérifié, CSRF).",
+      "documented": true,
+      "defined": true,
+      "status": "utilisable",
+      "data_type": "privee",
+      "sensitivity_classification": "C3_CONFIDENTIEL",
+      "security_level_planned": 3,
+      "intended_use": [
+        "technique",
+        "metier"
+      ],
+      "retention_period": "non définie — dépend de l'AIPD T001 (backlog, non commencée)",
+      "update_frequency": "à l'inscription/connexion (aucun compte réel créé au 11/08/2026, table vide)",
+      "authorized_roles": {
+        "read": [
+          "OWNER",
+          "ADMIN"
+        ],
+        "write": [
+          "OWNER",
+          "ADMIN",
+          "USER"
+        ]
+      },
+      "created_at": "2026-07-08",
+      "last_modified_at": "2026-08-11",
+      "planned_deletion_at": null,
+      "notes": "Statut 'utilisable' et pas 'utilisee' : le code est validé (tests réels) mais l'inscription publique n'est pas ouverte — verrou RGPD explicite tant que l'AIPD T001 n'est pas produite (cf. mentions légales, gap analysis AI Act). Niveau 3 (et pas 4) : email + hash bcrypt calibrés sur DQ-006 (Sessions/authentification, niveau 3), pas sur DQ-001 (données de santé/psychométriques, catégorie spéciale RGPD Art.9) qui justifie seule le niveau 4 dans ce registre. Confirmé par le scanner automatisé (scan_data_assets.py, 11/08/2026) : table réelle, 0 ligne."
+    },
+    {
+      "id": "DQ-049",
+      "name": "Articles & commentaires du site public (MongoDB, ALFRED_WEB)",
+      "domain_bloc": "Bloc 21.13 — Persistance articles/commentaires (MongoDB)",
+      "source_path": "ALFRED_WEB/data/articles_repository.py (collections MongoDB `articles`, `article_comments`)",
+      "description": "Contenu éditorial du blog public (collection `articles` : titre, résumé, catégorie, tags, date, slug — 13 documents réels au 11/08/2026) et commentaires visiteurs (collection `article_comments` : slug, nom, message, date — 0 document au 11/08/2026, repli JSON local `article_comments.json` si MongoDB injoignable).",
+      "documented": true,
+      "defined": true,
+      "status": "utilisee",
+      "data_type": "publique",
+      "sensitivity_classification": "C1_PUBLIC",
+      "security_level_planned": 1,
+      "intended_use": [
+        "metier"
+      ],
+      "retention_period": "illimitée (contenu éditorial, pas de donnée personnelle sensible dans `articles`)",
+      "update_frequency": "au fil des publications",
+      "authorized_roles": {
+        "read": [
+          "OWNER",
+          "ADMIN",
+          "USER",
+          "GUEST"
+        ],
+        "write": [
+          "OWNER",
+          "ADMIN"
+        ]
+      },
+      "created_at": "2026-07-02",
+      "last_modified_at": "2026-08-11",
+      "planned_deletion_at": null,
+      "notes": "`article_comments` contient un nom et un message saisis librement par un visiteur (donnée personnelle déclarative, pas C1_PUBLIC au même titre que `articles`) — classification actuelle alignée sur `articles` par simplicité de fiche, à séparer en fiche dédiée si le volet commentaires démarre réellement (0 document au 11/08/2026). Confirmé par le scanner automatisé (scan_data_assets.py, 11/08/2026)."
+    },
+    {
+      "id": "DQ-050",
+      "name": "Conversations web (MongoDB, ALFRED_WEB — scaffolding anticipatoire)",
+      "domain_bloc": "Bloc 21.25 — Conversations utilisateur (MongoDB, anticipation chat web)",
+      "source_path": "ALFRED_WEB/data/conversations_repository.py (collection MongoDB `conversations`)",
+      "description": "Historique de conversation (user_id, messages[], created_at, last_message_at) préparé pour une future fonctionnalité de chat sur ALFRED_WEB qui n'existe pas encore côté produit. Isolation stricte par user_id (404, pas 403, sur accès cross-utilisateur). Effacement explicite possible (delete_conversation) en plus de l'expiration TTL.",
+      "documented": true,
+      "defined": true,
+      "status": "a_connecter",
+      "data_type": "privee",
+      "sensitivity_classification": "C3_CONFIDENTIEL",
+      "security_level_planned": 4,
+      "intended_use": [
+        "technique"
+      ],
+      "retention_period": "index TTL sur last_message_at — durée PLACEHOLDER 90 jours, à confirmer via l'AIPD T001 (pas une décision produit actée)",
+      "update_frequency": "sans objet — aucune fonctionnalité de chat web n'existe encore, 0 document au 11/08/2026",
+      "authorized_roles": {
+        "read": [
+          "OWNER",
+          "USER"
+        ],
+        "write": [
+          "OWNER",
+          "USER"
+        ]
+      },
+      "access_exceptions": [
+        {
+          "role": "USER",
+          "scope": "both",
+          "justification": "Accès non pas à des conversations 'niveau 4' en général, mais strictement aux siennes propres : isolation stricte par user_id à chaque opération (get_conversation/list_conversations/add_message/delete_conversation), 404 — pas 403 — sur tout accès cross-utilisateur, pour ne pas révéler l'existence d'une conversation d'un autre compte. Le rôle générique USER (habilitation MEDIUM) n'a jamais accès aux conversations d'un autre utilisateur.",
+          "reviewed_by": "OWNER",
+          "reviewed_at": "2026-08-11"
+        }
+      ],
+      "created_at": "2026-07-09",
+      "last_modified_at": "2026-08-11",
+      "planned_deletion_at": null,
+      "notes": "Consentement distinct requis (finalité différente de la création de compte, données potentiellement sensibles) dès que ce chantier sera réellement activé. Confirmé par le scanner automatisé (scan_data_assets.py, 11/08/2026) : collection réelle, 0 document."
+    },
+    {
+      "id": "DQ-051",
+      "name": "Préférences utilisateur (MongoDB, ALFRED_WEB)",
+      "domain_bloc": "Bloc 21.24 — Préférences utilisateur (MongoDB)",
+      "source_path": "ALFRED_WEB/data/preferences_repository.py (collection MongoDB `user_preferences`)",
+      "description": "Un document par utilisateur (référence logique user_id vers PostgreSQL, pas de FK réelle cross-moteur) — 2 champs : lang, dyslexic_font. Reprend des préférences déjà exposées côté client (localStorage/cookie session), rien de plus (minimisation).",
+      "documented": true,
+      "defined": true,
+      "status": "a_connecter",
+      "data_type": "privee",
+      "sensitivity_classification": "C2_INTERNE",
+      "security_level_planned": 2,
+      "intended_use": [
+        "technique"
+      ],
+      "retention_period": "liée au compte PostgreSQL associé — pas de politique dédiée définie",
+      "update_frequency": "à la première écriture puis mises à jour partielles sans reconsentement",
+      "authorized_roles": {
+        "read": [
+          "OWNER",
+          "USER"
+        ],
+        "write": [
+          "OWNER",
+          "USER"
+        ]
+      },
+      "created_at": "2026-07-08",
+      "last_modified_at": "2026-08-11",
+      "planned_deletion_at": null,
+      "notes": "Consentement séparé de celui de la création de compte, horodaté (preferences_consent_at) à la première écriture uniquement. Statut 'a_connecter' : code testé mais pas câblé côté client (aucune page compte n'existe). Confirmé par le scanner automatisé (scan_data_assets.py, 11/08/2026) : collection réelle, 0 document."
     }
   ],
   "_archived_entries_note": "Entrées au statut 'obsolete' déplacées ici le 22/07/2026 (demande OWNER : ne plus les compter dans le suivi actif). Conservées intégralement pour traçabilité — exclues de entries[], donc de total_entries/documented_count/defined_count/alertes dans dashboard_quality_data.json. Ne pas supprimer ces fiches, seulement les archiver plus loin si un jour elles n'ont plus aucune valeur historique.",
