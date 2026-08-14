@@ -715,6 +715,145 @@
 
 
 <script>
+/*
+ * ============ AlfredBridge : pont HTTP de repli (mobile / navigateur) ============
+ * Sur ALFRED PC (fenêtre pywebview), window.pywebview.api existe déjà et tout le
+ * reste de ce fichier l'appelle directement (window.pywebview.api.get_xxx(), etc.).
+ * Hors pywebview (navigateur de test, WebView Android), on fabrique ici un objet
+ * window.pywebview.api de même forme, qui relaie chaque appel vers l'API HTTP
+ * locale d'ALFRED (voir interface/companion_api.py) via un point d'entrée RPC
+ * unique : POST /api/rpc {method, args} -> {ok, result} | {ok:false, error}.
+ * Toutes les méthodes existantes du fichier continuent de fonctionner sans
+ * modification, y compris les fallbacks "hors pywebview" déjà présents (mode
+ * vocal simulé) pour les méthodes volontairement absentes de ce pont (micro PC —
+ * voir start_recording/stop_recording plus bas, non pertinentes pour un client
+ * distant, cf. mode vocal Android basé sur la reconnaissance vocale native).
+ */
+(function(){
+  if (window.pywebview && window.pywebview.api) return; // vraie fenêtre desktop : rien à faire
+
+  var STORE_TOKEN = 'alfred_api_token';
+  var STORE_BASE = 'alfred_api_base';
+
+  function readConfig(){
+    var params = new URLSearchParams(location.search);
+    var tokenFromUrl = params.get('alfred_token');
+    var baseFromUrl = params.get('alfred_base');
+    if (tokenFromUrl) localStorage.setItem(STORE_TOKEN, tokenFromUrl);
+    if (baseFromUrl) localStorage.setItem(STORE_BASE, baseFromUrl);
+    if (tokenFromUrl || baseFromUrl){
+      params.delete('alfred_token'); params.delete('alfred_base');
+      var clean = location.pathname + (params.toString() ? '?' + params.toString() : '');
+      history.replaceState(null, '', clean);
+    }
+    var base = localStorage.getItem(STORE_BASE);
+    if (!base && location.origin && location.origin !== 'null') base = location.origin;
+    return { base: base || '', token: localStorage.getItem(STORE_TOKEN) || '' };
+  }
+
+  var cfg = readConfig();
+
+  function callRpc(method, args){
+    if (!cfg.base || !cfg.token){
+      return Promise.reject(new Error('AlfredBridge: configuration manquante (URL/jeton)'));
+    }
+    return fetch(cfg.base.replace(/\/$/, '') + '/api/rpc', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + cfg.token },
+      body: JSON.stringify({ method: method, args: args || {} })
+    }).then(function(res){
+      if (!res.ok) throw new Error('AlfredBridge: HTTP ' + res.status);
+      return res.json();
+    }).then(function(payload){
+      if (!payload || payload.ok === false) throw new Error((payload && payload.error) || 'AlfredBridge: erreur inconnue');
+      return payload.result;
+    });
+  }
+
+  // Une méthode par entrée de AlfredDesktopAPI (src/alfred_desktop.py), même nom,
+  // mêmes paramètres nommés -> le contrat RPC gardé strictement 1:1 avec la classe
+  // Python évite toute divergence entre le bureau et le pont distant.
+  var AlfredBridge = {
+    send_message: function(text){ return callRpc('send_message', { text: text }); },
+    get_settings: function(){ return callRpc('get_settings'); },
+    save_setting: function(key, value){ return callRpc('save_setting', { key: key, value: value }); },
+    get_recommandations: function(){ return callRpc('get_recommandations'); },
+    get_emotion_state: function(){ return callRpc('get_emotion_state'); },
+    set_emotion_override: function(enabled){ return callRpc('set_emotion_override', { enabled: enabled }); },
+    correct_emotion: function(mood_label){ return callRpc('correct_emotion', { mood_label: mood_label }); },
+    get_planning: function(){ return callRpc('get_planning'); },
+    get_devices: function(){ return callRpc('get_devices'); },
+    get_activite: function(){ return callRpc('get_activite'); },
+    get_kpis: function(){ return callRpc('get_kpis'); },
+    get_notifications: function(){ return callRpc('get_notifications'); },
+    get_context_consent: function(){ return callRpc('get_context_consent'); },
+    set_context_consent: function(category, enabled){ return callRpc('set_context_consent', { category: category, enabled: enabled }); },
+    run_backup: function(){ return callRpc('run_backup'); },
+    summarize_today: function(){ return callRpc('summarize_today'); },
+    search_knowledge: function(query){ return callRpc('search_knowledge', { query: query }); },
+    get_weather: function(){ return callRpc('get_weather'); },
+    set_weather_consent: function(enabled){ return callRpc('set_weather_consent', { enabled: enabled }); },
+    search_weather: function(postal_code){ return callRpc('search_weather', { postal_code: postal_code }); },
+    reset_weather_location: function(){ return callRpc('reset_weather_location'); },
+    get_calendar_events: function(){ return callRpc('get_calendar_events'); },
+    set_calendar_consent: function(enabled){ return callRpc('set_calendar_consent', { enabled: enabled }); },
+    get_google_auth_status: function(){ return callRpc('get_google_auth_status'); },
+    start_google_auth: function(){ return callRpc('start_google_auth'); },
+    disconnect_google_calendar: function(){ return callRpc('disconnect_google_calendar'); },
+    create_calendar_event: function(summary, start_iso, end_iso, location){
+      return callRpc('create_calendar_event', { summary: summary, start_iso: start_iso, end_iso: end_iso, location: location || '' });
+    },
+    get_home_devices: function(){ return callRpc('get_home_devices'); },
+    set_home_consent: function(enabled){ return callRpc('set_home_consent', { enabled: enabled }); },
+    set_home_project_id: function(project_id){ return callRpc('set_home_project_id', { project_id: project_id }); },
+    get_home_auth_url: function(){ return callRpc('get_home_auth_url'); },
+    submit_home_auth_code: function(code){ return callRpc('submit_home_auth_code', { code: code }); },
+    disconnect_home: function(){ return callRpc('disconnect_home'); },
+    execute_home_command: function(device_id, command, params){
+      return callRpc('execute_home_command', { device_id: device_id, command: command, params: params || null });
+    }
+    // start_recording / stop_recording / interrupt_speech : volontairement absentes
+    // (micro PC local, sans objet pour un client distant) — les call sites existants
+    // testent déjà `api && api.method` et retombent sur le mode vocal simulé.
+  };
+
+  window.AlfredBridge = AlfredBridge;
+  window.pywebview = { api: AlfredBridge };
+
+  // Flux temps réel (réponses ALFRED, streaming, visèmes...) : branché en tâche
+  // suivante (SSE /api/events) — voir docs/mobilite. Sans lui, le mode texte
+  // distant enverra les messages mais n'affichera pas encore la réponse poussée.
+
+  if (!cfg.base || !cfg.token){
+    document.addEventListener('DOMContentLoaded', function(){
+      var overlay = document.createElement('div');
+      overlay.setAttribute('role', 'dialog');
+      overlay.setAttribute('aria-label', 'Connexion à ALFRED');
+      overlay.style.cssText = 'position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;background:rgba(10,11,22,.72);padding:20px;';
+      overlay.innerHTML =
+        '<form style="width:100%;max-width:340px;background:var(--surface-1,#151726);border:1px solid var(--border,#2a2d42);border-radius:16px;padding:24px;color:var(--text-1,#fff);font-family:system-ui,sans-serif;">' +
+        '<h2 style="font-size:1.05rem;font-weight:800;margin-bottom:6px;">Connexion à ALFRED</h2>' +
+        '<p style="font-size:.8125rem;color:var(--text-2,#9aa);margin-bottom:16px;line-height:1.5;">Adresse et jeton de l\'API locale ALFRED (mêmes informations que dans ALFRED_ANDROID).</p>' +
+        '<label style="display:block;font-size:.75rem;margin-bottom:4px;">URL de base</label>' +
+        '<input name="base" type="text" placeholder="https://192.168.1.42:8420" value="' + (cfg.base || '') + '" style="width:100%;min-height:44px;margin-bottom:12px;padding:0 10px;border-radius:8px;border:1px solid var(--border,#2a2d42);background:var(--surface-2,#1c1f33);color:inherit;">' +
+        '<label style="display:block;font-size:.75rem;margin-bottom:4px;">Jeton d\'accès</label>' +
+        '<input name="token" type="password" value="' + (cfg.token || '') + '" style="width:100%;min-height:44px;margin-bottom:16px;padding:0 10px;border-radius:8px;border:1px solid var(--border,#2a2d42);background:var(--surface-2,#1c1f33);color:inherit;">' +
+        '<button type="submit" style="width:100%;min-height:44px;border:0;border-radius:8px;background:linear-gradient(180deg,#9C8CFF,#4E8CFF);color:#fff;font-weight:700;">Se connecter</button>' +
+        '</form>';
+      overlay.querySelector('form').addEventListener('submit', function(e){
+        e.preventDefault();
+        var base = overlay.querySelector('[name="base"]').value.trim();
+        var token = overlay.querySelector('[name="token"]').value.trim();
+        if (!base || !token) return;
+        localStorage.setItem(STORE_BASE, base);
+        localStorage.setItem(STORE_TOKEN, token);
+        location.reload();
+      });
+      document.body.appendChild(overlay);
+    });
+  }
+})();
+
 (function(){
   var root = document.documentElement;
   var VIEW_LABELS = {
