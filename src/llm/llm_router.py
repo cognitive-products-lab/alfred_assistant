@@ -50,7 +50,14 @@ class LLMRouter:
         previous_response_id: Optional[str] = None,
         on_sentence=None,
         tools: bool = False,
+        cloud_allowed: bool = True,
     ) -> str:
+        # SafetyNet (docs/architecture/vision_architecture_cognitive_alfred.md,
+        # section P0) : cloud_allowed=False bloque tout repli cloud pour ce
+        # tour, quel que soit allow_cloud_fallback — la politique de contenu
+        # prime sur la disponibilité technique.
+        cloud_fallback_permitted = self.allow_cloud_fallback and cloud_allowed
+
         if self._is_client_available(self.primary):
             try:
                 self.last_provider = "ollama"
@@ -67,7 +74,7 @@ class LLMRouter:
                 if self.debug:
                     print(f"⚠️ LLMRouter : Ollama KO pendant generate() — {exc}")
 
-        if self.allow_cloud_fallback and self._is_client_available(self.secondary):
+        if cloud_fallback_permitted and self._is_client_available(self.secondary):
             try:
                 self.last_provider = "openai"
                 if self.debug:
@@ -82,7 +89,7 @@ class LLMRouter:
                 if self.debug:
                     print(f"⚠️ LLMRouter : OpenAI KO pendant generate() — {exc}")
 
-        if self.allow_cloud_fallback and self._is_client_available(self.tertiary):
+        if cloud_fallback_permitted and self._is_client_available(self.tertiary):
             try:
                 self.last_provider = "anthropic"
                 if self.debug:
@@ -96,6 +103,13 @@ class LLMRouter:
             except Exception as exc:
                 if self.debug:
                     print(f"⚠️ LLMRouter : Anthropic KO pendant generate() — {exc}")
+
+        if self.allow_cloud_fallback and not cloud_allowed:
+            self.last_provider = "blocked_by_safety"
+            raise RuntimeError(
+                "Ollama indisponible et repli cloud bloqué par SafetyNet "
+                "(contenu jugé sensible) — aucune requête envoyée à OpenAI/Anthropic."
+            )
 
         self.last_provider = "none"
         raise RuntimeError(
