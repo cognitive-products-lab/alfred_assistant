@@ -109,7 +109,15 @@ _window = None  # référence pywebview, remplie après create_window()
 # ============================================================
 
 def _push(js_call: str, *args) -> None:
-    """Appelle window.__alfredBridge.<js_call>(...args) dans la page, si prête."""
+    """Appelle window.__alfredBridge.<js_call>(...args) dans la page pywebview
+    (si prête) ET diffuse le même évènement aux clients distants connectés en
+    SSE (WebView Android, navigateur) — voir interface/companion_api.py."""
+    try:
+        from interface.companion_api import broadcast_event
+        broadcast_event(js_call, *args)
+    except Exception:
+        pass  # API distante non démarrée (facultative) — ne bloque jamais le pipeline
+
     if _window is None:
         return
     payload = ", ".join(json.dumps(a) for a in args)
