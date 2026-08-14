@@ -1,0 +1,83 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "human.cognition.biais_ancrage_decision",
+  "title": "Le biais d'ancrage dans la prise de décision",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "human",
+  "subdomain": "cognition",
+  "category": "biais_cognitif",
+  "summary": "Explique le biais d'ancrage, tendance à s'appuyer excessivement sur la première information reçue lors d'une décision (un chiffre, une estimation initiale) même lorsqu'elle est arbitraire, et propose des contre-mesures pour ALFRED lorsqu'il assiste une décision impliquant une estimation chiffrée.",
+  "purpose": "Compléter human.cognition, jusqu'ici centré sur la charge cognitive, la fatigue décisionnelle et l'incertitude, d'un biais spécifique et particulièrement fréquent dans les négociations et estimations chiffrées, absent des fiches existantes.",
+  "tags": ["biais_ancrage", "decision", "estimation", "negociation"],
+  "intents": ["expliquer_biais_ancrage", "attenuer_effet_ancrage", "detecter_ancrage_dans_estimation"],
+  "usage_context": [
+    "un utilisateur doit estimer un chiffre ou un prix après avoir été exposé à une première valeur de référence",
+    "préparation d'une négociation où la première offre chiffrée risque d'ancrer la suite des échanges"
+  ],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "Le biais d'ancrage est la tendance cognitive systématique à s'appuyer excessivement sur la première information numérique reçue (l'ancre) lors d'une estimation ou d'une décision ultérieure, même lorsque cette ancre est arbitraire ou sans lien logique avec la question réellement posée.",
+    "core_principles": [
+      "L'ancrage opère même lorsque la personne sait consciemment que l'ancre est arbitraire ou non pertinente, ce qui distingue ce biais d'une simple erreur d'information corrigible par l'explication seule.",
+      "Plus l'incertitude sur la valeur réelle à estimer est grande, plus l'effet d'ancrage tend à être fort, l'esprit s'appuyant davantage sur un repère externe en l'absence de repère interne fiable.",
+      "La première offre chiffrée dans une négociation exerce un effet d'ancrage disproportionné sur l'ensemble des échanges qui suivent, indépendamment de sa justification réelle.",
+      "Générer volontairement plusieurs points de référence indépendants avant de trancher réduit l'effet d'ancrage d'un chiffre unique reçu en premier."
+    ],
+    "rules": [
+      "Signaler explicitement la présence d'une ancre potentielle avant de solliciter une estimation chiffrée de l'utilisateur.",
+      "Encourager la génération d'une estimation indépendante avant d'exposer une première valeur de référence externe, plutôt que l'inverse.",
+      "En contexte de négociation, alerter sur le risque d'ancrage lié à la première offre chiffrée avant de la formuler ou d'y répondre."
+    ],
+    "examples": [
+      {
+        "situation": "Un utilisateur doit estimer le budget raisonnable d'un projet après avoir vu une estimation initiale très élevée mentionnée par un tiers.",
+        "recommended_behavior": "L'inviter à construire une estimation indépendante à partir de critères objectifs du projet avant de comparer ce résultat à l'estimation initiale, plutôt que de partir directement de cette dernière comme référence.",
+        "avoid": "Présenter l'estimation chiffrée initiale comme point de départ implicite de la discussion sans alerter sur le risque d'ancrage qu'elle introduit."
+      }
+    ],
+    "best_practices": [
+      "Proposer systématiquement une fourchette construite à partir de plusieurs méthodes d'estimation indépendantes plutôt qu'un chiffre unique ancré sur une seule source.",
+      "Différer l'exposition d'une valeur de référence externe jusqu'à ce que l'utilisateur ait formulé sa propre estimation initiale."
+    ],
+    "anti_patterns": [
+      "Présumer qu'expliquer le biais d'ancrage à une personne suffit à en neutraliser l'effet sur ses décisions suivantes.",
+      "Introduire un chiffre de référence sans nécessité avant une estimation, créant un ancrage évitable."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["ancrage", "biais cognitif", "estimation", "négociation"],
+    "related_domains": ["human", "cognition"],
+    "related_knowledge": [
+      "cognition.systeme_pensee.cognitive_biases_extended",
+      "human.psychology.cognitive_biases",
+      "communication.influence.negotiation"
+    ],
+    "retrieval_priority": 6
+  },
+  "behavior_rules": {
+    "tone": "educational",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["explication du biais d'ancrage et accompagnement d'une estimation ou d'une négociation"],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "En cas de doute sur la présence d'un ancrage dans une estimation en cours, le signaler explicitement plutôt que de laisser la décision se poursuivre sans alerte."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "14/08/2026",
+    "last_update": "14/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

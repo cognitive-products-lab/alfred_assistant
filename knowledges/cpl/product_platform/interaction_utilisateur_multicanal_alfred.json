@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.product_platform.interaction_utilisateur_multicanal_alfred",
+  "title": "Cohérence de l'interaction utilisateur multicanal dans ALFRED CPL",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "product_platform",
+  "category": "experience_produit",
+  "summary": "Principe produit selon lequel un même utilisateur d'ALFRED CPL doit retrouver un contexte, un historique et un comportement cohérents qu'il interagisse par texte, par voix ou via le tableau de bord, sans rupture de continuité entre les canaux.",
+  "purpose": "Documenter l'exigence de cohérence multicanal comme fonctionnalité produit distincte, en articulation avec la mémoire (déjà couverte par memoire_architecture_statique_dynamique_long_terme) et les interfaces vocales (déjà couvertes par interfaces_vocales_assistant_local), ici centrée sur l'unification de l'expérience plutôt que sur chaque canal pris isolément.",
+  "tags": ["multicanal", "continuite_contexte", "experience_utilisateur", "interface"],
+  "intents": ["assurer_continuite_interaction", "unifier_experience_canaux", "expliquer_coherence_multicanal"],
+  "usage_context": [
+    "un utilisateur commence une tâche en vocal puis la poursuit en texte sur le tableau de bord",
+    "conception d'une nouvelle fonctionnalité devant s'intégrer à plusieurs canaux d'interaction existants"
+  ],
+  "priority": "high",
+  "safety_level": "normal",
+  "content": {
+    "definition": "La cohérence de l'interaction utilisateur multicanal désigne la capacité d'ALFRED CPL à maintenir un contexte de conversation, un historique et un comportement uniformes indépendamment du canal utilisé (texte, voix, tableau de bord), de sorte que changer de canal en cours d'usage ne provoque ni perte de contexte ni rupture de ton.",
+    "core_principles": [
+      "Le contexte de la conversation est une propriété de la session utilisateur, pas du canal : il doit être accessible et poursuivable depuis n'importe quel canal.",
+      "Le ton et le style de réponse doivent rester reconnaissables d'un canal à l'autre, avec seulement les adaptations strictement nécessaires au format (concision renforcée en vocal, richesse visuelle possible au tableau de bord).",
+      "Une action initiée sur un canal doit être visible et compréhensible sur les autres, pour éviter qu'un utilisateur découvre une action déjà réalisée sans en avoir le souvenir.",
+      "La continuité multicanal ne doit jamais forcer un canal à imiter artificiellement les capacités d'un autre au détriment de son ergonomie propre."
+    ],
+    "rules": [
+      "Persister le contexte de session de façon centralisée, indépendamment du canal d'origine de chaque échange.",
+      "Adapter la forme de la réponse au canal courant sans altérer le fond ni le ton général de la relation.",
+      "Signaler explicitement à l'utilisateur, lors d'un changement de canal, que le contexte précédent a bien été repris."
+    ],
+    "examples": [
+      {
+        "situation": "Un utilisateur commence à dicter une note vocale à ALFRED CPL en déplacement, puis reprend et complète cette même note depuis le tableau de bord une heure plus tard.",
+        "recommended_behavior": "Retrouver automatiquement la note en cours, la présenter dans son état exact et permettre sa poursuite sans que l'utilisateur ait à répéter le contexte déjà donné en vocal.",
+        "avoid": "Traiter chaque canal comme une session indépendante, obligeant l'utilisateur à reformuler entièrement sa demande au changement de canal."
+      }
+    ],
+    "best_practices": [
+      "Centraliser le stockage du contexte de session en amont des canaux plutôt que de le dupliquer par canal.",
+      "Tester systématiquement les parcours de changement de canal en cours de tâche, pas seulement chaque canal isolément.",
+      "Prévoir un indicateur discret de reprise de contexte pour rassurer l'utilisateur sans alourdir l'interaction."
+    ],
+    "anti_patterns": [
+      "Faire dépendre la disponibilité du contexte du dernier canal utilisé, créant des pertes d'information lors d'un changement.",
+      "Copier littéralement l'interface d'un canal sur un autre sans adapter à ses contraintes propres (ex. longues listes lues à voix haute)."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["multicanal", "continuité", "contexte", "expérience utilisateur"],
+    "related_domains": ["cpl", "professional"],
+    "related_knowledge": [
+      "cpl.product_platform.memoire_architecture_statique_dynamique_long_terme",
+      "cpl.product_platform.interfaces_vocales_assistant_local",
+      "cpl.product_platform.client_personalization_context"
+    ],
+    "retrieval_priority": 7
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["conception et explication de la cohérence multicanal d'ALFRED CPL"],
+    "restricted_usage": [],
+    "forbidden_usage": ["présenter un contexte partiel comme complet lors d'un changement de canal"],
+    "fallback_behavior": "En cas de doute sur la fraîcheur du contexte repris, le signaler explicitement à l'utilisateur plutôt que de présumer sa complétude."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "14/08/2026",
+    "last_update": "14/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

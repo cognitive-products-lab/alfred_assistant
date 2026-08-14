@@ -1,0 +1,83 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.execution.gestion_perimetre_projet_client",
+  "title": "Gestion du périmètre d'un projet client (prévention du dérapage de scope)",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "execution",
+  "category": "gestion_projet",
+  "summary": "Méthode de cadrage et de suivi du périmètre d'un projet client pour ALFRED CPL, afin de détecter et d'arbitrer les demandes d'extension de scope avant qu'elles ne dégradent silencieusement les délais, le budget ou la qualité de la mission.",
+  "purpose": "Compléter execution avec un aspect concret et fréquent en mission de conseil — le dérapage de périmètre (scope creep) — non couvert explicitement par project_management_core (cadre général) ni task_prioritization (priorisation des tâches déjà en cours).",
+  "tags": ["perimetre_projet", "scope_creep", "cadrage", "gestion_projet"],
+  "intents": ["cadrer_perimetre_projet", "detecter_derapage_scope", "arbitrer_demande_extension"],
+  "usage_context": [
+    "un client formule une nouvelle demande en cours de mission non prévue au cadrage initial",
+    "revue périodique de l'écart entre périmètre initial et périmètre réellement traité"
+  ],
+  "priority": "high",
+  "safety_level": "normal",
+  "content": {
+    "definition": "La gestion du périmètre d'un projet client est le processus continu de définition, de suivi et d'arbitrage des limites de ce qui est inclus dans une mission, destiné à détecter toute extension non validée (scope creep) avant qu'elle n'affecte silencieusement les délais, le budget ou la qualité.",
+    "core_principles": [
+      "Le périmètre initial doit être documenté explicitement dès le cadrage, avec des critères clairs de ce qui est inclus et de ce qui ne l'est pas.",
+      "Une demande d'extension de périmètre n'est pas en soi illégitime, mais elle doit être identifiée comme telle et arbitrée consciemment, pas absorbée silencieusement.",
+      "Le dérapage de périmètre le plus dangereux est cumulatif : chaque extension prise isolément semble mineure, leur somme ne l'est pas.",
+      "Un arbitrage de périmètre doit toujours envisager l'impact sur délai, budget et qualité, pas seulement la faisabilité technique de la demande."
+    ],
+    "rules": [
+      "Documenter le périmètre initial de façon suffisamment précise pour permettre de qualifier objectivement une demande comme hors périmètre.",
+      "Journaliser chaque demande d'extension de périmètre, qu'elle soit acceptée ou refusée, pour permettre un suivi cumulatif.",
+      "Alerter explicitement lorsque le cumul des extensions validées atteint un seuil significatif par rapport au périmètre initial."
+    ],
+    "examples": [
+      {
+        "situation": "Un client demande en cours de mission l'ajout d'une fonctionnalité non prévue, présentée comme mineure.",
+        "recommended_behavior": "Qualifier explicitement la demande comme hors périmètre initial, en chiffrer l'impact sur délai et budget, puis la soumettre à validation formelle plutôt que de l'intégrer directement.",
+        "avoid": "Accepter la demande sans qualification ni traçabilité au motif qu'elle semble mineure prise isolément, alimentant un dérapage cumulatif invisible."
+      }
+    ],
+    "best_practices": [
+      "Formaliser un document de périmètre de référence accessible et consultable tout au long de la mission, pas seulement au lancement.",
+      "Prévoir un point de suivi périodique dédié à l'écart de périmètre, distinct du suivi d'avancement général."
+    ],
+    "anti_patterns": [
+      "Considérer chaque demande d'extension isolément sans suivi cumulatif de leur effet total sur le projet.",
+      "Confondre flexibilité relationnelle avec le client et absence totale de cadrage du périmètre."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["périmètre", "scope", "cadrage", "dérapage"],
+    "related_domains": ["cpl", "professional"],
+    "related_knowledge": [
+      "cpl.execution.project_management_core",
+      "cpl.human_communication.gestion_attentes_client_projet",
+      "cpl.execution.gestion_dependances_projet"
+    ],
+    "retrieval_priority": 7
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["cadrage et suivi du périmètre d'un projet client dans ALFRED CPL"],
+    "restricted_usage": [],
+    "forbidden_usage": ["valider une extension de périmètre significative sans traçabilité ni validation formelle"],
+    "fallback_behavior": "En cas d'ambiguïté sur l'appartenance d'une demande au périmètre initial, la qualifier comme hors périmètre par défaut et la soumettre à arbitrage explicite."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "14/08/2026",
+    "last_update": "14/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

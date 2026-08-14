@@ -1,0 +1,83 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.human_communication.gestion_objections_conversations_difficiles",
+  "title": "Gestion des objections et conversations difficiles avec un client",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "human_communication",
+  "category": "communication_client",
+  "summary": "Méthode pour aider ALFRED CPL à structurer une réponse aux objections et conversations difficiles avec un client (désaccord sur une recommandation, mécontentement, remise en cause d'un livrable), distincte de la gestion des attentes en amont déjà couverte par gestion_attentes_client_projet.",
+  "purpose": "Compléter human_communication avec le traitement des situations de tension déjà installées, plutôt que leur prévention en amont, en fournissant un cadre structuré de réponse aux objections client.",
+  "tags": ["objection", "conversation_difficile", "communication_client", "desaccord"],
+  "intents": ["gerer_objection_client", "structurer_reponse_desaccord", "desamorcer_tension_conversation"],
+  "usage_context": [
+    "un client conteste une recommandation ou un livrable produit par la mission",
+    "préparation d'une conversation anticipée comme potentiellement conflictuelle"
+  ],
+  "priority": "high",
+  "safety_level": "normal",
+  "content": {
+    "definition": "La gestion des objections et conversations difficiles est le processus structuré de réponse à un désaccord, une contestation ou un mécontentement exprimé par un client, visant à comprendre la cause réelle de l'objection avant d'y répondre, plutôt que de réagir défensivement à sa seule formulation apparente.",
+    "core_principles": [
+      "Une objection formulée ne reflète pas toujours sa cause réelle : reformuler et questionner avant de répondre évite de traiter le mauvais problème.",
+      "Reconnaître la légitimité du ressenti du client, même en désaccord sur les faits, désamorce une part significative de la tension avant toute argumentation.",
+      "Une réponse défensive immédiate tend à escalader la conversation plutôt qu'à la résoudre, même lorsque l'objection est objectivement infondée.",
+      "Une conversation difficile bien gérée peut renforcer la relation de confiance davantage qu'une absence de désaccord n'aurait pu le faire."
+    ],
+    "rules": [
+      "Reformuler l'objection avant d'y répondre, pour vérifier qu'elle est bien comprise dans sa cause réelle et non sa seule expression de surface.",
+      "Séparer explicitement la reconnaissance du ressenti du client de l'accord ou du désaccord sur les faits.",
+      "Ne jamais répondre à une objection par une justification purement procédurale sans traiter la préoccupation de fond exprimée."
+    ],
+    "examples": [
+      {
+        "situation": "Un client conteste vivement un livrable en le jugeant hors sujet par rapport à ses attentes.",
+        "recommended_behavior": "Reformuler l'objection pour identifier précisément l'écart perçu, reconnaître la frustration exprimée, puis clarifier ensemble si l'écart provient d'une mauvaise compréhension du périmètre ou d'un réel défaut du livrable.",
+        "avoid": "Défendre immédiatement la qualité du livrable sans avoir clarifié la cause exacte de l'insatisfaction exprimée."
+      }
+    ],
+    "best_practices": [
+      "Préparer les objections les plus probables avant une présentation ou une livraison sensible, plutôt que de les découvrir en temps réel.",
+      "Conclure toute conversation difficile par une reformulation explicite des prochaines étapes convenues, pour éviter toute ambiguïté résiduelle."
+    ],
+    "anti_patterns": [
+      "Répondre à une objection par une contre-argumentation immédiate sans avoir cherché à comprendre sa cause réelle.",
+      "Éviter ou minimiser une conversation difficile prévisible, la laissant s'aggraver par accumulation de non-dits."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["objection", "conversation difficile", "désaccord", "client"],
+    "related_domains": ["cpl", "communication"],
+    "related_knowledge": [
+      "cpl.human_communication.gestion_attentes_client_projet",
+      "communication.verbal.difficult_conversations",
+      "communication.verbal.conflict_resolution"
+    ],
+    "retrieval_priority": 7
+  },
+  "behavior_rules": {
+    "tone": "empathetic",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["accompagnement de la gestion d'objections et de conversations difficiles avec un client"],
+    "restricted_usage": [],
+    "forbidden_usage": ["minimiser une objection légitime pour clore artificiellement une conversation difficile"],
+    "fallback_behavior": "En cas de tension forte et persistante, recommander explicitement une prise de relais humaine plutôt qu'une poursuite automatisée de la conversation."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "14/08/2026",
+    "last_update": "14/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

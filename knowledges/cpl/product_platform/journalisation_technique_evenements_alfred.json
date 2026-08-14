@@ -1,0 +1,83 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.product_platform.journalisation_technique_evenements_alfred",
+  "title": "Journalisation technique des événements dans ALFRED CPL",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "product_platform",
+  "category": "architecture_technique",
+  "summary": "Description du mécanisme technique d'enregistrement structuré des événements système d'ALFRED CPL (appels d'outils, erreurs, accès aux données) à des fins de diagnostic et de fiabilité, distinct de logging_audit_human_control qui traite du contrôle humain et de la gouvernance de l'audit.",
+  "purpose": "Compléter product_platform avec l'aspect purement technique de la journalisation (format, rétention, niveaux de criticité), en articulation avec la dimension gouvernance/contrôle humain déjà couverte, pour que les deux facettes (technique et gouvernance) soient documentées distinctement.",
+  "tags": ["journalisation", "logs_techniques", "diagnostic", "fiabilite"],
+  "intents": ["configurer_journalisation_technique", "diagnostiquer_incident_via_logs", "definir_retention_logs"],
+  "usage_context": [
+    "diagnostic d'une erreur technique après un incident sur ALFRED CPL",
+    "conception du format et de la politique de rétention des journaux techniques"
+  ],
+  "priority": "high",
+  "safety_level": "sensitive",
+  "content": {
+    "definition": "La journalisation technique des événements est l'enregistrement structuré et horodaté de chaque événement significatif du fonctionnement d'ALFRED CPL (appel d'outil, erreur, accès à une ressource sensible, changement d'état système), destiné au diagnostic technique et à la fiabilité, distinct de l'audit orienté contrôle humain des décisions.",
+    "core_principles": [
+      "Chaque événement journalisé doit être structuré (format exploitable par un outil d'analyse) plutôt que sous forme de texte libre non standardisé.",
+      "Le niveau de détail journalisé doit être suffisant pour reconstituer la séquence d'un incident sans pour autant enregistrer le contenu intégral de données sensibles non nécessaires au diagnostic.",
+      "La rétention des journaux techniques doit être définie explicitement et limitée dans le temps, en cohérence avec les principes de minimisation des données.",
+      "Les journaux techniques doivent rester consultables même en cas de défaillance partielle du système, condition nécessaire à leur utilité en situation d'incident réel."
+    ],
+    "rules": [
+      "Horodater et structurer chaque événement journalisé selon un format cohérent (ex. JSON structuré avec niveau de criticité).",
+      "Exclure des journaux techniques le contenu métier sensible qui n'est pas nécessaire au diagnostic (préférer des identifiants à un contenu brut).",
+      "Définir une politique de rétention explicite des journaux techniques, distincte de celle des journaux d'audit de gouvernance."
+    ],
+    "examples": [
+      {
+        "situation": "Un appel d'outil échoue de façon répétée sans que l'utilisateur ne comprenne pourquoi.",
+        "recommended_behavior": "Consulter les journaux techniques structurés pour identifier la séquence exacte d'appels et le code d'erreur précis, permettant un diagnostic ciblé.",
+        "avoid": "Se fier uniquement au message d'erreur affiché à l'utilisateur, souvent insuffisant pour diagnostiquer la cause technique réelle."
+      }
+    ],
+    "best_practices": [
+      "Séparer clairement dans l'architecture les journaux techniques (diagnostic) des journaux d'audit (gouvernance/contrôle humain), même s'ils peuvent partager une infrastructure commune.",
+      "Prévoir des niveaux de criticité clairs (debug, info, warning, error, critical) pour permettre un filtrage efficace en cas d'incident."
+    ],
+    "anti_patterns": [
+      "Journaliser le contenu intégral des échanges utilisateur dans les logs techniques par facilité, créant un risque de confidentialité disproportionné à l'objectif de diagnostic.",
+      "Ne définir aucune politique de rétention, laissant les journaux techniques s'accumuler indéfiniment sans justification."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["journalisation", "logs", "diagnostic", "rétention"],
+    "related_domains": ["cpl", "professional"],
+    "related_knowledge": [
+      "cpl.product_platform.logging_audit_human_control",
+      "cpl.operations_continuite.supervision_systeme_alfred_cpl",
+      "cpl.operations_continuite.gestion_incidents_alfred_cpl"
+    ],
+    "retrieval_priority": 7
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["explication du mécanisme technique de journalisation d'ALFRED CPL"],
+    "restricted_usage": ["exposition de contenus de logs techniques bruts pouvant contenir des identifiants sensibles"],
+    "forbidden_usage": ["journaliser des secrets ou identifiants d'authentification en clair dans les logs techniques"],
+    "fallback_behavior": "En cas de doute sur la sensibilité d'une donnée à journaliser, préférer un identifiant abstrait au contenu brut."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "14/08/2026",
+    "last_update": "14/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}
