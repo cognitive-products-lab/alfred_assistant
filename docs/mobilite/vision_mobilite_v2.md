@@ -37,8 +37,8 @@ second cœur.
 |---|---|---|
 | Transport | API REST/WebSocket | `interface/companion_api.py` : API REST minimale (FastAPI), 2 endpoints (`GET /api/status`, `GET /api/notifications`). Pas de WebSocket. |
 | Réseau | Tunnel WireGuard, accès distant sécurisé | **Réseau local uniquement**, écoute sur `0.0.0.0:8420` pour être joignable depuis l'émulateur/téléphone sur le même Wi-Fi. Aucun tunnel WireGuard branché à ce jour — hors scope de cette session. |
-| Authentification | JWT + TLS mutuel | **Jeton statique** (`COMPANION_API_TOKEN` en `.env`), comparé en temps constant (`hmac.compare_digest`). Pas de JWT, pas de rotation, pas de TLS (cleartext HTTP local, choix documenté et assumé pour le PoC). |
-| Client mobile | App Android complète | PoC "Compagnon" validé de bout en bout le 02/07/2026 (build + connexion API réelle) — Bloc 24, pas le produit complet (HTTPS, notifications push, mode hors-ligne restent hors scope, cf. `ALFRED_ANDROID/docs/BLOC24_STATUS_SESSION.md`). |
+| Authentification | JWT + TLS mutuel | **Jeton statique** (`COMPANION_API_TOKEN` en `.env`), comparé en temps constant (`hmac.compare_digest`). TLS (simple, pas mutuel) ajouté le 14/08/2026 : certificat auto-signé local (`tools/security/generate_local_tls_cert.py`), ancré côté Android (`network_security_config.xml`), cleartext HTTP désormais refusé — preuve : `tests/dashboard_tests/test_companion_api_tls.py`. JWT et TLS mutuel restent hors scope. |
+| Client mobile | App Android complète | PoC "Compagnon" validé de bout en bout le 02/07/2026 (build + connexion API réelle) — Bloc 24, pas le produit complet (notifications push, mode hors-ligne restent hors scope ; HTTPS traité le 14/08 — cf. `ALFRED_ANDROID/docs/BLOC24_STATUS_SESSION.md`). |
 | Contexte partagé | Synchronisation PC ↔ mobile | `user_context.json` existe avec un exemple réel et cohérent (complété le 12/08/2026) mais n'est lu par aucun module du pipeline à ce jour — vérifié dans `src/`. |
 
 **Lecture honnête de cet écart** : ce n'est pas un retard caché, c'est l'état
@@ -49,8 +49,8 @@ reste à faire, dans l'ordre où cela devient nécessaire.
 ## 4. Feuille de route (par priorité, pas de date engagée)
 
 1. **Durcir l'API compagnon existante** avant tout accès hors réseau local :
-   remplacer le jeton statique par JWT (courte durée + refresh), ajouter TLS
-   (au minimum un reverse-proxy avec certificat local/Let's Encrypt DNS).
+   TLS fait le 14/08/2026 (certificat local auto-signé, cf. tableau ci-dessus) ;
+   reste à faire — remplacer le jeton statique par JWT (courte durée + refresh).
 2. **Tunnel WireGuard** entre le mobile et le réseau domestique (VLAN dédié,
    cohérent avec la micro-segmentation déjà en place), pour permettre l'usage
    hors du Wi-Fi local sans exposer directement le port 8420 sur Internet.

@@ -8,7 +8,8 @@ ROLE         : API locale consommée par le PoC Compagnon ALFRED_ANDROID
 
 AUTHOR       : Cognitive Products Lab
 CREATED      : 2026-07-13
-VERSION      : V1.0 (PoC)
+UPDATED      : 2026-08-14 — TLS local ajouté (tools/security/generate_local_tls_cert.py)
+VERSION      : V1.1
 STATUS       : CODÉ — À TESTER en conditions réelles (build + émulateur/téléphone,
                 cf. ALFRED_ANDROID/README.md)
 
@@ -30,8 +31,17 @@ comme source des notifications — aucune nouvelle collecte de données créée.
 
 ⚠️ Écoute sur 0.0.0.0 par choix : nécessaire pour être joignable depuis
 l'émulateur Android (10.0.2.2) ou un téléphone physique sur le même réseau
-Wi-Fi local. Ne jamais exposer ce port au-delà du réseau local (pas de HTTPS,
-jeton statique — cf. limites documentées dans ALFRED_ANDROID/README.md).
+Wi-Fi local. Ne jamais exposer ce port au-delà du réseau local (jeton
+statique — cf. limites documentées dans ALFRED_ANDROID/README.md).
+
+TLS : si data/security/certs/companion_api/{server.crt,server.key} existent
+(générés par tools/security/generate_local_tls_cert.py), le serveur démarre
+en HTTPS. Sinon, avertissement explicite et démarrage en HTTP (pas de
+régression silencieuse pour un poste où le certificat n'a pas encore été
+généré). Le certificat est auto-signé et local — le client ALFRED_ANDROID
+doit embarquer le .crt correspondant comme ancre de confiance
+(network_security_config.xml) pour que la connexion aboutisse. JWT reste
+hors scope de ce durcissement (cf. docs/mobilite/vision_mobilite_v2.md).
 
 USAGE :
     python interface/companion_api.py
@@ -53,6 +63,21 @@ load_dotenv(ROOT / ".env")
 
 COMPANION_API_HOST = "0.0.0.0"
 COMPANION_API_PORT = 8420
+
+TLS_CERT_PATH = ROOT / "data" / "security" / "certs" / "companion_api" / "server.crt"
+TLS_KEY_PATH = ROOT / "data" / "security" / "certs" / "companion_api" / "server.key"
+
+
+def _tls_kwargs() -> dict:
+    """Active HTTPS si le certificat local existe, sinon retombe sur HTTP (avec avertissement)."""
+    if TLS_CERT_PATH.exists() and TLS_KEY_PATH.exists():
+        return {"ssl_certfile": str(TLS_CERT_PATH), "ssl_keyfile": str(TLS_KEY_PATH)}
+    print(
+        "[ALFRED] ATTENTION : certificat TLS local introuvable "
+        f"({TLS_CERT_PATH}) — démarrage en HTTP non chiffré. "
+        "Générer avec : python tools/security/generate_local_tls_cert.py"
+    )
+    return {}
 
 app = FastAPI(title="ALFRED Companion API", version="1.0.0")
 
@@ -108,6 +133,8 @@ if __name__ == "__main__":
     import uvicorn
 
     _expected_token()  # échoue tôt et clairement si le jeton n'est pas configuré
-    print(f"[ALFRED] API compagnon sur http://{COMPANION_API_HOST}:{COMPANION_API_PORT}")
-    print("[ALFRED] Emulateur Android : http://10.0.2.2:8420")
-    uvicorn.run(app, host=COMPANION_API_HOST, port=COMPANION_API_PORT)
+    tls_kwargs = _tls_kwargs()
+    scheme = "https" if tls_kwargs else "http"
+    print(f"[ALFRED] API compagnon sur {scheme}://{COMPANION_API_HOST}:{COMPANION_API_PORT}")
+    print(f"[ALFRED] Emulateur Android : {scheme}://10.0.2.2:8420")
+    uvicorn.run(app, host=COMPANION_API_HOST, port=COMPANION_API_PORT, **tls_kwargs)
