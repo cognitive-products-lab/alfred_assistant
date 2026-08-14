@@ -53,7 +53,9 @@ def test_audio_capture_raises_not_available():
 def test_conv_nlp_engine_v2_stressed():
     result = conv_nlp_engine_v2.analyze_v2("je suis en stress total, marre de tout")
     assert result["emotion"] == "stressed"
-    assert result["intent"] == "conversation"
+    # IntentNet rebranché le 14/08/2026 (P1) — l'intention n'est plus
+    # hardcodée à "conversation", voir tests/b01_tests/test_intent_net_wiring.py
+    assert result["intent"] == "emotional_support"
 
 
 def test_conv_nlp_engine_v2_neutral_default():

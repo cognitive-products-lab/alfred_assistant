@@ -47,7 +47,7 @@ La structure officielle du projet repose sur **26 Epics** ("Blocs", `docs/ALFRED
 | **V1.x / V1.4 — Modules actifs** | Avatar & présence visuelle, sécurité réseau physique, profil IA adaptatif | b15 (+ volet réseau de b20) | 🟢 Réalisé, 2 items reportés explicitement |
 | **V2 — Extension produits & contexte** | Mobilité/contexte externe, collaboration pro (CPL), compagnon Android | b07, b10, b24 | 🟡 En cours, socle posé |
 | **V3 — Expérience avancée & démonstration** | Démonstration/scénarisation, génération visuelle contextuelle, domotique intelligente | b16, b17, b19 | 🟡 En cours / 🔴 bloqué (b17) |
-| **V4 / V-finale — Vision long terme** | Compagnon santé ARTHUR, IoT complet, base de connaissances à 3000 fichiers, domotique Tuya opérationnelle | b13, b14, b17 (finalisation), b18 (finalisation), b19 (finalisation) | 🔴 À réaliser en grande partie |
+| **V4 / V-finale — Vision long terme** | Compagnon santé ARTHUR, IoT complet, base de connaissances à 3000 fichiers, domotique Tuya opérationnelle, portage macOS (post-Windows) et iOS (post-Android) | b13, b14, b18 (finalisation), b19 (finalisation), portage multi-OS (non numéroté) | 🔴 À réaliser en grande partie |
 
 ---
 
@@ -199,10 +199,17 @@ Détaillé ci-dessus dans b20 — traité comme sous-sprint et non comme epic s�
 **Statut : 🔴 À réaliser, bloqué** — 100 % / 5 % (1 seul fichier structurel attendu — stub de vision). Le vrai contenu IoT est tracké sous b19 (voir ci-dessus, même blocage).
 
 #### Finalisation V4 des epics déjà entamés
-- **b17** (Visual Generation) — une fois l'anomalie résolue, compléter jusqu'à 230 fichiers.
+- **b17** (Visual Generation) — clos par décision produit du 11/08 (fond neutre), plus de reste à faire (voir section b17 ci-dessus).
 - **b18** (Knowledge base) — pas un chantier à clôturer : flux d'enrichissement continu par design, déjà fonctionnel au seuil minimum souhaité ; la progression de 388 vers 3000 fichiers se poursuit en tâche de fond, hors séquence de finalisation.
 - **b19** (Domotique) — débloquer Tuya, industrialiser la sécurité/accompagnement.
 - Gouvernance IA éthique complète (AIPD, PSSI, SoA) — **mise à jour par rapport au `ROADMAP.md`** : AIPD (`docs/rgpd/aipd_donnees_sante.md`, `aipd_comptes_deploiement_public.md`) et PSSI (`docs/security/PSSI.md`) **existent déjà**, contrairement à ce que listait le backlog P1 du 05/07 comme "en attente". Statut réel : 🟢 Réalisé, à vérifier si formellement validés/signés plutôt que rédigés.
+
+#### Epic (non numéroté) — Portage multi-OS
+**Statut : 🔴 À réaliser, séquencement strict** — ajouté le 11/08/2026 à la demande de Céline.
+> Pas de Bloc officiel assigné (les codes 26-28 sont explicitement réservés/non attribués tant qu'aucun périmètre n'est validé, cf. `docs/ALFRED_BLOCS_REFERENCE.md`) — à numéroter le jour où ce chantier démarre réellement.
+- **Portage ALFRED_PC → macOS**, déclenché uniquement une fois ALFRED_PC pleinement fonctionnel sous Windows (pas de développement en parallèle). **Contrainte de test connue et non résolue** : Céline ne dispose d'aucun Mac — modalité à définir (VM cloud macOS type MacStadium/GitHub Actions macOS runners, matériel à acquérir, ou bêta-testeur externe de confiance).
+- **Portage ALFRED Android → iOS**, déclenché uniquement une fois l'application Android pleinement fonctionnelle. **Même contrainte** : pas d'iPhone disponible — modalité à définir (TestFlight via un bêta-testeur, simulateur iOS sur Mac loué/cloud, ou matériel à acquérir).
+- Ces deux portages ne sont volontairement pas positionnés dans le temps (pas de date cible) tant que leurs prérequis respectifs (Windows/Android "fonctionnels") ne sont pas atteints — à ne pas inclure dans le premier Gantt, sauf comme jalon dépendant explicitement marqué "bloqué en attente de prérequis".
 
 ---
 
@@ -220,6 +227,7 @@ Points clarifiés en direct par Céline le 11/08/2026 pendant la rédaction de c
 | 6 | **`config/v2/product_roadmap.json`** reste un schéma vide (`milestones: []`), non branché au code | ℹ️ Faible | Ce document Markdown + `ROADMAP.md` font office de source de vérité en attendant |
 | 7 | ~~Bloc 19 Domotique : 0 fichier validé malgré 73 % de "progress"~~ | — | **Clarifié** : séquencement assumé — à développer et valider une fois V1 et V2 entièrement finalisées. Le pourcentage dashboard reste à lire avec prudence (squelette de config, pas de fonctionnalité) mais ce n'est pas un point bloquant à traiter maintenant. |
 | 8 | Chantier sobriété/indépendance LLM (b01) : P1-P3 restent à faire | 🟡 En cours | P0 (SafetyNet) livré 14/08 (commit `55ac5eee`) — voir `docs/architecture/vision_architecture_cognitive_alfred.md`. P1 (IntentNet), P2 (sobriété modèle), P3 (MemoryNet léger) non commencés ; à traiter un point à la fois (test+commit+push par point, cf. consigne du 14/08). |
+| 9 | **Portage macOS/iOS (ajouté 11/08/2026)** : ni Mac ni iPhone disponibles pour développer/tester | 🟡 Moyenne, non résolue | Pas un blocage immédiat (les deux portages sont déjà séquencés après Windows/Android fonctionnels, donc pas sur le chemin critique court terme) mais la modalité de test reste à trancher avant de pouvoir chiffrer ces deux epics dans un Gantt — VM cloud macOS, matériel à acquérir, ou bêta-testeur externe. |
 
 ---
 
