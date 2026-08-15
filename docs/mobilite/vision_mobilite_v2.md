@@ -41,6 +41,43 @@ second cœur.
 | Client mobile | App Android complète | PoC "Compagnon" validé de bout en bout le 02/07/2026 (build + connexion API réelle) — Bloc 24, pas le produit complet. HTTPS traité le 14/08 ; notifications (sync locale périodique WorkManager, pas FCM — décision produit assumée local-first) et mode hors-ligne (cache Room) traités le 14/08 également. Reste hors scope : JWT, tests instrumentés device réel (Robolectric non ajouté). Détail : `ALFRED_ANDROID/docs/BLOC24_STATUS_SESSION.md`. |
 | Contexte partagé | Synchronisation PC ↔ mobile | `user_context.json` existe avec un exemple réel et cohérent (complété le 12/08/2026) mais n'est lu par aucun module du pipeline à ce jour — vérifié dans `src/`. |
 
+## 3bis. Premier test sur appareil réel — 15/08/2026
+
+Premier essai réel (tablette Galaxy Tab A9+, WiFi domicile) — confirme concrètement
+l'écart réseau ci-dessus, plus deux écarts supplémentaires découverts en usage réel :
+
+- **Réseau local uniquement, vraiment** : le WiFi domicile de la tablette
+  (`192.168.1.0/24`, distribué par la Bbox Must) n'est pas une interface de
+  l'ER605 — aucune des VLAN (LAN/ALFRED_COR/ADMIN/IOT) ne le couvre. Une ACL
+  inter-VLAN ne peut donc rien pour ce cas (elle ne joue qu'entre réseaux
+  internes de l'ER605) ; une redirection de port WAN→LAN a été tentée mais
+  n'aboutit pas non plus sans cibler l'IP WAN de l'ER605 (que l'app ne connaît
+  pas) et sans que le certificat TLS local la couvre (SAN limité à
+  `192.168.10.100`/`localhost`/`10.0.2.2`). Validation de l'app faite via un
+  contournement `adb reverse` (tunnel de développement, pas une solution
+  utilisateur). **Un accès WiFi domicile → PC réel nécessite soit un SSID
+  dédié raccordé à une interface de l'ER605, soit le tunnel WireGuard déjà
+  prévu en feuille de route (section 4, point 2)** — les deux restent à faire.
+  Accès 5G/donnée mobile confirmé non fonctionnel comme attendu (testé
+  involontairement via le "WiFi sécurisé" Samsung, un VPN intégré).
+- **Audio TTS jamais streamé au client distant** (nouvel écart, pas dans le
+  tableau ci-dessus car découvert seulement lors de ce test) : PiperTTS joue
+  la voix sur la sortie audio locale du PC, jamais envoyée au client Android
+  — seuls les évènements de synchronisation (visèmes, début/fin de parole)
+  passent par SSE. Résultat : en mode vocal distant, c'est le PC qui parle,
+  pas l'appareil mobile. Amélioration demandée par Céline en priorité pour la
+  prochaine session (streaming audio vers le client).
+- **Bugs pipeline confirmés en conditions réelles, non spécifiques à Android** :
+  (1) routage de connaissance incorrect + hallucination du modèle local en
+  anglais sur une question profil/météo (fiche `governance.gouvernance_...`
+  chargée hors-sujet, réponse générée en anglais incohérent) ; (2) fiabilité
+  des appels d'outils du modèle local toujours limitée (garde-fou de secours
+  déclenché sur "résume mes tâches"), confirmant le taux d'échec ~35-40% déjà
+  documenté le 24/07/2026. Les deux à traiter dans une session dédiée au
+  pipeline, indépendante de la mobilité.
+
+Détail complet du déroulé de session : `ALFRED_ANDROID/docs/BLOC24_STATUS_SESSION.md`.
+
 **Lecture honnête de cet écart** : ce n'est pas un retard caché, c'est l'état
 attendu d'un PoC réseau local qui n'a pas encore été durci pour un accès
 distant réel. La feuille de route ci-dessous (section 4) formalise ce qui
