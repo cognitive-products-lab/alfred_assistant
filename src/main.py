@@ -2041,10 +2041,27 @@ def main() -> None:
             except Exception:
                 pass
 
+        def _cb_audio_ready(wav_bytes: bytes) -> None:
+            # Même son que celui joué localement (sd.play côté PiperTTS),
+            # mis à disposition des clients distants (WebView Android) —
+            # voir interface/companion_api.py::set_latest_tts_audio.
+            try:
+                from interface.companion_api import set_latest_tts_audio
+                set_latest_tts_audio(wav_bytes)
+            except Exception:
+                pass
+            try:
+                from src.ui.alfred_app import set_ui_audio_ready
+                set_ui_audio_ready()
+            except Exception:
+                pass
+
         _tts_backend.on_play_start = _cb_play_start
         _tts_backend.on_play_stop  = _cb_play_stop
         if hasattr(_tts_backend, "on_visemes"):
             _tts_backend.on_visemes = _cb_visemes
+        if hasattr(_tts_backend, "on_audio_ready"):
+            _tts_backend.on_audio_ready = _cb_audio_ready
 
     # Accueil vocal automatique
     try:
