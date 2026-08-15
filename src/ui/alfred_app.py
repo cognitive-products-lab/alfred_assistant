@@ -294,6 +294,17 @@ def set_ui_visemes(timeline: list) -> None:
     pass
 
 
+def set_ui_audio_ready() -> None:
+    """
+    Signale qu'un nouveau WAV TTS est disponible (voir PiperTTS.on_audio_ready).
+    No-op côté Kivy (le PC joue déjà l'audio localement via sounddevice, rien
+    à faire côté UI) — monkeypatché par src/alfred_desktop.py pour relayer
+    l'évènement aux clients distants (WebView Android) via SSE, seuls
+    destinataires réels de ce hook.
+    """
+    pass
+
+
 def is_camera_active() -> bool:
     """Indique si la caméra est actuellement activée (overlay webcam)."""
     if _app_instance is not None and _app_instance._layout is not None:

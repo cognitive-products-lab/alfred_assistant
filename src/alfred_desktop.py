@@ -161,6 +161,10 @@ def _on_visemes(timeline: list) -> None:
     _push("onVisemes", timeline)
 
 
+def _on_audio_ready() -> None:
+    _push("onAudioReady")
+
+
 def _install_bridge_hooks() -> None:
     """
     Remplace les hooks pipeline->UI de src.ui.alfred_app par nos versions
@@ -182,6 +186,7 @@ def _install_bridge_hooks() -> None:
     # Timeline de visèmes phonème-exacte, émise juste avant onSpeaking(true) —
     # voir main.py::_cb_visemes et PiperTTS.on_visemes.
     _alfred_app_module.set_ui_visemes = _on_visemes
+    _alfred_app_module.set_ui_audio_ready = _on_audio_ready
 
 
 # ============================================================

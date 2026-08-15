@@ -730,6 +730,12 @@
  * distant, cf. mode vocal Android basé sur la reconnaissance vocale native).
  */
 (function(){
+  // Capturé avant que le polyfill ci-dessous n'écrase window.pywebview : sert
+  // à décider, plus bas (onAudioReady), si CE navigateur doit lui-même jouer
+  // l'audio TTS (client distant) ou le laisser au PC (fenêtre pywebview réelle,
+  // qui joue déjà la voix sur ses propres haut-parleurs via sounddevice).
+  window.__ALFRED_IS_REMOTE__ = !(window.pywebview && window.pywebview.api);
+
   if (window.pywebview && window.pywebview.api) return; // vraie fenêtre desktop : rien à faire
 
   var STORE_TOKEN = 'alfred_api_token';
@@ -752,6 +758,7 @@
   }
 
   var cfg = readConfig();
+  window.__ALFRED_CFG__ = cfg; // réutilisé par onAudioReady pour fetch() l'audio TTS
 
   function callRpc(method, args){
     if (!cfg.base || !cfg.token){
@@ -2428,6 +2435,31 @@
     onVoiceError: function(message){
       setVState('error');
       if (message) orbHintEl.textContent = message;
+    },
+    onAudioReady: function(){
+      // Émis par PiperTTS.on_audio_ready juste avant sd.play() (voir
+      // src/conversation/output/tts_piper.py). Sur la vraie fenêtre pywebview,
+      // le PC joue déjà la voix localement (sounddevice) — ne pas la rejouer
+      // une seconde fois ici. Uniquement pour les clients distants (WebView
+      // Android, navigateur) : récupère le dernier WAV généré et le joue.
+      if (!window.__ALFRED_IS_REMOTE__) return;
+      var cfg = window.__ALFRED_CFG__;
+      if (!cfg || !cfg.base || !cfg.token) return;
+      fetch(cfg.base.replace(/\/$/, '') + '/api/tts_audio/latest', {
+        headers: { 'Authorization': 'Bearer ' + cfg.token }
+      }).then(function(res){
+        if (!res.ok) throw new Error('audio HTTP ' + res.status);
+        return res.blob();
+      }).then(function(blob){
+        var url = URL.createObjectURL(blob);
+        var audio = new Audio(url);
+        audio.addEventListener('ended', function(){ URL.revokeObjectURL(url); });
+        // Lecture best-effort : si le navigateur bloque l'autoplay (pas de
+        // geste utilisateur assez récent), on échoue silencieusement plutôt
+        // que de casser le reste de l'UI — cf. mediaPlaybackRequiresUserGesture
+        // désactivé côté WebUiActivity.kt (Android) pour éviter ce blocage.
+        audio.play().catch(function(){});
+      }).catch(function(){});
     }
   };
 

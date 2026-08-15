@@ -465,6 +465,13 @@ class PiperTTS:
         # appelé juste avant on_play_start, avec la liste produite par
         # build_viseme_timeline() : [{"v": "V03", "t": 120, "d": 80}, ...]
         self.on_visemes: "callable | None" = None
+        # Reçoit les octets WAV (en mémoire) de la phrase sur le point d'être
+        # jouée, juste avant sd.play() — permet à un client distant (WebView
+        # Android) de récupérer le même son que celui joué localement sur le
+        # PC, qui lui n'est jamais transmis par ailleurs (sd.play() ne sort
+        # que sur le haut-parleur local). Voir interface/companion_api.py
+        # (set_latest_tts_audio) et src/main.py (câblage).
+        self.on_audio_ready: "callable | None" = None
         # Amplitude RMS de la dernière phrase synthétisée (0.0-~0.3 pour une
         # voix normale) -- mesure simple lue par l'avatar (cf.
         # AvatarController.resume_speaking) pour adapter le rythme de bouche
@@ -535,6 +542,20 @@ class PiperTTS:
                     from src.conversation.output.phoneme_viseme_map import build_viseme_timeline
                     piper_sample_rate = voice.config.sample_rate
                     self.on_visemes(build_viseme_timeline(alignments, piper_sample_rate))
+                except Exception:
+                    pass
+
+            # Callback audio distant — même buffer que celui joué localement
+            # ci-dessous, encodé en WAV en mémoire (pas de fichier temporaire
+            # supplémentaire). Volontairement avant sd.play() : un client
+            # distant qui reçoit onAudioReady doit pouvoir récupérer le son
+            # dès que le PC commence à le jouer, pas après.
+            if self.on_audio_ready:
+                try:
+                    import io
+                    wav_buffer = io.BytesIO()
+                    sf.write(wav_buffer, audio, samplerate, format="WAV")
+                    self.on_audio_ready(wav_buffer.getvalue())
                 except Exception:
                     pass
 

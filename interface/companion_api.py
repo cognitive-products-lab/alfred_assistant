@@ -148,6 +148,38 @@ def broadcast_event(js_call: str, *args) -> None:
             pass
 
 
+# ============================================================
+# Audio TTS pour clients distants — PiperTTS joue nativement sur les
+# haut-parleurs du PC (sounddevice) et n'envoie jamais le son lui-même aux
+# clients distants (WebView Android, navigateur) ; seul cet unique dernier
+# WAV généré est exposé ici, pour lecture côté client (voir onAudioReady
+# dans interface/desktop_ui/index.html). Pas d'historique : un seul buffer
+# "dernier son", écrasé à chaque nouvelle phrase — suffisant car le client
+# le récupère dès l'évènement onAudioReady, avant la phrase suivante.
+# ============================================================
+
+_latest_tts_audio: bytes | None = None
+_latest_tts_audio_lock = threading.Lock()
+
+
+def set_latest_tts_audio(wav_bytes: bytes) -> None:
+    global _latest_tts_audio
+    with _latest_tts_audio_lock:
+        _latest_tts_audio = wav_bytes
+
+
+@app.get("/api/tts_audio/latest")
+def get_latest_tts_audio(authorization: str | None = Header(default=None)):
+    _require_token(authorization)
+    with _latest_tts_audio_lock:
+        audio = _latest_tts_audio
+    if audio is None:
+        raise HTTPException(status_code=404, detail="Aucun audio TTS disponible")
+    from fastapi.responses import Response
+
+    return Response(content=audio, media_type="audio/wav")
+
+
 @app.get("/api/status")
 def get_status(authorization: str | None = Header(default=None)) -> dict:
     _require_token(authorization)
