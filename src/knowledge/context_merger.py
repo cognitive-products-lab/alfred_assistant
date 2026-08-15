@@ -335,21 +335,28 @@ class ContextMerger:
             for note in safety_notes[:8]:
                 sections.append(f"- {note}")
 
-        sections.append("\n--- RESPONSE INSTRUCTION ---")
+        sections.append("\n--- INSTRUCTION DE RÉPONSE ---")
+        # Traduit en français le 15/08/2026 : ce bloc était injecté tel quel
+        # dans un system prompt sinon entièrement français (voir
+        # response_generator.py::_build_knowledge_block) — un paragraphe
+        # anglais isolé dans un prompt français déstabilisait le modèle local
+        # (llama3.2), observé en conditions réelles comme une dérive en
+        # charabia anglais incohérent.
         instruction = (
-            "Use the selected knowledge to answer clearly, safely and contextually. "
-            "Do not invent knowledge that is not present. "
-            "If the topic is medical, legal, financial or high-risk, stay cautious."
+            "Utilise la connaissance sélectionnée pour répondre de façon claire, sûre et "
+            "contextuelle. N'invente pas de connaissance absente de ce contexte. "
+            "Si le sujet est médical, légal, financier ou à risque élevé, reste prudent."
         )
         if citations:
             instruction += (
-                " If a SOURCES section is present, cite the document reference, its version "
-                "and its validation date explicitly in your answer."
+                " Si une section SOURCES est présente, cite explicitement la référence du "
+                "document, sa version et sa date de validation dans ta réponse."
             )
         if contradictions:
             instruction += (
-                " If a CONTRADICTIONS DETECTED section is present, explicitly flag the conflict "
-                "to the user and recommend validation by the document owner instead of picking a version yourself."
+                " Si une section CONTRADICTIONS DÉTECTÉES est présente, signale explicitement "
+                "le conflit à l'utilisateur et recommande une validation par le propriétaire du "
+                "document plutôt que de choisir une version toi-même."
             )
         sections.append(instruction)
 

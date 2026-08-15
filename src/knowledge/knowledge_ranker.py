@@ -52,7 +52,14 @@ class KnowledgeRanker:
         self.router = router
         self.rules = loader.retrieval_rules
 
-        scoring = self.rules.get("knowledge_scoring_rules", {})
+        # Clé corrigée le 15/08/2026 : "knowledge_scoring_rules" n'existe pas
+        # dans retrieval_rules.json (la vraie clé est "global_policy") — le
+        # seuil réellement configuré (6.0, pas le défaut 3.0 ci-dessous) n'a
+        # donc jamais été appliqué depuis l'écriture de cette classe, ce qui
+        # laissait passer des faux positifs (ex. fiche gouvernance associative
+        # chargée sur une question profil/météo, un seul hit à 2 mots-clés
+        # suffisant à franchir 3.0 mais pas 6.0).
+        scoring = self.rules.get("global_policy", {})
         self.max_loaded = scoring.get("max_knowledge_loaded_per_query", 6)
         self.minimum_score = scoring.get("minimum_score_to_use", 3.0)
 
@@ -189,10 +196,16 @@ class KnowledgeRanker:
 
         for knowledge_id, knowledge in self.loader.knowledge_index.items():
             searchable = self._build_searchable_text(knowledge).lower()
+            # Mots entiers uniquement (pas de "in" substring) — corrigé le
+            # 15/08/2026 : un "in" substring faisait matcher n'importe quel
+            # fragment de 4+ lettres à l'intérieur d'un mot plus long sans
+            # rapport (ex. "propos" de "à mon propos" matchait dans
+            # "value_proposition"), ce qui chargeait des fiches hors-sujet.
+            searchable_words = set(re.findall(r"\w+", searchable))
 
             hits = 0
             for word in query_words:
-                if word in searchable:
+                if word in searchable_words:
                     hits += 1
 
             if hits <= 0:
