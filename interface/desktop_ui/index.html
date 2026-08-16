@@ -736,6 +736,19 @@
   // qui joue déjà la voix sur ses propres haut-parleurs via sounddevice).
   window.__ALFRED_IS_REMOTE__ = !(window.pywebview && window.pywebview.api);
 
+  // Filet de sécurité (bug réel observé le 16/08/2026) : l'injection de
+  // window.pywebview.api par pywebview est asynchrone et arrive parfois APRÈS
+  // ce script (déjà anticipé plus bas par initPywebviewBridge/pywebviewready
+  // pour le dashboard, mais pas ici) — la vraie fenêtre desktop se croyait
+  // alors "cliente distante" et affichait l'écran de connexion Android par
+  // erreur. Si pywebview confirme sa présence plus tard, on corrige le
+  // diagnostic et on retire l'écran de connexion s'il a été affiché.
+  window.addEventListener('pywebviewready', function(){
+    window.__ALFRED_IS_REMOTE__ = false;
+    var overlay = document.querySelector('[aria-label="Connexion à ALFRED"]');
+    if (overlay) overlay.remove();
+  });
+
   if (window.pywebview && window.pywebview.api) return; // vraie fenêtre desktop : rien à faire
 
   var STORE_TOKEN = 'alfred_api_token';
