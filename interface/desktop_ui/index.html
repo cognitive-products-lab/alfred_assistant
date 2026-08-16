@@ -1026,8 +1026,29 @@
       setInterval(refreshDashboardWidgets, 25000);
     }
   }
-  if (window.pywebview) initPywebviewBridge();
-  window.addEventListener('pywebviewready', initPywebviewBridge);
+  if (window.pywebview && window.pywebview.api){
+    initPywebviewBridge();
+  } else {
+    window.addEventListener('pywebviewready', initPywebviewBridge);
+    // Filet de sécurité (même classe de bug que __ALFRED_IS_REMOTE__ plus haut,
+    // observée le 16/08/2026) : l'événement pywebviewready arrive parfois avant
+    // que ce script n'atteigne cette ligne (script inline volumineux), auquel
+    // cas l'écouteur ci-dessus ne le voit jamais passer et les préférences
+    // enregistrées ne sont plus jamais rechargées. On sonde donc window.pywebview.api
+    // en secours pendant quelques secondes ; initPywebviewBridge() est idempotent
+    // (get_settings ré-applique juste les mêmes préférences) donc un double appel
+    // avec l'écouteur d'évènement n'est pas un problème.
+    var _pollAttempts = 0;
+    var _pollId = setInterval(function(){
+      _pollAttempts++;
+      if (window.pywebview && window.pywebview.api){
+        clearInterval(_pollId);
+        initPywebviewBridge();
+      } else if (_pollAttempts > 50){
+        clearInterval(_pollId); // ~5s : abandon, vraiment pas de bridge dispo
+      }
+    }, 100);
+  }
 
   /* ---------- SEARCH SHORTCUT ---------- */
   var searchInput = document.getElementById('global-search');
