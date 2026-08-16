@@ -465,12 +465,86 @@
 
 ---
 
+### Bloc 26 — Android / Mobile — persistance locale, synchronisation & tests (extension du PoC B24)
+
+> Créé le 16/08/2026 pour combler l'écart 26-28 identifié dans le dashboard
+> d'avancement. Périmètre delta uniquement : le Bloc 24 couvre déjà le PoC
+> Compagnon de base (UI, API, sécurité TLS) — le Bloc 26 couvre les
+> fonctionnalités ajoutées depuis (persistance locale Room, synchronisation
+> WorkManager, dépôt de données, sécurisation du stockage de token, tests
+> unitaires), sans redupliquer les fichiers déjà comptés dans le Bloc 24.
+
+| Code  | Fonction principale                                    |
+|-------|----------------------------------------------------------|
+| 26.01 | Persistance locale (Room : base, DAO, entité, cache statut) |
+| 26.02 | Synchronisation arrière-plan (WorkManager)                |
+| 26.03 | Application & dépôt de données (repository)               |
+| 26.04 | Sécurisation du stockage de token                          |
+| 26.05 | Tests unitaires                                            |
+
+**Dossiers/fichiers** :
+`ALFRED_ANDROID/app/src/main/java/.../data/local/`,
+`ALFRED_ANDROID/app/src/main/java/.../work/`,
+`ALFRED_ANDROID/app/src/main/java/.../data/CompanionRepository.kt`,
+`data/SecureTokenStore.kt`, `AlfredCompanionApp.kt`, `WebUiActivity.kt`,
+`app/src/test/`
+
+---
+
+### Bloc 27 — Internationalisation (i18n) — ARTHUR renvoie au Bloc 13
+
+> Créé le 16/08/2026. Le volet ARTHUR (compagnon pédiatrique) évoqué dans la
+> roadmap produit `ALFRED_WEB/app.py` est déjà intégralement couvert par le
+> Bloc 13 (`src/health/*.py`) : aucun fichier propre à dupliquer ici. Le
+> Bloc 27 couvre uniquement le périmètre i18n non déjà référencé dans le
+> Bloc 21 (`babel.cfg` et `scripts/i18n_cadrage.py` restent dans le Bloc 21).
+
+| Code  | Fonction principale                        |
+|-------|----------------------------------------------|
+| 27.01 | Traductions FR/EN (fichiers .pot/.po)         |
+| 27.02 | Outillage de mise à jour des traductions      |
+
+**Dossiers/fichiers** :
+`ALFRED_WEB/messages.pot`, `ALFRED_WEB/translations/`,
+`ALFRED_WEB/scripts/i18n_update.py`
+
+> ⚠️ Pas de fichiers ARTHUR propres au Bloc 27 — voir Bloc 13 pour le code
+> du compagnon pédiatrique.
+
+---
+
+### Bloc 28 — Comptes utilisateurs PostgreSQL — migrations Alembic
+
+> Créé le 16/08/2026. L'authentification et les modèles utilisateurs
+> PostgreSQL sont déjà couverts par le Bloc 21 (sous-cible
+> `comptes_postgresql_mongo` : `auth/routes.py`, `models/user.py`,
+> `data/postgres.py`, `tests/test_auth.py`, etc. — cf.
+> `ALFRED_WEB/requirements.txt` ligne 30 "Bloc 21.23"). Le Bloc 28 couvre
+> uniquement l'outillage de migration Alembic non encore référencé dans le
+> Bloc 21.
+
+| Code  | Fonction principale                          |
+|-------|-------------------------------------------------|
+| 28.01 | Configuration Alembic (`alembic.ini`)            |
+| 28.02 | Boilerplate migrations (`migrations/README`, `script.py.mako`) |
+| 28.03 | Migration de création de la table `users`        |
+
+**Dossiers/fichiers** :
+`ALFRED_WEB/alembic.ini`, `ALFRED_WEB/migrations/README`,
+`ALFRED_WEB/migrations/script.py.mako`,
+`ALFRED_WEB/migrations/versions/e65f25fe3016_create_users_table.py`
+
+---
+
 ### Bloc 29 — Démonstrateur Big Data Hadoop
 
 > Absent de ce document jusqu'au 12/07/2026 alors que déjà suivi dans
 > `BACKLOG.md` et `dashboard/dashboard_data/dashboard_data_manifest.json` —
-> ajouté ici pour combler l'écart. Numérotation volontairement non contiguë
-> avec le Bloc 22 (PoC isolé, pas dans la séquence de développement V1→V4).
+> ajouté ici pour combler l'écart. Jusqu'au 16/08/2026, la numérotation
+> sautait volontairement de 25 à 29 (PoC isolé, pas dans la séquence de
+> développement V1→V4) ; les Blocs 26-28 ont depuis été créés (cf. sections
+> dédiées ci-dessus), la numérotation est donc désormais contiguë, mais le
+> Bloc 29 reste conceptuellement un PoC hors trajectoire produit.
 
 | Code  | Fonction principale                     |
 |-------|------------------------------------------|
@@ -518,28 +592,31 @@
 | B23                | *(nouveau — pas d'ancien label dashboard)* | **Bloc 23** | Gouvernance & pilotage du projet |
 | B24                | *(nouveau — pas d'ancien label dashboard)* | **Bloc 24** | ALFRED Android / Compagnon mobile natif |
 | B25                | *(nouveau — pas d'ancien label dashboard)* | **Bloc 25** | Documentation & politiques projet transverses |
+| B26                | *(nouveau — pas d'ancien label dashboard)* | **Bloc 26** | Android / Mobile — persistance locale, synchronisation & tests |
+| B27                | *(nouveau — pas d'ancien label dashboard)* | **Bloc 27** | Internationalisation (i18n) — ARTHUR renvoie au Bloc 13 |
+| B28                | *(nouveau — pas d'ancien label dashboard)* | **Bloc 28** | Comptes utilisateurs PostgreSQL — migrations Alembic |
 | B29                | Démonstrateur Big Data Hadoop       | **Bloc 29**   | Démonstrateur Big Data Hadoop *(PoC)*      |
 
 ---
 
-## Blocs manquants / à trancher (état au 13/07/2026)
+## Blocs manquants / à trancher (état au 16/08/2026)
 
-La numérotation officielle saute de 25 à 29. État des lieux après audit :
+La numérotation officielle sautait de 25 à 29 jusqu'au 16/08/2026. État des lieux :
 
 | Bloc | Statut | Détail |
 |------|--------|--------|
 | **23** | ✅ Validé le 12/07/2026 | Gouvernance & pilotage du projet — cf. section dédiée ci-dessus. |
 | **24** | ✅ Validé le 13/07/2026 | ALFRED Android / Compagnon mobile natif — cf. section dédiée ci-dessus. |
 | **25** | ✅ Validé le 13/07/2026 | Documentation & politiques projet transverses — cf. section dédiée ci-dessus. |
-| **26–28** | ⚪ Aucune preuve trouvée | Pas de domaine fonctionnel non couvert identifié dans les 3 dépôts audités (`alfred_assistant`, `alfred_web`, `ALFRED_ANDROID`) au 12/07/2026. Ne pas assigner sans nouveau périmètre validé. |
+| **26–28** | ✅ Créés le 16/08/2026 | Android/Mobile delta, i18n, Comptes PostgreSQL — cf. sections dédiées ci-dessus. Périmètre delta uniquement, pas de redite des Blocs 13/21/24 (cf. Règles 13-15). Historique : aucune preuve de périmètre non couvert n'avait été trouvée lors de l'audit du 12/07/2026 (ⓘ ce constat portait sur l'absence de domaine *nouveau*, pas sur l'absence de contenu réel — le contenu existait déjà sous B13/B21/B24, cf. sections dédiées). |
 
 ---
 
 ## Règles d'usage
 
 1. **Entêtes fichiers** : utiliser `Bloc XX.YY` (ex. `Bloc 21.01 — Architecture Flask & structure projet`)
-2. **Dashboard** : utiliser l'identifiant court `Bloc 01` à `Bloc 25` (+ `Bloc 29`) + label officiel
-3. **Jamais** : inventer un numéro, utiliser "B04" seul sans vérification dans ce document — cf. tableau "Blocs manquants / à trancher" pour le statut de 26 à 28
+2. **Dashboard** : utiliser l'identifiant court `Bloc 01` à `Bloc 29` (numérotation contiguë depuis le 16/08/2026) + label officiel
+3. **Jamais** : inventer un numéro, utiliser "B04" seul sans vérification dans ce document — cf. tableau "Blocs manquants / à trancher" pour l'historique du statut de 26 à 28
 4. **secret_manager.py** : anciennement étiqueté `20.06`, à reclasser `20.05` lors de la prochaine mise à jour des entêtes
 5. **Bloc 16** : formalisé le 16/07/2026 (était documenté "réservé" alors que suivi avec un contenu réel depuis mai 2026) — voir section dédiée ci-dessus.
 6. **Bloc 20.06 et 20.07** : sous-codes à implémenter (sécurité réseau, sécurité API)
@@ -548,4 +625,7 @@ La numérotation officielle saute de 25 à 29. État des lieux après audit :
 9. **Bloc 23** : Gouvernance & pilotage du projet — racine `tools/dashboard_tools/dashboard_data/` + `tools/daily_update.py`/`tools/sync_dashboards.py`, distinct du Bloc 11.05 (gouvernance des données) et du Bloc 20 (gouvernance cybersécurité)
 10. **Bloc 24** : ALFRED Android — dépôt séparé `ALFRED_ANDROID/`, indépendant de `src/` (même logique que le Bloc 21 pour ALFRED_WEB)
 11. **Bloc 25** : Documentation & politiques projet — fichiers `.md`/légaux à la racine + `docs/architecture/`, `docs/ux/` ; ne pas leur imposer l'entête `Bloc XX.YY` (convention réservée au code/JSON)
-12. **Bloc 29** : PoC isolé — numérotation non contiguë assumée, ne pas combler 26→28 avec du contenu Hadoop
+12. **Bloc 29** : PoC isolé — numériquement contigu avec le Bloc 28 depuis le 16/08/2026, mais reste hors trajectoire produit V1→V4 (contenu Hadoop non redistribué vers 26-28)
+13. **Bloc 26** : Android — dépôt `ALFRED_ANDROID/`, delta post-PoC (Bloc 24) uniquement, pas de doublon de fichiers avec le Bloc 24
+14. **Bloc 27** : i18n — racine `ALFRED_WEB/`, delta hors Bloc 21 uniquement ; ARTHUR renvoie au Bloc 13, pas de fichiers propres au Bloc 27
+15. **Bloc 28** : Comptes PostgreSQL — racine `ALFRED_WEB/`, delta hors Bloc 21 uniquement (auth/modèles déjà dans le Bloc 21.23)
