@@ -478,7 +478,17 @@ class PiperTTS:
         # au volume réel de chaque phrase TTS.
         self.last_amplitude: float = 0.0
 
-    def speak(self, text: str) -> bool:
+    def speak(self, text: str, play_locally: bool = True) -> bool:
+        """
+        play_locally=False : ne joue pas sur les haut-parleurs du PC (sd.play),
+        laisse le client distant s'en charger via on_audio_ready — utilisé
+        quand le message vient d'un client distant (ALFRED_ANDROID), pour que
+        le son ne sorte que du côté qui a posé la question (Céline, 16/08/2026 :
+        "gérer la sortie son via l'interface qui a été utilisée pour poser la
+        question"). on_play_start/on_play_stop sont quand même déclenchés
+        (immédiatement, sans attendre une lecture locale) pour ne pas bloquer
+        les états avatar/UI qui en dépendent.
+        """
         import wave
         import tempfile
         import sounddevice as sd
@@ -547,10 +557,10 @@ class PiperTTS:
 
             # Callback audio distant — même buffer que celui joué localement
             # ci-dessous, encodé en WAV en mémoire (pas de fichier temporaire
-            # supplémentaire). Volontairement avant sd.play() : un client
-            # distant qui reçoit onAudioReady doit pouvoir récupérer le son
-            # dès que le PC commence à le jouer, pas après.
-            if self.on_audio_ready:
+            # supplémentaire). Uniquement si ce PC ne joue pas lui-même le son
+            # (play_locally=False, message d'origine distante) : évite que les
+            # deux interfaces parlent en même temps pour un même échange.
+            if self.on_audio_ready and not play_locally:
                 try:
                     import io
                     wav_buffer = io.BytesIO()
@@ -559,11 +569,13 @@ class PiperTTS:
                 except Exception:
                     pass
 
-            # Sortie sur le device par défaut système (ne pas forcer un index)
-            # PaErrorCode -9998 = device 3 est input-only sur cette machine
-            sd.play(audio, samplerate)
+            if play_locally:
+                # Sortie sur le device par défaut système (ne pas forcer un index)
+                # PaErrorCode -9998 = device 3 est input-only sur cette machine
+                sd.play(audio, samplerate)
 
             # Callback début lecture — synchronisé avec le démarrage audio réel
+            # (ou déclenché immédiatement si play_locally=False, cf. docstring)
             if self.on_play_start:
                 try:
                     self.on_play_start()
@@ -571,7 +583,22 @@ class PiperTTS:
                     pass
 
             if self.blocking:
-                sd.wait()
+                if play_locally:
+                    sd.wait()
+                else:
+                    # Pas de sd.wait() possible ici (rien ne joue localement),
+                    # mais le rythme entre phrases doit rester le même que
+                    # celui de la vraie lecture — sinon les phrases suivantes
+                    # s'enchaînent trop vite côté serveur, écrasent le buffer
+                    # "dernier son" avant que le client distant ait eu le
+                    # temps de le récupérer/jouer, et desynchronisent l'audio
+                    # sur la tablette (bug réel observé le 16/08/2026 : "2
+                    # sorties son désynchronisées"). On attend donc la durée
+                    # réelle de l'audio généré, comme le ferait sd.wait().
+                    import time as _time
+                    duration_s = (len(audio) / samplerate) if samplerate else 0.0
+                    if duration_s > 0:
+                        _time.sleep(duration_s)
 
             # Callback fin lecture — synchronisé avec la fin audio réelle
             if self.on_play_stop:

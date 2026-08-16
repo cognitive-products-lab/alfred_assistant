@@ -36,12 +36,15 @@ class TTSEngine:
         """
         self.backend = backend
 
-    def speak(self, text: str) -> bool:
+    def speak(self, text: str, play_locally: bool = True) -> bool:
         """
         Fait parler ALFRED à partir d'un texte.
 
         Args:
             text: Texte à vocaliser.
+            play_locally: transmis tel quel au backend (voir
+                tts_piper.py::PiperTTS.speak) — False quand le message vient
+                d'un client distant, pour ne pas aussi jouer le son sur le PC.
 
         Returns:
             bool: True si la sortie vocale ou fallback a fonctionné, False sinon.
@@ -51,7 +54,12 @@ class TTSEngine:
 
         try:
             if self.backend is not None:
-                return bool(self.backend.speak(text.strip()))
+                try:
+                    return bool(self.backend.speak(text.strip(), play_locally=play_locally))
+                except TypeError:
+                    # Backend alternatif (fallback texte, futur moteur) sans
+                    # support de play_locally — comportement inchangé.
+                    return bool(self.backend.speak(text.strip()))
 
             return self._fallback_print(text.strip())
 

@@ -43,7 +43,7 @@ from typing import Callable, Optional
 # Etat global du bridge
 # ============================================================
 
-_input_queue:      queue.Queue[str]               = queue.Queue()
+_input_queue:      "queue.Queue[tuple[str, str]]"  = queue.Queue()
 _ui_active:        bool                           = False
 _response_cb:      Optional[Callable[[str], None]] = None
 _user_msg_cb:      Optional[Callable[[str], None]] = None
@@ -67,7 +67,7 @@ def deactivate() -> None:
     with _lock:
         _ui_active = False
     # Debloquer le pipeline si en attente
-    _input_queue.put("")
+    _input_queue.put(("", "local"))
 
 
 def is_active() -> bool:
@@ -80,24 +80,30 @@ def is_active() -> bool:
 # UI -> Pipeline  (saisie utilisateur)
 # ============================================================
 
-def send_user_input(text: str) -> None:
+def send_user_input(text: str, origin: str = "local") -> None:
     """
-    Envoie le texte saisi dans l'interface Kivy vers le pipeline.
-    Appele depuis le thread Kivy.
+    Envoie le texte saisi dans l'interface Kivy (ou distante, voir origin)
+    vers le pipeline. Appele depuis le thread Kivy, ou depuis
+    AlfredDesktopAPI.send_message (local et /api/rpc distant confondus).
+
+    origin : "local" (fenetre pywebview/Kivy du PC) ou "remote" (client
+    distant, ex. WebView Android via /api/rpc) -- determine plus loin
+    (main.py) quelle interface joue physiquement l'audio TTS de la
+    reponse a ce message (voir tts_piper.py::speak(play_locally=...)).
     """
     stripped = text.strip()
     if stripped:
         # Notifie l'UI que le message est en route (affichage immediat)
         if _user_msg_cb:
             _user_msg_cb(stripped)
-        _input_queue.put(stripped)
+        _input_queue.put((stripped, origin))
 
 
-def wait_for_ui_input() -> str:
+def wait_for_ui_input() -> tuple[str, str]:
     """
-    Attend et retourne le prochain message saisi dans l'UI.
+    Attend et retourne le prochain (message, origin) saisi dans l'UI.
     Bloquant. Appele depuis le thread pipeline (daemon).
-    Retourne "" si le bridge est desactive.
+    Retourne ("", "local") si le bridge est desactive.
     """
     return _input_queue.get()
 
