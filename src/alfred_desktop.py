@@ -194,10 +194,15 @@ def _install_bridge_hooks() -> None:
 # ============================================================
 
 class AlfredDesktopAPI:
-    def send_message(self, text: str) -> dict:
-        """Appelé depuis le mode texte : transmet le message au pipeline ALFRED."""
+    def send_message(self, text: str, origin: str = "local") -> dict:
+        """Appelé depuis le mode texte : transmet le message au pipeline ALFRED.
+
+        origin="remote" quand l'appel vient d'un client distant (voir
+        interface/companion_api.py::rpc, qui l'injecte automatiquement pour
+        cette méthode) — détermine quelle interface joue l'audio TTS de la
+        réponse (voir src/main.py, tts_piper.py::speak)."""
         from src.ui.ui_bridge import send_user_input
-        send_user_input(text or "")
+        send_user_input(text or "", origin=origin)
         return {"ok": True}
 
     def get_settings(self) -> dict:

@@ -2079,15 +2079,16 @@ def main() -> None:
     except Exception as exc:
         print(f"  [AVERT TTS accueil] {exc}")
 
-    def _read_input(prompt: str = "  Toi ⌨️ : ") -> str:
-        """Lit l'input depuis la file UI (si active) ou le terminal."""
+    def _read_input(prompt: str = "  Toi ⌨️ : ") -> tuple[str, str]:
+        """Lit l'input depuis la file UI (si active, avec son origine local/remote)
+        ou le terminal (toujours local)."""
         try:
             from src.ui.ui_bridge import is_active as _ui_ok, wait_for_ui_input as _ui_get
             if _ui_ok():
                 return _ui_get()
         except ImportError:
             pass
-        return input(prompt).strip()
+        return input(prompt).strip(), "local"
 
     while True:
         # B15 — Avatar : pret a ecouter
@@ -2119,12 +2120,13 @@ def main() -> None:
                     raw_input = (raw_input or "").strip()
                     if not raw_input:
                         continue
+                    input_origin = "local"  # micro PC — toujours local
                 else:
                     # Aucune voix en attente → UI ou clavier
-                    raw_input = _read_input()
+                    raw_input, input_origin = _read_input()
                     hybrid.last_keyboard_time = time.time()
             else:
-                raw_input = _read_input()
+                raw_input, input_origin = _read_input()
 
         except (KeyboardInterrupt, EOFError):
             if components.get("security_ok"):
@@ -2138,6 +2140,12 @@ def main() -> None:
 
         if not raw_input:
             continue
+
+        # Origine du message courant (local = PC, remote = client distant type
+        # WebView Android) — lue par les appels tts.speak() plus bas pour
+        # decider si le PC doit jouer l'audio localement ou le laisser au
+        # client distant (voir tts_piper.py::speak(play_locally=...)).
+        components["_current_input_origin"] = input_origin
 
         cmd = raw_input.lower().strip()
 
@@ -2219,6 +2227,10 @@ def main() -> None:
             tts = components.get("tts")
             tts_muted = components.get("tts_muted", False)
             _tts_active = tts and not tts_muted
+            # Sortie son ciblee sur l'interface qui a pose la question (Celine,
+            # 16/08/2026) : un message distant (tablette) ne fait plus parler le
+            # PC en plus - voir tts_piper.py::speak(play_locally=...).
+            _play_locally = components.get("_current_input_origin", "local") != "remote"
             _sec_ok = components.get("security_ok", False)
             _out_filter = components.get("output_filter")
             def on_sentence(phrase: str) -> None:
@@ -2241,7 +2253,7 @@ def main() -> None:
                 # src/ui/desktop_tts_control.py).
                 if _tts_active and not components.get("_interrupted"):
                     try:
-                        tts.speak(clean_for_tts(s))
+                        tts.speak(clean_for_tts(s), play_locally=_play_locally)
                     except Exception as exc:
                         print(f"  [AVERT TTS stream] {exc}")
 
@@ -2299,7 +2311,7 @@ def main() -> None:
                         if components.get("_interrupted"):
                             break
                         if chunk:
-                            tts.speak(clean_for_tts(chunk))
+                            tts.speak(clean_for_tts(chunk), play_locally=_play_locally)
             else:
                 print()  # saut de ligne après le stream
 

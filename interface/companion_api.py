@@ -255,6 +255,13 @@ def rpc(payload: dict, authorization: str | None = Header(default=None)) -> dict
     if not isinstance(args, dict):
         raise HTTPException(status_code=400, detail="'args' doit être un objet")
 
+    if method == "send_message":
+        # Tout appel /api/rpc vient par définition d'un client distant (WebView
+        # Android, navigateur) — jamais de la fenêtre pywebview locale, qui
+        # appelle window.pywebview.api directement. Détermine quelle interface
+        # joue l'audio TTS de la réponse (voir src/main.py, tts_piper.py::speak).
+        args = {**args, "origin": "remote"}
+
     api = _get_api_instance()
     func = getattr(api, method)
     try:
