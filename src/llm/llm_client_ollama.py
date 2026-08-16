@@ -47,11 +47,16 @@ MODEL_PROFILES: dict[str, dict] = {
         "num_ctx":     2048,
         "description": "Léger, rapide, anglophone — usage général",
     },
-    # Très bon en français, meilleure compréhension des nuances
+    # Très bon en français, meilleure compréhension des nuances — modèle par
+    # défaut depuis le 16/08/2026 (llama3.2 confirmé instable en usage réel).
+    # keep_alive évite le rechargement à froid (~35s sur MS-S1 Max) entre deux
+    # tours de conversation espacés de plus de 5 min (défaut Ollama sans ce
+    # réglage) — une fois chaud, le modèle répond en ~6-8s.
     "mistral:7b": {
         "temperature": 0.3,   # plus direct, moins de divagation
         "max_tokens":  600,
         "num_ctx":     4096,  # context plus long = meilleure mémoire conversationnelle
+        "keep_alive":  "30m",
         "description": "Recommandé pour ALFRED — excellent en français",
     },
     # Ultra-rapide, idéal pour le conversationnel léger
