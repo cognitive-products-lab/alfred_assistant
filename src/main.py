@@ -109,7 +109,12 @@ USER_ID = "celine"   # identifiant onboarding — correspond aux fichiers data/p
 #
 # Pré-requis : ollama pull <modele>
 # ─────────────────────────────────────────────────────────────────────────────
-MODEL = os.environ.get("ALFRED_LLM_MODEL") or "llama3.2"   # mistral:7b trop lent sans GPU → llama3.2 recommandé sur CPU
+MODEL = os.environ.get("ALFRED_LLM_MODEL") or "llama3.2"   # défaut si absent de .env
+# Commentaire "mistral:7b trop lent sans GPU" retiré le 16/08/2026 : faux sur
+# ce matériel — Ollama utilise déjà le GPU AMD intégré du MS-S1 Max pour les
+# deux modèles (confirmé via `ollama ps`, colonne PROCESSOR = 100% GPU), et
+# mistral:7b une fois chaud répond en ~6-8s (vs ~3s pour llama3.2, mais
+# llama3.2 est confirmé instable — cf. .env, ALFRED_LLM_MODEL=mistral:7b).
 TOOLS_MODEL = os.environ.get("ALFRED_LLM_TOOLS_MODEL") or None   # None/vide = pas de modèle dédié
 
 # Politique mémoire (docs/architecture/vision_architecture_cognitive_alfred.md,
