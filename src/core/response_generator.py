@@ -119,15 +119,20 @@ class ResponseGenerator:
     # =========================================================
     # PROMPT SYSTÈME
     # =========================================================
-    def _forced_response(self, user_message: str, context: Dict[str, Any]) -> str:
+    @staticmethod
+    def _extract_real_question(user_message: str) -> str:
         """
-        Réponses déterministes pour éviter les hallucinations sur les cas critiques.
+        Isole la vraie question utilisateur dans le message enrichi envoyé au
+        LLM (src/main.py::user_input_for_llm contient contexte projet + mémoire
+        long terme + connaissance B18 AVANT la question réelle, sous
+        "=== QUESTION UTILISATEUR ==="). Sans cette isolation, tout texte
+        scanné (mots-clés outils, heure/date, code...) matche aussi le
+        contexte/l'historique plutôt que la question posée à ce tour — bug
+        réel observé le 16/08/2026 : le mode outils (agenda) se déclenchait
+        sur des messages sans rapport ("astuces anxiété") parce que le
+        contexte mémoire mentionnait des dates/rendez-vous.
         """
-
         real_user_message = user_message.lower().strip()
-
-        # Isoler uniquement la vraie question utilisateur
-        # (le message enrichi contient du contexte projet/mémoire avant la question)
         for separator in [
             "=== question utilisateur ===",
             "question utilisateur :",
@@ -136,6 +141,14 @@ class ResponseGenerator:
             if separator in real_user_message:
                 real_user_message = real_user_message.split(separator, 1)[1].strip()
                 break
+        return real_user_message
+
+    def _forced_response(self, user_message: str, context: Dict[str, Any]) -> str:
+        """
+        Réponses déterministes pour éviter les hallucinations sur les cas critiques.
+        """
+
+        real_user_message = self._extract_real_question(user_message)
 
         code_check_keywords = [
             "vérifie tes ligne",
@@ -186,10 +199,11 @@ class ResponseGenerator:
         return ""
 
     def _should_enable_tools(self, user_message: str) -> bool:
-        """Active les outils réels (Google Agenda) pour ce tour si le message
-        contient un mot-clé plausible — évite de payer le coût d'un aller-retour
-        LLM supplémentaire sur chaque message de conversation ordinaire."""
-        text = user_message.lower()
+        """Active les outils réels (Google Agenda) pour ce tour si la vraie
+        question (pas le contexte enrichi qui la précède) contient un mot-clé
+        plausible — évite de payer le coût d'un aller-retour LLM supplémentaire
+        sur chaque message de conversation ordinaire."""
+        text = self._extract_real_question(user_message)
         return any(keyword in text for keyword in _TOOL_TRIGGER_KEYWORDS)
 
     def _build_system_prompt(
