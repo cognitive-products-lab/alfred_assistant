@@ -1570,6 +1570,32 @@ def build_response(
         context["user_preferences"] = ""
 
     # -------------------------------------------------------------------------
+    # 3c. Rappel contextuel spontané (mémoire épisodique pertinente au message
+    #     courant) — additif, jamais un court-circuit comme answer_from_memory :
+    #     le LLM reste libre de l'utiliser ou de l'ignorer. Une seule tentative
+    #     par épisode et par session (recalled_episode_ids) pour ne pas ressasser.
+    # -------------------------------------------------------------------------
+    try:
+        from src.memory.memory_indexer import get_contextual_recall
+        from src.memory import memory_manager as _mm
+
+        already_recalled = set(_mm.get_context("recalled_episode_ids", []) or [])
+        recall = get_contextual_recall(user_input, exclude_ids=already_recalled)
+        if recall:
+            recall_date = (recall.get("date") or "")[:10]
+            context["contextual_recall"] = (
+                f"Le {recall_date}, il a été noté : « {recall['title']} » "
+                f"(catégorie : {recall['category']})."
+            )
+            already_recalled.add(recall["id"])
+            _mm.set_context("recalled_episode_ids", list(already_recalled))
+        else:
+            context["contextual_recall"] = ""
+    except Exception as exc:
+        context["contextual_recall"] = ""
+        print(f"  [AVERT rappel contextuel] {exc}")
+
+    # -------------------------------------------------------------------------
     # 4. Knowledge Retrieval Engine B18
     # -------------------------------------------------------------------------
     retrieval_engine = components.get("retrieval_engine")

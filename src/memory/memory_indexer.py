@@ -15,11 +15,77 @@
 # STATUS  : VALIDATED
 # ============================================================
 
+import re
 from datetime import datetime
 from src.memory.memory_manager    import get_session_summary, get_history, get_dominant_emotion
 from src.memory.long_term_memory  import search_memories, get_top_patterns, get_fact, get_all_facts
 from src.memory.episodic_memory   import search_episodes, get_important_episodes, get_episode_stats
 from src.security.security_logger import log_event
+
+
+# Mots trop génériques pour déclencher une recherche de rappel contextuel
+# (sinon toute phrase banale ferait remonter un souvenir sans rapport réel).
+_RECALL_STOPWORDS = {
+    "alfred", "celine", "céline", "bonjour", "bonsoir", "merci", "voila", "voilà",
+    "comment", "pourquoi", "quand", "aujourd", "hui", "maintenant", "toujours",
+    "jamais", "encore", "parce", "cette", "avec", "sans", "dans", "pour",
+    "tres", "très", "bien", "faire", "fait", "dire", "dit", "vraiment", "besoin",
+    "peux", "veux", "voudrais", "aimerais", "peut", "doit", "faut",
+}
+
+
+def _extract_recall_keywords(text: str, min_len: int = 4) -> list[str]:
+    words = re.findall(r"[a-zàâäéèêëïîôöùûüç]+", text.lower())
+    seen: list[str] = []
+    for w in words:
+        if len(w) >= min_len and w not in _RECALL_STOPWORDS and w not in seen:
+            seen.append(w)
+    return seen
+
+
+def get_contextual_recall(user_input: str, exclude_ids: "set[str] | None" = None, threshold: float = 0.6) -> "dict | None":
+    """
+    Cherche, parmi la mémoire épisodique, un souvenir réellement pertinent
+    par rapport au message courant — pour un rappel spontané et ponctuel,
+    pas un scan qui ferait remonter systématiquement quelque chose à
+    chaque tour (ce qui deviendrait vite envahissant).
+
+    Args:
+        user_input  : Message courant de l'utilisateur
+        exclude_ids : IDs d'épisodes déjà rappelés dans la session (pour
+                      ne pas ressasser le même souvenir en boucle)
+        threshold   : Importance minimale de l'épisode pour être rappelé
+
+    Returns:
+        {"kind": "episode", "id", "title", "date", "category"} ou None
+    """
+    exclude_ids = exclude_ids or set()
+    keywords = _extract_recall_keywords(user_input)
+    if not keywords:
+        return None
+
+    best: "dict | None" = None
+    best_score = 0.0
+
+    for kw in keywords[:5]:  # borne le coût — les mots-clés significatifs les plus tôt dans le message suffisent
+        for ep in search_episodes(kw):
+            if ep.get("id") in exclude_ids:
+                continue
+            importance = ep.get("importance", 0) or 0
+            if importance <= best_score:
+                continue
+            best_score = importance
+            best = {
+                "kind":     "episode",
+                "id":       ep.get("id"),
+                "title":    ep.get("title", ""),
+                "date":     ep.get("created_at", ""),
+                "category": ep.get("category", ""),
+            }
+
+    if best is not None and best_score >= threshold:
+        return best
+    return None
 
 
 def search_all_memory(keyword: str, limit: int = 10) -> dict:

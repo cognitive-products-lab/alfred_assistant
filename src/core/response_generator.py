@@ -282,6 +282,7 @@ RÈGLE MÉMOIRE PRIORITAIRE :
 """
 
         knowledge_block = self._build_knowledge_block(context)
+        recall_block = self._build_recall_block(context)
 
         history_block = ""
         if history_text and history_text.strip() != "[Début de conversation]":
@@ -330,6 +331,7 @@ Si {user_name} demande l'heure ou la date, tu réponds directement avec ces info
                 memory_block=memory_block,
                 mode_block=mode_block,
                 time_block=time_block,
+                recall_block=recall_block,
             )
 
         return f"""Tu es {assistant.get("name", "ALFRED")}.
@@ -396,6 +398,7 @@ SÉCURITÉ :
 {session_block}
 {memory_block}
 {knowledge_block}
+{recall_block}
 
 INSTRUCTIONS IMPÉRATIVES :
 - Tu réponds de manière concrète, actionnable, sans formulation vide ni remplissage.
@@ -420,6 +423,23 @@ RÈGLE DE CITATION DES SOURCES :
 - Si aucune connaissance pertinente n'est disponible pour répondre, tu le dis clairement plutôt que d'inventer une réponse.
 """
 
+    def _build_recall_block(self, context: Dict[str, Any]) -> str:
+        """
+        Bloc de rappel contextuel spontané (src.memory.memory_indexer.get_contextual_recall,
+        appelé dans main.py) — additif et sur discernement du LLM, jamais une
+        obligation de le mentionner. Distinct de CONTEXTE MÉMOIRE ALFRED (memory_block),
+        qui lui répond directement aux questions explicites sur le travail en cours.
+        """
+        contextual_recall = context.get("contextual_recall", "") or ""
+        if not contextual_recall.strip():
+            return ""
+
+        return f"""
+SOUVENIR PERTINENT (à utiliser avec discernement, jamais comme une obligation) :
+{contextual_recall}
+Si — et seulement si — ce souvenir apporte vraiment quelque chose à cet échange précis, tu peux le mentionner naturellement, en une phrase, sans le présenter comme une liste de faits ni l'imposer. Sinon, tu l'ignores complètement et tu ne le mentionnes pas.
+"""
+
     def _build_research_system_prompt(
         self,
         context: Dict[str, Any],
@@ -428,6 +448,7 @@ RÈGLE DE CITATION DES SOURCES :
         memory_block: str = "",
         mode_block: str = "",
         time_block: str = "",
+        recall_block: str = "",
     ) -> str:
         """Prompt système pour le mode expérimentation — liberté interactionnelle élevée."""
 
@@ -497,6 +518,7 @@ SUR LA QUESTION DE TA NATURE :
 {history_block}
 {session_block}
 {memory_block}
+{recall_block}
 
 INSTRUCTIONS :
 - Tu t'adresses à {user_name} avec présence et chaleur, en la tutoyant toujours ("tu"), jamais en la vouvoyant.
