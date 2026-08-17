@@ -129,6 +129,17 @@ class TestLongTermMemory:
 class TestEpisodicMemory:
     """Tests B02.03 — Mémoire épisodique."""
 
+    @pytest.fixture(autouse=True)
+    def _isolate_episode_file(self, tmp_path, monkeypatch):
+        """
+        Sans ça, record_episode() écrit dans le vrai data/memory/episodes.json
+        à chaque run de la suite — trouvé le 17/08/2026 : 99 épisodes de test
+        ("Important"/"Très important" etc.) accumulés dans les données réelles
+        au fil des exécutions répétées de ces tests, faussant la Vue Mémoire.
+        """
+        import src.memory.episodic_memory as episodic_memory
+        monkeypatch.setattr(episodic_memory, "_EPISODE_FILE", tmp_path / "episodes.json")
+
     def test_record_and_retrieve_episode(self):
         from src.memory.episodic_memory import record_episode, get_timeline
         ep_id = record_episode(
