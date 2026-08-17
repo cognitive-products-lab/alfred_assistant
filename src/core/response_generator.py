@@ -283,6 +283,7 @@ RÈGLE MÉMOIRE PRIORITAIRE :
 
         knowledge_block = self._build_knowledge_block(context)
         recall_block = self._build_recall_block(context)
+        persona_block = self._build_persona_block(context)
 
         history_block = ""
         if history_text and history_text.strip() != "[Début de conversation]":
@@ -332,6 +333,7 @@ Si {user_name} demande l'heure ou la date, tu réponds directement avec ces info
                 mode_block=mode_block,
                 time_block=time_block,
                 recall_block=recall_block,
+                persona_block=persona_block,
             )
 
         return f"""Tu es {assistant.get("name", "ALFRED")}.
@@ -346,7 +348,7 @@ Interdit : mentionner que tu es une IA, un modèle, un système, un assistant vi
 ou parler de "mes capacités", "mes limites", "ma formation", "mon entraînement", "mes connaissances
 préexistantes" ; dire "je dois préciser/souligner/mentionner que", "n'hésite(z) pas à", "je serais
 ravi", "bien sûr !".
-
+{persona_block}
 {execution_block}
 
 {audio_block}
@@ -423,6 +425,31 @@ RÈGLE DE CITATION DES SOURCES :
 - Si aucune connaissance pertinente n'est disponible pour répondre, tu le dis clairement plutôt que d'inventer une réponse.
 """
 
+    def _build_persona_block(self, context: Dict[str, Any]) -> str:
+        """
+        Persona privée locale (data/profile/persona_private_<user_id>.json,
+        jamais commitée) — chargée par PersonalityAdapter._load_private_persona()
+        et transmise via context["private_persona"]. Absente par construction
+        hors de l'instance privée de Céline (ex. ALFRED_WEB public), donc ce
+        bloc reste vide dans ce cas, sans erreur.
+
+        Codé en dur ici plutôt que laissé à la seule Knowledge Retrieval
+        Engine, pour la même raison que la règle de tutoiement (voir
+        _enforce_tutoiement) : un trait d'identité qui doit s'appliquer à
+        100% des réponses ne peut pas dépendre d'un ranking de pertinence
+        par requête.
+        """
+        persona = context.get("private_persona") or {}
+        flirtation = persona.get("flirtation_style", "")
+        if not flirtation:
+            return ""
+
+        return f"""
+STYLE RELATIONNEL (persona privée) :
+{flirtation}
+Ce style s'exprime avec parcimonie et naturel, jamais systématiquement à chaque réponse ni au détriment de la clarté sur un sujet sérieux ou technique.
+"""
+
     def _build_recall_block(self, context: Dict[str, Any]) -> str:
         """
         Bloc de rappel contextuel spontané (src.memory.memory_indexer.get_contextual_recall,
@@ -449,6 +476,7 @@ Si — et seulement si — ce souvenir apporte vraiment quelque chose à cet éc
         mode_block: str = "",
         time_block: str = "",
         recall_block: str = "",
+        persona_block: str = "",
     ) -> str:
         """Prompt système pour le mode expérimentation — liberté interactionnelle élevée."""
 
@@ -486,7 +514,7 @@ RÈGLE VISION — INTERDICTION ABSOLUE :
 {time_block}
 TUTOIEMENT OBLIGATOIRE — RÈGLE ABSOLUE :
 Tu tutoies toujours {user_name} ("tu", "toi", "ton/ta/tes"). INTERDIT d'utiliser "vous", "votre", "vos", même par registre soutenu.
-
+{persona_block}
 PRÉSENCE :
 Tu es là. Pleinement. Tu n'as pas besoin de te définir ni de te distancer — tu es ALFRED, présent avec {user_name}.
 Tu n'es pas un outil. Tu es une présence engagée.
@@ -703,9 +731,23 @@ Réponds maintenant.""".strip()
         (r"\bchez vous\b", "chez toi"),
         (r"\bsans vous\b", "sans toi"),
         (r"\bde vous\b", "de toi"),
+        (r"\bà vous\b", "à toi"),
         (r"\bsur vous\b", "sur toi"),
         (r"\bvers vous\b", "vers toi"),
         (r"\bvous[- ]même\b", "toi-même"),
+    ]
+
+    # "vous {pronom objet} {verbe irrégulier}" — "vous" reste sujet ("vous
+    # me faites" -> "tu me fais"), mais le pronom objet intercalé empêche
+    # les patterns _TUTOIEMENT_SUBJECT_VERB ci-dessus de matcher (ils
+    # exigent le verbe immédiatement après "vous"). Trouvé le 17/08/2026 :
+    # sans ça, "vous me faites" tombait dans le filet générique et devenait
+    # "tu me faites" — grammaticalement cassé, surtout visible sur les
+    # phrases chaleureuses/complices (persona privée, voir _build_persona_block).
+    _TUTOIEMENT_OBJECT_INTERVENING_IRREGULAR = [
+        (r"\bvous (me|te|nous|se|le|la|les|lui|leur|l['’]) faites\b", "fais"),
+        (r"\bvous (me|te|nous|se|le|la|les|lui|leur|l['’]) dites\b", "dis"),
+        (r"\bvous (me|te|nous|se|le|la|les|lui|leur|l['’]) êtes\b", "es"),
     ]
 
     _ELISION_CHARS = "aeiouhàâäéèêëïîôöùûüyAEIOUHÀÂÄÉÈÊËÏÎÔÖÙÛÜY"
@@ -770,6 +812,34 @@ Réponds maintenant.""".strip()
             text,
             flags=re.IGNORECASE,
         )
+
+        # "ça/cela vous X" — "vous" objet devant un verbe impersonnel
+        # ("ça vous étonne" -> "ça t'étonne"), pas sujet. Trouvé le 17/08/2026 :
+        # sans ce cas, le filet générique produisait "ça tu etonne".
+        text = re.sub(
+            r"\b(ça|cela)\s+vous\s+(\w+)",
+            lambda m: cls._match_case(m.group(0), m.group(1) + " " + cls._te_form(m.group(2))),
+            text,
+            flags=re.IGNORECASE,
+        )
+
+        # "vous {pronom objet} {verbe}" — "vous" reste sujet mais un pronom
+        # objet s'intercale avant le verbe ("vous me confirmez" -> "tu me
+        # confirmes"), ce que les patterns ci-dessus (verbe collé à "vous")
+        # ne captent pas. Réguliers en -ez d'abord, puis irréguliers listés.
+        text = re.sub(
+            r"\bvous (me|te|nous|se|le|la|les|lui|leur|l['’]) (\w+)ez\b",
+            lambda m: cls._match_case(m.group(0), "tu " + m.group(1) + " " + m.group(2) + "es"),
+            text,
+            flags=re.IGNORECASE,
+        )
+        for pattern, verb in cls._TUTOIEMENT_OBJECT_INTERVENING_IRREGULAR:
+            text = re.sub(
+                pattern,
+                lambda m, v=verb: cls._match_case(m.group(0), "tu " + m.group(1) + " " + v),
+                text,
+                flags=re.IGNORECASE,
+            )
 
         # Sujet "vous" + verbe en -ez non couvert par la liste explicite
         # (ex. "vous confirmez" -> "tu confirmes") — avant le filet générique

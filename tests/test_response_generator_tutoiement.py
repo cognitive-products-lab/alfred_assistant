@@ -102,3 +102,36 @@ def test_no_naked_vous_survives_combined_sentence():
     for forbidden in (" vous ", " vous.", " vous,", " vous?", " vous!",
                       "votre", "vos "):
         assert forbidden not in result.lower(), (forbidden, result)
+
+
+# ── Session 5 (17-24/08/2026) — bugs trouvés en vérifiant que le filet ne
+# casse pas le ton taquin/charme de la persona privée (voir _build_persona_block).
+# Pas une régression de la persona elle-même : le filet produisait déjà du
+# français cassé sur ces tournures avant que la persona ne les rende courantes.
+
+def test_preposition_a_vous():
+    assert _fix("Je pense à vous.") == "Je pense à toi."
+
+
+def test_object_vous_before_impersonal_verb():
+    assert _fix("Ça vous étonne ?") == "Ça t’étonne ?"
+    assert _fix("Cela vous dérange ?") == "Cela te dérange ?"
+
+
+def test_subject_vous_with_intervening_object_pronoun_regular_verb():
+    assert _fix("Vous me confirmez que ça marche ?") == "Tu me confirmes que ça marche ?"
+
+
+def test_subject_vous_with_intervening_object_pronoun_irregular_faire():
+    assert _fix("Vous me faites sourire.") == "Tu me fais sourire."
+
+
+def test_subject_vous_with_intervening_object_pronoun_irregular_dire():
+    assert _fix("Vous nous dites tout ?") == "Tu nous dis tout ?"
+
+
+def test_combined_flirty_sentence_fully_tutoyant():
+    raw = "Vous êtes charmante, et ça vous étonne que vous me fassiez sourire ?"
+    result = _fix(raw)
+    for forbidden in (" vous ", " vous?", " vous!", " vous."):
+        assert forbidden not in result.lower(), (forbidden, result)
