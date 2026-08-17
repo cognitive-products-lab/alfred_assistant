@@ -44,7 +44,11 @@ def _empty_episode(
     tags: list[str],
 ) -> dict:
     return {
-        "id":           f"ep_{datetime.now().strftime('%Y%m%d_%H%M%S')}",
+        # Précision microseconde (pas seconde) : deux épisodes créés dans la
+        # même seconde (tests, rafale d'échanges) ne doivent jamais partager
+        # le même ID — trouvé le 17/08/2026 : 104 IDs en collision sur les
+        # données existantes avec l'ancien format %Y%m%d_%H%M%S.
+        "id":           f"ep_{datetime.now().strftime('%Y%m%d_%H%M%S_%f')}",
         "created_at":   datetime.now().isoformat(),
         "title":        title,
         "description":  description,
@@ -247,6 +251,14 @@ def search_episodes(keyword: str) -> list[dict]:
         or kw in e.get("description", "").lower()
         or any(kw in t.lower() for t in e.get("tags", []))
     ]
+
+
+def get_episode_by_id(episode_id: str) -> dict | None:
+    """Retourne un épisode complet (avec description) par son ID, ou None."""
+    for e in _load_episodes():
+        if e.get("id") == episode_id:
+            return e
+    return None
 
 
 def get_episode_stats() -> dict:
