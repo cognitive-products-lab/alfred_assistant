@@ -25,6 +25,11 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any, Dict, Optional
 
+# Racine projet — variable de module (pas une constante figée dans la
+# fonction) pour rester monkeypatchable en test (voir tests/b08_tests/
+# test_personality_adapter.py::TestPrivatePersona).
+_PROJECT_ROOT = Path(__file__).resolve().parents[2]
+
 
 class PersonalityAdapter:
     """
@@ -67,6 +72,33 @@ class PersonalityAdapter:
         path.parent.mkdir(parents=True, exist_ok=True)
         with open(path, "w", encoding="utf-8") as f:
             json.dump(data, f, indent=4, ensure_ascii=False)
+
+    def _load_private_persona(self) -> Dict[str, Any]:
+        """
+        Charge data/profile/persona_private_<user_id>.json si présent —
+        réglages de persona strictement locaux (jamais commités, voir
+        .gitignore), absents par construction hors de l'instance privée de
+        Céline. Contrairement à personality_path/user_profile_path, ce
+        fichier est optionnel : son absence est normale (autre instance,
+        déploiement public ALFRED_WEB) et ne doit jamais lever d'erreur.
+        Trouvé le 17/08/2026 : ce fichier existe et contient flirtation_style
+        (persona taquin/charme demandée le 18/07/2026) mais n'était lu par
+        aucun code — la persona restait sans effet.
+        """
+        try:
+            base = _PROJECT_ROOT
+            user_id = self.user_profile.get("user_profile", {}).get("user_id", "") or ""
+            candidates = [
+                base / "data" / "profile" / f"persona_private_{user_id}.json",
+                base / "data" / "profile" / "persona_private_celine.json",
+            ]
+            for path in candidates:
+                if path.exists():
+                    with open(path, "r", encoding="utf-8") as f:
+                        return json.load(f).get("persona", {})
+        except Exception:
+            pass
+        return {}
 
     # ─────────────────────────────────────────────────────
     # Validation
@@ -383,6 +415,8 @@ class PersonalityAdapter:
         rm = metadata.get("research_mode", {})
         research_active = rm.get("active", False) if isinstance(rm, dict) else bool(rm)
 
+        private_persona = self._load_private_persona()
+
         context = {
             "assistant": {
                 "name": identity.get("name", "ALFRED"),
@@ -416,6 +450,7 @@ class PersonalityAdapter:
             "privacy_and_consent": self.user_profile.get("privacy_and_consent", {}),
             "response_rules": response_rules,
             "research_mode": research_active,
+            "private_persona": private_persona,
         }
 
         if user_adaptation is not None:

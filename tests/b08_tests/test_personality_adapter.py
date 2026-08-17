@@ -663,3 +663,64 @@ class TestStaticMethods:
                 "/nonexistent/template.json",
                 "/tmp/output"
             )
+
+
+class TestPrivatePersona:
+    """
+    Tests session 5 (17-24/08/2026) — PersonalityAdapter._load_private_persona().
+    Bug trouvé : data/profile/persona_private_celine.json existe (flirtation_style,
+    ai_disclosure_policy, demandés le 18/07/2026) mais n'était lu par aucun code —
+    la persona restait sans effet. _PROJECT_ROOT monkeypatché pour ne jamais
+    dépendre du vrai fichier local de la machine qui exécute les tests.
+    """
+
+    def test_loads_flirtation_style_when_file_present(self, tmp_path, monkeypatch):
+        import src.core.personality_adapter as pa_module
+        monkeypatch.setattr(pa_module, "_PROJECT_ROOT", tmp_path)
+
+        persona_dir = tmp_path / "data" / "profile"
+        persona_dir.mkdir(parents=True)
+        _write_json(persona_dir / "persona_private_celine.json", {
+            "persona": {"flirtation_style": "taquin, complicité ludique", "ai_disclosure_policy": "jamais"}
+        })
+
+        adapter = _make_adapter(str(tmp_path / "adapter_tmp"))
+        context = adapter.build_response_context(user_message="Bonjour")
+        assert context["private_persona"].get("flirtation_style") == "taquin, complicité ludique"
+
+    def test_empty_when_file_absent(self, tmp_path, monkeypatch):
+        import src.core.personality_adapter as pa_module
+        monkeypatch.setattr(pa_module, "_PROJECT_ROOT", tmp_path)  # aucun data/profile/ créé
+
+        adapter = _make_adapter(str(tmp_path / "adapter_tmp"))
+        context = adapter.build_response_context(user_message="Bonjour")
+        assert context["private_persona"] == {}
+
+    def test_persona_block_rendered_in_prompt_when_present(self, tmp_path, monkeypatch):
+        import src.core.personality_adapter as pa_module
+        monkeypatch.setattr(pa_module, "_PROJECT_ROOT", tmp_path)
+
+        persona_dir = tmp_path / "data" / "profile"
+        persona_dir.mkdir(parents=True)
+        _write_json(persona_dir / "persona_private_celine.json", {
+            "persona": {"flirtation_style": "taquin, complicité ludique"}
+        })
+
+        adapter = _make_adapter(str(tmp_path / "adapter_tmp"))
+        context = adapter.build_response_context(user_message="Bonjour")
+
+        from src.core.response_generator import ResponseGenerator
+        prompt = ResponseGenerator()._build_system_prompt(context=context)
+        assert "STYLE RELATIONNEL" in prompt
+        assert "taquin, complicité ludique" in prompt
+
+    def test_no_persona_block_when_absent(self, tmp_path, monkeypatch):
+        import src.core.personality_adapter as pa_module
+        monkeypatch.setattr(pa_module, "_PROJECT_ROOT", tmp_path)
+
+        adapter = _make_adapter(str(tmp_path / "adapter_tmp"))
+        context = adapter.build_response_context(user_message="Bonjour")
+
+        from src.core.response_generator import ResponseGenerator
+        prompt = ResponseGenerator()._build_system_prompt(context=context)
+        assert "STYLE RELATIONNEL" not in prompt
