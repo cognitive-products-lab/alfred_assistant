@@ -34,10 +34,17 @@ Ce qui manque ou est fragile pour l'effet "Human IA" (les vrais trous trouvés) 
 **Objectif** : ne pas empiler du neuf sur du cassé.
 - ~~Trancher `data/personality.json`~~ — **fait** : orphelin confirmé (lu par aucun code réel), supprimé + retiré du manifest/registre dashboard, dashboard régénéré (b08 93.6%→98.8%).
 - ~~Résoudre le doublon `profile_analyzer.py`~~ — **reclassé, pas un doublon** : investigation a révélé 3 pipelines de profilage distincts et documentés (pas 2). `src/core/profile_analyzer.py` et `src/profile/profile_analyzer.py` sont chacun le sujet d'un guide utilisateur CLI complet (`docs/profil_systeme/`, `docs/module_profil_ia_adaptative/`) — les déplacer aurait cassé cette documentation. Décision de Céline : laisser en place, documenter la coexistence. Fait : `docs/profil_systeme/README.md` créé (tableau des 3 pipelines), notes ajoutées dans les 2 fichiers source + `docs/module_profil_ia_adaptative/README.md`.
-- Vérifier que `data/preferences_profile.json` fonctionne bien en live — en cours.
-**Fait quand** : plus de stub mort (fait), doublon clarifié plutôt que supprimé à l'aveugle (fait), préférence testée en conditions réelles (en cours).
+- ~~Vérifier que `data/preferences_profile.json` fonctionne bien en live~~ — **fait, bug réel trouvé et corrigé** : `_detect_and_save_preference()` écrivait bien le fichier mais un emoji dans le `print()` de confirmation levait `UnicodeEncodeError` sur la console Windows, capté par le except englobant → la fonction retournait `None` comme si l'écriture avait échoué. 4 tests de régression ajoutés (aucun n'existait avant).
+**Fait quand** : plus de stub mort (fait), doublon clarifié plutôt que supprimé à l'aveugle (fait), préférence testée en conditions réelles (fait, bug trouvé + corrigé).
 
-### Session 2 — Vue Mémoire : rendre la continuité visible (cœur du chantier, ~2-3h)
+### Session 2 — Vue Mémoire : rendre la continuité visible (cœur du chantier, ~2-3h) — FAITE le 17/08/2026
+**Fait** : agrégats + répartition par catégorie + frise "moments marquants" + détail derrière un second PIN (réutilise `src.auth.authenticator`, pas de nouveau secret). Testé en conditions réelles (serveur statique + API pywebview simulée) : résumé, verrouillage/déverrouillage, erreur PIN, détail d'un souvenir — tout fonctionne.
+**Trouvé au passage (2 bugs réels corrigés)** :
+- `tests/test_b02_b03.py::TestEpisodicMemory` écrivait dans le vrai `data/memory/episodes.json` à chaque run (aucune isolation) — 99 épisodes de test ("Important"/"Très important") accumulés en production au fil du temps. Isolé via tmp_path.
+- ID d'épisode à précision seconde seulement → 104 IDs en collision sur 542 épisodes. Précision microseconde ajoutée.
+**En attente d'un go de Céline** : suppression des 99 doublons "Important" déjà présents dans `data/memory/episodes.json` (la cause est corrigée, pas encore les séquelles — action bloquée une fois par le classificateur de permissions).
+
+~~Session 2 (plan original)~~
 **Objectif** : remplacer le placeholder par une vraie vue, sans exposer le contenu brut des conversations sans double authentification (contrainte déjà actée le 24/07 : agrégats uniquement par défaut — nombre d'échanges, durée, depuis quand l'app est utilisée).
 - Vue par défaut : agrégats (`memory_engine.stats()`, `long_term_memory.get_memory_stats()`, `episodic_memory.get_episode_stats()`).
 - Frise "moments marquants" à partir de `episodic_memory.get_important_episodes()` — titres/catégories, jamais le texte brut des échanges tant que Céline n'est pas authentifiée.
