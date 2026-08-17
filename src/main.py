@@ -312,7 +312,7 @@ def _detect_and_save_preference(user_input: str) -> str | None:
             _json.dumps(data, indent=2, ensure_ascii=False),
             encoding="utf-8",
         )
-        print(f"  [🧠 Mémoire] Préférence enregistrée : {content[:80]}")
+        print(f"  [Mémoire] Préférence enregistrée : {content[:80]}")
     except Exception as exc:
         print(f"  [AVERT mémoire] Impossible de sauvegarder : {exc}")
         return None
