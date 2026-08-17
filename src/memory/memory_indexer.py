@@ -43,26 +43,40 @@ def _extract_recall_keywords(text: str, min_len: int = 4) -> list[str]:
     return seen
 
 
-def get_contextual_recall(user_input: str, exclude_ids: "set[str] | None" = None, threshold: float = 0.6) -> "dict | None":
+def get_contextual_recall(
+    user_input: str,
+    exclude_ids: "set[str] | None" = None,
+    threshold: float = 0.6,
+    semantic_distance_max: float = 0.8,
+) -> "dict | None":
     """
     Cherche, parmi la mémoire épisodique, un souvenir réellement pertinent
     par rapport au message courant — pour un rappel spontané et ponctuel,
     pas un scan qui ferait remonter systématiquement quelque chose à
     chaque tour (ce qui deviendrait vite envahissant).
 
+    D'abord une recherche par mot-clé (rapide, exacte). Si rien d'assez
+    important n'en ressort, repli sur la recherche sémantique (ChromaDB,
+    session 6 du 18/08/2026) — utile quand le message ne partage aucun mot
+    avec l'épisode (ex. "présentation orale" ↔ épisode sur "soutenance").
+    Le repli sémantique est silencieusement absent si RAG indisponible
+    (chromadb non installé) — pas une erreur, juste moins de portée.
+
     Args:
-        user_input  : Message courant de l'utilisateur
-        exclude_ids : IDs d'épisodes déjà rappelés dans la session (pour
-                      ne pas ressasser le même souvenir en boucle)
-        threshold   : Importance minimale de l'épisode pour être rappelé
+        user_input             : Message courant de l'utilisateur
+        exclude_ids            : IDs d'épisodes déjà rappelés dans la
+                                  session (pour ne pas ressasser en boucle)
+        threshold               : Importance minimale de l'épisode pour
+                                  être rappelé
+        semantic_distance_max  : Distance ChromaDB max pour considérer un
+                                  résultat sémantique comme pertinent (plus
+                                  bas = plus proche/pertinent)
 
     Returns:
         {"kind": "episode", "id", "title", "date", "category"} ou None
     """
     exclude_ids = exclude_ids or set()
     keywords = _extract_recall_keywords(user_input)
-    if not keywords:
-        return None
 
     best: "dict | None" = None
     best_score = 0.0
@@ -85,6 +99,31 @@ def get_contextual_recall(user_input: str, exclude_ids: "set[str] | None" = None
 
     if best is not None and best_score >= threshold:
         return best
+
+    try:
+        from src.memory.rag_stub import semantic_search
+        for hit in semantic_search(user_input, n_results=3):
+            hit_id = hit.get("id")
+            if not hit_id or hit_id in exclude_ids:
+                continue
+            distance = hit.get("distance")
+            if distance is None or distance > semantic_distance_max:
+                continue
+            meta = hit.get("metadata") or {}
+            importance = meta.get("importance", 0) or 0
+            if importance < threshold:
+                continue
+            title = (hit.get("text") or "").split(". ", 1)[0]
+            return {
+                "kind":     "episode",
+                "id":       hit_id,
+                "title":    title,
+                "date":     meta.get("created_at", ""),
+                "category": meta.get("category", ""),
+            }
+    except Exception:
+        pass
+
     return None
 
 

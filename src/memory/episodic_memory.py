@@ -115,7 +115,54 @@ def record_episode(
     episodes.append(episode)
     _save_episodes(episodes)
     log_event(f"Épisode enregistré : {episode['id']} — {title}")
+    _index_episode_for_semantic_search(episode)
     return episode["id"]
+
+
+def _index_episode_for_semantic_search(episode: dict) -> None:
+    """
+    Indexe l'épisode dans ChromaDB (src.memory.rag_stub) pour la recherche
+    sémantique — best-effort, ne doit jamais faire échouer record_episode()
+    (RAG optionnel : absent si chromadb non installé, ce qui reste un cas
+    normal, voir rag_stub.is_rag_available()).
+    """
+    try:
+        from src.memory.rag_stub import index_document
+        text = f"{episode.get('title', '')}. {episode.get('description', '')}".strip()
+        index_document(
+            text=text,
+            doc_id=episode["id"],
+            metadata={
+                "category":   episode.get("category"),
+                "emotion":    episode.get("emotion"),
+                "importance": episode.get("importance"),
+                "created_at": episode.get("created_at"),
+            },
+        )
+    except Exception:
+        pass
+
+
+def backfill_semantic_index() -> int:
+    """
+    Réindexe tous les épisodes existants dans ChromaDB — à lancer une fois
+    après activation du RAG (session 6, 18/08/2026) pour couvrir l'historique
+    déjà présent, les nouveaux épisodes s'indexant automatiquement via
+    record_episode(). Idempotent (upsert) — relançable sans risque.
+
+    Returns:
+        Nombre d'épisodes indexés (0 si RAG indisponible).
+    """
+    from src.memory.rag_stub import is_rag_available
+
+    if not is_rag_available():
+        return 0
+
+    count = 0
+    for episode in _load_episodes():
+        _index_episode_for_semantic_search(episode)
+        count += 1
+    return count
 
 
 def record_from_session(
