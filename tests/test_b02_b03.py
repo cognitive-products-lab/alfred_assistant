@@ -209,6 +209,49 @@ class TestMemoryIndexer:
         assert "episodic" in stats
 
 
+class TestContextualRecall:
+    """Tests session 3 (17-24/08/2026) — rappel contextuel spontané, get_contextual_recall()."""
+
+    @pytest.fixture(autouse=True)
+    def _isolate_episode_file(self, tmp_path, monkeypatch):
+        import src.memory.episodic_memory as episodic_memory
+        monkeypatch.setattr(episodic_memory, "_EPISODE_FILE", tmp_path / "episodes.json")
+
+    def test_recalls_relevant_episode_above_threshold(self):
+        from src.memory.episodic_memory import record_episode
+        from src.memory.memory_indexer import get_contextual_recall
+
+        record_episode(
+            "Décision de reprendre le projet ALFRED après la pause santé",
+            "Priorise la démonstrabilité pour les soutenances",
+            category="decision", emotion="motivated", importance=0.9, tags=["soutenance"],
+        )
+        recall = get_contextual_recall("je me demande si je serai prête pour les soutenances")
+        assert recall is not None
+        assert recall["kind"] == "episode"
+
+    def test_no_recall_for_unrelated_message(self):
+        from src.memory.episodic_memory import record_episode
+        from src.memory.memory_indexer import get_contextual_recall
+
+        record_episode("Décision de reprendre le projet ALFRED", "test", importance=0.9)
+        assert get_contextual_recall("quel temps fait-il aujourd'hui ?") is None
+
+    def test_no_recall_below_importance_threshold(self):
+        from src.memory.episodic_memory import record_episode
+        from src.memory.memory_indexer import get_contextual_recall
+
+        record_episode("Bug TTS corrigé", "le tts lisait les balises", importance=0.4, tags=["tts"])
+        assert get_contextual_recall("le bug tts est revenu") is None
+
+    def test_excluded_id_not_recalled_again(self):
+        from src.memory.episodic_memory import record_episode
+        from src.memory.memory_indexer import get_contextual_recall
+
+        ep_id = record_episode("Décision soutenance", "test", importance=0.9, tags=["soutenance"])
+        assert get_contextual_recall("les soutenances me stressent", exclude_ids={ep_id}) is None
+
+
 class TestRAGStub:
     """Tests B02.04 — RAG stub."""
 
