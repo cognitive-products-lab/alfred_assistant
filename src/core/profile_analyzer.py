@@ -10,6 +10,11 @@
 # DOMAINE :
 #   Profilage psychologique — pipeline de scoring et adaptation comportementale
 #
+# NOTE (17/08/2026) : outil CLI manuel, non branché dans l'app live (main.py
+# utilise src/health/onboarding.py pour l'onboarding conversationnel réel).
+# Voir docs/profil_systeme/README.md pour le détail des 3 pipelines de
+# profilage qui coexistent volontairement dans le projet.
+#
 # STATUS  : VALIDATED
 # ============================================================
 
