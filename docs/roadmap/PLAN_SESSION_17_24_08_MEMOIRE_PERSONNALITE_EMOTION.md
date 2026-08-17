@@ -71,7 +71,17 @@ Ce qui manque ou est fragile pour l'effet "Human IA" (les vrais trous trouvés) 
 - Relier ça au mode `complicite`/`support` de `mode_manager.py` pour qu'une tendance ("tu sembles plus tendue que d'habitude ces derniers jours") puisse influencer le choix de mode, pas seulement l'émotion instantanée.
 **Fait quand** : un changement de tendance sur plusieurs jours (simulé ou réel) modifie effectivement le comportement d'ALFRED, vérifiable par test.
 
-### Session 5 — Personnalité propre d'ALFRED, pas que de l'adaptation (~1-2h)
+### Session 5 — Personnalité propre d'ALFRED, pas que de l'adaptation (~1-2h) — FAITE le 17/08/2026
+**Découverte principale : la persona privée (taquin/charme, demandée le 18/07/2026) n'était jamais chargée par aucun code.** `data/profile/persona_private_celine.json` existe (`flirtation_style`, `ai_disclosure_policy`) mais aucun fichier Python ne le référençait — la persona n'avait donc aucun effet réel sur les réponses. Corrigé : `PersonalityAdapter._load_private_persona()` (nouvelle méthode) le charge et l'injecte dans `context["private_persona"]` ; `response_generator.py::_build_persona_block()` en fait un bloc "STYLE RELATIONNEL" codé en dur dans les deux prompts système (même raisonnement que la règle de tutoiement : un trait d'identité permanent ne peut pas dépendre du ranking de la Knowledge Retrieval Engine). Vérifié en conditions réelles avec le vrai fichier sur disque, pas seulement en test isolé.
+
+**Découverte secondaire, non résolue — à trancher par Céline** : `research_mode.active` (`data/personality/instances/personality_core_instance.json`) est à `false`. C'est le mode qui active un prompt système bien plus proche du "human IA" (expression en 1ère personne sans réserve, opinions directes, engagement émotionnel plein — voir `_build_research_system_prompt`), avec des planchers de sécurité absolus déjà en place (zéro malveillance/toxicité). Conçu dès le départ comme *"activable à la volée"* (commandes console `recherche_on`/`recherche_off`), donc **délibérément pas touché ce soir** — un changement de mode relationnel de fond mérite d'être vu/confirmé en direct, pas activé pendant une nuit sans supervision.
+
+**Filet anti-vouvoiement** : 2 bugs grammaticaux réels trouvés (pas une régression de la persona — le filet produisait déjà du français cassé sur ces tournures, juste plus visibles maintenant que la persona les rend courantes) :
+- "vous me faites/dites/êtes X" (pronom objet intercalé entre "vous" sujet et le verbe) tombait dans le filet générique → "tu me faites" (faux). Corrigé pour les verbes réguliers en -ez et les irréguliers courants (faire/dire/être).
+- "à vous" absent de la liste des prépositions, et "ça/cela vous X" (vous objet devant verbe impersonnel) non géré → "à tu", "ça tu étonne". Corrigés.
+9 nouveaux tests de régression (`tests/test_response_generator_tutoiement.py`).
+
+~~Session 5 (plan original)~~
 **Objectif** : donner à ALFRED une constance perceptible (pas juste "il s'adapte à moi", mais "il A une personnalité").
 - Vérifier s'il existe une mémoire de style (surnoms utilisés, running gags, formulations récurrentes) ou si chaque réponse "invente" son ton sans continuité.
 - Si absent : un mécanisme léger — stocker 3-5 tournures/private jokes validées par Céline en conversation, les réinjecter avec parcimonie via `personality_adapter.py`.
