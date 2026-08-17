@@ -249,6 +249,33 @@ class AlfredDesktopAPI:
         from src.ui.desktop_dashboard_data import get_kpis
         return get_kpis()
 
+    # ── Vue Mémoire (agrégats + moments marquants, détail derrière PIN) ──
+
+    def get_memoire_summary(self) -> dict:
+        from src.ui.desktop_dashboard_data import get_memoire_summary
+        return get_memoire_summary()
+
+    def get_memoire_moments(self) -> list:
+        from src.ui.desktop_dashboard_data import get_memoire_moments
+        return get_memoire_moments()
+
+    def is_memoire_unlocked(self) -> dict:
+        from src.ui.desktop_dashboard_data import is_memoire_unlocked
+        return {"unlocked": is_memoire_unlocked()}
+
+    def unlock_memoire(self, pin: str) -> dict:
+        from src.ui.desktop_dashboard_data import unlock_memoire
+        return unlock_memoire(pin or "")
+
+    def lock_memoire(self) -> dict:
+        from src.ui.desktop_dashboard_data import lock_memoire
+        return lock_memoire()
+
+    def get_memoire_moment_detail(self, episode_id: str) -> dict:
+        from src.ui.desktop_dashboard_data import get_memoire_moment_detail
+        detail = get_memoire_moment_detail(episode_id or "")
+        return detail or {"error": "not_found"}
+
     def get_notifications(self) -> list:
         from src.ui.desktop_dashboard_data import get_notifications
         return get_notifications()

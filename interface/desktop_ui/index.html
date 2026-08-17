@@ -650,12 +650,56 @@
           </div>
         </section>
 
-        <!-- ============ PLACEHOLDER SECTIONS ============ -->
-        <section class="center placeholder-center" id="view-memoire" data-panel="memoire" hidden>
-          <div class="card ph-card">
-            <div class="ph-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4a5 5 0 0 0-3 9 4 4 0 0 0 1 7.8"/><path d="M15 4a5 5 0 0 1 3 9 4 4 0 0 1-1 7.8"/><path d="M9 4v16M15 4v16"/></svg></div>
-            <h2>Mémoire</h2>
-            <p>L'exploration des souvenirs, préférences et échanges retenus par ALFRED arrivera dans une prochaine version.</p>
+        <!-- ============ VUE MÉMOIRE ============ -->
+        <section class="center" id="view-memoire" data-panel="memoire" hidden style="max-width:900px;">
+          <div class="kpi-grid" id="mem-kpi-grid">
+            <div class="kpi">
+              <div class="kpi-top"><div class="kpi-icon blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4a5 5 0 0 0-3 9 4 4 0 0 0 1 7.8"/><path d="M15 4a5 5 0 0 1 3 9 4 4 0 0 1-1 7.8"/><path d="M9 4v16M15 4v16"/></svg></div></div>
+              <div class="kpi-val mono" id="mem-kpi-exchanges">—</div>
+              <div class="kpi-label">Échanges en mémoire courte</div>
+            </div>
+            <div class="kpi">
+              <div class="kpi-top"><div class="kpi-icon violet"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg></div></div>
+              <div class="kpi-val mono" id="mem-kpi-ltm">—</div>
+              <div class="kpi-label">Souvenirs en mémoire long terme</div>
+            </div>
+            <div class="kpi">
+              <div class="kpi-top"><div class="kpi-icon mint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="3.5" width="17" height="17" rx="3"/><path d="M8 12.5l2.5 2.5L16 9.5"/></svg></div></div>
+              <div class="kpi-val mono" id="mem-kpi-episodes">—</div>
+              <div class="kpi-label">Moments enregistrés</div>
+            </div>
+            <div class="kpi">
+              <div class="kpi-top"><div class="kpi-icon mint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg></div></div>
+              <div class="kpi-val mono" id="mem-kpi-since">—</div>
+              <div class="kpi-label">Utilise ALFRED depuis</div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-head"><h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16.5H6.5A2.5 2.5 0 0 0 4 22V5.5z"/></svg>Répartition par catégorie</h3></div>
+            <div id="mem-categories"><p class="muted">Chargement…</p></div>
+          </div>
+
+          <div class="card">
+            <div class="card-head"><h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 3L4 14h6l-1 7 9-11h-6l1-7z"/></svg>Moments marquants</h3></div>
+            <div class="timeline" id="mem-moments-list"><p class="muted">Chargement…</p></div>
+          </div>
+
+          <div class="card">
+            <div class="card-head"><h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="10.5" width="14" height="10" rx="2"/><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"/></svg>Détail des souvenirs</h3></div>
+            <div id="mem-locked-body">
+              <p class="ctx-note">Le contenu détaillé des échanges (titre + texte) reste verrouillé par défaut — seuls les agrégats ci-dessus sont visibles sans confirmation. Retape ton code PIN pour le déverrouiller le temps de cette session.</p>
+              <div class="weather-search-row">
+                <input type="password" id="mem-pin-input" placeholder="Code PIN" autocomplete="off">
+                <button type="button" class="btn btn-primary btn-sm" id="mem-btn-unlock">Déverrouiller</button>
+              </div>
+              <div class="weather-error" id="mem-pin-error" hidden></div>
+            </div>
+            <div id="mem-unlocked-body" hidden>
+              <div class="ctx-row"><span class="k">Détail</span><span class="v">Déverrouillé pour cette session</span></div>
+              <button type="button" class="btn btn-ghost btn-sm" id="mem-btn-lock" style="margin:8px 0;">Reverrouiller</button>
+              <div id="mem-detail-panel"></div>
+            </div>
           </div>
         </section>
         <section class="center placeholder-center" id="view-taches" data-panel="taches" hidden>
@@ -928,6 +972,7 @@
     if (name === 'appareils' && window.pywebview && window.pywebview.api && window.pywebview.api.get_home_devices){
       window.pywebview.api.get_home_devices().then(renderHomeDevicesView).catch(function(){});
     }
+    if (name === 'memoire') refreshMemoireView();
   }
 
   document.querySelectorAll('[data-target]').forEach(function(el){
@@ -1479,6 +1524,125 @@
       else renderHomeDevices(state.devices);
     }
   }
+
+  /* ---------- VUE MÉMOIRE ---------- */
+  function fmtDateShort(iso){
+    try { return new Date(iso).toLocaleDateString('fr-FR', {day:'2-digit', month:'short', year:'numeric'}); }
+    catch(e){ return ''; }
+  }
+
+  function refreshMemoireView(){
+    var api = window.pywebview && window.pywebview.api;
+    if (!api) return;
+    if (api.get_memoire_summary) api.get_memoire_summary().then(renderMemoireSummary).catch(function(){});
+    if (api.is_memoire_unlocked){
+      api.is_memoire_unlocked().then(function(state){ setMemoireLockState(!!(state && state.unlocked)); }).catch(function(){});
+    } else if (api.get_memoire_moments){
+      api.get_memoire_moments().then(renderMemoireMoments).catch(function(){});
+    }
+  }
+
+  function renderMemoireSummary(s){
+    if (!s) return;
+    document.getElementById('mem-kpi-exchanges').textContent = (s.total_exchanges == null) ? '—' : s.total_exchanges;
+    document.getElementById('mem-kpi-ltm').textContent = (s.memories_active == null) ? '—' : s.memories_active;
+    document.getElementById('mem-kpi-episodes').textContent = (s.total_episodes == null) ? '—' : s.total_episodes;
+
+    var sinceEl = document.getElementById('mem-kpi-since');
+    if (s.since){
+      var days = Math.max(0, Math.floor((Date.now() - new Date(s.since).getTime()) / 86400000));
+      sinceEl.textContent = days + ' j';
+      sinceEl.title = 'Depuis le ' + fmtDateShort(s.since);
+    } else {
+      sinceEl.textContent = '—';
+    }
+
+    var catEl = document.getElementById('mem-categories');
+    var cats = s.categories || {};
+    var keys = Object.keys(cats);
+    if (!keys.length){ catEl.innerHTML = emptyRow('Aucune catégorie enregistrée pour l’instant.'); return; }
+    catEl.innerHTML = keys.map(function(k){
+      return '<div class="ctx-row"><span class="k">' + escapeHtml(k) + '</span><span class="v mono">' + cats[k] + '</span></div>';
+    }).join('');
+  }
+
+  function renderMemoireMoments(list){
+    var el = document.getElementById('mem-moments-list');
+    if (!el) return;
+    if (!list || !list.length){ el.innerHTML = emptyRow('Aucun moment marquant pour l’instant.'); return; }
+    var unlockedBody = document.getElementById('mem-unlocked-body');
+    var unlocked = !!(unlockedBody && !unlockedBody.hidden);
+    el.innerHTML = list.map(function(m){
+      var meta = fmtDateShort(m.date) + (m.category ? ' · ' + escapeHtml(m.category) : '') + (m.emotion ? ' · ' + escapeHtml(m.emotion) : '');
+      return '<div class="t-item"' + (unlocked ? ' data-mem-id="' + escapeHtml(m.id) + '" style="cursor:pointer;"' : '') + '>' +
+        '<div class="t-icon">' + ICON_CHECK + '</div><div><div class="t-text">' + escapeHtml(m.title) +
+        '</div><div class="t-time mono">' + meta + '</div></div></div>';
+    }).join('');
+    if (unlocked){
+      el.querySelectorAll('[data-mem-id]').forEach(function(item){
+        item.addEventListener('click', function(){ openMemoireDetail(item.dataset.memId); });
+      });
+    }
+  }
+
+  function openMemoireDetail(id){
+    var api = window.pywebview && window.pywebview.api;
+    var panel = document.getElementById('mem-detail-panel');
+    if (!api || !api.get_memoire_moment_detail || !panel) return;
+    panel.innerHTML = emptyRow('Chargement…');
+    api.get_memoire_moment_detail(id).then(function(d){
+      if (!d || d.error){ panel.innerHTML = emptyRow('Souvenir introuvable.'); return; }
+      panel.innerHTML = '<div class="card" style="margin-top:8px;">' +
+        '<div class="card-head"><h3>' + escapeHtml(d.title || '') + '</h3></div>' +
+        '<div class="ctx-row"><span class="k">Date</span><span class="v">' + fmtDateShort(d.date) + '</span></div>' +
+        '<div class="ctx-row"><span class="k">Catégorie</span><span class="v">' + escapeHtml(d.category || '') + '</span></div>' +
+        '<div class="ctx-row"><span class="k">Émotion</span><span class="v">' + escapeHtml(d.emotion || '') + '</span></div>' +
+        '<p style="margin-top:10px;">' + escapeHtml(d.description || '') + '</p></div>';
+    }).catch(function(){ panel.innerHTML = emptyRow('Erreur de chargement.'); });
+  }
+
+  function setMemoireLockState(unlocked){
+    var lockedBody = document.getElementById('mem-locked-body');
+    var unlockedBody = document.getElementById('mem-unlocked-body');
+    if (!lockedBody || !unlockedBody) return;
+    lockedBody.hidden = unlocked;
+    unlockedBody.hidden = !unlocked;
+    if (!unlocked){
+      var panel = document.getElementById('mem-detail-panel');
+      if (panel) panel.innerHTML = '';
+    }
+    var api = window.pywebview && window.pywebview.api;
+    if (api && api.get_memoire_moments) api.get_memoire_moments().then(renderMemoireMoments).catch(function(){});
+  }
+
+  (function(){
+    var unlockBtn = document.getElementById('mem-btn-unlock');
+    var lockBtn = document.getElementById('mem-btn-lock');
+    var pinInput = document.getElementById('mem-pin-input');
+    if (!unlockBtn) return;
+    unlockBtn.addEventListener('click', function(){
+      var api = window.pywebview && window.pywebview.api;
+      var pin = pinInput.value;
+      var errEl = document.getElementById('mem-pin-error');
+      if (!pin || !(api && api.unlock_memoire)) return;
+      api.unlock_memoire(pin).then(function(r){
+        pinInput.value = '';
+        if (r && r.success){
+          errEl.hidden = true;
+          setMemoireLockState(true);
+        } else {
+          errEl.hidden = false;
+          errEl.textContent = (r && r.reason) || 'PIN incorrect.';
+        }
+      }).catch(function(){});
+    });
+    pinInput.addEventListener('keydown', function(e){ if (e.key === 'Enter') unlockBtn.click(); });
+    lockBtn.addEventListener('click', function(){
+      var api = window.pywebview && window.pywebview.api;
+      if (api && api.lock_memoire) api.lock_memoire().then(function(){ setMemoireLockState(false); }).catch(function(){});
+      else setMemoireLockState(false);
+    });
+  })();
 
   function renderKpis(k){
     if (!k) return;
