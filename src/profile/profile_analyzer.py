@@ -24,6 +24,11 @@ Ce module gère la passation conversationnelle des questionnaires psychométriqu
 Principe UX central : les questionnaires sont posés question par question dans la
 conversation ALFRED — pas de formulaire à remplir. L'utilisateur peut s'arrêter,
 reprendre, et chaque réponse est sauvegardée immédiatement.
+
+NOTE (17/08/2026) : module conçu et testé, non branché dans l'app live (main.py
+utilise src/health/onboarding.py pour l'onboarding conversationnel réel). Voir
+docs/module_profil_ia_adaptative/README.md et docs/profil_systeme/README.md
+pour le détail des 3 pipelines de profilage qui coexistent volontairement.
 """
 
 from __future__ import annotations

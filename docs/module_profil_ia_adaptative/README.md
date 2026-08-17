@@ -5,6 +5,8 @@
 > Statut : En cours (phases 1-2 complètes, phase 3 en cours)  
 > Produits couverts : ALFRED (B2C), ALFRED CPL (B2B), ARTHUR (enfants < 16 ans, V2 planifiée)
 
+> **Non branché dans l'app live.** `QuestionnaireSession` (`src/profile/profile_analyzer.py`) coexiste volontairement avec `src/health/onboarding.py` (flux conversationnel réellement utilisé dans `main.py`) et `src/core/profile_analyzer.py` (CLI manuel, voir [`docs/profil_systeme/`](../profil_systeme/README.md)). Voir ce dernier README pour le tableau des 3 pipelines — clarifié le 17/08/2026, ce n'est pas un doublon à supprimer.
+
 ---
 
 ## Arborescence du dossier
