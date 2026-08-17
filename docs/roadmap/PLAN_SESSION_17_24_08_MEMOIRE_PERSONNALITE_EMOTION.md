@@ -10,7 +10,9 @@ Pas de planning jour-par-jour rigide — sessions modulables selon l'énergie du
 
 ## Statut au matin du 18/08/2026
 
-**Sessions 1, 2, 3, 5 faites en autonomie dans la nuit du 17 au 18/08** (Céline a laissé la session tourner), commitées et poussées sur `main`. **Session 4 reportée à un moment où Céline est présente** (sa demande explicite le 18/08 au matin) — touche à la trajectoire émotionnelle, un sujet plus sensible (voir profil santé/émotionnel). **Session 6 (RAG) lancée à la place, sur sa demande.**
+**Sessions 1, 2, 3, 5, 6 faites dans la nuit du 17 au 18/08** (Céline a laissé la session tourner, puis est intervenue en direct pour activer research_mode et reporter la session 4), commitées et poussées sur `main`. **Seule la Session 4 reste à faire — explicitement reportée à un moment où Céline est présente**, sa demande du 18/08 au matin : touche à la trajectoire émotionnelle, un sujet plus sensible (voir profil santé/émotionnel).
+
+**Session 6 (RAG sémantique) faite sur demande explicite de Céline** ("lance la session 6") : chromadb ET sentence-transformers étaient déjà installés sur la machine — chantier bien plus léger que redouté dans le plan original. Recherche sémantique réelle opérationnelle (ChromaDB + modèle multilingue), branchée dans `get_contextual_recall()` (session 3) comme repli quand la recherche par mot-clé ne trouve rien. Détail en Session 6 ci-dessous.
 
 **`research_mode` activé le 18/08/2026** (commit `424dc6a9`) — décision explicite de Céline en direct ("pour le moment il n'y a que moi en utilisatrice"). Le prompt système actif est désormais `_build_research_system_prompt` (expression 1ère personne sans réserve, engagement émotionnel plein), planchers de sécurité inchangés (zéro malveillance/toxicité). Détail en Session 5 ci-dessous.
 
@@ -96,10 +98,16 @@ Ce qui manque ou est fragile pour l'effet "Human IA" (les vrais trous trouvés) 
 - Repasser sur le filet de sécurité regex du tutoiement (`_enforce_tutoiement`) : vérifier qu'il ne casse pas le ton taquin/charme (ex. une regex trop agressive qui neutraliserait une formule volontairement familière).
 **Fait quand** : au moins une marque de personnalité récurrente confirmée en test réel sur plusieurs échanges.
 
-### Session 6 — RAG sémantique, si énergie disponible (chantier plus lourd, à ne pas forcer)
-**Objectif** : lever le stub `rag_stub.py` pour un rappel sur un historique long (mois), au-delà de la recherche mot-clé SQLite actuelle.
-- Installer ChromaDB, brancher `index_document()`/`semantic_search()` réellement (actuellement des no-op).
-- **À ne déclencher que si les sessions 1-5 sont faites et qu'il reste de l'énergie** — c'est un chantier technique plus lourd (dépendances, indexation), pas un simple branchement, et il n'est pas bloquant pour l'effet "Human IA" immédiat de la semaine.
+### Session 6 — RAG sémantique — FAITE le 18/08/2026, sur demande explicite de Céline
+**Surprise agréable** : `chromadb` (1.5.9) et `sentence-transformers` (5.6.0) étaient déjà installés sur la machine — jamais vérifié avant, le plan anticipait un "chantier plus lourd" pour rien. Modèle choisi : `paraphrase-multilingual-MiniLM-L12-v2` (multilingue, adapté au français), téléchargé et mis en cache (~2 min), stockage local `data/memory/chroma/` (gitignored, aussi sensible que le texte source).
+
+**Fait** :
+- `rag_stub.py` : `index_document()`/`semantic_search()` réellement implémentés (ChromaDB `PersistentClient`), plus des no-op.
+- `episodic_memory.record_episode()` indexe automatiquement chaque nouvel épisode (best-effort — n'échoue jamais si RAG indisponible) ; `backfill_semantic_index()` pour l'historique existant.
+- `memory_indexer.get_contextual_recall()` (session 3) : repli sémantique quand la recherche par mot-clé ne trouve rien d'assez pertinent — complète directement le rappel contextuel de la session 3 pour les cas où le message ne partage aucun mot avec l'épisode.
+- Backfill réel lancé : 46 épisodes uniques indexés sur les 47 (1 collision d'ID historique déjà connue, volontairement non touchée).
+
+**Honnêteté sur la qualité actuelle** : la recherche sémantique fonctionne (vérifié techniquement), mais le corpus des 47 épisodes réels est encore surtout des échanges de test génériques de juillet ("quelle heure est-il ?" ×4, "bonjour alfred"...) — pas encore de quoi démontrer des rappels sémantiques impressionnants. La vraie valeur apparaîtra avec des épisodes plus substantiels au fil de l'usage (décisions, moments marquants) maintenant que le Vue Mémoire + le rappel contextuel + ce RAG tournent tous ensemble.
 
 ---
 
