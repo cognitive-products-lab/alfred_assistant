@@ -51,7 +51,13 @@ Ce qui manque ou est fragile pour l'effet "Human IA" (les vrais trous trouvés) 
 - Détail complet débloqué seulement après double authentification (mécanisme à définir — code, ou autre facteur déjà existant côté sécurité du projet).
 **Fait quand** : la vue Mémoire de l'interface reflète l'état réel du backend, testée dans le navigateur/preview.
 
-### Session 3 — Faire vivre la mémoire dans la conversation (~2h)
+### Session 3 — Faire vivre la mémoire dans la conversation (~2h) — FAITE le 17/08/2026
+**Constat confirmé** : `memory_indexer.py` était documenté "point d'entrée principal pour le pipeline de génération" mais jamais appelé nulle part — seule `memory_answer_engine.answer_from_memory()` existait, limitée à une seule question fixe ("sur quoi je travaille"), en court-circuitant le LLM.
+**Fait** : `memory_indexer.get_contextual_recall(user_input, exclude_ids)` — cherche un épisode pertinent par mots-clés + seuil d'importance (0.6), jamais répété deux fois dans la même session. Câblé dans `build_response()` → nouveau bloc "SOUVENIR PERTINENT" dans les deux prompts système, **additif** (le LLM reste libre de l'utiliser ou pas, contrairement à `answer_from_memory`).
+**Testé** : logique de recall isolée, rendu du bloc prompt, et bout-en-bout via `build_response()` réel (composants mockés) — 284 tests passent au total.
+**Limite assumée, non vérifiable en autonomie** : la plomberie est prouvée bout-en-bout, mais observer un vrai rappel spontané en conversation réelle (LLM + usage réel, sur plusieurs échanges espacés) demande que Céline utilise l'app elle-même — c'est le vrai critère "fait quand" de cette session, à confirmer par elle.
+
+~~Session 3 (plan original)~~
 **Objectif** : qu'ALFRED réintroduise spontanément un souvenir pertinent, pas seulement qu'il l'archive.
 - Vérifier dans `main.py`/`response_generator.py` si `memory_indexer.search_all_memory()` / `memory_answer_engine.answer_from_memory()` sont interrogés à CHAQUE tour ou seulement sur déclencheur explicite ("tu te souviens de...").
 - Si c'est uniquement sur déclencheur : ajouter un rappel contextuel léger et non intrusif (ex. mention d'un pattern comportemental noté, d'une préférence) quand la pertinence dépasse un seuil — sans que ça devienne envahissant.
