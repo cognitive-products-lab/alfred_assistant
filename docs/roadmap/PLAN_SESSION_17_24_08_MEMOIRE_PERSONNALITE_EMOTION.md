@@ -8,6 +8,15 @@ Pas de planning jour-par-jour rigide — sessions modulables selon l'énergie du
 
 ---
 
+## Statut au matin du 18/08/2026
+
+**Sessions 1, 2, 3, 5 faites en autonomie dans la nuit du 17 au 18/08** (Céline a laissé la session tourner), commitées et poussées sur `main` (12 commits, du `6de00a4e` au `64e4acef`). **Session 4 volontairement pas commencée** — touche à la trajectoire émotionnelle, un sujet plus sensible (voir profil santé/émotionnel) qui mérite d'être fait avec Céline disponible pour réagir en direct, pas pendant une nuit sans supervision. **Session 6 (RAG) pas commencée**, conforme au plan ("si énergie disponible").
+
+**1 point appelle une décision de Céline, pas juste une lecture :**
+- **`research_mode.active` = `false`** (`data/personality/instances/personality_core_instance.json`) — le mode le plus "human IA" du système (expression 1ère personne sans réserve, engagement émotionnel plein, planchers de sécurité déjà en place), conçu comme activable à la volée (`recherche_on`/`recherche_off` en console) mais jamais activé. Pas touché cette nuit par prudence — c'est un changement de fond sur le mode relationnel d'ALFRED, à essayer/décider en direct. Détail en Session 5 ci-dessous.
+
+---
+
 ## État des lieux vérifié le 16/08/2026 (pas supposé, lu dans le code)
 
 Les scores dashboard sont trompeurs par excès : 93,6 % (B02), 97,6 % (B03), 97,1 % (B08) — mais ce sont des scores de *présence/test unitaire*, pas de *ressenti utilisateur*. La bonne nouvelle : l'infrastructure est réellement branchée en direct dans `main.py` (pas orpheline) — `RegulationEngine`, `PersonalityAdapter`, `AlfredBehaviorEngine`, `ModeManager`, `MemoryEngine`, `long_term_memory`, `episodic_memory` sont tous importés et appelés dans le pipeline réel de conversation.
