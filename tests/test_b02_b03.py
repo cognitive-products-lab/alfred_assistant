@@ -138,7 +138,13 @@ class TestEpisodicMemory:
         au fil des exécutions répétées de ces tests, faussant la Vue Mémoire.
         """
         import src.memory.episodic_memory as episodic_memory
+        import src.memory.rag_stub as rag_stub
         monkeypatch.setattr(episodic_memory, "_EPISODE_FILE", tmp_path / "episodes.json")
+        # Même principe pour l'index sémantique (session 6, 18/08/2026) :
+        # record_episode() indexe automatiquement dans ChromaDB — sans isoler
+        # _CHROMA_PATH, les tests écriraient dans le vrai index de production.
+        monkeypatch.setattr(rag_stub, "_CHROMA_PATH", tmp_path / "chroma")
+        rag_stub._reset_client()
 
     def test_record_and_retrieve_episode(self):
         from src.memory.episodic_memory import record_episode, get_timeline
@@ -180,6 +186,27 @@ class TestEpisodicMemory:
         assert "total_episodes" in stats
         assert "categories" in stats
 
+    def test_record_episode_auto_indexes_for_semantic_search(self):
+        """Session 6 (18/08/2026) : record_episode() indexe automatiquement
+        dans ChromaDB — best-effort, ne doit jamais lever d'exception."""
+        from src.memory.episodic_memory import record_episode
+        from src.memory.rag_stub import get_rag_status
+
+        record_episode("Test indexation auto", "contenu quelconque", importance=0.7)
+        assert get_rag_status()["indexed_documents"] == 1
+
+    def test_backfill_semantic_index_covers_existing_episodes(self):
+        from src.memory.episodic_memory import record_episode, backfill_semantic_index
+        from src.memory.rag_stub import get_rag_status
+
+        record_episode("Episode 1", "premier", importance=0.5)
+        record_episode("Episode 2", "second", importance=0.5)
+        assert get_rag_status()["indexed_documents"] == 2  # déjà auto-indexés
+
+        count = backfill_semantic_index()
+        assert count == 2
+        assert get_rag_status()["indexed_documents"] == 2  # upsert, pas de doublon
+
 
 class TestMemoryIndexer:
     """Tests B02.05 — Indexation mémoire."""
@@ -215,7 +242,13 @@ class TestContextualRecall:
     @pytest.fixture(autouse=True)
     def _isolate_episode_file(self, tmp_path, monkeypatch):
         import src.memory.episodic_memory as episodic_memory
+        import src.memory.rag_stub as rag_stub
         monkeypatch.setattr(episodic_memory, "_EPISODE_FILE", tmp_path / "episodes.json")
+        # Même principe pour l'index sémantique (session 6, 18/08/2026) :
+        # record_episode() indexe automatiquement dans ChromaDB — sans isoler
+        # _CHROMA_PATH, les tests écriraient dans le vrai index de production.
+        monkeypatch.setattr(rag_stub, "_CHROMA_PATH", tmp_path / "chroma")
+        rag_stub._reset_client()
 
     def test_recalls_relevant_episode_above_threshold(self):
         from src.memory.episodic_memory import record_episode
@@ -251,9 +284,51 @@ class TestContextualRecall:
         ep_id = record_episode("Décision soutenance", "test", importance=0.9, tags=["soutenance"])
         assert get_contextual_recall("les soutenances me stressent", exclude_ids={ep_id}) is None
 
+    def test_semantic_fallback_used_when_no_keyword_match(self, monkeypatch):
+        """
+        Session 6 (18/08/2026) : quand la recherche par mot-clé ne trouve rien,
+        repli sur semantic_search — mocké ici pour un test rapide/déterministe
+        (le vrai modèle d'embeddings est testé dans TestRAGStub).
+        """
+        from src.memory.memory_indexer import get_contextual_recall
+
+        def fake_semantic_search(query, n_results=5):
+            return [{
+                "id": "ep_semantic_1",
+                "text": "Préparation soutenance. Réviser le plan de la thèse D52.",
+                "metadata": {"category": "decision", "importance": 0.9, "created_at": "2026-08-01T10:00:00"},
+                "distance": 0.3,
+            }]
+
+        monkeypatch.setattr("src.memory.rag_stub.semantic_search", fake_semantic_search)
+
+        recall = get_contextual_recall("j'ai peur pour ma présentation orale devant le jury")
+        assert recall is not None
+        assert recall["id"] == "ep_semantic_1"
+        assert recall["title"] == "Préparation soutenance"
+
+    def test_semantic_fallback_ignored_if_distance_too_high(self, monkeypatch):
+        from src.memory.memory_indexer import get_contextual_recall
+
+        def fake_semantic_search(query, n_results=5):
+            return [{
+                "id": "ep_far", "text": "Sans rapport.",
+                "metadata": {"importance": 0.9}, "distance": 2.0,
+            }]
+
+        monkeypatch.setattr("src.memory.rag_stub.semantic_search", fake_semantic_search)
+        assert get_contextual_recall("un message quelconque") is None
+
 
 class TestRAGStub:
-    """Tests B02.04 — RAG stub."""
+    """Tests B02.04 — RAG stub, réel depuis le 18/08/2026 (session 6, ChromaDB
+    + sentence-transformers, tous deux déjà installés — plus un stub)."""
+
+    @pytest.fixture(autouse=True)
+    def _isolate_chroma_path(self, tmp_path, monkeypatch):
+        import src.memory.rag_stub as rag_stub
+        monkeypatch.setattr(rag_stub, "_CHROMA_PATH", tmp_path / "chroma")
+        rag_stub._reset_client()
 
     def test_rag_status(self):
         from src.memory.rag_stub import get_rag_status, is_rag_available
@@ -265,6 +340,37 @@ class TestRAGStub:
         from src.memory.rag_stub import semantic_search
         results = semantic_search("test query")
         assert isinstance(results, list)
+
+    def test_index_and_semantic_search_round_trip(self):
+        from src.memory.rag_stub import index_document, semantic_search
+
+        ok = index_document(
+            "Décision de reprendre le projet ALFRED après la pause santé, priorité soutenances",
+            "ep_test_1",
+            {"category": "decision", "importance": 0.9},
+        )
+        assert ok is True
+
+        results = semantic_search("présentation orale devant un jury", n_results=3)
+        assert len(results) >= 1
+        assert results[0]["id"] == "ep_test_1"
+        assert results[0]["metadata"]["category"] == "decision"
+
+    def test_semantic_search_empty_when_no_documents_indexed(self):
+        from src.memory.rag_stub import semantic_search
+        assert semantic_search("n'importe quoi") == []
+
+    def test_index_document_rejects_empty_text(self):
+        from src.memory.rag_stub import index_document
+        assert index_document("", "ep_empty") is False
+        assert index_document("   ", "ep_blank") is False
+
+    def test_get_rag_status_reflects_indexed_count(self):
+        from src.memory.rag_stub import index_document, get_rag_status
+
+        assert get_rag_status()["indexed_documents"] == 0
+        index_document("Un souvenir quelconque.", "ep_count_1")
+        assert get_rag_status()["indexed_documents"] == 1
 
 
 # ══════════════════════════════════════════════════════════

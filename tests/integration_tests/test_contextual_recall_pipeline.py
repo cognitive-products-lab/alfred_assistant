@@ -93,7 +93,12 @@ class TestContextualRecallInBuildResponse:
 
     def test_contextual_recall_populated_when_relevant_episode_exists(self, tmp_path, monkeypatch):
         import src.memory.episodic_memory as episodic_memory
+        import src.memory.rag_stub as rag_stub
         monkeypatch.setattr(episodic_memory, "_EPISODE_FILE", tmp_path / "episodes.json")
+        # Isole aussi l'index sémantique (session 6, 18/08/2026) — sinon
+        # record_episode() indexerait dans le vrai ChromaDB de production.
+        monkeypatch.setattr(rag_stub, "_CHROMA_PATH", tmp_path / "chroma")
+        rag_stub._reset_client()
         episodic_memory.record_episode(
             "Décision de reprendre le projet ALFRED après la pause santé",
             "Priorise la démonstrabilité pour les soutenances",
@@ -118,7 +123,10 @@ class TestContextualRecallInBuildResponse:
 
     def test_contextual_recall_empty_when_no_relevant_episode(self, tmp_path, monkeypatch):
         import src.memory.episodic_memory as episodic_memory
+        import src.memory.rag_stub as rag_stub
         monkeypatch.setattr(episodic_memory, "_EPISODE_FILE", tmp_path / "episodes.json")
+        monkeypatch.setattr(rag_stub, "_CHROMA_PATH", tmp_path / "chroma")
+        rag_stub._reset_client()
         # Fichier vide — aucun épisode enregistré.
 
         from src.main import build_response
