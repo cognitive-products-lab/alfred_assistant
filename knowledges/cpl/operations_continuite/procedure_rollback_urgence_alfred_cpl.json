@@ -1,0 +1,101 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.operations_continuite.procedure_rollback_urgence_alfred_cpl",
+  "title": "Procédure de rollback d'urgence ALFRED CPL",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "operations_continuite",
+  "category": "continuite_operationnelle",
+  "summary": "Procédure de retour arrière rapide en cas d'incident critique suite à une montée de version en production, distincte de la procédure générale de montée de version qui la précède logiquement.",
+  "purpose": "Garantir qu'un incident critique post-déploiement puisse être résolu rapidement par un retour arrière maîtrisé, plutôt que par une correction en urgence risquée.",
+  "tags": [
+    "rollback",
+    "incident_critique",
+    "procedure_urgence",
+    "continuite_service"
+  ],
+  "intents": [
+    "explain_rollback_procedure",
+    "trigger_emergency_rollback"
+  ],
+  "usage_context": [
+    "un incident critique survient juste après une montée de version en production",
+    "une équipe technique doit décider entre correctif à chaud ou retour arrière"
+  ],
+  "priority": "high",
+  "safety_level": "sensitive",
+  "content": {
+    "definition": "La procédure de rollback d'urgence désigne le processus formalisé de retour à la version stable précédente d'ALFRED CPL en cas d'incident critique constaté suite à une montée de version en production, privilégiant la restauration rapide du service à une correction à chaud risquée.",
+    "core_principles": [
+      "En cas d'incident critique post-déploiement, un retour arrière maîtrisé est généralement plus sûr et plus rapide qu'une correction à chaud sous pression.",
+      "Un rollback n'est possible rapidement que s'il a été anticipé avant le déploiement, pas improvisé au moment de l'incident.",
+      "La décision de rollback doit pouvoir être prise rapidement par une personne habilitée, sans validation hiérarchique lourde qui retarderait la restauration du service."
+    ],
+    "rules": [
+      "Vérifier la disponibilité d'un point de restauration stable avant toute montée de version en production.",
+      "Définir à l'avance les critères déclenchant un rollback d'urgence (indisponibilité, perte de données, incident de sécurité).",
+      "Communiquer aux utilisateurs et clients concernés dès le déclenchement du rollback, sans attendre sa résolution complète."
+    ],
+    "examples": [
+      {
+        "situation": "Une montée de version provoque une indisponibilité partielle du service peu après son déploiement en production.",
+        "recommended_behavior": "Évaluer immédiatement si un rollback vers la version stable précédente est possible, le déclencher sans délai si les critères sont réunis, puis communiquer aux parties concernées avant d'analyser la cause racine à froid.",
+        "avoid": "Tenter une correction à chaud complexe en production sous pression avant d'envisager le rollback, prolongeant l'indisponibilité du service."
+      }
+    ],
+    "best_practices": [
+      "Tester la procédure de rollback régulièrement en environnement de préproduction, pas seulement documenter son principe.",
+      "Conserver systématiquement un point de restauration stable accessible avant toute montée de version."
+    ],
+    "anti_patterns": [
+      "Absence de point de restauration stable disponible, rendant tout rollback impossible en pratique malgré une procédure documentée.",
+      "Décision de rollback retardée par une validation hiérarchique lourde alors que le service est indisponible."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "rollback",
+      "retour_arriere",
+      "incident_critique",
+      "restauration_service"
+    ],
+    "related_domains": [
+      "cpl"
+    ],
+    "related_knowledge": [
+      "cpl.operations_continuite.gestion_montees_version_production",
+      "cpl.operations_continuite.gestion_incidents_alfred_cpl",
+      "cpl.operations_continuite.sauvegarde_restauration_alfred_cpl"
+    ],
+    "retrieval_priority": 8
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "step_by_step",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "explication et déclenchement de la procédure de rollback d'urgence"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [
+      "tentative de correction à chaud non maîtrisée en production en lieu et place d'un rollback disponible"
+    ],
+    "fallback_behavior": "Si aucun point de restauration stable n'est disponible, escalader immédiatement vers l'équipe technique senior plutôt que de tenter une correction improvisée."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "16/08/2026",
+    "last_update": "16/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}
