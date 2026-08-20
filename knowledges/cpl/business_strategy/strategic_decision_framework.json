@@ -1,26 +1,94 @@
 {
-    "id":  "strategic.decision.framework",
-    "created_at":  "2026-06-03",
-    "title":  "strategic decision framework",
-    "tags":  [
-
-             ],
-    "source":  "recreated_from_dashboard_manifest",
-    "description":  "Fiche connaissance recréée automatiquement à partir du manifest dashboard.",
-    "status":  "draft",
-    "content":  {
-                    "summary":  "",
-                    "links":  [
-
-                              ],
-                    "use_cases":  [
-
-                                  ],
-                    "risks":  [
-
-                              ],
-                    "key_points":  [
-
-                                   ]
-                }
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.business_strategy.strategic_decision_framework",
+  "title": "Cadres de décision stratégique",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "business_strategy",
+  "category": "strategie_pilotage",
+  "summary": "Les cadres de décision stratégique (RAPID, DACI, Cynefin, matrice de score pondéré, pré-mortem) structurent qui décide et comment trancher une question complexe — distincts du cycle de planification, qui structure quand les décisions sont prises.",
+  "purpose": "Donner un ensemble de cadres méthodologiques pour structurer une décision stratégique complexe, en clarifiant les rôles de décision et en adaptant la méthode à la nature de l'incertitude, en complément du cycle de planification qui porte sur la cadence plutôt que sur la méthode de décision elle-même.",
+  "tags": ["décision stratégique", "rapid", "daci", "cynefin", "pré-mortem", "stratégie", "business"],
+  "intents": ["clarify_decision_roles", "choose_decision_method_by_uncertainty", "run_premortem"],
+  "usage_context": [
+    "clarification des rôles de décision sur un sujet stratégique impliquant plusieurs parties prenantes",
+    "choix d'une méthode de décision adaptée au niveau d'incertitude d'une situation",
+    "anticipation des risques d'une décision stratégique avant sa mise en œuvre"
+  ],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "Les cadres de décision stratégique sont des méthodes structurées permettant de clarifier qui décide, comment trancher et selon quelle logique une question stratégique complexe, incluant la clarification des rôles (RAPID : Recommend, Agree, Perform, Input, Decide ; ou DACI : Driver, Approver, Contributor, Informed), l'adaptation de la méthode à la nature de l'incertitude (cadre de Cynefin distinguant situations simples, compliquées, complexes et chaotiques), et les outils de challenge d'une décision avant sa mise en œuvre (matrice de score pondéré, pré-mortem).",
+    "core_principles": [
+      "L'ambiguïté sur qui décide réellement une question stratégique (plutôt que qui est simplement consulté) est une cause fréquente de blocage ou de décision non assumée — les cadres RAPID et DACI clarifient explicitement les rôles avant d'engager la discussion de fond.",
+      "Le cadre de Cynefin distingue quatre types de situations appelant des approches différentes : simple (bonnes pratiques connues, décision rapide), compliquée (analyse experte nécessaire), complexe (l'expérimentation et l'apprentissage priment sur l'analyse a priori), chaotique (agir d'abord pour stabiliser, puis analyser) — appliquer une méthode d'analyse compliquée à une situation complexe conduit à une fausse certitude.",
+      "Une matrice de score pondéré (critères de décision explicites, pondérés selon leur importance, notés pour chaque option) objective une décision entre plusieurs options et rend les arbitrages traçables, réduisant le poids de préférences implicites non déclarées.",
+      "Le pré-mortem (imaginer collectivement que la décision a échoué et en identifier les causes probables avant de la prendre) révèle des risques que l'enthousiasme initial autour d'une décision tend à minimiser."
+    ],
+    "rules": [
+      "Clarifier explicitement les rôles de décision (qui recommande, qui décide, qui est consulté, qui est informé) avant d'engager le débat de fond sur une décision stratégique impliquant plusieurs parties prenantes.",
+      "Identifier la nature de la situation (simple, compliquée, complexe, chaotique) avant de choisir une méthode de décision, plutôt que d'appliquer systématiquement la même approche analytique.",
+      "Formaliser les critères de décision et leur pondération avant de comparer les options, pas après avoir une préférence déjà arrêtée.",
+      "Conduire un pré-mortem pour toute décision stratégique à fort enjeu avant sa mise en œuvre définitive."
+    ],
+    "examples": [
+      {
+        "situation": "Une décision stratégique implique plusieurs départements et personne ne sait clairement qui a le dernier mot.",
+        "recommended_behavior": "Appliquer un cadre RAPID ou DACI pour désigner explicitement qui recommande, qui décide, qui est consulté et qui est informé, avant de rouvrir le débat de fond, afin d'éviter que la décision ne s'enlise dans un consensus impossible.",
+        "avoid": "Poursuivre les échanges de fond sans jamais clarifier qui a l'autorité de trancher, prolongeant indéfiniment la discussion."
+      },
+      {
+        "situation": "Une équipe applique une méthode d'analyse détaillée et exhaustive à une décision dans un environnement très incertain et changeant.",
+        "recommended_behavior": "Identifier la situation comme relevant du domaine complexe au sens de Cynefin, où l'expérimentation à petite échelle et l'apprentissage itératif sont plus fiables qu'une analyse a priori exhaustive, et adapter la méthode de décision en conséquence.",
+        "avoid": "Persister dans une analyse exhaustive coûteuse en temps alors que l'incertitude de la situation rend cette analyse peu fiable."
+      }
+    ],
+    "best_practices": [
+      "Documenter les rôles de décision (RAPID/DACI) par écrit avant d'engager une décision stratégique impliquant plusieurs parties prenantes.",
+      "Adapter systématiquement la méthode de décision à la nature de l'incertitude plutôt que d'appliquer une méthode unique par défaut.",
+      "Utiliser une matrice de score pondéré pour les décisions à plusieurs options comparables, en rendant les critères et pondérations visibles à toutes les parties prenantes.",
+      "Conduire un pré-mortem collectif avant toute décision stratégique majeure, en documentant les risques identifiés et les mesures préventives associées."
+    ],
+    "anti_patterns": [
+      "Engager une décision stratégique impliquant plusieurs parties prenantes sans jamais clarifier qui a l'autorité de trancher.",
+      "Appliquer une méthode d'analyse détaillée à une situation trop incertaine pour qu'une telle analyse soit fiable.",
+      "Comparer des options stratégiques sur la base de critères implicites non formalisés.",
+      "Prendre une décision stratégique majeure sans jamais challenger ses risques par un exercice de pré-mortem."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["decision_strategique", "rapid", "daci", "cynefin", "premortem"],
+    "related_domains": ["cpl"],
+    "related_knowledge": [
+      "cpl.strategy.strategy_fundamentals",
+      "cpl.business_strategy.strategic_planning_cycle",
+      "cpl.business_strategy.innovation_management"
+    ],
+    "retrieval_priority": 6
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["aide à la structuration d'une décision stratégique et à la clarification des rôles de décision"],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "Si les rôles de décision ne sont pas clarifiés sur un sujet stratégique impliquant plusieurs parties prenantes, recommander cette clarification avant de poursuivre le débat de fond."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "20/08/2026",
+    "last_update": "20/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
 }

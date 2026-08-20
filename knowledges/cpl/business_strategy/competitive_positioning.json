@@ -1,80 +1,96 @@
 {
   "schema_version": "1.2",
   "type": "knowledge_unit",
-  "id": "knowledges.cpl.business_strategy.competitive_positioning",
+  "knowledge_id": "cpl.business_strategy.competitive_positioning",
   "title": "Positionnement concurrentiel",
+  "version": "1.1.0",
+  "status": "active",
   "domain": "cpl",
   "subdomain": "business_strategy",
-  "status": "validated",
-  "summary": "Le positionnement concurrentiel définit comment une offre se distingue dans l'esprit des clients par rapport aux alternatives. Un bon positionnement est clair, défendable et ancré dans un avantage compétitif réel.",
-  "core_definition": "Le positionnement concurrentiel est la définition délibérée de la place qu'une entreprise occupe dans l'esprit de ses clients cibles par rapport à ses concurrents, en articulant clairement pour qui l'offre est faite, quelle valeur distinctive elle crée, et pourquoi les clients devraient la préférer.",
-  "knowledge": {
-    "positioning_statement_structure": "Pour [client cible] qui [besoin/problème], [nom du produit] est [catégorie] qui [bénéfice clé]. Contrairement à [concurrent principal], notre produit [différenciateur clé].",
-    "differentiation_types": [
+  "category": "strategie_marche",
+  "summary": "Le positionnement concurrentiel définit comment une offre se distingue dans l'esprit des clients par rapport aux alternatives. Un bon positionnement est clair, défendable et ancré dans un avantage compétitif réel, analysé notamment via les cinq forces de Porter.",
+  "purpose": "Donner un cadre de définition et de vérification du positionnement concurrentiel d'une offre, en particulier face à des concurrents établis et mieux financés.",
+  "tags": ["positionnement", "concurrence", "différenciation", "porter", "avantage compétitif", "stratégie", "business"],
+  "intents": ["define_competitive_positioning", "analyze_five_forces", "position_against_established_competitors"],
+  "usage_context": [
+    "définition du positionnement d'une nouvelle offre face à des concurrents établis",
+    "vérification que le positionnement déclaré correspond au positionnement perçu par les clients",
+    "analyse de l'intensité concurrentielle d'un marché avant d'y entrer"
+  ],
+  "priority": "high",
+  "safety_level": "normal",
+  "content": {
+    "definition": "Le positionnement concurrentiel est la définition délibérée de la place qu'une entreprise occupe dans l'esprit de ses clients cibles par rapport à ses concurrents, en articulant clairement pour qui l'offre est faite, quelle valeur distinctive elle crée, et pourquoi les clients devraient la préférer, selon la structure : « Pour [client cible] qui [besoin], [offre] est [catégorie] qui [bénéfice clé], contrairement à [concurrent], notre offre [différenciateur] ».",
+    "core_principles": [
+      "La différenciation peut s'appuyer sur plusieurs types d'avantages (prix, qualité/performance, commodité, spécialisation sectorielle, relation/accompagnement) — chacun ayant sa propre défendabilité et sa propre scalabilité.",
+      "L'analyse des cinq forces de Porter (menace de nouveaux entrants, pouvoir de négociation des clients, pouvoir de négociation des fournisseurs, menace des substituts, intensité concurrentielle) structure l'évaluation de l'attractivité d'un marché avant d'y positionner une offre.",
+      "Face à des concurrents établis et mieux financés, une stratégie de niche (viser un segment mal ou pas servi par les grands acteurs) est généralement plus efficace qu'une attaque frontale sur le marché principal.",
+      "Le positionnement perçu par les clients peut diverger du positionnement déclaré par l'entreprise — seule une vérification directe auprès des clients et une analyse des deals perdus révèlent l'écart réel."
+    ],
+    "rules": [
+      "Formuler le positionnement selon une structure explicite (cible, catégorie, bénéfice, différenciateur vs concurrent principal) plutôt que de façon vague ou générique.",
+      "Analyser les cinq forces de Porter avant de considérer un marché comme attractif, pas seulement sa taille apparente.",
+      "Face à des concurrents mieux financés, prioriser un segment de niche où l'offre peut devenir la référence incontestée avant d'élargir.",
+      "Vérifier régulièrement le positionnement perçu par des entretiens clients directs et l'analyse des raisons réelles de perte de deals."
+    ],
+    "examples": [
       {
-        "type": "Prix",
-        "description": "Moins cher pour une qualité comparable — fragile si non couplé à une structure de coûts différente"
+        "situation": "Une jeune entreprise cherche à se positionner sur un marché dominé par des concurrents établis et mieux financés.",
+        "recommended_behavior": "Identifier un segment que les grands acteurs servent mal ou pas du tout du fait de leur taille, concentrer le message sur ce segment jusqu'à devenir la référence incontestée, puis élargir progressivement — logique classique de disruption par le bas de marché.",
+        "avoid": "Attaquer frontalement le marché principal des concurrents établis avec un budget et une notoriété très inférieurs."
       },
       {
-        "type": "Qualité/Performance",
-        "description": "Mieux sur la dimension qui compte le plus pour le segment visé"
-      },
-      {
-        "type": "Commodité",
-        "description": "Plus facile, plus rapide, moins d'effort — différenciateur fort dans les marchés où la friction est élevée"
-      },
-      {
-        "type": "Spécialisation",
-        "description": "Expert du segment vertical vs généraliste — meilleur fit sur un sous-marché"
-      },
-      {
-        "type": "Relation",
-        "description": "Service, accompagnement, relation — difficile à scaler mais très défendable"
+        "situation": "Vérifier que le positionnement déclaré d'une offre correspond à la perception réelle des clients.",
+        "recommended_behavior": "Interroger directement des clients existants et des prospects sur les raisons de leur choix ou de leur hésitation, et analyser systématiquement les raisons de perte des deals non signés, pour objectiver un éventuel écart entre positionnement déclaré et perçu.",
+        "avoid": "Considérer le positionnement comme validé sur la seule base des documents commerciaux internes sans vérification externe."
       }
     ],
-    "porter_five_forces": [
-      "Menace de nouveaux entrants (barrières à l'entrée)",
-      "Pouvoir de négociation des clients",
-      "Pouvoir de négociation des fournisseurs",
-      "Menace des substituts",
-      "Intensité concurrentielle dans le secteur"
-    ]
-  },
-  "example_answers": [
-    {
-      "prompt": "Comment se positionner sur un marché avec des concurrents établis et mieux financés ?",
-      "answer": "Niche d'abord. Ne pas attaquer frontalement — chercher le segment que les grands acteurs servent mal ou pas du tout (contraintes de taille : les grands ne peuvent pas aller sur des marchés trop petits). Porter le message vers ce segment avec une précision maximum. Objectif : être la référence incontestée pour ce segment avant d'élargir. L'histoire de disruption classique (Clayton Christensen) : commencer en bas de marché ou sur un segment négligé, puis remonter."
-    },
-    {
-      "prompt": "Comment vérifier que notre positionnement est perçu comme différenciant par les clients ?",
-      "answer": "Test d'entretien : demander aux clients (existants et potentiels) 'pourquoi vous nous avez choisi plutôt que X ?' et 'qu'est-ce qui vous ferait partir vers un concurrent ?' Si les réponses ne correspondent pas à votre positionnement déclaré → il y a un gap. Compléter avec l'analyse des deals perdus : pourquoi les prospects qui ont choisi un concurrent l'ont-ils fait ? Les raisons réelles de perte révèlent le positionnement perçu vs souhaité."
-    }
-  ],
-  "response_guidance": {
-    "tone": "stratégique, ancré dans la réalité opérationnelle et les contraintes de marché",
-    "structure": [
-      "analyser le contexte concurrentiel et client",
-      "proposer la lecture stratégique",
-      "recommander les prochaines actions"
+    "best_practices": [
+      "Rédiger le positionnement selon la structure explicite (cible/catégorie/bénéfice/différenciateur) et le partager en interne pour garantir la cohérence des discours.",
+      "Documenter systématiquement les raisons de perte de chaque deal non signé pour objectiver le positionnement perçu.",
+      "Réévaluer périodiquement l'analyse des cinq forces de Porter, l'intensité concurrentielle d'un marché évoluant dans le temps.",
+      "Choisir un type de différenciation cohérent avec les ressources réelles de l'entreprise plutôt qu'un différenciateur difficile à tenir dans la durée."
     ],
-    "avoid": [
-      "conseils trop génériques",
-      "ignorer les contraintes de ressources",
-      "optimisme non fondé"
+    "anti_patterns": [
+      "Déclarer un positionnement générique ('meilleure qualité, meilleur service') sans différenciateur vérifiable face à un concurrent nommé.",
+      "Attaquer frontalement des concurrents mieux financés sur leur marché principal sans stratégie de niche préalable.",
+      "Ne jamais vérifier auprès des clients si le positionnement perçu correspond au positionnement déclaré.",
+      "Choisir une différenciation par le prix sans structure de coûts réellement différente, la rendant non défendable."
     ]
   },
-  "tags": [
-    "positionnement",
-    "concurrence",
-    "différenciation",
-    "Porter",
-    "avantage compétitif",
-    "stratégie",
-    "business",
-    "CPL"
-  ],
-  "related_knowledge_units": [
-    "knowledges.cpl.strategy.strategy_fundamentals",
-    "knowledges.cpl.business_piloting.profitability_analysis"
-  ]
+  "retrieval_hints": {
+    "priority_keywords": ["positionnement", "porter_cinq_forces", "differenciation", "niche", "avantage_competitif"],
+    "related_domains": ["cpl"],
+    "related_knowledge": [
+      "cpl.strategy.strategy_fundamentals",
+      "cpl.strategy.differenciation_concurrentielle_ia_locale",
+      "cpl.strategy.veille_concurrentielle_marche_ia_conseil",
+      "cpl.business_strategy.market_segmentation_strategy",
+      "cpl.business_strategy.blue_ocean_strategy"
+    ],
+    "retrieval_priority": 7
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["aide à la définition et à la vérification d'un positionnement concurrentiel"],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "Si le positionnement n'a jamais été vérifié auprès de clients réels, recommander cette vérification avant de le considérer comme validé."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "20/08/2026",
+    "last_update": "20/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
 }

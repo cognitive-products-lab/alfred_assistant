@@ -4,6 +4,28 @@ Référence : `knowledges/index/daily_enrichment_instructions.md`. Une entrée p
 
 ---
 
+## Lot 13 — volet consolidation/développement cpl.business_strategy (demande explicite du 20/08/2026)
+
+**Contexte** : `cpl.business_strategy` (34 fiches, le plus gros des 12 sous-domaines cpl) était signalé pour audit de consolidation depuis le Lot 9, réitéré aux Lots 10, 11 et 12 sans jamais être traité faute de temps. Céline a explicitement demandé le 20/08/2026 de le traiter : « tu peux t'occuper de cpl.business_strategy en le consolidant et en le développant : stratégie big data, stratégie RSE, stratégie de l'océan bleu, ... ». Session exécutée dans le worktree isolé `worktree-agent-a174723678e01185c`, partagé involontairement avec le lot anxiété/stress suite à un incident d'infrastructure documenté séparément (corruption de liaison git de plusieurs worktrees lors d'une reprise après limite de session partagée) — voir la mémoire de session `project_daily_enrichment_cpl_socle_split.md`. `git add` limité strictement aux fichiers de ce volet (`cpl/business_strategy/` + `taxonomy.json` + `manifest.json` + `knowledge_registry.json` + cette entrée), jamais `knowledges/` de façon large, pour ne pas capturer les 25 fichiers déjà commités par le lot anxiété/stress sur ce même worktree.
+
+**Partie 1 — Audit et consolidation.** Lecture intégrale des 34 fiches existantes. 6 fiches identifiées comme doublons/quasi-doublons ou stubs faibles, fusionnées/supprimées : `delivery_quality_framework.json`, `go_to_market_advanced.json` (chevauchement avec `go_to_market_strategy.json`), `innovation_portfolio_management.json` (chevauchement avec `innovation_management.json`), `recurring_revenue_models.json` (chevauchement avec `revenue_model_design.json`), `resource_optimization.json` (chevauchement avec `operational_excellence.json`), `service_margin_management.json`. Les 28 fiches restantes ont été réécrites en schéma template conforme (structure `content` officielle, `retrieval_hints`, `behavior_rules`, `safety_notes` complets).
+
+**Partie 2 — Nouveaux frameworks stratégiques (7 fiches créées).** Trois demandées explicitement par Céline : `big_data_strategie_valorisation_donnee.json`, `rse_strategie_conseil_client.json` (angle conseil/accompagnement client, distinct du domaine socle générique `rse_developpement_durable`), `blue_ocean_strategy.json` (Kim & Mauborgne). Quatre identifiées par l'audit comme manquantes et complétant utilement la couverture : `disruptive_innovation_strategy.json`, `diversification_strategy.json`, `hypercompetition_strategy.json`, `platform_ecosystem_strategy.json`.
+
+**Anti-doublon renforcé** : vérification via `knowledge_registry.json` que ces frameworks n'étaient pas déjà couverts ailleurs (`professional/business/`, `professional/strategy/product_strategy/`, `cpl/strategy/`) avant création — aucun chevauchement détecté, chaque nouveau fichier couvre un framework distinct absent du reste du dépôt.
+
+**Total** : 34 → 35 fiches (6 supprimées/fusionnées, 28 réécrites, 7 créées). Tous les fichiers validés `json.load` sans erreur (35/35).
+
+**taxonomy.json** : v3.9.0 → v3.9.1. `linked_knowledge`/`intents` de `cpl.business_strategy` entièrement resynchronisés avec le contenu réel du sous-domaine (aucun nouveau sous-domaine, celui-ci existait déjà).
+
+**manifest.json** : v2.7.0 → v2.7.1, entrée `lot13_business_strategy_20_08_2026` ajoutée.
+
+**Registre** : régénéré, 1076 → 1077 fichiers indexés (cohérent avec le delta net +1 de ce volet : -6 supprimés +7 créés).
+
+**Recommandation pour le prochain lot** : `cpl.business_strategy` n'a plus besoin d'audit de consolidation prioritaire — peut revenir à un rythme d'enrichissement normal comme les 11 autres sous-domaines cpl.
+
+---
+
 ## Lot 13 — volet dédié anxiété/stress (25 fiches, demande explicite du 20/08/2026)
 
 **Contexte** : lot thématique dédié, distinct du cycle quotidien standard (60 fichiers, 20 cpl / 40 socle) géré en parallèle par une autre session ce même jour — ce lot n'est pas numéroté dans la séquence des lots quotidiens standard (qui en est au Lot 12, 16/08/2026) mais dans une séquence propre aux demandes thématiques explicites de Céline. Demande formulée le 20/08/2026 : créer 25 fiches de connaissances dédiées à la lutte contre l'anxiété et le stress, en plus du lot quotidien standard, sans le dupliquer. Session exécutée dans un worktree git isolé (`worktree-agent-a174723678e01185c`), distinct du dépôt principal et de la session du lot quotidien standard. Anti-doublon : lecture intégrale préalable de 25 fichiers existants explicitement listés par Céline (`human/wellbeing/*` et `lifestyle/health/*` + 3 fichiers hors de ces deux sous-domaines) avant tout choix de sujet, complétée par une recherche par mot-clé (`Grep`) sur l'ensemble de `knowledges/` pour les termes techniques précis envisagés (cohérence cardiaque, Jacobson, box breathing, 4-7-8, panique, rumination, anxiété sociale, 5-4-3-2-1, méditation, scan corporel, défusion, worry time, examen, prise de parole) : aucune fiche dédiée existante détectée sur ces sujets précis, seules des mentions isolées en une ligne dans des fiches généralistes (confirmées et documentées comme point de départ à approfondir, pas comme doublon).

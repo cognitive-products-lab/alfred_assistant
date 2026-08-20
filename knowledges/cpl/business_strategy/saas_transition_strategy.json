@@ -1,26 +1,95 @@
 {
-    "id":  "saas.transition.strategy",
-    "created_at":  "2026-06-03",
-    "title":  "saas transition strategy",
-    "tags":  [
-
-             ],
-    "source":  "recreated_from_dashboard_manifest",
-    "description":  "Fiche connaissance recréée automatiquement à partir du manifest dashboard.",
-    "status":  "draft",
-    "content":  {
-                    "summary":  "",
-                    "links":  [
-
-                              ],
-                    "use_cases":  [
-
-                                  ],
-                    "risks":  [
-
-                              ],
-                    "key_points":  [
-
-                                   ]
-                }
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.business_strategy.saas_transition_strategy",
+  "title": "Stratégie de transition vers un modèle SaaS récurrent",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "business_strategy",
+  "category": "strategie_financiere",
+  "summary": "La transition d'un modèle de licence unique ou de projet ponctuel vers un modèle récurrent (SaaS ou abonnement de service) est une transformation d'entreprise à part entière — pilotage du choc de trésorerie temporaire, migration de la base installée, conflit de canal — distincte de la seule description des modèles de revenu possibles.",
+  "purpose": "Donner un cadre de transition d'une activité existante (licence, projet ponctuel) vers un modèle récurrent, en particulier la gestion du choc de trésorerie temporaire et la migration de la base de clients existante, non couverts par le design du modèle de revenu.",
+  "tags": ["transition saas", "migration récurrent", "choc trésorerie", "conflit de canal", "stratégie", "business"],
+  "intents": ["plan_saas_transition", "manage_cash_flow_dip_during_transition", "migrate_existing_customer_base"],
+  "usage_context": [
+    "transition d'un modèle de vente ponctuelle vers un modèle d'abonnement récurrent",
+    "gestion de la baisse temporaire de trésorerie provoquée par le passage au récurrent",
+    "migration d'une base de clients existante vers une nouvelle offre récurrente"
+  ],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "La stratégie de transition vers un modèle SaaS ou récurrent est l'ensemble des décisions permettant à une entreprise de faire évoluer une activité fondée sur des ventes ponctuelles (licence, projet au forfait) vers un modèle de revenu récurrent, en gérant le choc de trésorerie temporaire, la migration de la base de clients existante et les conflits de canal qui accompagnent cette transformation.",
+    "core_principles": [
+      "La transition vers le récurrent génère un choc de trésorerie temporaire quasi systématique : le revenu ponctuel disparaît immédiatement alors que le revenu récurrent équivalent ne s'accumule que progressivement, période durant laquelle le financement de la transition doit être anticipé.",
+      "La base de clients existante constitue à la fois le principal risque et la principale opportunité de la transition : ces clients connaissent déjà la valeur de l'offre, ce qui facilite la conversion, mais une migration mal négociée peut aussi générer un rejet ou une perte de confiance.",
+      "Un conflit de canal peut émerger si l'ancien modèle (vente directe, revendeurs sur licence) et le nouveau modèle (abonnement direct) entrent en concurrence interne, nécessitant une clarification explicite des rôles et de la rémunération de chaque canal pendant la transition.",
+      "La transition réussit rarement en un basculement unique : une période de coexistence des deux modèles, avec une date de bascule progressive par segment de clientèle, réduit le risque commercial et financier."
+    ],
+    "rules": [
+      "Modéliser explicitement le choc de trésorerie temporaire attendu et sécuriser son financement avant d'engager la transition à grande échelle.",
+      "Prioriser la conversion des clients existants les plus satisfaits, qui connaissent déjà la valeur de l'offre et sont les plus réceptifs à un nouveau modèle de facturation.",
+      "Clarifier explicitement la rémunération et le rôle de chaque canal de distribution avant la transition pour prévenir tout conflit interne.",
+      "Séquencer la transition par segment de clientèle plutôt que d'imposer un basculement uniforme et simultané à l'ensemble de la base."
+    ],
+    "examples": [
+      {
+        "situation": "Une activité de conseil facturée historiquement au projet ponctuel souhaite évoluer vers un modèle d'abonnement mensuel récurrent.",
+        "recommended_behavior": "Identifier la valeur que les clients ont besoin de recevoir en continu (accès à un expert, veille, mise à jour de livrables, support), la packager en offre mensuelle claire, et convertir en priorité les clients existants qui connaissent déjà la valeur délivrée, en fixant un prix mensuel perçu comme avantageux par rapport au coût du projet ponctuel équivalent.",
+        "avoid": "Basculer l'intégralité de la base de clients au nouveau modèle simultanément sans avoir testé la conversion sur un premier segment restreint."
+      },
+      {
+        "situation": "Un éditeur logiciel vendu historiquement sous licence perpétuelle via un réseau de revendeurs prépare sa transition vers un modèle SaaS en vente directe.",
+        "recommended_behavior": "Anticiper le choc de trésorerie lié à la disparition du revenu de licence immédiat, clarifier explicitement avec les revendeurs leur nouveau rôle et leur rémunération dans le modèle récurrent, et séquencer la migration par segment de clients plutôt que par un basculement global.",
+        "avoid": "Lancer la vente directe en abonnement sans avoir clarifié le rôle des revendeurs existants, créant un conflit de canal interne."
+      }
+    ],
+    "best_practices": [
+      "Construire un plan de trésorerie dédié à la période de transition, distinct du plan de trésorerie courant.",
+      "Offrir des conditions de transition avantageuses aux premiers clients migrant vers le nouveau modèle, pour accélérer la conversion et obtenir des cas de référence.",
+      "Documenter et communiquer explicitement le nouveau rôle de chaque canal de distribution avant le lancement de la transition.",
+      "Suivre un indicateur dédié de progression de la migration (part de la base convertie au récurrent) distinct des indicateurs de revenu global."
+    ],
+    "anti_patterns": [
+      "Engager la transition sans avoir modélisé ni sécurisé le financement du choc de trésorerie temporaire.",
+      "Basculer l'ensemble de la base de clients simultanément sans phase de coexistence des deux modèles.",
+      "Ignorer le risque de conflit de canal entre l'ancien et le nouveau modèle de distribution.",
+      "Considérer la transition comme un simple changement de facturation sans repenser la valeur délivrée en continu au client."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["transition_saas", "choc_tresorerie", "migration_clients", "conflit_canal"],
+    "related_domains": ["cpl"],
+    "related_knowledge": [
+      "cpl.strategy.strategy_fundamentals",
+      "cpl.business_strategy.revenue_model_design",
+      "cpl.business_piloting.gestion_tresorerie_activite_conseil",
+      "cpl.business_strategy.product_service_hybrid_model"
+    ],
+    "retrieval_priority": 6
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["aide à la planification d'une transition vers un modèle de revenu récurrent"],
+    "restricted_usage": ["projection financière chiffrée présentée comme certaine sans données réelles"],
+    "forbidden_usage": [],
+    "fallback_behavior": "Si le choc de trésorerie temporaire n'a pas été chiffré, recommander cette modélisation avant tout engagement de transition à grande échelle."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "20/08/2026",
+    "last_update": "20/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
 }

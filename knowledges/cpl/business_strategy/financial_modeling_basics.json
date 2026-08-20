@@ -1,101 +1,95 @@
 {
   "schema_version": "1.2",
   "type": "knowledge_unit",
-  "id": "knowledges.cpl.business_strategy.financial_modeling_basics",
+  "knowledge_id": "cpl.business_strategy.financial_modeling_basics",
   "title": "Modélisation financière — bases",
+  "version": "1.1.0",
+  "status": "active",
   "domain": "cpl",
   "subdomain": "business_strategy",
-  "status": "validated",
-  "summary": "La modélisation financière traduit des hypothèses business en projections numériques (P&L, cash flow, bilan) pour prendre des décisions éclairées sur l'investissement, la croissance et le financement. La valeur est dans les hypothèses, pas les formules.",
-  "core_definition": "La modélisation financière est la construction de représentations chiffrées des performances financières d'une entreprise (actuelles et futures), en liant des hypothèses business (croissance des revenus, marges, coûts) à des états financiers projetés, pour guider les décisions stratégiques et opérationnelles.",
-  "knowledge": {
-    "key_financial_statements": [
+  "category": "strategie_financiere",
+  "summary": "La modélisation financière traduit des hypothèses business en projections numériques (P&L, cash flow, bilan) pour prendre des décisions éclairées sur l'investissement, la croissance et le financement. La valeur est dans les hypothèses, pas dans les formules.",
+  "purpose": "Donner un cadre de construction et de lecture d'un modèle financier simple, avec les métriques SaaS de référence, pour une jeune entreprise ou une activité de conseil.",
+  "tags": ["finance", "modélisation", "mrr", "cac", "ltv", "saas", "stratégie", "business"],
+  "intents": ["build_financial_model", "read_saas_metrics", "prioritize_financial_kpis"],
+  "usage_context": [
+    "construction d'un premier modèle financier pour une jeune entreprise",
+    "sélection des métriques financières prioritaires à suivre en phase early-stage",
+    "compréhension des états financiers de base pour une décision d'investissement"
+  ],
+  "priority": "high",
+  "safety_level": "normal",
+  "content": {
+    "definition": "La modélisation financière est la construction de représentations chiffrées des performances financières d'une entreprise (actuelles et futures), en liant des hypothèses business (croissance des revenus, marges, coûts) à des états financiers projetés (P&L, cash flow, bilan) pour guider les décisions stratégiques et opérationnelles.",
+    "core_principles": [
+      "Le P&L mesure la profitabilité sur une période, le cash flow mesure les mouvements de trésorerie, et le bilan mesure la santé financière à un instant T — une entreprise peut être profitable au P&L tout en manquant de trésorerie, ce qui rend les trois vues indispensables et non substituables.",
+      "Les métriques SaaS (MRR, ARR, churn, CAC, LTV, ratio LTV/CAC, payback period) permettent de lire la santé économique d'un modèle récurrent au-delà du seul chiffre d'affaires apparent.",
+      "Un modèle financier robuste sépare explicitement les hypothèses (en haut, modifiables) des calculs (en dessous, dérivés), et modélise plusieurs scénarios (pessimiste, base, optimiste) plutôt qu'un seul scénario central.",
+      "La granularité du modèle doit être adaptée à l'horizon : mensuelle sur 12 mois pour le pilotage court terme, trimestrielle sur 3 ans pour la planification stratégique."
+    ],
+    "rules": [
+      "Toujours séparer clairement les hypothèses des formules de calcul dans la structure du modèle.",
+      "Construire au minimum trois scénarios (pessimiste, base, optimiste) plutôt qu'une seule projection présentée comme certaine.",
+      "Avant le product-market fit, prioriser le suivi du MRR et du churn comme signaux de vie les plus importants, avant les métriques d'acquisition.",
+      "Ne jamais confondre profitabilité (P&L) et disponibilité de trésorerie (cash flow) dans l'interprétation de la santé financière."
+    ],
+    "examples": [
       {
-        "statement": "P&L (Compte de résultat)",
-        "description": "Revenus - Coûts = Résultat. Mesure la profitabilité sur une période."
+        "situation": "Une jeune entreprise SaaS souhaite savoir quelles métriques financières surveiller en priorité.",
+        "recommended_behavior": "Prioriser le MRR et sa croissance mois sur mois, le taux de churn en MRR et en clients, et le runway restant au taux de combustion actuel, en complétant par le CAC et la LTV pour valider la viabilité économique du modèle d'acquisition.",
+        "avoid": "Suivre en priorité des métriques de vanité (nombre total d'utilisateurs inscrits) sans surveiller le churn ou le runway."
       },
       {
-        "statement": "Cash Flow",
-        "description": "Entrées - Sorties de trésorerie. Distinct du P&L — une entreprise peut être profitable mais manquer de cash."
-      },
-      {
-        "statement": "Bilan",
-        "description": "Actifs = Passifs + Capitaux propres. Mesure la santé financière à un instant T."
+        "situation": "Construire un premier modèle financier simple pour une startup.",
+        "recommended_behavior": "Structurer le modèle en quatre blocs dans un tableur : un onglet d'hypothèses séparé (croissance clients, ARPU, churn, coûts variables et fixes), un bloc revenus, un bloc coûts, et un bloc P&L/cash flow, avec trois scénarios reliés aux mêmes formules mais à des hypothèses différentes.",
+        "avoid": "Mélanger hypothèses et formules dans les mêmes cellules, rendant le modèle impossible à faire évoluer ou à challenger."
       }
     ],
-    "saas_financial_metrics": [
-      {
-        "metric": "MRR (Monthly Recurring Revenue)",
-        "formula": "Somme des revenus récurrents mensuels actifs"
-      },
-      {
-        "metric": "ARR (Annual Recurring Revenue)",
-        "formula": "MRR × 12"
-      },
-      {
-        "metric": "Churn rate (MRR)",
-        "formula": "(MRR perdu dans le mois) / (MRR début du mois)"
-      },
-      {
-        "metric": "CAC",
-        "formula": "(Total dépenses sales + marketing) / (Nouveaux clients acquis dans la période)"
-      },
-      {
-        "metric": "LTV",
-        "formula": "ARPU / Churn rate (ou ARPU × durée de vie moyenne du client)"
-      },
-      {
-        "metric": "LTV/CAC",
-        "formula": "Ratio de rentabilité unitaire — > 3x = viable"
-      },
-      {
-        "metric": "Payback period",
-        "formula": "CAC / (ARPU × Marge brute %) — en mois"
-      }
+    "best_practices": [
+      "Documenter la source ou la justification de chaque hypothèse clé du modèle, pas seulement sa valeur.",
+      "Tester la sensibilité du modèle aux hypothèses les plus incertaines pour identifier les leviers à plus fort impact.",
+      "Mettre à jour le modèle à fréquence régulière avec les données réelles plutôt que de le considérer figé une fois construit.",
+      "Adapter la granularité du modèle à l'usage réel : mensuelle pour le pilotage, trimestrielle pour la planification stratégique."
     ],
-    "modeling_principles": [
-      "Séparer les hypothèses des formules — mettre les hypothèses en haut, les calculs en dessous",
-      "Modéliser les scénarios (pessimiste, base, optimiste) — pas juste le scénario base",
-      "Granularité adaptée : modèle mensuel sur 12 mois, trimestriel sur 3 ans",
-      "Sensibilité aux hypothèses clés — quels inputs ont le plus d'impact sur le résultat ?"
+    "anti_patterns": [
+      "Présenter un scénario unique comme une certitude sans modéliser de variante pessimiste.",
+      "Suivre le chiffre d'affaires ou la croissance des utilisateurs sans jamais surveiller le churn ou la trésorerie.",
+      "Mélanger hypothèses et calculs dans un même bloc, rendant le modèle difficile à auditer ou à faire évoluer.",
+      "Construire un modèle trop détaillé pour l'horizon visé, au détriment de sa lisibilité et de sa maintenabilité."
     ]
   },
-  "example_answers": [
-    {
-      "prompt": "Quelles métriques financières surveiller en priorité pour un SaaS early-stage ?",
-      "answer": "Trois métriques fondamentales : (1) MRR et croissance MoM — le signe de vie de base du SaaS, (2) Churn (en MRR et en clients) — si > 3% mensuel, le bucket a un trou, (3) Runway (mois de cash restants au taux de burn actuel) — te dit combien de temps tu as. En parallèle : CAC et LTV pour valider que le modèle est économiquement viable. Avant le PMF, le MRR et le churn sont les deux signaux les plus importants."
-    },
-    {
-      "prompt": "Comment construire un modèle financier simple pour ma startup ?",
-      "answer": "Structure en 4 blocs dans un tableur : (1) Hypothèses (onglet séparé) : croissance clients, ARPU, churn, coûts variables par client, salaires, autres fixes, (2) Revenus : MRR cumulé mois par mois, (3) Coûts : variables + fixes + salaires, (4) P&L et Cash Flow. Trois scénarios (lier les mêmes formules à des hypothèses différentes). La valeur : forcer à être explicite sur les hypothèses plutôt que de parler de croissance en abstrait. Le tableur est le reflet de votre théorie du business."
-    }
-  ],
-  "response_guidance": {
-    "tone": "stratégique, ancré dans la réalité opérationnelle et les contraintes de marché",
-    "structure": [
-      "analyser le contexte concurrentiel et client",
-      "proposer la lecture stratégique",
-      "recommander les prochaines actions"
+  "retrieval_hints": {
+    "priority_keywords": ["modelisation_financiere", "mrr", "cac", "ltv", "scenarios_financiers"],
+    "related_domains": ["cpl"],
+    "related_knowledge": [
+      "cpl.strategy.strategy_fundamentals",
+      "cpl.business_piloting.profitability_analysis",
+      "cpl.business_piloting.previsionnel_financier_lancement_produit",
+      "cpl.business_strategy.fundraising_strategy"
     ],
-    "avoid": [
-      "conseils trop génériques",
-      "ignorer les contraintes de ressources",
-      "optimisme non fondé"
-    ]
+    "retrieval_priority": 6
   },
-  "tags": [
-    "finance",
-    "modélisation",
-    "MRR",
-    "CAC",
-    "LTV",
-    "SaaS",
-    "stratégie",
-    "business",
-    "CPL"
-  ],
-  "related_knowledge_units": [
-    "knowledges.cpl.strategy.strategy_fundamentals",
-    "knowledges.cpl.business_piloting.profitability_analysis"
-  ]
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["aide à la construction et à l'interprétation d'un modèle financier simple"],
+    "restricted_usage": ["projection financière présentée comme un engagement de résultat certain"],
+    "forbidden_usage": [],
+    "fallback_behavior": "Si les hypothèses du modèle ne sont pas explicitées ou justifiées, recommander leur clarification avant toute interprétation du résultat projeté."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "20/08/2026",
+    "last_update": "20/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
 }

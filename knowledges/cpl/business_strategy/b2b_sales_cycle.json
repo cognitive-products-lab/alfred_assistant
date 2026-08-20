@@ -1,119 +1,95 @@
 {
   "schema_version": "1.2",
   "type": "knowledge_unit",
-  "id": "knowledges.cpl.business_strategy.b2b_sales_cycle",
+  "knowledge_id": "cpl.business_strategy.b2b_sales_cycle",
   "title": "Cycle de vente B2B",
+  "version": "1.1.0",
+  "status": "active",
   "domain": "cpl",
   "subdomain": "business_strategy",
-  "status": "validated",
-  "summary": "La vente B2B est un processus structuré en étapes — de la prospection au closing — avec de multiples parties prenantes, des cycles longs (3-18 mois) et des enjeux élevés. Chaque étape a ses techniques et ses KPIs spécifiques.",
-  "core_definition": "Le cycle de vente B2B est le processus structuré par lequel une entreprise identifie des prospects, qualifie leur intérêt et leur capacité d'achat, propose une solution adaptée, négocie les conditions et close la transaction, souvent avec plusieurs interlocuteurs et sur des cycles de plusieurs mois.",
-  "knowledge": {
-    "sales_stages": [
+  "category": "strategie_commerciale",
+  "summary": "La vente B2B est un processus structuré en étapes — de la prospection au closing — avec de multiples parties prenantes, des cycles longs (3-18 mois) et des enjeux élevés. Chaque étape a ses techniques et ses critères de sortie propres.",
+  "purpose": "Donner un cadre structuré du cycle de vente B2B et des méthodes de qualification associées, pour accompagner ou piloter une activité commerciale de conseil ou de produit.",
+  "tags": ["vente b2b", "cycle de vente", "bant", "meddic", "closing", "stratégie", "business"],
+  "intents": ["structure_b2b_sales_cycle", "qualify_lead", "handle_sales_objection"],
+  "usage_context": [
+    "structuration d'un pipeline commercial B2B",
+    "qualification d'un prospect avant d'engager des ressources commerciales",
+    "gestion d'une objection ou d'un ralentissement dans le cycle de vente"
+  ],
+  "priority": "high",
+  "safety_level": "normal",
+  "content": {
+    "definition": "Le cycle de vente B2B est le processus structuré par lequel une entreprise identifie des prospects, qualifie leur intérêt et leur capacité d'achat, propose une solution adaptée, négocie les conditions et close la transaction, souvent avec plusieurs interlocuteurs et sur des cycles de plusieurs mois.",
+    "core_principles": [
+      "Le cycle de vente B2B se décompose en étapes à critères de sortie explicites (prospection, qualification, découverte, proposition, négociation, closing) — chaque étape doit être validée avant de passer à la suivante pour éviter de faire avancer artificiellement des opportunités non mûres.",
+      "Les cadres de qualification (BANT pour une qualification rapide, MEDDIC pour les grands comptes, SPIN pour révéler les besoins par le questionnement) réduisent le risque de poursuivre des opportunités qui n'aboutiront jamais.",
+      "Un cycle de vente B2B long implique généralement plusieurs parties prenantes (utilisateur, acheteur économique, validateur technique) qu'il faut identifier et adresser individuellement.",
+      "La longueur du cycle de vente est directement corrélée à la clarté du business case chiffré présenté au client — un ROI démontré accélère la décision."
+    ],
+    "rules": [
+      "Qualifier avant d'investir du temps commercial : ne poursuivre que les leads réunissant budget, autorité, besoin et timing alignés.",
+      "Identifier le champion interne (la personne qui pousse le deal en interne) tôt dans le cycle plutôt qu'en fin de négociation.",
+      "Cartographier le processus de décision du client (qui signe, qui approuve, qui peut bloquer) avant de considérer une opportunité comme avancée.",
+      "Distinguer un report réel ('pas maintenant' avec une date ou un événement identifié) d'un refus poli sans engagement concret."
+    ],
+    "examples": [
       {
-        "stage": "Prospection",
-        "activities": [
-          "Cold outreach",
-          "Inbound qualification",
-          "Referrals"
-        ],
-        "exit_criteria": "Contact établi avec un décideur ou influenceur"
+        "situation": "Un cycle de vente B2B s'étire sur plusieurs mois sans progression visible malgré des échanges réguliers avec l'interlocuteur principal.",
+        "recommended_behavior": "Vérifier si un champion interne a été identifié et si le processus de décision (qui signe, qui approuve) est cartographié ; si ce n'est pas le cas, recentrer les efforts sur la qualification plutôt que de poursuivre des échanges sans structure de décision claire.",
+        "avoid": "Continuer à multiplier les échanges avec le même interlocuteur sans jamais vérifier son autorité réelle de décision."
       },
       {
-        "stage": "Qualification",
-        "activities": [
-          "Discovery call",
-          "Qualification BANT/MEDDIC"
-        ],
-        "exit_criteria": "Budget, Autorité, Besoin, Timing confirmés"
-      },
-      {
-        "stage": "Découverte",
-        "activities": [
-          "Demo",
-          "Questions approfondies",
-          "Identification des enjeux"
-        ],
-        "exit_criteria": "Pain points documentés, champion interne identifié"
-      },
-      {
-        "stage": "Proposition",
-        "activities": [
-          "Rédaction offre",
-          "Proof of Concept",
-          "Validation technique"
-        ],
-        "exit_criteria": "Offre présentée et reçue positivement"
-      },
-      {
-        "stage": "Négociation",
-        "activities": [
-          "Révisions commerciales",
-          "Legal review",
-          "Mise en concurrence"
-        ],
-        "exit_criteria": "Accord sur les termes principaux"
-      },
-      {
-        "stage": "Closing",
-        "activities": [
-          "Signature",
-          "PO",
-          "KickOff"
-        ],
-        "exit_criteria": "Contrat signé et premier versement reçu"
+        "situation": "Un prospect répond 'c'est intéressant mais pas maintenant' lors d'un point de qualification.",
+        "recommended_behavior": "Poser des questions concrètes ('qu'est-ce qui doit se passer pour que ça devienne une priorité ?', 'quel événement changerait votre timing ?') ; si une réponse précise émerge, programmer une relance avant cette échéance, sinon dé-prioriser l'opportunité.",
+        "avoid": "Accepter le report sans creuser, et relancer au hasard sans date ni déclencheur identifié."
       }
     ],
-    "qualification_frameworks": [
-      {
-        "framework": "BANT",
-        "criteria": "Budget, Authority, Need, Timing — qualification rapide en discovery"
-      },
-      {
-        "framework": "MEDDIC",
-        "criteria": "Metrics, Economic Buyer, Decision Criteria, Decision Process, Identify Pain, Champion — rigoureux pour les grands comptes"
-      },
-      {
-        "framework": "SPIN",
-        "criteria": "Situation, Problem, Implication, Need-payoff — technique de questionnement pour révéler les besoins"
-      }
-    ]
-  },
-  "example_answers": [
-    {
-      "prompt": "Comment réduire la durée de mon cycle de vente B2B ?",
-      "answer": "Cinq leviers : (1) Qualifier mieux en amont — ne poursuivre que les leads qui ont budget + autorité + besoin + timing alignés. (2) Identifier le champion interne tôt — la personne qui pousse le deal de l'intérieur. (3) Proposer un POC ou pilote payant plutôt qu'un essai gratuit — engage le prospect. (4) Cartographier le processus de décision (qui signe, qui approuve, qui peut bloquer) et adresser chaque partie prenante. (5) Business case chiffré — les deals qui avancent vite ont une justification ROI claire."
-    },
-    {
-      "prompt": "Comment gérer un prospect qui dit 'c'est intéressant mais pas maintenant' ?",
-      "answer": "Distinguer le 'pas maintenant' réel du 'non poli'. Questions utiles : 'Qu'est-ce qui doit se passer pour que ça devienne une priorité ?' et 'Quel est l'événement ou la date qui changerait votre timing ?' Si une réponse concrète émerge (budget Q1, fin de contrat existant en mars), c'est un 'pas maintenant' réel — mettre un rappel et reprendre le contact avant cette date. Si la réponse est vague → probabilité de closing faible, à dés-prioriser."
-    }
-  ],
-  "response_guidance": {
-    "tone": "stratégique, ancré dans la réalité opérationnelle et les contraintes de marché",
-    "structure": [
-      "analyser le contexte concurrentiel et client",
-      "proposer la lecture stratégique",
-      "recommander les prochaines actions"
+    "best_practices": [
+      "Utiliser un cadre de qualification adapté à la taille du deal (BANT pour un cycle court, MEDDIC pour un grand compte).",
+      "Documenter le processus de décision de chaque opportunité dans le CRM, pas seulement le contact principal.",
+      "Proposer un POC ou un pilote payant plutôt qu'un essai gratuit pour engager réellement le prospect.",
+      "Construire un business case chiffré dès la phase de découverte plutôt qu'en fin de cycle."
     ],
-    "avoid": [
-      "conseils trop génériques",
-      "ignorer les contraintes de ressources",
-      "optimisme non fondé"
+    "anti_patterns": [
+      "Faire avancer une opportunité dans le pipeline sans que les critères de sortie de l'étape précédente soient réellement remplis.",
+      "Ignorer l'absence de champion interne identifié jusqu'à ce que le deal stagne sans explication.",
+      "Traiter tout report comme un refus déguisé ou, à l'inverse, comme un accord de principe sans vérification.",
+      "Négocier le prix avant d'avoir confirmé l'alignement sur le besoin et le processus de décision."
     ]
   },
-  "tags": [
-    "vente B2B",
-    "cycle de vente",
-    "BANT",
-    "MEDDIC",
-    "closing",
-    "stratégie",
-    "business",
-    "CPL"
-  ],
-  "related_knowledge_units": [
-    "knowledges.cpl.strategy.strategy_fundamentals",
-    "knowledges.cpl.business_piloting.profitability_analysis"
-  ]
+  "retrieval_hints": {
+    "priority_keywords": ["cycle_vente_b2b", "bant", "meddic", "qualification", "champion_interne"],
+    "related_domains": ["cpl"],
+    "related_knowledge": [
+      "cpl.strategy.strategy_fundamentals",
+      "cpl.business_piloting.profitability_analysis",
+      "cpl.business_strategy.go_to_market_strategy",
+      "cpl.human_communication.techniques_negociation_commerciale_contexte_conseil"
+    ],
+    "retrieval_priority": 6
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["aide à la structuration et à la qualification d'un cycle de vente B2B"],
+    "restricted_usage": ["promesse de closing chiffrée sans donnée réelle sur l'opportunité"],
+    "forbidden_usage": [],
+    "fallback_behavior": "Si le processus de décision du prospect n'est pas cartographié, recommander cette cartographie avant toute estimation de probabilité de closing."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "20/08/2026",
+    "last_update": "20/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
 }
