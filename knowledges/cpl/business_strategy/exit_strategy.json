@@ -1,83 +1,94 @@
 {
   "schema_version": "1.2",
   "type": "knowledge_unit",
-  "id": "knowledges.cpl.business_strategy.exit_strategy",
+  "knowledge_id": "cpl.business_strategy.exit_strategy",
   "title": "Stratégie de sortie (exit)",
+  "version": "1.1.0",
+  "status": "active",
   "domain": "cpl",
   "subdomain": "business_strategy",
-  "status": "validated",
+  "category": "strategie_financiere",
   "summary": "La stratégie de sortie définit comment les fondateurs et investisseurs récupèrent leur investissement — par acquisition, IPO ou cession. La réflexion sur l'exit influence les décisions stratégiques bien avant la sortie elle-même.",
-  "core_definition": "La stratégie de sortie est la planification des voies par lesquelles les fondateurs et investisseurs d'une entreprise peuvent liquider ou céder tout ou partie de leur participation, incluant l'acquisition, l'introduction en bourse (IPO) ou la cession à des partenaires stratégiques.",
-  "knowledge": {
-    "exit_options": [
+  "purpose": "Donner un cadre des options de sortie et des leviers de préparation permettant de maximiser la valeur d'une entreprise avant une opération de cession ou d'introduction en bourse.",
+  "tags": ["exit", "acquisition", "ipo", "valorisation", "cession", "stratégie", "business"],
+  "intents": ["evaluate_exit_options", "prepare_for_acquisition", "maximize_valuation"],
+  "usage_context": [
+    "réflexion sur les options de sortie disponibles pour une entreprise",
+    "préparation d'une entreprise à une acquisition ou une levée secondaire",
+    "compréhension de l'impact de la valorisation sur les décisions stratégiques courantes"
+  ],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "La stratégie de sortie est la planification des voies par lesquelles les fondateurs et investisseurs d'une entreprise peuvent liquider ou céder tout ou partie de leur participation, incluant l'acquisition stratégique, l'acquisition financière, l'introduction en bourse (IPO) ou la cession partielle/secondaire.",
+    "core_principles": [
+      "Les principales options de sortie (acquisition stratégique, acquisition financière/private equity, IPO, cession partielle) ont des profils très différents de rapidité, de coût de processus et de conséquences pour les fondateurs.",
+      "Un exit réussi est la conséquence d'une entreprise bien construite — product-market fit fort, métriques solides, équipe compétente et autonome, propriété intellectuelle protégée, clients diversifiés — pas d'une planification tardive de dernière minute.",
+      "Les leviers de valorisation dans une acquisition sont concentrés : revenu récurrent et taux de croissance, churn faible, diversification client, barrières à la sortie du client (switching costs), et autonomie de l'équipe vis-à-vis du fondateur.",
+      "La préparation à un exit (audits financiers propres, diversification de la base client, autonomie du management, documentation de la propriété intellectuelle) est aussi ce qui rend une entreprise durable si elle ne se vend finalement pas."
+    ],
+    "rules": [
+      "Ne pas planifier l'exit comme un objectif en soi dès le début de l'entreprise, mais construire les éléments qui le rendraient possible s'il devenait pertinent.",
+      "Engager les audits financiers et la documentation de la propriété intellectuelle bien avant tout processus de cession, jamais dans l'urgence d'une opportunité soudaine.",
+      "Réduire la dépendance à un client concentré (supérieur à 20% du chiffre d'affaires) indépendamment de toute perspective d'exit, car ce risque affecte aussi la valorisation courante.",
+      "Rendre l'équipe de management autonome vis-à-vis du fondateur, un acquéreur ne souhaitant généralement pas racheter une entreprise dépendante d'une seule personne."
+    ],
+    "examples": [
       {
-        "option": "Acquisition stratégique",
-        "description": "Rachat par un acteur du secteur qui cherche à acquérir la technologie, l'équipe ou les clients",
-        "advantage": "Processus plus rapide, prime de contrôle",
-        "consideration": "Risque d'absorption de la culture et du produit"
+        "situation": "Un fondateur se demande s'il doit penser à son exit dès le lancement de sa startup.",
+        "recommended_behavior": "Recentrer la réflexion sur la construction d'une entreprise ayant de la valeur intrinsèque (product-market fit, métriques solides, équipe compétente, propriété intellectuelle protégée, clients diversifiés) plutôt que sur la planification d'une sortie — ces éléments rendent l'entreprise à la fois durable si elle n'est pas vendue et attractive si une opportunité se présente.",
+        "avoid": "Orienter les décisions stratégiques précoces uniquement en fonction d'un scénario de sortie hypothétique et lointain."
       },
       {
-        "option": "Acquisition financière (PE)",
-        "description": "Rachat par un fonds de private equity qui optimise puis revend",
-        "advantage": "Fondateurs souvent remplacés par des managers professionnels",
-        "consideration": "Fréquent pour les entreprises rentables mais à croissance modérée"
-      },
-      {
-        "option": "IPO",
-        "description": "Introduction en bourse",
-        "advantage": "Liquidité pour tous, visibilité, accès aux marchés de capitaux",
-        "consideration": "Process lourd (12-24 mois), coûteux, pression trimestrielle"
-      },
-      {
-        "option": "Cession partielle / secondaire",
-        "description": "Vente partielle de parts par les fondateurs ou investisseurs early",
-        "advantage": "Liquidité sans exit total",
-        "consideration": "Possible à partir de la Série B dans un processus structuré"
+        "situation": "Une entreprise envisage une acquisition dans les 12 prochains mois et souhaite maximiser sa valorisation.",
+        "recommended_behavior": "Prioriser les audits financiers propres, la documentation de la propriété intellectuelle, la réduction de la dépendance à un client concentré, et la démonstration d'une équipe de management autonome, plutôt que de se concentrer uniquement sur la croissance du chiffre d'affaires à court terme.",
+        "avoid": "Se concentrer uniquement sur la croissance du chiffre d'affaires en ignorant la documentation, la diversification client et l'autonomie de l'équipe qui déterminent la valorisation réelle."
       }
     ],
-    "exit_preparation": [
-      "Audits financiers propres (3 ans minimum)",
-      "Diversification de la base client (pas de dépendance à un client > 20%)",
-      "Equipe de management autonome (pas indispensable au fondateur)",
-      "IP et actifs technologiques documentés et protégés",
-      "Métriques clés trackées et présentables"
-    ]
-  },
-  "example_answers": [
-    {
-      "prompt": "Dois-je penser à mon exit dès le début de ma startup ?",
-      "answer": "Pas au sens de 'planifier la sortie' mais au sens de 'construire une entreprise qui a de la valeur'. Un exit réussi est la conséquence d'une entreprise bien construite — PMF fort, métriques solides, équipe compétente, IP protégée, clients diversifiés. Ces éléments rendent une entreprise attractive pour un acquéreur, mais ils sont aussi exactement ce qui rend l'entreprise durable si on ne vend pas. Donc : construire bien, réfléchir à l'exit si et quand une opportunité se présente."
-    },
-    {
-      "prompt": "Comment maximiser la valeur d'une entreprise avant une acquisition ?",
-      "answer": "Les leviers de valorisation dans une acquisition : (1) Revenu récurrent (ARR) et croissance — le multiple payé dépend du taux de croissance, (2) Churn faible — gage de qualité produit et de satisfaction client, (3) Diversification client — pas de dépendance critique, (4) Barrières à la sortie (switching costs) — les clients ne partent pas facilement, (5) Equipe clé non-dépendante du fondateur — l'acquéreur ne veut pas racheter une personne. Action 12 mois avant : audits propres, documentation IP, plan de transition de l'équipe."
-    }
-  ],
-  "response_guidance": {
-    "tone": "stratégique, ancré dans la réalité opérationnelle et les contraintes de marché",
-    "structure": [
-      "analyser le contexte concurrentiel et client",
-      "proposer la lecture stratégique",
-      "recommander les prochaines actions"
+    "best_practices": [
+      "Maintenir des audits financiers à jour et documentés en continu, pas seulement en anticipation d'un processus de cession.",
+      "Suivre en continu la concentration client comme un indicateur de risque, indépendamment de toute perspective d'exit.",
+      "Documenter et protéger la propriété intellectuelle et les actifs technologiques au fur et à mesure de leur création.",
+      "Développer l'autonomie de décision de l'équipe de management pour réduire la dépendance au fondateur."
     ],
-    "avoid": [
-      "conseils trop génériques",
-      "ignorer les contraintes de ressources",
-      "optimisme non fondé"
+    "anti_patterns": [
+      "Attendre l'ouverture d'un processus de cession pour commencer à documenter la propriété intellectuelle ou nettoyer les comptes.",
+      "Concentrer la stratégie commerciale sur un ou deux très gros clients sans plan de diversification.",
+      "Maintenir une dépendance opérationnelle critique au fondateur jusqu'au moment de la cession.",
+      "Considérer l'exit comme un objectif indépendant de la construction de valeur réelle de l'entreprise."
     ]
   },
-  "tags": [
-    "exit",
-    "acquisition",
-    "IPO",
-    "valorisation",
-    "cession",
-    "stratégie",
-    "business",
-    "CPL"
-  ],
-  "related_knowledge_units": [
-    "knowledges.cpl.strategy.strategy_fundamentals",
-    "knowledges.cpl.business_piloting.profitability_analysis"
-  ]
+  "retrieval_hints": {
+    "priority_keywords": ["exit", "acquisition", "ipo", "valorisation", "diversification_client"],
+    "related_domains": ["cpl"],
+    "related_knowledge": [
+      "cpl.strategy.strategy_fundamentals",
+      "cpl.business_strategy.fundraising_strategy",
+      "cpl.business_piloting.profitability_analysis"
+    ],
+    "retrieval_priority": 5
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["aide à la compréhension des options de sortie et à la préparation d'une valorisation"],
+    "restricted_usage": ["conseil juridique, fiscal ou financier définitif sur une opération de cession"],
+    "forbidden_usage": [],
+    "fallback_behavior": "Pour toute opération de cession ou de levée engagée, recommander l'accompagnement d'un conseil juridique et financier spécialisé plutôt qu'une décision fondée uniquement sur ce cadre général."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "20/08/2026",
+    "last_update": "20/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
 }
