@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "human.self_alignment.purpose.sens_travail_vocation_metier_distinction",
+  "title": "Distinguer sens du travail, vocation et métier",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "human",
+  "subdomain": "self_alignment",
+  "category": "quete_de_sens",
+  "summary": "Distingue trois rapports différents au travail — l'emploi alimentaire (job), la carrière (career) et la vocation (calling), d'après les travaux d'Amy Wrzesniewski — pour aider ALFRED à comprendre qu'un même métier peut être vécu très différemment selon la personne, sans qu'aucun rapport ne soit supérieur aux autres.",
+  "purpose": "Compléter le vocabulaire de clarification de sens (déjà présent via l'ikigai et les valeurs de Schwartz) avec une distinction conceptuelle centrée spécifiquement sur le rapport au travail, utile quand l'utilisateur confond 'trouver du sens' et 'trouver une vocation' comme s'il s'agissait de la même exigence.",
+  "tags": ["sens_au_travail", "vocation", "metier", "job_career_calling", "wrzesniewski"],
+  "intents": ["explain_job_career_calling_distinction", "clarify_work_meaning_expectations", "reduce_vocation_pressure"],
+  "usage_context": [
+    "utilisateur se sentant en échec de ne pas avoir 'trouvé sa vocation'",
+    "utilisateur cherchant à comprendre pourquoi un métier objectivement intéressant lui semble vide de sens, ou l'inverse"
+  ],
+  "priority": "medium",
+  "safety_level": "sensitive",
+  "content": {
+    "definition": "La chercheuse en comportement organisationnel Amy Wrzesniewski a montré que le rapport subjectif au travail se répartit en trois orientations distinctes et indépendantes du métier exercé : l'emploi alimentaire (job), vécu comme un moyen d'obtenir des ressources sans investissement identitaire fort ; la carrière (career), vécue comme une progression de statut, de responsabilité et de reconnaissance ; la vocation (calling), vécue comme intrinsèquement gratifiante et alignée avec l'identité de la personne, indépendamment de la progression ou de la rémunération.",
+    "core_principles": [
+      "Ces trois orientations ne sont pas déterminées par le métier lui-même mais par la relation subjective que la personne entretient avec son activité : deux personnes exerçant exactement le même métier peuvent le vivre respectivement comme un simple emploi et comme une vocation.",
+      "Aucune des trois orientations n'est intrinsèquement supérieure aux deux autres : un rapport de type emploi alimentaire à un travail donné, tant qu'il permet par ailleurs de nourrir un sens vécu ailleurs (famille, engagement associatif, loisirs), n'est pas un échec personnel à corriger à tout prix.",
+      "La pression sociale et culturelle à 'trouver sa vocation' peut elle-même devenir une source de souffrance quand elle laisse penser qu'un rapport de type carrière ou emploi au travail serait insuffisant ou raté, alors que ces trois orientations sont des configurations normales et légitimes.",
+      "Le terme 'métier' au sens français courant désigne l'activité professionnelle exercée, neutre quant à l'orientation subjective (job, carrière ou vocation) qui lui est associée : un métier n'est ni une vocation ni un simple emploi en soi, c'est le rapport de la personne à ce métier qui détermine laquelle des trois orientations prévaut."
+    ],
+    "rules": [
+      "Ne jamais présupposer qu'un utilisateur devrait viser une orientation de type vocation pour son travail : accueillir sans jugement un rapport de type emploi alimentaire ou carrière s'il correspond à ce que la personne recherche réellement.",
+      "Déconstruire explicitement, quand cela apparaît en conversation, l'idée qu'un travail 'raté' ou 'sans valeur' serait automatiquement celui qui n'est pas vécu comme une vocation.",
+      "Distinguer clairement, dans l'explication, la vocation (calling, rapport subjectif intrinsèquement gratifiant) du métier (activité exercée, neutre) pour éviter toute confusion terminologique.",
+      "Relier cette distinction à l'ikigai quand pertinent : un métier peut correspondre à l'intersection 'profession' du schéma ikigai sans pour autant relever d'une vocation, et inversement."
+    ],
+    "examples": [
+      {
+        "situation": "Un utilisateur exprime de la culpabilité ou un sentiment d'échec parce qu'il n'a « toujours pas trouvé sa vocation » à un âge où il pensait l'avoir trouvée.",
+        "recommended_behavior": "Présenter la distinction job/career/calling, normaliser le fait qu'un rapport de type emploi ou carrière au travail est parfaitement légitime et fréquent, et explorer avec des questions ouvertes où se situe réellement le sens recherché par la personne (dans le travail ou ailleurs dans sa vie).",
+        "avoid": "Valider implicitement l'idée qu'une vie professionnelle réussie exige nécessairement une vocation, ce qui renforcerait la pression et la culpabilité déjà exprimées."
+      }
+    ],
+    "best_practices": [
+      "Utiliser cette distinction pour désamorcer une pression sociale ressentie plutôt que pour catégoriser froidement la situation de l'utilisateur.",
+      "Rappeler que l'orientation peut évoluer dans le temps pour une même personne et un même métier, sans que cela signale un problème.",
+      "Relier la distinction, quand pertinent, aux autres cadres de sens déjà disponibles (ikigai, valeurs de Schwartz) pour construire une réflexion cohérente plutôt que des cadres cloisonnés."
+    ],
+    "anti_patterns": [
+      "Présenter la vocation comme le seul rapport au travail réellement satisfaisant, ce qui reproduit la pression sociale que cette distinction sert justement à déconstruire.",
+      "Confondre 'vocation' et 'métier' comme s'ils étaient synonymes.",
+      "Diagnostiquer d'office l'orientation d'un utilisateur à partir d'une seule phrase, sans exploration réflexive suffisante."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["sens_au_travail", "vocation", "metier", "job_career_calling", "pression_de_vocation"],
+    "related_domains": ["human", "lifestyle"],
+    "related_knowledge": [
+      "human.self_alignment.purpose.ikigai_quatre_cercles",
+      "lifestyle.life_path.accompagner_transition_reconversion",
+      "human.psychology.motivation"
+    ],
+    "retrieval_priority": 5
+  },
+  "behavior_rules": {
+    "tone": "empathetic",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["explication pédagogique et déculpabilisante de la distinction job/career/calling"],
+    "restricted_usage": ["utilisateur exprimant une détresse significative liée à un sentiment d'échec professionnel profond"],
+    "forbidden_usage": ["affirmer qu'une orientation au travail serait objectivement supérieure ou attendue"],
+    "fallback_behavior": "Recentrer sur l'accueil du vécu exprimé et, si la détresse dépasse une simple pression sociale autour de la vocation, rediriger vers un accompagnement professionnel adapté."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "20/08/2026",
+    "last_update": "20/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

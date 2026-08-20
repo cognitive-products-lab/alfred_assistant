@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "human.self_alignment.purpose.ikigai_accompagnement_reflexion_guidee",
+  "title": "Accompagner une réflexion ikigai pas à pas",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "human",
+  "subdomain": "self_alignment",
+  "category": "quete_de_sens",
+  "summary": "Méthode concrète en quatre étapes pour qu'ALFRED guide un utilisateur dans une réflexion de type ikigai — questions ouvertes par cercle, mise en évidence des intersections, synthèse finale — en restant un facilitateur non thérapeutique, jamais un prescripteur de décision de vie.",
+  "purpose": "Rendre le framework décrit dans human.self_alignment.purpose.ikigai_quatre_cercles réellement actionnable en conversation, avec un déroulé concret qu'ALFRED peut suivre sans improviser, cohérent avec la posture non thérapeutique déjà en vigueur (voir human.wellbeing.support_without_diagnosis).",
+  "tags": ["ikigai", "exercice_guide", "questions_ouvertes", "reflexion_de_sens", "accompagnement"],
+  "intents": ["guide_ikigai_exercise", "ask_purpose_reflection_questions", "synthesize_personal_purpose"],
+  "usage_context": [
+    "utilisateur souhaitant explorer concrètement son ikigai plutôt que seulement comprendre le concept",
+    "utilisateur en recherche de sens professionnel ou personnel demandant un exercice structuré"
+  ],
+  "priority": "medium",
+  "safety_level": "sensitive",
+  "content": {
+    "definition": "L'accompagnement d'une réflexion ikigai est un exercice conversationnel structuré en quatre temps (un par cercle) suivi d'une synthèse des intersections, dans lequel ALFRED pose des questions ouvertes pour faire émerger le contenu de chaque cercle chez l'utilisateur, sans jamais lui suggérer de réponses toutes faites.",
+    "core_principles": [
+      "Chaque cercle appelle un registre de questions distinct : pour « j'aime », des questions sur l'énergie et le plaisir (qu'est-ce qui te fait perdre la notion du temps ? qu'est-ce que tu ferais même sans être payé ?) ; pour « je suis doué pour », des questions sur les retours reçus et les facilités reconnues (qu'est-ce que les autres viennent te demander naturellement ? qu'est-ce qui te semble facile alors que ça semble difficile pour d'autres ?) ; pour « le monde a besoin », des questions sur l'utilité perçue et les problèmes qui interpellent (quel problème autour de toi te donne envie d'agir ? à qui rendrais-tu service si tu pouvais ?) ; pour « je peux être payé pour », des questions factuelles sur la viabilité économique réelle (qu'est-ce qui, parmi tout ça, a déjà une valeur marchande reconnue ou pourrait raisonnablement en avoir une ?).",
+      "L'ordre recommandé commence par « j'aime » et « je suis doué pour » (dimensions plus accessibles et moins anxiogènes) avant d'aborder « le monde a besoin » et « je peux être payé pour » (dimensions plus contraintes par la réalité extérieure), pour construire la réflexion sur une base positive avant de la confronter au réel.",
+      "La synthèse finale ne consiste pas à annoncer un ikigai unique et définitif, mais à nommer avec l'utilisateur les intersections qui se dessinent (où se recoupent plusieurs cercles) et les tensions ou vides qui apparaissent (cercles qui ne se recoupent avec aucun autre), matière à réflexion plutôt que verdict.",
+      "L'exercice peut être interrompu et repris à tout moment sur plusieurs échanges : il n'a pas besoin d'être complété en une seule conversation, et une réflexion partielle a déjà de la valeur en soi."
+    ],
+    "rules": [
+      "Poser une question à la fois plutôt qu'une liste de questions d'un coup, pour laisser l'utilisateur approfondir sa réponse avant de passer à la suivante.",
+      "Reformuler et refléter ce que l'utilisateur exprime avant d'enchaîner sur la question suivante, pour montrer que la réponse a été entendue et l'aider à l'affiner.",
+      "Ne jamais suggérer de métier, de secteur ou de décision de vie précise à partir des réponses recueillies : nommer les intersections observées, pas les traduire en recommandation concrète.",
+      "Rediriger vers un accompagnement professionnel (bilan de compétences, coach, psychologue) si la réflexion fait émerger une détresse significative ou une décision de vie complexe dépassant le cadre d'un exercice réflexif ponctuel."
+    ],
+    "examples": [
+      {
+        "situation": "Un utilisateur dit vouloir « faire l'exercice de l'ikigai » pour y voir plus clair sur sa situation professionnelle.",
+        "recommended_behavior": "Proposer de commencer par le cercle « j'aime » avec une question ouverte simple (qu'est-ce qui te fait perdre la notion du temps quand tu le fais ?), attendre et approfondir la réponse, puis progresser cercle par cercle dans l'ordre recommandé, avant une synthèse conjointe des intersections observées.",
+        "avoid": "Envoyer d'un coup les quatre questions des quatre cercles dans un seul message, ce qui transforme l'exercice en questionnaire à remplir plutôt qu'en réflexion accompagnée."
+      }
+    ],
+    "best_practices": [
+      "Adapter le rythme de l'exercice à l'utilisateur : certaines personnes avancent vite sur un cercle et bloquent longtemps sur un autre, ce qui est normal et informatif en soi.",
+      "Nommer explicitement, dans la synthèse, les cercles qui semblent peu remplis ou peu reliés aux autres, car ce sont souvent les zones les plus révélatrices pour la suite de la réflexion.",
+      "Proposer de reprendre l'exercice plus tard si l'utilisateur semble fatigué ou peu inspiré sur un cercle, plutôt que de forcer une réponse immédiate."
+    ],
+    "anti_patterns": [
+      "Transformer l'exercice en questionnaire fermé à cocher plutôt qu'en conversation réflexive ouverte.",
+      "Annoncer un « ikigai » définitif et personnel à la place de l'utilisateur à l'issue de l'exercice.",
+      "Enchaîner directement de la synthèse à une recommandation de métier ou de décision de vie précise."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["ikigai", "exercice_guide", "reflexion_de_sens", "questions_ouvertes", "synthese"],
+    "related_domains": ["human", "lifestyle"],
+    "related_knowledge": [
+      "human.self_alignment.purpose.ikigai_quatre_cercles",
+      "human.wellbeing.support_without_diagnosis",
+      "lifestyle.life_path.clarifier_direction_de_vie_valeurs",
+      "human.self_alignment.purpose.mission_personnelle_redaction"
+    ],
+    "retrieval_priority": 6
+  },
+  "behavior_rules": {
+    "tone": "empathetic",
+    "response_style": "step_by_step",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["animation d'un exercice réflexif ikigai non thérapeutique, à l'initiative de l'utilisateur"],
+    "restricted_usage": ["utilisateur exprimant une détresse psychologique significative pendant l'exercice"],
+    "forbidden_usage": ["recommander un métier, un secteur ou une décision de vie précise à l'issue de l'exercice", "se substituer à un bilan de compétences professionnel formel"],
+    "fallback_behavior": "Interrompre l'exercice pour accueillir la difficulté exprimée si une détresse significative apparaît, et rediriger vers un professionnel compétent (coach, psychologue) avant, éventuellement, de reprendre plus tard."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "20/08/2026",
+    "last_update": "20/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}
