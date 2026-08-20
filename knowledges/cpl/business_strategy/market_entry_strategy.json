@@ -1,106 +1,95 @@
 {
   "schema_version": "1.2",
   "type": "knowledge_unit",
-  "id": "knowledges.cpl.business_strategy.market_entry_strategy",
+  "knowledge_id": "cpl.business_strategy.market_entry_strategy",
   "title": "Stratégie d'entrée sur un marché",
+  "version": "1.1.0",
+  "status": "active",
   "domain": "cpl",
   "subdomain": "business_strategy",
-  "status": "validated",
+  "category": "strategie_marche",
   "summary": "L'entrée sur un nouveau marché (géographique, sectoriel ou de segment) requiert d'analyser l'attractivité du marché, les barrières à l'entrée, les modes d'entrée possibles et le séquençage optimal pour minimiser le risque.",
-  "core_definition": "La stratégie d'entrée sur un marché est l'ensemble des décisions définissant comment et dans quel ordre une entreprise pénètre un nouveau marché — incluant le choix du mode d'entrée (organique, acquisition, partenariat), la segmentation prioritaire, le positionnement adapté et les ressources allouées.",
-  "knowledge": {
-    "market_entry_modes": [
+  "purpose": "Donner un cadre d'évaluation et de séquençage pour une décision d'entrée sur un nouveau marché géographique ou sectoriel.",
+  "tags": ["marché", "entrée", "international", "expansion", "acquisition", "stratégie", "business"],
+  "intents": ["evaluate_new_market", "choose_market_entry_mode", "sequence_international_expansion"],
+  "usage_context": [
+    "évaluation de l'attractivité d'un nouveau marché sectoriel ou géographique",
+    "choix du mode d'entrée (organique, acquisition, partenariat, franchise)",
+    "séquençage d'une expansion internationale"
+  ],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "La stratégie d'entrée sur un marché est l'ensemble des décisions définissant comment et dans quel ordre une entreprise pénètre un nouveau marché, incluant le choix du mode d'entrée (organique, acquisition, partenariat/JV, franchise/licence), la segmentation prioritaire, le positionnement adapté et les ressources allouées.",
+    "core_principles": [
+      "Chaque mode d'entrée (organique, acquisition, partenariat/joint-venture, franchise/licence) présente un arbitrage propre entre contrôle, vitesse, coût et risque d'intégration.",
+      "L'évaluation d'un nouveau marché repose sur quatre critères combinés : taille et croissance, intensité concurrentielle des acteurs en place, barrières réglementaires ou culturelles, et viabilité économique locale (coût d'acquisition client, structure de coûts).",
+      "L'entrée sur un marché ne doit jamais reposer sur la seule taille apparente du marché sans validation du fit produit réel et des barrières spécifiques à ce marché.",
+      "L'expansion internationale doit être séquentielle plutôt que simultanée : commencer par le marché le plus proche culturellement et linguistiquement pour apprendre à moindre coût avant d'attaquer des marchés plus éloignés."
+    ],
+    "rules": [
+      "Évaluer systématiquement les quatre critères (taille/croissance, intensité concurrentielle, barrières, viabilité économique) avant de considérer un marché comme prioritaire.",
+      "Choisir le mode d'entrée en fonction des ressources disponibles et du niveau de risque acceptable, pas uniquement de la rapidité souhaitée.",
+      "Séquencer l'entrée sur plusieurs marchés plutôt que de les attaquer simultanément, pour concentrer l'apprentissage et les ressources.",
+      "Recruter ou s'associer à une ressource locale ayant un réseau établi avant d'engager des ressources significatives sur un marché géographique éloigné."
+    ],
+    "examples": [
       {
-        "mode": "Organique",
-        "description": "Développer soi-même la présence sur le nouveau marché",
-        "pros": [
-          "Contrôle total",
-          "Coût d'entrée graduel"
-        ],
-        "cons": [
-          "Lent",
-          "Manque de relations locales"
-        ]
+        "situation": "Évaluer si un nouveau marché sectoriel vaut la peine d'être adressé.",
+        "recommended_behavior": "Vérifier successivement la taille et la croissance du marché, le fit réel du produit avec un besoin non adressé dans ce secteur, les barrières d'entrée face aux acteurs établis, et la viabilité économique (prix acceptables, coût d'acquisition supportable) — un score positif sur trois des quatre critères est un signal d'exploration raisonnable.",
+        "avoid": "Décider d'entrer sur un marché sur la seule base de sa taille apparente, sans vérifier le fit produit ni les barrières spécifiques."
       },
       {
-        "mode": "Acquisition",
-        "description": "Acheter un acteur local existant",
-        "pros": [
-          "Rapide",
-          "Marché, équipe et clients inclus"
-        ],
-        "cons": [
-          "Coût élevé",
-          "Risque d'intégration"
-        ]
-      },
-      {
-        "mode": "Partenariat / JV",
-        "description": "S'associer avec un acteur local qui apporte le marché",
-        "pros": [
-          "Partage du risque",
-          "Accès rapide au marché"
-        ],
-        "cons": [
-          "Partage de la valeur",
-          "Dépendance au partenaire"
-        ]
-      },
-      {
-        "mode": "Franchise / Licence",
-        "description": "Céder le modèle à des opérateurs locaux",
-        "pros": [
-          "Scalable",
-          "Capital-light"
-        ],
-        "cons": [
-          "Perte de contrôle qualité"
-        ]
+        "situation": "Une entreprise française souhaite se développer sur le marché américain.",
+        "recommended_behavior": "Valider d'abord le product-market fit sur un état ou une ville à écosystème tech avancé, adapter le message (les acheteurs américains valorisent un ROI chiffré), puis recruter un profil commercial senior local disposant d'un réseau établi et identifier un client champion américain avant tout scaling.",
+        "avoid": "Attaquer plusieurs zones géographiques simultanément sans produit encore mature ni ressource locale dédiée."
       }
     ],
-    "entry_analysis": [
-      "Taille du marché et taux de croissance",
-      "Intensité concurrentielle (incumbents en place, maturity)",
-      "Barrières réglementaires ou culturelles",
-      "Coût d'acquisition client spécifique au marché",
-      "Ressources nécessaires vs disponibles"
-    ]
-  },
-  "example_answers": [
-    {
-      "prompt": "Comment évaluer si un nouveau marché sectoriel vaut la peine d'être adressé ?",
-      "answer": "Quatre critères : (1) Taille et croissance (le marché est-il suffisamment grand et croît-il ?) — un marché trop petit ne supporte pas l'investissement d'entrée, (2) Fit produit (ton offre répond-elle à un vrai besoin non adressé dans ce secteur ?) — ne pas généraliser sans valider, (3) Barrières d'entrée (les acteurs établis ont-ils des avantages défendables ?) — réglementaire, relationnel, technique, (4) Unit economics (la structure de coûts de ce marché permet-elle une profitabilité ?) — prix acceptables, CAC supportable. Un score 3/4 est un signal d'exploration."
-    },
-    {
-      "prompt": "Nous voulons aller sur le marché américain — par où commencer ?",
-      "answer": "Séquence recommandée : (1) Valider le product-market fit sur un état ou une ville (NYC, SF, Boston — écosystèmes tech avancés), (2) Adapter le message (les américains achetent le ROI chiffré, pas les frameworks), (3) Recruter un sales US senior avec un réseau local — le réseau est la ressource principale en entrée de marché US, (4) Trouver un champion client américain avant de scaler. Erreur classique : aller aux US trop tôt avec un produit pas encore mature ou sans ressource locale dédiée."
-    }
-  ],
-  "response_guidance": {
-    "tone": "stratégique, ancré dans la réalité opérationnelle et les contraintes de marché",
-    "structure": [
-      "analyser le contexte concurrentiel et client",
-      "proposer la lecture stratégique",
-      "recommander les prochaines actions"
+    "best_practices": [
+      "Documenter l'analyse des quatre critères d'entrée avant toute décision d'allocation de ressources sur un nouveau marché.",
+      "Privilégier un pilote limité (une ville, un secteur, un segment) avant une généralisation à l'échelle du marché entier.",
+      "Recruter des ressources locales avec un réseau établi plutôt que de piloter à distance depuis le marché d'origine.",
+      "Réévaluer périodiquement la pertinence du mode d'entrée choisi à mesure que le marché se développe."
     ],
-    "avoid": [
-      "conseils trop génériques",
-      "ignorer les contraintes de ressources",
-      "optimisme non fondé"
+    "anti_patterns": [
+      "Entrer sur un nouveau marché uniquement sur la base de sa taille apparente sans validation du fit produit.",
+      "Attaquer plusieurs marchés géographiques ou sectoriels simultanément sans avoir validé le premier.",
+      "Choisir un mode d'entrée coûteux ou risqué (acquisition) sans que les ressources ou la maturité de l'organisation le justifient.",
+      "Négliger l'importance d'un réseau local pour l'entrée sur un marché géographique éloigné."
     ]
   },
-  "tags": [
-    "marché",
-    "entrée",
-    "international",
-    "expansion",
-    "acquisition",
-    "stratégie",
-    "business",
-    "CPL"
-  ],
-  "related_knowledge_units": [
-    "knowledges.cpl.strategy.strategy_fundamentals",
-    "knowledges.cpl.business_piloting.profitability_analysis"
-  ]
+  "retrieval_hints": {
+    "priority_keywords": ["entree_marche", "expansion_internationale", "mode_entree", "sequencement"],
+    "related_domains": ["cpl"],
+    "related_knowledge": [
+      "cpl.strategy.strategy_fundamentals",
+      "cpl.strategy.strategie_expansion_internationale_alfred_cpl",
+      "cpl.business_strategy.go_to_market_strategy",
+      "cpl.business_strategy.competitive_positioning"
+    ],
+    "retrieval_priority": 6
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["aide à l'évaluation et au séquençage d'une stratégie d'entrée sur un marché"],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "Si l'analyse des barrières réglementaires locales n'a pas été menée, recommander une vérification spécifique avant toute décision d'entrée."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "20/08/2026",
+    "last_update": "20/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
 }

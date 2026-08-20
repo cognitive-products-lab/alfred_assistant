@@ -1,77 +1,95 @@
 {
   "schema_version": "1.2",
   "type": "knowledge_unit",
-  "id": "knowledges.cpl.business_strategy.network_effects_strategy",
+  "knowledge_id": "cpl.business_strategy.network_effects_strategy",
   "title": "Stratégie d'effets réseau",
+  "version": "1.1.0",
+  "status": "active",
   "domain": "cpl",
   "subdomain": "business_strategy",
-  "status": "validated",
+  "category": "strategie_produit",
   "summary": "Les effets réseau créent des avantages compétitifs durables et difficiles à répliquer : le produit devient plus précieux à mesure qu'il attire plus d'utilisateurs. Les différents types d'effets réseau ont des propriétés et des stratégies d'activation différentes.",
-  "core_definition": "Les effets réseau (network effects) sont une propriété d'un produit ou service par laquelle sa valeur augmente pour chaque utilisateur à mesure que davantage de personnes l'utilisent. Les effets réseau créent des barrières à la sortie et des avantages compétitifs exponentiels pour les leaders de marché.",
-  "knowledge": {
-    "network_effects_types": [
+  "purpose": "Donner un cadre d'identification et d'activation des effets réseau applicables à un produit, en particulier les effets réseau de données pertinents pour un produit IA.",
+  "tags": ["effets réseau", "marketplace", "data", "viral", "lock-in", "stratégie", "business"],
+  "intents": ["identify_network_effect_type", "activate_network_effect", "solve_cold_start_problem"],
+  "usage_context": [
+    "identification du type d'effet réseau applicable à un produit",
+    "résolution du problème de démarrage à froid (cold start)",
+    "évaluation du potentiel d'effet réseau d'un produit IA"
+  ],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "Les effets réseau (network effects) sont une propriété d'un produit ou service par laquelle sa valeur augmente pour chaque utilisateur à mesure que davantage de personnes l'utilisent. Ils créent des barrières à la sortie et des avantages compétitifs exponentiels pour les leaders de marché, et se déclinent en effets directs, indirects, de données et viraux.",
+    "core_principles": [
+      "Il existe plusieurs types d'effets réseau aux mécaniques distinctes : direct (la valeur croît avec les utilisateurs du même type, ex. messagerie), indirect/cross-side (la valeur d'un côté croît avec l'autre côté, ex. marketplace), de données (plus d'utilisateurs génèrent plus de données qui améliorent le produit pour tous), et viral (l'usage expose de nouveaux utilisateurs potentiels).",
+      "Le problème du démarrage à froid (cold start) est l'obstacle central à l'activation d'un effet réseau : un produit à effet réseau est peu utile sans une masse critique d'utilisateurs, ce qui freine l'adoption initiale.",
+      "Les stratégies classiques de résolution du cold start incluent la subvention d'un côté du marché, le lancement sur une niche géographique ou sectorielle concentrée, et le démarrage sur un sous-groupe homogène avant l'élargissement.",
+      "Pour un produit IA, l'effet réseau de données (plus d'utilisateurs → plus de données d'usage → meilleur produit → plus d'utilisateurs) est le mécanisme le plus pertinent, sous condition d'une collecte éthique, consentie et créant une valeur claire pour chaque utilisateur."
+    ],
+    "rules": [
+      "Identifier explicitement le ou les types d'effets réseau applicables à un produit avant de concevoir une stratégie d'activation, plutôt que de supposer un effet réseau générique.",
+      "Traiter le cold start comme un problème stratégique à résoudre explicitement (subvention, niche, sous-groupe) et non comme un obstacle secondaire à l'acquisition.",
+      "Pour un effet réseau de données, garantir que la valeur générée par l'apprentissage cumulatif profite explicitement à l'utilisateur, jamais uniquement à l'éditeur.",
+      "Ne jamais concevoir un effet réseau de données comme un mécanisme de verrouillage (lock-in) au détriment de la portabilité des données de l'utilisateur."
+    ],
+    "examples": [
       {
-        "type": "Direct (same-side)",
-        "description": "La valeur augmente quand les utilisateurs du même type augmentent",
-        "example": "Téléphone, WhatsApp — utile seulement si tes contacts l'utilisent"
+        "situation": "Créer des effets réseau pour un SaaS B2B.",
+        "recommended_behavior": "Chercher un effet réseau de type données (le produit apprend des données agrégées de tous les clients pour produire des benchmarks ou insights bénéficiant à chacun) ou de type workflow (la valeur croît quand plusieurs rôles d'une même entreprise collaborent sur le produit), plutôt que de chercher un effet réseau direct peu pertinent en B2B.",
+        "avoid": "Supposer qu'un effet réseau générique de type consommateur (viral, direct) s'applique automatiquement à un contexte B2B sans l'avoir vérifié."
       },
       {
-        "type": "Indirect (cross-side)",
-        "description": "La valeur d'un côté augmente avec le nombre d'utilisateurs de l'autre côté",
-        "example": "Marketplace — plus de vendeurs → plus d'acheteurs → plus de vendeurs"
-      },
-      {
-        "type": "Données (data network effect)",
-        "description": "Plus d'utilisateurs → plus de données → meilleur produit → plus d'utilisateurs",
-        "example": "Waze, Google Search, LLMs avec RLHF"
-      },
-      {
-        "type": "Viral (social)",
-        "description": "L'utilisation expose de nouveaux utilisateurs potentiels",
-        "example": "Canva — partage de créations exposant Canva à des non-utilisateurs"
+        "situation": "Évaluer si un assistant IA personnel peut développer des effets réseau à terme.",
+        "recommended_behavior": "Identifier l'effet réseau de données comme le mécanisme le plus pertinent (plus d'utilisateurs → plus de patterns d'interaction appris avec consentement → meilleure IA → plus d'utilisateurs), en conditionnant explicitement ce mécanisme à une collecte éthique et à une valeur claire pour chaque utilisateur, jamais à un verrouillage.",
+        "avoid": "Présenter l'accumulation de données comme un levier de rétention forcée plutôt que comme un bénéfice réversible pour l'utilisateur."
       }
     ],
-    "activating_network_effects": [
-      "Cold start problem : comment attirer les premiers utilisateurs quand le produit est peu utile sans utilisateurs ? (subsidier un côté, lancer dans un niche, curate le contenu)",
-      "Concentration géographique : pour les marketplaces locales, lancer ville par ville plutôt que national",
-      "Chicken-and-egg : résoudre en démarrant avec un sous-groupe (LinkedIn : étudiants Stanford d'abord)"
-    ]
-  },
-  "example_answers": [
-    {
-      "prompt": "Comment créer des effets réseau pour un SaaS B2B ?",
-      "answer": "Les effets réseau dans le B2B sont souvent du type 'data' ou 'workflow'. Data network effect : si votre produit apprend des données de tous vos clients (benchmarks, modèles d'usage, patterns d'industrie) et que ces insights profitent à chaque client, c'est un data network effect. Workflow network effect : si votre produit permet la collaboration entre plusieurs rôles dans une entreprise, l'expansion au sein du compte crée un lock-in fort (Slack, Notion). La question : comment votre produit devient-il plus utile à un client quand d'autres clients l'utilisent ?"
-    },
-    {
-      "prompt": "ALFRED peut-il avoir des effets réseau à terme ?",
-      "answer": "Oui — via les données principalement. Si des milliers d'ALFRED collectent (avec consentement) des patterns d'interaction, de préférence et d'efficacité, le modèle central peut s'améliorer continuellement et bénéficier à chaque nouvel utilisateur. C'est le data network effect des assistants IA : plus d'utilisateurs → plus de données d'apprentissage → meilleure IA → plus d'utilisateurs. Condition : la collecte doit être éthique, consentie et apporter une valeur claire à chaque utilisateur."
-    }
-  ],
-  "response_guidance": {
-    "tone": "stratégique, ancré dans la réalité opérationnelle et les contraintes de marché",
-    "structure": [
-      "analyser le contexte concurrentiel et client",
-      "proposer la lecture stratégique",
-      "recommander les prochaines actions"
+    "best_practices": [
+      "Cartographier explicitement le ou les types d'effets réseau visés avant de concevoir les mécaniques produit correspondantes.",
+      "Concevoir une stratégie de résolution du cold start dès la phase de conception, pas après le constat d'une adoption insuffisante.",
+      "Mesurer l'effet réseau par des indicateurs concrets (taux d'amélioration du produit par palier d'utilisateurs, taux de rétention lié à l'usage collectif) plutôt que par une conviction non vérifiée.",
+      "Documenter et communiquer la politique de portabilité des données lorsque l'effet réseau repose sur l'accumulation de données utilisateur."
     ],
-    "avoid": [
-      "conseils trop génériques",
-      "ignorer les contraintes de ressources",
-      "optimisme non fondé"
+    "anti_patterns": [
+      "Concevoir un produit en pariant sur un effet réseau non identifié explicitement, sans stratégie d'activation.",
+      "Ignorer le problème du cold start jusqu'à ce que l'adoption initiale échoue faute de masse critique.",
+      "Transformer un effet réseau de données en mécanisme de verrouillage empêchant la portabilité des données de l'utilisateur.",
+      "Copier une stratégie d'effet réseau consommateur (viral, direct) dans un contexte B2B sans l'adapter."
     ]
   },
-  "tags": [
-    "effets réseau",
-    "marketplace",
-    "data",
-    "viral",
-    "lock-in",
-    "stratégie",
-    "business",
-    "CPL"
-  ],
-  "related_knowledge_units": [
-    "knowledges.cpl.strategy.strategy_fundamentals",
-    "knowledges.cpl.business_piloting.profitability_analysis"
-  ]
+  "retrieval_hints": {
+    "priority_keywords": ["effets_reseau", "cold_start", "effet_donnees", "lock_in", "marketplace"],
+    "related_domains": ["cpl"],
+    "related_knowledge": [
+      "cpl.strategy.strategy_fundamentals",
+      "cpl.strategy.strategie_donnees_produit_ia",
+      "cpl.business_strategy.platform_ecosystem_strategy",
+      "cpl.business_strategy.big_data_strategie_valorisation_donnee"
+    ],
+    "retrieval_priority": 5
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["aide à l'identification et à l'activation d'effets réseau produit"],
+    "restricted_usage": [],
+    "forbidden_usage": ["concevoir un effet réseau de données comme un mécanisme de verrouillage empêchant la portabilité"],
+    "fallback_behavior": "Si un effet réseau de données est envisagé, rappeler systématiquement l'exigence de consentement et de portabilité avant toute conception technique."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "20/08/2026",
+    "last_update": "20/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
 }

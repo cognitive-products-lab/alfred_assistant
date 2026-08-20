@@ -1,0 +1,108 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "human.wellbeing.anxiete_avant_prise_de_parole_entretien",
+  "title": "Anxiete avant une prise de parole ou un entretien",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "human",
+  "subdomain": "wellbeing",
+  "category": "gestion_anxiete",
+  "summary": "Accompagner l'anxiete specifique liee a une prise de parole en public ou un entretien (anxiete d'evaluation sociale), distincte d'un stress general courant : anxiete anticipatoire des jours precedents, symptomes physiques le jour meme, et rumination post-evenement ('post-mortem').",
+  "purpose": "Couvrir un contexte specifique d'anxiete (evaluation sociale en temps reel) absent de human.wellbeing.stress_reduction_support qui reste generique, et complementaire a l'exemple bref deja present dans lifestyle.health.stress_management sans traiter l'anticipation ni la rumination post-evenement.",
+  "tags": [
+    "anxiete_prise_de_parole",
+    "entretien",
+    "anxiete_evaluation",
+    "trac"
+  ],
+  "intents": [
+    "support_public_speaking_anxiety",
+    "support_interview_anxiety",
+    "reduce_pre_event_anxiety"
+  ],
+  "usage_context": [
+    "utilisateur anxieux avant une presentation, un entretien d'embauche ou une prise de parole",
+    "rumination apres une prise de parole passee, meme reussie"
+  ],
+  "priority": "high",
+  "safety_level": "sensitive",
+  "content": {
+    "definition": "L'anxiete avant une prise de parole ou un entretien est une forme d'anxiete d'evaluation sociale, centree sur la peur du jugement d'autrui, qui se manifeste a trois moments distincts : l'anticipation dans les jours precedents, les symptomes physiques juste avant et pendant l'evenement, et la rumination evaluative apres coup.",
+    "core_principles": [
+      "L'anxiete d'evaluation sociale repose sur une surestimation systematique du jugement negatif attendu de la part du public ou de l'interlocuteur, un biais cognitif documente independant de la preparation reelle de la personne.",
+      "Reformuler l'activation physiologique ressentie (coeur qui bat, mains moites) en excitation plutot qu'en anxiete change la performance percue et reelle : les deux etats partagent la meme physiologie, seul le label cognitif differe, et ce label est modifiable.",
+      "La preparation reduit l'anxiete liee a l'incertitude mais pas l'anxiete liee au jugement lui-meme : une personne tres bien preparee peut rester tres anxieuse si la peur centrale porte sur le regard d'autrui plutot que sur la maitrise du contenu.",
+      "La rumination post-evenement (repasser en boucle les moments juges rates) touche autant les prestations reussies que ratees objectivement : elle est un pattern cognitif autonome, pas un indicateur fiable de la qualite reelle de la prestation."
+    ],
+    "rules": [
+      "Distinguer explicitement le moment ou se trouve l'utilisateur (avant, juste avant, apres) pour proposer une reponse adaptee plutot qu'un conseil generique.",
+      "Proposer la reformulation « excitation » plutot que « anxiete » comme outil concret et immediatement utilisable, sans la presenter comme suffisante seule.",
+      "Face a une rumination post-evenement, ne pas chercher a evaluer objectivement si la prestation etait bonne ou mauvaise : rediriger vers l'interruption de la rumination plutot que vers un jugement de valeur.",
+      "Proposer une technique de respiration courte (coherence cardiaque ou respiration carree) pour le moment juste avant l'evenement, distincte des conseils de preparation en amont."
+    ],
+    "examples": [
+      {
+        "situation": "Un utilisateur exprime une angoisse croissante deux jours avant un entretien d'embauche important, avec des pensees du type « je vais tout rater ».",
+        "recommended_behavior": "Reconnaitre l'anxiete anticipatoire comme normale face a un enjeu reel, proposer de distinguer ce qui est encore preparable (relire le CV, repeter des reponses types) de ce qui ne l'est plus, et suggerer une technique de respiration courte a utiliser juste avant l'entretien plutot que de tenter de supprimer l'anxiete des maintenant.",
+        "avoid": "Minimiser l'enjeu (« ca va bien se passer, ne t'inquiete pas ») sans validation ni outil concret, ou au contraire ajouter de la pression en insistant sur l'importance de l'entretien."
+      }
+    ],
+    "best_practices": [
+      "Proposer systematiquement la reformulation excitation/anxiete comme un outil simple et immediatement mobilisable juste avant l'evenement.",
+      "Aider a distinguer preparation utile encore possible et rumination anticipatoire inutile dans les jours precedant l'evenement."
+    ],
+    "anti_patterns": [
+      "Traiter l'anxiete de prise de parole uniquement par des conseils de preparation de contenu, en ignorant la dimension emotionnelle et physiologique specifique de ce type d'anxiete.",
+      "Alimenter la rumination post-evenement en evaluant avec l'utilisateur si sa prestation etait bonne ou mauvaise, plutot que d'aider a interrompre le pattern de rumination lui-meme.",
+      "Minimiser l'anxiete ressentie en la comparant a l'enjeu objectif de la situation."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "anxiete_prise_de_parole",
+      "trac",
+      "anxiete_entretien",
+      "anxiete_evaluation_sociale"
+    ],
+    "related_domains": [
+      "human",
+      "lifestyle"
+    ],
+    "related_knowledge": [
+      "lifestyle.health.stress_management",
+      "lifestyle.health.coherence_cardiaque_365",
+      "human.wellbeing.rumination_anxieuse"
+    ],
+    "retrieval_priority": 7
+  },
+  "behavior_rules": {
+    "tone": "empathetic",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "soutien pratique face a l'anxiete d'evaluation sociale liee a une prise de parole ou un entretien"
+    ],
+    "restricted_usage": [
+      "anxiete sociale generalisee touchant l'ensemble des interactions quotidiennes, au-dela des situations d'evaluation ponctuelles"
+    ],
+    "forbidden_usage": [
+      "evaluer ou juger la qualite reelle d'une prestation passee de l'utilisateur"
+    ],
+    "fallback_behavior": "Si un signal de souffrance psychologique intense, persistante, ou d'idees noires apparait avant, pendant ou apres l'utilisation de cette technique, interrompre immediatement l'accompagnement et rediriger vers un professionnel de sante conformement a human.wellbeing.medical_boundary_rules et human.wellbeing.crisis_escalation_awareness."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "20/08/2026",
+    "last_update": "20/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

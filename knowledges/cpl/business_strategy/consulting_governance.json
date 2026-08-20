@@ -1,26 +1,95 @@
 {
-    "id":  "consulting.governance",
-    "created_at":  "2026-06-03",
-    "title":  "consulting governance",
-    "tags":  [
-
-             ],
-    "source":  "recreated_from_dashboard_manifest",
-    "description":  "Fiche connaissance recréée automatiquement à partir du manifest dashboard.",
-    "status":  "draft",
-    "content":  {
-                    "summary":  "",
-                    "links":  [
-
-                              ],
-                    "use_cases":  [
-
-                                  ],
-                    "risks":  [
-
-                              ],
-                    "key_points":  [
-
-                                   ]
-                }
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.business_strategy.consulting_governance",
+  "title": "Gouvernance interne d'une activité de conseil",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "business_strategy",
+  "category": "strategie_conseil",
+  "summary": "La gouvernance interne d'une activité de conseil encadre la qualité méthodologique, les conflits d'intérêts et les risques d'engagement à l'échelle du cabinet — distincte de la gouvernance de la relation client, tournée vers l'externe, et du modèle de delivery, tourné vers la méthode d'une mission donnée.",
+  "purpose": "Cadrer les mécanismes internes (revue qualité, gestion des conflits d'intérêts, revue de risque d'engagement) qui garantissent la cohérence et la fiabilité d'une activité de conseil au-delà d'une mission individuelle.",
+  "tags": ["gouvernance conseil", "revue qualité", "conflit d'intérêts", "risque d'engagement", "méthodologie", "stratégie", "business"],
+  "intents": ["structure_internal_consulting_governance", "manage_conflict_of_interest", "review_engagement_risk"],
+  "usage_context": [
+    "mise en place d'un mécanisme de revue qualité interne pour les missions de conseil",
+    "identification et gestion d'un conflit d'intérêts potentiel avant l'acceptation d'une mission",
+    "évaluation du risque avant l'engagement sur une nouvelle mission"
+  ],
+  "priority": "medium",
+  "safety_level": "sensitive",
+  "content": {
+    "definition": "La gouvernance interne d'une activité de conseil est l'ensemble des mécanismes par lesquels une structure de conseil garantit, au niveau de l'organisation et non d'une seule mission, la cohérence méthodologique de ses interventions, la gestion des conflits d'intérêts et l'évaluation du risque avant l'engagement sur une nouvelle mission — distincte de la gouvernance de la relation client (rituels avec un client donné) et du modèle de delivery (méthode d'exécution d'une mission).",
+    "core_principles": [
+      "Une activité de conseil qui grandit au-delà d'un consultant unique nécessite un mécanisme de revue qualité indépendant de la personne qui exécute la mission, pour éviter que la qualité ne dépende uniquement de la vigilance individuelle.",
+      "Un conflit d'intérêts (mission chez un concurrent direct d'un client existant, intérêt financier personnel dans une recommandation) doit être identifié avant l'acceptation d'une mission, pas découvert en cours d'exécution.",
+      "Le risque d'un engagement (dépendance à une seule personne clé, ambiguïté du périmètre, capacité réelle du client à absorber les recommandations) doit être évalué avant la signature, au même titre que sa rentabilité prévisionnelle.",
+      "La gouvernance interne doit rester proportionnée à la taille de la structure : un mécanisme trop lourd pour une petite structure devient un frein plutôt qu'une garantie de qualité."
+    ],
+    "rules": [
+      "Mettre en place une revue qualité par une personne autre que l'exécutant principal avant la livraison d'un livrable stratégique majeur.",
+      "Documenter systématiquement toute situation de conflit d'intérêts potentiel avant l'acceptation d'une mission, même en l'absence de certitude sur son caractère bloquant.",
+      "Évaluer explicitement le risque d'un engagement (dépendance, ambiguïté de périmètre, capacité d'absorption du client) avant la signature, pas seulement sa valeur commerciale.",
+      "Adapter le formalisme de la gouvernance interne à la taille réelle de la structure plutôt que d'appliquer un cadre disproportionné."
+    ],
+    "examples": [
+      {
+        "situation": "Une structure de conseil est sollicitée pour une mission chez une entreprise directement concurrente d'un client existant sur le même périmètre.",
+        "recommended_behavior": "Documenter explicitement la situation de conflit d'intérêts potentiel, évaluer si une muraille de Chine méthodologique (équipes et informations strictement séparées) est réalisable compte tenu de la taille de la structure, et à défaut décliner ou différer la mission plutôt que d'accepter sans cadrage.",
+        "avoid": "Accepter la mission sans évaluation explicite du conflit d'intérêts, au risque de compromettre la confiance des deux clients."
+      },
+      {
+        "situation": "Une structure de conseil envisage d'accepter une mission dont le périmètre reste flou malgré plusieurs échanges de cadrage.",
+        "recommended_behavior": "Traiter l'ambiguïté persistante du périmètre comme un signal de risque d'engagement à documenter avant la signature, et conditionner l'acceptation à une clarification formelle du scope plutôt que de parier sur une clarification ultérieure en cours de mission.",
+        "avoid": "Signer une mission au périmètre flou en espérant que le cadrage se précisera naturellement une fois la mission démarrée."
+      }
+    ],
+    "best_practices": [
+      "Tenir un registre simple des conflits d'intérêts potentiels identifiés et des décisions prises à leur sujet.",
+      "Instaurer une revue qualité même légère (relecture croisée) pour tout livrable stratégique majeur, dès que la structure compte plus d'un consultant.",
+      "Formaliser une grille de risque d'engagement courte (dépendance, ambiguïté, capacité d'absorption) à appliquer systématiquement avant la signature d'une mission.",
+      "Réévaluer la gouvernance interne à mesure que la structure grandit, un mécanisme adapté à un consultant seul ne l'étant plus à dix."
+    ],
+    "anti_patterns": [
+      "Laisser la qualité des livrables dépendre uniquement de la vigilance individuelle de l'exécutant, sans revue indépendante.",
+      "Découvrir un conflit d'intérêts en cours de mission plutôt que de l'avoir anticipé avant l'acceptation.",
+      "Accepter une mission sur la seule base de sa valeur commerciale sans évaluation du risque d'engagement.",
+      "Imposer un formalisme de gouvernance disproportionné à une très petite structure, au point de freiner son activité."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["gouvernance_conseil", "conflit_interet", "revue_qualite", "risque_engagement"],
+    "related_domains": ["cpl"],
+    "related_knowledge": [
+      "cpl.strategy.strategy_fundamentals",
+      "cpl.business_strategy.consulting_delivery_model",
+      "cpl.business_strategy.client_relationship_governance",
+      "cpl.ethics_governance.revision_humaine_decisions_ia_sensibles"
+    ],
+    "retrieval_priority": 5
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["aide à la structuration de la gouvernance interne d'une activité de conseil"],
+    "restricted_usage": ["arbitrage définitif d'un conflit d'intérêts complexe sans avis juridique ou déontologique"],
+    "forbidden_usage": ["recommander d'accepter une mission en dissimulant un conflit d'intérêts identifié"],
+    "fallback_behavior": "En cas de doute sur le caractère bloquant d'un conflit d'intérêts, recommander une clarification explicite avec les parties concernées avant toute acceptation de mission."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "20/08/2026",
+    "last_update": "20/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
 }

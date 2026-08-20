@@ -1,92 +1,94 @@
 {
   "schema_version": "1.2",
   "type": "knowledge_unit",
-  "id": "knowledges.cpl.business_strategy.fundraising_strategy",
+  "knowledge_id": "cpl.business_strategy.fundraising_strategy",
   "title": "Stratégie de levée de fonds",
+  "version": "1.1.0",
+  "status": "active",
   "domain": "cpl",
   "subdomain": "business_strategy",
-  "status": "validated",
-  "summary": "La levée de fonds n'est pas le but mais un outil — elle finance une accélération qui n'est pas possible avec les seuls revenus. La stratégie de levée définit quand lever, combien, auprès de qui et dans quelles conditions.",
-  "core_definition": "La stratégie de levée de fonds est l'ensemble des décisions qui guident la recherche de financement externe (venture capital, business angels, fonds d'investissement) pour financer la croissance d'une entreprise — incluant le timing, le montant, le choix des investisseurs et la préparation du pitch.",
-  "knowledge": {
-    "funding_rounds": [
+  "category": "strategie_financiere",
+  "summary": "La levée de fonds n'est pas le but mais un outil — elle finance une accélération qui n'est pas possible avec les seuls revenus. La stratégie de levée définit quand lever, combien, auprès de qui et dans quelles conditions, en tenant compte des alternatives non dilutives.",
+  "purpose": "Donner un cadre de décision sur l'opportunité et la préparation d'une levée de fonds, incluant les alternatives non dilutives souvent sous-explorées.",
+  "tags": ["levée de fonds", "vc", "pitch", "seed", "bootstrapping", "stratégie", "business"],
+  "intents": ["evaluate_fundraising_readiness", "prepare_pitch_deck", "explore_funding_alternatives"],
+  "usage_context": [
+    "évaluation de la pertinence d'engager une levée de fonds",
+    "préparation d'un pitch investisseur",
+    "arbitrage entre levée de fonds et alternatives de financement non dilutives"
+  ],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "La stratégie de levée de fonds est l'ensemble des décisions qui guident la recherche de financement externe (venture capital, business angels, fonds d'investissement) pour financer la croissance d'une entreprise, incluant le timing, le montant, le choix des investisseurs, la préparation du pitch et l'évaluation des alternatives non dilutives.",
+    "core_principles": [
+      "Chaque étape de financement (pre-seed, seed, série A, série B et au-delà) correspond à un stade de maturité et un profil d'investisseur différents — lever à un stade inadapté à sa maturité réelle finance l'exploration plutôt que la croissance, ce que les investisseurs identifient rapidement.",
+      "Un pitch efficace s'articule autour du problème, de la solution différenciée, de la traction, du marché adressable, du modèle économique, du positionnement concurrentiel, de l'équipe et de l'utilisation prévue des fonds.",
+      "Des alternatives non dilutives existent (bootstrapping, revenue-based financing, subventions publiques, prêts bancaires) et méritent d'être explorées avant ou en complément d'une levée dilutive, en particulier pour une activité déjà génératrice de revenus récurrents.",
+      "La readiness à lever se mesure sur trois critères : la preuve que le modèle fonctionne, un plan d'utilisation des fonds concret et chiffré, et l'exploration préalable des alternatives non dilutives."
+    ],
+    "rules": [
+      "Ne pas engager de levée de fonds sans preuve que le modèle fonctionne (product-market fit, revenus récurrents, ratio LTV/CAC viable).",
+      "Définir un plan d'utilisation des fonds précis (objectif de traction visé, délai, répartition des dépenses) avant d'entamer un processus de levée.",
+      "Explorer systématiquement les alternatives non dilutives avant de considérer la levée dilutive comme la seule option.",
+      "Adapter le montant et le type d'investisseurs ciblés au stade de maturité réel de l'entreprise, pas à l'ambition de valorisation souhaitée."
+    ],
+    "examples": [
       {
-        "round": "Pre-seed",
-        "typical_amount": "50k-500k€",
-        "stage": "Idée ou MVP très early, peu ou pas de revenus",
-        "investors": "Business angels, family & friends, fonds pre-seed"
+        "situation": "Un fondateur hésite à savoir s'il est prêt à lever des fonds.",
+        "recommended_behavior": "Vérifier successivement l'existence d'une preuve que le modèle fonctionne, la clarté d'un plan d'utilisation des fonds chiffré, et l'exploration des alternatives non dilutives (subventions, financement basé sur le revenu) ; n'engager le processus que si ces trois conditions sont réunies.",
+        "avoid": "Lancer un processus de levée par réflexe de financement de croissance sans avoir vérifié ces trois conditions préalables."
       },
       {
-        "round": "Seed",
-        "typical_amount": "500k-3M€",
-        "stage": "MVP validé, premiers clients, product-market fit en exploration",
-        "investors": "Business angels, fonds seed, accélérateurs"
-      },
-      {
-        "round": "Série A",
-        "typical_amount": "3-15M€",
-        "stage": "PMF établi, modèle reproductible, early growth",
-        "investors": "VCs spécialisés"
-      },
-      {
-        "round": "Série B+",
-        "typical_amount": "> 15M€",
-        "stage": "Scale, expansion internationale",
-        "investors": "VCs generalists ou spécialisés, growth equity"
+        "situation": "Préparer le pitch d'une startup IA pour un investisseur en 5 minutes.",
+        "recommended_behavior": "Structurer le pitch en cinq temps : accroche sur le problème réel et vécu, solution avec une différenciation claire au-delà du simple usage de l'IA, traction chiffrée (clients, revenus récurrents, rétention, croissance), marché avec une capacité de capture réaliste, et demande précisant le montant, l'usage et le jalon financé — en mettant l'accent sur la différenciation par les données propriétaires ou l'accès unique au cas d'usage.",
+        "avoid": "Présenter un pitch générique centré sur la technologie IA sans traction chiffrée ni différenciation claire face aux nombreux projets similaires vus par les investisseurs."
       }
     ],
-    "pitch_deck_components": [
-      "Problème (douleur et taille du marché adressable)",
-      "Solution (comment vous la résolvez)",
-      "Traction (preuves que ça fonctionne — revenus, clients, croissance)",
-      "Marché (TAM/SAM/SOM)",
-      "Business model (comment vous gagnez de l'argent)",
-      "Compétition (positionnement)",
-      "Équipe (pourquoi vous êtes les bons pour résoudre ce problème)",
-      "Use of funds (pour quoi vous utilisez l'argent levé)"
+    "best_practices": [
+      "Documenter la traction (clients, revenus, rétention, croissance) de façon continue plutôt qu'au moment de préparer un pitch.",
+      "Cartographier les alternatives non dilutives disponibles avant d'entamer toute démarche de levée.",
+      "Cibler des investisseurs dont le stade d'investissement habituel correspond à la maturité réelle de l'entreprise.",
+      "Préparer un plan d'utilisation des fonds détaillé et vérifiable, pas une estimation vague."
     ],
-    "fundraising_alternatives": [
-      "Bootstrapping : croître avec les revenus — plus long mais ownership conservé",
-      "Revenue-based financing : remboursement basé sur les revenus — pour les SaaS avec MRR stable",
-      "Subventions (BPI, Horizon Europe, ADEME) : non-dilutif, process long",
-      "Prêts bancaires (si MRR > 100k€) : non-dilutif mais contraignant"
+    "anti_patterns": [
+      "Lever des fonds pour financer l'exploration d'un modèle non encore validé, sans preuve de traction.",
+      "Ignorer les alternatives non dilutives par méconnaissance ou par réflexe de suivre la voie la plus visible médiatiquement.",
+      "Présenter un pitch centré sur la technologie sans traction ni différenciation concrète.",
+      "Cibler des investisseurs dont le stade habituel d'investissement ne correspond pas à la maturité réelle de l'entreprise."
     ]
   },
-  "example_answers": [
-    {
-      "prompt": "Comment savoir si je suis prêt à lever des fonds ?",
-      "answer": "Trois questions : (1) Ai-je la preuve que mon modèle fonctionne ? (PMF, revenus récurrents, LTV/CAC viable) — lever avant ça finance l'exploration, pas la croissance, et les VCs le savent, (2) Ai-je un plan d'utilisation des fonds clair ? (lever X€ pour atteindre Y traction en Z mois en embauchant A, en dépensant B en marketing) — sans plan concret, l'argent est brûlé, (3) Ai-je exploré les alternatives non-dilutives ? (BPI Innovation, clients, partenariats). Si les trois réponses sont positives → il est temps de commencer le processus."
-    },
-    {
-      "prompt": "Comment pitcher ma startup IA à un investisseur ?",
-      "answer": "Structure en 5 minutes : (1) Hook — le problème en une phrase vivante avec la douleur réelle, (2) Solution — comment VOTRE approche est différente (pas juste 'nous utilisons l'IA'), (3) Traction — les 3 meilleurs indicateurs que ça marche (clients, MRR, rétention, croissance MoM), (4) Marché — pas juste TAM mais pourquoi vous pouvez en capturer un bout significatif, (5) Ask — combien, pour quoi précisément, quel milestone ça finance. Pour l'IA : les VCs ont vu des centaines de pitches IA — la différenciation sur les données propriétaires ou l'accès unique au cas d'usage est décisive."
-    }
-  ],
-  "response_guidance": {
-    "tone": "stratégique, ancré dans la réalité opérationnelle et les contraintes de marché",
-    "structure": [
-      "analyser le contexte concurrentiel et client",
-      "proposer la lecture stratégique",
-      "recommander les prochaines actions"
+  "retrieval_hints": {
+    "priority_keywords": ["levee_de_fonds", "pitch", "vc", "bootstrapping", "financement_non_dilutif"],
+    "related_domains": ["cpl"],
+    "related_knowledge": [
+      "cpl.strategy.strategy_fundamentals",
+      "cpl.business_strategy.financial_modeling_basics",
+      "cpl.business_strategy.exit_strategy"
     ],
-    "avoid": [
-      "conseils trop génériques",
-      "ignorer les contraintes de ressources",
-      "optimisme non fondé"
-    ]
+    "retrieval_priority": 5
   },
-  "tags": [
-    "levée de fonds",
-    "VC",
-    "pitch",
-    "seed",
-    "bootstrapping",
-    "stratégie",
-    "business",
-    "CPL"
-  ],
-  "related_knowledge_units": [
-    "knowledges.cpl.strategy.strategy_fundamentals",
-    "knowledges.cpl.business_piloting.profitability_analysis"
-  ]
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["aide à l'évaluation de la readiness et à la préparation d'une levée de fonds"],
+    "restricted_usage": ["conseil financier ou juridique définitif sur les termes d'un tour de financement"],
+    "forbidden_usage": [],
+    "fallback_behavior": "Pour toute négociation de termes de financement, recommander l'accompagnement d'un conseil juridique et financier spécialisé plutôt qu'une décision fondée uniquement sur ce cadre général."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "20/08/2026",
+    "last_update": "20/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
 }

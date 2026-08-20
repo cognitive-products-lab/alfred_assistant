@@ -1,26 +1,95 @@
 {
-    "id":  "customer.retention",
-    "created_at":  "2026-06-03",
-    "title":  "customer retention",
-    "tags":  [
-
-             ],
-    "source":  "recreated_from_dashboard_manifest",
-    "description":  "Fiche connaissance recréée automatiquement à partir du manifest dashboard.",
-    "status":  "draft",
-    "content":  {
-                    "summary":  "",
-                    "links":  [
-
-                              ],
-                    "use_cases":  [
-
-                                  ],
-                    "risks":  [
-
-                              ],
-                    "key_points":  [
-
-                                   ]
-                }
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.business_strategy.customer_retention",
+  "title": "Stratégie de rétention client",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "business_strategy",
+  "category": "strategie_relation_client",
+  "summary": "La rétention client regroupe les leviers structurels (onboarding, boucles d'engagement, expansion, reconquête) qui maintiennent et développent la valeur d'un client dans le temps — complémentaire à la mesure de la satisfaction et aux rituels de gouvernance de compte déjà couverts, mais centrée ici sur les leviers d'action eux-mêmes.",
+  "purpose": "Donner un cadre des leviers d'action de rétention (onboarding, engagement, expansion, reconquête) distinct de la mesure des indicateurs de satisfaction et des rituels de gouvernance de compte déjà traités ailleurs.",
+  "tags": ["rétention", "churn", "onboarding", "expansion", "reconquête", "stratégie", "business"],
+  "intents": ["reduce_churn", "design_onboarding_for_retention", "plan_win_back_campaign"],
+  "usage_context": [
+    "conception d'un parcours d'onboarding orienté rétention",
+    "réduction d'un taux de churn identifié comme problématique",
+    "structuration d'une campagne de reconquête de clients perdus"
+  ],
+  "priority": "high",
+  "safety_level": "normal",
+  "content": {
+    "definition": "La stratégie de rétention client est l'ensemble des leviers d'action déployés pour maintenir et développer la valeur d'un client dans le temps — onboarding structuré, boucles d'engagement régulières, détection et traitement des signaux de désengagement, expansion de compte, et reconquête de clients perdus — distincte de la mesure des indicateurs de satisfaction et des rituels formels de gouvernance de compte, qui portent sur le suivi plutôt que sur l'action.",
+    "core_principles": [
+      "La rétention se construit dès l'onboarding : les 30 à 90 premiers jours déterminent largement la probabilité de rétention à long terme, un onboarding mal structuré générant un churn précoce difficile à corriger ensuite.",
+      "Le churn a des causes distinctes qui appellent des réponses différentes : churn d'usage (le client n'a jamais adopté le produit), churn de valeur (la valeur perçue a diminué), churn concurrentiel (une alternative est jugée supérieure), churn organisationnel (changement d'interlocuteur ou de priorités internes sans rapport avec le produit).",
+      "Une boucle d'engagement régulière (contenu, formation, célébration des jalons d'usage) maintient la valeur perçue active dans le temps, alors qu'une relation purement réactive laisse le client seul jusqu'au moment du renouvellement.",
+      "Un client perdu n'est pas nécessairement perdu définitivement : une campagne de reconquête structurée, fondée sur la compréhension de la cause réelle du départ, peut récupérer une part significative des clients churnés si elle intervient au bon moment."
+    ],
+    "rules": [
+      "Concevoir l'onboarding comme un parcours structuré avec des jalons de valeur explicites (premier résultat obtenu, premier usage récurrent), pas comme une simple formation initiale ponctuelle.",
+      "Diagnostiquer la cause réelle d'un churn (usage, valeur, concurrence, organisation) avant de choisir un levier d'action, un traitement générique étant rarement efficace.",
+      "Mettre en place des boucles d'engagement proactives entre les points de contact formels, plutôt que de laisser la relation purement réactive.",
+      "Documenter systématiquement la raison de départ de chaque client perdu, condition préalable à toute campagne de reconquête efficace."
+    ],
+    "examples": [
+      {
+        "situation": "Un produit constate un taux de churn élevé concentré dans les deux premiers mois d'usage chez les nouveaux clients.",
+        "recommended_behavior": "Diagnostiquer ce churn comme un probable churn d'usage lié à un onboarding insuffisant, revoir le parcours d'entrée pour instaurer des jalons de valeur explicites atteints rapidement, et mesurer le temps jusqu'au premier résultat perçu par le client.",
+        "avoid": "Traiter ce churn précoce avec les mêmes leviers qu'un churn tardif (remise commerciale, offre de renouvellement), alors que la cause se situe dans l'expérience initiale."
+      },
+      {
+        "situation": "Une entreprise souhaite lancer une campagne de reconquête de clients partis dans les 12 derniers mois.",
+        "recommended_behavior": "Segmenter les clients perdus selon la cause documentée de leur départ, prioriser ceux dont la cause était liée à une limite produit désormais résolue ou à un contexte organisationnel ayant pu évoluer, et personnaliser l'approche de reconquête en fonction de cette cause plutôt que d'envoyer une offre générique à l'ensemble.",
+        "avoid": "Solliciter l'ensemble des clients perdus avec une même offre générique sans tenir compte de la raison réelle de leur départ."
+      }
+    ],
+    "best_practices": [
+      "Définir des jalons de valeur mesurables dans le parcours d'onboarding et suivre le temps nécessaire pour les atteindre.",
+      "Catégoriser systématiquement chaque churn selon sa cause (usage, valeur, concurrence, organisation) dans un registre partagé.",
+      "Maintenir une boucle d'engagement régulière (contenu utile, retour sur les jalons atteints) même en l'absence de problème signalé.",
+      "Prioriser les efforts de reconquête sur les clients dont la cause de départ a objectivement évolué favorablement."
+    ],
+    "anti_patterns": [
+      "Traiter tout churn avec le même levier générique sans en diagnostiquer la cause réelle.",
+      "Limiter l'onboarding à une formation ponctuelle sans jalons de valeur mesurables dans le temps.",
+      "Laisser la relation client purement réactive entre les points de contact formels de gouvernance.",
+      "Lancer une campagne de reconquête générique sans avoir documenté la cause de départ de chaque client ciblé."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["retention_client", "churn", "onboarding", "reconquete", "boucle_engagement"],
+    "related_domains": ["cpl"],
+    "related_knowledge": [
+      "cpl.strategy.strategy_fundamentals",
+      "cpl.business_piloting.suivi_indicateurs_satisfaction_client",
+      "cpl.business_strategy.client_relationship_governance",
+      "cpl.business_strategy.revenue_model_design"
+    ],
+    "retrieval_priority": 7
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["aide à la conception de leviers de rétention et de reconquête client"],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "Si la cause d'un churn n'est pas documentée, recommander sa qualification avant de choisir un levier de rétention ou de reconquête."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "20/08/2026",
+    "last_update": "20/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
 }
