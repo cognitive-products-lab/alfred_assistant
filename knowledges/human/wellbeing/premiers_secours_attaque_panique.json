@@ -1,0 +1,110 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "human.wellbeing.premiers_secours_attaque_panique",
+  "title": "Premiers secours non medicaux face a une attaque de panique",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "human",
+  "subdomain": "wellbeing",
+  "category": "gestion_anxiete",
+  "summary": "Conduite a tenir non medicale, immediate et concrete face a une attaque de panique deja installee (symptomes physiques intenses, sentiment de perte de controle), distincte du protocole preventif de trois minutes qui intervient plus en amont, avec des criteres clairs de bascule vers une urgence medicale.",
+  "purpose": "Couvrir une situation de crise aigue non traitee ailleurs dans la base : aucune fiche existante ne fournit de conduite a tenir specifique face a une attaque de panique deja en cours, distincte de la reduction de stress ordinaire ou de l'ancrage preventif.",
+  "tags": [
+    "attaque_de_panique",
+    "premiers_secours",
+    "crise_anxieuse",
+    "urgence_non_medicale"
+  ],
+  "intents": [
+    "provide_panic_attack_first_aid",
+    "reassure_during_panic_attack",
+    "distinguish_panic_from_medical_emergency"
+  ],
+  "usage_context": [
+    "utilisateur decrivant une attaque de panique en cours (coeur qui s'emballe, sensation d'etouffement, peur de mourir ou de perdre le controle)",
+    "accompagnement d'un proche en cours de crise de panique"
+  ],
+  "priority": "critical",
+  "safety_level": "high_risk",
+  "content": {
+    "definition": "Les premiers secours non medicaux face a une attaque de panique consistent en une serie d'actions immediates et de paroles rassurantes visant a aider une personne a traverser une crise de panique deja installee, sans remplacer une evaluation medicale si les symptomes physiques restent ambigus ou tres intenses.",
+    "core_principles": [
+      "Une attaque de panique, bien que tres effrayante et physiquement intense, n'est pas dangereuse en elle-meme sur le plan vital dans l'immense majorite des cas : rappeler ce fait avec calme fait partie des premiers gestes utiles, sans pour autant minimiser la souffrance vecue.",
+      "Les symptomes physiques d'une attaque de panique (tachycardie, oppression thoracique, sensation d'etouffement, vertiges) peuvent ressembler a ceux d'une urgence cardiaque ou respiratoire reelle : en cas de doute, en particulier pour un premier episode ou des symptomes inhabituels, une evaluation medicale immediate (SAMU 15 en France) prime sur toute tentative d'auto-gestion.",
+      "La priorite absolue pendant la crise est la securite immediate (s'asseoir, s'eloigner d'un danger si besoin) puis le ralentissement de la respiration, avant toute tentative de comprehension ou d'explication de la crise.",
+      "Rassurer sans minimiser est un equilibre delicat : dire « ca va passer » sans nier l'intensite ressentie est plus aidant que de dramatiser ou, a l'inverse, de banaliser la crise."
+    ],
+    "rules": [
+      "En cas de premier episode ou de doute sur la nature des symptomes (douleur thoracique intense, difficulte respiratoire severe, antecedents cardiaques), orienter sans delai vers une evaluation medicale d'urgence plutot que vers une gestion autonome.",
+      "Guider en priorite vers une position assise et securisee, puis vers une respiration ralentie (expiration plus longue que l'inspiration), avant toute autre intervention.",
+      "Utiliser des phrases courtes, repetees, au present, et un ton tres calme : une personne en crise a une capacite reduite a traiter des informations complexes.",
+      "Rester present jusqu'a la diminution nette de l'intensite plutot que de considerer l'accompagnement termine des les premiers signes d'amelioration."
+    ],
+    "examples": [
+      {
+        "situation": "Un utilisateur decrit en direct une sensation d'etouffement, un coeur qui bat tres vite, et la peur de mourir, lors de ce qui semble etre une premiere crise de ce type.",
+        "recommended_behavior": "Repondre immediatement et calmement : « Je suis la. Assieds-toi si tu peux. Ce que tu ressens est tres intense mais une attaque de panique n'est pas dangereuse en elle-meme. On respire ensemble, lentement : inspire... expire, plus longuement... » Puis, s'il s'agit d'un premier episode ou si les symptomes semblent tres inhabituels ou severes, orienter clairement vers le 15 (SAMU) par prudence.",
+        "avoid": "Se limiter a des explications theoriques sur la panique sans donner d'action immediate, ou au contraire dramatiser la situation en laissant entendre un danger vital certain."
+      }
+    ],
+    "best_practices": [
+      "Toujours commencer par la securite et la respiration avant toute explication ou reassurance verbale plus longue.",
+      "Orienter vers une evaluation medicale d'urgence sans hesitation en cas de premier episode, de doute, ou de symptomes physiques severes, plutot que de tenter de trancher soi-meme.",
+      "Rester present et attentif jusqu'a une diminution nette et confirmee de l'intensite ressentie."
+    ],
+    "anti_patterns": [
+      "Minimiser la crise (« ce n'est rien, calme-toi ») sans proposer d'action concrete immediate.",
+      "Affirmer avec certitude qu'il s'agit d'une attaque de panique sans aucune reserve si les symptomes decrits sont inhabituels ou tres intenses, au risque de retarder une prise en charge medicale necessaire.",
+      "Interrompre l'accompagnement des les premiers signes d'amelioration sans s'assurer que l'intensite a reellement diminue durablement."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "attaque_de_panique",
+      "crise_anxieuse",
+      "premiers_secours",
+      "urgence"
+    ],
+    "related_domains": [
+      "human",
+      "medecine"
+    ],
+    "related_knowledge": [
+      "human.wellbeing.crisis_escalation_awareness",
+      "human.wellbeing.medical_boundary_rules",
+      "lifestyle.health.protocole_3min_ancrage_anti_panique"
+    ],
+    "retrieval_priority": 9
+  },
+  "behavior_rules": {
+    "tone": "empathetic",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "accompagnement immediat non medical d'une attaque de panique en cours, avec vigilance systematique sur la necessite d'une evaluation medicale"
+    ],
+    "restricted_usage": [
+      "symptomes physiques ambigus, severes, ou premier episode necessitant une prudence particuliere"
+    ],
+    "forbidden_usage": [
+      "affirmer un diagnostic de trouble panique",
+      "exclure avec certitude une cause medicale grave sans evaluation professionnelle"
+    ],
+    "fallback_behavior": "En cas de premier episode, de doute sur la nature des symptomes, de douleur thoracique intense, de difficulte respiratoire severe ou de tout signe inhabituel, orienter immediatement vers une evaluation medicale d'urgence (SAMU 15 en France) plutot que de poursuivre seul l'accompagnement, conformement a human.wellbeing.crisis_escalation_awareness et human.wellbeing.medical_boundary_rules."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "20/08/2026",
+    "last_update": "20/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

@@ -1,84 +1,95 @@
 {
   "schema_version": "1.2",
   "type": "knowledge_unit",
-  "id": "knowledges.cpl.business_strategy.client_relationship_governance",
+  "knowledge_id": "cpl.business_strategy.client_relationship_governance",
   "title": "Gouvernance de la relation client",
+  "version": "1.1.0",
+  "status": "active",
   "domain": "cpl",
   "subdomain": "business_strategy",
-  "status": "validated",
-  "summary": "La gouvernance de la relation client structure les interactions, escalades et revues entre une entreprise et ses clients stratégiques — prévenant les crises relationnelles et créant les conditions du renouvellement et de l'expansion.",
-  "core_definition": "La gouvernance de la relation client est l'ensemble des processus, rituels et mécanismes d'escalade qui structurent la relation entre un prestataire et ses clients, assurant l'alignement sur les objectifs, la résolution proactive des problèmes et la création de valeur long terme.",
-  "knowledge": {
-    "governance_rituals": [
+  "category": "strategie_relation_client",
+  "summary": "La gouvernance de la relation client structure les interactions, escalades et revues entre une entreprise et ses clients stratégiques, prévenant les crises relationnelles et créant les conditions du renouvellement et de l'expansion.",
+  "purpose": "Donner un cadre de rituels et de signaux permettant de détecter un compte client à risque avant le churn et de structurer les revues de compte à différentes fréquences.",
+  "tags": ["relation client", "gouvernance", "qbr", "rétention", "account management", "stratégie", "business"],
+  "intents": ["structure_client_governance_rituals", "detect_account_health_risk", "run_effective_qbr"],
+  "usage_context": [
+    "mise en place de rituels de gouvernance avec un client stratégique",
+    "détection précoce d'un risque de churn sur un compte",
+    "préparation d'une revue de compte trimestrielle (QBR)"
+  ],
+  "priority": "high",
+  "safety_level": "normal",
+  "content": {
+    "definition": "La gouvernance de la relation client est l'ensemble des processus, rituels et mécanismes d'escalade qui structurent la relation entre un prestataire et ses clients, assurant l'alignement sur les objectifs, la résolution proactive des problèmes et la création de valeur long terme.",
+    "core_principles": [
+      "La gouvernance de la relation client s'organise à des fréquences emboîtées : opérationnelle (hebdomadaire/bimensuelle, avancement et bloquants), mensuelle (métriques et incidents), trimestrielle (QBR — ROI réalisé et priorités), annuelle (vision et investissements C-level).",
+      "La santé d'un compte se lit à travers plusieurs signaux combinés : engagement dans les rituels, évolution de l'usage, satisfaction déclarée, nombre de contacts actifs, incidents non résolus, et signaux d'expansion ou de réduction de scope.",
+      "Les signaux d'alerte précoces de churn (baisse de participation aux rituels, usage stagnant, réponses plus lentes, contacts internes qui changent, questions sur les alternatives) apparaissent généralement bien avant l'annonce formelle d'un départ.",
+      "Une QBR efficace ne doit jamais contenir de surprises : les mauvaises nouvelles se communiquent en amont, pas pendant la revue elle-même."
+    ],
+    "rules": [
+      "Mettre en place des rituels de gouvernance à fréquence adaptée à l'enjeu du compte, pas un rituel unique identique pour tous les clients.",
+      "Suivre un score de santé de compte combinant plusieurs signaux (engagement, usage, satisfaction, incidents) plutôt qu'un indicateur unique.",
+      "Communiquer toute mauvaise nouvelle avant la revue formelle, jamais pendant, pour préserver la confiance.",
+      "Déclencher une intervention proactive dès qu'un score de santé de compte descend sous un seuil défini, sans attendre le prochain rituel programmé."
+    ],
+    "examples": [
       {
-        "ritual": "Réunion opérationnelle",
-        "frequency": "Hebdomadaire ou bimensuelle",
-        "participants": "PM client + PM prestataire",
-        "agenda": "Avancement, bloquants, prochaines étapes"
+        "situation": "Un compte client stratégique maintient un NPS moyen stable, mais un contact clé exprime une insatisfaction informelle croissante et les réponses aux sollicitations ralentissent.",
+        "recommended_behavior": "Considérer ces signaux qualitatifs et comportementaux comme prioritaires malgré la stabilité de l'indicateur agrégé, et engager une clarification ciblée avant la prochaine revue formelle.",
+        "avoid": "Se rassurer sur la stabilité du NPS moyen sans investiguer les signaux d'alerte comportementaux."
       },
       {
-        "ritual": "Revue mensuelle",
-        "frequency": "Mensuelle",
-        "participants": "Équipes opérationnelles + managers",
-        "agenda": "Métriques, incidents, ajustements de plan"
-      },
-      {
-        "ritual": "Business Review trimestrielle (QBR)",
-        "frequency": "Trimestrielle",
-        "participants": "Direction + stakeholders clés",
-        "agenda": "ROI réalisé, prochaines priorités, satisfaction, renouvellement"
-      },
-      {
-        "ritual": "Revue annuelle stratégique",
-        "frequency": "Annuelle",
-        "participants": "C-level",
-        "agenda": "Vision long terme, plan à 12 mois, investissements"
+        "situation": "Préparer une revue trimestrielle (QBR) avec un client stratégique.",
+        "recommended_behavior": "Structurer la revue en cinq temps : résumé exécutif de la valeur créée en termes business, métriques versus objectifs définis en début de trimestre, incidents et plan pour éviter leur récurrence, priorités et investissements du trimestre suivant, et temps ouvert de feedback client — en 60 à 90 minutes maximum.",
+        "avoid": "Improviser la structure de la revue ou y révéler pour la première fois un problème déjà connu en interne depuis plusieurs semaines."
       }
     ],
-    "account_health_signals": [
-      "Engagement dans les rituels (participent-ils aux reviews ?)",
-      "Usage produit (vs période précédente)",
-      "NPS ou satisfaction déclarée",
-      "Nombre de contacts actifs dans le compte",
-      "Incidents non résolus",
-      "Signaux d'expansion ou de réduction de scope"
-    ]
-  },
-  "example_answers": [
-    {
-      "prompt": "Comment détecter qu'un compte client est en risque avant qu'il ne churne ?",
-      "answer": "Signaux d'alerte précoces : (1) Participation aux rituels en baisse (no-shows aux reviews), (2) Usage produit qui stagne ou baisse, (3) Réponses lentes aux communications, (4) Contacts internes qui changent ou ne répondent plus, (5) Questions sur les alternatives ou sur les conditions de résiliation, (6) Escalades répétées non résolues. Un outil : un score de santé compte automatisé combinant ces signaux — dès que le score descend sous un seuil, intervention proactive."
-    },
-    {
-      "prompt": "Comment conduire une QBR (Quarterly Business Review) efficace ?",
-      "answer": "Structure QBR : (1) Résumé exécutif de la valeur créée dans le trimestre (en termes business, pas techniques), (2) Métriques vs objectifs définis en début de trimestre, (3) Incidents et résolutions (et plan pour éviter les récurrences), (4) Priorités et investissements du trimestre à venir, (5) Feedback client ouvert. Durée : 60-90 min max. Règle : la QBR ne devrait jamais contenir de surprises — les mauvaises nouvelles sont annoncées avant, pas pendant."
-    }
-  ],
-  "response_guidance": {
-    "tone": "stratégique, ancré dans la réalité opérationnelle et les contraintes de marché",
-    "structure": [
-      "analyser le contexte concurrentiel et client",
-      "proposer la lecture stratégique",
-      "recommander les prochaines actions"
+    "best_practices": [
+      "Documenter les rituels de gouvernance par compte (fréquence, participants, agenda type) dans un plan de compte partagé.",
+      "Construire un score de santé de compte automatisé combinant plusieurs signaux plutôt que de s'appuyer sur une impression qualitative isolée.",
+      "Anticiper les points sensibles d'une QBR par des échanges informels préalables avec les interlocuteurs clés.",
+      "Revoir périodiquement la liste des signaux de santé de compte pour s'assurer qu'elle reste pertinente."
     ],
-    "avoid": [
-      "conseils trop génériques",
-      "ignorer les contraintes de ressources",
-      "optimisme non fondé"
+    "anti_patterns": [
+      "Appliquer le même rythme de gouvernance à tous les comptes indépendamment de leur enjeu stratégique.",
+      "Se fier à un indicateur de satisfaction agrégé sans jamais croiser les signaux qualitatifs individuels.",
+      "Réserver les mauvaises nouvelles pour la revue formelle plutôt que de les communiquer en amont.",
+      "Attendre le prochain rituel programmé pour agir alors qu'un signal d'alerte précoce est déjà identifié."
     ]
   },
-  "tags": [
-    "relation client",
-    "gouvernance",
-    "QBR",
-    "rétention",
-    "account management",
-    "stratégie",
-    "business",
-    "CPL"
-  ],
-  "related_knowledge_units": [
-    "knowledges.cpl.strategy.strategy_fundamentals",
-    "knowledges.cpl.business_piloting.profitability_analysis"
-  ]
+  "retrieval_hints": {
+    "priority_keywords": ["gouvernance_client", "qbr", "sante_compte", "signal_churn", "renouvellement"],
+    "related_domains": ["cpl"],
+    "related_knowledge": [
+      "cpl.strategy.strategy_fundamentals",
+      "cpl.business_piloting.suivi_indicateurs_satisfaction_client",
+      "cpl.business_strategy.customer_retention",
+      "cpl.human_communication.gestion_attentes_client_projet"
+    ],
+    "retrieval_priority": 7
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["aide à la structuration de la gouvernance de compte et à la détection de risque de churn"],
+    "restricted_usage": [],
+    "forbidden_usage": ["dissimuler à un client un incident ou un risque connu pour préserver artificiellement une revue de compte"],
+    "fallback_behavior": "En cas de signal d'alerte détecté hors du rituel programmé, recommander une intervention immédiate plutôt que d'attendre la prochaine échéance formelle."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "20/08/2026",
+    "last_update": "20/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
 }

@@ -1,26 +1,95 @@
 {
-    "id":  "value.based.pricing",
-    "created_at":  "2026-06-03",
-    "title":  "value based pricing",
-    "tags":  [
-
-             ],
-    "source":  "recreated_from_dashboard_manifest",
-    "description":  "Fiche connaissance recréée automatiquement à partir du manifest dashboard.",
-    "status":  "draft",
-    "content":  {
-                    "summary":  "",
-                    "links":  [
-
-                              ],
-                    "use_cases":  [
-
-                                  ],
-                    "risks":  [
-
-                              ],
-                    "key_points":  [
-
-                                   ]
-                }
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.business_strategy.value_based_pricing",
+  "title": "Tarification basée sur la valeur (value-based pricing)",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "business_strategy",
+  "category": "strategie_financiere",
+  "summary": "La tarification basée sur la valeur fixe le prix en fonction de la valeur économique réellement créée pour le client plutôt que du coût de production — nécessitant une méthode rigoureuse de quantification de cette valeur (valeur économique pour le client, willingness-to-pay), au-delà de la simple mention du modèle dans la stratégie de prix générale.",
+  "purpose": "Donner une méthode rigoureuse de quantification de la valeur économique créée pour le client et de test de la disposition à payer, en approfondissement du modèle 'value-based' déjà mentionné succinctement dans la stratégie de prix générale.",
+  "tags": ["value based pricing", "valeur économique client", "willingness to pay", "van westendorp", "stratégie", "business"],
+  "intents": ["quantify_customer_economic_value", "test_willingness_to_pay", "justify_price_by_value"],
+  "usage_context": [
+    "quantification de la valeur économique créée par une offre pour justifier son prix",
+    "test de la disposition à payer d'un segment de clients avant fixation d'un prix",
+    "construction d'un argumentaire de prix fondé sur la valeur plutôt que sur le coût"
+  ],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "La tarification basée sur la valeur (value-based pricing) est une méthode de fixation du prix qui part de la valeur économique réellement créée pour le client (gain de temps, d'argent, de risque évité) plutôt que du coût de production de l'offre ou du prix des concurrents, et qui capture une part définie de cette valeur créée dans le prix demandé.",
+    "core_principles": [
+      "La valeur économique pour le client (Economic Value to the Customer, EVC) se calcule en comparant l'offre à la meilleure alternative disponible pour le client (y compris le statu quo) et en quantifiant l'écart de coût ou de bénéfice que procure l'offre — le prix se fixe ensuite comme une fraction de cet écart, jamais l'intégralité, pour laisser une marge de valeur perçue au client.",
+      "Le willingness-to-pay (disposition à payer) doit être mesuré empiriquement, par des méthodes comme le prix psychologique de Van Westendorp (quatre questions sur les seuils de prix trop cher, cher, avantageux, trop bon marché) ou l'analyse conjointe, plutôt que supposé à partir d'une intuition interne.",
+      "Un prix fondé sur la valeur nécessite un argumentaire capable de démontrer concrètement le calcul de la valeur créée (temps économisé, risque évité, revenu additionnel généré), sans quoi le client ne peut pas objectiver la justification du prix demandé.",
+      "La tarification basée sur la valeur diffère structurellement du cost-plus (prix = coût + marge, qui ignore la valeur perçue) et du pricing compétitif (prix aligné sur les concurrents, qui ignore la différenciation) : elle nécessite une compréhension fine et documentée du client et de ses alternatives."
+    ],
+    "rules": [
+      "Calculer explicitement l'écart de valeur entre l'offre et la meilleure alternative du client avant de proposer un prix, plutôt que de partir du coût de production.",
+      "Mesurer le willingness-to-pay par une méthode empirique reconnue (Van Westendorp, analyse conjointe) plutôt que par une estimation interne non testée.",
+      "Capturer une fraction raisonnable de la valeur créée dans le prix, en laissant une part significative de valeur perçue au client pour faciliter la décision d'achat.",
+      "Documenter et pouvoir présenter au client le calcul de la valeur économique créée, condition nécessaire pour justifier un prix supérieur au cost-plus."
+    ],
+    "examples": [
+      {
+        "situation": "Une entreprise souhaite fixer le prix d'un outil professionnel qui fait économiser un temps mesurable à ses utilisateurs.",
+        "recommended_behavior": "Quantifier le temps économisé par semaine et le convertir en valeur monétaire au coût horaire de l'utilisateur type, puis fixer le prix comme une fraction raisonnable (par exemple 10 à 20%) de cette valeur mensuelle créée, en présentant explicitement ce calcul dans l'argumentaire commercial.",
+        "avoid": "Fixer le prix uniquement en référence aux prix affichés par les concurrents, sans jamais quantifier la valeur économique réellement créée pour le client."
+      },
+      {
+        "situation": "Une entreprise veut tester la disposition à payer d'un nouveau segment de clientèle avant de fixer un prix définitif.",
+        "recommended_behavior": "Conduire une enquête structurée de type Van Westendorp auprès d'un échantillon représentatif du segment (questions sur les seuils de prix trop cher, cher mais acceptable, avantageux, trop bon marché pour être crédible) pour identifier une fourchette de prix acceptable avant généralisation.",
+        "avoid": "Fixer un prix définitif pour un nouveau segment sur la seule base d'une intuition interne sans validation empirique de la disposition à payer."
+      }
+    ],
+    "best_practices": [
+      "Documenter par écrit le calcul de la valeur économique créée pour chaque segment de clientèle, pas uniquement pour l'offre globale.",
+      "Tester le willingness-to-pay avant tout lancement de prix définitif sur un nouveau segment ou une nouvelle offre.",
+      "Réviser périodiquement le calcul de valeur, la meilleure alternative du client évoluant avec la concurrence et le marché.",
+      "Former les équipes commerciales à présenter l'argumentaire de valeur plutôt qu'à négocier uniquement sur la base du prix."
+    ],
+    "anti_patterns": [
+      "Fixer un prix basé sur la valeur sans jamais avoir quantifié ni documenté cette valeur de façon vérifiable.",
+      "Confondre tarification basée sur la valeur et simple alignement sur les prix des concurrents.",
+      "Capturer l'intégralité de la valeur créée dans le prix, ne laissant aucune marge de valeur perçue au client.",
+      "Fixer un prix définitif sur un nouveau segment sans jamais tester empiriquement la disposition à payer."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["value_based_pricing", "valeur_economique_client", "willingness_to_pay", "van_westendorp"],
+    "related_domains": ["cpl"],
+    "related_knowledge": [
+      "cpl.strategy.strategy_fundamentals",
+      "cpl.business_piloting.pricing_strategy",
+      "cpl.business_strategy.pricing_psychology",
+      "cpl.strategy.value_proposition_framework"
+    ],
+    "retrieval_priority": 6
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["aide à la quantification de la valeur économique et à la fixation d'un prix basé sur la valeur"],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "Si la valeur économique créée pour le client n'a jamais été quantifiée, recommander cette quantification avant de justifier un prix supérieur au coût de production."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "20/08/2026",
+    "last_update": "20/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
 }

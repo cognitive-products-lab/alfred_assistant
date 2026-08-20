@@ -1,87 +1,94 @@
 {
   "schema_version": "1.2",
   "type": "knowledge_unit",
-  "id": "knowledges.cpl.business_strategy.strategic_planning_cycle",
+  "knowledge_id": "cpl.business_strategy.strategic_planning_cycle",
   "title": "Cycle de planification stratégique",
+  "version": "1.1.0",
+  "status": "active",
   "domain": "cpl",
   "subdomain": "business_strategy",
-  "status": "validated",
+  "category": "strategie_pilotage",
   "summary": "Le cycle de planification stratégique structure les moments d'analyse, de décision et d'alignement autour de la direction de l'entreprise — annuellement pour la stratégie, trimestriellement pour les OKRs, et hebdomadairement pour l'exécution.",
-  "core_definition": "Le cycle de planification stratégique est le processus récurrent par lequel une organisation définit ses orientations, alloue ses ressources, décline des objectifs opérationnels et ajuste son plan en fonction des résultats — à différentes fréquences selon l'horizon.",
-  "knowledge": {
-    "planning_horizons": [
+  "purpose": "Donner un cadre de cycle de planification adapté à une petite structure, avec des rituels concrets à chaque horizon temporel.",
+  "tags": ["planification", "stratégie", "okrs", "cycle", "revue", "business"],
+  "intents": ["structure_planning_cycle", "run_quarterly_okr_cycle", "keep_strategy_actionable"],
+  "usage_context": [
+    "mise en place d'un cycle de planification stratégique dans une structure de taille moyenne",
+    "structuration d'un cycle trimestriel d'OKRs",
+    "prévention de la déconnexion entre plan stratégique et exécution réelle"
+  ],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "Le cycle de planification stratégique est le processus récurrent par lequel une organisation définit ses orientations, alloue ses ressources, décline des objectifs opérationnels et ajuste son plan en fonction des résultats, à différentes fréquences selon l'horizon : stratégique (3-5 ans, annuel), tactique/OKRs (1 an avec révisions trimestrielles), opérationnel (trimestriel) et exécution (hebdomadaire).",
+    "core_principles": [
+      "Chaque horizon de planification a sa propre fréquence et son propre objet : la vision et les investissements majeurs se décident annuellement, les priorités et le hiring plan se déclinent en OKRs annuels révisés trimestriellement, la roadmap et le budget s'ajustent trimestriellement, l'exécution se pilote hebdomadairement.",
+      "Le processus de planification annuelle suit une séquence logique : bilan de l'année écoulée, analyse de l'environnement, définition des priorités, allocation des ressources, déclinaison en OKRs par équipe, puis communication et alignement.",
+      "Un plan stratégique qui reste dans un tiroir se caractérise par l'absence de rituels de suivi réguliers reliant les décisions opérationnelles (recrutement, investissement) aux priorités déclarées.",
+      "La transparence sur les priorités — rendre les OKRs visibles à toute l'organisation — est souvent le livrable le plus important d'un cycle de planification, davantage que la précision des objectifs eux-mêmes."
+    ],
+    "rules": [
+      "Adapter la légèreté du cycle de planification à la taille de l'organisation plutôt que d'imposer un processus lourd à une petite structure.",
+      "Relier explicitement chaque décision de recrutement ou d'investissement significatif aux OKRs en vigueur, pas seulement documenter les OKRs séparément.",
+      "Revoir les métriques réelles versus le plan à fréquence mensuelle a minima, l'écart entre plan et réalité étant le signal le plus utile.",
+      "Conduire une rétrospective de fin de trimestre sur les OKRs (apprentissages, pas seulement score) plutôt qu'un simple bilan chiffré."
+    ],
+    "examples": [
       {
-        "horizon": "Stratégique (3-5 ans)",
-        "frequency": "Annuelle",
-        "focus": "Vision, positionnement marché, investissements majeurs, capacités à construire"
+        "situation": "Mettre en place un cycle de planification stratégique dans une PME de 20 personnes.",
+        "recommended_behavior": "Structurer un cycle léger : revue annuelle de deux jours en fin d'année (bilan, priorités, budget) avec les managers clés, OKRs trimestriels de 3 à 5 objectifs déclinés par équipe en une demi-journée, revue mensuelle de deux heures sur les métriques et bloquants, et un point hebdomadaire de 30 minutes sur l'exécution opérationnelle.",
+        "avoid": "Importer un processus de planification stratégique conçu pour une grande organisation, disproportionné par rapport à la taille et à la capacité de la structure."
       },
       {
-        "horizon": "Tactique / OKRs (1 an)",
-        "frequency": "Annuelle avec révisions trimestrielles",
-        "focus": "Objectifs annuels, priorités d'investissement, hiring plan"
-      },
-      {
-        "horizon": "Opérationnel / Trimestriel",
-        "frequency": "Trimestrielle",
-        "focus": "OKRs Q, roadmap produit, budget alloué"
-      },
-      {
-        "horizon": "Exécution / Sprint",
-        "frequency": "Hebdomadaire ou bimensuelle",
-        "focus": "Tâches, bloquants, résolutions"
+        "situation": "Éviter qu'un plan stratégique reste sans effet une fois rédigé.",
+        "recommended_behavior": "Rendre les OKRs publics et visibles à toute l'organisation, organiser des revues mensuelles avec les métriques réelles plutôt que des présentations formatées, lier explicitement les décisions de recrutement et d'investissement aux OKRs en vigueur, et conduire une rétrospective d'apprentissage en fin de trimestre.",
+        "avoid": "Rédiger un plan stratégique détaillé sans jamais le relier aux décisions opérationnelles courantes ni le revoir régulièrement."
       }
     ],
-    "annual_planning_process": [
-      "Bilan de l'année (résultats, apprentissages, surprises)",
-      "Analyse de l'environnement (marché, concurrence, tendances)",
-      "Définition des priorités stratégiques pour l'année suivante",
-      "Allocation des ressources (budget, headcount, investissements)",
-      "Déclinaison en OKRs par équipe",
-      "Communication et alignement de toute l'organisation"
+    "best_practices": [
+      "Documenter les priorités stratégiques de façon suffisamment concise pour être réellement lues et retenues par l'ensemble de l'organisation.",
+      "Utiliser les mêmes métriques d'un cycle à l'autre pour permettre une comparaison dans le temps.",
+      "Distinguer clairement le scoring des OKRs (0 à 1 par résultat clé) de l'analyse qualitative des apprentissages associés.",
+      "Adapter la fréquence des rituels à l'horizon réel de la décision concernée, sans multiplier les réunions redondantes."
     ],
-    "okr_quarterly_cycle": [
-      "Semaine 1 : Bilan Q précédent (résultats, enseignements)",
-      "Semaine 2-3 : Construction des OKRs Q suivant (bottom-up + top-down)",
-      "Semaine 4 : Alignement et validation des OKRs",
-      "Q en cours : Weekly check-in sur les métriques",
-      "Fin de Q : Scoring des OKRs (0-1 par KR)"
+    "anti_patterns": [
+      "Imposer un cycle de planification trop lourd à une structure de petite taille, générant plus de charge que de valeur.",
+      "Rédiger un plan stratégique annuel sans jamais le relier aux décisions opérationnelles courantes.",
+      "Se limiter à un score chiffré des OKRs sans analyse qualitative des raisons de l'écart.",
+      "Garder les priorités stratégiques confidentielles au niveau de la direction, empêchant l'alignement du reste de l'organisation."
     ]
   },
-  "example_answers": [
-    {
-      "prompt": "Comment mettre en place un cycle de planification stratégique dans une PME de 20 personnes ?",
-      "answer": "Structure légère adaptée aux PMEs : (1) Revue annuelle (novembre/décembre) : bilan, priorités stratégiques, budget. 2 jours offsite avec les managers clés. (2) OKRs trimestriels : 3-5 objectifs pour toute l'entreprise, chaque équipe décline les siens. 1 demi-journée. (3) Review mensuelle : métriques clés vs OKRs, bloquants, ajustements. 2h. (4) Weekly standup : bloquants opérationnels. 30 min. L'objectif n'est pas la perfection — c'est que toute l'équipe sache où on va et pourquoi. La transparence sur les priorités est le livrable le plus important."
-    },
-    {
-      "prompt": "Comment éviter que le plan stratégique reste dans un tiroir ?",
-      "answer": "Quatre pratiques : (1) OKRs publics et visibles pour toute l'organisation — chacun peut voir les priorités et leur avancement, (2) Revues mensuelles avec les métriques réelles (pas seulement des slides) — l'écart entre plan et réalité est le signal le plus utile, (3) Lier les décisions de recrutement et d'investissement aux OKRs — si un poste n'est lié à aucun OKR, il devrait peut-être attendre, (4) Rétrospective des OKRs en fin de trimestre — qu'est-ce qu'on a appris ? Pas juste un score, une analyse."
-    }
-  ],
-  "response_guidance": {
-    "tone": "stratégique, ancré dans la réalité opérationnelle et les contraintes de marché",
-    "structure": [
-      "analyser le contexte concurrentiel et client",
-      "proposer la lecture stratégique",
-      "recommander les prochaines actions"
+  "retrieval_hints": {
+    "priority_keywords": ["planification_strategique", "okrs", "cycle_annuel", "revue_trimestrielle"],
+    "related_domains": ["cpl"],
+    "related_knowledge": [
+      "cpl.strategy.strategy_fundamentals",
+      "cpl.professional.strategy.product_strategy.strategic_planning_okr",
+      "cpl.business_strategy.strategic_decision_framework"
     ],
-    "avoid": [
-      "conseils trop génériques",
-      "ignorer les contraintes de ressources",
-      "optimisme non fondé"
-    ]
+    "retrieval_priority": 6
   },
-  "tags": [
-    "planification",
-    "stratégie",
-    "OKRs",
-    "cycle",
-    "revue",
-    "stratégie",
-    "business",
-    "CPL"
-  ],
-  "related_knowledge_units": [
-    "knowledges.cpl.strategy.strategy_fundamentals",
-    "knowledges.cpl.business_piloting.profitability_analysis"
-  ]
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["aide à la structuration d'un cycle de planification stratégique"],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "Si aucun rituel de suivi des OKRs n'existe, recommander sa mise en place avant d'élaborer de nouveaux objectifs stratégiques."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "20/08/2026",
+    "last_update": "20/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
 }

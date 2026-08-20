@@ -1,88 +1,96 @@
 {
   "schema_version": "1.2",
   "type": "knowledge_unit",
-  "id": "knowledges.cpl.business_strategy.go_to_market_strategy",
+  "knowledge_id": "cpl.business_strategy.go_to_market_strategy",
   "title": "Stratégie Go-to-Market",
+  "version": "1.1.0",
+  "status": "active",
   "domain": "cpl",
   "subdomain": "business_strategy",
-  "status": "validated",
-  "summary": "La stratégie Go-to-Market définit comment une offre arrive sur son marché cible : qui sont les clients prioritaires, par quels canaux les atteindre, avec quel message, et dans quel ordre géographique ou sectoriel se déployer.",
-  "core_definition": "La stratégie Go-to-Market (GTM) est le plan d'action qui définit comment une entreprise ou un produit va atteindre son marché cible, engager ses clients et générer du revenu — en couvrant la segmentation, le positionnement, les canaux de distribution, le modèle de vente et la stratégie de lancement.",
-  "knowledge": {
-    "gtm_components": [
+  "category": "strategie_marche",
+  "summary": "La stratégie Go-to-Market définit comment une offre atteint son marché cible : segmentation et ICP, message, canaux, motion de vente et séquence de déploiement — enrichie d'un volet avancé sur le choix de motion (PLG vs sales-led) et l'expansion land-and-expand.",
+  "purpose": "Donner un cadre structuré de lancement et d'expansion commerciale, du choix de l'ICP initial jusqu'aux stratégies de motion avancées, pour cadrer les décisions GTM d'un client accompagné par ALFRED CPL ou d'ALFRED CPL lui-même.",
+  "tags": ["gtm", "go-to-market", "icp", "canaux", "lancement", "plg", "land_and_expand", "stratégie", "business"],
+  "intents": ["define_gtm_strategy", "define_icp", "choose_sales_motion", "plan_land_and_expand"],
+  "usage_context": [
+    "lancement d'une nouvelle offre ou d'un nouveau segment de marché",
+    "arbitrage entre motion self-serve (PLG) et motion commerciale directe (sales-led)",
+    "définition d'une stratégie d'expansion progressive au sein d'un compte existant"
+  ],
+  "priority": "high",
+  "safety_level": "normal",
+  "content": {
+    "definition": "La stratégie Go-to-Market (GTM) est le plan d'action qui définit comment une entreprise ou un produit atteint son marché cible, engage ses clients et génère du revenu — en couvrant la segmentation, le positionnement, les canaux de distribution, le modèle de vente et la séquence de déploiement, y compris les stratégies avancées de motion et d'expansion de compte.",
+    "core_principles": [
+      "L'ICP (Ideal Customer Profile) trop large dilue les efforts : un GTM efficace commence narrow sur le segment où la valeur est la plus claire, puis élargit progressivement.",
+      "La motion de vente (self-serve/PLG, transactionnelle, entreprise) doit être cohérente avec le prix et la complexité de l'offre — un produit à faible prix unitaire ne supporte pas une motion enterprise coûteuse, et inversement une offre complexe ne se vend rarement en pur self-service.",
+      "Le land-and-expand (entrer avec un périmètre restreint puis étendre l'usage au sein du même compte) réduit le risque perçu à l'achat initial et construit la croissance sur la preuve de valeur déjà délivrée plutôt que sur une promesse.",
+      "Un déploiement séquencé (segment pilote → optimisation → scaling) permet d'apprendre et d'affiner le message avant d'engager des ressources à grande échelle."
+    ],
+    "rules": [
+      "Définir l'ICP à partir des clients existants les plus satisfaits et les plus rentables plutôt que d'une cible théorique.",
+      "Choisir la motion de vente en fonction du prix, de la complexité d'implémentation et du niveau d'autonomie de décision de l'acheteur, pas par défaut ou par mimétisme concurrentiel.",
+      "Dans une logique land-and-expand, définir dès la vente initiale les signaux d'usage qui déclenchent une conversation d'expansion, plutôt que de la laisser au hasard.",
+      "Ne pas attaquer plusieurs marchés géographiques ou sectoriels simultanément avant d'avoir validé le message sur un premier segment."
+    ],
+    "examples": [
       {
-        "component": "Segmentation et ICP",
-        "description": "Ideal Customer Profile — le client type pour lequel la valeur est la plus claire et la plus forte",
-        "importance": "Le ICP trop large dilue les efforts — commencer narrow"
+        "situation": "Une solution IA professionnelle hésite entre une motion self-serve et une motion commerciale directe pour son lancement.",
+        "recommended_behavior": "Évaluer la complexité de mise en œuvre côté client et le prix cible : si l'implémentation nécessite un accompagnement ou si le prix dépasse le seuil d'achat impulsif d'un utilisateur individuel, privilégier une motion sales-led avec un cycle de qualification, quitte à introduire un volet self-serve plus tard une fois le produit simplifié.",
+        "avoid": "Copier la motion PLG d'un concurrent sans vérifier que le produit et le prix la supportent réellement."
       },
       {
-        "component": "Message",
-        "description": "La promesse de valeur adaptée à l'ICP — ce qui résonne avec leurs douleurs spécifiques",
-        "importance": "Le même produit a des messages différents selon les segments"
-      },
-      {
-        "component": "Canaux",
-        "description": "Comment atteindre l'ICP (outbound, inbound, events, referrals, partenariats)",
-        "importance": "Les canaux dépendent du profil de l'acheteur"
-      },
-      {
-        "component": "Motion de vente",
-        "description": "Self-serve, transactionnel, entreprise — adapté au prix et à la complexité",
-        "importance": "Un produit à 50€/mois ne supporte pas une motion enterprise"
-      },
-      {
-        "component": "Séquence de déploiement",
-        "description": "Segment pilot → optimisation → scaling. Commencer par le segment le plus facile à convaincre",
-        "importance": "Un win early donne des références et affine le message"
+        "situation": "Un client existant utilise une seule fonctionnalité d'une offre qui en propose plusieurs, sans qu'aucune expansion n'ait été proposée depuis la signature initiale.",
+        "recommended_behavior": "Identifier les signaux d'usage indiquant une valeur non exploitée (fréquence d'utilisation, feedback positif sur la fonctionnalité active) et engager une conversation d'expansion structurée plutôt que d'attendre un renouvellement pour aborder le sujet.",
+        "avoid": "Laisser la relation stagner sur le périmètre initial sans jamais proposer d'expansion, au risque de perdre le compte à la première alternative moins chère."
       }
     ],
-    "icp_definition": {
-      "dimensions": [
-        "Secteur",
-        "Taille d'entreprise",
-        "Stade de croissance",
-        "Maturité sur le problème résolu",
-        "Budget disponible",
-        "Décideur type (titre, priorités)"
-      ],
-      "sources": "Analyser les 20 meilleurs clients existants (les plus rentables, les plus satisfaits, les plus faciles à servir) — leurs points communs définissent l'ICP."
-    }
-  },
-  "example_answers": [
-    {
-      "prompt": "Comment définir mon ICP (Ideal Customer Profile) pour ma solution IA ?",
-      "answer": "Partir des clients existants les plus satisfaits et les plus profitables. Questions : quel secteur, quelle taille d'équipe, quel titre de l'acheteur principal, quel problème spécifique ta solution résout-elle pour eux, pourquoi t'ont-ils choisi plutôt qu'un concurrent ? Les patterns communs à tes meilleurs clients = ton ICP. Pour une solution IA professionnelle : typiquement un segment qui a déjà une maturité data (ne pas évangéliser l'IA de zéro), un budget IT > X, et un champion technique en interne."
-    },
-    {
-      "prompt": "Dans quel ordre lancer un produit sur plusieurs marchés géographiques ?",
-      "answer": "Commencer par le marché le plus accessible et le plus représentatif. Pour une solution française : France d'abord pour apprendre, affiner le message, construire des références. Puis pays francophones (Belgique, Suisse, Canada) qui utilisent le même message sans adaptation majeure. Puis DACH ou UK (nécessitent adaptation culturelle et linguistique). Ne pas attaquer 5 pays simultanément — disperser les efforts sans profondeur dans aucun. L'internationalisation séquentielle permet d'apprendre et de financer chaque étape."
-    }
-  ],
-  "response_guidance": {
-    "tone": "stratégique, ancré dans la réalité opérationnelle et les contraintes de marché",
-    "structure": [
-      "analyser le contexte concurrentiel et client",
-      "proposer la lecture stratégique",
-      "recommander les prochaines actions"
+    "best_practices": [
+      "Documenter l'ICP avec des critères précis (secteur, taille, maturité, budget, décideur) plutôt qu'une description vague.",
+      "Adapter le message à chaque segment plutôt que d'utiliser un discours unique pour des acheteurs aux priorités différentes.",
+      "Séquencer l'internationalisation ou l'expansion sectorielle plutôt que de disperser les efforts sur plusieurs fronts simultanément.",
+      "Instrumenter les signaux d'usage dès le déploiement initial pour rendre le land-and-expand pilotable et non improvisé."
     ],
-    "avoid": [
-      "conseils trop génériques",
-      "ignorer les contraintes de ressources",
-      "optimisme non fondé"
+    "anti_patterns": [
+      "Définir un ICP si large qu'il ne permet aucune priorisation réelle des efforts commerciaux.",
+      "Imposer une motion de vente incohérente avec le prix ou la complexité de l'offre.",
+      "Lancer sur plusieurs marchés en parallèle sans avoir validé le message sur un premier segment de référence.",
+      "Vendre un périmètre large dès le départ par crainte de perdre le deal, au lieu de construire la confiance par un land-and-expand progressif."
     ]
   },
-  "tags": [
-    "GTM",
-    "go-to-market",
-    "ICP",
-    "canaux",
-    "lancement",
-    "stratégie",
-    "business",
-    "CPL"
-  ],
-  "related_knowledge_units": [
-    "knowledges.cpl.strategy.strategy_fundamentals",
-    "knowledges.cpl.business_piloting.profitability_analysis"
-  ]
+  "retrieval_hints": {
+    "priority_keywords": ["gtm", "icp", "motion_de_vente", "plg", "land_and_expand", "segmentation"],
+    "related_domains": ["cpl"],
+    "related_knowledge": [
+      "cpl.strategy.strategy_fundamentals",
+      "cpl.business_strategy.market_segmentation_strategy",
+      "cpl.business_strategy.market_entry_strategy",
+      "cpl.business_strategy.b2b_sales_cycle",
+      "cpl.business_piloting.profitability_analysis"
+    ],
+    "retrieval_priority": 7
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["aide à la structuration d'une stratégie de lancement ou d'expansion commerciale"],
+    "restricted_usage": ["engagement chiffré de résultat commercial sans données réelles du client"],
+    "forbidden_usage": [],
+    "fallback_behavior": "Si les données client (ICP réel, coûts d'acquisition par canal) manquent, recommander leur collecte avant de figer une stratégie GTM détaillée."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "20/08/2026",
+    "last_update": "20/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
 }

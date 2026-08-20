@@ -1,26 +1,95 @@
 {
-    "id":  "customer.persona.business",
-    "created_at":  "2026-06-03",
-    "title":  "customer persona business",
-    "tags":  [
-
-             ],
-    "source":  "recreated_from_dashboard_manifest",
-    "description":  "Fiche connaissance recréée automatiquement à partir du manifest dashboard.",
-    "status":  "draft",
-    "content":  {
-                    "summary":  "",
-                    "links":  [
-
-                              ],
-                    "use_cases":  [
-
-                                  ],
-                    "risks":  [
-
-                              ],
-                    "key_points":  [
-
-                                   ]
-                }
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.business_strategy.customer_persona_business",
+  "title": "Persona client business",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "business_strategy",
+  "category": "strategie_marche",
+  "summary": "Le persona client décrit le décideur ou l'utilisateur type d'une offre à travers ses motivations, ses priorités et son comportement d'achat — un complément qualitatif et individuel à l'ICP (profil d'entreprise cible) déjà couvert par la stratégie Go-to-Market.",
+  "purpose": "Distinguer et outiller la construction de personas individuels (comportement, motivations, objections) en complément de l'ICP (profil d'entreprise), les deux étant nécessaires mais souvent confondus.",
+  "tags": ["persona", "buyer persona", "décideur", "comportement d'achat", "icp", "stratégie", "business"],
+  "intents": ["build_buyer_persona", "differentiate_persona_from_icp", "anticipate_buyer_objections"],
+  "usage_context": [
+    "construction d'un persona acheteur pour affiner un message commercial",
+    "distinction entre profil d'entreprise cible (ICP) et profil du décideur individuel (persona)",
+    "anticipation des objections propres à un type de décideur"
+  ],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "Le persona client business est une représentation semi-fictive et documentée d'un type de décideur ou d'utilisateur individuel au sein de l'organisation cible, construite à partir de ses motivations, priorités, contraintes et comportements d'achat réels — complémentaire mais distincte de l'ICP (Ideal Customer Profile), qui décrit le profil de l'entreprise cible (secteur, taille, budget) et non l'individu qui décide.",
+    "core_principles": [
+      "L'ICP répond à la question 'quelle entreprise cibler' (secteur, taille, maturité, budget), tandis que le persona répond à la question 'qui, à l'intérieur de cette entreprise, décide et pourquoi' — les deux sont nécessaires et se confondent souvent à tort dans une seule fiche générique.",
+      "Un persona pertinent documente les motivations professionnelles et parfois personnelles du décideur (ce qui compte pour sa réussite dans son rôle), ses sources d'information de confiance, ses critères de décision, et ses objections types.",
+      "Une même entreprise cible (même ICP) peut comporter plusieurs personas aux priorités différentes (utilisateur final, acheteur économique, validateur technique) qui nécessitent des messages distincts, pas un message unique.",
+      "Un persona construit sans entretiens réels avec des décideurs existants reste une hypothèse non validée et risque de refléter les biais internes de l'équipe plutôt que la réalité du marché."
+    ],
+    "rules": [
+      "Construire chaque persona à partir d'entretiens réels avec des décideurs existants (clients ou prospects avancés), pas uniquement à partir d'hypothèses internes.",
+      "Documenter séparément l'ICP (profil d'entreprise) et le ou les personas (profils de décideurs individuels) plutôt que de les fusionner dans une fiche unique.",
+      "Identifier explicitement les objections types de chaque persona pour préparer un traitement adapté, plutôt qu'un argumentaire générique.",
+      "Réviser les personas lorsque le marché ou l'offre évolue significativement, un persona n'étant pas figé dans le temps."
+    ],
+    "examples": [
+      {
+        "situation": "Une équipe commerciale dispose d'un ICP bien défini (secteur, taille, budget) mais constate que son message ne convertit pas de façon homogène selon les interlocuteurs au sein d'entreprises pourtant conformes à cet ICP.",
+        "recommended_behavior": "Identifier les différents rôles impliqués dans la décision au sein de ces entreprises conformes à l'ICP (utilisateur, acheteur économique, validateur technique) et construire un persona distinct pour chacun, avec un message adapté à ses priorités propres, plutôt que de continuer à utiliser un message unique.",
+        "avoid": "Attribuer la faible conversion à un problème d'ICP alors que le véritable écart se situe au niveau du persona et du message adressé à chaque interlocuteur."
+      },
+      {
+        "situation": "Construire un persona pour une solution IA professionnelle destinée à des décideurs techniques.",
+        "recommended_behavior": "Mener des entretiens avec plusieurs décideurs techniques réels pour documenter leurs critères de décision effectifs (fiabilité, intégration, gouvernance des données), leurs sources d'information de confiance, et leurs objections récurrentes, plutôt que de supposer ces éléments en interne.",
+        "avoid": "Rédiger un persona générique 'décideur technique' basé sur des suppositions internes sans validation par des entretiens réels."
+      }
+    ],
+    "best_practices": [
+      "Limiter le nombre de personas actifs à ceux réellement impliqués dans la décision d'achat, pour rester actionnable.",
+      "Documenter les objections types de chaque persona avec une réponse préparée, pas seulement ses motivations positives.",
+      "Partager les personas avec l'ensemble des équipes en contact avec les prospects (commercial, marketing, support) pour une cohérence de message.",
+      "Mettre à jour les personas à partir de retours réels du terrain plutôt que de les figer après leur création initiale."
+    ],
+    "anti_patterns": [
+      "Confondre l'ICP (profil d'entreprise) et le persona (profil de décideur individuel) dans une seule fiche générique.",
+      "Construire un persona uniquement à partir d'hypothèses internes sans jamais le valider par des entretiens réels.",
+      "Utiliser un message commercial unique pour des personas aux priorités clairement différentes au sein d'une même entreprise cible.",
+      "Ne jamais réviser les personas alors que l'offre ou le marché a significativement évolué."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["persona", "buyer_persona", "decideur", "icp", "objection"],
+    "related_domains": ["cpl"],
+    "related_knowledge": [
+      "cpl.strategy.strategy_fundamentals",
+      "cpl.business_strategy.go_to_market_strategy",
+      "cpl.business_strategy.market_segmentation_strategy",
+      "cpl.business_strategy.b2b_sales_cycle"
+    ],
+    "retrieval_priority": 5
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["aide à la construction et à l'utilisation de personas client"],
+    "restricted_usage": [],
+    "forbidden_usage": ["construction d'un persona à partir de données personnelles individuelles non anonymisées sans base légale"],
+    "fallback_behavior": "Si aucun entretien réel n'a été mené pour construire un persona, le présenter explicitement comme une hypothèse à valider plutôt que comme un fait établi."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "20/08/2026",
+    "last_update": "20/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
 }

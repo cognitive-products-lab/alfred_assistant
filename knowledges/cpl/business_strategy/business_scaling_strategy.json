@@ -1,100 +1,95 @@
 {
   "schema_version": "1.2",
   "type": "knowledge_unit",
-  "id": "knowledges.cpl.business_strategy.business_scaling_strategy",
+  "knowledge_id": "cpl.business_strategy.business_scaling_strategy",
   "title": "Stratégie de scaling business",
+  "version": "1.1.0",
+  "status": "active",
   "domain": "cpl",
   "subdomain": "business_strategy",
-  "status": "validated",
-  "summary": "Le scaling consiste à croître le revenu plus vite que les coûts. Cela requiert d'identifier les leviers de scalabilité (product, sales, marketing), d'automatiser les processus, et de bâtir la structure organisationnelle avant d'en avoir besoin.",
-  "core_definition": "La stratégie de scaling est l'ensemble des décisions qui permettent à une entreprise de multiplier son revenu et son impact sans multiplier proportionnellement ses ressources — en identifiant les leviers de croissance non-linéaire, en automatisant les processus répétitifs et en construisant les capacités organisationnelles nécessaires.",
-  "knowledge": {
-    "scaling_prerequisites": [
-      "Product-Market Fit établi — ne pas scaler avant que la rétention soit prouvée",
-      "Unit economics positives — CAC < LTV, idéalement LTV/CAC > 3",
-      "Processus de vente reproductible — le succès ne dépend pas d'une seule personne",
-      "Infrastructure scalable — technique, RH, finance"
+  "category": "strategie_croissance",
+  "summary": "Le scaling consiste à croître le revenu plus vite que les coûts. Cela requiert d'identifier les leviers de scalabilité (produit, ventes, marketing), d'automatiser les processus, et de bâtir la structure organisationnelle avant d'en avoir besoin.",
+  "purpose": "Donner un cadre de décision pour savoir quand et comment scaler une activité, en évitant les pièges classiques de scaling prématuré.",
+  "tags": ["scaling", "croissance", "pmf", "unit economics", "organisation", "stratégie", "business"],
+  "intents": ["evaluate_scaling_readiness", "choose_scaling_lever", "avoid_scaling_traps"],
+  "usage_context": [
+    "évaluation de la capacité d'une activité à passer à l'échelle",
+    "choix des leviers de croissance (ventes, marketing, produit, partenariats)",
+    "prévention de la perte de qualité de service pendant une phase de croissance rapide"
+  ],
+  "priority": "high",
+  "safety_level": "normal",
+  "content": {
+    "definition": "La stratégie de scaling est l'ensemble des décisions qui permettent à une entreprise de multiplier son revenu et son impact sans multiplier proportionnellement ses ressources — en identifiant les leviers de croissance non linéaire, en automatisant les processus répétitifs et en construisant les capacités organisationnelles nécessaires.",
+    "core_principles": [
+      "Le scaling ne doit être engagé qu'une fois des prérequis réunis : product-market fit établi, unit economics positives (LTV/CAC idéalement supérieur à 3), processus de vente reproductible indépendant d'une seule personne, et infrastructure technique et organisationnelle capable d'absorber la charge.",
+      "Chaque levier de scaling (ventes, marketing, produit en self-service, partenariats/canal) a des contraintes propres : un commercial met plusieurs mois à devenir pleinement productif, le retour du marketing digital est variable et souvent différé, le scaling produit nécessite une offre très autonome à l'usage.",
+      "La qualité de service ne se maintient pas spontanément à l'échelle : elle doit être codifiée (playbooks, standards, formation) avant que le volume ne rende l'improvisation impossible.",
+      "Scaler sans profitabilité unitaire positive revient à détruire de la valeur à chaque nouveau client acquis, quelle que soit la croissance apparente du chiffre d'affaires."
     ],
-    "scaling_levers": [
+    "rules": [
+      "Vérifier explicitement les quatre prérequis (rétention stable, unit economics positives, processus de vente reproductible, infrastructure prête) avant d'engager des ressources significatives de scaling.",
+      "Choisir le ou les leviers de scaling en fonction du profil de l'offre (prix, complexité, autonomie d'usage) plutôt que par défaut ou par mimétisme.",
+      "Documenter et mesurer ce qui a produit la satisfaction client avant de scaler, pour pouvoir le reproduire de façon fiable à plus grande échelle.",
+      "Ne pas embaucher au rythme de la croissance espérée sans que les processus internes puissent absorber la complexité organisationnelle correspondante."
+    ],
+    "examples": [
       {
-        "lever": "Sales scaling",
-        "methods": [
-          "Embauche et formation de commerciaux",
-          "Channel partnerships",
-          "Alliances"
-        ],
-        "constraint": "Chaque commercial nécessite 6-12 mois pour être productif"
+        "situation": "Une entreprise envisage d'accélérer fortement son recrutement commercial avant d'avoir vérifié la reproductibilité de son processus de vente.",
+        "recommended_behavior": "Vérifier d'abord qu'un commercial peut apprendre et performer avec le playbook existant sans dépendre d'une seule personne clé, et ne recruter en volume qu'une fois cette reproductibilité démontrée sur au moins un profil supplémentaire.",
+        "avoid": "Recruter plusieurs commerciaux en parallèle en pariant que le processus de vente actuel, porté par une seule personne, se transmettra automatiquement."
       },
       {
-        "lever": "Marketing scaling",
-        "methods": [
-          "SEO/content",
-          "Paid acquisition",
-          "Growth loops viraux"
-        ],
-        "constraint": "ROI variable et souvent long terme"
-      },
-      {
-        "lever": "Product scaling (PLG)",
-        "methods": [
-          "Freemium",
-          "Self-serve",
-          "Intégrations"
-        ],
-        "constraint": "Nécessite un produit très 'self-service'"
-      },
-      {
-        "lever": "Partnership/Channel",
-        "methods": [
-          "Revendeurs",
-          "Intégrateurs",
-          "API partenaires"
-        ],
-        "constraint": "Perte de contrôle sur l'expérience client"
+        "situation": "Une entreprise en forte croissance constate une dégradation progressive de la satisfaction client depuis le début de sa phase de scaling.",
+        "recommended_behavior": "Documenter systématiquement ce qui produisait la satisfaction avant la phase de scaling (pratiques, standards implicites), les formaliser en playbooks mesurables, et investir en Customer Success proactif plutôt qu'en support réactif uniquement.",
+        "avoid": "Considérer la dégradation de qualité comme un effet secondaire inévitable de la croissance plutôt que le signe d'une codification insuffisante."
       }
     ],
-    "scaling_traps": [
-      "Scaler les ventes avant d'avoir un produit stable — génère du churn",
-      "Embaucher trop vite — la complexité organisationnelle ralentit l'exécution",
-      "Perdre la qualité produit dans la course à la croissance",
-      "Ignorer la profitabilité unitaire — croissance sans marge est de la croissance de valeur détruite"
-    ]
-  },
-  "example_answers": [
-    {
-      "prompt": "Comment savoir si on est prêts à scaler ?",
-      "answer": "Checklist : (1) La rétention est stable (courbe aplatie, pas de descente continue), (2) Les unit economics sont positives (LTV/CAC > 3, payback period < 18 mois), (3) Le processus de vente est reproductible (un nouveau commercial peut apprendre et performer avec un playbook), (4) Le produit supporte la montée en charge (infrastructure, support), (5) L'équipe de direction peut déléguer les décisions opérationnelles. Si tous ces points sont 'oui' → ready to scale. Sinon : identifier et corriger d'abord."
-    },
-    {
-      "prompt": "Comment scaler sans perdre la qualité de service qui a fait notre succès ?",
-      "answer": "La qualité à l'échelle nécessite de codifier ce qui fait le succès : playbooks, standards de qualité, processus de formation. Trois pratiques : (1) Documenter systématiquement les cas réussis (qu'est-ce qui a créé cette satisfaction ?) avant de scaler, (2) Mesurer la qualité à chaque étape (NPS par cohorte, CSAT par commercial, tickets résolus au premier contact), (3) Investir en Customer Success avant le support — accompagnement proactif > support réactif. Le secret : la qualité ne se maintient pas spontanément à l'échelle — elle se construit délibérément."
-    }
-  ],
-  "response_guidance": {
-    "tone": "stratégique, ancré dans la réalité opérationnelle et les contraintes de marché",
-    "structure": [
-      "analyser le contexte concurrentiel et client",
-      "proposer la lecture stratégique",
-      "recommander les prochaines actions"
+    "best_practices": [
+      "Établir une checklist de readiness au scaling (rétention, unit economics, reproductibilité, infrastructure) et la revoir avant chaque accélération significative.",
+      "Mesurer la qualité à chaque étape (NPS par cohorte, taux de résolution au premier contact) plutôt qu'à l'échelle globale uniquement.",
+      "Choisir un levier de scaling à la fois plutôt que de disperser les ressources sur plusieurs simultanément sans priorité claire.",
+      "Investir dans la documentation et la formation avant l'embauche massive, pour que les nouvelles recrues héritent d'un savoir-faire structuré."
     ],
-    "avoid": [
-      "conseils trop génériques",
-      "ignorer les contraintes de ressources",
-      "optimisme non fondé"
+    "anti_patterns": [
+      "Scaler les ventes avant d'avoir un produit ou un service stable, générant du churn qui neutralise la croissance acquise.",
+      "Embaucher trop vite sans que l'organisation puisse absorber la complexité, ralentissant l'exécution globale.",
+      "Ignorer la profitabilité unitaire au profit de la seule croissance du chiffre d'affaires.",
+      "Traiter la dégradation de qualité comme acceptable pendant la phase de croissance plutôt que comme un signal à corriger."
     ]
   },
-  "tags": [
-    "scaling",
-    "croissance",
-    "PMF",
-    "unit economics",
-    "organisation",
-    "stratégie",
-    "business",
-    "CPL"
-  ],
-  "related_knowledge_units": [
-    "knowledges.cpl.strategy.strategy_fundamentals",
-    "knowledges.cpl.business_piloting.profitability_analysis"
-  ]
+  "retrieval_hints": {
+    "priority_keywords": ["scaling", "pmf", "unit_economics", "reproductibilite_vente", "croissance"],
+    "related_domains": ["cpl"],
+    "related_knowledge": [
+      "cpl.strategy.strategy_fundamentals",
+      "cpl.business_piloting.profitability_analysis",
+      "cpl.business_strategy.operational_excellence",
+      "cpl.business_strategy.talent_strategy"
+    ],
+    "retrieval_priority": 6
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["aide à l'évaluation de la readiness au scaling et au choix des leviers de croissance"],
+    "restricted_usage": ["engagement chiffré de résultat de scaling sans données réelles"],
+    "forbidden_usage": [],
+    "fallback_behavior": "Si les unit economics n'ont pas été vérifiées, recommander leur calcul avant toute décision de scaling."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "20/08/2026",
+    "last_update": "20/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
 }

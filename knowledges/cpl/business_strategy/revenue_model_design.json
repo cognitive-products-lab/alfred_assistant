@@ -1,84 +1,97 @@
 {
   "schema_version": "1.2",
   "type": "knowledge_unit",
-  "id": "knowledges.cpl.business_strategy.revenue_model_design",
+  "knowledge_id": "cpl.business_strategy.revenue_model_design",
   "title": "Design du modèle de revenu",
+  "version": "1.1.0",
+  "status": "active",
   "domain": "cpl",
   "subdomain": "business_strategy",
-  "status": "validated",
-  "summary": "Le modèle de revenu définit qui paye, pour quoi, comment (récurrent, transactionnel, par usage) et à quelle fréquence. Le bon modèle est aligné avec la valeur perçue et la structure du marché — il est rarement celui qui vient en premier.",
-  "core_definition": "Le design du modèle de revenu est la conception délibérée des mécanismes par lesquels une entreprise capture une partie de la valeur qu'elle crée — incluant la définition des payeurs, des unités facturées, des niveaux de prix et des structures tarifaires (abonnement, transactionnel, usage, hybride).",
-  "knowledge": {
-    "revenue_models": [
+  "category": "strategie_financiere",
+  "summary": "Le modèle de revenu définit qui paye, pour quoi, comment et à quelle fréquence. Le bon modèle est aligné avec la valeur perçue et la structure du marché — enrichi d'un volet sur les mécaniques spécifiques aux revenus récurrents (rétention nette, revenu d'expansion, analyse par cohorte).",
+  "purpose": "Donner un cadre de conception du modèle de revenu et de pilotage de sa performance dans le temps, en particulier pour les modèles récurrents qui dominent les activités logicielles et de conseil abonné.",
+  "tags": ["modèle de revenu", "abonnement", "saas", "freemium", "pricing", "nrr", "revenu récurrent", "stratégie", "business"],
+  "intents": ["design_revenue_model", "evaluate_recurring_revenue_health", "explain_net_revenue_retention"],
+  "usage_context": [
+    "conception initiale du modèle de facturation d'une offre",
+    "évaluation de la santé d'un modèle de revenu déjà en place",
+    "arbitrage entre plusieurs structures tarifaires pour une même offre"
+  ],
+  "priority": "high",
+  "safety_level": "normal",
+  "content": {
+    "definition": "Le design du modèle de revenu est la conception délibérée des mécanismes par lesquels une entreprise capture une partie de la valeur qu'elle crée — incluant la définition des payeurs, des unités facturées, des niveaux de prix et des structures tarifaires (abonnement, transactionnel, usage, licence, hybride) — ainsi que le pilotage de la performance de ces mécanismes dans le temps, en particulier pour les revenus récurrents.",
+    "core_principles": [
+      "Le modèle de revenu doit être aligné sur la value metric — la dimension sur laquelle le client perçoit la valeur ; un désalignement entre modèle de revenu et valeur perçue crée de la friction à la vente et au renouvellement.",
+      "Le modèle de revenu évolue avec la maturité du produit et du marché : le passage courant est licence unique → abonnement (prévisibilité) → usage-based (alignement fin de la valeur) → hybride.",
+      "Pour un modèle récurrent, la croissance ne se lit pas seulement au nouveau revenu acquis : la rétention nette du revenu (NRR — Net Revenue Retention), qui mesure l'évolution du revenu d'une cohorte de clients existants dans le temps (expansion moins churn moins downgrade), est un indicateur au moins aussi structurant.",
+      "Une analyse par cohorte (regrouper les clients par date d'acquisition et suivre leur revenu dans le temps) révèle des dynamiques invisibles dans un chiffre d'affaires agrégé, notamment un churn ou une expansion concentrés sur certaines cohortes."
+    ],
+    "rules": [
+      "Choisir le modèle de revenu en fonction de ce sur quoi le client perçoit la valeur (par utilisateur, par transaction, par volume traité), pas en fonction de la simplicité de facturation pour l'éditeur.",
+      "Suivre la rétention nette du revenu (NRR) en plus de la croissance brute pour tout modèle récurrent ; un NRR supérieur à 100% signifie que la base de clients existants génère à elle seule de la croissance.",
+      "Découper le revenu récurrent par cohorte d'acquisition pour identifier si une dégradation de rétention est générale ou concentrée sur une période ou un segment spécifique.",
+      "Anticiper l'évolution du modèle de revenu avec la maturité de l'offre plutôt que de considérer le modèle initial comme définitif."
+    ],
+    "examples": [
       {
-        "model": "Abonnement (SaaS)",
-        "description": "Facturation récurrente mensuelle ou annuelle",
-        "fit": "Valeur délivrée en continu, logiciel, services"
+        "situation": "Le chiffre d'affaires récurrent global d'une offre SaaS croît, mais la direction souhaite savoir si cette croissance vient de nouveaux clients ou de l'expansion des clients existants.",
+        "recommended_behavior": "Décomposer la croissance en nouveau revenu (nouveaux clients) et en NRR (expansion, contraction, churn de la base existante), car ces deux dynamiques appellent des leviers d'action différents — acquisition d'un côté, réussite client et upsell de l'autre.",
+        "avoid": "Se satisfaire d'un chiffre de croissance agrégé sans distinguer l'origine du revenu, au risque de masquer un NRR dégradé compensé par une acquisition coûteuse."
       },
       {
-        "model": "Transaction / Commission",
-        "description": "% ou montant fixe sur chaque transaction",
-        "fit": "Marketplaces, paiements, intermédiation"
-      },
-      {
-        "model": "Usage (pay-as-you-go)",
-        "description": "Facturation proportionnelle à l'utilisation",
-        "fit": "Infrastructure, APIs, tokens IA"
-      },
-      {
-        "model": "Licence",
-        "description": "Paiement unique pour le droit d'utilisation",
-        "fit": "Logiciels traditionnels, IP, brevets"
-      },
-      {
-        "model": "Freemium + upgrade",
-        "description": "Version gratuite + version payante",
-        "fit": "PLG, reach large, conversion sur usage"
-      },
-      {
-        "model": "Marketplace / double-face",
-        "description": "Facturation des deux côtés du marché",
-        "fit": "Plateformes bifaces (offre + demande)"
+        "situation": "Quel modèle de revenu adopter pour un assistant IA comme ALFRED CPL ?",
+        "recommended_behavior": "Évaluer un modèle hybride : abonnement de base pour la prévisibilité côté client, complété par une composante usage au-delà d'un quota pour capturer la valeur des usages intensifs, en explicitant clairement les seuils pour éviter l'anxiété de facturation typique du pur usage-based.",
+        "avoid": "Adopter un modèle purement usage-based dès le lancement, qui rend le budget du client imprévisible et freine l'adoption initiale."
       }
     ],
-    "value_metric_alignment": "Le modèle de revenu doit être aligné sur la value metric — la dimension sur laquelle le client perçoit la valeur. Si la valeur croît avec les utilisateurs → per-seat. Si la valeur croît avec les transactions → commission. Désaligner modèle de revenu et valeur perçue crée de la friction à la vente.",
-    "revenue_model_evolution": "Le modèle de revenu évolue avec la maturité du produit et du marché. Passage courant : licence unique → abonnement (prévisibilité) → usage-based (alignement valeur) → hybride."
-  },
-  "example_answers": [
-    {
-      "prompt": "Comment passer d'un modèle de projet ponctuel à un modèle d'abonnement récurrent en conseil ?",
-      "answer": "Trois étapes : (1) Identifier ce que les clients ont besoin en continu (pas juste au projet) — accès à un expert, veille, mise à jour des livrables, support, (2) Packageer cette valeur continue en une offre mensuelle claire avec un périmètre défini (X heures, Y accès, Z livrables), (3) Convertir les clients existants en priorité — ils connaissent déjà la valeur. Prix : l'abonnement mensuel doit être perçu comme moins cher que le projet ponctuel équivalent pour faciliter la conversion, tout en étant plus rentable sur l'année pour toi."
-    },
-    {
-      "prompt": "Quel modèle de revenu adopter pour un assistant IA comme ALFRED ?",
-      "answer": "Modèles possibles : (1) Abonnement mensuel (freemium + premium) — simple, récurrent, scalable. (2) Usage-based sur les tokens LLM — aligné avec la valeur mais anxiogène pour l'utilisateur. (3) Hybride : abonnement de base + usage au-delà d'un quota — prévisibilité pour l'utilisateur, revenu croissant pour le produit. Pour un assistant personnel : l'abonnement est le plus simple à vendre et à gérer. Pour une offre B2B avec gros volumes : l'usage-based capture mieux la valeur."
-    }
-  ],
-  "response_guidance": {
-    "tone": "stratégique, ancré dans la réalité opérationnelle et les contraintes de marché",
-    "structure": [
-      "analyser le contexte concurrentiel et client",
-      "proposer la lecture stratégique",
-      "recommander les prochaines actions"
+    "best_practices": [
+      "Documenter explicitement la value metric choisie et vérifier qu'elle croît naturellement avec la valeur perçue par le client.",
+      "Publier un tableau de bord NRR par cohorte plutôt qu'un seul chiffre de croissance globale.",
+      "Tester un changement de modèle de revenu sur un sous-ensemble de clients ou un nouveau segment avant généralisation.",
+      "Prévoir dès la conception du modèle les paliers d'expansion (tiers, add-ons, montée en usage) qui alimenteront le NRR futur."
     ],
-    "avoid": [
-      "conseils trop génériques",
-      "ignorer les contraintes de ressources",
-      "optimisme non fondé"
+    "anti_patterns": [
+      "Confondre croissance du chiffre d'affaires et santé du modèle de revenu récurrent sans jamais isoler le NRR.",
+      "Conserver un modèle de revenu figé alors que la maturité du produit ou du marché justifierait une évolution.",
+      "Désaligner le modèle de facturation et la value metric perçue par le client, créant une friction commerciale récurrente.",
+      "Ignorer les écarts de performance entre cohortes d'acquisition en ne regardant que le revenu agrégé."
     ]
   },
-  "tags": [
-    "modèle de revenu",
-    "abonnement",
-    "SaaS",
-    "freemium",
-    "pricing",
-    "stratégie",
-    "business",
-    "CPL"
-  ],
-  "related_knowledge_units": [
-    "knowledges.cpl.strategy.strategy_fundamentals",
-    "knowledges.cpl.business_piloting.profitability_analysis"
-  ]
+  "retrieval_hints": {
+    "priority_keywords": ["modele_revenu", "nrr", "retention_nette", "cohorte", "abonnement", "usage_based"],
+    "related_domains": ["cpl"],
+    "related_knowledge": [
+      "cpl.strategy.strategy_fundamentals",
+      "cpl.business_piloting.profitability_analysis",
+      "cpl.business_piloting.pricing_strategy",
+      "cpl.business_piloting.revenue_mix_strategy",
+      "cpl.business_strategy.saas_transition_strategy",
+      "cpl.business_strategy.customer_retention"
+    ],
+    "retrieval_priority": 7
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["aide à la conception et au pilotage d'un modèle de revenu"],
+    "restricted_usage": ["projection financière chiffrée présentée comme certaine sans données réelles"],
+    "forbidden_usage": [],
+    "fallback_behavior": "Si les données de cohorte ne sont pas disponibles, recommander leur mise en place avant de tirer des conclusions sur la santé du modèle de revenu récurrent."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "20/08/2026",
+    "last_update": "20/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
 }

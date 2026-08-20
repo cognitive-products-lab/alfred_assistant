@@ -1,97 +1,95 @@
 {
   "schema_version": "1.2",
   "type": "knowledge_unit",
-  "id": "knowledges.cpl.business_strategy.crisis_management",
+  "knowledge_id": "cpl.business_strategy.crisis_management",
   "title": "Gestion de crise business",
+  "version": "1.1.0",
+  "status": "active",
   "domain": "cpl",
   "subdomain": "business_strategy",
-  "status": "validated",
+  "category": "strategie_resilience",
   "summary": "La crise business (perte d'un client majeur, incident produit, problème financier, scandale réputationnel) requiert une réponse rapide, transparente et structurée. La qualité de la gestion de crise détermine souvent l'issue plus que la crise elle-même.",
-  "core_definition": "La gestion de crise business est l'ensemble des pratiques qui permettent à une organisation de répondre efficacement à des événements imprévus et potentiellement déstabilisateurs — en minimisant les impacts, en communicant de façon transparente et en accélérant le retour à la normale.",
-  "knowledge": {
-    "crisis_types": [
+  "purpose": "Donner un cadre de réponse structuré aux principaux types de crise business, incluant les premières heures d'un incident de cybersécurité et la perte soudaine d'un revenu significatif.",
+  "tags": ["crise", "incident", "communication de crise", "résilience", "gestion de risque", "stratégie", "business"],
+  "intents": ["respond_to_business_crisis", "handle_security_incident", "manage_revenue_loss_crisis"],
+  "usage_context": [
+    "réponse à un incident de sécurité ou une compromission technique",
+    "gestion de la perte soudaine d'un client ou d'un revenu majeur",
+    "communication de crise réputationnelle ou financière"
+  ],
+  "priority": "critical",
+  "safety_level": "sensitive",
+  "content": {
+    "definition": "La gestion de crise business est l'ensemble des pratiques qui permettent à une organisation de répondre efficacement à des événements imprévus et potentiellement déstabilisateurs (financiers, produit/techniques, réputationnels, humains) en minimisant les impacts, en communiquant de façon transparente et en accélérant le retour à la normale.",
+    "core_principles": [
+      "Le cadre de réponse à une crise suit cinq étapes : évaluer l'ampleur réelle avant d'agir, contenir pour empêcher l'aggravation, communiquer aux parties prenantes avec les faits disponibles, résoudre avec un plan d'action et un responsable désigné, puis tirer les enseignements par un post-mortem.",
+      "La transparence est le principe le plus déterminant en communication de crise : toute tentative de dissimulation ou de minimisation des faits aggrave systématiquement la crise lorsqu'elle est découverte.",
+      "La vitesse de communication prime sur la complétude de l'information — communiquer rapidement même de façon incomplète ('nous examinons la situation') vaut mieux que le silence en attendant d'avoir toutes les réponses.",
+      "L'ownership (assumer la responsabilité sans blâmer des tiers) et la description d'actions concrètes plutôt que de simples excuses sont ce qui restaure la confiance après une crise."
+    ],
+    "rules": [
+      "Ne jamais communiquer publiquement avant d'avoir établi les faits de base, mais ne jamais non plus rester silencieux au-delà d'un délai raisonnable.",
+      "En cas d'incident de sécurité, isoler les systèmes compromis sans les éteindre pour préserver les preuves, et notifier l'autorité de contrôle compétente dans le délai réglementaire applicable si des données personnelles sont concernées.",
+      "Documenter en temps réel toute action prise pendant la gestion de crise (logs, chronologie, décisions), pour permettre le post-mortem et, le cas échéant, une obligation réglementaire.",
+      "En cas de perte de revenu significative, évaluer immédiatement le runway restant et informer les parties prenantes clés avec les faits et un plan avant toute décision de réduction de coûts précipitée."
+    ],
+    "examples": [
       {
-        "type": "Crise financière",
-        "examples": [
-          "Cash en dessous du runway minimum",
-          "Perte d'un contrat majeur (>20% du revenu)",
-          "Coûts dépassant les prévisions"
-        ]
+        "situation": "Un serveur de l'entreprise vient d'être compromis par une intrusion identifiée dans les dernières heures.",
+        "recommended_behavior": "Isoler immédiatement les systèmes compromis en coupant la connexion réseau sans les éteindre pour préserver les preuves, mobiliser en parallèle les responsables techniques, direction et juridique, documenter toute action en temps réel, évaluer l'étendue de la compromission, et notifier l'autorité de protection des données dans le délai réglementaire si des données personnelles sont concernées.",
+        "avoid": "Communiquer publiquement avant d'avoir établi les faits, ou céder à une demande de rançon sans avis juridique spécialisé préalable."
       },
       {
-        "type": "Crise produit/technique",
-        "examples": [
-          "Incident de sécurité/breach",
-          "Panne critique de service",
-          "Bug majeur impactant les clients"
-        ]
-      },
-      {
-        "type": "Crise réputationnelle",
-        "examples": [
-          "Bad press",
-          "Polémique sur les réseaux sociaux",
-          "Échec public visible"
-        ]
-      },
-      {
-        "type": "Crise humaine",
-        "examples": [
-          "Départ inattendu d'un cofounder/CTO",
-          "Conflit interne majeur",
-          "Violation légale"
-        ]
+        "situation": "Une entreprise perd soudainement 30% de son chiffre d'affaires suite à l'arrêt d'un client majeur.",
+        "recommended_behavior": "Évaluer immédiatement le runway restant compte tenu du nouveau niveau de charges, identifier les dépenses réductibles sans impact opérationnel critique, informer les parties prenantes clés avec les faits et un plan d'action, puis accélérer la pipeline commerciale et analyser les causes du départ pour traiter le problème de concentration client sous-jacent.",
+        "avoid": "Réagir uniquement par des coupes budgétaires immédiates sans analyser la cause du départ ni engager d'action de reconquête de revenu."
       }
     ],
-    "crisis_response_framework": [
-      "1. Assess (évaluer) : comprendre l'ampleur réelle avant d'agir",
-      "2. Contain (contenir) : empêcher que ça empire pendant qu'on gère",
-      "3. Communicate (communiquer) : parties prenantes informées avec les faits disponibles",
-      "4. Resolve (résoudre) : plan d'action avec owner et timeline",
-      "5. Learn (apprendre) : post-mortem pour éviter la récurrence"
+    "best_practices": [
+      "Préparer en amont un plan de communication de crise type par catégorie d'incident, pour ne pas improviser sous pression.",
+      "Désigner à l'avance un responsable de la coordination de crise et une chaîne d'escalade claire.",
+      "Toujours conduire un post-mortem après resolution, indépendamment de la gravité perçue de la crise, pour en tirer des enseignements structurels.",
+      "Documenter la concentration client et financière en continu, pas seulement au moment où une crise de dépendance survient."
     ],
-    "communication_principles": [
-      "Transparence : ne pas minimiser les faits — les tentatives de dissimulation aggravent toujours la crise",
-      "Vitesse : communiquer rapidement même si l'information est incomplète ('nous examinons la situation')",
-      "Ownership : assumer la responsabilité, ne pas blâmer les tiers",
-      "Actions concrètes : décrire ce qu'on fait, pas seulement s'excuser"
+    "anti_patterns": [
+      "Minimiser ou dissimuler les faits d'une crise pour préserver l'image à court terme.",
+      "Rester silencieux en attendant d'avoir une information complète avant de communiquer.",
+      "Traiter une crise humaine ou réputationnelle avec le même formalisme qu'une crise technique sans adapter la communication.",
+      "Ne réaliser aucun post-mortem une fois la crise résolue, exposant l'organisation à la récurrence du même type d'incident."
     ]
   },
-  "example_answers": [
-    {
-      "prompt": "Notre serveur a été compromis — que faire dans les premières heures ?",
-      "answer": "Protocole incident cybersécurité J0 : (1) Isoler les systèmes compromis immédiatement (couper la connexion réseau, pas éteindre — préserver les preuves), (2) Appeler les personnes clés (CTO, CEO, RSSI, légal) en parallèle, (3) Documenter tout en temps réel (logs, timeline, actions prises), (4) Évaluer l'étendue de la compromission (données impactées ?), (5) Notifier la CNIL dans les 72h si données personnelles concernées (obligation RGPD). Ne pas communiquer publiquement avant d'avoir les faits. Ne pas payer de rançon sans conseil juridique spécialisé."
-    },
-    {
-      "prompt": "Comment gérer la perte soudaine de 30% du revenu suite à l'arrêt d'un client majeur ?",
-      "answer": "Réponse en trois temps : (1) Immédiat (J0-J7) : évaluer le runway restant avec le nouveau burn, identifier les dépenses réductibles rapidement sans impact opérationnel critique, informer le board/investisseurs avec les faits et le plan, (2) Court terme (J7-J30) : accélérer la pipeline commerciale (ne pas attendre), chercher à remplacer le revenu (upsell clients existants, accélération prospection), (3) Moyen terme : analyser pourquoi ce client est parti (éviter la récurrence), revisiter la stratégie de diversification client. La perte d'un gros client est douloureuse mais révèle un problème de concentration à corriger."
-    }
-  ],
-  "response_guidance": {
-    "tone": "stratégique, ancré dans la réalité opérationnelle et les contraintes de marché",
-    "structure": [
-      "analyser le contexte concurrentiel et client",
-      "proposer la lecture stratégique",
-      "recommander les prochaines actions"
+  "retrieval_hints": {
+    "priority_keywords": ["gestion_crise", "communication_crise", "incident_securite", "resilience", "runway"],
+    "related_domains": ["cpl"],
+    "related_knowledge": [
+      "cpl.strategy.strategy_fundamentals",
+      "cpl.execution.gestion_risques_fournisseurs_sous_traitants",
+      "cpl.operations_continuite.plan_communication_crise_clients",
+      "cpl.ethics_governance.gestion_signalement_incidents_ethiques"
     ],
-    "avoid": [
-      "conseils trop génériques",
-      "ignorer les contraintes de ressources",
-      "optimisme non fondé"
-    ]
+    "retrieval_priority": 8
   },
-  "tags": [
-    "crise",
-    "incident",
-    "communication de crise",
-    "résilience",
-    "gestion de risque",
-    "stratégie",
-    "business",
-    "CPL"
-  ],
-  "related_knowledge_units": [
-    "knowledges.cpl.strategy.strategy_fundamentals",
-    "knowledges.cpl.business_piloting.profitability_analysis"
-  ]
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "high",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["aide à la structuration d'une réponse de gestion de crise business"],
+    "restricted_usage": ["conseil juridique ou réglementaire définitif sans validation par un professionnel qualifié"],
+    "forbidden_usage": ["recommander de dissimuler des faits ou de payer une rançon sans avis juridique"],
+    "fallback_behavior": "En cas de crise impliquant des données personnelles ou un risque juridique, recommander explicitement une consultation juridique ou réglementaire avant toute action définitive."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "20/08/2026",
+    "last_update": "20/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
 }
