@@ -1,0 +1,107 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "human.wellbeing.rumination_anxieuse",
+  "title": "Rumination anxieuse : reconnaitre et interrompre",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "human",
+  "subdomain": "wellbeing",
+  "category": "gestion_anxiete",
+  "summary": "Reconnaitre le pattern de rumination anxieuse (pensees en boucle sur une meme preoccupation, tournees vers le passe ou le present) et des techniques concretes pour l'interrompre, distinct de l'anxiete anticipatoire tournee vers le futur et de la mention breve de la rumination dans human.wellbeing.emotional_regulation_daily.",
+  "purpose": "Fournir un traitement dedie et complet de la rumination anxieuse specifiquement, alors qu'elle n'est mentionnee qu'en une phrase dans un exemple de human.wellbeing.emotional_regulation_daily.json sans jamais etre operationnalisee en techniques d'interruption concretes.",
+  "tags": [
+    "rumination_anxieuse",
+    "pensees_en_boucle",
+    "interruption_pensee",
+    "ressassement"
+  ],
+  "intents": [
+    "identify_anxious_rumination",
+    "interrupt_rumination_loop",
+    "support_thought_disengagement"
+  ],
+  "usage_context": [
+    "utilisateur exprimant repasser sans cesse la meme situation ou preoccupation en tete",
+    "difficulte a « lacher » une pensee malgre l'absence d'action possible"
+  ],
+  "priority": "high",
+  "safety_level": "sensitive",
+  "content": {
+    "definition": "La rumination anxieuse est un pattern cognitif de pensees repetitives et involontaires centrees sur une preoccupation, un evenement passe ou une situation presente, qui ne debouche pas sur une resolution mais maintient un etat d'activation anxieuse prolonge.",
+    "core_principles": [
+      "La rumination se distingue de la reflexion utile par l'absence de progression : une reflexion productive avance vers une conclusion ou une action, tandis que la rumination repete les memes elements sans jamais deboucher sur une issue.",
+      "La rumination donne une illusion de controle ou de resolution en cours (« si j'y pense encore un peu, je vais trouver la solution ») qui explique pourquoi elle se maintient malgre son absence d'efficacite reelle.",
+      "L'interruption efficace de la rumination passe rarement par la seule volonte d'« arreter d'y penser » : elle necessite une action de redirection active de l'attention (mouvement physique, tache absorbante, technique d'ancrage) plutot qu'un effort de suppression mentale.",
+      "L'ecriture externalisee (noter la pensee ruminee) reduit souvent son emprise en la sortant de la boucle mentale interne, meme sans la resoudre immediatement."
+    ],
+    "rules": [
+      "Aider a identifier si la pensee repetee debouche sur une action possible (auquel cas l'accompagner vers cette action) ou si elle tourne en boucle sans issue (auquel cas proposer une technique d'interruption).",
+      "Ne jamais suggerer uniquement « arrete d'y penser », inefficace et parfois culpabilisant : proposer une action concrete de redirection de l'attention a la place.",
+      "Proposer l'ecriture externalisee comme premiere option simple et rapide avant des techniques plus structurees.",
+      "Reconnaitre explicitement la difficulte de la rumination sans la minimiser, avant de proposer une technique d'interruption."
+    ],
+    "examples": [
+      {
+        "situation": "Un utilisateur dit repasser en boucle depuis plusieurs heures une remarque recue plus tot dans la journee, sans pouvoir s'en detacher malgre ses efforts.",
+        "recommended_behavior": "Reconnaitre la difficulte (« c'est epuisant de tourner en boucle comme ca »), proposer d'ecrire en quelques phrases ce qui tourne en tete pour l'externaliser, puis suggerer une activite absorbante et concrete (marche, tache manuelle, ancrage sensoriel) pour rediriger activement l'attention.",
+        "avoid": "Se contenter de dire « essaie de ne plus y penser » ou de minimiser la remarque a l'origine de la rumination, ce qui n'aide pas a interrompre le pattern."
+      }
+    ],
+    "best_practices": [
+      "Toujours proposer une action concrete de redirection de l'attention plutot qu'un simple encouragement a arreter de penser.",
+      "Utiliser l'ecriture externalisee comme premiere etape rapide avant de proposer des techniques plus longues comme le creneau dedie aux soucis."
+    ],
+    "anti_patterns": [
+      "Suggerer uniquement « pense a autre chose » sans proposer d'action concrete de redirection.",
+      "Alimenter la rumination en explorant en detail avec l'utilisateur tous les aspects de la situation ruminee, ce qui prolonge la boucle plutot que de l'interrompre.",
+      "Minimiser l'evenement a l'origine de la rumination avant d'avoir propose une technique concrete."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "rumination_anxieuse",
+      "pensees_en_boucle",
+      "redirection_attention",
+      "ecriture_externalisee"
+    ],
+    "related_domains": [
+      "human"
+    ],
+    "related_knowledge": [
+      "human.wellbeing.emotional_regulation_daily",
+      "human.wellbeing.anxiete_anticipatoire",
+      "human.wellbeing.creneau_dedie_aux_soucis"
+    ],
+    "retrieval_priority": 7
+  },
+  "behavior_rules": {
+    "tone": "empathetic",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "soutien pratique face a une rumination anxieuse ponctuelle ou courante"
+    ],
+    "restricted_usage": [
+      "rumination tres frequente, envahissante ou associee a d'autres signes de souffrance marquee"
+    ],
+    "forbidden_usage": [
+      "presenter les techniques d'interruption comme un traitement d'un trouble obsessionnel diagnostique"
+    ],
+    "fallback_behavior": "Si un signal de souffrance psychologique intense, persistante, ou d'idees noires apparait avant, pendant ou apres l'utilisation de cette technique, interrompre immediatement l'accompagnement et rediriger vers un professionnel de sante conformement a human.wellbeing.medical_boundary_rules et human.wellbeing.crisis_escalation_awareness."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "20/08/2026",
+    "last_update": "20/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}
