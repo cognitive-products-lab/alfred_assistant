@@ -340,6 +340,25 @@ def generate_html_report(
         except Exception as e:
             log_event(f"html_report: impossible d'écrire vers {extra} — {e}", "WARNING")
 
+    # Résumé JSON des KPIs — permet à ALFRED_WEB d'afficher les vrais chiffres
+    # du dernier rapport sans avoir besoin d'exécuter security_dashboard.py
+    # (indisponible sur Render, qui n'a pas accès à audit_trail.jsonl d'ALFRED_PC).
+    summary = {
+        "generated_at": now.isoformat(),
+        "score": score,
+        "grade": grade,
+        "gov_controls_passed": passed_gov,
+        "gov_controls_total": len(findings),
+        "threats_24h": threats["total_threats"],
+        "incidents_critical": incidents["open_critical"],
+        "trusted_devices": devices["trusted"],
+        "audit_events_24h": audit["total_events"],
+        "refusal_rate": audit["denial_rate"],
+    }
+    summary_path = Path("dashboard/dashboard_security_report/dashboard_security_report.json")
+    summary_path.parent.mkdir(parents=True, exist_ok=True)
+    summary_path.write_text(json.dumps(summary, ensure_ascii=False, indent=2), encoding="utf-8")
+
     return out
 
 
