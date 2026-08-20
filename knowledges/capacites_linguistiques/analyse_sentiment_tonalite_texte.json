@@ -1,0 +1,101 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "capacites_linguistiques.fondamentaux.analyse_sentiment_tonalite_texte",
+  "title": "Analyse de sentiment et de tonalité d'un texte",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "capacites_linguistiques",
+  "subdomain": "fondamentaux",
+  "category": "capacites_linguistiques",
+  "summary": "Principes de l'analyse de sentiment et de tonalité d'un texte (polarité positive/négative/neutre, détection d'émotion, ironie et second degré), distincte de la traduction automatique et de la communication interculturelle déjà couvertes.",
+  "purpose": "Décrire la capacité d'ALFRED CPL à analyser la tonalité d'un texte (message client, retour utilisateur) et ses limites, notamment face à l'ironie ou aux nuances culturelles.",
+  "tags": [
+    "analyse_sentiment",
+    "tonalite_texte",
+    "polarite",
+    "detection_emotion_texte"
+  ],
+  "intents": [
+    "explain_sentiment_analysis",
+    "assess_text_tonality"
+  ],
+  "usage_context": [
+    "analyser la tonalité d'un retour client ou d'un message reçu",
+    "évaluer si un message écrit exprime une insatisfaction avant réponse"
+  ],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "L'analyse de sentiment et de tonalité d'un texte désigne la capacité d'identifier la polarité émotionnelle générale d'un texte (positive, négative, neutre) ainsi que des nuances de ton (urgence, frustration, satisfaction), utile pour prioriser ou adapter une réponse.",
+    "core_principles": [
+      "L'analyse de sentiment automatisée reste faillible sur l'ironie, le second degré et les nuances culturelles, qui inversent parfois le sens apparent d'un texte.",
+      "Un texte peut combiner plusieurs tonalités dans des sections différentes, une analyse globale unique peut masquer un passage critique isolé.",
+      "La tonalité détectée doit rester un indicateur d'aide à la priorisation, pas une conclusion définitive sur l'état émotionnel réel de l'auteur."
+    ],
+    "rules": [
+      "Signaler explicitement le niveau d'incertitude de l'analyse de tonalité, en particulier face à un texte contenant de l'ironie ou de l'ambiguïté.",
+      "Ne pas réduire un texte long et nuancé à une seule polarité globale sans repérer les passages contrastés.",
+      "Utiliser l'analyse de tonalité comme aide à la priorisation d'une réponse humaine, pas comme substitut à la lecture réelle d'un message sensible."
+    ],
+    "examples": [
+      {
+        "situation": "Un message client contient une phrase ironique du type « super, encore un problème » qui pourrait être mal interprétée comme positive par une analyse automatisée naïve.",
+        "recommended_behavior": "Signaler l'ambiguïté potentielle liée à l'ironie détectée et recommander une vérification humaine avant de classer ce message comme positif dans un tableau de suivi de satisfaction.",
+        "avoid": "Classer automatiquement le message comme positif sur la seule base d'une analyse de polarité de surface, sans tenir compte du risque d'ironie."
+      }
+    ],
+    "best_practices": [
+      "Combiner l'analyse de tonalité automatisée avec un échantillonnage humain régulier pour vérifier sa fiabilité sur le corpus réel traité.",
+      "Adapter les seuils d'alerte de tonalité négative au contexte métier plutôt que d'utiliser un seuil générique unique."
+    ],
+    "anti_patterns": [
+      "Présenter une analyse de tonalité automatisée comme certaine sans réserve, en particulier sur des textes contenant de l'ironie.",
+      "Réduire un texte long à une seule polarité globale, masquant un passage critique isolé pourtant significatif."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "analyse_sentiment",
+      "tonalite",
+      "polarite_texte",
+      "ironie"
+    ],
+    "related_domains": [
+      "capacites_linguistiques",
+      "cpl"
+    ],
+    "related_knowledge": [
+      "capacites_linguistiques.fondamentaux.traduction_automatique_limites",
+      "cpl.business_piloting.suivi_indicateurs_satisfaction_client"
+    ],
+    "retrieval_priority": 6
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "analyse indicative de la tonalité d'un texte en appui à une décision humaine"
+    ],
+    "restricted_usage": [
+      "utilisation de l'analyse de tonalité comme seule base d'une décision automatisée à fort impact sur une personne"
+    ],
+    "forbidden_usage": [],
+    "fallback_behavior": "En cas de tonalité ambiguë ou potentiellement ironique, signaler explicitement l'incertitude plutôt que de trancher une polarité avec assurance."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "16/08/2026",
+    "last_update": "16/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

@@ -1,0 +1,101 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.documentation_procedures.procedure_gestion_changements_configuration",
+  "title": "Procédure de gestion des changements de configuration ALFRED CPL",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "documentation_procedures",
+  "category": "documentation_operationnelle",
+  "summary": "Procédure encadrant toute modification de configuration (paramètres, intégrations, règles métier) d'une instance ALFRED CPL en production, distincte des procédures de déploiement de version et d'installation initiale déjà couvertes.",
+  "purpose": "Fournir un cadre de gouvernance des changements de configuration pour éviter les modifications non tracées ou non testées en production, source d'incidents évitables.",
+  "tags": [
+    "change_management",
+    "configuration",
+    "procedure",
+    "production",
+    "traçabilite"
+  ],
+  "intents": [
+    "explain_change_procedure",
+    "request_configuration_change"
+  ],
+  "usage_context": [
+    "un administrateur souhaite modifier un paramètre en production",
+    "un audit de conformité demande la traçabilité des changements de configuration"
+  ],
+  "priority": "high",
+  "safety_level": "sensitive",
+  "content": {
+    "definition": "La gestion des changements de configuration désigne le processus formalisé encadrant toute modification des paramètres, règles métier ou intégrations d'une instance ALFRED CPL en production, afin de garantir traçabilité, validation préalable et réversibilité.",
+    "core_principles": [
+      "Tout changement de configuration en production doit être précédé d'une validation par un responsable désigné, quelle que soit son ampleur apparente.",
+      "Un changement non testé en environnement de préproduction représente un risque disproportionné par rapport au gain de temps qu'il procure.",
+      "La traçabilité d'un changement (auteur, date, raison, validation) a autant de valeur que le changement lui-même en cas d'incident ultérieur à diagnostiquer."
+    ],
+    "rules": [
+      "Toute demande de changement de configuration doit être tracée avec son auteur, sa date et sa justification.",
+      "Tout changement doit être testé en environnement de préproduction avant application en production, sauf urgence documentée.",
+      "Un plan de retour arrière (rollback) doit être défini avant l'application de tout changement significatif."
+    ],
+    "examples": [
+      {
+        "situation": "Un administrateur souhaite modifier une règle de routage de notification en production suite à une demande client.",
+        "recommended_behavior": "Faire valider la demande par le responsable désigné, tester la nouvelle règle en préproduction, documenter le changement avant application, puis vérifier son effet en production.",
+        "avoid": "Appliquer directement le changement en production sans validation ni test préalable, sur la seule base de l'urgence perçue de la demande client."
+      }
+    ],
+    "best_practices": [
+      "Utiliser un registre centralisé des changements de configuration consultable par toute l'équipe technique.",
+      "Regrouper les changements non urgents dans des fenêtres de maintenance planifiées plutôt que de les appliquer au fil de l'eau."
+    ],
+    "anti_patterns": [
+      "Changement de configuration appliqué directement en production sans validation ni traçabilité.",
+      "Absence de plan de retour arrière avant un changement, rendant la correction d'un incident plus longue que nécessaire."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "gestion_changement",
+      "configuration",
+      "traçabilite",
+      "rollback"
+    ],
+    "related_domains": [
+      "cpl"
+    ],
+    "related_knowledge": [
+      "cpl.documentation_procedures.procedures_deploiement_mise_a_jour_alfred_cpl",
+      "cpl.operations_continuite.procedure_rollback_urgence_alfred_cpl"
+    ],
+    "retrieval_priority": 7
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "step_by_step",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "explication et application de la procédure de gestion des changements de configuration"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [
+      "contournement de la procédure de validation pour un changement en production hors urgence documentée"
+    ],
+    "fallback_behavior": "En cas de doute sur le caractère urgent d'un changement, appliquer par défaut la procédure standard avec validation préalable plutôt que la voie d'urgence."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "16/08/2026",
+    "last_update": "16/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

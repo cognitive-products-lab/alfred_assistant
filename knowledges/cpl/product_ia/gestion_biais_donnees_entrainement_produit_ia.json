@@ -1,0 +1,102 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.product_ia.gestion_biais_donnees_entrainement_produit_ia",
+  "title": "Gestion des biais dans les données d'entraînement et de personnalisation produit",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "product_ia",
+  "category": "produit_ia",
+  "summary": "Identification et mitigation des biais pouvant provenir des données utilisées pour personnaliser ou affiner les composants IA du produit ALFRED CPL, distincte du biais algorithmique en contexte de conseil déjà couverte côté ethics_governance qui traite de l'angle métier plutôt que des données produit elles-mêmes.",
+  "purpose": "Donner à l'équipe produit un cadre pour identifier les biais introduits par les données de personnalisation ou d'affinage utilisées par ALFRED CPL, avant qu'ils ne se traduisent en biais de recommandation constatés par les utilisateurs.",
+  "tags": [
+    "biais_donnees",
+    "donnees_entrainement",
+    "equite_produit",
+    "personnalisation"
+  ],
+  "intents": [
+    "explain_data_bias_mitigation",
+    "assess_training_data_representativeness"
+  ],
+  "usage_context": [
+    "une équipe produit affine un composant IA sur des données d'usage réelles",
+    "un audit produit vérifie la représentativité des données utilisées pour la personnalisation"
+  ],
+  "priority": "high",
+  "safety_level": "sensitive",
+  "content": {
+    "definition": "La gestion des biais dans les données d'entraînement et de personnalisation désigne l'identification et la mitigation des biais de représentativité ou de composition des données utilisées pour affiner ou personnaliser les composants IA d'ALFRED CPL, en amont de toute manifestation en biais de recommandation observable.",
+    "core_principles": [
+      "Un biais de recommandation constaté par un utilisateur trouve souvent son origine bien en amont, dans la composition des données utilisées pour la personnalisation.",
+      "Des données d'usage réelles ne sont pas automatiquement représentatives : elles reflètent aussi les biais d'usage historiques des utilisateurs précédents.",
+      "La correction d'un biais de données doit être documentée et testée, pas appliquée comme un ajustement ponctuel non tracé."
+    ],
+    "rules": [
+      "Vérifier la représentativité des données utilisées pour toute personnalisation ou affinage avant leur mise en production.",
+      "Documenter toute correction de biais appliquée aux données, avec sa justification et son impact mesuré.",
+      "Réévaluer périodiquement la composition des données de personnalisation, celle-ci pouvant dériver dans le temps avec l'usage."
+    ],
+    "examples": [
+      {
+        "situation": "Les données d'usage utilisées pour personnaliser les recommandations d'ALFRED CPL proviennent majoritairement d'un seul type de client, sous-représentant les autres profils.",
+        "recommended_behavior": "Identifier ce déséquilibre de représentativité, documenter le risque de biais de recommandation qui en découle pour les profils sous-représentés, et corriger la composition du jeu de données ou pondérer son usage.",
+        "avoid": "Affiner un composant IA sur les données disponibles sans vérifier leur représentativité, en découvrant le biais uniquement après signalement d'un utilisateur."
+      }
+    ],
+    "best_practices": [
+      "Croiser la composition des données de personnalisation avec la diversité réelle de la base d'utilisateurs cible.",
+      "Relier tout signalement de biais constaté (voir cpl.ethics_governance.gestion_incidents_ethiques_signalement) à une vérification systématique des données sous-jacentes."
+    ],
+    "anti_patterns": [
+      "Considérer que des données d'usage réelles sont automatiquement neutres ou représentatives.",
+      "Corriger un biais de recommandation en surface (règle métier ponctuelle) sans traiter la source de données à l'origine du biais."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "biais_donnees",
+      "representativite",
+      "personnalisation_produit",
+      "equite"
+    ],
+    "related_domains": [
+      "cpl",
+      "professional"
+    ],
+    "related_knowledge": [
+      "cpl.ethics_governance.biais_algorithmique_contexte_conseil",
+      "cpl.ethics_governance.gestion_incidents_ethiques_signalement",
+      "professional.governance_ai.fairness_principles"
+    ],
+    "retrieval_priority": 7
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "high",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "identification et documentation de biais dans les données de personnalisation produit"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [
+      "utilisation de données non vérifiées pour une personnalisation à fort impact sur l'utilisateur"
+    ],
+    "fallback_behavior": "Si la représentativité des données ne peut pas être vérifiée avec certitude, le signaler explicitement comme limite connue plutôt que de présumer leur neutralité."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "16/08/2026",
+    "last_update": "16/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

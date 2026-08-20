@@ -1,0 +1,100 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "architecture_logicielle.fondamentaux.patterns_resilience_gestion_erreurs",
+  "title": "Patterns de résilience et gestion des erreurs logicielles",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "architecture_logicielle",
+  "subdomain": "fondamentaux",
+  "category": "architecture_logicielle",
+  "summary": "Patterns de résilience logicielle (circuit breaker, retry avec backoff, timeout, bulkhead) permettant à un système de continuer à fonctionner de façon dégradée plutôt que de tomber en panne totale face à une défaillance d'un composant externe, en complément de l'observabilité et du monitoring déjà couverts qui portent sur la détection plutôt que sur la tolérance aux pannes.",
+  "purpose": "Donner des principes concrets de conception résiliente face aux défaillances de dépendances externes, complément indispensable à l'observabilité qui ne fait que détecter le problème sans le contenir.",
+  "tags": [
+    "resilience_logicielle",
+    "circuit_breaker",
+    "gestion_erreurs",
+    "tolerance_pannes"
+  ],
+  "intents": [
+    "explain_resilience_patterns",
+    "recommend_failure_handling_strategy"
+  ],
+  "usage_context": [
+    "une application dépend d'un service externe pouvant devenir indisponible ou lent",
+    "un incident en cascade s'est produit suite à la défaillance d'une seule dépendance"
+  ],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "Les patterns de résilience logicielle désignent un ensemble de techniques de conception (circuit breaker, retry avec backoff exponentiel, timeout, bulkhead) permettant à un système de continuer à fonctionner de façon dégradée face à la défaillance ou la lenteur d'un composant externe, plutôt que de propager cette défaillance en panne totale.",
+    "core_principles": [
+      "Un système sans mécanisme de résilience propage la défaillance d'une seule dépendance externe à l'ensemble de l'application, transformant un incident localisé en panne totale.",
+      "Le circuit breaker interrompt temporairement les appels vers un service défaillant plutôt que de continuer à solliciter un composant déjà en échec, évitant d'aggraver la situation.",
+      "Le bulkhead isole les ressources allouées à différentes dépendances, empêchant qu'une dépendance défaillante n'épuise les ressources disponibles pour les autres fonctionnalités."
+    ],
+    "rules": [
+      "Définir un timeout explicite pour tout appel à un service externe, jamais un appel bloquant sans limite de temps.",
+      "Mettre en place un circuit breaker pour toute dépendance externe critique, afin d'éviter de solliciter un service déjà constaté en échec.",
+      "Isoler les ressources (bulkhead) allouées à chaque dépendance externe pour éviter qu'une défaillance isolée n'épuise les ressources globales du système."
+    ],
+    "examples": [
+      {
+        "situation": "Un service externe dont dépend une fonctionnalité secondaire devient très lent, ce qui finit par saturer les ressources et impacter l'ensemble de l'application.",
+        "recommended_behavior": "Mettre en place un timeout et un circuit breaker sur les appels à ce service, avec un mode dégradé pour la fonctionnalité secondaire concernée, isolant ainsi l'impact au lieu de le propager à l'ensemble du système.",
+        "avoid": "Laisser les appels bloquants sans timeout ni circuit breaker, permettant à la lenteur d'un seul service externe de saturer l'ensemble de l'application."
+      }
+    ],
+    "best_practices": [
+      "Tester le comportement du système en simulant la défaillance de chaque dépendance externe critique, pas seulement en environnement nominal.",
+      "Définir explicitement un mode dégradé acceptable pour chaque fonctionnalité dépendant d'un service externe, plutôt qu'une simple erreur générique."
+    ],
+    "anti_patterns": [
+      "Appels bloquants sans timeout vers des services externes, exposant le système entier à la lenteur d'une seule dépendance.",
+      "Absence de circuit breaker, continuant à solliciter un service déjà constaté en échec et aggravant potentiellement l'incident."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "circuit_breaker",
+      "resilience_logicielle",
+      "timeout",
+      "bulkhead"
+    ],
+    "related_domains": [
+      "architecture_logicielle",
+      "information_security"
+    ],
+    "related_knowledge": [
+      "architecture_logicielle.observabilite.observabilite_monitoring",
+      "architecture_logicielle.patterns.patterns_conception_logicielle",
+      "cpl.operations_continuite.resilience_architecture_alfred_cpl"
+    ],
+    "retrieval_priority": 6
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "high",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "explication des patterns de résilience logicielle et de leur mise en œuvre"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "Si les dépendances critiques du système n'ont pas été cartographiées, recommander cette cartographie préalable avant de définir les patterns de résilience à appliquer."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "16/08/2026",
+    "last_update": "16/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

@@ -1,0 +1,98 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.execution.gestion_risques_fournisseurs_sous_traitants_projet",
+  "title": "Gestion des risques fournisseurs et sous-traitants en mission",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "execution",
+  "category": "gestion_execution_projet",
+  "summary": "Identification et maîtrise des risques liés à la dépendance à des tiers (sous-traitants, éditeurs, prestataires techniques) dans l'exécution d'une mission ALFRED CPL, distinct de la gestion des risques projet généraux déjà couverte.",
+  "purpose": "Permettre à ALFRED CPL d'identifier les dépendances critiques à des tiers dans une mission et de proposer des mesures de mitigation avant qu'une défaillance externe ne compromette la mission.",
+  "tags": [
+    "sous_traitance",
+    "risque_fournisseur",
+    "dependance_tiers",
+    "continuite_mission"
+  ],
+  "intents": [
+    "assess_vendor_risk",
+    "identify_critical_dependency"
+  ],
+  "usage_context": [
+    "une mission repose sur un sous-traitant ou un éditeur tiers critique",
+    "un cadrage de mission doit anticiper le risque de défaillance d'un partenaire externe"
+  ],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "La gestion des risques fournisseurs et sous-traitants désigne l'identification et la maîtrise des risques liés à la dépendance d'une mission à des tiers externes (sous-traitants, éditeurs de logiciels, prestataires techniques) dont la défaillance pourrait compromettre l'exécution ou les délais.",
+    "core_principles": [
+      "Toute mission dépendant significativement d'un tiers externe doit faire l'objet d'une cartographie explicite de cette dépendance dès le cadrage.",
+      "Le risque fournisseur n'est pas seulement contractuel : il inclut la continuité opérationnelle réelle du tiers, pas seulement l'existence d'une clause de pénalité.",
+      "Un plan de repli anticipé coûte généralement moins cher qu'une gestion de crise improvisée en cas de défaillance avérée."
+    ],
+    "rules": [
+      "Cartographier les tiers critiques de chaque mission dès la phase de cadrage.",
+      "Vérifier la présence de clauses contractuelles de continuité (SLA, réversibilité) pour tout tiers identifié comme critique.",
+      "Formaliser un plan de repli pour toute dépendance jugée à risque élevé de défaillance."
+    ],
+    "examples": [
+      {
+        "situation": "Une mission dépend d'un éditeur logiciel tiers pour l'intégration d'une fonctionnalité clé, sans alternative identifiée.",
+        "recommended_behavior": "Signaler cette dépendance comme un risque à traiter dès le cadrage, vérifier les engagements contractuels de l'éditeur (SLA, support) et identifier une solution de repli même partielle en cas de défaillance.",
+        "avoid": "Découvrir la dépendance critique en cours de mission, au moment où une défaillance du tiers survient réellement."
+      }
+    ],
+    "best_practices": [
+      "Intégrer une colonne « dépendance tiers critique » dans le registre de risques standard de toute mission.",
+      "Réévaluer périodiquement le risque fournisseur pour les missions longues, la situation d'un tiers pouvant évoluer."
+    ],
+    "anti_patterns": [
+      "Absence de cartographie des tiers critiques, découverte de la dépendance uniquement lors d'un incident.",
+      "Plan de repli théorique jamais validé avec les moyens réels disponibles en cas de défaillance."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "risque_fournisseur",
+      "sous_traitance",
+      "dependance_tiers",
+      "plan_de_repli"
+    ],
+    "related_domains": [
+      "cpl"
+    ],
+    "related_knowledge": [
+      "cpl.execution.risk_management",
+      "cpl.execution.gestion_dependances_projet"
+    ],
+    "retrieval_priority": 6
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "aide à l'identification et à la gestion des risques liés à un tiers dans une mission"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "Si le niveau de criticité réel d'un tiers ne peut pas être évalué avec certitude, le classer par prudence comme critique jusqu'à évaluation approfondie."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "16/08/2026",
+    "last_update": "16/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}
