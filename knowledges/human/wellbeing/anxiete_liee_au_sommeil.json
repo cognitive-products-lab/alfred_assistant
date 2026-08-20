@@ -1,0 +1,108 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "human.wellbeing.anxiete_liee_au_sommeil",
+  "title": "Anxiete liee au sommeil : sortir du cercle insomnie-anxiete",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "human",
+  "subdomain": "wellbeing",
+  "category": "gestion_anxiete",
+  "summary": "Accompagner le cercle vicieux specifique ou l'anxiete de ne pas dormir aggrave elle-meme l'insomnie (peur de l'insomnie, pression de performance du sommeil), distinct des principes generaux d'hygiene du sommeil deja couverts par human.wellbeing.sleep_hygiene_basics qui ne traite pas la dimension anxieuse specifique.",
+  "purpose": "Couvrir la dimension anxieuse propre au sommeil (anxiete anticipatoire du coucher, pression de performance, verification de l'heure) totalement absente de human.wellbeing.sleep_hygiene_basics qui se limite aux habitudes comportementales generales (horaires, ecrans, cafeine).",
+  "tags": [
+    "anxiete_sommeil",
+    "insomnie_anxieuse",
+    "peur_de_ne_pas_dormir",
+    "cercle_vicieux"
+  ],
+  "intents": [
+    "support_sleep_related_anxiety",
+    "interrupt_insomnia_anxiety_cycle",
+    "reduce_sleep_performance_pressure"
+  ],
+  "usage_context": [
+    "utilisateur exprimant une peur de ne pas s'endormir des le debut de soiree",
+    "verification repetee de l'heure la nuit avec anxiete croissante"
+  ],
+  "priority": "high",
+  "safety_level": "sensitive",
+  "content": {
+    "definition": "L'anxiete liee au sommeil est un cercle vicieux dans lequel la peur de ne pas s'endormir ou de mal dormir genere elle-meme une activation physiologique incompatible avec l'endormissement, aggravant le probleme initial et renforcant la peur pour les nuits suivantes.",
+    "core_principles": [
+      "La pression de performance du sommeil (« il faut absolument que je dorme ») active le meme systeme d'alerte physiologique qu'un stress diurne, rendant l'endormissement mecaniquement plus difficile precisement au moment ou on cherche a le forcer.",
+      "La verification repetee de l'heure pendant la nuit entretient l'anxiete en fournissant une information anxiogene (calcul du temps de sommeil restant) sans aucun benefice pour l'endormissement lui-meme.",
+      "Rester au lit eveille en luttant activement pour s'endormir renforce l'association mentale entre le lit et l'eveil anxieux, un mecanisme documente qui aggrave l'insomnie sur la duree.",
+      "Cette anxiete se distingue de l'hygiene de sommeil ordinaire par sa dimension emotionnelle centrale (peur) plutot que comportementale (habitudes), ce qui appelle une reponse differente axee sur le lacher-prise plutot que sur l'ajustement d'horaires ou d'ecrans."
+    ],
+    "rules": [
+      "Deconseiller explicitement de regarder l'heure pendant un reveil nocturne ou une difficulte d'endormissement, sans exception.",
+      "Proposer de se lever et de faire une activite calme dans une autre piece si l'eveil anxieux persiste au-dela d'environ 20 minutes, plutot que de rester a lutter dans le lit.",
+      "Recadrer explicitement l'objectif : viser le repos et la detente plutot que le sommeil force, le sommeil venant plus facilement quand il n'est plus activement recherche.",
+      "Distinguer cette anxiete specifique d'un probleme d'hygiene de sommeil ordinaire, et orienter en complement vers human.wellbeing.sleep_hygiene_basics pour les aspects comportementaux si pertinent."
+    ],
+    "examples": [
+      {
+        "situation": "Un utilisateur dit qu'il commence a redouter l'heure du coucher des le milieu de l'apres-midi, par peur de ne pas reussir a dormir comme les nuits precedentes.",
+        "recommended_behavior": "Nommer le cercle vicieux (la peur de ne pas dormir empeche elle-meme de dormir), deconseiller de verifier l'heure pendant la nuit, et proposer de recadrer l'objectif du coucher vers le repos et la detente plutot que la performance de sommeil, avec une technique de relaxation douce en soutien.",
+        "avoid": "Se limiter a des conseils d'hygiene de sommeil generiques (pas d'ecran, horaires reguliers) sans traiter la dimension de peur et de pression de performance exprimee."
+      }
+    ],
+    "best_practices": [
+      "Toujours nommer explicitement le mecanisme du cercle vicieux, la comprehension du phenomene reduisant deja une partie de l'anxiete ressentie.",
+      "Proposer de se lever en cas d'eveil anxieux prolonge plutot que d'insister pour rester au lit a lutter pour dormir."
+    ],
+    "anti_patterns": [
+      "Traiter une anxiete de sommeil uniquement par des conseils d'hygiene comportementale sans aborder la dimension emotionnelle de peur.",
+      "Encourager a rester au lit a tout prix en cas d'eveil anxieux prolonge, ce qui renforce l'association negative entre lit et eveil.",
+      "Presenter cette anxiete comme un trouble du sommeil diagnostique necessitant un traitement specifique plutot qu'un pattern courant et reversible."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "anxiete_sommeil",
+      "insomnie_anxieuse",
+      "peur_endormissement",
+      "cercle_vicieux_sommeil"
+    ],
+    "related_domains": [
+      "human",
+      "lifestyle"
+    ],
+    "related_knowledge": [
+      "human.wellbeing.sleep_hygiene_basics",
+      "human.wellbeing.rumination_anxieuse",
+      "lifestyle.health.auto_hypnose_accompagnement_pratique"
+    ],
+    "retrieval_priority": 7
+  },
+  "behavior_rules": {
+    "tone": "empathetic",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "soutien pratique face a une anxiete de sommeil ponctuelle ou courante"
+    ],
+    "restricted_usage": [
+      "difficultes de sommeil anciennes, severes ou associees a d'autres symptomes (fatigue diurne majeure, ronflements avec pauses)"
+    ],
+    "forbidden_usage": [
+      "diagnostiquer un trouble du sommeil ou presenter ces conseils comme un traitement d'une insomnie chronique"
+    ],
+    "fallback_behavior": "Si un signal de souffrance psychologique intense, persistante, ou d'idees noires apparait avant, pendant ou apres l'utilisation de cette technique, interrompre immediatement l'accompagnement et rediriger vers un professionnel de sante conformement a human.wellbeing.medical_boundary_rules et human.wellbeing.crisis_escalation_awareness."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "20/08/2026",
+    "last_update": "20/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

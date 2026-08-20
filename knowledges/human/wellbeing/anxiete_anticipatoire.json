@@ -1,0 +1,107 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "human.wellbeing.anxiete_anticipatoire",
+  "title": "Anxiete anticipatoire (\"et si...\")",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "human",
+  "subdomain": "wellbeing",
+  "category": "gestion_anxiete",
+  "summary": "Reconnaitre et accompagner l'anxiete anticipatoire (pensees en « et si » projetees sur un futur incertain), distincte de l'anxiete face a un evenement present ou de la rumination portant sur le passe deja couverte par human.wellbeing.rumination_anxieuse.",
+  "purpose": "Couvrir specifiquement l'anxiete tournee vers un futur hypothetique et incertain, absente de la base actuelle qui traite le stress ponctuel present (stress_reduction_support) ou la rumination generale (emotional_regulation_daily) sans jamais isoler ce pattern specifique.",
+  "tags": [
+    "anxiete_anticipatoire",
+    "et_si",
+    "incertitude",
+    "pensees_catastrophistes"
+  ],
+  "intents": [
+    "support_anticipatory_anxiety",
+    "interrupt_catastrophic_what_if_thinking",
+    "support_uncertainty_tolerance"
+  ],
+  "usage_context": [
+    "utilisateur enchainant des scenarios negatifs hypothetiques sur un evenement futur",
+    "expression repetee de pensees commencant par « et si »"
+  ],
+  "priority": "high",
+  "safety_level": "sensitive",
+  "content": {
+    "definition": "L'anxiete anticipatoire est une forme d'anxiete tournee vers un futur incertain, caracterisee par un enchainement de scenarios hypothetiques negatifs (pensees en « et si »final), qui maintient un etat d'alerte prolonge sans qu'aucun evenement reel ne soit en cours.",
+    "core_principles": [
+      "Le mecanisme central de l'anxiete anticipatoire est l'intolerance a l'incertitude : l'esprit tente de « resoudre » l'incertitude en explorant tous les scenarios possibles, ce qui augmente paradoxalement l'anxiete au lieu de la reduire.",
+      "Une pensee en « et si » n'a generalement pas de point d'arret naturel : chaque reponse imaginee genere un nouveau « et si », creant une spirale qui ne s'epuise pas par elle-meme sans intervention active.",
+      "Distinguer l'inquietude productive (qui mene a une action concrete preparatoire) de l'inquietude improductive (qui ne fait que repeter des scenarios sans deboucher sur une action) est le levier principal pour interrompre la spirale.",
+      "L'evitement de l'incertitude par la reassurance repetee (chercher a se faire confirmer que « tout ira bien ») soulage a tres court terme mais entretient le pattern anxieux a moyen terme, contrairement a l'acceptation explicite de ne pas pouvoir tout savoir a l'avance."
+    ],
+    "rules": [
+      "Face a une pensee en « et si », aider a distinguer si elle debouche sur une action concrete possible maintenant ou si elle est purement hypothetique et repetitive.",
+      "Pour les « et si » purement hypothetiques, proposer une technique de recadrage (defusion cognitive ou creneau dedie aux soucis) plutot que de tenter de repondre au contenu de chaque scenario.",
+      "Ne jamais fournir de reassurance factuelle repetee sur l'issue future incertaine (« je te promets que ca va bien se passer »), qui renforce le pattern d'evitement de l'incertitude a moyen terme.",
+      "Nommer explicitement le pattern (« c'est une spirale de \"et si\" ») aide souvent a en sortir, la prise de conscience du mecanisme reduisant en elle-meme son emprise."
+    ],
+    "examples": [
+      {
+        "situation": "Un utilisateur enchaine plusieurs messages du type « et si je rate mon train, et si en plus il pleut, et si je suis en retard et que ca se voit » avant un rendez-vous le lendemain.",
+        "recommended_behavior": "Nommer le pattern avec douceur (« on dirait que ton esprit enchaine les scenarios, c'est une spirale de \"et si\" tres courante »), demander s'il existe une action concrete possible maintenant (verifier les horaires, preparer un plan B), et si non, proposer de reporter le reste des scenarios a plus tard via un creneau dedie aux soucis.",
+        "avoid": "Repondre a chaque « et si » un par un en tentant de rassurer sur chaque scenario individuellement, ce qui alimente la spirale au lieu de l'interrompre."
+      }
+    ],
+    "best_practices": [
+      "Aider a identifier rapidement si une inquietude est productive (action possible maintenant) ou improductive (scenario hypothetique repetitif) plutot que de traiter toutes les inquietudes de la meme facon.",
+      "Proposer un outil concret de sortie de spirale (defusion cognitive, creneau dedie aux soucis, ancrage sensoriel) plutot qu'une simple invitation a « arreter d'y penser »."
+    ],
+    "anti_patterns": [
+      "Repondre point par point a chaque scenario catastrophiste evoque, ce qui valide implicitement la necessite de les explorer tous.",
+      "Fournir une reassurance factuelle repetee sur une issue future incertaine, qui soulage a court terme mais entretient le pattern.",
+      "Minimiser l'anxiete anticipatoire en la qualifiant d'irrationnelle sans proposer d'outil concret pour en sortir."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "anxiete_anticipatoire",
+      "et_si",
+      "intolerance_incertitude",
+      "spirale_catastrophiste"
+    ],
+    "related_domains": [
+      "human"
+    ],
+    "related_knowledge": [
+      "human.wellbeing.rumination_anxieuse",
+      "human.wellbeing.defusion_cognitive_pensees_anxieuses",
+      "human.wellbeing.creneau_dedie_aux_soucis"
+    ],
+    "retrieval_priority": 7
+  },
+  "behavior_rules": {
+    "tone": "empathetic",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "soutien pratique face a l'anxiete anticipatoire courante liee a un evenement futur incertain"
+    ],
+    "restricted_usage": [
+      "anxiete anticipatoire tres frequente, envahissante, ou touchant la quasi-totalite des situations du quotidien"
+    ],
+    "forbidden_usage": [
+      "fournir des reassurances factuelles repetees sur une issue future qu'ALFRED ne peut pas garantir"
+    ],
+    "fallback_behavior": "Si un signal de souffrance psychologique intense, persistante, ou d'idees noires apparait avant, pendant ou apres l'utilisation de cette technique, interrompre immediatement l'accompagnement et rediriger vers un professionnel de sante conformement a human.wellbeing.medical_boundary_rules et human.wellbeing.crisis_escalation_awareness."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "20/08/2026",
+    "last_update": "20/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}
