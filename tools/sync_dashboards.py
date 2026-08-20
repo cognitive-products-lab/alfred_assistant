@@ -29,6 +29,7 @@ SRC_KNOWLEDGE_DATA    = ALFRED_PC / "dashboard/dashboard_knowledges_tool/knowled
 SRC_CONFORMITE        = ALFRED_PC / "dashboard/dashboard_conformite/dashboard_conformite.json"
 SRC_VULNERABILITES    = ALFRED_PC / "dashboard/dashboard_vulnerabilites/dashboard_vulnerabilites.json"
 SRC_RISK_IMPACT       = ALFRED_PC / "dashboard/dashboard_risk_impact/dashboard_risk_impact.json"
+SRC_SECURITY_REPORT   = ALFRED_PC / "dashboard/dashboard_security_report/dashboard_security_report.json"
 
 WEB_ROOT = ROOT / "ALFRED_WEB"
 DEST_DIR = WEB_ROOT / "static/dashboard"
@@ -42,6 +43,7 @@ DEST_KNOWLEDGE_DATA    = DEST_DIR / "knowledge_dashboard_data.json"
 DEST_CONFORMITE        = DEST_DIR / "dashboard_conformite.json"
 DEST_VULNERABILITES    = DEST_DIR / "dashboard_vulnerabilites.json"
 DEST_RISK_IMPACT       = DEST_DIR / "dashboard_risk_impact.json"
+DEST_SECURITY_REPORT   = DEST_DIR / "dashboard_security_report.json"
 LOG_FILE               = DEST_DIR / "sync_log.json"
 
 UPDATE_GOUVERNANCE    = ALFRED_PC / "tools/dashboard_tools/dashboard_gouvernance/update_gouvernance_data.py"
@@ -49,6 +51,7 @@ UPDATE_CONFORMITE     = ALFRED_PC / "tools/dashboard_tools/dashboard_conformite/
 UPDATE_VULNERABILITES = ALFRED_PC / "tools/dashboard_tools/dashboard_vulnerabilites/update_vulnerabilites_data.py"
 UPDATE_RISK_IMPACT    = ALFRED_PC / "tools/dashboard_tools/dashboard_risk_impact/update_risk_impact_data.py"
 GEN_KNOWLEDGE         = ALFRED_PC / "dashboard/dashboard_knowledges_tool/generate_knowledge_dashboard.py"
+GEN_SECURITY_REPORT   = ALFRED_PC / "src/security/html_report.py"
 
 # Patterns sensibles a anonymiser avant publication web
 _SENSITIVE_PATTERNS = {
@@ -124,6 +127,7 @@ def git_push(ts: str) -> dict:
         "static/dashboard/dashboard_conformite.json",
         "static/dashboard/dashboard_vulnerabilites.json",
         "static/dashboard/dashboard_risk_impact.json",
+        "static/dashboard/dashboard_security_report.json",
         "static/dashboard/sync_log.json",
     ])
 
@@ -185,6 +189,10 @@ def regenerate_risk_impact() -> dict:
     return _run_update_script(UPDATE_RISK_IMPACT, "Risques & Impact")
 
 
+def regenerate_security_report() -> dict:
+    return _run_update_script(GEN_SECURITY_REPORT, "Rapport Sécurité")
+
+
 def main() -> None:
     ts = datetime.now().isoformat(timespec="seconds")
     print(f"\n=== Sync dashboards ALFRED - {ts} ===\n")
@@ -198,6 +206,7 @@ def main() -> None:
         ("dashboard_conformite.json",       regenerate_conformite),
         ("dashboard_vulnerabilites.json",   regenerate_vulnerabilites),
         ("dashboard_risk_impact.json",      regenerate_risk_impact),
+        ("dashboard_security_report.json",  regenerate_security_report),
     ]:
         print(f"  Régénération {label}...")
         r = fn()
@@ -213,6 +222,7 @@ def main() -> None:
         sync_file(SRC_CONFORMITE,       DEST_CONFORMITE,       "dashboard_conformite.json"),
         sync_file(SRC_VULNERABILITES,   DEST_VULNERABILITES,   "dashboard_vulnerabilites.json"),
         sync_file(SRC_RISK_IMPACT,      DEST_RISK_IMPACT,      "dashboard_risk_impact.json"),
+        sync_file(SRC_SECURITY_REPORT,  DEST_SECURITY_REPORT,  "dashboard_security_report.json"),
     ]
 
     all_ok = all(r["status"].startswith("OK") for r in results)
