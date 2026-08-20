@@ -1,0 +1,101 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "capacites_linguistiques.fondamentaux.synthese_automatique_resume_textuel",
+  "title": "Synthèse automatique et résumé textuel",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "capacites_linguistiques",
+  "subdomain": "fondamentaux",
+  "category": "capacites_linguistiques",
+  "summary": "Principes de la synthèse automatique d'un texte long (résumé extractif vs abstractif, préservation du sens et des nuances, risque de perte d'information critique), distincte de la rédaction technique avancée déjà couverte qui porte sur la production de contenu plutôt que sur sa condensation.",
+  "purpose": "Décrire la capacité d'ALFRED CPL à produire un résumé fiable d'un texte long, et les précautions nécessaires pour ne pas déformer le sens original en le condensant.",
+  "tags": [
+    "resume_automatique",
+    "synthese_textuelle",
+    "resume_extractif",
+    "resume_abstractif"
+  ],
+  "intents": [
+    "explain_text_summarization",
+    "produce_reliable_summary"
+  ],
+  "usage_context": [
+    "résumer un document long pour un décideur pressé par le temps",
+    "synthétiser plusieurs sources pour en extraire l'essentiel"
+  ],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "La synthèse automatique désigne la capacité à produire un résumé condensé et fidèle d'un texte source plus long, soit en extrayant les phrases les plus représentatives du texte original (résumé extractif), soit en reformulant l'essentiel avec des mots nouveaux (résumé abstractif), avec un risque de perte ou de déformation d'information dans les deux cas.",
+    "core_principles": [
+      "Un résumé abstractif, en reformulant, présente un risque plus élevé de déformation involontaire du sens original qu'un résumé extractif qui reprend des extraits fidèles.",
+      "La condensation d'un texte implique nécessairement des choix de ce qui est jugé essentiel, choix qui peuvent diverger de l'intention de l'auteur original si le contexte n'est pas bien compris.",
+      "Un résumé ne doit jamais faire disparaître une nuance ou une réserve importante du texte source (condition, exception, incertitude) au seul profit de la concision."
+    ],
+    "rules": [
+      "Préserver systématiquement dans le résumé toute nuance, condition ou réserve significative présente dans le texte source.",
+      "Signaler explicitement lorsqu'un résumé condense fortement un texte source long, pour que le lecteur sache qu'il peut manquer des détails.",
+      "Proposer un accès au texte source complet en complément du résumé pour toute décision à enjeu significatif."
+    ],
+    "examples": [
+      {
+        "situation": "Un document source contient une recommandation assortie d'une condition importante, mais le résumé produit omet cette condition par souci de concision.",
+        "recommended_behavior": "Inclure systématiquement la condition dans le résumé, quitte à le rendre légèrement plus long, plutôt que de la sacrifier au profit d'une brièveté qui déformerait le sens réel de la recommandation.",
+        "avoid": "Produire un résumé plus court en omettant une condition ou réserve significative, faisant apparaître une recommandation comme plus catégorique qu'elle ne l'est réellement dans le texte source."
+      }
+    ],
+    "best_practices": [
+      "Vérifier un résumé produit automatiquement en le comparant au texte source sur les points les plus sensibles avant diffusion à un décideur.",
+      "Privilégier un résumé légèrement plus long mais fidèle plutôt qu'un résumé très court risquant une déformation du sens."
+    ],
+    "anti_patterns": [
+      "Résumé omettant une condition, une exception ou une réserve importante du texte source au seul profit de la brièveté.",
+      "Présenter un résumé comme équivalent au texte source complet sans en signaler les limites de condensation."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "resume_automatique",
+      "synthese_textuelle",
+      "fidelite_resume",
+      "condensation"
+    ],
+    "related_domains": [
+      "capacites_linguistiques",
+      "communication_pro"
+    ],
+    "related_knowledge": [
+      "capacites_linguistiques.redaction.redaction_technique_avancee",
+      "communication_pro.fondamentaux.communication_pro_fondamentaux"
+    ],
+    "retrieval_priority": 6
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "production d'un résumé indicatif d'un texte, avec accès recommandé au texte source pour toute décision importante"
+    ],
+    "restricted_usage": [
+      "résumé unique servant de seule base à une décision à fort enjeu sans accès au texte source"
+    ],
+    "forbidden_usage": [],
+    "fallback_behavior": "Si un texte source contient des nuances ou conditions complexes difficiles à condenser fidèlement, recommander la lecture du texte complet plutôt qu'un résumé pour toute décision importante."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "16/08/2026",
+    "last_update": "16/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

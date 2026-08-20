@@ -1,0 +1,106 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.business_piloting.gestion_tresorerie_activite_conseil",
+  "title": "Gestion de la trésorerie d'une activité de conseil",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "business_piloting",
+  "category": "pilotage_business",
+  "summary": "Principes de gestion de trésorerie propres à une activité de conseil ou de service (facturation au forfait ou en régie, délais de paiement client, avances sur mission), distincts de la rentabilité comptable déjà couverte par profitability_analysis.",
+  "purpose": "Permettre à ALFRED CPL d'aider au pilotage de la trésorerie réelle d'une structure de conseil, en particulier le décalage entre facturation et encaissement qui peut fragiliser une mission pourtant rentable sur le papier.",
+  "tags": [
+    "tresorerie",
+    "cash_flow",
+    "facturation",
+    "delais_paiement",
+    "pilotage_business"
+  ],
+  "intents": [
+    "explain_cash_management",
+    "monitor_cash_flow_risk",
+    "alert_treasury_tension"
+  ],
+  "usage_context": [
+    "un dirigeant de structure de conseil veut anticiper un creux de trésorerie",
+    "une mission facturée au forfait avec paiement à 60 jours crée un risque de tension malgré une rentabilité positive"
+  ],
+  "priority": "high",
+  "safety_level": "normal",
+  "content": {
+    "definition": "La trésorerie mesure les flux de liquidités réellement disponibles à un instant donné, à distinguer de la rentabilité comptable qui raisonne en produits et charges engagés indépendamment de leur date d'encaissement ou de paiement effectif.",
+    "core_principles": [
+      "Une mission rentable sur le papier peut créer une tension de trésorerie si le délai d'encaissement client dépasse largement les charges à couvrir entre-temps (salaires, sous-traitance).",
+      "La saisonnalité des missions de conseil (creux estivaux, fin d'année) doit être anticipée dans un prévisionnel de trésorerie glissant, pas seulement dans un budget annuel figé.",
+      "Les acomptes à la signature réduisent le besoin en fonds de roulement et transfèrent une partie du risque de non-paiement en amont de la mission."
+    ],
+    "rules": [
+      "Suivre le délai moyen de paiement client (DSO) par client et par type de mission, pas seulement en moyenne globale.",
+      "Maintenir un fonds de roulement de sécurité couvrant au moins un à deux mois de charges fixes.",
+      "Déclencher une alerte dès qu'un encaissement attendu dépasse le délai contractuel de plus de 15 jours."
+    ],
+    "examples": [
+      {
+        "situation": "Une mission de 3 mois est facturée en un seul appel de fonds à la livraison finale, avec un délai de paiement client contractuel de 60 jours.",
+        "recommended_behavior": "Signaler que ce schéma de facturation crée une exposition de trésorerie de plusieurs mois côté prestataire et recommander un découpage en jalons facturés (acompte, mi-parcours, solde) pour lisser les encaissements.",
+        "avoid": "Ne considérer que la rentabilité globale de la mission sans alerter sur le risque de tension de trésorerie induit par le calendrier de facturation choisi."
+      }
+    ],
+    "best_practices": [
+      "Demander systématiquement un acompte à la signature pour toute mission dépassant un mois de durée.",
+      "Tenir un tableau de suivi de trésorerie hebdomadaire distinct du reporting mensuel de rentabilité."
+    ],
+    "anti_patterns": [
+      "Confondre rentabilité comptable positive et trésorerie disponible réelle.",
+      "Accepter des délais de paiement longs sans contrepartie (acompte, pénalités de retard contractuelles)."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "tresorerie",
+      "cash_flow",
+      "delai_paiement",
+      "facturation_mission"
+    ],
+    "related_domains": [
+      "cpl",
+      "finance_controle"
+    ],
+    "related_knowledge": [
+      "cpl.business_piloting.previsionnel_financier_lancement_produit",
+      "cpl.business_piloting.profitability_analysis",
+      "finance_controle.fondamentaux.finance_controle_fondamentaux"
+    ],
+    "retrieval_priority": 7
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "aide au pilotage de trésorerie d'une structure de conseil"
+    ],
+    "restricted_usage": [
+      "conseil en placement de trésorerie excédentaire"
+    ],
+    "forbidden_usage": [
+      "conseil financier personnalisé engageant la responsabilité d'un conseiller agréé"
+    ],
+    "fallback_behavior": "En cas de doute sur une situation de trésorerie complexe (financement, découvert), recommander l'avis d'un expert-comptable ou d'un directeur financier."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "16/08/2026",
+    "last_update": "16/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

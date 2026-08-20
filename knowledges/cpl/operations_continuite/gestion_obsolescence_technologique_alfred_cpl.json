@@ -1,0 +1,98 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.operations_continuite.gestion_obsolescence_technologique_alfred_cpl",
+  "title": "Gestion de l'obsolescence technologique d'ALFRED CPL",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "operations_continuite",
+  "category": "continuite_operationnelle",
+  "summary": "Anticipation du vieillissement des composants techniques (dépendances logicielles, modèles IA, infrastructure) d'ALFRED CPL et plan de renouvellement, distincte de la maintenance évolutive courante déjà couverte.",
+  "purpose": "Éviter qu'un composant technique critique devienne non maintenu ou non supporté sans plan de remplacement anticipé, source de risque de sécurité ou de rupture de service.",
+  "tags": [
+    "obsolescence",
+    "cycle_de_vie_technique",
+    "dependances_logicielles",
+    "renouvellement"
+  ],
+  "intents": [
+    "plan_technology_refresh",
+    "assess_component_obsolescence_risk"
+  ],
+  "usage_context": [
+    "une dépendance logicielle critique approche de sa fin de support",
+    "un modèle IA embarqué devient significativement moins performant que les alternatives disponibles"
+  ],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "La gestion de l'obsolescence technologique désigne le processus d'anticipation du vieillissement des composants techniques d'ALFRED CPL (dépendances logicielles, modèles IA, infrastructure) et de planification de leur renouvellement avant qu'ils ne deviennent un risque opérationnel ou de sécurité.",
+    "core_principles": [
+      "L'obsolescence technique est un risque progressif, pas un événement soudain : elle doit être surveillée en continu, pas découverte au moment d'un incident.",
+      "Un composant non maintenu par son éditeur ou sa communauté représente un risque de sécurité croissant, indépendamment de son fonctionnement apparent actuel.",
+      "Le renouvellement d'un composant critique doit être planifié avec suffisamment d'avance pour être testé, contrairement à un remplacement d'urgence."
+    ],
+    "rules": [
+      "Maintenir un inventaire des composants techniques critiques avec leur statut de support (actif, fin de vie annoncée, non maintenu).",
+      "Planifier le renouvellement d'un composant dès l'annonce de sa fin de support par son éditeur ou sa communauté.",
+      "Tester tout composant de remplacement en environnement de préproduction avant bascule."
+    ],
+    "examples": [
+      {
+        "situation": "Une bibliothèque logicielle critique utilisée par ALFRED CPL annonce la fin de son support dans six mois.",
+        "recommended_behavior": "Planifier immédiatement l'évaluation d'alternatives et le calendrier de migration, plutôt que d'attendre l'échéance de fin de support pour agir.",
+        "avoid": "Continuer à utiliser le composant après sa fin de support effective sans plan de migration engagé, exposant le produit à un risque de sécurité croissant."
+      }
+    ],
+    "best_practices": [
+      "Réviser l'inventaire des composants critiques et leur statut de support au moins une fois par trimestre.",
+      "Prioriser le renouvellement selon la criticité du composant et non selon le seul confort de l'équipe technique."
+    ],
+    "anti_patterns": [
+      "Découvrir la fin de support d'un composant critique au moment d'un incident de sécurité plutôt que par une veille anticipée.",
+      "Reporter indéfiniment un renouvellement nécessaire faute de priorisation, jusqu'à ce qu'il devienne une urgence."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "obsolescence",
+      "fin_de_support",
+      "dette_technique_infrastructure",
+      "renouvellement"
+    ],
+    "related_domains": [
+      "cpl"
+    ],
+    "related_knowledge": [
+      "cpl.operations_continuite.maintenance_evolutive_alfred_cpl",
+      "cpl.product_ia.gestion_dette_technique_produit_ia"
+    ],
+    "retrieval_priority": 6
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "aide à la planification du renouvellement de composants techniques obsolètes"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "Si le statut de support d'un composant n'est pas connu avec certitude, recommander une vérification auprès de l'éditeur plutôt que de présumer qu'il reste maintenu."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "16/08/2026",
+    "last_update": "16/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}
