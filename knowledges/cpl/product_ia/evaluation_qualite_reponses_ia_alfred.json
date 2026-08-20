@@ -1,0 +1,99 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.product_ia.evaluation_qualite_reponses_ia_alfred",
+  "title": "Évaluation continue de la qualité des réponses IA d'ALFRED",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "product_ia",
+  "category": "produit_ia",
+  "summary": "Méthodologie d'évaluation continue (métriques, échantillonnage, feedback utilisateur) de la qualité des réponses produites par ALFRED CPL, distincte du cycle de feedback utilisateur général déjà couvert car centrée sur la mesure objective de la qualité plutôt que sur la collecte de retours.",
+  "purpose": "Donner à ALFRED CPL un cadre de mesure continue de sa propre qualité de réponse, condition nécessaire à toute amélioration produit fondée sur des données plutôt que sur des impressions.",
+  "tags": [
+    "evaluation_qualite",
+    "benchmark_reponses",
+    "llm_eval",
+    "amelioration_continue_produit"
+  ],
+  "intents": [
+    "explain_quality_evaluation_method",
+    "structure_response_benchmark"
+  ],
+  "usage_context": [
+    "une équipe produit veut évaluer objectivement la qualité des réponses d'ALFRED CPL",
+    "un changement de modèle ou de prompt nécessite une comparaison avant/après"
+  ],
+  "priority": "high",
+  "safety_level": "normal",
+  "content": {
+    "definition": "L'évaluation continue de la qualité des réponses désigne la méthodologie de mesure objective, régulière et outillée de la pertinence, exactitude et utilité des réponses produites par ALFRED CPL, combinant métriques automatisées, échantillonnage humain et feedback utilisateur.",
+    "core_principles": [
+      "Une évaluation fondée uniquement sur des impressions qualitatives ponctuelles ne permet pas de détecter une dégradation progressive de la qualité.",
+      "Aucune métrique automatisée seule ne suffit à évaluer la qualité perçue : un échantillonnage humain régulier reste nécessaire en complément.",
+      "L'évaluation doit être comparative dans le temps (avant/après un changement de modèle ou de prompt) pour être réellement actionnable."
+    ],
+    "rules": [
+      "Définir un jeu de cas de test représentatifs des usages réels avant tout changement de modèle ou de prompt significatif.",
+      "Combiner métriques automatisées (cohérence, exactitude factuelle vérifiable) et échantillonnage humain régulier.",
+      "Comparer systématiquement les résultats avant et après tout changement significatif du système."
+    ],
+    "examples": [
+      {
+        "situation": "Une équipe envisage de changer le modèle de langage sous-jacent d'ALFRED CPL pour réduire les coûts d'infrastructure.",
+        "recommended_behavior": "Constituer un jeu de cas de test représentatif, évaluer les deux modèles sur ce jeu avant bascule, et ne déployer le changement que si la qualité mesurée reste équivalente ou meilleure.",
+        "avoid": "Basculer directement en production sur la seule promesse commerciale du nouveau modèle sans évaluation comparative préalable."
+      }
+    ],
+    "best_practices": [
+      "Faire évoluer le jeu de cas de test au fil du temps pour refléter les usages réels observés, pas seulement les cas initiaux.",
+      "Documenter chaque évaluation avec sa date et le contexte du changement testé, pour garder un historique comparable."
+    ],
+    "anti_patterns": [
+      "Évaluer la qualité uniquement de façon informelle et ponctuelle, sans jeu de cas de test reproductible.",
+      "Déployer un changement de modèle ou de prompt en production sans comparaison préalable avec la version en cours."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "evaluation_qualite",
+      "llm_eval",
+      "benchmark",
+      "jeu_de_cas_test"
+    ],
+    "related_domains": [
+      "cpl",
+      "professional"
+    ],
+    "related_knowledge": [
+      "cpl.product_ia.cycle_feedback_utilisateur_produit_ia",
+      "professional.governance_ai.model_lifecycle_management"
+    ],
+    "retrieval_priority": 7
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "high",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "aide à la structuration d'une méthodologie d'évaluation de qualité des réponses IA"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "Si aucun jeu de cas de test représentatif n'existe encore, recommander sa constitution comme prérequis avant toute évaluation fiable."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "16/08/2026",
+    "last_update": "16/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

@@ -1,0 +1,100 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.business_piloting.cout_acquisition_client_alfred_cpl",
+  "title": "Coût d'acquisition client (CAC) pour ALFRED CPL",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "business_piloting",
+  "category": "pilotage_business",
+  "summary": "Définition et calcul du coût d'acquisition client (CAC) pour un produit ou service de conseil augmenté par IA, et son articulation avec la valeur vie client (LTV), distinct du suivi des indicateurs de satisfaction déjà couvert.",
+  "purpose": "Outiller ALFRED CPL pour aider à évaluer l'efficacité commerciale d'une structure de conseil et éviter une croissance non soutenable (CAC supérieur à la valeur générée par client).",
+  "tags": [
+    "cac",
+    "acquisition_client",
+    "ltv",
+    "efficacite_commerciale"
+  ],
+  "intents": [
+    "explain_cac",
+    "evaluate_acquisition_efficiency"
+  ],
+  "usage_context": [
+    "évaluer si un canal d'acquisition commercial est rentable",
+    "arbitrer un budget marketing/commercial pour une structure de conseil"
+  ],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "Le coût d'acquisition client (CAC) est le montant moyen dépensé en efforts commerciaux et marketing pour obtenir un nouveau client sur une période donnée ; il se calcule en divisant les coûts commerciaux et marketing engagés par le nombre de nouveaux clients acquis sur cette période.",
+    "core_principles": [
+      "Le CAC seul n'a pas de sens : il doit être mis en regard de la valeur vie client (LTV) attendue, avec un ratio LTV/CAC cible généralement supérieur à 3.",
+      "Dans une activité de conseil, le CAC inclut souvent un temps commercial de consultants seniors dont le coût est fréquemment sous-évalué par rapport au seul budget marketing.",
+      "Le CAC varie fortement selon le canal d'acquisition (recommandation, réseau personnel, contenu/inbound, prospection directe) et doit être suivi par canal."
+    ],
+    "rules": [
+      "Inclure le temps commercial des consultants (pas seulement le budget marketing pur) dans le calcul du CAC d'une activité de conseil.",
+      "Suivre le CAC par canal d'acquisition plutôt qu'en moyenne globale pour identifier les canaux les plus efficaces.",
+      "Comparer systématiquement le CAC à la LTV estimée avant de valider un investissement commercial."
+    ],
+    "examples": [
+      {
+        "situation": "Un canal de prospection directe génère un CAC élevé mais un canal de recommandation clients génère un CAC très faible.",
+        "recommended_behavior": "Recommander de réallouer une part du budget commercial vers l'animation du réseau de recommandation (programme de parrainage, sollicitation active des clients satisfaits) tout en conservant une part de prospection directe pour la diversification.",
+        "avoid": "Analyser uniquement le CAC moyen global sans distinguer les canaux, masquant ainsi un canal très efficace derrière un canal très coûteux."
+      }
+    ],
+    "best_practices": [
+      "Calculer le CAC sur une fenêtre glissante suffisamment longue pour lisser les effets ponctuels (grosse mission signée un mois donné).",
+      "Documenter la LTV avec les mêmes hypothèses de durée de relation client que le calcul du CAC pour garantir la comparabilité."
+    ],
+    "anti_patterns": [
+      "Ignorer le coût du temps commercial des consultants seniors dans le calcul du CAC.",
+      "Comparer un CAC à une LTV calculée sur des hypothèses de durée de relation différentes, rendant le ratio LTV/CAC trompeur."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "cac",
+      "cout_acquisition",
+      "ltv",
+      "efficacite_commerciale"
+    ],
+    "related_domains": [
+      "cpl",
+      "marketing"
+    ],
+    "related_knowledge": [
+      "cpl.business_piloting.suivi_indicateurs_satisfaction_client",
+      "cpl.business_piloting.pricing_strategy",
+      "marketing.fondamentaux.marketing_fondamentaux"
+    ],
+    "retrieval_priority": 6
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "aide au calcul et à l'analyse du CAC pour une structure de conseil"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "Si les données de coûts commerciaux ne sont pas disponibles ou incomplètes, indiquer explicitement les hypothèses utilisées plutôt que de présenter un chiffre comme certain."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "16/08/2026",
+    "last_update": "16/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

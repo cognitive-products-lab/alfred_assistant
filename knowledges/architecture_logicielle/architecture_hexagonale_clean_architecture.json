@@ -1,0 +1,100 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "architecture_logicielle.fondamentaux.architecture_hexagonale_clean_architecture",
+  "title": "Architecture hexagonale et Clean Architecture",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "architecture_logicielle",
+  "subdomain": "fondamentaux",
+  "category": "architecture_logicielle",
+  "summary": "Principes de l'architecture hexagonale (ports et adaptateurs) et de la Clean Architecture, styles architecturaux visant à isoler la logique métier des détails techniques, distincts du catalogue de design patterns (GoF, CQRS, Event Sourcing) déjà couvert.",
+  "purpose": "Compléter le panorama des styles architecturaux logiciels par un style structurant particulièrement pertinent pour la testabilité et l'indépendance technologique d'un système.",
+  "tags": [
+    "architecture_hexagonale",
+    "clean_architecture",
+    "ports_adaptateurs",
+    "isolation_metier"
+  ],
+  "intents": [
+    "explain_hexagonal_architecture",
+    "explain_clean_architecture_principles"
+  ],
+  "usage_context": [
+    "concevoir un système logiciel devant rester indépendant de choix technologiques ponctuels",
+    "expliquer pourquoi isoler la logique métier des frameworks techniques"
+  ],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "L'architecture hexagonale (ports et adaptateurs) et la Clean Architecture sont des styles architecturaux logiciels visant à isoler le cœur métier d'une application des détails techniques externes (base de données, interface utilisateur, frameworks), en organisant les dépendances de sorte que la logique métier ne dépende jamais des couches techniques.",
+    "core_principles": [
+      "La logique métier doit rester indépendante des choix techniques externes (base de données, framework web, service tiers), qui doivent au contraire dépendre d'elle via des interfaces.",
+      "Les ports définissent des interfaces abstraites par lesquelles le cœur métier communique avec l'extérieur, tandis que les adaptateurs implémentent concrètement ces interfaces pour une technologie donnée.",
+      "Cette isolation facilite la testabilité (le cœur métier peut être testé sans base de données réelle ni interface utilisateur) et la substituabilité d'une technologie externe sans toucher à la logique métier."
+    ],
+    "rules": [
+      "Ne jamais faire dépendre directement la logique métier d'un détail d'implémentation technique (framework, base de données spécifique).",
+      "Définir des interfaces (ports) explicites entre le cœur métier et chaque dépendance externe, implémentées par des adaptateurs dédiés.",
+      "Concevoir le cœur métier de façon à pouvoir être testé unitairement sans dépendance technique externe réelle."
+    ],
+    "examples": [
+      {
+        "situation": "Une application couple directement sa logique métier aux appels SQL d'une base de données spécifique, rendant tout changement de technologie de stockage très coûteux.",
+        "recommended_behavior": "Introduire un port (interface de persistance) entre la logique métier et le stockage, avec un adaptateur spécifique à la base de données, permettant de changer de technologie de stockage sans modifier la logique métier.",
+        "avoid": "Conserver un couplage direct entre logique métier et détails techniques, rendant toute évolution technologique risquée et coûteuse."
+      }
+    ],
+    "best_practices": [
+      "Réserver l'architecture hexagonale ou la Clean Architecture aux systèmes suffisamment complexes ou durables pour justifier le coût de conception initial supplémentaire.",
+      "Documenter clairement les ports et adaptateurs pour que l'équipe comprenne les frontières architecturales à respecter."
+    ],
+    "anti_patterns": [
+      "Appliquer l'architecture hexagonale à un système trop simple, générant une sur-ingénierie disproportionnée par rapport au besoin réel.",
+      "Définir des ports en théorie mais laisser en pratique la logique métier dépendre directement d'un détail technique, annulant le bénéfice de l'isolation."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "architecture_hexagonale",
+      "clean_architecture",
+      "ports_adaptateurs",
+      "isolation_metier"
+    ],
+    "related_domains": [
+      "architecture_logicielle",
+      "professional"
+    ],
+    "related_knowledge": [
+      "architecture_logicielle.patterns.patterns_conception_logicielle",
+      "architecture_logicielle.fondamentaux.architecture_logicielle_fondamentaux",
+      "professional.engineering.systeme_design.software_architecture"
+    ],
+    "retrieval_priority": 6
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "high",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "explication des principes d'architecture hexagonale et de Clean Architecture"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "Si la complexité réelle du système ne justifie pas ce style architectural, le signaler explicitement plutôt que de le recommander par défaut."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "16/08/2026",
+    "last_update": "16/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

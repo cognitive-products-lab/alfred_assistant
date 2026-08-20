@@ -1,0 +1,98 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.product_platform.gestion_notifications_intelligentes_priorisees",
+  "title": "Gestion des notifications intelligentes et priorisées",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "product_platform",
+  "category": "fonctionnalite_produit",
+  "summary": "Principes de priorisation et de regroupement des notifications produites par ALFRED CPL pour éviter la surcharge informationnelle de l'utilisateur, distincts de la gestion des rappels, agenda et tâches déjà couverte qui porte sur la planification plutôt que sur la priorisation des interruptions.",
+  "purpose": "Décrire comment ALFRED CPL doit hiérarchiser et regrouper ses notifications pour rester utile sans devenir une source de surcharge cognitive pour l'utilisateur.",
+  "tags": [
+    "notifications",
+    "priorisation",
+    "surcharge_informationnelle",
+    "experience_utilisateur"
+  ],
+  "intents": [
+    "explain_notification_prioritization",
+    "reduce_notification_overload"
+  ],
+  "usage_context": [
+    "un utilisateur reçoit un volume de notifications jugé excessif",
+    "une équipe produit conçoit une nouvelle fonctionnalité générant des notifications"
+  ],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "La gestion des notifications intelligentes et priorisées désigne les principes de hiérarchisation, de regroupement et de temporisation des notifications produites par ALFRED CPL, visant à transmettre l'information utile au bon moment sans provoquer de surcharge informationnelle.",
+    "core_principles": [
+      "Toutes les notifications ne se valent pas : une hiérarchisation explicite par niveau d'urgence évite de traiter une information mineure comme une alerte critique.",
+      "Le regroupement de notifications de faible priorité en synthèses périodiques réduit la fragmentation de l'attention sans perdre l'information.",
+      "Le bon moment d'une notification dépend du contexte de l'utilisateur, pas uniquement du moment où l'information devient disponible côté système."
+    ],
+    "rules": [
+      "Classer chaque notification selon un niveau de priorité explicite (critique, importante, informative) avant son envoi.",
+      "Regrouper les notifications de faible priorité en synthèses périodiques plutôt que de les envoyer au fil de l'eau.",
+      "Ne jamais interrompre l'utilisateur en temps réel pour une notification de faible priorité."
+    ],
+    "examples": [
+      {
+        "situation": "ALFRED CPL génère plusieurs notifications informatives mineures dans la même heure, en plus d'une alerte critique.",
+        "recommended_behavior": "Envoyer immédiatement l'alerte critique de façon isolée, et regrouper les notifications informatives mineures dans une synthèse envoyée à un moment moins intrusif.",
+        "avoid": "Envoyer toutes les notifications au même niveau de priorité et au fil de l'eau, noyant l'alerte critique dans un flux d'informations mineures."
+      }
+    ],
+    "best_practices": [
+      "Permettre à l'utilisateur d'ajuster ses préférences de fréquence et de regroupement de notifications par catégorie.",
+      "Réévaluer périodiquement la pertinence des niveaux de priorité par défaut au regard de l'usage réel constaté."
+    ],
+    "anti_patterns": [
+      "Absence de hiérarchisation, traitant toute notification comme également urgente jusqu'à désensibiliser l'utilisateur.",
+      "Regroupement systématique y compris pour les alertes critiques, retardant une information qui aurait dû être transmise immédiatement."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "notifications",
+      "priorisation",
+      "surcharge_informationnelle",
+      "regroupement"
+    ],
+    "related_domains": [
+      "cpl"
+    ],
+    "related_knowledge": [
+      "cpl.product_platform.gestion_rappels_agenda_taches_alfred",
+      "cpl.human_organization.gestion_alertes_priorisation_utilisateur"
+    ],
+    "retrieval_priority": 6
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "explication des principes de priorisation et de regroupement des notifications produit"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "En cas de doute sur le niveau de priorité d'une notification, la classer par défaut à un niveau intermédiaire plutôt que critique, sauf risque avéré pour l'utilisateur."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "16/08/2026",
+    "last_update": "16/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

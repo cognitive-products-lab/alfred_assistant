@@ -1,0 +1,102 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.ethics_governance.revision_humaine_decisions_ia_sensibles",
+  "title": "Révision humaine des décisions IA sensibles ALFRED CPL",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "ethics_governance",
+  "category": "gouvernance_ia_produit",
+  "summary": "Principe de contrôle humain systématique avant toute décision ou recommandation à fort impact (juridique, RH, financier significatif) produite par ALFRED CPL, articulant le principe général de human-in-the-loop à des critères de classification concrets.",
+  "purpose": "Définir des critères opérationnels permettant de distinguer les décisions nécessitant une validation humaine obligatoire des décisions à impact limité pouvant être exécutées sans validation préalable.",
+  "tags": [
+    "human_in_the_loop",
+    "revision_humaine",
+    "decision_sensible",
+    "controle_humain"
+  ],
+  "intents": [
+    "explain_human_review_requirement",
+    "classify_decision_impact_level"
+  ],
+  "usage_context": [
+    "ALFRED CPL formule une recommandation à impact financier ou RH significatif",
+    "un audit de conformité vérifie l'application du contrôle humain"
+  ],
+  "priority": "critical",
+  "safety_level": "high_risk",
+  "content": {
+    "definition": "La révision humaine des décisions sensibles désigne l'obligation de validation par une personne habilitée, avant exécution, de toute recommandation ou décision produite par ALFRED CPL classée comme à fort impact selon des critères explicites et documentés.",
+    "core_principles": [
+      "Toute décision classée « à fort impact » doit être validée par un humain habilité avant exécution, sans exception silencieuse.",
+      "Le critère de classification d'une décision comme sensible doit être explicite et documenté, pas laissé à l'appréciation ponctuelle de l'utilisateur.",
+      "La validation humaine doit porter sur le fond de la recommandation, pas se réduire à un clic de confirmation automatique sans lecture réelle."
+    ],
+    "rules": [
+      "Classer explicitement toute recommandation touchant au juridique, aux ressources humaines ou à un enjeu financier significatif comme « à fort impact ».",
+      "Bloquer l'exécution automatique de toute décision classée à fort impact tant qu'une validation humaine tracée n'a pas été enregistrée.",
+      "Documenter, pour chaque validation, l'identité du validateur et la date, afin de garantir la traçabilité en cas d'audit."
+    ],
+    "examples": [
+      {
+        "situation": "ALFRED CPL recommande une réallocation budgétaire significative sur un projet client.",
+        "recommended_behavior": "Présenter la recommandation comme une proposition nécessitant validation explicite d'un responsable habilité, avec les éléments justificatifs, avant toute exécution ou communication au client.",
+        "avoid": "Exécuter ou communiquer directement la recommandation comme une décision actée sans étape de validation humaine intermédiaire."
+      }
+    ],
+    "best_practices": [
+      "Établir une liste de référence des catégories de décisions classées à fort impact, révisée périodiquement.",
+      "Former les validateurs habilités à ne pas valider par réflexe sans examen réel du contenu de la recommandation."
+    ],
+    "anti_patterns": [
+      "Validation humaine réduite à une formalité de façade sans examen réel du contenu.",
+      "Absence de critère explicite de classification, laissant certaines décisions sensibles échapper à la validation obligatoire."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "human_in_the_loop",
+      "revision_humaine",
+      "controle_humain",
+      "decision_a_fort_impact"
+    ],
+    "related_domains": [
+      "cpl",
+      "professional"
+    ],
+    "related_knowledge": [
+      "professional.governance_ai.human_in_the_loop",
+      "cpl.ethics_governance.governance_model",
+      "cpl.product_platform.explicabilite_decisions_ia_alfred"
+    ],
+    "retrieval_priority": 9
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "explication du principe et des critères de révision humaine obligatoire"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [
+      "exécution automatique d'une décision classée à fort impact sans validation humaine tracée"
+    ],
+    "fallback_behavior": "En cas de doute sur le caractère sensible d'une décision, la classer par défaut comme à fort impact et exiger une validation humaine plutôt que de risquer une exécution non contrôlée."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "16/08/2026",
+    "last_update": "16/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}
