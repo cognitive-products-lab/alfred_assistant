@@ -4,6 +4,34 @@ Référence : `knowledges/index/daily_enrichment_instructions.md`. Une entrée p
 
 ---
 
+## Lot 13 — 20/08/2026 (volet ALFRED Core : Ikigai / valeurs humaines / motivation)
+
+**Contexte particulier de ce volet** : le Lot 13 du 20/08/2026 est composé de plusieurs volets demandés le même jour par Céline (lot standard 60 fiches, 25 fiches anxiété/stress, consolidation cpl/business_strategy, nouveau domaine secteurs_activite, et ce volet Ikigai/valeurs/motivation) — chaque volet documente sa propre entrée de journal. Ce volet a été **exécuté en deux temps** : un agent en worktree git isolé a produit les 8 fiches, mais sa liaison git worktree a été corrompue au moment de la reprise après une interruption de limite de session (incident infrastructure documenté dans `project_daily_enrichment_cpl_socle_split.md` côté mémoire de session) — il s'est arrêté proprement sans exécuter aucune commande git dès que l'anomalie a été détectée. La session principale a repris la main directement dans le dépôt principal pour finaliser (validation, taxonomy, registre, cette entrée, commit).
+
+**Demande de Céline (citation)** : « pour alfred core : ajouter la compréhension des éléments d'un ikigai : passion, vocation, motivation, mission, j'aime, le monde a besoin, la profession, je suis bon à, je peux être payé pour... la compréhension des valeurs humaines, de la recherche de motivation... »
+
+**Fichiers créés (8)** :
+- `human/self_alignment/purpose/ikigai_quatre_cercles.json` — le framework Ikigai : 4 cercles (j'aime / le monde a besoin / je suis doué pour / je peux être payé pour) et leurs intersections nommées (passion, mission, vocation, profession).
+- `human/self_alignment/purpose/ikigai_accompagnement_reflexion_guidee.json` — méthode en 4 étapes pour qu'ALFRED anime l'exercice avec l'utilisateur (questions ouvertes par cercle, ton non thérapeutique aligné sur `human/wellbeing/support_without_diagnosis.json`).
+- `human/self_alignment/purpose/valeurs_universelles_schwartz.json` — les 10 valeurs de Schwartz en cercle (tensions ouverture/conservation, dépassement/affirmation de soi) ; complète sans dupliquer `lifestyle/life_path/clarification_valeurs_personnelles.json` et `clarifier_direction_de_vie_valeurs.json` (qui restent volontairement sans liste de valeurs prédéfinie).
+- `human/self_alignment/purpose/sens_travail_vocation_metier_distinction.json` — distinction job/carrière/vocation (Wrzesniewski).
+- `human/self_alignment/purpose/fixation_objectifs_alignes_valeurs.json` — traduire une valeur/un élément d'ikigai clarifié en objectifs concrets, vérification d'alignement avant planification.
+- `human/self_alignment/purpose/mission_personnelle_redaction.json` — mise en forme écrite courte et révisable d'une mission personnelle, rédigée par l'utilisateur lui-même.
+- `human/psychology/theorie_autodetermination_sdt.json` — théorie de l'autodétermination (Deci & Ryan) : 3 besoins (autonomie/compétence/appartenance) + continuum en 6 points ; comble un angle mort de `human/psychology/motivation.json` qui ne fait que la citer entre parenthèses sans détail.
+- `human/psychology/entretien_motivationnel_techniques.json` — techniques OARS (Miller & Rollnick) + discours de changement vs discours de maintien ; apporte une méthode conversationnelle opérationnelle absente de `motivation.json`.
+
+**Anti-doublon** : vérifié par lecture intégrale de `motivation.json`, `clarification_valeurs_personnelles.json`, `clarifier_direction_de_vie_valeurs.json`, `accompagner_transition_reconversion.json`, `psychologie_positive_fondements.json`, `resilience.json` avant choix des sujets — aucun doublon, chaque fiche comble un angle explicitement absent.
+
+**taxonomy.json** : v3.8.0 → v3.8.1. Aucun nouveau domaine/sous-domaine (le sous-dossier physique `human/self_alignment/purpose/` reste rattaché au sous-domaine taxonomique existant `human.self_alignment`) ; `intents`/`linked_knowledge` enrichis sur `human.self_alignment` et `human.psychology`.
+
+**manifest.json** : v2.6.0 → v2.6.1, entrée `lot13_ikigai_20_08_2026` ajoutée.
+
+**Registre** : régénéré, 1051 → 1059 fichiers indexés (+8, cohérent).
+
+**Incident à retenir** : la reprise simultanée de plusieurs agents en worktree isolé après une interruption de limite de session partagée peut corrompre la liaison git de certains worktrees (répertoire orphelin sans `.git`, ou pire, l'agent se retrouve à opérer directement dans le dépôt principal partagé). Recommandation forte pour les prochains lots multi-agents : vérifier `pwd`/`git rev-parse --show-toplevel` juste après toute reprise d'agent en worktree suite à une interruption, avant de laisser l'agent continuer à écrire ou committer.
+
+---
+
 ## Lot 12 — 16/08/2026 (exécution manuelle, tâche planifiée toujours en panne)
 
 **Contexte** : la tâche planifiée Windows `alfred-knowledge-daily-enrichment` (5h00) reste en panne depuis un problème d'authentification du CLI local, sans rapport avec le contenu — ignoré volontairement pour l'instant par la responsable du projet. Ce lot est donc, comme le Lot 11, une exécution manuelle. Session exécutée dans un worktree git isolé (`worktree-agent-a87c7cd1e925bebe2`), distinct du dépôt principal. État constaté à l'ouverture : 999 fichiers `.json` sur disque, 991 indexés au registre (écart de 8 conforme à `loading_policy.technical_files_not_loaded_as_knowledge`, aucune anomalie), cohérent avec l'état de clôture du Lot 11 (14/08/2026). Aucun fichier modifié hors périmètre `knowledges/` détecté à l'ouverture ni à la clôture (`git status`/`git diff --stat` limités à `knowledges/` vérifiés avant tout `git add`).

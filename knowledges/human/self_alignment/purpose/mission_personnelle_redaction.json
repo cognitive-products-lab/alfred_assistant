@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "human.self_alignment.purpose.mission_personnelle_redaction",
+  "title": "Rédiger un énoncé de mission personnelle",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "human",
+  "subdomain": "self_alignment",
+  "category": "quete_de_sens",
+  "summary": "Guide la mise en forme écrite, courte et révisable, d'une mission personnelle à partir d'une réflexion de sens déjà menée (ikigai, valeurs), comme artefact concret servant de point de repère plutôt que comme finalité de l'exercice.",
+  "purpose": "Fournir la dernière étape concrète après une clarification de valeurs ou un exercice ikigai : transformer une réflexion en un texte court et réutilisable, en évitant les pièges classiques d'un énoncé trop vague ou trop rigide.",
+  "tags": ["mission_personnelle", "enonce_de_mission", "synthese_ecrite", "redaction", "sens"],
+  "intents": ["draft_personal_mission_statement", "synthesize_purpose_reflection", "support_written_synthesis"],
+  "usage_context": [
+    "utilisateur ayant terminé un exercice ikigai ou une clarification de valeurs et souhaitant en garder une trace écrite exploitable",
+    "utilisateur demandant de l'aide pour formuler un énoncé de mission personnelle"
+  ],
+  "priority": "low",
+  "safety_level": "sensitive",
+  "content": {
+    "definition": "Un énoncé de mission personnelle est une formulation courte (une à trois phrases), écrite par la personne elle-même, qui synthétise ce qui compte pour elle et la direction qu'elle souhaite donner à ses choix, destinée à être relue et éventuellement révisée plutôt qu'à être figée une fois pour toutes.",
+    "core_principles": [
+      "Un énoncé de mission personnelle efficace est concret et actionnable, pas une formule abstraite et interchangeable : il doit refléter des éléments spécifiques issus de la réflexion menée (valeurs nommées, intersections ikigai identifiées) plutôt que des généralités applicables à n'importe qui.",
+      "La rédaction gagne à suivre une structure simple sans être un carcan : nommer une ou deux valeurs centrales, la manière dont la personne veut les incarner concrètement, et éventuellement pour qui ou dans quel contexte (professionnel, familial, personnel).",
+      "Un énoncé de mission n'est pas un contrat immuable : il est légitime et attendu qu'il évolue avec l'expérience, les circonstances de vie et l'approfondissement de la réflexion, ce qui doit être explicitement rappelé pour ne pas créer de pression à la perfection dès la première version.",
+      "L'énoncé sert de repère de décision (permettant de se demander « est-ce que ce choix va dans le sens de ma mission ? ») plutôt que d'objectif à atteindre : il ne se mesure pas comme un objectif SMART."
+    ],
+    "rules": [
+      "Toujours faire rédiger l'énoncé par l'utilisateur lui-même, en proposant au maximum une reformulation à valider ou ajuster, jamais un texte final imposé par ALFRED.",
+      "Ne jamais présenter un énoncé de mission comme définitif : préciser explicitement qu'une première version est normale et qu'elle peut être révisée.",
+      "Éviter les formulations génériques réutilisables telles quelles par n'importe qui : orienter systématiquement vers des termes concrets issus de la réflexion propre de l'utilisateur.",
+      "Ne proposer cet exercice qu'après une clarification de sens ou de valeurs déjà entamée, jamais comme point d'entrée isolé sans matière préalable à synthétiser."
+    ],
+    "examples": [
+      {
+        "situation": "Un utilisateur vient de terminer l'exercice ikigai guidé et souhaite « en garder quelque chose de concret ».",
+        "recommended_behavior": "Proposer de synthétiser en une à trois phrases les éléments les plus significatifs identifiés (les intersections dégagées, les valeurs nommées), en laissant l'utilisateur formuler lui-même une première version, puis l'aider à l'affiner si demandé, en rappelant que ce n'est pas figé.",
+        "avoid": "Rédiger directement un énoncé de mission générique et le proposer clé en main à l'utilisateur, sans qu'il en soit l'auteur principal."
+      }
+    ],
+    "best_practices": [
+      "Encourager une formulation courte et mémorisable plutôt qu'un texte long et exhaustif qui perdrait sa fonction de repère rapide.",
+      "Suggérer de relire et potentiellement ajuster l'énoncé à intervalles réguliers (par exemple lors d'une transition de vie), sans en faire une contrainte.",
+      "Relier explicitement l'énoncé produit aux éléments concrets de la réflexion qui l'ont précédé (cercles ikigai, valeurs nommées) pour qu'il ne devienne pas une formule creuse."
+    ],
+    "anti_patterns": [
+      "Rédiger l'énoncé de mission à la place de l'utilisateur sans qu'il en soit l'auteur principal.",
+      "Présenter l'énoncé comme définitif et non révisable, créant une pression de perfection dès la première formulation.",
+      "Proposer des formulations génériques et interchangeables ('vivre pleinement chaque instant') déconnectées de la réflexion spécifique de la personne."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["mission_personnelle", "enonce_de_mission", "synthese", "redaction", "sens"],
+    "related_domains": ["human", "lifestyle"],
+    "related_knowledge": [
+      "human.self_alignment.purpose.ikigai_accompagnement_reflexion_guidee",
+      "human.self_alignment.purpose.fixation_objectifs_alignes_valeurs",
+      "lifestyle.life_path.clarifier_direction_de_vie_valeurs"
+    ],
+    "retrieval_priority": 4
+  },
+  "behavior_rules": {
+    "tone": "empathetic",
+    "response_style": "structured_clear",
+    "max_complexity": "low",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["aide à la mise en forme écrite d'une réflexion de sens déjà menée par l'utilisateur"],
+    "restricted_usage": ["utilisateur cherchant à figer une décision de vie majeure uniquement à partir de cet énoncé"],
+    "forbidden_usage": ["rédiger l'énoncé de mission à la place de l'utilisateur sans validation explicite de sa part"],
+    "fallback_behavior": "Rappeler que l'énoncé est une première version révisable et proposer de revenir à la réflexion de fond (ikigai, valeurs) si l'utilisateur semble bloqué sur la formulation."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "20/08/2026",
+    "last_update": "20/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}
