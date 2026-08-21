@@ -29,6 +29,7 @@ from typing import Any
 from src.knowledge.knowledge_loader import KnowledgeLoader
 from src.knowledge.domain_matcher import DomainMatcher
 from src.knowledge.taxonomy_router import TaxonomyRouter
+from src.knowledge.french_stopwords import FRENCH_STOPWORDS as _FRENCH_STOPWORDS
 
 
 @dataclass
@@ -171,7 +172,7 @@ class KnowledgeRanker:
         query_words = [
             word.lower()
             for word in re.findall(r"\w+", query.replace("'", " ").replace("-", " "))
-            if len(word) >= 4
+            if len(word) >= 4 and word.lower() not in _FRENCH_STOPWORDS
         ]
 
         technical_keywords = [
