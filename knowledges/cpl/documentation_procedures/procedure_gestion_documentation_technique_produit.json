@@ -1,0 +1,100 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.documentation_procedures.procedure_gestion_documentation_technique_produit",
+  "title": "Procédure de gestion de la documentation technique produit ALFRED CPL",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "documentation_procedures",
+  "category": "documentation_cpl",
+  "summary": "Règles de création, versionnage et mise à jour de la documentation technique du produit ALFRED CPL (architecture, API, guides d'intégration), pour garantir sa fiabilité dans le temps.",
+  "purpose": "Éviter la dérive entre le comportement réel du produit et sa documentation technique, source fréquente d'incidents et de perte de confiance des utilisateurs avancés et intégrateurs.",
+  "tags": [
+    "documentation_technique",
+    "versionnage",
+    "procedure",
+    "cpl"
+  ],
+  "intents": [
+    "explain_documentation_lifecycle",
+    "support_documentation_update",
+    "check_documentation_freshness"
+  ],
+  "usage_context": [
+    "une fonctionnalité produit évolue",
+    "un intégrateur signale une incohérence documentaire"
+  ],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "La gestion de la documentation technique produit désigne le cycle de vie complet d'un document de référence (création, revue, publication, mise à jour, obsolescence) associé à chaque évolution fonctionnelle ou technique du produit.",
+    "core_principles": [
+      "Toute évolution fonctionnelle ou d'API significative doit déclencher une revue de la documentation associée, pas seulement du code.",
+      "La documentation technique doit indiquer une date de dernière vérification, pas seulement une date de création.",
+      "Un écart constaté entre documentation et comportement réel doit être traité comme un défaut, au même titre qu'un bug fonctionnel."
+    ],
+    "rules": [
+      "Versionner la documentation technique en parallèle des versions du produit, avec une correspondance explicite version produit / version documentation.",
+      "Archiver plutôt que supprimer la documentation d'une version obsolète, pour les utilisateurs encore sur une version antérieure."
+    ],
+    "examples": [
+      {
+        "situation": "Un intégrateur signale qu'un paramètre d'API documenté n'existe plus dans la version courante.",
+        "recommended_behavior": "Consigner l'écart, corriger la documentation en priorité et vérifier s'il existe d'autres écarts similaires sur la même version.",
+        "avoid": "Répondre uniquement à l'intégrateur sans corriger la documentation pour les utilisateurs suivants."
+      }
+    ],
+    "best_practices": [
+      "Associer chaque fiche de documentation technique à un propriétaire responsable de sa fraîcheur.",
+      "Prévoir une revue périodique systématique de la documentation, pas seulement réactive aux signalements."
+    ],
+    "anti_patterns": [
+      "Documentation qui n'est mise à jour qu'après plusieurs signalements utilisateurs successifs.",
+      "Absence de correspondance claire entre version du produit et version de la documentation."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "documentation_technique",
+      "versionnage",
+      "api",
+      "procedure_cpl"
+    ],
+    "related_domains": [
+      "cpl"
+    ],
+    "related_knowledge": [
+      "cpl.documentation_procedures.procedure_gestion_versions_documentaires",
+      "cpl.product_platform.interoperabilite_api_alfred_cpl_ecosysteme_tiers"
+    ],
+    "retrieval_priority": 6
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "structuration et suivi de la documentation technique produit"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [
+      "publication d'une documentation technique non revue sur un point de sécurité ou de confidentialité"
+    ],
+    "fallback_behavior": "En cas de doute sur l'exactitude d'un point technique documenté, le signaler comme à vérifier plutôt que de le present comme définitivement à jour."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "20/08/2026",
+    "last_update": "20/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

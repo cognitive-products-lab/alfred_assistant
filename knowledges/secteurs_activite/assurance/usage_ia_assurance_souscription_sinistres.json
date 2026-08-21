@@ -1,0 +1,100 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "secteurs_activite.assurance.usage_ia_assurance_souscription_sinistres",
+  "title": "Usages de l'IA dans l'assurance : souscription et gestion des sinistres",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "secteurs_activite",
+  "subdomain": "assurance",
+  "category": "tendances_marche",
+  "summary": "Panorama des usages de l'IA dans l'assurance (scoring de souscription, automatisation de la gestion des sinistres, détection de fraude), avec attention aux enjeux d'équité et d'explicabilité propres au secteur régulé, complémentaire au profil sectoriel déjà établi.",
+  "purpose": "Donner à ALFRED CPL une compréhension des usages IA propres à l'assurance et de leurs enjeux de gouvernance spécifiques, distincts d'un usage générique de l'IA en entreprise.",
+  "tags": [
+    "ia_assurance",
+    "scoring_souscription",
+    "detection_fraude",
+    "secteurs_activite"
+  ],
+  "intents": [
+    "explain_insurance_ai_use_cases",
+    "describe_underwriting_fairness_stakes"
+  ],
+  "usage_context": [
+    "un client assurance engage une réflexion sur l'usage de l'IA dans ses processus",
+    "une veille sectorielle assurance est demandée"
+  ],
+  "priority": "medium",
+  "safety_level": "sensitive",
+  "content": {
+    "definition": "Les usages de l'IA dans l'assurance couvrent principalement le scoring de risque à la souscription, l'automatisation du traitement des sinistres simples et la détection de fraude, avec des enjeux spécifiques d'équité (non-discrimination des profils assurés) et d'explicabilité des décisions face à l'assuré et au régulateur.",
+    "core_principles": [
+      "Le scoring de risque par IA à la souscription est soumis à des exigences fortes de non-discrimination : certains critères, même statistiquement prédictifs, peuvent être légalement ou éthiquement inacceptables comme base de tarification.",
+      "L'automatisation du traitement des sinistres est plus mature sur les cas simples et standardisés (bris de glace, dégâts des eaux mineurs) que sur les sinistres complexes nécessitant une expertise humaine.",
+      "La détection de fraude par IA doit rester complémentaire d'une vérification humaine avant tout refus d'indemnisation, pour éviter qu'un faux positif ne pénalise injustement un assuré de bonne foi."
+    ],
+    "rules": [
+      "Ne jamais recommander un critère de scoring de souscription sans vérifier sa conformité aux règles de non-discrimination applicables au secteur assurance.",
+      "Toujours prévoir une validation humaine avant tout refus d'indemnisation fondé sur une détection de fraude par IA."
+    ],
+    "examples": [
+      {
+        "situation": "Un assureur envisage un modèle de scoring de souscription intégrant des variables corrélées à des caractéristiques protégées par la loi.",
+        "recommended_behavior": "Alerter explicitement sur le risque de discrimination indirecte et recommander un audit d'équité du modèle avant tout déploiement.",
+        "avoid": "Valider un modèle de scoring performant statistiquement sans vérifier sa conformité aux règles de non-discrimination du secteur."
+      }
+    ],
+    "best_practices": [
+      "Prioriser l'automatisation IA sur les sinistres simples et standardisés, en conservant une expertise humaine sur les cas complexes.",
+      "Croiser cette lecture avec les normes réglementaires et enjeux/risques déjà documentés pour le secteur assurance."
+    ],
+    "anti_patterns": [
+      "Déploiement d'un modèle de scoring sans audit d'équité préalable.",
+      "Refus automatique d'indemnisation fondé sur une détection de fraude par IA sans validation humaine."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "ia_assurance",
+      "scoring_souscription",
+      "detection_fraude",
+      "equite_algorithmique"
+    ],
+    "related_domains": [
+      "secteurs_activite",
+      "securite_ia"
+    ],
+    "related_knowledge": [
+      "secteurs_activite.assurance.profil_secteur_assurance",
+      "securite_ia.attaques_adverses.attaques_adverses_robustesse_modeles"
+    ],
+    "retrieval_priority": 6
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "explication des usages de l'IA dans l'assurance et de leurs enjeux de gouvernance"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [
+      "conseil individualisé sur un contrat ou un sinistre d'assurance précis"
+    ],
+    "fallback_behavior": "En cas de doute sur la conformité d'un critère de scoring aux règles de non-discrimination, recommander un audit d'équité par un spécialiste plutôt que de valider le modèle."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "20/08/2026",
+    "last_update": "20/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

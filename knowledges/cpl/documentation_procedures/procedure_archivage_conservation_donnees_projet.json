@@ -1,0 +1,105 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.documentation_procedures.procedure_archivage_conservation_donnees_projet",
+  "title": "Procédure d'archivage et de conservation des données projet",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "documentation_procedures",
+  "category": "documentation_cpl",
+  "summary": "Règles de durée de conservation, d'archivage sécurisé et de purge des données projet clients traitées par ALFRED CPL, articulées avec les obligations RGPD de minimisation et de limitation de conservation.",
+  "purpose": "Garantir que les données projet ne sont ni conservées indéfiniment par défaut, ni supprimées prématurément, en fixant des règles claires de cycle de vie documentaire.",
+  "tags": [
+    "archivage",
+    "conservation_donnees",
+    "rgpd",
+    "cycle_vie_documentaire",
+    "cpl"
+  ],
+  "intents": [
+    "explain_data_retention_rules",
+    "support_archiving_decision",
+    "check_purge_eligibility"
+  ],
+  "usage_context": [
+    "un projet client se termine",
+    "une durée légale de conservation doit être déterminée"
+  ],
+  "priority": "high",
+  "safety_level": "sensitive",
+  "content": {
+    "definition": "L'archivage et la conservation des données projet désignent l'ensemble des règles définissant combien de temps une donnée liée à un projet client doit rester accessible en base active, puis en archive, avant sa purge définitive.",
+    "core_principles": [
+      "Chaque catégorie de donnée projet doit avoir une durée de conservation définie en amont, alignée sur une obligation légale, contractuelle ou un besoin métier réel.",
+      "L'archivage n'est pas une conservation indéfinie déguisée : une donnée archivée reste soumise à une échéance de purge.",
+      "La minimisation des données doit primer sur la conservation par défaut « au cas où »."
+    ],
+    "rules": [
+      "Ne jamais archiver une donnée sans lui associer une durée de conservation et une justification documentée.",
+      "Chiffrer les données archivées contenant des informations sensibles ou personnelles.",
+      "Notifier l'utilisateur avant toute purge automatique de données projet arrivant à échéance."
+    ],
+    "examples": [
+      {
+        "situation": "Un projet client se clôture après six mois d'activité.",
+        "recommended_behavior": "Proposer l'archivage des livrables et échanges selon la durée de conservation applicable, avec purge automatique programmée à échéance sauf obligation légale contraire.",
+        "avoid": "Conserver indéfiniment l'ensemble des données du projet en base active sans échéance définie."
+      }
+    ],
+    "best_practices": [
+      "Documenter une grille de durées de conservation par type de donnée projet, réutilisable pour tous les clients.",
+      "Croiser cette procédure avec la méthodologie pratique de l'AIPD pour les données personnelles sensibles."
+    ],
+    "anti_patterns": [
+      "Archivage sans durée de conservation définie, devenant de fait une conservation permanente.",
+      "Purge de données encore utiles à une obligation légale en cours (litige, contrôle fiscal)."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "archivage",
+      "conservation_donnees",
+      "purge",
+      "rgpd"
+    ],
+    "related_domains": [
+      "cpl",
+      "donnees_personnelles"
+    ],
+    "related_knowledge": [
+      "donnees_personnelles.methodologie.methodologie_pratique_aipd",
+      "cpl.product_platform.gestion_consentement_utilisateur_alfred"
+    ],
+    "retrieval_priority": 7
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "définition et application de règles de conservation et d'archivage"
+    ],
+    "restricted_usage": [
+      "données personnelles sensibles nécessitant une analyse d'impact"
+    ],
+    "forbidden_usage": [
+      "purge définitive de données sans vérification préalable d'une obligation légale de conservation en cours"
+    ],
+    "fallback_behavior": "En cas d'incertitude sur la durée de conservation applicable à une donnée, retenir la durée la plus prudente et signaler le point à trancher par un humain habilité."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "20/08/2026",
+    "last_update": "20/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

@@ -1,0 +1,102 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.business_piloting.analyse_rentabilite_par_segment_clientele",
+  "title": "Analyse de la rentabilité par segment de clientèle",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "business_piloting",
+  "category": "pilotage_financier_cpl",
+  "summary": "Méthode de décomposition de la rentabilité d'une activité de conseil par segment de client (taille, secteur, type de mission) pour orienter les décisions commerciales d'ALFRED CPL.",
+  "purpose": "Permettre à ALFRED CPL d'aider l'utilisateur à identifier quels segments de clientèle génèrent le plus de marge réelle, au-delà du seul chiffre d'affaires apparent.",
+  "tags": [
+    "rentabilite",
+    "segmentation_clientele",
+    "marge",
+    "pilotage",
+    "cpl"
+  ],
+  "intents": [
+    "analyze_profitability_by_segment",
+    "compare_client_segments",
+    "support_commercial_prioritization"
+  ],
+  "usage_context": [
+    "l'utilisateur veut savoir quels clients sont réellement rentables",
+    "arbitrage sur quels segments développer en priorité"
+  ],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "L'analyse de rentabilité par segment consiste à répartir les charges directes et indirectes d'une activité de conseil par catégorie de client pour obtenir une marge nette par segment, distincte du chiffre d'affaires brut.",
+    "core_principles": [
+      "Le chiffre d'affaires seul est un indicateur trompeur : un segment très rentable en apparence peut consommer un temps de gestion disproportionné.",
+      "Intégrer le coût du temps commercial et du support projet dans le calcul, pas seulement le coût de production directe.",
+      "Comparer la rentabilité par segment sur plusieurs périodes pour distinguer une tendance structurelle d'un effet ponctuel."
+    ],
+    "rules": [
+      "Toujours croiser la rentabilité avec le volume d'activité du segment avant de recommander un arbitrage stratégique.",
+      "Ne jamais recommander l'abandon d'un segment client sur la seule base d'un mois ou d'un trimestre atypique."
+    ],
+    "examples": [
+      {
+        "situation": "Un segment de petits clients ponctuels génère un fort volume de missions mais une marge nette faible.",
+        "recommended_behavior": "Présenter le calcul détaillé (charge de gestion incluse) et proposer des pistes : tarification différenciée, seuil minimal de mission, ou repositionnement.",
+        "avoid": "Conclure abruptement qu'il faut abandonner ce segment sans détailler le calcul ni proposer d'alternative."
+      }
+    ],
+    "best_practices": [
+      "Segmenter selon au moins deux axes croisés (secteur et taille de mission) pour éviter les conclusions trop grossières.",
+      "Relier cette analyse au tableau de bord de pilotage global plutôt que de la traiter isolément."
+    ],
+    "anti_patterns": [
+      "Confondre chiffre d'affaires et rentabilité réelle dans les recommandations.",
+      "Analyser la rentabilité sans tenir compte du coût du temps commercial passé à acquérir le segment."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "rentabilite",
+      "segment_client",
+      "marge",
+      "pilotage_commercial"
+    ],
+    "related_domains": [
+      "cpl",
+      "finance_controle"
+    ],
+    "related_knowledge": [
+      "cpl.business_piloting.tableau_bord_pilotage_kpi_alfred_cpl",
+      "cpl.business_piloting.pilotage_marge_projet_service"
+    ],
+    "retrieval_priority": 6
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "analyse et présentation de la rentabilité par segment"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [
+      "décision d'abandon d'un client formulée comme définitive sans validation humaine"
+    ],
+    "fallback_behavior": "En l'absence de données de coût suffisamment fiables par segment, signaler la limite de l'analyse plutôt que de produire un chiffre de rentabilité approximatif présenté comme certain."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "20/08/2026",
+    "last_update": "20/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

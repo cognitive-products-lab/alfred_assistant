@@ -1,0 +1,101 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.product_ia.gestion_versions_modeles_ia_alfred",
+  "title": "Gestion des versions de modèles IA embarqués dans ALFRED",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "product_ia",
+  "category": "produit_ia_cpl",
+  "summary": "Règles de suivi, de comparaison et de bascule entre versions de modèles IA embarqués dans ALFRED, pour garantir que chaque mise à jour de modèle n'introduit pas de régression silencieuse de comportement.",
+  "purpose": "Structurer la gestion du cycle de vie des modèles IA locaux utilisés par ALFRED CPL, distincte de la gestion des versions du produit lui-même.",
+  "tags": [
+    "gestion_versions_modeles",
+    "modele_ia_local",
+    "regression_comportementale",
+    "cpl"
+  ],
+  "intents": [
+    "explain_model_version_management",
+    "support_model_rollback_decision",
+    "detect_behavioral_regression"
+  ],
+  "usage_context": [
+    "un nouveau modèle IA local est disponible pour mise à jour",
+    "un comportement inattendu apparaît après une mise à jour de modèle"
+  ],
+  "priority": "high",
+  "safety_level": "sensitive",
+  "content": {
+    "definition": "La gestion des versions de modèles IA embarqués désigne le processus de suivi, de test et de validation de chaque nouvelle version de modèle avant sa mise en production, incluant la possibilité de revenir à une version antérieure en cas de régression constatée.",
+    "core_principles": [
+      "Une mise à jour de modèle IA ne doit jamais être déployée sans une phase de test comparatif préalable sur des cas d'usage représentatifs.",
+      "Le comportement d'un modèle peut changer de façon subtile sans erreur technique visible, ce qui rend le test comportemental indispensable, pas seulement le test fonctionnel.",
+      "La capacité de rollback vers une version antérieure de modèle doit toujours être préservée."
+    ],
+    "rules": [
+      "Documenter les écarts de comportement constatés entre deux versions de modèle avant toute mise en production généralisée.",
+      "Conserver au moins une version antérieure de modèle immédiatement disponible pour un rollback rapide."
+    ],
+    "examples": [
+      {
+        "situation": "Une nouvelle version d'un modèle local améliore la vitesse de réponse mais dégrade la qualité de certaines réponses spécifiques.",
+        "recommended_behavior": "Comparer systématiquement les réponses avant/après sur un panel de cas représentatifs avant validation, et envisager un rollback si la dégradation est significative.",
+        "avoid": "Déployer la nouvelle version en production sur le seul critère de performance technique sans test comportemental."
+      }
+    ],
+    "best_practices": [
+      "Construire un panel de cas de test comportementaux stables, réutilisé à chaque nouvelle version de modèle.",
+      "Relier cette gestion de versions à l'évaluation continue de la qualité des réponses IA déjà en place."
+    ],
+    "anti_patterns": [
+      "Mise à jour de modèle validée sur la seule base de gains de performance technique, sans test comportemental.",
+      "Absence de version antérieure disponible en cas de nécessité de rollback rapide."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "gestion_versions_modeles",
+      "modele_ia_local",
+      "rollback",
+      "regression"
+    ],
+    "related_domains": [
+      "cpl",
+      "ia_data_science"
+    ],
+    "related_knowledge": [
+      "cpl.product_ia.evaluation_qualite_reponses_ia_alfred",
+      "cpl.operations_continuite.gestion_montees_version_production"
+    ],
+    "retrieval_priority": 7
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "structuration du processus de gestion de versions de modèles IA"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [
+      "déploiement d'une nouvelle version de modèle en production sans aucune phase de test préalable"
+    ],
+    "fallback_behavior": "En cas de doute sur la stabilité comportementale d'une nouvelle version de modèle, différer son déploiement généralisé plutôt que de l'imposer par défaut."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "20/08/2026",
+    "last_update": "20/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

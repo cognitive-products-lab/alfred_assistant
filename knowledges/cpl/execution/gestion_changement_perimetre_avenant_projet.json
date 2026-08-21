@@ -1,0 +1,101 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.execution.gestion_changement_perimetre_avenant_projet",
+  "title": "Gestion des avenants et changements de périmètre en cours de projet",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "execution",
+  "category": "execution_projet_cpl",
+  "summary": "Méthode de traitement d'une demande de changement de périmètre en cours de mission (nouvelle fonctionnalité, extension de portée) sous forme d'avenant formalisé, pour éviter la dérive non maîtrisée du projet.",
+  "purpose": "Aider ALFRED CPL à structurer la réponse à une demande de changement de périmètre client de façon rigoureuse, en évitant le dérapage informel du contrat initial.",
+  "tags": [
+    "avenant",
+    "changement_perimetre",
+    "gestion_projet",
+    "cpl"
+  ],
+  "intents": [
+    "support_scope_change_request",
+    "draft_amendment_summary",
+    "assess_scope_creep_risk"
+  ],
+  "usage_context": [
+    "un client demande une fonctionnalité ou un livrable non prévu initialement",
+    "le périmètre du projet dérive progressivement"
+  ],
+  "priority": "high",
+  "safety_level": "normal",
+  "content": {
+    "definition": "La gestion des avenants désigne le processus formel d'évaluation, de chiffrage et de validation d'une modification du périmètre initial d'un projet, matérialisée par un document contractuel complémentaire (avenant).",
+    "core_principles": [
+      "Toute demande de changement de périmètre doit être évaluée en impact (délai, charge, budget) avant d'être acceptée informellement.",
+      "Le glissement de périmètre non formalisé (« scope creep ») est un risque projet majeur à signaler dès ses premiers signes.",
+      "Un changement de périmètre mineur répété plusieurs fois doit être traité comme un changement significatif cumulé."
+    ],
+    "rules": [
+      "Systématiser une évaluation d'impact chiffrée avant toute acceptation d'une demande de changement de périmètre.",
+      "Ne jamais accepter au nom du client un avenant impliquant un engagement contractuel ou financier ferme sans validation humaine."
+    ],
+    "examples": [
+      {
+        "situation": "Un client demande en cours de projet l'ajout d'un module non prévu au contrat initial.",
+        "recommended_behavior": "Aider à formaliser un avenant précisant l'impact en délai et en charge, avant toute acceptation, plutôt que d'intégrer la demande de façon informelle.",
+        "avoid": "Traiter la demande comme un simple ajustement sans évaluation d'impact ni traçabilité contractuelle."
+      }
+    ],
+    "best_practices": [
+      "Tenir un registre des demandes de changement, acceptées ou refusées, pour objectiver toute discussion ultérieure avec le client.",
+      "Relier systématiquement l'avenant à l'estimation de charge et de planification de mission existante."
+    ],
+    "anti_patterns": [
+      "Accumulation de petits changements non tracés aboutissant à une dérive de périmètre non maîtrisée.",
+      "Formalisation d'un avenant après coup, une fois le travail déjà réalisé sans validation préalable."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "avenant",
+      "changement_perimetre",
+      "scope_creep",
+      "gestion_projet"
+    ],
+    "related_domains": [
+      "cpl",
+      "gestion_projet"
+    ],
+    "related_knowledge": [
+      "cpl.execution.estimation_charge_planification_mission",
+      "cpl.execution.gestion_perimetre_projet_client"
+    ],
+    "retrieval_priority": 6
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "structuration et aide à la rédaction d'un avenant"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [
+      "engagement contractuel ferme au nom de l'utilisateur sans validation humaine explicite"
+    ],
+    "fallback_behavior": "En cas de demande de changement dont l'impact ne peut être évalué avec les informations disponibles, demander les éléments manquants avant toute recommandation d'acceptation."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "20/08/2026",
+    "last_update": "20/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}
