@@ -317,7 +317,38 @@ qui fausserait toute mesure de débit prise sur une fenêtre trop courte.
    une fois rempli, qui documente enfin la case restée vide depuis le
    14/08/2026.
 
-### 4.7 Questions ouvertes pour Céline
+### 4.7 Vers quel matériel se diriger — au-delà du MS-S1 Max
+
+Point tranché par Céline le 21/08/2026 : P3 ne se fera pas sur ce poste.
+Cette étude sert à savoir **vers quoi se diriger**, pas à forcer le
+fine-tuning sur le matériel actuel. Deux constats de la section 4.2
+orientent directement ce qu'il faudra viser :
+
+- Ce n'est pas seulement une question de puissance (cœurs, RAM) mais
+  d'**écosystème logiciel** : CUDA + PyTorch + bitsandbytes sur GPU NVIDIA
+  est aujourd'hui l'environnement de fine-tuning de très loin le plus mûr et
+  le mieux documenté, très au-devant de ROCm côté AMD — a fortiori de ROCm
+  *sous Windows*, le point faible identifié en 4.2 sur le MS-S1 Max. Une
+  cible « réellement adaptée au besoin » n'élimine pas cette question, elle
+  la referme : GPU NVIDIA dédié (VRAM dédiée, pas de mémoire unifiée
+  partagée avec le CPU), et très probablement un environnement Linux plutôt
+  que Windows pour l'entraînement.
+- Le serveur Phase 2 déjà sur la roadmap (`hardware.html`, TR 7960X 24C,
+  256 Go DDR5 ECC, 8 To NVMe, ~4 650 €, M+18→M+36) est aujourd'hui pensé pour
+  l'orchestration multi-agents et l'hébergement CPL en Docker — **pas**
+  explicitement pour l'entraînement. Sa fiche actuelle ne mentionne aucun GPU
+  dédié. Si ce serveur reste la prochaine étape hardware naturelle, le GPU
+  d'entraînement (NVIDIA, VRAM à dimensionner selon la taille de Training
+  Dataset atteinte en P1) doit être traité comme un besoin à part entière au
+  moment de son dimensionnement final — pas supposé réglé par les specs déjà
+  publiées.
+
+Rien de tout cela n'est une décision d'achat : c'est la direction à garder
+en tête pour que le prochain arbitrage hardware (Phase 2) intègre le besoin
+fine-tuning dès le dimensionnement, plutôt que de le découvrir après coup
+comme ça a été le cas pour la mesure d'entraînement sur le MS-S1 Max.
+
+### 4.8 Questions ouvertes pour Céline
 
 - Confirmer que « disque dur externe » désigne bien F: (BACKUP_ALFRED, WD My
   Passport 5 To) et pas un autre disque non encore inventorié ici.
