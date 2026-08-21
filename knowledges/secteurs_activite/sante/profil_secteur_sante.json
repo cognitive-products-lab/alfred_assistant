@@ -1,0 +1,123 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "secteurs_activite.sante.profil_secteur_sante",
+  "title": "Profil du secteur santé et médico-social",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "secteurs_activite",
+  "subdomain": "sante",
+  "category": "profil_secteur",
+  "summary": "Vue d'ensemble organisationnelle et économique du secteur santé/médico-social français : chaîne de valeur (prévention, soins de ville, hôpital, médico-social, industrie de santé), acteurs types et enjeux économiques structurants, pour donner à ALFRED CPL un contexte rapide sur un client de ce secteur, hors tout angle clinique ou diagnostic.",
+  "purpose": "Permettre à ALFRED CPL de comprendre en quelques secondes le contexte d'un client du secteur santé (établissement, industriel, éditeur e-santé, assureur santé) : qui sont les acteurs, comment la valeur se crée, quelles tensions économiques structurent leurs décisions, afin de mieux cadrer une mission de conseil.",
+  "tags": [
+    "secteur_sante",
+    "profil_sectoriel",
+    "medico_social",
+    "hopital",
+    "e_sante"
+  ],
+  "intents": [
+    "explain_healthcare_sector_context",
+    "describe_healthcare_value_chain",
+    "identify_healthcare_sector_stakeholders"
+  ],
+  "usage_context": [
+    "Préparation d'une mission de conseil ALFRED CPL pour un client du secteur santé/médico-social",
+    "Besoin de contexte rapide sur un établissement de santé, un industriel de santé ou un éditeur e-santé",
+    "Compréhension des contraintes économiques et organisationnelles du secteur avant une recommandation"
+  ],
+  "priority": "medium",
+  "safety_level": "sensitive",
+  "content": {
+    "definition": "Le secteur santé et médico-social regroupe l'ensemble des organisations qui produisent, financent ou soutiennent des soins et un accompagnement de la personne : établissements de soins (hôpitaux publics, cliniques privées), médecine de ville, secteur médico-social (EHPAD, aide à domicile, handicap), industrie du médicament et des dispositifs médicaux, éditeurs de logiciels de santé, et organismes de financement (Assurance Maladie, complémentaires santé). C'est un secteur à forte intensité réglementaire, à cycles de décision souvent longs (achats publics hospitaliers) et à sensibilité particulière sur les données traitées.",
+    "core_principles": [
+      "La chaîne de valeur santé va de la prévention (santé publique) aux soins primaires (médecine de ville, pharmacie), aux soins secondaires/hospitaliers (CHU, cliniques), au médico-social (EHPAD, domicile), en s'appuyant sur une industrie amont (médicament, dispositifs médicaux) et un financement aval (Sécurité sociale, complémentaires santé).",
+      "Les acteurs types incluent : établissements publics de santé (CHU/CH régis par le service public hospitalier), cliniques et groupes privés, EHPAD publics/privés/associatifs, professionnels de santé libéraux, Agences Régionales de Santé (ARS, pilotage régional), CNAM (financement), mutuelles et complémentaires, industriels pharma/dispositifs médicaux, éditeurs de systèmes d'information hospitaliers (SIH) et start-ups e-santé.",
+      "Le financement mixte public/privé (T2A pour les établissements, ONDAM voté chaque année) impose des cycles budgétaires contraints et des arbitrages économiques qui pèsent directement sur les projets de transformation, y compris numériques.",
+      "Le virage ambulatoire (réduction des hospitalisations complètes au profit de prises en charge courtes ou à domicile) restructure profondément les organisations et les besoins en outillage numérique et coordination.",
+      "Les Groupements Hospitaliers de Territoire (GHT) imposent une mutualisation croissante des fonctions support et des systèmes d'information entre établissements publics d'un même territoire, ce qui complexifie les projets transverses."
+    ],
+    "rules": [
+      "Toujours situer un client santé dans sa sous-catégorie précise (établissement public, clinique privée, EHPAD, industriel, éditeur e-santé, assureur santé) avant de généraliser, les logiques économiques et réglementaires diffèrent fortement.",
+      "Ne jamais traiter ce profil sectoriel comme une autorisation à aborder des sujets cliniques ou de diagnostic : rester strictement sur l'angle organisationnel, économique et réglementaire (voir medecine.limites_alfred pour le cadrage clinique).",
+      "Prendre en compte la tension structurelle sur les ressources humaines soignantes (pénurie de personnel) comme facteur quasi systématique dans les projets de transformation de ce secteur."
+    ],
+    "examples": [
+      {
+        "situation": "Un client d'ALFRED CPL est un EHPAD associatif qui souhaite un accompagnement sur sa transformation numérique.",
+        "recommended_behavior": "Situer le contexte : structure médico-sociale à but non lucratif, financement tripartite (Conseil départemental, ARS, résidents), tension RH forte, exigences de traçabilité et de qualité de la HAS/CNSA, avant de proposer une trajectoire de conseil adaptée.",
+        "avoid": "Traiter l'EHPAD comme un hôpital ou une clinique privée, avec des logiques de financement et de gouvernance différentes."
+      }
+    ],
+    "best_practices": [
+      "Toujours croiser le profil sectoriel avec les fiches complémentaires du secteur (normes_reglementation, enjeux_risques, vocabulaire_metier) pour construire une vision complète avant une recommandation.",
+      "Mentionner explicitement le financement contraint (ONDAM, T2A, dotations médico-sociales) comme facteur limitant fréquent des projets de transformation dans ce secteur.",
+      "Distinguer clairement les logiques d'un établissement de soins, d'un acteur médico-social et d'un industriel/éditeur de santé, qui n'ont ni le même modèle économique ni la même temporalité de décision."
+    ],
+    "anti_patterns": [
+      "Confondre systématiquement établissement de santé et industrie pharmaceutique alors que leurs enjeux économiques et réglementaires sont très différents.",
+      "Ignorer la contrainte budgétaire publique (ONDAM, T2A) en recommandant des investissements sans tenir compte des cycles de financement réels du secteur.",
+      "Glisser vers un contenu clinique ou une évaluation de qualité des soins, hors du périmètre de ce profil sectoriel organisationnel."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "secteur santé",
+      "chaîne de valeur santé",
+      "hôpital",
+      "EHPAD",
+      "GHT",
+      "ONDAM",
+      "T2A",
+      "médico-social"
+    ],
+    "related_domains": [
+      "secteurs_activite",
+      "medecine",
+      "regulation",
+      "compliance"
+    ],
+    "related_knowledge": [
+      "secteurs_activite.sante.normes_reglementation_sante",
+      "secteurs_activite.sante.enjeux_risques_sante",
+      "secteurs_activite.sante.vocabulaire_metier_sante",
+      "secteurs_activite.sante.pestel_sante",
+      "medecine.limites_alfred.limites_reponse_medicale_alfred",
+      "medecine.systemes_sante.systeme_sante_francais",
+      "regulation.health.health_regulation"
+    ],
+    "retrieval_priority": 7
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "Contextualisation organisationnelle, économique et réglementaire d'un client du secteur santé pour du conseil"
+    ],
+    "restricted_usage": [
+      "Analyse comparative de la performance clinique d'établissements, à limiter à des indicateurs organisationnels publics"
+    ],
+    "forbidden_usage": [
+      "Diagnostic médical",
+      "Évaluation clinique de patients ou de pratiques de soins",
+      "Conseil médical individualisé"
+    ],
+    "fallback_behavior": "En cas de question dérivant vers le clinique ou le diagnostic, rediriger explicitement vers le cadrage de medecine.limites_alfred et vers un professionnel de santé compétent."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "20/08/2026",
+    "last_update": "20/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

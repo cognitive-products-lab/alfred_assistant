@@ -1,0 +1,119 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "secteurs_activite.sante.vocabulaire_metier_sante",
+  "title": "Vocabulaire et acronymes métier du secteur santé",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "secteurs_activite",
+  "subdomain": "sante",
+  "category": "vocabulaire_metier",
+  "summary": "Lexique des principaux acronymes et termes métier du secteur santé/médico-social français qu'ALFRED doit reconnaître et savoir expliquer en contexte de conseil : ARS, ONDAM, T2A, GHT, EHPAD, SSR, HAD, DMP/Mon espace santé, INS, CI-SIS, ANS, IQSS, PMSI, CPOM, ROSP.",
+  "purpose": "Permettre à ALFRED CPL de comprendre et d'expliquer immédiatement le jargon administratif et organisationnel employé par les clients du secteur santé, sans confusion avec les autres secteurs.",
+  "tags": [
+    "vocabulaire_sante",
+    "acronymes_sante",
+    "lexique_medico_social",
+    "jargon_hospitalier"
+  ],
+  "intents": [
+    "explain_healthcare_acronym",
+    "define_healthcare_sector_term",
+    "translate_healthcare_jargon"
+  ],
+  "usage_context": [
+    "Un utilisateur ou un client emploie un acronyme du secteur santé sans le définir",
+    "Besoin de traduire un terme administratif santé en langage clair",
+    "Préparation d'un échange avec un client du secteur santé"
+  ],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "Vocabulaire de référence du secteur santé/médico-social français, centré sur les termes organisationnels, administratifs et de financement les plus fréquemment utilisés par les acteurs de ce secteur, distinct du vocabulaire clinique ou médical déjà couvert par medecine.vocabulaire_medical.",
+    "core_principles": [
+      "ARS (Agence Régionale de Santé) : autorité déconcentrée de l'État pilotant la politique de santé au niveau régional (autorisations, financement, contrôle).",
+      "ONDAM (Objectif National de Dépenses d'Assurance Maladie) : enveloppe budgétaire annuelle votée en loi de financement de la Sécurité sociale (PLFSS), qui plafonne les dépenses de santé remboursées.",
+      "T2A (Tarification à l'Activité) : mode de financement des établissements de santé fondé sur les actes et séjours réalisés, plutôt que sur une dotation globale historique.",
+      "GHT (Groupement Hospitalier de Territoire) : regroupement obligatoire d'établissements publics de santé d'un même territoire autour d'un projet médical partagé et d'une convergence des systèmes d'information.",
+      "EHPAD (Établissement d'Hébergement pour Personnes Âgées Dépendantes) : structure médico-sociale accueillant des personnes âgées en perte d'autonomie.",
+      "SSR (Soins de Suite et de Réadaptation) et HAD (Hospitalisation à Domicile) : modes de prise en charge intermédiaires entre l'hôpital et le retour à domicile complet.",
+      "DMP / Mon espace santé : dossier médical partagé numérique de l'usager, pivot du partage d'information entre professionnels de santé.",
+      "INS (Identifiant National de Santé) et CI-SIS (Cadre d'Interopérabilité des Systèmes d'Information de Santé) : standards techniques d'identification et d'échange de données de santé pilotés par l'ANS (Agence du Numérique en Santé).",
+      "IQSS (Indicateurs de Qualité et de Sécurité des Soins) et PMSI (Programme de Médicalisation des Systèmes d'Information) : outils de mesure de la qualité et de l'activité utilisés notamment dans le cadre de la certification HAS et du financement T2A.",
+      "CPOM (Contrat Pluriannuel d'Objectifs et de Moyens) et ROSP (Rémunération sur Objectifs de Santé Publique) : dispositifs contractuels liant financement et atteinte d'objectifs, respectivement pour les établissements/structures médico-sociales et les médecins libéraux."
+    ],
+    "rules": [
+      "Toujours donner la signification complète de l'acronyme avant de l'utiliser à nouveau dans une réponse.",
+      "Préciser le niveau d'acteur concerné (national, régional ARS, établissement) pour éviter toute confusion de compétence.",
+      "Ne pas confondre les acronymes santé avec des acronymes homonymes d'autres secteurs (ex. RSE en santé n'existe pas au sens transport, à ne pas confondre avec Responsabilité Sociétale des Entreprises)."
+    ],
+    "examples": [
+      {
+        "situation": "Un client mentionne que son établissement va rejoindre un GHT et s'inquiète de l'impact sur son SI.",
+        "recommended_behavior": "Expliquer que le GHT impose une convergence progressive des systèmes d'information et une gouvernance mutualisée autour d'un projet médical partagé, ce qui structure fortement le calendrier de tout projet SI.",
+        "avoid": "Répondre sans expliciter ce qu'est un GHT, en laissant le terme non défini dans la réponse."
+      }
+    ],
+    "best_practices": [
+      "Toujours vulgariser un acronyme santé à la première occurrence dans une réponse, même si l'utilisateur semble déjà le connaître.",
+      "Relier chaque terme à son impact concret sur l'organisation ou le financement pour rester utile en contexte de conseil.",
+      "Mettre à jour ce lexique si de nouveaux dispositifs réglementaires santé émergent (ex. évolutions du Ségur du numérique)."
+    ],
+    "anti_patterns": [
+      "Utiliser un acronyme santé sans le définir, ce qui nuit à la clarté pour un utilisateur non spécialiste.",
+      "Confondre des acronymes proches mais distincts (ex. SSR et HAD, EHPAD et USLD) sans vérifier leur définition exacte.",
+      "Traiter ce lexique comme exhaustif pour le vocabulaire clinique, qui relève de medecine.vocabulaire_medical."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "ARS",
+      "ONDAM",
+      "T2A",
+      "GHT",
+      "EHPAD",
+      "DMP",
+      "Mon espace santé",
+      "INS",
+      "PMSI"
+    ],
+    "related_domains": [
+      "secteurs_activite",
+      "medecine"
+    ],
+    "related_knowledge": [
+      "secteurs_activite.sante.profil_secteur_sante",
+      "secteurs_activite.sante.normes_reglementation_sante",
+      "medecine.vocabulaire_medical.terminologie_medicale_bases",
+      "medecine.systemes_sante.systeme_sante_francais"
+    ],
+    "retrieval_priority": 6
+  },
+  "behavior_rules": {
+    "tone": "educational",
+    "response_style": "structured_clear",
+    "max_complexity": "low",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "Explication de vocabulaire administratif et organisationnel du secteur santé"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [
+      "Utilisation de ce lexique pour formuler un avis clinique"
+    ],
+    "fallback_behavior": "Si un terme demandé relève du vocabulaire clinique, orienter vers medecine.vocabulaire_medical plutôt que d'improviser une définition hors périmètre."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "20/08/2026",
+    "last_update": "20/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

@@ -1,0 +1,115 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "secteurs_activite.assurance.profil_secteur_assurance",
+  "title": "Profil du secteur assurance",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "secteurs_activite",
+  "subdomain": "assurance",
+  "category": "profil_secteur",
+  "summary": "Vue d'ensemble organisationnelle et économique du secteur assurance : chaîne de valeur (souscription, tarification actuarielle, gestion des sinistres, réassurance, distribution), acteurs types et enjeux économiques structurants, pour donner à ALFRED CPL un contexte rapide sur un client de ce secteur.",
+  "purpose": "Permettre à ALFRED CPL de comprendre rapidement le contexte d'un client assurance (assureur, mutuelle, courtier, réassureur) pour mieux cadrer une mission de conseil.",
+  "tags": [
+    "secteur_assurance",
+    "profil_sectoriel",
+    "reassurance",
+    "actuariat",
+    "insurtech"
+  ],
+  "intents": [
+    "explain_insurance_sector_context",
+    "describe_insurance_value_chain",
+    "identify_insurance_sector_stakeholders"
+  ],
+  "usage_context": [
+    "Préparation d'une mission de conseil ALFRED CPL pour un client du secteur assurance",
+    "Besoin de contexte rapide sur un assureur, une mutuelle, un courtier ou un réassureur",
+    "Compréhension des contraintes actuarielles et réglementaires avant une recommandation"
+  ],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "Le secteur assurance regroupe les organisations qui mutualisent et couvrent des risques individuels ou collectifs en échange d'une prime : assureurs (IARD, vie, santé), mutuelles, courtiers et agents distribuant les produits, et réassureurs qui couvrent une partie du risque des assureurs eux-mêmes. C'est un secteur mature, fortement régulé, dont le modèle économique repose sur la mutualisation statistique du risque et la gestion actuarielle.",
+    "core_principles": [
+      "La chaîne de valeur assurance comprend : la souscription (analyse et acceptation du risque), la tarification actuarielle (calcul de la prime en fonction du risque statistique), la gestion des sinistres (indemnisation), la réassurance (transfert d'une partie du risque à un réassureur), et la distribution (agents, courtiers, bancassurance, vente directe).",
+      "Les acteurs types incluent : assureurs classiques (sociétés anonymes) et mutuelles (sans actionnaires, gouvernance par les sociétaires), courtiers d'assurance (intermédiaires indépendants), réassureurs (couvrant le risque des assureurs), et le régulateur ACPR.",
+      "Le modèle économique de l'assurance repose sur la loi des grands nombres : la mutualisation d'un grand nombre de risques individuels permet de prédire statistiquement le coût global des sinistres et de fixer une prime rentable.",
+      "L'assurance IARD (Incendie, Accidents, Risques Divers) couvre les biens et responsabilités, tandis que l'assurance vie constitue à la fois un produit de protection et un produit d'épargne, avec des logiques économiques et réglementaires distinctes.",
+      "Le secteur est structurellement exposé à l'évolution de la sinistralité (notamment climatique) et à l'environnement de taux d'intérêt, qui impacte directement la rentabilité des produits d'épargne assurantielle."
+    ],
+    "rules": [
+      "Toujours situer un client assurance dans sa sous-catégorie précise (assureur IARD, assurance vie, mutuelle, courtier, réassureur) avant de généraliser.",
+      "Prendre en compte la logique actuarielle de mutualisation du risque comme fondement quasi systématique des décisions de tarification du secteur.",
+      "Distinguer clairement les logiques d'un assureur classique et d'une mutuelle, qui n'ont ni la même gouvernance ni le même rapport aux actionnaires."
+    ],
+    "examples": [
+      {
+        "situation": "Un client d'ALFRED CPL est une mutuelle santé qui souhaite diversifier son offre vers la prévoyance.",
+        "recommended_behavior": "Situer le contexte : gouvernance mutualiste (sociétaires plutôt qu'actionnaires), logique de solidarité historique, avant de proposer une trajectoire de diversification cohérente avec ce modèle.",
+        "avoid": "Traiter la mutuelle comme une société anonyme classique avec une logique actionnariale de maximisation du profit."
+      }
+    ],
+    "best_practices": [
+      "Toujours croiser le profil sectoriel avec les fiches complémentaires du secteur (normes_reglementation, enjeux_risques, vocabulaire_metier) pour construire une vision complète avant une recommandation.",
+      "Mentionner explicitement la logique actuarielle de mutualisation du risque comme fondement quasi systématique des décisions du secteur.",
+      "Distinguer clairement les logiques d'un assureur IARD et d'un assureur vie, dont les enjeux économiques et réglementaires diffèrent significativement."
+    ],
+    "anti_patterns": [
+      "Confondre systématiquement assureur et courtier alors que leurs rôles et responsabilités dans la chaîne de valeur sont très différents.",
+      "Ignorer la logique actuarielle en recommandant une stratégie tarifaire sans tenir compte du calcul statistique du risque.",
+      "Traiter mutuelle et société d'assurance classique comme équivalentes alors que leur gouvernance diffère fondamentalement."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "secteur assurance",
+      "chaîne de valeur assurance",
+      "réassurance",
+      "actuariat",
+      "mutuelle",
+      "courtier assurance"
+    ],
+    "related_domains": [
+      "secteurs_activite",
+      "regulation",
+      "risk_management"
+    ],
+    "related_knowledge": [
+      "secteurs_activite.assurance.normes_reglementation_assurance",
+      "secteurs_activite.assurance.enjeux_risques_assurance",
+      "secteurs_activite.assurance.vocabulaire_metier_assurance",
+      "secteurs_activite.assurance.pestel_assurance"
+    ],
+    "retrieval_priority": 7
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "Contextualisation organisationnelle, économique et réglementaire d'un client du secteur assurance pour du conseil"
+    ],
+    "restricted_usage": [
+      "Analyse comparative de la performance financière d'acteurs, à limiter à des indicateurs publics"
+    ],
+    "forbidden_usage": [
+      "Conseil en souscription d'un contrat d'assurance personnalisé"
+    ],
+    "fallback_behavior": "Rappeler qu'ALFRED n'est pas un conseiller en assurance agréé et orienter vers un professionnel habilité pour toute souscription individuelle."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "20/08/2026",
+    "last_update": "20/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

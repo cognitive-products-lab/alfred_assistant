@@ -4,6 +4,35 @@ Référence : `knowledges/index/daily_enrichment_instructions.md`. Une entrée p
 
 ---
 
+## Lot 13 — volet nouveau domaine secteurs_activite (demande explicite du 20/08/2026)
+
+**Demande de Céline (citation)** : « on peut également développer les connaissances d'alfred avec les différents secteur d'activité et connaissance et norme precise et spécifique pour correspondre à chaque marché » — précisée ensuite : 8-10 secteurs prioritaires avec profil + normes clés, et « pour chaque secteur générer un PESTEL ».
+
+**Contexte** : session exécutée dans un worktree isolé (`agent-a24e1bc29ec01845d`) qui a perdu sa liaison git au moment de la reprise après une interruption de limite de session partagée (même incident infrastructure que documenté pour les volets ikigai et business_strategy du même jour — voir `project_daily_enrichment_cpl_socle_split.md`). L'agent a détecté l'anomalie avant toute commande git, s'est arrêté, et a terminé l'écriture des 45 fichiers sur disque sans jamais toucher à git. La session principale a copié les fichiers dans le dépôt principal et finalisé (validation, taxonomy, registre, cette entrée, commit, push).
+
+**Nouveau domaine créé : `secteurs_activite`** (top-level, au même niveau que `cpl`, `governance`, `regulation` — transverse, principal consommateur ALFRED CPL pour le conseil client, accessible aussi à ALFRED Core). 9 sous-domaines (secteurs) : `sante`, `finance_banque`, `industrie_manufacturiere`, `retail_distribution`, `secteur_public`, `energie`, `construction_btp`, `assurance`, `transport_logistique`.
+
+**45 fiches créées** (5 par secteur) :
+- `profil_secteur_<secteur>` — contexte, chaîne de valeur, acteurs types, enjeux économiques.
+- `normes_reglementation_<secteur>` — normes/réglementations strictement sectorielles (santé : HDS/HAS ; finance : DSP2/Bâle III/ACPR ; industrie : ISO 9001/14001/REACH ; retail : DGCCRF/Code conso ; secteur public : code des marchés publics ; énergie : CRE/RTE ; construction : RE2020/Code de la construction ; assurance : Solvabilité II/ACPR ; transport : ADR/IATA selon le mode) — chaque fiche croise explicitement (`related_knowledge`) les fiches réglementaires génériques existantes (`regulation.*`, `compliance.*`, `normes_referentiels.*`) plutôt que de les dupliquer.
+- `enjeux_risques_<secteur>` — risques et enjeux typiques pertinents pour du conseil.
+- `vocabulaire_metier_<secteur>` — lexique/acronymes du secteur.
+- `pestel_<secteur>` — analyse PESTEL complète (Politique/Économique/Sociologique/Technologique/Écologique/Légal), ajoutée en cours de lot suite à une demande complémentaire de Céline.
+
+**Sécurité** : secteur `sante` volontairement limité à l'angle organisationnel/réglementaire/marché, aucun contenu clinique ou diagnostic, cohérent avec les règles déjà en vigueur (`medecine/limites_alfred/`).
+
+**Anti-doublon** : vérifié via `knowledge_registry.json` avant chaque fiche `normes_reglementation` que l'angle sectoriel ne recoupe pas les domaines réglementaires génériques déjà denses (`regulation` 11 fiches, `compliance` 12, `normes_referentiels` 4 avant ce lot).
+
+**taxonomy.json** : v3.9.2 → v3.10.0. Nouveau domaine `secteurs_activite` créé avec ses 9 sous-domaines (label, intents, linked_knowledge complets).
+
+**manifest.json** : v2.7.2 → v2.8.0, entrée `lot13_secteurs_activite_20_08_2026` ajoutée, `total_domains` 56 → 57.
+
+**Registre** : régénéré, 1085 → 1130 fichiers indexés (+45, cohérent).
+
+**Tous les fichiers validés** `json.load` sans erreur (45/45).
+
+---
+
 ## Lot 13 — 20/08/2026 (volet ALFRED Core : Ikigai / valeurs humaines / motivation)
 
 **Contexte particulier de ce volet** : le Lot 13 du 20/08/2026 est composé de plusieurs volets demandés le même jour par Céline (lot standard 60 fiches, 25 fiches anxiété/stress, consolidation cpl/business_strategy, nouveau domaine secteurs_activite, et ce volet Ikigai/valeurs/motivation) — chaque volet documente sa propre entrée de journal. Ce volet a été **exécuté en deux temps** : un agent en worktree git isolé a produit les 8 fiches, mais sa liaison git worktree a été corrompue au moment de la reprise après une interruption de limite de session (incident infrastructure documenté dans `project_daily_enrichment_cpl_socle_split.md` côté mémoire de session) — il s'est arrêté proprement sans exécuter aucune commande git dès que l'anomalie a été détectée. La session principale a repris la main directement dans le dépôt principal pour finaliser (validation, taxonomy, registre, cette entrée, commit).

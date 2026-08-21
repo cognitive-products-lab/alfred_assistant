@@ -1,0 +1,111 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "secteurs_activite.transport_logistique.vocabulaire_metier_transport_logistique",
+  "title": "Vocabulaire et acronymes métier du secteur transport/logistique",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "secteurs_activite",
+  "subdomain": "transport_logistique",
+  "category": "vocabulaire_metier",
+  "summary": "Lexique des principaux acronymes et termes métier du secteur transport/logistique qu'ALFRED doit reconnaître et savoir expliquer en contexte de conseil : ADR, IATA, IMDG, chronotachygraphe, 3PL, commissionnaire de transport, incoterms, ZFE, taux de remplissage, cross-docking.",
+  "purpose": "Permettre à ALFRED CPL de comprendre et d'expliquer immédiatement le jargon technique et logistique employé par les clients du secteur transport/logistique.",
+  "tags": [
+    "vocabulaire_transport",
+    "acronymes_logistique",
+    "lexique_supply_chain",
+    "jargon_transport"
+  ],
+  "intents": [
+    "explain_transport_acronym",
+    "define_transport_sector_term",
+    "translate_logistics_jargon"
+  ],
+  "usage_context": [
+    "Un utilisateur ou un client emploie un acronyme du secteur transport/logistique sans le définir",
+    "Besoin de traduire un terme logistique en langage clair",
+    "Préparation d'un échange avec un client du secteur transport/logistique"
+  ],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "Vocabulaire de référence du secteur transport/logistique, centré sur les termes réglementaires, contractuels et opérationnels les plus fréquemment utilisés par les acteurs de ce secteur.",
+    "core_principles": [
+      "ADR, IATA, IMDG : voir la fiche normes_reglementation_transport_logistique pour le détail de ces cadres réglementaires selon le mode de transport (route, air, mer).",
+      "Chronotachygraphe : appareil de contrôle embarqué obligatoire enregistrant les temps de conduite et de repos des conducteurs routiers, au cœur de la réglementation sociale du transport.",
+      "3PL (Third Party Logistics) : prestataire logistique tiers auquel un chargeur externalise tout ou partie de sa fonction logistique (entreposage, préparation de commandes, transport).",
+      "Commissionnaire de transport : intermédiaire qui organise et fait exécuter le transport de marchandises pour le compte d'un chargeur, en engageant sa propre responsabilité contractuelle, à la différence d'un simple mandataire.",
+      "Incoterms (International Commercial Terms) : règles internationales normalisées définissant la répartition des coûts, risques et responsabilités entre vendeur et acheteur dans un contrat de vente international (ex. FOB, CIF, EXW).",
+      "ZFE (Zone à Faibles Émissions) : périmètre urbain où la circulation des véhicules les plus polluants est restreinte ou interdite selon leur vignette Crit'Air.",
+      "Taux de remplissage : proportion de la capacité de chargement effectivement utilisée lors d'un transport, indicateur clé d'efficacité économique et environnementale.",
+      "Cross-docking : technique logistique consistant à transférer directement des marchandises d'un quai de réception à un quai d'expédition, sans passage par un stockage intermédiaire prolongé."
+    ],
+    "rules": [
+      "Toujours donner la signification complète de l'acronyme avant de l'utiliser à nouveau dans une réponse.",
+      "Préciser le mode de transport concerné lorsque le terme y est spécifique (ex. ADR pour la route, IATA pour l'air).",
+      "Ne pas confondre commissionnaire de transport et transporteur, deux statuts aux responsabilités contractuelles distinctes."
+    ],
+    "examples": [
+      {
+        "situation": "Un client mentionne un incoterm FOB dans un contrat international et s'interroge sur son implication.",
+        "recommended_behavior": "Expliquer que le FOB (Free On Board) transfère les risques et coûts du vendeur à l'acheteur à partir du moment où la marchandise est chargée sur le navire, et orienter vers les implications assurantielles associées.",
+        "avoid": "Répondre sans expliciter ce qu'est un incoterm, en laissant le terme non défini dans la réponse."
+      }
+    ],
+    "best_practices": [
+      "Toujours vulgariser un acronyme transport/logistique à la première occurrence dans une réponse, même si l'utilisateur semble déjà le connaître.",
+      "Relier chaque terme à son impact concret sur la responsabilité contractuelle ou l'efficacité opérationnelle pour rester utile en contexte de conseil.",
+      "Renvoyer vers secteurs_activite.transport_logistique.normes_reglementation_transport_logistique pour les cadres réglementaires détaillés plutôt que de les redévelopper ici."
+    ],
+    "anti_patterns": [
+      "Utiliser un acronyme transport/logistique sans le définir, ce qui nuit à la clarté pour un utilisateur non spécialiste.",
+      "Confondre les différents incoterms (FOB, CIF, EXW) sans vérifier leur définition exacte, alors qu'ils ont des implications contractuelles très différentes.",
+      "Redévelopper en détail les cadres réglementaires déjà couverts par la fiche dédiée plutôt que d'y renvoyer."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "ADR",
+      "IATA",
+      "IMDG",
+      "chronotachygraphe",
+      "3PL",
+      "commissionnaire de transport",
+      "incoterms",
+      "cross-docking"
+    ],
+    "related_domains": [
+      "secteurs_activite"
+    ],
+    "related_knowledge": [
+      "secteurs_activite.transport_logistique.profil_secteur_transport_logistique",
+      "secteurs_activite.transport_logistique.normes_reglementation_transport_logistique"
+    ],
+    "retrieval_priority": 6
+  },
+  "behavior_rules": {
+    "tone": "educational",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "Explication de vocabulaire technique et logistique du secteur transport/logistique"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "Pour un terme très technique propre à un mode de transport spécifique, recommander la consultation d'un expert technique du domaine."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "20/08/2026",
+    "last_update": "20/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}
