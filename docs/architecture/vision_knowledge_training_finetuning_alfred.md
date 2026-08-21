@@ -334,14 +334,17 @@ orientent directement ce qu'il faudra viser :
   partagée avec le CPU), et très probablement un environnement Linux plutôt
   que Windows pour l'entraînement.
 - Le serveur Phase 2 déjà sur la roadmap (`hardware.html`, TR 7960X 24C,
-  256 Go DDR5 ECC, 8 To NVMe, ~4 650 €, M+18→M+36) est aujourd'hui pensé pour
-  l'orchestration multi-agents et l'hébergement CPL en Docker — **pas**
-  explicitement pour l'entraînement. Sa fiche actuelle ne mentionne aucun GPU
-  dédié. Si ce serveur reste la prochaine étape hardware naturelle, le GPU
-  d'entraînement (NVIDIA, VRAM à dimensionner selon la taille de Training
-  Dataset atteinte en P1) doit être traité comme un besoin à part entière au
-  moment de son dimensionnement final — pas supposé réglé par les specs déjà
-  publiées.
+  256 Go DDR5 ECC, M+18→M+36) était jusqu'ici pensé pour l'orchestration
+  multi-agents et l'hébergement CPL en Docker — **pas** explicitement pour
+  l'entraînement, et sa fiche ne mentionnait aucun GPU dédié.
+  **Mise à jour le 21/08/2026, le jour même** : plutôt que de laisser ce
+  besoin en attente d'un futur dimensionnement, la fiche Phase 2 a été
+  ajustée directement — RTX 4090 24 Go (VRAM dédiée, écosystème CUDA) et
+  stockage porté de 8 à 16 To NVMe pour absorber Training Dataset et
+  checkpoints en plus des modèles déjà stockés. Budget Phase 2 ~4 650 € →
+  **~7 050 €**, total roadmap ~7 777 € → **~10 177 €**. Toujours pas une
+  décision d'achat exécutée — la Phase 2 reste à M+18→M+36 — mais le besoin
+  fine-tuning n'est plus une case vide à redécouvrir plus tard.
 
 Rien de tout cela n'est une décision d'achat : c'est la direction à garder
 en tête pour que le prochain arbitrage hardware (Phase 2) intègre le besoin

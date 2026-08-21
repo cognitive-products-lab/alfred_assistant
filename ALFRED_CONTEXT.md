@@ -340,6 +340,15 @@ Box Bouygues (192.168.1.254, DMZ→.120) ↔ CPL ↔ CPL ↔ ER605 (WAN .120 / L
 ✅ RAM 64 Go suffisante Phase 0→3 (120B Q4 à 32 tok/s validé).
 ✅ Upgrade 128 Go non prioritaire — investissement repoussé au serveur Phase 4 (GPU neuf intégré dès le départ, pas de réutilisation GPU).
 
+**Précision 21/08/2026** : le « Serveur dédié » de la Phase 4 ci-dessus a
+maintenant une fiche concrète côté roadmap hardware publique (`hardware.html`
+Phase 2, distincte de cette numérotation Phase 0-4 qui suit l'usage
+produit/équipe, pas l'achat matériel) : Threadripper 7960X 24C, 256 Go DDR5
+ECC, **RTX 4090 24 Go dédié**, 16 To NVMe, ~7 050 €, M+18→M+36 — GPU ajouté
+spécifiquement pour couvrir le besoin de fine-tuning LoRA/QLoRA identifié
+dans `docs/architecture/vision_knowledge_training_finetuning_alfred.md`
+(section 4). Toujours pas acheté, mais plus une case vide.
+
 ### Stack technique
 - **Langage** : Python 3.13
 - **IDE** : VS Code (à installer) + Visual Studio 2022
