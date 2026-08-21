@@ -128,6 +128,7 @@ class ResponseGenerator:
                 system_prompt, user_prompt, on_sentence=streaming_on_sentence, tools=tools_enabled,
                 cloud_allowed=cloud_allowed,
             )
+            self._record_request_metric(response_context, response)
             self._record_gap_if_local_failed(user_message, response_context, response)
         else:
             response = self._fallback_response(user_message, response_context)
@@ -136,6 +137,32 @@ class ResponseGenerator:
         response = self._ensure_source_citations(response, response_context)
 
         return response
+
+    def _record_request_metric(self, context: Dict[str, Any], response: str) -> None:
+        """
+        Journal minimal de CHAQUE requête (docs/architecture/vision_knowledge_training_finetuning_alfred.md,
+        P2 — KPI) : fournit le dénominateur manquant pour les taux
+        (external_call_rate, knowledge_reuse_rate). Distinct de
+        _record_gap_if_local_failed(), qui ne journalise que les échecs
+        avec le texte de la requête — ici, jamais de texte, ce journal
+        tourne sur 100% du trafic.
+        """
+        provider = getattr(self.llm_client, "last_provider", None)
+        if not provider:
+            return
+
+        try:
+            from src.metrics.request_log import record_request
+
+            record_request(
+                local_success=(provider == "ollama"),
+                used_knowledge=bool(context.get("knowledge_ids")),
+                route=context.get("adaptation", {}).get("mode", ""),
+                external_source=provider if provider in ("openai", "anthropic") else None,
+            )
+        except Exception:
+            # La journalisation ne doit jamais bloquer une réponse à l'utilisateur.
+            pass
 
     def _record_gap_if_local_failed(
         self, user_message: str, context: Dict[str, Any], response: str
