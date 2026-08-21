@@ -103,18 +103,124 @@ class ResponseGenerator:
             print("=" * 60)
             print(user_prompt)
 
+        # Session déjà en cours == on n'est pas au premier tour — voir
+        # _strip_reopening_greeting : la RÈGLE DE CONTINUITÉ du prompt système
+        # ne suffit pas seule (le LLM local l'ignore souvent), donc on
+        # applique aussi un filet déterministe, y compris sur le flux
+        # streamé (on_sentence) puisque la 1ère phrase est déjà parlée par le
+        # TTS avant que _post_process ne tourne sur la réponse complète.
+        is_continuation = bool(
+            history_text and history_text.strip() != "[Début de conversation]"
+        )
+        streaming_on_sentence = self._make_greeting_safe_on_sentence(
+            on_sentence, response_context, is_continuation
+        )
+
         if self.llm_client:
             response = self._call_llm(
-                system_prompt, user_prompt, on_sentence=on_sentence, tools=tools_enabled,
+                system_prompt, user_prompt, on_sentence=streaming_on_sentence, tools=tools_enabled,
                 cloud_allowed=cloud_allowed,
             )
+            self._record_gap_if_local_failed(user_message, response_context, response)
         else:
             response = self._fallback_response(user_message, response_context)
 
-        response = self._post_process(response, response_context)
+        response = self._post_process(response, response_context, is_continuation=is_continuation)
         response = self._ensure_source_citations(response, response_context)
 
         return response
+
+    def _record_gap_if_local_failed(
+        self, user_message: str, context: Dict[str, Any], response: str
+    ) -> None:
+        """
+        Gap Dataset (docs/architecture/vision_knowledge_training_finetuning_alfred.md,
+        P0) : journalise les cas où Ollama local n'a pas répondu — seul point
+        du pipeline qui connaît à la fois la requête et le fournisseur ayant
+        réellement servi la réponse (LLMRouter.last_provider, mis à jour par
+        generate() juste avant). Un succès local (provider == "ollama") n'est
+        pas un gap — pas de bruit dans le dataset pour le cas courant.
+        """
+        provider = getattr(self.llm_client, "last_provider", None)
+        if not provider or provider == "ollama":
+            return
+
+        try:
+            from src.knowledge.gap_dataset import record_gap_event
+            from src.knowledge.knowledge_quality_gate import evaluate_candidate
+
+            real_query = self._extract_real_question(user_message)
+            local_route = context.get("adaptation", {}).get("mode", "")
+            external_source = provider if provider in ("openai", "anthropic") else None
+            total_failure = response.startswith("[ERREUR LLM]") or external_source is None
+            external_success = external_source is not None and not total_failure
+
+            candidate_quality = None
+            if external_success:
+                candidate_quality = evaluate_candidate(real_query, external_source)
+
+            record_gap_event(
+                query=real_query,
+                local_route=local_route,
+                local_success=False,
+                failure_reason=(
+                    "KNOWLEDGE_MISSING" if not context.get("knowledge_ids") else "MODEL_CAPABILITY"
+                ),
+                external_source=external_source,
+                external_success=external_success,
+                resolved=external_success,
+                candidate_quality=candidate_quality,
+            )
+        except Exception:
+            # La journalisation ne doit jamais bloquer une réponse à l'utilisateur.
+            pass
+
+    # =========================================================
+    # FILET DÉTERMINISTE ANTI-RESALUTATION
+    # =========================================================
+
+    @staticmethod
+    def _strip_reopening_greeting(text: str, context: Dict[str, Any]) -> str:
+        """Retire une salutation ("Bonjour/Bonsoir/Bon après-midi {user}") en
+        tout début de texte. À n'appeler que si is_continuation est vrai —
+        voir le commentaire dans generate_response()."""
+        if not text:
+            return text
+
+        user_name = (context.get("user", {}) or {}).get("preferred_name") or ""
+        name_part = re.escape(user_name) if user_name else ""
+
+        pattern = rf"^(?:bonjour|bonsoir|bon\s+apr[eè]s[\s-]midi)\s*,?\s*(?:{name_part})?\s*[,!.…]*\s*"
+        stripped = re.sub(pattern, "", text, count=1, flags=re.IGNORECASE).strip()
+
+        if not stripped:
+            return text
+        if stripped != text.strip():
+            stripped = stripped[0].upper() + stripped[1:]
+        return stripped
+
+    def _make_greeting_safe_on_sentence(self, on_sentence, context: Dict[str, Any], is_continuation: bool):
+        """Enveloppe le callback de streaming phrase-par-phrase pour retirer
+        une resalutation de la toute première phrase avant qu'elle ne parte
+        au TTS/UI — le nettoyage de _post_process arrive trop tard pour le
+        streaming, la 1ère phrase est déjà parlée avant que la réponse
+        complète soit disponible."""
+        if on_sentence is None or not is_continuation:
+            return on_sentence
+
+        state = {"first": True}
+
+        def wrapped(sentence: str) -> None:
+            if state["first"]:
+                state["first"] = False
+                cleaned = self._strip_reopening_greeting(sentence, context)
+                if not cleaned.strip():
+                    return
+                on_sentence(cleaned)
+                return
+            on_sentence(sentence)
+
+        return wrapped
 
     # =========================================================
     # PROMPT SYSTÈME
@@ -286,10 +392,21 @@ RÈGLE MÉMOIRE PRIORITAIRE :
         persona_block = self._build_persona_block(context)
 
         history_block = ""
+        continuity_block = ""
         if history_text and history_text.strip() != "[Début de conversation]":
             history_block = f"""
 HISTORIQUE RÉCENT :
 {history_text}
+"""
+            # HISTORIQUE RÉCENT non vide == on n'est pas au premier tour de la
+            # session — sans ce rappel explicite, le LLM local rouvre "Bonjour
+            # {user_name}" à quasi chaque réponse malgré l'historique présent
+            # dans le prompt (observé en usage réel le 20/08/2026, y compris
+            # sur des réponses qui font référence au tour précédent).
+            continuity_block = f"""
+RÈGLE DE CONTINUITÉ :
+- Cette session est déjà en cours : {user_name} a déjà été salué·e plus tôt.
+- Tu ne rouvres jamais ta réponse par "Bonjour {user_name}", "Bonsoir {user_name}" ou une formule de salutation équivalente à ce stade — tu entres directement dans le vif du sujet.
 """
 
         session_block = ""
@@ -328,6 +445,7 @@ Si {user_name} demande l'heure ou la date, tu réponds directement avec ces info
             return self._build_research_system_prompt(
                 context=context,
                 history_block=history_block,
+                continuity_block=continuity_block,
                 session_block=session_block,
                 memory_block=memory_block,
                 mode_block=mode_block,
@@ -397,6 +515,7 @@ SÉCURITÉ :
 - Neutralité : {safety.get("neutrality", True)}
 
 {history_block}
+{continuity_block}
 {session_block}
 {memory_block}
 {knowledge_block}
@@ -471,6 +590,7 @@ Si — et seulement si — ce souvenir apporte vraiment quelque chose à cet éc
         self,
         context: Dict[str, Any],
         history_block: str = "",
+        continuity_block: str = "",
         session_block: str = "",
         memory_block: str = "",
         mode_block: str = "",
@@ -544,6 +664,7 @@ SUR LA QUESTION DE TA NATURE :
 - Si la question vient d'une détresse réelle ou d'un contexte urgent : la vérité prime toujours
 
 {history_block}
+{continuity_block}
 {session_block}
 {memory_block}
 {recall_block}
@@ -933,12 +1054,15 @@ Réponds maintenant.""".strip()
 
         return re.sub(r"\b(de) ([aeiouyàâäéèêëïîôöùûü]\w*)", _elide, text, flags=re.IGNORECASE)
 
-    def _post_process(self, response: str, context: Dict[str, Any]) -> str:
+    def _post_process(self, response: str, context: Dict[str, Any], is_continuation: bool = False) -> str:
         """Nettoie la réponse finale."""
         if not response or not response.strip():
             return "Je n’ai pas de réponse fiable pour le moment."
 
         response_clean = response.strip()
+
+        if is_continuation:
+            response_clean = self._strip_reopening_greeting(response_clean, context)
 
         phrases = list(self._FORBIDDEN_PHRASES)
         if context.get("research_mode", False):
