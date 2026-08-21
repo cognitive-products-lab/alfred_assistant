@@ -145,6 +145,11 @@ class TestEpisodicMemory:
         # _CHROMA_PATH, les tests écriraient dans le vrai index de production.
         monkeypatch.setattr(rag_stub, "_CHROMA_PATH", tmp_path / "chroma")
         rag_stub._reset_client()
+        yield
+        # Ferme le client ChromaDB créé pendant CE test avant que pytest ne
+        # nettoie tmp_path — sinon le handle SQLite reste ouvert et le
+        # nettoyage échoue sous Windows (PermissionError, cf. rag_stub._reset_client()).
+        rag_stub._reset_client()
 
     def test_record_and_retrieve_episode(self):
         from src.memory.episodic_memory import record_episode, get_timeline
@@ -208,6 +213,81 @@ class TestEpisodicMemory:
         assert get_rag_status()["indexed_documents"] == 2  # upsert, pas de doublon
 
 
+class TestEpisodeImportanceScoring:
+    """
+    Tests 21/08/2026 — compute_turn_importance(). Avant, main.py plafonnait
+    chaque échange auto-enregistré à 0.3 d'importance — constaté sur les
+    données réelles : 55 épisodes, tous à 0.3 pile, 0 moment marquant dans
+    la Vue Mémoire (seuil 0.6). Ce scoring remplace le plafond fixe par de
+    vrais signaux (émotion, santé, tendance, sujet récurrent).
+    """
+
+    @pytest.fixture(autouse=True)
+    def _isolate_episode_file(self, tmp_path, monkeypatch):
+        import src.memory.episodic_memory as episodic_memory
+        import src.memory.rag_stub as rag_stub
+        monkeypatch.setattr(episodic_memory, "_EPISODE_FILE", tmp_path / "episodes.json")
+        monkeypatch.setattr(rag_stub, "_CHROMA_PATH", tmp_path / "chroma")
+        rag_stub._reset_client()
+        yield
+        # Ferme le client ChromaDB créé pendant CE test avant que pytest ne
+        # nettoie tmp_path — sinon le handle SQLite reste ouvert et le
+        # nettoyage échoue sous Windows (PermissionError, cf. rag_stub._reset_client()).
+        rag_stub._reset_client()
+
+    def test_neutral_banal_message_stays_at_baseline(self):
+        from src.memory.episodic_memory import compute_turn_importance
+        assert compute_turn_importance(text="quelle heure est-il ?") == 0.3
+
+    def test_high_emotion_intensity_raises_importance(self):
+        from src.memory.episodic_memory import compute_turn_importance
+        score = compute_turn_importance(
+            text="je suis vraiment épuisée et à bout",
+            emotion_intensity=0.8, emotion_valence="negative",
+        )
+        assert score >= 0.7
+
+    def test_rumination_signal_raises_importance(self):
+        from src.memory.episodic_memory import compute_turn_importance
+        score = compute_turn_importance(text="je n'arrête pas d'y penser", health_rumination=True)
+        assert score >= 0.65
+
+    def test_concerning_trend_raises_importance(self):
+        from src.memory.episodic_memory import compute_turn_importance
+        score = compute_turn_importance(text="test", emotion_trend_concerning=True)
+        assert score >= 0.6
+
+    def test_recurring_topic_adds_bonus(self):
+        """Un sujet mentionné ≥2 fois récemment ajoute un bonus (pas juste
+        un plancher) — troisième mention du même sujet."""
+        from src.memory.episodic_memory import record_episode, compute_turn_importance
+        record_episode("Anxiété au travail", "stressée par le travail", importance=0.3)
+        record_episode("Encore stressée", "le travail me pèse en ce moment", importance=0.3)
+
+        without_recurrence = compute_turn_importance(text="", emotion_intensity=0.3)
+        with_recurrence = compute_turn_importance(
+            text="toujours ce travail qui me stresse", emotion_intensity=0.3,
+        )
+        assert with_recurrence > without_recurrence
+
+    def test_single_prior_mention_not_yet_recurring(self):
+        """Une seule mention préalable ne suffit pas — évite de sur-réagir
+        à une coïncidence de vocabulaire."""
+        from src.memory.episodic_memory import record_episode, compute_turn_importance
+        record_episode("Météo", "il pleut aujourd'hui", importance=0.3)
+        score = compute_turn_importance(text="est-ce qu'il va pleuvoir demain aussi ?")
+        assert score == 0.3
+
+    def test_score_never_exceeds_one(self):
+        from src.memory.episodic_memory import compute_turn_importance
+        score = compute_turn_importance(
+            text="crise", emotion_intensity=1.0, emotion_valence="negative",
+            health_rumination=True, health_bipolar_episode=True,
+            emotion_trend_concerning=True, check_in=True,
+        )
+        assert score <= 1.0
+
+
 class TestMemoryIndexer:
     """Tests B02.05 — Indexation mémoire."""
 
@@ -248,6 +328,11 @@ class TestContextualRecall:
         # record_episode() indexe automatiquement dans ChromaDB — sans isoler
         # _CHROMA_PATH, les tests écriraient dans le vrai index de production.
         monkeypatch.setattr(rag_stub, "_CHROMA_PATH", tmp_path / "chroma")
+        rag_stub._reset_client()
+        yield
+        # Ferme le client ChromaDB créé pendant CE test avant que pytest ne
+        # nettoie tmp_path — sinon le handle SQLite reste ouvert et le
+        # nettoyage échoue sous Windows (PermissionError, cf. rag_stub._reset_client()).
         rag_stub._reset_client()
 
     def test_recalls_relevant_episode_above_threshold(self):
@@ -328,6 +413,11 @@ class TestRAGStub:
     def _isolate_chroma_path(self, tmp_path, monkeypatch):
         import src.memory.rag_stub as rag_stub
         monkeypatch.setattr(rag_stub, "_CHROMA_PATH", tmp_path / "chroma")
+        rag_stub._reset_client()
+        yield
+        # Ferme le client ChromaDB créé pendant CE test avant que pytest ne
+        # nettoie tmp_path — sinon le handle SQLite reste ouvert et le
+        # nettoyage échoue sous Windows (PermissionError, cf. rag_stub._reset_client()).
         rag_stub._reset_client()
 
     def test_rag_status(self):

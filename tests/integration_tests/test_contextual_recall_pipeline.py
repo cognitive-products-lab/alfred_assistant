@@ -91,7 +91,7 @@ def _patch_detect_context(monkeypatch):
 
 class TestContextualRecallInBuildResponse:
 
-    def test_contextual_recall_populated_when_relevant_episode_exists(self, tmp_path, monkeypatch):
+    def test_contextual_recall_populated_when_relevant_episode_exists(self, tmp_path, monkeypatch, request):
         import src.memory.episodic_memory as episodic_memory
         import src.memory.rag_stub as rag_stub
         monkeypatch.setattr(episodic_memory, "_EPISODE_FILE", tmp_path / "episodes.json")
@@ -99,6 +99,9 @@ class TestContextualRecallInBuildResponse:
         # record_episode() indexerait dans le vrai ChromaDB de production.
         monkeypatch.setattr(rag_stub, "_CHROMA_PATH", tmp_path / "chroma")
         rag_stub._reset_client()
+        # Ferme le client créé par CE test avant le nettoyage de tmp_path
+        # (sinon PermissionError sous Windows — cf. rag_stub._reset_client()).
+        request.addfinalizer(rag_stub._reset_client)
         episodic_memory.record_episode(
             "Décision de reprendre le projet ALFRED après la pause santé",
             "Priorise la démonstrabilité pour les soutenances",
@@ -121,12 +124,13 @@ class TestContextualRecallInBuildResponse:
         assert "contextual_recall" in captured, "context['contextual_recall'] absent — rappel non branché"
         assert "soutenance" in captured["contextual_recall"].lower() or captured["contextual_recall"] != ""
 
-    def test_contextual_recall_empty_when_no_relevant_episode(self, tmp_path, monkeypatch):
+    def test_contextual_recall_empty_when_no_relevant_episode(self, tmp_path, monkeypatch, request):
         import src.memory.episodic_memory as episodic_memory
         import src.memory.rag_stub as rag_stub
         monkeypatch.setattr(episodic_memory, "_EPISODE_FILE", tmp_path / "episodes.json")
         monkeypatch.setattr(rag_stub, "_CHROMA_PATH", tmp_path / "chroma")
         rag_stub._reset_client()
+        request.addfinalizer(rag_stub._reset_client)
         # Fichier vide — aucun épisode enregistré.
 
         from src.main import build_response
