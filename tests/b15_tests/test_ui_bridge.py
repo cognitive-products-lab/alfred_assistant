@@ -57,7 +57,7 @@ class TestActivation:
         bridge.activate()
         bridge.deactivate()
         val = bridge._input_queue.get_nowait()
-        assert val == ""
+        assert val == ("", "local")
 
 
 # ============================================================
@@ -69,13 +69,13 @@ class TestInputQueue:
         _reset_bridge()
         bridge.send_user_input("Bonjour ALFRED")
         received = bridge._input_queue.get_nowait()
-        assert received == "Bonjour ALFRED"
+        assert received == ("Bonjour ALFRED", "local")
 
     def test_send_strips_whitespace(self):
         _reset_bridge()
         bridge.send_user_input("  hello  ")
         received = bridge._input_queue.get_nowait()
-        assert received == "hello"
+        assert received == ("hello", "local")
 
     def test_send_empty_ignored(self):
         _reset_bridge()
@@ -90,12 +90,11 @@ class TestInputQueue:
         results = []
         while not bridge._input_queue.empty():
             results.append(bridge._input_queue.get_nowait())
-        assert results == ["un", "deux", "trois"]
+        assert results == [("un", "local"), ("deux", "local"), ("trois", "local")]
 
     def test_wait_for_ui_input_blocking(self):
         """wait_for_ui_input() bloque jusqu'a reception."""
         _reset_bridge()
-        received: list[str] = []
 
         def _producer():
             import time; time.sleep(0.05)
@@ -105,7 +104,7 @@ class TestInputQueue:
         t.start()
         result = bridge.wait_for_ui_input()
         t.join(timeout=1.0)
-        assert result == "message async"
+        assert result == ("message async", "local")
 
 
 # ============================================================
