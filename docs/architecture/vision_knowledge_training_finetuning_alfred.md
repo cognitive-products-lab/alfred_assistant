@@ -238,6 +238,18 @@ Aucun chiffre inventé pour un KPI OFF ou KO sous le seuil — le principe
 « score honnêtement dégradé plutôt que préservé » déjà appliqué ailleurs
 dans ce projet.
 
+**Extension le 21/08/2026** (`src/metrics/rag_evaluation.py`) :
+Recall@K/Precision@K reclassés de OFF à **KO** plutôt que laissés bloqués —
+`golden_dataset.add_golden_case()` accepte désormais un
+`relevant_knowledge_ids` optionnel (vérité terrain), et
+`compute_recall_precision_at_k()` calcule réellement recall/precision pour
+tout cas labellisé, en ignorant les cas non labellisés (jamais un faux 0%).
+L'infrastructure est prête ; le statut ne passera à OK que lorsque
+`min_sample_size` (3) cas Golden Dataset porteront leur vérité terrain —
+reste `rag_grounded_rate`, seul KPI RAG structurellement OFF (nécessite un
+jugement humain ou un LLM-judge, qu'aucune extension de schéma ne peut
+remplacer).
+
 ### P3 — Premier fine-tuning expérimental (LoRA/QLoRA)
 
 Volontairement en dernier, comme dans le document (étape 6 sur 10). Deux

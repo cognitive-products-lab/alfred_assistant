@@ -450,6 +450,17 @@ class TestGoldenDataset:
         case = golden.add_golden_case(prompt="p", category="conversationnel", expected_behavior="e")
         assert case["check"] is None
 
+    def test_case_stores_relevant_knowledge_ids(self, golden):
+        case = golden.add_golden_case(
+            prompt="Explique le RAG", category="rag", expected_behavior="e",
+            relevant_knowledge_ids=["a.b.rag_basics", "a.b.embeddings"],
+        )
+        assert case["relevant_knowledge_ids"] == ["a.b.rag_basics", "a.b.embeddings"]
+
+    def test_case_without_relevant_knowledge_ids_defaults_none(self, golden):
+        case = golden.add_golden_case(prompt="p", category="rag", expected_behavior="e")
+        assert case["relevant_knowledge_ids"] is None
+
 
 # ─────────────────────────────────────────────────────────
 # evaluation (P2)
