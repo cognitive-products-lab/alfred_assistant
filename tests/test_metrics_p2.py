@@ -122,10 +122,17 @@ class TestKpiCatalog:
         for kpi in list_by_category("Fine-Tuning"):
             assert kpi.base_status == "OFF"
 
-    def test_rag_ground_truth_kpis_are_off(self):
+    def test_rag_recall_precision_are_ko_pending_ground_truth(self):
+        """KO, pas OFF : l'infrastructure (relevant_knowledge_ids) existe,
+        volume de cas labellisés insuffisant."""
         from src.metrics.kpi_catalog import get_kpi
-        assert get_kpi("rag_recall_at_k").base_status == "OFF"
-        assert get_kpi("rag_precision_at_k").base_status == "OFF"
+        assert get_kpi("rag_recall_at_k").base_status == "KO"
+        assert get_kpi("rag_precision_at_k").base_status == "KO"
+
+    def test_rag_grounded_rate_stays_off(self):
+        """Vrai blocage structurel : nécessite un jugement humain/LLM-judge,
+        aucune vérité terrain ne le débloquerait."""
+        from src.metrics.kpi_catalog import get_kpi
         assert get_kpi("rag_grounded_rate").base_status == "OFF"
 
 
@@ -157,8 +164,8 @@ class TestKpiCompute:
     def test_off_kpi_has_no_value(self, env):
         from src.metrics.kpi_compute import get_kpi_status_report
         report = {r["kpi_id"]: r for r in get_kpi_status_report()}
-        assert report["rag_recall_at_k"]["status"] == "OFF"
-        assert report["rag_recall_at_k"]["value"] is None
+        assert report["rag_grounded_rate"]["status"] == "OFF"
+        assert report["rag_grounded_rate"]["value"] is None
 
     def test_ko_stays_ko_below_sample_threshold(self, env):
         rl, _ = env
@@ -356,3 +363,111 @@ class TestResponseGeneratorRequestMetricWiring:
             user_message="question", response_context={"user": {"preferred_name": "Céline"}}
         )
         assert "réponse malgré tout" in response
+
+
+# ─────────────────────────────────────────────────────────
+# rag_evaluation
+# ─────────────────────────────────────────────────────────
+
+class TestRagEvaluation:
+
+    @pytest.fixture
+    def golden(self, tmp_path, monkeypatch):
+        import src.training.golden_dataset as gd
+        monkeypatch.setattr(gd, "GOLDEN_PATH", tmp_path / "golden_dataset.json")
+        return gd
+
+    def test_import(self, golden):
+        from src.metrics.rag_evaluation import compute_recall_precision_at_k
+        assert compute_recall_precision_at_k is not None
+
+    def test_no_labeled_cases_returns_none(self, golden):
+        from src.metrics.rag_evaluation import compute_recall_precision_at_k
+        golden.add_golden_case(prompt="p", category="rag", expected_behavior="e")  # non labellisé
+        result = compute_recall_precision_at_k(retriever=lambda p: ["x"])
+        assert result["recall_at_k"] is None
+        assert result["precision_at_k"] is None
+        assert result["labeled_cases"] == 0
+
+    def test_perfect_retrieval_scores_1(self, golden):
+        from src.metrics.rag_evaluation import compute_recall_precision_at_k
+        golden.add_golden_case(
+            prompt="Explique le RAG", category="rag", expected_behavior="e",
+            relevant_knowledge_ids=["a.b.c"],
+        )
+        result = compute_recall_precision_at_k(retriever=lambda p: ["a.b.c"], k=5)
+        assert result["recall_at_k"] == pytest.approx(1.0)
+        assert result["precision_at_k"] == pytest.approx(1.0)
+        assert result["labeled_cases"] == 1
+
+    def test_missed_retrieval_scores_0(self, golden):
+        from src.metrics.rag_evaluation import compute_recall_precision_at_k
+        golden.add_golden_case(
+            prompt="p", category="rag", expected_behavior="e",
+            relevant_knowledge_ids=["a.b.c"],
+        )
+        result = compute_recall_precision_at_k(retriever=lambda p: ["x.y.z"], k=5)
+        assert result["recall_at_k"] == pytest.approx(0.0)
+        assert result["precision_at_k"] == pytest.approx(0.0)
+
+    def test_partial_retrieval(self, golden):
+        from src.metrics.rag_evaluation import compute_recall_precision_at_k
+        golden.add_golden_case(
+            prompt="p", category="rag", expected_behavior="e",
+            relevant_knowledge_ids=["a", "b"],  # 2 pertinentes
+        )
+        result = compute_recall_precision_at_k(retriever=lambda p: ["a", "x", "y"], k=3)
+        assert result["recall_at_k"] == pytest.approx(0.5)  # 1/2 pertinentes trouvées
+        assert result["precision_at_k"] == pytest.approx(1 / 3)  # 1/3 retournées pertinentes
+
+    def test_k_limits_retrieved_window(self, golden):
+        from src.metrics.rag_evaluation import compute_recall_precision_at_k
+        golden.add_golden_case(
+            prompt="p", category="rag", expected_behavior="e",
+            relevant_knowledge_ids=["a"],
+        )
+        # "a" est en 3e position, hors du top-2
+        result = compute_recall_precision_at_k(retriever=lambda p: ["x", "y", "a"], k=2)
+        assert result["recall_at_k"] == pytest.approx(0.0)
+
+    def test_unlabeled_cases_excluded_from_average(self, golden):
+        from src.metrics.rag_evaluation import compute_recall_precision_at_k
+        golden.add_golden_case(prompt="p1", category="rag", expected_behavior="e")  # non labellisé
+        golden.add_golden_case(
+            prompt="p2", category="rag", expected_behavior="e",
+            relevant_knowledge_ids=["a"],
+        )
+        result = compute_recall_precision_at_k(retriever=lambda p: ["a"], k=5)
+        assert result["labeled_cases"] == 1
+
+    def test_category_filter(self, golden):
+        from src.metrics.rag_evaluation import compute_recall_precision_at_k
+        golden.add_golden_case(
+            prompt="p1", category="rag", expected_behavior="e", relevant_knowledge_ids=["a"],
+        )
+        golden.add_golden_case(
+            prompt="p2", category="privacy", expected_behavior="e", relevant_knowledge_ids=["b"],
+        )
+        result = compute_recall_precision_at_k(retriever=lambda p: ["a"], k=5, category="rag")
+        assert result["labeled_cases"] == 1
+
+
+class TestKpiComputeRagRecallPrecision:
+
+    @pytest.fixture
+    def golden(self, tmp_path, monkeypatch):
+        import src.training.golden_dataset as gd
+        monkeypatch.setattr(gd, "GOLDEN_PATH", tmp_path / "golden_dataset.json")
+        return gd
+
+    def test_recall_at_k_none_without_labeled_cases(self, golden):
+        from src.metrics.kpi_compute import compute_rag_recall_at_k
+        value, n = compute_rag_recall_at_k()
+        assert value is None
+        assert n == 0
+
+    def test_report_shows_ko_without_labeled_cases(self, golden):
+        from src.metrics.kpi_compute import get_kpi_status_report
+        report = {r["kpi_id"]: r for r in get_kpi_status_report()}
+        assert report["rag_recall_at_k"]["status"] == "KO"
+        assert report["rag_precision_at_k"]["status"] == "KO"

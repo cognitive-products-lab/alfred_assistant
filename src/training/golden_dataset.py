@@ -67,24 +67,35 @@ def add_golden_case(
     category: str,
     expected_behavior: str,
     check: Optional[dict[str, Any]] = None,
+    relevant_knowledge_ids: Optional[list[str]] = None,
     created_by: str = "manual",
 ) -> dict[str, Any]:
     """
     Args:
-        prompt            : la question/instruction du cas de test.
-        category           : voir GOLDEN_CASE_CATEGORIES (indicatif).
-        expected_behavior : description en langage naturel de ce qu'une
-                             bonne réponse doit faire — toujours renseigné,
-                             même quand `check` est absent, pour qu'une
-                             relecture humaine sache quoi juger.
-        check              : optionnel, un contrôle automatisable —
-                             {"type": "contains" | "not_contains",
-                              "value": "..."}. Sans `check`, le cas reste
-                             "pending_review" lors d'une évaluation
-                             (src.training.evaluation) : ce module n'invente
-                             jamais de score pour des dimensions subjectives
-                             (hallucination, personnalité, pertinence...).
-        created_by         : qui a ajouté ce cas.
+        prompt                  : la question/instruction du cas de test.
+        category                 : voir GOLDEN_CASE_CATEGORIES (indicatif).
+        expected_behavior       : description en langage naturel de ce
+                                   qu'une bonne réponse doit faire —
+                                   toujours renseigné, même quand `check`
+                                   est absent, pour qu'une relecture
+                                   humaine sache quoi juger.
+        check                    : optionnel, un contrôle automatisable —
+                                   {"type": "contains" | "not_contains",
+                                    "value": "..."}. Sans `check`, le cas
+                                   reste "pending_review" lors d'une
+                                   évaluation (src.training.evaluation) :
+                                   ce module n'invente jamais de score pour
+                                   des dimensions subjectives (hallucination,
+                                   personnalité, pertinence...).
+        relevant_knowledge_ids : optionnel, vérité terrain pour les KPI
+                                   RAG Recall@K/Precision@K
+                                   (src.metrics.rag_evaluation) — les
+                                   knowledge_id que le B18 Knowledge
+                                   Retrieval Engine DEVRAIT retrouver pour
+                                   ce prompt. Sans cette liste, le cas ne
+                                   compte pas dans le calcul (pas de faux
+                                   0% pour un cas non labellisé).
+        created_by               : qui a ajouté ce cas.
 
     Returns:
         Le cas créé, avec son case_id.
@@ -95,6 +106,7 @@ def add_golden_case(
         "category": category,
         "expected_behavior": expected_behavior,
         "check": check,
+        "relevant_knowledge_ids": relevant_knowledge_ids,
         "created_by": created_by,
         "created_at": datetime.now(timezone.utc).isoformat(),
     }

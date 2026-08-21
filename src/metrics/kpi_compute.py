@@ -66,6 +66,28 @@ def compute_routing_external_escalation_rate() -> tuple[Optional[float], int]:
     return escalated / len(requests), len(requests)
 
 
+def compute_rag_recall_at_k(k: int = 5) -> tuple[Optional[float], int]:
+    from src.knowledge.retrieval_engine import KnowledgeRetrievalEngine
+    from src.metrics.rag_evaluation import compute_recall_precision_at_k
+
+    engine = KnowledgeRetrievalEngine()
+    result = compute_recall_precision_at_k(
+        retriever=lambda p: engine.retrieve(p).knowledge_ids, k=k,
+    )
+    return result["recall_at_k"], result["labeled_cases"]
+
+
+def compute_rag_precision_at_k(k: int = 5) -> tuple[Optional[float], int]:
+    from src.knowledge.retrieval_engine import KnowledgeRetrievalEngine
+    from src.metrics.rag_evaluation import compute_recall_precision_at_k
+
+    engine = KnowledgeRetrievalEngine()
+    result = compute_recall_precision_at_k(
+        retriever=lambda p: engine.retrieve(p).knowledge_ids, k=k,
+    )
+    return result["precision_at_k"], result["labeled_cases"]
+
+
 def compute_rag_stale_knowledge_rate() -> tuple[Optional[float], int]:
     from src.knowledge.knowledge_loader import KnowledgeLoader
     from src.knowledge.freshness_checker import scan_knowledge_index
@@ -124,6 +146,8 @@ def compute_training_duplicate_rate() -> tuple[Optional[float], int]:
 _COMPUTE_FUNCTIONS = {
     "knowledge_reuse_rate": compute_knowledge_reuse_rate,
     "external_call_rate": compute_external_call_rate,
+    "rag_recall_at_k": compute_rag_recall_at_k,
+    "rag_precision_at_k": compute_rag_precision_at_k,
     "rag_stale_knowledge_rate": compute_rag_stale_knowledge_rate,
     "training_candidate_count": compute_training_candidate_count,
     "training_acceptance_rate": compute_training_acceptance_rate,
