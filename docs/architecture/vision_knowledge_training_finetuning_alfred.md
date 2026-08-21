@@ -155,6 +155,27 @@ instructions,preferences,users}/` proposée section 12. Zéro dépendance sur
 un modèle particulier à ce stade — c'est de la donnée, pas de
 l'entraînement. Dataset versionné dès le premier fichier (section 17).
 
+**Réalisé le 21/08/2026** (`src/training/`) : `ALFRED_DATA/` implémenté
+sous `data/training/` plutôt qu'un nouveau dossier racine — cohérent avec
+`data/knowledge/`, `data/memory/`... déjà en place. `dataset_store.py`
+fournit le store versionné générique (section 17 : fichier courant +
+versions figées à la demande, jamais par rotation automatique — un dataset
+d'entraînement a besoin de versions stables nommées par un humain).
+`instructions/` et `preferences/` sont pleinement implémentées
+(`instruction_dataset.py`, `preference_dataset.py`, `training_quality.py`
+pour le contrôle qualité/confidentialité/duplication de la section 16).
+`knowledge/` et `gaps/` étaient déjà couvertes par `data/knowledge/`
+(P0) — pas dupliquées. `intent/`, `routing/`, `memory/`, `users/` restent
+**documentées mais non branchées** (voir `src/training/__init__.py`) :
+les créer maintenant produirait du code sans appelant réel, l'anti-pattern
+déjà identifié dans `vision_architecture_cognitive_alfred.md`
+(« des briques déjà écrites et jamais reliées entre elles ») — chacune
+nécessite un point d'ancrage dans un module qui n'existe pas encore
+(intent_classifier.py, llm_router.py, memory_engine.py). La voie « réponses
+externes » des Training Candidates (section 11) ferme la boucle avec P0 :
+`gap_curation.promote_candidate_to_training_example()` transforme un
+candidat déjà capturé en exemple Instruction Dataset.
+
 ### P2 — Golden Dataset + pipeline d'évaluation
 
 Corpus de référence (section 22) et pipeline de comparaison
@@ -172,6 +193,19 @@ préalables non négociables avant d'y toucher :
 - Une mesure réelle de ce que le matériel (Miniforum MS-S1 Max) supporte en
   entraînement local — jamais fait à ce jour, contrairement à l'inférence
   (déjà mesurée et documentée sur `hardware.html`).
+
+**Mis à jour le 21/08/2026** : l'étude préalable (section 4) tranche que P3
+ne se fera pas sur le MS-S1 Max — cible désormais le serveur Phase 2 avec
+GPU NVIDIA dédié, pas encore acheté. Plutôt que d'attendre ce matériel sans
+rien construire, `src/training/adapter_registry.py` (bookkeeping pur :
+versions d'adapter, liens dataset/config/évaluation, promotion/rollback —
+document source sections 17, 19, 23) est **implémenté et testé**, puisqu'il
+ne dépend d'aucun GPU. `src/training/lora_pipeline.py` définit le contrat
+exact (`TrainingRunConfig`, `prepare_training_run()`,
+`run_lora_finetuning()`) mais lève `NotImplementedError` explicitement — un
+pipeline factice qui prétendrait entraîner sans matériel réel serait
+trompeur, contraire à l'esprit de la section 21 (évaluation réelle avant
+tout déploiement).
 
 ### Différé, hors périmètre de ce document
 
@@ -367,9 +401,11 @@ comme ça a été le cas pour la mesure d'entraînement sur le MS-S1 Max.
 | Point | Statut | Commit |
 |---|---|---|
 | P0 — Journalisation fallback cloud + Gap Dataset + schéma Knowledge additif + Quality Gate | **Fait** (`gap_dataset.py`, `knowledge_quality_gate.py`, `knowledge_schema.py`, 30 tests, suite complète 1666 verts) — le constat de la section 2.1 décrit l'état *avant* ce commit, volontairement laissé tel quel comme photo du point de départ | `e95a3f87` |
-| P1 — Constitution Training Dataset (structure) | **En cours** (démarré le 21/08/2026, `src/knowledge/gap_dataset.py` en cours de modification) | — |
+| P1 — Curation Gap Dataset → fiche knowledge (`knowledge_candidates.py`, `gap_curation.py`) | **Fait** — 15 tests, suite complète 1686 verts | `dd2fda7c` |
+| P1 — Constitution Training Dataset "officielle" (`ALFRED_DATA` = `data/training/`, `dataset_store.py`, `instruction_dataset.py`, `preference_dataset.py`, `training_quality.py`) | **Fait** — `instructions/`/`preferences/` implémentées, `intent/`/`routing/`/`memory/`/`users/` documentées non branchées ; `promote_candidate_to_training_example()` ferme la boucle avec P0 | — |
 | P2 — Golden Dataset + évaluation | Pas commencé | — |
-| P3 — Premier fine-tuning LoRA/QLoRA | Pas commencé — étude préalable matériel faite le 21/08/2026 (section 4), mesure réelle non lancée | — |
+| P3 — Adapter registry (bookkeeping) | **Fait** — indépendant du matériel, `adapter_registry.py` | — |
+| P3 — Pipeline LoRA/QLoRA réel | **Non implémenté, volontairement** — contrat figé (`lora_pipeline.py`, `NotImplementedError`), en attente du serveur Phase 2 GPU NVIDIA dédié (section 4.7) ; étude matérielle MS-S1 Max faite le 21/08/2026, conclusion : pas sur ce poste | — |
 | DPO / User Adapter / apprentissage automatisé | Différé, pas de date | — |
 
 Ce document sert de source de vérité pour ce chantier, sur le même modèle
