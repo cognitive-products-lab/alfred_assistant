@@ -396,6 +396,39 @@ def clean_for_tts(text: str) -> str:
 
     cleaned = re.sub(r"\b(\d{1,2})[:h](\d{2})\b", _spoken_time, cleaned)
 
+    # Durées en heures : "2h" abrégé, ou en toutes lettres "2 heures", ou une
+    # plage elliptique "1 et 2h"/"1 et 2 heures" où seul le dernier nombre
+    # porte l'unité. Piper lit "Xh" au singulier sans accorder le pluriel et
+    # lit "1" comme "un" plutôt que "une" (accord de genre avec "heure",
+    # féminin) — observé en usage réel le 20/08/2026 sur "entre 1 et 2 heures
+    # par jour" lu "entre un et deux heure par jour" (1ère version du fix
+    # ne visait que "2h" abrégé, insuffisante : la forme réellement produite
+    # par le LLM était "heures" en toutes lettres).
+    _HOUR_UNIT = r"h(?:eures?)?"
+
+    def _hour_word(number: str) -> str:
+        return "une" if number == "1" else number
+
+    def _hour_plural(number: str) -> str:
+        return "" if number == "1" else "s"
+
+    def _spoken_hour_range(match: "re.Match") -> str:
+        n1, joiner, n2 = match.group(1), match.group(2), match.group(3)
+        return f"{_hour_word(n1)} heure{_hour_plural(n1)}{joiner}{_hour_word(n2)} heure{_hour_plural(n2)}"
+
+    cleaned = re.sub(
+        rf"\b(\d+)(\s+(?:et|à|a)\s+)(\d+)\s*{_HOUR_UNIT}\b",
+        _spoken_hour_range,
+        cleaned,
+        flags=re.IGNORECASE,
+    )
+
+    def _spoken_hour_count(match: "re.Match") -> str:
+        number = match.group(1)
+        return f"{_hour_word(number)} heure{_hour_plural(number)}"
+
+    cleaned = re.sub(rf"\b(\d+)\s*{_HOUR_UNIT}\b(?!\d)", _spoken_hour_count, cleaned, flags=re.IGNORECASE)
+
     cleaned = re.sub(r"\s{2,}", " ", cleaned).strip()
 
     return cleaned

@@ -153,6 +153,24 @@ class TestCleanForTts:
         text = "Bonjour, je suis Alfred."
         assert clean_for_tts(text) == text
 
+    def test_converts_hour_duration_range_abbreviated(self):
+        assert clean_for_tts("entre 1 et 2h par jour") == "entre une heure et 2 heures par jour"
+
+    def test_converts_hour_duration_range_spelled_out(self):
+        assert (
+            clean_for_tts("consacrer entre 1 et 2 heures par session")
+            == "consacrer entre une heure et 2 heures par session"
+        )
+
+    def test_converts_single_hour_duration_singular(self):
+        assert clean_for_tts("Il faut compter 1 heure environ.") == "Il faut compter une heure environ."
+
+    def test_converts_single_hour_duration_plural_unchanged(self):
+        assert clean_for_tts("Le rendez-vous dure 2 heures.") == "Le rendez-vous dure 2 heures."
+
+    def test_hour_duration_conversion_does_not_affect_clock_time(self):
+        assert clean_for_tts("Il est 10h45.") == "Il est 10 heures 45."
+
 
 # ─────────────────────────────────────────────────────────
 # safe_getattr()

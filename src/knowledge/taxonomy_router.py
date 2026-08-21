@@ -28,6 +28,7 @@ from dataclasses import dataclass, field
 from typing import Any
 
 from src.knowledge.knowledge_loader import KnowledgeLoader
+from src.knowledge.french_stopwords import FRENCH_STOPWORDS
 
 
 @dataclass
@@ -117,15 +118,21 @@ class TaxonomyRouter:
         ]
 
         searchable_text = self.normalize(" ".join(searchable_parts))
+        # Mots entiers uniquement (pas de substring) — un "in searchable_text"
+        # brut ferait matcher n'importe quel mot de 4+ lettres à l'intérieur
+        # d'un mot plus long sans rapport (même bug déjà corrigé côté
+        # knowledge_ranker.py::_add_keyword_content_scores le 15/08/2026,
+        # mais pas ici).
+        searchable_words = set(re.findall(r"\w+", searchable_text))
 
         # \w+ retire la ponctuation collée aux mots (ex. "iso27001," -> "iso27001")
         words = [
             word for word in re.findall(r"\w+", query_norm.replace("'", " ").replace("-", " "))
-            if len(word) >= 4
+            if len(word) >= 4 and word not in FRENCH_STOPWORDS
         ]
 
         for word in words:
-            if word in searchable_text:
+            if word in searchable_words:
                 score += 2.0
 
         if domain_id in query_norm:
