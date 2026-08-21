@@ -272,6 +272,7 @@ class ModeManager:
         emotion: EmotionalState | None = None,
         energy_level: str | None = None,
         intent: str | None = None,
+        trend_concerning: bool = False,
     ) -> str:
         """
         Résout le mode à partir de plusieurs signaux combinés, avec un ordre
@@ -286,12 +287,19 @@ class ModeManager:
             1. Protection / détresse (absolu)
             2. Énergie basse
             3. Émotion dominante (si elle résout vers un mode connu)
-            4. Intention (utilisée seulement si l'émotion n'a rien résolu)
+            4. Tendance émotionnelle préoccupante sur plusieurs jours (session 4,
+               18/08/2026 — voir emotional_trend.py) : seulement si l'émotion
+               instantanée n'a rien résolu, sinon l'instant présent garde priorité.
+            5. Intention (utilisée seulement si rien au-dessus n'a résolu)
 
         Args:
-            emotion      : EmotionalState depuis emotion_detector (optionnel)
-            energy_level : high / medium / low (optionnel)
-            intent       : Intention NLP détectée (optionnel)
+            emotion          : EmotionalState depuis emotion_detector (optionnel)
+            energy_level     : high / medium / low (optionnel)
+            intent           : Intention NLP détectée (optionnel)
+            trend_concerning : True si emotional_trend.get_emotion_trend() détecte
+                               un motif négatif soutenu sur plusieurs jours (pas
+                               l'instant présent — un signal plus lent, orthogonal
+                               à `emotion`)
 
         Returns:
             Mode résultant
@@ -317,6 +325,17 @@ class ModeManager:
                 if target != self._current_mode:
                     self.set_mode(target, reason=f"emotion_{emotion.emotion}")
                 return self._current_mode
+
+        # Émotion instantanée neutre/absente, mais tendance soutenue négative
+        # sur plusieurs jours : pencher vers "complicite" (présence chaleureuse,
+        # pas "support" qui reste réservé à une détresse réellement détectée
+        # maintenant — la nuance entre "ça ne va pas là, maintenant" et "elle
+        # semble éprouvée ces derniers temps" compte).
+        if trend_concerning and "complicite" != self._current_mode:
+            self.set_mode("complicite", reason="emotion_trend_concerning")
+            return self._current_mode
+        elif trend_concerning:
+            return self._current_mode
 
         if intent:
             target = INTENT_TO_MODE.get(intent)

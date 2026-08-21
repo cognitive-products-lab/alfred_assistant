@@ -603,6 +603,74 @@ class TestModeManagerSignals:
         assert mode == "challenge"
 
 
+class TestModeManagerTrend:
+    """
+    Tests session 4 (18/08/2026) — update_from_signals(trend_concerning=...).
+    Priorité : protection > énergie basse > émotion instantanée > tendance
+    émotionnelle soutenue (emotional_trend.py) > intent.
+    """
+
+    def setup_method(self):
+        import src.regulation.mode_manager as mm
+        mm._mode_manager = None
+
+    def test_trend_concerning_nudges_to_complicite_when_emotion_neutral(self):
+        from src.regulation.mode_manager import get_mode_manager
+        from src.regulation.emotion_detector import EmotionalState
+        manager = get_mode_manager()
+        state = EmotionalState(emotion="neutral", intensity=0.0, valence="neutral")
+
+        mode = manager.update_from_signals(emotion=state, energy_level="medium", trend_concerning=True)
+
+        assert mode == "complicite"
+
+    def test_resolved_emotion_takes_priority_over_trend(self):
+        """L'instant présent garde priorité sur la tendance — "motivated" résout
+        vers "challenge" même si la tendance des derniers jours est préoccupante."""
+        from src.regulation.mode_manager import get_mode_manager
+        from src.regulation.emotion_detector import EmotionalState
+        manager = get_mode_manager()
+        state = EmotionalState(emotion="motivated", intensity=0.6, valence="positive")
+
+        mode = manager.update_from_signals(emotion=state, energy_level="medium", trend_concerning=True)
+
+        assert mode == "challenge"
+
+    def test_trend_concerning_beats_intent_fallback(self):
+        from src.regulation.mode_manager import get_mode_manager
+        from src.regulation.emotion_detector import EmotionalState
+        manager = get_mode_manager()
+        state = EmotionalState(emotion="neutral", intensity=0.0, valence="neutral")
+
+        mode = manager.update_from_signals(
+            emotion=state, energy_level="medium", intent="organization", trend_concerning=True,
+        )
+
+        assert mode == "complicite"  # pas "focus" (ce que donnerait l'intent seul)
+
+    def test_no_trend_concerning_falls_through_to_intent_as_before(self):
+        from src.regulation.mode_manager import get_mode_manager
+        from src.regulation.emotion_detector import EmotionalState
+        manager = get_mode_manager()
+        state = EmotionalState(emotion="neutral", intensity=0.0, valence="neutral")
+
+        mode = manager.update_from_signals(
+            emotion=state, energy_level="medium", intent="organization", trend_concerning=False,
+        )
+
+        assert mode == "focus"
+
+    def test_protection_still_overrides_trend(self):
+        from src.regulation.mode_manager import get_mode_manager
+        from src.regulation.emotion_detector import EmotionalState
+        manager = get_mode_manager()
+        state = EmotionalState(emotion="distress", intensity=0.9, valence="negative")
+
+        mode = manager.update_from_signals(emotion=state, energy_level="high", trend_concerning=True)
+
+        assert mode == "support"
+
+
 class TestIntentToMode:
     """
     Tests B03.02 — INTENT_TO_MODE couvre le catalogue d'intentions réel
@@ -685,6 +753,21 @@ class TestProtectionGuard:
 class TestWellbeingTracker:
     """Tests B03.05 — Suivi bien-être."""
 
+    @pytest.fixture(autouse=True)
+    def _isolate_wellbeing_file(self, tmp_path, monkeypatch):
+        """
+        Trouvé le 18/08/2026 (session 4) en généralisant le nettoyage de
+        episodes.json/ChromaDB : test_log_and_get_curve() appelait
+        log_wellbeing_point() sans isolation, polluant le vrai
+        data/memory/wellbeing_log.json à chaque run (208 entrées réelles
+        au 18/08, motif suspect mais impossible à distinguer du bruit de
+        test avec certitude — contrairement à episodes.json, le texte
+        source n'est pas conservé dans ce log, donc pas de nettoyage
+        rétroactif tenté ici, seulement la cause corrigée).
+        """
+        import src.regulation.wellbeing_tracker as wellbeing_tracker
+        monkeypatch.setattr(wellbeing_tracker, "_WELLBEING_FILE", tmp_path / "wellbeing_log.json")
+
     def test_analyze_fatigue_high(self):
         from src.regulation.wellbeing_tracker import analyze_wellbeing, is_low_energy
         state = analyze_wellbeing("je suis épuisée, lessivée, vidée")
@@ -737,3 +820,139 @@ class TestWellbeingTracker:
         from src.regulation.wellbeing_tracker import get_daily_energy_summary
         summary = get_daily_energy_summary()
         assert "dominant" in summary
+
+
+class TestEmotionalTrend:
+    """
+    Tests session 4 (18/08/2026) — src/regulation/emotional_trend.py.
+    data/v3/emotion_state.json et relational_state.json (schéma défini le
+    16/07/2026) n'ont jamais été alimentés — ce module construit un vrai
+    suivi, branché sur RegulationEngine (voir TestRegulationEngineTrend).
+    """
+
+    @pytest.fixture(autouse=True)
+    def _isolate_trend_file(self, tmp_path, monkeypatch):
+        import src.regulation.emotional_trend as emotional_trend
+        monkeypatch.setattr(emotional_trend, "_TREND_FILE", tmp_path / "emotion_trend_log.json")
+
+    def test_log_and_get_points_round_trip(self):
+        from src.regulation.emotional_trend import log_emotion_point, get_emotion_points
+        log_emotion_point("stressed", "negative", 0.7)
+        points = get_emotion_points(days=3)
+        assert len(points) == 1
+        assert points[0]["emotion"] == "stressed"
+
+    def test_too_few_points_not_concerning(self):
+        from src.regulation.emotional_trend import log_emotion_point, get_emotion_trend
+        log_emotion_point("stressed", "negative", 0.7)
+        log_emotion_point("sad", "negative", 0.6)
+        trend = get_emotion_trend()
+        assert trend.total_points == 2
+        assert trend.is_concerning is False
+        assert trend.label == "pas assez de données"
+
+    def test_sustained_negative_pattern_is_concerning(self):
+        """Fait-quand du plan : une tendance simulée sur plusieurs jours doit
+        changer le résultat — pas juste 1-2 messages isolés."""
+        from src.regulation.emotional_trend import log_emotion_point, get_emotion_trend
+        for _ in range(4):
+            log_emotion_point("stressed", "negative", 0.7)
+        log_emotion_point("happy", "positive", 0.5)  # 4/5 = 80% négatif
+
+        trend = get_emotion_trend()
+        assert trend.total_points == 5
+        assert trend.negative_ratio == 0.8
+        assert trend.is_concerning is True
+        assert trend.dominant_emotion == "stressed"
+        assert "difficile" in trend.label
+
+    def test_mostly_positive_pattern_is_stable(self):
+        from src.regulation.emotional_trend import log_emotion_point, get_emotion_trend
+        for _ in range(4):
+            log_emotion_point("happy", "positive", 0.5)
+        log_emotion_point("stressed", "negative", 0.7)
+
+        trend = get_emotion_trend()
+        assert trend.is_concerning is False
+        assert trend.label == "stable"
+
+    def test_old_points_excluded_from_window(self):
+        """Un point vieux de 10 jours ne doit pas compter dans une fenêtre de 3 jours."""
+        import json
+        from datetime import datetime, timedelta
+        import src.regulation.emotional_trend as emotional_trend
+        from src.regulation.emotional_trend import log_emotion_point, get_emotion_points
+
+        old_point = {
+            "timestamp": (datetime.now() - timedelta(days=10)).isoformat(),
+            "emotion": "stressed", "valence": "negative", "intensity": 0.7,
+        }
+        emotional_trend._TREND_FILE.write_text(json.dumps([old_point]), encoding="utf-8")
+
+        log_emotion_point("happy", "positive", 0.5)  # point récent
+
+        points = get_emotion_points(days=3)
+        assert len(points) == 1
+        assert points[0]["emotion"] == "happy"
+
+
+class TestRegulationEngineTrend:
+    """
+    Tests session 4 (18/08/2026) — bout-en-bout via RegulationEngine.process()
+    réel (pas mocké), pas juste les unités isolées ci-dessus. C'est le vrai
+    "fait quand" du plan de session : une tendance simulée sur plusieurs
+    jours doit changer le comportement observable (le mode), vérifiable
+    par test, pas seulement en usage manuel.
+    """
+
+    @pytest.fixture(autouse=True)
+    def _isolate(self, tmp_path, monkeypatch):
+        import src.regulation.emotional_trend as emotional_trend
+        import src.regulation.wellbeing_tracker as wellbeing_tracker
+        import src.regulation.mode_manager as mm
+        monkeypatch.setattr(emotional_trend, "_TREND_FILE", tmp_path / "emotion_trend_log.json")
+        # RegulationEngine.process() appelle aussi _run_wellbeing() -> log_wellbeing_point()
+        # (même piège que emotional_trend/episodes.json/ChromaDB) — isolé pareil.
+        monkeypatch.setattr(wellbeing_tracker, "_WELLBEING_FILE", tmp_path / "wellbeing_log.json")
+        mm._mode_manager = None
+
+    def test_sustained_negative_trend_shifts_mode_to_complicite(self):
+        from src.regulation.emotional_trend import log_emotion_point
+        from src.regulation.regulation_engine import RegulationEngine
+
+        # Simule plusieurs jours difficiles (messages stressés espacés dans
+        # le temps) — pas l'instant présent, un vrai historique.
+        for i in range(4):
+            log_emotion_point("stressed", "negative", 0.7)
+
+        engine = RegulationEngine()
+        ctx = engine.process(user_input="montre-moi mes tâches")
+
+        assert ctx.emotion == "neutral"  # l'instant présent, seul, n'aurait rien déclenché
+        assert ctx.emotion_trend_concerning is True
+        assert ctx.mode == "complicite"
+        assert "difficile" in ctx.llm_system_context
+
+    def test_no_history_behaves_like_before(self):
+        """Sans historique (cas majoritaire avant ce chantier), rien ne change."""
+        from src.regulation.regulation_engine import RegulationEngine
+
+        engine = RegulationEngine()
+        ctx = engine.process(user_input="montre-moi mes tâches")
+
+        assert ctx.emotion_trend_concerning is False
+        assert "TENDANCE ÉMOTIONNELLE" not in ctx.llm_system_context
+
+    def test_current_distress_still_overrides_trend_history(self):
+        """Une détresse réelle maintenant reste prioritaire sur l'historique,
+        même si l'historique était plutôt positif — l'instant présent compte."""
+        from src.regulation.emotional_trend import log_emotion_point
+        from src.regulation.regulation_engine import RegulationEngine
+
+        for _ in range(4):
+            log_emotion_point("happy", "positive", 0.5)
+
+        engine = RegulationEngine()
+        ctx = engine.process(user_input="je n'en peux plus, je craque complètement")
+
+        assert ctx.mode == "support"

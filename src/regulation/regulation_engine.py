@@ -86,6 +86,12 @@ class PipelineContext:
     emotion_arousal:  str   = "medium"
     emotion_signals:  list  = field(default_factory=list)
 
+    # ── Tendance émotionnelle (session 4, 18/08/2026) ────
+    # Pas l'instant présent (ci-dessus) mais un motif sur plusieurs jours —
+    # voir src/regulation/emotional_trend.py.
+    emotion_trend_label:      str  = "pas assez de données"
+    emotion_trend_concerning: bool = False
+
     # ── Bien-être (Bloc 03.05) ────────────────────────────
     energy_level:     str   = "medium"
     fatigue_score:    float = 0.0
@@ -301,6 +307,18 @@ class RegulationEngine:
         }
         ctx.emotion_label = _labels.get(state.emotion, state.emotion)
 
+        # Tendance émotionnelle (session 4, 18/08/2026) — journalise ce point
+        # puis résume la fenêtre glissante, indépendamment de l'instant présent
+        # ci-dessus. Best-effort : ne doit jamais faire échouer le pipeline.
+        try:
+            from src.regulation.emotional_trend import log_emotion_point, get_emotion_trend
+            log_emotion_point(state.emotion, state.valence, state.intensity)
+            trend = get_emotion_trend()
+            ctx.emotion_trend_label      = trend.label
+            ctx.emotion_trend_concerning = trend.is_concerning
+        except Exception as e:
+            log_event(f"Erreur tendance émotionnelle : {e}", "WARNING")
+
     def _run_wellbeing(self, ctx: PipelineContext, text: str, time_context: dict | None) -> None:
         try:
             wb_state              = analyze_wellbeing(text, time_context)
@@ -390,6 +408,7 @@ class RegulationEngine:
             # prioritaire.
             self._mode_manager.update_from_signals(
                 emotion=emotion, energy_level=ctx.energy_level, intent=ctx.intent,
+                trend_concerning=ctx.emotion_trend_concerning,
             )
 
         mode_cfg         = self._mode_manager.get_current_config()
@@ -493,6 +512,15 @@ class RegulationEngine:
             }
             detected = [pattern_labels.get(p, p) for p in ctx.cognitive_patterns]
             lines.append(f"Patterns cognitifs actifs : {', '.join(detected)}.")
+
+        if ctx.emotion_trend_concerning:
+            lines.append(
+                f"TENDANCE ÉMOTIONNELLE ({ctx.emotion_trend_label}) : pas l'instant présent, "
+                "mais un motif observé sur plusieurs jours. À utiliser avec discernement — "
+                "tu peux le nommer doucement si c'est vraiment à propos dans cet échange "
+                "(ex. \"tu sembles plus éprouvée que d'habitude ces derniers temps\"), "
+                "jamais comme une affirmation médicale ni de manière insistante ou répétée."
+            )
 
         if ctx.user_mbti:
             mbti_directives = {
