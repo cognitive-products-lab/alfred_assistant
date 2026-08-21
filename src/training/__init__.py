@@ -20,6 +20,11 @@ Catégories du document source et leur état réel dans ce projet :
 
 - instructions/  IMPLÉMENTÉE — src.training.instruction_dataset
 - preferences/   IMPLÉMENTÉE — src.training.preference_dataset
+- golden/        IMPLÉMENTÉE — src.training.golden_dataset +
+                  src.training.evaluation (P2, hors arborescence
+                  ALFRED_DATA du document source section 12, mais même
+                  esprit : jamais mélangé aux datasets d'entraînement,
+                  section 22 — "ne doit pas servir directement à entraîner").
 - knowledge/     déjà couverte par data/knowledge/ (P0, avant ce module) —
                   pas dupliquée ici.
 - gaps/          déjà couverte par data/knowledge/gap_dataset.jsonl (P0) —

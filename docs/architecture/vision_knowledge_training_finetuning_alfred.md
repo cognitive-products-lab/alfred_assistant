@@ -184,6 +184,20 @@ pas après, pour avoir un point de comparaison. Peut se construire en
 parallèle de P1 une fois quelques dizaines de cas représentatifs
 disponibles.
 
+**Réalisé le 21/08/2026** (`src/training/golden_dataset.py`,
+`evaluation.py`) : point de vigilance tenu tout du long de ce chantier —
+n'inventer aucun score sur des dimensions subjectives (qualité, personnalité,
+hallucinations, section 21) sans jugement humain ou modèle d'évaluation.
+Un cas du Golden Dataset porte un `check` déterministe optionnel
+(`contains`/`not_contains`) ; sans `check`, il remonte `pending_review`
+plutôt qu'un faux score. `run_evaluation()` est utilisable **dès
+maintenant**, indépendamment de tout adapter fine-tuné — `responder` est
+n'importe quel callable prompt → réponse, y compris le pipeline ALFRED réel
+actuel, ce qui donne une baseline de non-régression avant même qu'un
+premier adapter existe. Les rapports sont persistés
+(`data/training/golden/evaluation_reports.json`) et directement passables à
+`adapter_registry.record_evaluation()`.
+
 ### P3 — Premier fine-tuning expérimental (LoRA/QLoRA)
 
 Volontairement en dernier, comme dans le document (étape 6 sur 10). Deux
@@ -403,7 +417,7 @@ comme ça a été le cas pour la mesure d'entraînement sur le MS-S1 Max.
 | P0 — Journalisation fallback cloud + Gap Dataset + schéma Knowledge additif + Quality Gate | **Fait** (`gap_dataset.py`, `knowledge_quality_gate.py`, `knowledge_schema.py`, 30 tests, suite complète 1666 verts) — le constat de la section 2.1 décrit l'état *avant* ce commit, volontairement laissé tel quel comme photo du point de départ | `e95a3f87` |
 | P1 — Curation Gap Dataset → fiche knowledge (`knowledge_candidates.py`, `gap_curation.py`) | **Fait** — 15 tests, suite complète 1686 verts | `dd2fda7c` |
 | P1 — Constitution Training Dataset "officielle" (`ALFRED_DATA` = `data/training/`, `dataset_store.py`, `instruction_dataset.py`, `preference_dataset.py`, `training_quality.py`) | **Fait** — `instructions/`/`preferences/` implémentées, `intent/`/`routing/`/`memory/`/`users/` documentées non branchées ; `promote_candidate_to_training_example()` ferme la boucle avec P0 | — |
-| P2 — Golden Dataset + évaluation | Pas commencé | — |
+| P2 — Golden Dataset + évaluation | **Fait** (`golden_dataset.py`, `evaluation.py`) — utilisable dès aujourd'hui sur le pipeline ALFRED réel comme baseline, pas seulement pour comparer de futurs adapters | — |
 | P3 — Adapter registry (bookkeeping) | **Fait** — indépendant du matériel, `adapter_registry.py` | — |
 | P3 — Pipeline LoRA/QLoRA réel | **Non implémenté, volontairement** — contrat figé (`lora_pipeline.py`, `NotImplementedError`), en attente du serveur Phase 2 GPU NVIDIA dédié (section 4.7) ; étude matérielle MS-S1 Max faite le 21/08/2026, conclusion : pas sur ce poste | — |
 | DPO / User Adapter / apprentissage automatisé | Différé, pas de date | — |
