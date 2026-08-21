@@ -1,0 +1,114 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "secteurs_activite.secteur_public.vocabulaire_metier_secteur_public",
+  "title": "Vocabulaire et acronymes métier du secteur public",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "secteurs_activite",
+  "subdomain": "secteur_public",
+  "category": "vocabulaire_metier",
+  "summary": "Lexique des principaux acronymes et termes métier du secteur public français qu'ALFRED doit reconnaître et savoir expliquer en contexte de conseil : DSP, marché public, CCAG/CCTP, PLACE, RGS, SecNumCloud, ANSSI, open data, CADA, EPCI, DGFIP, DGCL.",
+  "purpose": "Permettre à ALFRED CPL de comprendre et d'expliquer immédiatement le jargon administratif employé par les clients du secteur public.",
+  "tags": [
+    "vocabulaire_public",
+    "acronymes_administration",
+    "lexique_collectivites",
+    "jargon_administratif"
+  ],
+  "intents": [
+    "explain_public_sector_acronym",
+    "define_public_sector_term",
+    "translate_public_sector_jargon"
+  ],
+  "usage_context": [
+    "Un utilisateur ou un client emploie un acronyme du secteur public sans le définir",
+    "Besoin de traduire un terme administratif en langage clair",
+    "Préparation d'un échange avec un client du secteur public"
+  ],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "Vocabulaire de référence du secteur public français, centré sur les termes administratifs, budgétaires et de commande publique les plus fréquemment utilisés par les acteurs de ce secteur.",
+    "core_principles": [
+      "DSP (Délégation de Service Public) : contrat par lequel une collectivité confie la gestion d'un service public à un opérateur privé ou public, en contrepartie d'une rémunération liée aux résultats de l'exploitation.",
+      "Marché public : contrat conclu par un acheteur public pour répondre à ses besoins en travaux, fournitures ou services, selon une procédure encadrée par le code de la commande publique.",
+      "CCAG / CCTP (Cahier des Clauses Administratives/Techniques Générales/Particulières) : documents contractuels standards ou spécifiques qui encadrent l'exécution d'un marché public.",
+      "PLACE (Plateforme des Achats de l'État) : plateforme de dématérialisation des procédures de marché public utilisée par de nombreuses administrations françaises.",
+      "RGS (Référentiel Général de Sécurité) et SecNumCloud : voir la fiche normes_reglementation_secteur_public pour le détail de ces cadres de sécurité pilotés par l'ANSSI (Agence Nationale de la Sécurité des Systèmes d'Information).",
+      "Open data : politique d'ouverture et de mise à disposition gratuite des données publiques, encadrée par la loi République numérique et la CADA (Commission d'Accès aux Documents Administratifs).",
+      "EPCI (Établissement Public de Coopération Intercommunale) : structure regroupant plusieurs communes pour exercer en commun certaines compétences (ex. communauté de communes, communauté d'agglomération, métropole).",
+      "DGFIP (Direction Générale des Finances Publiques) et DGCL (Direction Générale des Collectivités Locales) : administrations centrales pilotant respectivement la fiscalité/comptabilité publique et l'accompagnement des collectivités territoriales."
+    ],
+    "rules": [
+      "Toujours donner la signification complète de l'acronyme avant de l'utiliser à nouveau dans une réponse.",
+      "Préciser le niveau administratif concerné (État, région, département, commune, EPCI) pour éviter toute confusion de compétence.",
+      "Ne pas confondre marché public et DSP, deux modes de contractualisation publique distincts avec des logiques juridiques différentes."
+    ],
+    "examples": [
+      {
+        "situation": "Un client mentionne qu'il doit publier son projet sur PLACE et s'interroge sur la démarche.",
+        "recommended_behavior": "Expliquer que PLACE est la plateforme de dématérialisation des marchés publics de l'État, et orienter vers les seuils et procédures applicables selon le montant du marché.",
+        "avoid": "Répondre sans expliciter ce qu'est PLACE, en laissant le terme non défini dans la réponse."
+      }
+    ],
+    "best_practices": [
+      "Toujours vulgariser un acronyme du secteur public à la première occurrence dans une réponse, même si l'utilisateur semble déjà le connaître.",
+      "Relier chaque terme à son impact concret sur la procédure administrative pour rester utile en contexte de conseil.",
+      "Renvoyer vers secteurs_activite.secteur_public.normes_reglementation_secteur_public pour les cadres réglementaires détaillés plutôt que de les redévelopper ici."
+    ],
+    "anti_patterns": [
+      "Utiliser un acronyme du secteur public sans le définir, ce qui nuit à la clarté pour un utilisateur non spécialiste.",
+      "Confondre des acronymes proches mais distincts (ex. DSP et marché public, EPCI et commune) sans vérifier leur définition exacte.",
+      "Redévelopper en détail les cadres réglementaires déjà couverts par la fiche dédiée plutôt que d'y renvoyer."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "DSP",
+      "marché public",
+      "CCAG",
+      "PLACE",
+      "RGS",
+      "open data",
+      "EPCI",
+      "DGFIP"
+    ],
+    "related_domains": [
+      "secteurs_activite",
+      "governance",
+      "juridique_contrats"
+    ],
+    "related_knowledge": [
+      "secteurs_activite.secteur_public.profil_secteur_secteur_public",
+      "secteurs_activite.secteur_public.normes_reglementation_secteur_public",
+      "governance.public.public_governance"
+    ],
+    "retrieval_priority": 6
+  },
+  "behavior_rules": {
+    "tone": "educational",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "Explication de vocabulaire administratif du secteur public"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "Pour un terme très spécifique à une collectivité ou une administration précise, indiquer les limites de la connaissance générique disponible."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "20/08/2026",
+    "last_update": "20/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

@@ -1,0 +1,123 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "secteurs_activite.finance_banque.normes_reglementation_finance_banque",
+  "title": "Normes et réglementations spécifiques au secteur finance/banque (angle sectoriel complémentaire)",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "secteurs_activite",
+  "subdomain": "finance_banque",
+  "category": "normes_reglementation",
+  "summary": "Cadres réglementaires spécifiquement sectoriels de la finance/banque utiles pour du conseil, complémentaires aux fiches génériques déjà existantes (Bâle III, MiFID II, AML/KYC, SOX) : DSP2/Open Banking, agrément établissement de paiement, supervision ACPR/AMF, reporting prudentiel COREP/FINREP, DORA appliqué au secteur financier, stress tests EBA.",
+  "purpose": "Donner à ALFRED CPL le cadre réglementaire opérationnel propre au secteur finance/banque pour cadrer une mission de conseil, sans dupliquer les fiches génériques déjà présentes dans regulation.banking, regulation.financial et compliance.financial.",
+  "tags": [
+    "reglementation_bancaire",
+    "dsp2",
+    "open_banking",
+    "acpr",
+    "dora_finance",
+    "stress_test"
+  ],
+  "intents": [
+    "explain_banking_sector_regulation",
+    "explain_dsp2_open_banking",
+    "explain_acpr_supervision",
+    "explain_dora_financial_sector"
+  ],
+  "usage_context": [
+    "Cadrage réglementaire d'une mission de conseil pour une banque ou une fintech",
+    "Question sur l'Open Banking et les API de paiement",
+    "Question sur la supervision prudentielle ACPR/AMF ou la résilience numérique DORA appliquée à la finance"
+  ],
+  "priority": "high",
+  "safety_level": "sensitive",
+  "content": {
+    "definition": "Au-delà des réglementations génériques déjà couvertes ailleurs dans la base ALFRED (Bâle III/IV — regulation.banking.banking_regulation_bale, réglementation financière générale — regulation.financial.financial_regulation_basics, MiFID II et AML/KYC — compliance.financial), le secteur finance/banque impose des cadres opérationnels spécifiques qui structurent directement les projets de transformation : la DSP2 et l'Open Banking, l'agrément des établissements de paiement, la supervision duale ACPR/AMF, le reporting prudentiel réglementaire (COREP/FINREP), le règlement DORA appliqué concrètement au secteur financier, et les stress tests de l'Autorité Bancaire Européenne (EBA).",
+    "core_principles": [
+      "La DSP2 (Directive sur les Services de Paiement 2) impose l'ouverture des données bancaires via des API sécurisées (Open Banking) aux acteurs tiers agréés, avec authentification forte du client (DSP2 SCA) — c'est le socle réglementaire de toute stratégie fintech de paiement ou d'agrégation de comptes.",
+      "Tout acteur souhaitant fournir des services de paiement doit obtenir un agrément d'établissement de paiement ou d'établissement de monnaie électronique (EME) auprès de l'ACPR, ou opérer sous le statut d'agent d'un établissement déjà agréé.",
+      "La supervision prudentielle française est duale : l'ACPR contrôle la solidité financière et la conformité des banques et assureurs, l'AMF supervise les marchés financiers, les sociétés de gestion et la protection des investisseurs.",
+      "Le reporting prudentiel réglementaire (COREP pour les fonds propres, FINREP pour les états financiers) est une obligation périodique lourde qui structure les systèmes d'information réglementaires des établissements bancaires.",
+      "Le règlement DORA (Digital Operational Resilience Act), déjà couvert de façon générique dans reglementation_numerique, s'applique de façon particulièrement stricte au secteur financier : gestion des risques liés aux prestataires informatiques tiers critiques, tests de résilience opérationnelle numérique, obligation de déclaration d'incidents majeurs à l'ACPR.",
+      "Les stress tests de l'Autorité Bancaire Européenne (EBA), menés périodiquement, évaluent la résistance des grandes banques européennes à des scénarios de crise économique et conditionnent leurs exigences de fonds propres additionnels (Pilier 2)."
+    ],
+    "rules": [
+      "Avant de traiter un sujet Bâle III/IV, MiFID II ou AML/KYC déjà couvert par regulation.banking/regulation.financial/compliance.financial, renvoyer vers ces fiches plutôt que de dupliquer leur contenu.",
+      "Toujours vérifier si un projet fintech/paiement nécessite un agrément ACPR (établissement de paiement/EME) avant de proposer un plan de développement.",
+      "Pour tout projet impliquant un prestataire informatique tiers dans une banque, systématiquement évoquer les obligations DORA de gestion du risque tiers critique."
+    ],
+    "examples": [
+      {
+        "situation": "Un client fintech d'ALFRED CPL veut lancer un service d'agrégation de comptes bancaires.",
+        "recommended_behavior": "Rappeler que ce service relève de la DSP2 (statut d'agrégateur/PISP-AISP) et nécessite un agrément ou un enregistrement ACPR avant tout lancement commercial.",
+        "avoid": "Analyser uniquement l'expérience utilisateur du service sans mentionner le cadre réglementaire d'agrément qui conditionne sa légalité."
+      }
+    ],
+    "best_practices": [
+      "Toujours distinguer la réglementation prudentielle générique (déjà couverte ailleurs) de la réglementation opérationnelle sectorielle propre à ce fichier.",
+      "Mentionner systématiquement la supervision duale ACPR/AMF pour situer correctement le régulateur compétent selon le sujet traité.",
+      "Pour tout projet numérique bancaire, vérifier l'impact de DORA sur la gestion des prestataires informatiques tiers avant de proposer une architecture."
+    ],
+    "anti_patterns": [
+      "Redonner le détail de Bâle III/IV ou de MiFID II, déjà couverts par regulation.banking et compliance.financial, au lieu de renvoyer vers ces fiches.",
+      "Ignorer l'obligation d'agrément ACPR pour un projet de paiement ou d'agrégation, ce qui expose le client à un risque juridique majeur.",
+      "Confondre le rôle de l'ACPR (supervision prudentielle) et celui de l'AMF (supervision des marchés) dans une réponse."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "DSP2",
+      "Open Banking",
+      "ACPR",
+      "AMF",
+      "COREP FINREP",
+      "DORA finance",
+      "stress test EBA"
+    ],
+    "related_domains": [
+      "secteurs_activite",
+      "regulation",
+      "compliance",
+      "reglementation_numerique"
+    ],
+    "related_knowledge": [
+      "regulation.banking.banking_regulation_bale",
+      "regulation.financial.financial_regulation_basics",
+      "compliance.financial.financial_compliance_mifid",
+      "compliance.financial.aml_kyc_compliance",
+      "reglementation_numerique.fondamentaux.reglementation_numerique_fondamentaux",
+      "secteurs_activite.finance_banque.profil_secteur_finance_banque"
+    ],
+    "retrieval_priority": 8
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "high",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "Explication du cadre réglementaire opérationnel du secteur finance/banque"
+    ],
+    "restricted_usage": [
+      "Interprétation de la conformité réglementaire d'un cas client précis, à confirmer par un juriste ou un référent conformité spécialisé"
+    ],
+    "forbidden_usage": [
+      "Avis juridique engageant",
+      "Conseil en investissement personnalisé"
+    ],
+    "fallback_behavior": "Pour toute application concrète à un cas précis, recommander la validation par un juriste spécialisé finance/banque ou le référent conformité de l'établissement."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "20/08/2026",
+    "last_update": "20/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

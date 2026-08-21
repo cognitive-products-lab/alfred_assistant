@@ -1,0 +1,114 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "secteurs_activite.energie.vocabulaire_metier_energie",
+  "title": "Vocabulaire et acronymes métier du secteur de l'énergie",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "secteurs_activite",
+  "subdomain": "energie",
+  "category": "vocabulaire_metier",
+  "summary": "Lexique des principaux acronymes et termes métier du secteur énergie qu'ALFRED doit reconnaître et savoir expliquer en contexte de conseil : CRE, TURPE, RTE, ENEDIS, CEE, ARENH, EU ETS, OIV, mix énergétique, MWh, effacement, autoconsommation, ENR.",
+  "purpose": "Permettre à ALFRED CPL de comprendre et d'expliquer immédiatement le jargon technique et réglementaire employé par les clients du secteur énergie.",
+  "tags": [
+    "vocabulaire_energie",
+    "acronymes_energie",
+    "lexique_electricite",
+    "jargon_reseau_energetique"
+  ],
+  "intents": [
+    "explain_energy_acronym",
+    "define_energy_sector_term",
+    "translate_energy_jargon"
+  ],
+  "usage_context": [
+    "Un utilisateur ou un client emploie un acronyme du secteur énergie sans le définir",
+    "Besoin de traduire un terme technique énergétique en langage clair",
+    "Préparation d'un échange avec un client du secteur énergie"
+  ],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "Vocabulaire de référence du secteur énergie, centré sur les termes réglementaires, techniques et de marché les plus fréquemment utilisés par les acteurs de ce secteur.",
+    "core_principles": [
+      "CRE (Commission de Régulation de l'Énergie) : régulateur français des marchés de l'électricité et du gaz, fixant notamment le TURPE (tarif d'utilisation des réseaux publics d'électricité).",
+      "RTE (Réseau de Transport d'Électricité) et ENEDIS : gestionnaires respectifs du réseau de transport haute tension et du réseau de distribution basse/moyenne tension en France.",
+      "CEE (Certificats d'Économies d'Énergie) et ARENH (Accès Régulé à l'Électricité Nucléaire Historique) : voir la fiche normes_reglementation_energie pour le détail de ces dispositifs.",
+      "EU ETS (European Union Emissions Trading System) : système européen d'échange de quotas d'émission de CO2, applicable aux installations industrielles et énergétiques les plus émettrices.",
+      "OIV (Opérateur d'Importance Vitale) : statut réglementaire attribué aux infrastructures critiques (dont de nombreux sites énergétiques), impliquant des obligations renforcées de sécurité.",
+      "Mix énergétique : répartition des différentes sources d'énergie (nucléaire, renouvelable, fossile) dans la production totale d'un pays ou d'un territoire.",
+      "MWh (mégawattheure) : unité de mesure de l'énergie électrique consommée ou produite, base de facturation et de reporting du secteur.",
+      "Effacement : réduction volontaire et temporaire de la consommation électrique d'un site en période de tension sur le réseau, en contrepartie d'une rémunération.",
+      "Autoconsommation : production et consommation de sa propre électricité par un même site (particulier ou entreprise), typiquement via des panneaux solaires.",
+      "ENR (Énergies Renouvelables) : ensemble des sources d'énergie renouvelables (éolien, solaire, hydraulique, biomasse), au cœur de la transition énergétique."
+    ],
+    "rules": [
+      "Toujours donner la signification complète de l'acronyme avant de l'utiliser à nouveau dans une réponse.",
+      "Préciser le niveau d'acteur concerné (régulateur, gestionnaire de réseau, producteur, fournisseur) pour éviter toute confusion de compétence.",
+      "Ne pas confondre RTE et ENEDIS, deux gestionnaires de réseau distincts opérant à des niveaux de tension différents."
+    ],
+    "examples": [
+      {
+        "situation": "Un client mentionne vouloir proposer une offre d'effacement à ses clients industriels et s'interroge sur le concept.",
+        "recommended_behavior": "Expliquer que l'effacement consiste à réduire volontairement sa consommation électrique en période de tension réseau contre rémunération, et orienter vers les mécanismes de marché associés.",
+        "avoid": "Répondre sans expliciter ce qu'est l'effacement, en laissant le terme non défini dans la réponse."
+      }
+    ],
+    "best_practices": [
+      "Toujours vulgariser un acronyme énergétique à la première occurrence dans une réponse, même si l'utilisateur semble déjà le connaître.",
+      "Relier chaque terme à son impact concret sur l'activité ou la stratégie du client pour rester utile en contexte de conseil.",
+      "Renvoyer vers secteurs_activite.energie.normes_reglementation_energie pour les dispositifs réglementaires détaillés plutôt que de les redévelopper ici."
+    ],
+    "anti_patterns": [
+      "Utiliser un acronyme énergétique sans le définir, ce qui nuit à la clarté pour un utilisateur non spécialiste.",
+      "Confondre des termes proches mais distincts (ex. effacement et autoconsommation) sans vérifier leur définition exacte.",
+      "Redévelopper en détail les dispositifs réglementaires déjà couverts par la fiche dédiée plutôt que d'y renvoyer."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "CRE",
+      "TURPE",
+      "RTE",
+      "ENEDIS",
+      "mix énergétique",
+      "effacement",
+      "autoconsommation",
+      "ENR"
+    ],
+    "related_domains": [
+      "secteurs_activite",
+      "regulation"
+    ],
+    "related_knowledge": [
+      "secteurs_activite.energie.profil_secteur_energie",
+      "secteurs_activite.energie.normes_reglementation_energie"
+    ],
+    "retrieval_priority": 6
+  },
+  "behavior_rules": {
+    "tone": "educational",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "Explication de vocabulaire technique et réglementaire du secteur énergie"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "Pour un terme technique très pointu propre à une technologie énergétique spécifique, recommander la consultation d'un expert technique du domaine."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "20/08/2026",
+    "last_update": "20/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

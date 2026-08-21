@@ -1,0 +1,114 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "secteurs_activite.industrie_manufacturiere.profil_secteur_industrie_manufacturiere",
+  "title": "Profil du secteur industrie manufacturière",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "secteurs_activite",
+  "subdomain": "industrie_manufacturiere",
+  "category": "profil_secteur",
+  "summary": "Vue d'ensemble organisationnelle et économique du secteur industriel manufacturier : chaîne de valeur (R&D, approvisionnement, production, qualité, logistique, SAV), acteurs types (donneurs d'ordre, sous-traitants de rang 1/2/3) et enjeux économiques structurants, pour donner à ALFRED CPL un contexte rapide sur un client industriel.",
+  "purpose": "Permettre à ALFRED CPL de comprendre rapidement le contexte d'un client industriel (donneur d'ordre, sous-traitant, PME manufacturière) pour mieux cadrer une mission de conseil.",
+  "tags": [
+    "secteur_industrie",
+    "profil_sectoriel",
+    "chaine_appro_industrielle",
+    "manufacturing",
+    "sous_traitance"
+  ],
+  "intents": [
+    "explain_manufacturing_sector_context",
+    "describe_manufacturing_value_chain",
+    "identify_manufacturing_sector_stakeholders"
+  ],
+  "usage_context": [
+    "Préparation d'une mission de conseil ALFRED CPL pour un client industriel",
+    "Besoin de contexte rapide sur un donneur d'ordre ou un sous-traitant industriel",
+    "Compréhension des contraintes économiques et de chaîne d'approvisionnement avant une recommandation"
+  ],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "Le secteur industrie manufacturière regroupe les organisations qui conçoivent, fabriquent et distribuent des produits physiques, depuis la R&D jusqu'au service après-vente, en s'appuyant sur des chaînes d'approvisionnement souvent mondialisées et des réseaux de sous-traitance à plusieurs niveaux (rangs 1, 2, 3).",
+    "core_principles": [
+      "La chaîne de valeur industrielle type comprend : la R&D et conception produit, l'approvisionnement en matières premières et composants, la production/fabrication, le contrôle qualité, la logistique/distribution, et le service après-vente.",
+      "Les acteurs types incluent : donneurs d'ordre (grands groupes intégrateurs, ex. automobile, aéronautique), sous-traitants de rang 1 (fournisseurs directs de sous-ensembles), rang 2 et 3 (fournisseurs de composants élémentaires), syndicats professionnels sectoriels (ex. UIMM pour la métallurgie, GIFAS pour l'aéronautique), et organismes de certification qualité.",
+      "La compétitivité du secteur repose largement sur la maîtrise des coûts (main d'œuvre, énergie, matières premières) face à une concurrence internationale forte, notamment des pays à coûts de production plus bas.",
+      "Les politiques de réindustrialisation (ex. France 2030) et de souveraineté industrielle ont renforcé l'attention politique et le soutien financier public à certains segments jugés stratégiques (semi-conducteurs, batteries, défense).",
+      "La dépendance aux chaînes d'approvisionnement mondialisées expose fortement le secteur aux chocs géopolitiques et aux pénuries de composants (ex. crise des semi-conducteurs)."
+    ],
+    "rules": [
+      "Toujours situer un client industriel dans sa position au sein de la chaîne d'approvisionnement (donneur d'ordre, rang 1, rang 2/3) avant de généraliser, les enjeux et marges de manœuvre diffèrent fortement.",
+      "Prendre en compte la dépendance aux matières premières et composants critiques comme facteur quasi systématique des décisions stratégiques industrielles.",
+      "Distinguer les logiques d'un secteur industriel réglementé (aéronautique, automobile, pharmaceutique) d'un secteur industriel généraliste moins contraint."
+    ],
+    "examples": [
+      {
+        "situation": "Un client d'ALFRED CPL est une PME sous-traitante de rang 2 dans l'automobile qui souhaite diversifier sa clientèle.",
+        "recommended_behavior": "Situer le contexte : forte dépendance à quelques donneurs d'ordre, marges contraintes, exigences qualité (IATF 16949) imposées en cascade, avant de proposer une trajectoire de diversification réaliste.",
+        "avoid": "Traiter la PME comme un acteur totalement autonome sans tenir compte de sa dépendance structurelle à ses donneurs d'ordre."
+      }
+    ],
+    "best_practices": [
+      "Toujours croiser le profil sectoriel avec les fiches complémentaires du secteur (normes_reglementation, enjeux_risques, vocabulaire_metier) pour construire une vision complète avant une recommandation.",
+      "Mentionner explicitement la position dans la chaîne d'approvisionnement (rang) comme facteur déterminant de la marge de manœuvre stratégique du client.",
+      "Distinguer clairement les logiques d'un grand groupe industriel intégrateur et d'une PME sous-traitante, qui n'ont ni le même pouvoir de négociation ni la même exposition au risque."
+    ],
+    "anti_patterns": [
+      "Confondre systématiquement donneur d'ordre et sous-traitant alors que leurs enjeux économiques et leur pouvoir de négociation sont très différents.",
+      "Ignorer la dépendance aux chaînes d'approvisionnement mondiales en recommandant une stratégie sans tenir compte des risques géopolitiques et de pénurie.",
+      "Traiter tous les secteurs industriels comme équivalents alors que le niveau de réglementation varie fortement (aéronautique très réglementé vs. industrie généraliste moins contrainte)."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "secteur industriel",
+      "chaîne de valeur industrielle",
+      "sous-traitance",
+      "donneur d'ordre",
+      "réindustrialisation",
+      "chaîne d'approvisionnement"
+    ],
+    "related_domains": [
+      "secteurs_activite",
+      "quality_management",
+      "risk_management"
+    ],
+    "related_knowledge": [
+      "secteurs_activite.industrie_manufacturiere.normes_reglementation_industrie_manufacturiere",
+      "secteurs_activite.industrie_manufacturiere.enjeux_risques_industrie_manufacturiere",
+      "secteurs_activite.industrie_manufacturiere.vocabulaire_metier_industrie_manufacturiere",
+      "secteurs_activite.industrie_manufacturiere.pestel_industrie_manufacturiere",
+      "quality_management.lean.lean_management"
+    ],
+    "retrieval_priority": 7
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "Contextualisation organisationnelle, économique et industrielle d'un client de ce secteur pour du conseil"
+    ],
+    "restricted_usage": [
+      "Analyse comparative de la performance industrielle d'acteurs, à limiter à des indicateurs publics"
+    ],
+    "forbidden_usage": [],
+    "fallback_behavior": "En cas de question technique très spécialisée (process de fabrication précis), recommander la consultation d'un expert technique du domaine concerné."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "20/08/2026",
+    "last_update": "20/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

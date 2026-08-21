@@ -1,0 +1,121 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "secteurs_activite.sante.normes_reglementation_sante",
+  "title": "Normes et réglementations spécifiques au secteur santé (angle organisationnel)",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "secteurs_activite",
+  "subdomain": "sante",
+  "category": "normes_reglementation",
+  "summary": "Cadres réglementaires et normatifs spécifiquement sectoriels de la santé qui structurent les projets de transformation organisationnelle et numérique : Ségur du numérique en santé, interopérabilité CI-SIS, Identifiant National de Santé (INS), Mon espace santé/DMP, ANS, cycle de certification HAS, Groupements Hospitaliers de Territoire (GHT). Complète, sans les redupliquer, les fiches génériques déjà couvertes ailleurs (AMM, MDR/IVDR, HDS, HIPAA, GxP).",
+  "purpose": "Donner à ALFRED CPL le cadre réglementaire opérationnel propre au secteur santé pour cadrer une mission de conseil (organisation, transformation numérique, gouvernance), sans dupliquer les fiches génériques de réglementation santé déjà existantes dans regulation.health et compliance.health.",
+  "tags": [
+    "reglementation_sante",
+    "segur_numerique",
+    "ci_sis",
+    "certification_has",
+    "ght",
+    "interoperabilite_sante"
+  ],
+  "intents": [
+    "explain_healthcare_sector_regulation",
+    "explain_segur_numerique_sante",
+    "explain_ght_governance",
+    "explain_has_certification_cycle"
+  ],
+  "usage_context": [
+    "Cadrage réglementaire d'une mission de conseil pour un établissement de santé ou un éditeur e-santé",
+    "Question sur l'interopérabilité des systèmes d'information de santé",
+    "Question sur le fonctionnement d'un Groupement Hospitalier de Territoire"
+  ],
+  "priority": "high",
+  "safety_level": "sensitive",
+  "content": {
+    "definition": "Au-delà des réglementations génériques déjà couvertes ailleurs dans la base ALFRED (AMM/EMA/ANSM, MDR/IVDR, HDS, certification HAS des établissements, HIPAA, GxP — voir regulation.health.health_regulation et compliance.health.healthcare_compliance), le secteur santé impose un ensemble de cadres organisationnels et numériques spécifiques qui conditionnent directement les projets de transformation : le programme Ségur du numérique en santé et son socle d'interopérabilité (CI-SIS), l'Identifiant National de Santé (INS), le service Mon espace santé (ex-DMP), le rôle de l'Agence du Numérique en Santé (ANS), le cycle de certification HAS des établissements, et l'organisation territoriale imposée par les Groupements Hospitaliers de Territoire (GHT).",
+    "core_principles": [
+      "Le Cadre d'Interopérabilité des Systèmes d'Information de Santé (CI-SIS), piloté par l'ANS, impose des standards d'échange (formats, terminologies) entre logiciels de santé : tout projet numérique santé doit s'y conformer pour être finançable et raccordable aux services nationaux.",
+      "L'Identifiant National de Santé (INS) est l'identifiant pivot unique utilisé pour fiabiliser le partage de données de santé entre professionnels et structures ; sa vérification (via le téléservice INSi) est une obligation réglementaire pour les logiciels métier santé depuis le Ségur.",
+      "Mon espace santé (ex-Dossier Médical Partagé) est l'espace numérique de santé de référence pour chaque usager en France ; son alimentation et son interfaçage conditionnent une part croissante du financement des logiciels de santé (référencement Ségur).",
+      "L'Agence du Numérique en Santé (ANS) fixe la doctrine technique nationale (référentiels, labellisations Ségur) et conditionne le financement de nombreux projets numériques santé à leur conformité.",
+      "Le cycle de certification HAS des établissements de santé (visite tous les 4 ans, note synthétique, indicateurs qualité et sécurité des soins — IQSS) structure fortement les feuilles de route qualité et organisationnelles des établissements, indépendamment du contenu clinique évalué.",
+      "Les Groupements Hospitaliers de Territoire (GHT) imposent, depuis la loi de modernisation du système de santé, une convergence progressive des systèmes d'information et des fonctions support entre établissements publics d'un même territoire (projet médical partagé), ce qui complexifie la gouvernance de tout projet transverse."
+    ],
+    "rules": [
+      "Avant de traiter un sujet de réglementation médicament, dispositif médical, données de santé (HDS) ou conformité HIPAA/GxP, renvoyer vers les fiches génériques déjà existantes (regulation.health.health_regulation, compliance.health.healthcare_compliance) plutôt que de dupliquer leur contenu.",
+      "Toujours vérifier si un projet numérique santé est concerné par le CI-SIS/l'INS avant de proposer une architecture ou un calendrier, ces obligations conditionnent souvent le financement.",
+      "Pour un établissement public de santé, systématiquement situer le projet dans le contexte du GHT auquel il appartient : gouvernance, mutualisation des SI, projet médical partagé."
+    ],
+    "examples": [
+      {
+        "situation": "Un éditeur e-santé client d'ALFRED CPL veut lancer un nouveau module de coordination de soins.",
+        "recommended_behavior": "Rappeler que la conformité au CI-SIS et la vérification INS via l'INSi sont des prérequis réglementaires et souvent des conditions de financement (référencement Ségur), avant toute autre recommandation produit.",
+        "avoid": "Analyser uniquement les fonctionnalités métier du module sans mentionner les obligations d'interopérabilité et d'identification qui conditionnent son déploiement réel."
+      }
+    ],
+    "best_practices": [
+      "Toujours distinguer la réglementation générique du produit de santé (déjà couverte ailleurs) de la réglementation organisationnelle/numérique sectorielle propre à ce fichier.",
+      "Mentionner systématiquement le rôle de l'ANS comme point de référence doctrinal national pour tout projet numérique santé.",
+      "Pour un établissement public, toujours vérifier l'impact du GHT sur la gouvernance du projet avant de proposer un calendrier ou une organisation de mission."
+    ],
+    "anti_patterns": [
+      "Redonner le détail de la certification HDS, du MDR/IVDR ou de la loi Bertrand, déjà couverts par regulation.health et compliance.health, au lieu de renvoyer vers ces fiches.",
+      "Ignorer le CI-SIS et l'INS lors de la conception d'un projet numérique santé, ce qui expose le client à un rejet de financement ou à une non-conformité.",
+      "Traiter un établissement public comme totalement autonome dans ses décisions SI sans tenir compte de la gouvernance GHT."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "Ségur numérique santé",
+      "CI-SIS",
+      "INS",
+      "Mon espace santé",
+      "ANS",
+      "certification HAS",
+      "GHT"
+    ],
+    "related_domains": [
+      "secteurs_activite",
+      "regulation",
+      "compliance",
+      "medecine"
+    ],
+    "related_knowledge": [
+      "regulation.health.health_regulation",
+      "compliance.health.healthcare_compliance",
+      "secteurs_activite.sante.profil_secteur_sante",
+      "secteurs_activite.sante.enjeux_risques_sante"
+    ],
+    "retrieval_priority": 8
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "high",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "Explication du cadre réglementaire organisationnel et numérique du secteur santé"
+    ],
+    "restricted_usage": [
+      "Interprétation de la conformité réglementaire d'un cas client précis, à confirmer par un juriste ou un référent conformité spécialisé"
+    ],
+    "forbidden_usage": [
+      "Diagnostic médical",
+      "Avis juridique engageant"
+    ],
+    "fallback_behavior": "Pour toute application concrète à un cas précis, recommander la validation par un juriste spécialisé santé ou le référent conformité de l'établissement."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "20/08/2026",
+    "last_update": "20/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

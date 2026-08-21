@@ -1,0 +1,119 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "secteurs_activite.finance_banque.vocabulaire_metier_finance_banque",
+  "title": "Vocabulaire et acronymes métier du secteur finance/banque",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "secteurs_activite",
+  "subdomain": "finance_banque",
+  "category": "vocabulaire_metier",
+  "summary": "Lexique des principaux acronymes et termes métier du secteur finance/banque qu'ALFRED doit reconnaître et savoir expliquer en contexte de conseil : CET1, LCR, NSFR, KYC, AML, DSP2, Open Banking, ACPR, AMF, ORIAS, FGDR, RWA, stress test.",
+  "purpose": "Permettre à ALFRED CPL de comprendre et d'expliquer immédiatement le jargon réglementaire et financier employé par les clients du secteur finance/banque.",
+  "tags": [
+    "vocabulaire_bancaire",
+    "acronymes_finance",
+    "lexique_reglementaire_bancaire",
+    "jargon_finance"
+  ],
+  "intents": [
+    "explain_banking_acronym",
+    "define_banking_sector_term",
+    "translate_banking_jargon"
+  ],
+  "usage_context": [
+    "Un utilisateur ou un client emploie un acronyme du secteur finance/banque sans le définir",
+    "Besoin de traduire un terme réglementaire bancaire en langage clair",
+    "Préparation d'un échange avec un client du secteur finance/banque"
+  ],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "Vocabulaire de référence du secteur finance/banque, centré sur les termes réglementaires, prudentiels et opérationnels les plus fréquemment utilisés par les acteurs de ce secteur.",
+    "core_principles": [
+      "CET1 (Common Equity Tier 1) : ratio de fonds propres de meilleure qualité qu'une banque doit détenir par rapport à ses actifs pondérés du risque, pilier central de Bâle III/IV.",
+      "LCR (Liquidity Coverage Ratio) et NSFR (Net Stable Funding Ratio) : ratios de liquidité imposés par Bâle III pour s'assurer qu'une banque peut faire face à ses engagements à court et moyen terme.",
+      "KYC (Know Your Customer) et AML (Anti-Money Laundering) : procédures d'identification du client et de lutte contre le blanchiment d'argent, obligatoires pour toute entrée en relation bancaire.",
+      "DSP2 (Directive sur les Services de Paiement 2) et Open Banking : cadre réglementaire imposant l'ouverture des données bancaires via API à des acteurs tiers agréés (agrégateurs, initiateurs de paiement).",
+      "ACPR (Autorité de Contrôle Prudentiel et de Résolution) : régulateur français de la solidité financière des banques et assurances ; AMF (Autorité des Marchés Financiers) : régulateur des marchés et de la protection des investisseurs.",
+      "ORIAS (Organisme pour le Registre des Intermédiaires en Assurance) : registre national des intermédiaires en assurance, banque et finance, dont l'immatriculation conditionne l'exercice légal de certaines activités.",
+      "FGDR (Fonds de Garantie des Dépôts et de Résolution) : mécanisme garantissant les dépôts bancaires des clients jusqu'à un plafond réglementaire en cas de défaillance d'un établissement.",
+      "RWA (Risk-Weighted Assets, actifs pondérés du risque) : montant des actifs bancaires ajusté selon leur niveau de risque, base de calcul des exigences de fonds propres réglementaires.",
+      "Stress test : exercice de simulation de crise (économique, financière) mené périodiquement par les régulateurs (EBA au niveau européen) pour évaluer la résistance des établissements financiers."
+    ],
+    "rules": [
+      "Toujours donner la signification complète de l'acronyme avant de l'utiliser à nouveau dans une réponse.",
+      "Préciser le niveau de régulateur concerné (national ACPR/AMF, européen BCE/EBA) pour éviter toute confusion de compétence.",
+      "Ne pas confondre des acronymes proches mais distincts (ex. LCR et NSFR, KYC et AML) sans vérifier leur définition exacte."
+    ],
+    "examples": [
+      {
+        "situation": "Un client mentionne que sa fintech doit respecter la DSP2 et s'inquiète de ce que cela implique.",
+        "recommended_behavior": "Expliquer que la DSP2 impose l'authentification forte du client et l'ouverture sécurisée des données bancaires via API à des tiers agréés, ce qui structure l'architecture technique et le parcours utilisateur du produit.",
+        "avoid": "Répondre sans expliciter ce qu'est la DSP2, en laissant le terme non défini dans la réponse."
+      }
+    ],
+    "best_practices": [
+      "Toujours vulgariser un acronyme bancaire à la première occurrence dans une réponse, même si l'utilisateur semble déjà le connaître.",
+      "Relier chaque terme à son impact concret sur l'organisation ou la stratégie pour rester utile en contexte de conseil.",
+      "Mettre à jour ce lexique si de nouveaux dispositifs réglementaires bancaires émergent."
+    ],
+    "anti_patterns": [
+      "Utiliser un acronyme bancaire sans le définir, ce qui nuit à la clarté pour un utilisateur non spécialiste.",
+      "Confondre des acronymes proches mais distincts (ex. CET1 et RWA) sans vérifier leur définition exacte.",
+      "Employer ce lexique pour formuler un avis d'investissement plutôt qu'une simple explication terminologique."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "CET1",
+      "LCR",
+      "NSFR",
+      "KYC",
+      "AML",
+      "DSP2",
+      "ACPR",
+      "AMF",
+      "stress test"
+    ],
+    "related_domains": [
+      "secteurs_activite",
+      "regulation",
+      "compliance"
+    ],
+    "related_knowledge": [
+      "secteurs_activite.finance_banque.profil_secteur_finance_banque",
+      "secteurs_activite.finance_banque.normes_reglementation_finance_banque",
+      "regulation.banking.banking_regulation_bale",
+      "compliance.financial.aml_kyc_compliance"
+    ],
+    "retrieval_priority": 6
+  },
+  "behavior_rules": {
+    "tone": "educational",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "Explication de vocabulaire réglementaire et prudentiel du secteur finance/banque"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [
+      "Utilisation de ce lexique pour formuler un conseil en investissement"
+    ],
+    "fallback_behavior": "Si une question dérive vers une décision d'investissement individuelle, rappeler qu'ALFRED n'est pas un conseiller financier agréé et orienter vers un professionnel habilité."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "20/08/2026",
+    "last_update": "20/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

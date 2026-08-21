@@ -1,0 +1,109 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "secteurs_activite.construction_btp.vocabulaire_metier_construction_btp",
+  "title": "Vocabulaire et acronymes métier du secteur construction/BTP",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "secteurs_activite",
+  "subdomain": "construction_btp",
+  "category": "vocabulaire_metier",
+  "summary": "Lexique des principaux acronymes et termes métier du secteur construction/BTP qu'ALFRED doit reconnaître et savoir expliquer en contexte de conseil : RE2020, DTU, RGE, Qualibat, maîtrise d'ouvrage/œuvre, garantie décennale, DPE, permis de construire, décret tertiaire, VRD, gros œuvre/second œuvre.",
+  "purpose": "Permettre à ALFRED CPL de comprendre et d'expliquer immédiatement le jargon technique et administratif employé par les clients du secteur construction/BTP.",
+  "tags": [
+    "vocabulaire_btp",
+    "acronymes_construction",
+    "lexique_batiment",
+    "jargon_chantier"
+  ],
+  "intents": [
+    "explain_construction_acronym",
+    "define_construction_sector_term",
+    "translate_construction_jargon"
+  ],
+  "usage_context": [
+    "Un utilisateur ou un client emploie un acronyme du secteur construction/BTP sans le définir",
+    "Besoin de traduire un terme technique du bâtiment en langage clair",
+    "Préparation d'un échange avec un client du secteur construction/BTP"
+  ],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "Vocabulaire de référence du secteur construction/BTP, centré sur les termes techniques, réglementaires et de gestion de projet les plus fréquemment utilisés par les acteurs de ce secteur.",
+    "core_principles": [
+      "Maîtrise d'ouvrage (MOA) : le client, celui pour qui l'ouvrage est construit ; maîtrise d'œuvre (MOE) : celui qui conçoit et pilote techniquement la réalisation (architecte, bureau d'études).",
+      "Gros œuvre : ensemble des travaux de structure du bâtiment (fondations, murs porteurs, charpente) ; second œuvre : ensemble des travaux de finition et d'équipement (électricité, plomberie, revêtements).",
+      "RE2020, DTU, RGE, Qualibat, décret tertiaire : voir la fiche normes_reglementation_construction_btp pour le détail de ces cadres réglementaires et normatifs.",
+      "Garantie décennale : responsabilité légale du constructeur pendant 10 ans après réception des travaux pour les dommages compromettant la solidité de l'ouvrage.",
+      "DPE (Diagnostic de Performance Énergétique) : document obligatoire évaluant la consommation énergétique et l'impact carbone d'un bien immobilier, classé de A à G.",
+      "Permis de construire : autorisation administrative préalable obligatoire pour la plupart des projets de construction ou d'extension significative, délivrée dans le cadre du code de l'urbanisme.",
+      "VRD (Voirie et Réseaux Divers) : ensemble des travaux d'aménagement extérieur (voirie, réseaux d'eau, d'électricité, d'assainissement) préalables ou associés à une construction."
+    ],
+    "rules": [
+      "Toujours donner la signification complète de l'acronyme avant de l'utiliser à nouveau dans une réponse.",
+      "Préciser si le terme relève du neuf ou de la rénovation pour éviter toute confusion réglementaire.",
+      "Ne pas confondre maîtrise d'ouvrage et maîtrise d'œuvre, deux rôles aux responsabilités juridiques distinctes."
+    ],
+    "examples": [
+      {
+        "situation": "Un client mentionne le DPE de son bien et s'interroge sur son impact pour une opération de rénovation.",
+        "recommended_behavior": "Expliquer que le DPE évalue la performance énergétique et l'impact carbone du bien (classé A à G), et orienter vers les obligations réglementaires associées selon la classe obtenue.",
+        "avoid": "Répondre sans expliciter ce qu'est le DPE, en laissant le terme non défini dans la réponse."
+      }
+    ],
+    "best_practices": [
+      "Toujours vulgariser un acronyme du BTP à la première occurrence dans une réponse, même si l'utilisateur semble déjà le connaître.",
+      "Relier chaque terme à son impact concret sur le projet ou la responsabilité juridique pour rester utile en contexte de conseil.",
+      "Renvoyer vers secteurs_activite.construction_btp.normes_reglementation_construction_btp pour les cadres réglementaires détaillés plutôt que de les redévelopper ici."
+    ],
+    "anti_patterns": [
+      "Utiliser un acronyme du BTP sans le définir, ce qui nuit à la clarté pour un utilisateur non spécialiste.",
+      "Confondre gros œuvre et second œuvre, deux notions distinctes structurant l'organisation d'un chantier.",
+      "Redévelopper en détail les cadres réglementaires déjà couverts par la fiche dédiée plutôt que d'y renvoyer."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "maîtrise d'ouvrage",
+      "maîtrise d'œuvre",
+      "gros œuvre",
+      "second œuvre",
+      "DPE",
+      "permis de construire",
+      "VRD"
+    ],
+    "related_domains": [
+      "secteurs_activite"
+    ],
+    "related_knowledge": [
+      "secteurs_activite.construction_btp.profil_secteur_construction_btp",
+      "secteurs_activite.construction_btp.normes_reglementation_construction_btp"
+    ],
+    "retrieval_priority": 6
+  },
+  "behavior_rules": {
+    "tone": "educational",
+    "response_style": "structured_clear",
+    "max_complexity": "low",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "Explication de vocabulaire technique et administratif du secteur construction/BTP"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "Pour un terme très technique propre à un corps de métier spécifique, recommander la consultation d'un professionnel du bâtiment concerné."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "20/08/2026",
+    "last_update": "20/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

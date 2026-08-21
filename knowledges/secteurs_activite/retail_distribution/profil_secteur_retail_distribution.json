@@ -1,0 +1,114 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "secteurs_activite.retail_distribution.profil_secteur_retail_distribution",
+  "title": "Profil du secteur retail et distribution",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "secteurs_activite",
+  "subdomain": "retail_distribution",
+  "category": "profil_secteur",
+  "summary": "Vue d'ensemble organisationnelle et économique du secteur retail/distribution : chaîne de valeur (sourcing, merchandising, logistique, vente physique/e-commerce, service client), acteurs types et enjeux économiques structurants, pour donner à ALFRED CPL un contexte rapide sur un client de ce secteur.",
+  "purpose": "Permettre à ALFRED CPL de comprendre rapidement le contexte d'un client retail/distribution (grande distribution, e-commerce, marque/franchise) pour mieux cadrer une mission de conseil.",
+  "tags": [
+    "secteur_retail",
+    "distribution",
+    "profil_sectoriel",
+    "e_commerce",
+    "omnicanal"
+  ],
+  "intents": [
+    "explain_retail_sector_context",
+    "describe_retail_value_chain",
+    "identify_retail_sector_stakeholders"
+  ],
+  "usage_context": [
+    "Préparation d'une mission de conseil ALFRED CPL pour un client du secteur retail/distribution",
+    "Besoin de contexte rapide sur un acteur de la grande distribution, du e-commerce ou d'une marque",
+    "Compréhension des contraintes de marge et de logistique avant une recommandation"
+  ],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "Le secteur retail et distribution regroupe les organisations qui achètent, mettent en marché et vendent des produits aux consommateurs finaux, que ce soit en magasin physique, en ligne ou dans un modèle omnicanal combinant les deux. Il se caractérise par des marges structurellement faibles, une forte sensibilité au prix et une transformation continue portée par le e-commerce.",
+    "core_principles": [
+      "La chaîne de valeur retail comprend : le sourcing/achat (souvent via des centrales d'achat), le merchandising (mise en avant produit), la logistique/supply chain (entrepôts, transport, dernier kilomètre), la vente (magasin physique, e-commerce, marketplace), et le service client/fidélisation après-vente.",
+      "Les acteurs types incluent : grande distribution alimentaire et spécialisée, e-commerce pure players, marques et enseignes en propre ou en franchise, centrales d'achat, plateformes marketplace, et organismes de contrôle (DGCCRF).",
+      "Le secteur fonctionne avec des marges généralement faibles (quelques points de pourcentage dans l'alimentaire), ce qui rend la maîtrise des coûts logistiques et d'achat déterminante pour la rentabilité.",
+      "La transformation omnicanale (fusion des parcours physique et digital : click and collect, retrait en magasin, retour multicanal) est devenue un standard concurrentiel incontournable, plus qu'une option de différenciation.",
+      "La dépendance croissante à certaines plateformes marketplace pour la visibilité et la vente en ligne crée un rapport de force parfois défavorable pour les marques et distributeurs indépendants."
+    ],
+    "rules": [
+      "Toujours situer un client retail dans son modèle précis (grande distribution, pure player e-commerce, marque en propre, franchise) avant de généraliser, les logiques économiques diffèrent fortement.",
+      "Prendre en compte la faiblesse structurelle des marges du secteur comme facteur limitant quasi systématique de toute recommandation d'investissement.",
+      "Distinguer clairement les enjeux d'un acteur alimentaire (fort volume, marge très faible) de ceux d'un acteur non-alimentaire (marge plus élevée, cycles différents)."
+    ],
+    "examples": [
+      {
+        "situation": "Un client d'ALFRED CPL est une enseigne de distribution alimentaire qui souhaite investir dans le e-commerce.",
+        "recommended_behavior": "Situer le contexte : marges très faibles dans l'alimentaire, coût logistique du dernier kilomètre souvent non rentable en drive/livraison, avant de proposer une trajectoire d'investissement réaliste.",
+        "avoid": "Traiter le projet e-commerce comme un simple projet digital sans tenir compte de la structure de marge et de coût logistique propre à la distribution alimentaire."
+      }
+    ],
+    "best_practices": [
+      "Toujours croiser le profil sectoriel avec les fiches complémentaires du secteur (normes_reglementation, enjeux_risques, vocabulaire_metier) pour construire une vision complète avant une recommandation.",
+      "Mentionner explicitement la contrainte de marge faible comme facteur quasi systématique des décisions du secteur.",
+      "Distinguer clairement les logiques d'un acteur alimentaire et d'un acteur non-alimentaire, qui n'ont ni la même structure de marge ni la même fréquence d'achat."
+    ],
+    "anti_patterns": [
+      "Confondre systématiquement grande distribution et e-commerce pure player alors que leurs modèles économiques et logistiques sont très différents.",
+      "Ignorer la contrainte de marge faible en recommandant un investissement sans évaluer son retour réel sur ce type de structure économique.",
+      "Sous-estimer la dépendance croissante aux marketplaces dans l'analyse de la stratégie de distribution d'une marque."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "secteur retail",
+      "distribution",
+      "chaîne de valeur retail",
+      "e-commerce",
+      "omnicanal",
+      "grande distribution"
+    ],
+    "related_domains": [
+      "secteurs_activite",
+      "marketing",
+      "regulation"
+    ],
+    "related_knowledge": [
+      "secteurs_activite.retail_distribution.normes_reglementation_retail_distribution",
+      "secteurs_activite.retail_distribution.enjeux_risques_retail_distribution",
+      "secteurs_activite.retail_distribution.vocabulaire_metier_retail_distribution",
+      "secteurs_activite.retail_distribution.pestel_retail_distribution",
+      "marketing.fondamentaux.marketing_fondamentaux"
+    ],
+    "retrieval_priority": 7
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "Contextualisation organisationnelle, économique et réglementaire d'un client du secteur retail/distribution pour du conseil"
+    ],
+    "restricted_usage": [
+      "Analyse comparative de la performance commerciale d'acteurs, à limiter à des indicateurs publics"
+    ],
+    "forbidden_usage": [],
+    "fallback_behavior": "En cas de question sur des données commerciales confidentielles d'un concurrent précis, rappeler qu'ALFRED ne dispose pas de ces informations et rester sur des données publiques."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "20/08/2026",
+    "last_update": "20/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}
