@@ -26,6 +26,8 @@ import json
 from pathlib import Path
 from typing import Any
 
+from src.knowledge.knowledge_schema import normalize_knowledge_metadata
+
 
 class KnowledgeLoader:
     def __init__(
@@ -111,7 +113,13 @@ class KnowledgeLoader:
                 "subdomain": item.get("subdomain", "unknown"),
                 "status": status,
                 "registry": item,
-                "data": data
+                "data": data,
+                # Provenance/fraîcheur/confidentialité — voir
+                # docs/architecture/vision_knowledge_training_finetuning_alfred.md,
+                # P0. Sous-dict dédié pour ne jamais entrer en collision
+                # avec "status" ci-dessus (status registry actif/existant,
+                # concept différent du cycle de vie VALIDATED/STALE/...).
+                "metadata": normalize_knowledge_metadata(data),
             }
 
     # -----------------------------------------------------
