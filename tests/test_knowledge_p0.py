@@ -78,6 +78,100 @@ class TestKnowledgeSchema:
 
 
 # ─────────────────────────────────────────────────────────
+# freshness_checker
+# ─────────────────────────────────────────────────────────
+
+class TestFreshnessChecker:
+
+    def test_import(self):
+        from src.knowledge.freshness_checker import check_freshness
+        assert check_freshness is not None
+
+    def test_static_always_valid(self):
+        from src.knowledge.freshness_checker import check_freshness
+        assert check_freshness({"freshness_policy": "STATIC"}) == "VALID"
+
+    def test_static_valid_even_without_verified_at(self):
+        from src.knowledge.freshness_checker import check_freshness
+        assert check_freshness({"freshness_policy": "STATIC", "verified_at": None}) == "VALID"
+
+    def test_unknown_policy_returns_unknown(self):
+        from src.knowledge.freshness_checker import check_freshness
+        assert check_freshness({"freshness_policy": "BOGUS"}) == "UNKNOWN"
+
+    def test_missing_policy_returns_unknown(self):
+        from src.knowledge.freshness_checker import check_freshness
+        assert check_freshness({}) == "UNKNOWN"
+
+    def test_dated_policy_without_verified_at_returns_unknown(self):
+        from src.knowledge.freshness_checker import check_freshness
+        assert check_freshness({"freshness_policy": "30_DAYS"}) == "UNKNOWN"
+
+    def test_invalid_verified_at_returns_unknown(self):
+        from src.knowledge.freshness_checker import check_freshness
+        result = check_freshness({"freshness_policy": "30_DAYS", "verified_at": "not-a-date"})
+        assert result == "UNKNOWN"
+
+    def test_recent_verification_is_valid(self):
+        from datetime import datetime, timezone
+        from src.knowledge.freshness_checker import check_freshness
+        now = datetime(2026, 8, 21, tzinfo=timezone.utc)
+        metadata = {"freshness_policy": "30_DAYS", "verified_at": "2026-08-10T00:00:00+00:00"}
+        assert check_freshness(metadata, now=now) == "VALID"
+
+    def test_moderately_old_is_stale(self):
+        from datetime import datetime, timezone
+        from src.knowledge.freshness_checker import check_freshness
+        now = datetime(2026, 8, 21, tzinfo=timezone.utc)
+        metadata = {"freshness_policy": "7_DAYS", "verified_at": "2026-08-10T00:00:00+00:00"}
+        assert check_freshness(metadata, now=now) == "STALE"
+
+    def test_very_old_requires_revalidation(self):
+        from datetime import datetime, timezone
+        from src.knowledge.freshness_checker import check_freshness
+        now = datetime(2026, 8, 21, tzinfo=timezone.utc)
+        metadata = {"freshness_policy": "7_DAYS", "verified_at": "2026-01-01T00:00:00+00:00"}
+        assert check_freshness(metadata, now=now) == "REVALIDATION_REQUIRED"
+
+    def test_real_time_policy_stale_almost_immediately(self):
+        from datetime import datetime, timedelta, timezone
+        from src.knowledge.freshness_checker import check_freshness
+        now = datetime(2026, 8, 21, 12, 0, 0, tzinfo=timezone.utc)
+        verified = (now - timedelta(hours=1)).isoformat()
+        result = check_freshness({"freshness_policy": "REAL_TIME", "verified_at": verified}, now=now)
+        assert result in ("STALE", "REVALIDATION_REQUIRED")
+
+    def test_naive_datetime_treated_as_utc(self):
+        from datetime import datetime, timezone
+        from src.knowledge.freshness_checker import check_freshness
+        now = datetime(2026, 8, 21, tzinfo=timezone.utc)
+        metadata = {"freshness_policy": "30_DAYS", "verified_at": "2026-08-10T00:00:00"}
+        assert check_freshness(metadata, now=now) == "VALID"
+
+    def test_scan_knowledge_index_groups_by_status(self):
+        from src.knowledge.freshness_checker import scan_knowledge_index
+        index = {
+            "a": {"metadata": {"freshness_policy": "STATIC"}},
+            "b": {"metadata": {"freshness_policy": "BOGUS"}},
+            "c": {"metadata": {}},
+        }
+        grouped = scan_knowledge_index(index)
+        assert grouped["VALID"] == ["a"]
+        assert "b" in grouped["UNKNOWN"]
+        assert "c" in grouped["UNKNOWN"]
+
+    def test_scan_real_knowledge_index_all_valid(self, ):
+        """Les 1137 fiches réelles ont toutes freshness_policy=STATIC par
+        défaut (knowledge_schema.py) — aucune ne doit être classée périmée."""
+        from src.knowledge.knowledge_loader import KnowledgeLoader
+        from src.knowledge.freshness_checker import scan_knowledge_index
+        loader = KnowledgeLoader(project_root=str(ROOT))
+        grouped = scan_knowledge_index(loader.knowledge_index)
+        assert grouped["STALE"] == []
+        assert grouped["REVALIDATION_REQUIRED"] == []
+
+
+# ─────────────────────────────────────────────────────────
 # KnowledgeLoader — branchement metadata
 # ─────────────────────────────────────────────────────────
 

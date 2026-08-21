@@ -144,6 +144,16 @@ ni les Training Candidates (section 10-11) n'ont de matière première.
    projet de ne pas construire au-delà de ce que l'usage réel justifie.
    L'échelle à 5 niveaux reste une option ouverte si le besoin se confirme
    plus tard.
+5. **Gestion de la fraîcheur** (section 8) — trou identifié le 21/08/2026 en
+   reprenant la liste P0 du document (section 28) : le schéma portait déjà
+   `freshness_policy`/`verified_at` mais rien ne calculait
+   VALID/STALE/REVALIDATION_REQUIRED à partir de ces champs.
+   `freshness_checker.py` (nouveau) le fait — diagnostic seul, jamais
+   d'action automatique sur le corpus (une fiche périmée s'archive et se
+   remplace à la main, section 8). Les 1137 fiches actuelles étant toutes
+   `freshness_policy=STATIC` par défaut, aucune n'est aujourd'hui classée
+   périmée — cet outil ne devient réellement utile qu'une fois une
+   connaissance acquise dynamiquement avec une politique datée.
 
 ### P1 — Constitution du Training Dataset (structure seule, pas d'entraînement)
 
@@ -415,6 +425,7 @@ comme ça a été le cas pour la mesure d'entraînement sur le MS-S1 Max.
 | Point | Statut | Commit |
 |---|---|---|
 | P0 — Journalisation fallback cloud + Gap Dataset + schéma Knowledge additif + Quality Gate | **Fait** (`gap_dataset.py`, `knowledge_quality_gate.py`, `knowledge_schema.py`, 30 tests, suite complète 1666 verts) — le constat de la section 2.1 décrit l'état *avant* ce commit, volontairement laissé tel quel comme photo du point de départ | `e95a3f87` |
+| P0 — Gestion de la fraîcheur (`freshness_checker.py`) | **Fait** — trou de la liste P0 officielle (section 28) identifié après coup, comblé le 21/08/2026 | — |
 | P1 — Curation Gap Dataset → fiche knowledge (`knowledge_candidates.py`, `gap_curation.py`) | **Fait** — 15 tests, suite complète 1686 verts | `dd2fda7c` |
 | P1 — Constitution Training Dataset "officielle" (`ALFRED_DATA` = `data/training/`, `dataset_store.py`, `instruction_dataset.py`, `preference_dataset.py`, `training_quality.py`) | **Fait** — `instructions/`/`preferences/` implémentées, `intent/`/`routing/`/`memory/`/`users/` documentées non branchées ; `promote_candidate_to_training_example()` ferme la boucle avec P0 | — |
 | P2 — Golden Dataset + évaluation | **Fait** (`golden_dataset.py`, `evaluation.py`) — utilisable dès aujourd'hui sur le pipeline ALFRED réel comme baseline, pas seulement pour comparer de futurs adapters | — |
