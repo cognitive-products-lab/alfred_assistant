@@ -1,9 +1,25 @@
-"""
-ALFRED — src/knowledge/gap_dataset.py
-Journal structuré des cas où ALFRED local échoue — voir
-docs/architecture/vision_knowledge_training_finetuning_alfred.md, P0
-(document source, section 9).
+from __future__ import annotations
 
+"""
+PROJECT      : ALFRED
+BLOCK        : B18
+FUNCTION     : 18.07
+FILE         : src/knowledge/gap_dataset.py
+ROLE         : Journal structuré des cas où ALFRED local échoue
+
+AUTHOR       : Cognitive Products Lab
+CREATED      : 2026-08-21
+UPDATED      : 2026-08-21
+VERSION      : V1.0
+STATUS       : TESTED
+
+DESCRIPTION :
+Gap Dataset — voir docs/architecture/vision_knowledge_training_finetuning_alfred.md,
+P0 (document source, section 9).
+"""
+
+"""
+ALFRED — gap_dataset.py
 Alimenté depuis src/core/response_generator.py::generate_response(), le
 seul point du pipeline qui connaît à la fois la requête posée et quel
 fournisseur a finalement répondu (src.llm.llm_router.LLMRouter.last_provider).
@@ -15,7 +31,6 @@ src/security/audit_trail.py — pas le même fichier : le schéma de
 write_audit_event() est pensé pour une décision d'accès (ALLOW/DENY par
 rôle+ressource), pas pour un échec/succès de recherche.
 """
-from __future__ import annotations
 
 import json
 import shutil
@@ -64,6 +79,7 @@ def record_gap_event(
     external_success: Optional[bool] = None,
     resolved: Optional[bool] = None,
     candidate_quality: Optional[dict[str, Any]] = None,
+    candidate_id: Optional[str] = None,
 ) -> dict[str, Any]:
     """
     Enregistre un cas où le local a échoué (n'appeler que si
@@ -74,6 +90,11 @@ def record_gap_event(
         src.knowledge.knowledge_quality_gate.evaluate_candidate() quand une
         connaissance candidate a été produite (external_success=True) —
         optionnel, None si aucun candidat (échec total local+cloud).
+    candidate_id : identifiant renvoyé par
+        src.knowledge.knowledge_candidates.record_candidate() quand le
+        contenu réel a pu être conservé (privacy_level STANDARD) —
+        permet de retrouver le contenu depuis une entrée du Gap Dataset en
+        vue d'une promotion (src.knowledge.gap_curation).
     """
     event = {
         "timestamp": datetime.now(timezone.utc).isoformat(),
@@ -85,6 +106,7 @@ def record_gap_event(
         "external_success": external_success,
         "resolved": resolved,
         "candidate_quality": candidate_quality,
+        "candidate_id": candidate_id,
     }
     _rotate_if_needed()
     with GAP_FILE.open("a", encoding="utf-8") as f:

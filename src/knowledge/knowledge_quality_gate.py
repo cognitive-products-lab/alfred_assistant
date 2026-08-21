@@ -1,9 +1,25 @@
-"""
-ALFRED — src/knowledge/knowledge_quality_gate.py
-Knowledge Quality Gate — voir
-docs/architecture/vision_knowledge_training_finetuning_alfred.md, P0
-(document source, section 5).
+from __future__ import annotations
 
+"""
+PROJECT      : ALFRED
+BLOCK        : B18
+FUNCTION     : 18.08
+FILE         : src/knowledge/knowledge_quality_gate.py
+ROLE         : Knowledge Quality Gate — évaluation d'une connaissance candidate
+
+AUTHOR       : Cognitive Products Lab
+CREATED      : 2026-08-21
+UPDATED      : 2026-08-21
+VERSION      : V1.0
+STATUS       : TESTED
+
+DESCRIPTION :
+Voir docs/architecture/vision_knowledge_training_finetuning_alfred.md, P0
+(document source, section 5).
+"""
+
+"""
+ALFRED — knowledge_quality_gate.py
 Évalue une connaissance candidate (réponse obtenue via repli cloud, quand
 Ollama local a échoué) avant qu'elle ne puisse un jour intégrer le
 Knowledge Store ou un dataset d'entraînement. Ne classe jamais rien
@@ -18,7 +34,6 @@ confidentialité plutôt que de réinventer une échelle à 5 niveaux
 n'utilise encore — voir le document de vision pour la justification
 complète de ce choix.
 """
-from __future__ import annotations
 
 from typing import Any
 

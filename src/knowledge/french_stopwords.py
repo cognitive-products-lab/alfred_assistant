@@ -1,13 +1,31 @@
+from __future__ import annotations
+
 """
-ALFRED — src/knowledge/french_stopwords.py
-Mots-outils français de 4+ lettres, partagés entre knowledge_ranker.py et
-taxonomy_router.py (le seul plancher appliqué aux mots de requête dans ces
-deux modules est len(word) >= 4). Sans ce filtre, des mots ultra-fréquents
-comme "pour" ou "faire" matchent la quasi-totalité des fiches knowledge —
-observé en usage réel le 20/08/2026 : "Combien de session maximum par jour
-puis-je faire pour maximiser mon apprentissage ?" chargeait des fiches
-cpl/product_platform sans rapport, faisant "délirer" la réponse sur une
-procédure d'installation ALFRED CPL.
+PROJECT      : ALFRED
+BLOCK        : B18
+FUNCTION     : 18.12
+FILE         : src/knowledge/french_stopwords.py
+ROLE         : Mots-outils français de 4+ lettres, partagés par les scoreurs B18
+
+AUTHOR       : Cognitive Products Lab
+CREATED      : 2026-08-20
+UPDATED      : 2026-08-20
+VERSION      : V1.0
+STATUS       : TESTED
+
+DESCRIPTION :
+Liste de stopwords partagée entre knowledge_ranker.py et taxonomy_router.py.
+"""
+
+"""
+ALFRED — french_stopwords.py
+Le seul plancher appliqué aux mots de requête dans ces deux modules est
+len(word) >= 4. Sans ce filtre, des mots ultra-fréquents comme "pour" ou
+"faire" matchent la quasi-totalité des fiches knowledge — observé en usage
+réel le 20/08/2026 : "Combien de session maximum par jour puis-je faire
+pour maximiser mon apprentissage ?" chargeait des fiches cpl/product_platform
+sans rapport, faisant "délirer" la réponse sur une procédure d'installation
+ALFRED CPL.
 """
 
 FRENCH_STOPWORDS = frozenset({
