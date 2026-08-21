@@ -1,8 +1,25 @@
-"""
-ALFRED — src/knowledge/knowledge_schema.py
-Schéma de métadonnées Knowledge (provenance, fraîcheur, confidentialité) —
-voir docs/architecture/vision_knowledge_training_finetuning_alfred.md, P0.
+from __future__ import annotations
 
+"""
+PROJECT      : ALFRED
+BLOCK        : B18
+FUNCTION     : 18.06
+FILE         : src/knowledge/knowledge_schema.py
+ROLE         : Schéma de métadonnées Knowledge (provenance, fraîcheur, confidentialité)
+
+AUTHOR       : Cognitive Products Lab
+CREATED      : 2026-08-21
+UPDATED      : 2026-08-21
+VERSION      : V1.0
+STATUS       : TESTED
+
+DESCRIPTION :
+Complète les fiches knowledge avec un schéma de provenance additif — voir
+docs/architecture/vision_knowledge_training_finetuning_alfred.md, P0.
+"""
+
+"""
+ALFRED — knowledge_schema.py
 Additif et rétrocompatible : ne modifie jamais les fichiers JSON sur disque.
 Les 1137 fiches existantes sont écrites à la main et déjà validées par
 Céline (source_type="document", status="VALIDATED" par défaut) ; seule une
@@ -10,7 +27,6 @@ connaissance acquise dynamiquement par un futur pipeline d'acquisition
 porterait ces champs directement dans son JSON dès sa création — auquel cas
 ils priment sur ces valeurs par défaut.
 """
-from __future__ import annotations
 
 from typing import Any
 

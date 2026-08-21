@@ -5,8 +5,10 @@ ROLE         : Tests P0 du chantier Knowledge/Training/Fine-Tuning — voir
                docs/architecture/vision_knowledge_training_finetuning_alfred.md
 
 Couvre : knowledge_schema (métadonnées additives), le branchement dans
-KnowledgeLoader, gap_dataset (journal JSONL des échecs locaux) et
-knowledge_quality_gate (évaluation d'une connaissance candidate).
+KnowledgeLoader, gap_dataset (journal JSONL des échecs locaux),
+knowledge_quality_gate (évaluation d'une connaissance candidate),
+knowledge_candidates (stockage du contenu réel, filtré par confidentialité)
+et gap_curation (promotion manuelle vers une vraie fiche knowledge).
 """
 
 from __future__ import annotations
@@ -242,6 +244,10 @@ class TestResponseGeneratorGapWiring:
             lambda query, source: {"status": "TO_VERIFY", "training_eligible": False,
                                     "privacy_level": "STANDARD", "source_type": source},
         )
+        monkeypatch.setattr(
+            "src.knowledge.knowledge_candidates.record_candidate",
+            lambda **kw: "cand_fake123",
+        )
 
         class FakeLLM:
             last_provider = "openai"
@@ -256,6 +262,7 @@ class TestResponseGeneratorGapWiring:
         assert recorded[0]["external_source"] == "openai"
         assert recorded[0]["external_success"] is True
         assert recorded[0]["candidate_quality"]["status"] == "TO_VERIFY"
+        assert recorded[0]["candidate_id"] == "cand_fake123"
 
     def test_gap_recorded_on_total_failure(self, monkeypatch):
         from src.core.response_generator import ResponseGenerator
@@ -287,6 +294,10 @@ class TestResponseGeneratorGapWiring:
             raise OSError("disque plein")
 
         monkeypatch.setattr(gap_dataset, "record_gap_event", _boom)
+        monkeypatch.setattr(
+            "src.knowledge.knowledge_candidates.record_candidate",
+            lambda **kw: "cand_fake",
+        )
 
         class FakeLLM:
             last_provider = "openai"
@@ -299,3 +310,200 @@ class TestResponseGeneratorGapWiring:
             user_message="question", response_context={"user": {"preferred_name": "Céline"}}
         )
         assert "réponse malgré tout" in response
+
+
+# ─────────────────────────────────────────────────────────
+# knowledge_candidates
+# ─────────────────────────────────────────────────────────
+
+class TestKnowledgeCandidates:
+
+    @pytest.fixture
+    def candidates_module(self, tmp_path, monkeypatch):
+        import src.knowledge.knowledge_candidates as kc
+        monkeypatch.setattr(kc, "CANDIDATES_FILE", tmp_path / "candidates.jsonl")
+        return kc
+
+    def test_import(self, candidates_module):
+        assert candidates_module.record_candidate is not None
+
+    def test_content_persisted_when_standard_privacy(self, candidates_module):
+        cid = candidates_module.record_candidate(
+            query="Explique le RAG", external_source="openai",
+            response_text="Le RAG consiste à...", quality={"privacy_level": "STANDARD"},
+        )
+        candidate = candidates_module.get_candidate(cid)
+        assert candidate["response_text"] == "Le RAG consiste à..."
+        assert candidate["redacted"] is False
+
+    def test_content_redacted_when_local_only_privacy(self, candidates_module):
+        cid = candidates_module.record_candidate(
+            query="donnée sensible", external_source="openai",
+            response_text="contenu sensible", quality={"privacy_level": "LOCAL_ONLY"},
+        )
+        candidate = candidates_module.get_candidate(cid)
+        assert candidate["response_text"] is None
+        assert candidate["redacted"] is True
+
+    def test_get_candidate_unknown_returns_none(self, candidates_module):
+        assert candidates_module.get_candidate("cand_unknown") is None
+
+    def test_read_pending_excludes_redacted(self, candidates_module):
+        candidates_module.record_candidate(
+            query="q1", external_source="openai", response_text="texte",
+            quality={"privacy_level": "STANDARD"},
+        )
+        candidates_module.record_candidate(
+            query="q2", external_source="openai", response_text="secret",
+            quality={"privacy_level": "LOCAL_ONLY"},
+        )
+        pending = candidates_module.read_pending_candidates()
+        assert len(pending) == 1
+        assert pending[0]["query"] == "q1"
+
+    def test_read_pending_excludes_promoted(self, candidates_module):
+        cid = candidates_module.record_candidate(
+            query="q1", external_source="openai", response_text="texte",
+            quality={"privacy_level": "STANDARD"},
+        )
+        assert len(candidates_module.read_pending_candidates()) == 1
+        candidates_module.mark_promoted(cid, "domaine.sous_domaine.fiche")
+        assert candidates_module.read_pending_candidates() == []
+
+    def test_mark_promoted_does_not_mutate_original_record(self, candidates_module):
+        """Append-only : get_candidate() doit continuer à retourner
+        l'enregistrement d'origine (pas le marqueur) après promotion."""
+        cid = candidates_module.record_candidate(
+            query="q1", external_source="openai", response_text="texte",
+            quality={"privacy_level": "STANDARD"},
+        )
+        candidates_module.mark_promoted(cid, "domaine.sous_domaine.fiche")
+        candidate = candidates_module.get_candidate(cid)
+        assert candidate["response_text"] == "texte"
+
+
+# ─────────────────────────────────────────────────────────
+# gap_curation
+# ─────────────────────────────────────────────────────────
+
+class TestGapCuration:
+
+    @pytest.fixture
+    def curation_setup(self, tmp_path, monkeypatch):
+        import src.knowledge.gap_curation as curation
+        import src.knowledge.knowledge_candidates as kc
+
+        monkeypatch.setattr(kc, "CANDIDATES_FILE", tmp_path / "candidates.jsonl")
+
+        registry_path = tmp_path / "knowledge_registry.json"
+        registry_path.write_text(
+            '{"knowledges": [], "stats": {"total_json_files": 0}}', encoding="utf-8"
+        )
+        monkeypatch.setattr(curation, "_REGISTRY_PATH", registry_path)
+        monkeypatch.setattr(curation, "_ROOT", tmp_path)
+
+        return curation, kc, tmp_path
+
+    def test_import(self, curation_setup):
+        curation, _, _ = curation_setup
+        assert curation.promote_candidate_to_knowledge is not None
+
+    def test_unknown_candidate_raises(self, curation_setup):
+        curation, _, _ = curation_setup
+        with pytest.raises(ValueError, match="introuvable"):
+            curation.promote_candidate_to_knowledge(
+                candidate_id="cand_unknown", domain="d", subdomain="s",
+                title="Titre", summary="résumé", content={},
+            )
+
+    def test_redacted_candidate_refused(self, curation_setup):
+        curation, kc, _ = curation_setup
+        cid = kc.record_candidate(
+            query="q", external_source="openai", response_text="secret",
+            quality={"privacy_level": "LOCAL_ONLY"},
+        )
+        with pytest.raises(ValueError, match="confidentialité"):
+            curation.promote_candidate_to_knowledge(
+                candidate_id=cid, domain="d", subdomain="s",
+                title="Titre", summary="résumé", content={},
+            )
+
+    def test_successful_promotion_creates_file(self, curation_setup):
+        curation, kc, tmp_path = curation_setup
+        cid = kc.record_candidate(
+            query="Explique le RAG", external_source="openai",
+            response_text="Le RAG consiste à...", quality={"privacy_level": "STANDARD"},
+        )
+        knowledge_id = curation.promote_candidate_to_knowledge(
+            candidate_id=cid, domain="test_domain", subdomain="test_sub",
+            title="Le RAG expliqué", summary="Résumé du RAG",
+            content={"definition": "..."}, tags=["rag"], purpose="Expliquer le RAG",
+        )
+        assert knowledge_id == "test_domain.test_sub.le_rag_explique"
+        fiche_path = tmp_path / "knowledges" / "test_domain" / "test_sub" / "le_rag_explique.json"
+        assert fiche_path.exists()
+
+    def test_promoted_fiche_has_validated_provenance(self, curation_setup):
+        curation, kc, tmp_path = curation_setup
+        cid = kc.record_candidate(
+            query="q", external_source="anthropic", response_text="texte",
+            quality={"privacy_level": "STANDARD"},
+        )
+        import json
+        knowledge_id = curation.promote_candidate_to_knowledge(
+            candidate_id=cid, domain="d", subdomain="s",
+            title="Titre", summary="résumé", content={},
+        )
+        fiche_path = tmp_path / "knowledges" / "d" / "s" / "titre.json"
+        fiche = json.loads(fiche_path.read_text(encoding="utf-8"))
+        assert fiche["provenance"]["status"] == "VALIDATED"
+        assert fiche["provenance"]["training_eligible"] is False
+        assert fiche["provenance"]["source_type"] == "anthropic"
+
+    def test_successful_promotion_registers_in_registry(self, curation_setup):
+        curation, kc, tmp_path = curation_setup
+        cid = kc.record_candidate(
+            query="q", external_source="openai", response_text="texte",
+            quality={"privacy_level": "STANDARD"},
+        )
+        import json
+        knowledge_id = curation.promote_candidate_to_knowledge(
+            candidate_id=cid, domain="d", subdomain="s",
+            title="Titre", summary="résumé", content={},
+        )
+        registry = json.loads(curation._REGISTRY_PATH.read_text(encoding="utf-8"))
+        ids = [k["id"] for k in registry["knowledges"]]
+        assert knowledge_id in ids
+        assert registry["stats"]["total_json_files"] == 1
+
+    def test_successful_promotion_marks_candidate_promoted(self, curation_setup):
+        curation, kc, tmp_path = curation_setup
+        cid = kc.record_candidate(
+            query="q", external_source="openai", response_text="texte",
+            quality={"privacy_level": "STANDARD"},
+        )
+        curation.promote_candidate_to_knowledge(
+            candidate_id=cid, domain="d", subdomain="s",
+            title="Titre", summary="résumé", content={},
+        )
+        assert kc.read_pending_candidates() == []
+
+    def test_duplicate_file_path_refused(self, curation_setup):
+        curation, kc, tmp_path = curation_setup
+        cid1 = kc.record_candidate(
+            query="q1", external_source="openai", response_text="texte",
+            quality={"privacy_level": "STANDARD"},
+        )
+        curation.promote_candidate_to_knowledge(
+            candidate_id=cid1, domain="d", subdomain="s",
+            title="Même Titre", summary="résumé", content={},
+        )
+        cid2 = kc.record_candidate(
+            query="q2", external_source="openai", response_text="autre texte",
+            quality={"privacy_level": "STANDARD"},
+        )
+        with pytest.raises(ValueError, match="existe déjà"):
+            curation.promote_candidate_to_knowledge(
+                candidate_id=cid2, domain="d", subdomain="s",
+                title="Même Titre", summary="résumé", content={},
+            )

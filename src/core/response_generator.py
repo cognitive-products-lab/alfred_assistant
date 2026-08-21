@@ -1,7 +1,7 @@
 # ============================================================
 # ALFRED — src/core/response_generator.py
 # Bloc 01.05 — Gestion des réponses
-# Version : 2.5 — 2026-07-22
+# Version : 2.6 — 2026-08-21
 #
 # 📚 NOTION EXAM :
 #   D11-2 — Capsule 1 : Génération de réponses LLM-ready et prompt engineering
@@ -16,6 +16,13 @@
 #   Noyau conversationnel — générateur de réponses LLM-ready V2.3
 #
 # STATUS  : VALIDATED
+#
+# 📝 V2.6 (21/08/2026) :
+#   - Filet déterministe anti-resalutation (_strip_reopening_greeting),
+#     streaming inclus, quand la session n'en est plus à son 1er tour.
+#   - Gap Dataset P0 (_record_gap_if_local_failed) : journalise les cas où
+#     Ollama local échoue — voir
+#     docs/architecture/vision_knowledge_training_finetuning_alfred.md.
 # ============================================================
 
 import json
@@ -148,6 +155,7 @@ class ResponseGenerator:
         try:
             from src.knowledge.gap_dataset import record_gap_event
             from src.knowledge.knowledge_quality_gate import evaluate_candidate
+            from src.knowledge.knowledge_candidates import record_candidate
 
             real_query = self._extract_real_question(user_message)
             local_route = context.get("adaptation", {}).get("mode", "")
@@ -156,8 +164,18 @@ class ResponseGenerator:
             external_success = external_source is not None and not total_failure
 
             candidate_quality = None
+            candidate_id = None
             if external_success:
                 candidate_quality = evaluate_candidate(real_query, external_source)
+                # Contenu réel conservé uniquement si le Quality Gate juge la
+                # requête d'origine non sensible (privacy_level STANDARD) —
+                # voir knowledge_candidates.record_candidate().
+                candidate_id = record_candidate(
+                    query=real_query,
+                    external_source=external_source,
+                    response_text=response,
+                    quality=candidate_quality,
+                )
 
             record_gap_event(
                 query=real_query,
@@ -170,6 +188,7 @@ class ResponseGenerator:
                 external_success=external_success,
                 resolved=external_success,
                 candidate_quality=candidate_quality,
+                candidate_id=candidate_id,
             )
         except Exception:
             # La journalisation ne doit jamais bloquer une réponse à l'utilisateur.

@@ -2,19 +2,23 @@ from __future__ import annotations
 
 """
 PROJECT      : ALFRED
-BLOCK        : GLOBAL
-FUNCTION     : XX.XX
+BLOCK        : B18
+FUNCTION     : 18.01
 FILE         : src/knowledge/knowledge_loader.py
-ROLE         : TO_DEFINE
+ROLE         : Chargement du registry/taxonomy/domain_links et indexation des fiches knowledge
 
 AUTHOR       : Cognitive Products Lab
 CREATED      : 2026-06-03
-UPDATED      : 2026-06-05
-VERSION      : V1.1
+UPDATED      : 2026-08-21
+VERSION      : V1.2
 STATUS       : TESTED
 
 DESCRIPTION :
-Module ALFRED — description a completer.
+Charge les fichiers système du Bloc 18 (registry, taxonomy, domain_links,
+retrieval_rules) et construit l'index knowledge_index consommé par
+DomainMatcher/TaxonomyRouter/KnowledgeRanker. V1.2 (21/08/2026) : chaque
+entrée d'index porte désormais un sous-objet "metadata" (provenance,
+fraîcheur, confidentialité) — voir knowledge_schema.py.
 """
 
 """
