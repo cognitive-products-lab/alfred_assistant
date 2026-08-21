@@ -8,9 +8,9 @@ Pas de planning jour-par-jour rigide — sessions modulables selon l'énergie du
 
 ---
 
-## Statut au matin du 18/08/2026
+## Statut au 21/08/2026 — les 6 sessions sont faites
 
-**Sessions 1, 2, 3, 5, 6 faites dans la nuit du 17 au 18/08** (Céline a laissé la session tourner, puis est intervenue en direct pour activer research_mode et reporter la session 4), commitées et poussées sur `main`. **Seule la Session 4 reste à faire — explicitement reportée à un moment où Céline est présente**, sa demande du 18/08 au matin : touche à la trajectoire émotionnelle, un sujet plus sensible (voir profil santé/émotionnel).
+**Sessions 1, 2, 3, 5, 6 faites dans la nuit du 17 au 18/08** (Céline a laissé la session tourner, puis est intervenue en direct pour activer research_mode et reporter la session 4). **Session 4 faite le 21/08/2026, avec Céline présente comme convenu.** Tout commité et poussé sur `main`. Plan de la semaine "Human IA" (mémoire, personnalité, adaptation émotionnelle) intégralement livré.
 
 **Session 6 (RAG sémantique) faite sur demande explicite de Céline** ("lance la session 6") : chromadb ET sentence-transformers étaient déjà installés sur la machine — chantier bien plus léger que redouté dans le plan original. Recherche sémantique réelle opérationnelle (ChromaDB + modèle multilingue), branchée dans `get_contextual_recall()` (session 3) comme repli quand la recherche par mot-clé ne trouve rien. Détail en Session 6 ci-dessous.
 
@@ -74,12 +74,11 @@ Ce qui manque ou est fragile pour l'effet "Human IA" (les vrais trous trouvés) 
 - Test en conditions réelles sur plusieurs échanges espacés dans le temps (pas un test unitaire isolé) — c'est ce qui vend le plus l'effet "compagnon" vs "chatbot sans mémoire".
 **Fait quand** : au moins un cas réel observé où ALFRED fait remonter un souvenir pertinent sans qu'on le lui demande explicitement.
 
-### Session 4 — Continuité émotionnelle dans le temps (~2h)
-**Objectif** : passer d'une émotion "par message" à une tendance perçue.
-- Investiguer `data/v3/emotion_state.json` et `data/v3/relational_state.json` : mis à jour en continu ou figés depuis leur création ?
-- Si figés : les faire évoluer avec chaque détection (`emotion_detector.detect_emotion()`), avec une fenêtre glissante (ex. tendance sur la journée/semaine, pas juste l'instant T).
-- Relier ça au mode `complicite`/`support` de `mode_manager.py` pour qu'une tendance ("tu sembles plus tendue que d'habitude ces derniers jours") puisse influencer le choix de mode, pas seulement l'émotion instantanée.
-**Fait quand** : un changement de tendance sur plusieurs jours (simulé ou réel) modifie effectivement le comportement d'ALFRED, vérifiable par test.
+### Session 4 — Continuité émotionnelle dans le temps (~2h) — FAITE le 21/08/2026, avec Céline présente
+**Constat confirmé** : `data/v3/emotion_state.json`/`relational_state.json` (schéma défini le 16/07/2026) n'ont jamais été alimentés — `src/v3/emotion/` est un stub vide, aucun code ne les lit ni ne les écrit.
+**Fait** : nouveau module `src/regulation/emotional_trend.py`, même principe que `wellbeing_tracker.get_daily_energy_summary()` mais appliqué à l'émotion — `log_emotion_point()` journalise chaque détection (fenêtre glissante 30 jours), `get_emotion_trend()` résume une fenêtre (3 jours par défaut, motif "difficile" si ≥55% de détections à valence négative sur au moins 3 points, pour ne pas réagir à 1-2 messages isolés). Branché dans `RegulationEngine` à chaque tour ; `mode_manager.update_from_signals()` gagne une nouvelle priorité (entre émotion instantanée et intent) : une tendance soutenue penche vers le mode `complicite` quand l'instant présent est neutre, sans jamais écraser une détresse réelle détectée maintenant. La tendance atteint aussi le prompt LLM avec une instruction de discernement explicite (jamais une obligation de la mentionner, jamais une affirmation médicale).
+**Fait quand** : ✅ testé bout-en-bout via `RegulationEngine.process()` réel (pas mocké) avec un historique simulé sur plusieurs jours — le mode change effectivement, vérifié par test.
+**Au passage** : même piège de pollution de test trouvé une 3e fois (`data/memory/wellbeing_log.json`, 211 entrées réelles) — isolé, pas de nettoyage rétroactif tenté (texte source non conservé dans ce log, impossible de distinguer test/réel avec certitude contrairement à `episodes.json`).
 
 ### Session 5 — Personnalité propre d'ALFRED, pas que de l'adaptation (~1-2h) — FAITE le 17/08/2026
 **Découverte principale : la persona privée (taquin/charme, demandée le 18/07/2026) n'était jamais chargée par aucun code.** `data/profile/persona_private_celine.json` existe (`flirtation_style`, `ai_disclosure_policy`) mais aucun fichier Python ne le référençait — la persona n'avait donc aucun effet réel sur les réponses. Corrigé : `PersonalityAdapter._load_private_persona()` (nouvelle méthode) le charge et l'injecte dans `context["private_persona"]` ; `response_generator.py::_build_persona_block()` en fait un bloc "STYLE RELATIONNEL" codé en dur dans les deux prompts système (même raisonnement que la règle de tutoiement : un trait d'identité permanent ne peut pas dépendre du ranking de la Knowledge Retrieval Engine). Vérifié en conditions réelles avec le vrai fichier sur disque, pas seulement en test isolé.
