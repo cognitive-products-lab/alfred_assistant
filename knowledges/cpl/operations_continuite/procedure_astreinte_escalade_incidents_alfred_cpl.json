@@ -1,0 +1,99 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.operations_continuite.procedure_astreinte_escalade_incidents_alfred_cpl",
+  "title": "Procédure d'astreinte et d'escalade des incidents ALFRED CPL",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "operations_continuite",
+  "category": "continuite_service_cpl",
+  "summary": "Organisation de l'astreinte et des niveaux d'escalade en cas d'incident technique sur ALFRED CPL, précisant qui doit être alerté selon la gravité et le délai de réponse attendu à chaque niveau.",
+  "purpose": "Donner un cadre clair de qui fait quoi, dans quel délai, en cas d'incident hors heures ouvrées ou de gravité croissante, pour éviter la confusion au moment critique.",
+  "tags": [
+    "astreinte",
+    "escalade_incident",
+    "gravite_incident",
+    "cpl"
+  ],
+  "intents": [
+    "explain_escalation_levels",
+    "support_incident_routing",
+    "clarify_on_call_responsibility"
+  ],
+  "usage_context": [
+    "un incident survient hors heures ouvrées",
+    "un incident non résolu doit être escaladé à un niveau supérieur"
+  ],
+  "priority": "high",
+  "safety_level": "sensitive",
+  "content": {
+    "definition": "La procédure d'astreinte et d'escalade définit les niveaux de gravité d'un incident, les personnes à alerter à chaque niveau et les délais de réponse attendus, afin de garantir une réaction proportionnée et rapide sans dépendre de la disponibilité d'une seule personne.",
+    "core_principles": [
+      "Le niveau d'escalade doit être déterminé par la gravité réelle de l'incident, pas par l'ordre d'arrivée des signalements.",
+      "Une astreinte doit toujours avoir un remplaçant identifié en cas d'indisponibilité de la personne titulaire.",
+      "Chaque niveau d'escalade doit avoir un délai de réponse maximal explicite, connu de toute l'équipe."
+    ],
+    "rules": [
+      "Ne jamais laisser un incident critique sans réponse au-delà du délai maximal défini pour son niveau de gravité.",
+      "Documenter chaque escalade avec l'heure, le niveau atteint et la personne ayant pris en charge la résolution."
+    ],
+    "examples": [
+      {
+        "situation": "Un incident bloquant survient un samedi soir en dehors des heures ouvrées.",
+        "recommended_behavior": "Appliquer la procédure d'astreinte définie, alerter la personne d'astreinte selon le niveau de gravité constaté et escalader si le délai de réponse maximal est dépassé.",
+        "avoid": "Attendre le retour aux heures ouvrées pour traiter un incident classé comme critique."
+      }
+    ],
+    "best_practices": [
+      "Tester périodiquement la chaîne d'astreinte elle-même (joignabilité réelle), pas seulement la documenter.",
+      "Relier cette procédure à la supervision système et à la gestion des incidents déjà en place."
+    ],
+    "anti_patterns": [
+      "Astreinte reposant sur une seule personne sans remplaçant identifié en cas d'indisponibilité.",
+      "Niveaux d'escalade définis sur le papier mais jamais réellement testés en conditions réelles."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "astreinte",
+      "escalade",
+      "gravite_incident",
+      "delai_reponse"
+    ],
+    "related_domains": [
+      "cpl",
+      "operations_continuite"
+    ],
+    "related_knowledge": [
+      "cpl.operations_continuite.gestion_incidents_alfred_cpl",
+      "cpl.operations_continuite.supervision_systeme_alfred_cpl"
+    ],
+    "retrieval_priority": 7
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "structuration et suivi d'une procédure d'astreinte et d'escalade"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "En cas de doute sur le niveau de gravité d'un incident, retenir le niveau d'escalade le plus élevé plutôt que de sous-estimer la situation."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "20/08/2026",
+    "last_update": "20/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

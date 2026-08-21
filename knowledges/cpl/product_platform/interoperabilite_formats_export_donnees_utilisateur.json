@@ -1,0 +1,101 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.product_platform.interoperabilite_formats_export_donnees_utilisateur",
+  "title": "Interopérabilité et export des données utilisateur (portabilité)",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "product_platform",
+  "category": "architecture_produit_cpl",
+  "summary": "Principes de conception permettant à un utilisateur d'exporter ses données ALFRED dans des formats ouverts et exploitables ailleurs, en cohérence avec le droit à la portabilité des données personnelles.",
+  "purpose": "Éviter que l'architecture locale-first d'ALFRED ne devienne, par défaut de conception, un verrouillage propriétaire empêchant l'utilisateur de récupérer ses propres données.",
+  "tags": [
+    "portabilite_donnees",
+    "export",
+    "interoperabilite",
+    "cpl"
+  ],
+  "intents": [
+    "explain_data_export_options",
+    "support_portability_request",
+    "clarify_export_format_choice"
+  ],
+  "usage_context": [
+    "un utilisateur souhaite exporter ses données ALFRED",
+    "un audit RGPD vérifie l'exercice du droit à la portabilité"
+  ],
+  "priority": "high",
+  "safety_level": "sensitive",
+  "content": {
+    "definition": "L'interopérabilité et l'export des données utilisateur désignent la capacité offerte à l'utilisateur d'extraire l'ensemble de ses données ALFRED dans un format structuré, standard et réutilisable en dehors du produit, conformément au droit à la portabilité.",
+    "core_principles": [
+      "Le local-first ne doit jamais être présenté comme substituable au droit d'exporter et de récupérer ses données dans un format ouvert.",
+      "Le format d'export doit être documenté et stable, pas un format interne changeant à chaque version du produit.",
+      "L'export doit couvrir l'ensemble des données personnelles significatives, pas seulement un sous-ensemble superficiel."
+    ],
+    "rules": [
+      "Proposer systématiquement un format d'export ouvert et documenté (par exemple JSON structuré) pour toute demande de portabilité.",
+      "Ne jamais conditionner l'exercice du droit à la portabilité à une démarche disproportionnée pour l'utilisateur."
+    ],
+    "examples": [
+      {
+        "situation": "Un utilisateur souhaite migrer ses données ALFRED vers un autre système ou simplement en conserver une copie personnelle.",
+        "recommended_behavior": "Proposer un export complet dans un format structuré documenté, incluant une explication claire de son contenu et de ses limites.",
+        "avoid": "Proposer un export partiel ou dans un format propriétaire difficilement réexploitable ailleurs."
+      }
+    ],
+    "best_practices": [
+      "Tester périodiquement que le format d'export reste effectivement exploitable par des outils tiers courants.",
+      "Documenter clairement ce qui est inclus et ce qui est volontairement exclu de l'export (par exemple des données techniques internes)."
+    ],
+    "anti_patterns": [
+      "Export limité à une fraction des données réelles, donnant une illusion de portabilité sans en respecter l'esprit.",
+      "Format d'export propriétaire non documenté rendant la réutilisation externe impossible en pratique."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "portabilite_donnees",
+      "export",
+      "interoperabilite",
+      "droit_rgpd"
+    ],
+    "related_domains": [
+      "cpl",
+      "donnees_personnelles"
+    ],
+    "related_knowledge": [
+      "cpl.product_platform.gestion_consentement_utilisateur_alfred",
+      "cpl.product_platform.data_protection_hosting"
+    ],
+    "retrieval_priority": 7
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "conception et explication des mécanismes d'export et de portabilité des données"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [
+      "présentation d'un export partiel comme un exercice complet du droit à la portabilité"
+    ],
+    "fallback_behavior": "En cas de doute sur l'exhaustivité d'un export, le documenter explicitement comme partiel plutôt que de le présenter comme complet."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "20/08/2026",
+    "last_update": "20/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

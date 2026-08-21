@@ -1,0 +1,109 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.business_piloting.gestion_recouvrement_impayes_clients_alfred_cpl",
+  "title": "Gestion du recouvrement et des impayés clients",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "business_piloting",
+  "category": "pilotage_financier_cpl",
+  "summary": "Processus de suivi des créances, relance graduée et gestion des impayés pour une activité de conseil assistée par ALFRED CPL, afin de sécuriser la trésorerie sans dégrader la relation client.",
+  "purpose": "Donner à ALFRED CPL un cadre opérationnel pour aider à détecter les retards de paiement, structurer les relances et arbitrer les situations d'impayé sans jamais engager d'action juridique en autonomie.",
+  "tags": [
+    "recouvrement",
+    "impayes",
+    "tresorerie",
+    "relance_client",
+    "cpl"
+  ],
+  "intents": [
+    "explain_collection_process",
+    "help_prioritize_overdue_invoices",
+    "suggest_reminder_wording"
+  ],
+  "usage_context": [
+    "une facture dépasse son échéance",
+    "l'utilisateur veut prioriser ses relances",
+    "un client conteste une facture"
+  ],
+  "priority": "high",
+  "safety_level": "sensitive",
+  "content": {
+    "definition": "Le recouvrement désigne l'ensemble des actions engagées pour obtenir le paiement d'une créance échue, depuis la relance amiable graduée jusqu'au recours à une procédure contentieuse si nécessaire.",
+    "core_principles": [
+      "Prioriser les créances par ancienneté et par montant pour concentrer l'effort de relance là où l'impact trésorerie est le plus fort.",
+      "Adopter un ton ferme mais courtois dans les premières relances, la relation commerciale future devant rester préservée autant que possible.",
+      "Distinguer un simple oubli administratif d'un impayé structurel révélant une difficulté financière du client.",
+      "Documenter systématiquement chaque relance (date, canal, réponse obtenue) pour disposer d'un historique exploitable en cas d'escalade."
+    ],
+    "rules": [
+      "Ne jamais engager ou rédiger une mise en demeure formelle ou une action contentieuse sans validation d'un humain habilité.",
+      "Graduer les relances : rappel informel, relance écrite formelle, puis mise en demeure par un professionnel du droit si le blocage persiste.",
+      "Signaler à l'utilisateur tout schéma de retards répétés d'un même client comme signal d'alerte à traiter en amont du contrat suivant."
+    ],
+    "examples": [
+      {
+        "situation": "Une facture est en retard de 15 jours sans nouvelle du client.",
+        "recommended_behavior": "Proposer une relance écrite courtoise rappelant l'échéance et l'article contractuel concerné, avec un délai de réponse raisonnable.",
+        "avoid": "Proposer directement un ton comminatoire ou menacer d'une action en justice dès le premier rappel."
+      }
+    ],
+    "best_practices": [
+      "Mettre en place un échéancier de relance automatique avec des paliers clairs (J+7, J+15, J+30).",
+      "Conserver une trace écrite systématique de chaque échange lié à un impayé.",
+      "Anticiper les tensions de trésorerie en croisant le suivi des impayés avec la fiche business_piloting.gestion_tresorerie_activite_conseil."
+    ],
+    "anti_patterns": [
+      "Laisser s'accumuler plusieurs relances sans jamais escalader vers une décision humaine.",
+      "Traiter tous les clients en retard avec la même sévérité sans tenir compte de l'historique de la relation."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "impaye",
+      "recouvrement",
+      "relance",
+      "creance",
+      "tresorerie"
+    ],
+    "related_domains": [
+      "cpl",
+      "finance_controle"
+    ],
+    "related_knowledge": [
+      "cpl.business_piloting.gestion_tresorerie_activite_conseil",
+      "cpl.ethics_governance.revision_humaine_decisions_ia_sensibles"
+    ],
+    "retrieval_priority": 7
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "aide à la priorisation et à la rédaction de relances amiables"
+    ],
+    "restricted_usage": [
+      "situations où le client conteste formellement une facture"
+    ],
+    "forbidden_usage": [
+      "rédaction ou envoi autonome d'une mise en demeure ou d'une action contentieuse"
+    ],
+    "fallback_behavior": "En cas de blocage persistant après plusieurs relances, orienter l'utilisateur vers un conseil juridique humain plutôt que de proposer une escalade automatisée."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "20/08/2026",
+    "last_update": "20/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

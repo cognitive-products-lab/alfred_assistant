@@ -1,0 +1,101 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.product_platform.gestion_cycle_vie_session_utilisateur_alfred",
+  "title": "Gestion du cycle de vie d'une session utilisateur ALFRED",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "product_platform",
+  "category": "architecture_produit_cpl",
+  "summary": "Règles de gestion de l'ouverture, de la persistance, de l'expiration et de la fermeture d'une session utilisateur sur ALFRED, articulées avec l'architecture mémoire statique/dynamique/long terme déjà définie.",
+  "purpose": "Clarifier ce qui doit être conservé, purgé ou archivé au fil d'une session utilisateur, pour éviter à la fois la perte d'information utile et l'accumulation non maîtrisée de données de session.",
+  "tags": [
+    "session_utilisateur",
+    "cycle_vie",
+    "gestion_memoire",
+    "cpl"
+  ],
+  "intents": [
+    "explain_session_lifecycle",
+    "support_session_timeout_design",
+    "clarify_session_data_retention"
+  ],
+  "usage_context": [
+    "conception du comportement d'ALFRED à l'ouverture ou la fermeture d'une session",
+    "arbitrage sur la durée d'inactivité avant expiration"
+  ],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "Le cycle de vie d'une session utilisateur désigne l'ensemble des états successifs d'une interaction avec ALFRED (ouverture, activité, inactivité, expiration, fermeture) et les règles associées de conservation ou de purge des données propres à cette session.",
+    "core_principles": [
+      "Une session inactive prolongée doit expirer selon une règle explicite, pas rester ouverte indéfiniment par défaut.",
+      "Les informations à valeur durable doivent être transférées vers la mémoire long terme avant expiration de la session, les informations ponctuelles peuvent être purgées.",
+      "L'expiration d'une session ne doit jamais entraîner la perte silencieuse d'une information que l'utilisateur croyait déjà mémorisée durablement."
+    ],
+    "rules": [
+      "Définir un délai d'inactivité standard avant expiration de session, ajustable selon le contexte d'usage (poste fixe vs mobile).",
+      "Notifier l'utilisateur de façon non intrusive avant l'expiration d'une session contenant des informations non encore consolidées en mémoire long terme."
+    ],
+    "examples": [
+      {
+        "situation": "Un utilisateur laisse une session ouverte plusieurs heures sans interaction sur une tablette partagée par le foyer.",
+        "recommended_behavior": "Appliquer une expiration de session après un délai d'inactivité raisonnable, en confirmant que les informations importantes échangées ont bien été consolidées en mémoire long terme.",
+        "avoid": "Laisser la session ouverte indéfiniment, exposant les échanges précédents à toute personne utilisant ensuite l'appareil."
+      }
+    ],
+    "best_practices": [
+      "Articuler explicitement cette procédure avec l'architecture mémoire statique/dynamique/long terme déjà documentée.",
+      "Adapter le délai d'expiration selon le niveau de sensibilité du contexte d'usage (appareil partagé vs personnel)."
+    ],
+    "anti_patterns": [
+      "Session sans règle d'expiration explicite, restant ouverte indéfiniment par défaut.",
+      "Purge de session entraînant la perte d'une information que l'utilisateur pensait déjà mémorisée durablement."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "session_utilisateur",
+      "expiration",
+      "cycle_vie",
+      "memoire"
+    ],
+    "related_domains": [
+      "cpl",
+      "system"
+    ],
+    "related_knowledge": [
+      "cpl.product_platform.memoire_architecture_statique_dynamique_long_terme",
+      "cpl.product_platform.identity_access_zero_trust"
+    ],
+    "retrieval_priority": 6
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "conception et explication du cycle de vie d'une session utilisateur"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [
+      "purge silencieuse d'une information que l'utilisateur croyait mémorisée durablement"
+    ],
+    "fallback_behavior": "En cas d'incertitude sur la nécessité de conserver une information au-delà de la session, la proposer explicitement à la consolidation en mémoire long terme plutôt que de la purger silencieusement."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "20/08/2026",
+    "last_update": "20/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

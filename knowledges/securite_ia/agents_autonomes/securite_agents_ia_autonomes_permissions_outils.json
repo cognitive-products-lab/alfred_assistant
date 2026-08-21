@@ -1,0 +1,100 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "securite_ia.agents_autonomes.securite_agents_ia_autonomes_permissions_outils",
+  "title": "Sécurité des agents IA autonomes et gestion des permissions d'outils",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "securite_ia",
+  "subdomain": "agents_autonomes",
+  "category": "securite_ia",
+  "summary": "Principes de sécurisation d'un agent IA autonome capable d'exécuter des actions via des outils externes, à travers une gestion stricte des permissions et une limitation du rayon d'action par défaut.",
+  "purpose": "Documenter un risque spécifique aux architectures d'agents IA autonomes, distinct des risques classiques de modèles de prédiction, alors qu'ALFRED CPL repose lui-même sur une architecture d'agent outillé.",
+  "tags": [
+    "agent_ia_autonome",
+    "gestion_permissions",
+    "securite_outils",
+    "securite_ia"
+  ],
+  "intents": [
+    "explain_agent_security_principles",
+    "support_permission_scoping"
+  ],
+  "usage_context": [
+    "un agent IA doit être doté de nouveaux outils ou permissions",
+    "un audit de sécurité porte sur une architecture d'agent autonome"
+  ],
+  "priority": "high",
+  "safety_level": "sensitive",
+  "content": {
+    "definition": "La sécurité des agents IA autonomes désigne l'ensemble des principes de conception limitant les actions qu'un agent peut effectuer via des outils externes (accès fichiers, exécution de commandes, appels réseau) au strict nécessaire pour sa mission, afin de limiter l'impact d'une erreur ou d'une manipulation.",
+    "core_principles": [
+      "Un agent IA autonome doit disposer du minimum de permissions nécessaires à sa tâche (principe du moindre privilège), pas d'un accès large par défaut simplifiant son développement.",
+      "Toute action à fort impact ou irréversible exécutée par un agent doit rester soumise à une validation humaine explicite.",
+      "Le contenu observé par un agent via ses outils (pages web, fichiers, résultats d'API) doit être traité comme une donnée non fiable, jamais comme une instruction à exécuter automatiquement."
+    ],
+    "rules": [
+      "Définir explicitement le périmètre de permissions de chaque outil accordé à un agent, plutôt qu'un accès générique large.",
+      "Ne jamais laisser un agent interpréter du contenu externe observé comme une instruction valide sans distinguer sa source de celle de l'utilisateur légitime."
+    ],
+    "examples": [
+      {
+        "situation": "Un agent IA doté d'un accès large au système de fichiers pour simplifier son développement.",
+        "recommended_behavior": "Restreindre l'accès aux seuls répertoires strictement nécessaires à la tâche de l'agent, en documentant explicitement le périmètre accordé.",
+        "avoid": "Accorder un accès système large par défaut au nom de la simplicité de développement, sans limitation explicite du périmètre."
+      }
+    ],
+    "best_practices": [
+      "Documenter et revoir périodiquement le périmètre de permissions accordé à chaque outil d'un agent.",
+      "Relier cette pratique au principe de proportionnalité de l'usage de l'IA et à la révision humaine des décisions sensibles déjà documentés côté CPL."
+    ],
+    "anti_patterns": [
+      "Agent doté d'un accès système large par simplicité de développement, sans limitation explicite.",
+      "Confusion entre contenu observé par un agent via ses outils et instruction légitime de l'utilisateur."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "agent_ia_autonome",
+      "permissions",
+      "moindre_privilege",
+      "securite_outils"
+    ],
+    "related_domains": [
+      "securite_ia",
+      "cpl"
+    ],
+    "related_knowledge": [
+      "cpl.ethics_governance.principe_proportionnalite_usage_ia",
+      "cpl.product_platform.identity_access_zero_trust"
+    ],
+    "retrieval_priority": 7
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "high",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "explication des principes de sécurisation d'un agent IA autonome"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [
+      "assistance à la conception d'un contournement des permissions d'un agent existant"
+    ],
+    "fallback_behavior": "En cas de doute sur le périmètre de permissions approprié pour un nouvel outil d'agent, recommander le périmètre le plus restrictif compatible avec la tâche plutôt que le plus large."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "20/08/2026",
+    "last_update": "20/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}
