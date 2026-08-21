@@ -144,6 +144,61 @@ def promote_candidate_to_knowledge(
     return knowledge_id
 
 
+def promote_candidate_to_training_example(
+    candidate_id: str,
+    response: str,
+    quality_score: Optional[float] = None,
+) -> dict[str, Any]:
+    """
+    Transforme un candidat (knowledge_candidates.py) en exemple
+    instruction → bonne réponse (src.training.instruction_dataset) — la
+    voie "réponses externes" des Training Candidates (document source,
+    section 11) : ALFRED échoue localement, le cloud répond, un humain
+    valide et réécrit la réponse avant qu'elle n'entre dans le dataset
+    d'entraînement.
+
+    Distinct de promote_candidate_to_knowledge() : un même candidat peut
+    être promu vers l'un, l'autre, les deux ou aucun — le document source
+    traite Knowledge et Training Data comme deux destinations possibles
+    d'une même acquisition, jamais automatiques (section 4).
+
+    Args:
+        candidate_id  : identifiant retourné par
+                        knowledge_candidates.record_candidate().
+        response      : la réponse à associer à l'instruction — écrite ou
+                        revue par la personne qui valide, jamais copiée
+                        automatiquement depuis la réponse brute du LLM
+                        externe (même si celle-ci peut l'inspirer).
+        quality_score : évaluation humaine 0-1 — voir
+                        training_quality.py, sans valeur training_eligible
+                        reste False.
+
+    Returns:
+        L'entrée Instruction Dataset créée.
+
+    Raises:
+        ValueError si le candidat est introuvable ou rédigé pour
+        confidentialité.
+    """
+    from src.training.instruction_dataset import record_instruction_candidate
+
+    candidate = get_candidate(candidate_id)
+    if candidate is None:
+        raise ValueError(f"Candidat introuvable : {candidate_id}")
+    if candidate.get("redacted"):
+        raise ValueError(
+            f"Candidat {candidate_id} rédigé pour confidentialité (privacy_level "
+            "non STANDARD à l'acquisition) — ne peut pas être promu automatiquement."
+        )
+
+    return record_instruction_candidate(
+        instruction=candidate.get("query", ""),
+        response=response,
+        source="gap_curation",
+        quality_score=quality_score,
+    )
+
+
 def _register_in_registry(
     knowledge_id: str, relative_file: str, domain: str, subdomain: str, slug: str
 ) -> None:

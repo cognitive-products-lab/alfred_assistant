@@ -392,8 +392,10 @@ class TestGapCuration:
     def curation_setup(self, tmp_path, monkeypatch):
         import src.knowledge.gap_curation as curation
         import src.knowledge.knowledge_candidates as kc
+        import src.training.dataset_store as ds
 
         monkeypatch.setattr(kc, "CANDIDATES_FILE", tmp_path / "candidates.jsonl")
+        monkeypatch.setattr(ds, "TRAINING_ROOT", tmp_path / "training")
 
         registry_path = tmp_path / "knowledge_registry.json"
         registry_path.write_text(
@@ -507,3 +509,36 @@ class TestGapCuration:
                 candidate_id=cid2, domain="d", subdomain="s",
                 title="Même Titre", summary="résumé", content={},
             )
+
+    def test_promote_to_training_example_unknown_candidate_raises(self, curation_setup):
+        curation, _, _ = curation_setup
+        with pytest.raises(ValueError, match="introuvable"):
+            curation.promote_candidate_to_training_example(
+                candidate_id="cand_unknown", response="réponse",
+            )
+
+    def test_promote_to_training_example_refuses_redacted(self, curation_setup):
+        curation, kc, _ = curation_setup
+        cid = kc.record_candidate(
+            query="q", external_source="openai", response_text="secret",
+            quality={"privacy_level": "LOCAL_ONLY"},
+        )
+        with pytest.raises(ValueError, match="confidentialité"):
+            curation.promote_candidate_to_training_example(candidate_id=cid, response="réponse revue")
+
+    def test_promote_to_training_example_creates_instruction_entry(self, curation_setup):
+        curation, kc, _ = curation_setup
+        import src.training.dataset_store as ds
+
+        cid = kc.record_candidate(
+            query="Explique le RAG", external_source="openai", response_text="brut",
+            quality={"privacy_level": "STANDARD"},
+        )
+        entry = curation.promote_candidate_to_training_example(
+            candidate_id=cid, response="Le RAG consiste à...", quality_score=0.9,
+        )
+        assert entry["instruction"] == "Explique le RAG"
+        assert entry["response"] == "Le RAG consiste à..."
+        assert entry["source"] == "gap_curation"
+        assert entry["training_eligible"] is True
+        assert ds.current_count("instructions") == 1
