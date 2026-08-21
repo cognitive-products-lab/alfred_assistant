@@ -17,7 +17,8 @@
 # ============================================================
 
 import json
-from datetime import datetime
+import re
+from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Any
 
@@ -82,6 +83,114 @@ def _save_episodes(episodes: list[dict]) -> None:
         )
     except Exception as e:
         log_event(f"Erreur sauvegarde épisodes : {e}", "ERROR")
+
+
+# ─────────────────────────────────────────────────────────
+# Scoring d'importance (21/08/2026)
+# ─────────────────────────────────────────────────────────
+# Avant : main.py plafonnait chaque échange auto-enregistré à 0.3
+# d'importance (0.5/0.6 seulement sur suggestion proactive/check-in).
+# Constaté le 21/08/2026 : 55 épisodes réels, tous à 0.3 pile, 0 moment
+# marquant dans la Vue Mémoire (seuil 0.6) — le plafond starvait les deux
+# fonctionnalités livrées cette semaine (Vue Mémoire, rappel contextuel).
+
+_IMPORTANCE_STOPWORDS = {
+    "alfred", "celine", "céline", "bonjour", "bonsoir", "merci", "voila", "voilà",
+    "comment", "pourquoi", "quand", "aujourd", "hui", "maintenant", "toujours",
+    "jamais", "encore", "parce", "cette", "avec", "sans", "dans", "pour",
+    "tres", "très", "bien", "faire", "fait", "dire", "dit", "vraiment", "besoin",
+    "peux", "veux", "voudrais", "aimerais", "peut", "doit", "faut",
+}
+
+
+def _extract_topic_keywords(text: str, min_len: int = 4) -> list[str]:
+    words = re.findall(r"[a-zàâäéèêëïîôöùûüç]+", text.lower())
+    seen: list[str] = []
+    for w in words:
+        if len(w) >= min_len and w not in _IMPORTANCE_STOPWORDS and w not in seen:
+            seen.append(w)
+    return seen
+
+
+def _is_recurring_topic(text: str, lookback_days: int = 7, min_occurrences: int = 2) -> bool:
+    """
+    True si au moins un mot-clé significatif du texte apparaît déjà dans
+    ≥ min_occurrences épisodes récents — appelé AVANT l'enregistrement de
+    l'épisode courant, donc pas d'auto-match.
+    """
+    keywords = _extract_topic_keywords(text)
+    if not keywords:
+        return False
+
+    cutoff = (datetime.now() - timedelta(days=lookback_days)).isoformat()
+    for kw in keywords[:3]:  # borne le coût — les mots-clés les plus tôt suffisent
+        matches = [e for e in search_episodes(kw) if e.get("created_at", "") >= cutoff]
+        if len(matches) >= min_occurrences:
+            return True
+    return False
+
+
+def compute_turn_importance(
+    text: str = "",
+    emotion_intensity: float = 0.0,
+    emotion_valence: str = "neutral",
+    health_rumination: bool = False,
+    health_bipolar_episode: bool = False,
+    health_hyperfocus: bool = False,
+    emotion_trend_concerning: bool = False,
+    proactive_suggestion: bool = False,
+    check_in: bool = False,
+) -> float:
+    """
+    Score d'importance d'un échange à partir de vrais signaux — remplace
+    le plafond fixe 0.3 (voir note ci-dessus).
+
+    Args:
+        text                     : Contenu de l'échange (titre/description),
+                                    utilisé pour détecter un sujet récurrent
+        emotion_intensity        : Intensité de l'émotion détectée (0.0-1.0)
+        emotion_valence          : "negative" / "positive" / "neutral"
+        health_rumination        : Signal rumination détecté (Bloc 13)
+        health_bipolar_episode   : Signal épisode bipolaire possible détecté
+        health_hyperfocus        : Signal hyperfocus détecté
+        emotion_trend_concerning : Tendance émotionnelle soutenue difficile
+                                    sur plusieurs jours (emotional_trend.py)
+        proactive_suggestion     : Une suggestion proactive a été déclenchée
+        check_in                 : Un check-in bien-être a été déclenché
+
+    Returns:
+        Score 0.0-1.0
+    """
+    base = 0.3
+
+    if emotion_intensity >= 0.7:
+        base = max(base, 0.7)
+    elif emotion_intensity >= 0.5:
+        base = max(base, 0.55)
+    elif emotion_intensity >= 0.3:
+        base = max(base, 0.4)
+
+    # Émotion marquée (pas neutre) et pas juste de faible intensité —
+    # ajout, pas un plancher, pour ne pas écraser un signal plus fort ailleurs.
+    if emotion_valence in ("negative", "positive") and emotion_intensity >= 0.4:
+        base += 0.05
+
+    if health_rumination or health_bipolar_episode:
+        base = max(base, 0.65)
+    if health_hyperfocus:
+        base = max(base, 0.55)
+    if emotion_trend_concerning:
+        base = max(base, 0.6)
+
+    if text and _is_recurring_topic(text):
+        base += 0.15
+
+    if proactive_suggestion:
+        base = max(base, 0.5)
+    if check_in:
+        base = max(base, 0.6)
+
+    return min(1.0, round(base, 2))
 
 
 # ─────────────────────────────────────────────────────────

@@ -52,8 +52,17 @@ def is_rag_available() -> bool:
 
 def _reset_client() -> None:
     """Force la recréation du client/collection au prochain appel — utilisé
-    par les tests après avoir monkeypatché _CHROMA_PATH, jamais en production."""
+    par les tests après avoir monkeypatché _CHROMA_PATH, jamais en production.
+    Ferme explicitement le client existant avant de le remplacer : sans ça,
+    le handle SQLite sous-jacent reste ouvert jusqu'au passage du garbage
+    collector, ce qui fait échouer le nettoyage de tmp_path sous Windows
+    (PermissionError, fichier encore utilisé — trouvé le 21/08/2026)."""
     global _client, _collection
+    if _client is not None:
+        try:
+            _client.close()
+        except Exception:
+            pass
     _client = None
     _collection = None
 

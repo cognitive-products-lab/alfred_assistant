@@ -1459,6 +1459,11 @@ def build_response(
                 time_context=time_ctx,
                 user_context=user_adaptation,
             )
+            # Exposé pour le scoring d'importance des épisodes (session
+            # "scoring intelligent", 21/08/2026) — même pattern que
+            # components["_last_fused"], lu plus bas dans la boucle
+            # d'appel après le retour de build_response().
+            components["_last_pipeline_ctx"] = pipeline_ctx
             pipeline_guidelines = get_pipeline_mode_guidelines(pipeline_ctx)
             forced_resp = get_forced_response(pipeline_ctx)
 
@@ -2431,16 +2436,27 @@ def main() -> None:
 
             # 📖 mémoire épisodique (alimente le widget "Activité récente" du dashboard)
             try:
-                from src.memory.episodic_memory import record_episode
+                from src.memory.episodic_memory import record_episode, compute_turn_importance
                 _fused = components.get("_last_fused")
                 _ep_emotion = getattr(_fused, "dominant_emotion", None) or emotion_label
-                _ep_importance = 0.3
-                if proactive_suggestion:
-                    _ep_importance = max(_ep_importance, 0.5)
-                if _check_in:
-                    _ep_importance = max(_ep_importance, 0.6)
                 _title = user_input if len(user_input) <= 60 else user_input[:57] + "…"
                 _desc = response if len(response) <= 220 else response[:217] + "…"
+
+                # Scoring intelligent (21/08/2026) — remplace le plafond fixe
+                # 0.3 par un score basé sur les vrais signaux du pipeline
+                # B03/B13 (émotion, santé, tendance), voir episodic_memory.py.
+                _pipeline_ctx = components.get("_last_pipeline_ctx")
+                _ep_importance = compute_turn_importance(
+                    text=f"{_title}. {_desc}",
+                    emotion_intensity=getattr(_pipeline_ctx, "emotion_intensity", 0.0) or 0.0,
+                    emotion_valence=getattr(_pipeline_ctx, "emotion_valence", "neutral") or "neutral",
+                    health_rumination=getattr(_pipeline_ctx, "health_rumination", False),
+                    health_bipolar_episode=getattr(_pipeline_ctx, "health_bipolar_episode", False),
+                    health_hyperfocus=getattr(_pipeline_ctx, "health_hyperfocus", False),
+                    emotion_trend_concerning=getattr(_pipeline_ctx, "emotion_trend_concerning", False),
+                    proactive_suggestion=bool(proactive_suggestion),
+                    check_in=bool(_check_in),
+                )
                 record_episode(
                     title=_title,
                     description=_desc,
