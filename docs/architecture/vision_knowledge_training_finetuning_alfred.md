@@ -363,7 +363,7 @@ comme ça a été le cas pour la mesure d'entraînement sur le MS-S1 Max.
 
 | Point | Statut | Commit |
 |---|---|---|
-| P0 — Journalisation fallback cloud + Gap Dataset + schéma Knowledge additif + Quality Gate | Pas commencé | — |
+| P0 — Journalisation fallback cloud + Gap Dataset + schéma Knowledge additif + Quality Gate | **Fait** (`gap_dataset.py`, `knowledge_quality_gate.py`, `knowledge_schema.py`, 30 tests, suite complète 1666 verts) — le constat de la section 2.1 décrit l'état *avant* ce commit, volontairement laissé tel quel comme photo du point de départ | `e95a3f87` |
 | P1 — Constitution Training Dataset (structure) | Pas commencé | — |
 | P2 — Golden Dataset + évaluation | Pas commencé | — |
 | P3 — Premier fine-tuning LoRA/QLoRA | Pas commencé — étude préalable matériel faite le 21/08/2026 (section 4), mesure réelle non lancée | — |
