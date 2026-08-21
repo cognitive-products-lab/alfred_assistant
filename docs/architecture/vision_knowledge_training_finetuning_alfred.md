@@ -208,6 +208,36 @@ premier adapter existe. Les rapports sont persistés
 (`data/training/golden/evaluation_reports.json`) et directement passables à
 `adapter_registry.record_evaluation()`.
 
+### P2 (suite) — KPI (section 26), approche Lean Six Sigma Define/Measure
+
+**Réalisé le 21/08/2026** (`src/metrics/`). Décision d'architecture posée
+explicitement à Céline avant de coder plutôt que tranchée seul (le
+dénominateur "nombre total de requêtes", manquant pour les taux les plus
+utiles) : trois options comparées (journal dédié / compteur agrégé sans
+historique / réutilisation de `dialogue_history.json`), **journal dédié
+retenu** — `request_log.py`, un événement minimal par requête (succès
+local, connaissance utilisée, route, fournisseur externe), **jamais le
+texte de la question** contrairement à `gap_dataset.py` (qui ne journalise
+que les échecs, un sous-ensemble minoritaire du trafic — journaliser le
+texte sur 100% du trafic aurait été un problème de sobriété que
+`gap_dataset.py` n'a pas).
+
+`kpi_catalog.py` (Define) reprend chaque ligne de la section 26 avec
+définition, formule, source de donnée et un statut de base :
+- **OFF** : structurellement non mesurable aujourd'hui — Recall@K/Precision@K/
+  grounded rate (RAG, besoin d'une vérité terrain qui n'existe pas), tout
+  Fine-Tuning (aucun entraînement réel), correction rate (Routing, aucun
+  mécanisme de détection d'une correction utilisateur).
+- **KO** : formule et source prêtes, statut résolu dynamiquement par
+  `kpi_compute.get_kpi_status_report()` — passe à **OK** dès qu'un volume
+  minimal (`min_sample_size`) est atteint. `rag_stale_knowledge_rate`
+  (freshness_checker) et les métriques Training (dataset_store) sont
+  calculables immédiatement, sans dépendre d'un volume d'usage.
+
+Aucun chiffre inventé pour un KPI OFF ou KO sous le seuil — le principe
+« score honnêtement dégradé plutôt que préservé » déjà appliqué ailleurs
+dans ce projet.
+
 ### P3 — Premier fine-tuning expérimental (LoRA/QLoRA)
 
 Volontairement en dernier, comme dans le document (étape 6 sur 10). Deux
@@ -429,6 +459,7 @@ comme ça a été le cas pour la mesure d'entraînement sur le MS-S1 Max.
 | P1 — Curation Gap Dataset → fiche knowledge (`knowledge_candidates.py`, `gap_curation.py`) | **Fait** — 15 tests, suite complète 1686 verts | `dd2fda7c` |
 | P1 — Constitution Training Dataset "officielle" (`ALFRED_DATA` = `data/training/`, `dataset_store.py`, `instruction_dataset.py`, `preference_dataset.py`, `training_quality.py`) | **Fait** — `instructions/`/`preferences/` implémentées, `intent/`/`routing/`/`memory/`/`users/` documentées non branchées ; `promote_candidate_to_training_example()` ferme la boucle avec P0 | — |
 | P2 — Golden Dataset + évaluation | **Fait** (`golden_dataset.py`, `evaluation.py`) — utilisable dès aujourd'hui sur le pipeline ALFRED réel comme baseline, pas seulement pour comparer de futurs adapters | — |
+| P2 — KPI (`src/metrics/`, Define/Measure Lean Six Sigma) | **Fait** — dénominateur `request_log.py` posé en décision explicite avant code ; statuts OK/KO/OFF, aucun chiffre inventé | — |
 | P3 — Adapter registry (bookkeeping) | **Fait** — indépendant du matériel, `adapter_registry.py` | — |
 | P3 — Pipeline LoRA/QLoRA réel | **Non implémenté, volontairement** — contrat figé (`lora_pipeline.py`, `NotImplementedError`), en attente du serveur Phase 2 GPU NVIDIA dédié (section 4.7) ; étude matérielle MS-S1 Max faite le 21/08/2026, conclusion : pas sur ce poste | — |
 | DPO / User Adapter / apprentissage automatisé | Différé, pas de date | — |

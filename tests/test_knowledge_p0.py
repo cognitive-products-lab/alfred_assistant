@@ -309,6 +309,14 @@ class TestKnowledgeQualityGate:
 
 class TestResponseGeneratorGapWiring:
 
+    @pytest.fixture(autouse=True)
+    def _no_real_request_log(self, monkeypatch):
+        """generate_response() écrit aussi dans src.metrics.request_log
+        (P2, KPI) à chaque appel — neutralisé ici pour ne jamais toucher le
+        vrai data/metrics/request_log.jsonl depuis ces tests."""
+        import src.metrics.request_log as rl
+        monkeypatch.setattr(rl, "record_request", lambda **kw: None)
+
     def test_no_gap_recorded_on_local_success(self, monkeypatch):
         from src.core.response_generator import ResponseGenerator
 
