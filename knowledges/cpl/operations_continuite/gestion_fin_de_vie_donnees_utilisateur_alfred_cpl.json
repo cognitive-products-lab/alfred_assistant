@@ -1,0 +1,101 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.operations_continuite.gestion_fin_de_vie_donnees_utilisateur_alfred_cpl",
+  "title": "Gestion de la fin de vie des données utilisateur d'ALFRED CPL",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "operations_continuite",
+  "category": "operations ALFRED CPL",
+  "summary": "Cycle de vie opérationnel des données utilisateur au-delà de leur création et de leur usage courant (purge, anonymisation, export préalable, durée de conservation), distinct de la procédure documentaire d'archivage déjà couverte qui concerne les documents projet, pas les données d'usage utilisateur.",
+  "purpose": "Définir un processus opérationnel clair de fin de vie des données utilisateur d'ALFRED CPL, condition d'une gestion cohérente de la durée de conservation et du droit à l'effacement.",
+  "tags": [
+    "fin_de_vie_donnees",
+    "purge_donnees",
+    "anonymisation",
+    "duree_conservation"
+  ],
+  "intents": [
+    "manage_user_data_end_of_life",
+    "explain_data_retention_process"
+  ],
+  "usage_context": [
+    "un compte utilisateur ALFRED CPL doit être clôturé ou supprimé",
+    "définition de la politique de durée de conservation des données d'usage"
+  ],
+  "priority": "high",
+  "safety_level": "sensitive",
+  "content": {
+    "definition": "La gestion de la fin de vie des données utilisateur définit le sort des données d'usage (interactions, préférences, historique) au terme de leur durée de conservation ou lors de la clôture d'un compte : proposition d'export préalable à l'utilisateur, puis purge définitive ou anonymisation selon la finalité, avec traçabilité de l'opération réalisée.",
+    "core_principles": [
+      "Toute purge de données utilisateur doit être précédée d'une possibilité d'export offerte à l'utilisateur, sauf demande explicite contraire de sa part.",
+      "La distinction entre purge définitive et anonymisation doit être tranchée selon la finalité (aucune réutilisation possible vs statistiques agrégées non ré-identifiables).",
+      "Toute opération de fin de vie de données doit être tracée (nature de l'opération, date, périmètre) sans conserver les données elles-mêmes dans cette trace."
+    ],
+    "rules": [
+      "Toujours proposer un export des données avant toute purge définitive, sauf refus explicite de l'utilisateur.",
+      "Ne jamais réutiliser des données supposément anonymisées si le risque de ré-identification n'a pas été explicitement écarté.",
+      "Conserver une trace de l'opération de fin de vie réalisée, sans conserver les données elles-mêmes dans cette trace."
+    ],
+    "examples": [
+      {
+        "situation": "Un utilisateur demande la clôture définitive de son compte ALFRED CPL.",
+        "recommended_behavior": "Proposer un export des données avant toute purge, exécuter la purge définitive après confirmation, et conserver une trace de l'opération (date, périmètre) sans conserver les données elles-mêmes.",
+        "avoid": "Purger immédiatement les données sans proposer d'export préalable, ou conserver les données au-delà de la durée annoncée sans justification."
+      }
+    ],
+    "best_practices": [
+      "Documenter une durée de conservation par défaut claire et communiquée à l'utilisateur dès la création du compte.",
+      "Vérifier explicitement l'absence de risque de ré-identification avant de qualifier une donnée d'anonymisée."
+    ],
+    "anti_patterns": [
+      "Purger des données utilisateur sans jamais proposer d'export préalable.",
+      "Qualifier des données d'anonymisées sans avoir vérifié l'absence de risque de ré-identification."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "fin_de_vie_donnees",
+      "purge_donnees",
+      "anonymisation",
+      "duree_conservation"
+    ],
+    "related_domains": [
+      "cpl",
+      "donnees_personnelles"
+    ],
+    "related_knowledge": [
+      "cpl.product_platform.gestion_consentement_utilisateur_alfred",
+      "cpl.product_platform.data_protection_hosting"
+    ],
+    "retrieval_priority": 7
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "conseil méthodologique sur le cycle de fin de vie des données utilisateur"
+    ],
+    "restricted_usage": [
+      "décision juridique définitive sur une durée de conservation réglementaire, à valider avec un expert conformité"
+    ],
+    "forbidden_usage": [],
+    "fallback_behavior": "Proposer systématiquement un export préalable avant toute purge et recommander une validation juridique en cas de doute sur la durée de conservation applicable."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "21/08/2026",
+    "last_update": "21/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}
