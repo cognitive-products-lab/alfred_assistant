@@ -1,0 +1,98 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.product_ia.gestion_derive_performance_modele_ia_monitoring",
+  "title": "Détection et gestion de la dérive de performance d'un modèle IA en production",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "product_ia",
+  "category": "produit IA ALFRED CPL",
+  "summary": "Méthode de surveillance continue de la performance d'un modèle IA en production pour détecter une dérive progressive (model drift, data drift) par rapport à ses performances initiales, distincte de la gestion des versions de modèles déjà couverte qui porte sur le cycle de déploiement plutôt que sur la surveillance continue.",
+  "purpose": "Permettre à ALFRED CPL de détecter une dégradation progressive et silencieuse de la qualité d'un modèle IA en production avant qu'elle ne soit visible pour l'utilisateur final.",
+  "tags": [
+    "derive_performance_modele",
+    "model_drift",
+    "data_drift",
+    "monitoring_ia"
+  ],
+  "intents": [
+    "monitor_model_drift",
+    "detect_silent_performance_degradation"
+  ],
+  "usage_context": [
+    "surveillance continue d'un modèle IA déployé en production",
+    "des retours utilisateurs suggèrent une dégradation progressive de la qualité des réponses"
+  ],
+  "priority": "high",
+  "safety_level": "normal",
+  "content": {
+    "definition": "La dérive de performance d'un modèle IA (model drift) désigne une dégradation progressive de sa qualité en production, souvent causée par une évolution des données réelles par rapport aux données d'entraînement (data drift) ou par un changement du contexte d'usage, nécessitant une surveillance continue par des indicateurs de performance dans le temps plutôt qu'une simple validation ponctuelle au déploiement.",
+    "core_principles": [
+      "La performance d'un modèle IA mesurée au déploiement ne garantit pas sa performance future : une surveillance continue est nécessaire pour détecter toute dérive progressive.",
+      "Le data drift (évolution de la distribution des données réelles par rapport aux données d'entraînement) est une cause fréquente et souvent silencieuse de dérive de performance.",
+      "Une dérive détectée tardivement, une fois visible par les utilisateurs, est plus coûteuse à corriger qu'une dérive détectée par un monitoring proactif."
+    ],
+    "rules": [
+      "Mettre en place des indicateurs de performance suivis dans le temps, pas uniquement une validation ponctuelle au déploiement.",
+      "Surveiller explicitement l'évolution de la distribution des données réelles par rapport aux données d'entraînement.",
+      "Définir un seuil d'alerte de dérive déclenchant une investigation avant que la dégradation ne soit perceptible par les utilisateurs."
+    ],
+    "examples": [
+      {
+        "situation": "Un modèle IA d'ALFRED CPL montre des indicateurs de qualité de réponse stables au déploiement mais des retours utilisateurs récents suggèrent une dégradation progressive.",
+        "recommended_behavior": "Comparer les indicateurs de performance suivis dans le temps aux valeurs de référence du déploiement, analyser une éventuelle évolution de la distribution des données réelles, et documenter la cause de la dérive avant toute action corrective.",
+        "avoid": "Considérer la performance du modèle comme acquise définitivement après sa seule validation au déploiement."
+      }
+    ],
+    "best_practices": [
+      "Définir des indicateurs de performance suivis en continu, avec des seuils d'alerte explicites de dérive.",
+      "Documenter la cause identifiée de toute dérive constatée (data drift, changement de contexte d'usage) avant l'action corrective."
+    ],
+    "anti_patterns": [
+      "Considérer qu'un modèle validé au déploiement restera performant sans surveillance continue.",
+      "Attendre des retours utilisateurs négatifs massifs avant de détecter une dérive de performance déjà en cours depuis longtemps."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "derive_performance_modele",
+      "model_drift",
+      "data_drift",
+      "monitoring_ia"
+    ],
+    "related_domains": [
+      "cpl"
+    ],
+    "related_knowledge": [
+      "cpl.product_ia.gestion_versions_modeles_ia_alfred",
+      "cpl.product_ia.evaluation_qualite_reponses_ia_alfred"
+    ],
+    "retrieval_priority": 7
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "conseil méthodologique sur la surveillance continue de la performance d'un modèle IA en production"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "Recommander la mise en place d'indicateurs de performance suivis dans le temps plutôt qu'une seule validation ponctuelle au déploiement."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "21/08/2026",
+    "last_update": "21/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

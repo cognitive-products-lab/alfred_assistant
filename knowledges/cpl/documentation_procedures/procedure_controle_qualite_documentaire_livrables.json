@@ -1,0 +1,100 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.documentation_procedures.procedure_controle_qualite_documentaire_livrables",
+  "title": "Procédure de contrôle qualité documentaire des livrables client",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "documentation_procedures",
+  "category": "procedure ALFRED CPL",
+  "summary": "Procédure de relecture et de contrôle qualité formel des livrables documentaires avant envoi au client (cohérence, complétude, conformité au template, absence de données sensibles résiduelles), distincte de la procédure de tests qualité applicative déjà couverte.",
+  "purpose": "Réduire le risque d'envoi au client d'un livrable documentaire incomplet, incohérent ou contenant une donnée sensible non nettoyée, par un contrôle qualité formalisé avant diffusion.",
+  "tags": [
+    "controle_qualite_documentaire",
+    "livrables_client",
+    "relecture",
+    "conformite_template"
+  ],
+  "intents": [
+    "review_deliverable_quality",
+    "prevent_sensitive_data_leak_in_deliverable"
+  ],
+  "usage_context": [
+    "un livrable documentaire doit être envoyé à un client",
+    "mise en place d'un processus qualité pour les livrables d'une mission"
+  ],
+  "priority": "high",
+  "safety_level": "sensitive",
+  "content": {
+    "definition": "Le contrôle qualité documentaire des livrables est une étape formalisée, distincte de la production du contenu, qui vérifie systématiquement la cohérence interne, la complétude par rapport au périmètre contractuel, la conformité au template attendu et l'absence de toute donnée sensible résiduelle (commentaires internes, données d'un autre client) avant tout envoi.",
+    "core_principles": [
+      "Le contrôle qualité documentaire doit être réalisé par une relecture distincte de la production, jamais par le seul auteur du document.",
+      "La vérification de l'absence de données sensibles résiduelles (métadonnées, commentaires internes, données d'un autre client) est une étape non négociable avant tout envoi externe.",
+      "Un livrable non conforme au template attendu nuit à la crédibilité perçue même si le contenu de fond est correct."
+    ],
+    "rules": [
+      "Ne jamais envoyer un livrable client sans relecture par une personne distincte de son auteur.",
+      "Vérifier systématiquement les métadonnées et commentaires du document avant tout envoi externe.",
+      "Documenter la check-list de contrôle qualité utilisée pour garantir la reproductibilité du contrôle."
+    ],
+    "examples": [
+      {
+        "situation": "Un rapport de mission doit être envoyé à un client en fin de semaine.",
+        "recommended_behavior": "Faire relire le document par une personne distincte de l'auteur, vérifier les métadonnées et l'absence de toute référence à un autre client, confirmer la conformité au template avant l'envoi.",
+        "avoid": "Envoyer directement le document produit sans relecture croisée ni vérification des métadonnées."
+      }
+    ],
+    "best_practices": [
+      "Maintenir une check-list de contrôle qualité documentaire standardisée et réutilisable pour chaque type de livrable.",
+      "Conserver une preuve de la relecture effectuée (validateur, date) dans la documentation projet."
+    ],
+    "anti_patterns": [
+      "Envoyer un livrable sans aucune relecture croisée, même sous contrainte de délai.",
+      "Ignorer la vérification des métadonnées d'un document sous prétexte que le contenu visible est correct."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "controle_qualite_documentaire",
+      "livrables_client",
+      "donnees_sensibles_residuelles"
+    ],
+    "related_domains": [
+      "cpl",
+      "gestion_documentaire"
+    ],
+    "related_knowledge": [
+      "cpl.documentation_procedures.procedure_tests_qualite_alfred_cpl",
+      "cpl.documentation_procedures.procedure_gestion_documentation_technique_produit"
+    ],
+    "retrieval_priority": 7
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "conseil méthodologique sur le contrôle qualité documentaire des livrables"
+    ],
+    "restricted_usage": [
+      "vérification de données personnelles sensibles nécessitant une expertise juridique dédiée"
+    ],
+    "forbidden_usage": [],
+    "fallback_behavior": "Recommander systématiquement une relecture croisée et une vérification des métadonnées avant tout envoi de livrable au client."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "21/08/2026",
+    "last_update": "21/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

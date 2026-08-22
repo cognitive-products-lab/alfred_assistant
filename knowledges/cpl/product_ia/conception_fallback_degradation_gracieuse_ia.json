@@ -1,0 +1,97 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.product_ia.conception_fallback_degradation_gracieuse_ia",
+  "title": "Conception d'un fallback et d'une dégradation gracieuse pour une fonctionnalité IA",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "product_ia",
+  "category": "produit IA ALFRED CPL",
+  "summary": "Principes de conception d'un comportement de repli (fallback) lorsqu'une fonctionnalité IA ne peut pas répondre avec un niveau de confiance suffisant, privilégiant une dégradation gracieuse et transparente à un échec silencieux ou une réponse hasardeuse, distinct de la gestion des hallucinations déjà couverte qui porte sur la détection de l'erreur plutôt que sur la conception du comportement de repli.",
+  "purpose": "Donner à ALFRED CPL des principes de conception pour que chaque fonctionnalité IA prévoie un comportement de repli digne plutôt que de forcer une réponse en cas d'incertitude élevée.",
+  "tags": [
+    "fallback_ia",
+    "degradation_gracieuse",
+    "gestion_incertitude",
+    "conception_produit_ia"
+  ],
+  "intents": [
+    "design_ai_fallback_behavior",
+    "explain_graceful_degradation"
+  ],
+  "usage_context": [
+    "conception d'une nouvelle fonctionnalité IA nécessitant un comportement de repli",
+    "une fonctionnalité IA existante répond de façon hasardeuse en cas de faible confiance plutôt que de se rabattre proprement"
+  ],
+  "priority": "high",
+  "safety_level": "normal",
+  "content": {
+    "definition": "La dégradation gracieuse d'une fonctionnalité IA consiste à concevoir explicitement, dès la conception, un comportement de repli activé lorsque le niveau de confiance de la réponse est insuffisant : reformulation de la question, réponse partielle explicitement qualifiée d'incertaine, ou orientation vers une intervention humaine, plutôt que de forcer une réponse complète mais potentiellement erronée ou un échec silencieux sans explication.",
+    "core_principles": [
+      "Toute fonctionnalité IA doit prévoir dès sa conception un comportement de repli explicite pour les cas de faible confiance, pas seulement un traitement des cas nominaux.",
+      "Une dégradation gracieuse doit rester transparente pour l'utilisateur (signaler l'incertitude) plutôt que silencieuse ou déguisée en réponse assurée.",
+      "Le seuil de confiance déclenchant le fallback doit être calibré selon la sensibilité de l'usage, pas fixé de façon uniforme pour toutes les fonctionnalités."
+    ],
+    "rules": [
+      "Concevoir un comportement de repli explicite dès la conception de toute nouvelle fonctionnalité IA, pas après coup.",
+      "Signaler toujours à l'utilisateur qu'une réponse relève d'un mode dégradé ou incertain, jamais de façon silencieuse.",
+      "Calibrer le seuil de déclenchement du fallback selon la sensibilité de l'usage concerné."
+    ],
+    "examples": [
+      {
+        "situation": "Une fonctionnalité IA d'ALFRED CPL doit répondre à une question pour laquelle le niveau de confiance du modèle est faible.",
+        "recommended_behavior": "Activer le comportement de repli prévu : signaler explicitement l'incertitude, proposer une reformulation ou une réponse partielle qualifiée, voire orienter vers une intervention humaine selon la sensibilité du sujet.",
+        "avoid": "Forcer une réponse complète et assurée malgré un niveau de confiance insuffisant, ou échouer silencieusement sans explication pour l'utilisateur."
+      }
+    ],
+    "best_practices": [
+      "Documenter, pour chaque fonctionnalité IA, le comportement de repli prévu et son seuil de déclenchement dès la phase de conception.",
+      "Tester explicitement les cas de faible confiance en plus des cas nominaux avant mise en production."
+    ],
+    "anti_patterns": [
+      "Ne concevoir le comportement d'une fonctionnalité IA que pour les cas nominaux, sans prévoir de comportement de repli pour les cas incertains.",
+      "Répondre de façon assurée malgré un faible niveau de confiance, au risque de renforcer une hallucination."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "fallback_ia",
+      "degradation_gracieuse",
+      "gestion_incertitude"
+    ],
+    "related_domains": [
+      "cpl"
+    ],
+    "related_knowledge": [
+      "cpl.product_ia.gestion_hallucinations_produit_ia",
+      "cpl.product_ia.evaluation_qualite_reponses_ia_alfred"
+    ],
+    "retrieval_priority": 7
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "conseil de conception produit sur les comportements de repli d'une fonctionnalité IA"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "Recommander la conception explicite d'un comportement de repli transparent dès la phase de conception de toute fonctionnalité IA."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "21/08/2026",
+    "last_update": "21/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}
