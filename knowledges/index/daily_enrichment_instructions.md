@@ -44,15 +44,20 @@ Langue : français (`"language": "fr"`) sauf domaine explicitement anglophone.
 - Pas de données personnelles/confidentielles/sensibles sans justification et classification (`safety_level`).
 - Respecter `safety_rules` du template : jamais de credentials/secrets, jamais de diagnostic médical, jamais de guidance illégale, toujours un `fallback_behavior`.
 
-## Répartition quotidienne des 60 fichiers (règle obligatoire depuis le 17/07/2026)
+## Répartition quotidienne des 60 fichiers (règle obligatoire depuis le 20/08/2026, remplace la version du 17/07/2026)
 
-Répartition fixe imposée par Céline le 17/07/2026, à respecter sur le total de 60 fichiers (créations + mises à jour comptent dans leur quota respectif) :
-- **20 fichiers domaine `cpl`** (ALFRED CPL) : fonctionnalités, architecture, mémoire, gouvernance IA produit, business/stratégie CPL, opérations/continuité, documentation/procédures, scénarios — voir la liste « Domaines spécifiques à ALFRED CPL » ci-dessous.
-- **40 fichiers hors domaine `cpl`** (« socle » ALFRED — tous les autres domaines : culture générale, professionnel/technique, réglementaire, IA générique, gouvernance générale, etc.) — voir la liste « Domaines de connaissances » ci-dessous.
+Répartition précise imposée par Céline le 20/08/2026 (appliquée avec succès au Lot 13, volet « rotation standard »), à respecter sur le total de 60 fichiers (créations + mises à jour comptent dans leur quota respectif) :
+- **20 fichiers domaine `cpl`** (ALFRED CPL) — non négociable, en rotation sur les 12 sous-domaines cpl (`cpl.business_strategy` inclus normalement depuis sa consolidation du 20/08/2026 ; `cpl.demo_scenario` reste plus faible car ensemble fermé par nature) — voir la liste « Domaines spécifiques à ALFRED CPL » ci-dessous.
+- **10 fichiers domaine `secteurs_activite`** — angles nouveaux uniquement sur les 9 secteurs déjà créés (sante, finance_banque, industrie_manufacturiere, retail_distribution, secteur_public, energie, construction_btp, assurance, transport_logistique) : ne pas dupliquer les 5 fiches de base déjà existantes par secteur (profil_secteur, normes_reglementation, enjeux_risques, vocabulaire_metier, pestel) — vérifier le contenu déjà présent dans `knowledges/secteurs_activite/<secteur>/` avant de choisir un sujet.
+- **10 fichiers psychologie/émotions** (`human/psychology/`, `human/emotional_intelligence/`).
+- **15 fichiers culture cinéma/musique/lecture** (`knowledges/cinema/`, `knowledges/arts/musique/`, `knowledges/arts/litterature/`), répartis de façon équilibrée entre les trois thèmes.
+- **5 fichiers domaines au choix** — bloc volontairement libre, à utiliser pour combler les manques ponctuels identifiés dans le registre au moment du lot (ne pas le figer sur un domaine fixe).
 
-Si la cible de 60 n'est pas atteinte dans un lot (qualité prioritaire sur le volume, cf. règle déjà en vigueur) : produire en priorité les 20 fichiers CPL au complet, puis compléter avec des fichiers socle jusqu'à épuisement du temps disponible — ne jamais réduire le quota CPL pour compenser un retard côté socle, ni l'inverse. Autrement dit, le socle absorbe seul la variabilité du volume quotidien ; le bloc CPL (20) est la partie non négociable du lot.
+Si la cible de 60 n'est pas atteinte dans un lot (qualité prioritaire sur le volume, cf. règle déjà en vigueur) : produire en priorité les 20 fichiers CPL au complet en premier, puis les autres blocs dans l'ordre ci-dessus jusqu'à épuisement du temps disponible — ne jamais réduire le quota CPL pour compenser un retard ailleurs. Le bloc CPL (20) reste la seule partie strictement non négociable.
 
-Au sein de chaque bloc (20 CPL / 40 socle), continuer à mélanger les sous-thèmes et à éviter de concentrer sur un seul domaine ou sous-domaine, sauf besoin prioritaire documenté (ex. rattrapage avant une échéance CPL).
+Au sein de chaque bloc, continuer à mélanger les sous-thèmes et à éviter de concentrer sur un seul domaine ou sous-domaine, sauf besoin prioritaire documenté.
+
+Voir aussi `docs/roadmap/plan_knowledges_3_mois.xlsx` (révisé le 20/08/2026) pour la déclinaison de cette répartition en quotas hebdomadaires par sous-domaine sur 3 mois.
 
 ## Gestion des doublons
 
