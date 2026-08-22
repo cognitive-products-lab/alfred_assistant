@@ -1,0 +1,97 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.operations_continuite.tests_charge_performance_alfred_cpl",
+  "title": "Tests de charge et de performance d'ALFRED CPL",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "operations_continuite",
+  "category": "operations ALFRED CPL",
+  "summary": "Méthode de tests de charge et de performance (montée en charge progressive, identification du point de rupture, temps de réponse sous charge) pour ALFRED CPL, distincte des exercices de reprise d'activité déjà couverts qui simulent un sinistre plutôt qu'une charge croissante normale.",
+  "purpose": "Doter ALFRED CPL d'une pratique de tests de performance anticipant la dégradation de service avant qu'elle ne survienne en production, plutôt que de la découvrir lors d'un pic d'usage réel.",
+  "tags": [
+    "tests_de_charge",
+    "tests_performance",
+    "point_de_rupture",
+    "temps_de_reponse"
+  ],
+  "intents": [
+    "plan_load_testing",
+    "identify_performance_breaking_point"
+  ],
+  "usage_context": [
+    "avant une mise en production d'une nouvelle fonctionnalité à fort trafic attendu",
+    "anticipation d'un pic d'usage prévisible (déploiement chez un nouveau client important)"
+  ],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "Les tests de charge et de performance simulent une montée progressive du volume de sollicitations d'ALFRED CPL pour mesurer l'évolution du temps de réponse, identifier le point de rupture (seuil au-delà duquel le service se dégrade fortement ou devient indisponible) et vérifier la tenue des objectifs de performance contractuels, en amont d'une mise en production plutôt qu'en réaction à un incident réel.",
+    "core_principles": [
+      "Un test de charge doit simuler une montée progressive du volume, pas uniquement un pic instantané, pour identifier le point exact de dégradation.",
+      "Le point de rupture identifié doit être documenté avec une marge de sécurité claire par rapport au volume réel attendu en production.",
+      "Un test de performance réalisé une seule fois avant mise en production devient obsolète à mesure que le système évolue, et doit être répété périodiquement."
+    ],
+    "rules": [
+      "Toujours tester une montée en charge progressive plutôt qu'un seul niveau de charge fixe.",
+      "Documenter le point de rupture identifié avec une marge de sécurité explicite par rapport au volume réel attendu.",
+      "Répéter les tests de charge périodiquement, pas uniquement avant la première mise en production."
+    ],
+    "examples": [
+      {
+        "situation": "Un nouveau client important doit être déployé sur ALFRED CPL avec un volume d'usage significativement supérieur aux clients existants.",
+        "recommended_behavior": "Réaliser un test de charge progressif avant le déploiement, identifier le point de rupture et vérifier qu'il offre une marge de sécurité suffisante par rapport au volume attendu du nouveau client.",
+        "avoid": "Déployer directement en production sans test de charge préalable, en découvrant la dégradation de performance lors du pic d'usage réel."
+      }
+    ],
+    "best_practices": [
+      "Documenter et republier le point de rupture mesuré après chaque évolution significative de l'architecture.",
+      "Prévoir une marge de sécurité explicite entre le point de rupture mesuré et le volume réel attendu en production."
+    ],
+    "anti_patterns": [
+      "Ne tester la charge qu'une seule fois avant la première mise en production, sans jamais répéter le test.",
+      "Découvrir le point de rupture réel du système lors d'un incident en production plutôt que par un test anticipé."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "tests_de_charge",
+      "tests_performance",
+      "point_de_rupture"
+    ],
+    "related_domains": [
+      "cpl"
+    ],
+    "related_knowledge": [
+      "cpl.operations_continuite.gestion_capacite_charge_systeme",
+      "cpl.operations_continuite.haute_disponibilite_alfred_cpl"
+    ],
+    "retrieval_priority": 6
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "conseil méthodologique sur la conception de tests de charge et de performance"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "Recommander un test de charge progressif avec identification explicite du point de rupture avant tout déploiement à fort trafic attendu."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "21/08/2026",
+    "last_update": "21/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

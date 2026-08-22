@@ -1,0 +1,98 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.business_piloting.analyse_ecarts_budgetaires_projet_conseil",
+  "title": "Analyse des écarts budgétaires sur un projet de conseil",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "business_piloting",
+  "category": "pilotage business ALFRED CPL",
+  "summary": "Méthode d'analyse des écarts entre budget prévisionnel et réalisé sur une mission de conseil (écart volume, écart prix, écart de périmètre), complémentaire au pilotage de marge par projet déjà couvert, avec une grille de lecture causale de l'écart.",
+  "purpose": "Permettre à ALFRED CPL d'aider à diagnostiquer la cause précise d'un écart budgétaire plutôt que de simplement le constater, condition d'une action corrective pertinente.",
+  "tags": [
+    "ecart_budgetaire",
+    "analyse_causale",
+    "controle_gestion",
+    "pilotage_projet"
+  ],
+  "intents": [
+    "analyze_budget_variance",
+    "diagnose_variance_cause"
+  ],
+  "usage_context": [
+    "un écart significatif entre budget prévisionnel et réalisé est constaté sur une mission",
+    "préparation d'un comité de pilotage projet abordant les écarts"
+  ],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "L'analyse des écarts budgétaires décompose un écart global entre prévisionnel et réalisé en composantes causales distinctes (écart de volume/charge, écart de prix/taux, écart de périmètre), afin d'identifier l'action corrective adaptée plutôt que de traiter l'écart comme un bloc indifférencié.",
+    "core_principles": [
+      "Un écart budgétaire global doit systématiquement être décomposé en ses causes (volume, prix, périmètre) avant toute action corrective.",
+      "Un écart de volume/charge appelle une action sur l'organisation ou l'estimation, un écart de prix/taux appelle une action commerciale, un écart de périmètre appelle une action contractuelle.",
+      "L'analyse d'écart est plus utile en cours de mission, permettant une correction, qu'en fin de mission où elle ne sert plus qu'au retour d'expérience."
+    ],
+    "rules": [
+      "Toujours identifier la nature de l'écart (volume, prix, périmètre) avant de proposer une action corrective.",
+      "Croiser l'analyse d'écart avec la documentation des évolutions de périmètre en cours de mission.",
+      "Présenter l'écart en valeur et en cause, jamais en valeur seule, pour rester actionnable."
+    ],
+    "examples": [
+      {
+        "situation": "Un projet dépasse son budget de 20% en fin de trimestre.",
+        "recommended_behavior": "Décomposer l'écart : combien vient d'un volume d'heures supérieur au prévisionnel, combien d'un taux journalier réellement atteint inférieur au taux commercial, combien d'un périmètre élargi non recontractualisé.",
+        "avoid": "Communiquer uniquement le pourcentage global de dépassement sans décomposition causale."
+      }
+    ],
+    "best_practices": [
+      "Décomposer systématiquement tout écart significatif en composantes volume/prix/périmètre.",
+      "Relier chaque composante d'écart à une action corrective spécifique et non générique."
+    ],
+    "anti_patterns": [
+      "Traiter tout écart budgétaire comme un problème unique nécessitant une seule action corrective générique.",
+      "Analyser l'écart uniquement en fin de mission, une fois l'action corrective devenue impossible."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "ecart_budgetaire",
+      "analyse_causale",
+      "controle_gestion"
+    ],
+    "related_domains": [
+      "cpl",
+      "finance_controle"
+    ],
+    "related_knowledge": [
+      "cpl.business_piloting.pilotage_marge_projet_service",
+      "cpl.execution.gestion_changement_perimetre_avenant_projet"
+    ],
+    "retrieval_priority": 6
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "conseil méthodologique sur l'analyse causale des écarts budgétaires projet"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "Recommander une décomposition causale de l'écart avant toute recommandation d'action corrective."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "21/08/2026",
+    "last_update": "21/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

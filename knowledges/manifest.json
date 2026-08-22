@@ -1,7 +1,7 @@
 {
   "manifest_id": "alfred_knowledge_manifest_v2_0",
-  "version": "2.9.0",
-  "last_update": "2026-08-20",
+  "version": "2.10.0",
+  "last_update": "2026-08-21",
   "status": "active",
   "description": "Manifest global du socle de connaissances ALFRED. Il décrit les domaines, sous-domaines, usages et règles générales de chargement du dossier knowledges.",
   "scope": {
@@ -611,7 +611,7 @@
     },
     "cinema": {
       "label": "Cinema",
-      "file_count": 12,
+      "file_count": 17,
       "subdomains": [
         "history",
         "genres",
@@ -624,10 +624,77 @@
         "montage",
         "son",
         "acteurs",
-        "festivals"
+        "festivals",
+        "critique",
+        "effets_speciaux"
       ],
       "lot": "LOT13",
       "added": "2026-08-20"
+    },
+    "architecture": {
+      "label": "Architecture",
+      "description": "Architecture, urbanisme, design d'interieur, patrimoine bati et confort du batiment (dont acoustique).",
+      "priority": "low",
+      "path": "knowledges/architecture/",
+      "subdomains": [
+        "styles",
+        "urban",
+        "interior",
+        "patrimoine",
+        "sustainable",
+        "architecture_intelligente",
+        "contemporain",
+        "architecture_durable",
+        "history",
+        "acoustique"
+      ],
+      "lot": "LOT14",
+      "added": "2026-08-21",
+      "note": "Domaine deja present sur disque depuis plusieurs lots (9 fiches) mais jamais enregistre dans taxonomy.json/manifest.json ; regularise au Lot 14 sur le meme modele que cinema au Lot 13."
+    },
+    "linguistics": {
+      "label": "Linguistique",
+      "description": "Sciences du langage : structure, acquisition, variation, sociolinguistique et traitement computationnel/traduction des langues.",
+      "priority": "low",
+      "path": "knowledges/linguistics/",
+      "subdomains": [
+        "syntax",
+        "sociolinguistique",
+        "linguistique_computationnelle",
+        "sociolinguistics",
+        "foundations",
+        "semantics",
+        "acquisition",
+        "evolution",
+        "phonetics",
+        "discours",
+        "traduction"
+      ],
+      "lot": "LOT14",
+      "added": "2026-08-21",
+      "note": "Domaine deja present sur disque depuis plusieurs lots (10 fiches) mais jamais enregistre dans taxonomy.json/manifest.json ; regularise au Lot 14 sur le meme modele que cinema au Lot 13."
+    },
+    "nutrition": {
+      "label": "Nutrition",
+      "description": "Nutrition humaine : macronutriments, micronutriments, besoins specifiques par population et comportement alimentaire.",
+      "priority": "medium",
+      "path": "knowledges/nutrition/",
+      "subdomains": [
+        "hydratation",
+        "sports",
+        "gut_health",
+        "nutrition_sportive",
+        "dietary_patterns",
+        "nutrition_personnes_agees",
+        "micronutrients",
+        "nutrition_comportementale",
+        "etiquetage",
+        "foundations",
+        "macronutrients"
+      ],
+      "lot": "LOT14",
+      "added": "2026-08-21",
+      "note": "Domaine deja present sur disque depuis plusieurs lots (10 fiches) mais jamais enregistre dans taxonomy.json/manifest.json ; regularise au Lot 14 sur le meme modele que cinema au Lot 13."
     }
   },
   "recently_added_lots": {
@@ -809,6 +876,25 @@
         "accessibilite_inclusion.documents"
       ],
       "note": "cpl.business_strategy explicitement exclu de ce volet, traite separement le meme jour par une autre session (voir lot13_business_strategy_20_08_2026)."
+    },
+    "lot14_21_08_2026": {
+      "path": "60 fichiers repartis sur knowledges/cpl/*, knowledges/secteurs_activite/*, knowledges/human/psychology+emotional_intelligence, knowledges/cinema/*, knowledges/arts/musique+litterature, knowledges/rse_developpement_durable, knowledges/securite_ia, knowledges/architecture, knowledges/linguistics, knowledges/nutrition",
+      "description": "Lot 14 du 21/08/2026 (voir knowledges/index/daily_enrichment_log.md), suite du Lot 13 (20/08/2026), meme repartition specifique demandee par Celine : 20 fichiers cpl (rotation sur 11 des 12 sous-domaines, business_strategy desormais reintegre a la rotation apres sa consolidation du 20/08, demo_scenario exclu par convention) ; 10 fichiers secteurs_activite sur des angles nouveaux (cas_usage_ia, financement, enjeux_operationnels, chiffres_cles, procedures_metier, acteurs_cles), verifies non redondants avec les 55 fiches deja creees la veille ; 10 fichiers psychologie/emotions (5 human.psychology, 5 human.emotional_intelligence) ; 15 fichiers culture (5 cinema, 5 arts.musique, 5 arts.litterature) ; 5 fichiers socle au choix comblant des manques identifies dans le registre (rse_developpement_durable.biodiversite, securite_ia.confidentialite, architecture.acoustique, linguistics.traduction, nutrition.nutrition_personnes_agees). Corrige en cours de lot une erreur de format sur 10 knowledge_id (domain.name au lieu de domain.subdomain.name) detectee avant commit. Regularise 3 domaines top-level (architecture, linguistics, nutrition) presents sur disque depuis plusieurs lots mais jamais enregistres dans taxonomy.json/manifest.json, et complete le backfill partiel du domaine cinema laisse incomplet par le Lot 13 (7 sous-domaines pre-existants ajoutes : history, genres, directors, cinematography, documentary, structure_narrative, animation). total_domains 58 -> 61.",
+      "date": "21/08/2026",
+      "requested_by": "Celine, poursuite de la repartition specifique du 20/08/2026",
+      "files_created": 60,
+      "new_domains_created": [
+        "architecture",
+        "linguistics",
+        "nutrition"
+      ],
+      "new_subdomains_created": [
+        "cinema.critique",
+        "cinema.effets_speciaux",
+        "rse_developpement_durable.biodiversite",
+        "securite_ia.confidentialite"
+      ],
+      "note": "cinema.history/genres/directors/cinematography/documentary/structure_narrative/animation backfilles (dette partielle laissee par le Lot 13) ; architecture/linguistics/nutrition backfilles integralement (dette de gouvernance documentee depuis le Lot 11)."
     }
   },
   "loading_policy": {
@@ -841,5 +927,5 @@
       "Tester retrieval_engine.py sur des requêtes multi-domaines."
     ]
   },
-  "total_domains": 58
+  "total_domains": 61
 }

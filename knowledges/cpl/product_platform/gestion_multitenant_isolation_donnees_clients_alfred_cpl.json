@@ -1,0 +1,98 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.product_platform.gestion_multitenant_isolation_donnees_clients_alfred_cpl",
+  "title": "Gestion multi-tenant et isolation des données entre clients d'ALFRED CPL",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "product_platform",
+  "category": "architecture plateforme ALFRED CPL",
+  "summary": "Principes d'architecture multi-tenant garantissant une isolation stricte des données entre clients distincts d'ALFRED CPL (partitionnement logique ou physique, contrôle d'accès croisé impossible), complémentaire à la protection des données et à l'identité/accès Zero Trust déjà couvertes sous un angle plus général.",
+  "purpose": "Préciser les principes spécifiques à l'architecture multi-tenant, condition de confiance essentielle lorsque plusieurs clients distincts utilisent la même instance ou plateforme ALFRED CPL.",
+  "tags": [
+    "multitenant",
+    "isolation_donnees_clients",
+    "partitionnement",
+    "architecture_plateforme"
+  ],
+  "intents": [
+    "explain_multitenant_isolation",
+    "design_tenant_data_boundary"
+  ],
+  "usage_context": [
+    "conception ou audit d'une architecture servant plusieurs clients distincts sur une même plateforme",
+    "un client demande des garanties explicites d'isolation de ses données vis-à-vis des autres clients"
+  ],
+  "priority": "high",
+  "safety_level": "sensitive",
+  "content": {
+    "definition": "La gestion multi-tenant consiste à servir plusieurs clients distincts (tenants) depuis une infrastructure ALFRED CPL partagée tout en garantissant qu'aucune donnée d'un tenant ne soit jamais accessible, même accidentellement, à un autre tenant, par un partitionnement logique ou physique strict des données et un contrôle d'accès qui interdit structurellement tout croisement entre tenants.",
+    "core_principles": [
+      "L'isolation entre tenants doit être garantie au niveau de l'architecture elle-même (partitionnement structurel), pas uniquement par des règles de contrôle d'accès applicatif qui pourraient être contournées par une erreur de configuration.",
+      "Un test d'isolation entre tenants doit être réalisé explicitement, pas seulement supposé garanti par la conception initiale.",
+      "Le niveau d'isolation requis (partitionnement logique suffisant vs isolation physique complète) dépend de la sensibilité des données et des exigences contractuelles du client concerné."
+    ],
+    "rules": [
+      "Garantir l'isolation entre tenants au niveau structurel de l'architecture, jamais uniquement par une règle applicative contournable.",
+      "Tester explicitement et régulièrement l'impossibilité d'accès croisé entre tenants, pas seulement au déploiement initial.",
+      "Adapter le niveau d'isolation (logique ou physique) à la sensibilité des données et aux exigences contractuelles du client."
+    ],
+    "examples": [
+      {
+        "situation": "Un nouveau client important d'ALFRED CPL demande des garanties explicites que ses données ne pourront jamais être accessibles à un autre client de la plateforme.",
+        "recommended_behavior": "Expliquer le principe de partitionnement structurel garantissant l'isolation, préciser le niveau d'isolation retenu (logique ou physique) selon la sensibilité des données, et mentionner l'existence de tests réguliers d'isolation entre tenants.",
+        "avoid": "Affirmer une isolation garantie sans pouvoir préciser si elle repose sur un partitionnement structurel ou uniquement sur des règles applicatives contournables."
+      }
+    ],
+    "best_practices": [
+      "Documenter explicitement le niveau d'isolation retenu (logique ou physique) par type de donnée et par client.",
+      "Réaliser des tests réguliers et documentés d'impossibilité d'accès croisé entre tenants."
+    ],
+    "anti_patterns": [
+      "Garantir une isolation entre clients reposant uniquement sur des règles applicatives sans partitionnement structurel sous-jacent.",
+      "Ne jamais tester explicitement l'isolation entre tenants après la conception initiale de l'architecture."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "multitenant",
+      "isolation_donnees_clients",
+      "partitionnement"
+    ],
+    "related_domains": [
+      "cpl",
+      "information_security"
+    ],
+    "related_knowledge": [
+      "cpl.product_platform.data_protection_hosting",
+      "cpl.product_platform.identity_access_zero_trust"
+    ],
+    "retrieval_priority": 8
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "high",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "conseil d'architecture sur l'isolation des données entre clients d'une plateforme multi-tenant"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "Recommander un partitionnement structurel garanti par l'architecture plutôt qu'une isolation reposant uniquement sur des règles applicatives."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "21/08/2026",
+    "last_update": "21/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}
