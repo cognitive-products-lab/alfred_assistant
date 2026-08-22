@@ -1,0 +1,98 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "securite_ia.confidentialite.confidentialite_donnees_entrainement_differential_privacy",
+  "title": "Confidentialité des données d'entraînement et confidentialité différentielle (differential privacy)",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "securite_ia",
+  "subdomain": "confidentialite",
+  "category": "securite_ia",
+  "summary": "Principes de protection de la confidentialité des données utilisées pour l'entraînement d'un modèle IA (risque de mémorisation et de fuite de données d'entraînement, technique de confidentialité différentielle comme garde-fou mathématique), complémentaire à la sécurité des pipelines MLOps déjà couverte sous un angle plus opérationnel.",
+  "purpose": "Approfondir un risque spécifique de sécurité IA — la fuite de données d'entraînement — et la principale technique de protection associée, sujet distinct de la sécurité opérationnelle des pipelines déjà documentée.",
+  "tags": [
+    "confidentialite_differentielle",
+    "differential_privacy",
+    "fuite_donnees_entrainement",
+    "securite_ia"
+  ],
+  "intents": [
+    "explain_differential_privacy",
+    "assess_training_data_leakage_risk"
+  ],
+  "usage_context": [
+    "un client s'interroge sur le risque de fuite de données personnelles via un modèle IA entraîné sur ses données",
+    "conseil sur les techniques de protection de la confidentialité en entraînement de modèle"
+  ],
+  "priority": "high",
+  "safety_level": "sensitive",
+  "content": {
+    "definition": "Le risque de fuite de données d'entraînement désigne la possibilité qu'un modèle IA mémorise involontairement des fragments spécifiques de ses données d'entraînement (notamment des données rares ou atypiques) et les restitue lors de son utilisation, la confidentialité différentielle (differential privacy) étant une technique mathématique introduisant un bruit calibré durant l'entraînement pour garantir qu'aucune donnée individuelle ne puisse être ré-identifiée à partir du comportement du modèle, au prix d'un compromis avec la précision du modèle.",
+    "core_principles": [
+      "Un modèle IA peut mémoriser des fragments spécifiques de ses données d'entraînement, en particulier les données rares ou atypiques, ce risque étant distinct d'une simple généralisation statistique.",
+      "La confidentialité différentielle offre une garantie mathématique formelle contre la ré-identification individuelle, plus robuste qu'une simple anonymisation empirique des données avant entraînement.",
+      "L'application de la confidentialité différentielle implique un compromis explicite entre le niveau de protection (quantité de bruit introduit) et la précision du modèle résultant."
+    ],
+    "rules": [
+      "Ne jamais présenter l'anonymisation empirique des données avant entraînement comme une garantie suffisante contre le risque de mémorisation par le modèle.",
+      "Toujours documenter le compromis retenu entre niveau de confidentialité différentielle et précision du modèle lorsque cette technique est utilisée.",
+      "Évaluer le risque de fuite de données d'entraînement en priorité sur les données rares ou atypiques, plus susceptibles d'être mémorisées."
+    ],
+    "examples": [
+      {
+        "situation": "Un client s'interroge sur le risque que des données personnelles sensibles utilisées pour entraîner un modèle interne puissent être extraites par un tiers.",
+        "recommended_behavior": "Expliquer le risque de mémorisation par le modèle, en particulier sur les données rares, et présenter la confidentialité différentielle comme garantie mathématique formelle, en mentionnant le compromis avec la précision du modèle.",
+        "avoid": "Affirmer qu'une anonymisation empirique des données avant entraînement suffit à garantir l'absence de tout risque de fuite."
+      }
+    ],
+    "best_practices": [
+      "Documenter explicitement le compromis retenu entre niveau de confidentialité différentielle et précision du modèle.",
+      "Porter une attention particulière au risque de mémorisation sur les données rares ou atypiques du jeu d'entraînement."
+    ],
+    "anti_patterns": [
+      "Considérer qu'une anonymisation empirique avant entraînement suffit à garantir l'absence de risque de fuite de données.",
+      "Ignorer le compromis entre niveau de protection différentielle et précision du modèle lors du choix des paramètres."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "confidentialite_differentielle",
+      "differential_privacy",
+      "fuite_donnees_entrainement"
+    ],
+    "related_domains": [
+      "securite_ia",
+      "donnees_personnelles"
+    ],
+    "related_knowledge": [
+      "securite_ia.securite_pipelines_mlops",
+      "securite_ia.gouvernance_modeles_ia"
+    ],
+    "retrieval_priority": 7
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "high",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "conseil méthodologique sur la protection de la confidentialité des données d'entraînement d'un modèle IA"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "Recommander l'évaluation du risque de mémorisation avant tout entraînement sur des données sensibles et l'envisagement d'une technique de confidentialité différentielle plutôt qu'une simple anonymisation empirique."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "21/08/2026",
+    "last_update": "21/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}
