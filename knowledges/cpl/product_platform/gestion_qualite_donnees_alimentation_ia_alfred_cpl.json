@@ -1,0 +1,98 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.product_platform.gestion_qualite_donnees_alimentation_ia_alfred_cpl",
+  "title": "Gestion de la qualité des données alimentant l'IA d'ALFRED CPL",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "product_platform",
+  "category": "architecture plateforme ALFRED CPL",
+  "summary": "Critères et processus de contrôle qualité des données alimentant la base de connaissances et les capacités de retrieval d'ALFRED CPL (exactitude, fraîcheur, absence de doublon, cohérence de format), distincts de la gouvernance de la base de connaissances métier déjà couverte qui porte sur la gouvernance organisationnelle plutôt que sur les critères techniques de qualité des données elles-mêmes.",
+  "purpose": "Préciser les critères concrets de qualité de données à vérifier avant intégration au socle de connaissances d'ALFRED CPL, condition de fiabilité de toute réponse générée à partir de ce socle.",
+  "tags": [
+    "qualite_donnees",
+    "alimentation_ia",
+    "controle_qualite_donnees",
+    "base_connaissances"
+  ],
+  "intents": [
+    "explain_data_quality_criteria_ai_ingestion",
+    "assess_knowledge_base_data_quality"
+  ],
+  "usage_context": [
+    "contrôle qualité avant intégration d'un nouveau lot de données à la base de connaissances",
+    "une réponse générée par ALFRED CPL s'appuie sur une donnée obsolète ou incohérente"
+  ],
+  "priority": "high",
+  "safety_level": "normal",
+  "content": {
+    "definition": "La qualité des données alimentant l'IA d'ALFRED CPL se mesure sur plusieurs critères complémentaires : l'exactitude factuelle du contenu, sa fraîcheur (absence d'obsolescence non signalée), l'absence de doublon ou de contradiction avec des données déjà présentes, et la cohérence de format garantissant l'exploitabilité par les mécanismes de retrieval, chaque nouveau lot de données devant être vérifié sur ces critères avant intégration au socle de connaissances.",
+    "core_principles": [
+      "L'exactitude factuelle d'une donnée ne suffit pas seule : sa fraîcheur et l'absence de contradiction avec les données déjà présentes doivent être vérifiées conjointement avant intégration.",
+      "Un doublon ou une contradiction non détectée avant intégration dégrade la fiabilité perçue de l'ensemble du socle de connaissances, pas seulement de la donnée concernée.",
+      "La cohérence de format doit être vérifiée systématiquement, une donnée factuellement exacte mais mal formatée pouvant devenir invisible ou mal exploitée par les mécanismes de retrieval."
+    ],
+    "rules": [
+      "Vérifier systématiquement l'exactitude, la fraîcheur, l'absence de doublon et la cohérence de format de tout nouveau lot de données avant intégration.",
+      "Documenter la date de vérification et la source de toute donnée intégrée au socle de connaissances.",
+      "Traiter toute contradiction détectée entre une nouvelle donnée et une donnée déjà présente avant d'intégrer l'une ou l'autre."
+    ],
+    "examples": [
+      {
+        "situation": "Un nouveau lot important de fiches de connaissances doit être intégré rapidement au socle d'ALFRED CPL sans délai prévu pour un contrôle qualité approfondi.",
+        "recommended_behavior": "Recommander de maintenir les contrôles minimaux d'exactitude, de doublon et de cohérence de format même sous contrainte de délai, plutôt que de renoncer au contrôle qualité pour tenir un délai.",
+        "avoid": "Intégrer un lot de données volumineux sans aucun contrôle qualité par manque de temps, au risque de dégrader la fiabilité perçue de l'ensemble du socle de connaissances."
+      }
+    ],
+    "best_practices": [
+      "Vérifier systématiquement exactitude, fraîcheur, absence de doublon et cohérence de format avant toute intégration.",
+      "Documenter la date de vérification et la source de chaque donnée intégrée au socle de connaissances."
+    ],
+    "anti_patterns": [
+      "Intégrer un lot de données sans aucun contrôle qualité par contrainte de délai.",
+      "Ignorer une contradiction détectée entre une nouvelle donnée et une donnée déjà présente dans le socle."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "qualite_donnees",
+      "alimentation_ia",
+      "controle_qualite_donnees"
+    ],
+    "related_domains": [
+      "cpl",
+      "data_management"
+    ],
+    "related_knowledge": [
+      "cpl.product_platform.business_knowledge_base_governance",
+      "cpl.product_ia.gestion_biais_donnees_entrainement_produit_ia"
+    ],
+    "retrieval_priority": 7
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "explication pédagogique des critères de qualité de données appliqués au socle de connaissances"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "En cas de contrainte de délai forte, recommander de maintenir au minimum les contrôles d'exactitude et de doublon plutôt que d'y renoncer intégralement."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "23/08/2026",
+    "last_update": "23/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

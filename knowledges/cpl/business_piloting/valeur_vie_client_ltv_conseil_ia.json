@@ -1,0 +1,98 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.business_piloting.valeur_vie_client_ltv_conseil_ia",
+  "title": "Valeur vie client (LTV) en contexte de conseil assisté par IA",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "business_piloting",
+  "category": "pilotage financier ALFRED CPL",
+  "summary": "Méthodologie de calcul et d'usage de la valeur vie client (LTV, lifetime value) pour une activité de conseil assistée par IA, et du ratio LTV/CAC comme indicateur de soutenabilité économique, complémentaire au coût d'acquisition client déjà couvert isolément.",
+  "purpose": "Donner à ALFRED CPL un indicateur financier complémentaire au CAC pour juger de la soutenabilité économique d'un segment ou d'une offre de conseil sur la durée de la relation client, pas seulement au moment de l'acquisition.",
+  "tags": [
+    "valeur_vie_client",
+    "ltv",
+    "ratio_ltv_cac",
+    "pilotage_financier"
+  ],
+  "intents": [
+    "calculate_customer_lifetime_value",
+    "assess_ltv_cac_ratio_health"
+  ],
+  "usage_context": [
+    "un client interne souhaite savoir si le coût d'acquisition d'un segment est soutenable sur la durée",
+    "arbitrage entre investissement commercial et rentabilité à long terme d'une offre"
+  ],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "La valeur vie client (LTV, lifetime value) estime la marge nette cumulée qu'un client générera sur toute la durée de sa relation avec l'activité de conseil, calculée à partir de la marge moyenne par mission, de la fréquence de renouvellement et de la durée moyenne de rétention ; rapportée au coût d'acquisition client (CAC), elle forme le ratio LTV/CAC, indicateur classique de soutenabilité économique d'un modèle d'acquisition.",
+    "core_principles": [
+      "La LTV n'a de sens que rapportée au CAC : une LTV élevée en valeur absolue peut rester insoutenable si le coût d'acquisition correspondant est proportionnellement plus élevé encore.",
+      "Un ratio LTV/CAC généralement considéré comme sain se situe autour de 3:1 ou plus, un ratio proche de 1:1 signalant un modèle d'acquisition structurellement déficitaire.",
+      "La LTV en conseil dépend fortement du taux de renouvellement des missions, un levier souvent plus rentable à travailler que l'acquisition de nouveaux clients."
+    ],
+    "rules": [
+      "Toujours présenter la LTV accompagnée du CAC correspondant, jamais isolément.",
+      "Distinguer la LTV théorique moyenne d'un segment de la LTV réelle observée sur les clients déjà anciens, les deux pouvant diverger significativement.",
+      "Ne jamais fonder une décision d'investissement commercial uniquement sur une LTV projetée sans historique de rétention suffisant."
+    ],
+    "examples": [
+      {
+        "situation": "La direction envisage d'augmenter fortement le budget d'acquisition sur un nouveau segment de clientèle sans historique de rétention.",
+        "recommended_behavior": "Alerter sur l'absence d'historique de rétention fiabilisant la LTV projetée, et recommander un calcul prudent basé sur des hypothèses conservatrices avant tout engagement budgétaire significatif.",
+        "avoid": "Valider une projection de LTV optimiste fondée uniquement sur les premières missions sans tenir compte de l'absence de recul sur le renouvellement."
+      }
+    ],
+    "best_practices": [
+      "Toujours croiser la LTV projetée avec le ratio LTV/CAC avant toute décision d'investissement commercial.",
+      "Réviser périodiquement la LTV réelle observée pour corriger les hypothèses initiales de projection."
+    ],
+    "anti_patterns": [
+      "Communiquer une LTV en valeur absolue sans la rapporter au CAC correspondant.",
+      "Fonder une décision d'investissement commercial durable sur une LTV projetée sans historique de rétention suffisant."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "valeur_vie_client",
+      "ltv",
+      "ratio_ltv_cac"
+    ],
+    "related_domains": [
+      "cpl",
+      "professional"
+    ],
+    "related_knowledge": [
+      "cpl.business_piloting.cout_acquisition_client_alfred_cpl",
+      "cpl.business_piloting.profitability_analysis"
+    ],
+    "retrieval_priority": 6
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "calcul et interprétation pédagogique de la LTV et du ratio LTV/CAC en contexte de conseil"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "Recommander la prudence et un ratio LTV/CAC calculé avec des hypothèses conservatrices en l'absence d'historique de rétention suffisant."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "23/08/2026",
+    "last_update": "23/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

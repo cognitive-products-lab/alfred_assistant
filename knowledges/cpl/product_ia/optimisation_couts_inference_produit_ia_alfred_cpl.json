@@ -1,0 +1,98 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.product_ia.optimisation_couts_inference_produit_ia_alfred_cpl",
+  "title": "Optimisation des coûts d'inférence du produit IA ALFRED CPL",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "product_ia",
+  "category": "ingénierie produit IA ALFRED CPL",
+  "summary": "Leviers d'optimisation des coûts de calcul liés à l'inférence des modèles IA d'ALFRED CPL (choix de taille de modèle adaptée à la tâche, mise en cache des réponses fréquentes, arbitrage local versus cloud), distincts de l'évaluation de l'impact environnemental de l'IA locale déjà couverte qui porte sur l'empreinte écologique plutôt que sur le coût économique direct.",
+  "purpose": "Donner à ALFRED CPL des leviers concrets d'optimisation économique de l'inférence, un enjeu distinct mais lié à la sobriété environnementale déjà traitée, particulièrement pertinent dans une architecture local-first où le matériel local a un coût fixe à amortir.",
+  "tags": [
+    "optimisation_couts_inference",
+    "cout_calcul_ia",
+    "finops_ia",
+    "efficacite_produit_ia"
+  ],
+  "intents": [
+    "explain_inference_cost_optimization_levers",
+    "assess_local_vs_cloud_cost_tradeoff"
+  ],
+  "usage_context": [
+    "arbitrage entre plusieurs tailles de modèles pour une même fonctionnalité produit",
+    "analyse du coût de calcul d'une nouvelle fonctionnalité IA avant son déploiement"
+  ],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "L'optimisation des coûts d'inférence regroupe plusieurs leviers complémentaires : le choix d'une taille de modèle adaptée à la complexité réelle de chaque tâche plutôt qu'un modèle surdimensionné par défaut, la mise en cache des réponses à des requêtes fréquentes et peu variables, et l'arbitrage explicite entre traitement local (coût fixe matériel déjà amorti) et traitement cloud (coût variable à l'usage) selon la nature de la tâche et sa sensibilité.",
+    "core_principles": [
+      "Un modèle surdimensionné par rapport à la complexité réelle d'une tâche génère un surcoût de calcul récurrent sans bénéfice de qualité proportionnel.",
+      "La mise en cache de réponses à des requêtes fréquentes et peu variables réduit le coût de calcul sans dégrader la qualité perçue, à condition que la fraîcheur de l'information mise en cache reste garantie.",
+      "L'arbitrage local versus cloud pour une tâche donnée doit intégrer le coût fixe déjà amorti du traitement local, pas seulement le coût marginal apparent d'un appel cloud isolé."
+    ],
+    "rules": [
+      "Choisir la taille de modèle en fonction de la complexité réelle de chaque tâche plutôt que d'appliquer un modèle unique surdimensionné par défaut.",
+      "Mettre en cache les réponses à des requêtes fréquentes et peu variables, en garantissant leur fraîcheur.",
+      "Intégrer le coût fixe déjà amorti du traitement local dans tout arbitrage local versus cloud, pas seulement le coût marginal apparent."
+    ],
+    "examples": [
+      {
+        "situation": "Une nouvelle fonctionnalité simple de classification de requêtes utilise par défaut le modèle le plus volumineux disponible.",
+        "recommended_behavior": "Recommander une évaluation de la complexité réelle de la tâche pour déterminer si un modèle plus léger suffirait, réduisant le coût d'inférence sans perte de qualité perceptible.",
+        "avoid": "Conserver systématiquement le modèle le plus volumineux disponible pour toute tâche par défaut, sans évaluation de son adéquation réelle à la complexité de la tâche."
+      }
+    ],
+    "best_practices": [
+      "Évaluer systématiquement la complexité réelle d'une tâche avant de choisir la taille de modèle correspondante.",
+      "Mettre en cache les réponses à des requêtes fréquentes tout en garantissant leur fraîcheur."
+    ],
+    "anti_patterns": [
+      "Utiliser par défaut le modèle le plus volumineux disponible sans évaluation de son adéquation à la complexité réelle de la tâche.",
+      "Arbitrer local versus cloud uniquement sur le coût marginal apparent sans intégrer le coût fixe déjà amorti du local."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "optimisation_couts_inference",
+      "cout_calcul_ia",
+      "finops_ia"
+    ],
+    "related_domains": [
+      "cpl",
+      "professional"
+    ],
+    "related_knowledge": [
+      "cpl.product_ia.evaluation_impact_environnemental_ia_locale",
+      "cpl.product_ia.tech_tradeoff_framework"
+    ],
+    "retrieval_priority": 6
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "conseil pédagogique sur les leviers d'optimisation des coûts d'inférence d'un produit IA"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "En cas d'arbitrage sur une fonctionnalité sensible, rappeler que la réduction de coût ne doit jamais se faire au détriment d'une qualité de réponse minimale requise."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "23/08/2026",
+    "last_update": "23/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

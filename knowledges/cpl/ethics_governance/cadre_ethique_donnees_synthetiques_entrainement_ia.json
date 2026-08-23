@@ -1,0 +1,100 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.ethics_governance.cadre_ethique_donnees_synthetiques_entrainement_ia",
+  "title": "Cadre éthique d'usage des données synthétiques pour l'entraînement de l'IA",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "ethics_governance",
+  "category": "gouvernance éthique ALFRED CPL",
+  "summary": "Principes éthiques encadrant l'utilisation de données synthétiques (générées artificiellement) pour l'entraînement ou le test des modèles IA d'ALFRED CPL, distincts de la gestion des biais dans les données d'entraînement déjà couverte qui porte principalement sur des données réelles.",
+  "purpose": "Donner à ALFRED CPL un cadre de décision explicite sur le recours aux données synthétiques, afin d'en tirer les bénéfices (confidentialité, volume) sans introduire de biais ou de risque de qualité non maîtrisé.",
+  "tags": [
+    "donnees_synthetiques",
+    "ethique_donnees",
+    "entrainement_ia",
+    "gouvernance_donnees"
+  ],
+  "intents": [
+    "explain_synthetic_data_ethics",
+    "assess_synthetic_data_appropriateness"
+  ],
+  "usage_context": [
+    "un choix de conception envisage l'usage de données synthétiques pour entraîner ou tester un modèle IA",
+    "un client s'interroge sur la fiabilité de résultats obtenus à partir de données synthétiques"
+  ],
+  "priority": "medium",
+  "safety_level": "sensitive",
+  "content": {
+    "definition": "Les données synthétiques sont des données générées artificiellement, statistiquement représentatives de données réelles sans en être extraites directement, utilisées notamment pour préserver la confidentialité, augmenter un volume de données insuffisant, ou tester un système sans exposer de données réelles sensibles ; leur usage éthique suppose de rester transparent sur leur caractère synthétique et de vérifier qu'elles ne reproduisent ni n'amplifient les biais des données réelles dont elles s'inspirent.",
+    "core_principles": [
+      "Le caractère synthétique d'un jeu de données utilisé doit toujours être documenté et communiqué de façon transparente, jamais présenté comme équivalent à des données réelles sans le préciser.",
+      "Des données synthétiques mal conçues peuvent reproduire, voire amplifier, les biais présents dans les données réelles utilisées pour les générer, ce qui impose une vérification spécifique des biais du jeu synthétique.",
+      "Les données synthétiques ne remplacent pas totalement une validation sur données réelles avant mise en production d'un modèle destiné à un usage sensible."
+    ],
+    "rules": [
+      "Toujours documenter et communiquer le caractère synthétique d'un jeu de données utilisé pour l'entraînement ou le test.",
+      "Vérifier explicitement l'absence d'amplification de biais dans tout jeu de données synthétiques avant utilisation.",
+      "Ne jamais se limiter à une validation sur données synthétiques pour un modèle destiné à un usage sensible sans validation complémentaire sur données réelles."
+    ],
+    "examples": [
+      {
+        "situation": "Une équipe propose de générer un jeu de données synthétiques pour pallier un manque de volume de données réelles disponibles sur un cas d'usage sensible.",
+        "recommended_behavior": "Valider le principe tout en exigeant une vérification explicite de l'absence d'amplification de biais et une validation complémentaire sur données réelles avant mise en production.",
+        "avoid": "Accepter le remplacement intégral des données réelles par des données synthétiques sans vérification de biais ni validation complémentaire pour un usage sensible."
+      }
+    ],
+    "best_practices": [
+      "Documenter systématiquement le caractère synthétique d'un jeu de données utilisé.",
+      "Vérifier l'absence d'amplification de biais avant tout usage de données synthétiques."
+    ],
+    "anti_patterns": [
+      "Présenter des résultats obtenus sur données synthétiques comme équivalents à des résultats sur données réelles sans le préciser.",
+      "Se limiter à une validation sur données synthétiques pour un modèle destiné à un usage sensible."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "donnees_synthetiques",
+      "ethique_donnees",
+      "entrainement_ia"
+    ],
+    "related_domains": [
+      "cpl",
+      "ethique_ia"
+    ],
+    "related_knowledge": [
+      "cpl.product_ia.gestion_biais_donnees_entrainement_produit_ia",
+      "cpl.ethics_governance.gouvernance_donnees_partenaires"
+    ],
+    "retrieval_priority": 6
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "high",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "conseil sur l'usage éthique et transparent de données synthétiques pour l'IA"
+    ],
+    "restricted_usage": [
+      "usage de données synthétiques pour un modèle destiné à un usage clinique ou juridique sensible"
+    ],
+    "forbidden_usage": [],
+    "fallback_behavior": "En cas de doute sur l'absence de biais amplifié, recommander une vérification complémentaire avant tout usage en production."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "23/08/2026",
+    "last_update": "23/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}
