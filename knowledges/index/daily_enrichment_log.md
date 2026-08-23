@@ -4,6 +4,20 @@ Référence : `knowledges/index/daily_enrichment_instructions.md`. Une entrée p
 
 ---
 
+## Correctif hors-lot — 23/08/2026 : doublon knowledge_id ISO 27001
+
+**Contexte** : point laissé en attente par le Lot 14 (21/08/2026) — un doublon exact préexistant, sans lien avec ce lot-là, entre `knowledges/professional/frameworks/iso_27001_basics.json` et `knowledges/professional/standards_iso/iso_27001_basics.json`. Traité à la demande explicite de Céline le 23/08/2026, avant le Lot 15.
+
+**Diagnostic** : les deux fichiers étaient strictement identiques octet pour octet (`diff` vide), y compris un `knowledge_id` partagé et erroné : `professional.frameworks.iso_27001_basics` — alors que le fichier de `professional/standards_iso/` aurait dû porter `professional.standards_iso.iso_27001_basics` pour être cohérent avec son propre emplacement.
+
+**Résolution** : suppression de `knowledges/professional/frameworks/iso_27001_basics.json` (le doublon). Correction du `knowledge_id` du fichier conservé (`professional/standards_iso/iso_27001_basics.json`) en `professional.standards_iso.iso_27001_basics`. Mise à jour de `taxonomy.json` : retrait de l'ancienne référence dans `linked_knowledge` de `professional.frameworks`, ajout de la référence corrigée dans `linked_knowledge` de `professional.standards_iso` (qui contenait déjà une fiche distincte et non redondante, `iso_27001_information_security`, angle « avancé » vs « fondamentaux » du fichier corrigé — conservée telle quelle, pas fusionnée, car son contenu diffère réellement).
+
+**Registre** : régénéré, 1250 → 1249 (-1, cohérent avec la suppression du doublon).
+
+**Hors périmètre de ce correctif** (à surveiller, pas traité) : `knowledges/index/knowledge_registry.json` référence encore l'ancien chemin — ce fichier date du 04/07/2026 (avant le Lot 1), semble être un registre secondaire obsolète non désigné comme source de vérité par `manifest.json.governance.source_of_truth` (qui pointe vers `knowledge_registry.json` à la racine) ; à confirmer/nettoyer lors d'un futur audit de gouvernance plutôt que traité ici en urgence.
+
+---
+
 ## Lot 14 — 21/08/2026 (20 cpl / 10 secteurs_activite / 10 psychologie / 15 culture / 5 socle au choix)
 
 **Contexte** : suite directe du Lot 13 (20/08/2026), même répartition spécifique imposée par Céline le 20/08/2026 (voir `daily_enrichment_instructions.md` section « Répartition quotidienne des 60 fichiers »). Exécuté dans un worktree git isolé dédié à ce lot. Lecture préalable de l'entrée « rotation standard » du Lot 13 pour connaître les domaines déjà couverts la veille et éviter toute reconcentration (`secteurs_activite`, `human.psychology`/`human.emotional_intelligence`, `cinema`/`arts.musique`/`arts.litterature`).
