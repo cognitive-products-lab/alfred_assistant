@@ -4,6 +4,26 @@ Référence : `knowledges/index/daily_enrichment_instructions.md`. Une entrée p
 
 ---
 
+## Audit de gouvernance hors-lot — 23/08/2026 : compteurs de domaines/sous-domaines
+
+**Contexte** : point relevé par l'agent du Lot 15 ("taxonomy.json.total_subdomains et manifest.json.total_domains restent en retard sur les comptages réels, dette de gouvernance pré-existante, même nature que celle déjà signalée aux Lots 11/13/14"). Traité à la demande explicite de Céline le 23/08/2026.
+
+**Diagnostic complet** :
+- **5 domaines top-level présents sur disque depuis longtemps mais jamais déclarés dans `taxonomy.json` ni `manifest.json`** : `economics` (13 fiches, 10 sous-domaines réels), `environment` (9/9), `law` (12/12), `sociology` (11/10), `sports_science` (5/5) — soit 46 sous-domaines et 50 fiches jamais rattachés à la taxonomie officielle, invisibles pour toute règle de chargement/retrieval basée sur `taxonomy.json`.
+- **3 domaines déjà déclarés dans `taxonomy.json` mais absents de `manifest.json.domains`** : `cognition`, `communication`, `cuisine`.
+- **`taxonomy.json.total_subdomains`** : déclaré 246, réel 314 avant correction (360 après ajout des 46 nouveaux).
+- **`manifest.json.total_domains`** : déclaré 61, réel 63 dans `taxonomy.json` avant correction (69 après régularisation des 8 domaines manquants côté manifest).
+
+**Résolution** : déclaration complète des 5 domaines manquants dans `taxonomy.json` (label, description, priorité, sous-domaines réels avec `linked_knowledge` reconstruits depuis le champ `subdomain` de chaque fichier — pas depuis le registre, dont l'inférence de sous-domaine sur les domaines "plats" sans sous-dossiers est imprécise, elle retombe sur le nom du domaine). Ajout des 8 entrées manquantes dans `manifest.json.domains` (les 5 nouvelles + les 3 déjà taxonomisées). Compteurs `total_subdomains`/`total_domains` corrigés à leur valeur réelle.
+
+**Aucun nouveau fichier de connaissance créé** — audit de gouvernance pur sur du contenu déjà existant, pas un lot de contenu.
+
+**taxonomy.json** : v3.13.0 → v3.14.0. **manifest.json** : v2.11.0 → v2.12.0.
+
+**Incohérence résiduelle documentée, non corrigée (hors périmètre de cet audit)** : plusieurs fichiers de `economics` et `law` ont un champ `subdomain` interne qui ne correspond pas au segment central de leur `knowledge_id` (ex. `economics/economie_experimentale_methodes.json` a `subdomain: "methodologie"` mais un `knowledge_id` à seulement 2 segments `economics.economie_experimentale_methodes`, sans le segment `methodologie`). Même classe d'incohérence que la dette de convention `core.*` vs `knowledges.core.*` documentée depuis le Lot 10 — candidate pour un futur audit de convention dédié, distinct de celui-ci qui portait sur les domaines/sous-domaines manquants, pas sur le format interne des `knowledge_id`.
+
+---
+
 ## Lot 15 — 23/08/2026 (20 cpl / 10 secteurs_activite / 10 psychologie / 15 culture / 5 socle au choix)
 
 **Contexte** : suite directe du Lot 14 (21/08/2026) et du correctif hors-lot ISO 27001 du même jour (voir entrée précédente). Même répartition spécifique imposée par Céline le 20/08/2026 (voir `daily_enrichment_instructions.md` section « Répartition quotidienne des 60 fichiers »). Exécuté dans un worktree git isolé dédié à ce lot. Lecture préalable de l'entrée du Lot 14 pour connaître les domaines déjà couverts et éviter toute reconcentration (`cpl` par sous-domaine, `secteurs_activite`, `human.psychology`/`human.emotional_intelligence`, `cinema`/`arts.musique`/`arts.litterature`).
