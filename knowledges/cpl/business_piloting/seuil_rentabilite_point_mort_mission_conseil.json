@@ -1,0 +1,97 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.business_piloting.seuil_rentabilite_point_mort_mission_conseil",
+  "title": "Seuil de rentabilité (point mort) d'une mission de conseil",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "business_piloting",
+  "category": "pilotage financier ALFRED CPL",
+  "summary": "Méthode de calcul du seuil de rentabilité (point mort) d'une mission de conseil, c'est-à-dire le nombre de jours facturés ou le chiffre d'affaires à partir duquel une mission couvre ses coûts fixes et variables, complémentaire à l'analyse des écarts budgétaires déjà couverte.",
+  "purpose": "Donner à ALFRED CPL un repère de rentabilité utilisable dès le cadrage d'une mission, avant même son démarrage, pour sécuriser la marge dès la phase commerciale.",
+  "tags": [
+    "seuil_rentabilite",
+    "point_mort",
+    "cadrage_mission",
+    "pilotage_financier"
+  ],
+  "intents": [
+    "calculate_break_even_point",
+    "assess_mission_profitability_threshold"
+  ],
+  "usage_context": [
+    "cadrage commercial d'une nouvelle mission avant signature du contrat",
+    "arbitrage sur le nombre de jours vendus minimum pour sécuriser la marge"
+  ],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "Le seuil de rentabilité, ou point mort, d'une mission de conseil correspond au volume d'activité (jours facturés ou chiffre d'affaires) à partir duquel les revenus couvrent l'ensemble des coûts fixes et variables engagés, tout jour ou euro facturé au-delà de ce seuil générant une marge positive, et en-deçà une perte.",
+    "core_principles": [
+      "Le seuil de rentabilité doit être calculé avant la phase de vente, pas seulement en clôture de mission, pour éviter d'accepter un contrat structurellement déficitaire.",
+      "Les coûts fixes d'une mission (encadrement, outils, frais de structure alloués) pèsent proportionnellement plus lourd sur les missions courtes, rendant leur seuil de rentabilité plus difficile à atteindre.",
+      "Un seuil de rentabilité calculé sur des hypothèses de charge optimistes (taux d'occupation élevé, aucun aléa) sous-estime systématiquement le risque réel de la mission."
+    ],
+    "rules": [
+      "Toujours calculer le seuil de rentabilité avant la signature du contrat, pas en cours ou en fin de mission.",
+      "Intégrer une marge de sécurité dans les hypothèses de charge utilisées pour le calcul, jamais un scénario optimal sans aléa.",
+      "Réviser le seuil de rentabilité si le périmètre de la mission change en cours d'exécution (avenant)."
+    ],
+    "examples": [
+      {
+        "situation": "Une proposition commerciale est en cours de finalisation avec un nombre de jours vendus proche du minimum viable estimé.",
+        "recommended_behavior": "Calculer explicitement le seuil de rentabilité avec une marge de sécurité sur les hypothèses de charge, et alerter si le nombre de jours vendus s'en approche trop.",
+        "avoid": "Valider la proposition sur la base d'un scénario de charge optimal sans marge de sécurité ni vérification du seuil de rentabilité réel."
+      }
+    ],
+    "best_practices": [
+      "Calculer systématiquement le seuil de rentabilité en phase de cadrage commercial, avant signature.",
+      "Intégrer une marge de sécurité réaliste dans les hypothèses de charge du calcul."
+    ],
+    "anti_patterns": [
+      "Accepter un contrat sans avoir calculé son seuil de rentabilité au préalable.",
+      "Fonder le calcul sur des hypothèses de charge optimales sans marge de sécurité."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "seuil_rentabilite",
+      "point_mort",
+      "cadrage_mission"
+    ],
+    "related_domains": [
+      "cpl"
+    ],
+    "related_knowledge": [
+      "cpl.business_piloting.analyse_ecarts_budgetaires_projet_conseil",
+      "cpl.business_piloting.pilotage_marge_projet_service"
+    ],
+    "retrieval_priority": 6
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "calcul pédagogique du seuil de rentabilité en phase de cadrage de mission"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "En cas d'incertitude forte sur les hypothèses de charge, recommander une marge de sécurité supplémentaire plutôt qu'un scénario optimiste."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "23/08/2026",
+    "last_update": "23/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}
