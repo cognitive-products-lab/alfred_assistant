@@ -1,0 +1,100 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.operations_continuite.chiffrement_donnees_repos_transit_alfred_cpl",
+  "title": "Chiffrement des données au repos et en transit dans ALFRED CPL",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "operations_continuite",
+  "category": "continuité opérationnelle ALFRED CPL",
+  "summary": "Principes opérationnels du chiffrement des données au repos et en transit appliqués spécifiquement à l'architecture local-first et offline-first d'ALFRED CPL, complémentaires aux principes généraux de chiffrement déjà couverts par un domaine transverse de sécurité de l'information, avec un focus sur les implications propres au fonctionnement local et déconnecté.",
+  "purpose": "Préciser comment le chiffrement des données doit être opérationnalisé dans le contexte spécifique d'ALFRED CPL, où une part significative des données reste stockée localement et peut être temporairement déconnectée du réseau.",
+  "tags": [
+    "chiffrement_donnees",
+    "donnees_repos",
+    "donnees_transit",
+    "local_first"
+  ],
+  "intents": [
+    "explain_encryption_local_first_context",
+    "assess_encryption_coverage_alfred_cpl"
+  ],
+  "usage_context": [
+    "audit de sécurité portant sur le chiffrement des données d'une instance ALFRED CPL",
+    "un client s'interroge sur la protection de ses données stockées localement en mode déconnecté"
+  ],
+  "priority": "high",
+  "safety_level": "sensitive",
+  "content": {
+    "definition": "Le chiffrement au repos protège les données stockées localement (base de connaissances, journaux, sauvegardes) contre un accès non autorisé en cas de vol ou de compromission physique du support, tandis que le chiffrement en transit protège les données échangées entre composants ou avec des services distants ; dans une architecture local-first comme ALFRED CPL, le chiffrement au repos revêt une importance particulière car une part significative des données reste durablement stockée sur le poste local, y compris en l'absence de connexion réseau.",
+    "core_principles": [
+      "Dans une architecture local-first, le chiffrement au repos ne peut pas être considéré comme secondaire par rapport au chiffrement en transit, une part significative des données restant durablement stockée localement.",
+      "Les clés de chiffrement doivent être gérées séparément des données qu'elles protègent, jamais stockées en clair au même endroit que les données chiffrées.",
+      "Le mode offline-first ne doit jamais devenir un prétexte pour différer le chiffrement des données locales en attendant une reconnexion réseau."
+    ],
+    "rules": [
+      "Chiffrer systématiquement les données au repos sur le poste local, y compris en mode déconnecté, sans attendre une reconnexion réseau.",
+      "Gérer les clés de chiffrement séparément des données protégées, jamais en clair au même emplacement.",
+      "Vérifier le chiffrement en transit pour tout échange avec un composant distant, même occasionnel."
+    ],
+    "examples": [
+      {
+        "situation": "Un client s'interroge sur la protection de ses données stockées localement sur un poste ALFRED CPL en cas de vol physique de l'appareil.",
+        "recommended_behavior": "Expliquer que le chiffrement au repos protège les données locales même en cas de vol physique, à condition que les clés de chiffrement soient gérées séparément des données elles-mêmes.",
+        "avoid": "Rassurer sur la sécurité sans préciser explicitement si le chiffrement au repos est actif et si la gestion des clés est bien séparée des données protégées."
+      }
+    ],
+    "best_practices": [
+      "Vérifier explicitement le chiffrement au repos des données locales avant toute déclaration de conformité.",
+      "Documenter la séparation entre gestion des clés de chiffrement et stockage des données protégées."
+    ],
+    "anti_patterns": [
+      "Considérer le chiffrement au repos comme secondaire dans une architecture local-first où les données restent durablement stockées localement.",
+      "Stocker des clés de chiffrement en clair au même emplacement que les données qu'elles protègent."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "chiffrement_donnees",
+      "donnees_repos",
+      "donnees_transit"
+    ],
+    "related_domains": [
+      "cpl",
+      "information_security"
+    ],
+    "related_knowledge": [
+      "cpl.product_platform.data_protection_hosting",
+      "cpl.product_platform.offline_first_continuite_service_alfred"
+    ],
+    "retrieval_priority": 7
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "high",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "explication pédagogique du chiffrement des données au repos et en transit dans un contexte local-first"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [
+      "divulgation de détails techniques précis de mise en œuvre des mécanismes de chiffrement pouvant faciliter leur contournement"
+    ],
+    "fallback_behavior": "En cas de question sur des détails techniques précis de mise en œuvre, orienter vers l'équipe technique compétente plutôt que de détailler des éléments pouvant affaiblir la sécurité."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "23/08/2026",
+    "last_update": "23/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}
