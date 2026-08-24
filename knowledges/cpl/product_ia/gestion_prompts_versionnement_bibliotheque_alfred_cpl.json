@@ -1,0 +1,103 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.product_ia.gestion_prompts_versionnement_bibliotheque_alfred_cpl",
+  "title": "Gestion et versionnement d'une bibliothèque de prompts pour ALFRED CPL",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "product_ia",
+  "category": "produit IA ALFRED CPL",
+  "summary": "Décrit la gestion en bibliothèque versionnée des prompts système utilisés par ALFRED CPL (traçabilité, tests de non-régression, rollback), distincte de la conception initiale des prompts système déjà couverte, qui porte sur leur rédaction plutôt que sur leur gestion dans le temps.",
+  "purpose": "Garantir la maîtrise et la traçabilité de l'évolution des prompts système d'ALFRED CPL, éléments de configuration critiques pour le comportement du produit, au même titre qu'un versionnement de code.",
+  "tags": [
+    "gestion_prompts",
+    "versionnement",
+    "bibliotheque_prompts",
+    "non_regression"
+  ],
+  "intents": [
+    "explain_prompt_library_management",
+    "advise_prompt_versioning_practice",
+    "prevent_prompt_regression"
+  ],
+  "usage_context": [
+    "mise en place d'un processus de gestion versionnée des prompts système",
+    "diagnostic d'une régression de comportement suite à une modification de prompt"
+  ],
+  "priority": "high",
+  "safety_level": "normal",
+  "content": {
+    "definition": "La gestion et le versionnement d'une bibliothèque de prompts consistent à traiter les prompts système d'ALFRED CPL comme des artefacts de configuration à part entière, versionnés, testés et tracés dans le temps, plutôt que comme du texte modifié librement sans contrôle, une pratique complémentaire mais distincte de leur conception initiale.",
+    "core_principles": [
+      "Un prompt système modifié sans versionnement ni traçabilité rend impossible l'identification a posteriori de la cause d'une dérive de comportement observée, à l'inverse d'un changement de code applicatif habituellement tracé par le contrôle de version.",
+      "Une bibliothèque de prompts doit permettre un rollback rapide vers une version antérieure connue en cas de régression détectée après une modification, condition de réactivité en cas d'incident.",
+      "Les tests de non-régression sur les prompts (jeux de questions de référence, réponses attendues comparées) permettent de détecter une dégradation de comportement avant la mise en production d'une nouvelle version de prompt, plutôt qu'après coup.",
+      "Chaque prompt en production doit être identifiable par une version explicite associée à une date et un motif de changement, au même titre qu'un composant logiciel versionné."
+    ],
+    "rules": [
+      "Ne jamais modifier un prompt système en production sans traçabilité de version et de motif de changement.",
+      "Toujours exécuter un jeu de tests de non-régression avant la mise en production d'une nouvelle version de prompt significative.",
+      "Maintenir la capacité de rollback rapide vers une version antérieure connue de chaque prompt critique."
+    ],
+    "examples": [
+      {
+        "situation": "Une modification récente d'un prompt système entraîne une dégradation inattendue de la qualité des réponses d'ALFRED sur certains types de requêtes.",
+        "recommended_behavior": "Identifier la version précédente du prompt via l'historique versionné, effectuer un rollback rapide, puis analyser la cause de la régression avant toute nouvelle tentative de modification.",
+        "avoid": "Tenter de corriger le prompt en production par ajustements successifs sans revenir à une version stable connue, prolongeant l'exposition à la dégradation."
+      }
+    ],
+    "best_practices": [
+      "Versionner chaque prompt système avec date, motif de changement et référence de test associée.",
+      "Constituer un jeu de tests de non-régression représentatif des cas d'usage critiques avant toute modification significative.",
+      "Documenter et faciliter la procédure de rollback pour chaque prompt critique en production."
+    ],
+    "anti_patterns": [
+      "Modifier un prompt système en production sans aucune traçabilité de version.",
+      "Corriger une régression de prompt par ajustements successifs plutôt que par un rollback rapide vers une version stable connue."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "gestion_prompts",
+      "versionnement",
+      "bibliotheque_prompts",
+      "non_regression"
+    ],
+    "related_domains": [
+      "cpl",
+      "ia_data_science"
+    ],
+    "related_knowledge": [
+      "cpl.product_ia.conception_prompts_systeme_alfred",
+      "cpl.product_ia.evaluation_qualite_reponses_ia_alfred",
+      "cpl.product_ia.gestion_versions_modeles_ia_alfred"
+    ],
+    "retrieval_priority": 6
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "conseil méthodologique sur la gestion versionnée des prompts système"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "Recommander un rollback vers une version stable connue plutôt que des correctifs successifs non tracés en cas de régression détectée."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "24/08/2026",
+    "last_update": "24/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

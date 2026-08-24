@@ -1,0 +1,103 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.product_ia.gestion_multimodalite_produit_ia_texte_image_voix",
+  "title": "Gestion de la multimodalité produit IA (texte, image, voix)",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "product_ia",
+  "category": "produit IA ALFRED CPL",
+  "summary": "Décrit les enjeux de conception produit liés à la combinaison de plusieurs modalités (texte, image, voix) dans les interactions d'ALFRED, notamment la cohérence de l'expérience entre modalités et la gestion des cas de dégradation d'une modalité, distinct des interfaces vocales et de la vision par ordinateur déjà couvertes séparément.",
+  "purpose": "Structurer la conception d'une expérience multimodale cohérente d'ALFRED CPL, alors que les briques techniques de chaque modalité (voix, vision, texte) sont déjà documentées séparément mais pas leur articulation produit.",
+  "tags": [
+    "multimodalite",
+    "coherence_experience",
+    "degradation_modale",
+    "produit_ia"
+  ],
+  "intents": [
+    "explain_multimodal_product_design",
+    "advise_modal_consistency",
+    "handle_modal_degradation_fallback"
+  ],
+  "usage_context": [
+    "conception d'une fonctionnalité combinant plusieurs modalités d'interaction",
+    "gestion d'un cas où une modalité (ex. voix) est indisponible ou dégradée"
+  ],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "La gestion de la multimodalité produit désigne la conception cohérente d'une expérience utilisateur combinant plusieurs modalités d'interaction (texte, image, voix), au-delà de la maîtrise technique de chaque modalité prise séparément, avec un enjeu particulier de continuité lorsque l'une des modalités devient indisponible ou dégradée.",
+    "core_principles": [
+      "La cohérence entre modalités (même contenu informationnel, même ton, même niveau de détail) doit être maintenue même lorsque le canal d'interaction change en cours de conversation, sous peine de créer une expérience fragmentée pour l'utilisateur.",
+      "Chaque fonctionnalité multimodale doit prévoir un comportement de repli explicite si une modalité devient indisponible (ex. bascule automatique vers le texte si la reconnaissance vocale échoue), en cohérence avec le principe général de dégradation gracieuse déjà défini pour le produit.",
+      "Le choix de la modalité par défaut pour une interaction donnée doit tenir compte du contexte d'usage réel (mains libres, environnement bruyant, confidentialité de l'échange) plutôt que d'imposer une modalité unique.",
+      "La combinaison de modalités (ex. réponse vocale accompagnée d'un support visuel) doit apporter une valeur réelle et non redondante, une simple duplication de la même information sur deux canaux n'améliorant pas nécessairement l'expérience."
+    ],
+    "rules": [
+      "Toujours prévoir un comportement de repli explicite en cas d'indisponibilité d'une modalité utilisée par défaut.",
+      "Maintenir une cohérence de contenu et de ton entre les modalités disponibles pour une même interaction.",
+      "Adapter le choix de modalité par défaut au contexte d'usage réel plutôt qu'à une préférence de conception uniforme."
+    ],
+    "examples": [
+      {
+        "situation": "Un utilisateur interagit vocalement avec ALFRED mais la reconnaissance vocale échoue temporairement dans un environnement bruyant.",
+        "recommended_behavior": "Basculer automatiquement vers une interaction textuelle en signalant clairement le changement de canal, sans interrompre la continuité de l'échange en cours.",
+        "avoid": "Faire échouer silencieusement l'interaction sans proposer de repli vers une autre modalité disponible."
+      }
+    ],
+    "best_practices": [
+      "Concevoir systématiquement un comportement de repli entre modalités dès la conception initiale d'une fonctionnalité multimodale.",
+      "Tester la cohérence du contenu et du ton entre les différentes modalités d'une même fonctionnalité.",
+      "Adapter la modalité proposée par défaut au contexte d'usage réel identifié plutôt qu'à une préférence de conception générique."
+    ],
+    "anti_patterns": [
+      "Concevoir chaque modalité indépendamment sans anticiper leur articulation ni leur repli mutuel.",
+      "Dupliquer systématiquement la même information sur plusieurs modalités sans valeur ajoutée réelle pour l'utilisateur."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "multimodalite",
+      "coherence_experience",
+      "degradation_modale",
+      "produit_ia"
+    ],
+    "related_domains": [
+      "cpl",
+      "ia_data_science"
+    ],
+    "related_knowledge": [
+      "cpl.product_platform.interfaces_vocales_assistant_local",
+      "cpl.product_platform.vision_par_ordinateur_reconnaissance_locale",
+      "cpl.product_ia.conception_fallback_degradation_gracieuse_ia"
+    ],
+    "retrieval_priority": 5
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "conception produit d'expériences multimodales cohérentes"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "Recommander un comportement de repli explicite entre modalités plutôt qu'un échec silencieux de l'interaction."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "24/08/2026",
+    "last_update": "24/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

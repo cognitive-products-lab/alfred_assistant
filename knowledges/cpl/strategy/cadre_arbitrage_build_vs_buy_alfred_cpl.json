@@ -1,0 +1,103 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.strategy.cadre_arbitrage_build_vs_buy_alfred_cpl",
+  "title": "Cadre d'arbitrage build vs buy pour les briques technologiques d'ALFRED CPL",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "strategy",
+  "category": "stratégie ALFRED CPL",
+  "summary": "Décrit un cadre de décision structuré pour arbitrer entre développement interne (build) et recours à une solution tierce existante (buy) pour une brique technologique d'ALFRED CPL, en tenant compte des contraintes spécifiques du local-first et de la souveraineté des données.",
+  "purpose": "Structurer les décisions d'investissement technique récurrentes d'ALFRED CPL entre développement interne et intégration de solutions tierces, avec une pondération explicite des contraintes de confidentialité propres au produit.",
+  "tags": [
+    "build_vs_buy",
+    "arbitrage_technologique",
+    "souverainete_donnees",
+    "decision_investissement"
+  ],
+  "intents": [
+    "explain_build_vs_buy_framework",
+    "advise_technology_sourcing_decision",
+    "weigh_data_sovereignty_in_tech_choice"
+  ],
+  "usage_context": [
+    "décision d'investissement sur une nouvelle brique technologique du produit",
+    "arbitrage entre développement interne et intégration d'une solution tierce"
+  ],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "Le cadre d'arbitrage build vs buy structure la décision de développer en interne (build) ou d'intégrer une solution tierce existante (buy) pour une brique technologique donnée d'ALFRED CPL, en pondérant les critères classiques (coût, délai, maintenance) par les contraintes spécifiques de confidentialité et de local-first propres au produit.",
+    "core_principles": [
+      "Une solution tierce (buy) réduit généralement le délai et le coût initial de mise en œuvre, mais peut introduire une dépendance externe et, selon son architecture, un risque de compromission des principes local-first et de confidentialité au cœur d'ALFRED CPL.",
+      "Le développement interne (build) préserve la maîtrise complète de l'architecture et de la confidentialité des données, au prix d'un délai et d'un coût de développement et de maintenance généralement plus élevés.",
+      "Pour une brique technologique directement liée à la manipulation de données sensibles utilisateur, la contrainte de souveraineté des données doit peser plus lourd dans l'arbitrage que le seul critère de coût ou de délai.",
+      "Une solution hybride (buy pour une brique non sensible et périphérique, build pour le cœur sensible du produit) est souvent un compromis pertinent plutôt qu'un choix binaire uniforme sur l'ensemble du produit."
+    ],
+    "rules": [
+      "Toujours évaluer explicitement l'impact d'une solution tierce sur les principes local-first et de confidentialité avant tout arbitrage de coût ou de délai.",
+      "Documenter la décision retenue et ses critères, pour pouvoir la réévaluer si le contexte technique ou réglementaire évolue.",
+      "Privilégier une approche hybride différenciée par brique plutôt qu'une politique uniforme de build ou de buy sur l'ensemble du produit."
+    ],
+    "examples": [
+      {
+        "situation": "Une brique technologique tierce disponible sur le marché répondrait rapidement à un besoin produit, mais implique un traitement des données hors de l'environnement local-first.",
+        "recommended_behavior": "Évaluer explicitement l'incompatibilité avec les principes local-first avant tout arbitrage de coût, et privilégier un développement interne ou une solution tierce déployable localement si l'incompatibilité est confirmée.",
+        "avoid": "Retenir la solution tierce sur le seul critère de rapidité et de coût, sans évaluation explicite de son impact sur la confidentialité et le local-first."
+      }
+    ],
+    "best_practices": [
+      "Pondérer systématiquement les critères de souveraineté des données et de local-first dans tout arbitrage build vs buy touchant à des données sensibles.",
+      "Documenter les arbitrages retenus et leurs critères pour permettre une réévaluation future.",
+      "Envisager des approches hybrides différenciées par brique technologique plutôt qu'une politique uniforme."
+    ],
+    "anti_patterns": [
+      "Arbitrer une décision technologique sur le seul critère de coût ou de délai sans évaluer son impact sur la confidentialité et le local-first.",
+      "Appliquer une politique uniforme de build ou de buy sans distinction selon la sensibilité de chaque brique technologique."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "build_vs_buy",
+      "arbitrage_technologique",
+      "souverainete_donnees",
+      "local_first"
+    ],
+    "related_domains": [
+      "cpl",
+      "architecture_logicielle"
+    ],
+    "related_knowledge": [
+      "cpl.product_platform.offline_first_continuite_service_alfred",
+      "cpl.product_platform.data_protection_hosting",
+      "cpl.strategy.cadre_priorisation_investissements_rd_alfred_cpl"
+    ],
+    "retrieval_priority": 5
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "conseil méthodologique sur l'arbitrage entre développement interne et solution tierce"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "Recommander une évaluation explicite de l'impact sur la confidentialité et le local-first avant tout arbitrage de coût."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "24/08/2026",
+    "last_update": "24/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

@@ -1,0 +1,102 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.documentation_procedures.procedure_gestion_versions_api_alfred_cpl",
+  "title": "Procédure de gestion des versions d'API d'ALFRED CPL",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "documentation_procedures",
+  "category": "procédures ALFRED CPL",
+  "summary": "Décrit la procédure de versionnement des API exposées par ALFRED CPL (schéma de version, politique de dépréciation, communication aux intégrateurs), distincte de l'interopérabilité API déjà couverte côté plateforme et de la gestion des versions documentaires générales.",
+  "purpose": "Garantir la stabilité et la prévisibilité des intégrations tierces à ALFRED CPL en encadrant explicitement comment les versions d'API évoluent, sont dépréciées et communiquées.",
+  "tags": [
+    "versionnement_api",
+    "depreciation",
+    "compatibilite_ascendante",
+    "integrateurs"
+  ],
+  "intents": [
+    "explain_api_versioning_policy",
+    "advise_api_deprecation_process",
+    "communicate_breaking_change_to_integrators"
+  ],
+  "usage_context": [
+    "publication d'une nouvelle version majeure de l'API ALFRED CPL",
+    "dépréciation d'un endpoint ou d'un champ existant"
+  ],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "La procédure de gestion des versions d'API définit comment les évolutions de l'API d'ALFRED CPL sont numérotées, comment la compatibilité ascendante est préservée ou volontairement rompue, et comment les intégrateurs tiers sont informés et accompagnés dans la transition.",
+    "core_principles": [
+      "Un schéma de versionnement explicite (ex. versionnement sémantique dans l'URL ou l'en-tête) doit permettre à un intégrateur de distinguer sans ambiguïté une évolution compatible d'une rupture de compatibilité.",
+      "Toute rupture de compatibilité (breaking change) doit être annoncée avec un délai de préavis suffisant et une période de coexistence entre l'ancienne et la nouvelle version, jamais un remplacement immédiat sans transition.",
+      "La dépréciation d'un endpoint ou d'un champ doit être signalée explicitement dans les réponses de l'API elle-même (en-tête ou métadonnée de dépréciation), pas uniquement dans une documentation externe consultée à part.",
+      "Chaque version d'API activement supportée doit avoir une date de fin de support communiquée à l'avance, pour permettre aux intégrateurs de planifier leur migration."
+    ],
+    "rules": [
+      "Ne jamais introduire de rupture de compatibilité sur une version d'API sans préavis ni période de coexistence.",
+      "Documenter systématiquement chaque changement de version dans un changelog technique accessible aux intégrateurs.",
+      "Prévoir une voie de contact ou de support dédiée aux intégrateurs pendant les périodes de transition de version."
+    ],
+    "examples": [
+      {
+        "situation": "Une évolution du produit nécessite de modifier la structure d'un champ de réponse API déjà utilisé par des intégrateurs tiers.",
+        "recommended_behavior": "Introduire le changement dans une nouvelle version d'API coexistant avec l'ancienne pendant une période annoncée, avec un signal de dépréciation explicite sur l'ancien champ.",
+        "avoid": "Modifier directement le champ existant sans nouvelle version ni préavis, cassant silencieusement les intégrations tierces en production."
+      }
+    ],
+    "best_practices": [
+      "Publier un changelog technique daté et versionné pour chaque évolution d'API.",
+      "Maintenir une période de coexistence entre versions suffisamment longue pour laisser le temps aux intégrateurs de migrer.",
+      "Signaler la dépréciation directement dans la réponse technique de l'API, pas uniquement dans une documentation externe."
+    ],
+    "anti_patterns": [
+      "Casser une intégration tierce sans préavis ni version dédiée.",
+      "Documenter les changements uniquement a posteriori, après leur mise en production."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "versionnement_api",
+      "depreciation",
+      "compatibilite_ascendante",
+      "breaking_change"
+    ],
+    "related_domains": [
+      "cpl",
+      "architecture_logicielle"
+    ],
+    "related_knowledge": [
+      "cpl.product_platform.interoperabilite_api_alfred_cpl_ecosysteme_tiers",
+      "cpl.documentation_procedures.procedure_gestion_versions_documentaires"
+    ],
+    "retrieval_priority": 5
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "explication de la procédure de versionnement API à un intégrateur"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "Recommander une période de coexistence de versions avant toute rupture de compatibilité annoncée."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "24/08/2026",
+    "last_update": "24/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}
