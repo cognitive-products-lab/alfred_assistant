@@ -1,0 +1,105 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.business_piloting.modele_facturation_forfait_regie_temps_passe",
+  "title": "Modèles de facturation : forfait vs régie / temps passé",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "business_piloting",
+  "category": "pilotage business ALFRED CPL",
+  "summary": "Compare les deux grands modèles de facturation d'une activité de conseil ou de service (forfait à prix fixe vs régie/temps passé), leurs risques respectifs pour le prestataire et le client, et les critères de choix selon la nature de la mission.",
+  "purpose": "Permettre à ALFRED CPL d'aider à choisir et piloter le modèle de facturation le plus adapté à une mission donnée, en complément du pilotage de marge par projet déjà couvert.",
+  "tags": [
+    "facturation",
+    "forfait",
+    "regie",
+    "temps_passe",
+    "modele_tarifaire"
+  ],
+  "intents": [
+    "explain_billing_model_choice",
+    "compare_fixed_price_vs_time_and_materials",
+    "advise_billing_model_for_mission"
+  ],
+  "usage_context": [
+    "négociation contractuelle d'une mission de conseil avant démarrage",
+    "arbitrage entre facturation au forfait et facturation au temps passé"
+  ],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "Le forfait est un modèle de facturation à prix fixe convenu à l'avance pour un périmètre défini, tandis que la régie (ou facturation au temps passé) facture le temps réellement consommé à un taux journalier ou horaire, sans engagement de prix global sur le résultat.",
+    "core_principles": [
+      "Le forfait transfère le risque de dérive de charge au prestataire : si la mission prend plus de temps que prévu, la marge se dégrade sans compensation, sauf périmètre contractualisé avec précision et clause de gestion des évolutions.",
+      "La régie transfère le risque au client : le prix final dépend du temps réellement consommé, ce qui demande une relation de confiance forte et un suivi de charge transparent pour éviter tout soupçon de gonflement artificiel du temps facturé.",
+      "Le forfait convient mieux à un périmètre stable et bien cadré dès le départ (ex. livrable défini), la régie convient mieux à un périmètre évolutif ou exploratoire (ex. accompagnement continu, R&D).",
+      "Un modèle hybride (forfait sur un socle + régie sur les évolutions) permet souvent de combiner la prévisibilité du forfait pour le client avec la flexibilité de la régie pour les compléments non anticipés."
+    ],
+    "rules": [
+      "Ne jamais recommander un forfait sur un périmètre mal défini ou volontairement flou, cela expose systématiquement à un risque de dérive de marge non maîtrisable.",
+      "Toujours documenter explicitement le périmètre couvert par un forfait pour pouvoir objectiver toute demande d'évolution hors périmètre.",
+      "En régie, recommander un plafond ou une alerte de dépassement de budget prévisionnel pour rassurer le client sans perdre la flexibilité du modèle."
+    ],
+    "examples": [
+      {
+        "situation": "Un client souhaite un accompagnement stratégique exploratoire dont le contenu exact évoluera selon les découvertes en cours de mission.",
+        "recommended_behavior": "Recommander un modèle en régie avec un budget prévisionnel encadrant, plutôt qu'un forfait qui obligerait à figer artificiellement un périmètre encore incertain.",
+        "avoid": "Imposer un forfait sur une mission exploratoire, créant un risque élevé de dérive de marge ou de sous-livraison pour respecter le prix fixé."
+      }
+    ],
+    "best_practices": [
+      "Choisir le modèle de facturation en fonction de la maturité du périmètre de la mission, pas uniquement des préférences commerciales du moment.",
+      "Envisager un modèle hybride socle forfait + évolutions en régie pour les missions à la fois cadrées et potentiellement évolutives.",
+      "Communiquer de façon transparente au client sur le mode de calcul du prix, quel que soit le modèle retenu, pour construire la confiance nécessaire notamment en régie."
+    ],
+    "anti_patterns": [
+      "Vendre un forfait sur un périmètre encore flou pour rassurer commercialement le client, au prix d'un risque de marge non maîtrisé.",
+      "Facturer en régie sans aucun suivi de charge partagé avec le client, alimentant la méfiance sur le temps réellement consommé."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "forfait",
+      "regie",
+      "temps_passe",
+      "modele_facturation",
+      "prix_fixe"
+    ],
+    "related_domains": [
+      "cpl",
+      "finance_controle"
+    ],
+    "related_knowledge": [
+      "cpl.business_piloting.pilotage_marge_projet_service",
+      "cpl.business_piloting.pricing_strategy",
+      "cpl.execution.gestion_perimetre_projet_client"
+    ],
+    "retrieval_priority": 6
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "conseil méthodologique sur le choix d'un modèle de facturation"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "Recommander de clarifier la maturité du périmètre avant de choisir le modèle de facturation plutôt que de trancher sur la seule préférence commerciale."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "24/08/2026",
+    "last_update": "24/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

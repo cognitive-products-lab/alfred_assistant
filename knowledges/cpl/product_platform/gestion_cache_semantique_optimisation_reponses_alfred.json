@@ -1,0 +1,103 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.product_platform.gestion_cache_semantique_optimisation_reponses_alfred",
+  "title": "Gestion du cache sémantique pour l'optimisation des réponses d'ALFRED",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "product_platform",
+  "category": "plateforme produit ALFRED CPL",
+  "summary": "Décrit le principe du cache sémantique (réutilisation de réponses déjà générées pour des requêtes proches en sens, pas seulement identiques en texte) comme mécanisme d'optimisation de la latence et du coût d'inférence, distinct de l'analyse sémantique de compréhension des requêtes et de l'optimisation des coûts d'inférence déjà couvertes.",
+  "purpose": "Documenter un mécanisme d'optimisation spécifique de la couche plateforme d'ALFRED CPL, à l'articulation entre compréhension sémantique des requêtes et maîtrise des coûts d'inférence déjà couvertes séparément.",
+  "tags": [
+    "cache_semantique",
+    "optimisation_latence",
+    "reutilisation_reponse",
+    "similarite_semantique"
+  ],
+  "intents": [
+    "explain_semantic_cache_mechanism",
+    "advise_response_reuse_strategy",
+    "balance_cache_freshness_vs_performance"
+  ],
+  "usage_context": [
+    "optimisation de la latence et du coût d'inférence sur des requêtes fréquentes ou proches en sens",
+    "arbitrage entre fraîcheur de réponse et réutilisation via cache sémantique"
+  ],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "Le cache sémantique désigne un mécanisme de mise en cache des réponses générées par ALFRED, non pas sur la base d'une correspondance textuelle exacte de la requête, mais sur la base d'une proximité de sens (similarité sémantique) entre une nouvelle requête et une requête déjà traitée, permettant de réutiliser ou d'adapter une réponse existante plutôt que de regénérer une inférence complète.",
+    "core_principles": [
+      "Un cache classique par correspondance textuelle exacte manque la grande majorité des opportunités de réutilisation, les utilisateurs formulant rarement une même intention avec exactement les mêmes mots ; le cache sémantique élargit ces opportunités via une mesure de similarité de sens.",
+      "Un seuil de similarité sémantique trop permissif risque de retourner une réponse inadaptée à une nuance de la nouvelle requête, tandis qu'un seuil trop strict réduit le taux de réutilisation effective et l'intérêt du mécanisme.",
+      "Le cache sémantique doit intégrer une gestion explicite de la péremption (invalidation) des réponses mises en cache, en particulier pour les sujets dont la réponse correcte évolue dans le temps (actualité, données changeantes).",
+      "Le gain de performance et de coût d'inférence apporté par le cache sémantique doit être mesuré et confronté au risque de réponse légèrement décalée par rapport à une génération complète et spécifique à chaque requête."
+    ],
+    "rules": [
+      "Ne jamais appliquer un cache sémantique sur des sujets sensibles à l'actualité ou aux données personnelles sans mécanisme d'invalidation explicite.",
+      "Calibrer le seuil de similarité sémantique en fonction du risque de réponse inadaptée propre à chaque type de requête, pas d'un seuil unique appliqué uniformément.",
+      "Mesurer explicitement le taux de réutilisation et le taux d'erreur perçue lié au cache sémantique pour ajuster son calibrage dans le temps."
+    ],
+    "examples": [
+      {
+        "situation": "Un utilisateur pose une question dont la formulation est proche d'une question déjà traitée récemment mais dont la réponse correcte dépend d'une donnée susceptible d'avoir changé depuis.",
+        "recommended_behavior": "Invalider ou revalider la réponse en cache avant réutilisation pour ce type de sujet sensible à la fraîcheur, plutôt que de la réutiliser telle quelle par défaut.",
+        "avoid": "Réutiliser systématiquement une réponse en cache sémantique sans distinction du risque de péremption selon le type de sujet traité."
+      }
+    ],
+    "best_practices": [
+      "Différencier le calibrage du cache sémantique selon la sensibilité du sujet à l'actualité ou aux données changeantes.",
+      "Mesurer en continu le taux de réutilisation et le taux d'erreur perçue pour ajuster le seuil de similarité.",
+      "Documenter explicitement la politique d'invalidation du cache sémantique par catégorie de sujet."
+    ],
+    "anti_patterns": [
+      "Appliquer un cache sémantique uniforme sans distinction de sensibilité à la fraîcheur des données selon le sujet traité.",
+      "Calibrer un seuil de similarité unique sans jamais le réévaluer au regard du taux d'erreur perçue observé en usage réel."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "cache_semantique",
+      "optimisation_latence",
+      "reutilisation_reponse",
+      "similarite_semantique"
+    ],
+    "related_domains": [
+      "cpl",
+      "ia_data_science"
+    ],
+    "related_knowledge": [
+      "cpl.product_platform.analyse_semantique_comprehension_requetes",
+      "cpl.product_ia.optimisation_couts_inference_produit_ia_alfred_cpl",
+      "cpl.product_ia.gestion_hallucinations_produit_ia"
+    ],
+    "retrieval_priority": 5
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "conseil technique sur la conception d'un mécanisme de cache sémantique"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "Recommander une invalidation explicite du cache sur les sujets sensibles à la fraîcheur plutôt qu'une réutilisation par défaut non contrôlée."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "24/08/2026",
+    "last_update": "24/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}
