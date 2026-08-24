@@ -1,7 +1,7 @@
 {
   "_meta": {
     "updated": "2026-08-24",
-    "total_entries": 1832,
+    "total_entries": 1833,
     "generated_by": "workspace sync 2026-07-04"
   },
   "validated_files": [
@@ -8898,11 +8898,11 @@
     {
       "path": "scripts/fix_avatar_alpha.py",
       "module": "B20",
-      "status": "coded",
-      "last_test": "2026-07-05",
-      "test_level": "auto",
+      "status": "tested",
+      "last_test": "2026-08-24",
+      "test_level": "manual",
       "score": 60,
-      "notes": " | AUDIT 2026-07-05 : script one-shot de transformation d'image (ajout canal alpha). Preuve qu'il a déjà été exécuté : les fichiers .rgb_backup existent à côté des PNG avatar dans assets/avatars/no_active_avatar_normal/base_normal/. NON ré-exécuté — risque de ré-appliquer le flood-fill sur des images déjà traitées."
+      "notes": " | AUDIT 2026-07-05 : script one-shot de transformation d'image (ajout canal alpha). Preuve qu'il a déjà été exécuté : les fichiers .rgb_backup existent à côté des PNG avatar dans assets/avatars/no_active_avatar_normal/base_normal/. NON ré-exécuté — risque de ré-appliquer le flood-fill sur des images déjà traitées. | Reconfirme 24/08/2026 (session autonome soir), evidence 07/05 corrigee : le chemin cite alors (assets/avatars/no_active_avatar_normal/base_normal/) a depuis ete archive (assets/_archive/..., avatar_normal retire au profit de avatar_medium, cf. systeme de calques du 20/07/2026) -- mauvaise piste, pas re-suivie. Verification correcte faite sur les vraies cibles actuelles du script (source lue directement) : les 4 fichiers assets/avatars/avatar_medium/base_medium/*.png cibles par le script sont bien en mode RGBA reel (Pillow, pas juste presence de backup) -- 4/4 confirmes, 0 manquant, 0 non-RGBA. Les 12 autres cibles du script (avatar_normal, systeme retire) ne sont plus applicables, independamment du script. A valider humainement par Celine le 25/08/2026."
     },
     {
       "path": "src/security/consent_art9.py",
@@ -11763,6 +11763,17 @@
       "test_level": "automated",
       "tests": [],
       "notes": "Fichier de test lui-meme, ecrit le 24/08/2026. Ajout Robolectric (testImplementation, app/build.gradle.kts) le 24/08/2026 pour combler le trou identifie dans BLOC24_STATUS_SESSION.md : CompanionRepositoryTest.kt utilisait un FakeReminderDao en memoire, la couche Room reelle (CompanionDatabase/ReminderDao/ReminderEntity) et StatusCache (SharedPreferences) n'avaient jamais ete exercees par un vrai Context Android. 2 nouveaux fichiers de test ecrits : CompanionDatabaseTest.kt (Room in-memory reel via Room.inMemoryDatabaseBuilder -- tri par dueAt, REPLACE sur conflit d'id, pruneMissing avec liste partielle et liste vide) et StatusCacheTest.kt (SharedPreferences reelles via ApplicationProvider -- load()=null si jamais sauvegarde, round-trip save/load, ecrasement, persistance entre 2 instances). ./gradlew :app:testDebugUnitTest relance -- BUILD SUCCESSFUL, 30/30 tests (21 preexistants + 9 nouveaux), rapports JUnit XML verifies un par un : CompanionDatabaseTest 5/5, StatusCacheTest 4/4, 0 failure/0 error/0 skipped partout. A valider humainement par Celine le 25/08/2026 (preuve JVM/Robolectric, pas de validation manuelle device/emulateur reel)."
+    },
+    {
+      "path": "data/security/trusted_devices.json",
+      "module": "B20",
+      "status": "tested",
+      "last_test": "2026-08-24",
+      "test_level": "automated",
+      "tests": [
+        "tests/security_tests/test_device_registry.py"
+      ],
+      "notes": "Fichier jamais audite individuellement malgre un statut 'coded' sans notes. Verification reelle le 24/08/2026 (session autonome soir) : chargement du vrai fichier via le code de production src/security/device_registry.py::list_trusted_devices() (pas juste un schema plausible) -- parse sans erreur, retourne les 2 appareils enregistres (local_pc, zt_test_device_001) avec les champs attendus (label/owner/registered_at/trusted/last_seen). Le champ owner='OWNER' verifie ne pas etre un placeholder non substitue : c'est le nom de role RBAC attendu (cf. src/security/role_manager.py, device_registry.py:192 register_device(..., 'OWNER')). tests/security_tests/test_device_registry.py couvre la logique de lecture/ecriture du meme format sur fichier isole (tmp_path), pas ce fichier reel directement -- statut 'tested' fonde sur le chargement reel effectue ce soir, pas sur la suite pytest seule. A valider humainement par Celine le 25/08/2026."
     }
   ],
   "ALFRED_CONTEXT.md": {
