@@ -1,7 +1,7 @@
 {
   "_meta": {
-    "updated": "2026-08-14",
-    "total_entries": 1819,
+    "updated": "2026-08-24",
+    "total_entries": 1826,
     "generated_by": "workspace sync 2026-07-04"
   },
   "validated_files": [
@@ -11634,6 +11634,73 @@
         "gradle :app:compileDebugKotlin -- BUILD SUCCESSFUL (14/08/2026), ressource raw resolue sans erreur"
       ],
       "notes": "Audit 2026-08-14 : copie exacte du certificat public genere par tools/security/generate_local_tls_cert.py (ALFRED_PC). Fichier public, pas un secret -- safe a committer, contrairement a server.key."
+    },
+    {
+      "path": "ALFRED_ANDROID/app/src/main/java/com/cognitiveproductslab/alfred/companion/data/CompanionRepository.kt",
+      "module": "B26",
+      "status": "tested",
+      "last_test": "2026-08-24",
+      "test_level": "automated",
+      "tests": [
+        "ALFRED_ANDROID/app/src/test/java/com/cognitiveproductslab/alfred/companion/data/CompanionRepositoryTest.kt"
+      ],
+      "notes": "Documente dans BLOC24_STATUS_SESSION.md (mise a jour 14/08/2026) : CompanionRepositoryTest.kt (4 tests, DAO/cache factices en memoire, pas de Room reel) couvrait deja ce fichier mais le registre n'avait jamais ete mis a jour -- statut recopie depuis 'coded' malgre la preuve existante. | Reconfirme 24/08/2026 (session autonome soir) : ./gradlew :app:testDebugUnitTest relance depuis zero (gradle 8.14.5 + JBR Android Studio en local, gradlew absent du depot) -- BUILD SUCCESSFUL, rapports JUnit XML verifies un par un (pas seulement le code de sortie) : ApiClientTest 3/3, CompanionRepositoryTest 4/4, ModelsTest 5/5, CompanionViewModelTest 5/5, ReminderNotificationPlannerTest 4/4 -- 21/21, 0 failure, 0 error, 0 skipped. A valider humainement par Celine le 25/08/2026 (statut 'tested' = preuve unitaire JVM reconfirmee, pas de validation manuelle device/emulateur)."
+    },
+    {
+      "path": "ALFRED_ANDROID/app/src/main/java/com/cognitiveproductslab/alfred/companion/work/ReminderNotificationPlanner.kt",
+      "module": "B26",
+      "status": "tested",
+      "last_test": "2026-08-24",
+      "test_level": "automated",
+      "tests": [
+        "ALFRED_ANDROID/app/src/test/java/com/cognitiveproductslab/alfred/companion/work/ReminderNotificationPlannerTest.kt"
+      ],
+      "notes": "Documente dans BLOC24_STATUS_SESSION.md (mise a jour 14/08/2026) : logique de decision 'quels rappels notifier' extraite en classe pure precisement pour rester testable en JVM (sans dependance Android), 4/4 tests deja passes le 14/08 mais jamais promue dans le registre. | Reconfirme 24/08/2026 (session autonome soir) : ./gradlew :app:testDebugUnitTest relance depuis zero (gradle 8.14.5 + JBR Android Studio en local, gradlew absent du depot) -- BUILD SUCCESSFUL, rapports JUnit XML verifies un par un (pas seulement le code de sortie) : ApiClientTest 3/3, CompanionRepositoryTest 4/4, ModelsTest 5/5, CompanionViewModelTest 5/5, ReminderNotificationPlannerTest 4/4 -- 21/21, 0 failure, 0 error, 0 skipped. A valider humainement par Celine le 25/08/2026 (statut 'tested' = preuve unitaire JVM reconfirmee, pas de validation manuelle device/emulateur)."
+    },
+    {
+      "path": "ALFRED_ANDROID/app/src/test/java/com/cognitiveproductslab/alfred/companion/data/ApiClientTest.kt",
+      "module": "B26",
+      "status": "tested",
+      "last_test": "2026-08-24",
+      "test_level": "automated",
+      "tests": [],
+      "notes": "Fichier de test lui-meme : sert de preuve pour ApiClient.kt (deja 'tested' depuis le 14/08) mais n'avait jamais ete promu en tant que fichier a part entiere dans le registre. | Reconfirme 24/08/2026 (session autonome soir) : ./gradlew :app:testDebugUnitTest relance depuis zero (gradle 8.14.5 + JBR Android Studio en local, gradlew absent du depot) -- BUILD SUCCESSFUL, rapports JUnit XML verifies un par un (pas seulement le code de sortie) : ApiClientTest 3/3, CompanionRepositoryTest 4/4, ModelsTest 5/5, CompanionViewModelTest 5/5, ReminderNotificationPlannerTest 4/4 -- 21/21, 0 failure, 0 error, 0 skipped. A valider humainement par Celine le 25/08/2026 (statut 'tested' = preuve unitaire JVM reconfirmee, pas de validation manuelle device/emulateur)."
+    },
+    {
+      "path": "ALFRED_ANDROID/app/src/test/java/com/cognitiveproductslab/alfred/companion/data/CompanionRepositoryTest.kt",
+      "module": "B26",
+      "status": "tested",
+      "last_test": "2026-08-24",
+      "test_level": "automated",
+      "tests": [],
+      "notes": "Fichier de test lui-meme, preuve pour CompanionRepository.kt (promu ci-dessus). | Reconfirme 24/08/2026 (session autonome soir) : ./gradlew :app:testDebugUnitTest relance depuis zero (gradle 8.14.5 + JBR Android Studio en local, gradlew absent du depot) -- BUILD SUCCESSFUL, rapports JUnit XML verifies un par un (pas seulement le code de sortie) : ApiClientTest 3/3, CompanionRepositoryTest 4/4, ModelsTest 5/5, CompanionViewModelTest 5/5, ReminderNotificationPlannerTest 4/4 -- 21/21, 0 failure, 0 error, 0 skipped. A valider humainement par Celine le 25/08/2026 (statut 'tested' = preuve unitaire JVM reconfirmee, pas de validation manuelle device/emulateur)."
+    },
+    {
+      "path": "ALFRED_ANDROID/app/src/test/java/com/cognitiveproductslab/alfred/companion/data/ModelsTest.kt",
+      "module": "B26",
+      "status": "tested",
+      "last_test": "2026-08-24",
+      "test_level": "automated",
+      "tests": [],
+      "notes": "Fichier de test lui-meme : sert de preuve pour Models.kt (deja 'tested' depuis le 14/08) mais n'avait jamais ete promu en tant que fichier a part entiere dans le registre. | Reconfirme 24/08/2026 (session autonome soir) : ./gradlew :app:testDebugUnitTest relance depuis zero (gradle 8.14.5 + JBR Android Studio en local, gradlew absent du depot) -- BUILD SUCCESSFUL, rapports JUnit XML verifies un par un (pas seulement le code de sortie) : ApiClientTest 3/3, CompanionRepositoryTest 4/4, ModelsTest 5/5, CompanionViewModelTest 5/5, ReminderNotificationPlannerTest 4/4 -- 21/21, 0 failure, 0 error, 0 skipped. A valider humainement par Celine le 25/08/2026 (statut 'tested' = preuve unitaire JVM reconfirmee, pas de validation manuelle device/emulateur)."
+    },
+    {
+      "path": "ALFRED_ANDROID/app/src/test/java/com/cognitiveproductslab/alfred/companion/ui/CompanionViewModelTest.kt",
+      "module": "B26",
+      "status": "tested",
+      "last_test": "2026-08-24",
+      "test_level": "automated",
+      "tests": [],
+      "notes": "Fichier de test lui-meme : sert de preuve pour CompanionViewModel.kt (deja 'tested' depuis le 14/08) mais n'avait jamais ete promu en tant que fichier a part entiere dans le registre. | Reconfirme 24/08/2026 (session autonome soir) : ./gradlew :app:testDebugUnitTest relance depuis zero (gradle 8.14.5 + JBR Android Studio en local, gradlew absent du depot) -- BUILD SUCCESSFUL, rapports JUnit XML verifies un par un (pas seulement le code de sortie) : ApiClientTest 3/3, CompanionRepositoryTest 4/4, ModelsTest 5/5, CompanionViewModelTest 5/5, ReminderNotificationPlannerTest 4/4 -- 21/21, 0 failure, 0 error, 0 skipped. A valider humainement par Celine le 25/08/2026 (statut 'tested' = preuve unitaire JVM reconfirmee, pas de validation manuelle device/emulateur)."
+    },
+    {
+      "path": "ALFRED_ANDROID/app/src/test/java/com/cognitiveproductslab/alfred/companion/work/ReminderNotificationPlannerTest.kt",
+      "module": "B26",
+      "status": "tested",
+      "last_test": "2026-08-24",
+      "test_level": "automated",
+      "tests": [],
+      "notes": "Fichier de test lui-meme, preuve pour ReminderNotificationPlanner.kt (promu ci-dessus). | Reconfirme 24/08/2026 (session autonome soir) : ./gradlew :app:testDebugUnitTest relance depuis zero (gradle 8.14.5 + JBR Android Studio en local, gradlew absent du depot) -- BUILD SUCCESSFUL, rapports JUnit XML verifies un par un (pas seulement le code de sortie) : ApiClientTest 3/3, CompanionRepositoryTest 4/4, ModelsTest 5/5, CompanionViewModelTest 5/5, ReminderNotificationPlannerTest 4/4 -- 21/21, 0 failure, 0 error, 0 skipped. A valider humainement par Celine le 25/08/2026 (statut 'tested' = preuve unitaire JVM reconfirmee, pas de validation manuelle device/emulateur)."
     }
   ],
   "ALFRED_CONTEXT.md": {
