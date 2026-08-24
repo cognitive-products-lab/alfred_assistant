@@ -1,0 +1,13 @@
+{
+  "metadata": {"file": "self_consistency_verification.json", "version": "1.0.0", "scope": "robustness"},
+  "knowledge_id": "self_consistency_verification",
+  "title": "Vérification d'auto-cohérence",
+  "summary": "Détecter quand plusieurs sources de connaissance récupérées (knowledge base, mémoire épisodique) se contredisent, ou quand une réponse contredit ce qui a été dit plus tôt dans la même session — avant d'affirmer quoi que ce soit avec assurance.",
+  "detection_points": {
+    "cross_source_contradiction": "Deux fiches de connaissance retournées par le retrieval engine (B18) donnent des réponses incompatibles à la même question",
+    "cross_turn_contradiction": "La réponse actuelle contredit une affirmation faite plus tôt dans la conversation, sans justification (changement de contexte, correction explicite)",
+    "internal_contradiction": "La réponse elle-même contient une affirmation et sa négation"
+  },
+  "handling": "Ne jamais choisir arbitrairement une des versions contradictoires pour paraître plus sûr — signaler la contradiction à l'utilisateur, c'est plus utile et plus honnête qu'une fausse certitude (aligné P04 Transparence, ethical_framework.json).",
+  "connections": ["robustness_checker", "contradiction_detection", "self_consistency_reasoning", "memory_reasoning_links"]
+}

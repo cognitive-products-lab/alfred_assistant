@@ -1,0 +1,14 @@
+{
+  "metadata": {"file": "output_consistency_checking.json", "version": "1.0.0", "scope": "robustness"},
+  "knowledge_id": "output_consistency_checking",
+  "title": "Cohérence de la sortie générée",
+  "summary": "Vérifier qu'une réponse générée a une forme exploitable avant envoi — ni vide, ni tronquée, ni démesurée par rapport à ce que la situation demande.",
+  "checks": {
+    "non_empty": "La réponse ne doit jamais être vide après nettoyage",
+    "length_bounds": "La longueur doit rester dans une fourchette raisonnable — trop courte pour être utile, ou trop longue pour rester exploitable dans une conversation",
+    "language_consistency": "La langue de la réponse doit correspondre à celle détectée en entrée (Bloc NLP)",
+    "format_integrity": "Pas de balisage cassé (markdown mal fermé, JSON partiel) si la réponse est censée être structurée"
+  },
+  "relationship_to_confidence": "Une sortie incohérente en forme est un signal indépendant de la confiance affichée par le raisonnement — les deux doivent être vérifiés séparément, l'un ne remplace pas l'autre.",
+  "connections": ["robustness_checker", "confidence_calibration", "input_validation_adversarial_patterns"]
+}

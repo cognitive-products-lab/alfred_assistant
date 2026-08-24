@@ -1,0 +1,15 @@
+{
+  "metadata": {"file": "graceful_degradation_fallback.json", "version": "1.0.0", "scope": "robustness"},
+  "knowledge_id": "graceful_degradation_fallback",
+  "title": "Dégradation gracieuse et réponses de repli",
+  "summary": "Quand un contrôle de robustesse échoue, la bonne réponse n'est jamais un crash ni une réponse non fiable envoyée quand même — c'est un repli honnête, adapté au type d'anomalie détectée.",
+  "fallback_by_issue_type": {
+    "empty_input": "Signaler qu'aucun message compréhensible n'a été reçu",
+    "input_repeat_pattern_or_too_long": "Demander une reformulation plus simple, sans reproduire l'entrée problématique",
+    "unresolved_contradictions": "Signaler la contradiction trouvée dans les sources plutôt que trancher arbitrairement",
+    "confidence_complexity_mismatch": "Nuancer explicitement au lieu d'affirmer, proposer de préciser la question",
+    "ethics_blocked": "Ne jamais exposer le détail technique du blocage — répondre avec un refus doux et le disclaimer du cadre éthique"
+  },
+  "principle": "Le même esprit que safety_gate.py côté confidentialité : une dégradation contrôlée et loggée vaut toujours mieux qu'un échec silencieux ou une réponse hasardeuse.",
+  "connections": ["robustness_checker", "input_validation_adversarial_patterns", "confidence_calibration", "fallback_reasoning"]
+}
