@@ -1,0 +1,13 @@
+{
+  "metadata": {"file": "confidence_calibration.json", "version": "1.0.0", "scope": "robustness"},
+  "knowledge_id": "confidence_calibration",
+  "title": "Calibration de la confiance affichée",
+  "summary": "Une confiance bien calibrée reflète la fiabilité réelle de la réponse — pas la fluidité du texte généré. Une confiance élevée sur un sujet complexe ou peu documenté est un signal d'alerte, pas un motif de rassurance.",
+  "miscalibration_risks": {
+    "overconfidence_on_complexity": "Score de confiance haut alors que la question était classée 'critical' — le pipeline aurait dû nuancer, à corriger avant envoi",
+    "overconfidence_without_evidence": "Confiance haute sans connaissance récupérée (retrieval vide) — rien ne la justifie",
+    "underconfidence_on_simple": "Score bas sur une question triviale bien couverte — à éviter aussi, ça dégrade l'utilité sans raison"
+  },
+  "correction_strategy": "Ajuster à la baisse plutôt qu'à la hausse en cas de doute — cohérent avec limites_ia/gestion_incertitude_biais_pratique : mieux vaut sous-estimer sa certitude que sur-affirmer.",
+  "connections": ["robustness_checker", "confidence_estimation", "uncertainty_management", "hallucination_detection", "reasoning_engine"]
+}

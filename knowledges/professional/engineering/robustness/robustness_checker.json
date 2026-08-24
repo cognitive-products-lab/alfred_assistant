@@ -1,0 +1,30 @@
+{
+  "metadata": {"file": "robustness_checker.json", "version": "1.0.0", "scope": "robustness"},
+  "knowledge_id": "robustness_checker",
+  "title": "Vérificateur de robustesse",
+  "summary": "Dernier filet avant réponse — vérifie la fiabilité mécanique de l'échange (entrée exploitable, confiance cohérente, sortie bien formée) sans juger le fond éthique ou factuel, déjà couvert par ethics_engine et reasoning_engine.",
+  "pipeline": {
+    "step_1_input_sanity": {
+      "action": "Détecter entrée vide, trop longue, ou motif répétitif (flood/spam)",
+      "output": "liste d'anomalies d'entrée"
+    },
+    "step_2_confidence_coherence": {
+      "action": "Comparer la confiance affichée par ReasoningEngine à la complexité perçue — une confiance haute sur une entrée critique est suspecte",
+      "output": "confiance ajustée si incohérence"
+    },
+    "step_3_contradiction_check": {
+      "action": "Vérifier l'absence de contradictions non résolues issues de la récupération de connaissance",
+      "output": "signal contradiction oui/non"
+    },
+    "step_4_output_sanity": {
+      "action": "Vérifier que la sortie a une forme raisonnable (ni vide, ni tronquée, ni excessive)",
+      "output": "liste d'anomalies de sortie"
+    },
+    "step_5_fallback": {
+      "action": "Si une anomalie est détectée, proposer une réponse de repli sûre plutôt que d'envoyer une réponse non fiable",
+      "output": "texte de repli adapté au type d'anomalie"
+    }
+  },
+  "principle": "Mieux vaut une réponse de repli honnête ('je ne suis pas sûr, peux-tu préciser') qu'une réponse fluide mais non fiable — cohérent avec le principe de transparence du cadre éthique (P04, ethical_framework.json).",
+  "connections": ["input_validation_adversarial_patterns", "output_consistency_checking", "confidence_calibration", "graceful_degradation_fallback", "self_consistency_verification", "confidence_estimation", "hallucination_detection"]
+}
