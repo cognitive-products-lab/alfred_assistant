@@ -1,0 +1,103 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.operations_continuite.gestion_couts_infrastructure_cloud_hebergement_alfred_cpl",
+  "title": "Gestion des coûts d'infrastructure cloud et d'hébergement d'ALFRED CPL",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "operations_continuite",
+  "category": "opérations et continuité ALFRED CPL",
+  "summary": "Décrit le pilotage des coûts d'infrastructure d'hébergement et de cloud pour ALFRED CPL (dimensionnement, coûts fixes vs variables, arbitrage local-first vs cloud), distinct de l'optimisation des coûts d'inférence IA déjà couverte côté produit et de l'analyse des coûts d'infrastructure locale déjà couverte côté pilotage business.",
+  "purpose": "Fournir un cadre de pilotage continu des coûts d'infrastructure d'hébergement, poste de dépense opérationnel structurant pour une plateforme comme ALFRED CPL, distinct du coût d'inférence des modèles IA eux-mêmes.",
+  "tags": [
+    "cout_infrastructure",
+    "hebergement_cloud",
+    "dimensionnement",
+    "cout_variable"
+  ],
+  "intents": [
+    "explain_cloud_hosting_cost_management",
+    "advise_infrastructure_sizing",
+    "compare_fixed_vs_variable_hosting_cost"
+  ],
+  "usage_context": [
+    "pilotage périodique des coûts d'hébergement et d'infrastructure d'ALFRED CPL",
+    "arbitrage de dimensionnement d'infrastructure entre coûts fixes et variables"
+  ],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "La gestion des coûts d'infrastructure cloud et d'hébergement consiste à suivre, prévoir et optimiser en continu les dépenses liées à l'hébergement technique d'ALFRED CPL (serveurs, stockage, bande passante), distinctement du coût d'inférence des modèles IA qui dépend davantage du volume d'usage des fonctionnalités IA elles-mêmes.",
+    "core_principles": [
+      "Le dimensionnement d'infrastructure doit être régulièrement réévalué au regard de l'usage réel constaté, un surdimensionnement initial par prudence excessive générant des coûts fixes non justifiés dans la durée.",
+      "L'arbitrage entre coûts fixes (infrastructure dédiée, réservée) et coûts variables (facturation à l'usage) dépend de la prévisibilité de la charge : une charge stable favorise les coûts fixes optimisés, une charge fluctuante favorise l'élasticité des coûts variables.",
+      "Le choix entre hébergement local-first et infrastructure cloud a un impact direct sur la structure de coût (investissement initial vs charge récurrente) au-delà de ses implications déjà connues en matière de confidentialité et de résilience.",
+      "Une dérive de coût d'infrastructure non détectée rapidement (ressources oubliées, dimensionnement obsolète après une évolution produit) peut s'accumuler significativement avant d'être identifiée sans suivi régulier."
+    ],
+    "rules": [
+      "Revoir périodiquement le dimensionnement d'infrastructure au regard de l'usage réel constaté, pas seulement lors du déploiement initial.",
+      "Documenter explicitement l'arbitrage coûts fixes vs coûts variables retenu et les hypothèses de charge sur lesquelles il repose.",
+      "Mettre en place une alerte de dérive de coût d'infrastructure plutôt qu'un contrôle uniquement rétrospectif périodique."
+    ],
+    "examples": [
+      {
+        "situation": "L'infrastructure d'ALFRED CPL a été dimensionnée pour un pic de charge anticipé qui ne s'est finalement jamais matérialisé, générant un surcoût fixe permanent.",
+        "recommended_behavior": "Recommander une réévaluation du dimensionnement sur la base de l'usage réel constaté, avec un passage éventuel vers une infrastructure plus élastique si la charge reste variable.",
+        "avoid": "Conserver indéfiniment un dimensionnement initial par prudence, sans jamais le réévaluer à la lumière de l'usage réel."
+      }
+    ],
+    "best_practices": [
+      "Mettre en place un suivi régulier des coûts d'infrastructure avec alertes de dérive.",
+      "Réévaluer périodiquement le dimensionnement au regard de l'usage réel plutôt que des hypothèses initiales.",
+      "Documenter les arbitrages coûts fixes vs variables et les revisiter en cas de changement significatif de charge."
+    ],
+    "anti_patterns": [
+      "Ne jamais réévaluer un dimensionnement d'infrastructure initial malgré des années d'usage réel disponibles.",
+      "Suivre les coûts d'infrastructure uniquement de façon rétrospective annuelle, sans alerte de dérive en continu."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "cout_infrastructure",
+      "hebergement_cloud",
+      "dimensionnement",
+      "cout_variable"
+    ],
+    "related_domains": [
+      "cpl",
+      "finance_controle"
+    ],
+    "related_knowledge": [
+      "cpl.business_piloting.analyse_couts_infrastructure_ia_locale",
+      "cpl.product_ia.optimisation_couts_inference_produit_ia_alfred_cpl",
+      "cpl.operations_continuite.gestion_capacite_charge_systeme"
+    ],
+    "retrieval_priority": 5
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "conseil méthodologique sur le pilotage des coûts d'infrastructure cloud et d'hébergement"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "Recommander une réévaluation basée sur l'usage réel constaté plutôt qu'un dimensionnement figé sur des hypothèses initiales."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "24/08/2026",
+    "last_update": "24/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}
