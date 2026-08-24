@@ -1,7 +1,7 @@
 {
   "_meta": {
     "updated": "2026-08-24",
-    "total_entries": 1826,
+    "total_entries": 1832,
     "generated_by": "workspace sync 2026-07-04"
   },
   "validated_files": [
@@ -11701,6 +11701,68 @@
       "test_level": "automated",
       "tests": [],
       "notes": "Fichier de test lui-meme, preuve pour ReminderNotificationPlanner.kt (promu ci-dessus). | Reconfirme 24/08/2026 (session autonome soir) : ./gradlew :app:testDebugUnitTest relance depuis zero (gradle 8.14.5 + JBR Android Studio en local, gradlew absent du depot) -- BUILD SUCCESSFUL, rapports JUnit XML verifies un par un (pas seulement le code de sortie) : ApiClientTest 3/3, CompanionRepositoryTest 4/4, ModelsTest 5/5, CompanionViewModelTest 5/5, ReminderNotificationPlannerTest 4/4 -- 21/21, 0 failure, 0 error, 0 skipped. A valider humainement par Celine le 25/08/2026 (statut 'tested' = preuve unitaire JVM reconfirmee, pas de validation manuelle device/emulateur)."
+    },
+    {
+      "path": "ALFRED_ANDROID/app/src/main/java/com/cognitiveproductslab/alfred/companion/data/local/CompanionDatabase.kt",
+      "module": "B26",
+      "status": "tested",
+      "last_test": "2026-08-24",
+      "test_level": "automated",
+      "tests": [
+        "ALFRED_ANDROID/app/src/test/java/com/cognitiveproductslab/alfred/companion/data/local/CompanionDatabaseTest.kt"
+      ],
+      "notes": "Ajout Robolectric (testImplementation, app/build.gradle.kts) le 24/08/2026 pour combler le trou identifie dans BLOC24_STATUS_SESSION.md : CompanionRepositoryTest.kt utilisait un FakeReminderDao en memoire, la couche Room reelle (CompanionDatabase/ReminderDao/ReminderEntity) et StatusCache (SharedPreferences) n'avaient jamais ete exercees par un vrai Context Android. 2 nouveaux fichiers de test ecrits : CompanionDatabaseTest.kt (Room in-memory reel via Room.inMemoryDatabaseBuilder -- tri par dueAt, REPLACE sur conflit d'id, pruneMissing avec liste partielle et liste vide) et StatusCacheTest.kt (SharedPreferences reelles via ApplicationProvider -- load()=null si jamais sauvegarde, round-trip save/load, ecrasement, persistance entre 2 instances). ./gradlew :app:testDebugUnitTest relance -- BUILD SUCCESSFUL, 30/30 tests (21 preexistants + 9 nouveaux), rapports JUnit XML verifies un par un : CompanionDatabaseTest 5/5, StatusCacheTest 4/4, 0 failure/0 error/0 skipped partout. A valider humainement par Celine le 25/08/2026 (preuve JVM/Robolectric, pas de validation manuelle device/emulateur reel)."
+    },
+    {
+      "path": "ALFRED_ANDROID/app/src/main/java/com/cognitiveproductslab/alfred/companion/data/local/ReminderDao.kt",
+      "module": "B26",
+      "status": "tested",
+      "last_test": "2026-08-24",
+      "test_level": "automated",
+      "tests": [
+        "ALFRED_ANDROID/app/src/test/java/com/cognitiveproductslab/alfred/companion/data/local/CompanionDatabaseTest.kt"
+      ],
+      "notes": "Ajout Robolectric (testImplementation, app/build.gradle.kts) le 24/08/2026 pour combler le trou identifie dans BLOC24_STATUS_SESSION.md : CompanionRepositoryTest.kt utilisait un FakeReminderDao en memoire, la couche Room reelle (CompanionDatabase/ReminderDao/ReminderEntity) et StatusCache (SharedPreferences) n'avaient jamais ete exercees par un vrai Context Android. 2 nouveaux fichiers de test ecrits : CompanionDatabaseTest.kt (Room in-memory reel via Room.inMemoryDatabaseBuilder -- tri par dueAt, REPLACE sur conflit d'id, pruneMissing avec liste partielle et liste vide) et StatusCacheTest.kt (SharedPreferences reelles via ApplicationProvider -- load()=null si jamais sauvegarde, round-trip save/load, ecrasement, persistance entre 2 instances). ./gradlew :app:testDebugUnitTest relance -- BUILD SUCCESSFUL, 30/30 tests (21 preexistants + 9 nouveaux), rapports JUnit XML verifies un par un : CompanionDatabaseTest 5/5, StatusCacheTest 4/4, 0 failure/0 error/0 skipped partout. A valider humainement par Celine le 25/08/2026 (preuve JVM/Robolectric, pas de validation manuelle device/emulateur reel)."
+    },
+    {
+      "path": "ALFRED_ANDROID/app/src/main/java/com/cognitiveproductslab/alfred/companion/data/local/ReminderEntity.kt",
+      "module": "B26",
+      "status": "tested",
+      "last_test": "2026-08-24",
+      "test_level": "automated",
+      "tests": [
+        "ALFRED_ANDROID/app/src/test/java/com/cognitiveproductslab/alfred/companion/data/local/CompanionDatabaseTest.kt"
+      ],
+      "notes": "Ajout Robolectric (testImplementation, app/build.gradle.kts) le 24/08/2026 pour combler le trou identifie dans BLOC24_STATUS_SESSION.md : CompanionRepositoryTest.kt utilisait un FakeReminderDao en memoire, la couche Room reelle (CompanionDatabase/ReminderDao/ReminderEntity) et StatusCache (SharedPreferences) n'avaient jamais ete exercees par un vrai Context Android. 2 nouveaux fichiers de test ecrits : CompanionDatabaseTest.kt (Room in-memory reel via Room.inMemoryDatabaseBuilder -- tri par dueAt, REPLACE sur conflit d'id, pruneMissing avec liste partielle et liste vide) et StatusCacheTest.kt (SharedPreferences reelles via ApplicationProvider -- load()=null si jamais sauvegarde, round-trip save/load, ecrasement, persistance entre 2 instances). ./gradlew :app:testDebugUnitTest relance -- BUILD SUCCESSFUL, 30/30 tests (21 preexistants + 9 nouveaux), rapports JUnit XML verifies un par un : CompanionDatabaseTest 5/5, StatusCacheTest 4/4, 0 failure/0 error/0 skipped partout. A valider humainement par Celine le 25/08/2026 (preuve JVM/Robolectric, pas de validation manuelle device/emulateur reel)."
+    },
+    {
+      "path": "ALFRED_ANDROID/app/src/main/java/com/cognitiveproductslab/alfred/companion/data/local/StatusCache.kt",
+      "module": "B26",
+      "status": "tested",
+      "last_test": "2026-08-24",
+      "test_level": "automated",
+      "tests": [
+        "ALFRED_ANDROID/app/src/test/java/com/cognitiveproductslab/alfred/companion/data/local/StatusCacheTest.kt"
+      ],
+      "notes": "Ajout Robolectric (testImplementation, app/build.gradle.kts) le 24/08/2026 pour combler le trou identifie dans BLOC24_STATUS_SESSION.md : CompanionRepositoryTest.kt utilisait un FakeReminderDao en memoire, la couche Room reelle (CompanionDatabase/ReminderDao/ReminderEntity) et StatusCache (SharedPreferences) n'avaient jamais ete exercees par un vrai Context Android. 2 nouveaux fichiers de test ecrits : CompanionDatabaseTest.kt (Room in-memory reel via Room.inMemoryDatabaseBuilder -- tri par dueAt, REPLACE sur conflit d'id, pruneMissing avec liste partielle et liste vide) et StatusCacheTest.kt (SharedPreferences reelles via ApplicationProvider -- load()=null si jamais sauvegarde, round-trip save/load, ecrasement, persistance entre 2 instances). ./gradlew :app:testDebugUnitTest relance -- BUILD SUCCESSFUL, 30/30 tests (21 preexistants + 9 nouveaux), rapports JUnit XML verifies un par un : CompanionDatabaseTest 5/5, StatusCacheTest 4/4, 0 failure/0 error/0 skipped partout. A valider humainement par Celine le 25/08/2026 (preuve JVM/Robolectric, pas de validation manuelle device/emulateur reel)."
+    },
+    {
+      "path": "ALFRED_ANDROID/app/src/test/java/com/cognitiveproductslab/alfred/companion/data/local/CompanionDatabaseTest.kt",
+      "module": "B26",
+      "status": "tested",
+      "last_test": "2026-08-24",
+      "test_level": "automated",
+      "tests": [],
+      "notes": "Fichier de test lui-meme, ecrit le 24/08/2026. Ajout Robolectric (testImplementation, app/build.gradle.kts) le 24/08/2026 pour combler le trou identifie dans BLOC24_STATUS_SESSION.md : CompanionRepositoryTest.kt utilisait un FakeReminderDao en memoire, la couche Room reelle (CompanionDatabase/ReminderDao/ReminderEntity) et StatusCache (SharedPreferences) n'avaient jamais ete exercees par un vrai Context Android. 2 nouveaux fichiers de test ecrits : CompanionDatabaseTest.kt (Room in-memory reel via Room.inMemoryDatabaseBuilder -- tri par dueAt, REPLACE sur conflit d'id, pruneMissing avec liste partielle et liste vide) et StatusCacheTest.kt (SharedPreferences reelles via ApplicationProvider -- load()=null si jamais sauvegarde, round-trip save/load, ecrasement, persistance entre 2 instances). ./gradlew :app:testDebugUnitTest relance -- BUILD SUCCESSFUL, 30/30 tests (21 preexistants + 9 nouveaux), rapports JUnit XML verifies un par un : CompanionDatabaseTest 5/5, StatusCacheTest 4/4, 0 failure/0 error/0 skipped partout. A valider humainement par Celine le 25/08/2026 (preuve JVM/Robolectric, pas de validation manuelle device/emulateur reel)."
+    },
+    {
+      "path": "ALFRED_ANDROID/app/src/test/java/com/cognitiveproductslab/alfred/companion/data/local/StatusCacheTest.kt",
+      "module": "B26",
+      "status": "tested",
+      "last_test": "2026-08-24",
+      "test_level": "automated",
+      "tests": [],
+      "notes": "Fichier de test lui-meme, ecrit le 24/08/2026. Ajout Robolectric (testImplementation, app/build.gradle.kts) le 24/08/2026 pour combler le trou identifie dans BLOC24_STATUS_SESSION.md : CompanionRepositoryTest.kt utilisait un FakeReminderDao en memoire, la couche Room reelle (CompanionDatabase/ReminderDao/ReminderEntity) et StatusCache (SharedPreferences) n'avaient jamais ete exercees par un vrai Context Android. 2 nouveaux fichiers de test ecrits : CompanionDatabaseTest.kt (Room in-memory reel via Room.inMemoryDatabaseBuilder -- tri par dueAt, REPLACE sur conflit d'id, pruneMissing avec liste partielle et liste vide) et StatusCacheTest.kt (SharedPreferences reelles via ApplicationProvider -- load()=null si jamais sauvegarde, round-trip save/load, ecrasement, persistance entre 2 instances). ./gradlew :app:testDebugUnitTest relance -- BUILD SUCCESSFUL, 30/30 tests (21 preexistants + 9 nouveaux), rapports JUnit XML verifies un par un : CompanionDatabaseTest 5/5, StatusCacheTest 4/4, 0 failure/0 error/0 skipped partout. A valider humainement par Celine le 25/08/2026 (preuve JVM/Robolectric, pas de validation manuelle device/emulateur reel)."
     }
   ],
   "ALFRED_CONTEXT.md": {
