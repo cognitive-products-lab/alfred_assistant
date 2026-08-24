@@ -8,11 +8,11 @@
         "updated": "2026-08-24",
         "generated_by": "update_dashboard_data.py"
     },
-    "last_update": "24/08/2026 17:40:05",
+    "last_update": "24/08/2026 17:55:28",
     "source": "dashboard_data_manifest.json + validation_registry.json",
     "mode": "manifest_expected_vs_existing_with_validation_registry",
     "validated_files_count": 1018,
-    "global_progress": 91.8,
+    "global_progress": 92.1,
     "total_target_full_files": 4234,
     "global_full_project_progress": 30.0,
     "total_expected_files": 1356,
@@ -27,12 +27,12 @@
         "empty": 0,
         "partial": 93,
         "created": 0,
-        "coded": 111,
+        "coded": 104,
         "archive": 1,
-        "tested": 3,
+        "tested": 10,
         "validated": 1018
     },
-    "validation_registry_count": 1270,
+    "validation_registry_count": 1277,
     "blocks": [
         {
             "id": "b01",
@@ -24849,7 +24849,7 @@
                     "exists": true,
                     "status": "validated",
                     "score": 100,
-                    "size_bytes": 25487,
+                    "size_bytes": 25524,
                     "tests": [],
                     "details": {},
                     "validation": {
@@ -28786,7 +28786,7 @@
                     "exists": true,
                     "status": "validated",
                     "score": 100,
-                    "size_bytes": 531265,
+                    "size_bytes": 538925,
                     "tests": [],
                     "details": {},
                     "validation": {
@@ -28808,7 +28808,7 @@
                     "exists": true,
                     "status": "validated",
                     "score": 100,
-                    "size_bytes": 1529724,
+                    "size_bytes": 1525918,
                     "tests": [],
                     "details": {},
                     "validation": {
@@ -29207,7 +29207,7 @@
                     "exists": true,
                     "status": "validated",
                     "score": 100,
-                    "size_bytes": 18710,
+                    "size_bytes": 18981,
                     "tests": [],
                     "details": {},
                     "validation": {
@@ -30043,7 +30043,7 @@
                     "exists": true,
                     "status": "validated",
                     "score": 100,
-                    "size_bytes": 25487,
+                    "size_bytes": 25524,
                     "tests": [],
                     "details": {},
                     "validation": {
@@ -32283,7 +32283,7 @@
             "id": "b26",
             "label": "Android / Mobile — persistance locale, synchronisation & tests (extension du PoC B24)",
             "target_full_files_count": 15,
-            "full_project_progress": 60.0,
+            "full_project_progress": 69.3,
             "sub_targets": {
                 "persistance_locale": 4,
                 "synchronisation_arriere_plan": 2,
@@ -32291,7 +32291,7 @@
                 "securite_stockage": 1,
                 "tests_unitaires": 5
             },
-            "progress": 60.0,
+            "progress": 69.3,
             "expected_count": 15,
             "files_count": 15,
             "missing_count": 0,
@@ -32304,9 +32304,9 @@
                 "empty": 0,
                 "partial": 0,
                 "created": 0,
-                "coded": 15,
+                "coded": 8,
                 "archive": 0,
-                "tested": 0,
+                "tested": 7,
                 "validated": 0
             },
             "files_detected": [
@@ -32367,11 +32367,24 @@
                 {
                     "path": "ALFRED_ANDROID/app/src/main/java/com/cognitiveproductslab/alfred/companion/work/ReminderNotificationPlanner.kt",
                     "exists": true,
-                    "status": "coded",
-                    "score": 60,
+                    "status": "tested",
+                    "score": 80,
                     "size_bytes": 1144,
                     "tests": [],
-                    "details": {}
+                    "details": {},
+                    "validation": {
+                        "path": "ALFRED_ANDROID/app/src/main/java/com/cognitiveproductslab/alfred/companion/work/ReminderNotificationPlanner.kt",
+                        "module": "B26",
+                        "status": "tested",
+                        "last_test": "2026-08-24",
+                        "test_level": "automated",
+                        "tests": [
+                            "ALFRED_ANDROID/app/src/test/java/com/cognitiveproductslab/alfred/companion/work/ReminderNotificationPlannerTest.kt"
+                        ],
+                        "notes": "Documente dans BLOC24_STATUS_SESSION.md (mise a jour 14/08/2026) : logique de decision 'quels rappels notifier' extraite en classe pure precisement pour rester testable en JVM (sans dependance Android), 4/4 tests deja passes le 14/08 mais jamais promue dans le registre. | Reconfirme 24/08/2026 (session autonome soir) : ./gradlew :app:testDebugUnitTest relance depuis zero (gradle 8.14.5 + JBR Android Studio en local, gradlew absent du depot) -- BUILD SUCCESSFUL, rapports JUnit XML verifies un par un (pas seulement le code de sortie) : ApiClientTest 3/3, CompanionRepositoryTest 4/4, ModelsTest 5/5, CompanionViewModelTest 5/5, ReminderNotificationPlannerTest 4/4 -- 21/21, 0 failure, 0 error, 0 skipped. A valider humainement par Celine le 25/08/2026 (statut 'tested' = preuve unitaire JVM reconfirmee, pas de validation manuelle device/emulateur)."
+                    },
+                    "validated": false,
+                    "tested": true
                 },
                 {
                     "path": "ALFRED_ANDROID/app/src/main/java/com/cognitiveproductslab/alfred/companion/work/ReminderSyncWorker.kt",
@@ -32403,11 +32416,24 @@
                 {
                     "path": "ALFRED_ANDROID/app/src/main/java/com/cognitiveproductslab/alfred/companion/data/CompanionRepository.kt",
                     "exists": true,
-                    "status": "coded",
-                    "score": 60,
+                    "status": "tested",
+                    "score": 80,
                     "size_bytes": 3354,
                     "tests": [],
-                    "details": {}
+                    "details": {},
+                    "validation": {
+                        "path": "ALFRED_ANDROID/app/src/main/java/com/cognitiveproductslab/alfred/companion/data/CompanionRepository.kt",
+                        "module": "B26",
+                        "status": "tested",
+                        "last_test": "2026-08-24",
+                        "test_level": "automated",
+                        "tests": [
+                            "ALFRED_ANDROID/app/src/test/java/com/cognitiveproductslab/alfred/companion/data/CompanionRepositoryTest.kt"
+                        ],
+                        "notes": "Documente dans BLOC24_STATUS_SESSION.md (mise a jour 14/08/2026) : CompanionRepositoryTest.kt (4 tests, DAO/cache factices en memoire, pas de Room reel) couvrait deja ce fichier mais le registre n'avait jamais ete mis a jour -- statut recopie depuis 'coded' malgre la preuve existante. | Reconfirme 24/08/2026 (session autonome soir) : ./gradlew :app:testDebugUnitTest relance depuis zero (gradle 8.14.5 + JBR Android Studio en local, gradlew absent du depot) -- BUILD SUCCESSFUL, rapports JUnit XML verifies un par un (pas seulement le code de sortie) : ApiClientTest 3/3, CompanionRepositoryTest 4/4, ModelsTest 5/5, CompanionViewModelTest 5/5, ReminderNotificationPlannerTest 4/4 -- 21/21, 0 failure, 0 error, 0 skipped. A valider humainement par Celine le 25/08/2026 (statut 'tested' = preuve unitaire JVM reconfirmee, pas de validation manuelle device/emulateur)."
+                    },
+                    "validated": false,
+                    "tested": true
                 },
                 {
                     "path": "ALFRED_ANDROID/app/src/main/java/com/cognitiveproductslab/alfred/companion/data/SecureTokenStore.kt",
@@ -32421,47 +32447,102 @@
                 {
                     "path": "ALFRED_ANDROID/app/src/test/java/com/cognitiveproductslab/alfred/companion/data/ApiClientTest.kt",
                     "exists": true,
-                    "status": "coded",
-                    "score": 60,
+                    "status": "tested",
+                    "score": 80,
                     "size_bytes": 2846,
                     "tests": [],
-                    "details": {}
+                    "details": {},
+                    "validation": {
+                        "path": "ALFRED_ANDROID/app/src/test/java/com/cognitiveproductslab/alfred/companion/data/ApiClientTest.kt",
+                        "module": "B26",
+                        "status": "tested",
+                        "last_test": "2026-08-24",
+                        "test_level": "automated",
+                        "tests": [],
+                        "notes": "Fichier de test lui-meme : sert de preuve pour ApiClient.kt (deja 'tested' depuis le 14/08) mais n'avait jamais ete promu en tant que fichier a part entiere dans le registre. | Reconfirme 24/08/2026 (session autonome soir) : ./gradlew :app:testDebugUnitTest relance depuis zero (gradle 8.14.5 + JBR Android Studio en local, gradlew absent du depot) -- BUILD SUCCESSFUL, rapports JUnit XML verifies un par un (pas seulement le code de sortie) : ApiClientTest 3/3, CompanionRepositoryTest 4/4, ModelsTest 5/5, CompanionViewModelTest 5/5, ReminderNotificationPlannerTest 4/4 -- 21/21, 0 failure, 0 error, 0 skipped. A valider humainement par Celine le 25/08/2026 (statut 'tested' = preuve unitaire JVM reconfirmee, pas de validation manuelle device/emulateur)."
+                    },
+                    "validated": false,
+                    "tested": true
                 },
                 {
                     "path": "ALFRED_ANDROID/app/src/test/java/com/cognitiveproductslab/alfred/companion/data/CompanionRepositoryTest.kt",
                     "exists": true,
-                    "status": "coded",
-                    "score": 60,
+                    "status": "tested",
+                    "score": 80,
                     "size_bytes": 5048,
                     "tests": [],
-                    "details": {}
+                    "details": {},
+                    "validation": {
+                        "path": "ALFRED_ANDROID/app/src/test/java/com/cognitiveproductslab/alfred/companion/data/CompanionRepositoryTest.kt",
+                        "module": "B26",
+                        "status": "tested",
+                        "last_test": "2026-08-24",
+                        "test_level": "automated",
+                        "tests": [],
+                        "notes": "Fichier de test lui-meme, preuve pour CompanionRepository.kt (promu ci-dessus). | Reconfirme 24/08/2026 (session autonome soir) : ./gradlew :app:testDebugUnitTest relance depuis zero (gradle 8.14.5 + JBR Android Studio en local, gradlew absent du depot) -- BUILD SUCCESSFUL, rapports JUnit XML verifies un par un (pas seulement le code de sortie) : ApiClientTest 3/3, CompanionRepositoryTest 4/4, ModelsTest 5/5, CompanionViewModelTest 5/5, ReminderNotificationPlannerTest 4/4 -- 21/21, 0 failure, 0 error, 0 skipped. A valider humainement par Celine le 25/08/2026 (statut 'tested' = preuve unitaire JVM reconfirmee, pas de validation manuelle device/emulateur)."
+                    },
+                    "validated": false,
+                    "tested": true
                 },
                 {
                     "path": "ALFRED_ANDROID/app/src/test/java/com/cognitiveproductslab/alfred/companion/data/ModelsTest.kt",
                     "exists": true,
-                    "status": "coded",
-                    "score": 60,
+                    "status": "tested",
+                    "score": 80,
                     "size_bytes": 3101,
                     "tests": [],
-                    "details": {}
+                    "details": {},
+                    "validation": {
+                        "path": "ALFRED_ANDROID/app/src/test/java/com/cognitiveproductslab/alfred/companion/data/ModelsTest.kt",
+                        "module": "B26",
+                        "status": "tested",
+                        "last_test": "2026-08-24",
+                        "test_level": "automated",
+                        "tests": [],
+                        "notes": "Fichier de test lui-meme : sert de preuve pour Models.kt (deja 'tested' depuis le 14/08) mais n'avait jamais ete promu en tant que fichier a part entiere dans le registre. | Reconfirme 24/08/2026 (session autonome soir) : ./gradlew :app:testDebugUnitTest relance depuis zero (gradle 8.14.5 + JBR Android Studio en local, gradlew absent du depot) -- BUILD SUCCESSFUL, rapports JUnit XML verifies un par un (pas seulement le code de sortie) : ApiClientTest 3/3, CompanionRepositoryTest 4/4, ModelsTest 5/5, CompanionViewModelTest 5/5, ReminderNotificationPlannerTest 4/4 -- 21/21, 0 failure, 0 error, 0 skipped. A valider humainement par Celine le 25/08/2026 (statut 'tested' = preuve unitaire JVM reconfirmee, pas de validation manuelle device/emulateur)."
+                    },
+                    "validated": false,
+                    "tested": true
                 },
                 {
                     "path": "ALFRED_ANDROID/app/src/test/java/com/cognitiveproductslab/alfred/companion/ui/CompanionViewModelTest.kt",
                     "exists": true,
-                    "status": "coded",
-                    "score": 60,
+                    "status": "tested",
+                    "score": 80,
                     "size_bytes": 5427,
                     "tests": [],
-                    "details": {}
+                    "details": {},
+                    "validation": {
+                        "path": "ALFRED_ANDROID/app/src/test/java/com/cognitiveproductslab/alfred/companion/ui/CompanionViewModelTest.kt",
+                        "module": "B26",
+                        "status": "tested",
+                        "last_test": "2026-08-24",
+                        "test_level": "automated",
+                        "tests": [],
+                        "notes": "Fichier de test lui-meme : sert de preuve pour CompanionViewModel.kt (deja 'tested' depuis le 14/08) mais n'avait jamais ete promu en tant que fichier a part entiere dans le registre. | Reconfirme 24/08/2026 (session autonome soir) : ./gradlew :app:testDebugUnitTest relance depuis zero (gradle 8.14.5 + JBR Android Studio en local, gradlew absent du depot) -- BUILD SUCCESSFUL, rapports JUnit XML verifies un par un (pas seulement le code de sortie) : ApiClientTest 3/3, CompanionRepositoryTest 4/4, ModelsTest 5/5, CompanionViewModelTest 5/5, ReminderNotificationPlannerTest 4/4 -- 21/21, 0 failure, 0 error, 0 skipped. A valider humainement par Celine le 25/08/2026 (statut 'tested' = preuve unitaire JVM reconfirmee, pas de validation manuelle device/emulateur)."
+                    },
+                    "validated": false,
+                    "tested": true
                 },
                 {
                     "path": "ALFRED_ANDROID/app/src/test/java/com/cognitiveproductslab/alfred/companion/work/ReminderNotificationPlannerTest.kt",
                     "exists": true,
-                    "status": "coded",
-                    "score": 60,
+                    "status": "tested",
+                    "score": 80,
                     "size_bytes": 1977,
                     "tests": [],
-                    "details": {}
+                    "details": {},
+                    "validation": {
+                        "path": "ALFRED_ANDROID/app/src/test/java/com/cognitiveproductslab/alfred/companion/work/ReminderNotificationPlannerTest.kt",
+                        "module": "B26",
+                        "status": "tested",
+                        "last_test": "2026-08-24",
+                        "test_level": "automated",
+                        "tests": [],
+                        "notes": "Fichier de test lui-meme, preuve pour ReminderNotificationPlanner.kt (promu ci-dessus). | Reconfirme 24/08/2026 (session autonome soir) : ./gradlew :app:testDebugUnitTest relance depuis zero (gradle 8.14.5 + JBR Android Studio en local, gradlew absent du depot) -- BUILD SUCCESSFUL, rapports JUnit XML verifies un par un (pas seulement le code de sortie) : ApiClientTest 3/3, CompanionRepositoryTest 4/4, ModelsTest 5/5, CompanionViewModelTest 5/5, ReminderNotificationPlannerTest 4/4 -- 21/21, 0 failure, 0 error, 0 skipped. A valider humainement par Celine le 25/08/2026 (statut 'tested' = preuve unitaire JVM reconfirmee, pas de validation manuelle device/emulateur)."
+                    },
+                    "validated": false,
+                    "tested": true
                 }
             ],
             "roadmap_note": "Créé le 16/08/2026 — b24 ('ALFRED Android / Compagnon mobile natif') couvre déjà le PoC de base (UI, API, sécurité TLS, 15 fichiers). B26 couvre le périmètre delta ajouté depuis (persistance locale Room, synchronisation WorkManager, dépôt de données, sécurisation du stockage de token, tests unitaires) sans redupliquer les fichiers déjà comptés dans b24. Cf. ALFRED_ANDROID/docs/BLOC24_STATUS_SESSION.md pour le contexte du PoC initial."
@@ -32507,7 +32588,7 @@
                     "exists": true,
                     "status": "coded",
                     "score": 60,
-                    "size_bytes": 633492,
+                    "size_bytes": 634484,
                     "tests": [],
                     "details": {}
                 },
@@ -32525,7 +32606,7 @@
                     "exists": true,
                     "status": "validated",
                     "score": 100,
-                    "size_bytes": 992615,
+                    "size_bytes": 991703,
                     "tests": [],
                     "details": {}
                 },
@@ -32534,7 +32615,7 @@
                     "exists": true,
                     "status": "coded",
                     "score": 60,
-                    "size_bytes": 1033107,
+                    "size_bytes": 1031764,
                     "tests": [],
                     "details": {}
                 },
