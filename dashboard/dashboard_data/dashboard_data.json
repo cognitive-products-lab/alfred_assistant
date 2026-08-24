@@ -8,7 +8,7 @@
         "updated": "2026-08-24",
         "generated_by": "update_dashboard_data.py"
     },
-    "last_update": "24/08/2026 21:05:24",
+    "last_update": "24/08/2026 21:07:52",
     "source": "dashboard_data_manifest.json + validation_registry.json",
     "mode": "manifest_expected_vs_existing_with_validation_registry",
     "validated_files_count": 1018,
@@ -27,12 +27,12 @@
         "empty": 0,
         "partial": 93,
         "created": 0,
-        "coded": 100,
+        "coded": 98,
         "archive": 1,
-        "tested": 16,
+        "tested": 18,
         "validated": 1018
     },
-    "validation_registry_count": 1283,
+    "validation_registry_count": 1284,
     "blocks": [
         {
             "id": "b01",
@@ -23045,14 +23045,14 @@
             "id": "b20",
             "label": "Cybersécurité Zero Trust",
             "target_full_files_count": 200,
-            "full_project_progress": 92.8,
+            "full_project_progress": 93.0,
             "sub_targets": {
                 "security_runtime": 55,
                 "audit_monitoring": 20,
                 "policies": 15,
                 "tests": 110
             },
-            "progress": 98.2,
+            "progress": 98.4,
             "expected_count": 189,
             "files_count": 189,
             "missing_count": 0,
@@ -23065,9 +23065,9 @@
                 "empty": 0,
                 "partial": 4,
                 "created": 0,
-                "coded": 5,
+                "coded": 3,
                 "archive": 0,
-                "tested": 0,
+                "tested": 2,
                 "validated": 167
             },
             "files_detected": [
@@ -23463,11 +23463,24 @@
                 {
                     "path": "data/security/trusted_devices.json",
                     "exists": true,
-                    "status": "coded",
-                    "score": 60,
+                    "status": "tested",
+                    "score": 80,
                     "size_bytes": 484,
                     "tests": [],
-                    "details": {}
+                    "details": {},
+                    "validation": {
+                        "path": "data/security/trusted_devices.json",
+                        "module": "B20",
+                        "status": "tested",
+                        "last_test": "2026-08-24",
+                        "test_level": "automated",
+                        "tests": [
+                            "tests/security_tests/test_device_registry.py"
+                        ],
+                        "notes": "Fichier jamais audite individuellement malgre un statut 'coded' sans notes. Verification reelle le 24/08/2026 (session autonome soir) : chargement du vrai fichier via le code de production src/security/device_registry.py::list_trusted_devices() (pas juste un schema plausible) -- parse sans erreur, retourne les 2 appareils enregistres (local_pc, zt_test_device_001) avec les champs attendus (label/owner/registered_at/trusted/last_seen). Le champ owner='OWNER' verifie ne pas etre un placeholder non substitue : c'est le nom de role RBAC attendu (cf. src/security/role_manager.py, device_registry.py:192 register_device(..., 'OWNER')). tests/security_tests/test_device_registry.py couvre la logique de lecture/ecriture du meme format sur fichier isole (tmp_path), pas ce fichier reel directement -- statut 'tested' fonde sur le chargement reel effectue ce soir, pas sur la suite pytest seule. A valider humainement par Celine le 25/08/2026."
+                    },
+                    "validated": false,
+                    "tested": true
                 },
                 {
                     "path": "data/security/access_decisions_history.json",
@@ -25886,8 +25899,8 @@
                 {
                     "path": "scripts/fix_avatar_alpha.py",
                     "exists": true,
-                    "status": "coded",
-                    "score": 60,
+                    "status": "tested",
+                    "score": 80,
                     "size_bytes": 4414,
                     "tests": [],
                     "details": {
@@ -25906,14 +25919,14 @@
                     "validation": {
                         "path": "scripts/fix_avatar_alpha.py",
                         "module": "B20",
-                        "status": "coded",
-                        "last_test": "2026-07-05",
-                        "test_level": "auto",
+                        "status": "tested",
+                        "last_test": "2026-08-24",
+                        "test_level": "manual",
                         "score": 60,
-                        "notes": " | AUDIT 2026-07-05 : script one-shot de transformation d'image (ajout canal alpha). Preuve qu'il a déjà été exécuté : les fichiers .rgb_backup existent à côté des PNG avatar dans assets/avatars/no_active_avatar_normal/base_normal/. NON ré-exécuté — risque de ré-appliquer le flood-fill sur des images déjà traitées."
+                        "notes": " | AUDIT 2026-07-05 : script one-shot de transformation d'image (ajout canal alpha). Preuve qu'il a déjà été exécuté : les fichiers .rgb_backup existent à côté des PNG avatar dans assets/avatars/no_active_avatar_normal/base_normal/. NON ré-exécuté — risque de ré-appliquer le flood-fill sur des images déjà traitées. | Reconfirme 24/08/2026 (session autonome soir), evidence 07/05 corrigee : le chemin cite alors (assets/avatars/no_active_avatar_normal/base_normal/) a depuis ete archive (assets/_archive/..., avatar_normal retire au profit de avatar_medium, cf. systeme de calques du 20/07/2026) -- mauvaise piste, pas re-suivie. Verification correcte faite sur les vraies cibles actuelles du script (source lue directement) : les 4 fichiers assets/avatars/avatar_medium/base_medium/*.png cibles par le script sont bien en mode RGBA reel (Pillow, pas juste presence de backup) -- 4/4 confirmes, 0 manquant, 0 non-RGBA. Les 12 autres cibles du script (avatar_normal, systeme retire) ne sont plus applicables, independamment du script. A valider humainement par Celine le 25/08/2026."
                     },
                     "validated": false,
-                    "tested": false
+                    "tested": true
                 },
                 {
                     "path": "src/security/.claude/launch.json",
@@ -28786,7 +28799,7 @@
                     "exists": true,
                     "status": "validated",
                     "score": 100,
-                    "size_bytes": 547950,
+                    "size_bytes": 549950,
                     "tests": [],
                     "details": {},
                     "validation": {
@@ -28808,7 +28821,7 @@
                     "exists": true,
                     "status": "validated",
                     "score": 100,
-                    "size_bytes": 1542685,
+                    "size_bytes": 1548668,
                     "tests": [],
                     "details": {},
                     "validation": {
