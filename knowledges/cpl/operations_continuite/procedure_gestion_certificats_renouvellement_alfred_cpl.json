@@ -1,0 +1,105 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.operations_continuite.procedure_gestion_certificats_renouvellement_alfred_cpl",
+  "title": "Procédure de gestion et de renouvellement des certificats d'ALFRED CPL",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "operations_continuite",
+  "category": "opérations et continuité ALFRED CPL",
+  "summary": "Décrit la procédure de suivi et de renouvellement des certificats numériques (TLS/SSL notamment) utilisés par ALFRED CPL, distincte de la rotation des clés et secrets applicatifs déjà couverte, l'expiration non anticipée d'un certificat étant une cause fréquente d'incident de disponibilité.",
+  "purpose": "Prévenir un incident de disponibilité ou de sécurité lié à l'expiration non anticipée d'un certificat numérique, risque opérationnel fréquent mais évitable par une procédure systématique.",
+  "tags": [
+    "certificat_tls",
+    "renouvellement",
+    "disponibilite",
+    "gestion_expiration"
+  ],
+  "intents": [
+    "explain_certificate_renewal_procedure",
+    "advise_certificate_expiration_prevention",
+    "handle_certificate_incident"
+  ],
+  "usage_context": [
+    "mise en place d'un suivi préventif des dates d'expiration de certificats",
+    "diagnostic d'un incident de disponibilité lié à un certificat expiré"
+  ],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "La procédure de gestion des certificats numériques encadre le suivi, le renouvellement et la vérification systématique des certificats (notamment TLS/SSL) garantissant les connexions sécurisées d'ALFRED CPL, un poste opérationnel distinct de la rotation des clés et secrets applicatifs mais tout aussi critique pour la continuité de service.",
+    "core_principles": [
+      "L'expiration non anticipée d'un certificat est une cause fréquente et évitable d'incident de disponibilité, car elle interrompt brutalement les connexions sécurisées sans dégradation progressive préalable qui aurait pu alerter.",
+      "L'automatisation du renouvellement (lorsqu'elle est disponible et fiable) réduit significativement le risque d'oubli humain, mais doit rester accompagnée d'une vérification de bon fonctionnement du processus automatisé lui-même.",
+      "Un suivi centralisé de l'ensemble des certificats en usage (inventaire à jour, dates d'expiration) est nécessaire pour éviter qu'un certificat isolé ou peu visible échappe au processus de renouvellement.",
+      "Une alerte préventive suffisamment en amont de l'expiration (plusieurs semaines) laisse le temps de traiter un échec de renouvellement automatisé avant qu'il ne devienne un incident en production."
+    ],
+    "rules": [
+      "Maintenir un inventaire centralisé et à jour de tous les certificats en usage avec leurs dates d'expiration.",
+      "Configurer des alertes préventives suffisamment en amont de chaque échéance de renouvellement.",
+      "Vérifier périodiquement le bon fonctionnement effectif de tout mécanisme de renouvellement automatisé, sans confiance aveugle dans l'automatisation."
+    ],
+    "examples": [
+      {
+        "situation": "Un certificat TLS expire de façon inattendue et interrompt l'accès sécurisé à un service d'ALFRED CPL en production.",
+        "recommended_behavior": "Traiter l'incident en urgence selon la procédure d'astreinte et d'escalade, puis analyser en post-mortem pourquoi l'alerte préventive n'a pas permis d'anticiper le renouvellement, et corriger le processus de suivi.",
+        "avoid": "Se limiter à renouveler le certificat en urgence sans analyser la cause de l'échec du dispositif de suivi préventif, exposant à une récidive."
+      }
+    ],
+    "best_practices": [
+      "Automatiser le renouvellement des certificats lorsque c'est fiable, avec vérification périodique de son bon fonctionnement.",
+      "Maintenir un inventaire centralisé unique de tous les certificats en usage, y compris ceux peu visibles ou rarement modifiés.",
+      "Configurer des alertes préventives à plusieurs échéances avant expiration (ex. 30 jours puis 7 jours)."
+    ],
+    "anti_patterns": [
+      "Se reposer sur la seule mémoire humaine pour suivre les dates d'expiration de certificats.",
+      "Faire confiance à un mécanisme de renouvellement automatisé sans jamais vérifier son bon fonctionnement effectif."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "certificat_tls",
+      "renouvellement",
+      "expiration",
+      "disponibilite"
+    ],
+    "related_domains": [
+      "cpl",
+      "information_security"
+    ],
+    "related_knowledge": [
+      "cpl.operations_continuite.procedure_rotation_cles_secrets_alfred_cpl",
+      "cpl.operations_continuite.procedure_astreinte_escalade_incidents_alfred_cpl",
+      "cpl.operations_continuite.haute_disponibilite_alfred_cpl"
+    ],
+    "retrieval_priority": 5
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "explication de la procédure de gestion et de renouvellement des certificats"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [
+      "manipulation directe de clés privées ou de certificats sans habilitation appropriée"
+    ],
+    "fallback_behavior": "Recommander une alerte préventive multi-échéance et une vérification périodique de l'automatisation plutôt qu'une confiance aveugle dans le processus."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "24/08/2026",
+    "last_update": "24/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

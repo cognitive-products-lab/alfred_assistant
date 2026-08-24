@@ -1,0 +1,107 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.ethics_governance.gestion_droit_opposition_traitement_ia_utilisateur",
+  "title": "Gestion du droit d'opposition au traitement IA de l'utilisateur",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "ethics_governance",
+  "category": "gouvernance éthique ALFRED CPL",
+  "summary": "Décrit comment ALFRED CPL doit reconnaître et traiter une demande d'opposition d'un utilisateur à un traitement de données par l'IA (recommandation, profilage, décision assistée), distinct de la gestion du consentement initial déjà couverte côté plateforme.",
+  "purpose": "Garantir le respect effectif du droit d'opposition de l'utilisateur, un droit RGPD distinct du simple retrait de consentement, dans la conception et le fonctionnement d'ALFRED CPL.",
+  "tags": [
+    "droit_opposition",
+    "rgpd",
+    "profilage",
+    "gouvernance_ia"
+  ],
+  "intents": [
+    "explain_right_to_object_ai_processing",
+    "handle_user_objection_request",
+    "distinguish_opposition_from_consent_withdrawal"
+  ],
+  "usage_context": [
+    "un utilisateur demande à ne plus faire l'objet d'un profilage ou d'une recommandation automatisée",
+    "audit de conformité des droits utilisateurs sur les traitements IA"
+  ],
+  "priority": "high",
+  "safety_level": "sensitive",
+  "content": {
+    "definition": "Le droit d'opposition est le droit reconnu à une personne de s'opposer, pour des motifs tenant à sa situation particulière, à un traitement de ses données la concernant, y compris lorsque ce traitement repose sur un intérêt légitime plutôt que sur son consentement explicite — il est donc distinct et complémentaire du simple retrait de consentement.",
+    "core_principles": [
+      "Le droit d'opposition s'applique en particulier au profilage réalisé à des fins de personnalisation ou de recommandation, même lorsque ce profilage repose sur un intérêt légitime du prestataire plutôt que sur un consentement révocable.",
+      "Une demande d'opposition doit être traitée sans exiger de justification disproportionnée de la part de l'utilisateur, le motif tenant à sa situation particulière n'ayant pas à être prouvé de façon exhaustive.",
+      "L'exercice du droit d'opposition ne doit pas dégrader abusivement l'accès aux fonctionnalités essentielles du produit, sous peine de rendre le droit théorique plutôt qu'effectif.",
+      "Le droit d'opposition est distinct du retrait de consentement : un traitement fondé sur le consentement se retire simplement, un traitement fondé sur l'intérêt légitime nécessite une mise en balance entre l'intérêt du prestataire et le motif de l'utilisateur."
+    ],
+    "rules": [
+      "Toujours proposer un mécanisme accessible et clair pour exercer le droit d'opposition, distinct du seul retrait de consentement.",
+      "Ne jamais exiger une justification disproportionnée pour traiter une demande d'opposition à un profilage.",
+      "Documenter systématiquement chaque demande d'opposition traitée et sa résolution, pour la traçabilité et l'auditabilité."
+    ],
+    "examples": [
+      {
+        "situation": "Un utilisateur souhaite ne plus recevoir de suggestions personnalisées basées sur son historique d'usage, sans vouloir désactiver l'ensemble du service.",
+        "recommended_behavior": "Traiter la demande comme un exercice du droit d'opposition au profilage, désactiver spécifiquement la personnalisation concernée sans dégrader l'accès aux fonctionnalités essentielles.",
+        "avoid": "Exiger une justification détaillée avant de traiter la demande, ou lier son traitement à la désactivation complète du compte utilisateur."
+      }
+    ],
+    "best_practices": [
+      "Séparer clairement dans l'interface le retrait de consentement et l'exercice du droit d'opposition, deux mécanismes juridiquement distincts.",
+      "Traiter toute demande d'opposition dans un délai raisonnable et documenté, avec accusé de réception.",
+      "Prévoir une voie de recours claire si une demande d'opposition est exceptionnellement refusée pour motif légitime prépondérant."
+    ],
+    "anti_patterns": [
+      "Confondre systématiquement droit d'opposition et retrait de consentement dans la conception de l'interface utilisateur.",
+      "Rendre l'exercice du droit d'opposition si complexe qu'il devient théorique plutôt qu'effectif."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "droit_opposition",
+      "rgpd",
+      "profilage",
+      "traitement_ia"
+    ],
+    "related_domains": [
+      "cpl",
+      "donnees_personnelles"
+    ],
+    "related_knowledge": [
+      "cpl.product_platform.gestion_consentement_utilisateur_alfred",
+      "cpl.ethics_governance.transparence_algorithmique_client",
+      "donnees_personnelles.fondamentaux.exercice_pratique_droits_personnes_rgpd"
+    ],
+    "retrieval_priority": 6
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "explication et accompagnement de l'exercice du droit d'opposition"
+    ],
+    "restricted_usage": [
+      "traitement d'une demande impliquant une analyse juridique complexe de mise en balance des intérêts"
+    ],
+    "forbidden_usage": [
+      "refus systématique d'une demande d'opposition sans examen individuel"
+    ],
+    "fallback_behavior": "Orienter vers le délégué à la protection des données ou un juriste en cas de mise en balance d'intérêts complexe, et documenter la demande dans tous les cas."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "24/08/2026",
+    "last_update": "24/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}
