@@ -1,0 +1,102 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.product_platform.gestion_profils_multiples_foyer_organisation_local_alfred",
+  "title": "Gestion des profils multiples au sein d'un même foyer ou d'une même organisation locale",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "product_platform",
+  "category": "plateforme produit ALFRED CPL",
+  "summary": "Décrit la gestion de profils utilisateurs multiples partageant une même instance locale d'ALFRED (membres d'un même foyer, collaborateurs d'une même organisation), distincte de la gestion multitenant déjà couverte qui porte sur l'isolation de données entre clients B2B distincts plutôt que sur la coexistence de plusieurs profils individuels au sein d'une même instance partagée localement.",
+  "purpose": "Donner à ALFRED CPL un cadre de conception pour la gestion de plusieurs profils individuels sur une même instance locale, condition d'usage réaliste dans un foyer ou une petite organisation partageant un même appareil.",
+  "tags": [
+    "profils_multiples",
+    "instance_partagee",
+    "personnalisation_multi_utilisateur",
+    "gestion_profils_locaux"
+  ],
+  "intents": [
+    "explain_multi_profile_management",
+    "advise_shared_instance_personalization"
+  ],
+  "usage_context": [
+    "conception de la reconnaissance et de la bascule entre profils utilisateurs sur une même instance locale",
+    "définition des règles de cloisonnement des données entre profils partageant une même instance"
+  ],
+  "priority": "high",
+  "safety_level": "sensitive",
+  "content": {
+    "definition": "La gestion de profils multiples désigne la capacité d'une instance locale d'ALFRED à distinguer, personnaliser et cloisonner les données et préférences de plusieurs utilisateurs distincts partageant un même appareil ou une même instance, dans un contexte foyer ou petite organisation, distinct du multitenant qui isole des clients B2B totalement indépendants sur une infrastructure mutualisée.",
+    "core_principles": [
+      "Le cloisonnement des données entre profils partageant une même instance locale doit rester strict même en l'absence de séparation d'infrastructure, chaque profil ne devant accéder qu'à ses propres données et préférences.",
+      "La reconnaissance du profil actif (par identification vocale, biométrique ou manuelle) conditionne la pertinence de toute personnalisation ; une erreur de reconnaissance de profil expose au risque de délivrer une réponse personnalisée à la mauvaise personne.",
+      "Un profil enfant ou mineur au sein d'un foyer appelle des règles de restriction et de contrôle parental spécifiques, distinctes des profils adultes du même foyer."
+    ],
+    "rules": [
+      "Garantir un cloisonnement strict des données entre profils d'une même instance locale, même en l'absence de séparation d'infrastructure technique.",
+      "Ne jamais délivrer une réponse personnalisée sans confirmation fiable du profil actif identifié.",
+      "Appliquer des règles de restriction et de contrôle parental spécifiques à tout profil identifié comme mineur au sein d'un foyer."
+    ],
+    "examples": [
+      {
+        "situation": "Une instance locale partagée par plusieurs membres d'un foyer doit délivrer une réponse personnalisée mais l'identification du profil actif est incertaine.",
+        "recommended_behavior": "Demander une confirmation explicite du profil actif avant de délivrer une réponse personnalisée sensible, plutôt que de présumer l'identité par défaut.",
+        "avoid": "Délivrer une réponse personnalisée sensible sans confirmation fiable du profil actif, au risque de divulguer une information à la mauvaise personne du foyer."
+      }
+    ],
+    "best_practices": [
+      "Concevoir un cloisonnement strict des données entre profils dès l'architecture de l'instance locale partagée.",
+      "Prévoir un mécanisme de confirmation du profil actif avant toute réponse personnalisée sensible.",
+      "Différencier explicitement les règles de restriction applicables aux profils mineurs de celles des profils adultes du même foyer."
+    ],
+    "anti_patterns": [
+      "Présumer l'identité du profil actif sans confirmation fiable avant de délivrer une réponse personnalisée sensible.",
+      "Appliquer les mêmes règles de restriction aux profils mineurs et adultes d'un même foyer."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "profils_multiples",
+      "instance_partagee",
+      "personnalisation_multi_utilisateur"
+    ],
+    "related_domains": [
+      "cpl",
+      "donnees_personnelles"
+    ],
+    "related_knowledge": [
+      "cpl.product_platform.gestion_multitenant_isolation_donnees_clients_alfred_cpl",
+      "cpl.product_platform.client_personalization_context",
+      "cpl.product_platform.gestion_consentement_utilisateur_alfred"
+    ],
+    "retrieval_priority": 7
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "explication de la gestion des profils multiples sur une instance locale partagée"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [
+      "accès aux données d'un profil par un autre profil sans autorisation explicite"
+    ],
+    "fallback_behavior": "Recommander une confirmation explicite du profil actif en cas de doute avant toute réponse personnalisée sensible."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "25/08/2026",
+    "last_update": "25/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}
