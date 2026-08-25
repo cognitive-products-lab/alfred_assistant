@@ -1,0 +1,102 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.operations_continuite.gestion_patchs_securite_cycle_patch_management_alfred_cpl",
+  "title": "Gestion des correctifs de sécurité et cycle de patch management",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "operations_continuite",
+  "category": "opérations et continuité ALFRED CPL",
+  "summary": "Décrit le cycle de gestion des correctifs de sécurité (patch management) d'ALFRED CPL, incluant la priorisation par criticité et les fenêtres de déploiement, distinct de la procédure de rotation des clés et secrets déjà couverte qui porte sur le renouvellement cryptographique plutôt que sur la correction des vulnérabilités logicielles identifiées.",
+  "purpose": "Fournir à ALFRED CPL un cadre de gestion des correctifs de sécurité, condition de réduction continue de la surface d'attaque logicielle dans la durée.",
+  "tags": [
+    "patch_management",
+    "correctifs_securite",
+    "gestion_vulnerabilites",
+    "cycle_securite"
+  ],
+  "intents": [
+    "explain_patch_management_cycle",
+    "advise_security_patch_prioritization"
+  ],
+  "usage_context": [
+    "planification du cycle de déploiement des correctifs de sécurité",
+    "arbitrage de priorisation face à plusieurs vulnérabilités identifiées simultanément"
+  ],
+  "priority": "high",
+  "safety_level": "sensitive",
+  "content": {
+    "definition": "Le patch management désigne le processus continu d'identification, de priorisation, de test et de déploiement des correctifs de sécurité corrigeant les vulnérabilités logicielles identifiées dans les composants d'un système comme ALFRED CPL, incluant le système d'exploitation, les bibliothèques tierces et l'application elle-même.",
+    "core_principles": [
+      "La priorisation des correctifs doit se fonder sur la criticité réelle de la vulnérabilité (score CVSS, exploitabilité connue, exposition du composant concerné) plutôt que sur un déploiement uniforme sans hiérarchisation.",
+      "Un correctif critique exploité activement dans la nature appelle un déploiement accéléré hors cycle planifié standard, la fenêtre de risque d'une vulnérabilité connue et non corrigée croissant avec le temps.",
+      "Tout correctif doit être testé en environnement contrôlé avant déploiement en production, un correctif de sécurité pouvant lui-même introduire une régression fonctionnelle."
+    ],
+    "rules": [
+      "Prioriser le déploiement des correctifs selon la criticité réelle de la vulnérabilité, jamais selon un ordre arbitraire ou uniforme.",
+      "Déployer en urgence hors cycle standard tout correctif critique corrigeant une vulnérabilité activement exploitée.",
+      "Tester systématiquement un correctif en environnement contrôlé avant tout déploiement en production, même en cas d'urgence de criticité élevée."
+    ],
+    "examples": [
+      {
+        "situation": "Une vulnérabilité critique activement exploitée est identifiée sur un composant tiers utilisé par ALFRED CPL, en dehors du cycle de déploiement planifié standard.",
+        "recommended_behavior": "Déclencher un déploiement accéléré hors cycle après un test rapide en environnement contrôlé, plutôt que d'attendre la prochaine fenêtre de déploiement planifiée.",
+        "avoid": "Attendre la prochaine fenêtre de déploiement standard pour corriger une vulnérabilité critique activement exploitée, prolongeant inutilement l'exposition au risque."
+      }
+    ],
+    "best_practices": [
+      "Établir un score de criticité systématique pour prioriser objectivement le déploiement des correctifs de sécurité.",
+      "Prévoir une procédure de déploiement accéléré hors cycle pour les correctifs critiques activement exploités.",
+      "Ne jamais déployer un correctif en production sans test préalable en environnement contrôlé, même en urgence."
+    ],
+    "anti_patterns": [
+      "Déployer les correctifs de sécurité selon un ordre arbitraire sans priorisation par criticité réelle.",
+      "Attendre le cycle standard pour un correctif critique activement exploité, prolongeant l'exposition au risque."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "patch_management",
+      "correctifs_securite",
+      "gestion_vulnerabilites"
+    ],
+    "related_domains": [
+      "cpl",
+      "cybersecurity"
+    ],
+    "related_knowledge": [
+      "cpl.operations_continuite.procedure_rotation_cles_secrets_alfred_cpl",
+      "cpl.operations_continuite.gestion_montees_version_production",
+      "cpl.operations_continuite.gestion_obsolescence_technologique_alfred_cpl"
+    ],
+    "retrieval_priority": 6
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "explication procédurale du cycle de gestion des correctifs de sécurité"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [
+      "conseil technique se substituant à une analyse de sécurité experte pour un cas critique réel"
+    ],
+    "fallback_behavior": "Recommander une escalade immédiate vers l'équipe sécurité en cas de vulnérabilité critique activement exploitée détectée."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "25/08/2026",
+    "last_update": "25/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}
