@@ -1,0 +1,102 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.business_piloting.pilotage_indicateurs_recurrents_mrr_arr_produit_ia",
+  "title": "Pilotage des indicateurs de revenu récurrent (MRR/ARR) pour un produit IA en abonnement",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "business_piloting",
+  "category": "pilotage business ALFRED CPL",
+  "summary": "Décrit le pilotage du revenu mensuel récurrent (MRR) et annuel récurrent (ARR) pour un produit IA vendu en abonnement, incluant la décomposition du MRR (nouveau, expansion, contraction, churn) et sa distinction avec le chiffre d'affaires ponctuel de mission, complémentaire à la valeur vie client déjà couverte qui porte sur la valeur totale par client plutôt que sur le flux de revenu récurrent global.",
+  "purpose": "Donner à ALFRED CPL un cadre de pilotage du revenu récurrent, indicateur central de la santé financière d'un modèle d'abonnement produit distinct du modèle de conseil facturé au temps passé.",
+  "tags": [
+    "mrr",
+    "arr",
+    "revenu_recurrent",
+    "abonnement",
+    "pilotage_business"
+  ],
+  "intents": [
+    "explain_mrr_arr_tracking",
+    "decompose_recurring_revenue_components"
+  ],
+  "usage_context": [
+    "suivi mensuel de la performance commerciale d'un produit IA en abonnement",
+    "analyse de la composition du revenu récurrent (nouveau, expansion, churn)"
+  ],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "Le MRR (Monthly Recurring Revenue) et l'ARR (Annual Recurring Revenue) désignent respectivement le revenu récurrent mensuel et annuel généré par les abonnements actifs d'un produit, indicateurs distincts du chiffre d'affaires ponctuel de mission de conseil car ils mesurent un flux prévisible et reconductible plutôt qu'une recette one-shot.",
+    "core_principles": [
+      "Le MRR se décompose en nouveau MRR (nouveaux clients), MRR d'expansion (montée en gamme de clients existants), MRR de contraction (rétrogradation) et MRR perdu (churn), chaque composante appelant un levier d'action différent.",
+      "Un MRR en croissance apparente peut masquer un taux de churn élevé compensé par l'acquisition ; isoler le MRR net de croissance (hors nouveaux clients) révèle la solidité réelle de la base installée.",
+      "L'ARR, simple projection annualisée du MRR, ne doit pas être confondu avec un chiffre d'affaires contractuellement garanti sur l'année, en particulier dans un modèle sans engagement de durée."
+    ],
+    "rules": [
+      "Toujours décomposer le MRR en ses composantes (nouveau, expansion, contraction, churn) plutôt que de suivre un chiffre agrégé unique.",
+      "Ne jamais présenter l'ARR comme un revenu garanti sur douze mois lorsque l'abonnement est résiliable sans préavis long.",
+      "Distinguer explicitement le pilotage du MRR/ARR de celui du chiffre d'affaires de mission de conseil facturé au temps passé, les deux logiques de revenu appelant des leviers différents."
+    ],
+    "examples": [
+      {
+        "situation": "Une structure de conseil IA constate une croissance de son MRR total mais souhaite en évaluer la solidité réelle.",
+        "recommended_behavior": "Décomposer le MRR en nouveau MRR, expansion, contraction et churn pour identifier si la croissance provient d'une base installée saine ou d'une acquisition compensant un churn élevé.",
+        "avoid": "Communiquer uniquement le MRR total agrégé sans décomposition, masquant un éventuel problème de rétention sous une croissance apparente."
+      }
+    ],
+    "best_practices": [
+      "Suivre mensuellement la décomposition complète du MRR plutôt qu'un chiffre unique agrégé.",
+      "Calculer le MRR net de croissance (hors nouveaux clients) pour évaluer la solidité de la base installée.",
+      "Ne présenter l'ARR que comme une projection, jamais comme un engagement contractuel garanti sans vérification des conditions de résiliation."
+    ],
+    "anti_patterns": [
+      "Suivre un MRR agrégé sans décomposition, masquant les dynamiques de churn ou d'expansion sous-jacentes.",
+      "Confondre ARR projeté et revenu contractuellement garanti sur l'année."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "mrr",
+      "arr",
+      "revenu_recurrent",
+      "churn"
+    ],
+    "related_domains": [
+      "cpl",
+      "ressources_humaines"
+    ],
+    "related_knowledge": [
+      "cpl.business_piloting.valeur_vie_client_ltv_conseil_ia",
+      "cpl.business_strategy.saas_transition_strategy",
+      "cpl.business_piloting.tableau_bord_pilotage_kpi_alfred_cpl"
+    ],
+    "retrieval_priority": 5
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "conseil méthodologique sur le pilotage du revenu récurrent"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "Recommander une revue financière approfondie avant toute décision stratégique fondée sur le seul MRR/ARR."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "25/08/2026",
+    "last_update": "25/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

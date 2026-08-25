@@ -1,0 +1,102 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.product_ia.consentement_apprentissage_continu_finetuning_interactions_utilisateur",
+  "title": "Consentement à l'apprentissage continu et au fine-tuning à partir des interactions utilisateur",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "product_ia",
+  "category": "produit IA ALFRED CPL",
+  "summary": "Décrit le cadre spécifique de consentement requis lorsque des interactions utilisateur sont utilisées pour un apprentissage continu ou un fine-tuning de modèle, distinct de la gestion générale du consentement utilisateur déjà couverte qui porte sur le traitement des données au sens large plutôt que sur ce cas d'usage spécifique de réutilisation pour l'entraînement d'un modèle.",
+  "purpose": "Donner à ALFRED CPL un cadre de consentement spécifique et distinct pour la réutilisation des interactions utilisateur à des fins d'entraînement de modèle, cas d'usage à risque de confusion avec le simple usage conversationnel.",
+  "tags": [
+    "consentement_finetuning",
+    "apprentissage_continu",
+    "reutilisation_donnees_entrainement",
+    "gouvernance_ia"
+  ],
+  "intents": [
+    "explain_finetuning_consent_requirements",
+    "advise_continuous_learning_data_governance"
+  ],
+  "usage_context": [
+    "conception d'un mécanisme de consentement pour la réutilisation d'interactions en fine-tuning",
+    "clarification de la distinction entre usage conversationnel et usage d'entraînement d'une même interaction"
+  ],
+  "priority": "high",
+  "safety_level": "sensitive",
+  "content": {
+    "definition": "Le consentement à l'apprentissage continu désigne l'accord explicite et distinct requis d'un utilisateur pour que ses interactions conversationnelles avec ALFRED soient réutilisées à des fins d'entraînement ou d'affinage (fine-tuning) d'un modèle, finalité distincte et non présumée du simple traitement conversationnel en temps réel.",
+    "core_principles": [
+      "Le consentement au traitement conversationnel en temps réel ne vaut pas consentement implicite à la réutilisation de la même interaction pour l'entraînement d'un modèle, les deux finalités devant être distinguées et consenties séparément.",
+      "Un consentement au fine-tuning doit rester révocable, avec un effet clair sur les données déjà utilisées (retrait des futurs cycles d'entraînement, sans nécessairement pouvoir désapprendre un modèle déjà entraîné) qu'il convient d'expliciter à l'utilisateur.",
+      "L'anonymisation ou la pseudonymisation des interactions utilisées en fine-tuning réduit le risque associé mais ne dispense pas d'un consentement explicite lorsque le contenu conversationnel reste potentiellement identifiant par son contenu même."
+    ],
+    "rules": [
+      "Ne jamais présumer un consentement au fine-tuning à partir du seul consentement au traitement conversationnel en temps réel.",
+      "Expliciter à l'utilisateur les limites réelles de la révocation du consentement au fine-tuning, notamment l'impossibilité de désapprendre un modèle déjà entraîné sur des cycles antérieurs.",
+      "Ne pas considérer l'anonymisation comme un motif suffisant pour s'exonérer d'un consentement explicite si le contenu conversationnel reste potentiellement identifiant."
+    ],
+    "examples": [
+      {
+        "situation": "La conception d'une fonctionnalité de fine-tuning continu prévoit d'utiliser par défaut toutes les interactions utilisateur sans consentement distinct de celui déjà donné pour l'usage conversationnel.",
+        "recommended_behavior": "Recommander un mécanisme de consentement explicite et distinct pour le fine-tuning, avec information claire sur les limites de la révocation, avant tout déploiement de la fonctionnalité.",
+        "avoid": "Réutiliser les interactions utilisateur pour du fine-tuning sur la seule base du consentement conversationnel déjà obtenu, sans consentement distinct explicite."
+      }
+    ],
+    "best_practices": [
+      "Concevoir un mécanisme de consentement explicite et distinct pour toute réutilisation d'interaction à des fins d'entraînement de modèle.",
+      "Informer clairement l'utilisateur des limites réelles de la révocation du consentement au fine-tuning.",
+      "Ne pas considérer l'anonymisation seule comme suffisante pour s'exonérer d'un consentement explicite si le contenu reste potentiellement identifiant."
+    ],
+    "anti_patterns": [
+      "Présumer un consentement au fine-tuning à partir du seul consentement au traitement conversationnel en temps réel.",
+      "Ne pas informer l'utilisateur des limites réelles de la révocation de son consentement à l'entraînement de modèle."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "consentement_finetuning",
+      "apprentissage_continu",
+      "gouvernance_ia"
+    ],
+    "related_domains": [
+      "cpl",
+      "donnees_personnelles"
+    ],
+    "related_knowledge": [
+      "cpl.product_platform.gestion_consentement_utilisateur_alfred",
+      "cpl.ethics_governance.cadre_ethique_donnees_synthetiques_entrainement_ia",
+      "cpl.product_ia.gestion_versions_modeles_ia_alfred"
+    ],
+    "retrieval_priority": 7
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "high",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "explication du cadre de consentement pour l'apprentissage continu"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [
+      "réutilisation de données sans consentement explicite pour l'entraînement d'un modèle"
+    ],
+    "fallback_behavior": "Recommander une revue de conformité RGPD dédiée avant tout déploiement d'une fonctionnalité de fine-tuning à partir d'interactions utilisateur."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "25/08/2026",
+    "last_update": "25/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}
