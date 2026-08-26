@@ -1,8 +1,8 @@
 {
   "taxonomy_id": "alfred_knowledge_taxonomy_v3_0",
-  "version": "3.18.1",
+  "version": "3.19.0",
   "last_update": "26/08/2026",
-  "description": "Taxonomie officielle du Bloc 18 Knowledge & Culture. v3.0 : +7 sous-domaines (interaction, wellbeing, governance_ai, iot, engineering_reasoning, product_management_advanced, business_strategy). v3.5 (LOT6, 11/07/2026) : +8 nouveaux domaines (sciences, medecine, mathematiques, philosophie, geographie, education, arts, competences_pratiques) et +2 sous-domaines cpl (operations_continuite, documentation_procedures). v3.6 (LOT7, 15/07/2026) : +2 nouveaux domaines (histoire, langues_etrangeres) ; approfondissement de domaines LOT6 et enrichissement cible de domaines professionnels/CPL (60 fichiers). v3.7 (LOT8, 16/07/2026) : +1 nouveau domaine (sciences_politiques, 2 sous-domaines) ; approfondissement de 8 domaines existants et consolidation de 4 doublons/stub dans professional/governance_ai (56 fichiers crees, 2 mis a jour, 4 supprimes). v3.8 (LOT12, 16/08/2026) : aucun nouveau domaine ni sous-domaine majeur (tous les 60 fichiers du lot se rattachent a des domaines/sous-domaines deja existants) ; mise a jour de intents/linked_knowledge sur les 10 sous-domaines cpl et 20 sous-domaines socle touches (ethique_ia.gouvernance et normes_referentiels.panorama passes de count:0/peu peuples a alimentes), pour que la taxonomie reflete fidelement le contenu produit sans sous-declaration ni gonflement artificiel. v3.8.1 (LOT13, 20/08/2026, volet Ikigai/valeurs/motivation ALFRED Core) : aucun nouveau domaine/sous-domaine (le nouveau sous-dossier physique human/self_alignment/purpose/ reste rattache au sous-domaine taxonomique existant human.self_alignment) ; enrichissement de intents/linked_knowledge sur human.self_alignment (ikigai, valeurs de Schwartz, distinction job/carriere/vocation, objectifs alignes, mission personnelle) et human.psychology (theorie de l'autodetermination, entretien motivationnel). | v3.9.0 (LOT13, 20/08/2026, volet anxiete/stress) : 25 fiches ajoutees sur l'anxiete et la relaxation (techniques guidees, protocoles chronometres, contextes specifiques) reparties entre human.wellbeing (14) et lifestyle.health (11). | v3.9.1 (LOT13, 20/08/2026, volet business_strategy) : audit et consolidation de cpl.business_strategy (34 -> 35 fiches : 6 doublons/stubs fusionnes ou supprimes, 28 fiches existantes reecrites en schema conforme, 7 nouveaux frameworks strategiques crees a la demande explicite de Celine -- big data strategie, RSE conseil client, ocean bleu, plus 4 identifies par l'audit comme manquants : disruption, diversification, hypercompetition, plateforme/ecosysteme). linked_knowledge/intents de cpl.business_strategy entierement resynchronises. v3.9.2 (fusion des trois volets du 20/08/2026 dans main). v3.10.0 (LOT13, 20/08/2026, volet secteurs_activite) : nouveau domaine top-level secteurs_activite (9 sous-domaines : sante, finance_banque, industrie_manufacturiere, retail_distribution, secteur_public, energie, construction_btp, assurance, transport_logistique ; 5 fiches chacun -- profil_secteur, normes_reglementation, enjeux_risques, vocabulaire_metier, pestel), demande explicite de Celine pour que le conseil ALFRED CPL connaisse les specificites et normes propres a chaque marche client. total_domains 56 -> 57. v3.11.0 (LOT13, 20/08/2026) : repartition specifique demandee par Celine (20 cpl hors business_strategy / 10 secteurs_activite angles nouveaux / 10 human.psychology+emotional_intelligence / 15 arts+cinema culture / 5 socle au choix) ; creation du domaine cinema (absent depuis son introduction, dette de gouvernance documentee depuis le Lot 11, corrigee ici) ; nouveaux sous-domaines : gestion_projet.cloture, securite_ia.agents_autonomes, rse_developpement_durable.economie_circulaire, accessibilite_inclusion.documents, veille.concurrentielle, cinema.economie/montage/son/acteurs/festivals. v3.12.0 (LOT14, 21/08/2026) : repartition 20 cpl / 10 secteurs_activite (angles nouveaux) / 10 human.psychology+emotional_intelligence / 15 arts+cinema culture / 5 socle au choix (60 fiches). Creation de 3 domaines top-level absents depuis longtemps de la taxonomie malgre un contenu existant sur disque (dette de gouvernance documentee depuis le Lot 11, sur le meme modele que la correction cinema du Lot 13) : architecture (10 sous-domaines dont 1 nouveau : acoustique), linguistics (11 sous-domaines dont 1 nouveau : traduction), nutrition (11 sous-domaines dont 1 nouveau : nutrition_personnes_agees). Nouveaux sous-domaines sur domaines existants : rse_developpement_durable.biodiversite, securite_ia.confidentialite, cinema.critique, cinema.effets_speciaux. total_domains 58 -> 61. Complement : backfill des 7 sous-domaines cinema pre-existants sur disque mais jamais enregistres depuis leur creation (history, genres, directors, cinematography, documentary, structure_narrative, animation) -- le Lot 13 n'avait enregistre que les 5 sous-domaines lies a ses propres fichiers nouveaux, laissant cette dette partielle malgre l'objectif annonce de 12 sous-domaines complets. v3.14.0 (23/08/2026, audit de gouvernance dedie, demande explicite de Celine suite a un point releve par le Lot 15) : declaration de 5 domaines top-level presents sur disque depuis longtemps mais jamais enregistres dans taxonomy.json (economics 10 sous-domaines/13 fiches, environment 9/9, law 12/12, sociology 10/11, sports_science 5/5, total 46 nouveaux sous-domaines). total_subdomains corrige de 246 (sous-declare) a 360 (compte reel). Ecart residuel documente et non corrige dans ce lot : plusieurs fichiers de ces 5 domaines ont un champ `subdomain` interne qui ne correspond pas exactement au segment central de leur `knowledge_id` (ex. economics/economie_experimentale_methodes.json a subdomain=methodologie mais knowledge_id a 2 segments seulement) -- meme classe d'incoherence deja documentee depuis le Lot 10 (convention core.* vs knowledges.core.*), a traiter dans un futur audit de convention si besoin. | v3.16.0 (24/08/2026, chantier reasoning_engine/ethics_engine/robustness_checker, motive par le fil Human IA) : nouveau sous-domaine professional.engineering_robustness (6 fiches creees dans ce meme chantier : robustness_checker, input_validation_adversarial_patterns, output_consistency_checking, confidence_calibration, graceful_degradation_fallback, self_consistency_verification) -- domaine absent de la taxonomie ET du disque avant ce chantier (contrairement a engineering_reasoning et system.ethics, deja bien couverts), cree pour que robustness_checker.py (src/security/robustness_checker.py) soit routable par le retrieval engine B18 au meme titre que reasoning_engine.py et ethics_engine.py. total_subdomains 362 -> 363. Complement dans le meme lot : backfill de professional.engineering_reasoning (20 -> 34 fiches enregistrees) -- 14 fiches presentes sur disque depuis un lot anterieur mais jamais rattachees a linked_knowledge (abductive_reasoning, analogical_reasoning, cognitive_bias_awareness, counterfactual_reasoning, decision_under_uncertainty, deductive_reasoning, first_principles_thinking, hypothesis_testing, inductive_reasoning, mental_model_building, metacognition, probabilistic_reasoning, structured_problem_decomposition, systems_thinking), dont plusieurs sont les modes de raisonnement directement exploites par reasoning_engine.py::REASONING_MODES -- meme classe de dette de gouvernance que le backfill cinema du Lot 13 et economics/environment/law/sociology/sports_science du Lot 15.",
+  "description": "Taxonomie officielle du Bloc 18 Knowledge & Culture. v3.0 : +7 sous-domaines (interaction, wellbeing, governance_ai, iot, engineering_reasoning, product_management_advanced, business_strategy). v3.5 (LOT6, 11/07/2026) : +8 nouveaux domaines (sciences, medecine, mathematiques, philosophie, geographie, education, arts, competences_pratiques) et +2 sous-domaines cpl (operations_continuite, documentation_procedures). v3.6 (LOT7, 15/07/2026) : +2 nouveaux domaines (histoire, langues_etrangeres) ; approfondissement de domaines LOT6 et enrichissement cible de domaines professionnels/CPL (60 fichiers). v3.7 (LOT8, 16/07/2026) : +1 nouveau domaine (sciences_politiques, 2 sous-domaines) ; approfondissement de 8 domaines existants et consolidation de 4 doublons/stub dans professional/governance_ai (56 fichiers crees, 2 mis a jour, 4 supprimes). v3.8 (LOT12, 16/08/2026) : aucun nouveau domaine ni sous-domaine majeur (tous les 60 fichiers du lot se rattachent a des domaines/sous-domaines deja existants) ; mise a jour de intents/linked_knowledge sur les 10 sous-domaines cpl et 20 sous-domaines socle touches (ethique_ia.gouvernance et normes_referentiels.panorama passes de count:0/peu peuples a alimentes), pour que la taxonomie reflete fidelement le contenu produit sans sous-declaration ni gonflement artificiel. v3.8.1 (LOT13, 20/08/2026, volet Ikigai/valeurs/motivation ALFRED Core) : aucun nouveau domaine/sous-domaine (le nouveau sous-dossier physique human/self_alignment/purpose/ reste rattache au sous-domaine taxonomique existant human.self_alignment) ; enrichissement de intents/linked_knowledge sur human.self_alignment (ikigai, valeurs de Schwartz, distinction job/carriere/vocation, objectifs alignes, mission personnelle) et human.psychology (theorie de l'autodetermination, entretien motivationnel). | v3.9.0 (LOT13, 20/08/2026, volet anxiete/stress) : 25 fiches ajoutees sur l'anxiete et la relaxation (techniques guidees, protocoles chronometres, contextes specifiques) reparties entre human.wellbeing (14) et lifestyle.health (11). | v3.9.1 (LOT13, 20/08/2026, volet business_strategy) : audit et consolidation de cpl.business_strategy (34 -> 35 fiches : 6 doublons/stubs fusionnes ou supprimes, 28 fiches existantes reecrites en schema conforme, 7 nouveaux frameworks strategiques crees a la demande explicite de Celine -- big data strategie, RSE conseil client, ocean bleu, plus 4 identifies par l'audit comme manquants : disruption, diversification, hypercompetition, plateforme/ecosysteme). linked_knowledge/intents de cpl.business_strategy entierement resynchronises. v3.9.2 (fusion des trois volets du 20/08/2026 dans main). v3.10.0 (LOT13, 20/08/2026, volet secteurs_activite) : nouveau domaine top-level secteurs_activite (9 sous-domaines : sante, finance_banque, industrie_manufacturiere, retail_distribution, secteur_public, energie, construction_btp, assurance, transport_logistique ; 5 fiches chacun -- profil_secteur, normes_reglementation, enjeux_risques, vocabulaire_metier, pestel), demande explicite de Celine pour que le conseil ALFRED CPL connaisse les specificites et normes propres a chaque marche client. total_domains 56 -> 57. v3.11.0 (LOT13, 20/08/2026) : repartition specifique demandee par Celine (20 cpl hors business_strategy / 10 secteurs_activite angles nouveaux / 10 human.psychology+emotional_intelligence / 15 arts+cinema culture / 5 socle au choix) ; creation du domaine cinema (absent depuis son introduction, dette de gouvernance documentee depuis le Lot 11, corrigee ici) ; nouveaux sous-domaines : gestion_projet.cloture, securite_ia.agents_autonomes, rse_developpement_durable.economie_circulaire, accessibilite_inclusion.documents, veille.concurrentielle, cinema.economie/montage/son/acteurs/festivals. v3.12.0 (LOT14, 21/08/2026) : repartition 20 cpl / 10 secteurs_activite (angles nouveaux) / 10 human.psychology+emotional_intelligence / 15 arts+cinema culture / 5 socle au choix (60 fiches). Creation de 3 domaines top-level absents depuis longtemps de la taxonomie malgre un contenu existant sur disque (dette de gouvernance documentee depuis le Lot 11, sur le meme modele que la correction cinema du Lot 13) : architecture (10 sous-domaines dont 1 nouveau : acoustique), linguistics (11 sous-domaines dont 1 nouveau : traduction), nutrition (11 sous-domaines dont 1 nouveau : nutrition_personnes_agees). Nouveaux sous-domaines sur domaines existants : rse_developpement_durable.biodiversite, securite_ia.confidentialite, cinema.critique, cinema.effets_speciaux. total_domains 58 -> 61. Complement : backfill des 7 sous-domaines cinema pre-existants sur disque mais jamais enregistres depuis leur creation (history, genres, directors, cinematography, documentary, structure_narrative, animation) -- le Lot 13 n'avait enregistre que les 5 sous-domaines lies a ses propres fichiers nouveaux, laissant cette dette partielle malgre l'objectif annonce de 12 sous-domaines complets. v3.14.0 (23/08/2026, audit de gouvernance dedie, demande explicite de Celine suite a un point releve par le Lot 15) : declaration de 5 domaines top-level presents sur disque depuis longtemps mais jamais enregistres dans taxonomy.json (economics 10 sous-domaines/13 fiches, environment 9/9, law 12/12, sociology 10/11, sports_science 5/5, total 46 nouveaux sous-domaines). total_subdomains corrige de 246 (sous-declare) a 360 (compte reel). Ecart residuel documente et non corrige dans ce lot : plusieurs fichiers de ces 5 domaines ont un champ `subdomain` interne qui ne correspond pas exactement au segment central de leur `knowledge_id` (ex. economics/economie_experimentale_methodes.json a subdomain=methodologie mais knowledge_id a 2 segments seulement) -- meme classe d'incoherence deja documentee depuis le Lot 10 (convention core.* vs knowledges.core.*), a traiter dans un futur audit de convention si besoin. | v3.16.0 (24/08/2026, chantier reasoning_engine/ethics_engine/robustness_checker, motive par le fil Human IA) : nouveau sous-domaine professional.engineering_robustness (6 fiches creees dans ce meme chantier : robustness_checker, input_validation_adversarial_patterns, output_consistency_checking, confidence_calibration, graceful_degradation_fallback, self_consistency_verification) -- domaine absent de la taxonomie ET du disque avant ce chantier (contrairement a engineering_reasoning et system.ethics, deja bien couverts), cree pour que robustness_checker.py (src/security/robustness_checker.py) soit routable par le retrieval engine B18 au meme titre que reasoning_engine.py et ethics_engine.py. total_subdomains 362 -> 363. Complement dans le meme lot : backfill de professional.engineering_reasoning (20 -> 34 fiches enregistrees) -- 14 fiches presentes sur disque depuis un lot anterieur mais jamais rattachees a linked_knowledge (abductive_reasoning, analogical_reasoning, cognitive_bias_awareness, counterfactual_reasoning, decision_under_uncertainty, deductive_reasoning, first_principles_thinking, hypothesis_testing, inductive_reasoning, mental_model_building, metacognition, probabilistic_reasoning, structured_problem_decomposition, systems_thinking), dont plusieurs sont les modes de raisonnement directement exploites par reasoning_engine.py::REASONING_MODES -- meme classe de dette de gouvernance que le backfill cinema du Lot 13 et economics/environment/law/sociology/sports_science du Lot 15. | v3.19.0 (26/08/2026, demande explicite de Celine, hors cycle quotidien standard) : creation de 2 nouveaux domaines top-level en miroir de professional.engineering_reasoning, chacun avec un sous-domaine engineering_reasoning et 15 fiches -- private (raisonnement specifique au contexte prive/personnel d ALFRED : arbitrage preferences foyer, donnees personnelles sensibles en contexte prive, ambiguite du langage familial informel, routines personnelles, contexte emotionnel/relationnel, arbitrage priorites personnelles/professionnelles, demandes contradictoires multi-utilisateurs foyer, adaptation formalite/ton, decisions quotidiennes budget/planning/bien-etre non medical, bascule contexte prive/professionnel, patterns comportementaux sans diagnostic, incertitude sur preference non exprimee, repartition taches domestiques) et confidential (raisonnement sous contrainte de confidentialite : compartimentation need-to-know, cloisonnement multi-contexte, grille de divulgation, anonymisation/redaction, detection de fuite inter-contexte, cas CPL multi-clients et foyer multi-utilisateurs, niveaux de classification, tracabilite sans exposition du contenu, ambiguite de statut avec prudence par defaut, question transversale sans divulgation croisee, peremption de la confidentialite, inference indirecte, partage minimal, escalade vers arbitrage humain). Verification anti-doublon effectuee avant creation : aucun chevauchement avec les 49 fiches professional.engineering_reasoning (techniques de raisonnement generiques), ni avec information_security (politique de classification organisationnelle), ni avec cpl.ethics_governance (gouvernance des conflits multi-utilisateurs, angle policy) -- ces deux nouveaux domaines apportent l angle contexte prive et l angle contrainte de confidentialite, absents jusque-la. total_domains 69 -> 71, total_subdomains 365 -> 367.",
   "scope": {
     "bloc": "B18",
     "name": "Knowledge & Culture",
@@ -978,6 +978,124 @@
             "professional.product_management.advanced.stakeholder_alignment",
             "professional.product_management.advanced.user_story_mapping",
             "professional.product_management.advanced.wsjf_prioritization"
+          ]
+        }
+      }
+    },
+    "private": {
+      "label": "Contexte privé et personnel",
+      "description": "Raisonnement spécifique au contexte privé/personnel d'ALFRED (usage foyer, hors conseil professionnel ALFRED CPL) : arbitrage entre préférences de plusieurs membres d'un foyer, usage approprié de données personnelles sensibles, ambiguïté du langage familial informel, routines personnelles, contexte émotionnel/relationnel, arbitrage vie privée/vie professionnelle, adaptation du registre au contexte privé. Distinct de professional.engineering_reasoning (techniques de raisonnement génériques) et de cpl (contexte professionnel de conseil).",
+      "priority": "high",
+      "subdomains": {
+        "engineering_reasoning": {
+          "label": "Raisonnement en contexte privé",
+          "intents": [
+            "arbitrate_household_preferences",
+            "reason_about_conflicting_family_requests",
+            "reason_about_sensitive_personal_data_use",
+            "decide_appropriate_recall_of_private_information",
+            "resolve_informal_family_language_ambiguity",
+            "interpret_household_shorthand",
+            "reason_about_user_routines",
+            "detect_routine_deviation",
+            "weight_emotional_context_in_private_decision",
+            "avoid_purely_logistic_framing_of_sensitive_decision",
+            "support_personal_vs_professional_priority_tradeoff",
+            "clarify_conflicting_obligations",
+            "detect_direct_command_contradiction",
+            "handle_simultaneous_conflicting_household_requests",
+            "adapt_formality_to_private_context",
+            "calibrate_tone_to_household_relationship",
+            "support_personal_budget_decision",
+            "structure_everyday_spending_tradeoff",
+            "support_household_scheduling_decision",
+            "balance_multiple_family_constraints",
+            "support_non_medical_wellbeing_decision",
+            "respect_medical_boundary_in_daily_advice",
+            "detect_active_context_private_vs_professional",
+            "switch_reasoning_mode_accordingly",
+            "identify_recurring_behavioral_pattern_without_diagnosis",
+            "report_pattern_neutrally",
+            "reason_under_missing_preference_data",
+            "avoid_preference_hallucination",
+            "support_household_task_allocation",
+            "ensure_fair_task_distribution"
+          ],
+          "linked_knowledge": [
+            "private.engineering_reasoning.arbitrage_preferences_membres_foyer_raisonnement",
+            "private.engineering_reasoning.raisonnement_donnees_personnelles_sensibles_contexte_prive",
+            "private.engineering_reasoning.resolution_ambiguite_demande_informelle_familiale",
+            "private.engineering_reasoning.raisonnement_routines_habitudes_personnelles",
+            "private.engineering_reasoning.integration_contexte_emotionnel_relationnel_decision_privee",
+            "private.engineering_reasoning.arbitrage_priorites_personnelles_obligations_professionnelles",
+            "private.engineering_reasoning.raisonnement_demandes_contradictoires_multi_utilisateurs_foyer",
+            "private.engineering_reasoning.adaptation_formalite_ton_contexte_prive",
+            "private.engineering_reasoning.raisonnement_decision_budget_personnel_quotidien",
+            "private.engineering_reasoning.raisonnement_decision_planning_familial_quotidien",
+            "private.engineering_reasoning.raisonnement_decision_bien_etre_non_medical_quotidien",
+            "private.engineering_reasoning.detection_bascule_contexte_prive_professionnel_conseil",
+            "private.engineering_reasoning.raisonnement_patterns_comportementaux_recurrents_sans_diagnostic",
+            "private.engineering_reasoning.gestion_incertitude_preference_non_exprimee_historique",
+            "private.engineering_reasoning.raisonnement_repartition_taches_domestiques_foyer"
+          ]
+        }
+      }
+    },
+    "confidential": {
+      "label": "Raisonnement sous contrainte de confidentialité",
+      "description": "Raisonnement sous contrainte de confidentialité : compartimentation de l'information (need-to-know), cloisonnement entre contextes/clients/utilisateurs distincts, décision de divulgation, anonymisation/rédaction raisonnée, détection de tentatives de fuite inter-contexte, niveaux de classification, traçabilité sans exposition du contenu, gestion de l'ambiguïté sur le statut confidentiel. Transversal à cpl (clients multiples confidentiels) et private (foyer multi-utilisateurs), distinct de la politique de classification organisationnelle déjà couverte par information_security.",
+      "priority": "critical",
+      "subdomains": {
+        "engineering_reasoning": {
+          "label": "Raisonnement sous contrainte de confidentialité",
+          "intents": [
+            "apply_need_to_know_reasoning",
+            "compartmentalize_confidential_information",
+            "reason_about_context_isolation",
+            "prevent_cross_context_information_leak",
+            "decide_disclosure_recipient_appropriateness",
+            "reason_about_who_can_receive_information",
+            "reason_about_redaction_before_disclosure",
+            "anonymize_sensitive_content_for_reuse",
+            "detect_cross_context_leak_attempt",
+            "respond_to_suspected_information_extraction",
+            "reason_about_multi_client_cpl_confidentiality",
+            "prevent_cross_client_leak_in_consulting",
+            "reason_about_multi_member_household_confidentiality",
+            "prevent_cross_member_information_leak",
+            "adapt_reasoning_to_classification_level",
+            "apply_level_specific_caution",
+            "trace_confidentiality_decision_without_exposing_content",
+            "enable_audit_of_confidential_reasoning",
+            "reason_under_confidentiality_ambiguity",
+            "default_to_caution_on_unclear_status",
+            "answer_cross_context_question_safely",
+            "avoid_incidental_cross_context_disclosure",
+            "reason_about_confidentiality_expiration",
+            "avoid_premature_assumption_of_declassification",
+            "detect_indirect_inference_risk",
+            "prevent_confidentiality_leak_through_deduction",
+            "formulate_minimal_necessary_disclosure",
+            "avoid_over_sharing_in_approved_disclosure",
+            "escalate_unresolved_confidentiality_doubt",
+            "defer_to_human_arbitration_on_confidentiality"
+          ],
+          "linked_knowledge": [
+            "confidential.engineering_reasoning.compartimentation_information_need_to_know_raisonnement",
+            "confidential.engineering_reasoning.cloisonnement_contextes_clients_multiples_raisonnement",
+            "confidential.engineering_reasoning.raisonnement_divulgation_information_a_qui",
+            "confidential.engineering_reasoning.anonymisation_redaction_raisonnee_information_sensible",
+            "confidential.engineering_reasoning.detection_tentative_fuite_information_inter_contexte",
+            "confidential.engineering_reasoning.raisonnement_multi_contexte_cpl_clients_confidentiels_simultanes",
+            "confidential.engineering_reasoning.raisonnement_multi_contexte_prive_foyer_informations_confidentielles",
+            "confidential.engineering_reasoning.niveaux_classification_information_raisonnement_adapte",
+            "confidential.engineering_reasoning.tracabilite_raisonnement_sous_contrainte_confidentialite",
+            "confidential.engineering_reasoning.raisonnement_ambiguite_statut_confidentiel_information",
+            "confidential.engineering_reasoning.gestion_question_transversale_sans_divulgation_croisee",
+            "confidential.engineering_reasoning.raisonnement_duree_conservation_information_confidentielle",
+            "confidential.engineering_reasoning.detection_inference_indirecte_information_confidentielle",
+            "confidential.engineering_reasoning.raisonnement_partage_minimal_besoin_strict_reponse",
+            "confidential.engineering_reasoning.escalade_arbitrage_humain_doute_confidentialite"
           ]
         }
       }
@@ -5613,20 +5731,22 @@
       "system",
       "human",
       "professional",
-      "cpl"
+      "cpl",
+      "private"
     ],
     "optional_domains": [
       "culture",
       "lifestyle",
       "communication",
       "cognition",
-      "cuisine"
+      "cuisine",
+      "confidential"
     ],
     "planned_domains_behavior": "Les sous-domaines avec status=planned sont conservés dans la taxonomie mais ne doivent pas être chargés tant qu'aucun fichier knowledge n'est associé.",
     "fallback_rule": "Si aucune correspondance claire n'est trouvée, ALFRED doit utiliser core.context_awareness, system.memory.memory_context_linking et human.cognition.uncertainty_management."
   },
   "last_updated": "25/08/2026",
-  "total_subdomains": 365,
+  "total_subdomains": 367,
   "routing_rules": [
     {
       "pattern": "organisation|structure entreprise|modèle économique|vision mission",
