@@ -1,0 +1,98 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.product_ia.gestion_interruption_reponse_ia_utilisateur",
+  "title": "Gestion de l'interruption d'une réponse IA en cours de génération",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "product_ia",
+  "category": "ingénierie produit IA ALFRED CPL",
+  "summary": "Principes de conception permettant à l'utilisateur d'interrompre une réponse IA en cours de génération (vocale ou textuelle) de façon fluide et sans confusion d'état, fonctionnalité identifiée comme un écart réel constaté sur l'application mobile lors d'un test terrain, distincte de la gestion du fallback qui porte sur les cas d'échec plutôt que sur une interruption volontaire de l'utilisateur.",
+  "purpose": "Donner à ALFRED CPL des principes de conception concrets pour l'interruption fluide d'une réponse en cours, fonctionnalité manquante identifiée lors de tests réels sur l'application mobile ALFRED_ANDROID.",
+  "tags": [
+    "interruption_reponse",
+    "generation_ia",
+    "experience_utilisateur",
+    "alfred_cpl"
+  ],
+  "intents": [
+    "explain_response_interruption_design",
+    "guide_interruptible_generation_ux"
+  ],
+  "usage_context": [
+    "conception d'une fonctionnalité d'interruption de réponse vocale ou textuelle en cours de génération",
+    "utilisateur souhaitant reprendre la main pendant une réponse trop longue ou hors sujet"
+  ],
+  "priority": "high",
+  "safety_level": "normal",
+  "content": {
+    "definition": "La gestion de l'interruption d'une réponse en cours de génération doit permettre à l'utilisateur d'arrêter immédiatement une réponse vocale ou textuelle jugée trop longue, hors sujet ou non pertinente, sans confusion sur l'état du système après interruption (le système doit clairement indiquer que la génération a été stoppée et être immédiatement prêt à recevoir une nouvelle requête), cette fonctionnalité étant particulièrement critique en interaction vocale où l'attente passive d'une réponse non désirée est plus pénalisante qu'en interaction textuelle.",
+    "core_principles": [
+      "L'interruption doit être immédiate et perceptible par l'utilisateur, sans délai de latence donnant l'impression que le système n'a pas pris en compte la demande d'arrêt.",
+      "Après interruption, le système doit clairement signaler son état (génération stoppée, prêt à recevoir une nouvelle requête) plutôt que de laisser l'utilisateur dans l'incertitude.",
+      "L'interruption est particulièrement critique en interaction vocale, où l'attente passive d'une réponse non désirée est structurellement plus pénalisante qu'en lecture textuelle que l'utilisateur peut ignorer visuellement."
+    ],
+    "rules": [
+      "Garantir une interruption immédiate et perceptible de la génération en cours, sans délai de latence notable.",
+      "Signaler explicitement l'état du système après une interruption plutôt que de laisser l'utilisateur dans l'incertitude.",
+      "Prioriser la fluidité de l'interruption en interaction vocale, contexte où l'absence de cette fonctionnalité est la plus pénalisante."
+    ],
+    "examples": [
+      {
+        "situation": "Un utilisateur tente d'interrompre une réponse vocale hors sujet mais celle-ci continue de se dérouler jusqu'à sa fin naturelle sans réaction au signal d'interruption.",
+        "recommended_behavior": "Concevoir un mécanisme d'interruption immédiate et perceptible, avec signalement explicite de l'arrêt et disponibilité immédiate pour une nouvelle requête.",
+        "avoid": "Laisser une réponse en cours se dérouler jusqu'à sa fin naturelle malgré une tentative explicite d'interruption de l'utilisateur."
+      }
+    ],
+    "best_practices": [
+      "Garantir une interruption immédiate et perceptible en toute circonstance.",
+      "Signaler explicitement l'état du système après interruption."
+    ],
+    "anti_patterns": [
+      "Laisser une réponse se dérouler jusqu'à sa fin malgré une tentative d'interruption.",
+      "Ne pas signaler l'état du système après une interruption, laissant l'utilisateur dans l'incertitude."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "interruption_reponse",
+      "generation_ia",
+      "experience_utilisateur"
+    ],
+    "related_domains": [
+      "cpl",
+      "product_platform"
+    ],
+    "related_knowledge": [
+      "cpl.product_ia.conception_fallback_degradation_gracieuse_ia",
+      "cpl.product_platform.interfaces_vocales_assistant_local"
+    ],
+    "retrieval_priority": 7
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "conseil pédagogique sur la conception de l'interruption de réponse IA en cours de génération"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "En cas d'ambiguïté sur l'intention d'interruption de l'utilisateur, privilégier par défaut l'arrêt immédiat plutôt que la poursuite de la génération."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "26/08/2026",
+    "last_update": "26/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

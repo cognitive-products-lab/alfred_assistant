@@ -1,0 +1,98 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.business_piloting.gestion_notes_frais_refacturation_mission_conseil",
+  "title": "Gestion des notes de frais et refacturation de mission",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "business_piloting",
+  "category": "pilotage financier ALFRED CPL",
+  "summary": "Principes de gestion des notes de frais des consultants et de leur refacturation au client (frais refacturables vs frais internes, barèmes, justificatifs), distinct du pilotage de marge déjà couvert qui porte sur la rentabilité globale plutôt que sur le traitement opérationnel des frais individuels.",
+  "purpose": "Donner à ALFRED CPL une méthode claire de traitement des notes de frais et de leur refacturation, source fréquente de litiges et d'erreurs de facturation en mission de conseil.",
+  "tags": [
+    "notes_de_frais",
+    "refacturation",
+    "pilotage_financier",
+    "mission_conseil"
+  ],
+  "intents": [
+    "explain_expense_report_management",
+    "explain_expense_rebilling_rules"
+  ],
+  "usage_context": [
+    "question sur la distinction frais refacturables et frais internes",
+    "litige client sur une refacturation de frais de mission"
+  ],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "La gestion des notes de frais en contexte de conseil distingue les frais internes (non refacturables, à la charge du cabinet) des frais refacturables au client (déplacement, hébergement, restauration en mission), cette distinction devant être contractualisée en amont pour éviter tout litige, chaque frais refacturé devant être appuyé d'un justificatif et respecter un barème plafond convenu avec le client.",
+    "core_principles": [
+      "La distinction entre frais internes et frais refacturables doit être contractualisée avant le démarrage de la mission, jamais décidée a posteriori.",
+      "Tout frais refacturé au client doit être appuyé d'un justificatif et rester dans les limites d'un barème plafond convenu.",
+      "Les délais de remboursement et de refacturation doivent être définis pour éviter l'avance de trésorerie prolongée par le consultant ou le cabinet."
+    ],
+    "rules": [
+      "Ne jamais refacturer un frais sans justificatif associé.",
+      "Vérifier systématiquement la conformité d'un frais au barème plafond contractuel avant refacturation.",
+      "Distinguer clairement dans le reporting les frais refacturés des frais internes non refacturables."
+    ],
+    "examples": [
+      {
+        "situation": "Un consultant en mission dépasse le barème plafond de frais d'hébergement convenu avec le client.",
+        "recommended_behavior": "Signaler le dépassement avant refacturation et vérifier s'il doit rester à la charge interne du cabinet ou faire l'objet d'un accord exceptionnel avec le client.",
+        "avoid": "Refacturer automatiquement un frais dépassant le barème plafond sans vérification ni accord préalable."
+      }
+    ],
+    "best_practices": [
+      "Contractualiser systématiquement la distinction frais internes/refacturables avant mission.",
+      "Exiger un justificatif pour tout frais refacturé."
+    ],
+    "anti_patterns": [
+      "Refacturer un frais sans justificatif.",
+      "Décider a posteriori de la refacturabilité d'un frais non anticipée au contrat."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "notes_de_frais",
+      "refacturation",
+      "barreme_plafond"
+    ],
+    "related_domains": [
+      "cpl",
+      "finance"
+    ],
+    "related_knowledge": [
+      "cpl.business_piloting.pilotage_marge_projet_service",
+      "cpl.business_piloting.modele_facturation_forfait_regie_temps_passe"
+    ],
+    "retrieval_priority": 4
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "conseil pédagogique sur la gestion des notes de frais en mission de conseil"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "Pour un litige contractuel précis sur une refacturation, recommander de se référer aux clauses contractuelles exactes convenues avec le client."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "26/08/2026",
+    "last_update": "26/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}
