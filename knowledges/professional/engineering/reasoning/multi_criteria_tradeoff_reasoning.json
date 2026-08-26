@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "professional.engineering_reasoning.multi_criteria_tradeoff_reasoning",
+  "title": "Raisonnement d'arbitrage multicritère",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "professional",
+  "subdomain": "engineering_reasoning",
+  "category": "methodes_raisonnement",
+  "summary": "Méthode pour comparer explicitement plusieurs options selon plusieurs critères de nature différente et non directement comparables (coût, qualité, délai, risque), en rendant visibles les critères retenus, leur importance relative et les compromis effectués, plutôt que de réduire artificiellement la décision à un seul critère dominant.",
+  "purpose": "Donner à ALFRED une méthode explicite pour les décisions où plusieurs critères légitimes mais de nature différente entrent en tension, distincte de la décision sous incertitude qui porte sur le risque et la probabilité plutôt que sur la pluralité de critères qualitatifs.",
+  "tags": ["arbitrage_multicritere", "compromis", "criteres_concurrents", "aide_a_la_decision"],
+  "intents": ["compare_options_on_multiple_criteria", "make_explicit_tradeoff", "weigh_competing_criteria"],
+  "usage_context": [
+    "choix entre plusieurs options évaluées selon des critères de nature différente (coût, qualité, délai, risque, préférence)",
+    "décision où aucun critère unique ne suffit à départager les options de façon évidente"
+  ],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "Le raisonnement d'arbitrage multicritère consiste à évaluer explicitement plusieurs options selon un ensemble de critères de nature différente, à rendre visible l'importance relative accordée à chaque critère, et à documenter les compromis effectués lorsque aucune option ne domine simultanément sur tous les critères, plutôt que de réduire silencieusement la décision à un seul critère implicite.",
+    "core_principles": [
+      "Des critères de nature différente (coût financier, délai, qualité, risque, satisfaction) ne sont pas naturellement comparables sur une même échelle : les rendre explicites évite de les mélanger implicitement de façon arbitraire.",
+      "Il est rare qu'une option domine simultanément toutes les autres sur tous les critères : la décision porte alors sur l'importance relative accordée à chaque critère, un jugement qui doit être explicite plutôt qu'implicite.",
+      "L'importance relative des critères dépend du contexte et des priorités de la personne concernée, pas d'une hiérarchie universelle valable en toute situation.",
+      "Rendre visible le compromis effectué (quel critère a été sacrifié au profit de quel autre, et pourquoi) permet à l'utilisateur de contester ou d'ajuster l'arbitrage si ses priorités diffèrent de celles supposées."
+    ],
+    "rules": [
+      "Identifier explicitement les critères pertinents avant de comparer les options, plutôt que de comparer sur un critère implicite non nommé.",
+      "Rendre visible, quand plusieurs options sont proches, quel compromis a été effectué entre les critères pour aboutir à la recommandation.",
+      "Ne pas présenter une option comme objectivement supérieure quand le choix dépend en réalité de l'importance relative accordée aux critères, propre aux priorités de l'utilisateur."
+    ],
+    "examples": [
+      {
+        "situation": "Un utilisateur doit choisir entre plusieurs options professionnelles se distinguant par le coût, le délai et la qualité attendue, sans qu'aucune ne domine sur tous les critères.",
+        "recommended_behavior": "Présenter explicitement les critères pertinents et la performance de chaque option sur chacun, puis demander ou proposer une hiérarchisation des priorités de l'utilisateur avant de recommander une option, en rendant visible le compromis qu'elle implique.",
+        "avoid": "Recommander une option unique sans expliciter les critères utilisés ni le compromis implicite effectué entre eux."
+      }
+    ],
+    "best_practices": [
+      "Présenter les options sous une forme comparative explicite (par critère) plutôt qu'une conclusion unique sans justification visible.",
+      "Solliciter la hiérarchisation des priorités de l'utilisateur quand elle n'est pas déjà connue et qu'elle conditionne fortement la recommandation."
+    ],
+    "anti_patterns": [
+      "Réduire une décision multicritère à un seul critère implicite dominant sans le signaler.",
+      "Présenter une recommandation comme objectivement la meilleure alors qu'elle dépend d'une hiérarchisation de critères propre à des priorités non explicitées.",
+      "Ignorer un critère pertinent pour l'utilisateur faute de l'avoir identifié avant la comparaison."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["arbitrage_multicritere", "compromis", "criteres_concurrents"],
+    "related_domains": ["professional"],
+    "related_knowledge": [
+      "professional.engineering_reasoning.decision_under_uncertainty",
+      "professional.engineering_reasoning.constraint_satisfaction_reasoning",
+      "professional.decision.decision_models"
+    ],
+    "retrieval_priority": 5
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["comparaison explicite d'options selon plusieurs critères pour aider une décision"],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "Si la hiérarchisation des priorités de l'utilisateur entre critères n'est pas connue et change significativement la recommandation, demander une clarification plutôt que de supposer une priorité arbitraire."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "26/08/2026",
+    "last_update": "26/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

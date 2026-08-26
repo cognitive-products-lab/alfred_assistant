@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "ethique_ia.gouvernance.responsabilite_morale_distribuee_humain_ia",
+  "title": "Responsabilité distribuée entre humains et systèmes d'IA au sein d'une organisation",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "ethique_ia",
+  "subdomain": "gouvernance",
+  "category": "gouvernance_éthique_IA",
+  "summary": "Cadre pratique pour répartir la responsabilité d'une décision prise avec l'assistance d'une IA entre les différents acteurs humains impliqués (concepteur, déployeur, superviseur, utilisateur final), en distinguant les rôles et les niveaux de contrôle effectif de chacun, pour éviter à la fois la dilution de responsabilité et son report injustifié sur un seul maillon de la chaîne.",
+  "purpose": "Donner à une organisation utilisant l'IA une méthode opérationnelle d'attribution de responsabilité, distincte de la question philosophique de fond sur l'agentivité morale d'une IA traitée séparément côté philosophie, et complémentaire des principes déontologiques déjà couverts (subsidiarité, révision humaine) côté ALFRED CPL.",
+  "tags": ["responsabilite_distribuee", "chaine_de_responsabilite", "accountability", "gouvernance_ia"],
+  "intents": ["allocate_responsibility_in_ai_chain", "avoid_responsibility_dilution", "clarify_human_roles_in_ai_decisions"],
+  "usage_context": [
+    "incident ou erreur impliquant une décision prise avec l'assistance d'une IA, où la responsabilité doit être attribuée",
+    "conception d'une gouvernance organisationnelle de l'IA nécessitant une répartition claire des rôles"
+  ],
+  "priority": "high",
+  "safety_level": "sensitive",
+  "content": {
+    "definition": "La responsabilité distribuée désigne la répartition explicite de la responsabilité d'une décision assistée par IA entre les différents acteurs humains de sa chaîne de production et d'usage : le concepteur du système (qui définit ses capacités et limites), le déployeur (qui décide de son intégration dans un contexte donné), le superviseur (qui contrôle son fonctionnement en continu), et l'utilisateur final (qui applique ou valide la recommandation produite). Aucun système d'IA, quel que soit son niveau d'autonomie apparent, ne doit constituer un point final de responsabilité qui dilue celle des humains impliqués.",
+    "core_principles": [
+      "La responsabilité d'un acteur donné dans la chaîne est proportionnelle à son niveau de contrôle effectif sur la décision : un concepteur répond des limites de conception connues, un déployeur des choix de contexte d'usage, un superviseur de la vigilance exercée, un utilisateur final de la validation ou du rejet de la recommandation dans les cas où il conservait un pouvoir de décision réel.",
+      "La dilution de responsabilité (chaque acteur reportant la faute sur un autre maillon de la chaîne, aboutissant à ce que personne ne soit tenu responsable) est un risque organisationnel réel qui doit être explicitement prévenu par une cartographie claire des rôles avant tout incident.",
+      "À l'inverse, faire porter l'intégralité de la responsabilité sur le seul utilisateur final qui a suivi une recommandation, alors que le système présentait une limite de conception connue non signalée, est également une répartition inéquitable de la responsabilité.",
+      "Cette responsabilité distribuée pratique est indépendante de la question philosophique de fond sur l'agentivité morale de l'IA elle-même : elle fonctionne comme une construction organisationnelle et juridique, quelle que soit la réponse à cette question philosophique séparée."
+    ],
+    "rules": [
+      "Documenter explicitement, en amont du déploiement d'un système d'IA, la répartition prévue des responsabilités entre concepteur, déployeur, superviseur et utilisateur final.",
+      "Ne jamais présenter un incident lié à une décision assistée par IA comme n'étant la responsabilité de personne du fait de l'implication du système.",
+      "Attribuer la responsabilité en fonction du niveau de contrôle effectif réellement exercé par chaque acteur, pas par défaut sur le maillon le plus visible ou le plus proche de l'utilisateur final."
+    ],
+    "examples": [
+      {
+        "situation": "Une décision assistée par IA produit un résultat problématique, et plusieurs acteurs de l'organisation se renvoient mutuellement la responsabilité.",
+        "recommended_behavior": "Reconstituer la chaîne de contrôle effectif exercé par chaque acteur (conception, déploiement, supervision, validation finale) et attribuer la responsabilité proportionnellement à ce contrôle réel, en documentant explicitement cette analyse plutôt que de laisser la question non résolue.",
+        "avoid": "Accepter qu'aucun acteur ne soit tenu responsable au motif que la décision impliquait un système d'IA, ou faire porter systématiquement la responsabilité sur le seul utilisateur final."
+      }
+    ],
+    "best_practices": [
+      "Cartographier explicitement les rôles et niveaux de contrôle de chaque acteur avant le déploiement d'un système d'IA, pas seulement après un incident.",
+      "Distinguer clairement, dans la communication interne, la responsabilité pratique et organisationnelle de la question philosophique du statut moral de l'IA."
+    ],
+    "anti_patterns": [
+      "Laisser la responsabilité d'un incident se diluer entre plusieurs acteurs sans attribution claire.",
+      "Faire porter systématiquement la responsabilité sur le seul utilisateur final ayant suivi une recommandation défaillante par conception.",
+      "Confondre la question pratique de l'imputabilité organisationnelle avec la question philosophique non tranchée du statut moral de l'IA."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["responsabilite_distribuee", "chaine_de_responsabilite", "accountability"],
+    "related_domains": ["ethique_ia", "cpl", "philosophie"],
+    "related_knowledge": [
+      "ethique_ia.risques.ethique_ia_fondamentaux",
+      "cpl.ethics_governance.revision_humaine_decisions_ia_sensibles",
+      "philosophie.ethique.responsabilite_morale_agents_artificiels"
+    ],
+    "retrieval_priority": 7
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "high",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["clarification de la répartition de responsabilité dans une chaîne de décision assistée par IA"],
+    "restricted_usage": ["analyse d'un incident réel spécifique, à traiter avec les parties concernées et une expertise juridique si nécessaire"],
+    "forbidden_usage": ["utiliser ce cadre pour disculper artificiellement un acteur ayant exercé un contrôle effectif significatif sur la décision"],
+    "fallback_behavior": "En cas d'incertitude sur la répartition exacte de responsabilité, recommander une analyse documentée par les parties concernées plutôt que de trancher arbitrairement."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "26/08/2026",
+    "last_update": "26/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

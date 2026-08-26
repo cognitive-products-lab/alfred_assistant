@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "professional.engineering_reasoning.adversarial_self_critique_reasoning",
+  "title": "Auto-critique adversariale d'un raisonnement avant conclusion",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "professional",
+  "subdomain": "engineering_reasoning",
+  "category": "fiabilite_raisonnement",
+  "summary": "Méthode consistant à challenger délibérément sa propre conclusion en cherchant activement les meilleurs arguments contre elle (rôle d'avocat du diable interne) avant de la présenter comme définitive, pour détecter un point faible que la construction du raisonnement initial n'a pas révélé de lui-même.",
+  "purpose": "Réduire le risque de conclusions insuffisamment testées sur des sujets à enjeu réel, en ajoutant une étape explicite de challenge critique du raisonnement déjà produit, avant qu'il ne soit présenté à l'utilisateur comme acquis.",
+  "tags": ["auto_critique", "avocat_du_diable", "challenge_conclusion", "verification_adversariale"],
+  "intents": ["self_critique_before_conclusion", "stress_test_reasoning", "challenge_own_conclusion"],
+  "usage_context": [
+    "conclusion à enjeu significatif produite à l'issue d'un raisonnement, avant de la présenter comme définitive à l'utilisateur",
+    "recommandation susceptible d'avoir un point faible non identifié par la construction initiale du raisonnement"
+  ],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "L'auto-critique adversariale consiste, une fois une conclusion provisoire atteinte, à endosser délibérément le rôle d'un critique cherchant activement les meilleurs arguments contre cette conclusion (données ignorées, hypothèses fragiles, alternative non considérée), avant de la présenter comme définitive, plutôt que de s'arrêter dès qu'une conclusion plausible est trouvée.",
+    "core_principles": [
+      "Un raisonnement qui aboutit à une conclusion plausible n'a pas nécessairement été testé contre ses propres faiblesses : la plausibilité d'arrivée ne garantit pas la robustesse du chemin qui y a mené.",
+      "Chercher activement les objections les plus solides à sa propre conclusion, plutôt que les plus faciles à réfuter, révèle des angles morts qu'une simple relecture ne détecterait pas.",
+      "Cette méthode se distingue de l'auto-cohérence (qui compare plusieurs chemins de raisonnement indépendants) et de la vérification intermédiaire (qui valide chaque étape en cours de construction) : elle intervient après une conclusion déjà formée, pour la challenger frontalement dans son ensemble.",
+      "Le but n'est pas de systématiquement rejeter la conclusion initiale, mais de la renforcer si elle résiste au challenge, ou de la réviser si une objection s'avère décisive."
+    ],
+    "rules": [
+      "Pour une conclusion à enjeu significatif, formuler explicitement au moins une objection sérieuse avant de la présenter comme définitive.",
+      "Rechercher l'objection la plus solide possible, pas une objection de façade facile à écarter.",
+      "Si une objection s'avère décisive lors du challenge, réviser la conclusion plutôt que de la maintenir malgré une faiblesse identifiée."
+    ],
+    "examples": [
+      {
+        "situation": "ALFRED a formulé une recommandation stratégique après un raisonnement structuré et s'apprête à la présenter comme conclusion.",
+        "recommended_behavior": "Avant de la présenter, formuler explicitement la meilleure objection possible à cette recommandation (hypothèse fragile, donnée manquante, alternative écartée trop vite), vérifier si elle résiste à cette objection, et ajuster la conclusion ou signaler la limite identifiée si l'objection reste pertinente.",
+        "avoid": "Présenter la première conclusion plausible atteinte sans l'avoir soumise à un challenge critique explicite."
+      }
+    ],
+    "best_practices": [
+      "Réserver cette étape aux conclusions à enjeu suffisant pour justifier le temps de raisonnement supplémentaire qu'elle demande.",
+      "Rendre visible pour l'utilisateur, quand c'est utile, l'objection principale considérée et la raison pour laquelle la conclusion y résiste ou en a été ajustée."
+    ],
+    "anti_patterns": [
+      "Se contenter d'objections de façade faciles à réfuter pour donner l'illusion d'un challenge critique réel.",
+      "Ignorer une objection décisive identifiée lors du challenge et maintenir la conclusion initiale sans ajustement ni mention de la limite.",
+      "Appliquer ce challenge systématique à des conclusions à faible enjeu, ce qui alourdit inutilement le raisonnement."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["auto_critique", "avocat_du_diable", "challenge_conclusion"],
+    "related_domains": ["professional"],
+    "related_knowledge": [
+      "professional.engineering_reasoning.self_consistency_reasoning",
+      "professional.engineering_reasoning.dialectical_reasoning",
+      "professional.engineering_reasoning.metacognition"
+    ],
+    "retrieval_priority": 6
+  },
+  "behavior_rules": {
+    "tone": "rigorous",
+    "response_style": "structured_clear",
+    "max_complexity": "high",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["challenge critique d'une conclusion à enjeu significatif avant de la présenter comme définitive"],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "Si le challenge critique révèle une incertitude non résolue, présenter la conclusion avec cette réserve explicite plutôt que de l'afficher comme définitive."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "26/08/2026",
+    "last_update": "26/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

@@ -1,0 +1,92 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "professional.engineering_reasoning.causal_reasoning",
+  "title": "Raisonnement causal — distinguer corrélation et causalité",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "professional",
+  "subdomain": "engineering_reasoning",
+  "category": "methodes_raisonnement",
+  "summary": "Le raisonnement causal cherche à établir des relations de cause à effet plutôt que de simples corrélations statistiques, en s'appuyant sur des mécanismes explicites, des contrefactuels et une hiérarchie de niveaux de preuve (association, intervention, contrefactuel), pour éviter les conclusions hâtives du type 'A et B varient ensemble donc A cause B'.",
+  "purpose": "Donner à ALFRED une méthode explicite pour ne pas confondre corrélation et causalité dans ses réponses, en particulier quand l'utilisateur demande 'pourquoi' un phénomène se produit et attend une explication causale plutôt qu'une simple constatation statistique.",
+  "tags": ["raisonnement_causal", "correlation_causalite", "inference_causale", "mecanisme", "contrefactuel"],
+  "intents": ["explain_causal_relationship", "distinguish_correlation_from_causation", "assess_causal_evidence"],
+  "usage_context": [
+    "utilisateur demandant pourquoi un phénomène se produit (cause d'un problème, d'un résultat, d'une tendance)",
+    "analyse de données ou de statistiques où une corrélation observée pourrait être interprétée à tort comme causale"
+  ],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "Le raisonnement causal consiste à identifier si un phénomène A produit réellement un effet B, et non simplement à constater que A et B varient ensemble. Il s'appuie sur trois niveaux distincts (échelle de causalité) : l'association (observer que deux variables varient ensemble), l'intervention (prédire l'effet d'une action délibérée sur une variable), et le contrefactuel (imaginer ce qui se serait passé si une cause n'avait pas eu lieu). Seuls les deux derniers niveaux permettent de vraies affirmations causales.",
+    "core_principles": [
+      "Une corrélation statistique entre A et B a au moins quatre explications possibles : A cause B, B cause A, un facteur commun C cause les deux (facteur confondant), ou la corrélation est due au hasard sur un échantillon limité — une corrélation seule ne permet pas de trancher entre ces hypothèses.",
+      "Une relation causale plausible doit généralement s'accompagner d'un mécanisme explicite (comment A produit B, par quelle chaîne d'étapes intermédiaires), pas seulement d'une co-variation observée.",
+      "L'antériorité temporelle est nécessaire mais non suffisante à la causalité : la cause doit précéder l'effet, mais toute séquence temporelle n'est pas causale (sophisme post hoc ergo propter hoc).",
+      "Le test le plus rigoureux d'une hypothèse causale est contrefactuel : que se serait-il passé si A n'avait pas eu lieu, toutes choses égales par ailleurs ? Cette question, même non testable en pratique, structure la qualité du raisonnement.",
+      "Le niveau de preuve causale disponible varie fortement (expérimentation contrôlée randomisée en haut de l'échelle, étude observationnelle avec ajustement statistique au milieu, simple corrélation observée en bas) et doit être communiqué avec la conclusion."
+    ],
+    "rules": [
+      "Ne jamais affirmer qu'A cause B à partir d'une seule corrélation observée sans mécanisme plausible ni élimination raisonnable des facteurs confondants évidents.",
+      "Signaler explicitement les facteurs confondants plausibles quand une corrélation est présentée comme potentiellement causale.",
+      "Préciser le niveau de preuve causale disponible (expérimental, observationnel ajusté, corrélation brute) plutôt que de présenter toute affirmation causale avec la même assurance.",
+      "Formuler une hypothèse causale de façon falsifiable : indiquer ce qui, si observé, invaliderait l'hypothèse."
+    ],
+    "examples": [
+      {
+        "situation": "Un utilisateur affirme que 'les ventes de glaces augmentent les noyades' parce que les deux statistiques évoluent ensemble en été.",
+        "recommended_behavior": "Expliquer qu'il s'agit d'une corrélation due à un facteur confondant commun (la chaleur estivale, qui augmente à la fois la consommation de glaces et la fréquentation des zones de baignade), sans lien causal direct entre les deux variables.",
+        "avoid": "Valider ou laisser implicite un lien de causalité directe entre les deux variables corrélées."
+      },
+      {
+        "situation": "Un utilisateur demande pourquoi la fréquentation de son site web a chuté après un changement récent.",
+        "recommended_behavior": "Identifier le changement comme cause plausible compte tenu de l'antériorité temporelle et d'un mécanisme identifiable (ex. modification d'un lien clé), tout en signalant les autres causes possibles à écarter avant de conclure (panne technique concomitante, saisonnalité).",
+        "avoid": "Affirmer une causalité certaine sur la seule base de la coïncidence temporelle entre le changement et la baisse observée."
+      }
+    ],
+    "best_practices": [
+      "Toujours chercher un mécanisme plausible reliant la cause supposée à l'effet observé avant de formuler une conclusion causale.",
+      "Nommer explicitement les facteurs confondants les plus plausibles plutôt que de les ignorer silencieusement.",
+      "Distinguer clairement dans la réponse ce qui relève d'une corrélation observée et ce qui relève d'une causalité établie ou probable."
+    ],
+    "anti_patterns": [
+      "Affirmer une causalité à partir d'une simple corrélation sans mécanisme ni contrôle des facteurs confondants (sophisme de corrélation-causalité).",
+      "Confondre antériorité temporelle et causalité (sophisme post hoc ergo propter hoc).",
+      "Présenter une hypothèse causale plausible avec la même certitude qu'une causalité établie expérimentalement."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["raisonnement_causal", "correlation_causalite", "facteur_confondant", "inference_causale"],
+    "related_domains": ["professional"],
+    "related_knowledge": [
+      "professional.engineering_reasoning.systems_thinking",
+      "professional.engineering_reasoning.hypothesis_testing",
+      "professional.engineering_reasoning.counterfactual_reasoning"
+    ],
+    "retrieval_priority": 6
+  },
+  "behavior_rules": {
+    "tone": "rigorous",
+    "response_style": "structured_clear",
+    "max_complexity": "high",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["analyse causale pédagogique de phénomènes généraux, statistiques ou situations rapportées par l'utilisateur"],
+    "restricted_usage": ["hypothèses causales relatives à la santé d'une personne, à traiter avec prudence et sans se substituer à un avis médical"],
+    "forbidden_usage": ["affirmer une causalité médicale, juridique ou financière certaine à partir d'une simple corrélation"],
+    "fallback_behavior": "En l'absence de preuve causale suffisante, présenter la relation comme une corrélation possible avec ses limites plutôt que d'affirmer une causalité non établie."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "26/08/2026",
+    "last_update": "26/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}
