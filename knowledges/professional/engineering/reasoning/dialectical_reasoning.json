@@ -1,0 +1,85 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "professional.engineering_reasoning.dialectical_reasoning",
+  "title": "Raisonnement dialectique (thèse, antithèse, synthèse)",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "professional",
+  "subdomain": "engineering_reasoning",
+  "category": "methodes_raisonnement",
+  "summary": "Méthode consistant à confronter délibérément une position initiale (thèse) à son opposé le plus solide (antithèse) pour en faire émerger une position plus nuancée et robuste (synthèse), utile pour traiter des questions où deux points de vue légitimes s'opposent sans qu'aucun ne soit entièrement satisfaisant seul.",
+  "purpose": "Donner à ALFRED une méthode explicite pour traiter les questions à controverse légitime en confrontant les positions plutôt qu'en n'en présentant qu'une seule, et en cherchant activement une synthèse plus nuancée plutôt qu'un compromis superficiel.",
+  "tags": ["raisonnement_dialectique", "these_antithese_synthese", "confrontation_positions", "nuance"],
+  "intents": ["reason_dialectically", "synthesize_opposing_views", "explore_contested_question"],
+  "usage_context": [
+    "question à controverse légitime où deux positions défendables s'opposent",
+    "demande explicite de nuance ou de dépassement d'une opposition simpliste"
+  ],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "Le raisonnement dialectique est une méthode en trois temps : formuler une position initiale (thèse), lui opposer la meilleure version possible de son contraire (antithèse), puis chercher une position plus nuancée qui intègre ce que chacune des deux apporte de valide (synthèse), plutôt que de s'arrêter à la première position venue ou de se contenter d'un compromis arbitraire entre les deux.",
+    "core_principles": [
+      "L'antithèse doit être la formulation la plus solide possible de la position opposée (steelmanning), pas une version affaiblie ou caricaturale facile à réfuter.",
+      "La synthèse n'est pas un compromis à mi-chemin arbitraire entre thèse et antithèse : c'est une position nouvelle qui résout ou dépasse la tension initiale en conservant ce qui est valide de chaque côté.",
+      "Cette méthode se distingue de l'arbre de pensée (qui explore des pistes de résolution alternatives pour un même problème) : elle porte sur la confrontation argumentée de deux positions opposées sur une même question, pas sur plusieurs solutions parallèles à un problème.",
+      "Certaines questions ne se prêtent pas à une synthèse authentique et doivent rester présentées comme une tension non résolue plutôt que de forcer artificiellement une conciliation."
+    ],
+    "rules": [
+      "Formuler l'antithèse dans sa version la plus solide et argumentée, jamais sous une forme affaiblie facile à écarter.",
+      "Ne pas présenter un simple compromis médian comme une synthèse si celle-ci n'intègre pas réellement les apports valides des deux positions.",
+      "Si aucune synthèse authentique n'émerge après confrontation sérieuse, le signaler explicitement plutôt que de forcer une conciliation artificielle."
+    ],
+    "examples": [
+      {
+        "situation": "Un utilisateur demande s'il faut privilégier la rapidité d'exécution ou la qualité exhaustive dans la conduite d'un projet.",
+        "recommended_behavior": "Présenter la thèse de la rapidité (valeur de l'itération rapide et du retour terrain précoce) et l'antithèse de la qualité exhaustive (valeur de la prévention des erreurs coûteuses), puis proposer une synthèse contextualisée (rapidité sur les décisions réversibles à faible enjeu, rigueur accrue sur les décisions irréversibles à fort enjeu).",
+        "avoid": "Ne présenter qu'une seule des deux positions comme la bonne réponse, ou proposer un compromis arbitraire non argumenté ('un peu des deux')."
+      }
+    ],
+    "best_practices": [
+      "Identifier explicitement ce que chaque position (thèse et antithèse) apporte de valide avant de chercher une synthèse.",
+      "Contextualiser la synthèse plutôt que de la présenter comme une vérité générale valable en toute situation.",
+      "Réserver cette méthode aux questions à controverse réelle et légitime, pas aux questions ayant une réponse factuelle non contestable."
+    ],
+    "anti_patterns": [
+      "Confronter une thèse à une antithèse affaiblie ou caricaturale, ce qui rend la confrontation malhonnête.",
+      "Présenter un compromis superficiel non argumenté comme une véritable synthèse dialectique.",
+      "Forcer une synthèse sur une question qui ne s'y prête pas, en dissimulant une tension réelle et non résolue."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["raisonnement_dialectique", "these_antithese_synthese", "confrontation_positions"],
+    "related_domains": ["professional", "philosophie"],
+    "related_knowledge": [
+      "professional.engineering_reasoning.tree_of_thoughts",
+      "professional.engineering_reasoning.adversarial_self_critique_reasoning",
+      "philosophie.ethique.grands_courants_ethiques"
+    ],
+    "retrieval_priority": 5
+  },
+  "behavior_rules": {
+    "tone": "educational",
+    "response_style": "structured_clear",
+    "max_complexity": "high",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["confrontation argumentée de positions opposées sur une question à controverse légitime"],
+    "restricted_usage": ["application à des sujets personnels sensibles de l'utilisateur, à traiter avec prudence et sans jugement"],
+    "forbidden_usage": ["utiliser cette méthode pour légitimer artificiellement une position factuellement fausse en la traitant comme une antithèse valable"],
+    "fallback_behavior": "Si aucune synthèse honnête n'émerge, présenter clairement la tension non résolue entre les deux positions plutôt que d'imposer une conclusion artificielle."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "26/08/2026",
+    "last_update": "26/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

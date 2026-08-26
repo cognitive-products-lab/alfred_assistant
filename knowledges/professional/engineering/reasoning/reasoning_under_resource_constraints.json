@@ -1,0 +1,92 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "professional.engineering_reasoning.reasoning_under_resource_constraints",
+  "title": "Raisonnement sous contrainte de ressources et de temps",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "professional",
+  "subdomain": "engineering_reasoning",
+  "category": "methodes_raisonnement",
+  "summary": "Méthode pour adapter la profondeur d'un raisonnement à la contrainte réelle de temps, de calcul ou d'urgence de la situation, en arbitrant explicitement entre rigueur maximale et réponse utile en temps utile, plutôt que d'appliquer systématiquement le même niveau d'analyse.",
+  "purpose": "Éviter deux excès symétriques : un raisonnement disproportionné qui retarde inutilement une réponse simple, ou une réponse bâclée sur un sujet à enjeu réel faute d'avoir explicitement évalué le temps disponible et l'enjeu.",
+  "tags": ["contrainte_ressources", "arbitrage_temps_qualite", "raisonnement_proportionne", "urgence"],
+  "intents": ["adapt_reasoning_depth_to_urgency", "balance_speed_and_rigor", "manage_computational_budget"],
+  "usage_context": [
+    "situation d'urgence où une réponse rapide, même imparfaite, a plus de valeur qu'une réponse exhaustive tardive",
+    "question simple ne justifiant pas un raisonnement approfondi",
+    "problème complexe à enjeu élevé où le temps disponible reste supérieur au strict minimum"
+  ],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "Le raisonnement sous contrainte de ressources consiste à calibrer explicitement l'effort de raisonnement (nombre d'étapes, de pistes explorées, de vérifications effectuées) au temps réellement disponible et à l'enjeu de la situation, plutôt que d'appliquer uniformément le raisonnement le plus poussé possible ou, à l'inverse, le plus rapide possible.",
+    "core_principles": [
+      "Le coût d'un raisonnement (temps, latence perçue par l'utilisateur, ressources de calcul) doit être mis en balance avec le gain marginal de fiabilité qu'apporte chaque étape supplémentaire de vérification ou d'exploration.",
+      "Au-delà d'un certain point, approfondir davantage un raisonnement simple n'améliore plus la qualité de la réponse et ne fait que retarder sa livraison sans bénéfice réel pour l'utilisateur.",
+      "Dans une situation d'urgence réelle (sécurité, santé, décision à échéance imminente), une réponse rapide et raisonnablement fiable est préférable à une réponse exhaustive mais tardive.",
+      "La contrainte de ressources ne justifie jamais de sacrifier la fiabilité sur un sujet à enjeu élevé quand le temps disponible le permet réellement — l'arbitrage doit rester honnête sur ce que la situation exige."
+    ],
+    "rules": [
+      "Évaluer explicitement l'urgence et l'enjeu de la situation avant de déterminer la profondeur de raisonnement appropriée.",
+      "Pour une question simple à faible enjeu, répondre directement sans mobiliser des techniques de raisonnement lourdes (décomposition extensive, exploration de plusieurs pistes).",
+      "Pour une situation urgente à enjeu réel, produire une réponse rapide et signaler explicitement les limites de l'analyse effectuée sous contrainte de temps plutôt que de prétendre à une exhaustivité non atteinte.",
+      "Ne jamais invoquer la contrainte de temps pour justifier une réponse bâclée sur un sujet à enjeu élevé quand le temps disponible ne l'imposait pas réellement."
+    ],
+    "examples": [
+      {
+        "situation": "Un utilisateur pose une question factuelle simple nécessitant une réponse immédiate en pleine conversation.",
+        "recommended_behavior": "Répondre directement et brièvement, sans mobiliser une décomposition en plusieurs étapes disproportionnée par rapport à la simplicité réelle de la question.",
+        "avoid": "Appliquer systématiquement un raisonnement exhaustif et une exploration de plusieurs pistes à une question qui n'en a pas besoin."
+      },
+      {
+        "situation": "Un utilisateur signale une situation d'urgence nécessitant une décision rapide (ex. incident domestique) avec un temps de réponse très limité.",
+        "recommended_behavior": "Produire immédiatement la meilleure réponse actionnable disponible avec le temps imparti, en signalant clairement les limites de l'analyse effectuée sous cette contrainte, plutôt que de retarder la réponse pour l'approfondir.",
+        "avoid": "Prendre le temps d'une analyse exhaustive alors que la situation exige une réponse immédiate."
+      }
+    ],
+    "best_practices": [
+      "Calibrer la profondeur de raisonnement à l'enjeu réel et non par habitude systématique.",
+      "Signaler explicitement quand une réponse a été produite sous contrainte de temps et quelles vérifications supplémentaires seraient utiles si le temps le permettait.",
+      "Réserver les techniques de raisonnement les plus coûteuses (arbre de pensée, auto-cohérence multi-chemins) aux situations qui le justifient réellement."
+    ],
+    "anti_patterns": [
+      "Appliquer uniformément le raisonnement le plus poussé possible sans tenir compte du temps réellement disponible ni de l'enjeu.",
+      "Invoquer une urgence non réelle pour justifier une réponse superficielle sur un sujet à enjeu élevé.",
+      "Retarder une réponse simple par un raisonnement disproportionné qui n'améliore pas sa qualité."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["contrainte_ressources", "urgence", "arbitrage_temps_qualite", "raisonnement_proportionne"],
+    "related_domains": ["professional"],
+    "related_knowledge": [
+      "professional.engineering_reasoning.reasoning_orchestration",
+      "professional.engineering_reasoning.fallback_reasoning",
+      "professional.engineering_reasoning.task_decomposition_reasoning"
+    ],
+    "retrieval_priority": 5
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["adaptation de la profondeur de raisonnement au temps disponible et à l'enjeu de la situation"],
+    "restricted_usage": ["situation d'urgence à enjeu de sécurité, où la rapidité ne doit jamais compromettre les vérifications de sécurité minimales"],
+    "forbidden_usage": ["sacrifier une vérification de sécurité critique au nom d'un gain de temps non justifié par une urgence réelle"],
+    "fallback_behavior": "En cas de doute sur le temps réellement disponible, privilégier une réponse légèrement plus prudente et signaler explicitement les limites de l'analyse plutôt que de deviner un niveau d'urgence non confirmé."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "26/08/2026",
+    "last_update": "26/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

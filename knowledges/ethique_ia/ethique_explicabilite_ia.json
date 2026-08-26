@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "ethique_ia.risques.ethique_explicabilite_ia",
+  "title": "Éthique de l'explicabilité des systèmes d'IA",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "ethique_ia",
+  "subdomain": "risques",
+  "category": "éthique_IA",
+  "summary": "Approfondissement de l'explicabilité (XAI) sous l'angle éthique plutôt que technique : pourquoi une explication est un devoir moral envers la personne affectée par une décision, la différence entre explication et justification, le risque d'une explicabilité de façade qui rassure sans informer, et l'arbitrage entre profondeur d'explication et charge cognitive.",
+  "purpose": "Compléter la présentation technique de l'explicabilité déjà couverte dans les fondamentaux de l'éthique IA par une analyse spécifiquement éthique de ce que l'on doit à une personne affectée par une décision algorithmique, au-delà de l'obligation réglementaire.",
+  "tags": ["ethique_explicabilite", "XAI", "devoir_moral_explication", "explicabilite_de_facade"],
+  "intents": ["explain_ethics_of_explainability", "distinguish_explanation_from_justification", "assess_explanation_quality"],
+  "usage_context": [
+    "réflexion sur ce que l'on doit moralement à une personne affectée par une décision produite ou assistée par IA",
+    "évaluation de la qualité réelle d'une explication fournie par un système, au-delà de sa conformité réglementaire formelle"
+  ],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "L'éthique de l'explicabilité porte sur le fondement moral de l'obligation d'expliquer une décision algorithmique à la personne qu'elle affecte, au-delà de sa seule dimension technique (comment produire une explication) ou réglementaire (quand une explication est légalement exigée) : elle interroge ce qui est dû à une personne pour respecter sa capacité de comprendre et, le cas échéant, de contester une décision qui la concerne.",
+    "core_principles": [
+      "Le devoir d'expliquer une décision découle du respect de l'autonomie de la personne affectée : sans compréhension minimale des raisons d'une décision, une personne ne peut ni y consentir de façon éclairée, ni la contester de façon informée, ni ajuster son comportement futur en conséquence.",
+      "Une explication et une justification sont deux choses distinctes : une explication décrit fidèlement les facteurs ayant influencé la décision, tandis qu'une justification cherche à convaincre que la décision était appropriée — un système peut fournir une justification convaincante sans que celle-ci soit une explication fidèle du mécanisme réel.",
+      "L'explicabilité de façade est un risque éthique spécifique : une explication formellement présente mais vide (trop générique, non spécifique au cas concerné, ou techniquement correcte mais incompréhensible pour son destinataire) peut satisfaire une obligation réglementaire tout en manquant son objectif moral réel de permettre la compréhension effective.",
+      "Le niveau de détail approprié d'une explication doit être arbitré entre exhaustivité et charge cognitive : une explication trop dense peut être aussi inutile qu'une explication trop pauvre si elle dépasse la capacité de la personne à la traiter et l'utiliser réellement.",
+      "L'obligation morale d'explicabilité est plus forte à mesure que l'impact de la décision sur la personne augmente : une recommandation à faible enjeu justifie une explication plus légère qu'une décision à fort impact sur ses droits ou ses intérêts."
+    ],
+    "rules": [
+      "Fournir une explication spécifique au cas concret de la personne concernée, pas seulement une description générique du fonctionnement général du système.",
+      "Adapter le niveau de détail de l'explication à la capacité réelle de compréhension du destinataire, sans sacrifier l'exactitude au nom de la simplicité.",
+      "Ne jamais présenter une justification convaincante comme équivalente à une explication fidèle du mécanisme réel de décision.",
+      "Renforcer l'exigence de qualité de l'explication proportionnellement à l'impact de la décision sur la personne concernée."
+    ],
+    "examples": [
+      {
+        "situation": "Un système d'IA produit une recommandation à fort impact pour une personne, accompagnée d'une explication générique ne mentionnant pas les facteurs spécifiques ayant influencé son cas.",
+        "recommended_behavior": "Signaler que cette explication générique constitue une explicabilité de façade insuffisante au regard de l'enjeu, et recommander une explication spécifique au cas concret mentionnant les facteurs réellement déterminants pour cette personne.",
+        "avoid": "Considérer qu'une explication générique et formellement présente suffit à satisfaire l'obligation éthique d'explicabilité, indépendamment de sa pertinence réelle pour le cas concerné."
+      }
+    ],
+    "best_practices": [
+      "Tester la compréhension réelle d'une explication auprès de son public cible plutôt que de supposer sa clarté a priori.",
+      "Distinguer explicitement, dans la conception d'un système, l'explication destinée à la personne affectée de la justification destinée à un public de conformité ou d'audit."
+    ],
+    "anti_patterns": [
+      "Fournir une explicabilité de façade formellement conforme mais vide de contenu spécifique et utile pour la personne concernée.",
+      "Confondre justification convaincante et explication fidèle du mécanisme réel de décision.",
+      "Appliquer un niveau d'explication uniforme sans tenir compte de l'impact réel de la décision sur la personne."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["ethique_explicabilite", "XAI", "devoir_moral_explication"],
+    "related_domains": ["ethique_ia", "cpl"],
+    "related_knowledge": [
+      "ethique_ia.risques.ethique_ia_fondamentaux",
+      "cpl.ethics_governance.transparence_algorithmique_client",
+      "philosophie.ethique.deontologie_kantienne_appliquee_ia"
+    ],
+    "retrieval_priority": 6
+  },
+  "behavior_rules": {
+    "tone": "educational",
+    "response_style": "structured_clear",
+    "max_complexity": "high",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["évaluation éthique de la qualité d'une explication fournie par un système d'IA"],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "En cas de doute sur la qualité suffisante d'une explication, orienter vers un complément d'explication spécifique au cas concerné plutôt que de considérer l'obligation comme remplie par défaut."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "26/08/2026",
+    "last_update": "26/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}
