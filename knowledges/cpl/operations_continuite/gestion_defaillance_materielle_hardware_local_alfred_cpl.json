@@ -1,0 +1,98 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.operations_continuite.gestion_defaillance_materielle_hardware_local_alfred_cpl",
+  "title": "Gestion de la défaillance matérielle en architecture local-first",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "operations_continuite",
+  "category": "continuité opérationnelle ALFRED CPL",
+  "summary": "Principes de gestion d'une défaillance matérielle du serveur local hébergeant ALFRED CPL (panne, dégradation progressive, obsolescence), spécifique à l'architecture local-first où le matériel constitue un point de défaillance unique, distinct de la haute disponibilité déjà couverte qui porte sur la conception résiliente plutôt que sur la gestion opérationnelle d'une panne matérielle survenue.",
+  "purpose": "Donner à ALFRED CPL une procédure claire de réaction face à une défaillance matérielle du serveur local, risque structurel de l'architecture local-first par rapport à une architecture cloud redondante par défaut.",
+  "tags": [
+    "defaillance_materielle",
+    "hardware_local",
+    "architecture_local_first",
+    "alfred_cpl"
+  ],
+  "intents": [
+    "explain_hardware_failure_management_local_first",
+    "guide_local_server_failure_response"
+  ],
+  "usage_context": [
+    "panne ou dégradation constatée du serveur local hébergeant ALFRED CPL",
+    "conception d'un plan de réaction à une défaillance matérielle locale"
+  ],
+  "priority": "high",
+  "safety_level": "normal",
+  "content": {
+    "definition": "La gestion de la défaillance matérielle en architecture local-first repose sur trois axes complémentaires : la détection précoce de signaux de dégradation matérielle avant panne complète (supervision de température, d'usure disque, d'erreurs système), un plan de bascule vers un mode dégradé ou une sauvegarde restaurée sur matériel de secours, et une politique de renouvellement matériel anticipée plutôt que réactive, le matériel local constituant un point de défaillance unique contrairement à une architecture cloud redondante par défaut.",
+    "core_principles": [
+      "L'architecture local-first fait du matériel local un point de défaillance unique, à la différence d'une architecture cloud redondante par défaut, ce qui impose une vigilance opérationnelle renforcée.",
+      "La détection précoce de signaux de dégradation matérielle avant panne complète permet une bascule planifiée plutôt qu'une réaction en urgence.",
+      "Un plan de bascule vers un mode dégradé ou un matériel de secours doit être documenté et testé avant qu'une défaillance réelle ne survienne."
+    ],
+    "rules": [
+      "Superviser en continu les signaux de dégradation matérielle (température, usure disque, erreurs système) plutôt que d'attendre la panne complète.",
+      "Documenter et tester un plan de bascule vers un mode dégradé ou un matériel de secours avant toute défaillance réelle.",
+      "Anticiper le renouvellement matériel selon une politique planifiée plutôt qu'une réaction après panne."
+    ],
+    "examples": [
+      {
+        "situation": "Le serveur local hébergeant ALFRED CPL présente des signaux de dégradation progressive (erreurs disque intermittentes) sans qu'aucun plan de bascule ne soit documenté.",
+        "recommended_behavior": "Documenter et tester immédiatement un plan de bascule vers un mode dégradé ou un matériel de secours avant que la dégradation ne devienne une panne complète.",
+        "avoid": "Attendre la panne complète du matériel local sans avoir anticipé ni testé de plan de bascule."
+      }
+    ],
+    "best_practices": [
+      "Superviser en continu les signaux de dégradation matérielle avant panne complète.",
+      "Tester régulièrement le plan de bascule vers un matériel de secours."
+    ],
+    "anti_patterns": [
+      "Attendre la panne complète du matériel sans supervision préalable des signaux de dégradation.",
+      "Ne pas tester le plan de bascule avant qu'une défaillance réelle ne survienne."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "defaillance_materielle",
+      "hardware_local",
+      "architecture_local_first"
+    ],
+    "related_domains": [
+      "cpl",
+      "operations_continuite"
+    ],
+    "related_knowledge": [
+      "cpl.operations_continuite.haute_disponibilite_alfred_cpl",
+      "cpl.operations_continuite.sauvegarde_restauration_alfred_cpl"
+    ],
+    "retrieval_priority": 6
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "conseil pédagogique sur la gestion de la défaillance matérielle en architecture local-first"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "En cas de défaillance matérielle réelle en cours, prioriser la sécurité des données via la procédure de sauvegarde/restauration avant toute autre action."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "26/08/2026",
+    "last_update": "26/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

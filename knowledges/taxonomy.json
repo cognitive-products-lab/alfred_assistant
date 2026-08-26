@@ -1,7 +1,7 @@
 {
   "taxonomy_id": "alfred_knowledge_taxonomy_v3_0",
-  "version": "3.17.0",
-  "last_update": "25/08/2026",
+  "version": "3.18.1",
+  "last_update": "26/08/2026",
   "description": "Taxonomie officielle du Bloc 18 Knowledge & Culture. v3.0 : +7 sous-domaines (interaction, wellbeing, governance_ai, iot, engineering_reasoning, product_management_advanced, business_strategy). v3.5 (LOT6, 11/07/2026) : +8 nouveaux domaines (sciences, medecine, mathematiques, philosophie, geographie, education, arts, competences_pratiques) et +2 sous-domaines cpl (operations_continuite, documentation_procedures). v3.6 (LOT7, 15/07/2026) : +2 nouveaux domaines (histoire, langues_etrangeres) ; approfondissement de domaines LOT6 et enrichissement cible de domaines professionnels/CPL (60 fichiers). v3.7 (LOT8, 16/07/2026) : +1 nouveau domaine (sciences_politiques, 2 sous-domaines) ; approfondissement de 8 domaines existants et consolidation de 4 doublons/stub dans professional/governance_ai (56 fichiers crees, 2 mis a jour, 4 supprimes). v3.8 (LOT12, 16/08/2026) : aucun nouveau domaine ni sous-domaine majeur (tous les 60 fichiers du lot se rattachent a des domaines/sous-domaines deja existants) ; mise a jour de intents/linked_knowledge sur les 10 sous-domaines cpl et 20 sous-domaines socle touches (ethique_ia.gouvernance et normes_referentiels.panorama passes de count:0/peu peuples a alimentes), pour que la taxonomie reflete fidelement le contenu produit sans sous-declaration ni gonflement artificiel. v3.8.1 (LOT13, 20/08/2026, volet Ikigai/valeurs/motivation ALFRED Core) : aucun nouveau domaine/sous-domaine (le nouveau sous-dossier physique human/self_alignment/purpose/ reste rattache au sous-domaine taxonomique existant human.self_alignment) ; enrichissement de intents/linked_knowledge sur human.self_alignment (ikigai, valeurs de Schwartz, distinction job/carriere/vocation, objectifs alignes, mission personnelle) et human.psychology (theorie de l'autodetermination, entretien motivationnel). | v3.9.0 (LOT13, 20/08/2026, volet anxiete/stress) : 25 fiches ajoutees sur l'anxiete et la relaxation (techniques guidees, protocoles chronometres, contextes specifiques) reparties entre human.wellbeing (14) et lifestyle.health (11). | v3.9.1 (LOT13, 20/08/2026, volet business_strategy) : audit et consolidation de cpl.business_strategy (34 -> 35 fiches : 6 doublons/stubs fusionnes ou supprimes, 28 fiches existantes reecrites en schema conforme, 7 nouveaux frameworks strategiques crees a la demande explicite de Celine -- big data strategie, RSE conseil client, ocean bleu, plus 4 identifies par l'audit comme manquants : disruption, diversification, hypercompetition, plateforme/ecosysteme). linked_knowledge/intents de cpl.business_strategy entierement resynchronises. v3.9.2 (fusion des trois volets du 20/08/2026 dans main). v3.10.0 (LOT13, 20/08/2026, volet secteurs_activite) : nouveau domaine top-level secteurs_activite (9 sous-domaines : sante, finance_banque, industrie_manufacturiere, retail_distribution, secteur_public, energie, construction_btp, assurance, transport_logistique ; 5 fiches chacun -- profil_secteur, normes_reglementation, enjeux_risques, vocabulaire_metier, pestel), demande explicite de Celine pour que le conseil ALFRED CPL connaisse les specificites et normes propres a chaque marche client. total_domains 56 -> 57. v3.11.0 (LOT13, 20/08/2026) : repartition specifique demandee par Celine (20 cpl hors business_strategy / 10 secteurs_activite angles nouveaux / 10 human.psychology+emotional_intelligence / 15 arts+cinema culture / 5 socle au choix) ; creation du domaine cinema (absent depuis son introduction, dette de gouvernance documentee depuis le Lot 11, corrigee ici) ; nouveaux sous-domaines : gestion_projet.cloture, securite_ia.agents_autonomes, rse_developpement_durable.economie_circulaire, accessibilite_inclusion.documents, veille.concurrentielle, cinema.economie/montage/son/acteurs/festivals. v3.12.0 (LOT14, 21/08/2026) : repartition 20 cpl / 10 secteurs_activite (angles nouveaux) / 10 human.psychology+emotional_intelligence / 15 arts+cinema culture / 5 socle au choix (60 fiches). Creation de 3 domaines top-level absents depuis longtemps de la taxonomie malgre un contenu existant sur disque (dette de gouvernance documentee depuis le Lot 11, sur le meme modele que la correction cinema du Lot 13) : architecture (10 sous-domaines dont 1 nouveau : acoustique), linguistics (11 sous-domaines dont 1 nouveau : traduction), nutrition (11 sous-domaines dont 1 nouveau : nutrition_personnes_agees). Nouveaux sous-domaines sur domaines existants : rse_developpement_durable.biodiversite, securite_ia.confidentialite, cinema.critique, cinema.effets_speciaux. total_domains 58 -> 61. Complement : backfill des 7 sous-domaines cinema pre-existants sur disque mais jamais enregistres depuis leur creation (history, genres, directors, cinematography, documentary, structure_narrative, animation) -- le Lot 13 n'avait enregistre que les 5 sous-domaines lies a ses propres fichiers nouveaux, laissant cette dette partielle malgre l'objectif annonce de 12 sous-domaines complets. v3.14.0 (23/08/2026, audit de gouvernance dedie, demande explicite de Celine suite a un point releve par le Lot 15) : declaration de 5 domaines top-level presents sur disque depuis longtemps mais jamais enregistres dans taxonomy.json (economics 10 sous-domaines/13 fiches, environment 9/9, law 12/12, sociology 10/11, sports_science 5/5, total 46 nouveaux sous-domaines). total_subdomains corrige de 246 (sous-declare) a 360 (compte reel). Ecart residuel documente et non corrige dans ce lot : plusieurs fichiers de ces 5 domaines ont un champ `subdomain` interne qui ne correspond pas exactement au segment central de leur `knowledge_id` (ex. economics/economie_experimentale_methodes.json a subdomain=methodologie mais knowledge_id a 2 segments seulement) -- meme classe d'incoherence deja documentee depuis le Lot 10 (convention core.* vs knowledges.core.*), a traiter dans un futur audit de convention si besoin. | v3.16.0 (24/08/2026, chantier reasoning_engine/ethics_engine/robustness_checker, motive par le fil Human IA) : nouveau sous-domaine professional.engineering_robustness (6 fiches creees dans ce meme chantier : robustness_checker, input_validation_adversarial_patterns, output_consistency_checking, confidence_calibration, graceful_degradation_fallback, self_consistency_verification) -- domaine absent de la taxonomie ET du disque avant ce chantier (contrairement a engineering_reasoning et system.ethics, deja bien couverts), cree pour que robustness_checker.py (src/security/robustness_checker.py) soit routable par le retrieval engine B18 au meme titre que reasoning_engine.py et ethics_engine.py. total_subdomains 362 -> 363. Complement dans le meme lot : backfill de professional.engineering_reasoning (20 -> 34 fiches enregistrees) -- 14 fiches presentes sur disque depuis un lot anterieur mais jamais rattachees a linked_knowledge (abductive_reasoning, analogical_reasoning, cognitive_bias_awareness, counterfactual_reasoning, decision_under_uncertainty, deductive_reasoning, first_principles_thinking, hypothesis_testing, inductive_reasoning, mental_model_building, metacognition, probabilistic_reasoning, structured_problem_decomposition, systems_thinking), dont plusieurs sont les modes de raisonnement directement exploites par reasoning_engine.py::REASONING_MODES -- meme classe de dette de gouvernance que le backfill cinema du Lot 13 et economics/environment/law/sociology/sports_science du Lot 15.",
   "scope": {
     "bloc": "B18",
@@ -197,7 +197,17 @@
             "explain_emotional_intelligence_transformational_leadership_link",
             "advise_leadership_development_emotional_competency",
             "explain_gendered_emotional_socialization",
-            "avoid_reinforcing_emotional_gender_stereotypes"
+            "avoid_reinforcing_emotional_gender_stereotypes",
+            "explain_couple_emotional_intelligence",
+            "assess_intimate_relationship_communication_patterns",
+            "explain_group_emotional_intelligence_in_decisions",
+            "assess_collective_decision_emotional_climate",
+            "explain_emotion_recognition_ai_limitations",
+            "assess_emotion_detection_reliability",
+            "explain_emotional_regulation_in_aging",
+            "assess_older_adult_emotional_wellbeing_paradox",
+            "explain_mindfulness_emotion_regulation",
+            "distinguish_mindfulness_from_cognitive_reappraisal"
           ],
           "linked_knowledge": [
             "human.emotional_intelligence.active_listening",
@@ -228,7 +238,12 @@
             "human.emotional_intelligence.empathie_numerique_relation_distance_ecrans",
             "human.emotional_intelligence.fatigue_compassion_usure_empathique_aidants",
             "human.emotional_intelligence.intelligence_emotionnelle_leadership_transformationnel",
-            "human.emotional_intelligence.expression_emotionnelle_genre_stereotypes_socialisation"
+            "human.emotional_intelligence.expression_emotionnelle_genre_stereotypes_socialisation",
+            "human.emotional_intelligence.intelligence_emotionnelle_couple_relations_intimes",
+            "human.emotional_intelligence.intelligence_emotionnelle_prise_decision_collective_groupe",
+            "human.emotional_intelligence.limites_reconnaissance_emotions_par_ia_biais_technique",
+            "human.emotional_intelligence.regulation_emotionnelle_personne_agee_vieillissement_cognitif",
+            "human.emotional_intelligence.regulation_emotionnelle_pleine_conscience_mindfulness_technique"
           ]
         },
         "psychology": {
@@ -286,7 +301,17 @@
             "explain_ikea_effect",
             "contextualize_self_made_value_bias",
             "explain_commitment_theory_kiesler",
-            "identify_engagement_based_persuasion_techniques"
+            "identify_engagement_based_persuasion_techniques",
+            "explain_confirmation_bias",
+            "identify_selective_information_seeking",
+            "explain_survivorship_bias",
+            "identify_selection_biased_reasoning",
+            "explain_endowment_effect",
+            "identify_ownership_valuation_bias",
+            "explain_illusory_truth_effect",
+            "assess_repetition_based_misinformation_risk",
+            "explain_social_learning_theory",
+            "distinguish_observational_learning_from_self_efficacy"
           ],
           "linked_knowledge": [
             "human.psychology.behavioral_patterns",
@@ -323,7 +348,12 @@
             "human.psychology.effet_simple_exposition_zajonc_mere_exposure_effect",
             "human.psychology.theorie_polyvagale_porges_regulation_systeme_nerveux",
             "human.psychology.effet_ikea_valorisation_travail_personnel_biais",
-            "human.psychology.theorie_engagement_kiesler_techniques_persuasion"
+            "human.psychology.theorie_engagement_kiesler_techniques_persuasion",
+            "human.psychology.biais_confirmation_recherche_information_congruente",
+            "human.psychology.biais_survivant_survivorship_bias",
+            "human.psychology.effet_dotation_endowment_effect_biais_valorisation",
+            "human.psychology.effet_verite_illusoire_illusory_truth_effect_repetition",
+            "human.psychology.theorie_apprentissage_social_bandura_modelage_comportemental"
           ]
         },
         "social_behavior": {
@@ -982,7 +1012,11 @@
             "explain_product_sunset_strategy",
             "advise_end_of_life_communication",
             "explain_geographic_pricing_strategy",
-            "advise_regional_price_adaptation"
+            "advise_regional_price_adaptation",
+            "explain_ai_product_certification_strategy",
+            "assess_labeling_as_differentiation_lever",
+            "explain_freemium_vs_premium_tradeoff",
+            "assess_pricing_tier_structure_strategy"
           ],
           "linked_knowledge": [
             "cpl.strategy.strategy_fundamentals",
@@ -999,7 +1033,9 @@
             "cpl.strategy.strategie_communication_lancement_nouvelle_fonctionnalite",
             "cpl.strategy.cadre_arbitrage_build_vs_buy_alfred_cpl",
             "cpl.strategy.strategie_arret_produit_sunset_fin_de_vie_commerciale_alfred_cpl",
-            "cpl.strategy.strategie_tarification_geographique_adaptation_regionale_prix"
+            "cpl.strategy.strategie_tarification_geographique_adaptation_regionale_prix",
+            "cpl.strategy.strategie_certification_labellisation_produit_ia",
+            "cpl.strategy.strategie_positionnement_freemium_premium_produit_ia"
           ]
         },
         "product_ia": {
@@ -1027,7 +1063,11 @@
             "explain_finetuning_consent_requirements",
             "advise_continuous_learning_data_governance",
             "explain_refusal_message_design",
-            "advise_transparent_limitation_communication"
+            "advise_transparent_limitation_communication",
+            "explain_llm_benchmarking_methodology",
+            "guide_model_selection_criteria",
+            "explain_response_interruption_design",
+            "guide_interruptible_generation_ux"
           ],
           "linked_knowledge": [
             "cpl.product_ia.product_design_methodology",
@@ -1044,7 +1084,9 @@
             "cpl.product_ia.gestion_prompts_versionnement_bibliotheque_alfred_cpl",
             "cpl.product_ia.gestion_multimodalite_produit_ia_texte_image_voix",
             "cpl.product_ia.consentement_apprentissage_continu_finetuning_interactions_utilisateur",
-            "cpl.product_ia.conception_messages_refus_transparents_limites_ia_alfred_cpl"
+            "cpl.product_ia.conception_messages_refus_transparents_limites_ia_alfred_cpl",
+            "cpl.product_ia.benchmarking_comparatif_modeles_llm_selection_alfred_cpl",
+            "cpl.product_ia.gestion_interruption_reponse_ia_utilisateur"
           ]
         },
         "execution": {
@@ -1073,7 +1115,11 @@
             "explain_deliverable_acceptance_process",
             "advise_final_validation_procedure",
             "explain_contingency_planning",
-            "advise_operational_emergency_response"
+            "advise_operational_emergency_response",
+            "explain_multi_site_deployment_management",
+            "plan_geographically_dispersed_rollout",
+            "explain_project_scoping_note_structure",
+            "guide_initial_project_framing"
           ],
           "linked_knowledge": [
             "cpl.execution.project_management_core",
@@ -1091,7 +1137,9 @@
             "cpl.execution.gestion_risques_juridiques_contractuels_projet_conseil",
             "cpl.execution.methodologie_sprint_review_demo_client_projet",
             "cpl.execution.recette_validation_finale_livrables_client_projet",
-            "cpl.execution.gestion_urgences_operationnelles_plan_contingence_mission"
+            "cpl.execution.gestion_urgences_operationnelles_plan_contingence_mission",
+            "cpl.execution.gestion_multi_sites_deploiement_geographiquement_disperse",
+            "cpl.execution.methodologie_cadrage_initial_projet_note_de_cadrage"
           ]
         },
         "business_piloting": {
@@ -1119,7 +1167,11 @@
             "explain_mrr_arr_tracking",
             "decompose_recurring_revenue_components",
             "explain_business_case_construction",
-            "advise_cost_benefit_analysis"
+            "advise_cost_benefit_analysis",
+            "explain_expense_report_management",
+            "explain_expense_rebilling_rules",
+            "explain_consultant_utilization_rate",
+            "assess_billable_capacity_balance"
           ],
           "linked_knowledge": [
             "cpl.business_piloting.pricing_strategy",
@@ -1136,7 +1188,9 @@
             "cpl.business_piloting.modele_facturation_forfait_regie_temps_passe",
             "cpl.business_piloting.budget_formation_continue_equipe_conseil_ia",
             "cpl.business_piloting.pilotage_indicateurs_recurrents_mrr_arr_produit_ia",
-            "cpl.business_piloting.analyse_cout_benefice_business_case_investissement_produit"
+            "cpl.business_piloting.analyse_cout_benefice_business_case_investissement_produit",
+            "cpl.business_piloting.gestion_notes_frais_refacturation_mission_conseil",
+            "cpl.business_piloting.pilotage_taux_utilisation_consultants_charge_facturable"
           ]
         },
         "ethics_governance": {
@@ -1171,7 +1225,11 @@
             "handle_selective_forgetting_request",
             "balance_autonomy_and_protection",
             "resolve_multi_user_value_conflict",
-            "ensure_fairness_between_household_users"
+            "ensure_fairness_between_household_users",
+            "explain_filter_bubble_risk",
+            "design_recommendation_diversity_safeguards",
+            "explain_vulnerable_population_protection_framework",
+            "assess_ai_risk_for_vulnerable_users"
           ],
           "linked_knowledge": [
             "cpl.ethics_governance.ethical_ai_framework",
@@ -1192,7 +1250,9 @@
             "cpl.ethics_governance.ethique_persuasion_influence_ia_cpl",
             "cpl.ethics_governance.ethique_memoire_oubli_alfred",
             "cpl.ethics_governance.arbitrage_autonomie_protection_utilisateur_alfred",
-            "cpl.ethics_governance.gestion_conflits_valeurs_multi_utilisateurs_alfred"
+            "cpl.ethics_governance.gestion_conflits_valeurs_multi_utilisateurs_alfred",
+            "cpl.ethics_governance.gouvernance_algorithmes_recommandation_filter_bubble_alfred",
+            "cpl.ethics_governance.protection_ethique_populations_vulnerables_ia_accompagnement"
           ]
         },
         "human_communication": {
@@ -1220,7 +1280,11 @@
             "explain_press_relations_principles",
             "advise_reputational_communication",
             "explain_socratic_questioning_technique",
-            "advise_needs_discovery_interview"
+            "advise_needs_discovery_interview",
+            "explain_intergenerational_communication_adaptation",
+            "guide_senior_friendly_communication",
+            "explain_reformulation_techniques",
+            "guide_understanding_validation"
           ],
           "linked_knowledge": [
             "cpl.human_communication.client_interaction",
@@ -1237,7 +1301,9 @@
             "cpl.human_communication.animation_reseaux_sociaux_professionnels_conseil",
             "cpl.human_communication.redaction_synthese_executive_comite_direction",
             "cpl.human_communication.gestion_relations_presse_communication_reputationnelle_externe",
-            "cpl.human_communication.techniques_questionnement_socratique_entretien_decouverte_besoins"
+            "cpl.human_communication.techniques_questionnement_socratique_entretien_decouverte_besoins",
+            "cpl.human_communication.communication_intergenerationnelle_adaptation_public_senior",
+            "cpl.human_communication.techniques_reformulation_validation_comprehension_echange"
           ]
         },
         "human_organization": {
@@ -1265,7 +1331,11 @@
             "explain_freelancer_management_practices",
             "advise_independent_contractor_integration",
             "explain_remote_work_policy_design",
-            "advise_organizational_flexibility_framework"
+            "advise_organizational_flexibility_framework",
+            "explain_diversity_inclusion_management",
+            "guide_inclusive_team_practices",
+            "explain_leave_management_policy",
+            "plan_team_absence_coverage"
           ],
           "linked_knowledge": [
             "cpl.human_organization.energy_management",
@@ -1280,7 +1350,9 @@
             "cpl.human_organization.gestion_succession_continuite_competences_cles",
             "cpl.human_organization.cohesion_equipe_teambuilding_conseil",
             "cpl.human_organization.gestion_collaborateurs_freelances_independants_conseil_ia",
-            "cpl.human_organization.politique_teletravail_flexibilite_organisationnelle_equipe"
+            "cpl.human_organization.politique_teletravail_flexibilite_organisationnelle_equipe",
+            "cpl.human_organization.gestion_diversite_inclusion_equipe_conseil_ia",
+            "cpl.human_organization.politique_conges_absences_gestion_equipe_consulting"
           ]
         },
         "business_strategy": {
@@ -1303,7 +1375,9 @@
             "explain_external_growth_strategy",
             "assess_acquisition_target_fit",
             "explain_client_co_innovation_strategy",
-            "advise_co_development_governance"
+            "advise_co_development_governance",
+            "explain_investor_relations_management",
+            "guide_shareholder_reporting_practices"
           ],
           "linked_knowledge": [
             "cpl.business_strategy.b2b_sales_cycle",
@@ -1344,7 +1418,8 @@
             "cpl.business_strategy.cycle_vie_produit_conseil_ia_strategie",
             "cpl.business_strategy.strategie_croissance_externe_acquisition_conseil_ia",
             "cpl.business_strategy.gouvernance_marque_ombrelle_multi_produits_alfred",
-            "cpl.business_strategy.strategie_co_innovation_clients_strategiques_co_developpement"
+            "cpl.business_strategy.strategie_co_innovation_clients_strategiques_co_developpement",
+            "cpl.business_strategy.gestion_relation_investisseurs_reporting_actionnaires"
           ]
         },
         "product_platform": {
@@ -1368,7 +1443,9 @@
             "explain_data_quality_criteria_ai_ingestion",
             "assess_knowledge_base_data_quality",
             "explain_multi_profile_management",
-            "advise_shared_instance_personalization"
+            "advise_shared_instance_personalization",
+            "explain_multi_device_context_sync",
+            "guide_cross_device_continuity_design"
           ],
           "linked_knowledge": [
             "cpl.product_platform.identity_access_zero_trust",
@@ -1390,7 +1467,8 @@
             "cpl.product_platform.gestion_multitenant_isolation_donnees_clients_alfred_cpl",
             "cpl.product_platform.gestion_qualite_donnees_alimentation_ia_alfred_cpl",
             "cpl.product_platform.gestion_cache_semantique_optimisation_reponses_alfred",
-            "cpl.product_platform.gestion_profils_multiples_foyer_organisation_local_alfred"
+            "cpl.product_platform.gestion_profils_multiples_foyer_organisation_local_alfred",
+            "cpl.product_platform.synchronisation_etat_multi_appareils_continuite_contexte_alfred_cpl"
           ]
         },
         "operations_continuite": {
@@ -1420,7 +1498,11 @@
             "explain_patch_management_cycle",
             "advise_security_patch_prioritization",
             "explain_ransomware_response_plan",
-            "advise_cyber_crisis_management"
+            "advise_cyber_crisis_management",
+            "explain_hardware_failure_management_local_first",
+            "guide_local_server_failure_response",
+            "explain_hardware_migration_procedure",
+            "guide_planned_data_migration"
           ],
           "linked_knowledge": [
             "cpl.operations_continuite.haute_disponibilite_alfred_cpl",
@@ -1438,7 +1520,9 @@
             "cpl.operations_continuite.gestion_couts_infrastructure_cloud_hebergement_alfred_cpl",
             "cpl.operations_continuite.procedure_gestion_certificats_renouvellement_alfred_cpl",
             "cpl.operations_continuite.gestion_patchs_securite_cycle_patch_management_alfred_cpl",
-            "cpl.operations_continuite.plan_gestion_crise_cyber_ransomware_alfred_cpl"
+            "cpl.operations_continuite.plan_gestion_crise_cyber_ransomware_alfred_cpl",
+            "cpl.operations_continuite.gestion_defaillance_materielle_hardware_local_alfred_cpl",
+            "cpl.operations_continuite.procedure_migration_donnees_changement_materiel_alfred_cpl"
           ]
         },
         "documentation_procedures": {
@@ -1467,7 +1551,11 @@
             "explain_nda_procedure",
             "advise_ip_protection_consulting",
             "explain_documentation_review_procedure",
-            "advise_documentation_maintenance_planning"
+            "advise_documentation_maintenance_planning",
+            "explain_complaint_handling_procedure",
+            "guide_complaint_escalation",
+            "explain_client_offboarding_procedure",
+            "guide_contract_termination_data_handling"
           ],
           "linked_knowledge": [
             "cpl.documentation_procedures.procedures_installation_configuration_alfred_cpl",
@@ -1483,7 +1571,9 @@
             "cpl.documentation_procedures.procedure_gestion_versions_api_alfred_cpl",
             "cpl.documentation_procedures.procedure_diffusion_notes_version_changelog_client",
             "cpl.documentation_procedures.procedure_gestion_accords_confidentialite_nda_propriete_intellectuelle",
-            "cpl.documentation_procedures.procedure_revue_mise_a_jour_periodique_documentation_utilisateur"
+            "cpl.documentation_procedures.procedure_revue_mise_a_jour_periodique_documentation_utilisateur",
+            "cpl.documentation_procedures.procedure_gestion_reclamations_clients_alfred_cpl",
+            "cpl.documentation_procedures.procedure_offboarding_fin_contrat_client_alfred_cpl"
           ]
         },
         "demo_scenario": {
@@ -2886,11 +2976,14 @@
             "explain_persona",
             "explain_customer_journey",
             "explain_relationship_marketing_principles",
-            "design_customer_retention_program"
+            "design_customer_retention_program",
+            "explain_market_research_methodology",
+            "distinguish_qualitative_quantitative_market_studies"
           ],
           "linked_knowledge": [
             "marketing.fondamentaux.marketing_fondamentaux",
-            "marketing.fondamentaux.marketing_relationnel_fidelisation_client"
+            "marketing.fondamentaux.marketing_relationnel_fidelisation_client",
+            "marketing.fondamentaux.etudes_marche_analyse_consommateur_methodologie"
           ]
         },
         "digital": {
@@ -2939,11 +3032,14 @@
             "explain_training_cpf",
             "explain_professional_interview",
             "explain_total_reward_components",
-            "design_compensation_policy"
+            "design_compensation_policy",
+            "explain_qvct_approach",
+            "guide_psychosocial_risk_prevention_policy"
           ],
           "linked_knowledge": [
             "ressources_humaines.fondamentaux.ressources_humaines_fondamentaux",
-            "ressources_humaines.fondamentaux.remuneration_avantages_sociaux_politique_globale"
+            "ressources_humaines.fondamentaux.remuneration_avantages_sociaux_politique_globale",
+            "ressources_humaines.fondamentaux.qualite_vie_travail_qvct_prevention_risques_psychosociaux"
           ]
         },
         "talents": {
@@ -2953,6 +3049,16 @@
         "droit": {
           "label": "Droit",
           "count": 0
+        },
+        "recrutement": {
+          "label": "Recrutement et selection des candidats",
+          "intents": [
+            "explain_recruitment_process_steps",
+            "guide_structured_interview_methodology"
+          ],
+          "linked_knowledge": [
+            "ressources_humaines.recrutement.recrutement_processus_selection_candidats_entretien"
+          ]
         }
       }
     },
@@ -3856,7 +3962,17 @@
             "explain_sub_saharan_african_music_traditions",
             "explain_griot_oral_tradition",
             "explain_ethnomusicology_methodology",
-            "distinguish_ethnomusicology_from_music_criticism"
+            "distinguish_ethnomusicology_from_music_criticism",
+            "explain_child_music_education_approaches",
+            "distinguish_active_music_pedagogy_methods",
+            "explain_music_therapy_practice",
+            "distinguish_professional_music_therapy_from_informal_use",
+            "explain_video_game_music_composition",
+            "distinguish_adaptive_music_from_linear_film_score",
+            "explain_kpop_jpop_phenomenon",
+            "assess_industrialized_music_production_model",
+            "explain_music_sampling_practice",
+            "assess_remix_culture_copyright_issues"
           ],
           "linked_knowledge": [
             "arts.musique.theorie_musicale_bases",
@@ -3884,7 +4000,12 @@
             "arts.musique.musiques_latino_ameriques_salsa_bossa_nova_tango_histoire",
             "arts.musique.metal_punk_rock_alternatif_histoire_courants",
             "arts.musique.musique_traditionnelle_afrique_subsaharienne_panorama",
-            "arts.musique.ethnomusicologie_methodologie_etude_musiques_traditionnelles"
+            "arts.musique.ethnomusicologie_methodologie_etude_musiques_traditionnelles",
+            "arts.musique.apprentissage_musical_enfant_pedagogie_instrument",
+            "arts.musique.musicotherapie_usages_therapeutiques_musique",
+            "arts.musique.musique_jeu_video_composition_interactive",
+            "arts.musique.musique_pop_asiatique_kpop_jpop_phenomene_mondial",
+            "arts.musique.sampling_remix_culture_musicale_numerique"
           ]
         },
         "litterature": {
@@ -3930,7 +4051,17 @@
             "explain_bestseller_success_mechanisms",
             "explain_book_marketing_and_recommendation_effects",
             "explain_slam_poetry_history",
-            "distinguish_oral_from_written_poetry"
+            "distinguish_oral_from_written_poetry",
+            "explain_diary_as_literary_genre",
+            "distinguish_diary_from_autobiography_and_epistolary_novel",
+            "explain_regional_dialectal_literature",
+            "assess_minority_language_literary_heritage",
+            "explain_literary_prizes_role",
+            "assess_literary_prize_commercial_impact",
+            "explain_serial_novel_history",
+            "assess_feuilleton_influence_on_modern_serialization",
+            "explain_utopia_dystopia_literary_tradition",
+            "distinguish_utopian_fiction_from_science_fiction"
           ],
           "linked_knowledge": [
             "arts.litterature.mouvements_litteraires_bases",
@@ -3958,7 +4089,12 @@
             "arts.litterature.autofiction_genre_hybride_contemporain",
             "arts.litterature.litterature_postcoloniale_perspectives_critiques",
             "arts.litterature.best_seller_mecanismes_succes_commercial_edition",
-            "arts.litterature.slam_poesie_orale_contemporaine"
+            "arts.litterature.slam_poesie_orale_contemporaine",
+            "arts.litterature.journal_intime_litterature_personnelle_genre",
+            "arts.litterature.litterature_regionale_dialectale_patrimoine_linguistique",
+            "arts.litterature.prix_litteraires_reconnaissance_institution_edition",
+            "arts.litterature.roman_feuilleton_histoire_serialisation_litteraire",
+            "arts.litterature.utopie_dystopie_litterature_genre_speculatif_politique"
           ]
         },
         "arts_visuels": {
@@ -4099,13 +4235,19 @@
             "explain_democracy_types",
             "explain_electoral_systems",
             "explain_polling_methodology",
-            "assess_survey_result_reliability"
+            "assess_survey_result_reliability",
+            "explain_federalism_vs_decentralization",
+            "distinguish_territorial_power_organization_models",
+            "explain_lobbying_and_interest_groups",
+            "distinguish_lobbying_from_corruption"
           ],
           "linked_knowledge": [
             "sciences_politiques.fondamentaux.science_politique_definition_objet_methodes",
             "sciences_politiques.fondamentaux.regimes_politiques_compares",
             "sciences_politiques.fondamentaux.partis_politiques_systemes_electoraux",
-            "sciences_politiques.fondamentaux.opinion_publique_sondages_methodologie"
+            "sciences_politiques.fondamentaux.opinion_publique_sondages_methodologie",
+            "sciences_politiques.fondamentaux.federalisme_decentralisation_organisation_territoriale_pouvoir",
+            "sciences_politiques.fondamentaux.lobbying_groupes_interet_influence_politique"
           ]
         },
         "relations_internationales": {
@@ -4142,7 +4284,11 @@
             "explain_healthcare_financing_france",
             "contextualize_healthcare_investment_constraints",
             "explain_healthcare_workforce_shortage",
-            "identify_healthcare_hr_levers"
+            "identify_healthcare_hr_levers",
+            "explain_care_pathway_coordination",
+            "assess_ville_hopital_transition_risks",
+            "explain_silver_economy_sector",
+            "assess_aging_population_economic_impact"
           ],
           "linked_knowledge": [
             "secteurs_activite.sante.profil_secteur_sante",
@@ -4154,7 +4300,9 @@
             "secteurs_activite.sante.cas_usage_ia_optimisation_parcours_soins",
             "secteurs_activite.sante.financement_remboursement_systeme_sante_francais",
             "secteurs_activite.sante.metiers_tension_ressources_humaines_secteur_sante",
-            "secteurs_activite.sante.innovation_technologique_medtech_sante_connectee"
+            "secteurs_activite.sante.innovation_technologique_medtech_sante_connectee",
+            "secteurs_activite.sante.parcours_patient_coordination_soins_ville_hopital",
+            "secteurs_activite.sante.silver_economie_vieillissement_population_enjeux_secteur"
           ]
         },
         "finance_banque": {
@@ -4170,7 +4318,11 @@
             "explain_ai_use_cases_aml_compliance",
             "identify_transaction_anomaly_detection_opportunities",
             "explain_open_banking_principles",
-            "explain_dsp2_regulatory_scope"
+            "explain_dsp2_regulatory_scope",
+            "explain_retail_vs_investment_banking",
+            "distinguish_banking_business_models",
+            "explain_dora_regulation",
+            "assess_digital_operational_resilience_requirements"
           ],
           "linked_knowledge": [
             "secteurs_activite.finance_banque.profil_secteur_finance_banque",
@@ -4182,7 +4334,9 @@
             "secteurs_activite.finance_banque.chiffres_cles_marche_bancaire_francais",
             "secteurs_activite.finance_banque.cas_usage_ia_conformite_lutte_anti_blanchiment",
             "secteurs_activite.finance_banque.open_banking_dsp2_api_bancaires",
-            "secteurs_activite.finance_banque.finance_durable_investissement_responsable_secteur_bancaire"
+            "secteurs_activite.finance_banque.finance_durable_investissement_responsable_secteur_bancaire",
+            "secteurs_activite.finance_banque.banque_detail_vs_banque_investissement_metiers",
+            "secteurs_activite.finance_banque.dora_resilience_operationnelle_numerique_secteur_bancaire"
           ]
         },
         "industrie_manufacturiere": {
@@ -4196,7 +4350,11 @@
             "explain_supply_chain_resilience_levers",
             "assess_supplier_dependency_risk",
             "explain_industrial_decarbonization_levers",
-            "assess_carbon_reduction_pathway"
+            "assess_carbon_reduction_pathway",
+            "explain_predictive_maintenance_iot",
+            "assess_sensor_based_failure_anticipation",
+            "explain_manufacturing_labor_shortage",
+            "assess_industrial_recruitment_challenges"
           ],
           "linked_knowledge": [
             "secteurs_activite.industrie_manufacturiere.profil_secteur_industrie_manufacturiere",
@@ -4208,7 +4366,9 @@
             "secteurs_activite.industrie_manufacturiere.supply_chain_resilience_industrie",
             "secteurs_activite.industrie_manufacturiere.transition_ecologique_decarbonation_industrie",
             "secteurs_activite.industrie_manufacturiere.robotique_collaborative_cobots_industrie_manufacturiere",
-            "secteurs_activite.industrie_manufacturiere.gestion_dechets_industriels_economie_circulaire_industrie"
+            "secteurs_activite.industrie_manufacturiere.gestion_dechets_industriels_economie_circulaire_industrie",
+            "secteurs_activite.industrie_manufacturiere.maintenance_predictive_iot_industriel_capteurs",
+            "secteurs_activite.industrie_manufacturiere.metiers_tension_recrutement_industrie_manufacturiere"
           ]
         },
         "retail_distribution": {
@@ -4253,7 +4413,11 @@
             "explain_public_procurement_procedures",
             "identify_procurement_thresholds",
             "explain_ai_use_cases_public_services",
-            "assess_public_service_ai_accessibility"
+            "assess_public_service_ai_accessibility",
+            "explain_civil_service_hr_specifics",
+            "distinguish_public_private_employment_status",
+            "explain_digital_divide_public_services",
+            "assess_digital_inclusion_mechanisms"
           ],
           "linked_knowledge": [
             "secteurs_activite.secteur_public.profil_secteur_secteur_public",
@@ -4265,7 +4429,9 @@
             "secteurs_activite.secteur_public.marches_publics_procedure_achat_public",
             "secteurs_activite.secteur_public.cas_usage_ia_secteur_public_services_citoyens",
             "secteurs_activite.secteur_public.financement_public_budget_collectivites_territoriales",
-            "secteurs_activite.secteur_public.cybersecurite_collectivites_territoriales_secteur_public"
+            "secteurs_activite.secteur_public.cybersecurite_collectivites_territoriales_secteur_public",
+            "secteurs_activite.secteur_public.gestion_ressources_humaines_fonction_publique_statut",
+            "secteurs_activite.secteur_public.inclusion_numerique_fracture_numerique_services_publics"
           ]
         },
         "energie": {
@@ -4347,7 +4513,9 @@
             "explain_cyber_insurance_market",
             "explain_insurable_digital_risks",
             "explain_reinsurance_principles",
-            "explain_risk_pooling_mechanisms"
+            "explain_risk_pooling_mechanisms",
+            "explain_life_insurance_savings_product",
+            "distinguish_fonds_euros_unites_de_compte"
           ],
           "linked_knowledge": [
             "secteurs_activite.assurance.profil_secteur_assurance",
@@ -4360,7 +4528,8 @@
             "secteurs_activite.assurance.assurance_parametrique_nouveaux_risques_climatiques",
             "secteurs_activite.assurance.distribution_assurance_courtage_reseaux_digitaux",
             "secteurs_activite.assurance.cyber_assurance_gestion_risques_numeriques_assurables",
-            "secteurs_activite.assurance.reassurance_mutualisation_risques_principes_acteurs"
+            "secteurs_activite.assurance.reassurance_mutualisation_risques_principes_acteurs",
+            "secteurs_activite.assurance.assurance_vie_epargne_produits_long_terme"
           ]
         },
         "transport_logistique": {
@@ -4378,7 +4547,9 @@
             "explain_freight_safety_security_distinction",
             "explain_supply_chain_security_measures",
             "explain_e_cmr_principles",
-            "explain_transport_document_dematerialization"
+            "explain_transport_document_dematerialization",
+            "explain_road_transport_social_regulation",
+            "assess_driving_rest_time_rules"
           ],
           "linked_knowledge": [
             "secteurs_activite.transport_logistique.profil_secteur_transport_logistique",
@@ -4391,7 +4562,8 @@
             "secteurs_activite.transport_logistique.cas_usage_ia_transport_logistique_optimisation_tournees",
             "secteurs_activite.transport_logistique.transition_ecologique_flotte_transport_logistique",
             "secteurs_activite.transport_logistique.securite_surete_fret_chaine_logistique",
-            "secteurs_activite.transport_logistique.digitalisation_documents_transport_ecmr_dematerialisation"
+            "secteurs_activite.transport_logistique.digitalisation_documents_transport_ecmr_dematerialisation",
+            "secteurs_activite.transport_logistique.reglementation_sociale_transport_routier_temps_conduite_repos"
           ]
         }
       }
@@ -4491,10 +4663,14 @@
         },
         "history": {
           "label": "Histoire du cinéma",
-          "intents": [],
+          "intents": [
+            "explain_french_new_wave_movement",
+            "explain_national_cinema_movements_history"
+          ],
           "linked_knowledge": [
             "cinema.history.film_history",
-            "cinema.history.cinema_muet_histoire_pionniers_technique"
+            "cinema.history.cinema_muet_histoire_pionniers_technique",
+            "cinema.history.nouvelle_vague_mouvements_cinematographiques_nationaux_histoire"
           ]
         },
         "genres": {
@@ -4509,7 +4685,11 @@
             "explain_comedy_film_codes",
             "distinguish_comedy_subgenres",
             "explain_war_film_genre_codes",
-            "explain_evolution_of_conflict_representation"
+            "explain_evolution_of_conflict_representation",
+            "explain_movie_musical_genre_codes",
+            "explain_hollywood_musical_golden_age",
+            "explain_science_fiction_cinema_codes",
+            "distinguish_sf_from_fantasy_horror_cinema"
           ],
           "linked_knowledge": [
             "cinema.genres.film_genres",
@@ -4519,7 +4699,9 @@
             "cinema.genres.cinema_policier_thriller_noir_codes_genre",
             "cinema.genres.cinema_experimental_avant_garde_histoire",
             "cinema.genres.cinema_comedie_codes_sous_genres_comiques",
-            "cinema.genres.cinema_guerre_genre_representation_conflits"
+            "cinema.genres.cinema_guerre_genre_representation_conflits",
+            "cinema.genres.cinema_comedie_musicale_genre_histoire",
+            "cinema.genres.cinema_science_fiction_codes_genre_representation_futur"
           ]
         },
         "directors": {
@@ -4558,11 +4740,14 @@
           "label": "Histoire de l'animation",
           "intents": [
             "explain_anime_history_and_studios",
-            "distinguish_anime_from_western_animation"
+            "distinguish_anime_from_western_animation",
+            "explain_stop_motion_technique",
+            "explain_traditional_cel_animation"
           ],
           "linked_knowledge": [
             "cinema.animation.animation_history",
-            "cinema.animation.anime_cinema_animation_japonaise_histoire_courants"
+            "cinema.animation.anime_cinema_animation_japonaise_histoire_courants",
+            "cinema.animation.techniques_animation_stop_motion_dessin_anime_traditionnel"
           ]
         },
         "metiers": {
@@ -4574,6 +4759,16 @@
           "linked_knowledge": [
             "cinema.metiers.metiers_techniques_tournage_hors_realisation",
             "cinema.metiers.scenographie_decors_direction_artistique_cinema"
+          ]
+        },
+        "technologie": {
+          "label": "Technologie et intelligence artificielle appliquee au cinema",
+          "intents": [
+            "explain_generative_ai_in_film_production",
+            "assess_ai_vfx_ethical_debates"
+          ],
+          "linked_knowledge": [
+            "cinema.technologie.cinema_intelligence_artificielle_generation_production_vfx"
           ]
         }
       }
@@ -5431,7 +5626,7 @@
     "fallback_rule": "Si aucune correspondance claire n'est trouvée, ALFRED doit utiliser core.context_awareness, system.memory.memory_context_linking et human.cognition.uncertainty_management."
   },
   "last_updated": "25/08/2026",
-  "total_subdomains": 363,
+  "total_subdomains": 365,
   "routing_rules": [
     {
       "pattern": "organisation|structure entreprise|modèle économique|vision mission",
