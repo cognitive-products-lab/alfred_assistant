@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "professional.engineering_reasoning.temporal_reasoning",
+  "title": "Raisonnement temporel — séquences, durées et antériorité",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "professional",
+  "subdomain": "engineering_reasoning",
+  "category": "methodes_raisonnement",
+  "summary": "Méthode pour raisonner correctement sur des relations temporelles (antériorité, postériorité, simultanéité, durée, périodicité) dans une demande impliquant une planification, un agenda ou une séquence d'événements, en évitant les erreurs fréquentes de fuseau horaire, de référence temporelle implicite ou de calcul de durée.",
+  "purpose": "Réduire les erreurs de raisonnement sur les dates, durées et séquences d'événements dans les tâches d'agenda, de rappels et de planification, domaine où une erreur temporelle non détectée a des conséquences concrètes directes pour l'utilisateur.",
+  "tags": ["raisonnement_temporel", "sequence_evenements", "duree", "planification", "fuseau_horaire"],
+  "intents": ["reason_about_schedule", "compute_duration_or_deadline", "order_events_chronologically"],
+  "usage_context": [
+    "demande impliquant une planification, un agenda, une échéance ou une séquence d'événements",
+    "calcul de durée ou de date à partir d'une référence temporelle relative ('dans trois jours', 'la semaine prochaine')"
+  ],
+  "priority": "high",
+  "safety_level": "normal",
+  "content": {
+    "definition": "Le raisonnement temporel consiste à établir correctement les relations d'antériorité, de postériorité, de simultanéité et de durée entre des événements, en ancrant toute référence temporelle relative ('demain', 'dans trois jours', 'la semaine prochaine') à une date de référence explicite et au bon fuseau horaire, pour produire une planification ou une réponse cohérente et exacte.",
+    "core_principles": [
+      "Toute référence temporelle relative doit être résolue par rapport à une date de référence explicite (la date actuelle ou une date mentionnée dans le contexte), jamais supposée implicitement sans vérification.",
+      "Une séquence d'événements dépendants doit respecter les contraintes d'antériorité réelles entre eux : un événement ne peut être planifié avant un prérequis dont il dépend.",
+      "Le calcul d'une durée ou d'un intervalle entre deux dates doit être vérifié explicitement (jours, semaines ouvrées, fuseaux horaires), car les erreurs de calcul de durée sont fréquentes et souvent invisibles a posteriori.",
+      "Un événement récurrent ou périodique (hebdomadaire, mensuel) doit être raisonné avec sa règle de récurrence explicite plutôt que déduit d'une seule occurrence."
+    ],
+    "rules": [
+      "Toujours ancrer une expression temporelle relative à une date de référence explicite avant de produire une date ou une durée calculée.",
+      "Vérifier explicitement le fuseau horaire pertinent quand plusieurs fuseaux sont en jeu ou que la donnée temporelle provient d'une source externe.",
+      "Respecter les contraintes d'antériorité entre événements dépendants lors de toute planification séquentielle.",
+      "Signaler explicitement une ambiguïté temporelle plutôt que de choisir arbitrairement une interprétation quand plusieurs sont possibles."
+    ],
+    "examples": [
+      {
+        "situation": "L'utilisateur demande à ALFRED de planifier un rappel 'dans trois jours' sans préciser la date de référence.",
+        "recommended_behavior": "Ancrer 'dans trois jours' à la date actuelle connue (fuseau horaire Europe/Paris), calculer la date résultante explicitement, et confirmer la date calculée à l'utilisateur avant de créer le rappel.",
+        "avoid": "Créer le rappel sur une date calculée sans vérification ni confirmation, en particulier si la référence temporelle était ambiguë (proximité de minuit, changement de mois)."
+      }
+    ],
+    "best_practices": [
+      "Confirmer explicitement une date ou une durée calculée avant de l'utiliser pour une action ayant des conséquences réelles (rappel, rendez-vous, échéance).",
+      "Représenter explicitement les dépendances d'antériorité entre événements dans une planification à plusieurs étapes."
+    ],
+    "anti_patterns": [
+      "Résoudre une expression temporelle relative sans ancrage explicite à une date de référence, produisant une date potentiellement erronée.",
+      "Ignorer un décalage de fuseau horaire pertinent lors d'un calcul de durée ou de planification.",
+      "Planifier un événement avant un prérequis dont il dépend réellement, en violation de la contrainte d'antériorité."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["raisonnement_temporel", "duree", "sequence_evenements", "planification"],
+    "related_domains": ["professional", "cpl"],
+    "related_knowledge": [
+      "professional.engineering_reasoning.constraint_satisfaction_reasoning",
+      "professional.engineering_reasoning.task_decomposition_reasoning"
+    ],
+    "retrieval_priority": 6
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["raisonnement sur des dates, durées et séquences d'événements pour la planification et l'agenda"],
+    "restricted_usage": ["planification d'échéances à conséquence importante, à confirmer explicitement avant validation"],
+    "forbidden_usage": [],
+    "fallback_behavior": "En cas d'ambiguïté persistante sur une référence temporelle après vérification, demander une clarification explicite à l'utilisateur plutôt que de choisir une interprétation arbitraire."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "26/08/2026",
+    "last_update": "26/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

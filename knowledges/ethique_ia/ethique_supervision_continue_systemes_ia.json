@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "ethique_ia.gouvernance.ethique_supervision_continue_systemes_ia",
+  "title": "Supervision éthique continue des systèmes d'IA en production",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "ethique_ia",
+  "subdomain": "gouvernance",
+  "category": "gouvernance_éthique_IA",
+  "summary": "Principes d'un dispositif de surveillance éthique continue d'un système d'IA après son déploiement, distinct de l'étude d'impact ponctuelle et de l'audit périodique déjà couverts : détection de dérives progressives (drift), indicateurs éthiques suivis en continu, et seuils d'alerte déclenchant une revue humaine avant qu'un problème ne s'aggrave.",
+  "purpose": "Compléter les dispositifs d'évaluation éthique déjà ponctuels ou périodiques (étude d'impact en amont, audit périodique) par un dispositif de surveillance continue capable de détecter une dérive progressive du comportement d'un système entre deux évaluations formelles.",
+  "tags": ["supervision_continue", "derive_ethique", "monitoring_ethique", "seuils_alerte"],
+  "intents": ["design_continuous_ethical_monitoring", "detect_ethical_drift", "set_ethical_alert_thresholds"],
+  "usage_context": [
+    "système d'IA en production nécessitant une surveillance de son comportement éthique dans la durée",
+    "risque de dérive progressive et invisible d'un système entre deux évaluations formelles espacées"
+  ],
+  "priority": "medium",
+  "safety_level": "sensitive",
+  "content": {
+    "definition": "La supervision éthique continue désigne le dispositif de suivi en quasi temps réel d'indicateurs éthiques pertinents d'un système d'IA en production (biais dans les sorties, plaintes ou signalements utilisateurs, taux de contestation des décisions, écarts par rapport au comportement attendu), avec des seuils d'alerte déclenchant une revue humaine dès qu'une dérive est détectée, plutôt que de s'appuyer uniquement sur des évaluations ponctuelles ou périodiques espacées dans le temps.",
+    "core_principles": [
+      "Un système d'IA peut dériver progressivement de son comportement éthique attendu après son déploiement, du fait de changements dans les données réelles rencontrées (data drift), d'une évolution du contexte d'usage, ou d'ajustements techniques ultérieurs — une dérive que seule une surveillance continue peut détecter avant qu'elle ne devienne significative.",
+      "Une étude d'impact éthique réalisée avant déploiement et un audit périodique réalisé à intervalles espacés ne couvrent pas la période intermédiaire, durant laquelle une dérive peut s'installer et s'aggraver sans être détectée.",
+      "Les indicateurs de supervision continue doivent être choisis pour leur pertinence éthique réelle (taux de contestation, signalements d'incidents, écarts de traitement entre groupes d'utilisateurs) et non se limiter aux seuls indicateurs de performance technique classique, qui ne révèlent pas nécessairement une dérive éthique.",
+      "Des seuils d'alerte explicites doivent déclencher une revue humaine dès leur franchissement, pour permettre une intervention avant que la dérive ne cause un préjudice significatif, plutôt que d'attendre la prochaine évaluation périodique planifiée."
+    ],
+    "rules": [
+      "Définir des indicateurs éthiques suivis en continu, distincts des seuls indicateurs de performance technique, pour tout système d'IA en production à impact significatif.",
+      "Fixer des seuils d'alerte explicites déclenchant automatiquement une revue humaine dès leur franchissement.",
+      "Ne pas se reposer uniquement sur l'étude d'impact initiale ou l'audit périodique pour détecter une dérive survenue entre deux évaluations formelles."
+    ],
+    "examples": [
+      {
+        "situation": "Un système d'IA en production montre un taux croissant de contestations utilisateurs sur une catégorie de décisions spécifique, sans qu'aucun audit périodique ne soit encore prévu à court terme.",
+        "recommended_behavior": "Déclencher une revue humaine dès le franchissement du seuil d'alerte défini pour cet indicateur, sans attendre l'audit périodique suivant, pour investiguer la cause de la dérive et corriger le système si nécessaire.",
+        "avoid": "Attendre l'audit périodique planifié pour investiguer une dérive déjà détectable par les indicateurs de supervision continue."
+      }
+    ],
+    "best_practices": [
+      "Choisir des indicateurs éthiques directement liés aux risques identifiés lors de l'étude d'impact initiale du système.",
+      "Documenter chaque déclenchement de seuil d'alerte et la revue humaine qui en a résulté, pour construire un historique exploitable lors des audits périodiques ultérieurs."
+    ],
+    "anti_patterns": [
+      "Se reposer uniquement sur des évaluations ponctuelles ou périodiques espacées, sans surveillance continue entre elles.",
+      "Suivre uniquement des indicateurs de performance technique sans indicateur éthique dédié.",
+      "Définir des seuils d'alerte sans mécanisme réel de revue humaine déclenchée à leur franchissement."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["supervision_continue", "derive_ethique", "monitoring_ethique"],
+    "related_domains": ["ethique_ia", "cpl"],
+    "related_knowledge": [
+      "ethique_ia.impact.etude_impact_ethique_ia_eiia",
+      "cpl.ethics_governance.audit_ethique_periodique_alfred_cpl",
+      "cpl.ethics_governance.gouvernance_cycle_de_vie_ia_alfred"
+    ],
+    "retrieval_priority": 6
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "high",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["conception d'un dispositif de supervision éthique continue d'un système d'IA en production"],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "En l'absence de dispositif de supervision continue déjà en place, recommander sa mise en œuvre prioritaire pour tout système à impact significatif plutôt que de se reposer uniquement sur des évaluations espacées."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "26/08/2026",
+    "last_update": "26/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

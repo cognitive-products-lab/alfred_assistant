@@ -1,0 +1,83 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "professional.engineering_reasoning.means_ends_analysis",
+  "title": "Analyse moyens-fins (réduction progressive de l'écart au but)",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "professional",
+  "subdomain": "engineering_reasoning",
+  "category": "methodes_raisonnement",
+  "summary": "Méthode classique de résolution de problème consistant à comparer en permanence l'état actuel à l'état-but visé, à identifier l'écart le plus significatif entre les deux, et à choisir l'action qui réduit le plus cet écart, en répétant le cycle jusqu'à atteindre le but ou un sous-but intermédiaire.",
+  "purpose": "Donner à ALFRED une méthode explicite de progression vers un but complexe atteint par étapes, complémentaire de la décomposition en sous-tâches, en particulier quand le chemin vers le but n'est pas connu à l'avance et doit être construit progressivement.",
+  "tags": ["analyse_moyens_fins", "reduction_ecart_au_but", "resolution_de_probleme", "sous_but"],
+  "intents": ["progress_toward_goal_incrementally", "identify_gap_to_goal", "select_next_best_action"],
+  "usage_context": [
+    "but complexe dont le chemin de résolution n'est pas connu à l'avance et doit être construit progressivement",
+    "situation où plusieurs actions possibles réduisent partiellement l'écart vers le but et doivent être priorisées"
+  ],
+  "priority": "low",
+  "safety_level": "normal",
+  "content": {
+    "definition": "L'analyse moyens-fins est une méthode de résolution de problème qui consiste à comparer explicitement l'état actuel d'une situation à l'état-but recherché, à identifier l'écart le plus significatif entre les deux, à choisir l'action (le moyen) la plus efficace pour réduire cet écart, puis à répéter ce cycle à partir du nouvel état atteint, jusqu'à ce que l'écart soit résorbé ou qu'un sous-but intermédiaire nécessaire soit atteint.",
+    "core_principles": [
+      "Le raisonnement part du but visé et de l'état actuel simultanément, plutôt que de planifier uniquement en chaînage avant (à partir des faits disponibles) ou uniquement en chaînage arrière (à partir du but).",
+      "À chaque cycle, l'écart le plus significatif entre l'état actuel et le but doit être identifié explicitement avant de choisir l'action à entreprendre, pour prioriser l'effort là où il compte le plus.",
+      "Quand aucune action ne permet de réduire directement l'écart principal, un sous-but intermédiaire doit être introduit pour lever cet obstacle avant de reprendre la progression vers le but final.",
+      "Cette méthode convient particulièrement aux buts atteints par une séquence d'actions dont l'ordre exact n'est pas connu à l'avance, contrairement à une décomposition en sous-tâches planifiée entièrement en amont."
+    ],
+    "rules": [
+      "Identifier explicitement l'état-but et l'état actuel avant de choisir une action.",
+      "Prioriser l'action qui réduit le plus significativement l'écart principal entre état actuel et but, plutôt qu'une action facile mais peu efficace.",
+      "Introduire un sous-but intermédiaire explicite quand aucune action directe ne permet de réduire l'écart principal."
+    ],
+    "examples": [
+      {
+        "situation": "Un utilisateur demande de l'aide pour atteindre un objectif complexe (ex. mettre en place un nouveau processus) sans chemin de résolution évident dès le départ.",
+        "recommended_behavior": "Comparer explicitement la situation actuelle à l'objectif visé, identifier le principal obstacle à résoudre en premier, proposer l'action qui le réduit le plus efficacement, puis réévaluer l'écart restant à chaque étape pour déterminer l'action suivante.",
+        "avoid": "Proposer une liste d'actions génériques sans les prioriser par rapport à leur effet réel sur l'écart entre situation actuelle et but visé."
+      }
+    ],
+    "best_practices": [
+      "Réévaluer explicitement l'écart restant après chaque action entreprise plutôt que de suivre un plan figé établi une seule fois au départ.",
+      "Introduire un sous-but intermédiaire nommé explicitement quand il devient un prérequis incontournable de la progression."
+    ],
+    "anti_patterns": [
+      "Choisir une action facile à réaliser sans évaluer son effet réel sur l'écart au but principal.",
+      "Suivre un plan initial rigide sans réévaluer l'écart restant après chaque étape, alors que la situation a évolué."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["analyse_moyens_fins", "reduction_ecart_au_but", "sous_but"],
+    "related_domains": ["professional"],
+    "related_knowledge": [
+      "professional.engineering_reasoning.task_decomposition_reasoning",
+      "professional.engineering_reasoning.backward_chaining_reasoning",
+      "professional.engineering_reasoning.goal_alignment_reasoning"
+    ],
+    "retrieval_priority": 4
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["résolution progressive de problèmes complexes vers un but défini"],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "Si aucune action disponible ne réduit l'écart au but principal et qu'aucun sous-but pertinent n'est identifiable, signaler explicitement le blocage plutôt que de proposer une action sans effet réel."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "26/08/2026",
+    "last_update": "26/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

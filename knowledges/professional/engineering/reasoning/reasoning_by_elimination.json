@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "professional.engineering_reasoning.reasoning_by_elimination",
+  "title": "Raisonnement par élimination",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "professional",
+  "subdomain": "engineering_reasoning",
+  "category": "methodes_raisonnement",
+  "summary": "Méthode consistant à réduire progressivement un ensemble d'hypothèses possibles en écartant méthodiquement celles incompatibles avec les faits observés, jusqu'à ne conserver que la ou les hypothèses restantes les plus plausibles, particulièrement utile pour le diagnostic et le dépannage.",
+  "purpose": "Donner à ALFRED une méthode structurée de diagnostic quand plusieurs causes ou solutions sont a priori possibles, en particulier pour les tâches de dépannage technique ou de résolution de problème où il est plus efficace d'exclure des hypothèses que de chercher directement la bonne.",
+  "tags": ["raisonnement_par_elimination", "diagnostic", "depannage", "reduction_hypotheses"],
+  "intents": ["diagnose_by_elimination", "narrow_down_hypotheses", "troubleshoot_systematically"],
+  "usage_context": [
+    "diagnostic technique avec plusieurs causes possibles à un dysfonctionnement",
+    "problème à réponse unique parmi un ensemble fini d'options identifiables"
+  ],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "Le raisonnement par élimination consiste à énumérer explicitement l'ensemble des hypothèses plausibles pour expliquer une situation, puis à écarter méthodiquement celles qui sont incompatibles avec les faits observés ou les tests effectués, jusqu'à ne conserver qu'un sous-ensemble réduit d'hypothèses restantes, plutôt que de chercher directement à deviner la bonne réponse.",
+    "core_principles": [
+      "Énumérer l'ensemble des hypothèses plausibles avant de commencer à en écarter, pour ne pas exclure prématurément une hypothèse valide faute de l'avoir envisagée.",
+      "Prioriser l'élimination des hypothèses les plus faciles à tester ou à écarter en premier, pour réduire rapidement l'espace des possibles avant d'investir du temps sur les hypothèses restantes.",
+      "Une hypothèse n'est écartée que si elle est réellement incompatible avec un fait observé, pas simplement parce qu'elle semble moins probable a priori — la simple faible probabilité ne suffit pas à l'éliminer.",
+      "Quand plusieurs hypothèses résistent à l'élimination avec les informations disponibles, le raisonnement doit conclure sur l'ensemble restant plutôt que de choisir arbitrairement l'une d'elles."
+    ],
+    "rules": [
+      "Énumérer explicitement les hypothèses plausibles avant d'entamer le processus d'élimination.",
+      "Justifier chaque élimination par son incompatibilité avec un fait observé ou un test effectué, pas par une simple intuition de faible probabilité.",
+      "Si plusieurs hypothèses subsistent après élimination avec les informations disponibles, le signaler explicitement plutôt que de trancher arbitrairement entre elles."
+    ],
+    "examples": [
+      {
+        "situation": "Un appareil connecté ne répond plus et l'utilisateur demande à ALFRED de diagnostiquer la panne.",
+        "recommended_behavior": "Énumérer les causes plausibles (alimentation, connexion réseau, panne logicielle, panne matérielle), proposer un test simple pour écarter chacune en commençant par la plus facile à vérifier, et converger vers la ou les causes restantes non écartées.",
+        "avoid": "Proposer directement une seule cause supposée sans avoir écarté méthodiquement les autres hypothèses plausibles."
+      }
+    ],
+    "best_practices": [
+      "Commencer par tester les hypothèses les plus simples et les plus rapides à écarter avant les plus coûteuses à vérifier.",
+      "Documenter clairement, à chaque étape, quelle hypothèse a été écartée et pourquoi, pour rendre le raisonnement traçable."
+    ],
+    "anti_patterns": [
+      "Écarter une hypothèse sur la seule base d'une intuition de faible probabilité sans fait observé l'invalidant réellement.",
+      "Choisir arbitrairement une hypothèse parmi plusieurs restantes non écartées sans le signaler comme un choix incertain.",
+      "Omettre des hypothèses plausibles dès l'énumération initiale, ce qui fausse tout le processus d'élimination qui suit."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["raisonnement_par_elimination", "diagnostic", "depannage", "hypotheses"],
+    "related_domains": ["professional"],
+    "related_knowledge": [
+      "professional.engineering_reasoning.hypothesis_testing",
+      "professional.engineering_reasoning.abductive_reasoning",
+      "professional.engineering_reasoning.structured_problem_decomposition"
+    ],
+    "retrieval_priority": 5
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["diagnostic technique ou logique par élimination d'hypothèses"],
+    "restricted_usage": ["diagnostic médical par élimination, à ne jamais présenter comme un diagnostic mais uniquement comme une aide à la réflexion générale"],
+    "forbidden_usage": ["utiliser cette méthode pour produire un diagnostic médical définitif"],
+    "fallback_behavior": "Si l'élimination ne permet pas de converger vers une hypothèse unique avec les informations disponibles, présenter les hypothèses restantes et indiquer quelles informations supplémentaires permettraient de trancher."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "26/08/2026",
+    "last_update": "26/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

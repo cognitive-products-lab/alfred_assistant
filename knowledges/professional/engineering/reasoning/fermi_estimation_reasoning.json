@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "professional.engineering_reasoning.fermi_estimation_reasoning",
+  "title": "Raisonnement d'estimation par ordre de grandeur (méthode de Fermi)",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "professional",
+  "subdomain": "engineering_reasoning",
+  "category": "methodes_raisonnement",
+  "summary": "Méthode consistant à produire une estimation approximative mais raisonnable d'une quantité inconnue en la décomposant en facteurs plus simples à estimer individuellement, dont le produit ou la combinaison donne un ordre de grandeur plausible, utile quand une valeur exacte est indisponible ou disproportionnée par rapport au besoin.",
+  "purpose": "Permettre à ALFRED de donner une réponse utile et rapide à une question quantitative sans donnée précise disponible, en rendant explicite qu'il s'agit d'un ordre de grandeur estimé et non d'une mesure exacte.",
+  "tags": ["estimation_fermi", "ordre_de_grandeur", "decomposition_quantitative", "estimation_rapide"],
+  "intents": ["estimate_order_of_magnitude", "reason_without_exact_data", "sanity_check_a_number"],
+  "usage_context": [
+    "question quantitative sans donnée exacte disponible mais nécessitant une réponse approximative utile",
+    "vérification de plausibilité d'un chiffre annoncé (sanity check)"
+  ],
+  "priority": "low",
+  "safety_level": "normal",
+  "content": {
+    "definition": "Le raisonnement d'estimation par ordre de grandeur, ou méthode de Fermi, consiste à décomposer une quantité inconnue en un produit ou une combinaison de facteurs plus faciles à estimer individuellement à partir de connaissances générales ou d'hypothèses raisonnables, afin d'obtenir un ordre de grandeur plausible en l'absence de donnée exacte, plutôt que de renoncer à répondre ou de deviner un chiffre sans justification.",
+    "core_principles": [
+      "Une estimation par ordre de grandeur vise la bonne puissance de dix, pas une précision fine : se tromper d'un facteur deux est acceptable, se tromper d'un facteur dix ne l'est pas.",
+      "La décomposition en facteurs indépendants et plus simples à estimer réduit l'erreur globale par rapport à une estimation directe et globale de la quantité recherchée.",
+      "Chaque hypothèse intermédiaire utilisée dans la décomposition doit être rendue explicite, pour permettre à l'utilisateur de contester ou d'ajuster un facteur particulier.",
+      "Cette méthode ne se substitue jamais à une donnée exacte disponible : elle s'applique uniquement quand une valeur précise est indisponible, trop coûteuse à obtenir, ou non nécessaire au niveau de précision requis par la question."
+    ],
+    "rules": [
+      "Décomposer la quantité recherchée en facteurs plus simples à estimer individuellement avant de les combiner.",
+      "Rendre explicites toutes les hypothèses intermédiaires utilisées dans l'estimation.",
+      "Présenter systématiquement le résultat comme un ordre de grandeur approximatif, jamais comme une valeur exacte.",
+      "Utiliser une donnée exacte disponible plutôt qu'une estimation dès qu'elle existe et qu'elle répond au besoin."
+    ],
+    "examples": [
+      {
+        "situation": "Un utilisateur demande un ordre de grandeur d'une quantité pour laquelle aucune donnée précise n'est disponible ni nécessaire (ex. estimation rapide d'un volume, d'une durée totale, d'un nombre d'éléments).",
+        "recommended_behavior": "Décomposer la question en facteurs simples à estimer (ex. quantité par unité de temps multipliée par le nombre d'unités de temps), expliciter les hypothèses retenues pour chaque facteur, et présenter le résultat comme un ordre de grandeur approximatif.",
+        "avoid": "Refuser de répondre faute de donnée exacte, ou donner un chiffre précis non justifié sans expliciter la méthode d'estimation."
+      }
+    ],
+    "best_practices": [
+      "Choisir des facteurs de décomposition dont chacun est individuellement plus facile à estimer que la quantité globale recherchée.",
+      "Indiquer une fourchette plausible autour de l'ordre de grandeur estimé plutôt qu'un chiffre unique trompeur par sa fausse précision.",
+      "Utiliser cette méthode pour vérifier la plausibilité d'un chiffre annoncé par ailleurs (sanity check) avant de le relayer."
+    ],
+    "anti_patterns": [
+      "Présenter une estimation par ordre de grandeur avec une précision numérique qui suggère à tort l'exactitude d'une mesure réelle.",
+      "Utiliser cette méthode alors qu'une donnée exacte est disponible et suffisamment accessible.",
+      "Estimer directement la quantité globale sans décomposition, ce qui augmente fortement le risque d'erreur importante."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["estimation_fermi", "ordre_de_grandeur", "estimation_rapide"],
+    "related_domains": ["professional"],
+    "related_knowledge": [
+      "professional.engineering_reasoning.structured_problem_decomposition",
+      "professional.engineering_reasoning.probabilistic_reasoning",
+      "professional.engineering_reasoning.confidence_estimation"
+    ],
+    "retrieval_priority": 4
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["estimation rapide d'une quantité générale sans enjeu critique"],
+    "restricted_usage": ["estimation servant de base à une décision financière ou de sécurité significative, à accompagner d'un avertissement clair sur son caractère approximatif"],
+    "forbidden_usage": ["présenter une estimation par ordre de grandeur comme une donnée exacte vérifiée"],
+    "fallback_behavior": "Si la décomposition en facteurs estimables n'est pas possible avec les informations disponibles, indiquer clairement l'incapacité à fournir une estimation fiable plutôt que d'avancer un chiffre arbitraire."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "26/08/2026",
+    "last_update": "26/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}
