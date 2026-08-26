@@ -1,0 +1,98 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.product_platform.synchronisation_etat_multi_appareils_continuite_contexte_alfred_cpl",
+  "title": "Synchronisation d'état multi-appareils et continuité de contexte",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "product_platform",
+  "category": "architecture produit ALFRED CPL",
+  "summary": "Principes de synchronisation de l'état conversationnel et contextuel d'ALFRED CPL entre plusieurs appareils d'un même utilisateur (serveur local, tablette, téléphone), permettant une continuité de contexte lors d'un changement d'appareil en cours d'usage, distinct de la gestion du cycle de vie de session déjà couverte qui porte sur une session unique plutôt que sur la continuité entre appareils multiples.",
+  "purpose": "Donner à ALFRED CPL des principes de conception pour la continuité de contexte multi-appareils, besoin identifié dans le cadre du plan multi-appareils de l'utilisateur (serveur local, tablette, téléphone).",
+  "tags": [
+    "synchronisation_multi_appareils",
+    "continuite_contexte",
+    "architecture_produit",
+    "alfred_cpl"
+  ],
+  "intents": [
+    "explain_multi_device_context_sync",
+    "guide_cross_device_continuity_design"
+  ],
+  "usage_context": [
+    "conception d'une continuité d'usage entre plusieurs appareils d'un même utilisateur",
+    "utilisateur changeant d'appareil en cours d'interaction avec ALFRED"
+  ],
+  "priority": "high",
+  "safety_level": "normal",
+  "content": {
+    "definition": "La synchronisation d'état multi-appareils désigne la capacité d'ALFRED CPL à maintenir un contexte conversationnel et fonctionnel cohérent lorsque l'utilisateur change d'appareil en cours d'usage (par exemple du serveur local vers une tablette mobile), ce qui suppose une source de vérité centrale sur le serveur local (cohérent avec l'architecture local-first), une synchronisation différentielle limitée aux éléments de contexte réellement nécessaires plutôt qu'une réplication intégrale, et une gestion explicite des conflits en cas de modification simultanée depuis plusieurs appareils.",
+    "core_principles": [
+      "Le serveur local doit rester la source de vérité centrale de l'état utilisateur, cohérent avec l'architecture local-first plutôt qu'une synchronisation reposant sur un service cloud tiers.",
+      "La synchronisation doit rester différentielle, limitée aux éléments de contexte réellement nécessaires à la continuité perçue, plutôt qu'une réplication intégrale coûteuse en ressources.",
+      "Une gestion explicite des conflits doit être prévue pour le cas, rare mais possible, d'une modification simultanée du contexte depuis plusieurs appareils."
+    ],
+    "rules": [
+      "Maintenir le serveur local comme source de vérité centrale de l'état utilisateur synchronisé.",
+      "Limiter la synchronisation aux éléments de contexte réellement nécessaires à la continuité perçue par l'utilisateur.",
+      "Documenter et tester un mécanisme explicite de résolution de conflit en cas de modification simultanée multi-appareils."
+    ],
+    "examples": [
+      {
+        "situation": "Un utilisateur commence une interaction sur le serveur local puis la poursuit sur sa tablette, mais le contexte conversationnel n'est pas retrouvé sur le second appareil.",
+        "recommended_behavior": "Concevoir une synchronisation différentielle du contexte conversationnel depuis la source de vérité centrale du serveur local vers la tablette pour garantir la continuité perçue.",
+        "avoid": "Traiter chaque appareil comme une session totalement indépendante sans aucune synchronisation de contexte."
+      }
+    ],
+    "best_practices": [
+      "Maintenir le serveur local comme source de vérité centrale de la synchronisation.",
+      "Limiter la synchronisation aux éléments de contexte réellement nécessaires."
+    ],
+    "anti_patterns": [
+      "Traiter chaque appareil comme une session indépendante sans synchronisation de contexte.",
+      "Répliquer intégralement l'état sur chaque appareil sans limitation aux éléments nécessaires."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "synchronisation_multi_appareils",
+      "continuite_contexte",
+      "architecture_local_first"
+    ],
+    "related_domains": [
+      "cpl",
+      "product_platform"
+    ],
+    "related_knowledge": [
+      "cpl.product_platform.gestion_cycle_vie_session_utilisateur_alfred",
+      "cpl.product_platform.offline_first_continuite_service_alfred"
+    ],
+    "retrieval_priority": 7
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "conseil pédagogique sur la synchronisation d'état multi-appareils"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "En cas de conflit non résolu automatiquement entre appareils, privilégier par défaut la version la plus récente tout en signalant explicitement le conflit à l'utilisateur."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "26/08/2026",
+    "last_update": "26/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}
