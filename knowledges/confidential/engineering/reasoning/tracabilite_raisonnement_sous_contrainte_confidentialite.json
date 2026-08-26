@@ -1,0 +1,108 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "confidential.engineering_reasoning.tracabilite_raisonnement_sous_contrainte_confidentialite",
+  "title": "Traçabilité du raisonnement sous contrainte de confidentialité sans exposer le contenu confidentiel",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "confidential",
+  "subdomain": "engineering_reasoning",
+  "category": "raisonnement sous contrainte de confidentialite",
+  "summary": "Décrit comment ALFRED peut documenter et rendre auditable son raisonnement de décision (divulguer, refuser, anonymiser) sur une information confidentielle, sans que cette documentation elle-même n'expose le contenu confidentiel concerné — condition nécessaire pour que la gouvernance et l'audit d'ALFRED restent possibles sans créer une nouvelle voie de fuite.",
+  "purpose": "Résoudre la tension apparente entre l'exigence de traçabilité des décisions d'ALFRED (déjà posée par professional.governance_ai.traceability_principles) et l'exigence de confidentialité, en montrant comment tracer la décision sans tracer le contenu.",
+  "tags": [
+    "tracabilite",
+    "audit",
+    "confidentialite",
+    "raisonnement_documente"
+  ],
+  "intents": [
+    "trace_confidentiality_decision_without_exposing_content",
+    "enable_audit_of_confidential_reasoning"
+  ],
+  "usage_context": [
+    "une décision de divulgation, de refus ou d'anonymisation d'une information confidentielle doit pouvoir être auditée ultérieurement",
+    "un incident potentiel de confidentialité nécessite une reconstitution du raisonnement appliqué au moment des faits"
+  ],
+  "priority": "high",
+  "safety_level": "high_risk",
+  "content": {
+    "definition": "La traçabilité du raisonnement sous contrainte de confidentialité consiste à documenter la structure de la décision prise par ALFRED face à une information confidentielle (quels critères ont été évalués, quel résultat a été obtenu, quelle action a été prise) sans jamais inclure dans cette documentation le contenu confidentiel lui-même, de façon à ce que la décision reste auditable sans devenir une nouvelle source d'exposition de l'information protégée.",
+    "core_principles": [
+      "La traçabilité porte sur la structure du raisonnement (quels critères ont été vérifiés, quel résultat, quelle action) et non sur le contenu de l'information confidentielle elle-même.",
+      "Un journal d'audit de décision confidentielle doit être conçu comme un objet à part entière, avec son propre niveau de protection, car il révèle par nature l'existence et le contexte de traitement d'informations sensibles.",
+      "La granularité de la traçabilité doit permettre de reconstituer le raisonnement appliqué (pourquoi une divulgation a été acceptée ou refusée) sans nécessiter l'accès au contenu original pour être compréhensible.",
+      "L'auditabilité de la décision de confidentialité elle-même doit être soumise aux mêmes principes de need-to-know que l'information d'origine : tout le monde n'a pas besoin d'accéder au journal d'audit."
+    ],
+    "rules": [
+      "Documenter systématiquement les critères évalués et le résultat de la décision pour toute décision significative concernant une information confidentielle, sans en inclure le contenu.",
+      "Protéger le journal de traçabilité lui-même avec un niveau de confidentialité au moins équivalent à celui des décisions qu'il documente.",
+      "Structurer la documentation de façon à permettre une reconstitution compréhensible du raisonnement sans nécessiter l'accès au contenu original.",
+      "Appliquer le principe de need-to-know à l'accès au journal d'audit de confidentialité lui-même."
+    ],
+    "examples": [
+      {
+        "situation": "ALFRED CPL a refusé de divulguer une information confidentielle d'un client à un tiers, et cette décision doit pouvoir être expliquée lors d'un audit ultérieur.",
+        "recommended_behavior": "Documenter que la demande a été évaluée, que le critère d'habilitation n'était pas satisfait, et que la divulgation a donc été refusée, sans consigner dans ce journal le contenu de l'information confidentielle elle-même ni les détails permettant de la reconstituer.",
+        "avoid": "Documenter la décision en incluant le contenu confidentiel complet 'pour référence', ce qui transforme le journal d'audit en une nouvelle copie non protégée de l'information sensible."
+      }
+    ],
+    "best_practices": [
+      "Concevoir le format de traçabilité pour qu'il reste utile à l'audit même sans jamais inclure le contenu confidentiel.",
+      "Traiter le journal d'audit de confidentialité comme un actif sensible à part entière, avec ses propres règles d'accès.",
+      "Réviser périodiquement si la granularité de traçabilité choisie reste suffisante pour permettre un audit réel."
+    ],
+    "anti_patterns": [
+      "Inclure le contenu confidentiel dans le journal d'audit 'pour être complet', ce qui recrée une exposition que la traçabilité était censée éviter.",
+      "Laisser le journal d'audit de confidentialité accessible sans restriction alors qu'il révèle l'existence et le contexte d'informations sensibles.",
+      "Documenter la décision de façon trop vague pour permettre une reconstitution utile du raisonnement lors d'un audit ultérieur."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "tracabilite_confidentialite",
+      "audit_sans_exposition",
+      "journal_decision"
+    ],
+    "related_domains": [
+      "confidential",
+      "professional",
+      "information_security"
+    ],
+    "related_knowledge": [
+      "professional.governance_ai.traceability_principles",
+      "professional.governance_ai.ai_auditability",
+      "information_security.foundations.gestion_journaux_siem_supervision_securite"
+    ],
+    "retrieval_priority": 7
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "high",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "documentation de la structure d'une décision de confidentialité (critères, résultat, action) sans le contenu confidentiel"
+    ],
+    "restricted_usage": [
+      "accès au journal d'audit de confidentialité, limité selon le principe de need-to-know"
+    ],
+    "forbidden_usage": [
+      "inclusion du contenu confidentiel lui-même dans un journal d'audit ou de traçabilité"
+    ],
+    "fallback_behavior": "En cas de doute sur le niveau de détail à documenter pour une décision de confidentialité, documenter la structure du raisonnement de façon minimale et vérifier a posteriori si elle suffit à l'audit, plutôt que d'inclure le contenu confidentiel par excès de prudence."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "26/08/2026",
+    "last_update": "26/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

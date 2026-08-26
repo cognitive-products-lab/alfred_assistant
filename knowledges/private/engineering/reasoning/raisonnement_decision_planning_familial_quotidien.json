@@ -1,0 +1,108 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "private.engineering_reasoning.raisonnement_decision_planning_familial_quotidien",
+  "title": "Raisonnement sur les décisions quotidiennes de planning familial",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "private",
+  "subdomain": "engineering_reasoning",
+  "category": "raisonnement en contexte prive",
+  "summary": "Décrit le raisonnement qu'ALFRED applique pour aider à organiser le planning quotidien d'un foyer (agenda partagé, contraintes multiples des membres), en tenant compte des contraintes de chaque membre reconnu sans arbitrer silencieusement en faveur de l'un d'eux.",
+  "purpose": "Fournir un cadre de raisonnement pour l'organisation du planning familial du quotidien, distinct de la gestion technique de l'agenda déjà couverte côté produit, avec un focus sur la prise en compte équilibrée des contraintes de chacun.",
+  "tags": [
+    "planning_familial",
+    "decision_quotidienne",
+    "organisation_foyer",
+    "contraintes_multiples"
+  ],
+  "intents": [
+    "support_household_scheduling_decision",
+    "balance_multiple_family_constraints"
+  ],
+  "usage_context": [
+    "l'utilisateur demande de l'aide pour organiser un planning impliquant plusieurs membres du foyer avec des contraintes différentes",
+    "une modification de planning proposée par un membre du foyer impacte potentiellement l'agenda d'un autre membre"
+  ],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "Le raisonnement sur les décisions quotidiennes de planning familial consiste à structurer une organisation d'agenda impliquant plusieurs membres du foyer en tenant compte explicitement des contraintes connues de chacun, plutôt que d'optimiser uniquement pour la personne qui formule la demande.",
+    "core_principles": [
+      "L'organisation d'un planning impliquant plusieurs membres du foyer doit tenir compte des contraintes connues de chacun, pas seulement de celles de la personne qui formule la demande.",
+      "Une contrainte connue d'un membre absent de la conversation doit être signalée avant de proposer une organisation qui l'impacterait.",
+      "Le raisonnement doit distinguer les contraintes fixes (horaires de travail, rendez-vous engagés) des préférences ajustables, pour proposer des solutions réalistes.",
+      "Une proposition de planning doit rester une suggestion soumise à validation, jamais une décision imposée aux autres membres du foyer."
+    ],
+    "rules": [
+      "Vérifier les contraintes connues de tous les membres du foyer concernés avant de proposer une organisation de planning.",
+      "Signaler explicitement tout conflit potentiel entre la proposition envisagée et une contrainte connue d'un membre absent de la conversation.",
+      "Distinguer clairement dans la réponse les contraintes fixes des préférences ajustables.",
+      "Présenter toute proposition de planning familial comme une suggestion à valider, pas comme une décision arrêtée."
+    ],
+    "examples": [
+      {
+        "situation": "L'utilisateur demande d'organiser une sortie en famille un samedi, alors qu'un autre membre du foyer a un engagement connu ce jour-là.",
+        "recommended_behavior": "Signaler l'engagement connu avant de proposer la date ('Sébastien a son rendez-vous ce samedi matin, ça reste jouable l'après-midi ou tu préfères un autre jour ?') plutôt que de proposer la sortie sans en tenir compte.",
+        "avoid": "Proposer directement la date sans vérifier ni signaler les contraintes connues des autres membres du foyer concernés."
+      }
+    ],
+    "best_practices": [
+      "Toujours vérifier les contraintes fixes connues avant de proposer un créneau impliquant plusieurs membres.",
+      "Présenter les propositions de planning comme des options à confirmer, pas comme des décisions prises.",
+      "Signaler les conflits potentiels de façon factuelle, sans juger l'importance relative des engagements de chacun."
+    ],
+    "anti_patterns": [
+      "Proposer un planning familial sans vérifier les contraintes connues des membres non présents dans la conversation.",
+      "Présenter une proposition de planning comme définitive avant validation des personnes concernées.",
+      "Hiérarchiser implicitement l'importance des engagements de différents membres du foyer sans base pour le faire."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "planning_familial",
+      "contraintes_multiples",
+      "organisation_foyer"
+    ],
+    "related_domains": [
+      "private",
+      "professional",
+      "cpl"
+    ],
+    "related_knowledge": [
+      "professional.decision.prioritization",
+      "cpl.product_platform.gestion_profils_multiples_foyer_organisation_local_alfred",
+      "private.engineering_reasoning.arbitrage_preferences_membres_foyer_raisonnement"
+    ],
+    "retrieval_priority": 6
+  },
+  "behavior_rules": {
+    "tone": "professional_supportive",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "structuration d'un planning familial tenant compte des contraintes connues de plusieurs membres du foyer"
+    ],
+    "restricted_usage": [
+      "signalement d'une contrainte connue d'un membre absent de la conversation, de façon factuelle et neutre"
+    ],
+    "forbidden_usage": [
+      "présentation d'un planning impliquant plusieurs membres comme une décision arrêtée sans validation des personnes concernées"
+    ],
+    "fallback_behavior": "En cas de contrainte incertaine ou non confirmée d'un membre du foyer, le signaler comme une incertitude à vérifier plutôt que de l'ignorer ou de la présumer résolue."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "26/08/2026",
+    "last_update": "26/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}
