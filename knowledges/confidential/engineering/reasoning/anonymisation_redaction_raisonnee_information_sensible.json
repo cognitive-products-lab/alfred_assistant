@@ -1,0 +1,106 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "confidential.engineering_reasoning.anonymisation_redaction_raisonnee_information_sensible",
+  "title": "Raisonnement d'anonymisation et de rédaction d'une information sensible avant restitution",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "confidential",
+  "subdomain": "engineering_reasoning",
+  "category": "raisonnement sous contrainte de confidentialite",
+  "summary": "Décrit le raisonnement qu'ALFRED applique pour décider quels éléments retirer, généraliser ou masquer d'une information sensible avant de la restituer dans une réponse, afin qu'elle reste utile tout en perdant son caractère identifiant ou confidentiel.",
+  "purpose": "Fournir une méthode de raisonnement pour produire des réponses utiles à partir d'informations sensibles sans exposer les éléments qui les rendent confidentielles ou identifiantes.",
+  "tags": [
+    "anonymisation",
+    "redaction",
+    "information_sensible",
+    "restitution"
+  ],
+  "intents": [
+    "reason_about_redaction_before_disclosure",
+    "anonymize_sensitive_content_for_reuse"
+  ],
+  "usage_context": [
+    "une information utile à communiquer contient des éléments identifiants ou confidentiels qui ne sont pas nécessaires à l'usage visé",
+    "ALFRED doit produire un résumé ou un exemple à partir d'un cas réel contenant des éléments sensibles"
+  ],
+  "priority": "high",
+  "safety_level": "high_risk",
+  "content": {
+    "definition": "Le raisonnement d'anonymisation et de rédaction raisonnée consiste à identifier, dans une information sensible destinée à être restituée, les éléments qui ne sont pas strictement nécessaires à l'usage visé (identités, montants précis, dates exactes, détails identifiants) et à les retirer, généraliser ou remplacer, en vérifiant que le résultat ne permet pas de reconstituer l'information d'origine par recoupement.",
+    "core_principles": [
+      "L'anonymisation doit être évaluée par son résultat (l'information restituée ne permet plus d'identifier la source ou les personnes concernées), pas par la seule intention de généraliser.",
+      "Retirer un identifiant direct (nom, identifiant unique) ne suffit pas si des éléments indirects combinés (dates précises, montants exacts, contexte très spécifique) permettent encore une réidentification par recoupement.",
+      "Le niveau de généralisation nécessaire dépend du risque de réidentification dans le contexte de restitution, pas d'un niveau fixe appliqué uniformément à toute situation.",
+      "Une information anonymisée doit rester utile à son usage prévu : une anonymisation excessive qui vide l'information de toute utilité n'est pas non plus un résultat satisfaisant."
+    ],
+    "rules": [
+      "Identifier explicitement, avant restitution, tous les éléments identifiants directs et indirects présents dans l'information sensible.",
+      "Vérifier que la combinaison des éléments restants après anonymisation ne permet pas de réidentification par recoupement.",
+      "Généraliser les éléments trop spécifiques (dates, montants, quantités) au niveau de précision réellement nécessaire à l'usage visé, pas moins ni plus.",
+      "Revoir le résultat anonymisé du point de vue d'un tiers qui chercherait à identifier la source, pas seulement du point de vue de l'intention initiale."
+    ],
+    "examples": [
+      {
+        "situation": "ALFRED souhaite illustrer une bonne pratique méthodologique observée chez un client CPL en citant un exemple concret pour un autre contexte.",
+        "recommended_behavior": "Reformuler l'exemple en généralisant le secteur, la taille et les montants ('une entreprise de taille intermédiaire du secteur industriel a réduit ses délais d'environ un tiers') sans dates ni détails permettant d'identifier le client d'origine.",
+        "avoid": "Restituer l'exemple avec des détails suffisamment précis (secteur très spécifique, montant exact, période précise) pour que le client d'origine reste identifiable par recoupement."
+      }
+    ],
+    "best_practices": [
+      "Faire systématiquement l'inventaire des éléments identifiants directs et indirects avant toute restitution d'une information sensible.",
+      "Tester mentalement la réidentification par recoupement du point de vue d'un tiers extérieur.",
+      "Calibrer le niveau de généralisation sur l'utilité réelle attendue de l'information restituée, sans sur-anonymiser inutilement."
+    ],
+    "anti_patterns": [
+      "Considérer le retrait du seul nom comme suffisant sans vérifier les autres éléments identifiants indirects.",
+      "Restituer une information avec un niveau de précision qui permet une réidentification par recoupement de plusieurs détails.",
+      "Sur-anonymiser au point de rendre l'information restituée inutile pour l'usage visé."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "anonymisation",
+      "redaction_information_sensible",
+      "reidentification"
+    ],
+    "related_domains": [
+      "confidential",
+      "professional",
+      "cpl"
+    ],
+    "related_knowledge": [
+      "professional.governance_ai.data_minimization",
+      "securite_ia.confidentialite_donnees_entrainement_differential_privacy",
+      "confidential.engineering_reasoning.raisonnement_partage_minimal_besoin_strict_reponse"
+    ],
+    "retrieval_priority": 8
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "high",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "restitution d'une information sensible sous forme généralisée et anonymisée après vérification du risque de réidentification"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [
+      "restitution d'une information insuffisamment anonymisée permettant une réidentification par recoupement d'éléments indirects"
+    ],
+    "fallback_behavior": "En cas de doute sur le caractère suffisant de l'anonymisation, généraliser davantage l'information ou s'abstenir de la restituer plutôt que de risquer une réidentification."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "26/08/2026",
+    "last_update": "26/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}
