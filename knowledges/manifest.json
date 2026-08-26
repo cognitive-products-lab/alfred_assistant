@@ -1,6 +1,6 @@
 {
   "manifest_id": "alfred_knowledge_manifest_v2_0",
-  "version": "2.15.0",
+  "version": "2.16.0",
   "last_update": "26/08/2026",
   "status": "active",
   "description": "Manifest global du socle de connaissances ALFRED. Il décrit les domaines, sous-domaines, usages et règles générales de chargement du dossier knowledges.",
@@ -841,6 +841,32 @@
       "file_count": 13,
       "lot": "LOT16",
       "added": "2026-08-23"
+    },
+    "private": {
+      "label": "Contexte prive et personnel",
+      "description": "Raisonnement specifique au contexte prive/personnel d'ALFRED (usage foyer, hors conseil professionnel ALFRED CPL), en miroir de professional.engineering_reasoning mais sur l'angle contexte prive plutot que technique generique.",
+      "priority": "high",
+      "path": "knowledges/private/",
+      "subdomains": [
+        "engineering_reasoning"
+      ],
+      "file_count": 15,
+      "lot": "chantier_dedie_26_08_2026",
+      "added": "2026-08-26",
+      "note": "Cree a la demande explicite de Celine le 26/08/2026, hors cycle quotidien standard."
+    },
+    "confidential": {
+      "label": "Raisonnement sous contrainte de confidentialite",
+      "description": "Compartimentation, cloisonnement multi-contexte, grille de divulgation, anonymisation, detection de fuite, niveaux de classification, tracabilite sans exposition du contenu -- transversal a cpl (clients multiples) et private (foyer multi-utilisateurs).",
+      "priority": "critical",
+      "path": "knowledges/confidential/",
+      "subdomains": [
+        "engineering_reasoning"
+      ],
+      "file_count": 15,
+      "lot": "chantier_dedie_26_08_2026",
+      "added": "2026-08-26",
+      "note": "Cree a la demande explicite de Celine le 26/08/2026, hors cycle quotidien standard."
     }
   },
   "recently_added_lots": {
@@ -1079,6 +1105,21 @@
         "cinema.technologie",
         "ressources_humaines.recrutement"
       ]
+    },
+    "chantier_private_confidential_engineering_reasoning_26_08_2026": {
+      "date": "26/08/2026",
+      "type": "chantier dedie, demande explicite de Celine, hors cycle quotidien standard des 60 fichiers",
+      "path": "knowledges/private/engineering/reasoning/ (nouveau domaine, 15 fiches) + knowledges/confidential/engineering/reasoning/ (nouveau domaine, 15 fiches)",
+      "description": "Creation de deux nouveaux domaines top-level de connaissances liees au raisonnement, en miroir du domaine professional.engineering_reasoning (49 fiches, techniques de raisonnement generiques). private.engineering_reasoning (15 fiches) : raisonnement specifique au contexte prive/personnel d'ALFRED (arbitrage preferences membres du foyer, donnees personnelles sensibles en contexte prive, ambiguite du langage familial informel, routines/habitudes personnelles, contexte emotionnel/relationnel dans une decision privee, priorites personnelles vs obligations professionnelles, demandes contradictoires multi-utilisateurs du foyer, adaptation formalite/ton au contexte prive, decisions quotidiennes budget/planning/bien-etre non medical, detection de la bascule contexte prive/professionnel, patterns comportementaux recurrents sans diagnostic, incertitude sur une preference non exprimee, repartition des taches domestiques). confidential.engineering_reasoning (15 fiches) : raisonnement sous contrainte de confidentialite (compartimentation need-to-know, cloisonnement multi-contexte, grille de divulgation a qui, anonymisation/redaction raisonnee, detection de tentative de fuite inter-contexte, cas ALFRED CPL multi-clients confidentiels simultanes, cas ALFRED private foyer multi-utilisateurs, niveaux de classification et raisonnement adapte, tracabilite sans exposition du contenu, ambiguite sur le statut confidentiel avec prudence par defaut, question transversale sans divulgation croisee, duree/peremption de la confidentialite, detection d'inference indirecte, partage minimal au strict besoin, escalade vers arbitrage humain en cas de doute persistant). Verification anti-doublon effectuee avant creation (knowledge_registry.json + arborescence) : aucun chevauchement avec les 49 fiches professional.engineering_reasoning (techniques generiques), information_security (politique de classification organisationnelle), gestion_documentaire (gouvernance d'acces documentaire), securite_ia (confidentialite des donnees d'entrainement), ou cpl.ethics_governance (gouvernance des conflits multi-utilisateurs, angle policy produit) -- ces deux nouveaux domaines apportent explicitement l'angle contexte prive et l'angle contrainte de confidentialite au raisonnement d'ALFRED, absents jusque-la de la taxonomie. taxonomy.json v3.18.1 -> v3.19.0 (total_subdomains 365 -> 367). manifest.json v2.15.0 -> v2.16.0 (total_domains 69 -> 71).",
+      "files_created": 30,
+      "new_domains_created": [
+        "private",
+        "confidential"
+      ],
+      "new_subdomains_created": [
+        "private.engineering_reasoning",
+        "confidential.engineering_reasoning"
+      ]
     }
   },
   "loading_policy": {
@@ -1111,5 +1152,5 @@
       "Tester retrieval_engine.py sur des requêtes multi-domaines."
     ]
   },
-  "total_domains": 69
+  "total_domains": 71
 }
