@@ -1,0 +1,98 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.business_piloting.pilotage_taux_utilisation_consultants_charge_facturable",
+  "title": "Pilotage du taux d'utilisation des consultants (charge facturable)",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "business_piloting",
+  "category": "pilotage financier ALFRED CPL",
+  "summary": "Définit le taux d'utilisation (utilization rate) d'un consultant — part du temps facturable rapportée au temps total disponible — et ses usages pour piloter la rentabilité d'une équipe de conseil, distinct du pilotage de marge par projet déjà couvert qui porte sur la rentabilité d'une mission plutôt que sur l'allocation de charge d'un consultant.",
+  "purpose": "Donner à ALFRED CPL un indicateur clé de pilotage RH-financier pour équilibrer charge facturable et disponibilité des consultants.",
+  "tags": [
+    "taux_utilisation",
+    "charge_facturable",
+    "pilotage_ressources",
+    "conseil"
+  ],
+  "intents": [
+    "explain_consultant_utilization_rate",
+    "assess_billable_capacity_balance"
+  ],
+  "usage_context": [
+    "analyse de la rentabilité d'une équipe de conseil sur une période donnée",
+    "arbitrage entre staffing sur mission facturable et temps interne"
+  ],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "Le taux d'utilisation d'un consultant se calcule en rapportant le nombre d'heures facturées au client au nombre d'heures disponibles sur une période donnée (après déduction des congés et absences), un taux cible réaliste se situant généralement entre 65% et 80% selon le niveau de séniorité et le type de mission, un taux trop élevé de façon durable exposant au risque d'épuisement professionnel tandis qu'un taux trop faible signale un problème de staffing ou de développement commercial.",
+    "core_principles": [
+      "Un taux d'utilisation cible réaliste tient compte du temps nécessaire au développement commercial, à la formation et à la gestion interne, jamais fixé à 100%.",
+      "Un taux durablement trop élevé constitue un signal d'alerte de risque d'épuisement professionnel autant qu'un signal financier positif à court terme.",
+      "Un taux durablement trop faible signale un problème de staffing ou de pipeline commercial insuffisant à traiter en priorité."
+    ],
+    "rules": [
+      "Ne jamais fixer un taux d'utilisation cible à 100%, qui ne laisse aucune marge pour le développement commercial et la formation.",
+      "Analyser un taux d'utilisation durablement élevé comme un signal de risque humain, pas uniquement comme une performance financière positive.",
+      "Croiser le taux d'utilisation avec les indicateurs de charge perçue et de satisfaction pour éviter une lecture purement financière."
+    ],
+    "examples": [
+      {
+        "situation": "Un consultant affiche un taux d'utilisation de 95% sur plusieurs mois consécutifs, valorisé en interne comme une performance exemplaire.",
+        "recommended_behavior": "Alerter sur le risque d'épuisement professionnel associé à un taux aussi durablement élevé et recommander une vérification de la charge perçue réelle du consultant.",
+        "avoid": "Valoriser sans nuance un taux d'utilisation très élevé comme un seul indicateur de performance positive."
+      }
+    ],
+    "best_practices": [
+      "Fixer un taux d'utilisation cible réaliste laissant une marge pour le développement commercial et la formation.",
+      "Croiser systématiquement le taux d'utilisation avec des indicateurs de charge perçue."
+    ],
+    "anti_patterns": [
+      "Fixer un taux d'utilisation cible à 100%.",
+      "Valoriser un taux durablement élevé sans vérifier le risque d'épuisement professionnel associé."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "taux_utilisation",
+      "charge_facturable",
+      "pilotage_ressources"
+    ],
+    "related_domains": [
+      "cpl",
+      "human_organization"
+    ],
+    "related_knowledge": [
+      "cpl.business_piloting.pilotage_marge_projet_service",
+      "cpl.human_organization.prevention_epuisement_professionnel_equipe_consulting"
+    ],
+    "retrieval_priority": 6
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "conseil pédagogique sur le pilotage du taux d'utilisation d'une équipe de conseil"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "Pour une décision de staffing individuelle sensible, recommander une discussion directe entre le manager et le consultant concerné."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "26/08/2026",
+    "last_update": "26/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

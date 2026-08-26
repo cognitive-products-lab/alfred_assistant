@@ -1,0 +1,98 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.operations_continuite.procedure_migration_donnees_changement_materiel_alfred_cpl",
+  "title": "Procédure de migration des données lors d'un changement de matériel",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "operations_continuite",
+  "category": "continuité opérationnelle ALFRED CPL",
+  "summary": "Procédure structurée de migration des données et de la configuration d'ALFRED CPL lors d'un changement de matériel serveur local (mise à niveau, remplacement), distincte de la sauvegarde/restauration déjà couverte qui porte sur la reprise après incident plutôt que sur une migration planifiée vers un nouveau matériel.",
+  "purpose": "Donner à ALFRED CPL une procédure claire de migration de données lors d'un changement planifié de matériel, situation distincte d'une reprise après sinistre non planifiée.",
+  "tags": [
+    "migration_donnees",
+    "changement_materiel",
+    "procedure_technique",
+    "alfred_cpl"
+  ],
+  "intents": [
+    "explain_hardware_migration_procedure",
+    "guide_planned_data_migration"
+  ],
+  "usage_context": [
+    "changement planifié de matériel serveur local (mise à niveau ou remplacement)",
+    "besoin de structurer une migration de données sans perte ni interruption prolongée"
+  ],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "La procédure de migration de données lors d'un changement de matériel comprend une phase de préparation (sauvegarde complète vérifiée, inventaire de configuration), une phase de transfert vers le nouveau matériel avec vérification d'intégrité des données migrées, une phase de test en parallèle avant bascule définitive, et une période de conservation temporaire de l'ancien matériel en cas de besoin de retour arrière, cette procédure différant d'une restauration d'urgence par son caractère planifié et testé en amont.",
+    "core_principles": [
+      "Une migration planifiée doit toujours reposer sur une sauvegarde complète vérifiée avant tout transfert vers le nouveau matériel.",
+      "Une phase de test en parallèle sur le nouveau matériel, avant bascule définitive, permet de détecter une anomalie de migration sans interruption de service.",
+      "L'ancien matériel doit être conservé temporairement après bascule pour permettre un retour arrière en cas d'anomalie détectée tardivement."
+    ],
+    "rules": [
+      "Ne jamais migrer sans sauvegarde complète vérifiée préalable.",
+      "Tester le fonctionnement sur le nouveau matériel en parallèle de l'ancien avant toute bascule définitive.",
+      "Conserver temporairement l'ancien matériel après bascule pour permettre un retour arrière si nécessaire."
+    ],
+    "examples": [
+      {
+        "situation": "Un changement de matériel serveur est planifié avec bascule immédiate et suppression de l'ancien matériel dès le transfert effectué.",
+        "recommended_behavior": "Conserver l'ancien matériel temporairement après bascule et prévoir une phase de test en parallèle avant toute suppression définitive.",
+        "avoid": "Supprimer l'ancien matériel immédiatement après le transfert sans phase de test en parallèle ni période de retour arrière possible."
+      }
+    ],
+    "best_practices": [
+      "Toujours vérifier l'intégrité d'une sauvegarde complète avant toute migration.",
+      "Conserver temporairement l'ancien matériel après bascule pour permettre un retour arrière."
+    ],
+    "anti_patterns": [
+      "Migrer sans sauvegarde complète vérifiée.",
+      "Supprimer l'ancien matériel immédiatement après bascule sans période de retour arrière."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "migration_donnees",
+      "changement_materiel",
+      "retour_arriere"
+    ],
+    "related_domains": [
+      "cpl",
+      "operations_continuite"
+    ],
+    "related_knowledge": [
+      "cpl.operations_continuite.sauvegarde_restauration_alfred_cpl",
+      "cpl.operations_continuite.gestion_defaillance_materielle_hardware_local_alfred_cpl"
+    ],
+    "retrieval_priority": 5
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "conseil pédagogique sur la procédure de migration de données lors d'un changement de matériel"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "En cas d'anomalie détectée pendant la phase de test en parallèle, ne jamais procéder à la bascule définitive avant résolution complète de l'anomalie."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "26/08/2026",
+    "last_update": "26/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}
