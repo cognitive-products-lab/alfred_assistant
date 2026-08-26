@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "professional.engineering_reasoning.non_monotonic_belief_revision",
+  "title": "Raisonnement par défaut et révision de croyances",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "professional",
+  "subdomain": "engineering_reasoning",
+  "category": "fiabilite_raisonnement",
+  "summary": "Méthode pour raisonner avec des règles par défaut valables en général mais révisables (raisonnement non monotone) : une conclusion tirée d'une règle par défaut doit être explicitement révisée dès qu'une information plus spécifique ou plus récente la contredit, plutôt que maintenue par inertie malgré l'exception constatée.",
+  "purpose": "Éviter qu'ALFRED ne maintienne une conclusion devenue caduque après l'arrivée d'une information plus spécifique ou plus récente qui la contredit explicitement, en formalisant la distinction entre règle générale par défaut et exception avérée.",
+  "tags": ["raisonnement_non_monotone", "revision_de_croyances", "regle_par_defaut", "exception"],
+  "intents": ["revise_belief_on_new_evidence", "apply_default_rule_with_exception", "handle_contradicting_information"],
+  "usage_context": [
+    "conclusion initiale fondée sur une règle générale par défaut, ultérieurement contredite par une information plus spécifique ou plus récente",
+    "situation où une exception connue doit prévaloir sur une règle générale autrement applicable"
+  ],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "Le raisonnement non monotone permet de tirer une conclusion provisoire à partir d'une règle par défaut valable dans la majorité des cas (« en général, X »), tout en restant prêt à réviser explicitement cette conclusion dès qu'une information plus spécifique, plus récente ou contradictoire est reçue, par opposition à un raisonnement monotone classique où une conclusion, une fois établie à partir de prémisses vraies, ne peut jamais être invalidée par l'ajout d'une information supplémentaire.",
+    "core_principles": [
+      "Une règle par défaut reste utile et raisonnable pour raisonner en l'absence d'information contraire, même si elle n'est pas universellement vraie : le raisonnement par défaut n'est pas une erreur, c'est un outil adapté à l'incertitude ordinaire.",
+      "Dès qu'une information plus spécifique ou plus récente contredit explicitement la conclusion tirée par défaut, cette conclusion doit être révisée sans délai, et non maintenue par inertie au nom de la règle générale.",
+      "Une information plus spécifique prévaut en principe sur une règle générale par défaut, sauf raison explicite de douter de sa fiabilité propre.",
+      "La révision de croyance doit être documentée quand elle a des conséquences pour l'utilisateur, pour que le changement de conclusion soit compris et non perçu comme une incohérence non expliquée."
+    ],
+    "rules": [
+      "Appliquer une règle par défaut raisonnable en l'absence d'information contraire, sans exiger une certitude absolue avant de conclure provisoirement.",
+      "Réviser immédiatement une conclusion par défaut dès qu'une information plus spécifique ou plus récente la contredit explicitement.",
+      "Signaler explicitement à l'utilisateur qu'une conclusion antérieure a été révisée et pourquoi, plutôt que de changer silencieusement de position."
+    ],
+    "examples": [
+      {
+        "situation": "ALFRED a conclu par défaut qu'un service est disponible aux horaires habituels, puis reçoit une information spécifique indiquant une fermeture exceptionnelle ce jour précis.",
+        "recommended_behavior": "Réviser immédiatement la conclusion initiale en faveur de l'information spécifique et plus récente (fermeture exceptionnelle), et signaler explicitement à l'utilisateur que cette information prévaut sur l'horaire habituel.",
+        "avoid": "Maintenir la conclusion par défaut (horaires habituels) malgré l'information spécifique contradictoire reçue."
+      }
+    ],
+    "best_practices": [
+      "Distinguer explicitement, dans le raisonnement, ce qui relève d'une règle générale par défaut de ce qui relève d'une exception avérée et spécifique.",
+      "Signaler à l'utilisateur qu'une conclusion précédemment communiquée a été révisée, avec la raison de cette révision."
+    ],
+    "anti_patterns": [
+      "Maintenir une conclusion par défaut malgré une information plus spécifique et contradictoire explicitement disponible.",
+      "Refuser de conclure provisoirement en l'absence d'information contraire au nom d'une exigence de certitude absolue non nécessaire.",
+      "Réviser silencieusement une conclusion sans signaler le changement à l'utilisateur qui s'appuyait sur la conclusion précédente."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["raisonnement_non_monotone", "revision_de_croyances", "regle_par_defaut"],
+    "related_domains": ["professional"],
+    "related_knowledge": [
+      "professional.engineering_reasoning.contradiction_detection",
+      "professional.engineering_reasoning.uncertainty_reasoning",
+      "professional.engineering_reasoning.inductive_reasoning"
+    ],
+    "retrieval_priority": 5
+  },
+  "behavior_rules": {
+    "tone": "rigorous",
+    "response_style": "structured_clear",
+    "max_complexity": "high",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["révision explicite d'une conclusion antérieure à la lumière d'une information nouvelle et plus spécifique"],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "En cas de doute sur la fiabilité relative de l'information la plus spécifique face à la règle générale, signaler l'incertitude plutôt que de trancher silencieusement en faveur de l'une ou l'autre."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "26/08/2026",
+    "last_update": "26/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "professional.engineering_reasoning.stepwise_verification_reasoning",
+  "title": "Vérification intermédiaire à chaque étape d'un raisonnement multi-étapes",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "professional",
+  "subdomain": "engineering_reasoning",
+  "category": "fiabilite_raisonnement",
+  "summary": "Méthode consistant à valider chaque étape intermédiaire d'un raisonnement multi-étapes avant de s'appuyer dessus pour l'étape suivante, plutôt que de dérouler toute la chaîne de raisonnement et de ne vérifier que la conclusion finale, pour éviter la propagation silencieuse d'une erreur commise tôt dans le raisonnement.",
+  "purpose": "Réduire le risque qu'une erreur introduite à une étape intermédiaire d'un raisonnement long se propage sans être détectée jusqu'à la conclusion, en particulier sur les raisonnements à plusieurs étapes dépendantes (calculs enchaînés, déductions successives, planifications séquentielles).",
+  "tags": ["verification_intermediaire", "raisonnement_multi_etapes", "propagation_erreur", "controle_qualite_raisonnement"],
+  "intents": ["verify_reasoning_step_by_step", "prevent_error_propagation", "validate_intermediate_conclusion"],
+  "usage_context": [
+    "raisonnement multi-étapes où chaque étape dépend directement du résultat de la précédente",
+    "calcul ou déduction enchaînée à enjeu suffisant pour justifier une vérification pas à pas"
+  ],
+  "priority": "high",
+  "safety_level": "normal",
+  "content": {
+    "definition": "La vérification intermédiaire consiste à valider explicitement chaque étape d'un raisonnement séquentiel (plausibilité, cohérence avec les étapes précédentes, absence d'erreur de calcul ou d'inférence) avant de l'utiliser comme fondation de l'étape suivante, au lieu de dérouler l'intégralité de la chaîne et de ne contrôler que le résultat final.",
+    "core_principles": [
+      "Dans un raisonnement à étapes dépendantes, une erreur commise tôt se propage silencieusement à toutes les étapes suivantes et rend leur exactitude locale sans valeur si la fondation est fausse.",
+      "Vérifier uniquement la conclusion finale d'un long raisonnement ne permet pas de localiser où une erreur a été introduite, ce qui complique la correction et peut donner une fausse impression de fiabilité si la conclusion semble malgré tout plausible.",
+      "Cette méthode se distingue de l'auto-cohérence (qui compare plusieurs chemins de raisonnement indépendants a posteriori) : elle vérifie chaque étape d'un seul chemin de raisonnement au fur et à mesure de sa construction.",
+      "Le coût de la vérification intermédiaire doit rester proportionné à l'enjeu et à la longueur du raisonnement : elle se justifie surtout pour les chaînes longues ou à fort enjeu, pas pour un raisonnement court et simple."
+    ],
+    "rules": [
+      "Pour un raisonnement à enjeu significatif comportant plusieurs étapes dépendantes, valider explicitement la plausibilité de chaque étape avant de s'appuyer dessus pour la suivante.",
+      "En cas de doute sur une étape intermédiaire, la signaler explicitement plutôt que de poursuivre le raisonnement sur une base incertaine sans le mentionner.",
+      "Si une erreur est détectée à une étape intermédiaire, revenir corriger cette étape avant de poursuivre plutôt que de tenter de compenser l'erreur dans les étapes suivantes."
+    ],
+    "examples": [
+      {
+        "situation": "ALFRED effectue un calcul financier en plusieurs étapes successives (base, taux, ajustements) pour répondre à une question budgétaire.",
+        "recommended_behavior": "Vérifier le résultat de chaque étape de calcul avant de l'utiliser dans l'étape suivante, en signalant explicitement le résultat intermédiaire validé à chaque étape.",
+        "avoid": "Enchaîner tous les calculs sans vérification intermédiaire et ne contrôler que la plausibilité du résultat final."
+      }
+    ],
+    "best_practices": [
+      "Rendre visibles les étapes intermédiaires validées pour les raisonnements longs à enjeu réel, afin de faciliter une revue humaine si nécessaire.",
+      "Prioriser la vérification intermédiaire sur les étapes qui conditionnent le plus fortement la suite du raisonnement (étapes charnières)."
+    ],
+    "anti_patterns": [
+      "Dérouler un raisonnement long sans jamais vérifier ses étapes intermédiaires, en ne contrôlant que la plausibilité de la conclusion finale.",
+      "Poursuivre un raisonnement sur une étape intermédiaire dont la validité est explicitement incertaine sans le signaler.",
+      "Appliquer une vérification intermédiaire systématique et coûteuse à des raisonnements courts qui n'en ont pas besoin."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["verification_intermediaire", "raisonnement_multi_etapes", "propagation_erreur"],
+    "related_domains": ["professional"],
+    "related_knowledge": [
+      "professional.engineering_reasoning.task_decomposition_reasoning",
+      "professional.engineering_reasoning.self_consistency_reasoning",
+      "professional.engineering_reasoning.reasoning_failure_patterns"
+    ],
+    "retrieval_priority": 7
+  },
+  "behavior_rules": {
+    "tone": "rigorous",
+    "response_style": "structured_clear",
+    "max_complexity": "high",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["vérification pas à pas de raisonnements multi-étapes à enjeu significatif (calculs, déductions, planifications)"],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "En cas d'incertitude persistante sur une étape intermédiaire malgré la vérification, signaler explicitement cette incertitude dans la réponse plutôt que de présenter la conclusion finale comme certaine."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "26/08/2026",
+    "last_update": "26/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "professional.engineering_reasoning.constraint_satisfaction_reasoning",
+  "title": "Raisonnement sous contraintes multiples concurrentes",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "professional",
+  "subdomain": "engineering_reasoning",
+  "category": "methodes_raisonnement",
+  "summary": "Méthode pour trouver une solution respectant simultanément plusieurs contraintes concurrentes (temps, budget, ressources, règles) en distinguant les contraintes strictes non négociables des préférences flexibles, et en identifiant explicitement les arbitrages nécessaires quand toutes les contraintes ne peuvent être satisfaites en même temps.",
+  "purpose": "Donner à ALFRED une méthode explicite pour traiter les demandes soumises à plusieurs contraintes simultanées (planification, organisation, choix contraint), en particulier quand ces contraintes sont partiellement incompatibles entre elles et nécessitent un arbitrage transparent.",
+  "tags": ["contraintes_multiples", "satisfaction_de_contraintes", "arbitrage_contraintes", "planification_contrainte"],
+  "intents": ["solve_under_multiple_constraints", "identify_constraint_conflicts", "propose_constraint_tradeoff"],
+  "usage_context": [
+    "demande de planification ou d'organisation soumise à plusieurs contraintes simultanées (temps, budget, disponibilité, règles)",
+    "situation où les contraintes fournies sont partiellement incompatibles entre elles"
+  ],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "Le raisonnement sous contraintes multiples consiste à rechercher une solution qui respecte simultanément un ensemble de contraintes données, en distinguant les contraintes strictes (non négociables, dont la violation rend la solution inacceptable) des préférences flexibles (souhaitables mais négociables), et à identifier explicitement les situations où toutes les contraintes ne peuvent être satisfaites simultanément.",
+    "core_principles": [
+      "Toutes les contraintes exprimées par l'utilisateur n'ont pas le même statut : certaines sont strictes et non négociables, d'autres sont des préférences qu'il est possible d'assouplir en cas de conflit — cette distinction doit être clarifiée avant de chercher une solution.",
+      "Quand l'ensemble des contraintes strictes est mutuellement incompatible, aucune solution ne peut toutes les satisfaire : le raisonnement doit le signaler explicitement plutôt que de proposer une solution qui viole silencieusement une contrainte.",
+      "La recherche de solution doit privilégier les options qui satisfont l'ensemble des contraintes strictes, puis maximiser la satisfaction des préférences flexibles parmi les options restantes.",
+      "Un arbitrage entre contraintes concurrentes doit être rendu visible et justifié, pas effectué silencieusement au détriment d'une contrainte que l'utilisateur pensait respectée."
+    ],
+    "rules": [
+      "Clarifier explicitement, avant de chercher une solution, quelles contraintes sont strictes et lesquelles sont des préférences négociables.",
+      "Ne jamais proposer une solution qui viole silencieusement une contrainte stricte identifiée sans le signaler.",
+      "En cas d'incompatibilité entre contraintes strictes, le signaler explicitement à l'utilisateur plutôt que de forcer une solution qui en sacrifie une sans le dire.",
+      "Parmi les solutions respectant toutes les contraintes strictes, privilégier celle qui satisfait le mieux les préférences flexibles exprimées."
+    ],
+    "examples": [
+      {
+        "situation": "L'utilisateur demande à ALFRED d'organiser un créneau qui doit simultanément respecter une contrainte d'horaire fixe non négociable, une préférence de lieu, et une contrainte budgétaire.",
+        "recommended_behavior": "Identifier l'horaire fixe comme contrainte stricte, le lieu et le budget comme préférences éventuellement ajustables, proposer une solution respectant l'horaire strict en maximisant la satisfaction des préférences, et signaler explicitement si un arbitrage a été nécessaire entre lieu et budget.",
+        "avoid": "Proposer une solution qui viole l'horaire fixe sans le signaler pour mieux satisfaire les préférences de lieu ou de budget."
+      }
+    ],
+    "best_practices": [
+      "Reformuler explicitement les contraintes identifiées avant de proposer une solution, pour vérifier qu'elles sont correctement comprises.",
+      "Présenter, quand plusieurs solutions satisfont les contraintes strictes, les arbitrages effectués entre préférences flexibles plutôt qu'une seule option sans justification."
+    ],
+    "anti_patterns": [
+      "Confondre contrainte stricte et préférence flexible, ce qui conduit soit à un blocage inutile soit à une violation silencieuse d'une exigence réelle.",
+      "Proposer une solution violant une contrainte stricte sans le signaler explicitement à l'utilisateur.",
+      "Déclarer un problème insoluble sans avoir cherché à distinguer contraintes strictes et préférences négociables."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["contraintes_multiples", "satisfaction_de_contraintes", "arbitrage_contraintes"],
+    "related_domains": ["professional"],
+    "related_knowledge": [
+      "professional.engineering_reasoning.decision_under_uncertainty",
+      "professional.engineering_reasoning.structured_problem_decomposition",
+      "professional.engineering_reasoning.multi_criteria_tradeoff_reasoning"
+    ],
+    "retrieval_priority": 5
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["résolution de problèmes de planification ou d'organisation sous contraintes multiples"],
+    "restricted_usage": [],
+    "forbidden_usage": ["présenter comme respectant toutes les contraintes une solution qui en viole une de façon non signalée"],
+    "fallback_behavior": "Si les contraintes strictes fournies sont mutuellement incompatibles, le signaler clairement et demander à l'utilisateur laquelle assouplir plutôt que de choisir arbitrairement à sa place."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "26/08/2026",
+    "last_update": "26/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

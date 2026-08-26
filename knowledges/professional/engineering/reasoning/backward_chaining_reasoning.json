@@ -1,0 +1,83 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "professional.engineering_reasoning.backward_chaining_reasoning",
+  "title": "Raisonnement en chaînage arrière (partir du but pour remonter aux prémisses)",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "professional",
+  "subdomain": "engineering_reasoning",
+  "category": "methodes_raisonnement",
+  "summary": "Méthode de raisonnement qui part du but ou de la conclusion recherchée et remonte vers les prémisses ou conditions nécessaires pour l'atteindre, par opposition au chaînage avant qui part des faits disponibles pour en dériver des conclusions ; particulièrement efficace quand le but est clairement défini et l'espace de faits de départ très large.",
+  "purpose": "Donner à ALFRED une méthode alternative au raisonnement déductif classique en chaînage avant, utile quand partir des faits disponibles serait inefficace faute de but clair pour guider l'exploration, notamment pour vérifier si un but est atteignable et sous quelles conditions précises.",
+  "tags": ["chainage_arriere", "raisonnement_par_le_but", "conditions_necessaires", "backward_chaining"],
+  "intents": ["reason_backward_from_goal", "identify_necessary_conditions", "verify_goal_reachability"],
+  "usage_context": [
+    "but ou conclusion clairement défini dont il faut déterminer les conditions nécessaires pour l'atteindre",
+    "espace de faits de départ trop large pour un raisonnement efficace en chaînage avant"
+  ],
+  "priority": "low",
+  "safety_level": "normal",
+  "content": {
+    "definition": "Le raisonnement en chaînage arrière part du but ou de la conclusion recherchée et remonte méthodiquement vers les conditions ou prémisses nécessaires pour l'atteindre, en se demandant à chaque étape « que faudrait-il pour que ceci soit vrai ou atteint ? », jusqu'à arriver à des conditions vérifiables directement à partir des faits disponibles.",
+    "core_principles": [
+      "Le chaînage arrière est particulièrement efficace quand le but est précis et unique, tandis que le chaînage avant (partir des faits pour en dériver des conclusions) est plus efficace quand le but est vague ou que plusieurs conclusions sont recherchées simultanément.",
+      "Chaque étape du chaînage arrière consiste à identifier les conditions nécessaires et suffisantes pour atteindre l'étape précédente, en remontant ainsi jusqu'à des faits ou actions directement disponibles.",
+      "Cette méthode révèle explicitement les prérequis manquants pour atteindre un but donné, ce qui la rend particulièrement utile pour vérifier la faisabilité d'un objectif avant de s'engager dans sa réalisation.",
+      "Le chaînage arrière et le chaînage avant peuvent se combiner : converger les deux directions (du but vers les faits, et des faits vers le but) accélère souvent la résolution par rapport à une seule direction."
+    ],
+    "rules": [
+      "Partir explicitement du but recherché et identifier les conditions nécessaires pour l'atteindre avant de chercher les moyens de les réunir.",
+      "Poursuivre le chaînage arrière jusqu'à atteindre des conditions vérifiables directement à partir des faits ou ressources disponibles.",
+      "Signaler explicitement une condition nécessaire qui ne peut être satisfaite avec les ressources ou informations disponibles, plutôt que de l'ignorer silencieusement."
+    ],
+    "examples": [
+      {
+        "situation": "Un utilisateur demande si un objectif précis (ex. obtenir une certification, atteindre un jalon de projet à une date donnée) est atteignable dans les conditions actuelles.",
+        "recommended_behavior": "Partir de l'objectif final et identifier successivement les conditions nécessaires pour l'atteindre (prérequis, étapes intermédiaires obligatoires), en remontant jusqu'aux ressources ou actions actuellement disponibles, pour déterminer précisément ce qui manque.",
+        "avoid": "Explorer les faits disponibles sans lien direct avec le but recherché, ce qui allonge inutilement le raisonnement sur un but pourtant clairement défini."
+      }
+    ],
+    "best_practices": [
+      "Combiner chaînage arrière et chaînage avant quand cela accélère la résolution, notamment en vérifiant si les deux directions convergent vers un point commun.",
+      "Rendre explicite la chaîne de conditions nécessaires identifiée, pour que l'utilisateur comprenne précisément ce qui reste à réunir pour atteindre le but."
+    ],
+    "anti_patterns": [
+      "Utiliser le chaînage arrière sur un but vague ou mal défini, ce qui rend l'identification des conditions nécessaires peu fiable.",
+      "Ignorer une condition nécessaire non satisfaite identifiée en cours de chaînage plutôt que de la signaler explicitement comme un obstacle réel."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": ["chainage_arriere", "raisonnement_par_le_but", "conditions_necessaires"],
+    "related_domains": ["professional"],
+    "related_knowledge": [
+      "professional.engineering_reasoning.deductive_reasoning",
+      "professional.engineering_reasoning.means_ends_analysis",
+      "professional.engineering_reasoning.task_decomposition_reasoning"
+    ],
+    "retrieval_priority": 4
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": ["vérification de la faisabilité d'un but et identification de ses conditions nécessaires"],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "Si le chaînage arrière révèle une condition nécessaire impossible à satisfaire avec les ressources disponibles, signaler explicitement que le but n'est pas atteignable en l'état plutôt que de proposer une solution partielle présentée comme complète."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "26/08/2026",
+    "last_update": "26/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}
