@@ -1,0 +1,98 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.operations_continuite.procedure_gestion_fin_de_support_composants_tiers_bibliotheques_alfred_cpl",
+  "title": "Procédure de gestion de la fin de support des composants tiers et bibliothèques logicielles",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "operations_continuite",
+  "category": "continuité opérationnelle ALFRED CPL",
+  "summary": "Décrit la procédure de veille et de traitement de la fin de support (end-of-life) des bibliothèques et composants logiciels tiers utilisés par ALFRED CPL, distincte de la gestion de l'obsolescence technologique générale déjà couverte qui porte sur une vision d'ensemble stratégique plutôt que sur un processus opérationnel de suivi composant par composant.",
+  "purpose": "Prévenir l'accumulation de vulnérabilités de sécurité non corrigées liées à des composants tiers dont le support a cessé, faute de suivi systématique.",
+  "tags": [
+    "fin_de_support",
+    "composants_tiers",
+    "bibliotheques_logicielles",
+    "veille_end_of_life"
+  ],
+  "intents": [
+    "explain_end_of_life_dependency_management",
+    "structure_third_party_component_monitoring"
+  ],
+  "usage_context": [
+    "suivi périodique des composants tiers utilisés dans l'architecture d'ALFRED CPL",
+    "une bibliothèque logicielle utilisée approche de sa date de fin de support"
+  ],
+  "priority": "high",
+  "safety_level": "normal",
+  "content": {
+    "definition": "La procédure de gestion de la fin de support des composants tiers formalise le suivi systématique des dates de fin de support annoncées par les éditeurs ou communautés open source des bibliothèques et dépendances logicielles utilisées par ALFRED CPL, avec un processus de traitement anticipé (mise à jour, remplacement, ou isolation renforcée) avant que l'absence de correctifs de sécurité ne devienne un risque opérationnel non maîtrisé.",
+    "core_principles": [
+      "Un composant logiciel arrivé en fin de support ne reçoit plus de correctif de sécurité, transformant progressivement toute vulnérabilité découverte après cette date en risque non maîtrisable par une simple mise à jour.",
+      "La détection anticipée d'une échéance de fin de support, plutôt qu'une découverte a posteriori lors d'un incident, permet un traitement planifié plutôt qu'une réaction d'urgence.",
+      "Le remplacement d'un composant en fin de support doit être anticipé suffisamment tôt pour permettre les tests de compatibilité nécessaires avant l'échéance effective."
+    ],
+    "rules": [
+      "Maintenir un inventaire à jour des composants tiers utilisés avec leur date de fin de support connue, quand elle est publiée par l'éditeur ou la communauté.",
+      "Déclencher un traitement anticipé (mise à jour, remplacement, isolation renforcée) suffisamment en amont de l'échéance de fin de support pour permettre les tests nécessaires.",
+      "Ne jamais laisser un composant en production au-delà de sa date de fin de support sans mesure de mitigation explicite et documentée du risque résiduel."
+    ],
+    "examples": [
+      {
+        "situation": "Une bibliothèque logicielle critique utilisée par ALFRED CPL approche de sa date de fin de support annoncée dans six mois.",
+        "recommended_behavior": "Planifier dès à présent l'évaluation d'une mise à jour majeure ou d'un composant de remplacement, avec un calendrier de tests permettant un basculement avant l'échéance de fin de support.",
+        "avoid": "Attendre la date effective de fin de support pour commencer à évaluer les options de remplacement, sous la pression d'un délai devenu critique."
+      }
+    ],
+    "best_practices": [
+      "Automatiser la veille des dates de fin de support des composants critiques via des outils de suivi de dépendances dédiés.",
+      "Prioriser le traitement des composants en fin de support selon leur niveau d'exposition et de criticité dans l'architecture."
+    ],
+    "anti_patterns": [
+      "Absence d'inventaire à jour des composants tiers, rendant impossible tout suivi proactif des échéances de fin de support.",
+      "Maintien en production d'un composant en fin de support sans mesure de mitigation ni plan de remplacement documenté."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "fin_de_support",
+      "composants_tiers",
+      "veille_end_of_life"
+    ],
+    "related_domains": [
+      "cpl",
+      "information_security"
+    ],
+    "related_knowledge": [
+      "cpl.operations_continuite.gestion_obsolescence_technologique_alfred_cpl",
+      "cpl.operations_continuite.gestion_patchs_securite_cycle_patch_management_alfred_cpl"
+    ],
+    "retrieval_priority": 5
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "explication pédagogique de la procédure de suivi de fin de support des composants tiers"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "En l'absence de date de fin de support publiée par l'éditeur, appliquer une vigilance renforcée par défaut plutôt que de présumer un support illimité."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "27/08/2026",
+    "last_update": "27/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}
