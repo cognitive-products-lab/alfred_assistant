@@ -1,0 +1,102 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.business_piloting.gestion_facturation_multidevises_clients_internationaux",
+  "title": "Gestion de la facturation multidevises pour clients internationaux",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "business_piloting",
+  "category": "pilotage financier ALFRED CPL",
+  "summary": "Décrit les enjeux de la facturation en devises étrangères pour une activité de conseil internationale (taux de change, clause de révision, risque de change), distinct du pilotage de trésorerie déjà couvert qui ne traite pas spécifiquement de la dimension multidevises.",
+  "purpose": "Donner à ALFRED CPL un cadre pour accompagner la facturation de missions ou d'abonnements auprès de clients situés hors zone euro.",
+  "tags": [
+    "facturation_multidevises",
+    "risque_de_change",
+    "clients_internationaux",
+    "conditions_paiement"
+  ],
+  "intents": [
+    "explain_multicurrency_invoicing",
+    "assess_exchange_rate_risk"
+  ],
+  "usage_context": [
+    "structuration d'un contrat avec un client facturé dans une devise étrangère",
+    "question sur le risque de change lié à un paiement différé"
+  ],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "La facturation multidevises désigne l'émission de factures dans une devise différente de la devise de référence de l'entreprise, ce qui expose à un risque de change entre la date de facturation et la date d'encaissement effectif, à gérer par des clauses contractuelles adaptées (devise de facturation fixée à l'avance, clause d'indexation, ou couverture financière pour les montants significatifs).",
+    "core_principles": [
+      "Le risque de change existe dès qu'un délai sépare la facturation de l'encaissement effectif dans une devise différente de la devise de référence de l'entreprise.",
+      "Une clause contractuelle explicite sur la devise de facturation et son mode de conversion réduit l'ambiguïté et les litiges a posteriori.",
+      "Le risque de change devient significatif à partir d'un certain volume ou d'une certaine durée d'exposition, justifiant alors des instruments de couverture financière dédiés plutôt qu'une simple tolérance du risque."
+    ],
+    "rules": [
+      "Toujours préciser contractuellement la devise de facturation et le taux ou la date de référence utilisée pour toute conversion.",
+      "Ne jamais présenter une conversion de devise comme neutre sans mentionner le risque de fluctuation associé au délai de paiement.",
+      "Recommander un avis d'expert financier ou comptable dès que le volume facturé en devise étrangère devient significatif pour l'activité."
+    ],
+    "examples": [
+      {
+        "situation": "Une mission de conseil est facturée en dollars américains à un client nord-américain, avec un paiement prévu 60 jours après la facturation.",
+        "recommended_behavior": "Signaler l'exposition au risque de change sur la période de 60 jours et recommander une clause contractuelle claire sur la devise de référence, en évoquant l'option d'une couverture financière si le montant est significatif.",
+        "avoid": "Traiter la conversion de devise comme un simple calcul arithmétique sans mentionner le risque de fluctuation sur la période de paiement."
+      }
+    ],
+    "best_practices": [
+      "Fixer contractuellement la devise de facturation avant le démarrage de la mission.",
+      "Suivre l'évolution du taux de change pour les factures en devise étrangère en attente de paiement."
+    ],
+    "anti_patterns": [
+      "Facturer dans une devise étrangère sans clause contractuelle sur le mode de conversion applicable.",
+      "Ignorer le risque de change cumulé sur un volume important de facturation internationale récurrente."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "facturation_multidevises",
+      "risque_de_change",
+      "clients_internationaux"
+    ],
+    "related_domains": [
+      "cpl",
+      "finance_controle"
+    ],
+    "related_knowledge": [
+      "cpl.business_piloting.gestion_tresorerie_activite_conseil",
+      "cpl.business_piloting.modele_facturation_forfait_regie_temps_passe"
+    ],
+    "retrieval_priority": 4
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "explication pédagogique de la facturation multidevises"
+    ],
+    "restricted_usage": [
+      "évaluation précise d'un risque de change réel sur un contrat donné"
+    ],
+    "forbidden_usage": [
+      "conseil financier personnalisé sur une stratégie de couverture de change"
+    ],
+    "fallback_behavior": "Pour toute décision de couverture de change portant sur des montants significatifs, recommander une consultation d'un expert financier ou comptable."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "27/08/2026",
+    "last_update": "27/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}
