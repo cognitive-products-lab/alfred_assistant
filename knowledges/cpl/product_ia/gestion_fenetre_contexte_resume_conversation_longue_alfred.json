@@ -1,0 +1,98 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.product_ia.gestion_fenetre_contexte_resume_conversation_longue_alfred",
+  "title": "Gestion de la fenêtre de contexte et résumé des conversations longues",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "product_ia",
+  "category": "produit IA ALFRED CPL",
+  "summary": "Décrit la gestion de la fenêtre de contexte limitée d'un modèle de langage et les stratégies de résumé progressif d'une conversation longue, distincte de l'architecture mémoire statique/dynamique/long terme déjà couverte qui porte sur la persistance de la mémoire entre sessions plutôt que sur la gestion de la limite technique de contexte au sein d'une même interaction.",
+  "purpose": "Donner à ALFRED CPL un cadre technique pour maintenir la cohérence d'une conversation longue malgré la limite physique de la fenêtre de contexte d'un modèle de langage.",
+  "tags": [
+    "fenetre_contexte",
+    "resume_conversation",
+    "gestion_memoire_courte",
+    "coherence_dialogue"
+  ],
+  "intents": [
+    "explain_context_window_limitation",
+    "structure_conversation_summarization_strategy"
+  ],
+  "usage_context": [
+    "une conversation avec ALFRED devient longue et risque de dépasser la fenêtre de contexte du modèle",
+    "conception d'une stratégie de résumé progressif d'échange"
+  ],
+  "priority": "high",
+  "safety_level": "normal",
+  "content": {
+    "definition": "La fenêtre de contexte désigne la quantité maximale de texte (message utilisateur, historique de conversation, réponse) qu'un modèle de langage peut traiter simultanément lors de la génération d'une réponse, limite technique qui impose, au-delà d'un certain volume d'échange, une stratégie de résumé progressif de l'historique de conversation pour préserver la cohérence du dialogue sans dépasser cette limite.",
+    "core_principles": [
+      "Une conversation dépassant la fenêtre de contexte du modèle sans stratégie de gestion perd mécaniquement l'accès aux échanges les plus anciens, risquant une incohérence ou une répétition non détectée par l'utilisateur.",
+      "Un résumé progressif de l'historique de conversation permet de préserver l'essentiel du contexte pertinent sans conserver l'intégralité du texte échangé, à condition de ne pas perdre d'information réellement significative dans cette compression.",
+      "La stratégie de gestion de la fenêtre de contexte doit rester transparente pour l'utilisateur, sans lui faire porter la responsabilité de deviner ce qu'ALFRED a ou non conservé en mémoire de l'échange."
+    ],
+    "rules": [
+      "Déclencher une stratégie de résumé progressif avant que la fenêtre de contexte ne soit effectivement saturée, plutôt qu'en réaction à une troncature déjà survenue.",
+      "Préserver en priorité dans le résumé les éléments factuels et les engagements explicites pris au cours de la conversation, plutôt qu'une compression uniforme de l'ensemble des échanges.",
+      "Signaler à l'utilisateur, lorsque cela est pertinent, qu'une partie ancienne de la conversation a été résumée plutôt que conservée intégralement, en cas de risque de perte d'un détail important."
+    ],
+    "examples": [
+      {
+        "situation": "Une conversation avec ALFRED s'étend sur une durée longue et approche de la limite de la fenêtre de contexte du modèle utilisé.",
+        "recommended_behavior": "Déclencher un résumé progressif de la partie la plus ancienne de la conversation, en préservant les éléments factuels et engagements explicites, avant que la limite technique ne soit atteinte.",
+        "avoid": "Laisser la conversation dépasser silencieusement la fenêtre de contexte, provoquant une perte non signalée des échanges les plus anciens."
+      }
+    ],
+    "best_practices": [
+      "Prioriser la conservation des engagements explicites et des faits structurants dans tout résumé de conversation.",
+      "Tester la robustesse d'une stratégie de résumé sur des conversations longues réelles avant son déploiement en production."
+    ],
+    "anti_patterns": [
+      "Absence de stratégie de gestion de la fenêtre de contexte, provoquant une troncature silencieuse et incohérente de l'historique.",
+      "Résumé de conversation compressant uniformément tous les échanges sans priorisation des éléments factuels ou engageants."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "fenetre_contexte",
+      "resume_conversation",
+      "coherence_dialogue"
+    ],
+    "related_domains": [
+      "cpl",
+      "professional"
+    ],
+    "related_knowledge": [
+      "cpl.product_platform.memoire_architecture_statique_dynamique_long_terme",
+      "cpl.product_ia.gestion_multimodalite_produit_ia_texte_image_voix"
+    ],
+    "retrieval_priority": 6
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "high",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "explication technique de la gestion de la fenêtre de contexte"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "En cas de doute sur un élément important potentiellement perdu par un résumé antérieur, demander une clarification à l'utilisateur plutôt que de présumer une information non confirmée."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "27/08/2026",
+    "last_update": "27/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}
