@@ -1,0 +1,98 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.product_platform.gestion_quotas_ressources_locales_inference_edge_alfred_cpl",
+  "title": "Gestion des quotas de ressources locales pour l'inférence IA en périphérie (edge)",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "product_platform",
+  "category": "plateforme produit ALFRED CPL",
+  "summary": "Décrit la gestion des contraintes de ressources matérielles locales (RAM, calcul, stockage) pour l'inférence d'un modèle de langage exécuté en périphérie sur du matériel local plutôt qu'en cloud, distincte de la continuité de service hors ligne déjà couverte qui porte sur la disponibilité fonctionnelle plutôt que sur la gestion fine des ressources matérielles disponibles.",
+  "purpose": "Donner à ALFRED CPL un cadre de gestion des contraintes matérielles propres à une architecture d'inférence locale, condition de fonctionnement fiable sur du matériel aux capacités variables.",
+  "tags": [
+    "quotas_ressources_locales",
+    "inference_edge",
+    "contraintes_materielles",
+    "architecture_locale"
+  ],
+  "intents": [
+    "explain_local_resource_quota_management",
+    "assess_edge_inference_hardware_constraints"
+  ],
+  "usage_context": [
+    "conception de la gestion des ressources matérielles pour l'inférence locale d'ALFRED",
+    "adaptation du comportement produit selon les capacités matérielles disponibles"
+  ],
+  "priority": "high",
+  "safety_level": "normal",
+  "content": {
+    "definition": "La gestion des quotas de ressources locales désigne l'ensemble des mécanismes permettant à ALFRED CPL d'adapter son fonctionnement (choix de modèle, niveau de qualité de réponse, fréquence de traitement) aux capacités matérielles réellement disponibles sur l'appareil local (mémoire vive, puissance de calcul, espace de stockage), pour éviter une dégradation non maîtrisée des performances ou une instabilité du système sur du matériel aux capacités hétérogènes.",
+    "core_principles": [
+      "Une architecture d'inférence locale s'exécute sur du matériel aux capacités hétérogènes et parfois limitées, à la différence d'une infrastructure cloud dimensionnée et homogène, ce qui impose une gestion active des ressources disponibles.",
+      "Une saturation non anticipée des ressources locales (mémoire, calcul) risque de dégrader la réactivité du système ou de provoquer une instabilité, plutôt qu'une simple lenteur maîtrisée si elle n'est pas gérée activement.",
+      "Une dégradation gracieuse (réduction de la qualité ou de la fréquence de traitement) est préférable à une interruption brutale du service en cas de ressources locales insuffisantes."
+    ],
+    "rules": [
+      "Surveiller en continu les ressources locales disponibles (mémoire, calcul, stockage) et anticiper une gestion active avant toute saturation effective.",
+      "Privilégier une dégradation gracieuse et progressive du niveau de service en cas de ressources locales insuffisantes plutôt qu'une interruption brutale non anticipée.",
+      "Adapter le choix du modèle ou du niveau de traitement à la capacité matérielle réellement disponible plutôt qu'à une capacité présumée uniforme."
+    ],
+    "examples": [
+      {
+        "situation": "ALFRED CPL fonctionne sur un appareil local dont la mémoire disponible diminue fortement en raison d'autres applications actives simultanément.",
+        "recommended_behavior": "Détecter la contrainte de ressource et basculer vers une dégradation gracieuse du niveau de service (modèle plus léger, traitement différé) plutôt que de risquer une instabilité ou une interruption brutale.",
+        "avoid": "Poursuivre un traitement exigeant en ressources sans adaptation, risquant une instabilité du système ou une interruption non maîtrisée du service."
+      }
+    ],
+    "best_practices": [
+      "Définir des seuils de ressources déclenchant une adaptation progressive du comportement produit avant toute saturation critique.",
+      "Tester le comportement du produit sur une gamme représentative de matériels aux capacités hétérogènes avant déploiement."
+    ],
+    "anti_patterns": [
+      "Absence de surveillance des ressources locales disponibles, provoquant une instabilité non anticipée du système en cas de saturation.",
+      "Interruption brutale du service en cas de contrainte de ressource plutôt qu'une dégradation gracieuse progressive du niveau de service."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "quotas_ressources_locales",
+      "inference_edge",
+      "contraintes_materielles"
+    ],
+    "related_domains": [
+      "cpl",
+      "professional"
+    ],
+    "related_knowledge": [
+      "cpl.product_platform.offline_first_continuite_service_alfred",
+      "cpl.operations_continuite.gestion_capacite_charge_systeme"
+    ],
+    "retrieval_priority": 6
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "high",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "explication technique de la gestion des ressources locales pour l'inférence edge"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "En cas de ressource locale insuffisante non anticipée par les seuils définis, privilégier systématiquement la dégradation gracieuse du service plutôt que l'interruption brutale."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "27/08/2026",
+    "last_update": "27/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

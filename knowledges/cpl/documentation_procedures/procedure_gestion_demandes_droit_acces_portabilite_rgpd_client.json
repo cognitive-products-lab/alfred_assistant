@@ -1,0 +1,102 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.documentation_procedures.procedure_gestion_demandes_droit_acces_portabilite_rgpd_client",
+  "title": "Procédure de gestion des demandes de droit d'accès et de portabilité RGPD d'un client",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "documentation_procedures",
+  "category": "procédure conformité ALFRED CPL",
+  "summary": "Décrit la procédure opérationnelle de traitement d'une demande d'exercice du droit d'accès ou de portabilité des données personnelles formulée par un client ou un utilisateur d'ALFRED CPL, distincte de la gestion du droit d'opposition déjà couverte qui porte sur un droit différent du RGPD.",
+  "purpose": "Donner à ALFRED CPL une procédure claire pour répondre dans les délais légaux à une demande d'exercice du droit d'accès ou de portabilité.",
+  "tags": [
+    "droit_acces_rgpd",
+    "portabilite_donnees",
+    "procedure_conformite",
+    "delai_legal"
+  ],
+  "intents": [
+    "explain_data_access_request_procedure",
+    "explain_data_portability_procedure"
+  ],
+  "usage_context": [
+    "réception d'une demande de droit d'accès ou de portabilité par un utilisateur",
+    "structuration du processus interne de réponse à ce type de demande"
+  ],
+  "priority": "high",
+  "safety_level": "sensitive",
+  "content": {
+    "definition": "La procédure de gestion des demandes de droit d'accès et de portabilité formalise les étapes internes déclenchées par une demande d'un utilisateur souhaitant obtenir une copie de ses données personnelles traitées (droit d'accès, article 15 du RGPD) ou les récupérer dans un format structuré et réutilisable en vue d'un transfert vers un autre service (droit à la portabilité, article 20), avec un délai légal de réponse fixé à un mois, prolongeable de deux mois pour les demandes complexes.",
+    "core_principles": [
+      "Le droit d'accès et le droit à la portabilité sont deux droits RGPD distincts, l'un donnant une copie compréhensible des données, l'autre un format structuré et interopérable en vue d'un transfert.",
+      "Le délai légal de réponse d'un mois, prolongeable de deux mois pour les demandes complexes avec information préalable du demandeur, s'applique de façon stricte quelle que soit la charge opérationnelle du traitement.",
+      "L'identité du demandeur doit être vérifiée avant toute communication de données personnelles, pour éviter une divulgation à une personne non autorisée usurpant l'identité du titulaire des données."
+    ],
+    "rules": [
+      "Vérifier systématiquement l'identité du demandeur avant toute communication de données personnelles en réponse à une demande de droit d'accès ou de portabilité.",
+      "Respecter le délai légal d'un mois, en informant explicitement le demandeur en cas de prolongation justifiée par la complexité de la demande.",
+      "Fournir les données en format structuré, couramment utilisé et lisible par machine pour toute demande de portabilité, distinct du format libre acceptable pour une demande de simple accès."
+    ],
+    "examples": [
+      {
+        "situation": "Un utilisateur d'ALFRED CPL demande la portabilité de l'ensemble de ses données conversationnelles vers un autre service.",
+        "recommended_behavior": "Vérifier l'identité du demandeur, puis engager la procédure d'extraction des données dans un format structuré et interopérable, en respectant le délai légal d'un mois.",
+        "avoid": "Traiter la demande de portabilité comme une simple demande d'accès en fournissant un export non structuré ou difficilement réutilisable."
+      }
+    ],
+    "best_practices": [
+      "Documenter chaque demande de droit d'accès ou de portabilité reçue dans un registre dédié, avec date de réception et date de réponse.",
+      "Prévoir un modèle de réponse type intégrant la vérification d'identité et le rappel du délai légal applicable."
+    ],
+    "anti_patterns": [
+      "Communiquer des données personnelles sans vérification préalable de l'identité du demandeur.",
+      "Fournir un format non structuré et non réutilisable en réponse à une demande explicite de portabilité."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "droit_acces_rgpd",
+      "portabilite_donnees",
+      "delai_legal_rgpd"
+    ],
+    "related_domains": [
+      "cpl",
+      "donnees_personnelles"
+    ],
+    "related_knowledge": [
+      "cpl.ethics_governance.gestion_droit_opposition_traitement_ia_utilisateur",
+      "cpl.product_platform.gestion_consentement_utilisateur_alfred"
+    ],
+    "retrieval_priority": 7
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "explication de la procédure de traitement d'une demande de droit d'accès ou de portabilité"
+    ],
+    "restricted_usage": [
+      "cas de demande complexe impliquant des données de tiers imbriquées"
+    ],
+    "forbidden_usage": [
+      "communication de données personnelles sans vérification d'identité préalable"
+    ],
+    "fallback_behavior": "En cas de doute sur l'identité du demandeur ou la nature exacte de sa demande, solliciter une clarification avant tout traitement plutôt que de présumer sa légitimité."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "27/08/2026",
+    "last_update": "27/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

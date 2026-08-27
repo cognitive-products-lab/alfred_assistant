@@ -1,0 +1,98 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.product_ia.methodologie_ab_testing_produit_ia_alfred_cpl",
+  "title": "Méthodologie d'A/B testing pour un produit IA",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "product_ia",
+  "category": "produit IA ALFRED CPL",
+  "summary": "Présente la méthodologie de test A/B appliquée à l'évaluation comparative de variantes d'un produit IA (formulation de prompt système, paramètres de génération, interface), distincte de l'évaluation de la qualité des réponses déjà couverte qui porte sur une mesure absolue de qualité plutôt que sur une comparaison contrôlée entre deux variantes.",
+  "purpose": "Donner à ALFRED CPL une méthode rigoureuse de décision entre deux variantes produit fondée sur des données comparatives plutôt que sur une intuition non vérifiée.",
+  "tags": [
+    "ab_testing",
+    "test_comparatif",
+    "methodologie_experimentation",
+    "decision_produit_donnees"
+  ],
+  "intents": [
+    "explain_ab_testing_methodology",
+    "structure_controlled_product_experiment"
+  ],
+  "usage_context": [
+    "comparaison de deux formulations possibles d'un prompt système",
+    "décision entre deux variantes d'interface ou de comportement produit"
+  ],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "L'A/B testing consiste à exposer aléatoirement deux groupes d'utilisateurs comparables à deux variantes différentes d'un même élément produit (formulation de prompt, paramètre de génération, interface) afin de mesurer, sur un indicateur défini à l'avance, laquelle des deux variantes obtient un résultat significativement meilleur, méthode plus rigoureuse qu'une évaluation subjective ou qu'un déploiement direct sans comparaison contrôlée.",
+    "core_principles": [
+      "La validité d'un A/B test repose sur la comparabilité réelle des deux groupes exposés aux variantes, obtenue par une répartition aléatoire plutôt qu'un choix arbitraire des utilisateurs affectés à chaque variante.",
+      "L'indicateur de succès et le seuil de signification statistique doivent être définis avant le lancement du test, pour éviter une interprétation biaisée des résultats après coup en fonction du résultat observé.",
+      "Un A/B test nécessite un volume d'observations suffisant pour détecter une différence réelle entre les variantes, un test interrompu trop tôt risquant de conclure à tort à l'absence ou à la présence d'un effet."
+    ],
+    "rules": [
+      "Définir l'indicateur de succès et le seuil de signification statistique avant le lancement du test, jamais après observation des premiers résultats.",
+      "Répartir aléatoirement les utilisateurs entre les deux variantes testées, sans biais de sélection lié au profil ou au comportement préalable.",
+      "Ne jamais généraliser une conclusion d'A/B test sur un volume d'observations insuffisant pour atteindre la signification statistique définie."
+    ],
+    "examples": [
+      {
+        "situation": "Une équipe produit souhaite comparer deux formulations d'un prompt système pour évaluer laquelle génère des réponses jugées plus utiles par les utilisateurs.",
+        "recommended_behavior": "Définir à l'avance l'indicateur de succès (par exemple le taux de satisfaction déclarée), répartir aléatoirement les utilisateurs entre les deux formulations, et attendre un volume d'observations suffisant avant de conclure.",
+        "avoid": "Décider de la meilleure formulation sur la base d'une impression qualitative de quelques échanges non représentatifs, sans protocole de test comparatif contrôlé."
+      }
+    ],
+    "best_practices": [
+      "Documenter systématiquement le protocole, l'indicateur et le seuil de signification de chaque A/B test avant son lancement.",
+      "Limiter le nombre de variables testées simultanément dans un même test pour pouvoir attribuer clairement un résultat à sa cause."
+    ],
+    "anti_patterns": [
+      "Interrompre un A/B test dès qu'un résultat favorable apparaît, sans attendre le volume d'observations nécessaire à sa fiabilité statistique.",
+      "Tester simultanément plusieurs variables dans un même A/B test, rendant impossible l'attribution claire d'un résultat à sa cause précise."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "ab_testing",
+      "test_comparatif",
+      "decision_produit_donnees"
+    ],
+    "related_domains": [
+      "cpl",
+      "professional"
+    ],
+    "related_knowledge": [
+      "cpl.product_ia.evaluation_qualite_reponses_ia_alfred",
+      "cpl.product_ia.cycle_feedback_utilisateur_produit_ia"
+    ],
+    "retrieval_priority": 5
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "explication méthodologique de l'A/B testing produit"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "En l'absence de volume d'utilisateurs suffisant pour un A/B test statistiquement significatif, recommander une méthode d'évaluation qualitative complémentaire plutôt qu'une conclusion quantitative non fiable."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "27/08/2026",
+    "last_update": "27/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}
