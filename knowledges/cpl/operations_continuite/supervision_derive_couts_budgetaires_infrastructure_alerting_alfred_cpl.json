@@ -1,0 +1,98 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.operations_continuite.supervision_derive_couts_budgetaires_infrastructure_alerting_alfred_cpl",
+  "title": "Supervision de la dérive des coûts budgétaires d'infrastructure et mécanismes d'alerte",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "operations_continuite",
+  "category": "continuité opérationnelle ALFRED CPL",
+  "summary": "Décrit les principes opérationnels de supervision continue et d'alerte automatisée sur la dérive des coûts d'infrastructure d'ALFRED CPL, distincts de la gestion stratégique des coûts d'infrastructure cloud déjà couverte qui porte sur les leviers de maîtrise budgétaire plutôt que sur le mécanisme opérationnel de détection continue d'une dérive.",
+  "purpose": "Donner à ALFRED CPL un mécanisme opérationnel de détection précoce d'une dérive budgétaire d'infrastructure, complément tactique à la stratégie de maîtrise des coûts déjà définie.",
+  "tags": [
+    "derive_couts",
+    "supervision_budgetaire",
+    "alerting_infrastructure",
+    "detection_precoce"
+  ],
+  "intents": [
+    "explain_cost_drift_monitoring",
+    "assess_budget_alerting_mechanism"
+  ],
+  "usage_context": [
+    "mise en place d'un mécanisme d'alerte automatisée sur les coûts d'infrastructure",
+    "détection d'une dérive budgétaire non anticipée"
+  ],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "La supervision de la dérive des coûts budgétaires consiste à mettre en place des seuils d'alerte automatisée sur la consommation de ressources d'infrastructure (calcul, stockage, bande passante) permettant de détecter précocement un écart significatif par rapport au budget prévisionnel, avant que cet écart ne devienne un dépassement budgétaire constaté a posteriori et difficile à corriger rétroactivement.",
+    "core_principles": [
+      "Une dérive de coût d'infrastructure détectée tardivement, au moment de la facturation, ne peut plus être corrigée pour la période déjà consommée, contrairement à une dérive détectée précocement par un mécanisme d'alerte automatisée.",
+      "Un seuil d'alerte fixé trop bas génère un excès de fausses alertes qui désensibilise l'équipe et réduit l'efficacité réelle du mécanisme de supervision, tandis qu'un seuil trop élevé retarde la détection utile.",
+      "Une dérive de coût peut signaler non seulement un problème budgétaire mais aussi une anomalie technique sous-jacente (boucle infinie, fuite de ressource), ce qui donne à la supervision budgétaire une valeur de détection technique au-delà du seul enjeu financier."
+    ],
+    "rules": [
+      "Mettre en place des seuils d'alerte automatisée calibrés pour détecter une dérive significative sans générer un excès de fausses alertes désensibilisantes.",
+      "Traiter toute alerte de dérive de coût comme un signal à investiguer aussi bien sous l'angle budgétaire que sous l'angle d'une anomalie technique sous-jacente possible.",
+      "Réviser périodiquement les seuils d'alerte pour tenir compte de l'évolution normale du volume d'usage, plutôt que de conserver des seuils figés obsolètes."
+    ],
+    "examples": [
+      {
+        "situation": "Une consommation de ressources d'infrastructure augmente significativement sur plusieurs jours sans que personne ne le remarque avant la facturation mensuelle.",
+        "recommended_behavior": "Disposer d'un seuil d'alerte automatisée calibré ayant signalé la dérive dès son apparition, permettant d'investiguer et de corriger avant l'impact budgétaire complet du mois.",
+        "avoid": "Ne découvrir la dérive de coût qu'au moment de la facturation mensuelle, sans possibilité de correction rétroactive pour la période déjà consommée."
+      }
+    ],
+    "best_practices": [
+      "Calibrer les seuils d'alerte pour détecter une dérive significative sans excès de fausses alertes.",
+      "Investiguer toute alerte de dérive de coût aussi bien sous l'angle budgétaire que sous l'angle d'une anomalie technique possible."
+    ],
+    "anti_patterns": [
+      "Ne découvrir une dérive de coût qu'a posteriori au moment de la facturation, sans mécanisme d'alerte précoce.",
+      "Conserver des seuils d'alerte figés sans révision périodique tenant compte de l'évolution normale du volume d'usage."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "derive_couts",
+      "supervision_budgetaire",
+      "alerting_infrastructure"
+    ],
+    "related_domains": [
+      "cpl",
+      "operations_continuite"
+    ],
+    "related_knowledge": [
+      "cpl.operations_continuite.gestion_couts_infrastructure_cloud_hebergement_alfred_cpl",
+      "cpl.product_platform.gestion_quotas_ressources_locales_inference_edge_alfred_cpl"
+    ],
+    "retrieval_priority": 5
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "explication pédagogique du mécanisme de supervision et d'alerte sur la dérive des coûts"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "En cas d'alerte de dérive de coût dont la cause n'est pas identifiée rapidement, escalader vers une investigation technique approfondie plutôt que d'ajuster silencieusement le seuil d'alerte pour la faire disparaître."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "30/08/2026",
+    "last_update": "30/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}
