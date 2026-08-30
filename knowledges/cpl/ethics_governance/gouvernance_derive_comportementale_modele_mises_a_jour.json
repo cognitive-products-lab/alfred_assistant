@@ -1,0 +1,100 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.ethics_governance.gouvernance_derive_comportementale_modele_mises_a_jour",
+  "title": "Gouvernance de la dérive comportementale du modèle lors des mises à jour",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "ethics_governance",
+  "category": "garde_fous_ethiques",
+  "summary": "Cadre de gouvernance pour détecter et maîtriser une dérive comportementale d'ALFRED CPL survenant à l'occasion d'une mise à jour du modèle sous-jacent ou de ses paramètres (changement non souhaité de ton, de niveau de prudence ou de positionnement éthique entre deux versions), distinct de la gouvernance du cycle de vie de l'IA déjà couverte qui porte sur le processus global de mise à jour plutôt que sur la détection spécifique d'une dérive comportementale.",
+  "purpose": "Permettre à ALFRED CPL de garantir la stabilité de son comportement éthique et relationnel dans le temps, malgré les évolutions techniques régulières du modèle sous-jacent ou de ses paramètres de configuration.",
+  "tags": [
+    "derive_comportementale",
+    "mise_a_jour_modele",
+    "stabilite_comportement",
+    "gouvernance_ia"
+  ],
+  "intents": [
+    "detect_behavioral_drift",
+    "govern_model_update_stability"
+  ],
+  "usage_context": [
+    "mise à jour du modèle sous-jacent ou de ses paramètres",
+    "détection d'un changement de comportement non souhaité après une évolution technique"
+  ],
+  "priority": "high",
+  "safety_level": "sensitive",
+  "content": {
+    "definition": "La gouvernance de la dérive comportementale désigne le processus de détection et de maîtrise d'un changement non souhaité du comportement d'ALFRED CPL survenant à l'occasion d'une mise à jour du modèle sous-jacent, de ses paramètres ou de sa base de connaissances : évolution du ton, du niveau de prudence, du positionnement éthique ou de la cohérence des réponses entre deux versions, à détecter par une comparaison systématique plutôt qu'à découvrir a posteriori par un signalement utilisateur.",
+    "core_principles": [
+      "Une mise à jour technique du modèle sous-jacent peut modifier le comportement observable sans que cela résulte d'une décision de gouvernance explicite, ce qui impose une vérification systématique après chaque évolution plutôt qu'une confiance implicite dans la continuité du comportement.",
+      "La dérive comportementale n'est pas nécessairement une dégradation visible immédiatement : un changement subtil de ton ou de niveau de prudence sur des sujets sensibles peut passer inaperçu sans comparaison structurée entre versions.",
+      "La stabilité comportementale attendue porte sur les principes éthiques et le positionnement relationnel, non sur l'immobilisme total : une amélioration délibérée du comportement à l'occasion d'une mise à jour reste légitime si elle est documentée comme telle."
+    ],
+    "rules": [
+      "Comparer systématiquement un échantillon représentatif de réponses avant et après toute mise à jour significative du modèle sous-jacent ou de ses paramètres.",
+      "Documenter toute évolution intentionnelle du comportement (amélioration délibérée) pour la distinguer d'une dérive non souhaitée.",
+      "Escalader vers une revue humaine toute dérive détectée sur un sujet sensible (santé, émotion, sécurité) avant validation de la mise à jour en production."
+    ],
+    "examples": [
+      {
+        "situation": "Après une mise à jour du modèle sous-jacent, ALFRED CPL répond de façon notablement plus directive sur des sujets sensibles qu'avant la mise à jour.",
+        "recommended_behavior": "Détecter cet écart par la comparaison systématique d'un échantillon de réponses avant/après mise à jour, documenter s'il s'agit d'une dérive non souhaitée ou d'une évolution intentionnelle, et escalader vers une revue humaine avant validation en production.",
+        "avoid": "Déployer la mise à jour sans vérification comportementale, en découvrant la dérive uniquement après signalement d'un utilisateur."
+      }
+    ],
+    "best_practices": [
+      "Maintenir un jeu de scénarios de référence sur des sujets sensibles, rejoué systématiquement avant et après chaque mise à jour du modèle sous-jacent.",
+      "Consigner dans un journal de version les évolutions comportementales constatées, intentionnelles comme non intentionnelles."
+    ],
+    "anti_patterns": [
+      "Déployer une mise à jour du modèle sous-jacent sans aucune vérification comportementale préalable.",
+      "Confondre une amélioration délibérée du comportement, documentée comme telle, avec une dérive non maîtrisée non documentée."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "derive_comportementale",
+      "mise_a_jour_modele",
+      "stabilite_comportement"
+    ],
+    "related_domains": [
+      "cpl",
+      "ethique_ia"
+    ],
+    "related_knowledge": [
+      "cpl.ethics_governance.gouvernance_cycle_de_vie_ia_alfred",
+      "cpl.ethics_governance.audit_ethique_periodique_alfred_cpl"
+    ],
+    "retrieval_priority": 7
+  },
+  "behavior_rules": {
+    "tone": "professional_supportive",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "détection et documentation d'une dérive comportementale du modèle"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [
+      "déploiement d'une mise à jour du modèle sans vérification comportementale préalable sur des sujets sensibles"
+    ],
+    "fallback_behavior": "En cas de doute sur le caractère intentionnel d'une évolution comportementale, suspendre le déploiement en production et escalader vers une revue humaine."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "30/08/2026",
+    "last_update": "30/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}
