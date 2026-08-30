@@ -1,0 +1,98 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.product_ia.gestion_latence_perception_temps_reponse_produit_ia_alfred_cpl",
+  "title": "Gestion de la latence et de la perception du temps de réponse dans un produit IA",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "product_ia",
+  "category": "conception produit IA ALFRED CPL",
+  "summary": "Décrit les principes de gestion de la latence perçue par l'utilisateur lors d'une réponse d'ALFRED (temps de traitement local, streaming progressif de la réponse, indicateurs d'activité), distincte de l'optimisation des coûts d'inférence déjà couverte qui porte sur la dimension économique plutôt que sur l'expérience utilisateur du temps d'attente.",
+  "purpose": "Donner à ALFRED CPL un cadre de conception pour que le temps de traitement inhérent à l'inférence locale ne dégrade pas l'expérience utilisateur perçue, indépendamment du temps de traitement réel.",
+  "tags": [
+    "latence_percue",
+    "temps_reponse",
+    "experience_utilisateur",
+    "streaming_reponse"
+  ],
+  "intents": [
+    "explain_latency_perception_management",
+    "assess_response_streaming_tradeoffs"
+  ],
+  "usage_context": [
+    "conception de l'affichage d'une réponse dont le temps de génération est significatif",
+    "question sur les techniques pour réduire la latence perçue sans réduire la latence réelle"
+  ],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "La gestion de la latence perçue consiste à agir sur l'expérience subjective du temps d'attente de l'utilisateur (affichage progressif de la réponse au fur et à mesure de sa génération, indicateurs d'activité explicites, retour immédiat de prise en compte de la requête) indépendamment du temps de traitement réel, ce dernier pouvant être significatif en inférence locale sans nécessairement dégrader l'expérience perçue si ces techniques sont correctement mises en œuvre.",
+    "core_principles": [
+      "La latence perçue par l'utilisateur n'est pas strictement proportionnelle à la latence réelle de traitement : un affichage progressif de la réponse réduit significativement la latence perçue à latence réelle égale.",
+      "L'absence de tout retour visible pendant le traitement (silence total) dégrade davantage l'expérience perçue qu'un temps de traitement identique accompagné d'un indicateur d'activité clair.",
+      "Un compromis existe entre latence perçue minimale et complétude de la réponse : afficher un début de réponse avant que le raisonnement complet ne soit finalisé comporte un risque de correction ultérieure visible par l'utilisateur."
+    ],
+    "rules": [
+      "Privilégier l'affichage progressif (streaming) de la réponse plutôt qu'un affichage unique en fin de traitement dès que le temps de génération est significatif.",
+      "Toujours accompagner un temps de traitement significatif d'un indicateur d'activité explicite plutôt que d'un silence total.",
+      "Évaluer le risque de correction visible ultérieure avant d'afficher un début de réponse alors que le traitement n'est pas finalisé."
+    ],
+    "examples": [
+      {
+        "situation": "Une requête complexe nécessite plusieurs secondes de traitement local avant qu'ALFRED ne puisse produire une réponse complète.",
+        "recommended_behavior": "Afficher un indicateur d'activité explicite dès le début du traitement, puis la réponse de façon progressive au fur et à mesure de sa génération plutôt qu'en bloc final.",
+        "avoid": "Laisser l'utilisateur sans aucun retour visible pendant plusieurs secondes avant d'afficher la réponse complète en une seule fois."
+      }
+    ],
+    "best_practices": [
+      "Privilégier l'affichage progressif de la réponse dès que le temps de génération est significatif.",
+      "Accompagner systématiquement un temps de traitement significatif d'un indicateur d'activité explicite."
+    ],
+    "anti_patterns": [
+      "Laisser l'utilisateur sans aucun retour visible pendant un traitement long, créant une incertitude sur la prise en compte de sa requête.",
+      "Afficher un début de réponse non stabilisé sans évaluer le risque de correction visible ultérieure qui nuirait à la confiance."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "latence_percue",
+      "temps_reponse",
+      "streaming_reponse"
+    ],
+    "related_domains": [
+      "cpl",
+      "product_ia"
+    ],
+    "related_knowledge": [
+      "cpl.product_ia.optimisation_couts_inference_produit_ia_alfred_cpl",
+      "cpl.product_platform.interaction_utilisateur_multicanal_alfred"
+    ],
+    "retrieval_priority": 5
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "explication pédagogique des techniques de gestion de la latence perçue"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "Pour tout arbitrage concret entre latence réelle et complétude de la réponse à fort enjeu de fiabilité, privilégier la complétude et la fiabilité sur la rapidité perçue."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "30/08/2026",
+    "last_update": "30/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}
