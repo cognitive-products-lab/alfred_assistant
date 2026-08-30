@@ -1,0 +1,98 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.business_piloting.pilotage_panier_moyen_valeur_contrat_client",
+  "title": "Pilotage du panier moyen et de la valeur moyenne des contrats clients",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "business_piloting",
+  "category": "pilotage financier ALFRED CPL",
+  "summary": "Présente le panier moyen (valeur moyenne d'un contrat ou d'une commande client) comme indicateur de pilotage commercial, ses leviers d'augmentation et ses limites d'interprétation, distinct de la valeur vie client (LTV) déjà couverte qui porte sur la valeur cumulée dans le temps plutôt que sur la valeur d'un contrat pris isolément.",
+  "purpose": "Donner à ALFRED CPL un indicateur de pilotage commercial complémentaire à la LTV, permettant de suivre l'évolution de la valeur unitaire des contrats indépendamment de la durée de la relation client.",
+  "tags": [
+    "panier_moyen",
+    "valeur_contrat",
+    "pilotage_commercial",
+    "indicateur_kpi"
+  ],
+  "intents": [
+    "explain_average_deal_value",
+    "monitor_contract_value_trend"
+  ],
+  "usage_context": [
+    "suivi de la performance commerciale d'une équipe de conseil",
+    "analyse de l'évolution de la valeur moyenne des contrats signés"
+  ],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "Le panier moyen, ou valeur moyenne de contrat, mesure la valeur financière moyenne d'un contrat ou d'une commande sur une période donnée (montant total facturé divisé par le nombre de contrats), indicateur complémentaire à la valeur vie client qui permet de suivre l'évolution de la valeur unitaire des affaires signées indépendamment de la durée de la relation ou du nombre de clients actifs.",
+    "core_principles": [
+      "Une hausse du panier moyen peut résulter aussi bien d'une montée en gamme de l'offre que d'une baisse du nombre de petits clients, deux dynamiques aux implications stratégiques opposées qu'il convient de distinguer avant d'en tirer une conclusion.",
+      "Le panier moyen doit être analysé par segment de clientèle plutôt qu'en moyenne globale, un mélange de très gros et très petits contrats produisant une moyenne peu représentative de la réalité commerciale.",
+      "Les leviers d'augmentation du panier moyen incluent la vente croisée (cross-sell), la montée en gamme (upsell) et l'allongement de la durée contractuelle, chacun avec des implications différentes sur la relation client."
+    ],
+    "rules": [
+      "Toujours analyser le panier moyen par segment de clientèle plutôt qu'en moyenne globale non segmentée.",
+      "Distinguer dans l'analyse d'une hausse du panier moyen l'effet montée en gamme de l'effet attrition des petits clients.",
+      "Croiser le panier moyen avec le nombre de contrats signés pour interpréter correctement une évolution du chiffre d'affaires global."
+    ],
+    "examples": [
+      {
+        "situation": "Le panier moyen augmente de 15% sur le trimestre, ce qui pourrait être interprété comme un succès commercial.",
+        "recommended_behavior": "Vérifier si cette hausse provient d'une réelle montée en gamme de l'offre ou d'une perte des plus petits clients, avant de conclure à une amélioration de la performance commerciale.",
+        "avoid": "Communiquer la hausse du panier moyen comme un succès sans vérifier si elle masque une perte de volume de clientèle."
+      }
+    ],
+    "best_practices": [
+      "Suivre le panier moyen par segment de clientèle et par ligne d'offre plutôt qu'en agrégat unique.",
+      "Croiser systématiquement l'évolution du panier moyen avec celle du nombre de contrats actifs pour une lecture correcte de la performance commerciale."
+    ],
+    "anti_patterns": [
+      "Interpréter une hausse du panier moyen comme un succès commercial sans vérifier si elle résulte d'une perte des petits clients.",
+      "Suivre un panier moyen global non segmenté, masquant des dynamiques opposées entre segments de clientèle."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "panier_moyen",
+      "valeur_contrat",
+      "pilotage_commercial"
+    ],
+    "related_domains": [
+      "cpl",
+      "finance"
+    ],
+    "related_knowledge": [
+      "cpl.business_piloting.valeur_vie_client_ltv_conseil_ia",
+      "cpl.business_piloting.pilotage_cross_sell_upsell_mission_conseil"
+    ],
+    "retrieval_priority": 5
+  },
+  "behavior_rules": {
+    "tone": "professional_supportive",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "explication du calcul et de l'interprétation du panier moyen"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "En cas d'évolution significative du panier moyen sans explication claire disponible, recommander une analyse approfondie plutôt qu'une conclusion hâtive."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "30/08/2026",
+    "last_update": "30/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

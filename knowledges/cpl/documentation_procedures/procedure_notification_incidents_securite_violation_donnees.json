@@ -1,0 +1,101 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.documentation_procedures.procedure_notification_incidents_securite_violation_donnees",
+  "title": "Procédure de notification des incidents de sécurité et violations de données",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "documentation_procedures",
+  "category": "procédures ALFRED CPL",
+  "summary": "Décrit la procédure de notification d'un incident de sécurité ou d'une violation de données personnelles (délai légal de 72 heures pour la notification à l'autorité de contrôle en cas de risque pour les personnes, information des personnes concernées si le risque est élevé), distincte de la procédure de récupération après sinistre déjà couverte qui porte sur la restauration technique plutôt que sur les obligations légales de notification.",
+  "purpose": "Donner à ALFRED CPL une procédure claire de notification en cas d'incident de sécurité affectant des données personnelles, afin de respecter les obligations légales de notification à l'autorité de contrôle et aux personnes concernées.",
+  "tags": [
+    "notification_incident",
+    "violation_donnees",
+    "delai_72_heures",
+    "rgpd"
+  ],
+  "intents": [
+    "explain_breach_notification_procedure",
+    "guide_incident_notification_timeline"
+  ],
+  "usage_context": [
+    "détection d'un incident de sécurité affectant des données personnelles",
+    "préparation d'une notification à l'autorité de contrôle"
+  ],
+  "priority": "critical",
+  "safety_level": "high_risk",
+  "content": {
+    "definition": "La procédure de notification des incidents de sécurité et violations de données formalise les étapes à suivre dès la détection d'un incident affectant la confidentialité, l'intégrité ou la disponibilité de données personnelles : qualification du risque pour les personnes concernées, notification à l'autorité de contrôle compétente dans un délai de 72 heures lorsque le risque est avéré, et information directe des personnes concernées lorsque le risque est élevé, obligations légales distinctes de la restauration technique du service.",
+    "core_principles": [
+      "Le délai de 72 heures pour notifier l'autorité de contrôle court à compter de la prise de connaissance de l'incident, et non de sa survenance effective, ce qui impose une détection rapide des incidents.",
+      "Toute violation de données ne nécessite pas systématiquement une notification : celle-ci est requise lorsque la violation est susceptible d'engendrer un risque pour les droits et libertés des personnes concernées, une qualification à documenter dans tous les cas même en l'absence de notification.",
+      "La notification à l'autorité de contrôle et l'information des personnes concernées sont deux obligations distinctes à seuils différents : la seconde n'est requise que lorsque le risque est qualifié d'élevé."
+    ],
+    "rules": [
+      "Qualifier systématiquement le niveau de risque de tout incident de sécurité affectant des données personnelles, même lorsque la notification n'est finalement pas requise.",
+      "Notifier l'autorité de contrôle compétente dans un délai de 72 heures à compter de la prise de connaissance de l'incident lorsque le risque est avéré.",
+      "Informer directement les personnes concernées sans délai injustifié lorsque le risque est qualifié d'élevé pour leurs droits et libertés.",
+      "Documenter tout incident de sécurité, y compris ceux ne donnant pas lieu à notification, dans un registre des violations dédié."
+    ],
+    "examples": [
+      {
+        "situation": "Une erreur de configuration expose temporairement des données de contact de quelques clients à un accès non autorisé, détectée trois jours après sa survenance.",
+        "recommended_behavior": "Qualifier immédiatement le risque pour les personnes concernées, documenter l'incident dans le registre des violations, et notifier l'autorité de contrôle dans les 72 heures suivant la détection si le risque est avéré, indépendamment de la date de survenance de l'incident.",
+        "avoid": "Attendre la restauration technique complète du service avant d'engager la qualification du risque et la notification, retardant le respect du délai légal de 72 heures."
+      }
+    ],
+    "best_practices": [
+      "Maintenir une procédure de détection rapide des incidents de sécurité pour limiter le délai entre survenance et prise de connaissance.",
+      "Tenir un registre des violations de données à jour, y compris pour les incidents ne donnant pas lieu à notification, en documentant la qualification du risque effectuée."
+    ],
+    "anti_patterns": [
+      "Ne documenter que les incidents ayant donné lieu à notification, en omettant les incidents qualifiés de risque faible.",
+      "Confondre la restauration technique du service avec l'accomplissement des obligations légales de notification, deux processus distincts à mener en parallèle."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "notification_incident",
+      "violation_donnees",
+      "delai_72_heures"
+    ],
+    "related_domains": [
+      "cpl",
+      "information_security"
+    ],
+    "related_knowledge": [
+      "cpl.documentation_procedures.procedure_recuperation_apres_sinistre_alfred_cpl",
+      "information_security.incident_response.incident_response_management"
+    ],
+    "retrieval_priority": 8
+  },
+  "behavior_rules": {
+    "tone": "professional_supportive",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "explication de la procédure de notification d'un incident de sécurité ou d'une violation de données"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [
+      "prise de décision automatisée sur la nécessité de notifier sans validation humaine"
+    ],
+    "fallback_behavior": "Pour toute qualification du niveau de risque et toute décision de notification, recommander l'implication du délégué à la protection des données et du responsable sécurité plutôt qu'une décision automatisée."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "30/08/2026",
+    "last_update": "30/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

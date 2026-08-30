@@ -1,0 +1,98 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.execution.pilotage_risque_derive_calendaire_projet",
+  "title": "Pilotage du risque de dérive calendaire d'un projet",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "execution",
+  "category": "exécution de mission ALFRED CPL",
+  "summary": "Présente les mécanismes de détection précoce et de traitement d'une dérive calendaire d'un projet (écart cumulatif entre planning prévisionnel et avancement réel), distinct du suivi d'avancement et reporting déjà couvert qui porte sur la communication de l'état d'avancement plutôt que sur l'analyse spécifique du risque de glissement de calendrier et ses leviers de rattrapage.",
+  "purpose": "Donner à ALFRED CPL une méthode de détection précoce de la dérive calendaire d'un projet, afin d'agir sur les leviers de rattrapage avant que l'écart ne devienne difficilement récupérable.",
+  "tags": [
+    "derive_calendaire",
+    "glissement_planning",
+    "risque_projet",
+    "rattrapage"
+  ],
+  "intents": [
+    "detect_schedule_slippage",
+    "recommend_recovery_levers"
+  ],
+  "usage_context": [
+    "détection d'un écart cumulatif entre planning prévisionnel et avancement réel",
+    "définition des leviers de rattrapage d'un retard de projet"
+  ],
+  "priority": "high",
+  "safety_level": "normal",
+  "content": {
+    "definition": "Le pilotage du risque de dérive calendaire consiste à détecter précocement l'écart cumulatif entre le planning prévisionnel d'un projet et son avancement réel, avant que cet écart ne devienne difficilement récupérable, en s'appuyant sur des indicateurs d'avancement objectifs (jalons franchis, valeur acquise) plutôt que sur une perception qualitative de bon déroulement, puis à mobiliser des leviers de rattrapage adaptés (renfort temporaire, réduction de périmètre non essentiel, parallélisation de tâches) proportionnés à l'ampleur de l'écart constaté.",
+    "core_principles": [
+      "Un retard cumulé se détecte plus fiablement par un suivi quantitatif des jalons et de la valeur acquise que par une perception qualitative de bon déroulement, qui tend à sous-estimer un glissement progressif.",
+      "Plus la détection de la dérive calendaire est tardive, plus les leviers de rattrapage disponibles sont coûteux ou limités, ce qui justifie un suivi rapproché dès les premiers signaux faibles.",
+      "Tous les leviers de rattrapage ne sont pas équivalents en risque : la parallélisation de tâches auparavant séquentielles augmente le risque qualité, tandis que la réduction de périmètre non essentiel préserve la qualité au prix d'une renégociation du livrable."
+    ],
+    "rules": [
+      "Suivre l'avancement du projet par des indicateurs quantitatifs objectifs (jalons franchis, valeur acquise) plutôt que par une évaluation qualitative uniquement.",
+      "Déclencher une analyse de la cause racine du retard dès le premier écart significatif constaté, plutôt que d'attendre son aggravation.",
+      "Documenter et faire valider par le client tout arbitrage de rattrapage impliquant une réduction de périmètre."
+    ],
+    "examples": [
+      {
+        "situation": "Le projet accumule un retard de deux semaines sur trois jalons consécutifs, perçu comme mineur individuellement mais significatif cumulativement.",
+        "recommended_behavior": "Analyser la cause racine de ce retard cumulatif dès sa détection par le suivi quantitatif des jalons, et mobiliser un levier de rattrapage proportionné avant que l'écart ne devienne difficilement récupérable.",
+        "avoid": "Minimiser chaque retard pris individuellement sans analyser leur effet cumulatif, jusqu'à ce que le glissement global devienne difficilement rattrapable."
+      }
+    ],
+    "best_practices": [
+      "Mettre en place un suivi de la valeur acquise (avancement réel rapporté au budget consommé) pour objectiver la dérive calendaire au-delà du seul respect des dates.",
+      "Documenter un catalogue de leviers de rattrapage possibles et leurs risques associés, mobilisable dès la détection d'un écart significatif."
+    ],
+    "anti_patterns": [
+      "Suivre l'avancement projet uniquement de façon qualitative, sans indicateur quantitatif permettant de détecter une dérive cumulative précoce.",
+      "Mobiliser un levier de rattrapage risqué (parallélisation excessive) sans évaluer son impact sur la qualité du livrable final."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "derive_calendaire",
+      "glissement_planning",
+      "risque_projet"
+    ],
+    "related_domains": [
+      "cpl",
+      "gestion_projet"
+    ],
+    "related_knowledge": [
+      "cpl.execution.suivi_avancement_reporting_projet",
+      "cpl.execution.estimation_charge_planification_mission"
+    ],
+    "retrieval_priority": 6
+  },
+  "behavior_rules": {
+    "tone": "professional_supportive",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "détection et traitement du risque de dérive calendaire d'un projet"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "Pour tout arbitrage de rattrapage impliquant une réduction de périmètre, recommander une validation explicite du client plutôt qu'une décision unilatérale."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "30/08/2026",
+    "last_update": "30/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

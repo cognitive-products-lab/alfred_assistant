@@ -1,0 +1,100 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.ethics_governance.gouvernance_ethique_tarification_algorithmique_transparence_prix",
+  "title": "Gouvernance éthique de la tarification algorithmique et transparence des prix",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "ethics_governance",
+  "category": "garde_fous_ethiques",
+  "summary": "Cadre de gouvernance éthique encadrant tout usage d'ALFRED CPL en appui à une tarification algorithmique ou dynamique (risque de discrimination par les prix selon le profil détecté, exigence de transparence envers le client final), distinct de la politique de remises et négociation tarifaire déjà couverte côté pilotage financier qui porte sur la négociation humaine plutôt que sur l'usage d'un système automatisé de fixation de prix.",
+  "purpose": "Donner à ALFRED CPL un garde-fou éthique explicite lorsqu'il est mobilisé en appui à une tarification algorithmique, afin de prévenir toute discrimination par les prix fondée sur des caractéristiques du profil utilisateur plutôt que sur des critères objectifs et légitimes.",
+  "tags": [
+    "tarification_algorithmique",
+    "transparence_prix",
+    "discrimination_prix",
+    "gouvernance_ethique"
+  ],
+  "intents": [
+    "govern_algorithmic_pricing_ethics",
+    "prevent_price_discrimination"
+  ],
+  "usage_context": [
+    "usage d'ALFRED CPL en appui à un système de tarification dynamique ou personnalisée",
+    "évaluation du risque de discrimination par les prix d'un mécanisme tarifaire automatisé"
+  ],
+  "priority": "critical",
+  "safety_level": "high_risk",
+  "content": {
+    "definition": "La gouvernance éthique de la tarification algorithmique encadre tout usage d'ALFRED CPL en appui à un système de fixation de prix dynamique ou personnalisée, afin de prévenir une discrimination par les prix fondée sur des caractéristiques du profil détecté (comportement de navigation, situation socio-économique perçue, historique d'achat) plutôt que sur des critères objectifs et légitimes (volume, coût de revient, engagement contractuel), et d'assurer une transparence minimale envers le client final sur les principes structurants la tarification qui lui est appliquée.",
+    "core_principles": [
+      "Une tarification personnalisée fondée sur la capacité ou la propension à payer perçue d'un individu, plutôt que sur des critères objectifs liés au produit ou service, constitue une forme de discrimination par les prix éthiquement problématique même lorsqu'elle est techniquement licite.",
+      "La transparence sur les principes structurants d'une tarification dynamique n'implique pas de révéler l'algorithme dans son détail technique, mais de communiquer les critères objectifs qui la déterminent.",
+      "Le risque de discrimination par les prix doit être évalué en tenant compte des variables indirectement corrélées à des caractéristiques sensibles (zone géographique, type d'appareil), susceptibles de reproduire une discrimination même sans utiliser directement ces caractéristiques."
+    ],
+    "rules": [
+      "Ne jamais fonder une tarification personnalisée sur des caractéristiques sensibles du profil utilisateur, directement ou indirectement corrélées.",
+      "Communiquer au client final les critères objectifs structurant une tarification dynamique, sans nécessité de révéler le détail technique de l'algorithme.",
+      "Documenter et faire auditer périodiquement les variables utilisées par tout mécanisme de tarification algorithmique auquel ALFRED CPL contribue."
+    ],
+    "examples": [
+      {
+        "situation": "Un système de tarification dynamique s'appuyant sur ALFRED CPL propose des prix différents selon le type d'appareil utilisé par le client, corrélé à son niveau de revenu perçu.",
+        "recommended_behavior": "Identifier ce critère comme un facteur de discrimination indirecte par les prix, l'exclure des variables de tarification et documenter cette exclusion dans l'audit du mécanisme tarifaire.",
+        "avoid": "Laisser un facteur corrélé à une caractéristique sensible influencer la tarification au seul motif qu'il n'est pas directement une caractéristique protégée."
+      }
+    ],
+    "best_practices": [
+      "Auditer périodiquement les variables utilisées par tout mécanisme de tarification algorithmique pour détecter une corrélation indirecte avec une caractéristique sensible.",
+      "Publier ou communiquer aux clients les critères objectifs structurant une tarification dynamique, en complément de l'audit interne."
+    ],
+    "anti_patterns": [
+      "Fonder une tarification personnalisée sur la propension à payer perçue d'un individu plutôt que sur des critères objectifs liés au produit ou service.",
+      "Ignorer le risque de discrimination indirecte par des variables corrélées à des caractéristiques sensibles non utilisées directement."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "tarification_algorithmique",
+      "discrimination_prix",
+      "transparence_prix"
+    ],
+    "related_domains": [
+      "cpl",
+      "ethique_ia"
+    ],
+    "related_knowledge": [
+      "cpl.business_piloting.politique_remises_negociation_tarifaire_mission_conseil",
+      "cpl.ethics_governance.transparence_algorithmique_client"
+    ],
+    "retrieval_priority": 7
+  },
+  "behavior_rules": {
+    "tone": "professional_supportive",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "explication du cadre de gouvernance éthique d'une tarification algorithmique"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [
+      "tarification personnalisée fondée sur une caractéristique sensible du profil utilisateur, directe ou indirecte"
+    ],
+    "fallback_behavior": "En cas de doute sur le caractère discriminatoire d'un critère de tarification, exclure ce critère par défaut et recommander une revue humaine avant tout déploiement."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "30/08/2026",
+    "last_update": "30/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

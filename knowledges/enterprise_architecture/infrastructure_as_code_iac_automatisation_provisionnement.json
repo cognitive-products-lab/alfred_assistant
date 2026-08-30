@@ -1,0 +1,98 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "enterprise_architecture.foundations.infrastructure_as_code_iac_automatisation_provisionnement",
+  "title": "Infrastructure as Code (IaC) et automatisation du provisionnement",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "enterprise_architecture",
+  "subdomain": "foundations",
+  "category": "enterprise_architecture",
+  "summary": "Présente le principe de l'Infrastructure as Code (description et gestion de l'infrastructure informatique par du code versionné plutôt que par une configuration manuelle), ses bénéfices de reproductibilité et de traçabilité, distinct de la gouvernance cloud et de la stratégie de migration cloud déjà couvertes qui portent sur les choix stratégiques et organisationnels plutôt que sur la pratique technique concrète de provisionnement automatisé de l'infrastructure.",
+  "purpose": "Donner à ALFRED CPL une compréhension du principe d'Infrastructure as Code, pratique technique structurante complémentaire aux enjeux de gouvernance et de stratégie cloud déjà couverts.",
+  "tags": [
+    "infrastructure_as_code",
+    "iac",
+    "automatisation_provisionnement",
+    "reproductibilite_infrastructure"
+  ],
+  "intents": [
+    "explain_infrastructure_as_code_principle",
+    "describe_iac_reproducibility_benefits"
+  ],
+  "usage_context": [
+    "compréhension du principe d'Infrastructure as Code dans un projet de modernisation d'infrastructure",
+    "analyse des bénéfices de l'automatisation du provisionnement d'infrastructure"
+  ],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "L'Infrastructure as Code, ou IaC, désigne la pratique consistant à décrire et gérer l'infrastructure informatique (serveurs, réseaux, environnements) au moyen de fichiers de configuration versionnés et exécutables par un outil dédié, plutôt que par une configuration manuelle effectuée directement sur les systèmes, approche permettant de reproduire à l'identique un environnement à partir de sa description codifiée, de tracer l'historique des modifications d'infrastructure comme celui d'un code applicatif classique, et de réduire le risque d'erreur humaine associé à une configuration manuelle répétitive, pratique technique concrète distincte des choix stratégiques de gouvernance ou de migration cloud déjà couverts par ailleurs.",
+    "core_principles": [
+      "La description de l'infrastructure sous forme de code versionné permet une reproductibilité exacte d'un environnement, éliminant la dérive de configuration progressive qui affecte typiquement des environnements configurés manuellement au fil du temps.",
+      "Le versionnement du code d'infrastructure permet une traçabilité complète des modifications apportées dans le temps, comparable à celle d'un code applicatif classique, facilitant l'audit et le retour arrière en cas de problème.",
+      "L'automatisation du provisionnement réduit le risque d'erreur humaine associé à une configuration manuelle répétitive, sans pour autant éliminer la nécessité d'une conception rigoureuse initiale du code d'infrastructure lui-même."
+    ],
+    "rules": [
+      "Décrire toute infrastructure destinée à être reproduite ou modifiée fréquemment sous forme de code versionné plutôt que par une configuration manuelle directe.",
+      "Conserver un historique de versionnement complet du code d'infrastructure, pour permettre la traçabilité et le retour arrière en cas de problème.",
+      "Ne jamais présumer que l'automatisation du provisionnement élimine à elle seule le besoin d'une conception rigoureuse initiale du code d'infrastructure."
+    ],
+    "examples": [
+      {
+        "situation": "Une organisation configure manuellement chaque nouvel environnement serveur, provoquant des différences de configuration progressives et difficiles à tracer entre environnements censés être identiques.",
+        "recommended_behavior": "Recommander la description de l'infrastructure sous forme de code versionné, permettant une reproductibilité exacte des environnements et une traçabilité complète des modifications apportées dans le temps.",
+        "avoid": "Poursuivre une configuration manuelle répétitive des environnements, source de dérive de configuration progressive et de risque d'erreur humaine difficile à tracer."
+      }
+    ],
+    "best_practices": [
+      "Verser le code d'infrastructure dans un système de gestion de version au même titre qu'un code applicatif classique, pour en assurer la traçabilité.",
+      "Tester la reproductibilité du code d'infrastructure en le déployant sur un environnement vierge avant de le considérer comme fiable en production."
+    ],
+    "anti_patterns": [
+      "Configurer manuellement des environnements destinés à être reproduits ou modifiés fréquemment, source de dérive de configuration progressive difficile à tracer.",
+      "Présumer que l'automatisation du provisionnement élimine à elle seule le besoin d'une conception rigoureuse initiale du code d'infrastructure."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "infrastructure_as_code",
+      "iac",
+      "automatisation_provisionnement"
+    ],
+    "related_domains": [
+      "enterprise_architecture",
+      "professional"
+    ],
+    "related_knowledge": [
+      "enterprise_architecture.cloud.cloud_governance",
+      "enterprise_architecture.devsecops.devsecops_basics"
+    ],
+    "retrieval_priority": 5
+  },
+  "behavior_rules": {
+    "tone": "professional_supportive",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "explication du principe d'Infrastructure as Code et de ses bénéfices"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "Pour toute mise en œuvre technique précise d'un projet d'Infrastructure as Code, recommander l'implication d'un expert technique plutôt qu'une conclusion générale seule."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "30/08/2026",
+    "last_update": "30/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}
