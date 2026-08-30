@@ -1,0 +1,98 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.operations_continuite.procedure_gestion_panne_fournisseur_cloud_tiers_bascule_secours_alfred_cpl",
+  "title": "Procédure opérationnelle de gestion d'une panne d'un fournisseur cloud tiers et bascule de secours",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "operations_continuite",
+  "category": "continuité opérationnelle ALFRED CPL",
+  "summary": "Décrit la procédure opérationnelle tactique à suivre en cas d'indisponibilité effective d'un fournisseur cloud tiers dont dépend une fonction annexe d'ALFRED CPL, distincte de la stratégie de gestion du vendor lock-in déjà couverte qui porte sur l'évaluation stratégique amont du risque de dépendance plutôt que sur le playbook opérationnel à exécuter au moment effectif d'une panne.",
+  "purpose": "Donner à ALFRED CPL un playbook opérationnel concret à exécuter au moment effectif d'une panne d'un fournisseur cloud tiers, complément tactique à l'évaluation stratégique du risque de dépendance déjà couverte.",
+  "tags": [
+    "panne_fournisseur_cloud",
+    "bascule_secours",
+    "playbook_operationnel",
+    "continuite_service"
+  ],
+  "intents": [
+    "explain_cloud_outage_failover_procedure",
+    "assess_service_degradation_during_outage"
+  ],
+  "usage_context": [
+    "indisponibilité effective constatée d'un fournisseur cloud tiers utilisé par une fonction annexe d'ALFRED CPL",
+    "élaboration d'un playbook de bascule de secours"
+  ],
+  "priority": "high",
+  "safety_level": "normal",
+  "content": {
+    "definition": "La procédure de gestion de panne d'un fournisseur cloud tiers décrit les étapes opérationnelles concrètes à exécuter dès la détection effective d'une indisponibilité d'un service cloud tiers dont dépend une fonction annexe d'ALFRED CPL (identification du périmètre affecté, activation d'un mode dégradé ou d'une alternative de secours si elle existe, communication au client, surveillance du rétablissement), procédure tactique distincte de l'évaluation stratégique amont du risque de dépendance.",
+    "core_principles": [
+      "Une architecture local-first limite structurellement le périmètre des fonctions dépendant d'un fournisseur cloud tiers, mais ne l'élimine pas totalement pour certaines fonctions annexes, ce qui impose un playbook opérationnel dédié pour ce périmètre résiduel.",
+      "La rapidité d'identification du périmètre précis affecté par une panne tierce conditionne directement la pertinence de la communication au client, une communication trop générique ou trop tardive dégradant la confiance davantage que la panne elle-même.",
+      "L'existence préalable d'un mode dégradé documenté pour chaque fonction dépendante d'un tiers réduit significativement l'impact perçu d'une panne par rapport à une interruption totale non anticipée."
+    ],
+    "rules": [
+      "Identifier rapidement le périmètre précis des fonctions affectées par une panne tierce plutôt que de communiquer de façon générique sur l'ensemble du service.",
+      "Activer sans délai le mode dégradé ou l'alternative de secours documentée pour les fonctions concernées, lorsqu'elle existe.",
+      "Communiquer au client de façon transparente et datée sur le périmètre affecté et la source externe de la panne, sans attendre le rétablissement complet."
+    ],
+    "examples": [
+      {
+        "situation": "Une fonction annexe d'ALFRED CPL dépendant d'un fournisseur cloud tiers devient indisponible suite à une panne chez ce fournisseur.",
+        "recommended_behavior": "Identifier immédiatement le périmètre précis affecté, activer le mode dégradé documenté si disponible, et communiquer de façon transparente et datée au client sur l'origine externe de la panne.",
+        "avoid": "Attendre le rétablissement complet du fournisseur tiers sans communication intermédiaire ni activation d'un mode dégradé disponible."
+      }
+    ],
+    "best_practices": [
+      "Identifier rapidement le périmètre précis affecté avant toute communication au client.",
+      "Activer sans délai un mode dégradé documenté pour les fonctions concernées lorsqu'il existe."
+    ],
+    "anti_patterns": [
+      "Communiquer de façon générique sur l'ensemble du service sans préciser le périmètre réellement affecté par une panne tierce.",
+      "Attendre le rétablissement complet du fournisseur tiers avant toute communication intermédiaire au client."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "panne_fournisseur_cloud",
+      "bascule_secours",
+      "continuite_service"
+    ],
+    "related_domains": [
+      "cpl",
+      "operations_continuite"
+    ],
+    "related_knowledge": [
+      "cpl.operations_continuite.gestion_dependance_fournisseurs_cloud_vendor_lock_in_reversibilite_alfred_cpl",
+      "cpl.operations_continuite.plan_communication_crise_incident_client"
+    ],
+    "retrieval_priority": 6
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "exécution du playbook opérationnel documenté en cas de panne effective d'un fournisseur tiers"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "En l'absence de mode dégradé documenté pour une fonction affectée, escalader immédiatement vers l'équipe technique pour une décision d'urgence plutôt que d'improviser une solution non validée."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "30/08/2026",
+    "last_update": "30/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

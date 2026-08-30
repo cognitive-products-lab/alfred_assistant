@@ -1,0 +1,98 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.operations_continuite.gestion_energie_consommation_electrique_infrastructure_locale_alfred_cpl",
+  "title": "Gestion de l'énergie et de la consommation électrique de l'infrastructure locale ALFRED CPL",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "operations_continuite",
+  "category": "continuité opérationnelle ALFRED CPL",
+  "summary": "Décrit les principes opérationnels de gestion de la consommation électrique de l'infrastructure locale d'inférence d'ALFRED CPL (surveillance, optimisation, plan de continuité en cas de coupure), distinct de l'évaluation d'impact environnemental déjà couverte côté produit qui porte sur l'empreinte globale plutôt que sur la gestion opérationnelle de l'alimentation électrique locale.",
+  "purpose": "Donner à ALFRED CPL un cadre opérationnel de gestion de sa consommation électrique locale, enjeu à la fois de continuité de service (résilience aux coupures) et de maîtrise des coûts d'exploitation d'une infrastructure local-first.",
+  "tags": [
+    "consommation_electrique",
+    "infrastructure_locale",
+    "continuite_alimentation",
+    "resilience_energetique"
+  ],
+  "intents": [
+    "explain_local_infrastructure_energy_management",
+    "assess_power_outage_continuity_plan"
+  ],
+  "usage_context": [
+    "surveillance opérationnelle de la consommation électrique de l'infrastructure locale",
+    "élaboration d'un plan de continuité en cas de coupure électrique"
+  ],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "La gestion de l'énergie de l'infrastructure locale consiste à surveiller et optimiser la consommation électrique du matériel d'inférence local d'ALFRED CPL, et à prévoir un plan de continuité opérationnelle en cas de coupure d'alimentation (basculement sur une alimentation de secours, mode dégradé économe en énergie, procédure de reprise), distincte de la mesure d'impact environnemental global qui porte sur l'empreinte carbone plutôt que sur la gestion opérationnelle directe de l'alimentation.",
+    "core_principles": [
+      "Une infrastructure d'inférence locale, à la différence d'un service cloud mutualisé, expose directement le client au risque d'interruption de service en cas de coupure électrique locale, ce qui impose une gestion opérationnelle spécifique de la continuité d'alimentation.",
+      "Un mode dégradé économe en énergie (fonctionnalités réduites, modèle allégé) peut permettre de maintenir un service minimal en cas de contrainte électrique plutôt que de subir une interruption totale.",
+      "La surveillance de la consommation électrique de l'infrastructure locale contribue à la fois à la maîtrise des coûts d'exploitation et à la détection précoce d'une dérive matérielle anormale (composant défaillant consommant anormalement)."
+    ],
+    "rules": [
+      "Surveiller en continu la consommation électrique de l'infrastructure locale pour détecter à la fois les dérives de coût et les anomalies matérielles potentielles.",
+      "Prévoir un mode dégradé économe en énergie permettant un service minimal en cas de contrainte d'alimentation plutôt qu'une interruption totale.",
+      "Documenter une procédure claire de basculement sur alimentation de secours et de reprise après coupure électrique."
+    ],
+    "examples": [
+      {
+        "situation": "Une coupure électrique brève affecte le site d'un client équipé d'une infrastructure locale ALFRED CPL sans alimentation de secours documentée.",
+        "recommended_behavior": "Disposer d'une procédure documentée de reprise après coupure et, si pertinent pour le client, recommander une solution d'alimentation de secours adaptée à la criticité de son usage.",
+        "avoid": "Ne disposer d'aucune procédure documentée de reprise après coupure, laissant la remise en service dépendre d'une intervention improvisée."
+      }
+    ],
+    "best_practices": [
+      "Surveiller en continu la consommation électrique pour détecter dérives de coût et anomalies matérielles.",
+      "Documenter une procédure claire de basculement sur alimentation de secours et de reprise après coupure."
+    ],
+    "anti_patterns": [
+      "Ne disposer d'aucun mode dégradé économe en énergie, imposant une interruption totale en cas de contrainte d'alimentation.",
+      "Négliger la surveillance de la consommation électrique locale, retardant la détection d'une dérive matérielle anormale."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "consommation_electrique",
+      "infrastructure_locale",
+      "continuite_alimentation"
+    ],
+    "related_domains": [
+      "cpl",
+      "environment"
+    ],
+    "related_knowledge": [
+      "cpl.product_ia.evaluation_impact_environnemental_ia_locale",
+      "cpl.operations_continuite.gestion_defaillance_materielle_hardware_local_alfred_cpl"
+    ],
+    "retrieval_priority": 4
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "explication pédagogique de la gestion opérationnelle de la consommation électrique locale"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "Pour tout dimensionnement concret d'une solution d'alimentation de secours, recommander une évaluation technique spécialisée adaptée à la criticité de l'usage du client."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "30/08/2026",
+    "last_update": "30/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

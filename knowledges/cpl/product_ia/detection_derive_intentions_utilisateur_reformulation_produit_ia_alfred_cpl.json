@@ -1,0 +1,98 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.product_ia.detection_derive_intentions_utilisateur_reformulation_produit_ia_alfred_cpl",
+  "title": "Détection de la dérive d'intention utilisateur et gestion de la reformulation en cours de conversation",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "product_ia",
+  "category": "conception produit IA ALFRED CPL",
+  "summary": "Décrit les principes de conception permettant à ALFRED de détecter qu'une conversation en cours a dérivé de son intention initiale (sujet qui glisse progressivement, reformulations successives d'une même demande mal comprise) et d'ajuster son comportement en conséquence plutôt que de poursuivre rigidement sur l'intention initialement détectée.",
+  "purpose": "Donner à ALFRED CPL un mécanisme de détection de la dérive d'intention en cours de conversation, condition d'une expérience fluide évitant à la fois la rigidité excessive sur une intention obsolète et la perte de fil conversationnel.",
+  "tags": [
+    "derive_intention",
+    "reformulation_utilisateur",
+    "comprehension_conversationnelle",
+    "fil_conversationnel"
+  ],
+  "intents": [
+    "explain_intent_drift_detection",
+    "assess_reformulation_handling_strategy"
+  ],
+  "usage_context": [
+    "conversation dans laquelle l'utilisateur reformule plusieurs fois une même demande mal comprise",
+    "conversation dont le sujet glisse progressivement loin de l'intention initiale"
+  ],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "La dérive d'intention désigne le phénomène par lequel une conversation s'éloigne progressivement de l'intention initialement détectée, soit parce que le sujet glisse naturellement d'un échange à l'autre, soit parce que l'utilisateur reformule à plusieurs reprises une même demande mal comprise par le système, situation que la conception produit doit détecter pour ajuster le comportement plutôt que de poursuivre rigidement sur une intention devenue obsolète ou incorrecte.",
+    "core_principles": [
+      "Des reformulations successives d'une même demande par l'utilisateur constituent un signal fort d'incompréhension du système, à traiter différemment d'une simple clarification ponctuelle.",
+      "Un glissement progressif et naturel du sujet de conversation ne constitue pas nécessairement une incompréhension du système et doit être distingué d'une reformulation signalant un échec de compréhension.",
+      "La persistance rigide sur une intention initialement détectée, même après plusieurs signaux de reformulation, dégrade davantage l'expérience utilisateur qu'une reconnaissance explicite de l'incompréhension suivie d'une clarification directe."
+    ],
+    "rules": [
+      "Détecter les reformulations successives d'une même demande comme un signal distinct d'un glissement naturel de sujet, appelant une réponse différente.",
+      "Après plusieurs reformulations infructueuses, reconnaître explicitement l'incompréhension et proposer une clarification directe plutôt que de persister sur l'interprétation initiale.",
+      "Ne pas interpréter un glissement naturel et cohérent du sujet de conversation comme une incompréhension nécessitant une reformulation explicite du système."
+    ],
+    "examples": [
+      {
+        "situation": "Un utilisateur reformule pour la troisième fois une demande qu'ALFRED continue d'interpréter de la même façon manifestement incorrecte.",
+        "recommended_behavior": "Reconnaître explicitement l'incompréhension après ces signaux répétés et demander une clarification directe plutôt que de proposer une nouvelle tentative d'interprétation implicite.",
+        "avoid": "Persister silencieusement sur la même interprétation initiale malgré plusieurs reformulations signalant clairement une incompréhension."
+      }
+    ],
+    "best_practices": [
+      "Détecter les reformulations successives comme signal distinct d'un glissement naturel de sujet.",
+      "Reconnaître explicitement l'incompréhension après plusieurs reformulations infructueuses plutôt que de persister silencieusement."
+    ],
+    "anti_patterns": [
+      "Persister rigidement sur une intention initialement détectée malgré des signaux répétés de reformulation.",
+      "Interpréter tout glissement naturel de sujet comme une incompréhension nécessitant systématiquement une clarification explicite."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "derive_intention",
+      "reformulation_utilisateur",
+      "comprehension_conversationnelle"
+    ],
+    "related_domains": [
+      "cpl",
+      "product_ia"
+    ],
+    "related_knowledge": [
+      "cpl.product_ia.gestion_fenetre_contexte_resume_conversation_longue_alfred",
+      "cpl.product_ia.gestion_hallucinations_produit_ia"
+    ],
+    "retrieval_priority": 5
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "explication pédagogique du mécanisme de détection de dérive d'intention"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "En cas d'incertitude persistante sur l'intention réelle de l'utilisateur après plusieurs échanges, demander explicitement une clarification plutôt que de formuler une nouvelle hypothèse implicite."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "30/08/2026",
+    "last_update": "30/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

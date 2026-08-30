@@ -1,0 +1,102 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.product_platform.gestion_profils_invites_temporaires_confidentialite_defaut_alfred_cpl",
+  "title": "Gestion des profils invités temporaires et confidentialité par défaut",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "product_platform",
+  "category": "plateforme produit ALFRED CPL",
+  "summary": "Décrit les principes de gestion d'un profil temporaire pour un utilisateur non reconnu ou de passage (invité), distinct de la gestion des profils multiples du foyer déjà couverte qui porte sur des utilisateurs reconnus durablement, avec une confidentialité par défaut renforcée pour ce cas non reconnu.",
+  "purpose": "Donner à ALFRED CPL un cadre de gestion spécifique pour un utilisateur non reconnu ou de passage, situation distincte des profils reconnus du foyer et nécessitant une confidentialité par défaut renforcée plutôt qu'un accès équivalent aux profils établis.",
+  "tags": [
+    "profil_invite",
+    "utilisateur_temporaire",
+    "confidentialite_par_defaut",
+    "gestion_multi_profils"
+  ],
+  "intents": [
+    "explain_guest_profile_handling",
+    "assess_temporary_user_privacy_defaults"
+  ],
+  "usage_context": [
+    "interaction avec un utilisateur non reconnu par le système de profils établis",
+    "question sur le niveau d'accès approprié pour un visiteur de passage"
+  ],
+  "priority": "high",
+  "safety_level": "sensitive",
+  "content": {
+    "definition": "La gestion des profils invités temporaires consiste à définir un mode de fonctionnement spécifique lorsque ALFRED interagit avec une personne non reconnue par le système de profils établis du foyer ou de l'organisation (visiteur de passage), ce mode devant appliquer par défaut une confidentialité renforcée (absence d'accès aux données et à l'historique des profils reconnus, non-persistance des échanges au-delà de la session) plutôt qu'un accès équivalent à celui d'un profil reconnu.",
+    "core_principles": [
+      "Un utilisateur non reconnu ne doit jamais accéder par défaut aux données, préférences ou historique des profils reconnus du foyer ou de l'organisation, cette confidentialité constituant la règle de base et non une option.",
+      "La non-persistance par défaut des échanges avec un profil invité temporaire au-delà de la session en cours limite l'accumulation non consentie de données sur une personne n'ayant pas explicitement rejoint le système de profils établis.",
+      "La distinction entre profil invité temporaire et profil reconnu doit rester détectable de façon fiable par le système pour éviter qu'une confusion d'identité n'entraîne un accès non autorisé aux données d'un profil établi."
+    ],
+    "rules": [
+      "Appliquer par défaut une confidentialité renforcée à toute interaction avec une personne non reconnue par le système de profils établis.",
+      "Ne jamais faire persister par défaut les échanges avec un profil invité temporaire au-delà de la session en cours, sauf consentement explicite ultérieur.",
+      "Maintenir une distinction fiable entre profil invité et profil reconnu pour éviter tout accès non autorisé aux données d'un profil établi par confusion d'identité."
+    ],
+    "examples": [
+      {
+        "situation": "Une personne non reconnue par le système de profils interagit ponctuellement avec ALFRED lors d'une visite au domicile équipé.",
+        "recommended_behavior": "Appliquer un mode invité temporaire sans accès aux données ou à l'historique des profils reconnus, et sans persistance de l'échange au-delà de la session en cours.",
+        "avoid": "Traiter par défaut la personne non reconnue comme ayant accès aux mêmes informations et au même historique qu'un profil reconnu du foyer."
+      }
+    ],
+    "best_practices": [
+      "Appliquer par défaut une confidentialité renforcée à toute interaction avec une personne non reconnue.",
+      "Ne pas faire persister par défaut les échanges d'un profil invité au-delà de la session en cours."
+    ],
+    "anti_patterns": [
+      "Accorder par défaut à une personne non reconnue un accès équivalent à celui d'un profil établi du foyer ou de l'organisation.",
+      "Faire persister silencieusement les échanges d'un profil invité temporaire sans consentement explicite ultérieur."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "profil_invite",
+      "confidentialite_par_defaut",
+      "gestion_multi_profils"
+    ],
+    "related_domains": [
+      "cpl",
+      "information_security"
+    ],
+    "related_knowledge": [
+      "cpl.product_platform.gestion_profils_multiples_foyer_organisation_local_alfred",
+      "cpl.product_platform.gestion_consentement_utilisateur_alfred"
+    ],
+    "retrieval_priority": 7
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "interaction limitée et non persistante avec une personne non reconnue par le système de profils"
+    ],
+    "restricted_usage": [
+      "extension de l'accès invité à des fonctions sensibles nécessitant une vérification préalable"
+    ],
+    "forbidden_usage": [
+      "accès d'un profil invité temporaire aux données, préférences ou historique d'un profil reconnu"
+    ],
+    "fallback_behavior": "En cas de doute sur l'identité d'une personne interagissant avec le système, appliquer par défaut le mode invité à confidentialité renforcée plutôt que de présumer un profil reconnu."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "30/08/2026",
+    "last_update": "30/08/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}
