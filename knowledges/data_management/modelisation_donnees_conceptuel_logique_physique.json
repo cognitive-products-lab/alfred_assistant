@@ -1,0 +1,98 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "data_management.modeling.modelisation_donnees_conceptuel_logique_physique",
+  "title": "Modélisation des données : modèles conceptuel, logique et physique",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "data_management",
+  "subdomain": "modeling",
+  "category": "gouvernance des données — modélisation",
+  "summary": "Présente les trois niveaux de modélisation des données (conceptuel, logique, physique), nouveau sous-domaine distinct de la gestion du cycle de vie des données et du Master Data Management déjà couverts qui portent sur la gouvernance et le pilotage des données plutôt que sur la méthodologie fondamentale de leur structuration.",
+  "purpose": "Donner à ALFRED CPL un socle méthodologique de la modélisation des données pour accompagner des missions de conseil en structuration de systèmes d'information et de bases de données.",
+  "tags": [
+    "modelisation_donnees",
+    "modele_conceptuel",
+    "modele_logique",
+    "modele_physique"
+  ],
+  "intents": [
+    "explain_data_modeling_levels",
+    "support_data_structure_design"
+  ],
+  "usage_context": [
+    "conception ou refonte d'une base de données ou d'un système d'information",
+    "mission de conseil sur la structuration de données métier"
+  ],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "La modélisation des données est le processus de structuration formelle des données d'un système d'information à travers trois niveaux d'abstraction successifs : le modèle conceptuel (entités métier et leurs relations, indépendant de toute technologie), le modèle logique (structuration selon un type de système, par exemple relationnel, sans encore préciser l'implémentation technique), et le modèle physique (implémentation technique effective, tables, types de colonnes, index, propre à une technologie de base de données donnée), une méthodologie fondamentale distincte de la gouvernance et du pilotage des données déjà couverts qui s'appuient sur des données déjà structurées.",
+    "core_principles": [
+      "Le modèle conceptuel doit rester indépendant de toute contrainte technologique, sa vocation étant de représenter fidèlement la réalité métier avant toute considération d'implémentation.",
+      "La progression du modèle conceptuel vers le modèle physique implique des choix techniques successifs (type de système de gestion de données, normalisation ou dénormalisation) qui doivent rester traçables jusqu'à leur origine métier.",
+      "Une erreur ou une ambiguïté non résolue au niveau conceptuel se propage et s'amplifie aux niveaux logique et physique, ce qui justifie un soin particulier porté à cette première étape de modélisation."
+    ],
+    "rules": [
+      "Toujours débuter une démarche de structuration de données par un modèle conceptuel indépendant de toute technologie avant de descendre vers les niveaux logique et physique.",
+      "Maintenir une traçabilité explicite entre les trois niveaux de modélisation pour permettre de comprendre l'origine métier de tout choix technique du modèle physique.",
+      "Valider le modèle conceptuel avec les experts métier avant de poursuivre vers les niveaux logique et physique, une erreur conceptuelle étant coûteuse à corriger une fois propagée aux niveaux inférieurs."
+    ],
+    "examples": [
+      {
+        "situation": "Une équipe technique commence directement la conception d'une base de données par la définition des tables et des types de colonnes sans modèle conceptuel préalable.",
+        "recommended_behavior": "Recommander l'élaboration préalable d'un modèle conceptuel validé avec les experts métier avant toute descente vers les niveaux logique et physique.",
+        "avoid": "Valider une structure de base de données uniquement au niveau physique sans vérifier sa cohérence avec un modèle conceptuel métier explicite."
+      }
+    ],
+    "best_practices": [
+      "Articuler la modélisation des données avec le Master Data Management et la gestion des métadonnées déjà couverts pour une gouvernance cohérente de bout en bout.",
+      "Documenter et faire valider le modèle conceptuel par les parties prenantes métier avant tout investissement dans les niveaux logique et physique."
+    ],
+    "anti_patterns": [
+      "Confondre les trois niveaux de modélisation, en particulier concevoir directement un modèle physique sans modèle conceptuel ou logique préalable validé.",
+      "Laisser un modèle conceptuel dépendre implicitement d'une contrainte technologique qui devrait relever uniquement des niveaux logique ou physique."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "modelisation_donnees",
+      "modele_conceptuel",
+      "modele_logique_physique"
+    ],
+    "related_domains": [
+      "data_management",
+      "enterprise_architecture"
+    ],
+    "related_knowledge": [
+      "data_management.mdm.master_data_management",
+      "data_management.metadata.metadata_management"
+    ],
+    "retrieval_priority": 6
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "accompagnement méthodologique de la modélisation des données"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "Pour une modélisation technique détaillée d'un système spécifique, recommander l'implication d'une expertise en architecture de données dédiée."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "03/09/2026",
+    "last_update": "03/09/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}
