@@ -1,0 +1,101 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.business_piloting.pilotage_churn_retention_client_conseil",
+  "title": "Pilotage du taux de churn et de la rétention client",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "business_piloting",
+  "category": "pilotage financier ALFRED CPL",
+  "summary": "Présente le taux de churn (attrition) client comme indicateur de pilotage distinct de la satisfaction et de la rentabilité par segment déjà couvertes, avec ses méthodes de calcul et ses leviers de rétention en activité de conseil.",
+  "purpose": "Donner à ALFRED CPL un cadre de suivi du taux de perte de clients afin d'anticiper l'érosion du portefeuille avant qu'elle n'affecte le chiffre d'affaires récurrent.",
+  "tags": [
+    "churn",
+    "retention_client",
+    "attrition",
+    "pilotage_commercial"
+  ],
+  "intents": [
+    "assess_client_churn",
+    "recommend_retention_actions"
+  ],
+  "usage_context": [
+    "suivi périodique du portefeuille client",
+    "analyse d'un pic de résiliations ou de non-renouvellements"
+  ],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "Le taux de churn (ou taux d'attrition) mesure la proportion de clients perdus sur une période donnée rapportée au nombre de clients actifs en début de période ; en activité de conseil il se décline en churn logo (nombre de clients perdus) et en churn revenu (part du chiffre d'affaires perdu), ces deux mesures pouvant diverger fortement selon la taille des clients partis.",
+    "core_principles": [
+      "Un churn logo faible peut masquer un churn revenu élevé si les clients partis étaient les plus gros contrats, d'où la nécessité de toujours suivre les deux mesures conjointement.",
+      "Le churn se distingue de la satisfaction client déjà suivie par ailleurs : un client peut être satisfait et partir pour des raisons budgétaires ou stratégiques externes, tout comme un client insatisfait peut rester par inertie contractuelle.",
+      "La rétention proactive (contact avant échéance de renouvellement) coûte structurellement moins cher que la reconquête d'un client déjà parti."
+    ],
+    "rules": [
+      "Calculer le churn logo et le churn revenu séparément à chaque clôture de période et les rapprocher des indicateurs de satisfaction existants.",
+      "Déclencher une revue de compte pour tout client représentant un churn revenu significatif avant l'échéance contractuelle plutôt qu'après la notification de non-renouvellement.",
+      "Documenter systématiquement le motif de départ de chaque client perdu pour distinguer les causes structurelles des causes ponctuelles."
+    ],
+    "examples": [
+      {
+        "situation": "Trois petits clients résilient sur le trimestre mais un client représentant 25% du chiffre d'affaires ne renouvelle pas non plus.",
+        "recommended_behavior": "Alerter sur le churn revenu élevé malgré un churn logo apparemment modéré, et documenter le motif du départ du client majeur pour en tirer un enseignement structurel.",
+        "avoid": "Se satisfaire d'un churn logo faible sans examiner l'impact du churn revenu."
+      }
+    ],
+    "best_practices": [
+      "Mettre en place une alerte automatique X semaines avant chaque échéance de renouvellement de contrat significatif.",
+      "Croiser le churn avec les indicateurs de satisfaction client déjà suivis pour distinguer causes évitables et causes externes."
+    ],
+    "anti_patterns": [
+      "Suivre uniquement le nombre de clients perdus sans pondérer par le chiffre d'affaires associé.",
+      "Attendre la notification officielle de non-renouvellement pour engager toute action de rétention."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "churn",
+      "retention",
+      "attrition",
+      "renouvellement_contrat"
+    ],
+    "related_domains": [
+      "cpl",
+      "business_piloting"
+    ],
+    "related_knowledge": [
+      "cpl.business_piloting.suivi_indicateurs_satisfaction_client",
+      "cpl.business_piloting.gestion_risque_concentration_clientele"
+    ],
+    "retrieval_priority": 6
+  },
+  "behavior_rules": {
+    "tone": "professional_supportive",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "suivi du taux d'attrition et alerte sur le risque de non-renouvellement"
+    ],
+    "restricted_usage": [
+      "décision définitive de désengagement d'un client"
+    ],
+    "forbidden_usage": [],
+    "fallback_behavior": "Pour toute décision de désengagement ou de plan de reconquête coûteux, recommander l'arbitrage de la direction plutôt qu'une action automatisée."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "03/09/2026",
+    "last_update": "03/09/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}
