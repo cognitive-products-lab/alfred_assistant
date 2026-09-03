@@ -1,0 +1,99 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.product_ia.evaluation_calibration_confiance_incertitude_modele_produit_ia_alfred_cpl",
+  "title": "Évaluation de la calibration de confiance et de l'incertitude du modèle dans le produit IA",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "product_ia",
+  "category": "produit IA ALFRED CPL",
+  "summary": "Définit la démarche d'évaluation de la calibration de confiance d'un modèle (sa capacité à exprimer un niveau de certitude cohérent avec son taux d'exactitude réel), distincte de la gestion des hallucinations déjà couverte qui porte sur la production d'affirmations fausses, alors que la calibration porte sur l'écart entre la confiance exprimée et l'exactitude réelle, y compris pour des réponses correctes exprimées avec une fausse certitude ou une fausse hésitation.",
+  "purpose": "Permettre à ALFRED CPL d'évaluer si le niveau de certitude exprimé par le modèle est fiable, condition d'une confiance utilisateur bien calibrée plutôt qu'aveugle ou excessivement méfiante.",
+  "tags": [
+    "calibration_confiance",
+    "incertitude_modele",
+    "fiabilite_reponse",
+    "evaluation_ia"
+  ],
+  "intents": [
+    "evaluate_model_confidence_calibration",
+    "assess_uncertainty_expression_quality"
+  ],
+  "usage_context": [
+    "évaluation de la fiabilité du niveau de certitude exprimé par le modèle",
+    "question sur la différence entre hallucination et mauvaise calibration"
+  ],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "La calibration de confiance désigne l'adéquation entre le niveau de certitude qu'un modèle exprime dans sa réponse (formulations affirmatives, nuancées, ou hésitantes) et son taux d'exactitude réel mesuré empiriquement ; un modèle bien calibré exprime une certitude élevée principalement lorsque ses réponses sont effectivement correctes, et une incertitude explicite lorsque le risque d'erreur est élevé, indépendamment du fait que la réponse elle-même soit une hallucination ou non.",
+    "core_principles": [
+      "Un modèle peut halluciner rarement mais être mal calibré (exprimer une fausse certitude sur les rares cas d'erreur), ou halluciner peu mais rester globalement mal calibré sur l'ensemble de ses réponses correctes comme incorrectes.",
+      "La calibration se mesure par comparaison entre le niveau de confiance exprimé (ou un score de confiance interne si disponible) et le taux de succès réel observé sur des échantillons de test représentatifs.",
+      "Une bonne calibration améliore la confiance utilisateur bien plus qu'une simple réduction du taux d'erreur brut, car elle permet à l'utilisateur de savoir quand faire confiance à la réponse."
+    ],
+    "rules": [
+      "Toujours distinguer, dans l'évaluation produit, le taux d'hallucination brut de la qualité de calibration de la confiance exprimée.",
+      "Encourager la formulation d'une incertitude explicite par le modèle lorsque le sujet est à risque d'erreur documenté, plutôt qu'une affirmation systématique."
+    ],
+    "examples": [
+      {
+        "situation": "L'équipe évalue si ALFRED exprime son incertitude de façon cohérente avec son taux d'erreur réel sur un domaine donné.",
+        "recommended_behavior": "Mesurer la corrélation entre expressions de certitude/incertitude et exactitude réelle sur un échantillon de test, plutôt que de se limiter au taux d'hallucination global.",
+        "avoid": "Considérer qu'un faible taux d'hallucination global garantit à lui seul une bonne calibration de la confiance exprimée."
+      }
+    ],
+    "best_practices": [
+      "Intégrer un indicateur de calibration de confiance dans les tableaux de bord qualité, distinct du taux d'hallucination.",
+      "Encourager des formulations nuancées explicites lorsque le sujet est identifié comme à risque d'erreur élevé."
+    ],
+    "anti_patterns": [
+      "Confondre absence d'hallucination et bonne calibration de la confiance exprimée.",
+      "Laisser le modèle exprimer une certitude uniforme indépendamment du niveau de risque d'erreur réel du sujet traité."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "calibration_confiance",
+      "incertitude",
+      "fiabilite"
+    ],
+    "related_domains": [
+      "cpl",
+      "system"
+    ],
+    "related_knowledge": [
+      "cpl.product_ia.gestion_hallucinations_produit_ia",
+      "cpl.product_ia.evaluation_qualite_reponses_ia_alfred"
+    ],
+    "retrieval_priority": 4
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "high",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "information méthodologique sur l'évaluation de la calibration de confiance d'un modèle"
+    ],
+    "restricted_usage": [
+      "interprétation d'un résultat de calibration précis sans contexte de mesure complet"
+    ],
+    "forbidden_usage": [],
+    "fallback_behavior": "Se limiter à une explication méthodologique générale et recommander une mesure empirique structurée avant toute conclusion sur la calibration réelle du modèle."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "03/09/2026",
+    "last_update": "03/09/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

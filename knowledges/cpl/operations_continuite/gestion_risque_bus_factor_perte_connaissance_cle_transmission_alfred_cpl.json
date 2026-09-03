@@ -1,0 +1,97 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.operations_continuite.gestion_risque_bus_factor_perte_connaissance_cle_transmission_alfred_cpl",
+  "title": "Gestion du risque de bus factor et de perte de connaissance clé",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "operations_continuite",
+  "category": "opérations ALFRED CPL",
+  "summary": "Définit la démarche de réduction du risque de bus factor (dépendance critique à une seule personne détentrice d'une connaissance clé sur un système) sur les systèmes et processus critiques d'ALFRED CPL, distincte de la gestion des runbooks et de la dette documentaire déjà couverte qui porte sur la qualité de la documentation existante plutôt que sur le risque spécifique de concentration de connaissance non documentée sur un nombre insuffisant de personnes.",
+  "purpose": "Anticiper le risque opérationnel qu'une connaissance critique et non documentée disparaisse avec le départ ou l'indisponibilité d'une seule personne, risque distinct de la simple qualité de la documentation existante.",
+  "tags": [
+    "bus_factor",
+    "perte_connaissance_cle",
+    "transmission_competences",
+    "risque_operationnel"
+  ],
+  "intents": [
+    "assess_bus_factor_risk",
+    "plan_knowledge_transmission_critical_systems"
+  ],
+  "usage_context": [
+    "évaluation du risque de dépendance à une seule personne sur un système critique",
+    "planification de la transmission d'une connaissance clé avant un départ"
+  ],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "Le bus factor (ou facteur bus) désigne le nombre minimal de personnes dont l'indisponibilité simultanée mettrait en péril la capacité à maintenir ou faire évoluer un système critique, faute de connaissance suffisamment partagée ; un bus factor de un signale une dépendance critique à une seule personne, risque opérationnel majeur distinct de la simple existence ou qualité d'une documentation, une documentation existante mais jamais consultée ni mise à jour ne réduisant pas réellement ce risque si elle reste incomplète sur les aspects tacites du système.",
+    "core_principles": [
+      "Un bus factor faible (une ou deux personnes) sur un système critique constitue un risque opérationnel à traiter au même titre qu'un risque technique de résilience infrastructure.",
+      "La transmission de connaissance tacite (raisonnements non écrits, historique des décisions) est aussi importante que la documentation formelle pour réduire réellement le bus factor.",
+      "Une revue périodique du bus factor par système critique permet d'identifier les zones de concentration de risque avant qu'un départ ou une indisponibilité ne les révèle brutalement."
+    ],
+    "rules": [
+      "Identifier explicitement le bus factor de chaque système ou processus critique et prioriser la réduction des cas de bus factor égal à un.",
+      "Organiser une transmission active de connaissance (pair programming, sessions de passation documentées) plutôt que de se reposer sur la seule existence d'une documentation écrite."
+    ],
+    "examples": [
+      {
+        "situation": "Un système critique n'est réellement maîtrisé que par une seule personne de l'équipe.",
+        "recommended_behavior": "Organiser une transmission active de connaissance vers une seconde personne, au-delà de la simple rédaction d'une documentation technique.",
+        "avoid": "Considérer le risque comme couvert du seul fait qu'une documentation technique existe, sans vérifier qu'une seconde personne est réellement capable d'intervenir."
+      }
+    ],
+    "best_practices": [
+      "Réaliser une revue périodique du bus factor par système ou processus critique.",
+      "Prioriser la réduction des cas de bus factor égal à un par une transmission active de connaissance."
+    ],
+    "anti_patterns": [
+      "Confondre existence d'une documentation et réduction effective du risque de bus factor.",
+      "Ignorer le risque de bus factor tant qu'aucun incident lié à une indisponibilité n'est survenu."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "bus_factor",
+      "perte_connaissance_cle",
+      "transmission_competences"
+    ],
+    "related_domains": [
+      "cpl",
+      "human"
+    ],
+    "related_knowledge": [
+      "cpl.operations_continuite.gestion_documentation_technique_runbooks_dette_operationnelle_alfred_cpl",
+      "cpl.operations_continuite.plan_continuite_activite_perte_site_physique_equipe_indisponible_alfred_cpl"
+    ],
+    "retrieval_priority": 3
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "information méthodologique sur l'évaluation et la réduction du risque de bus factor"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "Se limiter à un cadrage méthodologique général et recommander une revue interne concrète des systèmes critiques de l'équipe."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "03/09/2026",
+    "last_update": "03/09/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

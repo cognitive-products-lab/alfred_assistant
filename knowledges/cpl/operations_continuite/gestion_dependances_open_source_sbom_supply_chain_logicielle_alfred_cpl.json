@@ -1,0 +1,97 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.operations_continuite.gestion_dependances_open_source_sbom_supply_chain_logicielle_alfred_cpl",
+  "title": "Gestion des dépendances open source, SBOM et supply chain logicielle",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "operations_continuite",
+  "category": "opérations ALFRED CPL",
+  "summary": "Définit la démarche de cartographie et de suivi des dépendances open source utilisées par ALFRED CPL via une nomenclature logicielle (SBOM, software bill of materials) et de gestion du risque de chaîne d'approvisionnement logicielle, distincte de la procédure de gestion des correctifs de sécurité déjà couverte qui porte sur l'application des correctifs connus, alors que la gestion SBOM porte en amont sur l'inventaire et la traçabilité de l'ensemble des composants tiers intégrés, condition même de savoir quels correctifs surveiller.",
+  "purpose": "Réduire le risque de vulnérabilité ou de compromission via une dépendance logicielle tierce non inventoriée, enjeu de sécurité en amont de la simple application de correctifs déjà connus.",
+  "tags": [
+    "sbom",
+    "supply_chain_logicielle",
+    "dependances_open_source",
+    "securite_composants_tiers"
+  ],
+  "intents": [
+    "maintain_software_bill_of_materials",
+    "manage_software_supply_chain_risk"
+  ],
+  "usage_context": [
+    "cartographie des dépendances logicielles tierces d'ALFRED CPL",
+    "question sur le risque de chaîne d'approvisionnement logicielle"
+  ],
+  "priority": "high",
+  "safety_level": "normal",
+  "content": {
+    "definition": "Un SBOM (software bill of materials, nomenclature logicielle) désigne l'inventaire exhaustif et structuré de l'ensemble des composants logiciels tiers, bibliothèques et dépendances open source intégrés dans un produit, condition d'une gestion sérieuse du risque de chaîne d'approvisionnement logicielle (supply chain) qui vise à détecter rapidement l'exposition à une vulnérabilité découverte dans une dépendance, y compris une dépendance transitive non directement choisie par l'équipe.",
+    "core_principles": [
+      "Un SBOM à jour est la condition préalable pour savoir rapidement, lors de la découverte d'une vulnérabilité dans une bibliothèque tierce, si et où ALFRED CPL est exposé.",
+      "Le risque de chaîne d'approvisionnement logicielle inclut les dépendances transitives (dépendances des dépendances), souvent non directement visibles sans outillage dédié de cartographie.",
+      "La génération et la mise à jour du SBOM doivent être automatisées et intégrées au pipeline de build plutôt que réalisées ponctuellement et manuellement."
+    ],
+    "rules": [
+      "Maintenir un SBOM automatiquement généré et à jour à chaque build, incluant les dépendances transitives.",
+      "Vérifier systématiquement l'exposition d'ALFRED CPL via le SBOM lors de la découverte de toute vulnérabilité critique publiée sur une bibliothèque open source largement utilisée."
+    ],
+    "examples": [
+      {
+        "situation": "Une vulnérabilité critique est découverte dans une bibliothèque open source largement utilisée dans l'écosystème logiciel.",
+        "recommended_behavior": "Consulter le SBOM à jour pour vérifier rapidement si et où ALFRED CPL utilise cette bibliothèque, directement ou en dépendance transitive.",
+        "avoid": "Devoir auditer manuellement l'ensemble du code pour déterminer l'exposition, faute de SBOM à jour disponible."
+      }
+    ],
+    "best_practices": [
+      "Automatiser la génération du SBOM dans le pipeline de build plutôt que de le maintenir manuellement.",
+      "Inclure explicitement les dépendances transitives dans le SBOM, principale source de risque non visible."
+    ],
+    "anti_patterns": [
+      "Maintenir un inventaire de dépendances manuel et non systématiquement à jour.",
+      "Limiter le SBOM aux seules dépendances directes en ignorant les dépendances transitives."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "sbom",
+      "supply_chain_logicielle",
+      "dependances_open_source"
+    ],
+    "related_domains": [
+      "cpl",
+      "system"
+    ],
+    "related_knowledge": [
+      "cpl.operations_continuite.gestion_patchs_securite_cycle_patch_management_alfred_cpl",
+      "cpl.operations_continuite.gestion_obsolescence_technologique_alfred_cpl"
+    ],
+    "retrieval_priority": 4
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "high",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "information méthodologique sur la gestion du SBOM et de la chaîne d'approvisionnement logicielle"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "En cas de découverte d'une vulnérabilité critique, recommander une vérification immédiate via le SBOM plutôt qu'un audit manuel exhaustif."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "03/09/2026",
+    "last_update": "03/09/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}
