@@ -1,0 +1,99 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "secteurs_activite.energie.raccordement_electrique_gestion_reseaux_distribution_enedis_rte",
+  "title": "Raccordement électrique et gestion des réseaux de distribution (Enedis, RTE)",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "secteurs_activite",
+  "subdomain": "energie",
+  "category": "secteur énergie",
+  "summary": "Présente le processus de raccordement électrique et le rôle distinct des gestionnaires de réseau de distribution (Enedis) et de transport (RTE) en France, angle technique et administratif du secteur de l'énergie jusqu'ici absent des fiches existantes centrées sur le marché et la transition énergétique plutôt que sur l'infrastructure de réseau elle-même.",
+  "purpose": "Donner à ALFRED une compréhension du fonctionnement des réseaux électriques et du processus de raccordement, utile notamment dans un contexte de conseil aux clients du secteur de la construction ou de l'énergie confrontés à des délais de raccordement.",
+  "tags": [
+    "raccordement_electrique",
+    "enedis",
+    "rte",
+    "reseaux_distribution"
+  ],
+  "intents": [
+    "explain_grid_connection_process",
+    "distinguish_distribution_transmission_operators"
+  ],
+  "usage_context": [
+    "question sur le processus de raccordement électrique",
+    "distinction entre Enedis et RTE"
+  ],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "Le raccordement électrique désigne le processus administratif et technique par lequel un site (logement, bâtiment, installation de production) est connecté au réseau électrique, opéré en France par Enedis pour la distribution (basse et moyenne tension, desserte locale) et par RTE (Réseau de Transport d'Électricité) pour le transport (haute tension, grandes liaisons nationales), deux gestionnaires aux missions et échelles distinctes bien que complémentaires dans l'acheminement de l'électricité du site de production au point de consommation.",
+    "core_principles": [
+      "Enedis gère la distribution locale (raccordement des logements, entreprises, installations de production décentralisées) tandis que RTE gère le transport à grande échelle entre régions et interconnexions internationales, deux missions à ne pas confondre.",
+      "Le délai de raccordement varie fortement selon la complexité du projet (raccordement simple d'un logement vs raccordement d'une installation de production nécessitant un renforcement de réseau), enjeu fréquent de tension pour les projets de construction ou de production d'énergie renouvelable.",
+      "Le coût du raccordement peut être partiellement mutualisé (quote-part) ou intégralement à la charge du demandeur selon la nature du projet et son impact sur le réseau existant."
+    ],
+    "rules": [
+      "Toujours distinguer Enedis (distribution locale) et RTE (transport national) selon le contexte de la question posée, ces deux acteurs ayant des rôles souvent confondus par le grand public.",
+      "Ne jamais donner un délai ou un coût de raccordement précis et garanti, ces éléments dépendant fortement du projet spécifique et devant être vérifiés auprès du gestionnaire de réseau concerné."
+    ],
+    "examples": [
+      {
+        "situation": "Un utilisateur porteur d'un projet de construction s'interroge sur les délais de raccordement électrique.",
+        "recommended_behavior": "Expliquer le processus général de raccordement via Enedis pour un projet de cette nature et orienter vers une demande formelle auprès du gestionnaire pour obtenir un délai précis.",
+        "avoid": "Donner un délai ou un coût de raccordement précis sans base contextuelle réelle du projet concerné."
+      }
+    ],
+    "best_practices": [
+      "Distinguer systématiquement le rôle d'Enedis (distribution) et de RTE (transport) selon le contexte.",
+      "Orienter vers une demande formelle auprès du gestionnaire de réseau pour tout délai ou coût précis de raccordement."
+    ],
+    "anti_patterns": [
+      "Confondre les missions d'Enedis et de RTE dans une réponse générale sur les réseaux électriques.",
+      "Affirmer un délai de raccordement standard applicable à tous les projets sans distinction de complexité."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "raccordement_electrique",
+      "enedis",
+      "rte"
+    ],
+    "related_domains": [
+      "secteurs_activite",
+      "construction_btp"
+    ],
+    "related_knowledge": [
+      "secteurs_activite.energie.marche_electricite_mecanismes_prix_spot_capacite",
+      "secteurs_activite.construction_btp.numerisation_btp_bim_chantier_connecte"
+    ],
+    "retrieval_priority": 3
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "information générale sur le processus de raccordement électrique et les rôles d'Enedis et RTE"
+    ],
+    "restricted_usage": [
+      "estimation précise de délai ou de coût de raccordement pour un projet réel"
+    ],
+    "forbidden_usage": [],
+    "fallback_behavior": "Orienter systématiquement vers une demande formelle auprès du gestionnaire de réseau concerné pour toute estimation précise."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "03/09/2026",
+    "last_update": "03/09/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

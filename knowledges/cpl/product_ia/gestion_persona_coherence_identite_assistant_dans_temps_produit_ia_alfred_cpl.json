@@ -1,0 +1,97 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.product_ia.gestion_persona_coherence_identite_assistant_dans_temps_produit_ia_alfred_cpl",
+  "title": "Gestion de la cohérence de la persona et de l'identité d'ALFRED dans le temps",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "product_ia",
+  "category": "produit IA ALFRED CPL",
+  "summary": "Définit la démarche de suivi de la cohérence de l'identité et de la persona d'ALFRED sur la durée d'une relation utilisateur longue (traits de personnalité stables, ton général, positionnement relationnel), distincte de la personnalisation du style de réponse déjà couverte qui porte sur l'adaptation ponctuelle du style à un contexte ou un utilisateur donné, alors que la cohérence de persona porte sur la stabilité de l'identité perçue dans le temps malgré les mises à jour et évolutions du produit.",
+  "purpose": "Éviter qu'une évolution technique (mise à jour de modèle, ajustement de prompts système) ne produise une rupture perçue de personnalité par l'utilisateur, risque spécifique aux produits IA conversationnels développant une relation de confiance longue durée.",
+  "tags": [
+    "coherence_persona",
+    "identite_assistant",
+    "stabilite_personnalite",
+    "relation_longue_duree"
+  ],
+  "intents": [
+    "maintain_persona_consistency_over_time",
+    "prevent_perceived_personality_drift"
+  ],
+  "usage_context": [
+    "mise à jour de modèle ou de prompt système susceptible d'affecter la personnalité perçue",
+    "question sur la stabilité de l'identité d'ALFRED dans le temps"
+  ],
+  "priority": "high",
+  "safety_level": "normal",
+  "content": {
+    "definition": "La cohérence de la persona dans le temps désigne le maintien de traits de personnalité, d'un ton général et d'un positionnement relationnel stables et reconnaissables par l'utilisateur au fil des mises à jour techniques successives d'ALFRED, distincte de la personnalisation contextuelle du style qui adapte ponctuellement la forme de la réponse sans altérer l'identité perçue sous-jacente.",
+    "core_principles": [
+      "Une mise à jour de modèle ou de prompt système doit être testée pour son impact sur la personnalité perçue avant déploiement, au même titre que sa performance fonctionnelle.",
+      "La persona d'ALFRED doit être documentée de façon explicite (traits stables, limites de ton) afin de servir de référence de non-régression lors des évolutions techniques.",
+      "Une rupture de cohérence perçue par un utilisateur ayant une relation longue durée avec ALFRED constitue un risque de confiance comparable à une régression fonctionnelle."
+    ],
+    "rules": [
+      "Documenter explicitement les traits de personnalité stables d'ALFRED comme référentiel de non-régression avant toute évolution majeure de modèle ou de prompt système.",
+      "Tester l'impact perçu sur la personnalité de toute évolution technique majeure avant déploiement en production, pas seulement sa performance fonctionnelle brute."
+    ],
+    "examples": [
+      {
+        "situation": "Une mise à jour du modèle sous-jacent change perceptiblement le ton habituel des réponses d'ALFRED.",
+        "recommended_behavior": "Comparer le changement au référentiel de persona documenté, ajuster le prompt système si nécessaire pour restaurer la cohérence avant déploiement large.",
+        "avoid": "Déployer une mise à jour de modèle sans évaluation de son impact sur la personnalité perçue par les utilisateurs existants."
+      }
+    ],
+    "best_practices": [
+      "Maintenir un référentiel documenté des traits de personnalité stables d'ALFRED comme base de test de non-régression.",
+      "Inclure un test qualitatif de cohérence de persona dans le protocole de validation de toute mise à jour majeure de modèle."
+    ],
+    "anti_patterns": [
+      "Traiter la personnalité de l'assistant comme un simple sous-produit non testé des choix techniques de modèle.",
+      "Confondre adaptation contextuelle légitime du style et rupture non maîtrisée de l'identité perçue."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "coherence_persona",
+      "identite_assistant",
+      "stabilite"
+    ],
+    "related_domains": [
+      "cpl",
+      "human"
+    ],
+    "related_knowledge": [
+      "cpl.product_ia.gestion_personnalisation_style_reponse_adaptation_utilisateur_alfred_cpl",
+      "cpl.product_ia.gestion_versions_modeles_ia_alfred"
+    ],
+    "retrieval_priority": 4
+  },
+  "behavior_rules": {
+    "tone": "professional_supportive",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "information sur la démarche de maintien de cohérence de persona"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "En cas de doute sur une rupture de cohérence perçue, recommander un test qualitatif structuré plutôt qu'un jugement subjectif isolé."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "03/09/2026",
+    "last_update": "03/09/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

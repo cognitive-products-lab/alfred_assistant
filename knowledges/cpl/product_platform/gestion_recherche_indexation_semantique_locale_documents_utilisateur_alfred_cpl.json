@@ -1,0 +1,97 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.product_platform.gestion_recherche_indexation_semantique_locale_documents_utilisateur_alfred_cpl",
+  "title": "Gestion de la recherche et de l'indexation sémantique locale des documents utilisateur",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "product_platform",
+  "category": "plateforme ALFRED CPL",
+  "summary": "Définit l'architecture fonctionnelle de recherche et d'indexation sémantique locale des documents utilisateur (moteur de recherche full-text et sémantique interne), distincte de la gestion documentaire déjà couverte qui porte sur le cycle de vie et le stockage des documents plutôt que sur la couche de recherche et d'indexation permettant de les retrouver efficacement.",
+  "purpose": "Garantir qu'ALFRED CPL peut retrouver rapidement et pertinemment un document utilisateur pertinent parmi un volume croissant, condition d'une assistance documentaire réellement exploitable au-delà du simple stockage.",
+  "tags": [
+    "indexation_semantique",
+    "recherche_locale",
+    "moteur_recherche",
+    "documents_utilisateur"
+  ],
+  "intents": [
+    "search_indexed_user_documents",
+    "explain_local_search_architecture"
+  ],
+  "usage_context": [
+    "utilisateur recherche un document ou une information dans ses documents indexés",
+    "question sur le fonctionnement du moteur de recherche local d'ALFRED"
+  ],
+  "priority": "high",
+  "safety_level": "normal",
+  "content": {
+    "definition": "La recherche et l'indexation sémantique locale des documents utilisateur désigne la couche fonctionnelle qui construit et maintient un index (full-text et vectoriel/sémantique) des documents stockés localement, permettant à ALFRED de retrouver rapidement les passages pertinents en réponse à une requête utilisateur, distincte de la couche de gestion du cycle de vie documentaire (stockage, versions, suppression) qui ne garantit pas à elle seule la capacité de retrouver efficacement une information.",
+    "core_principles": [
+      "Un index sémantique local (embeddings) complète l'indexation full-text classique pour retrouver des documents pertinents même en l'absence de correspondance exacte de mots-clés.",
+      "La mise à jour de l'index doit rester synchronisée avec le cycle de vie documentaire (ajout, modification, suppression) pour éviter des résultats de recherche obsolètes ou fantômes.",
+      "Le traitement local de l'indexation, cohérent avec le principe local-first d'ALFRED CPL, évite l'envoi du contenu documentaire complet vers un service tiers pour l'indexation."
+    ],
+    "rules": [
+      "Toute suppression d'un document doit déclencher automatiquement la mise à jour ou suppression de son entrée dans l'index, pour éviter un résultat de recherche pointant vers un document supprimé.",
+      "Prioriser un traitement d'indexation local plutôt qu'un envoi du contenu documentaire complet à un service tiers, conformément au principe local-first."
+    ],
+    "examples": [
+      {
+        "situation": "Un utilisateur cherche un document dont il ne se souvient plus du titre exact mais dont il connaît le sujet approximatif.",
+        "recommended_behavior": "Utiliser la recherche sémantique locale pour identifier les documents dont le contenu correspond au sujet évoqué, même sans correspondance exacte de mots-clés.",
+        "avoid": "Se limiter à une recherche par mots-clés exacts qui échouerait à retrouver un document pertinent formulé différemment."
+      }
+    ],
+    "best_practices": [
+      "Synchroniser systématiquement l'index avec le cycle de vie documentaire (ajout, modification, suppression).",
+      "Combiner recherche full-text et recherche sémantique pour maximiser la pertinence des résultats."
+    ],
+    "anti_patterns": [
+      "Laisser un index désynchronisé du contenu réel des documents après suppression ou modification.",
+      "Envoyer l'intégralité du contenu documentaire à un service tiers pour l'indexation, en contradiction avec le principe local-first."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "indexation_semantique",
+      "recherche_locale",
+      "moteur_recherche"
+    ],
+    "related_domains": [
+      "cpl",
+      "system"
+    ],
+    "related_knowledge": [
+      "cpl.product_platform.document_management",
+      "cpl.product_platform.gestion_cache_semantique_optimisation_reponses_alfred"
+    ],
+    "retrieval_priority": 4
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "information sur le fonctionnement de la recherche et de l'indexation locale des documents"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "En cas d'incertitude sur la fraîcheur d'un résultat de recherche, recommander une vérification directe du document source."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "03/09/2026",
+    "last_update": "03/09/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}
