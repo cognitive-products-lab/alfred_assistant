@@ -35,7 +35,7 @@ start "ALFRED HTTP Server" python -m http.server 8010
 timeout /t 2 /nobreak >nul
 
 echo [ALFRED] Ouverture du dashboard (localhost uniquement) ...
-start "" "http://localhost:8010/dashboard/dashboard_quality_data/dashboard_quality_data_dynamique.html"
+start "" "http://localhost:8010/dashboard/dashboard_quality_data/dashboard_quality_data_dynamique.html?nocache=%RANDOM%"
 
 echo.
 echo [ALFRED] Dashboard pret (INTERNE - ne pas exposer) :
