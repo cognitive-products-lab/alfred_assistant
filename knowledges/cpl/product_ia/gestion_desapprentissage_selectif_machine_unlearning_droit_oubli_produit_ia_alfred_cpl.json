@@ -1,0 +1,101 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.product_ia.gestion_desapprentissage_selectif_machine_unlearning_droit_oubli_produit_ia_alfred_cpl",
+  "title": "Gestion du désapprentissage sélectif (machine unlearning) et droit à l'oubli dans le produit IA",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "product_ia",
+  "category": "produit IA ALFRED CPL",
+  "summary": "Définit l'approche produit face aux demandes de suppression de données spécifiques ayant potentiellement influencé l'apprentissage ou l'adaptation d'un modèle (désapprentissage sélectif), distincte de la gestion de fin de vie des données utilisateur déjà couverte côté opérations qui porte sur la purge des données stockées, alors que le désapprentissage porte sur l'influence résiduelle d'une donnée dans un modèle déjà entraîné ou adapté.",
+  "purpose": "Anticiper les limites techniques réelles du désapprentissage sélectif afin de communiquer honnêtement aux utilisateurs sur ce qui est techniquement possible en matière de droit à l'oubli appliqué à un modèle IA.",
+  "tags": [
+    "machine_unlearning",
+    "droit_a_l_oubli",
+    "desapprentissage_selectif",
+    "donnees_entrainement"
+  ],
+  "intents": [
+    "explain_machine_unlearning_limits",
+    "handle_deletion_request_model_influence"
+  ],
+  "usage_context": [
+    "demande utilisateur de suppression de données ayant influencé le comportement du modèle",
+    "question sur les limites techniques du droit à l'oubli en IA"
+  ],
+  "priority": "high",
+  "safety_level": "sensitive",
+  "content": {
+    "definition": "Le désapprentissage sélectif (machine unlearning) désigne l'ensemble des techniques visant à supprimer l'influence d'une donnée spécifique sur un modèle déjà entraîné ou adapté, sans nécessiter un réentraînement complet ; un enjeu technique encore largement non résolu de façon garantie, ce qui impose une communication honnête sur les limites réelles de ce qui peut être fait à la demande d'un utilisateur souhaitant faire valoir un droit à l'oubli sur des données ayant influencé un comportement appris.",
+    "core_principles": [
+      "Le désapprentissage sélectif garanti et vérifiable reste un champ de recherche actif sans solution universelle fiable à ce jour, ce qui distingue cet enjeu de la simple suppression de données stockées.",
+      "La distinction entre données stockées explicitement (supprimables de façon fiable) et influence diffuse sur des paramètres de modèle (non garantie supprimable) doit être clairement communiquée à l'utilisateur.",
+      "Pour ALFRED, architecturé en local-first avec mémoire structurée plutôt qu'en fine-tuning massif continu, le risque de désapprentissage incomplet est réduit mais non nul dès lors qu'une adaptation locale du comportement a eu lieu."
+    ],
+    "rules": [
+      "Ne jamais garantir à l'utilisateur une suppression complète et vérifiable de l'influence d'une donnée sur un modèle si cette garantie technique n'est pas réellement disponible.",
+      "Prioriser la suppression des données stockées explicitement (mémoire structurée) qui offre une garantie réelle, et documenter séparément les limites concernant l'influence diffuse sur un modèle adapté."
+    ],
+    "examples": [
+      {
+        "situation": "Un utilisateur demande la suppression complète de l'influence d'une conversation passée sur le comportement d'ALFRED.",
+        "recommended_behavior": "Supprimer les données stockées correspondantes de façon vérifiable, et expliquer honnêtement les limites techniques concernant une éventuelle influence résiduelle si une adaptation de modèle a eu lieu.",
+        "avoid": "Affirmer une suppression totale et garantie de toute influence sans distinction entre donnée stockée et influence de modèle."
+      }
+    ],
+    "best_practices": [
+      "Documenter clairement, dans la communication produit, la distinction entre suppression de données stockées et limites du désapprentissage de modèle.",
+      "Privilégier une architecture mémoire structurée et traçable plutôt qu'un fine-tuning continu opaque, pour maximiser la fiabilité du droit à l'oubli."
+    ],
+    "anti_patterns": [
+      "Promettre un désapprentissage garanti et vérifiable sans base technique réelle.",
+      "Confondre systématiquement suppression de données stockées et désapprentissage de modèle dans la communication utilisateur."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "machine_unlearning",
+      "droit_a_l_oubli",
+      "desapprentissage"
+    ],
+    "related_domains": [
+      "cpl",
+      "system"
+    ],
+    "related_knowledge": [
+      "cpl.operations_continuite.gestion_fin_de_vie_donnees_utilisateur_alfred_cpl",
+      "cpl.product_ia.consentement_apprentissage_continu_finetuning_interactions_utilisateur"
+    ],
+    "retrieval_priority": 4
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "high",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "information honnête sur les limites techniques du désapprentissage sélectif"
+    ],
+    "restricted_usage": [
+      "garantie technique précise sans validation par l'équipe technique"
+    ],
+    "forbidden_usage": [
+      "promesse de suppression garantie et vérifiable d'une influence de modèle non techniquement établie"
+    ],
+    "fallback_behavior": "Rester honnête sur les limites techniques actuelles du désapprentissage sélectif et orienter vers l'équipe technique pour toute demande précise de droit à l'oubli complexe."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "03/09/2026",
+    "last_update": "03/09/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

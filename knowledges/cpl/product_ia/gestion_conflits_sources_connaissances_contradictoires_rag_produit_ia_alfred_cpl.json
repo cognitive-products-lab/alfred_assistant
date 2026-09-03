@@ -1,0 +1,99 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.product_ia.gestion_conflits_sources_connaissances_contradictoires_rag_produit_ia_alfred_cpl",
+  "title": "Gestion des conflits entre sources de connaissances contradictoires en architecture RAG",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "product_ia",
+  "category": "produit IA ALFRED CPL",
+  "summary": "Définit la stratégie de résolution lorsque plusieurs sources documentaires ou fiches de connaissance récupérées par le mécanisme de retrieval (RAG) se contredisent sur un même sujet, distincte de la gestion de la fenêtre de contexte déjà couverte qui porte sur la limite de taille de contexte plutôt que sur la contradiction de contenu entre sources récupérées.",
+  "purpose": "Éviter qu'ALFRED produise une réponse incohérente ou tranche arbitrairement entre deux sources contradictoires sans signaler la contradiction, situation susceptible de se produire lorsque plusieurs fiches de connaissance ou documents indexés traitent différemment un même sujet.",
+  "tags": [
+    "conflits_sources",
+    "rag",
+    "connaissances_contradictoires",
+    "coherence_reponse"
+  ],
+  "intents": [
+    "resolve_conflicting_retrieved_sources",
+    "handle_contradictory_knowledge_retrieval"
+  ],
+  "usage_context": [
+    "deux fiches de connaissance ou documents récupérés se contredisent sur un même sujet",
+    "question sur la gestion de la cohérence documentaire du RAG"
+  ],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "La gestion des conflits entre sources de connaissances contradictoires désigne la stratégie mise en œuvre lorsque le mécanisme de récupération sémantique (RAG) remonte simultanément plusieurs sources (fiches de connaissance, documents utilisateur) dont le contenu diverge ou se contredit sur un même sujet, nécessitant un arbitrage explicite plutôt qu'un choix silencieux et potentiellement incohérent d'une des sources.",
+    "core_principles": [
+      "Une contradiction détectée entre sources récupérées doit être signalée à l'utilisateur plutôt que résolue silencieusement par un choix arbitraire d'une seule source.",
+      "La priorité de résolution doit s'appuyer sur des critères explicites (fraîcheur de la source, statut de validation, niveau de priorité retrieval) plutôt que sur un ordre de récupération non signifiant.",
+      "Les contradictions récurrentes détectées entre fiches de connaissance internes doivent remonter comme signal de qualité à corriger dans la base plutôt que d'être arbitrées à chaque requête."
+    ],
+    "rules": [
+      "Ne jamais fusionner silencieusement deux sources contradictoires en une réponse unique sans signaler l'existence de la divergence lorsque celle-ci est significative.",
+      "Prioriser par défaut la source la plus récente et au statut de validation le plus élevé (`active` plutôt que `draft`) en cas de contradiction, tout en signalant l'arbitrage effectué."
+    ],
+    "examples": [
+      {
+        "situation": "Deux fiches de connaissance récupérées donnent des recommandations différentes sur un même sujet de procédure interne.",
+        "recommended_behavior": "Signaler explicitement la divergence à l'utilisateur, indiquer quelle source a été priorisée et pourquoi, et suggérer une vérification si l'enjeu est important.",
+        "avoid": "Répondre en mélangeant silencieusement des éléments contradictoires des deux sources sans mentionner la divergence."
+      }
+    ],
+    "best_practices": [
+      "Journaliser les contradictions détectées entre sources comme signal de qualité pour la maintenance de la base de connaissances.",
+      "Définir des critères explicites et documentés de priorisation en cas de conflit de sources (fraîcheur, statut, priorité retrieval)."
+    ],
+    "anti_patterns": [
+      "Trancher silencieusement entre deux sources contradictoires sans aucune traçabilité de l'arbitrage effectué.",
+      "Ignorer les contradictions récurrentes détectées au lieu de les remonter comme dette de qualité de la base de connaissances."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "conflits_sources",
+      "rag",
+      "connaissances_contradictoires"
+    ],
+    "related_domains": [
+      "cpl",
+      "system"
+    ],
+    "related_knowledge": [
+      "cpl.product_ia.gestion_fenetre_contexte_resume_conversation_longue_alfred",
+      "cpl.product_platform.explicabilite_decisions_ia_alfred"
+    ],
+    "retrieval_priority": 4
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "high",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "signalement transparent d'une contradiction entre sources récupérées"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [
+      "fusion silencieuse de sources contradictoires présentée comme une réponse univoque certaine"
+    ],
+    "fallback_behavior": "En cas de contradiction significative non résolue avec certitude, signaler explicitement la divergence plutôt que de trancher silencieusement."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "03/09/2026",
+    "last_update": "03/09/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

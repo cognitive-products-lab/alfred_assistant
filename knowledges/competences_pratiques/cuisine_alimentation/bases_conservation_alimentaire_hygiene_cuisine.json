@@ -1,0 +1,99 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "competences_pratiques.cuisine_alimentation.bases_conservation_alimentaire_hygiene_cuisine",
+  "title": "Bases de la conservation alimentaire et de l'hygiène en cuisine",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "competences_pratiques",
+  "subdomain": "cuisine_alimentation",
+  "category": "compétences pratiques",
+  "summary": "Présente les bases de la conservation alimentaire (chaîne du froid, dates de péremption, méthodes de conservation) et de l'hygiène en cuisine, nouveau sous-domaine competences_pratiques.cuisine_alimentation créé pour combler une lacune évidente : aucune fiche de cuisine n'existait jusqu'ici malgré la couverture déjà large d'autres compétences pratiques du quotidien (bricolage, jardinage, gestion budgétaire, hygiène numérique).",
+  "purpose": "Combler une lacune identifiée dans les compétences pratiques du quotidien : la cuisine et l'alimentation, absente malgré sa pertinence évidente pour un assistant domestique comme ALFRED.",
+  "tags": [
+    "conservation_alimentaire",
+    "hygiene_cuisine",
+    "securite_alimentaire",
+    "chaine_du_froid"
+  ],
+  "intents": [
+    "explain_food_conservation_basics",
+    "advise_kitchen_hygiene_practices"
+  ],
+  "usage_context": [
+    "question sur la conservation d'un aliment",
+    "question sur les bonnes pratiques d'hygiène en cuisine"
+  ],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "La conservation alimentaire et l'hygiène en cuisine désignent l'ensemble des pratiques permettant de limiter le développement de micro-organismes pathogènes dans les aliments et de prévenir les intoxications alimentaires, reposant sur des principes de base documentés : respect de la chaîne du froid (température de réfrigération et de congélation adaptées), distinction entre date de péremption stricte (DLC, date limite de consommation) et date indicative (DDM, date de durabilité minimale), séparation des aliments crus et cuits pour éviter la contamination croisée, et méthodes de conservation complémentaires (congélation, mise sous vide, stérilisation, salaison, séchage).",
+    "core_principles": [
+      "La distinction entre DLC (date limite de consommation, à respecter strictement pour les produits périssables) et DDM (date de durabilité minimale, indicative pour des produits moins sensibles) évite un gaspillage alimentaire inutile tout en préservant la sécurité sanitaire.",
+      "La rupture de la chaîne du froid, même brève, peut favoriser le développement de micro-organismes pathogènes sans que cela soit toujours visible ou perceptible à l'odorat ou à l'aspect de l'aliment.",
+      "La séparation des aliments crus (notamment viande et poisson) et cuits, y compris via des ustensiles distincts, prévient la contamination croisée, cause fréquente de toxi-infection alimentaire."
+    ],
+    "rules": [
+      "Toujours distinguer DLC et DDM lorsqu'une question porte sur une date de péremption, ces deux dates ayant des implications de sécurité très différentes.",
+      "Ne jamais recommander de consommer un produit dont la DLC est dépassée, contrairement à un produit dont seule la DDM indicative est dépassée sans altération visible."
+    ],
+    "examples": [
+      {
+        "situation": "Un utilisateur s'interroge sur la possibilité de consommer un aliment dont la date indiquée sur l'emballage est dépassée.",
+        "recommended_behavior": "Distinguer s'il s'agit d'une DLC (à respecter strictement) ou d'une DDM (indicative), et rappeler les signes d'altération à vérifier avant consommation le cas échéant.",
+        "avoid": "Donner une réponse générale sans distinguer le type de date de péremption concerné, risquant soit un gaspillage inutile soit un risque sanitaire."
+      }
+    ],
+    "best_practices": [
+      "Toujours distinguer DLC et DDM avant de conseiller sur la consommation d'un produit dont la date est dépassée.",
+      "Rappeler l'importance de la séparation des aliments crus et cuits pour prévenir la contamination croisée."
+    ],
+    "anti_patterns": [
+      "Confondre systématiquement DLC et DDM en donnant un conseil uniforme quel que soit le type de date concerné.",
+      "Minimiser l'importance du respect de la chaîne du froid sous prétexte qu'aucune altération n'est visible."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "conservation_alimentaire",
+      "hygiene_cuisine",
+      "securite_alimentaire"
+    ],
+    "related_domains": [
+      "competences_pratiques",
+      "sciences"
+    ],
+    "related_knowledge": [
+      "competences_pratiques.premiers_secours.premiers_secours_gestes_qui_sauvent_bases",
+      "sciences.chimie.biochimie_bases"
+    ],
+    "retrieval_priority": 4
+  },
+  "behavior_rules": {
+    "tone": "professional_supportive",
+    "response_style": "structured_clear",
+    "max_complexity": "low",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "information générale et pédagogique sur la conservation alimentaire et l'hygiène en cuisine"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [
+      "diagnostic médical en cas de suspicion d'intoxication alimentaire déjà survenue"
+    ],
+    "fallback_behavior": "En cas de doute sur la comestibilité d'un aliment ou de suspicion d'intoxication alimentaire déjà survenue, recommander de ne pas consommer et d'orienter vers un professionnel de santé si des symptômes sont présents."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "03/09/2026",
+    "last_update": "03/09/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}
