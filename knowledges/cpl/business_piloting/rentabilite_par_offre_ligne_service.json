@@ -1,0 +1,100 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.business_piloting.rentabilite_par_offre_ligne_service",
+  "title": "Analyse de la rentabilité par offre et ligne de service",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "business_piloting",
+  "category": "pilotage financier ALFRED CPL",
+  "summary": "Présente l'analyse de rentabilité par offre ou ligne de service (produit vendu), distincte de l'analyse de rentabilité par segment de clientèle déjà couverte qui raisonne par typologie de client plutôt que par typologie de prestation.",
+  "purpose": "Permettre à ALFRED CPL d'identifier les offres les plus et les moins rentables afin d'orienter les décisions de développement, de repositionnement ou d'abandon d'une ligne de service.",
+  "tags": [
+    "rentabilite_offre",
+    "ligne_service",
+    "marge_par_produit",
+    "pilotage_financier"
+  ],
+  "intents": [
+    "assess_offer_profitability",
+    "recommend_portfolio_arbitration"
+  ],
+  "usage_context": [
+    "revue périodique du portefeuille d'offres",
+    "décision de développement ou d'abandon d'une ligne de service"
+  ],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "L'analyse de rentabilité par offre consiste à affecter les coûts directs et une quote-part des coûts indirects à chaque ligne de service commercialisée afin de calculer une marge propre par offre, permettant de comparer des prestations hétérogènes sur une base commune plutôt que de raisonner uniquement en chiffre d'affaires global.",
+    "core_principles": [
+      "Une offre à fort chiffre d'affaires n'est pas nécessairement l'offre la plus rentable une fois les coûts de production et de mobilisation correctement affectés.",
+      "L'affectation des coûts indirects (structure, support, R&D) doit suivre une clé de répartition explicite et documentée pour rester comparable dans le temps.",
+      "Une offre déficitaire n'est pas automatiquement à abandonner si elle joue un rôle d'appel ou de fidélisation vers des offres plus rentables."
+    ],
+    "rules": [
+      "Calculer une marge par offre distincte de la marge par projet ou par client déjà suivies, en isolant les coûts spécifiques à chaque ligne de service.",
+      "Documenter la clé de répartition des coûts indirects utilisée et la maintenir stable d'une période à l'autre pour permettre la comparaison.",
+      "Ne recommander l'abandon d'une offre déficitaire qu'après avoir vérifié son rôle éventuel de produit d'appel ou de levier commercial indirect."
+    ],
+    "examples": [
+      {
+        "situation": "Une offre représente 30% du chiffre d'affaires mais sa marge nette, une fois les coûts de mobilisation affectés, est inférieure à celle d'une offre plus petite.",
+        "recommended_behavior": "Signaler l'écart entre poids en chiffre d'affaires et rentabilité réelle, et examiner les leviers d'amélioration de marge avant toute décision d'abandon.",
+        "avoid": "Prioriser le développement d'une offre uniquement parce qu'elle génère le plus de chiffre d'affaires apparent."
+      }
+    ],
+    "best_practices": [
+      "Croiser l'analyse de rentabilité par offre avec l'analyse de rentabilité par segment de clientèle pour une vue complète du portefeuille.",
+      "Réviser la clé de répartition des coûts indirects à intervalle régulier pour qu'elle reste représentative de l'organisation réelle."
+    ],
+    "anti_patterns": [
+      "Confondre poids en chiffre d'affaires et rentabilité réelle d'une offre.",
+      "Changer la clé de répartition des coûts indirects sans le documenter, rendant les comparaisons historiques trompeuses."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "rentabilite_offre",
+      "marge_par_produit",
+      "portefeuille_offres"
+    ],
+    "related_domains": [
+      "cpl",
+      "business_piloting"
+    ],
+    "related_knowledge": [
+      "cpl.business_piloting.analyse_rentabilite_par_segment_clientele",
+      "cpl.business_piloting.pilotage_marge_projet_service"
+    ],
+    "retrieval_priority": 6
+  },
+  "behavior_rules": {
+    "tone": "professional_supportive",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "analyse de rentabilité comparative des offres"
+    ],
+    "restricted_usage": [
+      "décision définitive d'abandon d'une ligne de service"
+    ],
+    "forbidden_usage": [],
+    "fallback_behavior": "Pour toute décision d'abandon ou de repositionnement majeur d'une offre, recommander l'arbitrage de la direction plutôt qu'une décision automatisée."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "03/09/2026",
+    "last_update": "03/09/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

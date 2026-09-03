@@ -1,0 +1,98 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.business_piloting.gestion_pipeline_commercial_previsions_ventes",
+  "title": "Gestion du pipeline commercial et prévisions de vente",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "business_piloting",
+  "category": "pilotage financier ALFRED CPL",
+  "summary": "Décrit la structuration d'un pipeline commercial par étapes de qualification et les méthodes de prévision de vente pondérée, en complément du prévisionnel financier de lancement produit déjà couvert qui porte sur un horizon stratégique plus large.",
+  "purpose": "Donner à ALFRED CPL un cadre de suivi des opportunités commerciales en cours afin de fiabiliser les prévisions de chiffre d'affaires à court et moyen terme.",
+  "tags": [
+    "pipeline_commercial",
+    "prevision_ventes",
+    "opportunites",
+    "forecast"
+  ],
+  "intents": [
+    "track_sales_pipeline",
+    "forecast_revenue"
+  ],
+  "usage_context": [
+    "revue commerciale périodique",
+    "construction d'un budget prévisionnel à partir des opportunités en cours"
+  ],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "Le pipeline commercial est l'ensemble des opportunités de vente en cours, classées par étape de qualification (prospection, qualification, proposition, négociation, signature), chaque étape étant associée à une probabilité de conversion permettant de calculer un chiffre d'affaires prévisionnel pondéré distinct d'une simple addition des montants en cours.",
+    "core_principles": [
+      "Une opportunité non mise à jour depuis une longue période doit être considérée comme suspecte plutôt que comptée telle quelle dans le pipeline.",
+      "La prévision pondérée (montant × probabilité de l'étape) donne une estimation plus réaliste que la somme brute des opportunités, qui surestime systématiquement le chiffre d'affaires probable.",
+      "Le taux de conversion moyen par étape doit être recalculé périodiquement à partir de l'historique réel plutôt que fixé une fois pour toutes."
+    ],
+    "rules": [
+      "Exiger une date de dernière mise à jour sur chaque opportunité et signaler celles inactives au-delà d'un seuil défini.",
+      "Calculer la prévision de chiffre d'affaires par pondération probabiliste et non par simple somme des montants du pipeline.",
+      "Distinguer clairement les opportunités récurrentes (renouvellement) des opportunités nouvelles dans les prévisions."
+    ],
+    "examples": [
+      {
+        "situation": "Le pipeline affiche 500 000 euros d'opportunités mais réparties très inégalement entre étapes de qualification précoces et avancées.",
+        "recommended_behavior": "Présenter la prévision pondérée par probabilité d'étape plutôt que le montant brut, en signalant la part correspondant aux étapes avancées.",
+        "avoid": "Communiquer le montant brut du pipeline comme s'il représentait le chiffre d'affaires probable à venir."
+      }
+    ],
+    "best_practices": [
+      "Revoir périodiquement le taux de conversion réel par étape pour ajuster la pondération de la prévision.",
+      "Isoler les opportunités inactives depuis trop longtemps dans une catégorie distincte plutôt que de les laisser fausser la prévision globale."
+    ],
+    "anti_patterns": [
+      "Confondre le montant total du pipeline avec une prévision de chiffre d'affaires certaine.",
+      "Laisser des opportunités obsolètes non mises à jour polluer indéfiniment le pipeline."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "pipeline",
+      "prevision_ventes",
+      "opportunites_commerciales"
+    ],
+    "related_domains": [
+      "cpl",
+      "business_piloting"
+    ],
+    "related_knowledge": [
+      "cpl.business_piloting.previsionnel_financier_lancement_produit",
+      "cpl.business_piloting.pilotage_indicateurs_recurrents_mrr_arr_produit_ia"
+    ],
+    "retrieval_priority": 6
+  },
+  "behavior_rules": {
+    "tone": "professional_supportive",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "suivi et pondération du pipeline commercial"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "En cas d'incertitude forte sur une opportunité majeure, signaler la fourchette de prévision plutôt qu'un chiffre unique."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "03/09/2026",
+    "last_update": "03/09/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

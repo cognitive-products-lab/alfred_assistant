@@ -1,0 +1,100 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.ethics_governance.gouvernance_tracabilite_decisionnelle_droit_explication_a_posteriori",
+  "title": "Gouvernance de la traçabilité décisionnelle et du droit à l'explication a posteriori",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "ethics_governance",
+  "category": "gouvernance éthique ALFRED CPL",
+  "summary": "Encadre la conservation et la restitution a posteriori du raisonnement ayant conduit à une décision ou recommandation d'ALFRED CPL, distinct de la transparence algorithmique vis-à-vis du client déjà couverte qui porte sur l'explication au moment de la décision plutôt que sur sa reconstitution ultérieure.",
+  "purpose": "Garantir qu'ALFRED CPL conserve une trace exploitable de ses décisions significatives afin de pouvoir en restituer le raisonnement a posteriori, en cas de litige, d'audit ou de demande différée de l'utilisateur.",
+  "tags": [
+    "tracabilite_decisionnelle",
+    "droit_explication",
+    "audit_a_posteriori",
+    "gouvernance_ethique"
+  ],
+  "intents": [
+    "ensure_decision_traceability",
+    "support_retrospective_explanation"
+  ],
+  "usage_context": [
+    "audit d'une décision contestée après coup",
+    "demande différée d'explication par un utilisateur ou une autorité"
+  ],
+  "priority": "high",
+  "safety_level": "sensitive",
+  "content": {
+    "definition": "La traçabilité décisionnelle a posteriori consiste à conserver, pour chaque décision ou recommandation significative d'ALFRED CPL, les éléments de contexte et de raisonnement ayant conduit à cette décision, de façon à pouvoir reconstituer et expliquer cette décision plusieurs semaines ou mois après qu'elle a été prise, un besoin distinct de l'explication immédiate déjà fournie au moment de l'interaction.",
+    "core_principles": [
+      "Une explication fournie au moment de la décision ne dispense pas de la conservation d'une trace exploitable pour une explication différée, la mémoire de l'utilisateur ou le contexte pouvant évoluer.",
+      "La trace conservée doit rester proportionnée : toutes les décisions n'ont pas la même criticité et ne justifient pas le même niveau de détail de traçabilité.",
+      "La restitution a posteriori doit rester compréhensible pour un non-expert, dans le même esprit que l'explicabilité immédiate déjà pratiquée."
+    ],
+    "rules": [
+      "Définir un niveau de criticité par type de décision afin de calibrer la profondeur de traçabilité nécessaire, en priorisant les décisions à fort impact utilisateur.",
+      "Conserver la trace décisionnelle pour une durée cohérente avec les obligations de conservation déjà définies par ailleurs, sans excéder ce qui est nécessaire.",
+      "Garantir que toute restitution a posteriori reste compréhensible pour l'utilisateur non technique demandeur."
+    ],
+    "examples": [
+      {
+        "situation": "Un utilisateur conteste plusieurs semaines après coup une recommandation qu'ALFRED CPL lui a faite dans un contexte professionnel sensible.",
+        "recommended_behavior": "Retrouver la trace conservée du raisonnement ayant conduit à cette recommandation et la restituer de façon compréhensible.",
+        "avoid": "Répondre que la décision ne peut être reconstituée faute de traçabilité conservée."
+      }
+    ],
+    "best_practices": [
+      "Prioriser la traçabilité renforcée sur les décisions à fort impact (juridique, financier, sécurité) plutôt que sur l'ensemble des interactions de façon uniforme.",
+      "Articuler cette traçabilité avec la procédure d'archivage et de conservation des données projet déjà en place."
+    ],
+    "anti_patterns": [
+      "Appliquer un niveau de traçabilité uniforme à toutes les décisions indépendamment de leur criticité, générant une charge inutile.",
+      "Conserver une trace technique illisible pour un utilisateur non expert, rendant l'explication a posteriori inopérante en pratique."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "tracabilite_decisionnelle",
+      "explication_a_posteriori",
+      "audit_decision"
+    ],
+    "related_domains": [
+      "cpl",
+      "ethics_governance"
+    ],
+    "related_knowledge": [
+      "cpl.ethics_governance.transparence_algorithmique_client",
+      "cpl.documentation_procedures.procedure_archivage_conservation_donnees_projet"
+    ],
+    "retrieval_priority": 7
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "high",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "conservation et restitution du raisonnement décisionnel a posteriori"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [
+      "reconstitution a posteriori falsifiée ou incomplète d'un raisonnement décisionnel"
+    ],
+    "fallback_behavior": "Si la trace décisionnelle est incomplète ou indisponible, le signaler explicitement plutôt que de reconstituer un raisonnement approximatif présenté comme fidèle."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "03/09/2026",
+    "last_update": "03/09/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

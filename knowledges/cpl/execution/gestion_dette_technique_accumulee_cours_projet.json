@@ -1,0 +1,99 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.execution.gestion_dette_technique_accumulee_cours_projet",
+  "title": "Gestion de la dette technique accumulée en cours de projet",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "execution",
+  "category": "exécution projet ALFRED CPL",
+  "summary": "Décrit le suivi et l'arbitrage de la dette technique accumulée pendant l'exécution d'un projet client, distinct de la gestion de la dette technique au niveau du système d'information déjà couverte dans le domaine architecture d'entreprise qui porte sur une vision globale du SI plutôt que sur un projet en cours.",
+  "purpose": "Donner à ALFRED CPL un cadre de suivi de la dette technique accumulée en cours de mission afin d'éviter qu'elle ne compromette la qualité ou la maintenabilité du livrable final.",
+  "tags": [
+    "dette_technique",
+    "qualite_livrable",
+    "arbitrage_projet",
+    "gestion_execution"
+  ],
+  "intents": [
+    "track_technical_debt",
+    "arbitrate_debt_remediation"
+  ],
+  "usage_context": [
+    "revue de qualité en cours de projet",
+    "arbitrage entre rapidité de livraison et qualité du code ou de la solution"
+  ],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "La dette technique en cours de projet désigne l'ensemble des raccourcis, simplifications ou reports de bonnes pratiques acceptés pour tenir un délai ou un budget, dont le remboursement (correction ultérieure) engendre un coût croissant avec le temps, un phénomène à suivre au niveau du projet en cours et distinct de la dette technique globale du système d'information déjà traitée par ailleurs à l'échelle de l'architecture d'entreprise.",
+    "core_principles": [
+      "Toute dette technique contractée sciemment doit être documentée et non silencieuse, pour rester une décision maîtrisée plutôt qu'un oubli.",
+      "Le coût de remboursement de la dette technique croît avec le temps écoulé avant sa résorption, ce qui justifie un arbitrage explicite plutôt qu'un report indéfini.",
+      "Toute dette technique contractée doit être portée à la connaissance du client lorsqu'elle affecte la qualité ou la maintenabilité du livrable final."
+    ],
+    "rules": [
+      "Documenter chaque décision de dette technique contractée (raison, périmètre, impact estimé) dans un registre dédié au projet.",
+      "Prévoir un temps de remboursement de la dette technique dans le planning plutôt que de la reporter indéfiniment après livraison.",
+      "Informer le client de toute dette technique significative affectant la qualité, la sécurité ou la maintenabilité du livrable."
+    ],
+    "examples": [
+      {
+        "situation": "Une fonctionnalité est livrée dans les délais grâce à une simplification technique qui devra être reprise ultérieurement.",
+        "recommended_behavior": "Documenter cette dette technique dans le registre projet et proposer un plan de remboursement dans les itérations suivantes.",
+        "avoid": "Livrer la simplification sans la documenter, la laissant devenir un problème de maintenance non anticipé."
+      }
+    ],
+    "best_practices": [
+      "Intégrer une revue de la dette technique accumulée dans les rituels agiles d'animation d'équipe déjà en place.",
+      "Prioriser le remboursement de la dette technique en fonction de son impact sur la qualité et la sécurité du livrable plutôt que par ordre chronologique."
+    ],
+    "anti_patterns": [
+      "Accumuler de la dette technique silencieuse sans jamais la documenter ni la porter à la connaissance du client.",
+      "Reporter indéfiniment le remboursement de la dette technique jusqu'à ce qu'elle devienne bloquante."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "dette_technique",
+      "qualite_livrable",
+      "arbitrage_projet"
+    ],
+    "related_domains": [
+      "cpl",
+      "execution",
+      "enterprise_architecture"
+    ],
+    "related_knowledge": [
+      "cpl.execution.gestion_qualite_livrables_projet_conseil",
+      "enterprise_architecture.gestion_dette_technique_si"
+    ],
+    "retrieval_priority": 6
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "suivi et documentation de la dette technique en cours de projet"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "En cas de dette technique susceptible d'affecter la sécurité ou la conformité du livrable, la signaler immédiatement plutôt que d'attendre la prochaine revue périodique."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "03/09/2026",
+    "last_update": "03/09/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

@@ -1,0 +1,102 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.documentation_procedures.procedure_gestion_requisitions_judiciaires_donnees",
+  "title": "Procédure de gestion des réquisitions judiciaires portant sur les données",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "documentation_procedures",
+  "category": "procédures ALFRED CPL",
+  "summary": "Décrit la procédure encadrant la réception et le traitement d'une demande d'accès à des données émanant d'une autorité judiciaire ou administrative habilitée, distincte de la procédure de demande de droit d'accès RGPD d'un client déjà couverte qui concerne une demande de la personne concernée elle-même.",
+  "purpose": "Garantir qu'ALFRED CPL traite toute réquisition judiciaire dans un cadre légal strict, avec vérification de l'habilitation du demandeur et implication systématique d'une expertise juridique, plutôt que par une transmission automatisée de données.",
+  "tags": [
+    "requisition_judiciaire",
+    "acces_donnees",
+    "obligation_legale",
+    "procedure"
+  ],
+  "intents": [
+    "handle_legal_data_request",
+    "verify_requester_authority"
+  ],
+  "usage_context": [
+    "réception d'une demande d'accès à des données émanant d'une autorité",
+    "audit de la procédure de traitement des demandes légales"
+  ],
+  "priority": "critical",
+  "safety_level": "high_risk",
+  "content": {
+    "definition": "Une réquisition judiciaire est une demande d'accès à des données formulée par une autorité judiciaire, policière ou administrative habilitée dans un cadre légal défini (enquête, procédure judiciaire), qui impose des obligations spécifiques de vérification, de traçabilité et de proportionnalité distinctes des demandes RGPD classiques émanant des personnes concernées elles-mêmes.",
+    "core_principles": [
+      "Aucune donnée ne doit être transmise sans vérification préalable de l'habilitation légale du demandeur et de la base légale de la réquisition.",
+      "Le principe de proportionnalité s'applique : seules les données strictement nécessaires à la demande doivent être transmises, jamais un accès élargi par facilité.",
+      "L'implication d'une expertise juridique qualifiée est systématique et non optionnelle, cette procédure ne devant jamais être traitée de façon automatisée sans validation humaine."
+    ],
+    "rules": [
+      "Ne jamais traiter une réquisition judiciaire de façon automatisée : toute demande doit être transmise à une expertise juridique qualifiée pour vérification et validation avant toute transmission de données.",
+      "Vérifier systématiquement l'identité, l'habilitation et la base légale du demandeur avant tout traitement de la demande.",
+      "Documenter chaque réquisition traitée (demandeur, base légale, périmètre transmis, validation juridique obtenue) dans un registre dédié et sécurisé."
+    ],
+    "examples": [
+      {
+        "situation": "Une demande d'accès à des données utilisateur est reçue, se présentant comme émanant d'une autorité judiciaire.",
+        "recommended_behavior": "Ne transmettre aucune donnée sans validation préalable de l'expertise juridique compétente et vérification formelle de l'habilitation du demandeur.",
+        "avoid": "Transmettre des données en réponse directe à une demande non vérifiée, même si elle paraît légitime."
+      }
+    ],
+    "best_practices": [
+      "Établir en amont un contact identifié avec une expertise juridique qualifiée pour le traitement rapide et sécurisé de ce type de demande.",
+      "Limiter strictement la transmission au périmètre de données couvert par la base légale de la réquisition."
+    ],
+    "anti_patterns": [
+      "Traiter une réquisition judiciaire comme une demande RGPD standard sans vérification d'habilitation renforcée.",
+      "Transmettre des données au-delà du périmètre strictement requis par facilité opérationnelle."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "requisition_judiciaire",
+      "acces_donnees",
+      "obligation_legale"
+    ],
+    "related_domains": [
+      "cpl",
+      "documentation_procedures"
+    ],
+    "related_knowledge": [
+      "cpl.documentation_procedures.procedure_gestion_demandes_droit_acces_portabilite_rgpd_client",
+      "cpl.ethics_governance.gestion_droit_opposition_traitement_ia_utilisateur"
+    ],
+    "retrieval_priority": 8
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "high",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "identification et orientation d'une demande de réquisition vers l'expertise juridique compétente"
+    ],
+    "restricted_usage": [
+      "évaluation de la validité juridique d'une réquisition"
+    ],
+    "forbidden_usage": [
+      "transmission automatisée de données en réponse à une réquisition sans validation humaine qualifiée"
+    ],
+    "fallback_behavior": "Face à toute réquisition judiciaire, ne transmettre aucune donnée et orienter systématiquement vers une expertise juridique qualifiée avant toute action."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "03/09/2026",
+    "last_update": "03/09/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

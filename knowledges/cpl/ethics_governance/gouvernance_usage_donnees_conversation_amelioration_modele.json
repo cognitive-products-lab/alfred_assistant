@@ -1,0 +1,100 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.ethics_governance.gouvernance_usage_donnees_conversation_amelioration_modele",
+  "title": "Gouvernance de l'usage des données de conversation pour l'amélioration du modèle",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "ethics_governance",
+  "category": "gouvernance éthique ALFRED CPL",
+  "summary": "Encadre l'usage des échanges conversationnels des utilisateurs à des fins d'amélioration du modèle ou du système, distinct du cadre éthique des données synthétiques d'entraînement déjà couvert qui porte sur des données générées plutôt que sur des conversations réelles d'utilisateurs.",
+  "purpose": "Garantir qu'ALFRED CPL n'exploite les conversations réelles des utilisateurs à des fins d'amélioration que dans un cadre de consentement explicite, anonymisé et réversible.",
+  "tags": [
+    "gouvernance_donnees",
+    "amelioration_modele",
+    "consentement",
+    "conversation"
+  ],
+  "intents": [
+    "govern_conversation_data_reuse",
+    "ensure_opt_in_consent"
+  ],
+  "usage_context": [
+    "conception d'une fonctionnalité d'amélioration continue à partir des usages",
+    "audit du cycle de vie des données conversationnelles"
+  ],
+  "priority": "high",
+  "safety_level": "sensitive",
+  "content": {
+    "definition": "La gouvernance de l'usage des données de conversation encadre les conditions dans lesquelles les échanges réels entre un utilisateur et ALFRED CPL peuvent être réutilisés à des fins d'amélioration du modèle ou du système, en imposant un consentement explicite, une anonymisation effective et un mécanisme de retrait, distinct du traitement de données synthétiques déjà encadré par ailleurs.",
+    "core_principles": [
+      "Le consentement à la réutilisation des conversations pour l'amélioration du système doit être explicite (opt-in), distinct et non conditionné à l'usage du service lui-même.",
+      "L'anonymisation des conversations réutilisées doit être vérifiée comme effective (absence de ré-identification possible) et non simplement déclarée.",
+      "L'utilisateur doit disposer d'un droit de retrait a posteriori sur les conversations déjà consenties, dans la limite de ce qui est techniquement possible."
+    ],
+    "rules": [
+      "Ne jamais réutiliser une conversation à des fins d'amélioration du modèle sans consentement explicite et distinct de l'utilisateur.",
+      "Appliquer une procédure d'anonymisation vérifiable avant toute réutilisation, en particulier pour les échanges à caractère personnel ou sensible.",
+      "Offrir un mécanisme accessible de retrait du consentement et documenter son effectivité."
+    ],
+    "examples": [
+      {
+        "situation": "Une fonctionnalité d'amélioration continue du modèle est envisagée à partir des retours d'usage réels des utilisateurs.",
+        "recommended_behavior": "Concevoir un mécanisme de consentement opt-in explicite et une anonymisation vérifiée avant toute exploitation des conversations.",
+        "avoid": "Réutiliser silencieusement les conversations sous prétexte d'amélioration continue du produit sans consentement dédié."
+      }
+    ],
+    "best_practices": [
+      "Documenter précisément le périmètre de données conversationnelles concerné par tout usage d'amélioration du modèle.",
+      "Auditer périodiquement l'effectivité de l'anonymisation appliquée aux conversations réutilisées."
+    ],
+    "anti_patterns": [
+      "Considérer que l'acceptation des conditions générales d'utilisation vaut consentement à la réutilisation des conversations pour l'amélioration du modèle.",
+      "Anonymiser superficiellement des conversations restant ré-identifiables par recoupement."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "gouvernance_donnees_conversation",
+      "consentement_opt_in",
+      "anonymisation"
+    ],
+    "related_domains": [
+      "cpl",
+      "ethics_governance"
+    ],
+    "related_knowledge": [
+      "cpl.ethics_governance.cadre_ethique_donnees_synthetiques_entrainement_ia",
+      "cpl.ethics_governance.principe_minimisation_donnees_ia_conversationnelle_alfred"
+    ],
+    "retrieval_priority": 7
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "conception de fonctionnalités d'amélioration continue respectant le consentement explicite"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [
+      "réutilisation de conversations réelles sans consentement explicite distinct"
+    ],
+    "fallback_behavior": "En cas de doute sur le consentement obtenu pour une conversation donnée, exclure cette conversation de tout usage d'amélioration du modèle."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "03/09/2026",
+    "last_update": "03/09/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}
