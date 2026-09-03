@@ -128,6 +128,15 @@ def check_created_but_unused(entry: dict, today: date) -> list[dict]:
     age_days = (today - created).days
     if age_days < STALE_UNUSED_DAYS:
         return []
+    review = entry.get("stale_unused_review")
+    if review:
+        return [_alert(
+            entry, "donnee_creee_non_utilisee_revue", "info",
+            f"Créée il y a {age_days} jours et toujours '{status}' — jamais branchée en "
+            f"usage courant : {entry.get('name')}. Revue documentée : "
+            f"{review.get('justification', '(non renseignée)')} "
+            f"(revu par {review.get('reviewed_by', '?')} le {review.get('reviewed_at', '?')})",
+        )]
     return [_alert(
         entry, "donnee_creee_non_utilisee", "warning",
         f"Créée il y a {age_days} jours et toujours '{status}' — jamais branchée en "
