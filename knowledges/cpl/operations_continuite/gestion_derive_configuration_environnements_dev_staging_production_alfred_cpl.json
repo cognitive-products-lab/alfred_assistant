@@ -1,0 +1,97 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.operations_continuite.gestion_derive_configuration_environnements_dev_staging_production_alfred_cpl",
+  "title": "Gestion de la dérive de configuration entre environnements dev, staging et production",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "operations_continuite",
+  "category": "opérations ALFRED CPL",
+  "summary": "Définit la démarche de détection et de prévention de la dérive de configuration (configuration drift) entre les environnements de développement, de préproduction et de production d'ALFRED CPL, distincte de la gestion des montées de version en production déjà couverte qui porte sur le processus de déploiement lui-même plutôt que sur la divergence progressive et non maîtrisée des configurations entre environnements au fil du temps.",
+  "purpose": "Éviter qu'un incident en production soit causé par une divergence de configuration non détectée par rapport à l'environnement de test, situation fréquente lorsque les configurations ne sont pas gérées de façon centralisée et versionnée.",
+  "tags": [
+    "derive_configuration",
+    "configuration_drift",
+    "environnements",
+    "infrastructure_as_code"
+  ],
+  "intents": [
+    "prevent_configuration_drift",
+    "detect_environment_divergence"
+  ],
+  "usage_context": [
+    "incident lié à une divergence de configuration entre environnements",
+    "question sur la prévention de la dérive de configuration"
+  ],
+  "priority": "high",
+  "safety_level": "normal",
+  "content": {
+    "definition": "La dérive de configuration (configuration drift) désigne la divergence progressive et souvent non documentée entre la configuration réelle de plusieurs environnements techniques (développement, préproduction, production) censés être équivalents, causée par des modifications manuelles ponctuelles non répercutées partout, aboutissant à des comportements différents entre environnements et à des incidents de production difficiles à reproduire en test.",
+    "core_principles": [
+      "La gestion de la configuration par Infrastructure as Code (définitions versionnées et appliquées automatiquement) est la principale prévention structurelle de la dérive de configuration, en éliminant les modifications manuelles non tracées.",
+      "Un audit périodique de comparaison automatisée entre environnements permet de détecter une dérive déjà survenue avant qu'elle ne cause un incident.",
+      "Toute modification manuelle d'urgence en production doit être répercutée dans la définition versionnée de référence, sous peine de recréer une dérive au prochain déploiement automatisé."
+    ],
+    "rules": [
+      "Ne jamais effectuer de modification manuelle directe en production sans la répercuter dans la définition de configuration versionnée de référence.",
+      "Auditer périodiquement la cohérence de configuration entre environnements par comparaison automatisée plutôt que par vérification manuelle ponctuelle."
+    ],
+    "examples": [
+      {
+        "situation": "Un incident survient en production sans être reproductible en environnement de préproduction.",
+        "recommended_behavior": "Vérifier en priorité une éventuelle dérive de configuration entre les deux environnements avant d'investiguer d'autres causes, cause fréquente de ce type de symptôme.",
+        "avoid": "Investiguer uniquement le code applicatif sans vérifier la cohérence de configuration entre les environnements concernés."
+      }
+    ],
+    "best_practices": [
+      "Gérer l'ensemble des configurations d'environnement via Infrastructure as Code versionné plutôt que par modification manuelle.",
+      "Auditer périodiquement la cohérence de configuration entre environnements par comparaison automatisée."
+    ],
+    "anti_patterns": [
+      "Modifier manuellement la configuration de production sans répercuter le changement dans la définition versionnée de référence.",
+      "Considérer les environnements de test et de production comme équivalents sans vérification périodique effective."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "derive_configuration",
+      "configuration_drift",
+      "environnements"
+    ],
+    "related_domains": [
+      "cpl",
+      "system"
+    ],
+    "related_knowledge": [
+      "cpl.operations_continuite.gestion_montees_version_production",
+      "cpl.product_platform.identity_access_zero_trust"
+    ],
+    "retrieval_priority": 4
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "information méthodologique sur la prévention de la dérive de configuration"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [],
+    "fallback_behavior": "En cas d'incident non reproductible entre environnements, recommander en priorité un audit de cohérence de configuration."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "03/09/2026",
+    "last_update": "03/09/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

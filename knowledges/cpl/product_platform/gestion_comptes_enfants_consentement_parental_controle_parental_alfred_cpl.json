@@ -1,0 +1,101 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.product_platform.gestion_comptes_enfants_consentement_parental_controle_parental_alfred_cpl",
+  "title": "Gestion des comptes enfants, consentement parental et contrôle parental sur ALFRED CPL",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "product_platform",
+  "category": "plateforme ALFRED CPL",
+  "summary": "Définit l'architecture fonctionnelle de gestion des comptes enfants au sein d'un foyer multi-profils (consentement parental, restrictions de contenu, supervision), distincte de la gestion des profils multiples du foyer déjà couverte qui porte sur la coexistence de profils adultes distincts plutôt que sur les exigences spécifiques de protection des mineurs.",
+  "purpose": "Garantir qu'ALFRED CPL respecte les exigences légales et éthiques spécifiques à l'interaction avec des utilisateurs mineurs au sein d'un foyer, enjeu de conformité et de protection distinct de la gestion générale des profils multiples.",
+  "tags": [
+    "compte_enfant",
+    "consentement_parental",
+    "controle_parental",
+    "protection_mineurs"
+  ],
+  "intents": [
+    "manage_child_account_restrictions",
+    "handle_parental_consent_requirements"
+  ],
+  "usage_context": [
+    "configuration d'un profil enfant au sein du foyer",
+    "question sur les restrictions applicables à un compte enfant"
+  ],
+  "priority": "high",
+  "safety_level": "sensitive",
+  "content": {
+    "definition": "La gestion des comptes enfants désigne l'ensemble des mécanismes permettant de créer un profil distinct pour un utilisateur mineur au sein d'un foyer multi-profils, avec consentement et supervision d'un titulaire de l'autorité parentale, restrictions de contenu adaptées à l'âge, et limitation des capacités d'action autonome (pas d'accès aux fonctions sensibles comme les achats ou la gestion de données d'autres profils).",
+    "core_principles": [
+      "La création d'un profil enfant nécessite le consentement explicite d'un titulaire de l'autorité parentale, condition de conformité aux exigences de protection des mineurs.",
+      "Les restrictions de contenu et de fonctionnalités d'un profil enfant doivent être adaptées à l'âge déclaré et modifiables uniquement par un profil parental supervisant.",
+      "Un profil enfant ne doit jamais avoir accès aux données ou fonctions sensibles des autres profils du foyer (finances, documents privés d'un adulte)."
+    ],
+    "rules": [
+      "Ne jamais créer de profil enfant sans consentement explicite et vérifiable d'un profil parental supervisant.",
+      "Restreindre par défaut l'accès d'un profil enfant aux fonctions sensibles (achats, gestion de données tierces, accès aux documents d'autres profils) sauf autorisation parentale explicite."
+    ],
+    "examples": [
+      {
+        "situation": "Un parent souhaite créer un profil pour son enfant sur ALFRED CPL au sein du foyer.",
+        "recommended_behavior": "Guider la création d'un profil enfant supervisé, avec restrictions de contenu par défaut adaptées à l'âge et validation explicite du parent.",
+        "avoid": "Créer un profil enfant avec les mêmes droits qu'un profil adulte par défaut, sans restriction ni supervision."
+      }
+    ],
+    "best_practices": [
+      "Adapter les restrictions de contenu au profil enfant selon l'âge déclaré, avec révision possible par le profil parental.",
+      "Documenter clairement, pour le parent, les fonctionnalités accessibles et restreintes du profil enfant créé."
+    ],
+    "anti_patterns": [
+      "Traiter un profil enfant comme un profil adulte standard sans restriction spécifique.",
+      "Permettre à un profil enfant d'accéder aux données sensibles d'un autre profil du foyer."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "compte_enfant",
+      "consentement_parental",
+      "controle_parental"
+    ],
+    "related_domains": [
+      "cpl",
+      "human"
+    ],
+    "related_knowledge": [
+      "cpl.product_platform.gestion_profils_multiples_foyer_organisation_local_alfred",
+      "cpl.product_platform.gestion_consentement_utilisateur_alfred"
+    ],
+    "retrieval_priority": 5
+  },
+  "behavior_rules": {
+    "tone": "professional_supportive",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "information sur la configuration d'un profil enfant supervisé"
+    ],
+    "restricted_usage": [
+      "interaction directe avec un profil enfant hors des restrictions définies par le profil parental"
+    ],
+    "forbidden_usage": [
+      "création ou modification d'un profil enfant sans consentement parental vérifiable"
+    ],
+    "fallback_behavior": "En cas de doute sur le statut ou le consentement parental d'un profil enfant, appliquer les restrictions les plus protectrices par défaut et solliciter une confirmation du profil parental."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "03/09/2026",
+    "last_update": "03/09/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}

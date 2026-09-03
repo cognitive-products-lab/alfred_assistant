@@ -1,0 +1,99 @@
+{
+  "schema_version": "1.2",
+  "type": "knowledge_unit",
+  "knowledge_id": "cpl.product_platform.gestion_widgets_extensions_tierces_tableau_bord_marketplace_alfred_cpl",
+  "title": "Gestion des widgets et extensions tierces sur le tableau de bord (marketplace) d'ALFRED CPL",
+  "version": "1.0.0",
+  "status": "active",
+  "domain": "cpl",
+  "subdomain": "product_platform",
+  "category": "plateforme ALFRED CPL",
+  "summary": "Définit l'architecture fonctionnelle et de gouvernance des widgets et extensions tierces pouvant être ajoutés au tableau de bord d'ALFRED CPL (marketplace d'extensions), distincte de l'interopérabilité API avec l'écosystème tiers déjà couverte qui porte sur les intégrations backend plutôt que sur les composants d'interface additionnels visibles et interactifs installés par l'utilisateur.",
+  "purpose": "Permettre une extensibilité de l'interface d'ALFRED CPL par des composants tiers tout en maîtrisant les risques de sécurité et de cohérence d'expérience utilisateur associés à un écosystème ouvert de widgets.",
+  "tags": [
+    "widgets_tiers",
+    "marketplace_extensions",
+    "tableau_de_bord",
+    "ecosysteme_plugins"
+  ],
+  "intents": [
+    "manage_third_party_widget_governance",
+    "explain_dashboard_extension_marketplace"
+  ],
+  "usage_context": [
+    "installation d'un widget tiers sur le tableau de bord",
+    "question sur la gouvernance des extensions du marketplace"
+  ],
+  "priority": "medium",
+  "safety_level": "normal",
+  "content": {
+    "definition": "La gestion des widgets et extensions tierces désigne le cadre de gouvernance et l'architecture technique permettant à des composants d'interface développés par des tiers (via l'écosystème de plugins) d'être installés et affichés sur le tableau de bord d'ALFRED CPL, avec un processus de validation de sécurité, des permissions d'accès aux données limitées et explicites, et une charte de cohérence visuelle minimale.",
+    "core_principles": [
+      "Tout widget tiers doit déclarer explicitement les permissions et données auxquelles il accède, validées avant publication sur le marketplace.",
+      "Un widget tiers ne doit jamais avoir un accès par défaut plus large que celui strictement nécessaire à sa fonction déclarée, conformément au principe de moindre privilège.",
+      "Une charte de cohérence visuelle minimale garantit que l'ajout de widgets tiers ne dégrade pas la lisibilité et la cohérence générale de l'interface."
+    ],
+    "rules": [
+      "Ne jamais activer par défaut un widget tiers sans validation explicite de ses permissions par l'utilisateur lors de l'installation.",
+      "Soumettre tout widget candidat au marketplace à un processus de revue de sécurité avant publication."
+    ],
+    "examples": [
+      {
+        "situation": "Un utilisateur souhaite installer un widget tiers proposant une fonctionnalité complémentaire sur son tableau de bord.",
+        "recommended_behavior": "Afficher clairement les permissions demandées par le widget avant installation et confirmer le consentement explicite de l'utilisateur.",
+        "avoid": "Installer silencieusement un widget avec des permissions étendues non affichées à l'utilisateur."
+      }
+    ],
+    "best_practices": [
+      "Documenter un processus de revue de sécurité systématique pour tout widget candidat au marketplace.",
+      "Afficher explicitement les permissions d'accès aux données de chaque widget avant installation par l'utilisateur."
+    ],
+    "anti_patterns": [
+      "Permettre l'installation de widgets tiers sans validation de sécurité préalable.",
+      "Accorder par défaut des permissions de données plus larges que nécessaire à la fonction déclarée du widget."
+    ]
+  },
+  "retrieval_hints": {
+    "priority_keywords": [
+      "widgets_tiers",
+      "marketplace",
+      "tableau_de_bord"
+    ],
+    "related_domains": [
+      "cpl",
+      "system"
+    ],
+    "related_knowledge": [
+      "cpl.product_platform.interoperabilite_api_alfred_cpl_ecosysteme_tiers",
+      "cpl.strategy.strategie_extensibilite_ecosysteme_plugins_tiers_low_code_alfred_cpl"
+    ],
+    "retrieval_priority": 3
+  },
+  "behavior_rules": {
+    "tone": "professional",
+    "response_style": "structured_clear",
+    "max_complexity": "medium",
+    "allow_humor": false
+  },
+  "safety_notes": {
+    "allowed_usage": [
+      "information sur le fonctionnement du marketplace et de ses règles de gouvernance"
+    ],
+    "restricted_usage": [],
+    "forbidden_usage": [
+      "installation de widget sans consentement explicite de l'utilisateur sur les permissions demandées"
+    ],
+    "fallback_behavior": "En cas de doute sur les permissions ou la fiabilité d'un widget tiers, recommander la prudence et une vérification des permissions avant installation."
+  },
+  "metadata": {
+    "author": "ALFRED_SYSTEM",
+    "creation_date": "03/09/2026",
+    "last_update": "03/09/2026",
+    "review_status": "active",
+    "reviewed_by": "ALFRED_CORE",
+    "source_type": "manual_structured_knowledge",
+    "language": "fr",
+    "retrieval_ready": true,
+    "rag_compatible": true
+  }
+}
