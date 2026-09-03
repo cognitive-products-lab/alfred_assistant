@@ -16,7 +16,7 @@ cd /d D:\PROJET_ALFRED\ALFRED_PC
 
 echo.
 echo [ALFRED] ================================================
-echo [ALFRED]  Dashboard QUALITE DATA [INTERNE] - Lancement
+echo [ALFRED]  Dashboard DqBD [INTERNE] - Lancement
 echo [ALFRED] ================================================
 echo.
 
