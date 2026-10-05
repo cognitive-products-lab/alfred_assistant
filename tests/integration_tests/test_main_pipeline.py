@@ -205,14 +205,19 @@ class TestSafeGetattr:
 
 class TestSecurityCheck:
 
-    def test_fallback_sanitize_when_module_unavailable(self, monkeypatch):
-        """Si zero_trust_orchestrator absent → fallback sanitize_input."""
-        monkeypatch.setattr(
-            "src.main.security_check",
-            lambda raw: sanitize_input(raw),
-        )
-        result = security_check("Bonjour Alfred")
-        assert result == "Bonjour Alfred"
+    def test_module_unavailable_denies(self, monkeypatch):
+        """Si zero_trust_orchestrator est indisponible → refus (fail-closed, 05/10/2026).
+        Remplace l'ancien test qui attendait un repli permissif sur sanitize_input."""
+        import builtins
+        real_import = builtins.__import__
+
+        def fake_import(name, *args, **kwargs):
+            if name == "src.security.zero_trust_orchestrator":
+                raise ImportError("module sécurité absent")
+            return real_import(name, *args, **kwargs)
+
+        monkeypatch.setattr(builtins, "__import__", fake_import)
+        assert security_check("Bonjour Alfred") == ""
 
     def test_empty_input_returns_empty(self):
         result = security_check("")
@@ -437,3 +442,34 @@ class TestBuildResponseMocked:
         assert response == "Réponse depuis mémoire"
         assert mode == "memory_mode"
         components["generator"].generate_response.assert_not_called()
+
+
+class TestSecurityCheckFailClosed:
+    """security_check refuse en cas de doute (05/10/2026)."""
+
+    def test_exception_in_zero_trust_denies(self, monkeypatch):
+        def boom(*a, **k):
+            raise RuntimeError("module sécurité cassé")
+        monkeypatch.setattr(
+            "src.security.zero_trust_orchestrator.quick_authorize_owner_local", boom
+        )
+        assert security_check("Bonjour Alfred") == ""
+
+    def test_device_denial_is_not_bypassed(self, monkeypatch):
+        monkeypatch.setattr(
+            "src.security.zero_trust_orchestrator.quick_authorize_owner_local",
+            MagicMock(return_value={"authorized": False, "decision": "DENY_DEVICE",
+                                    "reason": "Appareil non reconnu ou non fiable"}),
+        )
+        assert security_check("Bonjour Alfred") == ""
+
+    def test_origin_and_pin_flag_are_forwarded(self, monkeypatch):
+        import src.main as main_mod
+        mock_auth = MagicMock(return_value={"authorized": True, "cleaned_input": "x"})
+        monkeypatch.setattr(
+            "src.security.zero_trust_orchestrator.quick_authorize_owner_local", mock_auth
+        )
+        monkeypatch.setattr(main_mod, "_PIN_VERIFIED", True)
+        security_check("Bonjour", origin="remote")
+        _, kwargs = mock_auth.call_args
+        assert kwargs == {"primary_auth_verified": True, "origin": "remote"}

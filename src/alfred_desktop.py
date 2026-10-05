@@ -453,6 +453,7 @@ if __name__ == "__main__":
         sys.exit(1)
 
     _main_mod._AUTH_DONE = True   # évite double auth dans le thread pipeline
+    _main_mod._PIN_VERIFIED = True  # PIN vérifié/créé par la popup ci-dessus
 
     # Branche nos hooks avant de démarrer quoi que ce soit qui pourrait y appeler
     _install_bridge_hooks()

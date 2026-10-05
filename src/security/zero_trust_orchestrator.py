@@ -158,21 +158,39 @@ def build_security_context(
     }
 
 
-def quick_authorize_owner_local(user_input: str) -> dict:
+LOCAL_DEVICE_ID  = "local_pc"
+REMOTE_DEVICE_ID = "companion_remote"
+
+
+def quick_authorize_owner_local(
+    user_input: str,
+    primary_auth_verified: bool = False,
+    origin: str = "local",
+) -> dict:
     """
-    Raccourci : autorise une requête du propriétaire depuis l'appareil local.
-    Crée une session locale et marque le MFA comme vérifié (appareil de confiance).
+    Raccourci : autorise une requête du propriétaire (fail-closed).
+
+    - primary_auth_verified : True uniquement si le PIN a réellement été vérifié
+      dans ce processus (src.main._PIN_VERIFIED). Le second facteur (appareil
+      de confiance) n'est marqué vérifié qu'à cette condition — sinon
+      authorize_request refuse en DENY_MFA.
+    - origin : "local" (fenêtre du PC) → appareil local_pc ; toute autre valeur
+      (client compagnon via l'API 8420, origine inconnue) → appareil
+      companion_remote, qui doit avoir été enrôlé explicitement dans
+      device_registry, sinon DENY_DEVICE.
+      Limite assumée : pour une requête distante, le facteur de connaissance
+      (PIN) est porté par la session du PC, pas par le téléphone.
     """
     from src.security.session_manager import create_session
     from src.security.mfa_manager import mark_verified
 
     user_id  = "celine"
     role     = "OWNER"
-    device   = "local_pc"
+    device   = LOCAL_DEVICE_ID if origin == "local" else REMOTE_DEVICE_ID
 
-    # Session locale + MFA vérifié via appareil de confiance
     session_id = create_session(user_id=user_id, device_id=device, role=role)
-    mark_verified(user_id, session_id)
+    if primary_auth_verified:
+        mark_verified(user_id, session_id)
 
     return authorize_request(
         user_id=user_id,

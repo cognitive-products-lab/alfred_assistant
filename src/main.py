@@ -191,11 +191,12 @@ def sanitize_input(text: str) -> str:
     return cleaned
 
 
-def security_check(raw_input: str) -> str:
+def security_check(raw_input: str, origin: str = "local") -> str:
     """
     Passe l'entrée par la chaîne Zero Trust (Bloc 20).
     Retourne l'input nettoyé si autorisé, chaîne vide si refusé.
-    Fallback sur sanitize_input() si le module sécurité est indisponible.
+    Fail-closed : si le module sécurité est indisponible ou lève une
+    exception, la requête est refusée (jamais laissée passer par défaut).
     """
 
     cleaned = sanitize_input(raw_input)
@@ -208,21 +209,26 @@ def security_check(raw_input: str) -> str:
             quick_authorize_owner_local,
         )
 
-        result = quick_authorize_owner_local(cleaned)
+        result = quick_authorize_owner_local(
+            cleaned,
+            primary_auth_verified=_PIN_VERIFIED,
+            origin=origin,
+        )
+    except Exception as exc:
+        print(f"  [SECURITE] Contrôle Zero Trust indisponible — requête refusée : {exc}")
+        try:
+            from src.security.security_logger import log_event
+            log_event(f"security_check fail-closed : {exc}", "ERROR")
+        except Exception:
+            pass
+        return ""
 
-        if not result.get("authorized", False):
-            reason = result.get("reason", "refus")
+    if not result.get("authorized", False):
+        reason = result.get("reason", "refus")
+        print(f"  [SECURITE] Requête bloquée ({origin}) : {reason}")
+        return ""
 
-            if reason == "Appareil non reconnu ou non fiable":
-                return cleaned
-
-            print(f"  [SECURITE] Requête bloquée : {reason}")
-            return ""
-
-        return result.get("cleaned_input", cleaned)
-
-    except Exception:
-        return cleaned
+    return result.get("cleaned_input", cleaned)
 
 def _safe_decrypt(value: str, fallback: str = USER_FALLBACK_NAME) -> str:
     """
@@ -1931,6 +1937,10 @@ Priorités :
 
 _MAX_PIN_ATTEMPTS = 3
 _AUTH_DONE = False
+# True uniquement si un PIN a réellement été vérifié ou créé dans ce processus.
+# Distinct de _AUTH_DONE (qui vaut aussi True en "démarrage sans PIN") :
+# c'est ce flag, et lui seul, qui autorise security_check à valider le MFA.
+_PIN_VERIFIED = False
 
 
 def _auth_already_done() -> bool:
@@ -1948,7 +1958,7 @@ def prompt_auth() -> bool:
     Retourne True si l'accès est autorisé, False sinon.
     Met à jour _AUTH_DONE pour éviter un double appel depuis alfred_with_ui.py.
     """
-    global _AUTH_DONE
+    global _AUTH_DONE, _PIN_VERIFIED
 
     if _AUTH_DONE:
         return True
@@ -1975,6 +1985,7 @@ def prompt_auth() -> bool:
                 if register_pin(user_id, pin1):
                     print("  PIN enregistré avec succès.\n")
                     _AUTH_DONE = True
+                    _PIN_VERIFIED = True
                     return True
                 else:
                     print("  PIN invalide (longueur 4-32 chiffres/caractères). Recommencez.")
@@ -1995,6 +2006,7 @@ def prompt_auth() -> bool:
         if result["success"]:
             print("  Accès autorisé.\n")
             _AUTH_DONE = True
+            _PIN_VERIFIED = True
             return True
 
         reason = result.get("reason", "Échec")
@@ -2231,7 +2243,7 @@ def main() -> None:
             else:
                 continue
 
-        user_input = security_check(raw_input)
+        user_input = security_check(raw_input, origin=input_origin)
         if not user_input:
             continue
 

@@ -238,3 +238,69 @@ def test_mfa_check_before_rbac(monkeypatch):
     )
     assert result["decision"] == "DENY_MFA"
     assert not rbac_called, "RBAC ne doit pas être appelé avant MFA"
+
+
+# ─── quick_authorize_owner_local — fail-closed (05/10/2026) ──────────────────
+
+from src.security.zero_trust_orchestrator import (  # noqa: E402
+    quick_authorize_owner_local, LOCAL_DEVICE_ID, REMOTE_DEVICE_ID,
+)
+
+
+def _patch_quick_auth(monkeypatch, trusted_devices):
+    """Isole quick_authorize_owner_local : session/MFA en mémoire, registre simulé."""
+    verified = set()
+    monkeypatch.setattr("src.security.session_manager.create_session",
+                        lambda user_id, device_id, role: f"sess-{device_id}")
+    monkeypatch.setattr("src.security.mfa_manager.mark_verified",
+                        lambda u, s, ttl_seconds=None: verified.add((u, s)))
+    monkeypatch.setattr("src.security.zero_trust_orchestrator.mfa_is_verified",
+                        lambda u, s: (u, s) in verified)
+    monkeypatch.setattr("src.security.zero_trust_orchestrator.is_mfa_required", lambda r: True)
+    monkeypatch.setattr("src.security.zero_trust_orchestrator.is_trusted_device",
+                        lambda d: d in trusted_devices)
+    monkeypatch.setattr("src.security.zero_trust_orchestrator.sanitize_input", _mock_sanitize_ok)
+    monkeypatch.setattr("src.security.zero_trust_orchestrator.detect_threat", _mock_no_threat)
+    monkeypatch.setattr("src.security.zero_trust_orchestrator.write_audit_event", _mock_audit)
+    return verified
+
+
+def test_quick_auth_local_with_pin_allows(monkeypatch):
+    _patch_quick_auth(monkeypatch, {LOCAL_DEVICE_ID})
+    result = quick_authorize_owner_local("Bonjour", primary_auth_verified=True, origin="local")
+    assert result["authorized"] is True
+
+
+def test_quick_auth_without_pin_is_denied_mfa(monkeypatch):
+    """Sans PIN vérifié, le MFA n'est plus auto-validé : refus."""
+    verified = _patch_quick_auth(monkeypatch, {LOCAL_DEVICE_ID})
+    result = quick_authorize_owner_local("Bonjour", primary_auth_verified=False, origin="local")
+    assert result["authorized"] is False
+    assert result["decision"] == "DENY_MFA"
+    assert not verified
+
+
+def test_quick_auth_default_is_fail_closed(monkeypatch):
+    """Appel sans arguments explicites = pas de PIN prouvé = refus."""
+    _patch_quick_auth(monkeypatch, {LOCAL_DEVICE_ID})
+    assert quick_authorize_owner_local("Bonjour")["authorized"] is False
+
+
+def test_quick_auth_remote_uses_distinct_device(monkeypatch):
+    """Une requête distante n'est plus déguisée en local_pc."""
+    _patch_quick_auth(monkeypatch, {LOCAL_DEVICE_ID})
+    result = quick_authorize_owner_local("Bonjour", primary_auth_verified=True, origin="remote")
+    assert result["authorized"] is False
+    assert result["decision"] == "DENY_DEVICE"
+
+
+def test_quick_auth_remote_enrolled_allows(monkeypatch):
+    _patch_quick_auth(monkeypatch, {LOCAL_DEVICE_ID, REMOTE_DEVICE_ID})
+    result = quick_authorize_owner_local("Bonjour", primary_auth_verified=True, origin="remote")
+    assert result["authorized"] is True
+
+
+def test_quick_auth_unknown_origin_treated_as_remote(monkeypatch):
+    _patch_quick_auth(monkeypatch, {LOCAL_DEVICE_ID})
+    result = quick_authorize_owner_local("Bonjour", primary_auth_verified=True, origin="???")
+    assert result["decision"] == "DENY_DEVICE"
