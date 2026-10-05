@@ -181,9 +181,11 @@ def prepare_fernet_rotation() -> dict[str, Any]:
         return result
 
     # Fichiers sensibles chiffrés qui devront être re-chiffrés après rotation
+    from src.security.secure_json import SENSITIVE_FILES
     sensitive_files = [
         str(_ROOT / "data" / "security" / "mfa_secrets.json"),
         str(_ROOT / "data" / "security" / "behavior_baseline.json"),
+        *[str(_ROOT / rel) for rel in SENSITIVE_FILES],
     ]
     existing = [f for f in sensitive_files if Path(f).exists()]
     result["files_to_reencrypt"] = existing
@@ -250,6 +252,33 @@ def rotate_encrypted_files(old_key_bytes: bytes, new_key_bytes: bytes) -> dict[s
             log_event(f"key_rotation: re-chiffrement OK — {path.name}")
         except InvalidToken:
             results["skipped"].append(str(path) + " (pas chiffré avec l'ancienne clé)")
+        except Exception as exc:
+            results["errors"].append({"file": str(path), "error": str(exc)})
+            log_event(f"key_rotation: erreur re-chiffrement {path.name} — {exc}", "ERROR")
+
+    # Fichiers JSON chiffrés en enveloppe (src.security.secure_json — santé, profils)
+    import json as _json
+    from src.security.secure_json import SENSITIVE_FILES, ENVELOPE_KEY, ENVELOPE_VERSION, is_encrypted_envelope
+
+    for rel in SENSITIVE_FILES:
+        path = _ROOT / rel
+        if not path.exists():
+            results["skipped"].append(str(path))
+            continue
+        try:
+            env = _json.loads(path.read_text(encoding="utf-8"))
+            if not is_encrypted_envelope(env):
+                results["skipped"].append(str(path) + " (non chiffré)")
+                continue
+            plain = old_f.decrypt(env["payload"].encode("utf-8"))
+            env = {ENVELOPE_KEY: ENVELOPE_VERSION, "payload": new_f.encrypt(plain).decode("utf-8")}
+            tmp = path.with_name(path.name + ".tmp")
+            tmp.write_text(_json.dumps(env, indent=2), encoding="utf-8")
+            tmp.replace(path)
+            results["success"].append(str(path))
+            log_event(f"key_rotation: re-chiffrement OK — {path.name}")
+        except InvalidToken:
+            results["errors"].append({"file": str(path), "error": "pas chiffré avec l'ancienne clé"})
         except Exception as exc:
             results["errors"].append({"file": str(path), "error": str(exc)})
             log_event(f"key_rotation: erreur re-chiffrement {path.name} — {exc}", "ERROR")

@@ -374,7 +374,8 @@ def _get_since_date() -> str | None:
 
     path = Path(__file__).resolve().parents[2] / _USER_INSTANCE_PATH
     try:
-        data = json.loads(path.read_text(encoding="utf-8"))
+        from src.security.secure_json import load_json as _secure_load
+        data = _secure_load(path)
         return data.get("user_profile", {}).get("created_at")
     except Exception:
         return None

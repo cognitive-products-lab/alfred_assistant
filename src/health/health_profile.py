@@ -85,7 +85,8 @@ class HealthProfile:
         profile_path = DATA_HEALTH / f"health_{self.user_id}.json"
         if profile_path.exists():
             try:
-                self._profile = json.loads(profile_path.read_text(encoding="utf-8"))
+                from src.security.secure_json import load_json as _secure_load
+                self._profile = _secure_load(profile_path)
                 self._loaded  = True
                 log_event(f"Profil santé chargé — user: {self.user_id}")
             except Exception as e:
@@ -101,10 +102,8 @@ class HealthProfile:
             return
         profile_path = DATA_HEALTH / f"health_{self.user_id}.json"
         try:
-            profile_path.write_text(
-                json.dumps(self._profile, indent=2, ensure_ascii=False),
-                encoding="utf-8"
-            )
+            from src.security.secure_json import save_json as _secure_save
+            _secure_save(profile_path, self._profile, encrypt=True)
         except Exception as e:
             log_event(f"Erreur sauvegarde profil santé : {e}", "WARNING")
 
@@ -227,10 +226,8 @@ class HealthProfile:
 
         profile_path = DATA_HEALTH / f"health_{user_id}.json"
         DATA_HEALTH.mkdir(parents=True, exist_ok=True)
-        profile_path.write_text(
-            json.dumps(template, indent=2, ensure_ascii=False),
-            encoding="utf-8"
-        )
+        from src.security.secure_json import save_json as _secure_save
+        _secure_save(profile_path, template, encrypt=True)
 
         instance = cls(user_id=user_id)
         log_event(f"Profil santé créé — user: {user_id}, conditions: {conditions}")

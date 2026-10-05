@@ -26,10 +26,13 @@ Usage :
 from __future__ import annotations
 
 import json
+import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))  # pour src.security.secure_json
 USER_PROFILE_PATH   = ROOT / "data" / "profile" / "user_profile.json"
 CELINE_INSTANCE_PATH = ROOT / "data" / "users" / "instances" / "user_celine_instance.json"
 OUTPUT_PARAMS_PATH  = ROOT / "data" / "profile" / "alfred_behavioral_params.json"
@@ -40,14 +43,13 @@ OUTPUT_PARAMS_PATH  = ROOT / "data" / "profile" / "alfred_behavioral_params.json
 # ---------------------------------------------------------------------------
 
 def load_json(path: Path) -> dict:
-    with path.open("r", encoding="utf-8") as f:
-        return json.load(f)
+    from src.security.secure_json import load_json as _secure_load
+    return _secure_load(path)
 
 
 def save_json(path: Path, data: dict) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    with path.open("w", encoding="utf-8") as f:
-        json.dump(data, f, indent=4, ensure_ascii=False)
+    from src.security.secure_json import save_json as _secure_save
+    _secure_save(path, data, indent=4)  # chiffre si chemin sensible ou déjà chiffré
     print(f"  ✓ Écrit : {path.relative_to(ROOT)}")
 
 

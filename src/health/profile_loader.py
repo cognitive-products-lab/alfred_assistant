@@ -40,9 +40,16 @@ except ImportError:
 def _load_json(path: Path) -> dict:
     if not path.exists():
         return {}
+    from src.security.secure_json import load_json as _secure_load, SecureJsonError
     try:
-        return json.loads(path.read_text(encoding="utf-8"))
+        return _secure_load(path)
     except (json.JSONDecodeError, OSError):
+        return {}
+    except SecureJsonError as exc:
+        # Fail-closed : profil chiffré illisible → pas d'adaptation santé,
+        # et c'est journalisé (jamais confondu silencieusement avec "pas de profil").
+        from src.security.security_logger import log_event
+        log_event(f"Profil chiffré illisible : {exc}", "ERROR")
         return {}
 
 

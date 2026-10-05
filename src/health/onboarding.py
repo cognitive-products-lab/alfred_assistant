@@ -490,8 +490,8 @@ class OnboardingSession:
                 "caregiver_mode": self.health_data.caregiver_mode,
                 "alfred_adaptations_active": bool(self.health_data.consent_given)
             }
-            with open(health_path, "w", encoding="utf-8") as f:
-                json.dump(health_dict, f, ensure_ascii=False, indent=2)
+            from src.security.secure_json import save_json as _secure_save
+            _secure_save(health_path, health_dict, encrypt=True)
             paths_saved["health"] = health_path
 
         if self.personality_data.completed_at:

@@ -345,7 +345,8 @@ def _load_user_profile_context() -> str:
     import json as _json
     lines = []
     try:
-        data = _json.loads(_PRIVATE_PROFILE.read_text(encoding="utf-8"))
+        from src.security.secure_json import load_json as _secure_load
+        data = _secure_load(_PRIVATE_PROFILE)
         u = data.get("user_profile", {})
         name = u.get("display_name", "Céline")
         identity = u.get("identity", {})
@@ -356,7 +357,8 @@ def _load_user_profile_context() -> str:
     except Exception:
         pass
     try:
-        data = _json.loads(_PRIVATE_HOUSEHOLD.read_text(encoding="utf-8"))
+        from src.security.secure_json import load_json as _secure_load
+        data = _secure_load(_PRIVATE_HOUSEHOLD)
         members = data.get("household", {}).get("members", [])
         if members:
             lines.append("[Foyer]")

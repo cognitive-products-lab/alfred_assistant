@@ -35,6 +35,7 @@ if hasattr(sys.stdout, "reconfigure"):
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "src"))
+sys.path.insert(0, str(ROOT))  # pour src.security.secure_json
 
 PASS = "  ✅"
 FAIL = "  ❌"
@@ -58,7 +59,8 @@ def check(condition: bool, label: str, warn_only: bool = False) -> bool:
 
 def load_json(path: Path) -> dict | None:
     try:
-        return json.loads(path.read_text(encoding="utf-8"))
+        from src.security.secure_json import load_json as _secure_load
+        return _secure_load(path)
     except Exception as e:
         print(f"{FAIL} Impossible de charger {path.name} : {e}")
         errors.append(str(path.name))

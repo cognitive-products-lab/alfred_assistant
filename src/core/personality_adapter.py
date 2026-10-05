@@ -62,16 +62,15 @@ class PersonalityAdapter:
     def _load_json(self, path: Path) -> Dict[str, Any]:
         if not path.exists():
             raise FileNotFoundError(f"Fichier introuvable : {path}")
+        from src.security.secure_json import load_json as _secure_load
         try:
-            with open(path, "r", encoding="utf-8") as f:
-                return json.load(f)
+            return _secure_load(path)
         except json.JSONDecodeError as e:
             raise ValueError(f"JSON invalide : {path}") from e
 
     def _save_json(self, path: Path, data: Dict[str, Any]) -> None:
-        path.parent.mkdir(parents=True, exist_ok=True)
-        with open(path, "w", encoding="utf-8") as f:
-            json.dump(data, f, indent=4, ensure_ascii=False)
+        from src.security.secure_json import save_json as _secure_save
+        _secure_save(path, data, indent=4)  # chiffre si chemin sensible ou déjà chiffré
 
     def _load_private_persona(self) -> Dict[str, Any]:
         """

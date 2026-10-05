@@ -127,6 +127,31 @@ def decrypt(token: str) -> str:
         return ""
 
 
+def encrypt_strict(data: str) -> str:
+    """
+    Variante fail-closed de encrypt() : lève RuntimeError au lieu de renvoyer
+    le texte en clair si le chiffrement est indisponible. À utiliser pour
+    toute donnée qui ne doit JAMAIS être écrite en clair (src.security.secure_json).
+    """
+    if _cipher is None:
+        raise RuntimeError("Chiffrement indisponible (FERNET_KEY absente ou cryptography manquant)")
+    return _cipher.encrypt(data.encode("utf-8")).decode("utf-8")
+
+
+def decrypt_strict(token: str) -> str:
+    """
+    Variante fail-closed de decrypt() : lève RuntimeError au lieu de renvoyer
+    "" — un profil illisible ne doit jamais être confondu avec un profil vide
+    (qui risquerait d'être réécrit par-dessus).
+    """
+    if _cipher is None:
+        raise RuntimeError("Déchiffrement impossible : FERNET_KEY absente ou cryptography manquant")
+    try:
+        return _cipher.decrypt(token.encode("utf-8")).decode("utf-8")
+    except InvalidToken as exc:
+        raise RuntimeError("Déchiffrement impossible : clé Fernet différente ou donnée corrompue") from exc
+
+
 def is_available() -> bool:
     """Indique si le chiffrement est opérationnel."""
     return _cipher is not None
