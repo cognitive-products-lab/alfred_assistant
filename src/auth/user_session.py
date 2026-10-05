@@ -40,8 +40,13 @@ def load_profile(user_id: str) -> dict:
     global _session_profile
     profile_path = _PROFILES_DIR / f"{user_id}.json"
     if profile_path.exists():
+        from src.security.secure_json import load_json as _secure_load, SecureJsonError
         try:
-            _session_profile = json.loads(profile_path.read_text(encoding="utf-8"))
+            _session_profile = _secure_load(profile_path)  # chiffré (secure_json) ou clair
+        except SecureJsonError as exc:
+            from src.security.security_logger import log_event
+            log_event(f"Profil chiffré illisible : {exc}", "ERROR")
+            _session_profile = {}
         except Exception:
             _session_profile = {}
     else:

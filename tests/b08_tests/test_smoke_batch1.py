@@ -176,9 +176,9 @@ def test_user_adaptation_json_has_expected_structure(relpath):
 
 
 def test_user_celine_instance_json_structure():
-    data = json.loads(
-        (ROOT / "data" / "users" / "instances" / "user_celine_instance.json").read_text(encoding="utf-8")
-    )
+    # Fichier chiffré au repos depuis le 05/10/2026 (src.security.secure_json)
+    from src.security.secure_json import load_json as secure_load
+    data = secure_load(ROOT / "data" / "users" / "instances" / "user_celine_instance.json")
     for key in ("user_profile", "preferences", "communication_style", "privacy_and_consent", "metadata"):
         assert key in data
 
