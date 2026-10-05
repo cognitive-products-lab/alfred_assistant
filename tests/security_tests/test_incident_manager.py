@@ -21,26 +21,24 @@ summarize_incidents (comptage CRITICAL/WARNING).
 import json
 import pytest
 from pathlib import Path
+from src.security import incident_manager
 from src.security.incident_manager import (
     register_incident,
     list_incidents,
     summarize_incidents,
-    INCIDENT_FILE,
 )
 
 
 @pytest.fixture(autouse=True)
 def clean_incident_file():
-    """Sauvegarde et restaure le registre d'incidents autour de chaque test."""
-    backup = None
-    if INCIDENT_FILE.exists():
-        backup = INCIDENT_FILE.read_text(encoding="utf-8")
-    INCIDENT_FILE.write_text("[]", encoding="utf-8")
+    """Registre d'incidents vide pour chaque test.
+
+    05/10/2026 : tests/conftest.py redirige désormais incident_manager.INCIDENT_FILE
+    vers tmp_path — on ne touche plus jamais au vrai registre (l'ancienne version
+    écrasait le registre réel avec "[]" puis le restaurait après chaque test).
+    """
+    incident_manager.INCIDENT_FILE.write_text("[]", encoding="utf-8")
     yield
-    if backup is not None:
-        INCIDENT_FILE.write_text(backup, encoding="utf-8")
-    else:
-        INCIDENT_FILE.write_text("[]", encoding="utf-8")
 
 
 # ─── register_incident ────────────────────────────────────────────────────────
@@ -132,7 +130,7 @@ def test_summarize_by_level():
 
 def test_incidents_persisted_to_file():
     register_incident("WARNING", "Persisted", source="test")
-    raw = json.loads(INCIDENT_FILE.read_text(encoding="utf-8"))
+    raw = json.loads(incident_manager.INCIDENT_FILE.read_text(encoding="utf-8"))
     assert len(raw) == 1
     assert raw[0]["description"] == "Persisted"
 
