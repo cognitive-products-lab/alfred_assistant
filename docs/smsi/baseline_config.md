@@ -8,7 +8,7 @@ REF      : ISO/IEC 27001:2022 — A.8.9
 VERSION  : V1.0
 CREATED  : 2026-06-18
 UPDATED  : 2026-06-18
-AUTHOR   : Céline Rousselot — Cognitive Products Lab
+AUTHOR   : Céline R. — Cognitive Products Lab
 STATUS   : Approuvé
 ============================================================
 -->
@@ -16,7 +16,7 @@ STATUS   : Approuvé
 
 > **Référence :** ISO/IEC 27001:2022 — Contrôle A.8.9  
 > **Version :** 1.0 — 2026-06-18  
-> **Propriétaire :** Cognitive Products Lab — Céline Rousselot  
+> **Propriétaire :** Cognitive Products Lab — Céline R.  
 > **Statut :** Approuvé
 
 ---
@@ -89,6 +89,6 @@ Définir et maintenir une configuration de référence (baseline) sécurisée po
 
 | Version | Date | Auteur | Modification |
 |---|---|---|---|
-| 1.0 | 2026-06-18 | Céline Rousselot | Création — conformité ISO A.8.9 |
+| 1.0 | 2026-06-18 | Céline R. | Création — conformité ISO A.8.9 |
 
 > **Cognitive Products Lab — Confidentiel interne**

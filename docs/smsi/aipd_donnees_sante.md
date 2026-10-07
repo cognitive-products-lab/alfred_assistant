@@ -8,7 +8,7 @@ REF      : RGPD Art. 35
 VERSION  : V1.0
 CREATED  : 2026-06-18
 UPDATED  : 2026-06-18
-AUTHOR   : Céline Rousselot — Cognitive Products Lab
+AUTHOR   : Céline R. — Cognitive Products Lab
 STATUS   : Approuvé
 ============================================================
 -->
@@ -17,7 +17,7 @@ STATUS   : Approuvé
 
 > **Référence :** RGPD Art. 35 — Analyse d'impact obligatoire (données sensibles, Art. 9)  
 > **Version :** 1.0 — 2026-06-18  
-> **Responsable :** Céline Rousselot — DPO de fait, Cognitive Products Lab  
+> **Responsable :** Céline R. — DPO de fait, Cognitive Products Lab  
 > **Statut :** Approuvé
 
 ---
@@ -40,11 +40,11 @@ L'Art. 35 RGPD impose une AIPD lorsque le traitement est susceptible d'engendrer
 | Champ | Détail |
 |---|---|
 | **Traitement** | Assistance conversationnelle IA personnalisée avec mémoire épisodique |
-| **Responsable** | Cognitive Products Lab (Céline Rousselot) |
+| **Responsable** | Cognitive Products Lab (Céline R.) |
 | **Finalité** | Assistance personnelle, bien-être, productivité utilisateur |
 | **Base légale** | Consentement explicite (Art. 6.1.a + Art. 9.2.a) |
 | **Données sensibles** | Données de bien-être/santé mentale partagées, données comportementales |
-| **Personnes concernées** | Utilisateurs ALFRED (actuellement : Céline Rousselot — usage personnel) |
+| **Personnes concernées** | Utilisateurs ALFRED (actuellement : Céline R. — usage personnel) |
 | **Volume** | Faible — usage mono-utilisateur V1 |
 | **Durée de conservation** | Définie par l'utilisateur via commandes /forget |
 | **Sous-traitants** | OpenAI API (LLM) — DPA à formaliser |
@@ -115,6 +115,6 @@ Le traitement ALFRED peut être poursuivi sous réserve :
 
 | Version | Date | Auteur | Modification |
 |---|---|---|---|
-| 1.0 | 2026-06-18 | Céline Rousselot | Création AIPD initiale — conformité RGPD Art. 35 |
+| 1.0 | 2026-06-18 | Céline R. | Création AIPD initiale — conformité RGPD Art. 35 |
 
 > **Cognitive Products Lab — Confidentiel interne**

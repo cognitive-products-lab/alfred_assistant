@@ -8,7 +8,7 @@ REF      : ISO/IEC 27001:2022 — A.8.20 (Sécurité réseau)
 VERSION  : V1.0
 CREATED  : 2026-06-18
 UPDATED  : 2026-06-18
-AUTHOR   : Céline Rousselot — Cognitive Products Lab
+AUTHOR   : Céline R. — Cognitive Products Lab
 STATUS   : Approuvé
 ============================================================
 

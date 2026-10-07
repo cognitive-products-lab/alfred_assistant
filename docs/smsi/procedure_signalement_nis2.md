@@ -8,7 +8,7 @@ REF      : Directive (UE) 2022/2555 — NIS2
 VERSION  : V1.1
 CREATED  : 2026-06-18
 UPDATED  : 2026-07-10
-AUTHOR   : Céline Rousselot — Cognitive Products Lab
+AUTHOR   : Céline R. — Cognitive Products Lab
 STATUS   : Approuvé
 ============================================================
 -->
@@ -17,7 +17,7 @@ STATUS   : Approuvé
 > **Référence :** Directive (UE) 2022/2555 — NIS2 Art. 23, texte consolidé :
 > https://eur-lex.europa.eu/legal-content/FR/TXT/HTML/?uri=CELEX:32022L2555
 > **Version :** 1.1 — 2026-07-10
-> **Propriétaire :** Cognitive Products Lab — Céline Rousselot
+> **Propriétaire :** Cognitive Products Lab — Céline R.
 > **Statut :** Approuvé
 
 ---
@@ -99,7 +99,7 @@ Cette procédure s'articule avec :
 
 | Version | Date | Auteur | Modification |
 |---|---|---|---|
-| 1.0 | 2026-06-18 | Céline Rousselot | Création — conformité NIS2 Art. 23 |
+| 1.0 | 2026-06-18 | Céline R. | Création — conformité NIS2 Art. 23 |
 | 1.1 | 2026-07-10 | Claude (assistant) | Vérification du champ d'application sur le texte consolidé (§1.1) — hors champ confirmé (taille + secteur). Reformulation en conformité volontaire assumée (§1.2), même logique que DORA. |
 
 > **Cognitive Products Lab — Confidentiel interne**

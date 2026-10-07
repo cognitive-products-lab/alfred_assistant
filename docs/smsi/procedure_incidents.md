@@ -8,7 +8,7 @@ REF      : ISO/IEC 27001:2022 — A.5.24 / NIS2 Art.23
 VERSION  : V1.0
 CREATED  : 2026-06-18
 UPDATED  : 2026-06-18
-AUTHOR   : Céline Rousselot — Cognitive Products Lab
+AUTHOR   : Céline R. — Cognitive Products Lab
 STATUS   : Approuvé
 ============================================================
 -->
@@ -17,7 +17,7 @@ STATUS   : Approuvé
 > **Référence :** ISO/IEC 27001:2022 — Contrôle A.5.24  
 > **Norme liée :** NIS2 Art. 23 — Signalement autorité compétente  
 > **Version :** 1.0 — 2026-06-18  
-> **Propriétaire :** Cognitive Products Lab — Responsable Sécurité (Céline Rousselot)  
+> **Propriétaire :** Cognitive Products Lab — Responsable Sécurité (Céline R.)  
 > **Statut :** Approuvé
 
 ---
@@ -52,8 +52,8 @@ S'applique à tous les incidents touchant :
 | Clôture et archivage | Resp. Sécurité | Fondatrice | — | — |
 
 **Rôles CPL :**
-- **Fondatrice / DG :** Céline Rousselot — approbation finale, notifications réglementaires
-- **Responsable Sécurité :** Céline Rousselot (double casquette V1) — opérationnel sécurité
+- **Fondatrice / DG :** Céline R. — approbation finale, notifications réglementaires
+- **Responsable Sécurité :** Céline R. (double casquette V1) — opérationnel sécurité
 - **Système ALFRED :** détection automatique via `behavioral_detector.py`, `audit_trail.py`
 
 ---
@@ -115,6 +115,6 @@ S'applique à tous les incidents touchant :
 
 | Version | Date | Auteur | Modification |
 |---|---|---|---|
-| 1.0 | 2026-06-18 | Céline Rousselot | Création — conformité ISO A.5.24 + NIS2 Art.23 |
+| 1.0 | 2026-06-18 | Céline R. | Création — conformité ISO A.5.24 + NIS2 Art.23 |
 
 > **Cognitive Products Lab — Confidentiel interne**

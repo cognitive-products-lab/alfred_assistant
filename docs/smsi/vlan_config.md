@@ -8,7 +8,7 @@ REF      : ISO/IEC 27001:2022 — A.8.22
 VERSION  : V1.2
 CREATED  : 2026-06-18
 UPDATED  : 2026-07-05
-AUTHOR   : Céline Rousselot — Cognitive Products Lab
+AUTHOR   : Céline R. — Cognitive Products Lab
 STATUS   : Approuvé
 ============================================================
 -->
@@ -16,7 +16,7 @@ STATUS   : Approuvé
 
 > **Référence :** ISO/IEC 27001:2022 — Contrôle A.8.22  
 > **Version :** 1.2 — 2026-07-05  
-> **Propriétaire :** Cognitive Products Lab — Céline Rousselot  
+> **Propriétaire :** Cognitive Products Lab — Céline R.  
 > **Horizon :** Implémentation Juillet 2026  
 > **Statut :** En cours — VLAN switch+ER605 configurés et testés (section 6.6), ACL inter-VLAN restantes
 
@@ -55,12 +55,12 @@ Isoler le PC Alfred des autres équipements du réseau local via micro-segmentat
 
 | Étape | Action | Responsable | Délai |
 |---|---|---|---|
-| 1 | Configuration VLANs sur SG108E | Céline Rousselot | Juillet 2026 |
-| 2 | Paramétrage inter-VLAN routing ER605 | Céline Rousselot | Juillet 2026 |
-| 3 | Déplacement PC Alfred sur port VLAN10 | Céline Rousselot | Juillet 2026 |
-| 4 | Test connectivité + isolation | Céline Rousselot | Juillet 2026 |
-| 5 | Documentation configuration finale | Céline Rousselot | Août 2026 |
-| 6 | Audit et validation | Céline Rousselot | Août 2026 |
+| 1 | Configuration VLANs sur SG108E | Céline R. | Juillet 2026 |
+| 2 | Paramétrage inter-VLAN routing ER605 | Céline R. | Juillet 2026 |
+| 3 | Déplacement PC Alfred sur port VLAN10 | Céline R. | Juillet 2026 |
+| 4 | Test connectivité + isolation | Céline R. | Juillet 2026 |
+| 5 | Documentation configuration finale | Céline R. | Août 2026 |
+| 6 | Audit et validation | Céline R. | Août 2026 |
 
 ---
 
@@ -173,8 +173,8 @@ Switch TL-SG108E et ER605 configurés et testés :
 
 | Version | Date | Auteur | Modification |
 |---|---|---|---|
-| 1.0 | 2026-06-18 | Céline Rousselot | Création — conformité ISO A.8.22 |
-| 1.1 | 2026-07-05 | Céline Rousselot | Ajout procédure d'implémentation détaillée (section 6) — préparation exécution Juillet 2026 |
-| 1.2 | 2026-07-05 | Céline Rousselot | VLAN 10/20/30 configurés et testés sur switch+ER605 (section 6.6) — Internet et dashboard local validés depuis VLAN10, découverte et correction Wi-Fi non désactivé sur PC Alfred |
+| 1.0 | 2026-06-18 | Céline R. | Création — conformité ISO A.8.22 |
+| 1.1 | 2026-07-05 | Céline R. | Ajout procédure d'implémentation détaillée (section 6) — préparation exécution Juillet 2026 |
+| 1.2 | 2026-07-05 | Céline R. | VLAN 10/20/30 configurés et testés sur switch+ER605 (section 6.6) — Internet et dashboard local validés depuis VLAN10, découverte et correction Wi-Fi non désactivé sur PC Alfred |
 
 > **Cognitive Products Lab — Confidentiel interne**

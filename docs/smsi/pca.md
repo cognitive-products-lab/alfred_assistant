@@ -8,7 +8,7 @@ REF      : ISO/IEC 27001:2022 — A.5.30
 VERSION  : V1.0
 CREATED  : 2026-06-18
 UPDATED  : 2026-06-18
-AUTHOR   : Céline Rousselot — Cognitive Products Lab
+AUTHOR   : Céline R. — Cognitive Products Lab
 STATUS   : Approuvé
 ============================================================
 -->
@@ -16,7 +16,7 @@ STATUS   : Approuvé
 
 > **Référence :** ISO/IEC 27001:2022 — Contrôle A.5.30  
 > **Version :** 1.0 — 2026-06-18  
-> **Propriétaire :** Cognitive Products Lab — Céline Rousselot  
+> **Propriétaire :** Cognitive Products Lab — Céline R.  
 > **Statut :** Approuvé
 
 ---
@@ -90,7 +90,7 @@ Garantir la continuité des opérations ALFRED en cas d'incident majeur et défi
 
 | Contact | Rôle | Coordonnées |
 |---|---|---|
-| Céline Rousselot | Fondatrice / RSSI | darkmiroir@gmail.com |
+| Céline R. | Fondatrice / RSSI | darkmiroir@gmail.com |
 | CERT-FR | Incidents cyber | cert-fr.cossi@ssi.gouv.fr |
 | CNIL | Violations données | https://notifications.cnil.fr |
 
@@ -106,6 +106,6 @@ Voir `docs/smsi/tests_pca.md` pour le plan et les résultats de tests.
 
 | Version | Date | Auteur | Modification |
 |---|---|---|---|
-| 1.0 | 2026-06-18 | Céline Rousselot | Création PCA — conformité ISO A.5.30 |
+| 1.0 | 2026-06-18 | Céline R. | Création PCA — conformité ISO A.5.30 |
 
 > **Cognitive Products Lab — Confidentiel interne**

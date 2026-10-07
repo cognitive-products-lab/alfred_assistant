@@ -8,7 +8,7 @@ REF      : ISO/IEC 27001:2022 — A.8.20, A.6.7
 VERSION  : V1.3
 CREATED  : 2026-07-05
 UPDATED  : 2026-07-05
-AUTHOR   : Céline Rousselot — Cognitive Products Lab
+AUTHOR   : Céline R. — Cognitive Products Lab
 STATUS   : En cours — double NAT résolu, pare-feu WAN vérifié, faille Wi-Fi PC Alfred corrigée, VPN restant
 ============================================================
 -->
@@ -16,7 +16,7 @@ STATUS   : En cours — double NAT résolu, pare-feu WAN vérifié, faille Wi-Fi
 
 > **Référence :** ISO/IEC 27001:2022 — Contrôle A.8.20 (Sécurité réseau), A.6.7 (Travail à distance)
 > **Version :** 1.2 — 2026-07-05
-> **Propriétaire :** Cognitive Products Lab — Céline Rousselot
+> **Propriétaire :** Cognitive Products Lab — Céline R.
 > **Horizon :** Implémentation Juillet 2026 (avec [vlan_config.md](vlan_config.md))
 > **Statut :** En cours — double NAT résolu (section 1bis), pare-feu WAN ER605 vérifié (section 3), VPN/Wi-Fi/VLAN restants
 
@@ -153,9 +153,9 @@ Checklist à appliquer avant mise en production du VPN :
 
 | Version | Date | Auteur | Modification |
 |---|---|---|---|
-| 1.0 | 2026-07-05 | Céline Rousselot | Création — VPN + durcissement WAN, complément à vlan_config.md |
-| 1.1 | 2026-07-05 | Céline Rousselot | Ajout section 1bis — résolution du double NAT Bbox Must via DMZ (réalisé et testé, SSH OK) |
-| 1.2 | 2026-07-05 | Céline Rousselot | Vérification pare-feu WAN ER605 (section 3, points 1/2/3/5) — mdp admin, UPnP, remote management, redirections de port : tous conformes |
-| 1.3 | 2026-07-05 | Céline Rousselot | Découverte et correction : adaptateur Wi-Fi 6 de PC Alfred actif hors VLAN (contournait la segmentation), désactivé via Disable-NetAdapter |
+| 1.0 | 2026-07-05 | Céline R. | Création — VPN + durcissement WAN, complément à vlan_config.md |
+| 1.1 | 2026-07-05 | Céline R. | Ajout section 1bis — résolution du double NAT Bbox Must via DMZ (réalisé et testé, SSH OK) |
+| 1.2 | 2026-07-05 | Céline R. | Vérification pare-feu WAN ER605 (section 3, points 1/2/3/5) — mdp admin, UPnP, remote management, redirections de port : tous conformes |
+| 1.3 | 2026-07-05 | Céline R. | Découverte et correction : adaptateur Wi-Fi 6 de PC Alfred actif hors VLAN (contournait la segmentation), désactivé via Disable-NetAdapter |
 
 > **Cognitive Products Lab — Confidentiel interne**

@@ -8,7 +8,7 @@ REF      : ISO/IEC 27001:2022 — A.5.27
 VERSION  : V1.0
 CREATED  : 2026-06-18
 UPDATED  : 2026-06-18
-AUTHOR   : Céline Rousselot — Cognitive Products Lab
+AUTHOR   : Céline R. — Cognitive Products Lab
 STATUS   : Approuvé
 ============================================================
 -->
@@ -81,7 +81,7 @@ RAPPORT POST-INCIDENT — [INC-AAAA-MM-DD-NNN]
 7. SUIVI
    - Actions ouvertes :
    - Date revue de direction :
-   - Signataire : Céline Rousselot — Fondatrice / Responsable Sécurité
+   - Signataire : Céline R. — Fondatrice / Responsable Sécurité
 ```
 
 ---
@@ -107,6 +107,6 @@ Les leçons apprises sont transmises à :
 
 | Version | Date | Auteur | Modification |
 |---|---|---|---|
-| 1.0 | 2026-06-18 | Céline Rousselot | Création — conformité ISO A.5.27 |
+| 1.0 | 2026-06-18 | Céline R. | Création — conformité ISO A.5.27 |
 
 > **Cognitive Products Lab — Confidentiel interne**

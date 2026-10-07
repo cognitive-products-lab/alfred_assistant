@@ -8,7 +8,7 @@ REF      : ISO/IEC 27001:2022 — A.9.3
 VERSION  : V1.0
 CREATED  : 2026-06-18
 UPDATED  : 2026-06-18
-AUTHOR   : Céline Rousselot — Cognitive Products Lab
+AUTHOR   : Céline R. — Cognitive Products Lab
 STATUS   : Approuvé
 ============================================================
 -->
@@ -16,7 +16,7 @@ STATUS   : Approuvé
 
 > **Référence :** ISO/IEC 27001:2022 — Contrôle A.9.3  
 > **Version :** 1.0 — 2026-06-18  
-> **Propriétaire :** Cognitive Products Lab — Céline Rousselot  
+> **Propriétaire :** Cognitive Products Lab — Céline R.  
 > **Statut :** Approuvé
 
 ---
@@ -48,7 +48,7 @@ STATUS   : Approuvé
 
 | Date | Durée | Participants | Décisions clés | PV disponible |
 |---|---|---|---|---|
-| 2026-06-18 | — | Céline Rousselot (DG + RSSI) | Création SMSI V1, objectifs conformité ISO/RGPD définis | Ce document |
+| 2026-06-18 | — | Céline R. (DG + RSSI) | Création SMSI V1, objectifs conformité ISO/RGPD définis | Ce document |
 
 ---
 
@@ -79,6 +79,6 @@ STATUS   : Approuvé
 
 | Version | Date | Auteur | Modification |
 |---|---|---|---|
-| 1.0 | 2026-06-18 | Céline Rousselot | Création + revue initiale — conformité ISO A.9.3 |
+| 1.0 | 2026-06-18 | Céline R. | Création + revue initiale — conformité ISO A.9.3 |
 
 > **Cognitive Products Lab — Confidentiel interne**

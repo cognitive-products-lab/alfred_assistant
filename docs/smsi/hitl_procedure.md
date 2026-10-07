@@ -8,7 +8,7 @@ REF      : EU AI Act Art. 14
 VERSION  : V1.0
 CREATED  : 2026-06-18
 UPDATED  : 2026-06-18
-AUTHOR   : Céline Rousselot — Cognitive Products Lab
+AUTHOR   : Céline R. — Cognitive Products Lab
 STATUS   : Approuvé
 ============================================================
 -->
@@ -16,7 +16,7 @@ STATUS   : Approuvé
 
 > **Référence :** EU AI Act — Art. 14 (Règlement UE 2024/1689)  
 > **Version :** 1.0 — 2026-06-18  
-> **Propriétaire :** Cognitive Products Lab — Céline Rousselot  
+> **Propriétaire :** Cognitive Products Lab — Céline R.  
 > **Statut :** Approuvé
 
 ---
@@ -66,6 +66,6 @@ ALFRED déclare explicitement à l'utilisateur :
 
 | Version | Date | Auteur | Modification |
 |---|---|---|---|
-| 1.0 | 2026-06-18 | Céline Rousselot | Création — conformité EU AI Act Art. 14 |
+| 1.0 | 2026-06-18 | Céline R. | Création — conformité EU AI Act Art. 14 |
 
 > **Cognitive Products Lab — Confidentiel interne**

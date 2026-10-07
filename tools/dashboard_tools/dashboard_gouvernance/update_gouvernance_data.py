@@ -5,7 +5,7 @@ FILE     : tools/dashboard_tools/dashboard_gouvernance/update_gouvernance_data.p
 ROLE     : Lit _manifest.json, vérifie les fichiers de preuve sur disque,
            recalcule les scores de conformité, écrit dashboard_gouvernance_data.json
 
-AUTHOR   : Cognitive Products Lab — Céline Rousselot
+AUTHOR   : Cognitive Products Lab — Céline R.
 CREATED  : 2026-06-16
 UPDATED  : 2026-06-20
 VERSION  : V1.2

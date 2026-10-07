@@ -8,7 +8,7 @@ REF      : RGPD Art. 28 / Art. 46
 VERSION  : V1.0
 CREATED  : 2026-06-18
 UPDATED  : 2026-06-18
-AUTHOR   : Céline Rousselot — Cognitive Products Lab
+AUTHOR   : Céline R. — Cognitive Products Lab
 STATUS   : Approuvé
 ============================================================
 -->
@@ -17,7 +17,7 @@ STATUS   : Approuvé
 
 > **Référence :** RGPD Art. 28 — Sous-traitant ; Art. 46 — Transferts internationaux  
 > **Version :** 1.0 — 2026-06-18  
-> **Propriétaire :** Cognitive Products Lab — Céline Rousselot  
+> **Propriétaire :** Cognitive Products Lab — Céline R.  
 > **Statut :** Approuvé (en attente signature formelle sous-traitants)
 
 ---
@@ -92,6 +92,6 @@ Tout DPA signé avec un sous-traitant doit inclure :
 
 | Version | Date | Auteur | Modification |
 |---|---|---|---|
-| 1.0 | 2026-06-18 | Céline Rousselot | Création — conformité RGPD Art. 28 |
+| 1.0 | 2026-06-18 | Céline R. | Création — conformité RGPD Art. 28 |
 
 > **Cognitive Products Lab — Confidentiel interne**
