@@ -8,7 +8,7 @@ REF      : ISO/IEC 27001:2022 — A.5.2
 VERSION  : V1.0
 CREATED  : 2026-06-18
 UPDATED  : 2026-06-18
-AUTHOR   : Céline Darras — Cognitive Products Lab
+AUTHOR   : Céline Rousselot — Cognitive Products Lab
 STATUS   : Approuvé
 ============================================================
 -->
@@ -16,7 +16,7 @@ STATUS   : Approuvé
 
 > **Référence :** ISO/IEC 27001:2022 — Contrôle A.5.2  
 > **Version :** 1.0 — 2026-06-18  
-> **Propriétaire :** Cognitive Products Lab — Céline Darras  
+> **Propriétaire :** Cognitive Products Lab — Céline Rousselot  
 > **Statut :** Approuvé
 
 ---
@@ -36,12 +36,12 @@ STATUS   : Approuvé
 
 | Sigle | Rôle | Titulaire |
 |---|---|---|
-| **DG** | Directrice Générale / Fondatrice | Céline Darras |
-| **RSSI** | Responsable Sécurité SI | Céline Darras (double rôle V1) |
-| **DEV** | Développeur principal | Céline Darras (double rôle V1) |
+| **DG** | Directrice Générale / Fondatrice | Céline Rousselot |
+| **RSSI** | Responsable Sécurité SI | Céline Rousselot (double rôle V1) |
+| **DEV** | Développeur principal | Céline Rousselot (double rôle V1) |
 | **SYS** | Système ALFRED | Module automatique |
 
-*En phase V1, Céline Darras cumule DG + RSSI + DEV. Le RACI reflète les responsabilités conceptuelles pour la gouvernance formelle et la montée en charge.*
+*En phase V1, Céline Rousselot cumule DG + RSSI + DEV. Le RACI reflète les responsabilités conceptuelles pour la gouvernance formelle et la montée en charge.*
 
 ---
 
@@ -120,6 +120,6 @@ STATUS   : Approuvé
 
 | Version | Date | Auteur | Modification |
 |---|---|---|---|
-| 1.0 | 2026-06-18 | Céline Darras | Création RACI formel — conformité ISO A.5.2 |
+| 1.0 | 2026-06-18 | Céline Rousselot | Création RACI formel — conformité ISO A.5.2 |
 
 > **Cognitive Products Lab — Confidentiel interne**

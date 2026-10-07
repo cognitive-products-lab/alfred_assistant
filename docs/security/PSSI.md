@@ -50,7 +50,7 @@ détaillés présents dans ce dossier (`docs/security/`) :
 
 **Score conformité global : 97% (A+)** — Rapports horodatés : `dashboard/dashboard_gouvernance/reports/`
 
-Responsable : Céline Darras, Fondatrice — Cognitive Products Lab.
+Responsable : Céline Rousselot, Fondatrice — Cognitive Products Lab.
 
 ## 1. Principes directeurs
 

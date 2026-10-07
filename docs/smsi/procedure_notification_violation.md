@@ -8,7 +8,7 @@ REF      : RGPD Art. 33-34
 VERSION  : V1.0
 CREATED  : 2026-06-18
 UPDATED  : 2026-06-18
-AUTHOR   : Céline Darras — Cognitive Products Lab
+AUTHOR   : Céline Rousselot — Cognitive Products Lab
 STATUS   : Approuvé
 ============================================================
 -->
@@ -16,7 +16,7 @@ STATUS   : Approuvé
 
 > **Référence :** RGPD Art. 33-34 — Notification violations données personnelles  
 > **Version :** 1.0 — 2026-06-18  
-> **Propriétaire :** Cognitive Products Lab — Céline Darras (DPO de fait)  
+> **Propriétaire :** Cognitive Products Lab — Céline Rousselot (DPO de fait)  
 > **Statut :** Approuvé
 
 ---
@@ -72,7 +72,7 @@ et libertés ?         interne uniquement
 6. Mesures prises ou envisagées pour remédier et atténuer les effets
 
 **DPO / Contact CPL :**
-- Nom : Céline Darras
+- Nom : Céline Rousselot
 - Organisation : Cognitive Products Lab
 - Email : darkmiroir@gmail.com
 - Rôle : Fondatrice / Responsable Sécurité
@@ -120,6 +120,6 @@ Toutes les violations doivent être documentées dans `data/security/incident_re
 
 | Version | Date | Auteur | Modification |
 |---|---|---|---|
-| 1.0 | 2026-06-18 | Céline Darras | Création — conformité RGPD Art. 33-34 |
+| 1.0 | 2026-06-18 | Céline Rousselot | Création — conformité RGPD Art. 33-34 |
 
 > **Cognitive Products Lab — Confidentiel interne**

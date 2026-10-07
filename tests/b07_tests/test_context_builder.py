@@ -6,7 +6,7 @@ FUNCTION     : B07.TEST
 FILE         : tests/b07_tests/test_context_builder.py
 ROLE         : Tests unitaires — context_builder.py
 
-AUTHOR       : Cognitive Products Lab — Céline Darras
+AUTHOR       : Cognitive Products Lab — Céline Rousselot
 CREATED      : 2026-06-20
 UPDATED      : 2026-06-20
 VERSION      : V1.0

@@ -6,7 +6,7 @@ FUNCTION     : DASHBOARD.TEST
 FILE         : tests/dashboard_tests/test_dashboard_gouvernance.py
 ROLE         : Tests d'intégration — pipeline manifest → dashboard_gouvernance_data.json
 
-AUTHOR       : Cognitive Products Lab — Céline Darras
+AUTHOR       : Cognitive Products Lab — Céline Rousselot
 CREATED      : 2026-06-20
 UPDATED      : 2026-06-20
 VERSION      : V1.0

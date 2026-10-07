@@ -8,7 +8,7 @@ REF      : ISO/IEC 27001:2022 — A.8.14
 VERSION  : V1.0
 CREATED  : 2026-06-18
 UPDATED  : 2026-06-18
-AUTHOR   : Céline Darras — Cognitive Products Lab
+AUTHOR   : Céline Rousselot — Cognitive Products Lab
 STATUS   : Approuvé
 ============================================================
 -->
@@ -16,7 +16,7 @@ STATUS   : Approuvé
 
 > **Référence :** ISO/IEC 27001:2022 — Contrôle A.8.14  
 > **Version :** 1.0 — 2026-06-18  
-> **Propriétaire :** Cognitive Products Lab — Céline Darras  
+> **Propriétaire :** Cognitive Products Lab — Céline Rousselot  
 > **Statut :** Approuvé
 
 ---
@@ -75,6 +75,6 @@ Toute défaillance détectée lors d'un test est traitée comme une non-conformi
 
 | Version | Date | Auteur | Modification |
 |---|---|---|---|
-| 1.0 | 2026-06-18 | Céline Darras | Création — conformité ISO A.8.14 |
+| 1.0 | 2026-06-18 | Céline Rousselot | Création — conformité ISO A.8.14 |
 
 > **Cognitive Products Lab — Confidentiel interne**

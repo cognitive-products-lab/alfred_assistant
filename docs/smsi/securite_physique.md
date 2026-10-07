@@ -8,7 +8,7 @@ REF      : ISO/IEC 27001:2022 — A.7.1
 VERSION  : V1.0
 CREATED  : 2026-06-18
 UPDATED  : 2026-06-18
-AUTHOR   : Céline Darras — Cognitive Products Lab
+AUTHOR   : Céline Rousselot — Cognitive Products Lab
 STATUS   : Approuvé
 ============================================================
 -->
@@ -16,7 +16,7 @@ STATUS   : Approuvé
 
 > **Référence :** ISO/IEC 27001:2022 — Contrôle A.7.1  
 > **Version :** 1.0 — 2026-06-18  
-> **Propriétaire :** Cognitive Products Lab — Céline Darras  
+> **Propriétaire :** Cognitive Products Lab — Céline Rousselot  
 > **Statut :** Approuvé
 
 ---
@@ -24,7 +24,7 @@ STATUS   : Approuvé
 ## 1. Zones physiques définies
 
 ### Zone 1 — Bureau Principal (Zone Sécurisée)
-- **Localisation :** Domicile Céline Darras — bureau personnel dédié
+- **Localisation :** Domicile, Loiret (45) — bureau personnel dédié
 - **Équipements :** PC Alfred (Minisforum MS-S1 Max), Disque LaCie, Switch SG108E
 - **Accès :** Accès restreint — pièce fermée à clé hors présence
 - **Menaces mitigées :** Accès physique non autorisé, vol d'équipement
@@ -65,6 +65,6 @@ STATUS   : Approuvé
 
 | Version | Date | Auteur | Modification |
 |---|---|---|---|
-| 1.0 | 2026-06-18 | Céline Darras | Création — conformité ISO A.7.1 |
+| 1.0 | 2026-06-18 | Céline Rousselot | Création — conformité ISO A.7.1 |
 
 > **Cognitive Products Lab — Confidentiel interne**

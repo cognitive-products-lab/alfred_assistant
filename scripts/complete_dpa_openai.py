@@ -11,7 +11,7 @@ ROLE     : Finalisation RGPD-09 après acceptation DPA OpenAI sur le portail.
              4. Committe les fichiers de conformité sur les 2 branches
 VERSION  : V1.0
 CREATED  : 2026-06-18
-AUTHOR   : Cognitive Products Lab — Céline Darras
+AUTHOR   : Cognitive Products Lab — Céline Rousselot
 ============================================================
 USAGE :
     cd D:/PROJET_ALFRED/ALFRED_PC

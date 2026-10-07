@@ -8,7 +8,7 @@ REF      : ISO/IEC 27001:2022 — A.10.2
 VERSION  : V1.0
 CREATED  : 2026-06-18
 UPDATED  : 2026-06-18
-AUTHOR   : Céline Darras — Cognitive Products Lab
+AUTHOR   : Céline Rousselot — Cognitive Products Lab
 STATUS   : Approuvé
 ============================================================
 -->
@@ -16,7 +16,7 @@ STATUS   : Approuvé
 
 > **Référence :** ISO/IEC 27001:2022 — Contrôle A.10.2  
 > **Version :** 1.0 — 2026-06-18  
-> **Propriétaire :** Cognitive Products Lab — Céline Darras  
+> **Propriétaire :** Cognitive Products Lab — Céline Rousselot  
 > **Statut :** Approuvé
 
 ---
@@ -37,9 +37,9 @@ STATUS   : Approuvé
 
 | ID NC | Source | Description | Priorité | Responsable | Échéance | Statut |
 |---|---|---|---|---|---|---|
-| NC-2026-001 | Audit 2026-06-18 | DPA OpenAI non formalisée (RGPD-09) | HAUTE | Céline Darras | 2026-07-31 | 🟡 En cours |
-| NC-2026-002 | Audit 2026-06-18 | VLAN isolation PC Alfred absent (ISO-19/20) | MOYENNE | Céline Darras | 2026-09-30 | 🟡 Planifié |
-| NC-2026-003 | Audit 2026-06-18 | Score AI Act 33% (AIACT-03/04/05/06) | MOYENNE | Céline Darras | 2026-12-31 | 🟡 Planifié |
+| NC-2026-001 | Audit 2026-06-18 | DPA OpenAI non formalisée (RGPD-09) | HAUTE | Céline Rousselot | 2026-07-31 | 🟡 En cours |
+| NC-2026-002 | Audit 2026-06-18 | VLAN isolation PC Alfred absent (ISO-19/20) | MOYENNE | Céline Rousselot | 2026-09-30 | 🟡 Planifié |
+| NC-2026-003 | Audit 2026-06-18 | Score AI Act 33% (AIACT-03/04/05/06) | MOYENNE | Céline Rousselot | 2026-12-31 | 🟡 Planifié |
 
 ---
 
@@ -78,6 +78,6 @@ STATUS   : Approuvé
 
 | Version | Date | Auteur | Modification |
 |---|---|---|---|
-| 1.0 | 2026-06-18 | Céline Darras | Création registre NC — conformité ISO A.10.2 |
+| 1.0 | 2026-06-18 | Céline Rousselot | Création registre NC — conformité ISO A.10.2 |
 
 > **Cognitive Products Lab — Confidentiel interne**

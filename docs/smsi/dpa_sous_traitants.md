@@ -8,7 +8,7 @@ REF      : RGPD Art. 28 / Art. 46
 VERSION  : V1.0
 CREATED  : 2026-06-18
 UPDATED  : 2026-06-18
-AUTHOR   : Céline Darras — Cognitive Products Lab
+AUTHOR   : Céline Rousselot — Cognitive Products Lab
 STATUS   : Approuvé
 ============================================================
 -->
@@ -17,7 +17,7 @@ STATUS   : Approuvé
 
 > **Référence :** RGPD Art. 28 — Sous-traitant ; Art. 46 — Transferts internationaux  
 > **Version :** 1.0 — 2026-06-18  
-> **Propriétaire :** Cognitive Products Lab — Céline Darras  
+> **Propriétaire :** Cognitive Products Lab — Céline Rousselot  
 > **Statut :** Approuvé (en attente signature formelle sous-traitants)
 
 ---
@@ -54,7 +54,7 @@ L'Art. 28 RGPD impose qu'un contrat formel (DPA) soit conclu avec tout sous-trai
 |---|---|
 | **Entité** | Cognitive Products Lab — Infrastructure propre |
 | **Rôle** | Hébergeur des données (interne — pas de DPA requis) |
-| **Localisation** | France — Domicile Céline Darras |
+| **Localisation** | France — Domicile, Loiret (45) |
 | **Statut** | N/A (traitement interne) |
 
 ### 2.3 Futurs sous-traitants potentiels
@@ -92,6 +92,6 @@ Tout DPA signé avec un sous-traitant doit inclure :
 
 | Version | Date | Auteur | Modification |
 |---|---|---|---|
-| 1.0 | 2026-06-18 | Céline Darras | Création — conformité RGPD Art. 28 |
+| 1.0 | 2026-06-18 | Céline Rousselot | Création — conformité RGPD Art. 28 |
 
 > **Cognitive Products Lab — Confidentiel interne**

@@ -8,7 +8,7 @@ REF      : ISO/IEC 27001:2022 — A.5.36
 VERSION  : V1.0
 CREATED  : 2026-06-18
 UPDATED  : 2026-06-18
-AUTHOR   : Céline Darras — Cognitive Products Lab
+AUTHOR   : Céline Rousselot — Cognitive Products Lab
 STATUS   : Approuvé
 ============================================================
 -->
@@ -16,7 +16,7 @@ STATUS   : Approuvé
 
 > **Référence :** ISO/IEC 27001:2022 — Contrôle A.5.36  
 > **Version :** 1.0 — 2026-06-18  
-> **Approbation :** Céline Darras — Fondatrice / Directrice Générale  
+> **Approbation :** Céline Rousselot — Fondatrice / Directrice Générale  
 > **Statut :** Approuvé
 
 ---
@@ -35,7 +35,7 @@ STATUS   : Approuvé
 Le SMSI couvre :
 - Les actifs informationnels listés dans `inventaire_actifs.json`
 - L'infrastructure physique : PC Alfred (Minisforum MS-S1), réseau domestique sécurisé, stockage LaCie
-- Le personnel : Céline Darras (seule collaboratrice en V1)
+- Le personnel : Céline Rousselot (seule collaboratrice en V1)
 - Les processus : développement, exploitation, maintenance, incidents, conformité
 - Les données personnelles des utilisateurs ALFRED
 
@@ -84,7 +84,7 @@ Le SMSI couvre :
 
 ## 4. Signature
 
-Approuvé par : **Céline Darras** — Fondatrice / Directrice Générale, Cognitive Products Lab  
+Approuvé par : **Céline Rousselot** — Fondatrice / Directrice Générale, Cognitive Products Lab  
 Date : 2026-06-18
 
 ---
@@ -93,6 +93,6 @@ Date : 2026-06-18
 
 | Version | Date | Auteur | Modification |
 |---|---|---|---|
-| 1.0 | 2026-06-18 | Céline Darras | Création DdA initiale — conformité ISO A.5.36 |
+| 1.0 | 2026-06-18 | Céline Rousselot | Création DdA initiale — conformité ISO A.5.36 |
 
 > **Cognitive Products Lab — Confidentiel interne**

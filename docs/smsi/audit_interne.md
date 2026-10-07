@@ -8,7 +8,7 @@ REF      : ISO/IEC 27001:2022 — A.9.2
 VERSION  : V1.0
 CREATED  : 2026-06-18
 UPDATED  : 2026-06-18
-AUTHOR   : Céline Darras — Cognitive Products Lab
+AUTHOR   : Céline Rousselot — Cognitive Products Lab
 STATUS   : Approuvé
 ============================================================
 -->
@@ -16,7 +16,7 @@ STATUS   : Approuvé
 
 > **Référence :** ISO/IEC 27001:2022 — Contrôle A.9.2  
 > **Version :** 1.0 — 2026-06-18  
-> **Propriétaire :** Cognitive Products Lab — Céline Darras  
+> **Propriétaire :** Cognitive Products Lab — Céline Rousselot  
 > **Statut :** Approuvé
 
 ---
@@ -75,6 +75,6 @@ Les non-conformités détectées lors des audits sont traitées dans `actions_co
 
 | Version | Date | Auteur | Modification |
 |---|---|---|---|
-| 1.0 | 2026-06-18 | Céline Darras | Création programme d'audit — conformité ISO A.9.2 |
+| 1.0 | 2026-06-18 | Céline Rousselot | Création programme d'audit — conformité ISO A.9.2 |
 
 > **Cognitive Products Lab — Confidentiel interne**

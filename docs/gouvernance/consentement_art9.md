@@ -8,7 +8,7 @@ REF      : RGPD Art. 9.2.a — Consentement explicite données sensibles
 VERSION  : V1.0
 CREATED  : 2026-06-18
 UPDATED  : 2026-06-18
-AUTHOR   : Céline Darras — Cognitive Products Lab
+AUTHOR   : Céline Rousselot — Cognitive Products Lab
 STATUS   : Approuvé
 ============================================================
 -->
@@ -17,7 +17,7 @@ STATUS   : Approuvé
 
 > **Référence :** RGPD Art. 9.2.a — Consentement explicite données sensibles  
 > **Version :** 1.0 — 2026-06-18  
-> **Propriétaire :** Cognitive Products Lab — Céline Darras  
+> **Propriétaire :** Cognitive Products Lab — Céline Rousselot  
 > **Statut :** Approuvé
 
 ---
@@ -113,6 +113,6 @@ La révocation n'affecte pas la licéité du traitement antérieur.
 
 | Version | Date | Auteur | Modification |
 |---|---|---|---|
-| 1.0 | 2026-06-18 | Céline Darras | Création — conformité RGPD Art. 9.2.a |
+| 1.0 | 2026-06-18 | Céline Rousselot | Création — conformité RGPD Art. 9.2.a |
 
 > **Cognitive Products Lab — Confidentiel interne**

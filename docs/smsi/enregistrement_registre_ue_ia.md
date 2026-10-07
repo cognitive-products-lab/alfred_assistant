@@ -8,7 +8,7 @@ REF      : EU AI Act Art. 49
 VERSION  : V1.1
 CREATED  : 2026-06-18
 UPDATED  : 2026-07-10
-AUTHOR   : Céline Darras — Cognitive Products Lab
+AUTHOR   : Céline Rousselot — Cognitive Products Lab
 STATUS   : Approuvé
 ============================================================
 -->
@@ -17,7 +17,7 @@ STATUS   : Approuvé
 > **Référence :** EU AI Act — Art. 49 (Règlement UE 2024/1689), texte consolidé :
 > https://eur-lex.europa.eu/legal-content/FR/TXT/HTML/?uri=CELEX:32024R1689
 > **Version :** 1.1 — 2026-07-10
-> **Propriétaire :** Cognitive Products Lab — Céline Darras
+> **Propriétaire :** Cognitive Products Lab — Céline Rousselot
 > **Statut :** Approuvé
 
 ---
@@ -67,7 +67,7 @@ CPL maintient une veille réglementaire EU AI Act pour anticiper :
 
 | Version | Date | Auteur | Modification |
 |---|---|---|---|
-| 1.0 | 2026-06-18 | Céline Darras | Création — veille EU AI Act Art. 49 |
+| 1.0 | 2026-06-18 | Céline Rousselot | Création — veille EU AI Act Art. 49 |
 | 1.1 | 2026-07-10 | Claude (assistant) | Vérification sur le texte consolidé — correction Art. 52→Art. 50 pour la transparence, vérification article par article de l'Annexe III (§2), nuance sur la classification ARTHUR (à réévaluer, pas présumée) |
 
 > **Cognitive Products Lab — Confidentiel interne**

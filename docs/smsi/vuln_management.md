@@ -8,7 +8,7 @@ REF      : ISO/IEC 27001:2022 — A.8.8
 VERSION  : V1.0
 CREATED  : 2026-06-18
 UPDATED  : 2026-06-18
-AUTHOR   : Céline Darras — Cognitive Products Lab
+AUTHOR   : Céline Rousselot — Cognitive Products Lab
 STATUS   : Approuvé
 ============================================================
 -->
@@ -16,7 +16,7 @@ STATUS   : Approuvé
 
 > **Référence :** ISO/IEC 27001:2022 — Contrôle A.8.8  
 > **Version :** 1.0 — 2026-06-18  
-> **Propriétaire :** Cognitive Products Lab — Céline Darras  
+> **Propriétaire :** Cognitive Products Lab — Céline Rousselot  
 > **Statut :** Approuvé
 
 ---
@@ -94,6 +94,6 @@ pytest tests/security_tests/ -v --tb=short
 
 | Version | Date | Auteur | Modification |
 |---|---|---|---|
-| 1.0 | 2026-06-18 | Céline Darras | Création — conformité ISO A.8.8 |
+| 1.0 | 2026-06-18 | Céline Rousselot | Création — conformité ISO A.8.8 |
 
 > **Cognitive Products Lab — Confidentiel interne**
